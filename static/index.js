@@ -9,7 +9,7 @@ const player = add(new Player())
 const projectile = add(new Projectile(750, 360, 10, "red"))
 
 GameLoop.update = (ctx, canvas) => {
-	camera.follow(ctx, player)
+	camera.follow(ctx, projectile)
 
 	objects.forEach(o => o.update())
 }
