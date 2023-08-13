@@ -6,28 +6,30 @@ function add(o) {
 
 const camera = add(new Camera())
 const player = add(new Player())
+player.debug = true
 const projectile = add(new Projectile(750, 360, 10, "red"))
 const timer = add(new Timer())
 
-const gameObject = add(new GameObject(0, 0, 1000, 10))
-
 const physics = add(new Physics())
+const go = add(new GameObject(500, 40, 400, 10))
+
+physics.add(go)
 physics.add(player)
-physics.add(gameObject)
 physics.add(projectile)
 
 
-GameLoop.update = (ctx, canvas) => {
+
+GameLoop.update = (ctx, canvas, deltaTime) => {
 	camera.follow(ctx, player)
 
 	objects.forEach(o => {
 		o.update()
 	})
 
-	physics.update()
+	physics.update(deltaTime)
 }
 
-GameLoop.draw = (ctx, canvas) => {
+GameLoop.draw = (ctx, canvas, deltaTime) => {
 	objects.forEach(o => o.draw(ctx))
 }
 

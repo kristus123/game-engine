@@ -1,7 +1,6 @@
 function resolveCollision(main, child) {
     const dx = (main.x + main.width / 2) - (child.x + child.width / 2);
     const dy = (main.y + main.height / 2) - (child.y + child.height / 2);
-    const distance = Math.sqrt(dx * dx + dy * dy);
 
     const overlapX = (main.width + child.width) / 2 - Math.abs(dx);
     const overlapY = (main.height + child.height) / 2 - Math.abs(dy);
@@ -29,14 +28,14 @@ function resolveCollision(main, child) {
     }
 
 
-	const dampingFactor = 0.5
-	const stopThreshold = 10
+       const dampingFactor = 0.5
+       const stopThreshold = 10
 
-	main.velocity.x *= dampingFactor;
-	main.velocity.y *= dampingFactor;
-	console.log(main.velocity.x, main.velocity.y)
+       main.velocity.x *= dampingFactor;
+       main.velocity.y *= dampingFactor;
+       console.log(main.velocity.x, main.velocity.y)
 
-	// Check if velocity is below the threshold and set it to zero
+       // Check if velocity is below the threshold and set it to zero
     if (Math.abs(main.velocity.x) < stopThreshold) {
         main.velocity.x = 0;
     }
@@ -44,6 +43,18 @@ function resolveCollision(main, child) {
         main.velocity.y = 0;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -59,15 +70,18 @@ class Physics {
 		this.objects.push(o)
 	}
 
-
-	update() {
-		for (let mainObject of this.objects) {
-
-			for (let childObject of this.objects) {
-				if (Collision.between(mainObject, childObject) && mainObject !== childObject) {
-					resolveCollision(mainObject, childObject)
+	update(deltaTime) {
+		for (let o of this.objects) {
+			if (typeof deltaTime === 'number') {
+				for (let anotherO of this.objects) {
+					if (Collision.between(o, anotherO) && o !== anotherO) {
+						console.log("COLLISSION !!!")
+						resolveCollision(o, anotherO)
+					}
 				}
 
+				o.x += o.velocity.x * deltaTime
+				o.y += o.velocity.y * deltaTime
 			}
 		}
 	}

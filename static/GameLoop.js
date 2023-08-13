@@ -1,10 +1,10 @@
 class GameLoop {
 
-	static update = (ctx, canvas) => {
+	static update = (ctx, canvas, deltaTime) => {
 		console.log("replace me")
 	}
 
-	static draw = (ctx, canvas) => {
+	static draw = (ctx, canvas, deltaTime) => {
 		console.log("replace me")
 	}
 
@@ -15,17 +15,26 @@ class GameLoop {
 
 		const ctx = canvas.getContext("2d")
 
-		setInterval(() => {
+
+		let lastTimestamp = performance.now();
+		
+		function gameLoop(currentTimestamp) {
+			const deltaTime = (currentTimestamp - lastTimestamp) / 1000; // Convert to seconds
+			lastTimestamp = currentTimestamp;
+
 			ctx.save()
 			ctx.fillStyle = "black"
 			ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-			this.update(ctx, canvas);
-			this.draw(ctx, canvas);
+			GameLoop.update(ctx, canvas, deltaTime);
+			GameLoop.draw(ctx, canvas, deltaTime);
 
 			ctx.restore()
 
-		}, 1000/60)
+			requestAnimationFrame(gameLoop);
+		}
+
+		requestAnimationFrame(gameLoop);
 
 
 		return {ctx, canvas}

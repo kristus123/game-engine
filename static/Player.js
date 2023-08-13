@@ -1,13 +1,17 @@
 class Player extends GameObject {
 	constructor() {
-		super(786, -31, 20, 20)
+		super(786, 0, 20, 20)
 		this.keyboard = new Keyboard()
 		this.grounded = false
 	}
 
 	update() {
 		if (this.keyboard.up) {
-			this.velocity.y -= 0.9
+			this.velocity.y -= 20
+		}
+
+		if (this.keyboard.down) {
+			this.velocity.y += 20
 		}
 		// else {
 		// 	this.velocity.y = 0
@@ -23,9 +27,6 @@ class Player extends GameObject {
 		// 	this.velocity.x = 0
 		// }
 
-		this.velocity.y += 0.3
-
-		super.update()
 	}
 }
 

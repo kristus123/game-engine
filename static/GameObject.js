@@ -15,21 +15,9 @@ class GameObject {
 			y: 0,
 		}
 
-		this.physicsEnabled = true
 	}
 
 	update() {
-		this.x += this.velocity.x
-		this.y += this.velocity.y
-
-		if (this.velocity.x > 0) {
-			this.velocity.x -= this.gravity.x
-		}
-
-		// if (this.velocity.y < 40) {
-		// 	this.velocity.y += 2
-		// }
-
 	}
 
 	draw(ctx) {
