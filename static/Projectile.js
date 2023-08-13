@@ -1,7 +1,10 @@
-class Projectile  {
+class Projectile extends GameObject {
 	constructor(x, y, radius, color) {
+		super(x, y, 10, 10)
+
 		this.x = x
 		this.y = y
+
 		this.radius = radius
 		this.color = color
 		this.velocity = {
@@ -13,8 +16,9 @@ class Projectile  {
 	shoot(to_x, to_y) {
 		const dir = Math.atan2(to_y - this.y, to_x - this.x);
 
-		const dx = Math.cos(dir) * 7;
-		const dy = Math.sin(dir) * 7;
+		const speed = 7
+		const dx = Math.cos(dir) * speed;
+		const dy = Math.sin(dir) * speed;
 
 		this.velocity = {
 			x: dx,

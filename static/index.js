@@ -9,22 +9,22 @@ const player = add(new Player())
 const projectile = add(new Projectile(750, 360, 10, "red"))
 const timer = add(new Timer())
 
+const gameObject = add(new GameObject(0, 0, 1000, 10))
 
-add(new GameObject(0, 0, 1000, 10))
+const physics = add(new Physics())
+physics.add(player)
+physics.add(gameObject)
+physics.add(projectile)
+
 
 GameLoop.update = (ctx, canvas) => {
-	if (timer.isTime()) {
-		camera.follow(ctx, projectile)
-	} else {
-		camera.follow(ctx, {
-			x: 0,
-			y: 0,
-		})
-	}
+	camera.follow(ctx, player)
 
 	objects.forEach(o => {
 		o.update()
 	})
+
+	physics.update()
 }
 
 GameLoop.draw = (ctx, canvas) => {

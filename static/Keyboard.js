@@ -5,7 +5,7 @@ class Keyboard {
 				this.up = true
 			}
 			if (e.code === 'ArrowDown') {
-				// this.down = true
+				this.down = true
 			}
 			if (e.code === 'ArrowLeft') {
 				this.left = true
