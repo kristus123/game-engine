@@ -4,12 +4,17 @@ class Camera {
 			x: 0,
 			y: 0,
 		}
+
+		this.offset = {
+			x: 1280 / 2,
+			y: 720 / 2,
+		}
 	}
 
 	follow(ctx, objectToFollow) {
 		this.objectToFollow = objectToFollow
 
-		ctx.translate(-objectToFollow.x + 300, -objectToFollow.y + 300);
+		ctx.translate(-objectToFollow.x + this.offset.x, -objectToFollow.y + this.offset.y);
 	}
 
 	mousePosition(ctx, canvas, event) {
@@ -32,8 +37,8 @@ class Camera {
 		ctx.fillText(`X: ${translatedMouseX}, Y: ${translatedMouseY}`, 10, canvas.height - 10);
 
 		return {
-			x:translatedMouseX + this.objectToFollow.x - 300,
-			y:translatedMouseY + this.objectToFollow.y - 300,
+			x:translatedMouseX + this.objectToFollow.x - this.offset.x,
+			y:translatedMouseY + this.objectToFollow.y - this.offset.y,
 		}
 	}
 
