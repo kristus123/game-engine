@@ -4,7 +4,6 @@ function add(o) {
 	return o
 }
 
-
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -13,7 +12,7 @@ const player = add(new Player())
 const projectile = add(new Projectile(750, 360, 10, "red"))
 const timer = add(new Timer())
 
-const physics = add(new Physics())
+const physics = new Physics()
 const go = add(new GameObject(500, 40, 400, 10))
 
 physics.add(go)
