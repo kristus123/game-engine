@@ -14,6 +14,7 @@ const timer = add(new Timer())
 
 const physics = new Physics()
 const go = add(new GameObject(500, 40, 400, 10))
+go.fixed = true
 
 physics.add(go)
 physics.add(player)

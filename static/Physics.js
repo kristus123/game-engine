@@ -21,8 +21,4 @@ class Physics {
 			}
 		}
 	}
-
-	draw(ctx) {
-		
-	}
 }
