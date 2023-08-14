@@ -5,36 +5,28 @@ class Projectile extends GameObject {
 		this.radius = radius
 		this.color = color
 
-		this.to_x = y
-		this.to_y = y
+		this.to = {
+			x: 0,
+			y: 0,
+		}
 	}
 
-	shoot(to_x, to_y) {
-		this.to_x = to_x
-		this.to_y = to_y
+	shoot(to) {
+		this.to = to
 
-		const dir = Math.atan2(to_y - this.y, to_x - this.x);
+		const dir = Math.atan2(to.y - this.y, to.x - this.x);
 
 		const speed = 1000
-		const dx = Math.cos(dir) * speed;
-		const dy = Math.sin(dir) * speed;
 
 		this.velocity = {
-			x: dx,
-			y: dy,
+			x: Math.cos(dir) * speed,
+			y: Math.sin(dir) * speed,
 		}
 	}
 
 	draw(ctx) {
-		ctx.beginPath()
-		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-		ctx.fillStyle = this.color
-		ctx.fill()
-
-		ctx.beginPath();
-		ctx.moveTo(this.x, this.y);
-		ctx.lineTo(this.to_x, this.to_y);
-		ctx.stroke();
+		Draw.lineBetween(ctx, this, this.to)
+		Draw.circle(ctx, this.x, this.y, this.radius, this.color)
 	}
 
 }

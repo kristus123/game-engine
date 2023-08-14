@@ -14,7 +14,6 @@ class GameObject {
 			x: 0,
 			y: 0,
 		}
-
 	}
 
 	update() {
@@ -22,12 +21,5 @@ class GameObject {
 
 	draw(ctx) {
 		Draw.rectangle(ctx, this.x, this.y, this.width, this.height)
-
-		if (this.debug) {
-			ctx.fillText("x:" + this.x, this.x+this.width /2 + 100, this.y+this.height/2)
-			ctx.fillText("y:" + this.y, this.x-100, this.y+this.height/2)
-			ctx.fillText("velocity x:" + this.velocity.x, this.x, this.y - 20)
-			ctx.fillText("velocity y:" + this.velocity.y, this.x, this.y + 20)
-		}
 	}
 }

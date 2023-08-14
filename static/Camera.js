@@ -20,7 +20,7 @@ class Camera {
 			-objectToFollow.x * this.zoom + this.offset.x,
 			-objectToFollow.y * this.zoom + this.offset.y)
 
-		ctx.scale(this.zoom, this.zoom); // Apply the zoom
+		ctx.scale(this.zoom, this.zoom)
 	}
 
 	mousePosition(ctx, canvas, event) {
@@ -30,12 +30,10 @@ class Camera {
 
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.zoom;
-		const translatedMouseX = (mouseX - this.offset.x) * inverseZoom + this.objectToFollow.x;
-		const translatedMouseY = (mouseY - this.offset.y) * inverseZoom + this.objectToFollow.y;
-
+			
 		return {
-			x: translatedMouseX,
-			y: translatedMouseY,
+			x: (mouseX - this.offset.x) * inverseZoom + this.objectToFollow.x,
+			y: (mouseY - this.offset.y) * inverseZoom + this.objectToFollow.y,
 		}
 	}
 

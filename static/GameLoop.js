@@ -19,12 +19,12 @@ class GameLoop {
 		let lastTimestamp = performance.now();
 		
 		function gameLoop(currentTimestamp) {
-			const deltaTime = (currentTimestamp - lastTimestamp) / 1000; // Convert to seconds
+			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
 
 			ctx.save()
 			ctx.fillStyle = "black"
-			ctx.fillRect(0, 0, canvas.width, canvas.height)
+			ctx.fillRect(0, 0, width, height)
 
 			GameLoop.update(ctx, canvas, deltaTime);
 			GameLoop.draw(ctx, canvas, deltaTime);
