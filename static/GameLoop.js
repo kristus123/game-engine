@@ -36,7 +36,6 @@ class GameLoop {
 
 		requestAnimationFrame(gameLoop);
 
-
 		return {ctx, canvas}
 	}
 }

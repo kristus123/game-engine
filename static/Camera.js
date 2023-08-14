@@ -9,6 +9,7 @@ class Camera {
 			x: 1280 / 2,
 			y: 720 / 2,
 		}
+
 	}
 
 	follow(ctx, objectToFollow) {

@@ -21,15 +21,7 @@ class GameObject {
 	}
 
 	draw(ctx) {
-		ctx.fillStyle = "orange"
-		ctx.fillRect(this.x, this.y, this.width, this.height)
-
-		ctx.strokeStyle = "white"
-		ctx.lineWidth = 4;
-		ctx.strokeRect(this.x, this.y, this.width, this.height)
-
-		ctx.fillStyle = "white"
-		ctx.font = "25px Arial"
+		Draw.rectangle(ctx, this.x, this.y, this.width, this.height)
 
 		if (this.debug) {
 			ctx.fillText("x:" + this.x, this.x+this.width /2 + 100, this.y+this.height/2)
