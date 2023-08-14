@@ -13,7 +13,12 @@ const projectile = add(new Projectile(750, 360, 10, "red"))
 const timer = add(new Timer())
 
 const physics = new Physics()
-const go = add(new GameObject(500, 40, 400, 10))
+const go = add(new GameObject(Random.numberBetween(100, 200), 40, 400, 10))
+
+for (let i = 0; i < 1000; i+= 5) {
+	add(new Particle(10, 10, i, 0.5, player))
+}
+
 go.fixed = true
 
 physics.add(go)
@@ -23,11 +28,10 @@ physics.add(projectile)
 GameLoop.update = (ctx, canvas, deltaTime) => {
 	camera.follow(ctx, player)
 
-	camera.zoom -= 0.0002
+	// camera.zoom -= 0.002
 
 	objects.forEach(o => {
-		o.update()
-
+		o.update(deltaTime)
 	})
 
 	new Text(player.x, player.y).draw(ctx)
