@@ -4,7 +4,11 @@ function add(o) {
 	return o
 }
 
-const camera = add(new Camera())
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const camera = add(new Camera(width, height))
 const player = add(new Player())
 const projectile = add(new Projectile(750, 360, 10, "red"))
 const timer = add(new Timer())
@@ -33,7 +37,7 @@ GameLoop.draw = (ctx, canvas, deltaTime) => {
 	objects.forEach(o => o.draw(ctx))
 }
 
-const {ctx, canvas} = GameLoop.start()
+const {ctx, canvas} = GameLoop.start(width, height)
 
 document.addEventListener('click', (e) => {
 	const pos = camera.mousePosition(ctx, canvas, e)

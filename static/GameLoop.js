@@ -8,10 +8,10 @@ class GameLoop {
 		console.log("replace me")
 	}
 
-	static start() {
+	static start(width, height) {
 		const canvas = document.getElementById("game")
-		canvas.width = 1280
-		canvas.height = 720
+		canvas.width = width
+		canvas.height = height
 
 		const ctx = canvas.getContext("2d")
 

@@ -1,13 +1,13 @@
 class Camera {
-	constructor() {
+	constructor(width, height) {
 		this.objectToFollow = {
 			x: 0,
 			y: 0,
 		}
 
 		this.offset = {
-			x: 1280 / 2,
-			y: 720 / 2,
+			x: width / 2,
+			y: height / 2,
 		}
 
 	}
