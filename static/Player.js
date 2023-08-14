@@ -18,10 +18,10 @@ class Player extends GameObject {
 		// }
 
 		if (this.keyboard.left) {
-			this.velocity.x -= 1.5
+			this.velocity.x -= 20
 		}
 		if (this.keyboard.right) {
-			this.velocity.x += 1.5
+			this.velocity.x += 20
 		}
 		// else {
 		// 	this.velocity.x = 0

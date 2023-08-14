@@ -23,6 +23,8 @@ physics.add(projectile)
 GameLoop.update = (ctx, canvas, deltaTime) => {
 	camera.follow(ctx, player)
 
+	camera.zoom -= 0.0002
+
 	objects.forEach(o => {
 		o.update()
 

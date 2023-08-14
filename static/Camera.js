@@ -10,12 +10,17 @@ class Camera {
 			y: height / 2,
 		}
 
+		this.zoom = 0.5
 	}
 
 	follow(ctx, objectToFollow) {
 		this.objectToFollow = objectToFollow
 
-		ctx.translate(-objectToFollow.x + this.offset.x, -objectToFollow.y + this.offset.y);
+		ctx.translate(
+			-objectToFollow.x * this.zoom + this.offset.x,
+			-objectToFollow.y * this.zoom + this.offset.y)
+
+		ctx.scale(this.zoom, this.zoom); // Apply the zoom
 	}
 
 	mousePosition(ctx, canvas, event) {
@@ -23,23 +28,14 @@ class Camera {
 		const mouseX = event.clientX - rect.left;
 		const mouseY = event.clientY - rect.top;
 
-		// To account for the translation, subtract the translation values
-		const translatedMouseX = mouseX - ctx.getTransform().e;
-		const translatedMouseY = mouseY - ctx.getTransform().f;
-
-		// Draw a dot at the mouse position
-		ctx.fillStyle = 'red';
-		ctx.beginPath();
-		ctx.arc(translatedMouseX, translatedMouseY, 5, 0, 2 * Math.PI);
-		ctx.fill();
-		
-		// Display the coordinates
-		ctx.fillStyle = 'red';
-		ctx.fillText(`X: ${translatedMouseX}, Y: ${translatedMouseY}`, 10, canvas.height - 10);
+		// Apply inverse transformations for translation and zoom
+		const inverseZoom = 1 / this.zoom;
+		const translatedMouseX = (mouseX - this.offset.x) * inverseZoom + this.objectToFollow.x;
+		const translatedMouseY = (mouseY - this.offset.y) * inverseZoom + this.objectToFollow.y;
 
 		return {
-			x:translatedMouseX + this.objectToFollow.x - this.offset.x,
-			y:translatedMouseY + this.objectToFollow.y - this.offset.y,
+			x: translatedMouseX,
+			y: translatedMouseY,
 		}
 	}
 

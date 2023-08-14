@@ -1,0 +1,7 @@
+class List {
+
+	static inList() {
+		
+	}
+	
+}
