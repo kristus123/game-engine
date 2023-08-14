@@ -10,15 +10,13 @@ const height = window.innerHeight;
 const camera = add(new Camera(width, height))
 const player = add(new Player())
 const projectile = add(new Projectile(750, 360, 10, "red"))
-const gameObject = add(new GameObject(Random.numberBetween(100, 200), 40, 400, 10))
 
 const physics = new Physics()
-physics.add(gameObject)
 physics.add(player)
 physics.add(projectile)
 
-for (let i = 0; i < 1000; i+= 5) {
-	const p = add(new Particle(10, 10, i, 0.5, player))
+for (let i = 0; i < 1000; i+= 10) {
+	add(new Particle(10, 10, i, 0.03, player))
 }
 
 GameLoop.update = (ctx, canvas, deltaTime) => {
