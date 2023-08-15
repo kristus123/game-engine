@@ -37,10 +37,4 @@ class Keyboard {
 			}
 		})
 	}
-
-	onClick(run) {
-		document.addEventListener('click', (e) => {
-			run(e.clientX, e.clientY)
-		})
-	}
 }
