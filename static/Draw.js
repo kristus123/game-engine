@@ -18,6 +18,18 @@ class Draw {
 		ctx.fill()
 	}
 
+	// todo must be updated somehow iwthin game lloop
+	static circleSpinning(ctx, objectToFollow, radius) {
+		let angle = 0
+
+		const circleX = objectToFollow.x + objectToFollow.width / 2 + radius * Math.cos(angle);
+		const circleY = objectToFollow.y + objectToFollow.height / 2 + radius * Math.sin(angle);
+
+		Draw.circle(ctx, circleX, circleY, 10, "red");
+
+		angle += 0.25
+	}
+
 	static lineBetween(ctx, start, end) {
 		ctx.beginPath();
 		ctx.moveTo(start.x, start.y);
