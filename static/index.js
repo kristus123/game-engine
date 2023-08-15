@@ -22,11 +22,9 @@ for (let i = 0; i < 1000; i+= 10) {
 GameLoop.update = (ctx, canvas, deltaTime) => {
 	camera.follow(ctx, player)
 
-
 	objects.forEach(o => {
 		o.update(deltaTime)
 	})
-
 
 	physics.update(deltaTime)
 }

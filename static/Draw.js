@@ -76,6 +76,7 @@ class Draw {
 		ctx.beginPath();
 		ctx.moveTo(start.x, start.y);
 		ctx.lineTo(end.x, end.y);
+		ctx.strokeStyle = "white"
 		ctx.stroke();
 	}
 
@@ -89,7 +90,6 @@ class Draw {
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	// works, but makes every line black
 	static image(ctx, x, y) {
 		const image = new Image();
 		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
