@@ -35,7 +35,6 @@ class Keyboard {
 				this.space = false
 			}
 		})
-
 	}
 
 	onClick(run) {
