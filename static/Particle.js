@@ -1,5 +1,5 @@
 class Particle {
-    constructor(x, y, radius, velocity, objectToFollow) {
+    constructor(x, y, radius, velocity) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -8,8 +8,6 @@ class Particle {
         this.color = Random.color()
 		this.opacity = 1
 		this.prevPositions = [];
-
-		this.objectToFollow = objectToFollow
     }
 
     update(deltaTime) {
