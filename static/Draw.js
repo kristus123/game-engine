@@ -30,6 +30,25 @@ class Draw {
 		angle += 0.25
 	}
 
+	// needs some work obviously, but it works
+	static objectThatIsCirclingAroundObjectBasedOnMousePosition() {
+		player.angle = 0
+		const playerRadius = 20;
+		const circleRadius = 50;
+		const color = "blue";
+
+		const circleX = player.x + player.width /2 + circleRadius * Math.cos(player.angle);
+		const circleY = player.y + player.height /2 + circleRadius * Math.sin(player.angle);
+
+		Draw.circle(ctx, circleX, circleY, playerRadius, "red");
+
+		function getAngle(x1, y1, x2, y2) {
+			return Math.atan2(y2 - y1, x2 - x1);
+		}
+
+		player.angle = getAngle(player.x, player.y, camera.currentMousePosition.x, camera.currentMousePosition.y);
+	}
+
 	static lineBetween(ctx, start, end) {
 		ctx.beginPath();
 		ctx.moveTo(start.x, start.y);
