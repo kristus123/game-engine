@@ -1,6 +1,3 @@
-
-
-
 class Draw {
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = "orange"
@@ -115,5 +112,38 @@ class Draw {
 		ctx.drawImage(image, x - 100, y - 100, newWidth, newHeight);
 	};
 
+
+	static grid(ctx) {
+		ctx.strokeStyle = "#ccc"; // Grid color
+		ctx.lineWidth = 2
+
+		const cellSize = 100; // Adjust this to change the grid cell size
+		const mapWidth = 1000; // Adjust this to match your map's width
+		const mapHeight = 1000; // Adjust this to match your map's height
+		const rows = Math.floor(mapHeight / cellSize);
+		const columns = Math.floor(mapWidth / cellSize);
+
+		for (let i = 0; i < rows; i++) {
+			ctx.beginPath();
+			ctx.moveTo(0, i * cellSize);
+			ctx.lineTo(mapWidth, i * cellSize);
+			ctx.stroke();
+		}
+		ctx.beginPath();
+		ctx.moveTo(0, mapHeight);
+		ctx.lineTo(mapWidth, mapHeight);
+		ctx.stroke();
+
+		for (let j = 0; j < columns; j++) {
+			ctx.beginPath();
+			ctx.moveTo(j * cellSize, 0);
+			ctx.lineTo(j * cellSize, mapHeight);
+			ctx.stroke();
+		}
+		ctx.beginPath();
+		ctx.moveTo(mapWidth, 0);
+		ctx.lineTo(mapWidth, mapHeight);
+		ctx.stroke();
+	}
 
 }
