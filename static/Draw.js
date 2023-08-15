@@ -31,6 +31,26 @@ class Draw {
 	}
 
 	// needs some work obviously, but it works
+	static objectThatIsCirclingAroundObjectBasedOnMousePositionButBehind() {
+		function getAngle(x1, y1, x2, y2) {
+			return Math.atan2(y2 - y1, x2 - x1);
+		}
+
+		player.angle = 0
+		const playerRadius = 20;
+		const circleRadius = 50;
+		const color = "blue";
+
+		const oppositeAngle = player.angle + Math.PI
+		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle);
+		const circleY = player.y + player.height / 2 + circleRadius * Math.sin(oppositeAngle);
+		Draw.circle(ctx, circleX, circleY, playerRadius, "red");
+
+		player.angle = getAngle(player.x + player.width / 2, player.y + player.height / 2, camera.currentMousePosition.x, camera.currentMousePosition.y);
+
+	}
+
+	// needs some work obviously, but it works
 	static objectThatIsCirclingAroundObjectBasedOnMousePosition() {
 		player.angle = 0
 		const playerRadius = 20;

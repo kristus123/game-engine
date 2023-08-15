@@ -19,12 +19,8 @@ for (let i = 0; i < 1000; i+= 10) {
 	add(new Particle(10, 10, i, 0.03, player))
 }
 
-
 GameLoop.update = (ctx, canvas, deltaTime) => {
 	camera.follow(ctx, player)
-
-
-	
 
 	objects.forEach(o => {
 		o.update(deltaTime)
