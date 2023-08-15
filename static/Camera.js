@@ -10,6 +10,11 @@ class Camera {
 			y: height / 2,
 		}
 
+		this.currentMousePosition = {
+			x: 0,
+			y: 0,
+		}
+
 		this.zoom = 1
 	}
 
@@ -23,10 +28,10 @@ class Camera {
 		ctx.scale(this.zoom, this.zoom)
 	}
 
-	mousePosition(ctx, canvas, event) {
+	mousePosition(ctx, canvas, e) {
 		const rect = canvas.getBoundingClientRect();
-		const mouseX = event.clientX - rect.left;
-		const mouseY = event.clientY - rect.top;
+		const mouseX = e.clientX - rect.left;
+		const mouseY = e.clientY - rect.top;
 
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.zoom;

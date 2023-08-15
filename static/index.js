@@ -39,3 +39,7 @@ document.addEventListener('click', (e) => {
 	const pos = camera.mousePosition(ctx, canvas, e)
 	projectile.shoot(pos)
 })
+
+document.addEventListener('mousemove', (e) => {
+	camera.currentMousePosition = camera.mousePosition(ctx, canvas, e)
+})
