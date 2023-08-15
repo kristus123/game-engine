@@ -21,5 +21,9 @@ class Player extends GameObject {
 			this.velocity.x += 20
 		}
 	}
+
+	// draw(ctx) {
+	// 	Draw.image(ctx, player.x, player.y)
+	// }
 }
 

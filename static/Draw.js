@@ -1,3 +1,6 @@
+
+
+
 class Draw {
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = "orange"
@@ -85,6 +88,32 @@ class Draw {
 		ctx.font = "25px Arial"
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
+
+	// works, but makes every line black
+	static image(ctx, x, y) {
+		const image = new Image();
+		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+
+		const aspectRatio = image.width / image.height;
+
+		const maxWidth = 500;
+		const maxHeight = 900;
+
+		let newWidth = maxWidth;
+		let newHeight = maxHeight;
+
+		if (image.width > maxWidth) {
+			newWidth = maxWidth;
+			newHeight = newWidth / aspectRatio;
+		}
+
+		if (newHeight > maxHeight) {
+			newHeight = maxHeight;
+			newWidth = newHeight * aspectRatio;
+		}
+
+		ctx.drawImage(image, x - 100, y - 100, newWidth, newHeight);
+	};
 
 
 }
