@@ -1,5 +1,6 @@
 class Keyboard {
 	constructor() {
+
 		document.addEventListener('keydown', (e) => {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = true
