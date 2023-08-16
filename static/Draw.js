@@ -77,8 +77,6 @@ class Draw {
 		ctx.stroke();
 	}
 
-
-
 	static text(ctx, x, y, width, height, text) {
 		Draw.rectangle(ctx, x, y, width, height)
 
