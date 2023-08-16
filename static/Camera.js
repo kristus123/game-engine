@@ -15,7 +15,7 @@ class Camera {
 			y: 0,
 		}
 
-		this.zoom = 1
+		this.zoom = 0.3
 	}
 
 	follow(ctx, objectToFollow) {

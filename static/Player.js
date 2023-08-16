@@ -22,8 +22,20 @@ class Player extends GameObject {
 		}
 	}
 
-	// draw(ctx) {
-	// 	Draw.image(ctx, player.x, player.y)
-	// }
+	draw(ctx) {
+		const image = new Image();
+		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+
+		ctx.save();
+
+		ctx.translate(this.x, this.y);
+		const rotationAngle = Math.atan2(this.velocity.y, this.velocity.x);
+		ctx.rotate(rotationAngle);
+		ctx.rotate(Math.PI / 2); // 90 degrees
+
+		ctx.drawImage(image, -image.width / 2, -image.height / 2);
+		
+		ctx.restore();
+	}
 }
 
