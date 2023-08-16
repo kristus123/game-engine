@@ -11,7 +11,7 @@ class Physics {
 		for (let o of this.objects) {
 			if (typeof deltaTime === 'number') {
 				for (let anotherO of this.objects) {
-					if (Collision.between(o, anotherO) && o !== anotherO) {
+					if (Collision.between(o, anotherO)) {
 						console.log("COLLISSION !!!")
 					}
 				}

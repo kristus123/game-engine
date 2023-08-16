@@ -36,8 +36,7 @@ GameLoop.draw = (ctx, canvas, deltaTime) => {
 const {ctx, canvas} = GameLoop.start(width, height)
 
 document.addEventListener('click', (e) => {
-	const pos = camera.mousePosition(ctx, canvas, e)
-	projectile.shoot(pos)
+	projectile.shoot(camera.mousePosition(ctx, canvas, e))
 })
 
 document.addEventListener('mousemove', (e) => {

@@ -10,4 +10,4 @@ def hello_world():
 
 server = Server(app.wsgi_app)
 server.watch('static/*')
-server.serve()
+server.serve(port=5000)

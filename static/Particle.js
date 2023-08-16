@@ -10,6 +10,7 @@ class Particle {
 		this.prevPositions = [];
     }
 
+	// todo - handle position updates elsewhere
     update(deltaTime) {
  this.angle += this.velocity * deltaTime;
         this.opacity -= deltaTime * 0.2; // Reduce fade rate for smoother tail
