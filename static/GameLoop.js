@@ -21,7 +21,7 @@ class GameLoop {
 
 		let lastTimestamp = performance.now();
 		
-		function gameLoop(currentTimestamp) {
+		const gameLoop = (currentTimestamp) => {
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
 
