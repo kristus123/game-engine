@@ -1,10 +1,10 @@
 class GameLoop {
 
-	static update = (ctx, canvas, deltaTime) => {
+	static update = (ctx, deltaTime) => {
 		console.log("replace me")
 	}
 
-	static draw = (ctx, canvas, deltaTime) => {
+	static draw = (ctx) => {
 		console.log("replace me")
 	}
 
@@ -12,9 +12,12 @@ class GameLoop {
 		const canvas = document.getElementById("game")
 		canvas.width = width
 		canvas.height = height
-
 		const ctx = canvas.getContext("2d")
 
+		const hiddenCanvas = document.createElement("canvas");
+		hiddenCanvas.width = width;
+		hiddenCanvas.height = height;
+		const hiddenCtx = hiddenCanvas.getContext("2d");
 
 		let lastTimestamp = performance.now();
 		
@@ -22,20 +25,22 @@ class GameLoop {
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
 
-			ctx.save()
-			ctx.fillStyle = "black"
-			ctx.fillRect(0, 0, width, height)
+			hiddenCtx.save()
+			hiddenCtx.fillStyle = "black"
+			hiddenCtx.fillRect(0, 0, width, height)
 
-			GameLoop.update(ctx, canvas, deltaTime);
-			GameLoop.draw(ctx, canvas, deltaTime);
+			GameLoop.update(hiddenCtx, deltaTime);
+			GameLoop.draw(hiddenCtx);
 
-			ctx.restore()
+			hiddenCtx.restore()
+
+			ctx.drawImage(hiddenCanvas, 0, 0)
 
 			requestAnimationFrame(gameLoop);
 		}
 
 		requestAnimationFrame(gameLoop);
 
-		return {ctx, canvas}
+		return {bufferCtx: hiddenCtx, canvas}
 	}
 }

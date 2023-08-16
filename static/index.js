@@ -15,11 +15,11 @@ const physics = new Physics()
 physics.add(player)
 physics.add(projectile)
 
-for (let i = 0; i < 1000; i+= 10) {
+for (let i = 0; i < 100; i+= 10) {
 	add(new Particle(10, 10, i, 0.03))
 }
 
-GameLoop.update = (ctx, canvas, deltaTime) => {
+GameLoop.update = (ctx, deltaTime) => {
 	camera.follow(ctx, player)
 
 	objects.forEach(o => {
@@ -29,16 +29,16 @@ GameLoop.update = (ctx, canvas, deltaTime) => {
 	physics.update(deltaTime)
 }
 
-GameLoop.draw = (ctx, canvas, deltaTime) => {
+GameLoop.draw = (ctx) => {
 	objects.forEach(o => o.draw(ctx))
 }
 
 const {ctx, canvas} = GameLoop.start(width, height)
 
 document.addEventListener('click', (e) => {
-	projectile.shoot(camera.mousePosition(ctx, canvas, e))
+	projectile.shoot(camera.mousePosition(canvas, e))
 })
 
 document.addEventListener('mousemove', (e) => {
-	camera.currentMousePosition = camera.mousePosition(ctx, canvas, e)
+	camera.currentMousePosition = camera.mousePosition(canvas, e)
 })

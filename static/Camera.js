@@ -28,7 +28,7 @@ class Camera {
 		ctx.scale(this.zoom, this.zoom)
 	}
 
-	mousePosition(ctx, canvas, e) {
+	mousePosition(canvas, e) {
 		const rect = canvas.getBoundingClientRect();
 		const mouseX = e.clientX - rect.left;
 		const mouseY = e.clientY - rect.top;
