@@ -29,8 +29,12 @@ GameLoop.update = (ctx, deltaTime) => {
 	physics.update(deltaTime)
 }
 
+
+const playerSprite = Draw.sprite()
 GameLoop.draw = (ctx) => {
 	objects.forEach(o => o.draw(ctx))
+
+	playerSprite(ctx)
 }
 
 const {ctx, canvas} = GameLoop.start(width, height)

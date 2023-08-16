@@ -146,4 +146,48 @@ class Draw {
 		ctx.stroke();
 	}
 
+
+static sprite() {
+    const spriteSheet = new Image();
+    spriteSheet.src = "static/player.png";
+
+    const frameWidth = 50; // Width of each frame in the sprite sheet
+    const frameHeight = 37; // Height of each frame in the sprite sheet
+    const scale = 10; // Scale factor
+
+    const frameSequence = [
+        { x: 2, y: 6 }  ,// Frame 2
+        // Add more frames as needed
+    ];
+
+    let currentFrameIndex = 0; // Index of the current frame in frameSequence
+    const totalFrames = frameSequence.length;
+
+	setInterval(() => {
+        currentFrameIndex = (currentFrameIndex + 1) % totalFrames;
+	}, 120);
+
+    const x = 0;
+    const y = 0;
+
+    return function drawFrame(ctx) {
+        const frameInfo = frameSequence[currentFrameIndex];
+        const currentFrameX = frameInfo.x;
+        const currentFrameY = frameInfo.y;
+
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(
+            spriteSheet,
+            currentFrameX * frameWidth,
+            currentFrameY * frameHeight,
+            frameWidth,
+            frameHeight,
+            x,
+            y,
+            frameWidth * scale,
+            frameHeight * scale
+        );
+
+    };
+}
 }
