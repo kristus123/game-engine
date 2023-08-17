@@ -21,7 +21,7 @@ class GameLoop {
 
 		let lastTimestamp = performance.now();
 		
-		const gameLoop = (currentTimestamp) => {
+		AnimationLoop.start(currentTimestamp => {
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
 
@@ -35,11 +35,7 @@ class GameLoop {
 			hiddenCtx.restore()
 
 			ctx.drawImage(hiddenCanvas, 0, 0)
-
-			requestAnimationFrame(gameLoop);
-		}
-
-		requestAnimationFrame(gameLoop);
+		})
 
 		return {bufferCtx: hiddenCtx, canvas}
 	}
