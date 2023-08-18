@@ -1,15 +1,8 @@
 class GameLoop {
 
 	static start(width, height) {
-		const canvas = document.getElementById("game")
-		canvas.width = width
-		canvas.height = height
-		const ctx = canvas.getContext("2d")
-
-		const hiddenCanvas = document.createElement("canvas");
-		hiddenCanvas.width = width;
-		hiddenCanvas.height = height;
-		const hiddenCtx = hiddenCanvas.getContext("2d");
+		const {canvas, ctx} = Canvas.main(width, height)
+		const {hiddenCanvas, hiddenCtx} = Canvas.hidden(width, height)
 
 		let lastTimestamp = performance.now();
 
