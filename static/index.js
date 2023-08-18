@@ -15,22 +15,24 @@ const physics = new Physics()
 physics.add(player)
 physics.add(projectile)
 
-const worker = new WorkerClient()
 const gui = new Gui()
 
-GameLoop.eachFrame = (ctx, deltaTime) => {
+GameLoop.camera = camera
+
+GameLoop.eachFrame = (ctx, offscreenContext, deltaTime) => {
 	physics.update(deltaTime)
-	camera.follow(ctx, player)
+	camera.follow(ctx, offscreenContext, player)
 
 	objects.forEach(o => {
 		o.update(deltaTime)
 	})
 
-	worker.draw(ctx)
-
 	objects.forEach(o => o.draw(ctx))
 
+	Draw.rectangle(offscreenContext, player.x, player.y, 100, 100)
+
 	gui.draw(ctx, camera)
+
 }
 
 const canvas = GameLoop.start(width, height)

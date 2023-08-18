@@ -2,15 +2,19 @@ if( 'function' === typeof importScripts) {
    importScripts('Draw.js');
 }
 
-const offscreenCanvas = new OffscreenCanvas(200, 200);
-const offscreenCtx = offscreenCanvas.getContext('2d');
+
+let c = null
 
 self.onmessage = e => {
-	offscreenCtx.clearRect(0, 0, 200, 200);
+	if (e.data.type === 'init') {
+		c = e.data.canvas
+	}
 
-	Draw.circle(offscreenCtx, 40, 40, 40, 'yellow')
+	cccctx = c.getContext('2d');
 
-	const bitmap = offscreenCanvas.transferToImageBitmap();
+	Draw.circle(cccctx, 40, 40, 40, 'yellow')
+
+	const bitmap = c.transferToImageBitmap()
 
 	self.postMessage(bitmap, [bitmap]);
 }

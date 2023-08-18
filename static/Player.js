@@ -1,6 +1,6 @@
 class Player extends GameObject {
 	constructor() {
-		super(786, 0, 20, 20)
+		super(200, 0, 20, 20)
 		this.keyboard = new Keyboard()
 		this.grounded = false
 	}

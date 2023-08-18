@@ -26,14 +26,18 @@ class Camera {
 		}
 	}
 
-	follow(ctx, objectToFollow) {
+	follow(ctx, offscreenContext, objectToFollow) {
 		this.objectToFollow = objectToFollow
 
 		ctx.translate(
 			-objectToFollow.x * this.zoom + this.offset.x,
 			-objectToFollow.y * this.zoom + this.offset.y)
-
 		ctx.scale(this.zoom, this.zoom)
+
+		offscreenContext.translate(
+			-objectToFollow.x * this.zoom + this.offset.x,
+			-objectToFollow.y * this.zoom + this.offset.y)
+		offscreenContext.scale(this.zoom, this.zoom)
 	}
 
 	mousePosition(canvas, e) {

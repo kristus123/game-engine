@@ -3,7 +3,7 @@
  *
 	*/
 class WorkerClient {
-	constructor() {
+	constructor(width, height) {
 		this.worker = new Worker("static/w.js")
 		this.position = {
 			x: 0,
@@ -12,14 +12,21 @@ class WorkerClient {
 		this.workerBitMap = null
 
 		this.worker.onmessage = e => {
-			this.workerBitMap = e.data;
+			this.workerBitMap = e.data
 
 			this.position.x += 1
 			this.position.y += 1
 		}
 
+		this.canvas = new OffscreenCanvas(width, height)
+
+		this.worker.postMessage({
+			canvas: this.canvas, 
+			type:"init"
+		}, [this.canvas]);
+
 		setInterval(() => {
-			this.worker.postMessage('ho');
+			this.worker.postMessage('go');
 		}, 200)
 	}
 
@@ -30,5 +37,4 @@ class WorkerClient {
 			ctx.drawImage(this.workerBitMap, this.position.x, this.position.y)
 		}
 	}
-	
 }
