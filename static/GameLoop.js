@@ -1,13 +1,5 @@
 class GameLoop {
 
-	static update = (ctx, deltaTime) => {
-		console.log("replace me")
-	}
-
-	static draw = (ctx) => {
-		console.log("replace me")
-	}
-
 	static start(width, height) {
 		const canvas = document.getElementById("game")
 		canvas.width = width
