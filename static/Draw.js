@@ -87,14 +87,16 @@ class Draw {
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	static image(ctx, x, y) {
+	// currently only for player
+	// . this solution flickers because of constntlyu doing new ImagE()
+	static image(ctx, player) {
 		const image = new Image();
 		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
 
 		const aspectRatio = image.width / image.height;
 
 		const maxWidth = 500;
-		const maxHeight = 900;
+		const maxHeight = 200;
 
 		let newWidth = maxWidth;
 		let newHeight = maxHeight;
@@ -109,8 +111,17 @@ class Draw {
 			newWidth = newHeight * aspectRatio;
 		}
 
-		ctx.drawImage(image, x - 100, y - 100, newWidth, newHeight);
-	};
+		ctx.save();
+
+		ctx.translate(player.x, player.y);
+		const rotationAngle = Math.atan2(player.velocity.y, player.velocity.x);
+		ctx.rotate(rotationAngle);
+		ctx.rotate(Math.PI / 2); // 90 degrees
+
+		ctx.drawImage(image, -newWidth / 2, -newHeight / 2, newWidth, newHeight);
+
+		ctx.restore();
+	}
 
 
 	static grid(ctx) {
