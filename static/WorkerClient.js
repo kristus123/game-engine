@@ -9,29 +9,26 @@ class WorkerClient {
 			x: 0,
 			y: 0,
 		}
-	}
+		this.workerBitMap = null
 
-	onmessage() {
-		let workerBitMap = null
-		let coordinates = {x:0, y:0}
+		this.worker.onmessage = e => {
+			this.workerBitMap = e.data;
 
-		const worker = new WorkerClient()
-		worker.onmessage = e => {
-			workerBitMap = e.data;
-			coordinates.x += 1
-			coordinates.y += 1
-			console.log(coordinates)
-		};
+			this.position.x += 1
+			this.position.y += 1
+		}
+
 		setInterval(() => {
-			worker.postMessage({ width, height, coordinates });
+			this.worker.postMessage('ho');
 		}, 200)
-		
 	}
 
 	// So when positioning the drawn image on the 'global map' 
 	// you need to set the position when drawing
 	draw(ctx) {
-		hiddenCtx.drawImage(ctx, this.position.x, this.position.y)
+		if (this.workerBitMap) {
+			ctx.drawImage(this.workerBitMap, this.position.x, this.position.y)
+		}
 	}
 	
 }

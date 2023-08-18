@@ -15,9 +15,6 @@ const physics = new Physics()
 physics.add(player)
 physics.add(projectile)
 
-// for (let i = 10000; i < 20000; i+= 40) {
-// 	add(new Particle(10, 10, i, 0.03))
-// }
 
 GameLoop.update = (ctx, deltaTime) => {
 	camera.follow(ctx, player)
@@ -29,7 +26,9 @@ GameLoop.update = (ctx, deltaTime) => {
 	physics.update(deltaTime)
 }
 
+const worker = new WorkerClient()
 GameLoop.draw = (ctx) => {
+	worker.draw(ctx)
 	objects.forEach(o => o.draw(ctx))
 }
 
