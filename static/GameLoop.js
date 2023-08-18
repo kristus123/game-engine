@@ -18,6 +18,6 @@ class GameLoop {
 			ctx.drawImage(hiddenCanvas, 0, 0)
 		})
 
-		return {hiddenCtx, canvas}
+		return canvas
 	}
 }

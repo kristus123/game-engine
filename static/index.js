@@ -33,7 +33,7 @@ GameLoop.draw = (ctx) => {
 	objects.forEach(o => o.draw(ctx))
 }
 
-const {ctx, canvas} = GameLoop.start(width, height)
+const canvas = GameLoop.start(width, height)
 
 document.addEventListener('click', (e) => {
 	projectile.shoot(camera.mousePosition(canvas, e))
