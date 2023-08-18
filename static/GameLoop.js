@@ -20,8 +20,9 @@ class GameLoop {
 		const hiddenCtx = hiddenCanvas.getContext("2d");
 
 		let lastTimestamp = performance.now();
-		
+
 		AnimationLoop.start(currentTimestamp => {
+
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
 
