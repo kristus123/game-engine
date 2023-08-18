@@ -29,7 +29,6 @@ GameLoop.update = (ctx, deltaTime) => {
 	physics.update(deltaTime)
 }
 
-
 GameLoop.draw = (ctx) => {
 	objects.forEach(o => o.draw(ctx))
 }

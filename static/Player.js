@@ -23,6 +23,7 @@ class Player extends GameObject {
 	}
 
 	draw(ctx) {
+		// causes flickering
 		const image = new Image();
 		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
 
