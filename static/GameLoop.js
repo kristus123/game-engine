@@ -4,12 +4,7 @@ class GameLoop {
 		const {canvas, ctx} = Canvas.main(width, height)
 		const {hiddenCanvas, hiddenCtx} = Canvas.hidden(width, height)
 
-		let lastTimestamp = performance.now();
-
-		AnimationLoop.start(currentTimestamp => {
-
-			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
-			lastTimestamp = currentTimestamp;
+		AnimationLoop.start(deltaTime => {
 
 			hiddenCtx.save()
 			hiddenCtx.fillStyle = "black"
