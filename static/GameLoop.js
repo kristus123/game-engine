@@ -10,8 +10,7 @@ class GameLoop {
 			hiddenCtx.fillStyle = "black"
 			hiddenCtx.fillRect(0, 0, width, height)
 
-			GameLoop.update(hiddenCtx, deltaTime);
-			GameLoop.draw(hiddenCtx);
+			GameLoop.eachFrame(hiddenCtx, deltaTime);
 
 			hiddenCtx.restore()
 

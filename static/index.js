@@ -15,8 +15,10 @@ const physics = new Physics()
 physics.add(player)
 physics.add(projectile)
 
+const worker = new WorkerClient()
+const gui = new Gui()
 
-GameLoop.update = (ctx, deltaTime) => {
+GameLoop.eachFrame = (ctx, deltaTime) => {
 	physics.update(deltaTime)
 	camera.follow(ctx, player)
 
@@ -24,24 +26,11 @@ GameLoop.update = (ctx, deltaTime) => {
 		o.update(deltaTime)
 	})
 
-}
-
-const worker = new WorkerClient()
-GameLoop.draw = (ctx) => {
 	worker.draw(ctx)
 
 	objects.forEach(o => o.draw(ctx))
 
-	const p = camera.positionRelativeToScreen(50,  50)
-	Draw.text(ctx, p.x, p.y, 100, 50, player.velocity.x)
-
-	const p2 = camera.positionRelativeToScreen(200,  50)
-	Draw.text(ctx, p2.x, p2.y, 100, 50, player.velocity.y)
-
-
-	const p3 = camera.currentMousePosition
-	Draw.text(ctx, p3.x, p3.y, 100, 50, "x: " + camera.currentMousePosition.x)
-	Draw.text(ctx, p3.x, p3.y- 100, 100, 50, "y: " + camera.currentMousePosition.y)
+	gui.draw(ctx, camera)
 }
 
 const canvas = GameLoop.start(width, height)
