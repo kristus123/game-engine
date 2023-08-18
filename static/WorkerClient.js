@@ -3,7 +3,11 @@
  *
 	*/
 class WorkerClient {
-	constructor(width, height) {
+	constructor(width, height, player, camera) {
+		this.width = width
+		this.player = player
+		this.height = height
+		this.camera = camera
 		this.worker = new Worker("static/w.js")
 		this.position = {
 			x: 0,
@@ -11,30 +15,37 @@ class WorkerClient {
 		}
 		this.workerBitMap = null
 
-		this.worker.onmessage = e => {
-			this.workerBitMap = e.data
-
-			this.position.x += 1
-			this.position.y += 1
-		}
-
-		this.canvas = new OffscreenCanvas(width, height)
+		this.canvas = new OffscreenCanvas(4000, 4000)
 
 		this.worker.postMessage({
+			width: width, 
+			height: height, 
+			player: player,
 			canvas: this.canvas, 
 			type:"init"
 		}, [this.canvas]);
 
 		setInterval(() => {
-			this.worker.postMessage('go');
+			this.worker.postMessage({
+				width, height
+			});
 		}, 200)
+
+		this.worker.onmessage = e => {
+			console.log("heihehi")
+			this.workerBitMap = e.data
+		}
 	}
 
 	// So when positioning the drawn image on the 'global map' 
 	// you need to set the position when drawing
 	draw(ctx) {
 		if (this.workerBitMap) {
-			ctx.drawImage(this.workerBitMap, this.position.x, this.position.y)
+			ctx.drawImage(this.workerBitMap, 0, this.player.y)
+			this.worker.postMessage({
+				type: 'player',
+				player: player,
+			})
 		}
 	}
 }

@@ -7,8 +7,8 @@ function add(o) {
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-const camera = add(new Camera(width, height))
 const player = add(new Player())
+const camera = add(new Camera(width, height, player))
 const projectile = add(new Projectile(750, 360, 10, "red"))
 
 const physics = new Physics()
@@ -17,11 +17,12 @@ physics.add(projectile)
 
 const gui = new Gui()
 
-GameLoop.camera = camera
+const wowo = new WorkerClient(width, height, player, camera)
 
-GameLoop.eachFrame = (ctx, offscreenContext, deltaTime) => {
+GameLoop.eachFrame = (ctx, contexts, deltaTime) => {
 	physics.update(deltaTime)
-	camera.follow(ctx, offscreenContext, player)
+	camera.follow(contexts, player)
+	wowo.draw(ctx)
 
 	objects.forEach(o => {
 		o.update(deltaTime)
@@ -29,10 +30,7 @@ GameLoop.eachFrame = (ctx, offscreenContext, deltaTime) => {
 
 	objects.forEach(o => o.draw(ctx))
 
-	Draw.rectangle(offscreenContext, player.x, player.y, 100, 100)
-
 	gui.draw(ctx, camera)
-
 }
 
 const canvas = GameLoop.start(width, height)

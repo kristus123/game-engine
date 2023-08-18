@@ -1,10 +1,5 @@
 class Camera {
 	constructor(width, height) {
-		this.objectToFollow = {
-			x: 0,
-			y: 0,
-		}
-
 		this.offset = {
 			x: width / 2,
 			y: height / 2,
@@ -15,29 +10,25 @@ class Camera {
 			y: 0,
 		}
 
-
-		this.zoom = 1
+		this.zoom = 0.5
 	}
 
-	positionRelativeToScreen(x, y) {
+	positionRelativeToScreen() {
 		return {
-			x: x + this.objectToFollow.x - this.offset.x,
-			y: y + this.objectToFollow.y - this.offset.y,
+			x: this.objectToFollow.x - this.offset.x,
+			y: this.objectToFollow.y - this.offset.y,
 		}
 	}
 
-	follow(ctx, offscreenContext, objectToFollow) {
+	follow(contexts, objectToFollow) {
 		this.objectToFollow = objectToFollow
 
-		ctx.translate(
-			-objectToFollow.x * this.zoom + this.offset.x,
-			-objectToFollow.y * this.zoom + this.offset.y)
-		ctx.scale(this.zoom, this.zoom)
-
-		offscreenContext.translate(
-			-objectToFollow.x * this.zoom + this.offset.x,
-			-objectToFollow.y * this.zoom + this.offset.y)
-		offscreenContext.scale(this.zoom, this.zoom)
+		for (const c of contexts) {
+			c.translate(
+				-objectToFollow.x * this.zoom + this.offset.x,
+				-objectToFollow.y * this.zoom + this.offset.y)
+			c.scale(this.zoom, this.zoom)
+		}
 	}
 
 	mousePosition(canvas, e) {

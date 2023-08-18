@@ -4,23 +4,24 @@ class GameLoop {
 		const {canvas, ctx} = Canvas.main(width, height)
 		const {hiddenCanvas, hiddenCtx} = Canvas.hidden(width, height)
 
-		const offscreenCanvas = new OffscreenCanvas(width, height);
-		const offscreenContext = offscreenCanvas.getContext('2d');
+		const anotherCanvas = new OffscreenCanvas(width, height);
+		const anotherContext = anotherCanvas.getContext('2d');
 
 		AnimationLoop.start(deltaTime => {
 
-			offscreenContext.save()
+			anotherContext.save()
 			hiddenCtx.save()
 
 			hiddenCtx.fillStyle = "black"
 			hiddenCtx.fillRect(0, 0, width, height)
 
-			GameLoop.eachFrame(hiddenCtx, offscreenContext, deltaTime);
+			GameLoop.eachFrame(hiddenCtx, [hiddenCtx, anotherContext], deltaTime);
+			Draw.rectangle(anotherContext, -1000, 10, 100, 100)
 
 			hiddenCtx.restore()
-			offscreenContext.restore()
+			anotherContext.restore()
 
-			hiddenCtx.drawImage(offscreenCanvas.transferToImageBitmap(), 0, 0);
+			hiddenCtx.drawImage(anotherCanvas.transferToImageBitmap(), 0, 0);
 			ctx.drawImage(hiddenCanvas, 0, 0)
 		})
 
