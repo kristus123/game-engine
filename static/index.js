@@ -1,3 +1,57 @@
+class MyWorker {
+  constructor() {
+		  const x = `
+		  function ${Draw.circle.toString()}
+
+		  self.onmessage = e => {
+			  console.log("achalhcalch  " + e.data)
+		  }
+
+
+
+	  `
+
+    const blob = new Blob([x], { type: "application/javascript" });
+    this.worker = new Worker(URL.createObjectURL(blob));
+
+  }
+
+  postMessageToWorker(data) {
+	  console.log("hahha")
+    this.worker.postMessage(data);
+  }
+}
+
+const myWorker = new MyWorker();
+const dataToProcess = 5;
+myWorker.postMessageToWorker(dataToProcess);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const objects = []
 function add(o) {
 	objects.push(o)
@@ -17,12 +71,10 @@ physics.add(projectile)
 
 const gui = new Gui()
 
-const wowo = new WorkerClient(width, height, player, camera)
 
 GameLoop.eachFrame = (ctx, contexts, deltaTime) => {
 	physics.update(deltaTime)
 	camera.follow(contexts, player)
-	wowo.draw(ctx)
 
 	objects.forEach(o => {
 		o.update(deltaTime)
