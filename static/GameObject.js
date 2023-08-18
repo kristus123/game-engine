@@ -5,11 +5,6 @@ class GameObject {
 		this.width = width
 		this.height = height
 
-		this.gravity = {
-			x: 0,
-			y: 0,
-		}
-
 		this.velocity = {
 			x: 0,
 			y: 0,
