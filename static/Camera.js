@@ -15,7 +15,15 @@ class Camera {
 			y: 0,
 		}
 
+
 		this.zoom = 1
+	}
+
+	positionRelativeToScreen(x, y) {
+		return {
+			x: x + this.objectToFollow.x - this.offset.x,
+			y: y + this.objectToFollow.y - this.offset.y,
+		}
 	}
 
 	follow(ctx, objectToFollow) {
