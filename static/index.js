@@ -44,8 +44,6 @@ AnimationLoop.everyFrame(deltaTime => {
 		physics.objects.forEach(o => o.update(deltaTime))
 		physics.objects.forEach(o => o.draw(hidden.ctx))
 
-
-
 		// gui.draw(hidden.ctx, camera)
 	})
 
@@ -53,7 +51,7 @@ AnimationLoop.everyFrame(deltaTime => {
 		background.ctx.drawImage(bitmap, 0, 0)
 	}
 
-	Draw.text(another.ctx, 10, 10, 200, 100, 'Jon 117')
+	Draw.text(another.ctx, 10, 10, 100, 100, AnimationLoop.fps)
 
 	hidden.ctx.drawImage(background.canvas.transferToImageBitmap(), 0, 0);
 	hidden.ctx.drawImage(another.canvas.transferToImageBitmap(), 0, 0);
