@@ -1,5 +1,7 @@
 class Camera {
-	constructor(width, height) {
+	constructor(width, height, contextsLinkedToCamera) {
+		this.contextsLinkedToCamera = contextsLinkedToCamera
+
 		this.offset = {
 			x: width / 2,
 			y: height / 2,
@@ -10,7 +12,19 @@ class Camera {
 			y: 0,
 		}
 
-		this.zoom = 0.5
+		this.zoom = 1
+
+		document.addEventListener('mousemove', (e) => {
+			this.currentMousePosition = this.mousePosition(e)
+		})
+	}
+
+	worldContext(run) {
+		this.contextsLinkedToCamera.forEach(c => c.save())
+
+		run()
+
+		this.contextsLinkedToCamera.forEach(c => c.restore())
 	}
 
 	positionRelativeToScreen() {
@@ -20,10 +34,10 @@ class Camera {
 		}
 	}
 
-	follow(contexts, objectToFollow) {
+	follow(objectToFollow) {
 		this.objectToFollow = objectToFollow
 
-		for (const c of contexts) {
+		for (const c of this.contextsLinkedToCamera) {
 			c.translate(
 				-objectToFollow.x * this.zoom + this.offset.x,
 				-objectToFollow.y * this.zoom + this.offset.y)
@@ -31,10 +45,9 @@ class Camera {
 		}
 	}
 
-	mousePosition(canvas, e) {
-		const rect = canvas.getBoundingClientRect();
-		const mouseX = e.clientX - rect.left;
-		const mouseY = e.clientY - rect.top;
+	mousePosition(e) {
+		const mouseX = e.clientX
+		const mouseY = e.clientY
 
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.zoom;
@@ -43,14 +56,6 @@ class Camera {
 			x: (mouseX - this.offset.x) * inverseZoom + this.objectToFollow.x,
 			y: (mouseY - this.offset.y) * inverseZoom + this.objectToFollow.y,
 		}
-	}
-
-	update() {
-		
-	}
-
-	draw(ctx) {
-		
 	}
 	
 }

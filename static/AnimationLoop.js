@@ -1,7 +1,6 @@
 class AnimationLoop {
 
-
-	static start(run) {
+	static everyFrame(run) {
 		let lastTimestamp = performance.now();
 
 		function loop(currentTimestamp) {

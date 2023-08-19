@@ -3,8 +3,9 @@ class Physics {
 		this.objects = []
 	}
 
-	add(o) {
+	applyTo(o) {
 		this.objects.push(o)
+		return o
 	}
 
 	update(deltaTime) {

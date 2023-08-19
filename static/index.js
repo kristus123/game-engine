@@ -1,42 +1,37 @@
-const objects = []
-function add(o) {
-	objects.push(o)
-	return o
-}
-
 const width = window.innerWidth;
 const height = window.innerHeight;
 
-const player = add(new Player())
-const camera = add(new Camera(width, height, player))
-const projectile = add(new Projectile(750, 360, 10, "red"))
+const main = Canvas.main(width, height)
+const hidden = Canvas.offscreen(width, height)
+const another = Canvas.offscreen(width, height)
 
 const physics = new Physics()
-physics.add(player)
-physics.add(projectile)
+const player = physics.applyTo(new Player())
+const projectile = physics.applyTo(new Projectile(750, 360, 10, "red"))
 
 const gui = new Gui()
 
+const camera = new Camera(width, height, [hidden.ctx])
 
-GameLoop.eachFrame = (ctx, contexts, deltaTime) => {
-	physics.update(deltaTime)
-	camera.follow(contexts, player)
+AnimationLoop.everyFrame(deltaTime => {
 
-	objects.forEach(o => {
-		o.update(deltaTime)
+	camera.worldContext(() => {
+		hidden.ctx.fillStyle = "black"
+		hidden.ctx.fillRect(0, 0, width, height)
+
+		physics.update(deltaTime)
+		camera.follow(player)
+
+		physics.objects.forEach(o => o.update(deltaTime))
+		physics.objects.forEach(o => o.draw(hidden.ctx))
+
+		gui.draw(hidden.ctx, camera)
 	})
 
-	objects.forEach(o => o.draw(ctx))
-
-	gui.draw(ctx, camera)
-}
-
-const canvas = GameLoop.start(width, height)
-
-document.addEventListener('click', (e) => {
-	projectile.shoot(camera.mousePosition(canvas, e))
+	hidden.ctx.drawImage(another.canvas.transferToImageBitmap(), 0, 0);
+	main.ctx.drawImage(hidden.canvas, 0, 0)
 })
 
-document.addEventListener('mousemove', (e) => {
-	camera.currentMousePosition = camera.mousePosition(canvas, e)
+document.addEventListener('click', (e) => {
+	projectile.shoot(camera.mousePosition(e))
 })
