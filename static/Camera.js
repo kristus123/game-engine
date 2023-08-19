@@ -20,11 +20,13 @@ class Camera {
 	}
 
 	worldContext(run) {
-		this.contextsLinkedToCamera.forEach(c => c.save())
+		this.contextsLinkedToCamera
+			.forEach(c => c.save())
 
 		run()
 
-		this.contextsLinkedToCamera.forEach(c => c.restore())
+		this.contextsLinkedToCamera
+			.forEach(c => c.restore())
 	}
 
 	positionRelativeToScreen() {
