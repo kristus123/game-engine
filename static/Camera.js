@@ -2,6 +2,10 @@ class Camera {
 	constructor(width, height, contextsLinkedToCamera) {
 		this.contextsLinkedToCamera = contextsLinkedToCamera
 
+		this.objectToFollow = {
+			x:0,y:0
+		}
+
 		this.offset = {
 			x: width / 2,
 			y: height / 2,
@@ -45,6 +49,13 @@ class Camera {
 				-objectToFollow.y * this.zoom + this.offset.y)
 			c.scale(this.zoom, this.zoom)
 		}
+	}
+
+	translate() {
+		return {
+			x: -this.objectToFollow.x * this.zoom + this.offset.x,
+			y: -this.objectToFollow.y * this.zoom + this.offset.y,
+		} 	
 	}
 
 	mousePosition(e) {
