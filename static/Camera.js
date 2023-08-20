@@ -23,7 +23,7 @@ class Camera {
 		})
 	}
 
-	worldContext(run) {
+	context(run) {
 		this.contextsLinkedToCamera
 			.forEach(c => c.save())
 

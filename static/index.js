@@ -10,8 +10,8 @@ const projectile = physics.applyTo(new Projectile(750, 360, 10, "red"))
 
 const camera = new Camera(width, height, [hidden.ctx])
 
-AnimationLoop.everyFrame(deltaTime => {
-	camera.worldContext(() => {
+Loop.everyFrame(deltaTime => {
+	camera.context(() => {
 
 		hidden.ctx.fillStyle = "black"
 		hidden.ctx.fillRect(0, 0, width, height)

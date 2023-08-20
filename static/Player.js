@@ -2,7 +2,6 @@ class Player extends GameObject {
 	constructor() {
 		super(0, 0, 20, 20)
 		this.keyboard = new Keyboard()
-		this.grounded = false
 	}
 
 	update() {

@@ -1,4 +1,4 @@
-class AnimationLoop {
+class Loop {
 
 	static fps = 0
 	static lastUpdated = 0
@@ -11,11 +11,11 @@ class AnimationLoop {
 			lastTimestamp = currentTimestamp;
 
 			run(deltaTime)
-			if (AnimationLoop.lastUpdated > 10) {
-				AnimationLoop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
-				AnimationLoop.lastUpdated = 0
+			if (Loop.lastUpdated > 10) {
+				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
+				Loop.lastUpdated = 0
 			} else {
-				AnimationLoop.lastUpdated += 1
+				Loop.lastUpdated += 1
 			}
 
 			requestAnimationFrame(loop)
