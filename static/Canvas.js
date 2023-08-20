@@ -1,4 +1,4 @@
-class Canvas {
+export class Canvas {
 	static main(width, height) {
 		const canvas = document.getElementById("game")
 		canvas.width = width

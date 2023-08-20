@@ -1,4 +1,4 @@
-class Loop {
+export class Loop {
 
 	static fps = 0
 	static lastUpdated = 0

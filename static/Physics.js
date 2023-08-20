@@ -1,4 +1,6 @@
-class Physics {
+import { Collision } from '/static/Collision.js';
+
+export class Physics {
 	constructor() {
 		this.objects = []
 	}

@@ -1,4 +1,4 @@
-class Camera {
+export class Camera {
 	constructor(width, height, contextsLinkedToCamera) {
 		this.contextsLinkedToCamera = contextsLinkedToCamera
 

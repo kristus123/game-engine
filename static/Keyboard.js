@@ -1,4 +1,4 @@
-class Keyboard {
+export class Keyboard {
 	constructor() {
 
 		document.addEventListener('keydown', (e) => {

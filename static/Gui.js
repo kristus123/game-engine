@@ -1,4 +1,4 @@
-class Gui {
+export class Gui {
 	
 	draw(ctx, camera) {
 		const p = camera.currentMousePosition

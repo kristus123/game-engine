@@ -1,4 +1,4 @@
-class Collision {
+export class Collision {
 	static between(red, blue) {
 		return (
 			red !== blue &&

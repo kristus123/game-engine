@@ -1,4 +1,8 @@
-class Projectile extends GameObject {
+import { GameObject } from '/static/GameObject.js';
+import { Draw } from '/static/Draw.js';
+
+
+export class Projectile extends GameObject {
 	constructor(x, y, radius, color) {
 		super(x, y, 10, 10)
 

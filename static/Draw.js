@@ -2,7 +2,7 @@
 		const image = new Image();
 		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
 
-class Draw {
+export class Draw {
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = "orange"
 		ctx.fillRect(x, y, width, height)
