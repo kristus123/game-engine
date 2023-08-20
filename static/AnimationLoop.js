@@ -1,6 +1,7 @@
 class AnimationLoop {
 
 	static fps = 0
+	static lastUpdated = 0
 
 	static everyFrame(run) {
 		let lastTimestamp = performance.now();
@@ -10,12 +11,16 @@ class AnimationLoop {
 			lastTimestamp = currentTimestamp;
 
 			run(deltaTime)
-			AnimationLoop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
+			if (AnimationLoop.lastUpdated > 10) {
+				AnimationLoop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
+				AnimationLoop.lastUpdated = 0
+			} else {
+				AnimationLoop.lastUpdated += 1
+			}
 
 			requestAnimationFrame(loop)
 		}
 
 		requestAnimationFrame(loop)
 	}
-	
 }

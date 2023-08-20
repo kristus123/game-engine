@@ -1,3 +1,7 @@
+
+		const image = new Image();
+		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+
 class Draw {
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = "orange"
@@ -90,8 +94,6 @@ class Draw {
 	// currently only for player
 	// . this solution flickers because of constntlyu doing new ImagE()
 	static image(ctx, player) {
-		const image = new Image();
-		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
 
 		const aspectRatio = image.width / image.height;
 
