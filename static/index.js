@@ -8,6 +8,7 @@ import { Circle } from '/static/Circle.js';
 import { Draw } from '/static/Draw.js';
 import { PrettyParticles } from '/static/PrettyParticles.js';
 
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -30,12 +31,12 @@ Loop.everyFrame(deltaTime => {
 		world.ctx.fillStyle = "black"
 		world.ctx.fillRect(0, 0, width, height)
 
-
 		camera.follow(player)
 
 		physics.update(deltaTime)
 
 		prettyParticles.create(player.x, player.y)
+		Draw.objectThatIsMovingInRectangularPathAroundObject(world.ctx, player, camera.currentMousePosition)
 
 		physics.objects.forEach(o => o.update(deltaTime))
 		prettyParticles.draw(world.ctx)

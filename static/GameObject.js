@@ -1,3 +1,6 @@
+import { Draw } from '/static/Draw.js';
+
+
 export class GameObject {
 	constructor(x, y, width, height) {
 		this.x = x

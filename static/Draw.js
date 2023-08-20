@@ -63,23 +63,63 @@ export class Draw {
 
 	}
 
-	// needs some work obviously, but it works
-	static objectThatIsCirclingAroundObjectBasedOnMousePosition() {
-		player.angle = 0
-		const playerRadius = 20;
-		const circleRadius = 50;
-		const color = "blue";
 
-		const circleX = player.x + player.width /2 + circleRadius * Math.cos(player.angle);
-		const circleY = player.y + player.height /2 + circleRadius * Math.sin(player.angle);
+
+static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMousePosition) {
+    function getAngle(x1, y1, x2, y2) {
+        return Math.atan2(y2 - y1, x2 - x1);
+    }
+
+    const playerWidth = player.width;
+    const playerHeight = player.height;
+    const playerCenterX = player.x + playerWidth / 2;
+    const playerCenterY = player.y + playerHeight / 2;
+
+    const mouseX = currentMousePosition.x;
+    const mouseY = currentMousePosition.y;
+
+    // Calculate distances from player's center to mouse position
+    const dx = mouseX - playerCenterX;
+    const dy = mouseY - playerCenterY;
+
+    // Calculate the maximum allowed distances for rectangular movement
+    const horizontalRectDistance = 500;
+    const verticalRectDistance = 200;
+
+    // Calculate the position for the circle to move in a rectangular path
+    let circleX = playerCenterX + Math.min(Math.abs(dx), horizontalRectDistance) * Math.sign(dx);
+    let circleY = playerCenterY + Math.min(Math.abs(dy), verticalRectDistance) * Math.sign(dy);
+
+    // Draw the circle
+    const playerRadius = 20;
+    Draw.circle(ctx, circleX, circleY, playerRadius, "red");
+
+    // Draw the rectangle
+    const rectX = playerCenterX - horizontalRectDistance;
+    const rectY = playerCenterY - verticalRectDistance;
+    const rectWidth = horizontalRectDistance * 2;
+    const rectHeight = verticalRectDistance * 2;
+
+    ctx.strokeStyle = "blue";
+    ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+}
+
+	// needs some work obviously, but it works
+	static objectThatIsCirclingAroundObjectBasedOnMousePosition(ctx, player, currentMousePosition) {
+		function getAngle(x1, y1, x2, y2) {
+			return Math.atan2(y2 - y1, x2 - x1)
+		}
+
+		const angle = getAngle(player.x, player.y, currentMousePosition.x, currentMousePosition.y)
+		const playerRadius = 20
+		const circleRadius = 200
+
+		const circleX = player.x + player.width /2 + circleRadius * Math.cos(angle);
+		const circleY = player.y + player.height /2 + circleRadius * Math.sin(angle);
 
 		Draw.circle(ctx, circleX, circleY, playerRadius, "red");
 
-		function getAngle(x1, y1, x2, y2) {
-			return Math.atan2(y2 - y1, x2 - x1);
-		}
 
-		player.angle = getAngle(player.x, player.y, camera.currentMousePosition.x, camera.currentMousePosition.y);
 	}
 
 	static lineBetween(ctx, start, end) {
