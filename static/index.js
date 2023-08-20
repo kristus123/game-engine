@@ -8,13 +8,6 @@ import { Circle } from '/static/Circle.js';
 import { Draw } from '/static/Draw.js';
 import { PrettyParticles } from '/static/PrettyParticles.js';
 
-
-
-
-
-
-
-
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -43,8 +36,6 @@ Loop.everyFrame(deltaTime => {
 		physics.update(deltaTime)
 
 		prettyParticles.create(player.x, player.y)
-
-
 
 		physics.objects.forEach(o => o.update(deltaTime))
 		prettyParticles.draw(world.ctx)
