@@ -22,6 +22,15 @@ export class Draw {
 		ctx.fill()
 	}
 
+	static hollowCircle(ctx, x, y, radius) {
+		ctx.strokeStyle = 'red'
+		ctx.lineWidth = 20
+
+		ctx.beginPath();
+		ctx.arc(x, y, radius, 0, Math.PI * 2);
+		ctx.stroke();
+	}
+
 	// todo must be updated somehow iwthin game lloop
 	static circleSpinning(ctx, objectToFollow, radius) {
 		let angle = 0

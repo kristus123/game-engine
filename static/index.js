@@ -6,6 +6,14 @@ import { Camera } from '/static/Camera.js';
 import { Loop } from '/static/Loop.js';
 import { Circle } from '/static/Circle.js';
 import { Draw } from '/static/Draw.js';
+import { PrettyParticles } from '/static/PrettyParticles.js';
+
+
+
+
+
+
+
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -15,7 +23,10 @@ const world = Canvas.offscreen(width, height)
 const gui = Canvas.offscreen(width, height)
 
 const physics = new Physics()
+
 const player = physics.applyTo(new Player())
+const prettyParticles = new PrettyParticles()
+
 const projectile = physics.applyTo(new Projectile(750, 360, 10, "red"))
 
 const camera = new Camera(width, height, [world.ctx])
@@ -26,16 +37,22 @@ Loop.everyFrame(deltaTime => {
 		world.ctx.fillStyle = "black"
 		world.ctx.fillRect(0, 0, width, height)
 
+
 		camera.follow(player)
 
 		physics.update(deltaTime)
 
+		prettyParticles.create(player.x, player.y)
+
+
+
 		physics.objects.forEach(o => o.update(deltaTime))
+		prettyParticles.draw(world.ctx)
 		physics.objects.forEach(o => o.draw(world.ctx))
 		const c = new Circle(10, 10, 200, 'red')
 		if (c.inside(player)) {
 			c.color = 'blue'
-			c.draw(world.ctx)
+			Draw.hollowCircle(world.ctx, 10, 10, 200)
 			Draw.text(world.ctx, 10, -200, 250, 100, 'Press "e" to buy"')
 		} else {
 			c.color = 'red'
