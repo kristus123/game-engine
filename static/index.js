@@ -8,7 +8,6 @@ import { Circle } from '/static/Circle.js';
 import { Draw } from '/static/Draw.js';
 import { PrettyParticles } from '/static/PrettyParticles.js';
 
-
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -30,7 +29,6 @@ Loop.everyFrame(deltaTime => {
 
 		world.ctx.fillStyle = "black"
 		world.ctx.fillRect(0, 0, width, height)
-
 
 		physics.update(deltaTime)
 		camera.follow(player) // Keep this after physics.update
