@@ -31,9 +31,9 @@ Loop.everyFrame(deltaTime => {
 		world.ctx.fillStyle = "black"
 		world.ctx.fillRect(0, 0, width, height)
 
-		camera.follow(player)
 
 		physics.update(deltaTime)
+		camera.follow(player) // Keep this after physics.update
 
 		prettyParticles.create(player.x, player.y)
 		Draw.objectThatIsMovingInRectangularPathAroundObject(world.ctx, player, camera.currentMousePosition)
