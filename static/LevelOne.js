@@ -29,7 +29,6 @@ export class LevelOne {
 		this.physics.applyTo(this.player)
 		this.physics.applyTo(this.projectile)
 
-
 		document.addEventListener('click', (e) => {
 			console.log("hehiehi")
 			this.projectile.shoot(this.camera.mousePosition(e))
