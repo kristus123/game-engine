@@ -1,6 +1,10 @@
 
-		const image = new Image();
-		image.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+		const spaceship = new Image();
+		spaceship.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+
+
+		const playerImage = new Image();
+		playerImage.src = "https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png";
 
 export class Draw {
 	static rectangle(ctx, x, y, width, height) {
@@ -142,9 +146,9 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 
 	// currently only for player
 	// . this solution flickers because of constntlyu doing new ImagE()
-	static image(ctx, player) {
+	static spaceship(ctx, player) {
 
-		const aspectRatio = image.width / image.height;
+		const aspectRatio = spaceship.width / spaceship.height;
 
 		const maxWidth = 500;
 		const maxHeight = 200;
@@ -152,7 +156,7 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 		let newWidth = maxWidth;
 		let newHeight = maxHeight;
 
-		if (image.width > maxWidth) {
+		if (spaceship.width > maxWidth) {
 			newWidth = maxWidth;
 			newHeight = newWidth / aspectRatio;
 		}
@@ -169,10 +173,58 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 		ctx.rotate(rotationAngle);
 		ctx.rotate(Math.PI / 2); // 90 degrees
 
-		ctx.drawImage(image, -newWidth / 2, -newHeight / 2, newWidth, newHeight);
+		ctx.drawImage(spaceship, -newWidth / 2, -newHeight / 2, newWidth, newHeight);
 
 		ctx.restore();
 	}
+
+
+
+
+
+
+
+
+	// currently only for player
+	// . this solution flickers because of constntlyu doing new ImagE()
+	static player(ctx, player) {
+
+		const aspectRatio = playerImage.width / playerImage.height;
+
+		const maxWidth = 50;
+		const maxHeight = 200;
+
+		let newWidth = maxWidth;
+		let newHeight = maxHeight;
+
+		if (playerImage.width > maxWidth) {
+			newWidth = maxWidth;
+			newHeight = newWidth / aspectRatio;
+		}
+
+		if (newHeight > maxHeight) {
+			newHeight = maxHeight;
+			newWidth = newHeight * aspectRatio;
+		}
+
+		ctx.save();
+
+		ctx.translate(player.x, player.y);
+		// const rotationAngle = Math.atan2(player.velocity.y, player.velocity.x);
+		// ctx.rotate(rotationAngle);
+		// ctx.rotate(Math.PI / 2); // 90 degrees
+
+		ctx.drawImage(playerImage, -newWidth / 2, -newHeight / 2, newWidth, newHeight);
+
+		ctx.restore();
+	}
+
+
+
+
+
+
+
 
 
 	static grid(ctx) {

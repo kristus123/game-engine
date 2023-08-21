@@ -2,7 +2,6 @@ import { GameObject } from "/static/GameObject.js"
 import { Keyboard } from "/static/Keyboard.js"
 import { Draw } from '/static/Draw.js';
 
-
 export class Player extends GameObject {
 	constructor() {
 		super(0, 0, 20, 20)
@@ -27,7 +26,7 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
-		Draw.image(ctx, this)
+		Draw.player(ctx, this)
 	}
 }
 
