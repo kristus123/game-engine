@@ -18,7 +18,7 @@ Loop.everyFrame(deltaTime => {
 	world.ctx.fillStyle = "black"
 	world.ctx.fillRect(0, 0, Canvas.width, Canvas.height)
 
-	levelOne.runFrame(deltaTime, world, gui)
+	levelOne.runFrame(deltaTime, world)
 	Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
 
 	Canvas.apply(main, [world, gui])
