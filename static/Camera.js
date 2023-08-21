@@ -1,5 +1,7 @@
+import {Canvas} from "/static/Canvas.js"
+
 export class Camera {
-	constructor(width, height, contextsLinkedToCamera) {
+	constructor(contextsLinkedToCamera) {
 		this.contextsLinkedToCamera = contextsLinkedToCamera
 
 		this.objectToFollow = {
@@ -7,8 +9,8 @@ export class Camera {
 		}
 
 		this.offset = {
-			x: width / 2,
-			y: height / 2,
+			x: Canvas.width / 2,
+			y: Canvas.height / 2,
 		}
 
 		this.currentMousePosition = {
