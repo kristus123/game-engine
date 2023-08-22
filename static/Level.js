@@ -8,6 +8,7 @@ export class Level {
 		this.camera = camera
 		this.physics = new Physics()
 
+		// TODO apply physics
 		this.player = new Player()
 		this.spaceship = new Spaceship()
 		this.projectile = new Projectile(750, 360, 10, "red")
