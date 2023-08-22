@@ -29,7 +29,7 @@ export class LevelOne {
 		this.camera.context(() => {
 			this.camera.follow(this.player) // Keep this after physics.update and within camera.context
 			this.physics.objects.forEach(o => o.update())
-			this.physics.objects.forEach(o => o.draw(world.ctx))
+			this.physics.objects.forEach(o => o.draw(world.ctx)) // needs to be inside camera.context as well
 		})
 	}
 }
