@@ -1,4 +1,5 @@
-import {Canvas} from "/static/Canvas.js"
+import { Palette } from '/static/Palette.js';
+
 
 export class Camera {
 	constructor(contextsLinkedToCamera) {
@@ -9,8 +10,8 @@ export class Camera {
 		}
 
 		this.offset = {
-			x: Canvas.width / 2,
-			y: Canvas.height / 2,
+			x: Palette.width / 2,
+			y: Palette.height / 2,
 		}
 
 		this.currentMousePosition = {

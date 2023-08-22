@@ -1,12 +1,12 @@
-export class Canvas {
+export class Palette {
 
 	static width = window.innerWidth;
 	static height = window.innerHeight;
 
 	static main() {
 		const canvas = document.getElementById("game")
-		canvas.width = Canvas.width
-		canvas.height = Canvas.height
+		canvas.width = Palette.width
+		canvas.height = Palette.height
 		const ctx = canvas.getContext("2d")
 
 		return { 
@@ -16,7 +16,7 @@ export class Canvas {
 	}
 
 	static offscreen() {
-		const canvas = new OffscreenCanvas(Canvas.width, Canvas.height);
+		const canvas = new OffscreenCanvas(Palette.width, Palette.height);
 		const ctx = canvas.getContext('2d');
 		
 		return { 
@@ -27,8 +27,8 @@ export class Canvas {
 
 	static clear(canvases) {
 		canvases.forEach(c => {
-			c.ctx.clearRect(0, 0, Canvas.width, Canvas.height)
-			c.ctx.clearRect(0, 0, Canvas.width, Canvas.height)
+			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
+			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
 		});
 	}
 
