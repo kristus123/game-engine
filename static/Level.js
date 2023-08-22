@@ -21,7 +21,7 @@ export class Level {
 		})
 	}
 
-	runFrame(deltaTime, world) {
+	everyFrame(deltaTime, world) {
 		this.physics.update(deltaTime)
 
 		this.camera.context(() => {

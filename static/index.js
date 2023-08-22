@@ -18,7 +18,8 @@ Loop.everyFrame(deltaTime => {
 	world.ctx.fillStyle = "black"
 	world.ctx.fillRect(0, 0, Palette.width, Palette.height)
 
-	level.runFrame(deltaTime, world)
+	level.everyFrame(deltaTime, world)
+
 	Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
 
 	Palette.apply(main, [world, gui])
