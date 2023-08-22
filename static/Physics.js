@@ -5,7 +5,7 @@ export class Physics {
 		this.objects = []
 	}
 
-	applyTo(o) {
+	applyPhysics(o) {
 		this.objects.push(o)
 		return o
 	}

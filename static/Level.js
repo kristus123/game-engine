@@ -9,11 +9,10 @@ export class Level {
 		this.physics = new Physics()
 
 		this.player = new Player()
-		this.spaceship = new Spaceship(this.player)
+		this.spaceship = new Spaceship()
 		this.projectile = new Projectile(750, 360, 10, "red")
 
 		this.objects = [this.player, this.projectile, this.spaceship]
-
 
 		document.addEventListener('click', (e) => {
 			this.projectile.shoot(this.camera.mousePosition(e))

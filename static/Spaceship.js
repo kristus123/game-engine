@@ -3,10 +3,9 @@ import { Draw } from '/static/Draw.js';
 import { Distance } from '/static/Distance.js';
 
 export class Spaceship extends GameObject {
-	constructor(owner) {
+	constructor() {
 		super(100, 0, 20, 20)
 
-		this.owner = owner
 		this.entered = false
 	}
 
