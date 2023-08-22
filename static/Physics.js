@@ -1,8 +1,8 @@
 import { Collision } from '/static/Collision.js';
 
 export class Physics {
-	constructor(objects) {
-		this.objects = objects
+	constructor() {
+		this.objects = []
 	}
 
 	applyTo(o) {
