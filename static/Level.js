@@ -3,7 +3,7 @@ import { Player } from '/static/Player.js';
 import { Projectile } from '/static/Projectile.js';
 import { Spaceship } from '/static/Spaceship.js';
 
-export class LevelOne {
+export class Level {
 	constructor(camera) {
 		this.camera = camera
 
