@@ -1,7 +1,7 @@
-import { Physics } from '/static/Physics.js';
-import { Player } from '/static/Player.js';
-import { Projectile } from '/static/Projectile.js';
-import { Spaceship } from '/static/Spaceship.js';
+import { Physics } from '/static/Physics.js'
+import { Player } from '/static/Player.js'
+import { Projectile } from '/static/Projectile.js'
+import { Spaceship } from '/static/Spaceship.js'
 
 export class Level {
 	constructor(camera) {
