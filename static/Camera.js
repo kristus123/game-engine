@@ -2,11 +2,12 @@ import { Palette } from '/static/Palette.js';
 
 
 export class Camera {
-	constructor(contextsLinkedToCamera) {
-		this.contextsLinkedToCamera = contextsLinkedToCamera
+	constructor() {
+		this.palette = Palette.offscreen()
 
 		this.objectToFollow = {
-			x:0,y:0
+			x:0,
+			y:0,
 		}
 
 		this.offset = {
@@ -27,38 +28,20 @@ export class Camera {
 	}
 
 	context(run) {
-		this.contextsLinkedToCamera
-			.forEach(c => c.save())
+		this.palette.ctx.save()
 
 		run()
 
-		this.contextsLinkedToCamera
-			.forEach(c => c.restore())
-	}
-
-	positionRelativeToScreen() {
-		return {
-			x: this.objectToFollow.x - this.offset.x,
-			y: this.objectToFollow.y - this.offset.y,
-		}
+		this.palette.ctx.restore()
 	}
 
 	follow(objectToFollow) {
 		this.objectToFollow = objectToFollow
 
-		for (const c of this.contextsLinkedToCamera) {
-			c.translate(
-				-objectToFollow.x * this.zoom + this.offset.x,
-				-objectToFollow.y * this.zoom + this.offset.y)
-			c.scale(this.zoom, this.zoom)
-		}
-	}
-
-	translate() {
-		return {
-			x: -this.objectToFollow.x * this.zoom + this.offset.x,
-			y: -this.objectToFollow.y * this.zoom + this.offset.y,
-		} 	
+		this.palette.ctx.translate(
+			-objectToFollow.x * this.zoom + this.offset.x,
+			-objectToFollow.y * this.zoom + this.offset.y)
+		this.palette.ctx.scale(this.zoom, this.zoom)
 	}
 
 	mousePosition(e) {

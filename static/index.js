@@ -6,29 +6,26 @@ import { Level } from '/static/Level.js';
 
 const main = Palette.main()
 const gui = Palette.offscreen()
-const world = Palette.offscreen()
 
-const camera = new Camera([world.ctx])
+const camera = new Camera()
 
 const level = new Level(camera)
 
 Loop.everyFrame(deltaTime => {
-	Palette.clear([world, gui])
-	Palette.fill(world, 'black')
+	Palette.clear([camera.palette, gui])
+	Palette.fill(camera.palette, 'black')
 
 	level.physics.update(deltaTime)
 
 	camera.context(() => {
 		camera.follow(level.player) // Keep this after physics.update and within camera.context
 
-		level.objects.forEach(
-			o => o.update())
+		level.objects.forEach(o => o.update())
 
-		level.objects.forEach(
-			o => o.draw(world.ctx)) // needs to be inside camera.context
+		level.objects.forEach(o => o.draw(camera.palette.ctx)) // needs to be inside camera.context
+
+		Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
+
+		Palette.apply(main, [camera.palette, gui])
 	})
-
-	Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
-
-	Palette.apply(main, [world, gui])
 })

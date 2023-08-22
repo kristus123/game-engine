@@ -1,19 +1,18 @@
 import { Physics } from '/static/Physics.js'
 import { Player } from '/static/Player.js'
 import { Projectile } from '/static/Projectile.js'
-import { Spaceship } from '/static/Spaceship.js'
 
 export class Level {
 	constructor(camera) {
 		this.camera = camera
 		this.physics = new Physics()
 
-		// TODO apply physics
 		this.player = new Player()
-		this.spaceship = new Spaceship()
+		this.physics.applyPhysics(this.player)
 		this.projectile = new Projectile(750, 360, 10, "red")
+		this.physics.applyPhysics(this.projectile)
 
-		this.objects = [this.player, this.projectile, this.spaceship]
+		this.objects = [this.player, this.projectile]
 
 		document.addEventListener('click', (e) => {
 			this.projectile.shoot(this.camera.mousePosition(e))
