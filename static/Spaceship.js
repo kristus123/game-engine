@@ -10,18 +10,9 @@ export class Spaceship extends GameObject {
 	}
 
 	update() {
-		if (this.owner.keyboard.e && !this.entered && Distance.withinRadius(this, this.owner, 100)) {
-			console.log("entered spaceship")
-			this.entered = true
-		}
 	}
 
 	draw(ctx) {
-		Draw.spaceship(ctx, this)
-
-		if (!this.entered && Distance.withinRadius(this, this.owner, 100)) {
-			Draw.text(ctx, this.x, this.y, 100, 100, 'press E to enter')
-		}
 	}
 
 }
