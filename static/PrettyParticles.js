@@ -1,12 +1,9 @@
 import { Random } from '/static/Random.js';
 
-
 export class PrettyParticles {
 	constructor() {
 		 this.particles = [];
-
 	}
-
 
 	create(x, y) {
 		this.particles.push({
@@ -27,10 +24,11 @@ export class PrettyParticles {
 			p.life--;
 
 			if (p.life <= 0) {
-			this.particles.splice(index, 1);
-			} else {
-			ctx.fillStyle = p.color;
-			ctx.fillRect(p.x, p.y, p.size, p.size);
+				this.particles.splice(index, 1);
+			}
+			else {
+				ctx.fillStyle = p.color;
+				ctx.fillRect(p.x, p.y, p.size, p.size);
 			}
 		})
 	}
