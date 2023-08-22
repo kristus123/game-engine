@@ -20,18 +20,4 @@ export class Level {
 			this.projectile.shoot(this.camera.mousePosition(e))
 		})
 	}
-
-	everyFrame(deltaTime, world) {
-		this.physics.update(deltaTime)
-
-		this.camera.context(() => {
-			this.camera.follow(this.player) // Keep this after physics.update and within camera.context
-
-			this.objects.forEach(
-				o => o.update())
-
-			this.objects.forEach(
-				o => o.draw(world.ctx)) // needs to be inside camera.context
-		})
-	}
 }

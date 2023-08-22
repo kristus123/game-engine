@@ -14,11 +14,19 @@ const level = new Level(camera)
 
 Loop.everyFrame(deltaTime => {
 	Palette.clear([world, gui])
+	Palette.fill(world, 'black')
 
-	world.ctx.fillStyle = "black"
-	world.ctx.fillRect(0, 0, Palette.width, Palette.height)
+	level.physics.update(deltaTime)
 
-	level.everyFrame(deltaTime, world)
+	camera.context(() => {
+		camera.follow(level.player) // Keep this after physics.update and within camera.context
+
+		level.objects.forEach(
+			o => o.update())
+
+		level.objects.forEach(
+			o => o.draw(world.ctx)) // needs to be inside camera.context
+	})
 
 	Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
 
