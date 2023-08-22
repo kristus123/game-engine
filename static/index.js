@@ -4,7 +4,6 @@ import { Camera } from '/static/Camera.js';
 import { Canvas } from '/static/Canvas.js';
 import { Level } from '/static/Level.js';
 
-
 const main = Canvas.main()
 const gui = Canvas.offscreen()
 const world = Canvas.offscreen()

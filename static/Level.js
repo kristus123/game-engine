@@ -9,13 +9,12 @@ export class Level {
 
 		this.player = new Player()
 		this.spaceship = new Spaceship(this.player)
-
 		this.projectile = new Projectile(750, 360, 10, "red")
 
-		this.physics = new Physics()
-		this.physics.applyTo(this.player)
-		this.physics.applyTo(this.projectile)
-		this.physics.applyTo(this.spaceship)
+		this.objects = [this.player, this.projectile, this.spaceship]
+
+		this.physics = new Physics(
+			[this.player, this.projectile, this.spaceship])
 
 		document.addEventListener('click', (e) => {
 			this.projectile.shoot(this.camera.mousePosition(e))
@@ -23,13 +22,16 @@ export class Level {
 	}
 
 	runFrame(deltaTime, world) {
-
 		this.physics.update(deltaTime)
 
 		this.camera.context(() => {
 			this.camera.follow(this.player) // Keep this after physics.update and within camera.context
-			this.physics.objects.forEach(o => o.update())
-			this.physics.objects.forEach(o => o.draw(world.ctx)) // needs to be inside camera.context as well
+
+			this.objects.forEach(
+				o => o.update())
+
+			this.objects.forEach(
+				o => o.draw(world.ctx)) // needs to be inside camera.context
 		})
 	}
 }
