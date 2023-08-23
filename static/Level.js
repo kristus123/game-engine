@@ -5,14 +5,15 @@ import { Spaceship } from '/static/Spaceship.js'
 import { VehicleModule } from '/static/VehicleModule.js'
 
 export class Level {
-	constructor(mouse) {
-		this.physics = new Physics()
+	constructor(keyboard, mouse) {
+		this.keyboard = keyboard
 
 		this.player = new Player()
 		this.spaceship = new Spaceship()
 
 		this.projectile = new Projectile(750, 360, 10, "red")
 
+		this.physics = new Physics()
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 		this.physics.applyPhysics(this.projectile)
