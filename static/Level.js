@@ -43,7 +43,7 @@ export class Level {
 
 	drawCameraContext(ctx) {
 		this.projectile.draw(ctx)
-		this.vehicleModule.drawCameraContext(ctx)
+		this.vehicleModule.draw(ctx)
 	}
 
 }

@@ -15,7 +15,7 @@ export class VehicleModule {
 		}
 	}
 
-	drawCameraContext(ctx) {
+	draw(ctx) {
 		if (this.entered) {
 			this.vehicle.draw(ctx)
 		}
