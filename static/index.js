@@ -17,14 +17,14 @@ Loop.everyFrame(deltaTime => {
 	Palette.clear([camera.palette, guiPalette])
 	Palette.fill(camera.palette, 'black')
 
-	level.physics.update(deltaTime)
+	level.updatePhysics(deltaTime)
 
 	camera.context(() => {
-		camera.follow(level.objectToFollow) // Keep this after physics.update and within camera.context
+		camera.follow(level.cameraFollow()) // Keep this after physics.update and within camera.context
 
-		level.objects.forEach(o => o.update())
+		level.update()
 
-		level.objects.forEach(o => o.draw(camera.palette.ctx)) // needs to be inside camera.context
+		level.drawCameraContext(camera.palette.ctx)
 
 		Draw.text(guiPalette.ctx, 100, 100, 100, 100, Loop.fps)
 
