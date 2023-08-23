@@ -1,7 +1,6 @@
 import { GameObject } from '/static/GameObject.js';
 import { Draw } from '/static/Draw.js';
 
-
 export class Projectile extends GameObject {
 	constructor(x, y, radius, color) {
 		super(x, y, 10, 10)
@@ -32,5 +31,4 @@ export class Projectile extends GameObject {
 		Draw.lineBetween(ctx, this, this.to)
 		Draw.circle(ctx, this.x, this.y, this.radius, this.color)
 	}
-
 }

@@ -3,29 +3,31 @@ import { Draw } from '/static/Draw.js';
 import { Camera } from '/static/Camera.js';
 import { Palette } from '/static/Palette.js';
 import { Level } from '/static/Level.js';
+import { Mouse } from '/static/Mouse.js'
 
-const main = Palette.main()
-const gui = Palette.offscreen()
+const mainPalette = Palette.main()
+const guiPalette = Palette.offscreen()
 
 const camera = new Camera()
+const mouse = new Mouse(camera)
 
-const level = new Level(camera)
+const level = new Level(mouse)
 
 Loop.everyFrame(deltaTime => {
-	Palette.clear([camera.palette, gui])
+	Palette.clear([camera.palette, guiPalette])
 	Palette.fill(camera.palette, 'black')
 
 	level.physics.update(deltaTime)
 
 	camera.context(() => {
-		camera.follow(level.player) // Keep this after physics.update and within camera.context
+		camera.follow(level.objectToFollow) // Keep this after physics.update and within camera.context
 
 		level.objects.forEach(o => o.update())
 
 		level.objects.forEach(o => o.draw(camera.palette.ctx)) // needs to be inside camera.context
 
-		Draw.text(gui.ctx, 100, 100, 100, 100, Loop.fps)
+		Draw.text(guiPalette.ctx, 100, 100, 100, 100, Loop.fps)
 
-		Palette.apply(main, [camera.palette, gui])
+		Palette.apply(mainPalette, [camera.palette, guiPalette])
 	})
 })
