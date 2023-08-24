@@ -5,10 +5,11 @@ import { Spaceship } from '/static/Spaceship.js'
 import { VehicleModule } from '/static/VehicleModule.js'
 
 export class Level {
-	constructor(keyboard, mouse) {
-		this.keyboard = keyboard
+	constructor(mouse) {
 
 		this.player = new Player()
+		this.objectToFollow = this.player
+
 		this.spaceship = new Spaceship()
 
 		this.projectile = new Projectile(750, 360, 10, "red")
@@ -22,15 +23,11 @@ export class Level {
 			this.projectile.shoot(mouse.positionRelativeToCamera(e))
 		})
 
-		this.vehicleModule = new VehicleModule(this.player, this.spaceship)
+		this.vehicleModule = new VehicleModule(this.player, this.spaceship, this)
 	}
 
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
-	}
-
-	cameraFollow() {
-		return this.player
 	}
 
 	update() {

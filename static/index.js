@@ -20,7 +20,7 @@ Loop.everyFrame(deltaTime => {
 	level.updatePhysics(deltaTime)
 
 	camera.context(() => {
-		camera.follow(level.cameraFollow()) // Keep this after physics.update and within camera.context
+		camera.follow(level.objectToFollow) // Keep this after physics.update and within camera.context
 
 		level.update()
 
