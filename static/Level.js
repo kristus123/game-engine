@@ -38,7 +38,7 @@ export class Level {
 		this.vehicleModule.update()
 
 		if (this.projectile.connectedTo) {
-			Physics.enforceMaxDistance(this.player, this.spaceship)
+			Physics.enforceMaxDistance(this.spaceship, this.player)
 		}
 	}
 
