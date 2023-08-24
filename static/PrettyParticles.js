@@ -5,7 +5,7 @@ export class PrettyParticles {
 		 this.particles = [];
 	}
 
-	create(x, y) {
+	updateAndDraw(ctx, x, y) {
 		this.particles.push({
 		  x,
 		  y,
@@ -15,9 +15,7 @@ export class PrettyParticles {
 		  speedY: Math.random() * 3 - 1.5,
 		  life: 500
 		})
-	}
 
-	draw(ctx) {
 		this.particles.forEach((p, index) => {
 			p.x += p.speedX;
 			p.y += p.speedY;

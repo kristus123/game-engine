@@ -48,7 +48,7 @@ export class VehicleModule {
 			this.vehicle.draw(ctx)
 
 			if (Distance.withinRadius(this.player, this.vehicle, 100)) {
-				Draw.text(ctx, this.vehicle.x, this.vehicle.y, 100, 100, 'E')
+				Draw.text(ctx, this.vehicle.x, this.vehicle.y, 100, 100, 'E to enter')
 			}
 		}
 

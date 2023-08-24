@@ -9,19 +9,19 @@ export class ControllerModule {
 
 	update() {
 		if (this.keyboard.up) {
-			this.objectToControl.velocity.y -= 20
+			this.objectToControl.velocity.y -= this.objectToControl.velocityFactor
 		}
 
 		if (this.keyboard.down) {
-			this.objectToControl.velocity.y += 20
+			this.objectToControl.velocity.y += this.objectToControl.velocityFactor
 		}
 
 		if (this.keyboard.left) {
-			this.objectToControl.velocity.x -= 20
+			this.objectToControl.velocity.x -= this.objectToControl.velocityFactor
 		}
 
 		if (this.keyboard.right) {
-			this.objectToControl.velocity.x += 20
+			this.objectToControl.velocity.x += this.objectToControl.velocityFactor
 		}
 	}
 

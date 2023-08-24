@@ -12,7 +12,7 @@ export class Level {
 
 		this.spaceship = new Spaceship()
 
-		this.projectile = new Projectile(750, 360, 10, "red")
+		this.projectile = new Projectile(this.player, 10, "red")
 
 		this.physics = new Physics()
 		this.physics.applyPhysics(this.player)
@@ -20,7 +20,7 @@ export class Level {
 		this.physics.applyPhysics(this.projectile)
 
 		document.addEventListener('click', (e) => {
-			this.projectile.shoot(mouse.positionRelativeToCamera(e))
+			this.projectile.shoot(this.player, mouse.positionRelativeToCamera(e))
 		})
 
 		this.vehicleModule = new VehicleModule(this.player, this.spaceship, this)
@@ -31,16 +31,20 @@ export class Level {
 	}
 
 	update() {
+		this.spaceship.update()
 		this.player.update()
 		this.projectile.update()
-		this.spaceship.update()
 
 		this.vehicleModule.update()
+
+		if (this.projectile.connectedTo) {
+			Physics.enforceMaxDistance(this.player, this.spaceship)
+		}
 	}
 
 	drawCameraContext(ctx) {
-		this.projectile.draw(ctx)
 		this.vehicleModule.draw(ctx)
+		this.projectile.draw(ctx)
 	}
 
 }
