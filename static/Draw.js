@@ -39,10 +39,10 @@ export class Draw {
 	static circleSpinning(ctx, objectToFollow, radius) {
 		let angle = 0
 
-		const circleX = objectToFollow.x + objectToFollow.width / 2 + radius * Math.cos(angle);
-		const circleY = objectToFollow.y + objectToFollow.height / 2 + radius * Math.sin(angle);
+		const x = objectToFollow.x + objectToFollow.width / 2 + radius * Math.cos(angle);
+		const y = objectToFollow.y + objectToFollow.height / 2 + radius * Math.sin(angle);
 
-		Draw.circle(ctx, circleX, circleY, 10, "red");
+		Draw.circle(ctx, x, y, 10, "red");
 
 		angle += 0.25
 	}

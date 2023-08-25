@@ -3,7 +3,7 @@ import { Draw } from '/static/Draw.js';
 
 export class Projectile extends GameObject {
 	constructor(from, radius, color) {
-		super(0, 0, 10, 10, 0, 5000)
+		super(0, 0, 10, 10, 0, 4000)
 		this.from = from
 
 		this.radius = radius
@@ -22,18 +22,13 @@ export class Projectile extends GameObject {
 		if (this.shot) {
 			this.connectedTo = o
 		}
-		// this.shot = false
-
-		// this.velocity = {
-		// 	x: 0,
-		// 	y: 0,
-		// }
 	}
 
 	shoot(from, to) {
 		this.connectedTo = false
-		this.x = from.x + 30
-		this.y = from.y + 30
+
+		this.x = from.x
+		this.y = from.y
 
 		this.to = to
 		this.shot = true

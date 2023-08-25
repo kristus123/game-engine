@@ -68,7 +68,7 @@ export class Physics {
 
 
 
-static enforceMaxDistance(spaceship, player) {
+static enforceMaxDistance(player, spaceship) {
     const velocityAdjustment = 1.1;
     const maxDistance = 10;
 
