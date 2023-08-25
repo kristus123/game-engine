@@ -17,10 +17,10 @@ export class Physics {
 				for (let anotherO of this.objects) {
 					if (Collision.between(o, anotherO)) {
 						console.log(o.name)
-						if (o.name === 'pp') {
-							o.velocity.x = Random.numberBetween(-100, 100)
-							o.velocity.y = Random.numberBetween(-100, 100)
-						}
+						// if (o.name === 'pp') {
+						// 	o.velocity.x = Random.numberBetween(-100, 100)
+						// 	o.velocity.y = Random.numberBetween(-100, 100)
+						// }
 
 						if (o.onHit) {
 							o.onHit(anotherO)

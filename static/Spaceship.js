@@ -12,7 +12,7 @@ export class Spaceship extends GameObject {
 	}
 
 	draw(ctx) {
-		// this.prettyParticles.updateAndDraw(ctx, this.x, this.y)
+		this.prettyParticles.updateAndDraw(ctx, this.x, this.y)
 		Draw.spaceship(ctx, this)
 	}
 
