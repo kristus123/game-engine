@@ -1,4 +1,5 @@
 import { Random } from '/static/Random.js';
+import { GameObject } from '/static/GameObject.js'
 
 export class PrettyParticles {
 	constructor(physics) {
@@ -7,19 +8,24 @@ export class PrettyParticles {
 	}
 
 	updateAndDraw(ctx, x, y) {
-		this.particles.push({
-		  x,
-		  y,
-		  size: Random.numberBetween(1, 3),
-		  color: Random.color(),
-		  speedX: Random.numberBetween(-10, 10),
-		  speedY: Random.numberBetween(-10, 10),
-		  life: 5000,
-		})
+		const size = Random.numberBetween(10, 50)
+
+		if (this.particles.length < 40) {
+		const newParticle = new GameObject(x, y, size, size, 10, 200)
+		newParticle.velocity = {
+			x: Random.numberBetween(-1000, 1000),
+			y: Random.numberBetween(-1000, 1000),
+		}
+		newParticle.life = 5000
+		newParticle.color = Random.color()
+		newParticle.name = "pp"
+		this.particles.push(newParticle)
+		this.physics.applyPhysics(newParticle)
+		}
 
 		this.particles.forEach((p, index) => {
-			p.x += p.speedX
-			p.y += p.speedY
+			// p.x += p.velocity.x
+			// p.y += p.velocity.y
 			p.life--
 
 			if (p.life <= 0) {
@@ -27,7 +33,7 @@ export class PrettyParticles {
 			}
 			else {
 				ctx.fillStyle = p.color;
-				ctx.fillRect(p.x, p.y, p.size, p.size);
+				ctx.fillRect(p.x, p.y, p.width, p.height);
 			}
 		})
 	}
