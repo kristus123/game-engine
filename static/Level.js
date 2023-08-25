@@ -10,11 +10,13 @@ export class Level {
 		this.player = new Player()
 		this.objectToFollow = this.player
 
-		this.spaceship = new Spaceship()
 
 		this.projectile = new Projectile(this.player, 10, "red")
 
 		this.physics = new Physics()
+
+		this.spaceship = new Spaceship(this.physics)
+
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 		this.physics.applyPhysics(this.projectile)

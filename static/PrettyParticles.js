@@ -1,8 +1,9 @@
 import { Random } from '/static/Random.js';
 
 export class PrettyParticles {
-	constructor() {
-		 this.particles = [];
+	constructor(physics) {
+		this.physics = physics
+		this.particles = [];
 	}
 
 	updateAndDraw(ctx, x, y) {
@@ -17,9 +18,9 @@ export class PrettyParticles {
 		})
 
 		this.particles.forEach((p, index) => {
-			p.x += p.speedX;
-			p.y += p.speedY;
-			p.life--;
+			p.x += p.speedX
+			p.y += p.speedY
+			p.life--
 
 			if (p.life <= 0) {
 				this.particles.splice(index, 1);
