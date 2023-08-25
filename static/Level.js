@@ -3,6 +3,7 @@ import { Player } from '/static/Player.js'
 import { Spaceship } from '/static/Spaceship.js'
 import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
 import { SlingshotExtension } from '/static/SlingshotExtension.js'
+import { EnterHouseExtension } from '/static/EnterHouseExtension.js'
 
 export class Level {
 	constructor(mouse) {
@@ -18,8 +19,8 @@ export class Level {
 		this.physics.applyPhysics(this.spaceship)
 
 		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, this)
-		
 		this.slingshotExtension = new SlingshotExtension(mouse, this.physics, this.player)
+		this.enterHouseExtension = new EnterHouseExtension(this.player)
 	}
 
 	updatePhysics(deltaTime) {
@@ -32,11 +33,17 @@ export class Level {
 		this.slingshotExtension.update()
 
 		this.enterVehicleExtension.update()
+		this.enterHouseExtension.update()
 	}
 
 	drawCameraContext(ctx) {
-		this.enterVehicleExtension.draw(ctx)
-		this.slingshotExtension.draw(ctx)
+		if (this.enterHouseExtension.inside) {
+			this.enterHouseExtension.draw(ctx)
+			this.player.draw(ctx)
+		} else {
+			this.enterVehicleExtension.draw(ctx)
+			this.slingshotExtension.draw(ctx)
+			this.enterHouseExtension.draw(ctx)
+		}
 	}
-
 }
