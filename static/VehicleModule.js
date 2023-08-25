@@ -1,22 +1,22 @@
 import { Distance } from '/static/Distance.js'
 import { Draw } from '/static/Draw.js'
-import { ControllerModule } from '/static/ControllerModule.js'
+import { Controller } from '/static/Controller.js'
 
 export class VehicleModule {
 	constructor(player, vehicle, level) {
 		this.player = player
 		this.vehicle = vehicle
 		this.level = level
-		this.controllerModule = new ControllerModule(player)
+		this.controller = new Controller(player)
 
 		this.entered = false
 	}
 
 	update() {
-		if (Distance.withinRadius(this.player, this.vehicle, 100) && this.controllerModule.keyboard.e) {
+		if (Distance.withinRadius(this.player, this.vehicle, 100) && this.controller.keyboard.e) {
 			this.entered = true
 		}
-		else if (this.entered && this.controllerModule.keyboard.f) {
+		else if (this.entered && this.controller.keyboard.f) {
 			this.entered = false
 			this.player.x = this.vehicle.x + 50
 			this.player.velocity.x = 400
@@ -24,18 +24,18 @@ export class VehicleModule {
 		}
 
 		if (this.entered) {
-			this.controllerModule.control(this.vehicle)
+			this.controller.control(this.vehicle)
 			this.level.objectToFollow = this.vehicle
 
 			this.player.x = this.vehicle.x
 			this.player.y = this.vehicle.y
 		}
 		else {
-			this.controllerModule.control(this.player)
+			this.controller.control(this.player)
 			this.level.objectToFollow = this.player
 		}
 
-		this.controllerModule.update()
+		this.controller.update()
 	}
 
 	draw(ctx) {

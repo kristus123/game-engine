@@ -1,6 +1,6 @@
 import { Keyboard } from '/static/Keyboard.js'
 
-export class ControllerModule {
+export class Controller {
 		
 	constructor(objectToControl) {
 		this.objectToControl = objectToControl
