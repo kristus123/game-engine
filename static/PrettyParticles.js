@@ -9,11 +9,11 @@ export class PrettyParticles {
 		this.particles.push({
 		  x,
 		  y,
-		  size: Random.numberBetween(1, 50),
+		  size: Random.numberBetween(1, 3),
 		  color: Random.color(),
 		  speedX: Random.numberBetween(-10, 10),
 		  speedY: Random.numberBetween(-10, 10),
-		  life: 50,
+		  life: 5000,
 		})
 
 		this.particles.forEach((p, index) => {
