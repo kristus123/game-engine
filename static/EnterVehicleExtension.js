@@ -3,10 +3,10 @@ import { Draw } from '/static/Draw.js'
 import { Controller } from '/static/Controller.js'
 
 export class EnterVehicleExtension {
-	constructor(player, vehicle, level) {
+	constructor(player, vehicle, cameraFollow) {
 		this.player = player
 		this.vehicle = vehicle
-		this.level = level
+		this.cameraFollow = cameraFollow
 		this.controller = new Controller(player)
 
 		this.entered = false
@@ -25,14 +25,14 @@ export class EnterVehicleExtension {
 
 		if (this.entered) {
 			this.controller.control(this.vehicle)
-			this.level.objectToFollow = this.vehicle
+			this.cameraFollow(this.vehicle)
 
 			this.player.x = this.vehicle.x
 			this.player.y = this.vehicle.y
 		}
 		else {
 			this.controller.control(this.player)
-			this.level.objectToFollow = this.player
+			this.cameraFollow(this.player)
 		}
 
 		this.controller.update()

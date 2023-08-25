@@ -18,7 +18,9 @@ export class Level {
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
-		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, this)
+		this.enterVehicleExtension = new EnterVehicleExtension(
+			this.player, this.spaceship, o => this.objectToFollow = o)
+
 		this.slingshotExtension = new SlingshotExtension(mouse, this.physics, this.player)
 		this.enterHouseExtension = new EnterHouseExtension(this.player)
 	}
@@ -33,17 +35,15 @@ export class Level {
 		this.slingshotExtension.update()
 
 		this.enterVehicleExtension.update()
-		this.enterHouseExtension.update()
+
+		if (!this.enterVehicleExtension.entered) {
+			this.enterHouseExtension.update()
+		}
 	}
 
 	drawCameraContext(ctx) {
-		if (this.enterHouseExtension.inside) {
-			this.enterHouseExtension.draw(ctx)
-			this.player.draw(ctx)
-		} else {
-			this.enterVehicleExtension.draw(ctx)
-			this.slingshotExtension.draw(ctx)
-			this.enterHouseExtension.draw(ctx)
-		}
+		this.slingshotExtension.draw(ctx)
+		this.enterHouseExtension.draw(ctx)
+		this.enterVehicleExtension.draw(ctx)
 	}
 }
