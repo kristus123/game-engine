@@ -2,14 +2,13 @@ import { Physics } from '/static/Physics.js'
 import { Player } from '/static/Player.js'
 import { Projectile } from '/static/Projectile.js'
 import { Spaceship } from '/static/Spaceship.js'
-import { VehicleModule } from '/static/VehicleModule.js'
+import { EnterVehicleExtension } from '/static/VehicleModule.js'
 
 export class Level {
 	constructor(mouse) {
 
 		this.player = new Player()
 		this.objectToFollow = this.player
-
 
 		this.projectile = new Projectile(this.player, 10, "red")
 
@@ -25,7 +24,7 @@ export class Level {
 			this.projectile.shoot(this.player, mouse.positionRelativeToCamera(e))
 		})
 
-		this.vehicleModule = new VehicleModule(this.player, this.spaceship, this)
+		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, this)
 	}
 
 	updatePhysics(deltaTime) {
@@ -37,7 +36,7 @@ export class Level {
 		this.player.update()
 		this.projectile.update()
 
-		this.vehicleModule.update()
+		this.enterVehicleExtension.update()
 
 		if (this.projectile.connectedTo) {
 			Physics.enforceMaxDistance(this.spaceship, this.player)
@@ -45,7 +44,7 @@ export class Level {
 	}
 
 	drawCameraContext(ctx) {
-		this.vehicleModule.draw(ctx)
+		this.enterVehicleExtension.draw(ctx)
 		this.projectile.draw(ctx)
 	}
 

@@ -2,7 +2,7 @@ import { Distance } from '/static/Distance.js'
 import { Draw } from '/static/Draw.js'
 import { Controller } from '/static/Controller.js'
 
-export class VehicleModule {
+export class EnterVehicleExtension {
 	constructor(player, vehicle, level) {
 		this.player = player
 		this.vehicle = vehicle
