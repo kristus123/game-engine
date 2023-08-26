@@ -9,15 +9,12 @@ import { LevelHandler } from '/static/LevelHandler.js'
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
 
-let cameraFollow = {
-	x: 0,
-	y: 0,
-}
+let objectToFollow = { x: 0, y: 0, }
 const camera = new Camera()
+
 const mouse = new Mouse(camera)
 
-// const level = new Level(follow => cameraFollow = follow, mouse)
-const level = new LevelHandler(f => cameraFollow = f)
+const level = new LevelHandler(f => objectToFollow = f)
 
 Loop.everyFrame(deltaTime => {
 	Palette.clear([camera.palette, guiPalette])
@@ -26,7 +23,7 @@ Loop.everyFrame(deltaTime => {
 	level.updatePhysics(deltaTime)
 
 	camera.context(() => {
-		camera.follow(cameraFollow) // Keep this after physics.update and within camera.context
+		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
 
 		level.update()
 
