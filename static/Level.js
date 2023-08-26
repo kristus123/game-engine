@@ -4,6 +4,7 @@ import { Spaceship } from '/static/Spaceship.js'
 import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
 import { SlingshotExtension } from '/static/SlingshotExtension.js'
 import { EnterHouseExtension } from '/static/EnterHouseExtension.js'
+import { InsideLevel } from '/static/InsideLevel.js'
 
 export class Level {
 	constructor(cameraFollow, mouse) {
@@ -22,27 +23,45 @@ export class Level {
 
 		this.slingshotExtension = new SlingshotExtension(mouse, this.physics, this.player)
 		this.enterHouseExtension = new EnterHouseExtension(this.player)
+
+		this.InsideLevel = new InsideLevel(this.player)
 	}
 
 	updatePhysics(deltaTime) {
-		this.physics.update(deltaTime)
+		if (this.enterHouseExtension.inside) {
+			this.InsideLevel.updatePhysics(deltaTime)
+		}
+		else {
+			this.physics.update(deltaTime)
+		}
 	}
 
 	update() {
-		this.spaceship.update()
-		this.player.update()
-		this.slingshotExtension.update()
+		if (this.enterHouseExtension.inside) {
+			this.InsideLevel.update()
+		}
+		else {
+			this.spaceship.update()
+			this.player.update()
+			this.slingshotExtension.update()
 
-		this.enterVehicleExtension.update()
+			this.enterVehicleExtension.update()
 
-		if (!this.enterVehicleExtension.entered) {
-			this.enterHouseExtension.update()
+			if (!this.enterVehicleExtension.entered) {
+				this.enterHouseExtension.update()
+			}
+			
 		}
 	}
 
 	drawCameraContext(ctx) {
-		this.slingshotExtension.draw(ctx)
-		this.enterHouseExtension.draw(ctx)
-		this.enterVehicleExtension.draw(ctx)
+		if (this.enterHouseExtension.inside) {
+			this.InsideLevel.draw(ctx)
+		}
+		else {
+			this.slingshotExtension.draw(ctx)
+			this.enterHouseExtension.draw(ctx)
+			this.enterVehicleExtension.draw(ctx)
+		}
 	}
 }

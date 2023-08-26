@@ -18,7 +18,7 @@ export class Projectile extends GameObject {
 		this.shot = false
 	}
 
-	onHit(o) {
+	onCollision(o) {
 		if (this.shot) {
 			this.connectedTo = o
 		}

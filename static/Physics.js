@@ -1,5 +1,4 @@
 import { Collision } from '/static/Collision.js';
-import { Random } from '/static/Random.js'
 
 export class Physics {
 	constructor() {
@@ -16,14 +15,8 @@ export class Physics {
 			if (typeof deltaTime === 'number') {
 				for (let anotherO of this.objects) {
 					if (Collision.between(o, anotherO)) {
-						console.log(o.name)
-						// if (o.name === 'pp') {
-						// 	o.velocity.x = Random.numberBetween(-100, 100)
-						// 	o.velocity.y = Random.numberBetween(-100, 100)
-						// }
-
-						if (o.onHit) {
-							o.onHit(anotherO)
+						if (o.onCollision) {
+							o.onCollision(anotherO)
 						}
 					}
 				}
