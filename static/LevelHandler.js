@@ -1,11 +1,7 @@
-import { Physics } from '/static/Physics.js'
 import { Player } from '/static/Player.js'
-import { Spaceship } from '/static/Spaceship.js'
-import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
-import { SlingshotExtension } from '/static/SlingshotExtension.js'
-import { EnterHouseExtension } from '/static/EnterHouseExtension.js'
 import { InsideLevel } from '/static/InsideLevel.js'
 import { Controller } from '/static/Controller.js'
+import { OutsideLevel } from '/static/OutsideLevel.js'
 
 export class LevelHandler {
 	constructor(cameraFollow) {
@@ -14,17 +10,23 @@ export class LevelHandler {
 		this.controller = new Controller(this.player)
 
 		this.insideLevel = new InsideLevel(this.player, cameraFollow)
+		this.outsideLevel = new OutsideLevel(this.player, cameraFollow)
+
+		this.levels = [
+			this.insideLevel, 
+			this.outsideLevel,
+		]
 	}
 
 	updatePhysics(deltaTime) {
-		this.insideLevel.updatePhysics(deltaTime)
+		this.levels.find(l => l.active()).updatePhysics(deltaTime)
 	}
 
 	update() {
-		this.insideLevel.update()
+		this.levels.find(l => l.active()).update()
 	}
 
 	drawCameraContext(ctx) {
-		this.insideLevel.draw(ctx)
+		this.levels.find(l => l.active()).draw(ctx)
 	}
 }

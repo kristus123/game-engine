@@ -12,6 +12,10 @@ export class InsideLevel {
 		this.cameraFollow = cameraFollow
 	}
 
+	active() {
+		return this.player.x < 100
+	}
+
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
 	}
@@ -22,7 +26,7 @@ export class InsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.rectangle(ctx, 0, 0, 100, 100)
+		Draw.text(ctx, 0, 0, 100, 100, 'insideLevel')
 		this.player.draw(ctx)
 	}
 	
