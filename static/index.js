@@ -4,6 +4,7 @@ import { Camera } from '/static/Camera.js';
 import { Palette } from '/static/Palette.js';
 import { Level } from '/static/Level.js';
 import { Mouse } from '/static/Mouse.js'
+import { LevelHandler } from '/static/LevelHandler.js'
 
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
@@ -15,7 +16,8 @@ let cameraFollow = {
 const camera = new Camera()
 const mouse = new Mouse(camera)
 
-const level = new Level(follow => cameraFollow = follow, mouse)
+// const level = new Level(follow => cameraFollow = follow, mouse)
+const level = new LevelHandler(f => cameraFollow = f)
 
 Loop.everyFrame(deltaTime => {
 	Palette.clear([camera.palette, guiPalette])

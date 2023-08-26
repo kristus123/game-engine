@@ -24,12 +24,12 @@ export class Level {
 		this.slingshotExtension = new SlingshotExtension(mouse, this.physics, this.player)
 		this.enterHouseExtension = new EnterHouseExtension(this.player)
 
-		this.InsideLevel = new InsideLevel(this.player)
+		this.insideLevel = new InsideLevel(this.player)
 	}
 
 	updatePhysics(deltaTime) {
 		if (this.enterHouseExtension.inside) {
-			this.InsideLevel.updatePhysics(deltaTime)
+			this.insideLevel.updatePhysics(deltaTime)
 		}
 		else {
 			this.physics.update(deltaTime)
@@ -38,7 +38,7 @@ export class Level {
 
 	update() {
 		if (this.enterHouseExtension.inside) {
-			this.InsideLevel.update()
+			this.insideLevel.update()
 		}
 		else {
 			this.spaceship.update()
@@ -56,7 +56,7 @@ export class Level {
 
 	drawCameraContext(ctx) {
 		if (this.enterHouseExtension.inside) {
-			this.InsideLevel.draw(ctx)
+			this.insideLevel.draw(ctx)
 		}
 		else {
 			this.slingshotExtension.draw(ctx)
