@@ -1,11 +1,11 @@
 import { Palette } from '/static/Palette.js'
 
-		const spaceship = new Image();
-		spaceship.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
+const spaceship = new Image();
+spaceship.src = "https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png";
 
 
-		const playerImage = new Image();
-		playerImage.src = "https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png";
+const playerImage = new Image();
+playerImage.src = "https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png";
 
 export class Draw {
 	static rectangle(ctx, x, y, width, height) {
@@ -144,8 +144,6 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	// currently only for player
-	// . this solution flickers because of constntlyu doing new ImagE()
 	static spaceship(ctx, player) {
 
 		const aspectRatio = spaceship.width / spaceship.height;
@@ -178,15 +176,6 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 		ctx.restore();
 	}
 
-
-
-
-
-
-
-
-	// currently only for player
-	// . this solution flickers because of constntlyu doing new ImagE()
 	static player(ctx, player) {
 
 		const aspectRatio = playerImage.width / playerImage.height;
