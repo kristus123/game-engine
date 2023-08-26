@@ -6,7 +6,7 @@ import { SlingshotExtension } from '/static/SlingshotExtension.js'
 import { EnterHouseExtension } from '/static/EnterHouseExtension.js'
 
 export class Level {
-	constructor(mouse) {
+	constructor(cameraFollow, mouse) {
 
 		this.player = new Player()
 		this.objectToFollow = this.player
@@ -18,8 +18,7 @@ export class Level {
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
-		this.enterVehicleExtension = new EnterVehicleExtension(
-			this.player, this.spaceship, o => this.objectToFollow = o)
+		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, cameraFollow)
 
 		this.slingshotExtension = new SlingshotExtension(mouse, this.physics, this.player)
 		this.enterHouseExtension = new EnterHouseExtension(this.player)
