@@ -22,10 +22,7 @@ export class OutsideLevel {
 
 	update() {
 		this.controller.update()
-		this.cameraFollow({
-			x: 100,
-			y: 0,
-		})
+		this.cameraFollow(this.player)
 	}
 
 	draw(ctx) {
