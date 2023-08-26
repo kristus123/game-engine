@@ -26,7 +26,7 @@ export class LevelHandler {
 		this.levels.find(l => l.active()).update()
 	}
 
-	drawCameraContext(ctx) {
+	draw(ctx) {
 		this.levels.find(l => l.active()).draw(ctx)
 	}
 }

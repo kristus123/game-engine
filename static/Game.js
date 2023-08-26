@@ -14,7 +14,6 @@ export class Game {
 		})
 	}
 
-
 	update() {
 		
 	}
