@@ -32,9 +32,9 @@ export class Palette {
 		});
 	}
 
-	static apply(main, canvases) {
-		canvases.forEach(c => {
-			main.ctx.drawImage(c.canvas, 0, 0)
+	static apply(mainPalette, palettes) {
+		palettes.forEach(p => {
+			mainPalette.ctx.drawImage(p.canvas, 0, 0)
 		});
 	}
 

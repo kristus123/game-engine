@@ -10,6 +10,7 @@ export class InsideLevel {
 
 		this.controller = new Controller(player)
 		this.cameraFollow = cameraFollow
+
 	}
 
 	active() {
@@ -28,6 +29,7 @@ export class InsideLevel {
 	draw(ctx) {
 		Draw.text(ctx, 0, 0, 100, 100, 'insideLevel')
 		this.player.draw(ctx)
+
 	}
 	
 }
