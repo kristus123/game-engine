@@ -1,6 +1,9 @@
 import { Draw } from '/static/Draw.js'
-import { Controller } from '/static/Controller.js'
 import { Physics } from '/static/Physics.js'
+import { Spaceship } from '/static/Spaceship.js'
+import { Distance } from '/static/Distance.js'
+import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
+
 
 export class OutsideLevel {
 	constructor(player, cameraFollow) {
@@ -8,8 +11,10 @@ export class OutsideLevel {
 		this.player = player
 		this.physics.applyPhysics(this.player)
 
-		this.controller = new Controller(player)
-		this.cameraFollow = cameraFollow
+		this.spaceship = new Spaceship()
+		this.physics.applyPhysics(this.spaceship)
+
+		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, cameraFollow)
 	}
 
 	active() {
@@ -22,15 +27,13 @@ export class OutsideLevel {
 	}
 
 	update() {
-		this.controller.update()
-		this.cameraFollow(this.player)
+		this.enterVehicleExtension.update()
+		this.spaceship.update()
 	}
 
 	draw(ctx) {
-
-
 		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
 		this.player.draw(ctx)
+		this.enterVehicleExtension.draw(ctx)
 	}
-	
 }

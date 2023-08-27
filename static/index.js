@@ -13,8 +13,8 @@ const stars = []
 for (let i = 0; i < numStars; i++) {
 	const x = Random.numberBetween(-1000, 10000)
 	const y = Random.numberBetween(-1000, 10000)
-	const width = Math.random() * 5 + 1; // Varying star widths
-	const height = Math.random() * 5 + 1; // Varying star heights
+	const width = Math.random() * 1 + 1; // Varying star widths
+	const height = Math.random() * 1 + 1; // Varying star heights
 
 	stars.push({x, y, width, height})
 }
@@ -43,14 +43,14 @@ Loop.everyFrame(deltaTime => {
 		level.draw(camera.palette.ctx)
 	})
 
-	schedule.everyFrame(1, () => {
+	schedule.everyFrame(10, () => {
 		// Palette.clear([backgroundPalette])
 		Palette.fill(backgroundPalette, 'black')
 		const player = level.outsideLevel.player
-		backgroundPalette.ctx.fillStyle = 'white';
+		backgroundPalette.ctx.fillStyle = 'white'
 		stars.forEach(s => {
 			Draw.rectangle(backgroundPalette.ctx, s.x - player.x / 100, s.y - player.y / 100, s.width, s.height)
-		});
+		})
 	}, 60*2)
 
 	Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)

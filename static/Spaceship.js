@@ -3,9 +3,9 @@ import { Draw } from '/static/Draw.js'
 import { PrettyParticles } from '/static/PrettyParticles.js'
 
 export class Spaceship extends GameObject {
-	constructor(physics) {
-		super(0, 0, 100, 100, 150, 100)
-		this.prettyParticles = new PrettyParticles(physics)
+	constructor() {
+		super(-500, 0, 100, 100, 150, 100)
+		this.prettyParticles = new PrettyParticles()
 	}
 
 	update() {

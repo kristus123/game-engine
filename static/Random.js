@@ -1,4 +1,6 @@
 export class Random {
+
+	//  todo rename to 'integerBetween'
 	static numberBetween(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min)
 	}
