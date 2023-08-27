@@ -19,7 +19,6 @@ for (let i = 0; i < numStars; i++) {
 	stars.push({x, y, width, height})
 }
 
-
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
 const backgroundPalette = Palette.offscreen()
@@ -42,7 +41,6 @@ Loop.everyFrame(deltaTime => {
 		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
 		level.update()
 		level.draw(camera.palette.ctx)
-
 	})
 
 	schedule.everyFrame(1, () => {
