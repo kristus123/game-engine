@@ -7,17 +7,17 @@ export class PrettyParticles {
 	}
 
 	updateAndDraw(ctx, x, y) {
-		const size = Random.numberBetween(1, 2)
+		const size = Random.floatBetween(1, 10)
 
-		if (this.particles.length < 2) {
+		if (this.particles.length < 10000) {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
 			newParticle.velocity = {
-				x: Random.numberBetween(-1.0, 1.0),
-				y: Random.numberBetween(-1.0, 1.0),
+				x: Random.floatBetween(-2.0, 2.0),
+				y: Random.floatBetween(-2.0, 2.0),
 			}
 
-			newParticle.life = 2000
-			newParticle.color = 'blue' //Random.color()
+			newParticle.life = 400
+			newParticle.color = Random.color()
 			this.particles.push(newParticle)
 		}
 

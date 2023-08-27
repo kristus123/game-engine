@@ -4,7 +4,7 @@ import { PrettyParticles } from '/static/PrettyParticles.js'
 
 export class Spaceship extends GameObject {
 	constructor() {
-		super(-500, 0, 100, 100, 150, 100)
+		super(-500, 0, 100, 100, 10, 25)
 		this.prettyParticles = new PrettyParticles()
 	}
 
