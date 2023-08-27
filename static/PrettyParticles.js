@@ -9,13 +9,14 @@ export class PrettyParticles {
 	updateAndDraw(ctx, x, y) {
 		const size = Random.numberBetween(1, 2)
 
-		if (this.particles.length < 2000) {
+		if (this.particles.length < 2) {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
 			newParticle.velocity = {
-				x: Random.numberBetween(-1, 1),
-				y: Random.numberBetween(-1, 1),
+				x: Random.numberBetween(-1.0, 1.0),
+				y: Random.numberBetween(-1.0, 1.0),
 			}
-			newParticle.life = 200
+
+			newParticle.life = 2000
 			newParticle.color = 'blue' //Random.color()
 			this.particles.push(newParticle)
 		}

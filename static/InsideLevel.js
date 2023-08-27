@@ -13,10 +13,6 @@ export class InsideLevel {
 		this.cameraFollow = cameraFollow
 
 		this.particles = [
-			new Particle(0, 0, 100, 5),
-			new Particle(0, 0, 120, 20),
-			new Particle(0, 0, 50, 10),
-
 			new Particle(0, 0, 250, 5),
 			new Particle(0, 0, 400, 3),
 		]
