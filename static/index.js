@@ -2,7 +2,6 @@ import { Loop } from '/static/Loop.js';
 import { Draw } from '/static/Draw.js';
 import { Camera } from '/static/Camera.js';
 import { Palette } from '/static/Palette.js';
-import { Level } from '/static/Level.js';
 import { Mouse } from '/static/Mouse.js'
 import { LevelHandler } from '/static/LevelHandler.js'
 

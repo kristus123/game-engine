@@ -1,6 +1,5 @@
 import { Draw } from '/static/Draw.js';
 
-
 export class Circle {
 	constructor(x, y, radius, color) {
 		this.x = x
