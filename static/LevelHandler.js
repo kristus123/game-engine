@@ -13,7 +13,7 @@ export class LevelHandler {
 		this.outsideLevel = new OutsideLevel(this.player, cameraFollow)
 
 		this.levels = [
-			this.insideLevel, 
+			// this.insideLevel, 
 			this.outsideLevel,
 		]
 	}

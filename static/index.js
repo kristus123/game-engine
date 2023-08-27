@@ -4,9 +4,27 @@ import { Camera } from '/static/Camera.js';
 import { Palette } from '/static/Palette.js';
 import { Mouse } from '/static/Mouse.js'
 import { LevelHandler } from '/static/LevelHandler.js'
+import { Random } from '/static/Random.js'
+import { Schedule } from '/static/Schedule.js'
+
+
+const numStars = 1000
+const stars = []
+for (let i = 0; i < numStars; i++) {
+	const x = Random.numberBetween(-1000, 10000)
+	const y = Random.numberBetween(-1000, 10000)
+	const width = Math.random() * 5 + 1; // Varying star widths
+	const height = Math.random() * 5 + 1; // Varying star heights
+
+	stars.push({x, y, width, height})
+}
+
 
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
+const backgroundPalette = Palette.offscreen()
+
+const schedule = new Schedule()
 
 let objectToFollow = { x: 0, y: 0, }
 const camera = new Camera()
@@ -17,7 +35,6 @@ const level = new LevelHandler(f => objectToFollow = f)
 
 Loop.everyFrame(deltaTime => {
 	Palette.clear([camera.palette, guiPalette])
-	Palette.fill(camera.palette, 'black')
 
 	level.updatePhysics(deltaTime)
 
@@ -25,8 +42,19 @@ Loop.everyFrame(deltaTime => {
 		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
 		level.update()
 		level.draw(camera.palette.ctx)
+
 	})
 
+	schedule.everyFrame(1, () => {
+		// Palette.clear([backgroundPalette])
+		Palette.fill(backgroundPalette, 'black')
+		const player = level.outsideLevel.player
+		backgroundPalette.ctx.fillStyle = 'white';
+		stars.forEach(s => {
+			Draw.rectangle(backgroundPalette.ctx, s.x - player.x / 100, s.y - player.y / 100, s.width, s.height)
+		});
+	}, 60*2)
+
 	Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-	Palette.apply(mainPalette, [camera.palette, guiPalette])
+	Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 })

@@ -27,7 +27,7 @@ export class Palette {
 
 	static clear(canvases) {
 		canvases.forEach(c => {
-			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
+			c.ctx.clearRect(0, 0, Palette.width, Palette.height) // do not need 2 ? remove
 			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
 		});
 	}

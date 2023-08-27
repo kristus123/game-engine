@@ -13,7 +13,8 @@ export class OutsideLevel {
 	}
 
 	active() {
-		return this.player.x > 100
+		return true
+		// return this.player.x > 100
 	}
 
 	updatePhysics(deltaTime) {
@@ -26,6 +27,8 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
+
+
 		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
 		this.player.draw(ctx)
 	}
