@@ -3,12 +3,14 @@ import { Draw } from '/static/Draw.js';
 
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
+		// todo : instead of x,y use position{x,y}
 		this.x = x
 		this.y = y
 		this.width = width
 		this.height = height
 		this.weight = weight
 		this.velocityFactor = velocityFactor
+		// todo : create a center field which returns position
 
 		this.velocity = {
 			x: 0,
