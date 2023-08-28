@@ -36,6 +36,7 @@ export class EnterVehicleExtension {
 		}
 
 		this.controller.update()
+		this.vehicle.update()
 	}
 
 	draw(ctx) {

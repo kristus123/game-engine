@@ -1,7 +1,6 @@
 import { Draw } from '/static/Draw.js'
 import { Physics } from '/static/Physics.js'
 import { Spaceship } from '/static/Spaceship.js'
-import { Distance } from '/static/Distance.js'
 import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
 
 
@@ -28,12 +27,10 @@ export class OutsideLevel {
 
 	update() {
 		this.enterVehicleExtension.update()
-		this.spaceship.update()
 	}
 
 	draw(ctx) {
 		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
-		this.player.draw(ctx)
 		this.enterVehicleExtension.draw(ctx)
 	}
 }
