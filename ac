@@ -1,0 +1,24 @@
+[1mdiff --git a/static/OutsideLevel.js b/static/OutsideLevel.js[m
+[1mindex dacd9d3..96e2352 100644[m
+[1m--- a/static/OutsideLevel.js[m
+[1m+++ b/static/OutsideLevel.js[m
+[36m@@ -4,7 +4,6 @@[m [mimport { Spaceship } from '/static/Spaceship.js'[m
+ import { FetchContainerExtension } from '/static/FetchContainerExtension.js'[m
+ import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'[m
+ [m
+[31m-[m
+ export class OutsideLevel {[m
+ 	constructor(player, cameraFollow) {[m
+ 		this.physics = new Physics()[m
+[1mdiff --git a/static/index.js b/static/index.js[m
+[1mindex a45e7c8..7f791d5 100644[m
+[1m--- a/static/index.js[m
+[1m+++ b/static/index.js[m
+[36m@@ -7,7 +7,6 @@[m [mimport { LevelHandler } from '/static/LevelHandler.js'[m
+ import { Random } from '/static/Random.js'[m
+ import { Schedule } from '/static/Schedule.js'[m
+ [m
+[31m-[m
+ const numStars = 1000[m
+ const stars = [][m
+ for (let i = 0; i < numStars; i++) {[m

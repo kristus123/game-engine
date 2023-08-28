@@ -4,13 +4,13 @@ import { Controller } from '/static/Controller.js'
 import { OutsideLevel } from '/static/OutsideLevel.js'
 
 export class LevelHandler {
-	constructor(cameraFollow) {
+	constructor(cameraFollow, mouse) {
 
 		this.player = new Player()
 		this.controller = new Controller(this.player)
 
 		this.insideLevel = new InsideLevel(this.player, cameraFollow)
-		this.outsideLevel = new OutsideLevel(this.player, cameraFollow)
+		this.outsideLevel = new OutsideLevel(this.player, cameraFollow, mouse)
 
 		this.levels = [
 			// this.insideLevel, 

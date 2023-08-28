@@ -7,7 +7,6 @@ import { LevelHandler } from '/static/LevelHandler.js'
 import { Random } from '/static/Random.js'
 import { Schedule } from '/static/Schedule.js'
 
-
 const numStars = 1000
 const stars = []
 for (let i = 0; i < numStars; i++) {
@@ -30,7 +29,7 @@ const camera = new Camera()
 
 const mouse = new Mouse(camera)
 
-const level = new LevelHandler(f => objectToFollow = f)
+const level = new LevelHandler(f => objectToFollow = f, mouse)
 
 Loop.everyFrame(deltaTime => {
 	Palette.clear([camera.palette, guiPalette])

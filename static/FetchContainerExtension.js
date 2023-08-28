@@ -9,7 +9,6 @@ export class FetchContainerExtension {
         this.container = new GameObject(100, 100, 100, 100, 10, 10);
         this.connectedToSpaceship = false;
         this.ropeLength = 200; // Set your desired rope length here
-        this.minDistanceForDangle = 200; // Set the minimum distance for dangle
     }
 
     update() {
@@ -17,7 +16,7 @@ export class FetchContainerExtension {
             // Container follows the spaceship only if it's far enough
             const distanceToSpaceship = Distance.calculateDistance(this.container, this.spaceship);
 
-            if (distanceToSpaceship > this.minDistanceForDangle) {
+            if (distanceToSpaceship > this.ropeLength) {
                 const angle = Math.atan2(this.spaceship.y - this.container.y, this.spaceship.x - this.container.x);
                 this.container.x = this.spaceship.x - this.ropeLength * Math.cos(angle);
                 this.container.y = this.spaceship.y - this.ropeLength * Math.sin(angle);

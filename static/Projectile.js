@@ -2,12 +2,12 @@ import { GameObject } from '/static/GameObject.js';
 import { Draw } from '/static/Draw.js';
 
 export class Projectile extends GameObject {
-	constructor(from, radius, color) {
+	constructor() {
 		super(0, 0, 10, 10, 0, 4000)
-		this.from = from
+		this.from = null
 
-		this.radius = radius
-		this.color = color
+		this.radius = 10
+		this.color = 'red'
 
 		this.to = {
 			x: 0,
@@ -25,10 +25,11 @@ export class Projectile extends GameObject {
 	}
 
 	shoot(from, to) {
+		this.from = from
 		this.connectedTo = false
 
-		this.x = from.x
-		this.y = from.y
+		this.x = from.x + 200
+		this.y = from.y + 200
 
 		this.to = to
 		this.shot = true
