@@ -21,6 +21,14 @@ export class GameObject {
 		}
 	}
 
+	middle() {
+		return {
+			x: this.x / this.width,
+			y: this.y / this.height,
+		}
+		
+	}
+
 	update() {
 	}
 
