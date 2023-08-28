@@ -122,8 +122,6 @@ static objectThatIsMovingInRectangularPathAroundObject(ctx, player, currentMouse
 		const circleY = player.y + player.height /2 + circleRadius * Math.sin(angle);
 
 		Draw.circle(ctx, circleX, circleY, playerRadius, "red");
-
-
 	}
 
 	static lineBetween(ctx, start, end) {
