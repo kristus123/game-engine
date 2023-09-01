@@ -35,10 +35,9 @@ export class Projectile extends GameObject {
 		this.shot = true
 
 		const dir = Math.atan2(to.y - this.y, to.x - this.x);
-		const speed = this.velocityFactor
 		this.velocity = {
-			x: Math.cos(dir) * speed,
-			y: Math.sin(dir) * speed,
+			x: Math.cos(dir) * this.velocityFactor,
+			y: Math.sin(dir) * this.velocityFactor,
 		}
 	}
 
