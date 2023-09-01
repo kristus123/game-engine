@@ -296,14 +296,9 @@ static sprite() {
 
 
 
+	// this is not in use
 	static fill(ctx, color) {
 		ctx.fillStyle = color
 		ctx.fillRect(0, 0, Palette.width, Palette.height)
 	}
-
-
-
-
-
-
 }
