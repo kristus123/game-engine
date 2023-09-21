@@ -120,15 +120,15 @@ export class Draw {
 		ctx.moveTo(start.x, start.y);
 		ctx.lineTo(end.x, end.y);
 		ctx.strokeStyle = "white"
-		ctx.lineWidth = 5
+		ctx.lineWidth = 2
 		ctx.stroke();
 	}
 
-	static text(ctx, x, y, width, height, text) {
-		Draw.rectangle(ctx, x, y, width, height)
-		ctx.fillStyle = "white"
-		ctx.font = "25px Arial"
-		ctx.fillText(text, x + 20, y + height / 1.75)
+	static text(ctx, x, y, width, height, text, font, fontColor) {
+		Draw.rectangle(ctx, x, y, width, height);
+		ctx.fillStyle = fontColor;
+		ctx.font = font;
+		ctx.fillText(text, x + width / 4, y + height / 1.5);
 	};
 
 	static sprite() {

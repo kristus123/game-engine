@@ -39,7 +39,7 @@ export class InsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.text(ctx, 0, 0, 100, 100, 'insideLevel')
+		Draw.text(ctx, 0, 0, 100, 100, 'insideLevel', "25px Arial", "white")
 		this.player.draw(ctx)
 		this.particles.forEach(p => p.draw(ctx))
 

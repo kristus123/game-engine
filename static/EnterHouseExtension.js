@@ -29,7 +29,7 @@ export class EnterHouseExtension {
 
 		if (this.inside) {
 			Draw.rectangle(ctx, this.door.x-500, this.door.y-500, 1000, 1000)
-			Draw.text(ctx, this.door.x-100, this.door.y-100, 100, 100, 'bed')
+			Draw.text(ctx, this.door.x-100, this.door.y-100, 100, 100, 'bed', "25px Arial", "white")
 		}
 	}
 	

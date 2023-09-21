@@ -44,7 +44,7 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
+		Draw.text(ctx, 120, 0, 150, 100, 'outside level', "15px Arial", "white")
 		this.enterVehicleExtension.draw(ctx)
 		this.fetchContainerExtension.draw(ctx)
 		this.projectile.draw(ctx)

@@ -25,20 +25,20 @@ const level = new LevelHandler(f => objectToFollow = f, mouse)
 loop.everyFrame(deltaTime => {
 	level.outsideLevel.player;
 	level.updatePhysics(deltaTime);
-	
+
 	Palette.clear([camera.palette, guiPalette]);
 	camera.context(() => {
 		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
 		level.update()
 		level.draw(camera.palette.ctx)
 	});
-	
+
 	schedule.everyFrame(loop.frameInterval, () => {
 		Palette.fill(backgroundPalette, 'black');
 		backgroundPalette.ctx.fillStyle = 'white';
 		stars.draw(backgroundPalette);
 	}, loop.fps)
-	
-	Draw.text(guiPalette.ctx, 20, 20, 80, 80, loop.fps)
+
+	Draw.text(guiPalette.ctx, 150, 100, 80, 40, loop.fps, "25px Arial", "white")
 	Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 });
