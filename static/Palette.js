@@ -1,3 +1,4 @@
+import { Draw } from '/static/Draw.js'
 export class Palette {
 
 	static width = window.innerWidth;
@@ -5,30 +6,30 @@ export class Palette {
 
 	static main() {
 		const canvas = document.getElementById("game")
-		canvas.width = Palette.width
-		canvas.height = Palette.height
+		canvas.width = this.width
+		canvas.height = this.height
 		const ctx = canvas.getContext("2d")
 
-		return { 
+		return {
 			canvas,
 			ctx,
 		}
 	}
 
 	static offscreen() {
-		const canvas = new OffscreenCanvas(Palette.width, Palette.height);
+		const canvas = new OffscreenCanvas(this.width, this.height);
 		const ctx = canvas.getContext('2d');
-		
-		return { 
-			canvas, 
+
+		return {
+			canvas,
 			ctx,
 		}
 	}
 
 	static clear(canvases) {
 		canvases.forEach(c => {
-			c.ctx.clearRect(0, 0, Palette.width, Palette.height) // do not need 2 ? remove
-			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
+			c.ctx.clearRect(0, 0, this.width, this.height) // do not need 2 ? remove
+			c.ctx.clearRect(0, 0, this.width, this.height)
 		});
 	}
 
@@ -40,8 +41,8 @@ export class Palette {
 
 	// use Draw.js method instead
 	static fill(palette, color) {
-		palette.ctx.fillStyle = color
-		palette.ctx.fillRect(0, 0, Palette.width, Palette.height)
+		palette.ctx.fillStyle = color;
+		palette.ctx.fillRect(0, 0, this.width, this.height)
 	}
 
 }

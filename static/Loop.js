@@ -1,26 +1,24 @@
 export class Loop {
+	constructor() {
+		this.fps = 120;
+		this.lastUpdated = 0;
+		this.frameInterval = 10;
+	};
 
-	static fps = 0
-	static lastUpdated = 0
-
-	static everyFrame(run) {
+	everyFrame(run) {
 		let lastTimestamp = performance.now();
-
-		function loop(currentTimestamp) {
+		const loop = (currentTimestamp) => {
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp;
-
 			run(deltaTime)
-			if (Loop.lastUpdated > 10) {
-				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
-				Loop.lastUpdated = 0
+			if (this.lastUpdated > 10) {
+				this.lastUpdated = 0
 			} else {
-				Loop.lastUpdated += 1
-			}
+				this.lastUpdated += 1
+			};
+			requestAnimationFrame(loop);
+		};
+		requestAnimationFrame(loop);
+	};
 
-			requestAnimationFrame(loop)
-		}
-
-		requestAnimationFrame(loop)
-	}
-}
+};

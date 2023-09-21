@@ -1,23 +1,21 @@
 import { GameObject } from "/static/GameObject.js"
-export class Player extends GameObject {
+export class Map extends GameObject {
 
 	constructor() {
-		super(0, 0, 25, 100, 100, 10)
-		this.maxHeight = 100;
-		this.maxWidth = 25;
-		this.activeRadius = 40;
+		super(-500, 0, 1920, 1080, 0, 0)
+		this.cellSize = 100;
 		this.image = new Image();
-		this.image.src = "https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png";
 	};
 
 	update() {
 	};
 
 	draw(ctx) {
+		this.image.src = "/static/1920x1080.jpg";
 		const aspectRatio = this.image.width / this.image.height;
-		const maxWidth = this.maxWidth;
-		const maxHeight = this.maxHeight;
-		
+		const maxWidth = this.width;
+		const maxHeight = this.height;
+
 		let newWidth = maxWidth;
 		let newHeight = maxHeight;
 		if (this.image.width > maxWidth) {
