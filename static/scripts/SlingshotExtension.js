@@ -1,5 +1,5 @@
-import { Projectile } from '/static/Projectile.js'
-import { Physics } from '/static/Physics.js'
+import { Projectile } from '/static/scripts/Projectile.js'
+import { Physics } from '/static/scripts/Physics.js'
 
 export class SlingshotExtension {
 	constructor(mouse, physics, player) {

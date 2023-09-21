@@ -1,5 +1,5 @@
-import { Draw } from '/static/Draw.js'
-import { Distance } from '/static/Distance.js'
+import { Draw } from '/static/scripts/Draw.js'
+import { Distance } from '/static/scripts/Distance.js'
 
 export class EnterHouseExtension {
 	constructor(player) {

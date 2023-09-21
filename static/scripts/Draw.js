@@ -1,5 +1,3 @@
-import { Palette } from '/static/Palette.js'
-
 export class Draw {
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = "orange"

@@ -1,4 +1,4 @@
-import { Collision } from '/static/Collision.js';
+import { Collision } from '/static/scripts/Collision.js';
 
 export class Physics {
 	constructor() {

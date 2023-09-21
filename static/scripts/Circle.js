@@ -1,4 +1,4 @@
-import { Draw } from '/static/Draw.js';
+import { Draw } from '/static/scripts/Draw.js';
 
 export class Circle {
 	constructor(x, y, radius, color) {

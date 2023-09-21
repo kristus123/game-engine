@@ -1,4 +1,3 @@
-import { Draw } from '/static/Draw.js'
 export class Palette {
 
 	static width = window.innerWidth;

@@ -1,14 +1,14 @@
-import { Loop } from '/static/Loop.js';
-import { Draw } from '/static/Draw.js';
-import { Camera } from '/static/Camera.js';
-import { Palette } from '/static/Palette.js';
-import { Mouse } from '/static/Mouse.js'
-import { LevelHandler } from '/static/LevelHandler.js'
-import { Schedule } from '/static/Schedule.js'
-import { Stars } from '/static/Stars.js'
-import { Map } from '/static/Map.js'
+import { Loop } from '/static/scripts/Loop.js';
+import { Draw } from '/static/scripts/Draw.js';
+import { Camera } from '/static/scripts/Camera.js';
+import { Palette } from '/static/scripts/Palette.js';
+import { Mouse } from '/static/scripts/Mouse.js'
+import { LevelHandler } from '/static/scripts/LevelHandler.js'
+import { Schedule } from '/static/scripts/Schedule.js'
+import { Stars } from '/static/scripts/Stars.js'
+import { Map } from '/static/scripts/Map.js'
 
-const loop = new Loop();
+const loop = new Loop(120, 5);
 const schedule = new Schedule();
 const camera = new Camera();
 const mouse = new Mouse(camera);
@@ -39,6 +39,6 @@ loop.everyFrame(deltaTime => {
 		stars.draw(backgroundPalette);
 	}, loop.fps)
 
-	Draw.text(guiPalette.ctx, 150, 100, 80, 40, loop.fps, "25px Arial", "white")
+	Draw.text(guiPalette.ctx, 20, 20, 80, 40, loop.fps, "25px Arial", "white")
 	Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 });

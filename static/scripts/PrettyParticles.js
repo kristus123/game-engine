@@ -1,5 +1,5 @@
-import { Random } from '/static/Random.js';
-import { GameObject } from '/static/GameObject.js'
+import { Random } from '/static/scripts/Random.js';
+import { GameObject } from '/static/scripts/GameObject.js'
 
 export class PrettyParticles {
 	constructor() {

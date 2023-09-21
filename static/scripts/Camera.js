@@ -1,4 +1,4 @@
-import { Palette } from '/static/Palette.js';
+import { Palette } from '/static/scripts/Palette.js';
 
 export class Camera {
 	constructor() {

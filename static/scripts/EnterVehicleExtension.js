@@ -1,6 +1,6 @@
-import { Distance } from '/static/Distance.js'
-import { Draw } from '/static/Draw.js'
-import { Controller } from '/static/Controller.js'
+import { Distance } from '/static/scripts/Distance.js'
+import { Draw } from '/static/scripts/Draw.js'
+import { Controller } from '/static/scripts/Controller.js'
 
 export class EnterVehicleExtension {
 	constructor(player, vehicle, cameraFollow) {

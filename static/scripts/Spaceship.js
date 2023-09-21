@@ -1,5 +1,5 @@
-import { GameObject } from '/static/GameObject.js';
-import { PrettyParticles } from '/static/PrettyParticles.js'
+import { GameObject } from '/static/scripts/GameObject.js';
+import { PrettyParticles } from '/static/scripts/PrettyParticles.js'
 export class Spaceship extends GameObject {
 
 	constructor() {

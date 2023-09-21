@@ -1,4 +1,4 @@
-import { Keyboard } from '/static/Keyboard.js'
+import { Keyboard } from '/static/scripts/Keyboard.js'
 
 export class Controller {
 		

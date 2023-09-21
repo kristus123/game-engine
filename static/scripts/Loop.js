@@ -1,8 +1,8 @@
 export class Loop {
-	constructor() {
-		this.fps = 120;
+	constructor(fps, frameInterval) {
+		this.fps = fps;
 		this.lastUpdated = 0;
-		this.frameInterval = 10;
+		this.frameInterval = frameInterval;
 	};
 
 	everyFrame(run) {

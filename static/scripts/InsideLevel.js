@@ -1,7 +1,7 @@
-import { Draw } from '/static/Draw.js'
-import { Controller } from '/static/Controller.js'
-import { Physics } from '/static/Physics.js'
-import { Particle } from '/static/Particle.js'
+import { Draw } from '/static/scripts/Draw.js'
+import { Controller } from '/static/scripts/Controller.js'
+import { Physics } from '/static/scripts/Physics.js'
+import { Particle } from '/static/scripts/Particle.js'
 
 export class InsideLevel {
 	constructor(player, cameraFollow) {

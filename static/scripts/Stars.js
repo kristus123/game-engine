@@ -1,5 +1,5 @@
-import { Draw } from '/static/Draw.js'
-import { Random } from '/static/Random.js'
+import { Draw } from '/static/scripts/Draw.js'
+import { Random } from '/static/scripts/Random.js'
 
 
 const MIN_STAR_SIZE = 0.1;

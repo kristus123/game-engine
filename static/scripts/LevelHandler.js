@@ -1,7 +1,7 @@
-import { Player } from '/static/Player.js'
-import { InsideLevel } from '/static/InsideLevel.js'
-import { Controller } from '/static/Controller.js'
-import { OutsideLevel } from '/static/OutsideLevel.js'
+import { Player } from '/static/scripts/Player.js'
+import { InsideLevel } from '/static/scripts/InsideLevel.js'
+import { Controller } from '/static/scripts/Controller.js'
+import { OutsideLevel } from '/static/scripts/OutsideLevel.js'
 
 export class LevelHandler {
 	constructor(cameraFollow, mouse) {
