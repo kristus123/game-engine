@@ -8,7 +8,8 @@ export class Schedule {
 			run()
 			console.log('running')
 			this.counter = 0
-		} else {
+		}
+		else {
 			this.counter += 1
 		}
 	}

@@ -29,7 +29,8 @@ export class PrettyParticles {
 
 			if (p.life <= 0) {
 				this.particles.splice(index, 1)
-			} else {
+			}
+			else {
 				ctx.fillStyle = p.color
 				ctx.fillRect(p.x, p.y, p.width, p.height)
 			}

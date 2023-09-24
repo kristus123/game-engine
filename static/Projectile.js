@@ -51,7 +51,8 @@ export class Projectile extends GameObject {
 				this.radius,
 				this.color,
 			)
-		} else if (this.shot) {
+		}
+		else if (this.shot) {
 			Draw.circle(ctx, this.x, this.y, this.radius, this.color)
 			Draw.lineBetween(ctx, this.from, this)
 		}

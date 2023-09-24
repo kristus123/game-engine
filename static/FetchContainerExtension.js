@@ -29,7 +29,8 @@ export class FetchContainerExtension {
 				this.container.y =
 					this.spaceship.y - this.ropeLength * Math.sin(angle)
 			}
-		} else if (
+		}
+		else if (
 			Distance.withinRadius(
 				this.container,
 				this.spaceship,

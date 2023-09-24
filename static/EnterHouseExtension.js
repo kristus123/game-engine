@@ -18,7 +18,8 @@ export class EnterHouseExtension {
 	update() {
 		if (Distance.withinRadius(this.door, this.player, 200)) {
 			this.inside = true
-		} else if (!Distance.withinRadius(this.door, this.player, 500)) {
+		}
+		else if (!Distance.withinRadius(this.door, this.player, 500)) {
 			this.inside = false
 		}
 	}

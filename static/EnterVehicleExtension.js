@@ -18,7 +18,8 @@ export class EnterVehicleExtension {
 			this.controller.keyboard.e
 		) {
 			this.entered = true
-		} else if (this.entered && this.controller.keyboard.f) {
+		}
+		else if (this.entered && this.controller.keyboard.f) {
 			this.entered = false
 			this.player.x = this.vehicle.x + 50
 			this.player.velocity.x = 400
@@ -31,7 +32,8 @@ export class EnterVehicleExtension {
 
 			this.player.x = this.vehicle.x
 			this.player.y = this.vehicle.y
-		} else {
+		}
+		else {
 			this.controller.control(this.player)
 			this.cameraFollow(this.player)
 		}
@@ -51,7 +53,8 @@ export class EnterVehicleExtension {
 				100,
 				'F to exit',
 			)
-		} else {
+		}
+		else {
 			this.player.draw(ctx)
 			this.vehicle.draw(ctx)
 

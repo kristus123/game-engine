@@ -13,7 +13,8 @@ export class Loop {
 			if (Loop.lastUpdated > 10) {
 				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
 				Loop.lastUpdated = 0
-			} else {
+			}
+			else {
 				Loop.lastUpdated += 1
 			}
 
