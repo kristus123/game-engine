@@ -6,12 +6,11 @@ export class Schedule {
 	everyFrame(frame, run) {
 		if (this.counter >= frame) {
 			run()
-			console.log("running")
+			console.log('running')
 			this.counter = 0
 		}
 		else {
 			this.counter += 1
 		}
 	}
-	
 }

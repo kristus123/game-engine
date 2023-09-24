@@ -1,6 +1,3 @@
 export class Calculate {
-	constructor() {
-
-	}
-	
+	constructor() {}
 }

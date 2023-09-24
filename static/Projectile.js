@@ -1,5 +1,5 @@
-import { GameObject } from '/static/GameObject.js';
-import { Draw } from '/static/Draw.js';
+import { GameObject } from '/static/GameObject.js'
+import { Draw } from '/static/Draw.js'
 
 export class Projectile extends GameObject {
 	constructor() {
@@ -34,7 +34,7 @@ export class Projectile extends GameObject {
 		this.to = to
 		this.shot = true
 
-		const dir = Math.atan2(to.y - this.y, to.x - this.x);
+		const dir = Math.atan2(to.y - this.y, to.x - this.x)
 		this.velocity = {
 			x: Math.cos(dir) * this.velocityFactor,
 			y: Math.sin(dir) * this.velocityFactor,
@@ -44,7 +44,13 @@ export class Projectile extends GameObject {
 	draw(ctx) {
 		if (this.shot && this.connectedTo) {
 			Draw.lineBetween(ctx, this.from, this.connectedTo)
-			Draw.circle(ctx, this.connectedTo.x, this.connectedTo.y, this.radius, this.color)
+			Draw.circle(
+				ctx,
+				this.connectedTo.x,
+				this.connectedTo.y,
+				this.radius,
+				this.color,
+			)
 		}
 		else if (this.shot) {
 			Draw.circle(ctx, this.x, this.y, this.radius, this.color)

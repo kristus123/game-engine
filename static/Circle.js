@@ -1,4 +1,4 @@
-import { Draw } from '/static/Draw.js';
+import { Draw } from '/static/Draw.js'
 
 export class Circle {
 	constructor(x, y, radius, color) {
@@ -13,8 +13,10 @@ export class Circle {
 	}
 
 	inside(player) {
-		const distance = Math.sqrt((player.x + player.width / 2 - this.x)**2 + (player.y + player.height / 2 - this.y)**2);
-		return distance <= this.radius;
+		const distance = Math.sqrt(
+			(player.x + player.width / 2 - this.x) ** 2 +
+				(player.y + player.height / 2 - this.y) ** 2,
+		)
+		return distance <= this.radius
 	}
-
 }

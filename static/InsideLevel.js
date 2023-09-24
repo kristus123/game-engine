@@ -24,25 +24,23 @@ export class InsideLevel {
 
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
-		this.particles.forEach(p => p.updatePhysics(deltaTime))
+		this.particles.forEach((p) => p.updatePhysics(deltaTime))
 	}
 
 	update() {
-		this.particles.forEach(p => {
+		this.particles.forEach((p) => {
 			p.x = this.player.x
 			p.y = this.player.y
 		})
 
 		this.controller.update()
-		this.particles.forEach(p => p.update())
+		this.particles.forEach((p) => p.update())
 		this.cameraFollow(this.player)
 	}
 
 	draw(ctx) {
 		Draw.text(ctx, 0, 0, 100, 100, 'insideLevel')
 		this.player.draw(ctx)
-		this.particles.forEach(p => p.draw(ctx))
-
+		this.particles.forEach((p) => p.draw(ctx))
 	}
-	
 }

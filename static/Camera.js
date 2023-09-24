@@ -1,12 +1,12 @@
-import { Palette } from '/static/Palette.js';
+import { Palette } from '/static/Palette.js'
 
 export class Camera {
 	constructor() {
 		this.palette = Palette.offscreen()
 
 		this.objectToFollow = {
-			x:0,
-			y:0,
+			x: 0,
+			y: 0,
 		}
 
 		this.offset = {
@@ -30,8 +30,8 @@ export class Camera {
 
 		this.palette.ctx.translate(
 			-objectToFollow.x * this.zoom + this.offset.x,
-			-objectToFollow.y * this.zoom + this.offset.y)
+			-objectToFollow.y * this.zoom + this.offset.y,
+		)
 		this.palette.ctx.scale(this.zoom, this.zoom)
 	}
-	
 }
