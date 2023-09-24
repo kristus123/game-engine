@@ -8,3 +8,12 @@ Work in space as a transporter.
 
 -   pick up and deliver containers
 -   navigate in space
+
+
+## Linter
+
+Eslint
+
+npm install -g eslint
+npx eslint . --fix
+
