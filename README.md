@@ -9,7 +9,6 @@ Work in space as a transporter.
 -   pick up and deliver containers
 -   navigate in space
 
-
 ## Linter
 
 npm install -g eslint
