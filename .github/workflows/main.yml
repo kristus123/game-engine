@@ -5,9 +5,6 @@ on:
     types:
       - opened
 
-runs:
-  using: 'node20'
-
 jobs:
   eslint:
     runs-on: ubuntu-latest
