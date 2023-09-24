@@ -1,9 +1,9 @@
-import { Random } from '/static/Random.js';
+import { Random } from '/static/Random.js'
 import { GameObject } from '/static/GameObject.js'
 
 export class PrettyParticles {
 	constructor() {
-		this.particles = [];
+		this.particles = []
 	}
 
 	updateAndDraw(ctx, x, y) {
@@ -28,11 +28,10 @@ export class PrettyParticles {
 			p.life--
 
 			if (p.life <= 0) {
-				this.particles.splice(index, 1);
-			}
-			else {
-				ctx.fillStyle = p.color;
-				ctx.fillRect(p.x, p.y, p.width, p.height);
+				this.particles.splice(index, 1)
+			} else {
+				ctx.fillStyle = p.color
+				ctx.fillRect(p.x, p.y, p.width, p.height)
 			}
 		})
 	}

@@ -1,4 +1,4 @@
-import { GameObject } from '/static/GameObject.js';
+import { GameObject } from '/static/GameObject.js'
 import { Draw } from '/static/Draw.js'
 import { PrettyParticles } from '/static/PrettyParticles.js'
 
@@ -8,12 +8,10 @@ export class Spaceship extends GameObject {
 		this.prettyParticles = new PrettyParticles()
 	}
 
-	update() {
-	}
+	update() {}
 
 	draw(ctx) {
 		this.prettyParticles.updateAndDraw(ctx, this.x, this.y)
 		Draw.spaceship(ctx, this)
 	}
-
 }

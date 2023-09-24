@@ -18,19 +18,36 @@ export class EnterHouseExtension {
 	update() {
 		if (Distance.withinRadius(this.door, this.player, 200)) {
 			this.inside = true
-		}
-		else if (!Distance.withinRadius(this.door, this.player, 500)) {
+		} else if (!Distance.withinRadius(this.door, this.player, 500)) {
 			this.inside = false
 		}
 	}
 
 	draw(ctx) {
-		Draw.rectangle(ctx, this.door.x, this.door.y, this.door.width, this.door.heigt)
+		Draw.rectangle(
+			ctx,
+			this.door.x,
+			this.door.y,
+			this.door.width,
+			this.door.heigt,
+		)
 
 		if (this.inside) {
-			Draw.rectangle(ctx, this.door.x-500, this.door.y-500, 1000, 1000)
-			Draw.text(ctx, this.door.x-100, this.door.y-100, 100, 100, 'bed')
+			Draw.rectangle(
+				ctx,
+				this.door.x - 500,
+				this.door.y - 500,
+				1000,
+				1000,
+			)
+			Draw.text(
+				ctx,
+				this.door.x - 100,
+				this.door.y - 100,
+				100,
+				100,
+				'bed',
+			)
 		}
 	}
-	
 }

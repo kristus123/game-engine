@@ -1,4 +1,4 @@
-import { Collision } from '/static/Collision.js';
+import { Collision } from '/static/Collision.js'
 
 export class Physics {
 	constructor() {
@@ -21,12 +21,12 @@ export class Physics {
 					}
 				}
 
-				 // Calculate friction based on weight
-				const frictionFactor = 1 - (o.weight / 5000); // Adjust this factor as needed
+				// Calculate friction based on weight
+				const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
 
 				// Apply friction to velocity
-				o.velocity.x *= frictionFactor;
-				o.velocity.y *= frictionFactor;
+				o.velocity.x *= frictionFactor
+				o.velocity.y *= frictionFactor
 
 				o.x += o.velocity.x * deltaTime
 				o.y += o.velocity.y * deltaTime
@@ -35,23 +35,25 @@ export class Physics {
 	}
 
 	static applyAttraction(playerA, playerB) {
-		const attractionForce = 100;
-		const maxAttractionDistance = 200;
+		const attractionForce = 100
+		const maxAttractionDistance = 200
 
-		const dx = playerB.x - playerA.x;
-		const dy = playerB.y - playerA.y;
+		const dx = playerB.x - playerA.x
+		const dy = playerB.y - playerA.y
 
-		const distance = Math.sqrt(dx * dx + dy * dy);
+		const distance = Math.sqrt(dx * dx + dy * dy)
 
 		if (distance > maxAttractionDistance) {
-			const normalizedDistance = distance - maxAttractionDistance;  // Calculate how much further the players are beyond the maximum attraction distance
-			const attractionFactor = normalizedDistance / maxAttractionDistance;  // Normalize the distance to a factor between 0 and 1
+			const normalizedDistance = distance - maxAttractionDistance // Calculate how much further the players are beyond the maximum attraction distance
+			const attractionFactor = normalizedDistance / maxAttractionDistance // Normalize the distance to a factor between 0 and 1
 
-			const forceX = attractionForce * dx / distance * attractionFactor;
-			const forceY = attractionForce * dy / distance * attractionFactor;
+			const forceX =
+				((attractionForce * dx) / distance) * attractionFactor
+			const forceY =
+				((attractionForce * dy) / distance) * attractionFactor
 
-			playerA.velocity.x += forceX;
-			playerA.velocity.y += forceY;
+			playerA.velocity.x += forceX
+			playerA.velocity.y += forceY
 
 			// You can optionally apply a force on playerB as well
 			// playerB.velocity.x -= forceX;
@@ -59,46 +61,45 @@ export class Physics {
 		}
 	}
 
+	static enforceMaxDistance(player, spaceship) {
+		const velocityAdjustment = 1.1
+		const maxDistance = 10
 
+		const dx = spaceship.x - player.x
+		const dy = spaceship.y - player.y
+		const distance = Math.sqrt(dx * dx + dy * dy)
 
-static enforceMaxDistance(player, spaceship) {
-    const velocityAdjustment = 1.1;
-    const maxDistance = 10;
+		if (distance > maxDistance) {
+			const angle = Math.atan2(dy, dx)
+			const targetX = player.x + Math.cos(angle) * maxDistance
+			const targetY = player.y + Math.sin(angle) * maxDistance
 
-    const dx = spaceship.x - player.x;
-    const dy = spaceship.y - player.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+			const diffX = targetX - spaceship.x
+			const diffY = targetY - spaceship.y
 
-    if (distance > maxDistance) {
-        const angle = Math.atan2(dy, dx);
-        const targetX = player.x + Math.cos(angle) * maxDistance;
-        const targetY = player.y + Math.sin(angle) * maxDistance;
+			const targetVelocityX = diffX * velocityAdjustment
+			const targetVelocityY = diffY * velocityAdjustment
 
-        const diffX = targetX - spaceship.x;
-        const diffY = targetY - spaceship.y;
+			// Calculate the magnitude of the target velocity
+			const targetVelocityMagnitude = Math.sqrt(
+				targetVelocityX * targetVelocityX +
+					targetVelocityY * targetVelocityY,
+			)
 
-        const targetVelocityX = diffX * velocityAdjustment;
-        const targetVelocityY = diffY * velocityAdjustment;
+			// Adjust playerB's velocity based on the target velocity magnitude and direction
+			// spaceship.velocity.x = targetVelocityX;
+			// spaceship.velocity.y = targetVelocityY;
 
-        // Calculate the magnitude of the target velocity
-        const targetVelocityMagnitude = Math.sqrt(targetVelocityX * targetVelocityX + targetVelocityY * targetVelocityY);
+			// If the target velocity magnitude exceeds maxDistance, scale it down
+			if (targetVelocityMagnitude > maxDistance) {
+				// playerB.velocity.x *= maxDistance / targetVelocityMagnitude;
+				// playerB.velocity.y *= maxDistance / targetVelocityMagnitude;
+			}
 
-        // Adjust playerB's velocity based on the target velocity magnitude and direction
-        // spaceship.velocity.x = targetVelocityX;
-        // spaceship.velocity.y = targetVelocityY;
-
-        // If the target velocity magnitude exceeds maxDistance, scale it down
-        if (targetVelocityMagnitude > maxDistance) {
-            // playerB.velocity.x *= maxDistance / targetVelocityMagnitude;
-            // playerB.velocity.y *= maxDistance / targetVelocityMagnitude;
-        }
-
-        // Adjust playerA's velocity as well if desired
-		//
-        player.velocity.x -= diffX * velocityAdjustment;
-        player.velocity.y -= diffY * velocityAdjustment;
-    }
-}
-
-
+			// Adjust playerA's velocity as well if desired
+			//
+			player.velocity.x -= diffX * velocityAdjustment
+			player.velocity.y -= diffY * velocityAdjustment
+		}
+	}
 }

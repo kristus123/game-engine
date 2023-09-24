@@ -17,11 +17,20 @@ export class OutsideLevel {
 		this.spaceship = new Spaceship()
 		this.physics.applyPhysics(this.spaceship)
 
-		this.enterVehicleExtension = new EnterVehicleExtension(this.player, this.spaceship, cameraFollow)
-		this.fetchContainerExtension = new FetchContainerExtension(this.spaceship)
+		this.enterVehicleExtension = new EnterVehicleExtension(
+			this.player,
+			this.spaceship,
+			cameraFollow,
+		)
+		this.fetchContainerExtension = new FetchContainerExtension(
+			this.spaceship,
+		)
 
-		addEventListener('click', e => {
-			this.projectile.shoot(this.player, mouse.positionRelativeToCamera(e))
+		addEventListener('click', (e) => {
+			this.projectile.shoot(
+				this.player,
+				mouse.positionRelativeToCamera(e),
+			)
 		})
 	}
 

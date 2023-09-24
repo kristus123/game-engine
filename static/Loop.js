@@ -1,14 +1,13 @@
 export class Loop {
-
 	static fps = 0
 	static lastUpdated = 0
 
 	static everyFrame(run) {
-		let lastTimestamp = performance.now();
+		let lastTimestamp = performance.now()
 
 		function loop(currentTimestamp) {
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
-			lastTimestamp = currentTimestamp;
+			lastTimestamp = currentTimestamp
 
 			run(deltaTime)
 			if (Loop.lastUpdated > 10) {

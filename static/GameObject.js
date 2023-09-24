@@ -1,4 +1,4 @@
-import { Draw } from '/static/Draw.js';
+import { Draw } from '/static/Draw.js'
 
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
@@ -26,11 +26,9 @@ export class GameObject {
 			x: this.x / this.width,
 			y: this.y / this.height,
 		}
-		
 	}
 
-	update() {
-	}
+	update() {}
 
 	draw(ctx) {
 		Draw.rectangle(ctx, this.x, this.y, this.width, this.height)
