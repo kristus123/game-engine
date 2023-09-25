@@ -12,6 +12,8 @@ Work in space as a transporter.
 
 ## Linter
 
+```
 npm install -g eslint
 npx eslint . --fix
+```
 
