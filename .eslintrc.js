@@ -22,11 +22,10 @@ module.exports = {
 		'sourceType': 'module',
 	},
 	'rules': {
-		'comma-dangle': 
-			[
-				'error', 
-				'only-multiline',
-			],
+		'comma-dangle': [
+			'error', 
+			'only-multiline',
+		],
 		'brace-style': [
 			'error',
 			'stroustrup',
