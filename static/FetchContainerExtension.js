@@ -13,22 +13,7 @@ export class FetchContainerExtension {
 
 	update() {
 		if (this.connectedToSpaceship) {
-			// Container follows the spaceship only if it's far enough
-			const distanceToSpaceship = Distance.calculateDistance(
-				this.container,
-				this.spaceship,
-			)
-
-			if (distanceToSpaceship > this.ropeLength) {
-				const angle = Math.atan2(
-					this.spaceship.y - this.container.y,
-					this.spaceship.x - this.container.x,
-				)
-				this.container.x =
-					this.spaceship.x - this.ropeLength * Math.cos(angle)
-				this.container.y =
-					this.spaceship.y - this.ropeLength * Math.sin(angle)
-			}
+			this.container.followIfOutsideOfRadius(this.spaceship, this.ropeLength)
 		}
 		else if (
 			Distance.withinRadius(
