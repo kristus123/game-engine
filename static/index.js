@@ -5,7 +5,6 @@ import { Palette } from '/static/Palette.js'
 import { Mouse } from '/static/Mouse.js'
 import { LevelHandler } from '/static/LevelHandler.js'
 import { Random } from '/static/Random.js'
-import { Schedule } from '/static/Schedule.js'
 
 const numStars = 1000
 const stars = []
@@ -21,8 +20,6 @@ for (let i = 0; i < numStars; i++) {
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
 const backgroundPalette = Palette.offscreen()
-
-const schedule = new Schedule()
 
 let objectToFollow = { x: 0, y: 0 }
 const camera = new Camera()
@@ -42,25 +39,18 @@ Loop.everyFrame((deltaTime) => {
 		level.draw(camera.palette.ctx)
 	})
 
-	schedule.everyFrame(
-		10,
-		() => {
-			// Palette.clear([backgroundPalette])
-			Palette.fill(backgroundPalette, 'black')
-			const player = level.outsideLevel.player
-			backgroundPalette.ctx.fillStyle = 'white'
-			stars.forEach((s) => {
-				Draw.rectangle(
-					backgroundPalette.ctx,
-					s.x - player.x / 100,
-					s.y - player.y / 100,
-					s.width,
-					s.height,
-				)
-			})
-		},
-		60 * 2,
-	)
+	Palette.fill(backgroundPalette, 'black')
+	const player = level.outsideLevel.player
+	backgroundPalette.ctx.fillStyle = 'white'
+	stars.forEach((s) => {
+		Draw.rectangle(
+			backgroundPalette.ctx,
+			s.x - player.x / 100,
+			s.y - player.y / 100,
+			s.width,
+			s.height,
+		)
+	})
 
 	Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 	Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])

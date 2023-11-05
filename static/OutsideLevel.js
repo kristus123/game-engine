@@ -34,11 +34,6 @@ export class OutsideLevel {
 		})
 	}
 
-	active() {
-		return true
-		// return this.player.x > 100
-	}
-
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
 	}

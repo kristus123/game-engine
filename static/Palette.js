@@ -37,7 +37,6 @@ export class Palette {
 		})
 	}
 
-	// use Draw.js method instead
 	static fill(palette, color) {
 		palette.ctx.fillStyle = color
 		palette.ctx.fillRect(0, 0, Palette.width, Palette.height)
