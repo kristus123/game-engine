@@ -1,3 +1,7 @@
+// super messy code
+// but it doesn't have to be pretty right now
+//
+
 import { Palette } from '/static/Palette.js'
 
 const spaceship = new Image()
