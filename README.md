@@ -17,3 +17,6 @@ npm install -g eslint
 npx eslint . --fix
 ```
 
+## run locally
+ nodemon script.py -e html,py,css
+  nodemon script.py -e html,py,css
