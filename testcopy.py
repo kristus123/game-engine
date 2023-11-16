@@ -29,7 +29,6 @@ for root, dirs, files in os.walk(source_folder):
         src_file_path = os.path.join(root, file)
         dest_file_path = os.path.join(dest_folder, file)
 
-        # Read the content of the source file
         with open(src_file_path, 'r', encoding="utf-8", errors='ignore') as f:
             content = f.read()
 
