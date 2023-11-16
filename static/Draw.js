@@ -1,9 +1,3 @@
-// super messy code
-// but it doesn't have to be pretty right now
-//
-
-import { Palette } from '/static/Palette.js'
-
 const spaceship = new Image()
 spaceship.src =
 	'https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png'

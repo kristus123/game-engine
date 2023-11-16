@@ -39,16 +39,19 @@ for root, dirs, files in os.walk(source_folder):
             path = js_file['path']
 
             i = "import { CLASS } from '/PATH'".replace("CLASS", class_name).replace("PATH", path)
-            if i in content:
-                1+1
-            elif f"export class {class_name}" in content:
-                1+1
-            else:
-                imports += "import { CLASS } from '/PATH'; \n".replace("CLASS", class_name).replace("PATH", path)
 
-        print(imports)
+            if f"export class {class_name}" in content:
+                print("")
+            elif f"new {class_name}" in content:
+                imports += i + "; \n"
+            elif f"{class_name}." in content:
+                imports += i + "; \n"
+            elif f"extends {class_name}" in content:
+                print("extends")
+                imports += i + "; \n"
+
 
         content = imports + "\n" +  content
         
         with open(dest_file_path, 'w') as f:
-            f.write(str(content))
+            f.write(content)

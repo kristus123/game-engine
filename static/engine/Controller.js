@@ -1,5 +1,3 @@
-import { Keyboard } from '/static/Keyboard.js'
-
 export class Controller {
 	constructor(objectToControl) {
 		this.objectToControl = objectToControl

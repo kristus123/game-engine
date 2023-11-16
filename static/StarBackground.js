@@ -1,7 +1,3 @@
-import { Palette } from '/static/Palette.js'
-import { Random } from '/static/Random.js'
-import { Draw } from '/static/Draw.js'
-
 export class StarBackground {
 	constructor() {
 		this.palette = Palette.offscreen()

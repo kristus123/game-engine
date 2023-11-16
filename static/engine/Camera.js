@@ -1,5 +1,3 @@
-import { Palette } from '/static/Palette.js'
-
 export class Camera {
 	constructor() {
 		this.palette = Palette.offscreen()
