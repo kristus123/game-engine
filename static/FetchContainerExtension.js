@@ -1,7 +1,3 @@
-import { Draw } from '/static/Draw.js'
-import { GameObject } from '/static/GameObject.js'
-import { Distance } from '/static/Distance.js'
-
 export class FetchContainerExtension {
 	constructor(spaceship) {
 		this.spaceship = spaceship

@@ -1,9 +1,3 @@
-import { Draw } from '/static/Draw.js'
-import { Physics } from '/static/Physics.js'
-import { Spaceship } from '/static/Spaceship.js'
-import { FetchContainerExtension } from '/static/FetchContainerExtension.js'
-import { EnterVehicleExtension } from '/static/EnterVehicleExtension.js'
-import { Projectile } from '/static/Projectile.js'
 
 export class OutsideLevel {
 	constructor(player, cameraFollow, mouse) {

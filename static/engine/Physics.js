@@ -1,4 +1,3 @@
-import { Collision } from '/static/Collision.js'
 
 export class Physics {
 	constructor() {

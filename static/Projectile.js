@@ -1,5 +1,3 @@
-import { GameObject } from '/static/GameObject.js'
-import { Draw } from '/static/Draw.js'
 
 export class Projectile extends GameObject {
 	constructor() {

@@ -6,15 +6,18 @@ app.debug = True
 
 import os
 
-def list_js_files_in_directory(directory):
-    js_files = []
-    for filename in os.listdir(directory):
-        if filename.endswith(".js"):
-            js_files.append(os.path.join(directory, filename))
+def get_all_js_files(directory_path):
+    js_files=[]
+
+    for root, _, files in os.walk(directory_path):
+        for file in files:
+            if file.endswith('.js'):
+                js_files.append(os.path.join(root, file))
+
     return js_files
 
-folder_path = "static"
-js_files = list_js_files_in_directory(folder_path)
+folder_path = 'static'
+js_files = get_all_js_files(folder_path)
 
 @app.route("/")
 def hello_world():

@@ -1,6 +1,3 @@
-import { Draw } from '/static/Draw.js'
-import { Distance } from '/static/Distance.js'
-
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
 		// todo : instead of x,y use position{x,y}

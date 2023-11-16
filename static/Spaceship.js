@@ -1,6 +1,3 @@
-import { GameObject } from '/static/GameObject.js'
-import { Draw } from '/static/Draw.js'
-import { PrettyParticles } from '/static/PrettyParticles.js'
 
 export class Spaceship extends GameObject {
 	constructor() {
