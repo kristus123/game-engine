@@ -1,40 +1,24 @@
 import os
-from sys import exit
 
-def get_all_js_files(directory_path, js_files=[]):
-    for root, dirs, files in os.walk(directory_path):
+def get_all_js_files(directory_path):
+    js_files=[]
+
+    for root, _, files in os.walk(directory_path):
         for file in files:
             if file.endswith('.js'):
-                js_files.append(os.path.join(root, file))
+                path = os.path.join(root, file)
+                js_files.append({
+                    "path": path,
+                    "class_name": path.split("/")[-1].replace(".js", ""),
+                })
+
     return js_files
 
 folder_path = 'static'
 js_files = get_all_js_files(folder_path)
 
-print('List of .js files:')
-for js_file in js_files:
-    print(js_file)
-
-
-exit(0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import os
-
 source_folder = "static"
-destination_folder = "new_static"
+destination_folder = "dist/static"
 
 for root, dirs, files in os.walk(source_folder):
     rel_path = os.path.relpath(root, source_folder)
@@ -46,13 +30,25 @@ for root, dirs, files in os.walk(source_folder):
         dest_file_path = os.path.join(dest_folder, file)
 
         # Read the content of the source file
-        with open(src_file_path, 'rb') as f:
+        with open(src_file_path, 'r', encoding="utf-8", errors='ignore') as f:
             content = f.read()
 
-        # Replace all occurrences of '#foo#' with '!bar!'
-        content = content.replace(b'#foo#', b'!bar!')
+        imports = ""
+        for js_file in js_files:
+            class_name = js_file['class_name']
+            path = js_file['path']
 
-        # Write the modified content to the destination file
-        with open(dest_file_path, 'wb') as f:
-            f.write(content)
+            i = "import { CLASS } from '/PATH'".replace("CLASS", class_name).replace("PATH", path)
+            if i in content:
+                1+1
+            elif f"export class {class_name}" in content:
+                1+1
+            else:
+                imports += "import { CLASS } from '/PATH'; \n".replace("CLASS", class_name).replace("PATH", path)
 
+        print(imports)
+
+        content = imports + "\n" +  content
+        
+        with open(dest_file_path, 'w') as f:
+            f.write(str(content))

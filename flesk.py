@@ -17,6 +17,7 @@ def init_dist():
         pass
     os.makedirs("dist")
     shutil.copytree("static", "dist/static")
+    import testcopy
 
 
 e = Environment(loader=FileSystemLoader(searchpath="./templates"))
