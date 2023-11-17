@@ -35,5 +35,9 @@ export class Calculate {
 		return { x: velocityX, y: velocityY };
 	}
 
+	static insideCircle(player, circle, radius) {
+		const distance = Math.sqrt((player.x- circle.x) ** 2 + (player.y - circle.y) ** 2);
+		return distance < radius;
+	}
 	
 }

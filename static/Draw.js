@@ -33,6 +33,8 @@ export class Draw {
 		ctx.beginPath()
 		ctx.arc(x, y, radius, 0, Math.PI * 2)
 		ctx.stroke()
+
+		return {x, y, radius}
 	}
 
 	// todo must be updated somehow iwthin game lloop

@@ -11,14 +11,11 @@ export class OutsideLevel {
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
-		this.enterVehicleExtension = new EnterVehicleExtension(
-			this.player,
-			this.spaceship,
-			cameraFollow,
-		)
-		this.fetchContainerExtension = new FetchContainerExtension(
-			this.spaceship,
-		)
+		this.extensions = new LoadExtensions([
+			new Npc(this.player),
+			new FetchContainerExtension(this.spaceship),
+			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
+		])
 
 		addEventListener('click', (e) => {
 			this.projectile.shoot(
@@ -37,14 +34,12 @@ export class OutsideLevel {
 			Physics.applyAttraction(this.player, this.projectile.connectedTo)
 		}
 
-		this.enterVehicleExtension.update()
-		this.fetchContainerExtension.update()
+		this.extensions.update()
 	}
 
 	draw(ctx) {
 		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
-		this.enterVehicleExtension.draw(ctx)
-		this.fetchContainerExtension.draw(ctx)
 		this.projectile.draw(ctx)
+		this.extensions.draw(ctx)
 	}
 }
