@@ -1,18 +1,25 @@
-
 export class PrettyParticles {
 	constructor() {
 		this.particles = []
 	}
 
-	piss(ctx, x, y, mousePosition) {
+	piss(ctx, x, y, player, mousePosition) {
 		const size = Random.floatBetween(1, 5)
 
 		if (this.particles.length < 100) {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
+
+			const pos = Calculate.objectThatIsCirclingAroundObjectBasedOnMousePosition(ctx, player, mousePosition)
+
+			const vel = Calculate.velocity(player, pos)
+
 			newParticle.velocity = {
-				x: Random.floatBetween(1,3),
-				y: Random.floatBetween(1,3),
+				x: vel.x * Random.floatBetween(0.1, 0.4) * 3,
+				y: vel.y * Random.floatBetween(0.1, 0.4) * 3,
 			}
+
+			player.velocity.x -= vel.x * Random.floatBetween(0.1, 0.4) * 10,
+			player.velocity.y -= vel.y * Random.floatBetween(0.1, 0.4) * 10,
 
 			newParticle.life = 100
 			newParticle.color = 'yellow'

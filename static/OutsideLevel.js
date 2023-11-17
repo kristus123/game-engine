@@ -1,14 +1,14 @@
-
 export class OutsideLevel {
 	constructor(player, cameraFollow, mouse) {
-		this.physics = new Physics()
 		this.player = player
 		this.mouse = mouse
 		this.projectile = new Projectile()
-		this.physics.applyPhysics(this.projectile)
-		this.physics.applyPhysics(this.player)
 
 		this.spaceship = new Spaceship()
+
+		this.physics = new Physics()
+		this.physics.applyPhysics(this.projectile)
+		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
 		this.enterVehicleExtension = new EnterVehicleExtension(

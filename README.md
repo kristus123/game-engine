@@ -20,3 +20,5 @@ npx eslint . --fix
 ## run locally
 nodemon script.py -e html,py,css
 http-server dist/
+
+nodemon script.py -e html,py,csis & http-server dist/
