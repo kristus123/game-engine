@@ -12,7 +12,7 @@ export class OutsideLevel {
 		this.physics.applyPhysics(this.spaceship)
 
 		this.extensions = new LoadExtensions([
-			new Npc(this.player),
+			this.physics.applyPhysics(new Npc(this.player)),
 			new FetchContainerExtension(this.spaceship),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
 		])
@@ -38,7 +38,6 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.text(ctx, 120, 0, 100, 100, 'outside level')
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
 	}
