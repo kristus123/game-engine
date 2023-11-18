@@ -1,4 +1,3 @@
-
 export class LevelHandler {
 	constructor(cameraFollow, mouse) {
 		this.player = new Player(mouse)
