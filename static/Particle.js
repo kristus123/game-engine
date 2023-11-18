@@ -1,4 +1,3 @@
-
 export class Particle {
 	constructor(x, y, radius, velocity) {
 		this.x = x
