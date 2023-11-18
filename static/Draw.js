@@ -64,7 +64,6 @@ export class Draw {
 		player.angle = 0
 		const playerRadius = 20
 		const circleRadius = 50
-		const color = 'blue'
 
 		const oppositeAngle = player.angle + Math.PI
 		const circleX =
@@ -88,9 +87,6 @@ export class Draw {
 		player,
 		currentMousePosition,
 	) {
-		function getAngle(x1, y1, x2, y2) {
-			return Math.atan2(y2 - y1, x2 - x1)
-		}
 
 		const playerWidth = player.width
 		const playerHeight = player.height
