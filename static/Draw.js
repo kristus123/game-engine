@@ -244,6 +244,12 @@ export class Draw {
 		ctx.restore()
 	}
 
+
+
+
+
+
+
 	static grid(ctx) {
 		ctx.strokeStyle = '#ccc' // Grid color
 		ctx.lineWidth = 2

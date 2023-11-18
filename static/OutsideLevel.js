@@ -12,6 +12,7 @@ export class OutsideLevel {
 		this.physics.applyPhysics(this.spaceship)
 
 		this.extensions = new LoadExtensions([
+			new Planets(),
 			this.physics.applyPhysics(new Npc(this.player)),
 			new FetchContainerExtension(this.spaceship),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),

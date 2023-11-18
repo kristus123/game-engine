@@ -5,6 +5,11 @@ export class Npc extends GameObject {
 		this.player = player
 	}
 
+	onCollision(o) {
+		this.velocity.x = -o.velocity.x * 2
+		this.velocity.y = -o.velocity.y * 2
+	}
+
 	update() {
 		const vel = Calculate.velocity(this, {x:500, y:1000})
 
