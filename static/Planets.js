@@ -1,5 +1,5 @@
 const planetImage = new Image()
-planetImage.src = 'https://w7.pngwing.com/pngs/163/518/png-transparent-red-and-blue-planet-lava-planet-planet-miscellaneous-purple-texture.png'
+planetImage.src = 'https://i.imgur.com/BjBDfWG.png'
 
 export class Planets {
 
@@ -10,8 +10,8 @@ export class Planets {
 	draw(ctx) {
 		planetImage.onload = () => {
 		const position = {
-			x: 200,
-			y: 10,
+			x: 0,
+			y: 0,
 		}
 
 		const aspectRatio = planetImage.width / planetImage.height

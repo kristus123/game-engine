@@ -5,17 +5,21 @@ export class OutsideLevel {
 		this.projectile = new Projectile()
 
 		this.spaceship = new Spaceship()
+		this.npc = new Npc(this.player)
 
 		this.physics = new Physics()
+		this.physics.applyPhysics(this.npc),
 		this.physics.applyPhysics(this.projectile)
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
+
+
 		this.extensions = new LoadExtensions([
 			new Planets(),
-			this.physics.applyPhysics(new Npc(this.player)),
-			new FetchContainerExtension(this.spaceship),
+			new FetchContainerExtension(this.spaceship, this.npc),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
+			this.npc
 		])
 
 		addEventListener('click', (e) => {
