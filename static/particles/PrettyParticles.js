@@ -3,10 +3,10 @@ export class PrettyParticles {
 		this.particles = []
 	}
 
-	piss(ctx, x, y, player, mousePosition) {
+	piss(ctx, x, y, player, mousePosition, mouse) {
 		const size = Random.floatBetween(1, 5)
 
-		if (this.particles.length < 100) {
+		if (this.particles.length < 100 && mouse.down) {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
 
 			const pos = Calculate.objectThatIsCirclingAroundObjectBasedOnMousePosition(ctx, player, mousePosition)

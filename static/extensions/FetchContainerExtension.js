@@ -27,6 +27,8 @@ export class FetchContainerExtension {
 			Draw.lineBetween(ctx, this.spaceship, this.container)
 		}
 
-		this.container.draw(ctx)
+		// this.container.draw(ctx)
+
+		Draw.text(ctx, this.container.x, this.container.y, 150, 100, 'Pick me up with the spaceship')
 	}
 }

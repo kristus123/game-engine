@@ -5,6 +5,7 @@ export class index {
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()
 const backgroundPalette = Palette.offscreen()
+const starBackground = new StarBackground()
 
 let objectToFollow = { x: 0, y: 0 }
 const camera = new Camera()
@@ -24,7 +25,9 @@ Loop.everyFrame((deltaTime) => {
 		level.draw(camera.palette.ctx)
 	})
 
+	starBackground.draw(level.player)
+
 	Palette.fill(backgroundPalette, 'black')
 	Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-	Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
+	Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
 })

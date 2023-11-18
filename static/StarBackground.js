@@ -20,8 +20,8 @@ export class StarBackground {
 		this.stars.forEach((s) => {
 			Draw.rectangle(
 				this.palette.ctx,
-				s.x - player.x / 100,
-				s.y - player.y / 100,
+				s.x - player.x / 50,
+				s.y - player.y / 50,
 				s.width,
 				s.height,
 			)

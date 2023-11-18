@@ -7,8 +7,19 @@ export class Mouse {
 			y: 0,
 		}
 
+
+		this.down = false
+
 		document.addEventListener('mousemove', (e) => {
 			this.currentMousePosition = this.positionRelativeToCamera(e)
+		})
+
+		document.addEventListener('mousedown', e => {
+			this.down = true
+		})
+
+		document.addEventListener('mouseup', e => {
+			this.down = false
 		})
 	}
 

@@ -14,6 +14,6 @@ export class Player extends GameObject {
 		Calculate.objectThatIsCirclingAroundObjectBasedOnMousePosition(ctx, this, this.mouse.currentMousePosition)
 
 		Draw.player(ctx, this)
-		this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition)
+		this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
 	}
 }
