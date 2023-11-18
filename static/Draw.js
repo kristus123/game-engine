@@ -228,10 +228,7 @@ export class Draw {
 
 		ctx.save()
 
-		ctx.translate(player.x, player.y)
-		// const rotationAngle = Math.atan2(player.velocity.y, player.velocity.x);
-		// ctx.rotate(rotationAngle);
-		// ctx.rotate(Math.PI / 2); // 90 degrees
+		ctx.translate(player.x + player.width / 2, player.y + player.height / 2)
 
 		ctx.drawImage(
 			playerImage,

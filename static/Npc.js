@@ -1,13 +1,13 @@
 export class Npc extends GameObject {
 	constructor(player) {
-		super(0, -200, 20, 20, 100, 10)
+		super(0, -200, 35, 50, 100, 10)
 		this.p = new PrettyParticles()
 		this.player = player
 	}
 
 	onCollision(o) {
-		this.velocity.x = -o.velocity.x * 2
-		this.velocity.y = -o.velocity.y * 2
+		this.velocity.x -= -o.velocity.x / 3
+		this.velocity.y -= -o.velocity.y / 3
 	}
 
 	update() {
