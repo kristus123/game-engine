@@ -21,6 +21,8 @@ export class Mouse {
 		document.addEventListener('mouseup', e => {
 			this.down = false
 		})
+
+		this.clickEvents = new ClickEvents(this)
 	}
 
 	positionRelativeToCamera(e) {

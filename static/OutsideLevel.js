@@ -22,11 +22,19 @@ export class OutsideLevel {
 			this.npc
 		])
 
-		addEventListener('click', (e) => {
+		// addEventListener('click', (e) => {
+		// 	this.projectile.shoot(
+		// 		this.player,
+		// 		mouse.positionRelativeToCamera(e),
+		// 	)
+		// })
+
+		mouse.clickEvents.addOnClick('slingshot', mousePosition => {
 			this.projectile.shoot(
 				this.player,
-				mouse.positionRelativeToCamera(e),
+				mousePosition,
 			)
+			
 		})
 	}
 
