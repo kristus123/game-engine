@@ -45,6 +45,8 @@ for root, dirs, files in os.walk(source_folder):
                 imports += i + "; \n"
             elif f"{class_name}." in content:
                 imports += i + "; \n"
+            elif f"{class_name}(" in content:
+                imports += i + "; \n"
             elif f"extends {class_name}" in content:
                 print("extends")
                 imports += i + "; \n"

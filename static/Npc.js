@@ -6,15 +6,11 @@ export class Npc extends GameObject {
 	}
 
 	onCollision(o) {
-		this.velocity.x -= -o.velocity.x / 3
-		this.velocity.y -= -o.velocity.y / 3
+		Push(this).awayFrom(o)
 	}
 
 	update() {
-		const vel = Calculate.velocity(this, {x:500, y:1000})
-
-		this.velocity.x -= vel.x * Random.floatBetween(0.1, 0.4) * 1
-		this.velocity.y -= vel.y * Random.floatBetween(0.1, 0.4) * 1
+		Push(this).towards({x:500, y:1000})
 	}
 
 	draw(ctx) {
