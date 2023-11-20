@@ -1,26 +1,14 @@
 export class Calculate {
 
-	static objectThatIsCirclingAroundObjectBasedOnMousePosition(
-		ctx,
-		player,
-		currentMousePosition,
-	) {
+	static directionBetween(player, currentMousePosition) {
 
 		const angle = Math.atan2(currentMousePosition.y - player.y, currentMousePosition.x - player.x)
 
-		const playerRadius = 20
 		const circleRadius = 100
 
-		const circleX =
-			player.x + player.width / 2 + circleRadius * Math.cos(angle)
-		const circleY =
-			player.y + player.height / 2 + circleRadius * Math.sin(angle)
-
-		// Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
-
 		return {
-			x: circleX,
-			y: circleY,
+			x: player.x + player.width / 2 + circleRadius * Math.cos(angle),
+			y: player.y + player.height / 2 + circleRadius * Math.sin(angle),
 		}
 	}
 

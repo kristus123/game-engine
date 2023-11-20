@@ -9,7 +9,7 @@ export class PrettyParticles {
 		if (this.particles.length < 100 && mouse.down) {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
 
-			const pos = Calculate.objectThatIsCirclingAroundObjectBasedOnMousePosition(ctx, player, mousePosition)
+			const pos = Calculate.directionBetween(player, mousePosition)
 
 			const vel = Calculate.velocity(player, pos)
 

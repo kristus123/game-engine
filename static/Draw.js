@@ -26,6 +26,14 @@ export class Draw {
 		ctx.fill()
 	}
 
+	static position(ctx, position) {
+		const radius = 5
+		ctx.beginPath()
+		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
+		ctx.fillStyle = 'orange'
+		ctx.fill()
+	}
+
 	static hollowCircle(ctx, x, y, radius) {
 		ctx.strokeStyle = 'red'
 		ctx.lineWidth = 20

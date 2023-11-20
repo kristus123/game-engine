@@ -1,9 +1,18 @@
-const playerImage = new Image()
-playerImage.src = 'https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'
+const images = [
+	{
+		src: "https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png", 
+		position: {x:0, y:0}
+	},
+	{
+		src: "https://www.nicepng.com/png/full/3-34490_galaxy-planet-planets-space-stars-moon-clouds-paint.png",
+		position: {x:1000, y:0}
+	},
+	{
+		src: "https://www.nicepng.com/png/full/918-9188399_sky-stars-glitch-moon-space-planet-cloud-clouds.png",
+		position: {x:2000, y:0}
+	},
+]
 
-
-const spaceImage = new Image()
-spaceImage.src = 'https://www.nicepng.com/png/full/3-34490_galaxy-planet-planets-space-stars-moon-clouds-paint.png'
 
 export class Planets {
 
@@ -12,8 +21,12 @@ export class Planets {
 	}
 
 	draw(ctx) {
-		this.loadImage(ctx, playerImage, {x:1, y:1})
-		this.loadImage(ctx, spaceImage, {x:-1000, y:1})
+		for (const i of images) {
+			const image = new Image()
+			image.src = i.src
+
+			this.loadImage(ctx, image, i.position)
+		}
 	}
 
 
