@@ -28,11 +28,7 @@ export class OutsideLevel {
 		// })
 
 		mouse.clickEvents.addOnClick('slingshot', mousePosition => {
-			this.projectile.shoot(
-				this.player,
-				mousePosition,
-			)
-			
+			this.projectile.shoot(this.player, mousePosition)
 		})
 	}
 

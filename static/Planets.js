@@ -20,7 +20,6 @@ const images = [
 	},
 ]
 
-
 export class Planets {
 
 	update() {
