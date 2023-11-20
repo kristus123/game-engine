@@ -17,7 +17,7 @@ export class Npc extends GameObject {
 		Draw.player(ctx, this)
 
 		if (Distance.withinRadius(this, this.player, 100)) {
-			Draw.text(ctx, this.x , this.y - 150, 700, 100, "Pissing in space ey'? I've seeen many piss, but none return")
+			Draw.text(ctx, this.x , this.y - 150, 700, 100, 'Pissing in space ey\'? I\'ve seeen many piss, but none return')
 		}
 	}
 }

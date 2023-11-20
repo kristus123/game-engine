@@ -9,4 +9,4 @@ export const Push = (o) => ({
 		o.velocity.x -= vel.x * Random.floatBetween(0.1, 0.4) * 1
 		o.velocity.y -= vel.y * Random.floatBetween(0.1, 0.4) * 1
 	}
-});
+})

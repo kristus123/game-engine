@@ -14,6 +14,8 @@ Work in space as a transporter.
 
 ```
 npm install -g eslint
+npm i -D @stylistic/eslint-plugin-js
+
 npx eslint . --fix
 ```
 

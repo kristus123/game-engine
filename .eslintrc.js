@@ -1,4 +1,7 @@
 module.exports = {
+	plugins: [
+		'@stylistic/js',
+	],
 	'env': {
 		'browser': true,
 		'es2021': true,
@@ -22,28 +25,28 @@ module.exports = {
 		'sourceType': 'module',
 	},
 	'rules': {
-		'comma-dangle': 
+		'@stylistic/js/comma-dangle': 
 			[
 				'error', 
 				'only-multiline',
 			],
-		'brace-style': [
+		'@stylistic/js/brace-style': [
 			'error',
 			'stroustrup',
 		],
-		'indent': [
+		'@stylistic/js/indent': [
 			'error',
 			'tab',
 		],
-		'linebreak-style': [
+		'@stylistic/js/linebreak-style': [
 			'error',
 			'unix',
 		],
-		'quotes': [
+		'@stylistic/js/quotes': [
 			'error',
 			'single',
 		],
-		'semi': [
+		'@stylistic/js/semi': [
 			'error',
 			'never',
 		],
