@@ -13,13 +13,11 @@ export class OutsideLevel {
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
-
-
 		this.extensions = new LoadExtensions([
-			new Planets(),
 			new FetchContainerExtension(this.spaceship, this.npc),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
-			this.npc
+			this.npc,
+			new Planets(),
 		])
 
 		// addEventListener('click', (e) => {

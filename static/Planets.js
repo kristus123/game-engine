@@ -1,5 +1,9 @@
-const planetImage = new Image()
-planetImage.src = 'https://i.imgur.com/BjBDfWG.png'
+const playerImage = new Image()
+playerImage.src = 'https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'
+
+
+const spaceImage = new Image()
+spaceImage.src = 'https://www.nicepng.com/png/full/3-34490_galaxy-planet-planets-space-stars-moon-clouds-paint.png'
 
 export class Planets {
 
@@ -8,21 +12,21 @@ export class Planets {
 	}
 
 	draw(ctx) {
-		planetImage.onload = () => {
-		const position = {
-			x: 0,
-			y: 0,
-		}
+		this.loadImage(ctx, playerImage, {x:1, y:1})
+		this.loadImage(ctx, spaceImage, {x:-1000, y:1})
+	}
 
-		const aspectRatio = planetImage.width / planetImage.height
 
-		const maxWidth = 1000
-		const maxHeight = 1000
+	loadImage(ctx, playerImage, player) {
+		const aspectRatio = playerImage.width / playerImage.height
+
+		const maxWidth = 800
+		const maxHeight = 800
 
 		let newWidth = maxWidth
 		let newHeight = maxHeight
 
-		if (planetImage.width > maxWidth) {
+		if (playerImage.width > maxWidth) {
 			newWidth = maxWidth
 			newHeight = newWidth / aspectRatio
 		}
@@ -33,20 +37,11 @@ export class Planets {
 		}
 
 		ctx.save()
-
-		ctx.translate(position.x, position.y)
-
-		ctx.drawImage(
-			planetImage,
-			-newWidth / 2,
-			-newHeight / 2,
-			newWidth,
-			newHeight,
-		)
-
+			ctx.translate(player.x, player.y)
+			ctx.drawImage(playerImage, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		ctx.restore()
-			
-		}
 	}
+
+
 	
 }
