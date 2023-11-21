@@ -32,7 +32,6 @@ export class Planets {
 		}
 	}
 
-
 	drawImage(ctx, image, position) {
 		const aspectRatio = image.width / image.height
 
@@ -57,7 +56,5 @@ export class Planets {
 		ctx.drawImage(image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		ctx.restore()
 	}
-
-
 	
 }
