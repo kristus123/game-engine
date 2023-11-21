@@ -8,7 +8,7 @@ function newImage(src) {
 const images = [
 	{
 		image: newImage('https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'), 
-		position: {x:0, y:0}
+		position: {x:-1000, y:0}
 	},
 	{
 		image: newImage('https://www.nicepng.com/png/full/3-34490_galaxy-planet-planets-space-stars-moon-clouds-paint.png'),

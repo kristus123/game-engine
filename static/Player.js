@@ -11,7 +11,7 @@ export class Player extends GameObject {
 
 	draw(ctx) {
 		Draw.player(ctx, this)
-		this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
-		super.draw(ctx)
+		// this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
+
 	}
 }

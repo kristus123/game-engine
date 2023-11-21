@@ -26,10 +26,18 @@ export class OutsideLevel {
 		// 		mouse.positionRelativeToCamera(e),
 		// 	)
 		// })
+		//
+		this.animation = new Animation()
+
+
+		this.pp = new PrettyParticles()
 
 		mouse.clickEvents.addOnClick('slingshot', mousePosition => {
 			this.projectile.shoot(this.player, mousePosition)
+			this.pp = new PrettyParticles()
+			this.animation.reset()
 		})
+
 	}
 
 	updatePhysics(deltaTime) {
@@ -47,5 +55,9 @@ export class OutsideLevel {
 	draw(ctx) {
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
+
+		if (this.animation.active) {
+			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
+		}
 	}
 }
