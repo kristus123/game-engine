@@ -10,10 +10,8 @@ export class GameObject {
 		this.width = width
 		this.height = height
 
-		// todo rename to momentum (weight, velocityFactor)
 		this.weight = weight
 		this.velocityFactor = velocityFactor
-		// todo : create a center field which returns position
 
 		this.velocity = {
 			x: 0,
@@ -21,10 +19,16 @@ export class GameObject {
 		}
 	}
 
-	middle() {
+	// todo: maybe this.x should always be center.x ? : sounds like a good idea
+	get position() {
 		return {
-			x: this.x / this.width,
-			y: this.y / this.height,
+			x: this.x,
+			y: this.y,
+
+			center: {
+				x: this.x / this.width,
+				y: this.y / this.height,
+			}
 		}
 	}
 
@@ -36,15 +40,10 @@ export class GameObject {
 
 	followIfOutsideOfRadius(o, radius) {
 		if (Distance.calculateDistance(this, o) > radius) {
-			const angle = Math.atan2(
-				o.y - this.y,
-				o.x - this.x,
-			)
+			const angle = Math.atan2(o.y - this.y, o.x - this.x)
 
-			this.x =
-				o.x - radius * Math.cos(angle)
-			this.y =
-				o.y - radius * Math.sin(angle)
+			this.x = o.x - radius * Math.cos(angle)
+			this.y = o.y - radius * Math.sin(angle)
 		}
 	}
 }

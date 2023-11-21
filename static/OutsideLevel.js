@@ -58,6 +58,7 @@ export class OutsideLevel {
 
 		if (this.animation.active) {
 			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
+			Draw.circle(ctx, this.player.x, this.player.y, 10, 'red')
 		}
 	}
 }
