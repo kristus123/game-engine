@@ -18,6 +18,22 @@ export class Draw {
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'
 	}
+	
+	static hpBar(ctx, x, y) {
+		y -= 40
+
+		const width = 100
+		const height = 20
+
+		let currentHP = 0.7;
+		currentHP = Math.max(0, currentHP - 0.01);
+
+		ctx.fillStyle = 'white';
+		ctx.fillRect(x, y, width, height);
+
+		ctx.fillStyle = 'red';
+		ctx.fillRect(x, y, currentHP * width, height);
+	}
 
 	static circle(ctx, x, y, radius, color) {
 		ctx.beginPath()
@@ -178,6 +194,15 @@ export class Draw {
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
 
+	
+	static coordinates(ctx, o) {
+		Draw.rectangle(ctx, o.x, o.y, o.width, o.height)
+
+		ctx.fillStyle = 'white'
+		ctx.font = '25px Arial'
+		ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
+	}
+
 	static spaceship(ctx, player) {
 		const aspectRatio = spaceship.width / spaceship.height
 
@@ -290,15 +315,18 @@ export class Draw {
 
 	static sprite() {
 		const spriteSheet = new Image()
-		spriteSheet.src = 'static/player.png'
 
-		const frameWidth = 50 // Width of each frame in the sprite sheet
-		const frameHeight = 37 // Height of each frame in the sprite sheet
-		const scale = 10 // Scale factor
+		spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
+		const frameWidth = 64 // Width of each frame in the sprite sheet
+		const frameHeight = 64 // Height of each frame in the sprite sheet
+		const scale = 5 // Scale factor
+
 
 		const frameSequence = [
-			{ x: 2, y: 6 }, // Frame 2
-			// Add more frames as needed
+			{ x: 0, y: 0 }, // Frame 2
+			{ x: 0, y: 1 }, // Frame 2
+			{ x: 0, y: 2 }, // Frame 2
+			{ x: 0, y: 3 }, // Frame 2
 		]
 
 		let currentFrameIndex = 0 // Index of the current frame in frameSequence
@@ -306,12 +334,14 @@ export class Draw {
 
 		setInterval(() => {
 			currentFrameIndex = (currentFrameIndex + 1) % totalFrames
-		}, 120)
+			console.log("hei")
+		}, 200)
 
-		const x = 0
+		const x = -300
 		const y = 0
 
 		return function drawFrame(ctx) {
+			console.log(currentFrameIndex)
 			const frameInfo = frameSequence[currentFrameIndex]
 			const currentFrameX = frameInfo.x
 			const currentFrameY = frameInfo.y

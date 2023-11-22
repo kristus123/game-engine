@@ -4,6 +4,8 @@ export class Player extends GameObject {
 
 		this.p = new PrettyParticles()
 		this.mouse = mouse
+
+		this.explosion = Draw.sprite()
 	}
 
 	update() {
@@ -11,7 +13,10 @@ export class Player extends GameObject {
 
 	draw(ctx) {
 		Draw.player(ctx, this)
+		this.explosion(ctx)
 		// this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
+		//
+		Draw.coordinates(ctx, this)
 
 	}
 }
