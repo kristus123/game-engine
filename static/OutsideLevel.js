@@ -20,18 +20,9 @@ export class OutsideLevel {
 			new Planets(),
 		])
 
-		// addEventListener('click', (e) => {
-		// 	this.projectile.shoot(
-		// 		this.player,
-		// 		mouse.positionRelativeToCamera(e),
-		// 	)
-		// })
-		//
 		this.animation = new Animation()
 
-
 		this.pp = new PrettyParticles()
-
 		mouse.clickEvents.addOnClick('slingshot', mousePosition => {
 			this.projectile.shoot(this.player, mousePosition)
 			this.pp = new PrettyParticles()

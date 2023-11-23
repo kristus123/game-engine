@@ -14,7 +14,6 @@ export class Npc extends GameObject {
 			else {
 				Push(this).towards(goal)
 			}
-			
 		})
 	}
 
@@ -26,12 +25,7 @@ export class Npc extends GameObject {
 	}
 
 	draw(ctx) {
-
 		Draw.hpBar(ctx, this.x, this.y)
-
-
-
-
 
 		this.scriptedEvent.draw(ctx)
 

@@ -1,0 +1,61 @@
+[1mdiff --git a/static/Npc.js b/static/Npc.js[m
+[1mindex 89a61ee..bdc417f 100644[m
+[1m--- a/static/Npc.js[m
+[1m+++ b/static/Npc.js[m
+[36m@@ -14,7 +14,6 @@[m [mexport class Npc extends GameObject {[m
+ 			else {[m
+ 				Push(this).towards(goal)[m
+ 			}[m
+[31m-			[m
+ 		})[m
+ 	}[m
+ [m
+[36m@@ -26,13 +25,8 @@[m [mexport class Npc extends GameObject {[m
+ 	}[m
+ [m
+ 	draw(ctx) {[m
+[31m-[m
+ 		Draw.hpBar(ctx, this.x, this.y)[m
+ [m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+ 		this.scriptedEvent.draw(ctx)[m
+ [m
+ 		Draw.player(ctx, this)[m
+[1mdiff --git a/static/OutsideLevel.js b/static/OutsideLevel.js[m
+[1mindex bf8e33c..3ce949d 100644[m
+[1m--- a/static/OutsideLevel.js[m
+[1m+++ b/static/OutsideLevel.js[m
+[36m@@ -20,18 +20,9 @@[m [mexport class OutsideLevel {[m
+ 			new Planets(),[m
+ 		])[m
+ [m
+[31m-		// addEventListener('click', (e) => {[m
+[31m-		// 	this.projectile.shoot([m
+[31m-		// 		this.player,[m
+[31m-		// 		mouse.positionRelativeToCamera(e),[m
+[31m-		// 	)[m
+[31m-		// })[m
+[31m-		//[m
+ 		this.animation = new Animation()[m
+ [m
+[31m-[m
+ 		this.pp = new PrettyParticles()[m
+[31m-[m
+ 		mouse.clickEvents.addOnClick('slingshot', mousePosition => {[m
+ 			this.projectile.shoot(this.player, mousePosition)[m
+ 			this.pp = new PrettyParticles()[m
+[1mdiff --git a/static/Player.js b/static/Player.js[m
+[1mindex c706f8d..ffe7d93 100644[m
+[1m--- a/static/Player.js[m
+[1m+++ b/static/Player.js[m
+[36m@@ -15,7 +15,6 @@[m [mexport class Player extends GameObject {[m
+ 		Draw.player(ctx, this)[m
+ 		this.explosion(ctx)[m
+ 		// this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)[m
+[31m-		//[m
+ 		Draw.coordinates(ctx, this)[m
+ [m
+ 	}[m
