@@ -3,13 +3,14 @@ export class Npc extends GameObject {
 		super(0, -200, 35, 50, 100, 10)
 		this.p = new PrettyParticles()
 		this.player = player
+		this.velocity.x = -2000
 
 		this.scriptedEvent = new ScriptedEvent((ctx) => {
 			const goal = {x:100, y:-100}
 
 			if (Distance.withinRadius(goal, this, 2000)) {
 				Draw.text(ctx, this.x , this.y - 150, 700, 100, 'time to kill')
-				Push(this).towards(player)
+				// Push(this).towards(player)
 			}
 			else {
 				Push(this).towards(goal)

@@ -29,10 +29,13 @@ export class OutsideLevel {
 			this.animation.reset()
 		})
 
+		this.water = new Water(this.player)
+
 	}
 
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
+		this.water.physics.update(deltaTime)
 	}
 
 	update() {
@@ -44,6 +47,7 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
+		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
 

@@ -18,6 +18,13 @@ export class Draw {
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'
 	}
+
+
+
+	static blueRectangle(ctx, x, y) {
+		ctx.fillStyle = "blue";
+		ctx.fillRect(x, y, 10, 10)
+	}
 	
 	static hpBar(ctx, x, y) {
 		y -= 40
@@ -334,14 +341,12 @@ export class Draw {
 
 		setInterval(() => {
 			currentFrameIndex = (currentFrameIndex + 1) % totalFrames
-			console.log("hei")
 		}, 200)
 
 		const x = -300
 		const y = 0
 
 		return function drawFrame(ctx) {
-			console.log(currentFrameIndex)
 			const frameInfo = frameSequence[currentFrameIndex]
 			const currentFrameX = frameInfo.x
 			const currentFrameY = frameInfo.y

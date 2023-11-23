@@ -8,14 +8,16 @@ export class Player extends GameObject {
 		this.explosion = Draw.sprite()
 	}
 
+	onCollision(o) {
+	}
+
 	update() {
 	}
 
 	draw(ctx) {
 		Draw.player(ctx, this)
-		this.explosion(ctx)
+		// this.explosion(ctx)
 		// this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
-		Draw.coordinates(ctx, this)
-
+		// Draw.coordinates(ctx, this)
 	}
 }

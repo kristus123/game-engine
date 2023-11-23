@@ -1,12 +1,8 @@
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
-		// todo : instead of x,y use position{x,y}
 		this.x = x
 		this.y = y
 
-		// todo rename to dimensions, width, height
-		// e.q like this:
-		// this.dimensions = {width, height}
 		this.width = width
 		this.height = height
 
@@ -17,6 +13,10 @@ export class GameObject {
 			x: 0,
 			y: 0,
 		}
+	}
+
+	onCollision(o) {
+		Push(this).awayFrom(o)
 	}
 
 	// todo: maybe this.x should always be center.x ? : sounds like a good idea

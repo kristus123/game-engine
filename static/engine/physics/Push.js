@@ -1,7 +1,7 @@
 export const Push = (o) => ({
 	awayFrom: (target) => {
 		if (target.velocity.x === 0 || target.velocity.y === 0) {
-			console.log("aaaaa")	 // todo fix
+			//
 		}
 		else {
 			o.velocity.x -= -target.velocity.x / 3
