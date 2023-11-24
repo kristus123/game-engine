@@ -1,34 +1,25 @@
 export class Bullet extends GameObject {
 
-	constructor() {
-		super(0, 0, 10, 10, 0, 4000)
+	constructor(from, to) {
+		super(from.x, from.y, 40, 40, 0, 5000)
 
-		this.to = {
-			x: 0,
-			y: 0,
+		this.from = {
+			x: from.x,
+			y: from.y,
 		}
-
-		this.to = null
+		this.to = to
 		this.hit = null
+
+		Push(this).towards(to)
 	}
 
 	onCollision(o) {
 		this.hit = o
 	}
 
-	shoot(to) {
-		this.to = to
-
-		const dir = Math.atan2(to.y - this.y, to.x - this.x)
-		this.velocity = {
-			x: Math.cos(dir) * this.velocityFactor,
-			y: Math.sin(dir) * this.velocityFactor,
-		}
-	}
-
 	draw(ctx) {
 		if (this.to) {
-			Draw.lineBetween(ctx, this, this.to)
+			Draw.lineBetween(ctx, this.from, this)
 		}
 	}
 }

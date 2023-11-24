@@ -2,13 +2,16 @@ export class OutsideLevel {
 	constructor(player, cameraFollow, mouse) {
 		this.player = player
 		this.mouse = mouse
+		this.gun = new Gun(this.player)
 		this.projectile = new Projectile()
 
+		this.water = new Water(this.player)
 		this.spaceship = new Spaceship()
 		this.npc = new Npc(this.player)
 
 		this.physics = new Physics()
 		this.physics.applyPhysics(this.npc),
+
 		this.physics.applyPhysics(this.projectile)
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
@@ -30,18 +33,20 @@ export class OutsideLevel {
 		// })
 		//
 
-		this.bullet = new Bullet()
-		mouse.clickEvents.addOnClick('bullet', mousePosition => {
-			this.bullet.to(mousePosition)
-			
+		mouse.clickEvents.addOnClick('shoot', mousePosition => {
+			const bullet = this.gun.shoot(mousePosition)
+
+			setTimeout(() => {
+				Push(player).awayFrom(bullet)
+			}, 100)
 		})
 
-		this.water = new Water(this.player)
 
 	}
 
 	updatePhysics(deltaTime) {
 		this.physics.update(deltaTime)
+		this.gun.updatePhysics(deltaTime)
 		this.water.physics.update(deltaTime)
 	}
 
@@ -54,6 +59,7 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
+		this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)

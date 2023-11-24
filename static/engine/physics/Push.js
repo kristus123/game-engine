@@ -9,9 +9,10 @@ export const Push = (o) => ({
 		}
 	},
 	towards: (position) => {
-		const vel = Calculate.velocity(o, position)
-
-		o.velocity.x += vel.x * Random.floatBetween(0.1, 0.4) * 10
-		o.velocity.y += vel.y * Random.floatBetween(0.1, 0.4) * 10
+		const dir = Math.atan2(position.y - o.y, position.x - o.x)
+		o.velocity = {
+			x: Math.cos(dir) * o.velocityFactor,
+			y: Math.sin(dir) * o.velocityFactor,
+		}
 	}
 })
