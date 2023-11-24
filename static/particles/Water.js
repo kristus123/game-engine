@@ -5,7 +5,7 @@ export class Water {
 
 		this.physics.applyPhysics(player)
 
-		const numStars = 1000
+		const numStars = 100
 
 		this.stars = []
 		for (let i = 0; i < numStars; i++) {
