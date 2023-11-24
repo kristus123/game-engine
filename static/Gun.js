@@ -19,10 +19,6 @@ export class Gun {
 		return b
 	}
 
-	update() {
-		
-	}
-
 	draw(ctx) {
 		this.bullets.forEach(b => {
 			b.draw(ctx)
