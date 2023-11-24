@@ -15,7 +15,7 @@ export class Water {
 			const height = Math.random() * 1 + 1 // Varying star heights
 
 			const velocityFactor = 1000
-			const weight = 1
+			const weight = 10
 
 			const waterDroplet = new GameObject(x, y ,width, height, weight, velocityFactor)
 
