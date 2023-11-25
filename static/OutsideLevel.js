@@ -16,6 +16,8 @@ export class OutsideLevel {
 		this.physics.applyPhysics(this.player)
 		this.physics.applyPhysics(this.spaceship)
 
+		this.splash = new Splash()
+
 		this.extensions = new LoadExtensions([
 			new FetchContainerExtension(this.spaceship, this.npc),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
@@ -26,16 +28,12 @@ export class OutsideLevel {
 		this.animation = new Animation()
 
 		this.pp = new PrettyParticles()
-		// mouse.clickEvents.addOnClick('slingshot', mousePosition => {
-		// 	this.projectile.shoot(this.player, mousePosition)
-		// 	this.pp = new PrettyParticles()
-		// 	this.animation.reset()
-		// })
-		//
+
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
-			const bullet = this.gun.shoot(mousePosition)
+			this.splash.splash(this.player, mousePosition)
 
+			const bullet = this.gun.shoot(mousePosition)
 			setTimeout(() => {
 				Push(player).awayFrom(bullet)
 			}, 100)
@@ -59,6 +57,8 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
+		Draw.revertMouse(ctx, this.player, this.mouse.currentMousePosition)
+		this.splash.draw(ctx)
 		this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)

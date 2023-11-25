@@ -10,7 +10,6 @@ export class PrettyParticles {
 			const newParticle = new GameObject(x, y, size, size, 10, 200)
 
 			const pos = Calculate.directionBetween(player, mousePosition)
-
 			const vel = Calculate.velocity(player, pos)
 
 			newParticle.velocity = {

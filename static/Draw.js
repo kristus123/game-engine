@@ -25,14 +25,29 @@ export class Draw {
 		ctx.fillStyle = "blue";
 		ctx.fillRect(x, y, 10, 10)
 	}
+
+
 	
-	static hpBar(ctx, x, y) {
+	static hpBar(ctx, x, y, currentHp, maxHp) {
+		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
+			const numerator = currentHp;
+			const denominator = maxHp;
+
+			const percentage = (numerator / denominator) * 100;
+
+			const displayValue = percentage / 100;
+
+			return displayValue
+		}
+
 		y -= 40
 
-		const width = 100
+		const width = 200
 		const height = 20
 
-		let currentHP = 0.7;
+		let currentHP = 1
+		currentHP = toPercentage()
+
 		currentHP = Math.max(0, currentHP - 0.01);
 
 		ctx.fillStyle = 'white';
@@ -87,7 +102,7 @@ export class Draw {
 	}
 
 	// needs some work obviously, but it works
-	static objectThatIsCirclingAroundObjectBasedOnMousePositionButBehind() {
+	static revertMouse(ctx, player, currentMousePosition) {
 		function getAngle(x1, y1, x2, y2) {
 			return Math.atan2(y2 - y1, x2 - x1)
 		}
@@ -97,20 +112,21 @@ export class Draw {
 		const circleRadius = 50
 
 		const oppositeAngle = player.angle + Math.PI
-		const circleX =
-			player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
-		const circleY =
-			player.y +
-			player.height / 2 +
-			circleRadius * Math.sin(oppositeAngle)
+		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
+		const circleY = player.y + player.height / 2 + circleRadius * Math.sin(oppositeAngle)
+
 		Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
 
 		player.angle = getAngle(
 			player.x + player.width / 2,
 			player.y + player.height / 2,
-			camera.currentMousePosition.x,
-			camera.currentMousePosition.y,
-		)
+			currentMousePosition.x,
+			currentMousePosition.y)
+
+		return {
+			x: circleX,
+			y: circleY,
+		}
 	}
 
 	static objectThatIsMovingInRectangularPathAroundObject(
