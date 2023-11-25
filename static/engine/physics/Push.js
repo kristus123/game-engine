@@ -8,11 +8,11 @@ export const Push = (o) => ({
 			o.velocity.y -= -target.velocity.y / 3
 		}
 	},
-	towards: (position) => {
+	towards: (position, multiplier=1) => {
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 		o.velocity = {
-			x: Math.cos(dir) * o.velocityFactor,
-			y: Math.sin(dir) * o.velocityFactor,
+			x: Math.cos(dir) * o.velocityFactor * multiplier,
+			y: Math.sin(dir) * o.velocityFactor * multiplier,
 		}
 	}
 })

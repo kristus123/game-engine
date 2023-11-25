@@ -299,12 +299,6 @@ export class Draw {
 		ctx.restore()
 	}
 
-
-
-
-
-
-
 	static grid(ctx) {
 		ctx.strokeStyle = '#ccc' // Grid color
 		ctx.lineWidth = 2
@@ -321,6 +315,7 @@ export class Draw {
 			ctx.lineTo(mapWidth, i * cellSize)
 			ctx.stroke()
 		}
+
 		ctx.beginPath()
 		ctx.moveTo(0, mapHeight)
 		ctx.lineTo(mapWidth, mapHeight)
@@ -332,6 +327,7 @@ export class Draw {
 			ctx.lineTo(j * cellSize, mapHeight)
 			ctx.stroke()
 		}
+
 		ctx.beginPath()
 		ctx.moveTo(mapWidth, 0)
 		ctx.lineTo(mapWidth, mapHeight)

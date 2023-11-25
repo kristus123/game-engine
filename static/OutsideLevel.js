@@ -31,11 +31,11 @@ export class OutsideLevel {
 
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
-			this.splash.splash(this.player, mousePosition)
+			this.splash.splashOpposite(this.player, mousePosition)
 
 			const bullet = this.gun.shoot(mousePosition)
 			setTimeout(() => {
-				Push(player).awayFrom(bullet)
+				Push(player).towards(bullet, 50)
 			}, 100)
 		})
 	}
@@ -58,7 +58,7 @@ export class OutsideLevel {
 		Draw.circleSpinning(ctx, this.player, 50)
 
 		this.splash.draw(ctx)
-		this.gun.draw(ctx)
+		// this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
