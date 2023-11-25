@@ -27,6 +27,6 @@ Loop.everyFrame((deltaTime) => {
 
 	Palette.fill(backgroundPalette, 'black')
 	// Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-	Draw.text(guiPalette.ctx, 20, 20, 80, 200, 'left click to boost')
+	Draw.text(guiPalette.ctx, 20, 20, 200, 80, 'left click to boost')
 	Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
 })
