@@ -19,14 +19,10 @@ export class Draw {
 		ctx.font = '25px Arial'
 	}
 
-
-
 	static blueRectangle(ctx, x, y) {
 		ctx.fillStyle = "blue";
 		ctx.fillRect(x, y, 10, 10)
 	}
-
-
 	
 	static hpBar(ctx, x, y, currentHp, maxHp) {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
@@ -83,22 +79,28 @@ export class Draw {
 		return {x, y, radius}
 	}
 
+
+	static angle = 0
+
 	// todo must be updated somehow iwthin game lloop
 	static circleSpinning(ctx, objectToFollow, radius) {
-		let angle = 0
-
 		const x =
 			objectToFollow.x +
 			objectToFollow.width / 2 +
-			radius * Math.cos(angle)
+			radius * Math.cos(Draw.angle)
 		const y =
 			objectToFollow.y +
 			objectToFollow.height / 2 +
-			radius * Math.sin(angle)
+			radius * Math.sin(Draw.angle)
 
 		Draw.circle(ctx, x, y, 10, 'red')
 
-		angle += 0.25
+		Draw.angle += 0.1
+
+		return {
+			x,
+			y,
+		}
 	}
 
 	// needs some work obviously, but it works

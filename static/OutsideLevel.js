@@ -38,8 +38,6 @@ export class OutsideLevel {
 				Push(player).awayFrom(bullet)
 			}, 100)
 		})
-
-
 	}
 
 	updatePhysics(deltaTime) {
@@ -57,7 +55,8 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.revertMouse(ctx, this.player, this.mouse.currentMousePosition)
+		Draw.circleSpinning(ctx, this.player, 50)
+
 		this.splash.draw(ctx)
 		this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
