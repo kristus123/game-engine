@@ -21,6 +21,8 @@ export class Player extends GameObject {
 
 	draw(ctx) {
 		Draw.player(ctx, this)
+
+		this.inventory.draw(ctx)
 		this.explosion(ctx)
 		// this.p.piss(ctx, this.x, this.y, this, this.mouse.currentMousePosition, this.mouse)
 		// Draw.coordinates(ctx, this)

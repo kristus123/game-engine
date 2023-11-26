@@ -30,12 +30,16 @@ export class OutsideLevel {
 		this.pp = new PrettyParticles()
 
 		this.item = new InventoryItem()
-
+		this.physics.applyPhysics(this.item)
+		this.player.inventory.addPickable(this.item)
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splashOpposite(this.player, mousePosition)
 
-			const bullet = this.gun.shoot(mousePosition)
+			const b = this.gun.shoot(mousePosition)
+			setTimeout(() => {
+				Push(this.player).towards(b, 25)
+			}, 100);
 		})
 	}
 
@@ -58,6 +62,7 @@ export class OutsideLevel {
 
 		this.item.draw(ctx)
 
+
 		this.splash.draw(ctx)
 		// this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
@@ -68,5 +73,4 @@ export class OutsideLevel {
 			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
 			Draw.circle(ctx, this.player.x, this.player.y, 10, 'red')
 		}
-	}
-}
+	} }
