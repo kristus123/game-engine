@@ -15,6 +15,10 @@ export class Bullet extends GameObject {
 
 	onCollision(o) {
 		this.hit = o
+
+		if (o instanceof InventoryItem) {
+			o.pickUp()
+		}
 	}
 
 	draw(ctx) {

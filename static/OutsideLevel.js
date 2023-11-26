@@ -29,16 +29,21 @@ export class OutsideLevel {
 
 		this.pp = new PrettyParticles()
 
-		this.item = new InventoryItem()
-		this.physics.applyPhysics(this.item)
-		this.player.inventory.addPickable(this.item)
+		setInterval(() => {
+			for (let index = 0; index < 1; index++) {
+				const x = Random.numberBetween(-1000, 1000)
+				const y = Random.numberBetween(-1000, 1000)
+				this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
+			}
+		}, 500);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splashOpposite(this.player, mousePosition)
 
 			const b = this.gun.shoot(mousePosition)
+			// this.physics.applyPhysics(b)
 			setTimeout(() => {
-				Push(this.player).towards(b, 25)
+				Push(this.player).towards(b, 50)
 			}, 100);
 		})
 	}
@@ -50,6 +55,9 @@ export class OutsideLevel {
 	}
 
 	update() {
+		this.player.inventory.pickableItems.forEach(i => {
+			Push(i).towards(this.player, 50)
+		})
 		if (this.projectile.connectedTo) {
 			Physics.applyAttraction(this.player, this.projectile.connectedTo)
 		}
@@ -60,17 +68,16 @@ export class OutsideLevel {
 	draw(ctx) {
 		Draw.circleSpinning(ctx, this.player, 50)
 
-		this.item.draw(ctx)
-
-
 		this.splash.draw(ctx)
 		// this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
 
+
 		if (this.animation.active) {
 			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
 			Draw.circle(ctx, this.player.x, this.player.y, 10, 'red')
 		}
+		
 	} }

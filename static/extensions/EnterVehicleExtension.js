@@ -39,6 +39,8 @@ export class EnterVehicleExtension {
 	}
 
 	draw(ctx) {
+		this.player.draw(ctx)
+
 		if (this.entered) {
 			this.vehicle.draw(ctx)
 			Draw.text(
@@ -51,7 +53,6 @@ export class EnterVehicleExtension {
 			)
 		}
 		else {
-			this.player.draw(ctx)
 			this.vehicle.draw(ctx)
 
 			if (Distance.withinRadius(this.player, this.vehicle, 100)) {

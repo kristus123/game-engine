@@ -37,7 +37,8 @@ export class Splash {
 		}
 	}
 
-	splash(spawnPosition, mousePosition, angleSpread=0.5, color='white') {
+	splash(spawnPosition, mousePosition, angleSpread=0.2, color='white') {
+		color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
 
 		for (let i = 1; i <= 200; i++) {
 			const size = Random.floatBetween(1, 5);

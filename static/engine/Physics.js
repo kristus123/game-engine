@@ -22,7 +22,6 @@ export class Physics {
 
 				// Calculate friction based on weight
 				const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
-
 				// Apply friction to velocity
 				o.velocity.x *= frictionFactor
 				o.velocity.y *= frictionFactor

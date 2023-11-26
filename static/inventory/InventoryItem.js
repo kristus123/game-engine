@@ -1,13 +1,13 @@
 export class InventoryItem extends GameObject {
-	constructor() {
-		super(-100, 0, 35, 50, 100, 10)
+	constructor(x, y, inventory) {
+		super(x, y, 35, 50, 100, 10)
 
 		this.splash = new Splash()
+		this.inventory = inventory
 	}
 
 	pickUp() {
-		this.pickedUp = true
-
+		this.inventory.pickUp(this)
 	}
 
 	draw(ctx) {

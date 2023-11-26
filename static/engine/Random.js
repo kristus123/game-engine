@@ -12,4 +12,8 @@ export class Random {
 	static color() {
 		return `hsl(${Math.random() * 360}, 100%, 50%)`
 	}
+
+	static choice(list) {
+		return list[Math.floor(Math.random() * list.length)];
+	}
 }

@@ -4,6 +4,8 @@ export class Inventory {
 		this.pickableItems = []
 
 		this.splash = new Splash()
+
+		this.score = 0
 	}
 
 	addPickable(o) {
@@ -20,6 +22,8 @@ export class Inventory {
 		}, 10, 'orange')
 
 		o.x = -1000
+
+		this.score++
 	}
 
 	draw(ctx) {
