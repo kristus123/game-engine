@@ -29,14 +29,13 @@ export class OutsideLevel {
 
 		this.pp = new PrettyParticles()
 
+		this.item = new InventoryItem()
+
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splashOpposite(this.player, mousePosition)
 
 			const bullet = this.gun.shoot(mousePosition)
-			setTimeout(() => {
-				Push(player).towards(bullet, 50)
-			}, 100)
 		})
 	}
 
@@ -56,6 +55,8 @@ export class OutsideLevel {
 
 	draw(ctx) {
 		Draw.circleSpinning(ctx, this.player, 50)
+
+		this.item.draw(ctx)
 
 		this.splash.draw(ctx)
 		// this.gun.draw(ctx)

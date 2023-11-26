@@ -10,8 +10,8 @@ export class Gun {
 		this.physics.update(deltaTime)
 	}
 
-	shoot(to) {
-		const b = new Bullet(this.player, to)
+	shoot(position) {
+		const b = new Bullet(this.player, position)
 
 		this.bullets.push(b)
 		this.physics.applyPhysics(b)

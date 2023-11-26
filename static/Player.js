@@ -6,9 +6,14 @@ export class Player extends GameObject {
 		this.mouse = mouse
 
 		this.explosion = Draw.sprite()
+
+		this.inventory = new Inventory()
 	}
 
 	onCollision(o) {
+		if (o instanceof InventoryItem) {
+			this.inventory.pickUp(o)
+		}
 	}
 
 	update() {
