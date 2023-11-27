@@ -35,7 +35,7 @@ export class OutsideLevel {
 				const y = Random.numberBetween(-1000, 1000)
 				this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
 			}
-		}, 1000);
+		}, 5000);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splashOpposite(this.player, mousePosition)
