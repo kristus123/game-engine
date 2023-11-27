@@ -35,7 +35,7 @@ export class OutsideLevel {
 				const y = Random.numberBetween(-1000, 1000)
 				this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
 			}
-		}, 500);
+		}, 1000);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splashOpposite(this.player, mousePosition)
@@ -73,7 +73,6 @@ export class OutsideLevel {
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
-
 
 		if (this.animation.active) {
 			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
