@@ -1,6 +1,9 @@
 export class Splash {
 	constructor() {
 		this.particles = []
+
+		this.minAngle = 0
+		this.maxAngle = 0
 	}
 
 	splashOpposite(spawnPosition, mousePosition) {
@@ -37,12 +40,16 @@ export class Splash {
 		}
 	}
 
-	splash(spawnPosition, mousePosition, angleSpread=0.2, color='white') {
-		color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
+	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white') {
+		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
+		color = 'white';
 
-		for (let i = 1; i <= 200; i++) {
+		let minAngle = Infinity;
+		let maxAngle = -Infinity;
+
+		for (let i = 1; i <= 100; i++) {
 			const size = Random.floatBetween(1, 5);
-			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 10, 200);
+			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400);
 
 			// Calculate direction vector
 			const direction = {
@@ -57,6 +64,10 @@ export class Splash {
 			const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2);
 			const angle = initialAngle + spread;
 
+			// Update min and max angles
+			minAngle = Math.min(minAngle, angle);
+			maxAngle = Math.max(maxAngle, angle);
+
 			const speed = Random.floatBetween(5, 10);
 
 			// Calculate velocity components
@@ -65,13 +76,21 @@ export class Splash {
 				y: Math.sin(angle) * speed,
 			};
 
-			newParticle.life = 400;
-			newParticle.color = color
+			newParticle.life = 100;
+			newParticle.color = color;
 			this.particles.push(newParticle);
 		}
+
+		this.minAngle = minAngle
+		this.maxAngle = maxAngle
 	}
 
-	draw(ctx) {
+	draw(ctx, player) {
+
+		if (player) {
+			Draw.splash(ctx, player, this.minAngle, this.maxAngle)
+		}
+
 		this.particles.forEach((p, index) => {
 			p.x += p.velocity.x
 			p.y += p.velocity.y

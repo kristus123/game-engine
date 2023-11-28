@@ -38,12 +38,10 @@ export class OutsideLevel {
 		}, 5000);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
-			this.splash.splashOpposite(this.player, mousePosition)
+			this.splash.splash(this.player, mousePosition)
 
-			const b = this.gun.shoot(mousePosition)
-			// this.physics.applyPhysics(b)
 			setTimeout(() => {
-				Push(this.player).towards(b, 50)
+				Push(this.player).awayFrom(mousePosition, 60)
 			}, 100);
 		})
 	}
@@ -58,6 +56,7 @@ export class OutsideLevel {
 		this.player.inventory.pickableItems.forEach(i => {
 			Push(i).towards(this.player, 50)
 		})
+
 		if (this.projectile.connectedTo) {
 			Physics.applyAttraction(this.player, this.projectile.connectedTo)
 		}
@@ -68,7 +67,7 @@ export class OutsideLevel {
 	draw(ctx) {
 		Draw.circleSpinning(ctx, this.player, 50)
 
-		this.splash.draw(ctx)
+		this.splash.draw(ctx, this.player)
 		// this.gun.draw(ctx)
 		this.water.draw(ctx, this.player)
 		this.projectile.draw(ctx)

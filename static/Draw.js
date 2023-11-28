@@ -23,6 +23,37 @@ export class Draw {
 		ctx.fillStyle = "blue";
 		ctx.fillRect(x, y, 10, 10)
 	}
+
+	static splash(context, spawnPosition, minAngle, maxAngle, length = 500) {
+		context.beginPath();
+
+		// Calculate endpoint for the furthest left angle
+		const leftX = spawnPosition.x + length * Math.cos(minAngle);
+		const leftY = spawnPosition.y + length * Math.sin(minAngle);
+
+		// Calculate endpoint for the furthest right angle
+		const rightX = spawnPosition.x + length * Math.cos(maxAngle);
+		const rightY = spawnPosition.y + length * Math.sin(maxAngle);
+
+		// Draw lines
+		context.moveTo(spawnPosition.x, spawnPosition.y);
+		context.lineTo(leftX, leftY);
+		context.moveTo(spawnPosition.x, spawnPosition.y);
+		context.lineTo(rightX, rightY);
+
+		// Set line style
+		context.lineWidth = 2;
+		context.strokeStyle = 'red'; // You can set your desired color
+
+		// Stroke the lines
+		context.stroke();
+		context.closePath();
+	}
+
+
+
+
+
 	
 	static hpBar(ctx, x, y, currentHp, maxHp) {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
