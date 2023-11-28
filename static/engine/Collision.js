@@ -5,7 +5,6 @@ export class Collision {
 			red.x + red.width >= blue.x &&
 			red.x <= blue.x + blue.width &&
 			red.y + red.height >= blue.y &&
-			red.y <= blue.y + blue.height
-		)
+			red.y <= blue.y + blue.height)
 	}
 }
