@@ -40,7 +40,10 @@ export class Splash {
 		}
 	}
 
-	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white') {
+	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null) {
+		if (!speed) {
+			speed = Random.floatBetween(5, 10)
+		}
 		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
 		color = 'white';
 
@@ -68,7 +71,7 @@ export class Splash {
 			minAngle = Math.min(minAngle, angle);
 			maxAngle = Math.max(maxAngle, angle);
 
-			const speed = Random.floatBetween(5, 10);
+			// !! speed used to be randomized.
 
 			// Calculate velocity components
 			newParticle.velocity = {

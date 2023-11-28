@@ -35,10 +35,15 @@ export class OutsideLevel {
 				const y = Random.numberBetween(-1000, 1000)
 				this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
 			}
-		}, 5000);
+		}, 500);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
-			this.splash.splash(this.player, mousePosition)
+			this.splash.splash(this.player, mousePosition, undefined, undefined, Random.floatBetween(10, 40))
+			this.shot = true
+
+			setTimeout(() => {
+				this.shot = false
+			}, 100);
 
 			setTimeout(() => {
 				Push(this.player).awayFrom(mousePosition, 60)
@@ -66,6 +71,14 @@ export class OutsideLevel {
 
 	draw(ctx) {
 		Draw.circleSpinning(ctx, this.player, 50)
+
+		this.player.inventory.pickableItems.forEach(i => {
+			if (Calculate.withinAngle(this.player, i, this.splash.minAngle, this.splash.maxAngle, 500) && this.shot) {
+				setTimeout(() => {
+					this.player.inventory.pickUp(i)
+				}, 100);
+			}
+		})
 
 		this.splash.draw(ctx, this.player)
 		// this.gun.draw(ctx)
