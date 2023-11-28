@@ -15,15 +15,9 @@ export class Bullet extends GameObject {
 
 	onCollision(o) {
 		this.hit = o
-
-		if (o instanceof InventoryItem) {
-			o.pickUp()
-		}
 	}
 
 	draw(ctx) {
-		if (this.to) {
-			Draw.lineBetween(ctx, this.from, this)
-		}
+		Draw.lineBetween(ctx, this.from, this)
 	}
 }
