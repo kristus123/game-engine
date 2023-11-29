@@ -6,10 +6,6 @@ export class LevelHandler {
 		this.outsideLevel = new OutsideLevel(this.player, cameraFollow, mouse)
 	}
 
-	updatePhysics(deltaTime) {
-		this.outsideLevel.updatePhysics(deltaTime)
-	}
-
 	update() {
 		this.outsideLevel.update()
 	}

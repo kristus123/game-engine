@@ -3,39 +3,31 @@ export class OutsideLevel {
 		this.player = player
 		this.mouse = mouse
 		this.gun = new Gun(this.player)
-		this.projectile = new Projectile()
 
-		this.water = new Water(this.player)
 		this.spaceship = new Spaceship()
 		this.npc = new Npc(this.player)
 
-		this.physics = new Physics()
-		this.physics.applyPhysics(this.npc),
-
-		this.physics.applyPhysics(this.projectile)
-		this.physics.applyPhysics(this.player)
-		this.physics.applyPhysics(this.spaceship)
-
-		this.splash = new Splash()
+		this.splash = new Splash(this.player)
 
 		this.extensions = new LoadExtensions([
 			new FetchContainerExtension(this.spaceship, this.npc),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
 			this.npc,
 			new Planets(),
+			this.splash
 		])
 
 		this.animation = new Animation()
 
 		this.pp = new PrettyParticles()
 
-		setInterval(() => {
-			for (let index = 0; index < 1; index++) {
-				const x = Random.numberBetween(-1000, 1000)
-				const y = Random.numberBetween(-1000, 1000)
-				this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
-			}
-		}, 500);
+		// setInterval(() => {
+		// 	for (let index = 0; index < 1; index++) {
+		// 		const x = Random.numberBetween(-1000, 1000)
+		// 		const y = Random.numberBetween(-1000, 1000)
+		// 		this.player.inventory.addPickable(this.physics.applyPhysics(new InventoryItem(x, y)))
+		// 	}
+		// }, 500);
 
 		mouse.clickEvents.addOnClick('shoot', mousePosition => {
 			this.splash.splash(this.player, mousePosition, undefined, undefined, Random.floatBetween(10, 40))
@@ -51,20 +43,10 @@ export class OutsideLevel {
 		})
 	}
 
-	updatePhysics(deltaTime) {
-		this.physics.update(deltaTime)
-		this.gun.updatePhysics(deltaTime)
-		this.water.physics.update(deltaTime)
-	}
-
 	update() {
 		this.player.inventory.pickableItems.forEach(i => {
 			Push(i).towards(this.player, 50)
 		})
-
-		if (this.projectile.connectedTo) {
-			Physics.applyAttraction(this.player, this.projectile.connectedTo)
-		}
 
 		this.extensions.update()
 	}
@@ -80,15 +62,11 @@ export class OutsideLevel {
 			}
 		})
 
-		this.splash.draw(ctx, this.player)
-		// this.gun.draw(ctx)
-		this.water.draw(ctx, this.player)
-		this.projectile.draw(ctx)
 		this.extensions.draw(ctx)
 
 		if (this.animation.active) {
 			this.pp.updateAndDraw(ctx, this.player.x, this.player.y)
 			Draw.circle(ctx, this.player.x, this.player.y, 10, 'red')
 		}
-		
-	} }
+	}
+}

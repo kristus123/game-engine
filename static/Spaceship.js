@@ -1,4 +1,3 @@
-
 export class Spaceship extends GameObject {
 	constructor() {
 		super(-500, 0, 100, 100, 10, 25)

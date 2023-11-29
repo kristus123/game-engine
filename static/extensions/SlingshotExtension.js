@@ -1,10 +1,9 @@
 
 export class SlingshotExtension {
-	constructor(mouse, physics, player) {
+	constructor(mouse, player) {
 		this.player = player
 
 		this.projectile = new Projectile(this.player, 10, 'red')
-		physics.applyPhysics(this.projectile)
 
 		document.addEventListener('click', (e) => {
 			console.log('shooting')

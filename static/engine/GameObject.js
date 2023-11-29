@@ -13,10 +13,12 @@ export class GameObject {
 			x: 0,
 			y: 0,
 		}
+
+		Physics.global.applyPhysics(this)
 	}
 
 	onCollision(o) {
-		Push(this).awayFrom(o)
+		// Push(this).awayFrom(o)
 	}
 
 	// todo: maybe this.x should always be center.x ? : sounds like a good idea

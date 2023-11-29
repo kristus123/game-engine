@@ -15,7 +15,7 @@ const level = new LevelHandler((f) => (objectToFollow = f), mouse)
 Loop.everyFrame((deltaTime) => {
 	Palette.clear([camera.palette, guiPalette])
 
-	level.updatePhysics(deltaTime)
+	Physics.global.update(deltaTime)
 
 	camera.context(() => {
 		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context

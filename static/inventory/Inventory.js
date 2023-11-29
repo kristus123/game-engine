@@ -27,9 +27,9 @@ export class Inventory {
 	}
 
 	draw(ctx) {
-		this.pickableItems.forEach(i => {
-			i.draw(ctx)
-		})
+		// this.pickableItems.forEach(i => {
+		// 	i.draw(ctx)
+		// })
 
 		this.splash.draw(ctx)
 	}

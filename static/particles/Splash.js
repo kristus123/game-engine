@@ -1,9 +1,14 @@
 export class Splash {
-	constructor() {
+	constructor(player) {
+		this.player = player
 		this.particles = []
 
 		this.minAngle = 0
 		this.maxAngle = 0
+	}
+
+	update() {
+		
 	}
 
 	splashOpposite(spawnPosition, mousePosition) {
@@ -88,11 +93,9 @@ export class Splash {
 		this.maxAngle = maxAngle
 	}
 
-	draw(ctx, player) {
+	draw(ctx) {
 
-		if (player) {
-			Draw.splash(ctx, player, this.minAngle, this.maxAngle)
-		}
+		// Draw.splash(ctx, this.player, this.minAngle, this.maxAngle)
 
 		this.particles.forEach((p, index) => {
 			p.x += p.velocity.x
@@ -109,5 +112,4 @@ export class Splash {
 			}
 		})
 	}
-	
 }

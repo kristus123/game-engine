@@ -1,14 +1,7 @@
 export class Water {
-	constructor(player) {
-
-		this.physics = new Physics()
-
-		this.physics.applyPhysics(player)
-
-		const numStars = 100
-
-		this.stars = []
-		for (let i = 0; i < numStars; i++) {
+	constructor() {
+		this.droplets = []
+		for (let i = 0; i < 100; i++) {
 			const x = Random.numberBetween(-300, 300)
 			const y = Random.numberBetween(-300, 300)
 			const width = Math.random() * 1 + 1 // Varying star widths
@@ -18,14 +11,17 @@ export class Water {
 			const weight = 10
 
 			const waterDroplet = new GameObject(x, y ,width, height, weight, velocityFactor)
+			waterDroplet.originalPosition = {
+				x: waterDroplet.x,
+				y: waterDroplet.y,
+			}
 
-			this.stars.push(waterDroplet)
-			this.physics.applyPhysics(waterDroplet)
+			this.droplets.push(waterDroplet)
 		}
 	}
 
 	draw(ctx) {
-		this.stars.forEach((s) => {
+		this.droplets.forEach((s) => {
 			Draw.blueRectangle(ctx, s.x, s.y, s.width, s.height)
 		})
 	}

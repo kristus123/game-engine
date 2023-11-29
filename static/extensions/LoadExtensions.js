@@ -5,7 +5,11 @@ export class LoadExtensions {
 
 	update() {
 		this.extensions.forEach(e => {
-			e.update()
+			try {
+				e.update()
+			} catch(error) {
+				console.log('an error occurred while running "update" method for ' + e.constructor.name)
+			}
 		})
 	}
 

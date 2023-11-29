@@ -3,6 +3,8 @@ export class Physics {
 		this.objects = []
 	}
 
+	static global = new Physics()
+
 	applyPhysics(o) {
 		this.objects.push(o)
 		return o
