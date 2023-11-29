@@ -14,14 +14,14 @@ export class StarBackground {
 		}
 	}
 
-	draw(player) {
+	draw(center) {
 		Palette.fill(this.palette, 'black')
 		this.palette.ctx.fillStyle = 'white'
 		this.stars.forEach((s) => {
 			Draw.rectangle(
 				this.palette.ctx,
-				s.x - player.x / 50,
-				s.y - player.y / 50,
+				s.x - center.x / 50,
+				s.y - center.y / 50,
 				s.width,
 				s.height,
 			)

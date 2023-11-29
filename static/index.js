@@ -23,7 +23,7 @@ Loop.everyFrame((deltaTime) => {
 		level.draw(camera.palette.ctx)
 	})
 
-	starBackground.draw(level.player)
+	starBackground.draw(objectToFollow)
 
 	Palette.fill(backgroundPalette, 'black')
 	// Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
