@@ -25,7 +25,7 @@ export class Npc extends GameObject {
 	}
 
 	update() {
-		this.hp -= 0.1
+		// this.hp -= 0.1
 	}
 
 	draw(ctx) {

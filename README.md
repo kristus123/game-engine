@@ -20,5 +20,16 @@ npx eslint . --fix
 ```
 
 ## run locally
+
+npm i -g concurrently
+
+
 nodemon script.py -e html,py,css,js
 http-server dist/
+
+
+```
+concurrently "./nodemon.sh" "cd dist && reload"
+```
+
+npm install reload -g

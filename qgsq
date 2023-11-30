@@ -1,0 +1,299 @@
+[1mdiff --git a/static/Draw.js b/static/Draw.js[m
+[1mindex 9f567e2..e8992d7 100644[m
+[1m--- a/static/Draw.js[m
+[1m+++ b/static/Draw.js[m
+[36m@@ -20,34 +20,34 @@[m [mexport class Draw {[m
+ 	}[m
+ [m
+ 	static blueRectangle(ctx, x, y) {[m
+[31m-		ctx.fillStyle = "blue";[m
+[32m+[m		[32mctx.fillStyle = 'blue'[m
+ 		ctx.fillRect(x, y, 10, 10)[m
+ 	}[m
+ [m
+ 	static splash(context, spawnPosition, minAngle, maxAngle, length = 500) {[m
+[31m-		context.beginPath();[m
+[32m+[m		[32mcontext.beginPath()[m
+ [m
+ 		// Calculate endpoint for the furthest left angle[m
+[31m-		const leftX = spawnPosition.x + length * Math.cos(minAngle);[m
+[31m-		const leftY = spawnPosition.y + length * Math.sin(minAngle);[m
+[32m+[m		[32mconst leftX = spawnPosition.x + length * Math.cos(minAngle)[m
+[32m+[m		[32mconst leftY = spawnPosition.y + length * Math.sin(minAngle)[m
+ [m
+ 		// Calculate endpoint for the furthest right angle[m
+[31m-		const rightX = spawnPosition.x + length * Math.cos(maxAngle);[m
+[31m-		const rightY = spawnPosition.y + length * Math.sin(maxAngle);[m
+[32m+[m		[32mconst rightX = spawnPosition.x + length * Math.cos(maxAngle)[m
+[32m+[m		[32mconst rightY = spawnPosition.y + length * Math.sin(maxAngle)[m
+ [m
+ 		// Draw lines[m
+[31m-		context.moveTo(spawnPosition.x, spawnPosition.y);[m
+[31m-		context.lineTo(leftX, leftY);[m
+[31m-		context.moveTo(spawnPosition.x, spawnPosition.y);[m
+[31m-		context.lineTo(rightX, rightY);[m
+[32m+[m		[32mcontext.moveTo(spawnPosition.x, spawnPosition.y)[m
+[32m+[m		[32mcontext.lineTo(leftX, leftY)[m
+[32m+[m		[32mcontext.moveTo(spawnPosition.x, spawnPosition.y)[m
+[32m+[m		[32mcontext.lineTo(rightX, rightY)[m
+ [m
+ 		// Set line style[m
+[31m-		context.lineWidth = 2;[m
+[31m-		context.strokeStyle = 'red'; // You can set your desired color[m
+[32m+[m		[32mcontext.lineWidth = 2[m
+[32m+[m		[32mcontext.strokeStyle = 'red' // You can set your desired color[m
+ [m
+ 		// Stroke the lines[m
+[31m-		context.stroke();[m
+[31m-		context.closePath();[m
+[32m+[m		[32mcontext.stroke()[m
+[32m+[m		[32mcontext.closePath()[m
+ 	}[m
+ [m
+ [m
+[36m@@ -57,12 +57,12 @@[m [mexport class Draw {[m
+ 	[m
+ 	static hpBar(ctx, x, y, currentHp, maxHp) {[m
+ 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage[m
+[31m-			const numerator = currentHp;[m
+[31m-			const denominator = maxHp;[m
+[32m+[m			[32mconst numerator = currentHp[m
+[32m+[m			[32mconst denominator = maxHp[m
+ [m
+[31m-			const percentage = (numerator / denominator) * 100;[m
+[32m+[m			[32mconst percentage = (numerator / denominator) * 100[m
+ [m
+[31m-			const displayValue = percentage / 100;[m
+[32m+[m			[32mconst displayValue = percentage / 100[m
+ [m
+ 			return displayValue[m
+ 		}[m
+[36m@@ -75,13 +75,13 @@[m [mexport class Draw {[m
+ 		let currentHP = 1[m
+ 		currentHP = toPercentage()[m
+ [m
+[31m-		currentHP = Math.max(0, currentHP - 0.01);[m
+[32m+[m		[32mcurrentHP = Math.max(0, currentHP - 0.01)[m
+ [m
+[31m-		ctx.fillStyle = 'white';[m
+[31m-		ctx.fillRect(x, y, width, height);[m
+[32m+[m		[32mctx.fillStyle = 'white'[m
+[32m+[m		[32mctx.fillRect(x, y, width, height)[m
+ [m
+[31m-		ctx.fillStyle = 'red';[m
+[31m-		ctx.fillRect(x, y, currentHP * width, height);[m
+[32m+[m		[32mctx.fillStyle = 'red'[m
+[32m+[m		[32mctx.fillRect(x, y, currentHP * width, height)[m
+ 	}[m
+ [m
+ 	static circle(ctx, x, y, radius, color) {[m
+[1mdiff --git a/static/Npc.js b/static/Npc.js[m
+[1mindex fa00a00..c3565fa 100644[m
+[1m--- a/static/Npc.js[m
+[1m+++ b/static/Npc.js[m
+[36m@@ -35,7 +35,7 @@[m [mexport class Npc extends GameObject {[m
+ 		this.scriptedEvent.draw(ctx)[m
+ [m
+ 		Draw.player(ctx, this)[m
+[31m-			Draw.coordinates(ctx, this)[m
+[32m+[m		[32mDraw.coordinates(ctx, this)[m
+ [m
+ 		if (Distance.withinRadius(this, this.player, 100)) {[m
+ 			const message = 'Pissing in space ey\'? I\'ve seeen many piss, but none return'[m
+[1mdiff --git a/static/engine/Calculate.js b/static/engine/Calculate.js[m
+[1mindex 21478f4..1c1b5d3 100644[m
+[1m--- a/static/engine/Calculate.js[m
+[1m+++ b/static/engine/Calculate.js[m
+[36m@@ -33,16 +33,16 @@[m [mexport class Calculate {[m
+ 		const direction = {[m
+ 			x: point.x - origin.x,[m
+ 			y: point.y - origin.y,[m
+[31m-		};[m
+[32m+[m		[32m}[m
+ [m
+ 		// Calculate the angle of the direction vector[m
+[31m-		const angle = Math.atan2(direction.y, direction.x);[m
+[32m+[m		[32mconst angle = Math.atan2(direction.y, direction.x)[m
+ [m
+ 		// Calculate the distance from origin to point[m
+[31m-		const distance = Math.sqrt(direction.x ** 2 + direction.y ** 2);[m
+[32m+[m		[32mconst distance = Math.sqrt(direction.x ** 2 + direction.y ** 2)[m
+ [m
+ 		// Check if the angle is within the specified range and the distance is within the specified length[m
+[31m-		return angle >= minAngle && angle <= maxAngle && distance <= length;[m
+[32m+[m		[32mreturn angle >= minAngle && angle <= maxAngle && distance <= length[m
+ 	}[m
+ 	[m
+ }[m
+[1mdiff --git a/static/engine/List.js b/static/engine/List.js[m
+[1mindex 83ad972..acb1ec5 100644[m
+[1m--- a/static/engine/List.js[m
+[1m+++ b/static/engine/List.js[m
+[36m@@ -4,13 +4,14 @@[m [mexport class List {[m
+ 	}[m
+ [m
+ 	static remove(array, object) {[m
+[31m-		const index = array.indexOf(object);[m
+[32m+[m		[32mconst index = array.indexOf(object)[m
+ [m
+ 		if (index !== -1) {[m
+[31m-			array.splice(index, 1);[m
+[31m-			return true; // Object removed successfully[m
+[31m-		} else {[m
+[31m-			return false; // Object not found in the array[m
+[32m+[m			[32marray.splice(index, 1)[m
+[32m+[m			[32mreturn true // Object removed successfully[m
+[32m+[m		[32m}[m
+[32m+[m		[32melse {[m
+[32m+[m			[32mreturn false // Object not found in the array[m
+ 		}[m
+ 	}[m
+ 	[m
+[1mdiff --git a/static/engine/Random.js b/static/engine/Random.js[m
+[1mindex 55efff5..a100364 100644[m
+[1m--- a/static/engine/Random.js[m
+[1m+++ b/static/engine/Random.js[m
+[36m@@ -14,6 +14,6 @@[m [mexport class Random {[m
+ 	}[m
+ [m
+ 	static choice(list) {[m
+[31m-		return list[Math.floor(Math.random() * list.length)];[m
+[32m+[m		[32mreturn list[Math.floor(Math.random() * list.length)][m
+ 	}[m
+ }[m
+[1mdiff --git a/static/extensions/LoadExtensions.js b/static/extensions/LoadExtensions.js[m
+[1mindex ac5edb6..7e3b2cc 100644[m
+[1m--- a/static/extensions/LoadExtensions.js[m
+[1m+++ b/static/extensions/LoadExtensions.js[m
+[36m@@ -7,7 +7,8 @@[m [mexport class LoadExtensions {[m
+ 		this.extensions.forEach(e => {[m
+ 			try {[m
+ 				e.update()[m
+[31m-			} catch(error) {[m
+[32m+[m			[32m}[m
+[32m+[m			[32mcatch(error) {[m
+ 				console.log('an error occurred while running "update" method for ' + e.constructor.name)[m
+ 			}[m
+ 		})[m
+[1mdiff --git a/static/index.js b/static/index.js[m
+[1mindex 123326a..f433d50 100644[m
+[1m--- a/static/index.js[m
+[1m+++ b/static/index.js[m
+[36m@@ -1,4 +1,4 @@[m
+[31m-export const index = "this is needed or else shit will crash"[m
+[32m+[m[32mexport const index = 'this is needed or else shit will crash'[m
+ [m
+ const mainPalette = Palette.main()[m
+ const guiPalette = Palette.offscreen()[m
+[1mdiff --git a/static/particles/Splash.js b/static/particles/Splash.js[m
+[1mindex 7757cad..4f76da9 100644[m
+[1m--- a/static/particles/Splash.js[m
+[1m+++ b/static/particles/Splash.js[m
+[36m@@ -12,36 +12,36 @@[m [mexport class Splash {[m
+ 	}[m
+ [m
+ 	splashOpposite(spawnPosition, mousePosition) {[m
+[31m-		const angleSpread = 1;[m
+[32m+[m		[32mconst angleSpread = 1[m
+ [m
+ 		for (let i = 1; i <= 200; i++) {[m
+[31m-			const size = Random.floatBetween(1, 5);[m
+[31m-			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 10, 200);[m
+[32m+[m			[32mconst size = Random.floatBetween(1, 5)[m
+[32m+[m			[32mconst newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 10, 200)[m
+ [m
+ 			// Calculate direction vector[m
+ 			const direction = {[m
+ 				x: spawnPosition.x - mousePosition.x, // Negate the x component[m
+ 				y: spawnPosition.y - mousePosition.y, // Negate the y component[m
+[31m-			};[m
+[32m+[m			[32m}[m
+ [m
+ 			// Calculate initial angle[m
+[31m-			const initialAngle = Math.atan2(direction.y, direction.x);[m
+[32m+[m			[32mconst initialAngle = Math.atan2(direction.y, direction.x)[m
+ [m
+ 			// Add random angle spread within the specified range[m
+[31m-			const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2);[m
+[31m-			const angle = initialAngle + spread;[m
+[32m+[m			[32mconst spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)[m
+[32m+[m			[32mconst angle = initialAngle + spread[m
+ [m
+[31m-			const speed = Random.floatBetween(5, 10);[m
+[32m+[m			[32mconst speed = Random.floatBetween(5, 10)[m
+ [m
+ 			// Calculate velocity components[m
+ 			newParticle.velocity = {[m
+ 				x: Math.cos(angle) * speed,[m
+ 				y: Math.sin(angle) * speed,[m
+[31m-			};[m
+[32m+[m			[32m}[m
+ [m
+[31m-			newParticle.life = 400;[m
+[31m-			newParticle.color = "white";[m
+[31m-			this.particles.push(newParticle);[m
+[32m+[m			[32mnewParticle.life = 400[m
+[32m+[m			[32mnewParticle.color = 'white'[m
+[32m+[m			[32mthis.particles.push(newParticle)[m
+ 		}[m
+ 	}[m
+ [m
+[36m@@ -50,31 +50,31 @@[m [mexport class Splash {[m
+ 			speed = Random.floatBetween(5, 10)[m
+ 		}[m
+ 		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])[m
+[31m-		color = 'white';[m
+[32m+[m		[32mcolor = 'white'[m
+ [m
+[31m-		let minAngle = Infinity;[m
+[31m-		let maxAngle = -Infinity;[m
+[32m+[m		[32mlet minAngle = Infinity[m
+[32m+[m		[32mlet maxAngle = -Infinity[m
+ [m
+ 		for (let i = 1; i <= 100; i++) {[m
+[31m-			const size = Random.floatBetween(1, 5);[m
+[31m-			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400);[m
+[32m+[m			[32mconst size = Random.floatBetween(1, 5)[m
+[32m+[m			[32mconst newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)[m
+ [m
+ 			// Calculate direction vector[m
+ 			const direction = {[m
+ 				x: mousePosition.x - spawnPosition.x,[m
+ 				y: mousePosition.y - spawnPosition.y,[m
+[31m-			};[m
+[32m+[m			[32m}[m
+ [m
+ 			// Calculate initial angle[m
+[31m-			const initialAngle = Math.atan2(direction.y, direction.x);[m
+[32m+[m			[32mconst initialAngle = Math.atan2(direction.y, direction.x)[m
+ [m
+ 			// Add random angle spread within the specified range[m
+[31m-			const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2);[m
+[31m-			const angle = initialAngle + spread;[m
+[32m+[m			[32mconst spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)[m
+[32m+[m			[32mconst angle = initialAngle + spread[m
+ [m
+ 			// Update min and max angles[m
+[31m-			minAngle = Math.min(minAngle, angle);[m
+[31m-			maxAngle = Math.max(maxAngle, angle);[m
+[32m+[m			[32mminAngle = Math.min(minAngle, angle)[m
+[32m+[m			[32mmaxAngle = Math.max(maxAngle, angle)[m
+ [m
+ 			// !! speed used to be randomized.[m
+ [m
+[36m@@ -82,11 +82,11 @@[m [mexport class Splash {[m
+ 			newParticle.velocity = {[m
+ 				x: Math.cos(angle) * speed,[m
+ 				y: Math.sin(angle) * speed,[m
+[31m-			};[m
+[32m+[m			[32m}[m
+ [m
+[31m-			newParticle.life = 100;[m
+[31m-			newParticle.color = color;[m
+[31m-			this.particles.push(newParticle);[m
+[32m+[m			[32mnewParticle.life = 100[m
+[32m+[m			[32mnewParticle.color = color[m
+[32m+[m			[32mthis.particles.push(newParticle)[m
+ 		}[m
+ [m
+ 		this.minAngle = minAngle[m
