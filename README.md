@@ -30,3 +30,7 @@ npm i -g reload
 ./lint.sh
 ```
 
+## Play anywhere
+
+[](https://romskip.netlify.app/)
+
