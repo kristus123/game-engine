@@ -24,7 +24,7 @@ export class OutsideLevel {
 		this.extensions.update()
 
 		if (this.mouse.down) {
-			console.log("hei")
+			console.log('hei')
 		}
 	}
 
