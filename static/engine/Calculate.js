@@ -33,16 +33,16 @@ export class Calculate {
 		const direction = {
 			x: point.x - origin.x,
 			y: point.y - origin.y,
-		};
+		}
 
 		// Calculate the angle of the direction vector
-		const angle = Math.atan2(direction.y, direction.x);
+		const angle = Math.atan2(direction.y, direction.x)
 
 		// Calculate the distance from origin to point
-		const distance = Math.sqrt(direction.x ** 2 + direction.y ** 2);
+		const distance = Math.sqrt(direction.x ** 2 + direction.y ** 2)
 
 		// Check if the angle is within the specified range and the distance is within the specified length
-		return angle >= minAngle && angle <= maxAngle && distance <= length;
+		return angle >= minAngle && angle <= maxAngle && distance <= length
 	}
 	
 }

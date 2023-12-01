@@ -14,6 +14,6 @@ export class Random {
 	}
 
 	static choice(list) {
-		return list[Math.floor(Math.random() * list.length)];
+		return list[Math.floor(Math.random() * list.length)]
 	}
 }

@@ -35,7 +35,7 @@ export class Npc extends GameObject {
 		this.scriptedEvent.draw(ctx)
 
 		Draw.player(ctx, this)
-			Draw.coordinates(ctx, this)
+		Draw.coordinates(ctx, this)
 
 		if (Distance.withinRadius(this, this.player, 100)) {
 			const message = 'Pissing in space ey\'? I\'ve seeen many piss, but none return'

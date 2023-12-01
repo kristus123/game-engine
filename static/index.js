@@ -1,4 +1,4 @@
-export const index = "this is needed or else shit will crash"
+export const index = 'this is needed or else shit will crash'
 
 const mainPalette = Palette.main()
 const guiPalette = Palette.offscreen()

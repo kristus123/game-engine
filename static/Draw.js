@@ -20,34 +20,34 @@ export class Draw {
 	}
 
 	static blueRectangle(ctx, x, y) {
-		ctx.fillStyle = "blue";
+		ctx.fillStyle = 'blue'
 		ctx.fillRect(x, y, 10, 10)
 	}
 
 	static splash(context, spawnPosition, minAngle, maxAngle, length = 500) {
-		context.beginPath();
+		context.beginPath()
 
 		// Calculate endpoint for the furthest left angle
-		const leftX = spawnPosition.x + length * Math.cos(minAngle);
-		const leftY = spawnPosition.y + length * Math.sin(minAngle);
+		const leftX = spawnPosition.x + length * Math.cos(minAngle)
+		const leftY = spawnPosition.y + length * Math.sin(minAngle)
 
 		// Calculate endpoint for the furthest right angle
-		const rightX = spawnPosition.x + length * Math.cos(maxAngle);
-		const rightY = spawnPosition.y + length * Math.sin(maxAngle);
+		const rightX = spawnPosition.x + length * Math.cos(maxAngle)
+		const rightY = spawnPosition.y + length * Math.sin(maxAngle)
 
 		// Draw lines
-		context.moveTo(spawnPosition.x, spawnPosition.y);
-		context.lineTo(leftX, leftY);
-		context.moveTo(spawnPosition.x, spawnPosition.y);
-		context.lineTo(rightX, rightY);
+		context.moveTo(spawnPosition.x, spawnPosition.y)
+		context.lineTo(leftX, leftY)
+		context.moveTo(spawnPosition.x, spawnPosition.y)
+		context.lineTo(rightX, rightY)
 
 		// Set line style
-		context.lineWidth = 2;
-		context.strokeStyle = 'red'; // You can set your desired color
+		context.lineWidth = 2
+		context.strokeStyle = 'red' // You can set your desired color
 
 		// Stroke the lines
-		context.stroke();
-		context.closePath();
+		context.stroke()
+		context.closePath()
 	}
 
 
@@ -57,12 +57,12 @@ export class Draw {
 	
 	static hpBar(ctx, x, y, currentHp, maxHp) {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
-			const numerator = currentHp;
-			const denominator = maxHp;
+			const numerator = currentHp
+			const denominator = maxHp
 
-			const percentage = (numerator / denominator) * 100;
+			const percentage = (numerator / denominator) * 100
 
-			const displayValue = percentage / 100;
+			const displayValue = percentage / 100
 
 			return displayValue
 		}
@@ -75,13 +75,13 @@ export class Draw {
 		let currentHP = 1
 		currentHP = toPercentage()
 
-		currentHP = Math.max(0, currentHP - 0.01);
+		currentHP = Math.max(0, currentHP - 0.01)
 
-		ctx.fillStyle = 'white';
-		ctx.fillRect(x, y, width, height);
+		ctx.fillStyle = 'white'
+		ctx.fillRect(x, y, width, height)
 
-		ctx.fillStyle = 'red';
-		ctx.fillRect(x, y, currentHP * width, height);
+		ctx.fillStyle = 'red'
+		ctx.fillRect(x, y, currentHP * width, height)
 	}
 
 	static circle(ctx, x, y, radius, color) {
