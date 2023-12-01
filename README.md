@@ -32,5 +32,5 @@ npm i -g reload
 
 ## Play anywhere
 
-[](https://romskip.netlify.app/)
+[Hosted on netlify](https://romskip.netlify.app/)
 
