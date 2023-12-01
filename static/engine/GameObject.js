@@ -18,7 +18,7 @@ export class GameObject {
 	}
 
 	onCollision(o) {
-		// Push(this).awayFrom(o)
+		Push(this).awayFrom(o)
 	}
 
 	// todo: maybe this.x should always be center.x ? : sounds like a good idea

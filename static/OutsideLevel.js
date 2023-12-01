@@ -22,6 +22,10 @@ export class OutsideLevel {
 
 	update() {
 		this.extensions.update()
+
+		if (this.mouse.down) {
+			console.log("hei")
+		}
 	}
 
 	draw(ctx) {

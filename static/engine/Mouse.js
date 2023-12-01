@@ -14,11 +14,13 @@ export class Mouse {
 			this.currentMousePosition = this.positionRelativeToCamera(e)
 		})
 
-		document.addEventListener('mousedown', e => {
+		document.addEventListener('mousedown', () => {
 			this.down = true
+			this.up = false
 		})
 
-		document.addEventListener('mouseup', e => {
+		document.addEventListener('mouseup', () => {
+			this.up = true
 			this.down = false
 		})
 
