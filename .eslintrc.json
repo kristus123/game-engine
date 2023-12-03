@@ -54,7 +54,6 @@
         "Projectile": "readonly",
         "Planets": "readonly",
         "Draw": "readonly",
-        "index": "readonly",
         "Distance": "readonly",
         "Spaceship": "readonly",
         "StarBackground": "readonly",
@@ -71,9 +70,12 @@
         "PrettyParticles": "readonly",
         "Bullet": "readonly",
         "Gun": "readonly",
+        "InventoryItem": "readonly",
+        "Inventory": "readonly",
         "GameObject": "readonly",
         "Schedule": "readonly",
         "Keyboard": "readonly",
+        "index": "readonly",
         "List": "readonly",
         "Palette": "readonly",
         "Calculate": "readonly",
@@ -88,8 +90,6 @@
         "Mouse": "readonly",
         "Animation": "readonly",
         "ClickEvents": "readonly",
-        "Push": "readonly",
-        "InventoryItem": "readonly",
-        "Inventory": "readonly"
+        "Push": "readonly"
     }
 }
