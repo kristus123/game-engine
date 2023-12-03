@@ -31,7 +31,7 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.circle(ctx, this.mouse.position.x, this.mouse.position.y, 100, 'red')
+		Draw.circle(ctx, this.mouse.position.x, this.mouse.position.y, 10, 'red')
 
 		this.extensions.draw(ctx)
 	}
