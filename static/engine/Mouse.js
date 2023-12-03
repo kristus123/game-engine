@@ -7,7 +7,6 @@ export class Mouse {
 			y: 0,
 		}
 
-
 		this.down = false
 
 		document.addEventListener('mousemove', (e) => {
