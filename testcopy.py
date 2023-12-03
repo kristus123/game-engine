@@ -26,7 +26,6 @@ for root, dirs, files in os.walk(source_folder):
     dest_folder = os.path.join(destination_folder, rel_path)
     os.makedirs(dest_folder, exist_ok=True)
 
-    eslint_globals_config = {}
     for file in files:
         src_file_path = os.path.join(root, file)
         dest_file_path = os.path.join(dest_folder, file)
@@ -38,8 +37,6 @@ for root, dirs, files in os.walk(source_folder):
         for js_file in js_files:
             class_name = js_file['class_name']
             path = js_file['path']
-
-            eslint_globals_config[class_name] = 'readonly'
 
             i = "import { CLASS } from '/PATH'".replace("CLASS", class_name).replace("PATH", path)
 
@@ -63,13 +60,6 @@ for root, dirs, files in os.walk(source_folder):
         with open(dest_file_path, 'w') as f:
             f.write(content)
 
-        filename = '.eslintrc.json'
-        with open(filename, 'r') as f:
-            data = json.load(f)
-            data['globals'] = eslint_globals_config
-
-        with open(filename, 'w') as f:
-            json.dump(data, f, indent=4)
 
 
 
