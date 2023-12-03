@@ -26,6 +26,14 @@ export class Mouse {
 		this.clickEvents = new ClickEvents(this)
 	}
 
+	addOnClick(name, handler) {
+		this.clickEvents.addOnClick(name, handler)
+	}
+
+	removeOnClick(name, handler) {
+		this.clickEvents.removeOnClick(name, handler)
+	}
+
 	positionRelativeToCamera(e) {
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.camera.zoom
