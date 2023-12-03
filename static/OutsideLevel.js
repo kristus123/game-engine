@@ -1,6 +1,8 @@
 export class OutsideLevel {
-	constructor(player, cameraFollow, mouse) {
-		this.player = player
+	constructor(cameraFollow, mouse) {
+		this.player = new Player(mouse)
+		this.controller = new Controller(this.player)
+
 		this.mouse = mouse
 		this.gun = new Gun(this.player)
 
