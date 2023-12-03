@@ -2,7 +2,7 @@ export class Mouse {
 	constructor(camera) {
 		this.camera = camera
 
-		this.currentMousePosition = {
+		this.mousePosition = {
 			x: 0,
 			y: 0,
 		}
@@ -10,7 +10,7 @@ export class Mouse {
 		this.down = false
 
 		document.addEventListener('mousemove', (e) => {
-			this.currentMousePosition = this.positionRelativeToCamera(e)
+			this.mousePosition = this.positionRelativeToCamera(e)
 		})
 
 		document.addEventListener('mousedown', () => {

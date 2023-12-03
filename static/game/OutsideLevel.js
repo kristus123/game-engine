@@ -31,6 +31,9 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
+		console.log(this.mouse)
+		Draw.circle(ctx, this.mouse.mousePosition.x, this.mouse.mousePosition.y, 100, 'red')
+
 		this.extensions.draw(ctx)
 	}
 }

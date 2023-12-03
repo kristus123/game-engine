@@ -1,8 +1,8 @@
 export class Calculate {
 
-	static directionBetween(player, currentMousePosition) {
+	static directionBetween(player, mousePosition) {
 
-		const angle = Math.atan2(currentMousePosition.y - player.y, currentMousePosition.x - player.x)
+		const angle = Math.atan2(mousePosition.y - player.y, mousePosition.x - player.x)
 
 		const circleRadius = 100
 

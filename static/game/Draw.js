@@ -135,7 +135,7 @@ export class Draw {
 	}
 
 	// needs some work obviously, but it works
-	static revertMouse(ctx, player, currentMousePosition) {
+	static revertMouse(ctx, player, mousePosition) {
 		function getAngle(x1, y1, x2, y2) {
 			return Math.atan2(y2 - y1, x2 - x1)
 		}
@@ -153,8 +153,8 @@ export class Draw {
 		player.angle = getAngle(
 			player.x + player.width / 2,
 			player.y + player.height / 2,
-			currentMousePosition.x,
-			currentMousePosition.y)
+			mousePosition.x,
+			mousePosition.y)
 
 		return {
 			x: circleX,
@@ -165,7 +165,7 @@ export class Draw {
 	static objectThatIsMovingInRectangularPathAroundObject(
 		ctx,
 		player,
-		currentMousePosition,
+		mousePosition,
 	) {
 
 		const playerWidth = player.width
@@ -173,8 +173,8 @@ export class Draw {
 		const playerCenterX = player.x + playerWidth / 2
 		const playerCenterY = player.y + playerHeight / 2
 
-		const mouseX = currentMousePosition.x
-		const mouseY = currentMousePosition.y
+		const mouseX = mousePosition.x
+		const mouseY = mousePosition.y
 
 		// Calculate distances from player's center to mouse position
 		const dx = mouseX - playerCenterX
@@ -210,7 +210,7 @@ export class Draw {
 	static objectThatIsCirclingAroundObjectBasedOnMousePosition(
 		ctx,
 		player,
-		currentMousePosition,
+		mousePosition,
 	) {
 		function getAngle(x1, y1, x2, y2) {
 			return Math.atan2(y2 - y1, x2 - x1)
@@ -219,8 +219,8 @@ export class Draw {
 		const angle = getAngle(
 			player.x,
 			player.y,
-			currentMousePosition.x,
-			currentMousePosition.y,
+			mousePosition.x,
+			mousePosition.y,
 		)
 		const playerRadius = 20
 		const circleRadius = 200
