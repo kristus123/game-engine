@@ -2,8 +2,8 @@ export class Water {
 	constructor() {
 		this.droplets = []
 		for (let i = 0; i < 100; i++) {
-			const x = Random.numberBetween(-300, 300)
-			const y = Random.numberBetween(-300, 300)
+			const x = Random.integerBetween(-300, 300)
+			const y = Random.integerBetween(-300, 300)
 			const width = Math.random() * 1 + 1 // Varying star widths
 			const height = Math.random() * 1 + 1 // Varying star heights
 

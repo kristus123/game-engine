@@ -5,8 +5,8 @@ export class StarBackground {
 		const numStars = 1000
 		this.stars = []
 		for (let i = 0; i < numStars; i++) {
-			const x = Random.numberBetween(-1000, 10000)
-			const y = Random.numberBetween(-1000, 10000)
+			const x = Random.integerBetween(-1000, 10000)
+			const y = Random.integerBetween(-1000, 10000)
 			const width = Math.random() * 1 + 1 // Varying star widths
 			const height = Math.random() * 1 + 1 // Varying star heights
 
