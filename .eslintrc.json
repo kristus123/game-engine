@@ -60,7 +60,6 @@
         "StarBackground": "readonly",
         "Npc": "readonly",
         "OutsideLevel": "readonly",
-        "LevelHandler": "readonly",
         "Particle": "readonly",
         "Player": "readonly",
         "SlingshotExtension": "readonly",
