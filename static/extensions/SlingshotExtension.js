@@ -1,4 +1,3 @@
-
 export class SlingshotExtension {
 	constructor(mouse, player) {
 		this.player = player
