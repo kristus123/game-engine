@@ -20,6 +20,7 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
+		super.draw(ctx)
 		Draw.player(ctx, this)
 		// Draw.circle(ctx, this.x, this.y, 20, 'orange')
 
@@ -27,6 +28,5 @@ export class Player extends GameObject {
 		// this.explosion(ctx)
 		// this.p.piss(ctx, this.x, this.y, this, this.mouse.position, this.mouse)
 		// Draw.coordinates(ctx, this)
-		// super.draw(ctx)
 	}
 }
