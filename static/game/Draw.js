@@ -416,4 +416,8 @@ export class Draw {
 		ctx.fillStyle = color
 		ctx.fillRect(0, 0, Palette.width, Palette.height)
 	}
+
+	// static crate(ctx, position) {
+	// 	Draw.crateImage.draw(ctx, position)
+	// }
 }

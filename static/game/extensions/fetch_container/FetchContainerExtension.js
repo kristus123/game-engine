@@ -1,11 +1,11 @@
 export class FetchContainerExtension {
-	constructor(spaceship, thingToFetch) {
+	constructor(spaceship) {
 		this.spaceship = spaceship
 
-		this.container = new GameObject(100, 100, 100, 100, 10, 10)
-		this.container = thingToFetch
+		this.container = new Crate({x:0, y:200})
 		this.connectedToSpaceship = false
 		this.ropeLength = 200 // Set your desired rope length here
+
 	}
 
 	update() {
@@ -28,7 +28,7 @@ export class FetchContainerExtension {
 			Draw.lineBetween(ctx, this.spaceship, this.container)
 		}
 
-		// this.container.draw(ctx)
+		this.container.draw(ctx)
 
 		// Draw.text(ctx, this.container.x, this.container.y, 150, 100, 'Pick me up with the spaceship')
 	}

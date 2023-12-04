@@ -12,7 +12,7 @@ export class OutsideLevel {
 		this.splash = new Splash(this.player)
 
 		this.extensions = new LoadExtensions([
-			new FetchContainerExtension(this.spaceship, this.npc),
+			new FetchContainerExtension(this.spaceship),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
 			this.npc,
 			new Planets(),
