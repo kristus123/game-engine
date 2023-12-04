@@ -5,8 +5,6 @@ export class FetchContainerExtension {
 		this.container = new Crate({x:0, y:200})
 		this.connectedToSpaceship = false
 		this.ropeLength = 200 // Set your desired rope length here
-
-		this.destination
 	}
 
 	update() {
