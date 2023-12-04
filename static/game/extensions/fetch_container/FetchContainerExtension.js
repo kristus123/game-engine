@@ -6,19 +6,14 @@ export class FetchContainerExtension {
 		this.connectedToSpaceship = false
 		this.ropeLength = 200 // Set your desired rope length here
 
+		this.destination
 	}
 
 	update() {
 		if (this.connectedToSpaceship) {
 			this.container.followIfOutsideOfRadius(this.spaceship, this.ropeLength)
 		}
-		else if (
-			Distance.withinRadius(
-				this.container,
-				this.spaceship,
-				this.ropeLength,
-			)
-		) {
+		else if (Distance.withinRadius(this.container,this.spaceship,this.ropeLength)) {
 			this.connectedToSpaceship = true
 		}
 	}
@@ -29,7 +24,5 @@ export class FetchContainerExtension {
 		}
 
 		this.container.draw(ctx)
-
-		// Draw.text(ctx, this.container.x, this.container.y, 150, 100, 'Pick me up with the spaceship')
 	}
 }
