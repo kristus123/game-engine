@@ -1,7 +1,7 @@
 export class Crate extends GameObject {
 	constructor(position) {
 		super(position.x, position.y, 200, 100, 50, 300)
-		this.crateImage = new Picture('https://cdn-icons-png.flaticon.com/512/6618/6618414.png')
+		this.crateImage = new Picture(this, 'https://cdn-icons-png.flaticon.com/512/6618/6618414.png')
 	}
 
 	update() {
@@ -13,7 +13,7 @@ export class Crate extends GameObject {
 	}
 
 	draw(ctx) {
-		this.crateImage.draw(ctx, {x: this.x, y:this.y}, 200)
+		this.crateImage.draw(ctx, 200)
 		super.draw(ctx)
 	}
 	

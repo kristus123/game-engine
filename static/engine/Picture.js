@@ -1,30 +1,29 @@
 export class Picture {
-	constructor(src) {
+	constructor(gameObject, src) {
+		this.gameObject = gameObject
+
 		this.image = new Image()
 		this.image.src = src
 	}
 
-	draw(ctx, position, size) {
+	draw(ctx, size) {
 		const aspectRatio = this.image.width / this.image.height
 
-		const maxWidth = size
-		const maxHeight = size
+		let newWidth = size
+		let newHeight = size
 
-		let newWidth = maxWidth
-		let newHeight = maxHeight
-
-		if (this.image.width > maxWidth) {
-			newWidth = maxWidth
+		if (this.image.width > size) {
+			newWidth = size
 			newHeight = newWidth / aspectRatio
 		}
 
-		if (newHeight > maxHeight) {
-			newHeight = maxHeight
+		if (newHeight > size) {
+			newHeight = size
 			newWidth = newHeight * aspectRatio
 		}
 
 		ctx.save()
-		ctx.translate(position.x, position.y)
+		ctx.translate(this.gameObject.x, this.gameObject.y)
 		ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		ctx.restore()
 	}
