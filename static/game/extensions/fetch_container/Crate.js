@@ -15,6 +15,7 @@ export class Crate extends GameObject {
 	draw(ctx) {
 		super.draw(ctx)
 		this.crateImage.draw(ctx, 200)
+		Draw.new_circle(ctx, this.position.center)
 	}
 	
 }

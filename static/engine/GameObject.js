@@ -1,10 +1,9 @@
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
-		this.x = x
-		this.y = y
-
 		this.width = width
 		this.height = height
+
+		this.position = new Position(x, y, width, height)
 
 		this.weight = weight
 		this.velocityFactor = velocityFactor
@@ -21,23 +20,11 @@ export class GameObject {
 		// Push(this).awayFrom(o)
 	}
 
-	// todo: maybe this.x should always be center.x ? : sounds like a good idea
-	get position() {
-		return {
-			x: this.x,
-			y: this.y,
-
-			center: {
-				x: this.x / this.width,
-				y: this.y / this.height,
-			}
-		}
-	}
-
 	update() {}
 
 	draw(ctx) {
-		Draw.rectangle(ctx, this.x, this.y, this.width, this.height)
+		Draw.new_rectangle(ctx, this.position)
+		Draw.new_circle(ctx, this.position.center, 10)
 	}
 
 	followIfOutsideOfRadius(o, radius) {
@@ -48,4 +35,21 @@ export class GameObject {
 			this.y = o.y - radius * Math.sin(angle)
 		}
 	}
+
+	get x() {
+		return this.position.x
+	}
+
+	get y() {
+		return this.position.y
+	}
+
+	set x(x) {
+		this.position.x = x
+	}
+
+	set y(y) {
+		this.position.y = y
+	}
+
 }

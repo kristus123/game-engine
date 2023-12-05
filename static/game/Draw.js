@@ -7,6 +7,19 @@ playerImage.src =
 	'https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png'
 
 export class Draw {
+
+	static new_rectangle(ctx, position) {
+		ctx.fillStyle = 'orange'
+		ctx.fillRect(position.x, position.y, position.width, position.height)
+
+		ctx.strokeStyle = 'white'
+		ctx.lineWidth = 4
+		ctx.strokeRect(position.x, position.y, position.width, position.height)
+
+		ctx.fillStyle = 'white'
+		ctx.font = '25px Arial'
+	}
+
 	static rectangle(ctx, x, y, width, height) {
 		ctx.fillStyle = 'orange'
 		ctx.fillRect(x, y, width, height)
@@ -87,6 +100,16 @@ export class Draw {
 	static circle(ctx, x, y, radius, color) {
 		ctx.beginPath()
 		ctx.arc(x, y, radius, 0, Math.PI * 2, false)
+		ctx.fillStyle = color
+		ctx.fill()
+	}
+
+	static new_circle(ctx, position) {
+		const radius = 10
+		const color = 'red'
+
+		ctx.beginPath()
+		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
 		ctx.fillStyle = color
 		ctx.fill()
 	}
@@ -248,6 +271,14 @@ export class Draw {
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'
 		ctx.fillText(text, x + 20, y + height / 2)
+	}
+
+	static new_text(ctx, position, text) {
+		Draw.rectangle(ctx, position.x, position.y, position.width, position.height)
+
+		ctx.fillStyle = 'white'
+		ctx.font = '25px Arial'
+		ctx.fillText(text, position.x + 20, position.y + height / 2)
 	}
 
 	
