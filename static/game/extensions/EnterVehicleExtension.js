@@ -21,14 +21,14 @@ export class EnterVehicleExtension {
 
 		if (this.entered) {
 			this.controller.control(this.vehicle)
-			this.cameraFollow(this.vehicle)
+			this.cameraFollow(this.vehicle.position.center)
 
 			this.player.x = this.vehicle.x
 			this.player.y = this.vehicle.y
 		}
 		else {
 			this.controller.control(this.player)
-			this.cameraFollow(this.player)
+			this.cameraFollow(this.player.position.center)
 		}
 
 		this.controller.update()
