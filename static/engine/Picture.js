@@ -7,27 +7,12 @@ export class Picture {
 	}
 
 	r(ctx) {
-		const aspectRatio = this.image.width / this.image.height
-
-		const maxWidth = 500
-		const maxHeight = 200
-
-		let newWidth = maxWidth
-		let newHeight = maxHeight
-
-		if (this.image.width > maxWidth) {
-			newWidth = maxWidth
-			newHeight = newWidth / aspectRatio
-		}
-
-		if (newHeight > maxHeight) {
-			newHeight = maxHeight
-			newWidth = newHeight * aspectRatio
-		}
+		const newWidth = this.gameObject.width
+		const newHeight = this.gameObject.height
 
 		ctx.save()
 
-		ctx.translate(this.gameObject.x, this.gameObject.y)
+		ctx.translate(this.gameObject.position.center.x, this.gameObject.position.center.y)
 		const rotationAngle = Math.atan2(this.gameObject.velocity.y, this.gameObject.velocity.x)
 		ctx.rotate(rotationAngle)
 		ctx.rotate(Math.PI / 2) // 90 degrees

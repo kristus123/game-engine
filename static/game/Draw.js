@@ -274,11 +274,11 @@ export class Draw {
 	}
 
 	static new_text(ctx, position, text) {
-		Draw.rectangle(ctx, position.x, position.y, position.width, position.height)
+		Draw.rectangle(ctx, position.x, position.y, position.width, 100)
 
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'
-		ctx.fillText(text, position.x + 20, position.y + height / 2)
+		ctx.fillText(text, position.x + 20, position.y + 50)
 	}
 
 	

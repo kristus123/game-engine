@@ -6,7 +6,7 @@ export class OutsideLevel {
 		this.mouse = mouse
 		this.gun = new Gun(this.player)
 
-		this.spaceship = new Spaceship()
+		this.spaceship = new Spaceship(mouse)
 		this.npc = new Npc(this.player)
 
 		this.splash = new Splash(this.player)

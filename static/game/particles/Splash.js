@@ -49,8 +49,8 @@ export class Splash {
 		if (!speed) {
 			speed = Random.floatBetween(5, 10)
 		}
-		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
-		color = 'white'
+		color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
+		// color = 'white'
 
 		let minAngle = Infinity
 		let maxAngle = -Infinity
@@ -94,9 +94,6 @@ export class Splash {
 	}
 
 	draw(ctx) {
-
-		// Draw.splash(ctx, this.player, this.minAngle, this.maxAngle)
-
 		this.particles.forEach((p, index) => {
 			p.x += p.velocity.x
 			p.y += p.velocity.y
