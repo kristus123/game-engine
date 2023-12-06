@@ -37,8 +37,8 @@ export class Draw {
 		ctx.fillRect(x, y, 10, 10)
 	}
 
-	static splash(context, spawnPosition, minAngle, maxAngle, length = 500) {
-		context.beginPath()
+	static splash(ctx, spawnPosition, minAngle, maxAngle, length = 500) {
+		ctx.beginPath()
 
 		// Calculate endpoint for the furthest left angle
 		const leftX = spawnPosition.x + length * Math.cos(minAngle)
@@ -49,18 +49,18 @@ export class Draw {
 		const rightY = spawnPosition.y + length * Math.sin(maxAngle)
 
 		// Draw lines
-		context.moveTo(spawnPosition.x, spawnPosition.y)
-		context.lineTo(leftX, leftY)
-		context.moveTo(spawnPosition.x, spawnPosition.y)
-		context.lineTo(rightX, rightY)
+		ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		ctx.lineTo(leftX, leftY)
+		ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		ctx.lineTo(rightX, rightY)
 
 		// Set line style
-		context.lineWidth = 2
-		context.strokeStyle = 'red' // You can set your desired color
+		ctx.lineWidth = 2
+		ctx.strokeStyle = 'red' // You can set your desired color
 
 		// Stroke the lines
-		context.stroke()
-		context.closePath()
+		ctx.stroke()
+		ctx.closePath()
 	}
 
 

@@ -18,8 +18,6 @@ export class OutsideLevel {
 			new Planets(),
 			this.splash
 		])
-
-		this.pp = new PrettyParticles()
 	}
 
 	update() {
@@ -31,7 +29,7 @@ export class OutsideLevel {
 	}
 
 	draw(ctx) {
-		Draw.circle(ctx, this.mouse.position.x, this.mouse.position.y, 10, 'red')
+		Draw.new_circle(ctx, this.mouse.position)
 
 		this.extensions.draw(ctx)
 	}
