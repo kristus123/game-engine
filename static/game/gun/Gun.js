@@ -5,10 +5,6 @@ export class Gun {
 		this.bullets = []
 	}
 
-	updatePhysics(deltaTime) {
-		Physics.global.update(deltaTime)
-	}
-
 	shoot(position) {
 		const b = new Bullet(this.player, position)
 
