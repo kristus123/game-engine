@@ -21,6 +21,7 @@ for js_file in get_all_js_files('static'):
 
     eslint_globals_config[class_name] = 'readonly'
 
+# sort alphabetically
 eslint_globals_config = dict(sorted(eslint_globals_config.items()))
 
 
