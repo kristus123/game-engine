@@ -1,9 +1,9 @@
-export class OutsideLevel {
+export class MainLevel {
 	constructor(cameraFollow, mouse) {
+		this.mouse = mouse
 		this.player = new Player(mouse)
 		this.controller = new Controller(this.player)
 
-		this.mouse = mouse
 		this.gun = new Gun(this.player)
 
 		this.spaceship = new Spaceship(mouse)

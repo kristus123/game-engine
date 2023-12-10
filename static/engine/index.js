@@ -11,7 +11,7 @@ const mouse = new Mouse(camera)
 let objectToFollow = { x: 0, y: 0 }
 const cameraFollow = (f) => (objectToFollow = f)
 
-const level = new OutsideLevel(cameraFollow, mouse)
+const level = new MainLevel(cameraFollow, mouse)
 
 Loop.everyFrame((deltaTime) => {
 	Palette.clear([camera.palette, guiPalette])
