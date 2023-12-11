@@ -2,10 +2,7 @@ export class Mouse {
 	constructor(camera) {
 		this.camera = camera
 
-		this.position = {
-			x: 0,
-			y: 0,
-		}
+		this.position = new Position(0, 0)
 
 		this.down = false
 
@@ -38,13 +35,14 @@ export class Mouse {
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.camera.zoom
 
-		return {
-			x:
+		const x = 	
 				(e.clientX - this.camera.offset.x) * inverseZoom +
-				this.camera.objectToFollow.x,
-			y:
+				this.camera.objectToFollow.x
+		const y = 	
 				(e.clientY - this.camera.offset.y) * inverseZoom +
-				this.camera.objectToFollow.y,
-		}
+				this.camera.objectToFollow.y
+
+		return new Position(x, y)
+
 	}
 }

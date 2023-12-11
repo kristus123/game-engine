@@ -1,5 +1,5 @@
 export class Position {
-	constructor(x, y, width, height) {
+	constructor(x, y, width=0, height=0) {
 		this.x = x
 		this.y = y
 		this.width = width

@@ -1,7 +1,7 @@
 export class Bullet extends GameObject {
 
 	constructor(from, to) {
-		super(from.x, from.y, 40, 40, 0, 5000)
+		super(from.x, from.y, 40, 40, 0, 3000)
 
 		this.from = {
 			x: from.x,
@@ -14,10 +14,14 @@ export class Bullet extends GameObject {
 	}
 
 	onCollision(o) {
+		if (o instanceof Npc) {
+			o.hp -= 30
+		}
+
 		this.hit = o
 	}
 
 	draw(ctx) {
-		Draw.lineBetween(ctx, this.from, this)
+		Draw.new_circle(ctx, this)
 	}
 }

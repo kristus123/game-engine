@@ -6,12 +6,15 @@ export class Spaceship extends GameObject {
 		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png')
 		this.splash = new Splash()
 
-		mouse.addOnClick('shoot cum', mousePosition => {
-			this.splash.splash(this.position.center, mousePosition)
-		})
+		// mouse.addOnClick('shoot cum', this.mouse.position => {
+		// 	this.splash.splash(this.position.center, this.mouse.position)
+		// })
 	}
 
-	update() {}
+	update() {
+		this.mouse.position
+
+	}
 
 	draw(ctx) {
 		this.splash.draw(ctx)
@@ -19,5 +22,23 @@ export class Spaceship extends GameObject {
 		// Draw.spaceship(ctx, this)
 		// Draw.new_circle(ctx, this.position.center)
 		this.picture.r(ctx)
+
+		if (
+			this.mouse.position.x >= this.x &&
+			this.mouse.position.x <= this.x + this.width &&
+			this.mouse.position.y >= this.y &&
+			this.mouse.position.y <= this.y + this.height
+		) {
+			console.log("Mouse is hovering over the GameObject!");
+			if (this.mouse.down) {
+				this.x = this.mouse.position.x - this.width/2
+				this.y = this.mouse.position.y - this.height/2
+			}
+		} else {
+			console.log("Mouse is not hovering over the GameObject.");
+		}
+
+
+
 	}
 }

@@ -8,6 +8,12 @@ export class Player extends GameObject {
 		this.explosion = Draw.sprite()
 
 		this.inventory = new Inventory()
+
+		this.gun = new Gun(this)
+
+		mouse.addOnClick('shoot', mousePosition => {
+			this.gun.shoot(mousePosition)
+		})
 	}
 
 	onCollision(o) {
@@ -25,6 +31,7 @@ export class Player extends GameObject {
 		// Draw.circle(ctx, this.x, this.y, 20, 'orange')
 
 		this.inventory.draw(ctx)
+		this.gun.draw(ctx)
 		// this.explosion(ctx)
 		// this.p.piss(ctx, this, this.mouse.position, this.mouse)
 		// Draw.coordinates(ctx, this)
