@@ -75,7 +75,7 @@
         "Loop": "readonly",
         "Mouse": "readonly",
         "Npc": "readonly",
-        "OutsideLevel": "readonly",
+        "MainLevel": "readonly",
         "Palette": "readonly",
         "Particle": "readonly",
         "Physics": "readonly",

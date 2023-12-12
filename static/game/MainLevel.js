@@ -4,7 +4,6 @@ export class MainLevel {
 		this.player = new Player(mouse)
 		this.controller = new Controller(this.player)
 
-
 		this.spaceship = new Spaceship(mouse)
 		this.npc = new Npc(this.player)
 
