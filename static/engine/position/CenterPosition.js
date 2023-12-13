@@ -5,6 +5,11 @@ export class CenterPosition {
 		this.height = height
 	}
 
+	copy() {
+		return this.position.copy()
+	}
+
+
 	get x() {
 		return this.position.x + this.width / 2
 	}
@@ -12,5 +17,7 @@ export class CenterPosition {
 	get y() {
 		return this.position.y + this.height / 2
 	}
+
+
 	
 }

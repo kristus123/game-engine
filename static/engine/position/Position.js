@@ -7,5 +7,9 @@ export class Position {
 
 		this.center = new CenterPosition(this, width, height)
 	}
+
+	copy() {
+		return new Position(this.x, this.y, this.width, this.height)
+	}
 	
 }

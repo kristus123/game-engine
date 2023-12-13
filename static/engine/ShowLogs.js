@@ -1,46 +1,27 @@
 export class ShowLogs {
-  constructor(palette, maxMessages = 10) {
-	this.canvas = palette.canvas
-	this.ctx = palette.ctx
-	this.maxMessages = maxMessages;
-	this.consoleMessages = [];
+	constructor(guiPalette, maxMessages = 5, consoleHeight = 200) {
+		this.guiPalette = guiPalette
+		this.consoleMessages = []
+		this.consoleHeight = consoleHeight
 
-	// Redirect console.log to addToConsole
-	this.redirectConsole();
-  }
+		console.log = (message) => {
+			this.consoleMessages.push(message)
 
-  redirectConsole() {
-	const self = this;
-	console.log = function(message) {
-	  self.addToConsole(message);
-	  // Optionally, you can also log to the browser console
-	  originalConsoleLog(message);
-	};
-
-	// Save the original console.log
-	this.originalConsoleLog = console.log;
-  }
-
-  addToConsole(message) {
-	this.consoleMessages.push(message);
-
-	// Keep only the last maxMessages messages for display
-	if (this.consoleMessages.length > this.maxMessages) {
-	  this.consoleMessages.shift();
+			if (this.consoleMessages.length > maxMessages) {
+				this.consoleMessages.shift()
+			}
+		}
 	}
 
-	// Redraw the console
-	this.drawConsole();
-  }
+	draw() {
+		this.guiPalette.ctx.fillStyle = '#000'
+		this.guiPalette.ctx.fillRect(0, this.guiPalette.canvas.height - this.consoleHeight, 500, this.consoleHeight)
 
-  drawConsole() {
-	this.ctx.fillStyle = '#000';
-	this.ctx.fillRect(0, this.canvas.height - 60, this.canvas.width, 60);
-
-	this.ctx.fillStyle = '#fff';
-	this.ctx.font = '16px Arial';
-	for (let i = 0; i < this.consoleMessages.length; i++) {
-	  this.ctx.fillText(this.consoleMessages[i], 10, this.canvas.height - 30 + i * 20);
+		this.guiPalette.ctx.fillStyle = '#fff'
+		this.guiPalette.ctx.font = '16px Arial'
+		for (let i = 0; i < this.consoleMessages.length; i++) {
+			this.guiPalette.ctx.fillText(this.consoleMessages[i], 10, this.guiPalette.canvas.height - this.consoleHeight + 20 + i * 20)
+		}
 	}
-  }
 }
+

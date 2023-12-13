@@ -14,7 +14,7 @@ export class MainLevel {
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
 			this.npc,
 			new Planets(),
-			this.splash
+			this.splash,
 		])
 	}
 

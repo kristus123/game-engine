@@ -6,9 +6,7 @@ export class Player extends GameObject {
 		this.mouse = mouse
 
 		this.explosion = Draw.sprite()
-
 		this.inventory = new Inventory()
-
 		this.gun = new Gun(this)
 
 		mouse.addOnClick('shoot', mousePosition => {

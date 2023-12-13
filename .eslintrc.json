@@ -51,12 +51,10 @@
         ]
     },
     "globals": {
-        "Animation": "readonly",
         "Bullet": "readonly",
         "Calculate": "readonly",
         "Camera": "readonly",
         "CenterPosition": "readonly",
-        "Circle": "readonly",
         "ClickEvents": "readonly",
         "Collision": "readonly",
         "Controller": "readonly",
@@ -90,8 +88,8 @@
         "Projectile": "readonly",
         "Push": "readonly",
         "Random": "readonly",
-        "Schedule": "readonly",
         "ScriptedEvent": "readonly",
+        "ShowLogs": "readonly",
         "SlingshotExtension": "readonly",
         "Spaceship": "readonly",
         "Splash": "readonly",
