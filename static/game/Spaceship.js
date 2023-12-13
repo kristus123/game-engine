@@ -11,6 +11,10 @@ export class Spaceship extends GameObject {
 		// mouse.addOnClick('shoot cum', this.mouse.position => {
 		// 	this.splash.splash(this.position.center, this.mouse.position)
 		// })
+		//
+		//
+
+
 	}
 
 	update() {

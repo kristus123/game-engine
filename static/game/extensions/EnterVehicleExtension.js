@@ -6,25 +6,26 @@ export class EnterVehicleExtension {
 		this.controller = new Controller(player)
 
 		this.entered = false
+
+		this.keyboardEvents = new KeypressEvent()
+
+		this.keyboardEvents.addKeyDownListener('e', () => {
+			if (this.entered) {
+				this.entered = false
+				this.player.x = this.vehicle.x
+				this.player.y = this.vehicle.y
+			}
+			else if (Distance.withinRadius(this.player, this.vehicle, 100)) {
+				this.entered = true
+			}
+		})
 	}
 
 	update() {
-		if (Distance.withinRadius(this.player, this.vehicle, 100) && this.controller.keyboard.e) {
-			this.entered = true
-		}
-		else if (this.entered && this.controller.keyboard.f) {
-			this.entered = false
-			this.player.x = this.vehicle.x + 50
-			this.player.velocity.x = 400
-			this.player.velocity.y = 0
-		}
-
 		if (this.entered) {
 			this.controller.control(this.vehicle)
 			this.cameraFollow(this.vehicle.position.center)
 
-			this.player.x = this.vehicle.x
-			this.player.y = this.vehicle.y
 		}
 		else {
 			this.controller.control(this.player)
@@ -36,13 +37,13 @@ export class EnterVehicleExtension {
 	}
 
 	draw(ctx) {
-		this.player.draw(ctx)
 
 		if (this.entered) {
 			this.vehicle.draw(ctx)
-			Draw.new_text(ctx, this.vehicle.position, 'F to exit')
+			Draw.new_text(ctx, this.vehicle.position, 'E to exit')
 		}
 		else {
+			this.player.draw(ctx)
 			this.vehicle.draw(ctx)
 
 			if (Distance.withinRadius(this.player, this.vehicle, 100)) {
