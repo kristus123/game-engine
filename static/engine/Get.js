@@ -7,7 +7,7 @@ export class Get {
 			return o.position
 		}
 		else {
-			console.log("ERROR")
+			console.log('ERROR')
 		}
 	}
 	

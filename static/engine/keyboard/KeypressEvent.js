@@ -1,39 +1,39 @@
 export class KeypressEvent {
-  constructor() {
-    this.keyDownHandlers = {};
-    this.keyUpHandlers = {};
-    this.keyState = {};
+	constructor() {
+		this.keyDownHandlers = {}
+		this.keyUpHandlers = {}
+		this.keyState = {}
 
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
-  }
+		document.addEventListener('keydown', this.handleKeyDown.bind(this))
+		document.addEventListener('keyup', this.handleKeyUp.bind(this))
+	}
 
-  addKeyDownListener(key, execute) {
-    this.keyDownHandlers[key] = execute;
-  }
+	addKeyDownListener(key, execute) {
+		this.keyDownHandlers[key] = execute
+	}
 
-  addKeyUpListener(key, execute) {
-    this.keyUpHandlers[key] = execute;
-  }
+	addKeyUpListener(key, execute) {
+		this.keyUpHandlers[key] = execute
+	}
 
-  handleKeyDown(event) {
-    const key = event.key;
+	handleKeyDown(event) {
+		const key = event.key
 
-    if (!this.keyState[key]) {
-      this.keyState[key] = true;
+		if (!this.keyState[key]) {
+			this.keyState[key] = true
 
-      if (this.keyDownHandlers[key]) {
-        this.keyDownHandlers[key]();
-      }
-    }
-  }
+			if (this.keyDownHandlers[key]) {
+				this.keyDownHandlers[key]()
+			}
+		}
+	}
 
-  handleKeyUp(event) {
-    const key = event.key;
-    this.keyState[key] = false;
+	handleKeyUp(event) {
+		const key = event.key
+		this.keyState[key] = false
 
-    if (this.keyUpHandlers[key]) {
-      this.keyUpHandlers[key]();
-    }
-  }
+		if (this.keyUpHandlers[key]) {
+			this.keyUpHandlers[key]()
+		}
+	}
 }

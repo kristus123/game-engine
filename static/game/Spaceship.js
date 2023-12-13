@@ -35,17 +35,18 @@ export class Spaceship extends GameObject {
 			this.mouse.position.y >= this.y &&
 			this.mouse.position.y <= this.y + this.height
 		) {
-			console.log("Mouse is hovering over the GameObject!");
+			console.log('Mouse is hovering over the GameObject!')
 			if (this.mouse.down) {
 				this.mouseHoldingSpaceship = true
 			}
-		} else {
-			console.log("Mouse is not hovering over the GameObject.");
+		}
+		else {
+			console.log('Mouse is not hovering over the GameObject.')
 		}
 
 		if (this.mouseHoldingSpaceship) {
-				this.x = this.mouse.position.x - this.width/2
-				this.y = this.mouse.position.y - this.height/2
+			this.x = this.mouse.position.x - this.width/2
+			this.y = this.mouse.position.y - this.height/2
 		}
 		if (this.mouse.up) {
 			this.mouseHoldingSpaceship = false

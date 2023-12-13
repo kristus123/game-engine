@@ -31,9 +31,10 @@ try {
 		Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 		Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
 	})
-} catch(error) {
-	const errorOverlay = document.getElementById('errorOverlay');
-	const errorMessage = document.getElementById('errorMessage');
+}
+catch(error) {
+	const errorOverlay = document.getElementById('errorOverlay')
+	const errorMessage = document.getElementById('errorMessage')
 
 	const stackMessage = error.stack
 		.replaceAll(/\n/g, '<br>')
@@ -45,7 +46,7 @@ try {
 		<br><br>
 		<br>
 		${stackMessage}
-	`;
+	`
 	// errorMessage.textContent = `Error: ${error.message}`;
-	errorOverlay.style.display = 'flex';
+	errorOverlay.style.display = 'flex'
 }
