@@ -1,3 +1,4 @@
+// not the best name; 'Get'
 export class Get {
 	static Position(o) {
 		if (o instanceof Position) {
