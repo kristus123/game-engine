@@ -62,6 +62,7 @@
         "Distance": "readonly",
         "Draw": "readonly",
         "EnterVehicleExtension": "readonly",
+        "ErrorHandler": "readonly",
         "FetchContainerExtension": "readonly",
         "GameObject": "readonly",
         "Get": "readonly",

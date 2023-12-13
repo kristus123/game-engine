@@ -19,7 +19,7 @@ export class MainLevel {
 
 		setInterval(() => {
 			this.splash.piss(this.player, this.mouse.position)
-		}, 50);
+		}, 50)
 
 	}
 
