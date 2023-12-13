@@ -5,6 +5,7 @@ try {
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
 	const starBackground = new StarBackground()
+	const showLogs = new ShowLogs(guiPalette)
 
 	const camera = new Camera()
 	const mouse = new Mouse(camera)
@@ -26,6 +27,7 @@ try {
 		})
 
 		starBackground.draw(objectToFollow)
+		showLogs.
 
 		Palette.fill(backgroundPalette, 'black')
 		Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
