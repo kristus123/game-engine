@@ -15,6 +15,29 @@
 				display: block; /* Remove any default spacing */
 				/* cursor: none; hide cursor, currently disabled*/
 			}
+
+			#errorOverlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(255, 0, 0, 0.7);
+				display: none;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#errorMessage {
+				text-align: left;
+				color: white;
+				font-size: 40px;
+				letter-spacing: 3px;
+				line-height: 90px;
+				word-spacing: 15px;
+				text-align: left;
+				padding: 20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -23,5 +46,9 @@
 		{% endfor %}
 
 		<canvas id="game"></canvas>
+
+		<div id="errorOverlay">
+			<div id="errorMessage"></div>
+		</div>
 	</body>
 </html>

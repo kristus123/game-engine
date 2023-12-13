@@ -1,32 +1,51 @@
 export const index = 'this is needed or else shit will crash'
 
-const mainPalette = Palette.main()
-const guiPalette = Palette.offscreen()
-const backgroundPalette = Palette.offscreen()
-const starBackground = new StarBackground()
+try {
+	const mainPalette = Palette.main()
+	const guiPalette = Palette.offscreen()
+	const backgroundPalette = Palette.offscreen()
+	const starBackground = new StarBackground()
 
-const camera = new Camera()
-const mouse = new Mouse(camera)
+	const camera = new Camera()
+	const mouse = new Mouse(camera)
 
-let objectToFollow = { x: 0, y: 0 }
-const cameraFollow = (f) => (objectToFollow = f)
+	let objectToFollow = { x: 0, y: 0 }
+	const cameraFollow = (f) => (objectToFollow = f)
 
-const level = new MainLevel(cameraFollow, mouse)
+	const level = new MainLevel(cameraFollow, mouse)
 
-Loop.everyFrame((deltaTime) => {
-	Palette.clear([camera.palette, guiPalette])
+	Loop.everyFrame((deltaTime) => {
+		Palette.clear([camera.palette, guiPalette])
 
-	Physics.global.update(deltaTime)
+		Physics.global.update(deltaTime)
 
-	camera.context(() => {
-		camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
-		level.update()
-		level.draw(camera.palette.ctx)
+		camera.context(() => {
+			camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
+			level.update()
+			level.draw(camera.palette.ctx)
+		})
+
+		starBackground.draw(objectToFollow)
+
+		Palette.fill(backgroundPalette, 'black')
+		Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
+		Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
 	})
+} catch(error) {
+	const errorOverlay = document.getElementById('errorOverlay');
+	const errorMessage = document.getElementById('errorMessage');
 
-	starBackground.draw(objectToFollow)
+	const stackMessage = error.stack
+		.replaceAll(/\n/g, '<br>')
+		.replaceAll('http://localhost:5000', '')
+		.replaceAll('http://localhost:5000', '')
+		.replaceAll('at ', '')
 
-	Palette.fill(backgroundPalette, 'black')
-	Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-	Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
-})
+	errorMessage.innerHTML = `Error: ${error.message}
+		<br><br>
+		<br>
+		${stackMessage}
+	`;
+	// errorMessage.textContent = `Error: ${error.message}`;
+	errorOverlay.style.display = 'flex';
+}
