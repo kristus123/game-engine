@@ -13,7 +13,7 @@ export class GameObject {
 			y: 0,
 		}
 
-		Physics.global.applyPhysics(this)
+		// Physics.global.applyPhysics(this)
 	}
 
 	onCollision(o) {

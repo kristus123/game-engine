@@ -1,5 +1,6 @@
 export class LoadExtensions {
-	constructor(extensions) {
+	constructor(runningFrom, extensions) {
+		this.runningFrom = runningFrom
 		this.extensions = extensions
 	}
 
@@ -9,7 +10,7 @@ export class LoadExtensions {
 				e.update()
 			}
 			catch(error) {
-				console.log('an error occurred while running "update" method for ' + e.constructor.name)
+				throw new Error('an error occurred while running "update" method for ' + e.constructor.name + " in " + this.runningFrom.constructor.name)
 			}
 		})
 	}
