@@ -14,12 +14,12 @@ export class Mouse {
 		})
 
 		setInterval(() => {
-			this.mouseLastMoved += 1;
+			this.mouseLastMoved += 1
 			if (this.mouseLastMoved > 10) {
 				this.position.x = this.camera.objectToFollow.x - Palette.width + this.screenPosition.x + (Palette.width/2)
 				this.position.y = this.camera.objectToFollow.y - Palette.height + this.screenPosition.y + (Palette.height/2)
 			}
-		}, 1);
+		}, 1)
 
 		document.addEventListener('mousedown', () => {
 			this.down = true
