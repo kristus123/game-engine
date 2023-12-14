@@ -11,6 +11,8 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			width: Palette.width,
+			height: Palette.height,
 		}
 	}
 
@@ -21,6 +23,8 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			width: Palette.width,
+			height: Palette.height,
 		}
 	}
 

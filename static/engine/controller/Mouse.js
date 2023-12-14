@@ -3,12 +3,23 @@ export class Mouse {
 		this.camera = camera
 
 		this.position = new Position(0, 0)
+		this.screenPosition = new Position(0, 0)
 
 		this.down = false
+		this.mouseLastMoved = 0
 
 		document.addEventListener('mousemove', (e) => {
+			this.mouseLastMoved = 0
 			this.position = this.positionRelativeToCamera(e)
 		})
+
+		setInterval(() => {
+			this.mouseLastMoved += 1;
+			if (this.mouseLastMoved > 10) {
+				this.position.x = this.camera.objectToFollow.x - Palette.width + this.screenPosition.x + (Palette.width/2)
+				this.position.y = this.camera.objectToFollow.y - Palette.height + this.screenPosition.y + (Palette.height/2)
+			}
+		}, 1);
 
 		document.addEventListener('mousedown', () => {
 			this.down = true
@@ -32,6 +43,9 @@ export class Mouse {
 	}
 
 	positionRelativeToCamera(e) {
+		this.screenPosition.x = e.clientX
+		this.screenPosition.y = e.clientY
+
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.camera.zoom
 
