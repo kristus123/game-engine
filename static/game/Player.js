@@ -1,7 +1,7 @@
 export class Player extends GameObject {
 	constructor(mouse) {
 		// super(0, 0, 35, 50, 100, 10)
-        super(0, 0, 35, 50, 100, 10);
+		super(0, 0, 35, 50, 100, 10)
 
 		this.p = new PrettyParticles()
 		this.mouse = mouse

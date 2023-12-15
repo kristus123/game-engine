@@ -1,16 +1,16 @@
 export class Fleet extends GameObject {
-    constructor(player) {
-        super(200, 0, 300, 300, 1000, 25);
+	constructor(player) {
+		super(200, 0, 300, 300, 1000, 25)
 
-        this.player = player;
+		this.player = player
 
 		this.originalPlayerValues = {
 			weight: player.weight,
 			velocityFactor: player.velocityFactor,
 		}
-    }
+	}
 
-    update() {
+	update() {
 
 		if (Collision.between(this, this.player)) {
 			const speedX = Random.integerBetween(-3000, 3000)
@@ -29,7 +29,7 @@ export class Fleet extends GameObject {
 			this.player.weight = this.originalPlayerValues.weight
 			this.player.velocityFactor = this.originalPlayerValues.velocityFactor
 		}
-    }
+	}
 
 	draw(ctx) {
 		super.draw(ctx)

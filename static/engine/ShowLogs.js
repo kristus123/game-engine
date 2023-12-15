@@ -13,8 +13,8 @@ export class ShowLogs {
 		}
 
 		setInterval(() => {
-			console.log("")
-		}, 1000);
+			console.log('')
+		}, 1000)
 	}
 
 	draw() {
