@@ -1,6 +1,7 @@
 export class Player extends GameObject {
 	constructor(mouse) {
-		super(0, 0, 35, 50, 100, 10)
+		// super(0, 0, 35, 50, 100, 10)
+        super(0, 0, 35, 50, 100, 10);
 
 		this.p = new PrettyParticles()
 		this.mouse = mouse
@@ -24,7 +25,7 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
-		// super.draw(ctx)
+		super.draw(ctx)
 		Draw.player(ctx, this)
 		// Draw.circle(ctx, this.x, this.y, 20, 'orange')
 

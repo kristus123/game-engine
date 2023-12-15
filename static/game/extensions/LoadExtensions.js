@@ -10,7 +10,7 @@ export class LoadExtensions {
 				e.update()
 			}
 			catch(error) {
-				throw new Error('an error occurred while running "update" method for ' + e.constructor.name + ' in ' + this.runningFrom.constructor.name)
+				throw new Error('an error occurred while running "update" method for ' + e.constructor.name + ' in ' + this.runningFrom.constructor.name + " " + error)
 			}
 		})
 	}

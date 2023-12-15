@@ -63,7 +63,7 @@ export class Physics {
 
 	static enforceMaxDistance(player, spaceship) {
 		const velocityAdjustment = 1.1
-		const maxDistance = 10
+		const maxDistance = 100
 
 		const dx = spaceship.x - player.x
 		const dy = spaceship.y - player.y
@@ -77,27 +77,6 @@ export class Physics {
 			const diffX = targetX - spaceship.x
 			const diffY = targetY - spaceship.y
 
-			const targetVelocityX = diffX * velocityAdjustment
-			const targetVelocityY = diffY * velocityAdjustment
-
-			// Calculate the magnitude of the target velocity
-			const targetVelocityMagnitude = Math.sqrt(
-				targetVelocityX * targetVelocityX +
-					targetVelocityY * targetVelocityY,
-			)
-
-			// Adjust playerB's velocity based on the target velocity magnitude and direction
-			// spaceship.velocity.x = targetVelocityX;
-			// spaceship.velocity.y = targetVelocityY;
-
-			// If the target velocity magnitude exceeds maxDistance, scale it down
-			if (targetVelocityMagnitude > maxDistance) {
-				// playerB.velocity.x *= maxDistance / targetVelocityMagnitude;
-				// playerB.velocity.y *= maxDistance / targetVelocityMagnitude;
-			}
-
-			// Adjust playerA's velocity as well if desired
-			//
 			player.velocity.x -= diffX * velocityAdjustment
 			player.velocity.y -= diffY * velocityAdjustment
 		}

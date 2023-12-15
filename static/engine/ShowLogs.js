@@ -11,6 +11,10 @@ export class ShowLogs {
 				this.consoleMessages.shift()
 			}
 		}
+
+		setInterval(() => {
+			console.log("")
+		}, 1000);
 	}
 
 	draw() {
