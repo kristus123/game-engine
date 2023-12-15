@@ -50,7 +50,5 @@ export class Spaceship extends GameObject {
 			this.mouseHoldingSpaceship = false
 		}
 
-
-
 	}
 }

@@ -122,15 +122,13 @@ export class Draw {
 		ctx.fill()
 	}
 
-	static hollowCircle(ctx, x, y, radius) {
-		ctx.strokeStyle = 'red'
+	static hollowCircle(ctx, position, color, radius) {
+		ctx.strokeStyle = color
 		ctx.lineWidth = 20
 
 		ctx.beginPath()
-		ctx.arc(x, y, radius, 0, Math.PI * 2)
+		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
 		ctx.stroke()
-
-		return {x, y, radius}
 	}
 
 
@@ -190,29 +188,21 @@ export class Draw {
 		player,
 		mousePosition,
 	) {
-
-		const playerWidth = player.width
-		const playerHeight = player.height
-		const playerCenterX = player.x + playerWidth / 2
-		const playerCenterY = player.y + playerHeight / 2
-
-		const mouseX = mousePosition.x
-		const mouseY = mousePosition.y
+		ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
-		const dx = mouseX - playerCenterX
-		const dy = mouseY - playerCenterY
-
+		const dx = mousePosition.x - player.position.center.x
+		const dy = mousePosition.y - player.position.center.y
 		// Calculate the maximum allowed distances for rectangular movement
-		const horizontalRectDistance = 500
-		const verticalRectDistance = 200
+		const horizontalRectDistance = 800
+		const verticalRectDistance = 300
 
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
-			playerCenterX +
+			player.position.center.x +
 			Math.min(Math.abs(dx), horizontalRectDistance) * Math.sign(dx)
 		let circleY =
-			playerCenterY +
+			player.position.center.y +
 			Math.min(Math.abs(dy), verticalRectDistance) * Math.sign(dy)
 
 		// Draw the circle
@@ -220,13 +210,15 @@ export class Draw {
 		Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
 
 		// Draw the rectangle
-		const rectX = playerCenterX - horizontalRectDistance
-		const rectY = playerCenterY - verticalRectDistance
+		const rectX = player.position.center.x - horizontalRectDistance
+		const rectY = player.position.center.y - verticalRectDistance
 		const rectWidth = horizontalRectDistance * 2
 		const rectHeight = verticalRectDistance * 2
 
 		ctx.strokeStyle = 'blue'
 		ctx.strokeRect(rectX, rectY, rectWidth, rectHeight)
+
+		return {x: circleX, y: circleY}
 	}
 
 	// needs some work obviously, but it works

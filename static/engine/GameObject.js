@@ -16,6 +16,11 @@ export class GameObject {
 		Physics.global.applyPhysics(this)
 	}
 
+	resetVelocity() {
+		this.velocity.x = 0
+		this.velocity.y = 0
+	}
+
 	onCollision(o) {
 		// Push(this).awayFrom(o)
 	}
@@ -24,7 +29,6 @@ export class GameObject {
 
 	draw(ctx) {
 		Draw.new_rectangle(ctx, this.position)
-		Draw.new_circle(ctx, this.position.center, 10)
 	}
 
 	followIfOutsideOfRadius(o, radius) {
