@@ -17,7 +17,7 @@ export class Fleet extends GameObject {
 			const speedY = Random.integerBetween(-3000, 3000)
 
 			this.player.weight = this.weight
-			this.player.velocityFactor = 700
+			this.player.velocityFactor = 400
 
 			this.player.velocity.x = this.velocity.x + speedX
 			this.player.velocity.y = this.velocity.y + speedY
