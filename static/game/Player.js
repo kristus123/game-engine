@@ -1,7 +1,7 @@
 export class Player extends GameObject {
-	constructor(mouse, keyboard) {
+	constructor(mouse, controller) {
 		super(0, 0, 35, 50, 100, 10)
-		this.keyboard = keyboard
+		this.controller = controller
 		// super(0, 0, 35, 50, 100, 10)
 
 		this.p = new PrettyParticles()
@@ -23,17 +23,17 @@ export class Player extends GameObject {
 			if (this.charge == 100) {
 				this.charge = 0
 
+				let p = this.position.copy()
+				p.x += this.velocity.x * 1000
+				p.y += this.velocity.y * 1000
 
-				const p = this.position.copy()
-				p.x -= this.velocity.x / 1
-				p.y -= this.velocity.y / 1
+				Push(this).towards(p, 80)
 
-				this.velocity.x *=2
-				this.velocity.y *=2
+				p = this.position.copy()
+				p.x -= this.velocity.x * 1000
+				p.y -= this.velocity.y * 1000
 
 				this.splash.splash(this.position, p)
-				console.log('hei')
-				
 			}
 		})
 
@@ -67,8 +67,6 @@ export class Player extends GameObject {
 		// this.p.piss(ctx, this, this.mouse.position, this.mouse)
 		// Draw.coordinates(ctx, this)
 		
-
-
 		Draw.hpBar(ctx, this.position, this.charge, 100)
 
 		this.splash.draw(ctx)

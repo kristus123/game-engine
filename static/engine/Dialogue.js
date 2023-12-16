@@ -16,7 +16,7 @@ export class Dialogue {
 					this.isTyping = false
 				}
 			}
-		}, 10)
+		}, 20)
 
 		const keypressEvent = new KeypressEvent()
 
@@ -43,7 +43,7 @@ export class Dialogue {
 			const p = this.position.copy()
 			for (const reply of this.replies) {
 				p.y += 100
-				Draw.new_text(ctx, p, reply.text)
+				Draw.new_text(ctx, p, reply.keypress + ") " + reply.text)
 			}
 		}
 

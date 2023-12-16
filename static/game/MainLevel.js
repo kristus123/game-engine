@@ -2,7 +2,7 @@ export class MainLevel {
 	constructor(cameraFollow, mouse) {
 		this.mouse = mouse
 		this.controller = new Controller(this.player)
-		this.player = new Player(mouse, this.controller.keyboard)
+		this.player = new Player(mouse, this.controller)
 
 		this.spaceship = new Spaceship(mouse)
 		this.npc = new Npc(this.player)
@@ -39,7 +39,6 @@ export class MainLevel {
 	}
 
 	draw(ctx) {
-		console.log(this.dialogue.yes)
 		// Draw.new_circle(ctx, this.mouse.position)
 		this.extensions.draw(ctx)
 		// Draw.new_text(ctx, this.player.position, 'hei')
