@@ -26,6 +26,8 @@ export class KeypressEvent {
 				this.keyDownHandlers[key]()
 			}
 		}
+
+		// console.log('Currently pressed key: ' + key); // space is just ' '
 	}
 
 	handleKeyUp(event) {

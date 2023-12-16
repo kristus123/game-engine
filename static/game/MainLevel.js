@@ -7,7 +7,22 @@ export class MainLevel {
 		this.spaceship = new Spaceship(mouse)
 		this.npc = new Npc(this.player)
 
+		this.dialogue = new Dialogue('Do you want to enter the spaceship?', [
+			{
+				key: 'yes',
+				text: 'yes, i do', 
+				keypress: 'a',
+			},
+			{
+				key: 'no',
+				text: 'no. that is scary', 
+				keypress: 'b',
+			},
+		])
+
+
 		this.extensions = new LoadExtensions(this, [
+			this.dialogue,
 			new Fleet(this.player),
 			new FetchContainerExtension(this.spaceship),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
@@ -15,21 +30,6 @@ export class MainLevel {
 			new Planets(),
 		])
 
-		// new Dialogue({
-		// 	text: 'do you like pie?',
-		// 	choices: [
-		// 		{
-		// 			answer: 'yes, i love it', 
-		// 			then: {
-		// 				text: 'do you want pie?',
-		// 				choices: [
-		// 					{answer: 'yes'},
-		// 					{answer: 'no'},
-		// 				],
-		// 			},
-		// 		},
-		// 	],
-		// })
 
 
 	}
@@ -39,6 +39,7 @@ export class MainLevel {
 	}
 
 	draw(ctx) {
+		console.log(this.dialogue.yes)
 		// Draw.new_circle(ctx, this.mouse.position)
 		this.extensions.draw(ctx)
 		// Draw.new_text(ctx, this.player.position, 'hei')
