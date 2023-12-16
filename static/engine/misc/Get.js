@@ -11,7 +11,7 @@ export class Get {
 			return o
 		}
 		else {
-			throw new Error("NOT A POSITION")
+			throw new Error('NOT A POSITION')
 		}
 	}
 	

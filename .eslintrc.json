@@ -60,6 +60,7 @@
         "Collision": "readonly",
         "Controller": "readonly",
         "Crate": "readonly",
+        "Dialogue": "readonly",
         "Distance": "readonly",
         "Draw": "readonly",
         "EnterVehicleExtension": "readonly",

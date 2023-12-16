@@ -32,7 +32,7 @@ export class Player extends GameObject {
 				this.velocity.y *=2
 
 				this.splash.splash(this.position, p)
-				console.log("hei")
+				console.log('hei')
 				
 			}
 		})
@@ -41,7 +41,7 @@ export class Player extends GameObject {
 			if (this.charge < 100) {
 				this.charge += 1
 			}
-		}, 10);
+		}, 10)
 	}
 
 
