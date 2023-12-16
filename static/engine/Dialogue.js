@@ -34,7 +34,8 @@ export class Dialogue {
 	draw(ctx) {
 		if (this.text) {
 			Draw.new_text(ctx, this.position, this.text)
-		} else {
+		}
+		else {
 			const question = this.question.substring(0, this.currentIndex)
 			Draw.new_text(ctx, this.position, question)
 		}
@@ -43,7 +44,7 @@ export class Dialogue {
 			const p = this.position.copy()
 			for (const reply of this.replies) {
 				p.y += 100
-				Draw.new_text(ctx, p, reply.keypress + ") " + reply.text)
+				Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
 			}
 		}
 
