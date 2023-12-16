@@ -1,8 +1,8 @@
 export class MainLevel {
 	constructor(cameraFollow, mouse) {
 		this.mouse = mouse
-		this.player = new Player(mouse)
 		this.controller = new Controller(this.player)
+		this.player = new Player(mouse, this.controller.keyboard)
 
 		this.spaceship = new Spaceship(mouse)
 		this.npc = new Npc(this.player)

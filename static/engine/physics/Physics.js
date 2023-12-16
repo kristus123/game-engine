@@ -10,6 +10,10 @@ export class Physics {
 		return o
 	}
 
+	removePhysics(o) {
+		List.remove(this.objects, o)
+	}
+
 	update(deltaTime) {
 		for (let o of this.objects) {
 			if (typeof deltaTime === 'number') {

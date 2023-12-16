@@ -7,8 +7,11 @@ export class Get {
 		else if (o.position instanceof Position) {
 			return o.position
 		}
+		else if (o.x && o.y) {
+			return o
+		}
 		else {
-			console.log('ERROR')
+			throw new Error("NOT A POSITION")
 		}
 	}
 	

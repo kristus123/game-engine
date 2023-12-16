@@ -14,7 +14,9 @@ export class Spaceship extends GameObject {
 		//
 		//
 
-
+		setInterval(() => {
+			// this.splash.splash(this, this.mouse.position)
+		}, 500);
 	}
 
 	update() {

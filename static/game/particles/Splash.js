@@ -11,6 +11,58 @@ export class Splash {
 		
 	}
 
+	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null) {
+		spawnPosition = Get.Position(spawnPosition)
+		mousePosition = Get.Position(mousePosition)
+
+		let minAngle = Infinity
+		let maxAngle = -Infinity
+
+		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
+		for (let i = 1; i <= 100; i++) {
+
+			const size = Random.floatBetween(1, 5)
+			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)
+
+			// Calculate direction vector
+			const direction = {
+				x: mousePosition.x - spawnPosition.x,
+				y: mousePosition.y - spawnPosition.y,
+			}
+
+			speed = Random.floatBetween(5, 20)
+
+
+			// Calculate initial angle
+			const initialAngle = Math.atan2(direction.y, direction.x)
+
+			// Add random angle spread within the specified range
+			const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)
+			const angle = initialAngle + spread
+
+			// Update min and max angles
+			minAngle = Math.min(minAngle, angle)
+			maxAngle = Math.max(maxAngle, angle)
+
+			// !! speed used to be randomized.
+
+			// Calculate velocity components
+			newParticle.velocity = {
+				x: Math.cos(angle) * speed,
+				y: Math.sin(angle) * speed,
+			}
+
+			newParticle.life = 500
+			newParticle.color = color
+			this.particles.push(newParticle)
+			Physics.global.removePhysics(newParticle)
+		}
+
+		this.minAngle = minAngle
+		this.maxAngle = maxAngle
+	}
+
+
 	splashOpposite(spawnPosition, mousePosition) {
 		const angleSpread = 1
 
@@ -43,54 +95,6 @@ export class Splash {
 			newParticle.color = 'white'
 			this.particles.push(newParticle)
 		}
-	}
-
-	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null) {
-		if (!speed) {
-			speed = Random.floatBetween(5, 10)
-		}
-		color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
-		// color = 'white'
-
-		let minAngle = Infinity
-		let maxAngle = -Infinity
-
-		for (let i = 1; i <= 100; i++) {
-			const size = Random.floatBetween(1, 5)
-			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)
-
-			// Calculate direction vector
-			const direction = {
-				x: mousePosition.x - spawnPosition.x,
-				y: mousePosition.y - spawnPosition.y,
-			}
-
-			// Calculate initial angle
-			const initialAngle = Math.atan2(direction.y, direction.x)
-
-			// Add random angle spread within the specified range
-			const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)
-			const angle = initialAngle + spread
-
-			// Update min and max angles
-			minAngle = Math.min(minAngle, angle)
-			maxAngle = Math.max(maxAngle, angle)
-
-			// !! speed used to be randomized.
-
-			// Calculate velocity components
-			newParticle.velocity = {
-				x: Math.cos(angle) * speed,
-				y: Math.sin(angle) * speed,
-			}
-
-			newParticle.life = 100
-			newParticle.color = color
-			this.particles.push(newParticle)
-		}
-
-		this.minAngle = minAngle
-		this.maxAngle = maxAngle
 	}
 
 	draw(ctx) {
