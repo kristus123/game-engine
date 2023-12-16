@@ -8,6 +8,7 @@ export class MainLevel {
 		this.npc = new Npc(this.player)
 
 		this.extensions = new LoadExtensions(this, [
+			new Dialogue('hello', 100),
 			new Fleet(this.player),
 			new FetchContainerExtension(this.spaceship),
 			new EnterVehicleExtension(this.player, this.spaceship, cameraFollow),
@@ -23,5 +24,6 @@ export class MainLevel {
 	draw(ctx) {
 		// Draw.new_circle(ctx, this.mouse.position)
 		this.extensions.draw(ctx)
+		// Draw.new_text(ctx, this.player.position, 'hei')
 	}
 }

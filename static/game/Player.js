@@ -13,25 +13,39 @@ export class Player extends GameObject {
 		this.gun = new Gun(this)
 
 		this.splash = new Splash()
+		this.charge = 100
 
 		mouse.addOnClick('shoot', mousePosition => {
 			this.gun.shoot(mousePosition)
 		})
 
 		this.keypressEvent.addKeyDownListener('e', () => {
-			const p = this.position.copy()
-			p.x -= this.velocity.x / 1
-			p.y -= this.velocity.y / 1
+			if (this.charge == 100) {
+				this.charge = 0
 
-			this.velocity.x *=2
-			this.velocity.y *=2
 
-			this.splash.splash(this.position, p)
-			console.log("hei")
+				const p = this.position.copy()
+				p.x -= this.velocity.x / 1
+				p.y -= this.velocity.y / 1
+
+				this.velocity.x *=2
+				this.velocity.y *=2
+
+				this.splash.splash(this.position, p)
+				console.log("hei")
+				
+			}
 		})
 
-
+		setInterval(() => {
+			if (this.charge < 100) {
+				this.charge += 1
+			}
+		}, 10);
 	}
+
+
+
 
 	onCollision(o) {
 		if (o instanceof InventoryItem) {
@@ -55,6 +69,7 @@ export class Player extends GameObject {
 		
 
 
+		Draw.hpBar(ctx, this.position, this.charge, 100)
 
 		this.splash.draw(ctx)
 	}

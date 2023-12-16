@@ -27,9 +27,6 @@ export class Draw {
 		ctx.strokeStyle = 'white'
 		ctx.lineWidth = 4
 		ctx.strokeRect(x, y, width, height)
-
-		ctx.fillStyle = 'white'
-		ctx.font = '25px Arial'
 	}
 
 	static blueRectangle(ctx, x, y) {
@@ -63,12 +60,7 @@ export class Draw {
 		ctx.closePath()
 	}
 
-
-
-
-
-	
-	static hpBar(ctx, x, y, currentHp, maxHp) {
+	static hpBar(ctx, position, currentHp, maxHp) {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
 			const numerator = currentHp
 			const denominator = maxHp
@@ -80,8 +72,6 @@ export class Draw {
 			return displayValue
 		}
 
-		y -= 40
-
 		const width = 200
 		const height = 20
 
@@ -91,10 +81,10 @@ export class Draw {
 		currentHP = Math.max(0, currentHP - 0.01)
 
 		ctx.fillStyle = 'white'
-		ctx.fillRect(x, y, width, height)
+		ctx.fillRect(position.x, position.y, width, height)
 
 		ctx.fillStyle = 'red'
-		ctx.fillRect(x, y, currentHP * width, height)
+		ctx.fillRect(position.x, position.y, currentHP * width, height)
 	}
 
 	static circle(ctx, x, y, radius, color) {
