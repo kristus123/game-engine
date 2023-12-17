@@ -65,7 +65,6 @@ export class Player extends GameObject {
 		this.gun.draw(ctx)
 		// this.explosion(ctx)
 		// this.p.piss(ctx, this, this.mouse.position, this.mouse)
-		// Draw.coordinates(ctx, this)
 		
 		Draw.hpBar(ctx, this.position, this.charge, 100)
 

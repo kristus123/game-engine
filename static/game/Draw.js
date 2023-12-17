@@ -264,7 +264,7 @@ export class Draw {
 	}
 
 	
-	static coordinates(ctx, o) {
+	static position(ctx, o) {
 		Draw.rectangle(ctx, o.x, o.y, o.width, o.height)
 
 		ctx.fillStyle = 'white'
