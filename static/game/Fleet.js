@@ -4,36 +4,24 @@ export class Fleet extends GameObject {
 
 		this.player = player
 
-		this.originalPlayerValues = {
-			weight: player.weight,
-			velocityFactor: player.velocityFactor,
-		}
+		this.temporaryChange = new TemporaryChange([
+			[this.player, 'weight', this.weight],
+			[this.player, 'velocityFactor', 400],
+		])
 	}
 
 	update() {
+		this.temporaryChange.applyIf(Collision.between(this, this.player), () => {
+			this.velocity.x += Random.integerBetween(-3000, 3000)
+			this.velocity.y += Random.integerBetween(-3000, 3000)
 
-		if (Collision.between(this, this.player)) {
-			const speedX = Random.integerBetween(-3000, 3000)
-			const speedY = Random.integerBetween(-3000, 3000)
-
-			this.player.weight = this.weight
-			this.player.velocityFactor = 400
-
-			this.player.velocity.x = this.velocity.x + speedX
-			this.player.velocity.y = this.velocity.y + speedY
-
-			this.velocity.x += speedX
-			this.velocity.y += speedY
-		}
-		else {
-			this.player.weight = this.originalPlayerValues.weight
-			this.player.velocityFactor = this.originalPlayerValues.velocityFactor
-		}
+			this.player.velocity.x = this.velocity.x
+			this.player.velocity.y = this.velocity.y
+		})
 	}
 
 	draw(ctx) {
 		super.draw(ctx)
 		Draw.new_text(ctx, this.position, 'step your foot on me')
-		
 	}
 }

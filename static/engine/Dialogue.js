@@ -47,10 +47,6 @@ export class Dialogue {
 				p.y += 120
 				if (this.mouse.hovering(p)) {
 					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text, 'green')
-					if (this.mouse.down) {
-						this.text = reply.text
-						this[reply.key] = true
-					}
 				} else {
 					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
 				}
