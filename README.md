@@ -12,10 +12,7 @@ Work in space as a transporter.
 ## First time set up
 
 ```
-npm i -g eslint
-npm i -g @stylistic/eslint-plugin-js
-npm i -g concurrently
-npm i -g reload 
+./first_time_setup.sh
 ```
 
 ## run locally
@@ -32,5 +29,4 @@ npm i -g reload
 
 ## Play anywhere
 
-[Hosted on netlify](https://romskip.netlify.app/)
-
+[Play game](https://romskip.netlify.app/)
