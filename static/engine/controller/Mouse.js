@@ -59,4 +59,8 @@ export class Mouse {
 		return new Position(x, y)
 
 	}
+
+	hovering(o) {
+		return Collision.between(this.position, o)
+	}
 }

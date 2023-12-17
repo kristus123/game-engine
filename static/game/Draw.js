@@ -20,8 +20,8 @@ export class Draw {
 		ctx.font = '25px Arial'
 	}
 
-	static rectangle(ctx, x, y, width, height) {
-		ctx.fillStyle = 'orange'
+	static rectangle(ctx, x, y, width, height, color = 'orange') {
+		ctx.fillStyle = color
 		ctx.fillRect(x, y, width, height)
 
 		ctx.strokeStyle = 'white'
@@ -255,8 +255,8 @@ export class Draw {
 		ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	static new_text(ctx, position, text) {
-		Draw.rectangle(ctx, position.x, position.y, position.width, 100)
+	static new_text(ctx, position, text, color='orange') {
+		Draw.rectangle(ctx, position.x, position.y, position.width, position.height, color)
 
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'

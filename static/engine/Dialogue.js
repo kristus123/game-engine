@@ -1,5 +1,6 @@
 export class Dialogue {
-	constructor(question, replies) {
+	constructor(question, replies, mouse) {
+		this.mouse = mouse
 		this.question = question
 		this.replies = replies
 		this.currentIndex = 0
@@ -43,8 +44,16 @@ export class Dialogue {
 		if (!this.isTyping && !this.text) {
 			const p = this.position.copy()
 			for (const reply of this.replies) {
-				p.y += 100
-				Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
+				p.y += 120
+				if (this.mouse.hovering(p)) {
+					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text, 'green')
+					if (this.mouse.down) {
+						this.text = reply.text
+						this[reply.key] = true
+					}
+				} else {
+					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
+				}
 			}
 		}
 
