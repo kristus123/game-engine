@@ -1,11 +1,8 @@
 export class Player extends GameObject {
 	constructor(mouse, controller) {
 		super(0, 0, 35, 50, 100, 10)
-		this.controller = controller
-		// super(0, 0, 35, 50, 100, 10)
-
-		this.p = new PrettyParticles()
 		this.mouse = mouse
+		this.controller = controller
 
 		this.keypressEvent = new KeyboardEvents()
 		this.explosion = Draw.sprite()
@@ -44,9 +41,6 @@ export class Player extends GameObject {
 		}, 10)
 	}
 
-
-
-
 	onCollision(o) {
 		if (o instanceof InventoryItem) {
 			this.inventory.pickUp(o)
@@ -59,12 +53,9 @@ export class Player extends GameObject {
 	draw(ctx) {
 		super.draw(ctx)
 		Draw.player(ctx, this)
-		// Draw.circle(ctx, this.x, this.y, 20, 'orange')
 
 		this.inventory.draw(ctx)
 		this.gun.draw(ctx)
-		// this.explosion(ctx)
-		// this.p.piss(ctx, this, this.mouse.position, this.mouse)
 		
 		Draw.hpBar(ctx, this.position, this.charge, 100)
 
