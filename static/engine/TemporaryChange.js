@@ -21,7 +21,7 @@ export class TemporaryChange {
 				object[fieldName] = temporaryValue
 			}
 
-			run();
+			run()
 		}
 
 		if (!condition) {

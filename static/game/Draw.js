@@ -34,60 +34,60 @@ export class Draw {
 		ctx.fillRect(x, y, 10, 10)
 	}
 
-static isObjectWithinTheAngle(object, spawnPosition, targetLocation, angleWidth, length) {
-	angleWidth = -Math.abs(angleWidth)
-
-    // Calculate angle towards targetLocation
-    const angle = Math.atan2(targetLocation.y - spawnPosition.y, targetLocation.x - spawnPosition.x);
-
-    // Calculate endpoints based on the angle width
-    const leftAngle = angle - angleWidth / 2;
-    const rightAngle = angle + angleWidth / 2;
-
-
-    const objectAngle = Math.atan2(object.y - spawnPosition.y, object.x - spawnPosition.x);
-
-    // Ensure all angles are in the same range (0 to 360 degrees)
-    const normalizedObjectAngle = ((objectAngle * 180 / Math.PI) % 360 + 360) % 360;
-    const normalizedLeftAngle = ((leftAngle * 180 / Math.PI) % 360 + 360) % 360;
-    const normalizedRightAngle = ((rightAngle * 180 / Math.PI) % 360 + 360) % 360;
-
-    // Check if the normalizedObjectAngle is within the specified angle range
-    const isWithinAngle = normalizedObjectAngle >= normalizedLeftAngle && normalizedObjectAngle <= normalizedRightAngle;
-
-    return isWithinAngle;
-}
-
-	static splash(ctx, spawnPosition, targetLocation, angleWidth, length = 500) {
-		ctx.beginPath();
+	static isObjectWithinTheAngle(object, spawnPosition, targetLocation, angleWidth, length) {
+		angleWidth = -Math.abs(angleWidth)
 
 		// Calculate angle towards targetLocation
-		const angle = Math.atan2(targetLocation.y - spawnPosition.y, targetLocation.x - spawnPosition.x);
+		const angle = Math.atan2(targetLocation.y - spawnPosition.y, targetLocation.x - spawnPosition.x)
 
 		// Calculate endpoints based on the angle width
-		const leftAngle = angle - angleWidth / 2;
-		const rightAngle = angle + angleWidth / 2;
+		const leftAngle = angle - angleWidth / 2
+		const rightAngle = angle + angleWidth / 2
 
-		const leftX = spawnPosition.x + length * Math.cos(leftAngle);
-		const leftY = spawnPosition.y + length * Math.sin(leftAngle);
 
-		const rightX = spawnPosition.x + length * Math.cos(rightAngle);
-		const rightY = spawnPosition.y + length * Math.sin(rightAngle);
+		const objectAngle = Math.atan2(object.y - spawnPosition.y, object.x - spawnPosition.x)
+
+		// Ensure all angles are in the same range (0 to 360 degrees)
+		const normalizedObjectAngle = ((objectAngle * 180 / Math.PI) % 360 + 360) % 360
+		const normalizedLeftAngle = ((leftAngle * 180 / Math.PI) % 360 + 360) % 360
+		const normalizedRightAngle = ((rightAngle * 180 / Math.PI) % 360 + 360) % 360
+
+		// Check if the normalizedObjectAngle is within the specified angle range
+		const isWithinAngle = normalizedObjectAngle >= normalizedLeftAngle && normalizedObjectAngle <= normalizedRightAngle
+
+		return isWithinAngle
+	}
+
+	static splash(ctx, spawnPosition, targetLocation, angleWidth, length = 500) {
+		ctx.beginPath()
+
+		// Calculate angle towards targetLocation
+		const angle = Math.atan2(targetLocation.y - spawnPosition.y, targetLocation.x - spawnPosition.x)
+
+		// Calculate endpoints based on the angle width
+		const leftAngle = angle - angleWidth / 2
+		const rightAngle = angle + angleWidth / 2
+
+		const leftX = spawnPosition.x + length * Math.cos(leftAngle)
+		const leftY = spawnPosition.y + length * Math.sin(leftAngle)
+
+		const rightX = spawnPosition.x + length * Math.cos(rightAngle)
+		const rightY = spawnPosition.y + length * Math.sin(rightAngle)
 
 		// Draw lines
-		ctx.moveTo(spawnPosition.x, spawnPosition.y);
-		ctx.lineTo(leftX, leftY);
+		ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		ctx.lineTo(leftX, leftY)
 
-		ctx.moveTo(spawnPosition.x, spawnPosition.y);
-		ctx.lineTo(rightX, rightY);
+		ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		ctx.lineTo(rightX, rightY)
 
 		// Set line style
-		ctx.lineWidth = 2;
-		ctx.strokeStyle = 'red'; // You can set your desired color
+		ctx.lineWidth = 2
+		ctx.strokeStyle = 'red' // You can set your desired color
 
 		// Stroke the lines
-		ctx.stroke();
-		ctx.closePath();
+		ctx.stroke()
+		ctx.closePath()
 
 
 	}

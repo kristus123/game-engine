@@ -56,9 +56,10 @@ export class Player extends GameObject {
 	draw(ctx) {
 		Draw.splash(ctx, this.position, this.mouse.position, 200)
 		if (Draw.isObjectWithinTheAngle(this.thing, this.position, this.mouse.position, 200)) {
-			console.log("within!")
+			console.log('within!')
 			Draw.new_text(ctx, this.thing.position, 'heiiiiiiiiiiiiiiiiiiiiiiiiiii')
-		} else {
+		}
+		else {
 			Draw.new_text(ctx, this.thing.position, 'point at me')
 		}
 

@@ -98,6 +98,7 @@
         "Spaceship": "readonly",
         "Splash": "readonly",
         "StarBackground": "readonly",
+        "TemporaryChange": "readonly",
         "Water": "readonly",
         "index": "readonly"
     }
