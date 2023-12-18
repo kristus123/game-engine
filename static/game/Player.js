@@ -1,6 +1,6 @@
 export class Player extends GameObject {
 	constructor(mouse, controller) {
-		super(0, 0, 35, 50, 100, 10)
+		super(0, 0, 35, 50, 200, 5)
 		this.mouse = mouse
 		this.controller = controller
 
@@ -24,7 +24,7 @@ export class Player extends GameObject {
 				p.x += this.velocity.x * 1000
 				p.y += this.velocity.y * 1000
 
-				Push(this).towards(p, 80)
+				Push(this).towards(p, 200)
 
 				p = this.position.copy()
 				p.x -= this.velocity.x * 1000
