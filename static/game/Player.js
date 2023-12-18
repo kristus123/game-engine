@@ -1,15 +1,14 @@
 export class Player extends GameObject {
 	constructor(mouse, controller) {
-		super(0, 0, 35, 50, 200, 5)
+		super(10, 10, 35, 50, 200, 5)
 
-		this.thing = new GameObject(0, 0, 10, 10, 200, 5)
+		this.piss = new Piss(this, mouse)
 
 		this.mouse = mouse
 		this.controller = controller
 
 		this.keypressEvent = new KeyboardEvents()
 		this.explosion = Draw.sprite()
-		this.inventory = new Inventory()
 		this.gun = new Gun(this)
 
 		this.splash = new Splash()
@@ -44,30 +43,23 @@ export class Player extends GameObject {
 		}, 10)
 	}
 
-	onCollision(o) {
-		if (o instanceof InventoryItem) {
-			this.inventory.pickUp(o)
-		}
-	}
+	// onCollision(o) {
+	// 	if (o instanceof InventoryItem) {
+	// 		this.inventory.pickUp(o)
+	// 	}
+	// }
 
 	update() {
 	}
 
 	draw(ctx) {
 		Draw.splash(ctx, this.position, this.mouse.position, 200)
-		if (Draw.isObjectWithinTheAngle(this.thing, this.position, this.mouse.position, 200)) {
-			console.log('within!')
-			Draw.new_text(ctx, this.thing.position, 'heiiiiiiiiiiiiiiiiiiiiiiiiiii')
-		}
-		else {
-			Draw.new_text(ctx, this.thing.position, 'point at me')
-		}
+
+		this.piss.draw(ctx)
 
 		super.draw(ctx)
-		this.thing.draw(ctx)
 		Draw.player(ctx, this)
 
-		this.inventory.draw(ctx)
 		this.gun.draw(ctx)
 		
 		Draw.hpBar(ctx, this.position, this.charge, 100)

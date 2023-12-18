@@ -27,7 +27,7 @@ export class KeypressEvent {
 			}
 		}
 
-		console.log('Currently pressed key: ' + key) // space is just ' '
+		// console.log('Currently pressed key: ' + key) // space is just ' '
 	}
 
 	handleKeyUp(event) {
