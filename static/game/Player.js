@@ -22,11 +22,7 @@ export class Player extends GameObject {
 			if (this.charge >= 100) {
 				this.charge -= 100
 
-				let p = this.mouse.position.copy()
-				p.x += this.controller.velocity.x * 1000
-				p.y += this.controller.velocity.y * 1000
-
-				Push(this).towards(p, 200)
+				Push(this).towards(this.mouse.position, 200)
 
 				p = this.position.copy()
 				p.x -= this.velocity.x * 1000
