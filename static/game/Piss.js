@@ -23,8 +23,8 @@ export class Piss {
 
 		const angle = 50 // rn it only works with 50
 
+		console.log(this.mouse)
 		Draw.splash(ctx, this.player.position, this.mouse.position, angle)
-
 
 		this.inventory.pickableItems.forEach(i => {
 			if (Collision.between(this.player, i)) {
@@ -35,6 +35,5 @@ export class Piss {
 				Push(i).towards(this.player, 5)
 			}
 		})
-		
 	}
 }
