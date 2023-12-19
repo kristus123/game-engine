@@ -24,11 +24,9 @@ for js_file in get_all_js_files('static'):
 # sort alphabetically
 eslint_globals_config = dict(sorted(eslint_globals_config.items()))
 
-
-filename = '.eslintrc.json'
-with open(filename, 'r') as f:
+with open('.eslintrc.json', 'r') as f:
     data = json.load(f)
     data['globals'] = eslint_globals_config
 
-with open(filename, 'w') as f:
-    json.dump(data, f, indent=4)
+    with open('.eslintrc.json', 'w') as f:
+        json.dump(data, f, indent=4)
