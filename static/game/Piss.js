@@ -17,7 +17,6 @@ export class Piss {
 		console.log(this.inventory.pickableItems.length)
 	}
 
-
 	draw(ctx) {
 		this.inventory.draw(ctx)
 
