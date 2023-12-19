@@ -34,33 +34,31 @@ export class Draw {
 		ctx.fillRect(x, y, 10, 10)
 	}
 
-static lookingAtObject(object, player, mousePosition, angleWidth, length) {
-    angleWidth = -Math.abs(angleWidth);
+	static isObjectWithinTheAngle(object, player, mousePosition, angleWidth, length) {
+		angleWidth = angleWidth * 0.3
+		angleWidth = Math.abs(angleWidth)
 
-    // Calculate angle towards mousePosition
-    const angle = Math.atan2(mousePosition.y - player.y, mousePosition.x - player.x);
+		const angle = Math.atan2(mousePosition.y - player.y, mousePosition.x - player.x)
+		const objectAngle = Math.atan2(object.y - player.y, object.x - player.x)
 
-    // Calculate endpoints based on the angle width
-    const leftAngle = angle - angleWidth / 2;
-    const rightAngle = angle + angleWidth / 2;
+		// Convert angles to degrees and normalize them to the range [0, 360)
+		const normalizedAngle = ((angle * 180 / Math.PI) + 360) % 360
+		const normalizedObjectAngle = ((objectAngle * 180 / Math.PI) + 360) % 360
 
-    const objectAngle = Math.atan2(object.y - player.y, object.x - player.x);
+		// Calculate the angular range
+		let startAngle = (normalizedAngle - angleWidth / 2 + 360) % 360
+		let endAngle = (normalizedAngle + angleWidth / 2 + 360) % 360
 
-    // Ensure all angles are in the same range (0 to 360 degrees)
-    const normalizedObjectAngle = ((objectAngle * 180 / Math.PI) % 360 + 360) % 360;
-    const normalizedLeftAngle = ((leftAngle * 180 / Math.PI) % 360 + 360) % 360;
-    const normalizedRightAngle = ((rightAngle * 180 / Math.PI) % 360 + 360) % 360;
+		// Handle cases where the range crosses the 0/360 boundary
+		if (startAngle > endAngle) {
+			return normalizedObjectAngle >= startAngle || normalizedObjectAngle <= endAngle
+		}
+		else {
+			// Ensure that the object is strictly within the angular range
+			return normalizedObjectAngle > startAngle && normalizedObjectAngle < endAngle
+		}
+	}
 
-    // Check if the object is within the specified angle range
-    const inAngle = normalizedObjectAngle >= normalizedLeftAngle && normalizedObjectAngle <= normalizedRightAngle;
-
-    // Check if the object is within the specified length
-    const distanceToObj = Math.sqrt((object.x - player.x) ** 2 + (object.y - player.y) ** 2);
-    const inLength = distanceToObj <= length;
-
-    // Return true if both conditions are met
-    return inAngle && inLength;
-}
 
 	static splash(ctx, spawnPosition, targetLocation, angleWidth, length = 500) {
 		ctx.beginPath()

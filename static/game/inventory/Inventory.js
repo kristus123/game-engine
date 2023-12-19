@@ -9,7 +9,7 @@ export class Inventory {
 	}
 
 	addPickable(o) {
-		console.log("added pickable itesm")
+		console.log('added pickable itesm')
 		this.pickableItems.push(o)
 		console.log(this.pickableItems.length)
 	}
