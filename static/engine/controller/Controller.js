@@ -2,6 +2,11 @@ export class Controller {
 	constructor(objectToControl) {
 		this.objectToControl = objectToControl
 		this.keyboard = new Keyboard()
+
+		this.velocity = {
+			x: 0,
+			y: 0,
+		}
 	}
 
 	update() {
@@ -20,6 +25,9 @@ export class Controller {
 		if (this.keyboard.right) {
 			this.objectToControl.velocity.x += this.objectToControl.velocityFactor
 		}
+
+		this.velocity.x = this.keyboard.right ? 1 : this.keyboard.left ? -1 : 0
+		this.velocity.y = this.keyboard.down ? 1 : this.keyboard.up ? -1 : 0
 	}
 
 	control(o) {

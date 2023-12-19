@@ -22,9 +22,9 @@ export class Player extends GameObject {
 			if (this.charge >= 100) {
 				this.charge -= 100
 
-				let p = this.position.copy()
-				p.x += this.velocity.x * 1000
-				p.y += this.velocity.y * 1000
+				let p = this.mouse.position.copy()
+				p.x += this.controller.velocity.x * 1000
+				p.y += this.controller.velocity.y * 1000
 
 				Push(this).towards(p, 200)
 
@@ -37,9 +37,8 @@ export class Player extends GameObject {
 		})
 
 		setInterval(() => {
-			if (this.charge < 100) {
-			}
-		}, 1)
+			this.charge += 1
+		}, 20)
 	}
 
 	// onCollision(o) {
@@ -65,5 +64,10 @@ export class Player extends GameObject {
 		// Draw.hpBar(ctx, this.position, this.charge, 100)
 
 		this.splash.draw(ctx)
+
+		const p = this.position.copy()
+		p.x += this.controller.velocity.x * 100
+		p.y += this.controller.velocity.y * 100
+		Draw.new_circle(ctx, p)
 	}
 }

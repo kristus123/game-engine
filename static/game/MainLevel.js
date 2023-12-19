@@ -1,7 +1,8 @@
 export class MainLevel {
 	constructor(cameraFollow, mouse) {
-		this.player = new Player(mouse, this.controller)
 		this.controller = new Controller(this.player)
+		this.player = new Player(mouse, this.controller)
+		this.npc = new Npc(mouse, this.controller)
 		this.controller.control(this.player)
 	}
 
@@ -12,5 +13,6 @@ export class MainLevel {
 
 	draw(ctx) {
 		this.player.draw(ctx)
+		this.npc.draw(ctx)
 	}
 }

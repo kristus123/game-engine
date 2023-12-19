@@ -31,7 +31,6 @@ export class Piss {
 				this.inventory.pickUp(i)
 			}
 
-			console.log(Distance.between(i, this.player))
 			if (Draw.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
 				Push(i).towards(this.player, 5)
 			}
