@@ -30,3 +30,7 @@ Work in space as a transporter.
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
+
+## Misc. info
+
+`runtime.txt` is for netlify.
