@@ -1,6 +1,6 @@
 export class Player extends GameObject {
 	constructor(mouse, controller) {
-		super(10, 10, 35, 50, 200, 5)
+		super(-500, 10, 35, 50, 200, 5)
 
 		this.piss = new Piss(this, mouse)
 
@@ -19,8 +19,8 @@ export class Player extends GameObject {
 		})
 
 		this.keypressEvent.addKeyDownListener('e', () => {
-			if (this.charge == 100) {
-				this.charge = 0
+			if (this.charge >= 100) {
+				this.charge -= 100
 
 				let p = this.position.copy()
 				p.x += this.velocity.x * 1000
@@ -38,9 +38,8 @@ export class Player extends GameObject {
 
 		setInterval(() => {
 			if (this.charge < 100) {
-				this.charge += 1
 			}
-		}, 10)
+		}, 1)
 	}
 
 	// onCollision(o) {
@@ -50,10 +49,11 @@ export class Player extends GameObject {
 	// }
 
 	update() {
+		this.charge += 1
 	}
 
 	draw(ctx) {
-		Draw.splash(ctx, this.position, this.mouse.position, 200)
+		Draw.splash(ctx, this.position, this.mouse.position, 50)
 
 		this.piss.draw(ctx)
 
@@ -62,7 +62,7 @@ export class Player extends GameObject {
 
 		this.gun.draw(ctx)
 		
-		Draw.hpBar(ctx, this.position, this.charge, 100)
+		// Draw.hpBar(ctx, this.position, this.charge, 100)
 
 		this.splash.draw(ctx)
 	}

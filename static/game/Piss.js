@@ -4,14 +4,17 @@ export class Piss {
 		this.player = player
 		this.mouse = mouse
 
-		for (let i = 0; i < 100; i++) {
-			this.inventory.addPickable(new GameObject(Random.integerBetween(-100, 100), Random.integerBetween(-100, 100), 10, 10, 50, 200))
+		for (const area of [0]) {
+			for (let i = 0; i < 1; i++) {
+				const x = Random.integerBetween(-area, area)
+				const y = Random.integerBetween(-area, area)
+				this.inventory.addPickable(new GameObject(x, y, 10, 10, 200, 50))
+			}
 		}
-
 	}
 
 	update() {
-		
+		console.log(this.inventory.pickableItems.length)
 	}
 
 
@@ -23,14 +26,10 @@ export class Piss {
 				this.inventory.pickUp(i)
 			}
 
-			if (Draw.isObjectWithinTheAngle(i, this.player, this.mouse.position, 200) && this.mouse.down) {
-				Push(i).towards(this.player, 2)
-				// Draw.new_text(ctx, i.position, 'heiiiiiiiiiiiiiiiiiiiiiiiiiii')
+			if (Draw.lookingAtObject(i, this.player, this.mouse.position, 50)) {
+				// Push(i).towards(this.player, 5)
+				Draw.new_text(ctx, i.position, '!')
 			}
-			else {
-				// Draw.new_text(ctx, i.position, 'point at me')
-			}
-
 		})
 		
 	}
