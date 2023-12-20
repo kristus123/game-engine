@@ -25,6 +25,11 @@ export class FirstChat {
 		this.no = new Dialogue("Then people shouldn't piss so much in space", [
 					{key: "yes", keypress: "1", text:"Easier said than done"},
 				], p, mouse)
+
+		this.next = new Dialogue("go to the right and start cleaning some piss boy", [
+					{key: "yes", keypress: "1", text:"YES SIR!!!!!!!!"},
+				], p, mouse)
+
 	}
 
 	update() {
