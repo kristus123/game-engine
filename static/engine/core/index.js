@@ -21,7 +21,7 @@ ErrorHandler.run(() => {
 
 			camera.context(() => {
 				level.update()
-				level.draw(camera.palette.ctx)
+				level.draw(camera.palette.ctx, guiPalette.ctx)
 			})
 
 			starBackground.draw(camera.objectToFollow)

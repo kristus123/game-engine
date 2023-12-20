@@ -6,7 +6,7 @@ export class MainLevel {
 		this.player = new Player(mouse, this.controller)
 		camera.follow(this.player)
 
-		this.npc = new Npc(mouse, this.controller)
+		this.npc = new Npc(mouse)
 		this.controller.control(this.player)
 
 		this.runAll = new RunAll('mainlevel', [
@@ -15,6 +15,7 @@ export class MainLevel {
 			this.npc,
 			new Piss(this.player, this.mouse),
 		])
+
 	}
 
 	update() {

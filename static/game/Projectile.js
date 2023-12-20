@@ -1,5 +1,4 @@
 export class Projectile extends GameObject {
-
 	constructor() {
 		super(0, 0, 10, 10, 0, 4000)
 		this.from = null

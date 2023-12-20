@@ -1,7 +1,6 @@
 export class Player extends GameObject {
 	constructor(mouse, controller) {
-		super(-500, 10, 35, 50, 200, 5)
-
+		super(-1200, 10, 35, 50, 200, 5)
 
 		this.mouse = mouse
 		this.controller = controller

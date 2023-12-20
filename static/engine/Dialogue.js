@@ -1,12 +1,12 @@
 export class Dialogue {
-	constructor(question, replies, mouse) {
-		this.mouse = mouse
+	constructor(question, replies, position, mouse) {
 		this.question = question
 		this.replies = replies
+		this.position = position
+		this.mouse = mouse
+
 		this.currentIndex = 0
 		this.isTyping = true
-
-		this.position = new Position(-400, -400, 100, 100)
 
 		setInterval(() => {
 			if (this.isTyping) {
@@ -25,6 +25,7 @@ export class Dialogue {
 			keypressEvent.addKeyDownListener(reply.keypress, () => {
 				this.text = reply.text
 				this[reply.key] = true
+				this.nextDialogue = reply.nextDialogue
 			})
 		}
 	}
@@ -53,6 +54,5 @@ export class Dialogue {
 				}
 			}
 		}
-
 	}
 }

@@ -4,11 +4,12 @@ export class Piss {
 		this.player = player
 		this.mouse = mouse
 
-		for (const area of [100]) {
+		for (const area of [200]) {
 			for (let i = 0; i < 400; i++) {
 				const x = Random.integerBetween(-area, area)
 				const y = Random.integerBetween(-area, area)
-				this.inventory.addPickable(new GameObject(x, y, Random.integerBetween(1,10), Random.integerBetween(1,10), 200, 50))
+				this.inventory.addPickable(
+					new GameObject(x, y, Random.integerBetween(1,10), Random.integerBetween(1,10), 200, 50))
 			}
 		}
 	}
