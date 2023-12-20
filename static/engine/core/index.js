@@ -9,11 +9,9 @@ ErrorHandler.run(() => {
 
 	const camera = new Camera()
 	const mouse = new Mouse(camera)
+	camera.mouse = mouse
 
-	let objectToFollow = { x: 0, y: 0 }
-	const cameraFollow = (f) => (objectToFollow = f)
-
-	const level = new MainLevel(cameraFollow, mouse)
+	const level = new MainLevel(camera, mouse)
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -22,12 +20,11 @@ ErrorHandler.run(() => {
 			Physics.global.update(deltaTime)
 
 			camera.context(() => {
-				camera.follow(objectToFollow) // Keep this after physics.update and within camera.context
 				level.update()
 				level.draw(camera.palette.ctx)
 			})
 
-			starBackground.draw(objectToFollow)
+			starBackground.draw(camera.objectToFollow)
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, 'black')
