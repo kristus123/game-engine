@@ -7,7 +7,10 @@ export class Npc extends GameObject {
 		this.maxHp = 100
 		this.picture = new Picture(this, 'https://i.imgur.com/w9dZE0H.png')
 
-		this.dialogue = new FirstChat(this.position, mouse)
+		this.chat = new FirstChat(this.position, mouse)
+		setTimeout(() => {
+			this.show = true
+		}, 2000)
 	}
 
 	onCollision(o) {
@@ -22,5 +25,7 @@ export class Npc extends GameObject {
 		this.picture.old_draw(ctx, 100)
 
 		Draw.hpBar(ctx, this.x, this.y, this.hp, this.maxHp)
+
+		this.chat.draw(ctx)
 	}
 }

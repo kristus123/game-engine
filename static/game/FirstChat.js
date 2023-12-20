@@ -10,26 +10,36 @@ export class FirstChat {
 				key: "yes", 
 				keypress: "1", 
 				text:"Yes. I really look forward to it Sir",
-				nextDialogue: new Dialogue("That's the spirit. Make our nation clean and proud", [
-					{key: "yes", keypress: "1", text:"YES SIR!!!!!!!!"},
-				], p, mouse)
 			},
 			{
 				key: "no", 
 				keypress: "2", 
 				text:"Well, it wasn't my first choice of education exactly...",
-				nextDialogue: new Dialogue("Then people shouldn't piss so much in space", [
-					{key: "yes", keypress: "1", text:"Easier said than done"},
-				], p, mouse)
 			},
 		], p, mouse)
+
+		this.yes = new Dialogue("That's the spirit. Make our nation clean and proud", [
+					{key: "yes", keypress: "1", text:"YES SIR!!!!!!!!"},
+				], p, mouse)
+
+		this.no = new Dialogue("Then people shouldn't piss so much in space", [
+					{key: "yes", keypress: "1", text:"Easier said than done"},
+				], p, mouse)
 	}
 
 	update() {
 	}
 
 	draw(ctx) {
-		this.dialogue.draw(ctx)
+		if (this.dialogue.yes) {
+			this.yes.draw(ctx)
+		}
+		else if (this.dialogue.no) {
+			this.no.draw(ctx)
+		}
+		else {
+			this.dialogue.draw(ctx)
+		}
 	}
 	
 }

@@ -9,7 +9,7 @@ export class Dialogue {
 		this.isTyping = true
 
 		setInterval(() => {
-			if (this.isTyping) {
+			if (this.isTyping && this.ready) {
 				if (this.currentIndex < this.question.length) {
 					this.currentIndex++
 				}
@@ -23,9 +23,7 @@ export class Dialogue {
 
 		for (const reply of replies) {
 			keypressEvent.addKeyDownListener(reply.keypress, () => {
-				this.text = reply.text
-				this[reply.key] = true
-				this.nextDialogue = reply.nextDialogue
+				this._select(reply)
 			})
 		}
 	}
@@ -34,6 +32,7 @@ export class Dialogue {
 	}
 
 	draw(ctx) {
+		this.ready = true
 		if (this.text) {
 			Draw.new_text(ctx, this.position, this.text)
 		}
@@ -48,11 +47,19 @@ export class Dialogue {
 				p.y += 120
 				if (this.mouse.hovering(p)) {
 					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text, 'green')
+					if (this.mouse.down && !this.isTyping) {
+						this._select(reply)
+					}
 				}
 				else {
 					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
 				}
 			}
 		}
+	}
+
+	_select(reply) {
+		this.text = reply.text
+		this[reply.key] = true
 	}
 }
