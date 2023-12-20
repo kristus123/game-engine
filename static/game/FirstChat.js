@@ -1,4 +1,4 @@
-export class FirstDialouge {
+export class FirstChat {
 	constructor(position, mouse) {
 
 		const p = position.copy()

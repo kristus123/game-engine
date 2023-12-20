@@ -7,7 +7,7 @@ export class Npc extends GameObject {
 		this.maxHp = 100
 		this.picture = new Picture(this, 'https://i.imgur.com/w9dZE0H.png')
 
-		// this.dialogue = new FirstDialouge(mouse)
+		this.dialogue = new FirstChat(this.position, mouse)
 	}
 
 	onCollision(o) {
