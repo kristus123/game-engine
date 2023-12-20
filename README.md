@@ -33,4 +33,5 @@ Work in space as a transporter.
 
 ## Misc. info
 
-`runtime.txt` is for netlify.
+- `runtime.txt` is for netlify.
+- Imports are added later, so you don't need to import stuff; also it will crash if you include imports within `static/`
