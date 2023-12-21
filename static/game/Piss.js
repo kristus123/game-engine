@@ -15,6 +15,7 @@ export class Piss {
 	}
 
 	get finished() {
+		console.log(this.inventory.size)
 		return this.inventory.size >= 200
 	}
 
