@@ -23,14 +23,16 @@ export class FirstChat {
 		p.width = 700
 		p.height = 100
 
-		const ready = reply('yes', 'a', 'yes i look forward to it', conversation('Thats good to hear. hopefully you will not do anything stupid', [
-			reply('analsa', 'b', 'im goood', conversation('Great. Now, get to work!', []))
+		const ready = reply('yes', 'a', 'yes i look forward to it',
+			conversation('Thats good to hear. hopefully you will not do anything stupid', [
+				reply('analsa', 'b', 'ok!', conversation('Great. Now, get to work!', []))
 		]))
-		const no = reply('no', 'b', 'No. this was not what i wanted for my birthday', conversation('Well, too bad your birthday is on the same day every child has to do piss cleaning', [
-			reply('analsa', 'b', 'Ye, bad luck', conversation('Well. Bye kid. Get to work...', []))
+		const no = reply('no', 'b', 'No. this was not what i want to do', conversation('Well, too bad ', [
+			reply('analsa', 'b', 'frick!', conversation('Well.. Bye kid. Get to work...', []))
 		]))
 
 		this.dialogue = new Dialogue(conversation('Welcome Chump. Are you ready to cleanse your local area from piss?', [ready, no,]), p, mouse)
+
 		this.goodJob = new Dialogue(conversation('Good job! You have done an amazing job Billy', []), p, mouse)
 	}
 
