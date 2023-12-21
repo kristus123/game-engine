@@ -1,57 +1,21 @@
 export class Dialogue {
-	constructor(question, replies, position, mouse) {
-		this.question = question
-		this.replies = replies
+	constructor(conversation, position, mouse) {
+		this.conversation = conversation
+		this.textTyper = new TextTyper(conversation.question)
+
 		this.position = position
 		this.mouse = mouse
-
-		this.currentIndex = 0
-		this.isTyping = true
-
-		const loop = setInterval(() => {
-			if (this.isTyping && this.ready) {
-				if (this.currentIndex < this.question.length) {
-					this.currentIndex++
-				}
-				else {
-					this.isTyping = false
-					clearInterval(loop)
-				}
-			}
-		}, 20)
-
-		const keypressEvent = new KeypressEvent()
-
-		for (const reply of replies) {
-			keypressEvent.addKeyDownListener(reply.keypress, () => {
-				this._select(reply)
-			})
-		}
 	}
 
-	update() {
-	}
-
-	draw(ctx) {
-		this.ready = true
-		if (this.next) {
-			return this.next
-		}
-		else if (this.text) {
-			Draw.new_text(ctx, this.position, this.text)
-		}
-		else {
-			const question = this.question.substring(0, this.currentIndex)
-			Draw.new_text(ctx, this.position, question)
-		}
-
-		if (!this.isTyping && !this.text && !this.next) {
+	_drawReplies(ctx) {
+		if (this.conversation.replies) {
 			const p = this.position.copy()
-			for (const reply of this.replies) {
+			for (const reply of this.conversation.replies) {
 				p.y += 120
-				if (this.mouse.hovering(p)) {
+				if (this.mouse.hovering(p) && this.textTyper.finishedTyping) {
 					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text, 'green')
-					if (this.mouse.down && !this.isTyping) {
+
+					if (this.mouse.down && this.textTyper.finishedTyping) {
 						this._select(reply)
 					}
 				}
@@ -63,8 +27,44 @@ export class Dialogue {
 	}
 
 	_select(reply) {
-		this.text = reply.text
-		this.next = reply.next
-		this[reply.key] = true
+		this[reply.key] = {
+			text: reply.text,
+		}
+
+		if (reply.conversation) {
+			this.textTyper = new TextTyper(reply.conversation.question)
+			this.conversation = reply.conversation
+		}
 	}
+
+	draw(ctx) {
+		this.textTyper.update()
+		Draw.new_text(ctx, this.position, this.textTyper.typedText)
+		this._drawReplies(ctx)
+	}
+}
+
+class TextTyper {
+    constructor(text) {
+        this.text = text;
+        this.currentIndex = 0;
+        this.isTyping = true;
+        this.ready = false;
+    }
+
+    update() {
+		if (this.currentIndex < this.text.length) {
+			this.currentIndex++;
+		} else {
+			this.isTyping = false;
+		}
+    }
+
+    get typedText() {
+        return this.text.substring(0, this.currentIndex);
+    }
+
+    get finishedTyping() {
+        return this.typedText == this.text
+    }
 }

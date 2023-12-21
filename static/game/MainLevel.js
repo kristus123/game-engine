@@ -9,11 +9,17 @@ export class MainLevel {
 		this.npc = new Npc(mouse)
 		this.controller.control(this.player)
 
+		this.piss = new Piss(this.player, this.mouse),
+
+		this.chat = new FirstChat(this.npc.position, this.piss, mouse)
+
+
 		this.runAll = new RunAll('mainlevel', [
 			this.player,
 			this.controller,
 			this.npc,
-			new Piss(this.player, this.mouse),
+			this.piss,
+			this.chat,
 		])
 
 	}

@@ -14,6 +14,10 @@ export class Piss {
 		}
 	}
 
+	get finished() {
+		return this.inventory.size >= 200
+	}
+
 	update() {
 	}
 

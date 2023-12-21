@@ -4,8 +4,6 @@ export class Inventory {
 		this.pickableItems = []
 
 		this.splash = new Splash()
-
-		this.score = 0
 	}
 
 	addPickable(o) {
@@ -22,8 +20,10 @@ export class Inventory {
 		p.y -= 100
 
 		this.splash.splash(o, p, 10, 'yellow')
+	}
 
-		this.score++
+	get size() {
+		return this.inventory.length
 	}
 
 	draw(ctx) {
