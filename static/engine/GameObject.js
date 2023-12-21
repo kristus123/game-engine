@@ -21,10 +21,6 @@ export class GameObject {
 		this.velocity.y = 0
 	}
 
-	onCollision(o) {
-		// Push(this).awayFrom(o)
-	}
-
 	update() {}
 
 	draw(ctx) {

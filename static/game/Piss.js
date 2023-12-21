@@ -4,8 +4,8 @@ export class Piss {
 		this.player = player
 		this.mouse = mouse
 
-		for (const area of [200]) {
-			for (let i = 0; i < 400; i++) {
+		for (const area of [100]) {
+			for (let i = 0; i < 100; i++) {
 				const x = Random.integerBetween(-area, area)
 				const y = Random.integerBetween(-area, area)
 				this.inventory.addPickable(
@@ -15,7 +15,6 @@ export class Piss {
 	}
 
 	get finished() {
-		console.log(this.inventory.size)
 		return this.inventory.size >= 200
 	}
 
