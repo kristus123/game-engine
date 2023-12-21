@@ -13,7 +13,6 @@ export class MainLevel {
 
 		this.chat = new FirstChat(this.npc.position, this.piss, mouse)
 
-
 		this.runAll = new RunAll('mainlevel', [
 			this.player,
 			this.controller,
@@ -21,7 +20,6 @@ export class MainLevel {
 			this.piss,
 			this.chat,
 		])
-
 	}
 
 	update() {
