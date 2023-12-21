@@ -43,7 +43,12 @@ export class FirstChat {
 		const next = this.dialogue.draw(ctx)
 
 		if (next) {
-			next.draw(ctx)
+			if (next.next) {
+				next.next.draw(ctx)
+			}
+			else {
+				next.draw(ctx)
+			}
 		}
 	}
 }

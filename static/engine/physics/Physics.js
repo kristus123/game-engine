@@ -16,25 +16,23 @@ export class Physics {
 
 	update(deltaTime) {
 		for (let o of this.objects) {
-			if (typeof deltaTime === 'number') {
-				for (let anotherO of this.objects) {
-					if (Collision.between(o, anotherO)) {
-						if (o.onCollision) {
-							o.onCollision(anotherO)
-						}
-					}
-				}
+			// for (let anotherO of this.objects) {
+			// 	if (Collision.between(o, anotherO)) {
+			// 		if (o.onCollision) {
+			// 			o.onCollision(anotherO)
+			// 		}
+			// 	}
+			// }
 
-				// Calculate friction based on weight
-				const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
+			// Calculate friction based on weight
+			const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
 
-				// Apply friction to velocity
-				o.velocity.x *= frictionFactor
-				o.velocity.y *= frictionFactor
+			// Apply friction to velocity
+			o.velocity.x *= frictionFactor
+			o.velocity.y *= frictionFactor
 
-				o.x += o.velocity.x * deltaTime
-				o.y += o.velocity.y * deltaTime
-			}
+			o.x += o.velocity.x * deltaTime
+			o.y += o.velocity.y * deltaTime
 		}
 	}
 
