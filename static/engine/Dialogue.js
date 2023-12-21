@@ -8,13 +8,14 @@ export class Dialogue {
 		this.currentIndex = 0
 		this.isTyping = true
 
-		setInterval(() => {
+		const loop = setInterval(() => {
 			if (this.isTyping && this.ready) {
 				if (this.currentIndex < this.question.length) {
 					this.currentIndex++
 				}
 				else {
 					this.isTyping = false
+					clearInterval(loop)
 				}
 			}
 		}, 20)
@@ -33,7 +34,10 @@ export class Dialogue {
 
 	draw(ctx) {
 		this.ready = true
-		if (this.text) {
+		if (this.next) {
+			return this.next
+		}
+		else if (this.text) {
 			Draw.new_text(ctx, this.position, this.text)
 		}
 		else {
@@ -41,7 +45,7 @@ export class Dialogue {
 			Draw.new_text(ctx, this.position, question)
 		}
 
-		if (!this.isTyping && !this.text) {
+		if (!this.isTyping && !this.text && !this.next) {
 			const p = this.position.copy()
 			for (const reply of this.replies) {
 				p.y += 120
@@ -60,6 +64,7 @@ export class Dialogue {
 
 	_select(reply) {
 		this.text = reply.text
+		this.next = reply.next
 		this[reply.key] = true
 	}
 }
