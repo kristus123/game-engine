@@ -21,6 +21,8 @@ Work in space as a transporter.
 ./run.sh
 ```
 
+then open [http://localhost:5000]()
+
 ## Run linter
 
 ```
