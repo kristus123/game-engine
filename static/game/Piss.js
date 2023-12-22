@@ -33,9 +33,14 @@ export class Piss {
 				this.inventory.pickUp(i)
 			}
 
-			if (Draw.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
+			if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
 				Push(i).towards(this.player, 5)
 			}
+
+			if (Distance.between(i, this.player) < 100) {
+				Push(i).towards(this.player, 5)
+			}
+
 		})
 	}
 }

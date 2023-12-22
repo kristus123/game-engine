@@ -8,7 +8,7 @@ export class Dialogue {
 	}
 
 	_drawReplies(ctx) {
-		if (this.conversation.replies) {
+		if (this.conversation.replies && this.textTyper.finishedTyping) {
 			const p = this.position.copy()
 			for (const reply of this.conversation.replies) {
 				p.y += 120
