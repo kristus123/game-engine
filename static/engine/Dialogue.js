@@ -45,26 +45,27 @@ export class Dialogue {
 }
 
 class TextTyper {
-    constructor(text) {
-        this.text = text;
-        this.currentIndex = 0;
-        this.isTyping = true;
-        this.ready = false;
-    }
+	constructor(text) {
+		this.text = text
+		this.currentIndex = 0
+		this.isTyping = true
+		this.ready = false
+	}
 
-    update() {
+	update() {
 		if (this.currentIndex < this.text.length) {
-			this.currentIndex++;
-		} else {
-			this.isTyping = false;
+			this.currentIndex++
 		}
-    }
+		else {
+			this.isTyping = false
+		}
+	}
 
-    get typedText() {
-        return this.text.substring(0, this.currentIndex);
-    }
+	get typedText() {
+		return this.text.substring(0, this.currentIndex)
+	}
 
-    get finishedTyping() {
-        return this.typedText == this.text
-    }
+	get finishedTyping() {
+		return this.typedText == this.text
+	}
 }

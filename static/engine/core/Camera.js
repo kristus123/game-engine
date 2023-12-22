@@ -1,57 +1,57 @@
 function limitNumber(num, min, max){
-	const MIN = min ?? 1;
-	const MAX = max ?? 20;
+	const MIN = min ?? 1
+	const MAX = max ?? 20
 	const parsed = parseInt(num)
 	return Math.min(Math.max(parsed, MIN), MAX)
 }
 
 export class Camera {
-    constructor(mouse) {
-        this.mouse = mouse;
-        this.palette = Palette.offscreen();
+	constructor(mouse) {
+		this.mouse = mouse
+		this.palette = Palette.offscreen()
 
-        this.objectToFollow = new Position(0, 0);
-        this.position = new Position(0, 0);
+		this.objectToFollow = new Position(0, 0)
+		this.position = new Position(0, 0)
 
-        this.offset = {
-            x: Palette.width / 2,
-            y: Palette.height / 2,
-        };
+		this.offset = {
+			x: Palette.width / 2,
+			y: Palette.height / 2,
+		}
 
-        this.zoom = 1;
-    }
+		this.zoom = 1
+	}
 
-    context(run) {
-        this.palette.ctx.save();
+	context(run) {
+		this.palette.ctx.save()
 
-        this.position.x += (this.objectToFollow.velocity.x * 0.002)
-        this.position.y += (this.objectToFollow.velocity.y * 0.002)
+		this.position.x += (this.objectToFollow.velocity.x * 0.002)
+		this.position.y += (this.objectToFollow.velocity.y * 0.002)
 
 		const smoothness = 0.01
-        this.position.x += (this.objectToFollow.x - this.position.x) * smoothness
-        this.position.y += (this.objectToFollow.y - this.position.y) * smoothness
+		this.position.x += (this.objectToFollow.x - this.position.x) * smoothness
+		this.position.y += (this.objectToFollow.y - this.position.y) * smoothness
 
-        const x_distanceToMouse = this.mouse.position.x - this.position.x
-        this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01
+		const x_distanceToMouse = this.mouse.position.x - this.position.x
+		this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01
 
-        const y_distanceToMouse = this.mouse.position.y - this.position.y
-        this.position.y += limitNumber(y_distanceToMouse, -100, 100) * 0.01
+		const y_distanceToMouse = this.mouse.position.y - this.position.y
+		this.position.y += limitNumber(y_distanceToMouse, -100, 100) * 0.01
 
 
-        this.palette.ctx.translate(
-            -this.position.x * this.zoom + this.offset.x,
-            -this.position.y * this.zoom + this.offset.y
-        );
+		this.palette.ctx.translate(
+			-this.position.x * this.zoom + this.offset.x,
+			-this.position.y * this.zoom + this.offset.y
+		)
 
-        this.palette.ctx.scale(this.zoom, this.zoom);
+		this.palette.ctx.scale(this.zoom, this.zoom)
 
-        run();
+		run()
 
-        this.palette.ctx.restore();
-    }
+		this.palette.ctx.restore()
+	}
 
-    follow(o) {
-        this.objectToFollow = o;
-    }
+	follow(o) {
+		this.objectToFollow = o
+	}
 }
 
