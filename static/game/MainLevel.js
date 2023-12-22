@@ -20,7 +20,6 @@ export class MainLevel {
 			if (Distance.between(this.player, this.evilGuy) < 50) {
 				Push(this.player).towards(this.npc, 200)
 			}
-
 		}
 
 		this.controller.control(this.player)
