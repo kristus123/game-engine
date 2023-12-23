@@ -7,14 +7,9 @@ export class Player extends GameObject {
 
 		this.keypressEvent = new KeyboardEvents()
 		this.explosion = Draw.sprite()
-		this.gun = new Gun(this)
 
 		this.splash = new Splash()
 		this.charge = 100
-
-		mouse.addOnClick('shoot', mousePosition => {
-			this.gun.shoot(mousePosition)
-		})
 
 		this.keypressEvent.addKeyDownListener('e', () => {
 			if (this.charge >= 100) {
@@ -39,11 +34,8 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
-		Draw.splash(ctx, this.position, this.mouse.position, 50)
-
 		Draw.player(ctx, this)
 
-		this.gun.draw(ctx)
 		
 		this.splash.draw(ctx)
 	}

@@ -38,7 +38,7 @@ export class Piss {
 			}
 
 			if (Distance.between(i, this.player) < 100) {
-				Push(i).towards(this.player, 5)
+				Push(i).towards(this.player, 20)
 			}
 
 		})
