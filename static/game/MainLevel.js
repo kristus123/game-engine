@@ -6,6 +6,9 @@ export class MainLevel {
 		this.player = new Player(mouse, this.controller)
 		camera.follow(this.player)
 
+		this.spaceship = new Spaceship(mouse)
+		this.slingshotExtension = new SlingshotExtension(mouse, this.player)
+
 		this.npc = new Npc()
 		this.evilGuy = new Npc()
 		this.evilGuy.x -= 1000
@@ -30,15 +33,34 @@ export class MainLevel {
 
 		this.runAll = new RunAll('mainlevel', [
 			this.player,
+			this.spaceship,
 			this.controller,
 			this.npc,
 			this.piss,
 			this.evilGuy,
 			this.chat,
+			this.slingshotExtension,
 		])
 	}
 
 	update() {
+		if (this.player.beacon) {
+			if (Distance.between(this.player.beacon, this.spaceship) < 200) {
+				// this.spaceship.velocity.x = 0
+				// this.spaceship.velocity.y = 0
+
+				if (this.slingshotExtension.projectile.connectedTo) {
+					Push(this.spaceship).towards(new Position(500, 200), 200)
+				}
+			}
+			else {
+				if (!this.slingshotExtension.projectile.connectedTo) {
+				Push(this.spaceship).towards(this.player.beacon, 100)
+				}
+
+			}
+		}
+
 		this.runAll.update()
 	}
 

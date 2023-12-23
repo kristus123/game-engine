@@ -16,7 +16,7 @@ export class Projectile extends GameObject {
 	}
 
 	onCollision(o) {
-		if (this.shot) {
+		if (this.shot && o instanceof Spaceship) {
 			this.connectedTo = o
 		}
 	}

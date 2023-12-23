@@ -100,8 +100,7 @@ export class Draw {
 		ctx.fill()
 	}
 
-	static new_circle(ctx, position) {
-		const radius = 10
+	static new_circle(ctx, position, radius = 10) {
 		const color = 'red'
 
 		ctx.beginPath()
@@ -120,7 +119,7 @@ export class Draw {
 
 	static hollowCircle(ctx, position, color, radius) {
 		ctx.strokeStyle = color
-		ctx.lineWidth = 20
+		ctx.lineWidth = 6
 
 		ctx.beginPath()
 		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)

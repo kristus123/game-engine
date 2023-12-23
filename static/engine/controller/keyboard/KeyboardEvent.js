@@ -1,4 +1,4 @@
-export class KeyboardEvents {
+export class KeyboardEvent {
 	constructor() {
 		this.keyDownHandlers = {}
 		this.keyUpHandlers = {}

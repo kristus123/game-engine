@@ -5,16 +5,22 @@ export class Player extends GameObject {
 		this.mouse = mouse
 		this.controller = controller
 
-		this.keypressEvent = new KeyboardEvents()
+		this.keyboardEvent = new KeyboardEvent()
 		this.explosion = Draw.sprite()
 
 		this.splash = new Splash()
 		this.charge = 100
 
-		this.keypressEvent.addKeyDownListener('e', () => {
+		this.keyboardEvent.addKeyDownListener('e', () => {
 			if (this.charge >= 100) {
 				this.charge -= 100
 				Push(this).towards(this.mouse.position, 200)
+			}
+		})
+
+		this.keyboardEvent.addKeyDownListener('b', () => {
+			if (!this.beacon) {
+				this.beacon = new Beacon(this.mouse.position)
 			}
 		})
 
@@ -31,12 +37,19 @@ export class Player extends GameObject {
 
 	update() {
 		this.charge += 1
+		if (this.beacon) {
+			this.beacon.update()
+		}
+
 	}
 
 	draw(ctx) {
 		Draw.player(ctx, this)
 
-		
+		if (this.beacon) {
+			this.beacon.draw(ctx)
+		}
+
 		this.splash.draw(ctx)
 	}
 }

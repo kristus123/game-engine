@@ -5,7 +5,7 @@ export class Piss {
 		this.mouse = mouse
 
 		for (const area of [100]) {
-			for (let i = 0; i < 100; i++) {
+			for (let i = 0; i < 500; i++) {
 				const x = Random.integerBetween(-area, area)
 				const y = Random.integerBetween(-area, area)
 				this.inventory.addPickable(
@@ -38,7 +38,7 @@ export class Piss {
 			}
 
 			if (Distance.between(i, this.player) < 100) {
-				Push(i).towards(this.player, 20)
+				Push(i).towards(this.player, 10)
 			}
 
 		})
