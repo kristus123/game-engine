@@ -38,7 +38,6 @@ export class FirstChat {
 
 		this.goodJob = new Dialogue(conversation('Good job! You have done an amazing job Billy', [
 			reply('whatNow', 'a', 'What now?', conversation('press b to place a beacon. a ship will come pick you up', []))
-
 		]), p, mouse)
 	}
 

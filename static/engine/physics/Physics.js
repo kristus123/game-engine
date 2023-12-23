@@ -16,13 +16,13 @@ export class Physics {
 
 	update(deltaTime) {
 		for (let o of this.objects) {
-			for (let anotherO of this.objects) {
-				if (Collision.between(o, anotherO)) {
-					if (o.onCollision) {
-						o.onCollision(anotherO)
-					}
-				}
-			}
+			// for (let anotherO of this.objects) {
+			// 	if (Collision.between(o, anotherO)) {
+			// 		if (o.onCollision) {
+			// 			o.onCollision(anotherO)
+			// 		}
+			// 	}
+			// }
 
 			// Calculate friction based on weight
 			const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
