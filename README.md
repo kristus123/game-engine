@@ -40,8 +40,6 @@ then open [http://localhost:5000]()
 
 Use WSL to run the code!
 
-## How to:
-
 ## 1
 
 press windows key (or `win+r`)  and search/run `wsl`.
