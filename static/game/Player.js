@@ -20,7 +20,7 @@ export class Player extends GameObject {
 
 		this.keyboardEvent.addKeyDownListener('b', () => {
 			if (!this.beacon) {
-				this.beacon = new Beacon(this.mouse.position)
+				this.beacon = new BeaconShit(this.mouse.position)
 			}
 		})
 

@@ -1,4 +1,4 @@
-export class Beacon extends GameObject {
+export class BeaconShit extends GameObject {
 	constructor(position) {
 		super(position.x, position.y, 20, 20, 100, 10)
 
