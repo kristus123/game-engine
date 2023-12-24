@@ -63,6 +63,12 @@ explorer.exe .
 
 This will give you the path where the project is located. Now you can use your favorite editor like vsCode.
 
+Now that you know the path of the project, you can run the game in wsl:
+
+```
+./run.sh
+```
+
 # Misc. info
 
 - `runtime.txt` is for netlify.
