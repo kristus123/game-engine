@@ -48,7 +48,10 @@ press windows key (or `win+r`)  and search/run `wsl`.
 
 ## 2
 
-Follow the steps mentioned above.
+```
+git clone https://github.com/kristus123/game-engine
+cd game-engine && ./first_time_setup.sh
+```
 
 ## 3
 
