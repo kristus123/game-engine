@@ -39,35 +39,35 @@ then open [http://localhost:5000]()
 # NB! If you are using Windows
 
 
-+## 0
-+
-+Install WSL with the following command:
-+
-+```
-+wsl --install
-+```
-+
-+## 0.1
-+
-+Now you need to make sure your ubuntu environment is ready for action.
-+
-+These commands download python and nodejs dev environment
-+
-+```
-+# update ubuntu
-+sudo apt update -y && sudo apt upgrade -y
-+
-+# install python dev environment
-+sudo apt install -y python3-pip
-+sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
-+sudo apt install -y python3-venv
-+
-+# install nodejs
-+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-+source ~/.bashrc
-+nvm install latest
-+```
-+
+## 0
+
+Install WSL with the following command:
+
+```
+wsl --install
+```
+
+## 0.1
+
+Now you need to make sure your ubuntu environment is ready for action.
+
+These commands download python and nodejs dev environment
+
+```
+# update ubuntu
+sudo apt update -y && sudo apt upgrade -y
+
+# install python dev environment
+sudo apt install -y python3-pip
+sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+sudo apt install -y python3-venv
+
+# install nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install latest
+```
+
 
 
 
