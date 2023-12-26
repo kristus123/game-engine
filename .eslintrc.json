@@ -51,6 +51,7 @@
         ]
     },
     "globals": {
+        "BeaconShit": "readonly",
         "Bullet": "readonly",
         "Calculate": "readonly",
         "Camera": "readonly",
@@ -74,7 +75,7 @@
         "Inventory": "readonly",
         "InventoryItem": "readonly",
         "Keyboard": "readonly",
-        "KeyboardEvents": "readonly",
+        "KeyboardEvent": "readonly",
         "KeypressEvent": "readonly",
         "List": "readonly",
         "Loop": "readonly",

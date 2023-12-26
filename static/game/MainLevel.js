@@ -55,7 +55,7 @@ export class MainLevel {
 			}
 			else {
 				if (!this.slingshotExtension.projectile.connectedTo) {
-				Push(this.spaceship).towards(this.player.beacon, 100)
+					Push(this.spaceship).towards(this.player.beacon, 100)
 				}
 
 			}
