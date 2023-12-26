@@ -1,5 +1,14 @@
 export class LevelSelector {
-	constructor() {
-		this.activeLevel = null
+	constructor(level) {
+		this.activeLevel = level
 	}
+
+	update() {
+		this.activeLevel.update()
+	}
+
+	draw(ctx) {
+		this.activeLevel.draw(ctx)
+	}
+
 }

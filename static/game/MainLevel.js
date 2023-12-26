@@ -1,10 +1,12 @@
 export class MainLevel {
-	constructor(camera, mouse) {
+	constructor(levelSelector, camera, mouse) {
+		this.levelSelector = levelSelector
+		this.camera = camera
 		this.mouse = mouse
 		this.controller = new Controller(this.player)
 
 		this.player = new Player(mouse, this.controller)
-		camera.follow(this.player)
+		this.camera.follow(this.player)
 
 		this.spaceship = new Spaceship(mouse)
 		this.slingshotExtension = new SlingshotExtension(mouse, this.player)
@@ -45,6 +47,7 @@ export class MainLevel {
 
 	update() {
 		if (this.player.beacon) {
+			this.levelSelector.activeLevel = new InsideLevel(this.levelSelector, this.camera, this.mouse)
 			if (Distance.between(this.player.beacon, this.spaceship) < 200) {
 				// this.spaceship.velocity.x = 0
 				// this.spaceship.velocity.y = 0

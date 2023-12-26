@@ -11,7 +11,8 @@ ErrorHandler.run(() => {
 	const mouse = new Mouse(camera)
 	camera.mouse = mouse
 
-	const level = new MainLevel(camera, mouse)
+	const levelSelector = new LevelSelector()
+	levelSelector.activeLevel = new MainLevel(levelSelector, camera, mouse)
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -20,8 +21,8 @@ ErrorHandler.run(() => {
 			Physics.global.update(deltaTime)
 
 			camera.context(() => {
-				level.update()
-				level.draw(camera.palette.ctx, guiPalette.ctx)
+				levelSelector.update()
+				levelSelector.draw(camera.palette.ctx, guiPalette.ctx)
 			})
 
 			starBackground.draw(camera.objectToFollow)
