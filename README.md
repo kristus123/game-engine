@@ -1,5 +1,11 @@
 # game-engine
 
+## Coding conventions
+
+- Imports are added automatically so you don't need to import stuff, also it will crash if you include imports within `static/`
+- In every file, you can export one thing, and that one thing should have the same name as the file
+- ´./lint.sh´ will take care of the code conventions
+
 ## What is this game
 
 Work in space as a transporter.
@@ -40,4 +46,3 @@ then open [http://localhost:5000]()
 # Misc. info
 
 - `runtime.txt` is for netlify.
-- Imports are added later, so you don't need to import stuff; also it will crash if you include imports within `static/`
