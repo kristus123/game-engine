@@ -46,8 +46,9 @@ export class MainLevel {
 	}
 
 	update() {
+		this.levelSelector.changeActiveLevel(new InsideLevel(this.levelSelector, this.camera, this.mouse)) 
 		if (this.player.beacon) {
-			this.levelSelector.activeLevel = new InsideLevel(this.levelSelector, this.camera, this.mouse)
+
 			if (Distance.between(this.player.beacon, this.spaceship) < 200) {
 				// this.spaceship.velocity.x = 0
 				// this.spaceship.velocity.y = 0

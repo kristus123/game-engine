@@ -3,6 +3,10 @@ export class LevelSelector {
 		this.activeLevel = level
 	}
 
+	changeActiveLevel(level) {
+		this.activeLevel = level
+	}
+
 	update() {
 		this.activeLevel.update()
 	}
