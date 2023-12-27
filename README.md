@@ -13,6 +13,8 @@ Work in space as a transporter.
 
 Do this for your very first time setting up the project
 
+NB! If using windows, follow `SETUP_WINDOWS.md`
+
 ```
 ./first_time_setup.sh
 ```

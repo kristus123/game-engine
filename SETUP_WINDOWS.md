@@ -12,6 +12,14 @@ wsl --install
 
 Now you need to make sure your ubuntu environment is ready for action.
 
+Open wsl
+
+## 3
+
+press windows key (or `win+r`)  and search/run `wsl`.
+
+## 4
+
 These commands download python and nodejs dev environment
 
 ```bash
@@ -29,20 +37,14 @@ source ~/.bashrc
 nvm install node
 ```
 
-Use WSL to run the code!
-
-## 3
-
-press windows key (or `win+r`)  and search/run `wsl`.
-
-## 4
+## 5
 
 ```bash
 git clone https://github.com/kristus123/game-engine
 cd game-engine && ./first_time_setup.sh
 ```
 
-## 5
+## 6
 
 Run this command:
 
