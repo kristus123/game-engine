@@ -19,7 +19,7 @@ export class FirstChat {
 		const no = Reply('No. this was not what i want to do', 
 			Conversation('Well, too bad ', [
 				Reply('frick!', Conversation('Well.. Bye kid. Get to work...', [howToPlay]))
-		]))
+			]))
 
 		this.dialogue = new Dialogue(Conversation('Welcome Chump. Are you ready to cleanse your local area from piss?', [yes, no]), p, mouse)
 	}
