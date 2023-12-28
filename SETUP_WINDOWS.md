@@ -10,11 +10,11 @@ wsl --install
 
 ## 2
 
-Now you need to make sure your ubuntu environment is ready for action.
-
-Open wsl
+Now you need to make sure your new ubuntu environment is ready for action.
 
 ## 3
+
+Open wsl
 
 press windows key (or `win+r`)  and search/run `wsl`.
 
