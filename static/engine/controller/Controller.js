@@ -1,12 +1,17 @@
 export class Controller {
-	constructor(objectToControl) {
-		this.objectToControl = objectToControl
+	constructor() {
 		this.keyboard = new Keyboard()
 
 		this.velocity = {
 			x: 0,
 			y: 0,
 		}
+
+		this.objectToControl = null
+	}
+
+	control(o) {
+		this.objectToControl = o
 	}
 
 	update() {

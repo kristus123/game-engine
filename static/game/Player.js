@@ -1,9 +1,8 @@
 export class Player extends GameObject {
-	constructor(mouse, controller) {
+	constructor(mouse) {
 		super(-1200, 10, 35, 50, 200, 5)
 
 		this.mouse = mouse
-		this.controller = controller
 
 		this.keyboardEvent = new KeyboardEvent()
 		this.explosion = Draw.sprite()

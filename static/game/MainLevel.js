@@ -3,10 +3,11 @@ export class MainLevel {
 		this.levelSelector = levelSelector
 		this.camera = camera
 		this.mouse = mouse
-		this.controller = new Controller(this.player)
+		this.controller = new Controller()
 
-		this.player = new Player(mouse, this.controller)
+		this.player = new Player(mouse)
 		this.camera.follow(this.player)
+		this.controller.control(this.player)
 
 		this.spaceship = new Spaceship(mouse)
 		this.slingshotExtension = new SlingshotExtension(mouse, this.player)
@@ -27,7 +28,6 @@ export class MainLevel {
 			}
 		}
 
-		this.controller.control(this.player)
 
 		this.piss = new Piss(this.player, this.mouse),
 

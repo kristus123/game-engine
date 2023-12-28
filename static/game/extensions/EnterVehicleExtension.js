@@ -3,7 +3,9 @@ export class EnterVehicleExtension {
 		this.player = player
 		this.vehicle = vehicle
 		this.cameraFollow = cameraFollow
-		this.controller = new Controller(player)
+
+		this.controller = new Controller()
+		this.controller.control(player)
 
 		this.entered = false
 
@@ -37,7 +39,6 @@ export class EnterVehicleExtension {
 	}
 
 	draw(ctx) {
-
 		if (this.entered) {
 			this.vehicle.draw(ctx)
 			Draw.new_text(ctx, this.vehicle.position, 'E to exit')

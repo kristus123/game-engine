@@ -4,7 +4,7 @@ export class InsideLevel {
 		this.mouse = mouse
 		this.controller = new Controller()
 
-		this.player = new Player(mouse, this.controller)
+		this.player = new Player(mouse)
 		camera.follow(this.player)
 
 		this.controller.control(this.player)
