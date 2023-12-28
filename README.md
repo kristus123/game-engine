@@ -10,7 +10,7 @@
 
 ### For Windows
 
-Follow `[SETUP_WINDOWS.md](SETUP_WINDOWS.md)` instead.
+Follow [SETUP_WINDOWS.md](SETUP_WINDOWS.md) instead.
 
 ### For Linux
 
