@@ -4,22 +4,13 @@
 
 - Imports are added automatically so you don't need to import stuff, also it will crash if you include imports within `static/`
 - In every file, you can export one thing, and that one thing should have the same name as the file
-- ´./lint.sh´ will take care of the code conventions
-
-## What is this game
-
-Work in space as a transporter.
-
-## Features
-
--   pick up and deliver containers
--   navigate in space
+- ´./lint.sh´ will take care of the code convention
 
 ## First time set up
 
 ### For Windows
 
-Follow `SETUP_WINDOWS.md` instead.
+Follow `[SETUP_WINDOWS.md](SETUP_WINDOWS.md)` instead.
 
 ### For Linux
 
