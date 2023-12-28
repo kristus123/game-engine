@@ -17,9 +17,11 @@ Work in space as a transporter.
 
 ## First time set up
 
-Do this for your very first time setting up the project
+### For Windows
 
-NB! If using windows, follow `SETUP_WINDOWS.md`
+Follow `SETUP_WINDOWS.md` instead.
+
+### For Linux
 
 ```
 ./first_time_setup.sh
