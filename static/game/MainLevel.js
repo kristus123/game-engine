@@ -9,62 +9,32 @@ export class MainLevel {
 		this.camera.follow(this.player)
 		this.controller.control(this.player)
 
-		this.spaceship = new Spaceship(mouse)
-		this.slingshotExtension = new SlingshotExtension(mouse, this.player)
-
 		this.npc = new Npc()
-		this.evilGuy = new Npc()
-		this.evilGuy.x -= 1000
-		this.evilGuy.draw = (ctx) => {
-			if (Distance.between(this.player, this.evilGuy) < 500) {
-				Push(this.evilGuy).towards(this.player, 20)
-				const p = this.evilGuy.position.copy()
-				p.y -= 100
-				Draw.new_text(ctx, p, 'get back to work')
-			}
 
-			if (Distance.between(this.player, this.evilGuy) < 50) {
-				Push(this.player).towards(this.npc, 200)
-			}
+		this.piss_1 = new Piss(this.player, this.mouse, 100)
+		this.piss_1.onFinish = () => {
+			Push(this.player).towards(new Position(400, this.player.y), 1000)
 		}
 
+		this.piss_2 = new Piss(this.player, this.mouse, 2000)
+		this.piss_2.onFinish = () => {
+			Push(this.player).towards(new Position(5000, this.player.y), 1000)
+		}
 
-		this.piss = new Piss(this.player, this.mouse),
-
-		this.chat = new FirstChat(this.npc.position, this.piss, mouse)
+		this.chat = new FirstChat(this.npc.position, this.piss_1, mouse)
 
 		this.runAll = new RunAll('mainlevel', [
+			new StarBackground(),
 			this.player,
-			this.spaceship,
 			this.controller,
 			this.npc,
-			this.piss,
-			this.evilGuy,
+			this.piss_1,
+			this.piss_2,
 			this.chat,
-			this.slingshotExtension,
 		])
 	}
 
 	update() {
-		this.levelSelector.changeActiveLevel(new InsideLevel(this.levelSelector, this.camera, this.mouse)) 
-		if (this.player.beacon) {
-
-			if (Distance.between(this.player.beacon, this.spaceship) < 200) {
-				// this.spaceship.velocity.x = 0
-				// this.spaceship.velocity.y = 0
-
-				if (this.slingshotExtension.projectile.connectedTo) {
-					Push(this.spaceship).towards(new Position(500, 200), 200)
-				}
-			}
-			else {
-				if (!this.slingshotExtension.projectile.connectedTo) {
-					Push(this.spaceship).towards(this.player.beacon, 100)
-				}
-
-			}
-		}
-
 		this.runAll.update()
 	}
 

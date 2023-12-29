@@ -4,7 +4,6 @@ ErrorHandler.run(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
-	const starBackground = new StarBackground()
 	const showLogs = new ShowLogs(guiPalette)
 
 	const camera = new Camera()
@@ -25,12 +24,11 @@ ErrorHandler.run(() => {
 				levelSelector.draw(camera.palette.ctx, guiPalette.ctx)
 			})
 
-			starBackground.draw(camera.objectToFollow)
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, 'black')
 			Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-			Palette.apply(mainPalette, [backgroundPalette, starBackground.palette, camera.palette, guiPalette])
+			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 		})
 	})
 })

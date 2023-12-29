@@ -1,12 +1,10 @@
 export class StarBackground {
 	constructor() {
-		this.palette = Palette.offscreen()
-
 		const numStars = 1000
 		this.stars = []
 		for (let i = 0; i < numStars; i++) {
-			const x = Random.integerBetween(-1000, 10000)
-			const y = Random.integerBetween(-1000, 10000)
+			const x = Random.integerBetween(-10000, 10000)
+			const y = Random.integerBetween(-10000, 10000)
 			const width = Math.random() * 1 + 1 // Varying star widths
 			const height = Math.random() * 1 + 1 // Varying star heights
 
@@ -14,19 +12,20 @@ export class StarBackground {
 		}
 	}
 
-	draw(center) {
-		Palette.fill(this.palette, 'black')
-		this.palette.ctx.fillStyle = 'white'
+	update() {
+		
+	}
+
+	draw(ctx) {
+		ctx.fillStyle = 'white'
 		this.stars.forEach((s) => {
 			Draw.rectangle(
-				this.palette.ctx,
-				s.x - center.x / 50,
-				s.y - center.y / 50,
+				ctx,
+				s.x,
+				s.y,
 				s.width,
 				s.height,
 			)
 		})
-
-		return this.palette
 	}
 }
