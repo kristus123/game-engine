@@ -20,7 +20,7 @@ press windows key (or `win+r`)  and search/run `wsl`.
 
 ## 4
 
-These commands download python and nodejs dev environment
+Paste all of these commands into your terminal.
 
 ```bash
 # update ubuntu
