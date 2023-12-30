@@ -1,13 +1,13 @@
 export class Piss {
-	constructor(player, mouse, x_position) {
+	constructor(player, mouse, position) {
 		this.inventory = new Inventory()
 		this.player = player
 		this.mouse = mouse
 		this.firstTimeFinish = new FirstTimeFinish()
 
 		for (let i = 0; i < 500; i++) {
-			const x = Random.integerBetween(x_position, x_position + 100)
-			const y = Random.integerBetween(-100, 100)
+			const x = Random.integerBetween(position.x, position.x + position.width)
+			const y = Random.integerBetween(position.y, position.y + position.height)
 			this.inventory.addPickable(
 				new GameObject(x, y, Random.integerBetween(1,10), Random.integerBetween(1,10), 200, 50))
 		}

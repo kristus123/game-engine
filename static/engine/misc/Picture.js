@@ -29,13 +29,16 @@ export class Picture {
 	}
 
 	draw(ctx) {
-		const newWidth = this.gameObject.width
-		const newHeight = this.gameObject.height
+		if (this.image.complete) {
+			const newWidth = this.gameObject.width
+			const newHeight = this.gameObject.height
 
-		ctx.save()
-		ctx.translate(this.gameObject.x + this.gameObject.width / 2, this.gameObject.y + this.gameObject.height / 2)
-		ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-		ctx.restore()
+			ctx.save()
+			ctx.translate(this.gameObject.x + this.gameObject.width / 2, this.gameObject.y + this.gameObject.height / 2)
+			ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+			ctx.restore()
+			
+		}
 	}
 
 
