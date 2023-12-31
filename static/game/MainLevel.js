@@ -11,12 +11,12 @@ export class MainLevel {
 
 		this.npc = new Npc()
 
-		this.piss_1 = new Piss(this.player, this.mouse, new Position(-1000, 100, 1000, 1000))
-		this.piss_1.onFinish = () => {
+		this.piss = new Piss(this.player, this.mouse, new Position(-1000, 100, 100, 100))
+		this.piss.onFinish = () => {
 			Push(this.player).towards(new Position(400, this.player.y), 1000)
 		}
 
-		this.chat = new FirstChat(this.npc.position, this.piss_1, mouse)
+		this.chat = new FirstChat(this.npc.position, this.piss, mouse)
 
 		this.runAll = new RunAll('mainlevel', [
 			new StarBackground(),
@@ -24,7 +24,7 @@ export class MainLevel {
 			this.player,
 			this.controller,
 			this.npc,
-			this.piss_1,
+			this.piss,
 			this.chat,
 			// new Picture(this.npc, '/static/sun.png'),
 		])
