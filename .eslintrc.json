@@ -69,6 +69,7 @@
         "ErrorHandler": "readonly",
         "FetchContainerExtension": "readonly",
         "FirstChat": "readonly",
+        "FirstTimeFinish": "readonly",
         "Fleet": "readonly",
         "GameObject": "readonly",
         "Get": "readonly",

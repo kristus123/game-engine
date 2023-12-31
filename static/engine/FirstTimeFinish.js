@@ -1,6 +1,6 @@
 export class FirstTimeFinish {
 	constructor() {
-		this.finished = false;
+		this.finished = false
 		this.returnedTrueOnce = false
 	}
 

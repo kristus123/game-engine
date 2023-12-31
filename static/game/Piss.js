@@ -18,7 +18,7 @@ export class Piss {
 	}
 
 	onFinish() {
-		console.log("override this")
+		console.log('override this')
 	}
 
 	update() {
