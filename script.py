@@ -8,5 +8,6 @@ for root, _, files in os.walk('static'):
     for file in files:
         if file.endswith('.js'):
             js_files.append(os.path.join(root, file))
+js_files = sorted(js_files)
 
 new_dist_file("index.html", js_files=js_files)
