@@ -5,6 +5,8 @@ export class ErrorHandler {
 			logic()
 		}
 		catch(error) {
+			console.error(error)
+
 			document.getElementById('stackMessage').innerHTML = error.stack
 				.replaceAll(/\n/g, '<br>')
 				.replaceAll('http://localhost:5000', '')
