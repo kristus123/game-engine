@@ -21,7 +21,7 @@ ErrorHandler.run(() => {
 
 			camera.context(() => {
 				levelSelector.update()
-				levelSelector.draw(camera.palette.ctx, guiPalette.ctx)
+				levelSelector.draw(camera.palette.ctx)
 			})
 
 			showLogs.draw()
