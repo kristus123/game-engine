@@ -26,7 +26,7 @@ export class MainLevel {
 			this.npc,
 			this.piss,
 			this.chat,
-			// new Picture(this.npc, '/static/sun.png'),
+			new Picture(this.npc, '/static/sun.png'),
 		])
 	}
 

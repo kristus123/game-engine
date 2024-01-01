@@ -34,3 +34,5 @@ def render_template(html_file, **kwargs):
 def new_dist_file(html_file, **kwargs):
     with open(f"dist/{html_file}", "w") as index:
         index.write(render_template(html_file, **kwargs))
+    import subprocess
+    subprocess.Popen(['./copy_files_to_dist_on_load.sh'])
