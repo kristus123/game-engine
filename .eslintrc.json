@@ -58,7 +58,7 @@
         "@stylistic/js/array-element-newline": [
             "error",
             {
-                "ArrayExpression": "always",
+                "ArrayExpression": "consistent",
                 "ArrayPattern": {
                     "minItems": 3,
                     "multiline": true
