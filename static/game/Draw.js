@@ -268,7 +268,7 @@ export class Draw {
 		ctx.fillText(text, position.x + 20, position.y + 50)
 	}
 
-	
+
 	static position(ctx, o) {
 		Draw.rectangle(ctx, o.x, o.y, o.width, o.height)
 

@@ -13,7 +13,7 @@ export class StarBackground {
 	}
 
 	update() {
-		
+
 	}
 
 	draw(ctx) {

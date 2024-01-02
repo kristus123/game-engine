@@ -1,6 +1,6 @@
 export const Conversation = (question, replies) => {
 	return {
-		question: question, 
+		question: question,
 		replies: replies,
 	}
 }

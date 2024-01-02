@@ -49,10 +49,10 @@ export class Mouse {
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / this.camera.zoom
 
-		const x = 	
+		const x =
 				(e.clientX - this.camera.offset.x) * inverseZoom +
 				this.camera.position.x
-		const y = 	
+		const y =
 				(e.clientY - this.camera.offset.y) * inverseZoom +
 				this.camera.position.y
 

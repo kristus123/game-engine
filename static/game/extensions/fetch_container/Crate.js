@@ -5,7 +5,7 @@ export class Crate extends GameObject {
 	}
 
 	update() {
-		
+
 	}
 
 	onCollision(o) {
@@ -17,5 +17,5 @@ export class Crate extends GameObject {
 		this.crateImage.draw(ctx, 200)
 		Draw.new_circle(ctx, this.position.center)
 	}
-	
+
 }

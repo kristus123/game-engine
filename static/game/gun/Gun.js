@@ -18,5 +18,5 @@ export class Gun {
 			b.draw(ctx)
 		})
 	}
-	
+
 }

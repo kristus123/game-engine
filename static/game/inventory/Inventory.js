@@ -31,5 +31,5 @@ export class Inventory {
 
 		this.splash.draw(ctx)
 	}
-	
+
 }

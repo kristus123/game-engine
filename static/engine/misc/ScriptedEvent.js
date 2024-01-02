@@ -5,11 +5,11 @@ export class ScriptedEvent {
 	}
 
 	update() {
-		
+
 	}
 
 	draw(ctx) {
 		this.step(ctx)
 	}
-	
+
 }

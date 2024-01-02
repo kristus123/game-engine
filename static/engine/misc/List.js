@@ -1,6 +1,6 @@
 export class List {
 	constructor() {
-		
+
 	}
 
 	static remove(array, object) {
@@ -14,5 +14,5 @@ export class List {
 			return false // Object not found in the array
 		}
 	}
-	
+
 }

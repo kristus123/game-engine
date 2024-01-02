@@ -16,7 +16,7 @@ export class FirstChat {
 			]),
 		)
 
-		const no = Reply('No. this was not what i want to do', 
+		const no = Reply('No. this was not what i want to do',
 			Conversation('Well, too bad ', [
 				Reply('frick!', Conversation('Well.. Bye kid. Get to work...', [howToPlay]))
 			]))

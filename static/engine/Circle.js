@@ -6,5 +6,5 @@ export class Circle {
 	draw(ctx) {
 		Draw.new_circle(ctx, this.position)
 	}
-	
+
 }

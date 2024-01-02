@@ -11,5 +11,5 @@ export class Position {
 	copy() {
 		return new Position(this.x, this.y, this.width, this.height)
 	}
-	
+
 }

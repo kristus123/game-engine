@@ -8,7 +8,7 @@ export class Splash {
 	}
 
 	update() {
-		
+
 	}
 
 	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null) {

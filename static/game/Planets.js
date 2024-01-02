@@ -7,7 +7,7 @@ function newImage(src) {
 
 const images = [
 	{
-		image: newImage('https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'), 
+		image: newImage('https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'),
 		position: {x:-1000, y:0}
 	},
 	{
@@ -23,7 +23,7 @@ const images = [
 export class Planets {
 
 	update() {
-		
+
 	}
 
 	draw(ctx) {
@@ -56,5 +56,5 @@ export class Planets {
 		ctx.drawImage(image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		ctx.restore()
 	}
-	
+
 }

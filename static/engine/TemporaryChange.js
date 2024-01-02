@@ -28,7 +28,7 @@ export class TemporaryChange {
 			for (const field of this.fieldsToChange) {
 				const object = field[0]
 				const fieldName = field[1]
-				
+
 				object[fieldName] = this.oldValues[fieldName]
 			}
 		}

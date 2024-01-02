@@ -14,5 +14,5 @@ export class Get {
 			throw new Error('NOT A POSITION')
 		}
 	}
-	
+
 }

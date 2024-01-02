@@ -19,7 +19,7 @@ export class ErrorHandler {
 			`
 			document.getElementById('errorOverlay').style.display = 'flex'
 		}
-		
+
 	}
-	
+
 }
