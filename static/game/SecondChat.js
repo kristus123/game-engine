@@ -8,7 +8,7 @@ export class SecondChat {
 
 		this.dialogue = new Dialogue(Conversation('Good job!', [
 			Reply('What do i do now?', Conversation('Well, my plan is to head home and watch TV. Bye Kid', [
-				Reply("Have fun", Conversation("thanks", [])),
+				Reply('Have fun', Conversation('thanks', [])),
 			])),
 		]), p, mouse)
 	}
