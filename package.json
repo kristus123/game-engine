@@ -1,0 +1,17 @@
+{
+  "name": "game-engine",
+  "version": "1.0.0",
+  "description": "Space game",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"reload -d dist/ -p 5000\" \". venv/bin/activate && nodemon script.py -e html,py,css,js --ignore dist/\""
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin-js": "^1.5.3",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.2",
+    "reload": "^3.2.1"
+  }
+}
+
