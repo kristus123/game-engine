@@ -1,4 +1,3 @@
-
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world=new World(levelSelector,camera,mouse)
@@ -13,22 +12,13 @@ export class MainLevel {
 
 		this.chat = new FirstChat(this.npc.position, this.piss, mouse)
 
-
 		this.runAll = new RunAll('mainlevel', [
 			this.npc,this.piss,this.world,this.chat
 		])
-
-
-
 	}
 
-
-
-
 	update() {
-	
 		this.runAll.update()
-		
 	}
 
 	draw(ctx) {
