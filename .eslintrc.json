@@ -109,6 +109,7 @@
         "TemporaryChange": "readonly",
         "VoidDialogue": "readonly",
         "Water": "readonly",
+        "World": "readonly",
         "index": "readonly"
     }
 }
