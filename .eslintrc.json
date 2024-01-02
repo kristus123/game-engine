@@ -54,6 +54,16 @@
         ],
         "@stylistic/js/no-multi-spaces": [
             "error"
+        ],
+        "@stylistic/js/array-element-newline": [
+            "error",
+            {
+                "ArrayExpression": "always",
+                "ArrayPattern": {
+                    "minItems": 3,
+                    "multiline": true
+                }
+            }
         ]
     },
     "globals": {
