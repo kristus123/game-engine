@@ -1,26 +1,29 @@
 export class Dialogue {
 	constructor(conversation, position, mouse) {
 		this.conversation = conversation
-		this.textTyper = new TextTyper(conversation.question)
-
 		this.position = position
 		this.mouse = mouse
+
+		this.textTyper = new TextTyper(conversation.question)
 	}
 
 	_drawReplies(ctx) {
 		if (this.conversation.replies && this.textTyper.finishedTyping) {
+
 			const p = this.position.copy()
+
 			for (const reply of this.conversation.replies) {
 				p.y += 120
-				if (this.mouse.hovering(p) && this.textTyper.finishedTyping) {
-					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text, 'green')
 
-					if (this.mouse.down && this.textTyper.finishedTyping) {
-						this._select(reply)
-					}
+				if (this.mouse.hovering(p)) {
+					Draw.new_text(ctx, p, reply.text, 'green')
 				}
 				else {
-					Draw.new_text(ctx, p, reply.keypress + ') ' + reply.text)
+					Draw.new_text(ctx, p, reply.text)
+				}
+
+				if (this.mouse.clicking(p)) {
+					this._select(reply)
 				}
 			}
 		}

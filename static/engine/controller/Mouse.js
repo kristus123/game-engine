@@ -63,4 +63,8 @@ export class Mouse {
 	hovering(o) {
 		return Collision.between(this.position, o)
 	}
+
+	clicking(o) {
+		return Collision.between(this.position, o) && this.down
+	}
 }

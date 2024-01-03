@@ -1,9 +1,8 @@
-export const Reply = (text, conversation) => {
+export const Reply = (text, conversation, key=null) => {
 	return {
-		key: 'ok',
-		keypress: 'a',
 		text: text,
 		conversation: conversation,
+		key: key,
 	}
 }
 
