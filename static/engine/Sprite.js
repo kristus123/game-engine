@@ -27,7 +27,7 @@ export class Sprite {
 
 	draw(ctx) {
 		if (this.spriteSheet.complete) {
-				
+
 			const x = -1200
 			const y = 0
 

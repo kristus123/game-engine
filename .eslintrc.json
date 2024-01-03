@@ -123,6 +123,7 @@
         "SlingshotExtension": "readonly",
         "Spaceship": "readonly",
         "Splash": "readonly",
+        "Sprite": "readonly",
         "StarBackground": "readonly",
         "TemporaryChange": "readonly",
         "VoidDialogue": "readonly",
