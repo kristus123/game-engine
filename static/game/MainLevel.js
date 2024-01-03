@@ -13,8 +13,11 @@ export class MainLevel {
 			this.world,
 			this.npc,
 			this.piss,
-			new FirstChat(this.npc.position, this.piss, mouse)
+			new FirstChat(this.npc.position, this.piss, mouse),
+			new Sprite(),
 		])
+
+		Draw.sprite()
 	}
 
 	update() {
