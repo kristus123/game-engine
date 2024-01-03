@@ -1,3 +1,4 @@
+// Can be cleaned up later
 export class Sprite {
 	constructor() {
 		this.spriteSheet = new Image()
