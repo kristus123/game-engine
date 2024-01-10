@@ -3,7 +3,7 @@ export class Sprite {
 	constructor() {
 		this.spriteSheet = new Image()
 		// this.spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
-		this.spriteSheet.src = '/static/Chicken_Sprite_Sheet.png'
+		this.spriteSheet.src = '/static/assets/Chicken_Sprite_Sheet.png'
 
 		this.frameWidth = 32 // Width of each frame in the sprite sheet
 		this.frameHeight = 32 // Height of each frame in the sprite sheet
