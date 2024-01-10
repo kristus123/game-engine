@@ -25,7 +25,7 @@ pip install -r requirements.txt
 ## run locally
 
 ```
-./run.sh
+npm run start
 ```
 
 then open [http://localhost:5000]()
@@ -42,4 +42,4 @@ then open [http://localhost:5000]()
 
 # Misc. info
 
-- `runtime.txt` is for netlify.
+- `runtime.txt` is used for netlify.

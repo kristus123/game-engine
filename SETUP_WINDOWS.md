@@ -42,3 +42,5 @@ nvm install node
 ```bash
 git clone https://github.com/kristus123/game-engine
 ```
+
+Now you can follow the readme as usual
