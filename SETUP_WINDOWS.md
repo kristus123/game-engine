@@ -44,3 +44,8 @@ git clone https://github.com/kristus123/game-engine
 ```
 
 Now you can follow the readme as usual
+
+## Find the path of the project
+
+use `explorer.exe .` to open the path of the file, you can then use the editor of your choice.
+If you are using vsCode, it is recommended to download the wsl extension, which makes it seamless to work within wsl.
