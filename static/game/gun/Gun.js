@@ -1,8 +1,17 @@
 export class Gun {
-	constructor(player) {
+	constructor(player, mouse) {
 		this.player = player
 
+		this.mouse = mouse
+
 		this.bullets = []
+
+
+		this.mouse.addOnClick("shoot", (mousePosition) => {
+			this.shoot(mousePosition)
+		})
+
+
 	}
 
 	shoot(position) {
