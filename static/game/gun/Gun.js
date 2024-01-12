@@ -7,7 +7,7 @@ export class Gun {
 		this.bullets = []
 
 
-		this.mouse.addOnClick("shoot", (mousePosition) => {
+		this.mouse.addOnClick('shoot', (mousePosition) => {
 			this.shoot(mousePosition)
 		})
 
