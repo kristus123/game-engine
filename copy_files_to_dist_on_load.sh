@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -av --include='*.png' --exclude='*' static/ dist/static/
+rsync -av --include='*.gif' --include='*.png' --include='assets/***' --exclude='*' static/ dist/static/
