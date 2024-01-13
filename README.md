@@ -14,6 +14,8 @@ Follow [SETUP_WINDOWS.md](SETUP_WINDOWS.md) instead.
 
 ### For Linux
 
+Run ´./first_time_install.sh´ or do:
+
 ```
 npm install
 
