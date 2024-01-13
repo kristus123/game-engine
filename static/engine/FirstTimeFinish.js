@@ -1,17 +1,22 @@
 export class FirstTimeFinish {
-	constructor() {
+	constructor(predicate) {
+		this.predicate = predicate
+
 		this.finished = false
 		this.returnedTrueOnce = false
 	}
 
-	setFinished() {
-		this.finished = true
-	}
+	returnTrueIfFinishedOnce() {
+		if (this.predicate()) {
+			this.finished = true
 
-	finishedForTheFirstTime() {
-		if (this.finished && !this.returnedTrueOnce) {
-			this.returnedTrueOnce = true
-			return true
+			if (this.finished && !this.returnedTrueOnce) {
+				this.returnedTrueOnce = true
+				return true
+			}
+			else {
+				return false
+			}
 		}
 		else {
 			return false
