@@ -1,4 +1,4 @@
-export class NextLevel {
+export class ShootChickensLevel {
 	constructor(world, npc) {
 
 		this.runAll = new RunAll([
