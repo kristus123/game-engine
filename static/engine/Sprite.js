@@ -1,10 +1,11 @@
 // Can be cleaned up later
 export class Sprite {
-	constructor(spriteSheet) {
+	constructor(spriteSheet, sheetObj) {
 
-		this.spriteSheet = spriteSheet
+		this.sheetObj = sheetObj
+		this.spriteSheet = new Image()
 		// this.spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
-		// this.spriteSheet.src = '/static/assets/Chicken_Sprite_Sheet.png'
+		this.spriteSheet.src = spriteSheet
 
 		this.frameWidth = 32 // Width of each frame in the sprite sheet
 		this.frameHeight = 32 // Height of each frame in the sprite sheet
@@ -26,25 +27,26 @@ export class Sprite {
 
 	}
 
-
 	draw(ctx) {
-		const frameInfo = this.frameSequence[this.currentFrameIndex]
-		const currentFrameX = frameInfo.x
-		const currentFrameY = frameInfo.y
+		if (this.spriteSheet.complete) {
 
-		ctx.imageSmoothingEnabled = false
-		ctx.drawImage(
-			this.spriteSheet,
-			currentFrameX * this.frameWidth,
-			currentFrameY * this.frameHeight,
-			this.frameWidth,
-			this.frameHeight,
-			this.x,
-			this.y,
-			this.frameWidth * this.scale,
-			this.frameHeight * this.scale,
-		)
+			const frameInfo = this.frameSequence[this.currentFrameIndex]
+			const currentFrameX = frameInfo.x
+			const currentFrameY = frameInfo.y
 
+			ctx.imageSmoothingEnabled = false
+			ctx.drawImage(
+				this.spriteSheet,
+				currentFrameX * this.frameWidth,
+				currentFrameY * this.frameHeight,
+				this.frameWidth,
+				this.frameHeight,
+				this.sheetObj.x,
+				this.sheetObj.y,
+				this.frameWidth * this.scale,
+				this.frameHeight * this.scale,
+			)
+		}
 	}
 
 }
