@@ -1,4 +1,3 @@
-// Can be cleaned up later
 export class Sprite {
 	constructor(spriteSheet, spriteObject) {
 
