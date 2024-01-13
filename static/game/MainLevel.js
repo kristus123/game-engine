@@ -9,7 +9,7 @@ export class MainLevel {
 
 		this.piss = new Piss(this.world.player, mouse, new Position(-1000, 100, 100, 100))
 		this.piss.onFinish = () => {
-			levelSelector.changeActiveLevel(new DeliverLevel(this.world, this.npc, levelSelector))
+			levelSelector.changeActiveLevel(new DeliverPissLevel(this.world, this.npc, levelSelector))
 		}
 
 		this.runAll = new RunAll([

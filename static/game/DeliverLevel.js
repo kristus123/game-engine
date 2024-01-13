@@ -1,5 +1,5 @@
 
-export class DeliverLevel {
+export class DeliverPissLevel {
 	constructor(world, npc, levelSelector) {
 
 		this.factory = new Factory(world.player)
