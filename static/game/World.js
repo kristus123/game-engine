@@ -11,7 +11,7 @@ export class World {
 
 		this.runAll = new RunAll('mainlevel', [
 			new StarBackground(),
-			// new Planets(),
+			new Planets(),
 			this.player,
 			this.controller,
 			// new Picture(this.npc, '/static/sun.png'),

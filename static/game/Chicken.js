@@ -1,6 +1,6 @@
 export class Chicken extends GameObject {
 	constructor() {
-		super(-1500, -400, 150, 150, 10, 10)
+		super(-1800, -200, 150, 150, 10, 10)
 
 		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png')
 	}

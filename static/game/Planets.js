@@ -1,24 +1,4 @@
-function newImage(src) {
-	const image = new Image()
-	image.src = src
-
-	return image
-}
-
-const images = [
-	{
-		image: newImage('https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png'),
-		position: {x:-1000, y:0}
-	},
-	{
-		image: newImage('https://www.nicepng.com/png/full/3-34490_galaxy-planet-planets-space-stars-moon-clouds-paint.png'),
-		position: {x:1000, y:0}
-	},
-	{
-		image: newImage('https://www.nicepng.com/png/full/918-9188399_sky-stars-glitch-moon-space-planet-cloud-clouds.png'),
-		position: {x:2000, y:0}
-	},
-]
+const planet = new Picture(new GameObject(-1800, 0, 100, 100, 10, 10), 'https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png')
 
 export class Planets {
 
@@ -27,9 +7,9 @@ export class Planets {
 	}
 
 	draw(ctx) {
-		for (const i of images) {
-			this.drawImage(ctx, i.image, i.position)
-		}
+		planet.gameObject.width *= 1.01
+		planet.gameObject.height *= 1.01
+		planet.draw(ctx)
 	}
 
 	drawImage(ctx, image, position) {

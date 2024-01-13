@@ -16,6 +16,10 @@ export class GameObject {
 		Physics.global.applyPhysics(this)
 	}
 
+	onCollision(o) {
+		console.log("Something collided")
+	}
+
 	resetVelocity() {
 		this.velocity.x = 0
 		this.velocity.y = 0
