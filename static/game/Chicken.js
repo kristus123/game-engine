@@ -2,9 +2,8 @@
 export class Chicken extends GameObject {
     constructor() {
         super(-1500, -400, 150, 150, 10, 10)
-        this.picture = new Picture(this, '/static/assets/Chicken_Sprite_Sheet.png')
 
-        new Sprite(this)
+        this.sprite = new Sprite('/static/assets/Chicken_Sprite_Sheet.png', this)
 
     }
 
@@ -16,8 +15,7 @@ export class Chicken extends GameObject {
     }
 
     draw(ctx) {
-        this.picture.old_draw(ctx, 100)
-
+        this.sprite.draw(ctx)
 
     }
 }
