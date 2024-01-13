@@ -12,8 +12,7 @@ export class MainLevel {
 			levelSelector.changeActiveLevel(new DeliverLevel(this.world, this.npc, levelSelector))
 		}
 
-
-		this.runAll = new RunAll('mainlevel', [
+		this.runAll = new RunAll([
 			this.world,
 			this.npc,
 			this.piss,
