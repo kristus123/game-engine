@@ -3,7 +3,7 @@ export class Piss {
 		this.inventory = new Inventory()
 		this.player = player
 		this.mouse = mouse
-		this.firstTimeFinish = new FirstTimeFinish()
+		this.firstTimeFinish = new FirstTimeFinish(() => this.inventory.size >= 450)
 
 		for (let i = 0; i < 500; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
@@ -13,19 +13,13 @@ export class Piss {
 		}
 	}
 
-	get finished() {
-		return this.inventory.size >= 450
-	}
-
-	onFinish() {
-		console.log('override this')
-	}
-
-	update() {
-		if (this.finished) {
-			this.firstTimeFinish.setFinished()
-			if (this.firstTimeFinish.finishedForTheFirstTime()) {
+	update() { 
+		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
+			if (this.onFinish) {
 				this.onFinish()
+			}
+			else {
+				console.log('override piss.onFinish')
 			}
 		}
 	}
