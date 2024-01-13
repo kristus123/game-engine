@@ -1,6 +1,5 @@
 export class RunAll {
-	constructor(runningFrom, extensions) {
-		this.runningFrom = runningFrom
+	constructor(extensions) {
 		this.extensions = extensions
 	}
 

@@ -9,7 +9,7 @@ export class DeliverLevel {
 			levelSelector.changeActiveLevel(new NextLevel(world, npc, levelSelector))
 		}
 
-		this.runAll = new RunAll('deliverLevel', [
+		this.runAll = new RunAll([
 			world,
 			npc,
 			new SecondChat(npc.position, world.mouse),

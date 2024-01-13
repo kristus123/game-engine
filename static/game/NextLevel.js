@@ -1,7 +1,7 @@
 export class NextLevel {
 	constructor(world, npc) {
 
-		this.runAll = new RunAll('NextLevel', [
+		this.runAll = new RunAll([
 			world,
 			// npc,
 			// new ThirdChat(npc.position, world.mouse),

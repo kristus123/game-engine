@@ -9,7 +9,7 @@ export class InsideLevel {
 
 		this.controller.control(this.player)
 
-		this.runAll = new RunAll('mainlevel', [
+		this.runAll = new RunAll([
 			this.player,
 			VoidDialogue(this.player, this.mouse),
 		])

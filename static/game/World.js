@@ -9,7 +9,7 @@ export class World {
 		this.camera.follow(this.player)
 		this.controller.control(this.player)
 
-		this.runAll = new RunAll('mainlevel', [
+		this.runAll = new RunAll([
 			new StarBackground(),
 			new Planets(),
 			this.player,
