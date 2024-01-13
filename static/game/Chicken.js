@@ -27,7 +27,5 @@ export class Chicken extends GameObject {
 
 	draw(ctx) {
 		this.sprite.draw(ctx)
-
-
 	}
 }
