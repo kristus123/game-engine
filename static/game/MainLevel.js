@@ -5,7 +5,7 @@ export class MainLevel {
 
 		this.npc = new Npc()
 
-		this.levelSelector = levelSelector;
+		this.levelSelector = levelSelector
 
 		this.piss = new Piss(this.world.player, mouse, new Position(-1000, 100, 100, 100))
 		this.piss.onFinish = () => {
