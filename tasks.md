@@ -1,3 +1,4 @@
-# Shoot chickens
+# Misc refactor
 
-in NextLevel.js, we can add some chickens and shoot them
+- Make Sprite.js more generic, aka more responsibility out of it so we can use it for other sprite images as well
+

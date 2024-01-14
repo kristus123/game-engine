@@ -4,7 +4,6 @@ export class Chicken extends GameObject {
 		this.player = player
 
 		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png')
-
 	}
 
 	onCollision(o) {
