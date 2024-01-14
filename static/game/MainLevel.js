@@ -1,4 +1,3 @@
-
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world = new World(levelSelector, camera, mouse)
