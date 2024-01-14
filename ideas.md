@@ -1,5 +1,17 @@
 # Ideas to implement
 
+## Lore
+
+**NB! This universe takes place in the Dongman / Schlongman / Dongmaster / Schlongdongman / Dongmaster/ universe, which is not a universe that is politically correct nor does it represent the opinions or values of the creators of this universe.**
+
+This game takes place after the occurrences of the first 7 movies, meaning the world has already been taken over by women and most of the story of DongMaster has taken place. The whereabouts of DongMaster is currently unknown.
+
+Elon Musk shot up rockets in secrecy, hoping to save as many of his fellow men.
+Technology in space has evolved at a pace similar to the Personal computers back on earth.
+
+Once you go to space there is no way of communicating with the world as MuskNet (Also known as StarLink) is the only available internet provider in space.
+The state of Earth is none the less in a bad state, as by simply looking down on the blue planet you will see nuclear bombs are firing on a dailybasis.
+
 ## Clean piss
 
 The game starts by you having to clean piss because every kid has to do mandatory piss cleaning service.
@@ -11,8 +23,8 @@ You are poor, so you have to take any job you can get. One is to brutally massac
 ## Travel and deliver cargo
 
 Work as a transporter, delivering cargo from one end to the other end of the galaxy known to men.
+Stay pure, or become a badboy who does not care about such thing as rules.
 
-Work with the mafia, or stay purehearted.
 
 ## Politician
 
