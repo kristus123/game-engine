@@ -4,6 +4,9 @@ export class Get {
 		if (o instanceof Position) {
 			return o
 		}
+		else if (o instanceof CenterPosition) {
+			return o
+		}
 		else if (o.position instanceof Position) {
 			return o.position
 		}

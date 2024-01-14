@@ -1,10 +1,10 @@
 export class RunAll {
-	constructor(extensions) {
-		this.extensions = extensions
+	constructor(classes) {
+		this.classes = classes
 	}
 
 	update() {
-		this.extensions.forEach(e => {
+		this.classes.forEach(e => {
 			try {
 				if (e.update) {
 					e.update()
@@ -18,7 +18,7 @@ export class RunAll {
 	}
 
 	draw(ctx) {
-		this.extensions.forEach(e => {
+		this.classes.forEach(e => {
 			try {
 				if (e.draw) {
 					e.draw(ctx)
@@ -29,5 +29,14 @@ export class RunAll {
 					+ e.constructor.name + ' in ' + this.runningFrom.constructor.name + ' ' + error)
 			}
 		})
+	}
+
+
+	add(c) {
+		this.classes.push(c)
+	}
+
+	remove(c) {
+		List.remove(this.classes, c)
 	}
 }

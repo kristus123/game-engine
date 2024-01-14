@@ -13,7 +13,7 @@ export class Piss {
 		}
 	}
 
-	update() { 
+	update() {
 		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
 			if (this.onFinish) {
 				this.onFinish()
