@@ -1,23 +1,17 @@
 // Can be cleaned up later
 export class Sprite {
-	constructor(spriteSheet, sheetObj) {
+	constructor(src, gameObj, frameHeight, frameWidth, scale, frameSequence) {
 
-		this.sheetObj = sheetObj
 		this.spriteSheet = new Image()
-		// this.spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
-		this.spriteSheet.src = spriteSheet
+		this.spriteSheet.src = src
 
-		this.frameWidth = 32 // Width of each frame in the sprite sheet
-		this.frameHeight = 32 // Height of each frame in the sprite sheet
-		this.scale = 5 // Scale factor
+		this.frameWidth = frameWidth // Width of each frame in the sprite sheet
+		this.frameHeight = frameHeight // Height of each frame in the sprite sheet
+		this.scale = scale // Scale factor
 
-		this.frameSequence = [
-			{ x: 1, y: 0 }, // Frame 2
-			{ x: 2, y: 1 }, // Frame 2
-			{ x: 2, y: 2 }, // Frame 2
-			{ x: 3, y: 3 }, // Frame 2
-			{ x: 3, y: 3 }, // Frame 2
-		]
+		this.gameObj = gameObj
+
+		this.frameSequence = frameSequence
 
 		this.currentFrameIndex = 0 // Index of the current frame in frameSequence
 		const totalFrames = this.frameSequence.length
@@ -41,8 +35,8 @@ export class Sprite {
 				currentFrameY * this.frameHeight,
 				this.frameWidth,
 				this.frameHeight,
-				this.sheetObj.x,
-				this.sheetObj.y,
+				this.gameObj.x,
+				this.gameObj.y,
 				this.frameWidth * this.scale,
 				this.frameHeight * this.scale,
 			)
