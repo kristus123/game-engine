@@ -20,7 +20,7 @@ export class MainLevel {
 	}
 
 	update() {
-		this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world, this.npc, this.levelSelector))
+		this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
 		this.runAll.update()
 	}
 

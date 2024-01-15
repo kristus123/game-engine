@@ -3,7 +3,7 @@ export class DeliverPissLevel {
 
 		this.factory = new Factory(world.player)
 		this.factory.onFinish = () => {
-			levelSelector.changeActiveLevel(new ShootChickensLevel(world, npc, levelSelector))
+			levelSelector.changeActiveLevel(new ShootChickensLevel(world))
 		}
 
 		this.runAll = new RunAll([
