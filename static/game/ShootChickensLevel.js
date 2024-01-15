@@ -8,7 +8,8 @@ export class ShootChickensLevel {
 			// npc,
 			// new ThirdChat(npc.position, world.mouse),
 			new Gun(world.player, world.mouse),
-			this.chicken
+			this.chicken,
+			new Fire(),
 		])
 
 		this.chicken.runAll = this.runAll

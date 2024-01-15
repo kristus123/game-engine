@@ -1,11 +1,8 @@
-// Can be cleaned up later
-// Currently only made for chicken
 export class Sprite {
 	constructor(gameObject, src, frameWidth, frameHeight, scale, frameSequence) {
-
 		this.gameObject = gameObject
+
 		this.spriteSheet = new Image()
-		// this.spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
 		this.spriteSheet.src = src
 
 		this.frameWidth = frameWidth // Width of each frame in the sprite sheet
@@ -18,7 +15,7 @@ export class Sprite {
 		const totalFrames = this.frameSequence.length
 		setInterval(() => {
 			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
-		}, 200)
+		}, 100)
 	}
 
 	draw(ctx) {
