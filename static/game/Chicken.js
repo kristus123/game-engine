@@ -3,7 +3,19 @@ export class Chicken extends GameObject {
 		super(-1800, -200, 150, 150, 10, 10)
 		this.player = player
 
-		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png')
+		const frameWidth = 32
+		const frameHeight = 32
+		const scale = 5
+
+		const frameSequence = [
+			{ x: 1, y: 0 },
+			{ x: 2, y: 1 },
+			{ x: 2, y: 2 },
+			{ x: 3, y: 3 },
+			{ x: 3, y: 3 },
+		]
+
+		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png', frameWidth, frameHeight, scale, frameSequence)
 	}
 
 	onCollision(o) {
