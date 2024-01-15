@@ -105,6 +105,7 @@
         "MainLevel": "readonly",
         "Mouse": "readonly",
         "Npc": "readonly",
+        "OffsetPosition": "readonly",
         "Palette": "readonly",
         "Particle": "readonly",
         "Physics": "readonly",

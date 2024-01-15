@@ -26,6 +26,8 @@ export class Player extends GameObject {
 		setInterval(() => {
 			this.charge += 1
 		}, 20)
+
+		this.offsetPosition = this.position.offset(100, 100)
 	}
 
 	// onCollision(o) {
@@ -43,6 +45,7 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
+		Draw.new_circle(ctx, this.offsetPosition)
 		Draw.player(ctx, this)
 
 		if (this.beacon) {

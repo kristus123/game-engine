@@ -12,4 +12,8 @@ export class Position {
 		return new Position(this.x, this.y, this.width, this.height)
 	}
 
+	offset(x=0, y=0) {
+		return new OffsetPosition(this, x, y)
+	}
+
 }
