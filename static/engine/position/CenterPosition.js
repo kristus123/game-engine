@@ -9,7 +9,6 @@ export class CenterPosition {
 		return this.position.copy()
 	}
 
-
 	get x() {
 		return this.position.x + this.width / 2
 	}
