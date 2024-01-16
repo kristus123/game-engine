@@ -1,6 +1,6 @@
 export class Player extends GameObject {
 	constructor(mouse) {
-		super(-1200, 10, 35, 50, 200, 5)
+		super(-1200, 10, 40, 50, 200, 5)
 
 		this.mouse = mouse
 
@@ -27,7 +27,7 @@ export class Player extends GameObject {
 			this.charge += 1
 		}, 20)
 
-		this.offsetPosition = this.position.offset(100, 100)
+		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png')
 	}
 
 	// onCollision(o) {
@@ -45,8 +45,7 @@ export class Player extends GameObject {
 	}
 
 	draw(ctx) {
-		Draw.new_circle(ctx, this.offsetPosition)
-		Draw.player(ctx, this)
+		this.picture.draw(ctx)
 
 		if (this.beacon) {
 			this.beacon.draw(ctx)

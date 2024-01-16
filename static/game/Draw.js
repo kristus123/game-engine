@@ -1,11 +1,3 @@
-const spaceship = new Image()
-spaceship.src =
-	'https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png'
-
-const playerImage = new Image()
-playerImage.src =
-	'https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png'
-
 export class Draw {
 
 	static new_rectangle(ctx, position) {
@@ -275,43 +267,6 @@ export class Draw {
 		ctx.fillStyle = 'white'
 		ctx.font = '25px Arial'
 		ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
-	}
-
-	static spaceship(ctx, player) {
-		const aspectRatio = spaceship.width / spaceship.height
-
-		const maxWidth = 500
-		const maxHeight = 200
-
-		let newWidth = maxWidth
-		let newHeight = maxHeight
-
-		if (spaceship.width > maxWidth) {
-			newWidth = maxWidth
-			newHeight = newWidth / aspectRatio
-		}
-
-		if (newHeight > maxHeight) {
-			newHeight = maxHeight
-			newWidth = newHeight * aspectRatio
-		}
-
-		ctx.save()
-
-		ctx.translate(player.x, player.y)
-		const rotationAngle = Math.atan2(player.velocity.y, player.velocity.x)
-		ctx.rotate(rotationAngle)
-		ctx.rotate(Math.PI / 2) // 90 degrees
-
-		ctx.drawImage(
-			spaceship,
-			-newWidth / 2,
-			-newHeight / 2,
-			newWidth,
-			newHeight,
-		)
-
-		ctx.restore()
 	}
 
 	static player(ctx, player) {
