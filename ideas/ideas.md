@@ -25,7 +25,6 @@ You are poor, so you have to take any job you can get. One is to brutally massac
 Work as a transporter, delivering cargo from one end to the other end of the galaxy known to men.
 Stay pure, or become a badboy who does not care about such thing as rules.
 
-
 ## Politician
 
 Make your galaxy great again!
