@@ -14,7 +14,7 @@
 
 ## World map
 
-When planning a travel in space, you can't make your ship drive like a bouncing pinbal, it needs to take smooth turns in order to be as little taxing on the ship as possible.
+When planning a "super speed" travel in space, you can't make your ship drive like a bouncing pinbal, it needs to take smooth turns in order to be as little taxing on the ship as possible.
 
 Open your map, draw your route, and plan accordingly.
 
