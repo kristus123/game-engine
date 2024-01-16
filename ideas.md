@@ -7,7 +7,7 @@
 This game takes place after the occurrences of the first 7 movies, meaning the world has already been taken over by women and most of the story of DongMaster has taken place. The whereabouts of DongMaster is currently unknown.
 
 Elon Musk shot up rockets in secrecy, hoping to save as many of his fellow men.
-Technology in space has evolved at a pace similar to the Personal computers back on earth.
+Technology in space has evolved at a pace similar to the Personal computers once did back on earth.
 
 Once you go to space there is no way of communicating with the world as MuskNet (Also known as StarLink) is the only available internet provider in space.
 The state of Earth is none the less in a bad state, as by simply looking down on the blue planet you will see nuclear bombs are firing on a dailybasis.
