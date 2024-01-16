@@ -19,7 +19,7 @@ export class Piss {
 				this.onFinish()
 			}
 			else {
-				console.log('override piss.onFinish')
+				throw new Error('override piss.onFinish')
 			}
 		}
 	}

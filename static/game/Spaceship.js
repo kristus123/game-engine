@@ -1,10 +1,22 @@
 export class Spaceship extends GameObject {
-	constructor(mouse) {
-		super(-4000, 0, 300, 300, 10, 25)
-		this.mouse = mouse
+	constructor(player) {
+		super(-1200, 0, 300, 300, 10, 25)
+		this.player = player
 		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png')
 
-		this.mouseHoldingSpaceship = false
+		this.entered = false
+		new KeypressEvent().addKeyDownListener('e', () => {
+			if (this.entered) {
+				this.entered = false
+				Call(this.onExit)
+				this.player.x = this.x
+				this.player.y = this.y
+			}
+			else if (Distance.withinRadius(this.player, this, 100)) {
+				this.entered = true
+				Call(this.onEnter)
+			}
+		})
 	}
 
 	update() {
@@ -13,18 +25,12 @@ export class Spaceship extends GameObject {
 	draw(ctx) {
 		this.picture.r(ctx)
 
-		// if (Collision.between(this.position, this.mouse.position) && this.mouse.down) {
-		// 	this.mouseHoldingSpaceship = true
-		// }
-
-		// if (this.mouseHoldingSpaceship) {
-		// 	this.x = this.mouse.position.x - this.width/2
-		// 	this.y = this.mouse.position.y - this.height/2
-		// }
-
-		// if (this.mouse.up) {
-		// 	this.mouseHoldingSpaceship = false
-		// }
-
+		if (this.entered) {
+		}
+		else {
+			if (Distance.withinRadius(this.player, this, 100)) {
+				Draw.new_text(ctx, this.position, 'E to enter')
+			}
+		}
 	}
 }

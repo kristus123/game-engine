@@ -12,7 +12,7 @@ export class RunAll {
 			}
 			catch(error) {
 				throw new Error('an error occurred while running "update" method for '
-					+ e.constructor.name + ' in ' + this.runningFrom.constructor.name + ' ' + error)
+					+ e.constructor.name + '  ' + error)
 			}
 		})
 	}
@@ -26,7 +26,7 @@ export class RunAll {
 			}
 			catch(error) {
 				throw new Error('an error occurred while running "draw" method for '
-					+ e.constructor.name + ' in ' + this.runningFrom.constructor.name + ' ' + error)
+					+ e.constructor.name + '  ' + error)
 			}
 		})
 	}

@@ -1,3 +1,5 @@
+// maybe call it RelativePosition instead?
+// Since the position is relative to another position?
 export class OffsetPosition {
 	constructor(position, x, y) {
 		this.position = position
