@@ -9,6 +9,9 @@
     - Throw chickens into the meat grinder?
 - Repair your spaceship
 
+- Dating sim inside of game
+    - Because that is important
+
 ## World map
 
 When planning a travel in space, you can't make your ship drive like a bouncing pinbal, it needs to take smooth turns in order to be as little taxing on the ship as possible.

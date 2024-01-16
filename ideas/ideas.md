@@ -2,7 +2,7 @@
 
 ## Lore
 
-**NB! This universe takes place in the Dongman / Schlongman / Dongmaster / Schlongdongman / Dongmaster universe, which is not a universe that is politically correct nor does it represent the opinions or values of the creators of this universe.**
+**NB! This universe takes place in the DongMan / Schlongman / DongMaster / Schlongdongman / DongMaster universe, which is not a universe that is politically correct nor does it represent the opinions or values of the creators of this universe.**
 
 This game takes place after the occurrences of the first 7 movies, meaning the world has already been taken over by women and most of the story of DongMaster has taken place. The whereabouts of DongMaster is currently unknown.
 
@@ -11,6 +11,11 @@ Technology in space has evolved at a pace similar to the Personal computers once
 
 Once you go to space there is no way of communicating with the world as MuskNet (Also known as StarLink) is the only available internet provider in space.
 The state of Earth is none the less in a bad state, as by simply looking down on the blue planet you will see nuclear bombs are firing on a dailybasis.
+
+Elon Musk knew about DongMaster, and helped him with his DongTech.
+In return Elon got to place a Chip inside of DongMaster's head, in hopes that DongMaster Would be the first to survive the implant.
+
+Elon might be the key to find DongMaster
 
 ## Clean piss
 
