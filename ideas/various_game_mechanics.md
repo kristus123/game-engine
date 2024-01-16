@@ -11,6 +11,10 @@
 
 - Dating sim inside of game
     - Because that is important
+    - Become a simp ingame
+- Black hole
+- Go to bars and buy beer
+    - Meet scary people at bars
 
 ## World map
 
