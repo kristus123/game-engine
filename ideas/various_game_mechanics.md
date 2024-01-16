@@ -8,13 +8,15 @@
     - One level where you have to throw people into a jet engine?
     - Throw chickens into the meat grinder?
 - Repair your spaceship
-
 - Dating sim inside of game
     - Because that is important
     - Become a simp ingame
 - Black hole
 - Go to bars and buy beer
     - Meet scary people at bars
+- create a company that produces material
+    - Set up bases that need to be monitored/protected
+    - Set up multiple warehouses around the galaxy
 
 ## World map
 
