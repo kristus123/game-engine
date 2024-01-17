@@ -9,7 +9,7 @@ export class Piss {
 			const x = Random.integerBetween(position.x, position.x + position.width)
 			const y = Random.integerBetween(position.y, position.y + position.height)
 			this.inventory.addPickable(
-				new GameObject(x, y, Random.integerBetween(1,10), Random.integerBetween(1,10), 200, 50))
+				new GameObject(x, y, Random.integerBetween(1, 10), Random.integerBetween(1, 10), 200, 50))
 		}
 	}
 
@@ -28,7 +28,7 @@ export class Piss {
 		this.inventory.draw(ctx)
 
 		const angle = 50 // rn it only works with 50
-		Draw.splash(ctx, this.player.position, this.mouse.position, angle)
+		Draw.splash(this.player.position, this.mouse.position, angle)
 
 		this.inventory.pickableItems.forEach(i => {
 			if (Collision.between(this.player, i)) {

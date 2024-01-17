@@ -7,7 +7,7 @@ export class Dialogue {
 		this.textTyper = new TextTyper(conversation.question)
 	}
 
-	_drawReplies(ctx) {
+	_drawReplies() {
 		if (this.conversation.replies && this.textTyper.finishedTyping) {
 
 			const p = this.position.copy()
@@ -16,10 +16,10 @@ export class Dialogue {
 				p.y += 120
 
 				if (this.mouse.hovering(p)) {
-					Draw.new_text(ctx, p, reply.text, 'green')
+					Draw.new_text(p, reply.text, 'green')
 				}
 				else {
-					Draw.new_text(ctx, p, reply.text)
+					Draw.new_text(p, reply.text)
 				}
 
 				if (this.mouse.clicking(p)) {
@@ -42,7 +42,7 @@ export class Dialogue {
 
 	draw(ctx) {
 		this.textTyper.update()
-		Draw.new_text(ctx, this.position, this.textTyper.typedText)
+		Draw.new_text(this.position, this.textTyper.typedText)
 		this._drawReplies(ctx)
 	}
 }

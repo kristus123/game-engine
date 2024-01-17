@@ -1,33 +1,37 @@
+
 export class Draw {
 
-	static new_rectangle(ctx, position) {
-		ctx.fillStyle = 'yellow'
-		ctx.fillRect(position.x, position.y, position.width, position.height)
+	static ctx = Palette.main().ctx
 
-		ctx.strokeStyle = 'yellow'
-		ctx.lineWidth = 4
-		ctx.strokeRect(position.x, position.y, position.width, position.height)
+	static new_rectangle(position) {
 
-		ctx.fillStyle = 'white'
-		ctx.font = '25px Arial'
+		Draw.ctx.fillStyle = 'yellow'
+		Draw.ctx.fillRect(position.x, position.y, position.width, position.height)
+
+		Draw.ctx.strokeStyle = 'yellow'
+		Draw.ctx.lineWidth = 4
+		Draw.ctx.strokeRect(position.x, position.y, position.width, position.height)
+
+		Draw.ctx.fillStyle = 'white'
+		Draw.ctx.font = '25px Arial'
 	}
 
-	static rectangle(ctx, x, y, width, height, color = 'orange') {
-		ctx.fillStyle = color
-		ctx.fillRect(x, y, width, height)
+	static rectangle(x, y, width, height, color = 'orange') {
+		Draw.ctx.fillStyle = color
+		Draw.ctx.fillRect(x, y, width, height)
 
-		ctx.strokeStyle = 'white'
-		ctx.lineWidth = 4
-		ctx.strokeRect(x, y, width, height)
+		Draw.ctx.strokeStyle = 'white'
+		Draw.ctx.lineWidth = 4
+		Draw.ctx.strokeRect(x, y, width, height)
 	}
 
-	static blueRectangle(ctx, x, y) {
-		ctx.fillStyle = 'blue'
-		ctx.fillRect(x, y, 10, 10)
+	static blueRectangle(x, y) {
+		Draw.ctx.fillStyle = 'blue'
+		Draw.ctx.fillRect(x, y, 10, 10)
 	}
 
-	static splash(ctx, spawnPosition, targetLocation, angleWidth, length = 500) {
-		ctx.beginPath()
+	static splash(spawnPosition, targetLocation, angleWidth, length = 500) {
+		Draw.ctx.beginPath()
 
 		// Calculate angle towards targetLocation
 		const angle = Math.atan2(targetLocation.y - spawnPosition.y, targetLocation.x - spawnPosition.x)
@@ -43,22 +47,22 @@ export class Draw {
 		const rightY = spawnPosition.y + length * Math.sin(rightAngle)
 
 		// Draw lines
-		ctx.moveTo(spawnPosition.x, spawnPosition.y)
-		ctx.lineTo(leftX, leftY)
+		Draw.ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		Draw.ctx.lineTo(leftX, leftY)
 
-		ctx.moveTo(spawnPosition.x, spawnPosition.y)
-		ctx.lineTo(rightX, rightY)
+		Draw.ctx.moveTo(spawnPosition.x, spawnPosition.y)
+		Draw.ctx.lineTo(rightX, rightY)
 
 		// Set line style
-		ctx.lineWidth = 2
-		ctx.strokeStyle = 'red' // You can set your desired color
+		Draw.ctx.lineWidth = 2
+		Draw.ctx.strokeStyle = 'red' // You can set your desired color
 
 		// Stroke the lines
-		ctx.stroke()
-		ctx.closePath()
+		Draw.ctx.stroke()
+		Draw.ctx.closePath()
 	}
 
-	static hpBar(ctx, position, currentHp, maxHp) {
+	static hpBar(position, currentHp, maxHp) {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
 			const numerator = currentHp
 			const denominator = maxHp
@@ -78,51 +82,51 @@ export class Draw {
 
 		currentHP = Math.max(0, currentHP - 0.01)
 
-		ctx.fillStyle = 'white'
-		ctx.fillRect(position.x, position.y, width, height)
+		Draw.ctx.fillStyle = 'white'
+		Draw.ctx.fillRect(position.x, position.y, width, height)
 
-		ctx.fillStyle = 'red'
-		ctx.fillRect(position.x, position.y, currentHP * width, height)
+		Draw.ctx.fillStyle = 'red'
+		Draw.ctx.fillRect(position.x, position.y, currentHP * width, height)
 	}
 
-	static circle(ctx, x, y, radius, color) {
-		ctx.beginPath()
-		ctx.arc(x, y, radius, 0, Math.PI * 2, false)
-		ctx.fillStyle = color
-		ctx.fill()
+	static circle(x, y, radius, color) {
+		Draw.ctx.beginPath()
+		Draw.ctx.arc(x, y, radius, 0, Math.PI * 2, false)
+		Draw.ctx.fillStyle = color
+		Draw.ctx.fill()
 	}
 
-	static new_circle(ctx, position, radius = 10) {
+	static new_circle(position, radius = 10) {
 		const color = 'red'
 
-		ctx.beginPath()
-		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
-		ctx.fillStyle = color
-		ctx.fill()
+		Draw.ctx.beginPath()
+		Draw.ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
+		Draw.ctx.fillStyle = color
+		Draw.ctx.fill()
 	}
 
-	static position(ctx, position) {
+	static position(position) {
 		const radius = 5
-		ctx.beginPath()
-		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
-		ctx.fillStyle = 'orange'
-		ctx.fill()
+		Draw.ctx.beginPath()
+		Draw.ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
+		Draw.ctx.fillStyle = 'orange'
+		Draw.ctx.fill()
 	}
 
-	static hollowCircle(ctx, position, color, radius) {
-		ctx.strokeStyle = color
-		ctx.lineWidth = 6
+	static hollowCircle(position, color, radius) {
+		Draw.ctx.strokeStyle = color
+		Draw.ctx.lineWidth = 6
 
-		ctx.beginPath()
-		ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
-		ctx.stroke()
+		Draw.ctx.beginPath()
+		Draw.ctx.arc(position.x, position.y, radius, 0, Math.PI * 2)
+		Draw.ctx.stroke()
 	}
 
 
 	static angle = 0
 
 	// todo must be updated somehow iwthin game lloop
-	static circleSpinning(ctx, objectToFollow, radius) {
+	static circleSpinning(objectToFollow, radius) {
 		const x =
 			objectToFollow.x +
 			objectToFollow.width / 2 +
@@ -132,7 +136,7 @@ export class Draw {
 			objectToFollow.height / 2 +
 			radius * Math.sin(Draw.angle)
 
-		Draw.circle(ctx, x, y, 10, 'red')
+		Draw.circle(Draw.ctx, x, y, 10, 'red')
 
 		Draw.angle += 0.1
 
@@ -143,7 +147,7 @@ export class Draw {
 	}
 
 	// needs some work obviously, but it works
-	static revertMouse(ctx, player, mousePosition) {
+	static revertMouse(player, mousePosition) {
 		function getAngle(x1, y1, x2, y2) {
 			return Math.atan2(y2 - y1, x2 - x1)
 		}
@@ -156,7 +160,7 @@ export class Draw {
 		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
 		const circleY = player.y + player.height / 2 + circleRadius * Math.sin(oppositeAngle)
 
-		Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
+		Draw.circle(Draw.ctx, circleX, circleY, playerRadius, 'red')
 
 		player.angle = getAngle(
 			player.x + player.width / 2,
@@ -171,11 +175,10 @@ export class Draw {
 	}
 
 	static objectThatIsMovingInRectangularPathAroundObject(
-		ctx,
 		player,
 		mousePosition,
 	) {
-		ctx.lineWidth = 2
+		Draw.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
 		const dx = mousePosition.x - player.position.center.x
@@ -194,7 +197,7 @@ export class Draw {
 
 		// Draw the circle
 		const playerRadius = 20
-		Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
+		Draw.circle(Draw.ctx, circleX, circleY, playerRadius, 'red')
 
 		// Draw the rectangle
 		const rectX = player.position.center.x - horizontalRectDistance
@@ -202,15 +205,14 @@ export class Draw {
 		const rectWidth = horizontalRectDistance * 2
 		const rectHeight = verticalRectDistance * 2
 
-		ctx.strokeStyle = 'blue'
-		ctx.strokeRect(rectX, rectY, rectWidth, rectHeight)
+		Draw.ctx.strokeStyle = 'blue'
+		Draw.ctx.strokeRect(rectX, rectY, rectWidth, rectHeight)
 
-		return {x: circleX, y: circleY}
+		return { x: circleX, y: circleY }
 	}
 
 	// needs some work obviously, but it works
 	static objectThatIsCirclingAroundObjectBasedOnMousePosition(
-		ctx,
 		player,
 		mousePosition,
 	) {
@@ -232,44 +234,44 @@ export class Draw {
 		const circleY =
 			player.y + player.height / 2 + circleRadius * Math.sin(angle)
 
-		Draw.circle(ctx, circleX, circleY, playerRadius, 'red')
+		Draw.circle(Draw.ctx, circleX, circleY, playerRadius, 'red')
 	}
 
-	static lineBetween(ctx, start, end) {
-		ctx.beginPath()
-		ctx.moveTo(start.x, start.y)
-		ctx.lineTo(end.x, end.y)
-		ctx.strokeStyle = 'white'
-		ctx.lineWidth = 5
-		ctx.stroke()
+	static lineBetween(start, end) {
+		Draw.ctx.beginPath()
+		Draw.ctx.moveTo(start.x, start.y)
+		Draw.ctx.lineTo(end.x, end.y)
+		Draw.ctx.strokeStyle = 'white'
+		Draw.ctx.lineWidth = 5
+		Draw.ctx.stroke()
 	}
 
-	static text(ctx, x, y, width, height, text) {
-		Draw.rectangle(ctx, x, y, width, height)
+	static text(x, y, width, height, text) {
+		Draw.rectangle(Draw.ctx, x, y, width, height)
 
-		ctx.fillStyle = 'white'
-		ctx.font = '25px Arial'
-		ctx.fillText(text, x + 20, y + height / 2)
+		Draw.ctx.fillStyle = 'white'
+		Draw.ctx.font = '25px Arial'
+		Draw.ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	static new_text(ctx, position, text, color='orange') {
-		Draw.rectangle(ctx, position.x, position.y, position.width, position.height, color)
+	static new_text(position, text, color = 'orange') {
+		Draw.rectangle(Draw.ctx, position.x, position.y, position.width, position.height, color)
 
-		ctx.fillStyle = 'white'
-		ctx.font = '25px Arial'
-		ctx.fillText(text, position.x + 20, position.y + 50)
+		Draw.ctx.fillStyle = 'white'
+		Draw.ctx.font = '25px Arial'
+		Draw.ctx.fillText(text, position.x + 20, position.y + 50)
 	}
 
 
-	static position(ctx, o) {
-		Draw.rectangle(ctx, o.x, o.y, o.width, o.height)
+	static position(o) {
+		Draw.rectangle(Draw.ctx, o.x, o.y, o.width, o.height)
 
-		ctx.fillStyle = 'white'
-		ctx.font = '25px Arial'
-		ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
+		Draw.ctx.fillStyle = 'white'
+		Draw.ctx.font = '25px Arial'
+		Draw.ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
 	}
 
-	static player(ctx, player) {
+	static player(player) {
 		const aspectRatio = playerImage.width / playerImage.height
 
 		const maxWidth = 50
@@ -288,11 +290,11 @@ export class Draw {
 			newWidth = newHeight * aspectRatio
 		}
 
-		ctx.save()
+		Draw.ctx.save()
 
-		ctx.translate(player.x + player.width / 2, player.y + player.height / 2)
+		Draw.ctx.translate(player.x + player.width / 2, player.y + player.height / 2)
 
-		ctx.drawImage(
+		Draw.ctx.drawImage(
 			playerImage,
 			-newWidth / 2,
 			-newHeight / 2,
@@ -300,12 +302,12 @@ export class Draw {
 			newHeight,
 		)
 
-		ctx.restore()
+		Draw.ctx.restore()
 	}
 
-	static grid(ctx) {
-		ctx.strokeStyle = '#ccc' // Grid color
-		ctx.lineWidth = 2
+	static grid() {
+		Draw.ctx.strokeStyle = '#ccc' // Grid color
+		Draw.ctx.lineWidth = 2
 
 		const cellSize = 100 // Adjust this to change the grid cell size
 		const mapWidth = 1000 // Adjust this to match your map's width
@@ -314,28 +316,28 @@ export class Draw {
 		const columns = Math.floor(mapWidth / cellSize)
 
 		for (let i = 0; i < rows; i++) {
-			ctx.beginPath()
-			ctx.moveTo(0, i * cellSize)
-			ctx.lineTo(mapWidth, i * cellSize)
-			ctx.stroke()
+			Draw.ctx.beginPath()
+			Draw.ctx.moveTo(0, i * cellSize)
+			Draw.ctx.lineTo(mapWidth, i * cellSize)
+			Draw.ctx.stroke()
 		}
 
-		ctx.beginPath()
-		ctx.moveTo(0, mapHeight)
-		ctx.lineTo(mapWidth, mapHeight)
-		ctx.stroke()
+		Draw.ctx.beginPath()
+		Draw.ctx.moveTo(0, mapHeight)
+		Draw.ctx.lineTo(mapWidth, mapHeight)
+		Draw.ctx.stroke()
 
 		for (let j = 0; j < columns; j++) {
-			ctx.beginPath()
-			ctx.moveTo(j * cellSize, 0)
-			ctx.lineTo(j * cellSize, mapHeight)
-			ctx.stroke()
+			Draw.ctx.beginPath()
+			Draw.ctx.moveTo(j * cellSize, 0)
+			Draw.ctx.lineTo(j * cellSize, mapHeight)
+			Draw.ctx.stroke()
 		}
 
-		ctx.beginPath()
-		ctx.moveTo(mapWidth, 0)
-		ctx.lineTo(mapWidth, mapHeight)
-		ctx.stroke()
+		Draw.ctx.beginPath()
+		Draw.ctx.moveTo(mapWidth, 0)
+		Draw.ctx.lineTo(mapWidth, mapHeight)
+		Draw.ctx.stroke()
 	}
 
 	static sprite() {
@@ -385,9 +387,9 @@ export class Draw {
 	}
 
 	// this is not in use
-	static fill(ctx, color) {
-		ctx.fillStyle = color
-		ctx.fillRect(0, 0, Palette.width, Palette.height)
+	static fill(color) {
+		Draw.ctx.fillStyle = color
+		Draw.ctx.fillRect(0, 0, Palette.width, Palette.height)
 	}
 
 	// static crate(ctx, position) {

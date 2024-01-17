@@ -25,10 +25,10 @@ export class GameObject {
 		this.velocity.y = 0
 	}
 
-	update() {}
+	update() { }
 
-	draw(ctx) {
-		Draw.new_rectangle(ctx, this.position)
+	draw() {
+		Draw.new_rectangle(this.position)
 	}
 
 	followIfOutsideOfRadius(o, radius) {

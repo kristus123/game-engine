@@ -29,7 +29,7 @@ export class Spaceship extends GameObject {
 		}
 		else {
 			if (Distance.withinRadius(this.player, this, 100)) {
-				Draw.new_text(ctx, this.position, 'E to enter')
+				Draw.new_text(this.position, 'E to enter')
 			}
 		}
 	}

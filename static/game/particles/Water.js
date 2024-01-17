@@ -10,7 +10,7 @@ export class Water {
 			const velocityFactor = 1000
 			const weight = 10
 
-			const waterDroplet = new GameObject(x, y ,width, height, weight, velocityFactor)
+			const waterDroplet = new GameObject(x, y, width, height, weight, velocityFactor)
 			waterDroplet.originalPosition = {
 				x: waterDroplet.x,
 				y: waterDroplet.y,
@@ -22,7 +22,7 @@ export class Water {
 
 	draw(ctx) {
 		this.droplets.forEach((s) => {
-			Draw.blueRectangle(ctx, s.x, s.y, s.width, s.height)
+			Draw.blueRectangle(s.x, s.y, s.width, s.height)
 		})
 	}
 }

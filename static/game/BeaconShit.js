@@ -14,6 +14,6 @@ export class BeaconShit extends GameObject {
 
 	draw(ctx) {
 		super.draw(ctx)
-		Draw.hollowCircle(ctx, this.position, 'red', this.radius)
+		Draw.hollowCircle(this.position, 'red', this.radius)
 	}
 }
