@@ -19,13 +19,7 @@ export class StarBackground {
 	draw(ctx) {
 		ctx.fillStyle = 'white'
 		this.stars.forEach((s) => {
-			Draw.rectangle(
-				ctx,
-				s.x,
-				s.y,
-				s.width,
-				s.height,
-			)
+			Draw.rectangle(ctx, s.x, s.y, s.width, s.height)
 		})
 	}
 }
