@@ -52,3 +52,26 @@ Work on finding various criminals and convicts.
 
 You have to go undercover as a chicken in one of the chicken farms because someone (for example; dictator, corrupt politician) has been hiding there for 5 years.
 Find out who is a real chicken, and who is the impostor among us
+
+
+
+## Draft
+
+Various ideas discussed:
+
+- Pirate-inspired thoughts for the game.
+- Consideration of halshugging (decapitation) in the medieval context.
+- Introduction of the term "keelhaul" for a pirate-themed element.
+- Discussion of spacevikings as a concept.
+- Mention of "blood eagle," a brutal Viking ritual involving ribcage removal.
+- Inclusion of the feudal political system in the game.
+- Pyramid system explanation, involving kings, vassals, and their own subordinates.
+- Addition of elements like caste system, racism, and segregation.
+- Reference to India's historical caste system and feudal-like structure.
+- Proposal to incorporate plundering and politics as central themes.
+- Suggestion to include different races in the game.
+- Proposal to create individual villages or planets as part of the game.
+- Expansion of gameplay to include businesses, factories, and economic aspects.
+- Idea to allow players to create their own bases or planets.
+- Introduction of an editor and tools to involve friends in the game development process.
+- Concept of floating bases in space, resembling the game "Rust."
