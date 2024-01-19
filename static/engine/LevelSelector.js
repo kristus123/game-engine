@@ -1,6 +1,6 @@
 export class LevelSelector {
-	constructor(level) {
-		this.activeLevel = level
+	constructor() {
+		this.activeLevel = null
 	}
 
 	changeActiveLevel(level) {
