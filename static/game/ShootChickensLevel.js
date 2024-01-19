@@ -30,7 +30,7 @@ export class ShootChickensLevel {
 		this.runAll.update()
 	}
 
-	draw(ctx) {
-		this.runAll.draw(ctx)
+	draw(draw) {
+		this.runAll.draw(draw)
 	}
 }

@@ -12,10 +12,10 @@ export class Crate extends GameObject {
 		Push(this).awayFrom(o, 1.1)
 	}
 
-	draw(ctx) {
-		super.draw(ctx)
-		this.crateImage.draw(ctx, 200)
-		Draw.new_circle(ctx, this.position.center)
+	draw(draw) {
+		super.draw(draw)
+		this.crateImage.draw(draw, 200)
+		draw.new_circle(this.position.center)
 	}
 
 }

@@ -29,27 +29,27 @@ export class Particle {
 		}
 	}
 
-	draw(ctx) {
-		ctx.lineWidth = 2
+	draw(draw) {
+		draw.ctx.lineWidth = 2
 
 		for (let i = 0; i < this.prevPositions.length - 1; i++) {
 			const pos = this.prevPositions[i]
 			const nextPos = this.prevPositions[i + 1]
 
-			ctx.strokeStyle = `${this.color} ${pos.opacity})`
-			ctx.beginPath()
-			ctx.moveTo(pos.x, pos.y)
-			ctx.lineTo(nextPos.x, nextPos.y)
-			this.PrettyParticles.updateAndDraw(ctx, nextPos.x, nextPos.y)
-			ctx.stroke()
+			draw.ctx.strokeStyle = `${this.color} ${pos.opacity})`
+			draw.ctx.beginPath()
+			draw.ctx.moveTo(pos.x, pos.y)
+			draw.ctx.lineTo(nextPos.x, nextPos.y)
+			this.PrettyParticles.updateAndDrawdraw(draw.ctx, nextPos.x, nextPos.y)
+			draw.ctx.stroke()
 		}
 
 		const particleX = this.x + Math.cos(this.angle) * this.radius
 		const particleY = this.y + Math.sin(this.angle) * this.radius
 
-		ctx.fillStyle = this.color
-		ctx.beginPath()
-		ctx.arc(particleX, particleY, 3, 0, 2 * Math.PI)
-		ctx.fill()
+		draw.ctx.fillStyle = this.color
+		draw.ctx.beginPath()
+		draw.ctx.arc(particleX, particleY, 3, 0, 2 * Math.PI)
+		draw.ctx.fill()
 	}
 }

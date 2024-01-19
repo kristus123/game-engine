@@ -13,7 +13,7 @@ export class ThirdChat {
 
 	update() { }
 
-	draw(ctx) {
-		this.dialogue.draw(ctx)
+	draw(draw) {
+		this.dialogue.draw(draw)
 	}
 }

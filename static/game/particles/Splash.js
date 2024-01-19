@@ -111,7 +111,7 @@ export class Splash {
 
 
 
-	draw(ctx) {
+	draw(draw) {
 		this.particles.forEach((p, index) => {
 			p.x += p.velocity.x
 			p.y += p.velocity.y
@@ -122,8 +122,8 @@ export class Splash {
 				this.particles.splice(index, 1)
 			}
 			else {
-				ctx.fillStyle = p.color
-				ctx.fillRect(p.x, p.y, p.width, p.height)
+				draw.ctx.fillStyle = p.color
+				draw.ctx.fillRect(p.x, p.y, p.width, p.height)
 			}
 		})
 	}

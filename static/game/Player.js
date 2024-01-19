@@ -44,13 +44,13 @@ export class Player extends GameObject {
 
 	}
 
-	draw(ctx) {
-		this.picture.draw(ctx)
+	draw(draw) {
+		this.picture.draw(draw)
 
 		if (this.beacon) {
-			this.beacon.draw(ctx)
+			this.beacon.draw(draw)
 		}
 
-		this.splash.draw(ctx)
+		this.splash.draw(draw)
 	}
 }

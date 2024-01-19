@@ -38,8 +38,8 @@ export class Fire extends GameObject {
 	update() {
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		// super.draw(ctx)
-		this.sprite.draw(ctx)
+		this.sprite.draw(draw)
 	}
 }

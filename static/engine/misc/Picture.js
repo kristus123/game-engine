@@ -6,36 +6,36 @@ export class Picture {
 		this.image.src = src
 	}
 
-	r(ctx) {
+	r(draw) {
 		const newWidth = this.gameObject.width
 		const newHeight = this.gameObject.height
 
-		ctx.save()
+		draw.ctx.save()
 
-		ctx.translate(this.gameObject.position.center.x, this.gameObject.position.center.y)
+		draw.ctx.translate(this.gameObject.position.center.x, this.gameObject.position.center.y)
 		const rotationAngle = Math.atan2(this.gameObject.velocity.y, this.gameObject.velocity.x)
-		ctx.rotate(rotationAngle)
-		ctx.rotate(Math.PI / 2) // 90 degrees
+		draw.ctx.rotate(rotationAngle)
+		draw.ctx.rotate(Math.PI / 2) // 90 degrees
 
-		ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
-		ctx.restore()
+		draw.ctx.restore()
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		if (this.image.complete) {
 			const newWidth = this.gameObject.width
 			const newHeight = this.gameObject.height
 
-			ctx.save()
-			ctx.translate(this.gameObject.x + this.gameObject.width / 2, this.gameObject.y + this.gameObject.height / 2)
-			ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-			ctx.restore()
+			draw.ctx.save()
+			draw.ctx.translate(this.gameObject.x + this.gameObject.width / 2, this.gameObject.y + this.gameObject.height / 2)
+			draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+			draw.ctx.restore()
 
 		}
 	}
 
-	old_draw(ctx, size) {
+	old_draw(draw, size) {
 		const aspectRatio = this.image.width / this.image.height
 
 		let newWidth = size
@@ -51,10 +51,10 @@ export class Picture {
 			newWidth = newHeight * aspectRatio
 		}
 
-		ctx.save()
-		ctx.translate(this.gameObject.x, this.gameObject.y)
-		ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-		ctx.restore()
+		draw.ctx.save()
+		draw.ctx.translate(this.gameObject.x, this.gameObject.y)
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+		draw.ctx.restore()
 	}
 }
 

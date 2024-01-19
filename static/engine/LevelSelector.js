@@ -11,8 +11,8 @@ export class LevelSelector {
 		this.activeLevel.update()
 	}
 
-	draw(ctx) {
-		this.activeLevel.draw(ctx)
+	draw(draw) {
+		this.activeLevel.draw(draw)
 	}
 
 }

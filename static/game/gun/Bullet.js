@@ -21,7 +21,7 @@ export class Bullet extends GameObject {
 		this.hit = o
 	}
 
-	draw(ctx) {
-		Draw.new_circle(ctx, this)
+	draw(draw) {
+		draw.new_circle(this)
 	}
 }

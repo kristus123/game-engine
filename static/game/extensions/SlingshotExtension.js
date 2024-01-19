@@ -18,7 +18,7 @@ export class SlingshotExtension {
 		}
 	}
 
-	draw(ctx) {
-		this.projectile.draw(ctx)
+	draw(draw) {
+		this.projectile.draw(draw)
 	}
 }

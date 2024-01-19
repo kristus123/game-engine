@@ -6,10 +6,10 @@ export class Planets {
 
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		planet.gameObject.width *= 1.01
 		planet.gameObject.height *= 1.01
-		planet.draw(ctx)
+		planet.draw(draw)
 	}
 
 	drawImage(ctx, image, position) {

@@ -18,15 +18,15 @@ export class Sprite {
 		}, 100)
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		if (this.spriteSheet.complete) {
 
 			const frameInfo = this.frameSequence[this.currentFrameIndex]
 			const currentFrameX = frameInfo.x
 			const currentFrameY = frameInfo.y
 
-			ctx.imageSmoothingEnabled = false
-			ctx.drawImage(
+			draw.ctx.imageSmoothingEnabled = false
+			draw.ctx.drawImage(
 				this.spriteSheet,
 				currentFrameX * this.frameWidth,
 				currentFrameY * this.frameHeight,

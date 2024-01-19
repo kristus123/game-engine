@@ -24,12 +24,12 @@ export class Inventory {
 		return this.inventory.length
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		this.pickableItems.forEach(i => {
-			i.draw(ctx)
+			i.draw(draw)
 		})
 
-		this.splash.draw(ctx)
+		this.splash.draw(draw)
 	}
 
 }
