@@ -12,8 +12,8 @@ export class Npc extends GameObject {
 	update() {
 	}
 
-	draw(ctx) {
-		this.picture.old_draw(ctx, 100)
+	draw(draw) {
+		this.picture.old_draw(draw, 100)
 
 	}
 }

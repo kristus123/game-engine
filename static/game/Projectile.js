@@ -38,10 +38,10 @@ export class Projectile extends GameObject {
 		}
 	}
 
-	draw() {
+	draw(draw) {
 		if (this.shot && this.connectedTo) {
-			Draw.lineBetween(this.from, this.connectedTo)
-			Draw.circle(
+			draw.lineBetween(this.from, this.connectedTo)
+			draw.circle(
 
 				this.connectedTo.x,
 				this.connectedTo.y,
@@ -50,8 +50,8 @@ export class Projectile extends GameObject {
 			)
 		}
 		else if (this.shot) {
-			Draw.circle(this.x, this.y, this.radius, this.color)
-			Draw.lineBetween(this.from, this)
+			draw.circle(this.x, this.y, this.radius, this.color)
+			draw.lineBetween(this.from, this)
 		}
 	}
 }

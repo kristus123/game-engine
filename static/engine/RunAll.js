@@ -10,21 +10,21 @@ export class RunAll {
 					e.update()
 				}
 			}
-			catch(error) {
+			catch (error) {
 				throw new Error('an error occurred while running "update" method for '
 					+ e.constructor.name + '  ' + error)
 			}
 		})
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		this.classes.forEach(e => {
 			try {
 				if (e.draw) {
-					e.draw(ctx)
+					e.draw(draw)
 				}
 			}
-			catch(error) {
+			catch (error) {
 				throw new Error('an error occurred while running "draw" method for '
 					+ e.constructor.name + '  ' + error)
 			}

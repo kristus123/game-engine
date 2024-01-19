@@ -26,35 +26,35 @@ export class FetchContainerExtension {
 		}
 	}
 
-	draw(ctx) {
+	draw(draw) {
 
-		this.container.draw(ctx)
+		this.container.draw(draw)
 
 		if (this.connectedToSpaceship) {
-			Draw.lineBetween(this.spaceship.position.center, this.container.position.center)
+			draw.lineBetween(this.spaceship.position.center, this.container.position.center)
 		}
 
 		if (this.delivered) {
-			Draw.hollowCircle(this.deliverySpot, 'green', 200)
+			draw.hollowCircle(this.deliverySpot, 'green', 200)
 		}
 		else {
-			Draw.hollowCircle(this.deliverySpot, 'red', 200)
+			draw.hollowCircle(this.deliverySpot, 'red', 200)
 		}
 
 		if (this.connectedToSpaceship) {
-			Draw.new_text(this.container, 'Bring me to the destination')
+			draw.new_text(this.container, 'Bring me to the destination')
 
-			const p = Draw.objectThatIsMovingInRectangularPathAroundObject(this.spaceship, this.deliverySpot)
-			Draw.new_text(p, Math.round(Distance.between(this.container, this.deliverySpot)))
+			const p = draw.objectThatIsMovingInRectangularPathAroundObject(this.spaceship, this.deliverySpot)
+			draw.new_text(p, Math.round(Distance.between(this.container, this.deliverySpot)))
 		}
 		else if (this.delivered) {
-			Draw.new_text(this.container, 'Good job!')
+			draw.new_text(this.container, 'Good job!')
 		}
 		else {
 			const x = this.spaceship.position.copy()
 			x.y -= 100
-			Draw.new_text(x, 'Enter spaceship')
-			Draw.new_text(this.container, 'pick up crate')
+			draw.new_text(x, 'Enter spaceship')
+			draw.new_text(this.container, 'pick up crate')
 		}
 
 	}

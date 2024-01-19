@@ -19,9 +19,9 @@ export class Gun {
 		return b
 	}
 
-	draw(ctx) {
+	draw(draw) {
 		this.bullets.forEach(b => {
-			b.draw(ctx)
+			b.draw(draw)
 		})
 	}
 

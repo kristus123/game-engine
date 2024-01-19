@@ -27,8 +27,8 @@ export class GameObject {
 
 	update() { }
 
-	draw() {
-		Draw.new_rectangle(this.position)
+	draw(draw) {
+		draw.new_rectangle(this.position)
 	}
 
 	followIfOutsideOfRadius(o, radius) {

@@ -24,11 +24,11 @@ export class Piss {
 		}
 	}
 
-	draw(ctx) {
-		this.inventory.draw(ctx)
+	draw(draw) {
+		this.inventory.draw(draw)
 
 		const angle = 50 // rn it only works with 50
-		Draw.splash(this.player.position, this.mouse.position, angle)
+		draw.splash(this.player.position, this.mouse.position, angle)
 
 		this.inventory.pickableItems.forEach(i => {
 			if (Collision.between(this.player, i)) {

@@ -20,8 +20,8 @@ export class Fleet extends GameObject {
 		})
 	}
 
-	draw(ctx) {
-		super.draw(ctx)
-		Draw.new_text(this.position, 'step your foot on me')
+	draw(draw) {
+		super.draw(draw)
+		draw.new_text(this.position, 'step your foot on me')
 	}
 }

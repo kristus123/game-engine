@@ -21,13 +21,13 @@ ErrorHandler.run(() => {
 
 			camera.context(() => {
 				levelSelector.update()
-				levelSelector.draw(camera.palette.ctx)
+				levelSelector.draw(new Draw(camera.palette.ctx))
 			})
 
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, 'black')
-			Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
+			// new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 		})
 	})

@@ -1,7 +1,7 @@
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world = new World(levelSelector, camera, mouse)
-		
+
 		this.npc = new Npc()
 
 		this.levelSelector = levelSelector
@@ -24,7 +24,7 @@ export class MainLevel {
 		this.runAll.update()
 	}
 
-	draw(ctx) {
-		this.runAll.draw(ctx)
+	draw(draw) {
+		this.runAll.draw(draw)
 	}
 }
