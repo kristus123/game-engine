@@ -31,6 +31,9 @@ export class Mouse {
 			this.down = false
 		})
 
+		// Prevent right click to open menu
+		// document.addEventListener('contextmenu', event => event.preventDefault())
+
 		this.clickEvents = new ClickEvents(this)
 	}
 
