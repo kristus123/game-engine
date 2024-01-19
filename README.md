@@ -14,15 +14,7 @@ Follow [SETUP_WINDOWS.md](SETUP_WINDOWS.md) instead.
 
 ### For Linux
 
-Run ´./first_time_install.sh´ or do:
-
-```
-npm install
-
-python3 -m venv venv || python -m venv venv
-. venv/bin/activate
-pip install -r requirements.txt
-```
+Run ´./first_time_install.sh´
 
 ## run locally
 
