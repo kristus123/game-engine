@@ -1,37 +1,41 @@
 const planet = new Picture(new GameObject(-1800, 0, 100, 100, 10, 10), 'https://www.nicepng.com/png/full/6-69021_mars-planet-png-mercury-planet-cartoon-png.png')
-
-const numPlanets = 10000
-const imgPath = '/static/assets/planets/'
-const imgs = ['sun.png', 'dryhotplanet32x32.png', 'dryvenuslikeplane32x32t.png', 'exoplanet32x32.png', 'iceplanet32x32.png', 'moon27x26.png', 'neptunlikeplanet32x32.png', 'org_iceplanet.png', 'org_lava_planet.png', 'org_machine_world.png', 'org_shattered_planet.png', 'sphereplanet70x70.png']
-
 export class Planets {
 
 	constructor() {
+		const numPlanets = 10000
+		const imgs = [
+			'/static/assets/planets/sun.png',
+			'd/static/assets/planets/ryhotplanet32x32.png',
+			'/static/assets/planets/dryvenuslikeplane32x32t.png',
+			'/static/assets/planets/exoplanet32x32.png',
+			'/static/assets/planets/iceplanet32x32.png',
+			'/static/assets/planets/moon27x26.png',
+			'/static/assets/planets/neptunlikeplanet32x32.png',
+			'/static/assets/planets/org_iceplanet.png',
+			'/static/assets/planets/org_lava_planet.png',
+			'/static/assets/planets/org_machine_world.png',
+			'/static/assets/planets/org_shattered_planet.png',
+			'/static/assets/planets/sphereplanet70x70.png'
+		]
+
 		this.planets = []
 		for (let i = 0; i < numPlanets; i++) {
 			const x = Random.integerBetween(-10000, 10000)
 			const y = Random.integerBetween(-10000, 10000)
-			const width = Math.random() * 1 + 1 // Varying star widths
-			const height = Math.random() * 1 + 1 // Varying star heights
 			const imgNum = Math.ceil(Math.random() * imgs.length) - 1
-			const img = imgPath + imgs[imgNum]
+			const img = imgs[imgNum]
 
-			this.planets.push({ img, x, y, width, height })
+			this.planets.push({ img, x, y })
 		}
 	}
 
 	draw(ctx) {
-		// planet.gameObject.width = s.width
-		// planet.gameObject.height = s.height
-		// planet.gameObject.x = s.s.x
-		// planet.gameObject.y = s.s.y
-
-		planet.gameObject.width = 100
-		planet.gameObject.height = 100
-		for(let i=0; i<this.planets.length; i++) {
-			planet.img = this.planets[i].img
-			planet.gameObject.x = this.planets[i].x
-			planet.gameObject.y = this.planets[i].y
+		planet.gameObject.width = 50
+		planet.gameObject.height = 50
+		for (const pl of this.planets) {
+			planet.image.src = pl.img
+			planet.gameObject.x = pl.x
+			planet.gameObject.y = pl.y
 			planet.draw(ctx)
 		}
 	}

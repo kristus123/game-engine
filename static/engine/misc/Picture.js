@@ -56,13 +56,5 @@ export class Picture {
 		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		draw.ctx.restore()
 	}
-
-	get img() {
-		return this.image.src
-	}
-
-	set img(image) {
-		this.image.src = image
-	}
 }
 
