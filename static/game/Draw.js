@@ -1,7 +1,6 @@
 
 export class Draw {
 
-
 	constructor(ctx) {
 		this.ctx = ctx
 	}
