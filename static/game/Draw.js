@@ -1,4 +1,3 @@
-
 export class Draw {
 
 	constructor(ctx) {
