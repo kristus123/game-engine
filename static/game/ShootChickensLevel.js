@@ -16,7 +16,7 @@ export class ShootChickensLevel {
 		this.runAll = new RunAll([
 			world,
 			this.spaceship,
-			// npc,
+			new Npc(),
 			// new ThirdChat(npc.position, world.mouse),
 			new Gun(world.player, world.mouse),
 			this.chicken,

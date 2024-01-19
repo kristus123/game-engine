@@ -1,8 +1,7 @@
 export class Npc extends GameObject {
 	constructor() {
-		super(-1000, -200, 35, 50, 100, 10)
+		super(-1000, -200, 50, 100, 100, 10)
 		this.picture = new Picture(this, 'https://i.imgur.com/w9dZE0H.png')
-
 	}
 
 	onCollision(o) {
@@ -13,6 +12,7 @@ export class Npc extends GameObject {
 	}
 
 	draw(draw) {
-		this.picture.old_draw(draw, 100)
+		super.draw(draw)
+		this.picture.draw(draw)
 	}
 }
