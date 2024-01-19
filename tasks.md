@@ -22,3 +22,10 @@ Make it so there are multiple piles of piss around the galaxy.
 Currently MainLevel takes care of this.
 
 Find a good solution.
+
+# improve Linter
+
+this:
+x(1,2)
+should be linted to this:
+x(1, 2)
