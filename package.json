@@ -4,7 +4,7 @@
   "description": "Space game",
   "main": "index.js",
   "scripts": {
-    "dev" : "npm run start",
+    "dev": "npm run start",
     "start": "concurrently \"reload -d dist/ -p 5000\" \". venv/bin/activate && nodemon script.py -e html,py,css,js --ignore dist/\""
   },
   "devDependencies": {
