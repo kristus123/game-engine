@@ -21,6 +21,8 @@ Elon might be the key to find DongMaster
 
 The game starts by you having to clean piss because every kid has to do mandatory piss cleaning service.
 
+After that the worlds open up for you completely.
+
 ## Work in Wacky Mac's chicken and burger shop
 
 You are poor, so you have to take any job you can get. One is to brutally massacre tons of chickens in order to make the customers have a happy meal at Wacky Mac's.
