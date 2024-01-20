@@ -130,7 +130,6 @@
         "Splash": "readonly",
         "Sprite": "readonly",
         "StarBackground": "readonly",
-        "Sun": "readonly",
         "TemporaryChange": "readonly",
         "ThirdChat": "readonly",
         "VoidDialogue": "readonly",
