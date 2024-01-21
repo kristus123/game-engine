@@ -15,12 +15,7 @@ export class Piss {
 
 	update() {
 		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
-			if (this.onFinish) {
-				this.onFinish()
-			}
-			else {
-				throw new Error('override piss.onFinish')
-			}
+			Call(this.onFinish)
 		}
 	}
 
