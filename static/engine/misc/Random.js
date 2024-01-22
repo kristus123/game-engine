@@ -15,4 +15,18 @@ export class Random {
 	static choice(list) {
 		return list[Math.floor(Math.random() * list.length)]
 	}
+
+	static positions(topLeftPosition, bottomRightPosition, amount) {
+		const positions = []
+		for (let i = 0; i < amount; i++) {
+			const x = Random.integerBetween(topLeftPosition.x, bottomRightPosition.x)
+			const y = Random.integerBetween(topLeftPosition.y, bottomRightPosition.y)
+
+			positions.push(new Position(x, y, 1, 1))
+		}
+
+		return positions
+	}
+
+
 }
