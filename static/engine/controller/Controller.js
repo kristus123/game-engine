@@ -2,9 +2,6 @@ export class Controller {
 	constructor() {
 		this.keyboard = new Keyboard()
 
-
-
-
 		this.velocity = {
 			x: 0,
 			y: 0,
