@@ -3,6 +3,6 @@
 clear
 
 source venv/bin/activate
-python update_eslint.py
+node build_tools/update_eslint.js
 
 npx eslint . --fix

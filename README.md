@@ -8,13 +8,9 @@
 
 ## First time set up
 
-### For Windows
-
-Follow [SETUP_WINDOWS.md](SETUP_WINDOWS.md) instead.
-
-### For Linux
-
-Run ´./first_time_install.sh´
+```
+npm install
+```
 
 ## run locally
 

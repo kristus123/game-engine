@@ -53,9 +53,8 @@ Work on finding various criminals and convicts.
 ### Bounty hunter: Chicken infiltration
 
 You have to go undercover as a chicken in one of the chicken farms because someone (for example; dictator, corrupt politician) has been hiding there for 5 years.
-Find out who is a real chicken, and who is the impostor among us.
+Find out who is a real chicken, and who is the impostor among us
 
-There is a time limit, as your risk of becoming a hamburger grows every time a chicken gets put in the grinder.
 
 
 ## Draft

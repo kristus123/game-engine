@@ -12,8 +12,6 @@
     - Because that is important
     - Become a simp ingame
 - Black hole
-    - used for garbage
-    - drop dead bodies for mafia
 - Go to bars and buy beer
     - Meet scary people at bars
 - create a company that produces material
