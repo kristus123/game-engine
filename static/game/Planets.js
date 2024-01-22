@@ -39,5 +39,4 @@ export class Planets {
 			planet.draw(ctx)
 		}
 	}
-
 }
