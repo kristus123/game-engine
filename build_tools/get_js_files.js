@@ -19,7 +19,4 @@ function getJsFiles(dir) {
 }
 
 getJsFiles('static')
-const sortedJsFiles = jsFiles.sort()
-
-console.log(sortedJsFiles)
-
+module.exports = jsFiles.sort()

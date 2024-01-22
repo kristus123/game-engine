@@ -27,8 +27,6 @@ export class Chicken extends GameObject {
 		setTimeout(() => {
 			this.runAll.remove(splash)
 		}, 10_000)
-
-		// Push(this).awayFrom(o, 50)
 	}
 
 	update() {

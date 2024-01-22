@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run start",
-    "start": "concurrently \"reload -d dist/ -p 5000\" \". venv/bin/activate && nodemon script.py -e html,py,css,js --ignore dist/\""
+    "start": "concurrently \"reload -d dist/ -p 5000\" \"nodemon build_tools/generate_dist.js -e html,css,js --ignore dist/\""
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
