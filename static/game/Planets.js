@@ -5,7 +5,7 @@ export class Planets {
 		const numPlanets = 10000
 		const imgs = [
 			'/static/assets/planets/sun.png',
-			'd/static/assets/planets/ryhotplanet32x32.png',
+			'/static/assets/planets/ryhotplanet32x32.png',
 			'/static/assets/planets/dryvenuslikeplane32x32t.png',
 			'/static/assets/planets/exoplanet32x32.png',
 			'/static/assets/planets/iceplanet32x32.png',
@@ -38,31 +38,6 @@ export class Planets {
 			planet.gameObject.y = pl.y
 			planet.draw(ctx)
 		}
-	}
-
-	drawImage(ctx, image, position) {
-		const aspectRatio = image.width / image.height
-
-		const maxWidth = 800
-		const maxHeight = 800
-
-		let newWidth = maxWidth
-		let newHeight = maxHeight
-
-		if (image.width > maxWidth) {
-			newWidth = maxWidth
-			newHeight = newWidth / aspectRatio
-		}
-
-		if (newHeight > maxHeight) {
-			newHeight = maxHeight
-			newWidth = newHeight * aspectRatio
-		}
-
-		ctx.save()
-		ctx.translate(position.x, position.y)
-		ctx.drawImage(image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-		ctx.restore()
 	}
 
 }
