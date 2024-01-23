@@ -19,18 +19,11 @@ export class Spaceship extends GameObject {
 		})
 	}
 
-	update() {
-	}
-
 	draw(draw) {
 		this.picture.r(draw)
 
-		if (this.entered) {
-		}
-		else {
-			if (Distance.withinRadius(this.player, this, 100)) {
-				draw.new_text(this.position, 'E to enter')
-			}
+		if (!this.entered && Distance.withinRadius(this.player, this, 100)) {
+			draw.new_text(this.position, 'E to enter')
 		}
 	}
 }

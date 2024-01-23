@@ -17,6 +17,4 @@ const eslintRcPath = '.eslintrc.json'
 const eslintRcData = JSON.parse(fs.readFileSync(eslintRcPath, 'utf8'))
 eslintRcData.globals = sortedEslintGlobalsConfig
 
-console.log(eslintRcData)
-
 fs.writeFileSync(eslintRcPath, JSON.stringify(eslintRcData, null, 4))
