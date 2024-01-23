@@ -3,6 +3,7 @@
         "@stylistic/js"
     ],
     "env": {
+        "node": true,
         "browser": true,
         "es2021": true
     },
@@ -84,7 +85,6 @@
         "Dialogue": "readonly",
         "Distance": "readonly",
         "Draw": "readonly",
-        "EnterVehicleExtension": "readonly",
         "ErrorHandler": "readonly",
         "Factory": "readonly",
         "FetchContainerExtension": "readonly",

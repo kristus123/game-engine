@@ -19,6 +19,8 @@ export class Chicken extends GameObject {
 	}
 
 	onCollision(o) {
+		console.log(o)
+
 		this.runAll.remove(this)
 
 		const splash = new Splash()

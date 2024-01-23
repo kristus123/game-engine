@@ -35,7 +35,4 @@ export class Controller {
 		this.velocity.y = this.keyboard.down ? 1 : this.keyboard.up ? -1 : 0
 	}
 
-	control(o) {
-		this.objectToControl = o
-	}
 }

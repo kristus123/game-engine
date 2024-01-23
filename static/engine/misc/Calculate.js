@@ -45,7 +45,7 @@ export class Calculate {
 		return angle >= minAngle && angle <= maxAngle && distance <= length
 	}
 
-	static isObjectWithinTheAngle(object, player, mousePosition, angleWidth, length) {
+	static isObjectWithinTheAngle(object, player, mousePosition, angleWidth) {
 		angleWidth = angleWidth * 0.3
 		angleWidth = Math.abs(angleWidth)
 

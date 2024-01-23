@@ -111,14 +111,6 @@ export class Draw {
 		this.ctx.fill()
 	}
 
-	position(position) {
-		const radius = 5
-		this.ctx.beginPath()
-		this.ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
-		this.ctx.fillStyle = 'orange'
-		this.ctx.fill()
-	}
-
 	hollowCircle(position, color, radius) {
 		this.ctx.strokeStyle = color
 		this.ctx.lineWidth = 6
@@ -269,40 +261,6 @@ export class Draw {
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
 		this.ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
-	}
-
-	player(player) {
-		const aspectRatio = playerImage.width / playerImage.height
-
-		const maxWidth = 50
-		const maxHeight = 200
-
-		let newWidth = maxWidth
-		let newHeight = maxHeight
-
-		if (playerImage.width > maxWidth) {
-			newWidth = maxWidth
-			newHeight = newWidth / aspectRatio
-		}
-
-		if (newHeight > maxHeight) {
-			newHeight = maxHeight
-			newWidth = newHeight * aspectRatio
-		}
-
-		this.ctx.save()
-
-		this.ctx.translate(player.x + player.width / 2, player.y + player.height / 2)
-
-		this.ctx.drawImage(
-			playerImage,
-			-newWidth / 2,
-			-newHeight / 2,
-			newWidth,
-			newHeight,
-		)
-
-		this.ctx.restore()
 	}
 
 	grid() {
