@@ -18,6 +18,10 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
+	star(position) {
+		this.rectangle(position.x, position.x, position.xidth, position.xeight, "white")
+	}
+
 	rectangle(x, y, width, height, color = 'orange') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(x, y, width, height)
