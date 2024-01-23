@@ -19,7 +19,7 @@ export class Draw {
 	}
 
 	star(position) {
-		this.rectangle(position.x, position.x, position.xidth, position.xeight, "white")
+		this.rectangle(position.x, position.x, position.xidth, position.xeight, 'white')
 	}
 
 	rectangle(x, y, width, height, color = 'orange') {
