@@ -2,6 +2,8 @@ export class Draw {
 
 	constructor(ctx) {
 		this.ctx = ctx
+
+		this.angle = 0 // temporary hack
 	}
 
 	new_rectangle(position) {
@@ -122,23 +124,20 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-
-	static angle = 0
-
 	// todo must be updated somehow iwthin game lloop
 	circleSpinning(objectToFollow, radius) {
 		const x =
 			objectToFollow.x +
 			objectToFollow.width / 2 +
-			radius * Math.cos(Draw.angle)
+			radius * Math.cos(this.angle)
 		const y =
 			objectToFollow.y +
 			objectToFollow.height / 2 +
-			radius * Math.sin(Draw.angle)
+			radius * Math.sin(this.angle)
 
-		Draw.circle(this.ctx, x, y, 10, 'red')
+		this.circle(x, y, 10, 'red')
 
-		Draw.angle += 0.1
+		this.angle += 0.1
 
 		return {
 			x,
@@ -160,7 +159,7 @@ export class Draw {
 		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
 		const circleY = player.y + player.height / 2 + circleRadius * Math.sin(oppositeAngle)
 
-		Draw.circle(circleX, circleY, playerRadius, 'red')
+		this.circle(circleX, circleY, playerRadius, 'red')
 
 		player.angle = getAngle(
 			player.x + player.width / 2,
@@ -194,7 +193,7 @@ export class Draw {
 
 		// Draw the circle
 		const playerRadius = 20
-		Draw.circle(circleX, circleY, playerRadius, 'red')
+		this.circle(circleX, circleY, playerRadius, 'red')
 
 		// Draw the rectangle
 		const rectX = player.position.center.x - horizontalRectDistance
@@ -231,7 +230,7 @@ export class Draw {
 		const circleY =
 			player.y + player.height / 2 + circleRadius * Math.sin(angle)
 
-		Draw.circle(circleX, circleY, playerRadius, 'red')
+		this.circle(circleX, circleY, playerRadius, 'red')
 	}
 
 	lineBetween(start, end) {
