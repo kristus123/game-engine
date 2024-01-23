@@ -28,8 +28,8 @@ export class Camera {
 		this.position.y += (this.objectToFollow.velocity.y * 0.002)
 
 		const smoothness = 1 //0.01
-		this.position.x += (this.objectToFollow.x - this.position.x) * smoothness
-		this.position.y += (this.objectToFollow.y - this.position.y) * smoothness
+		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * smoothness
+		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * smoothness
 
 		const x_distanceToMouse = this.mouse.position.x - this.position.x
 		this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01

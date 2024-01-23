@@ -26,7 +26,7 @@ ErrorHandler.run(() => {
 
 			showLogs.draw()
 
-			Palette.fill(backgroundPalette, 'black')
+			Palette.fill(backgroundPalette, '#130927')
 			// new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 		})
