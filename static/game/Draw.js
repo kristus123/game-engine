@@ -251,8 +251,13 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
+       text(x, y, width, height, text) {
+               this.ctx.fillStyle = 'white'
+               this.ctx.font = '25px Arial'
+               this.ctx.fillText(text, x + 20, y + height / 2)
+       }
 
-	text(position, text, color='white') {
+	new_text(position, text, color='white') {
 		this.ctx.fillStyle = color
 		this.ctx.font = '25px Arial'
 		this.ctx.fillText(text, position.x, position.y)
