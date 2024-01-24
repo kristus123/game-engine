@@ -1,4 +1,3 @@
-
 export class World {
 	constructor(levelSelector, camera, mouse) {
 		this.levelSelector = levelSelector

@@ -6,16 +6,29 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-	new_rectangle(position) {
-		this.ctx.fillStyle = 'yellow'
+	// drawTextInCenter(text, centerPosition) {
+	// 	this.ctx.fillStyle = 'white';
+	// 	this.ctx.font = '25px Arial';
+
+	// 	// Set text alignment to center
+	// 	this.ctx.textAlign = 'center';
+	// 	this.ctx.textBaseline = 'middle';
+
+	// 	// Draw text in the middle of the rectangle
+	// 	this.ctx.fillText(text, centerPosition.x, centerPosition.y);
+	// }
+
+	new_rectangle(position, color="yellow") {
+		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
-		this.ctx.strokeStyle = 'yellow'
+		this.ctx.strokeStyle = color
 		this.ctx.lineWidth = 4
 		this.ctx.strokeRect(position.x, position.y, position.width, position.height)
 
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
+
 	}
 
 	star(position) {
@@ -238,20 +251,11 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(x, y, width, height, text) {
-		this.rectangle(x, y, width, height)
 
-		this.ctx.fillStyle = 'white'
+	text(position, text, color='white') {
+		this.ctx.fillStyle = color
 		this.ctx.font = '25px Arial'
-		this.ctx.fillText(text, x + 20, y + height / 2)
-	}
-
-	new_text(position, text, color = 'orange') {
-		this.rectangle(position.x, position.y, position.width, position.height, color)
-
-		this.ctx.fillStyle = 'white'
-		this.ctx.font = '25px Arial'
-		this.ctx.fillText(text, position.x + 20, position.y + 50)
+		this.ctx.fillText(text, position.x, position.y)
 	}
 
 
