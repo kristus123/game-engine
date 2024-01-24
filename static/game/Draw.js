@@ -18,7 +18,7 @@ export class Draw {
 	// 	this.ctx.fillText(text, centerPosition.x, centerPosition.y);
 	// }
 
-	new_rectangle(position, color="yellow") {
+	new_rectangle(position, color='yellow') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
@@ -251,11 +251,11 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-       text(x, y, width, height, text) {
-               this.ctx.fillStyle = 'white'
-               this.ctx.font = '25px Arial'
-               this.ctx.fillText(text, x + 20, y + height / 2)
-       }
+	text(x, y, width, height, text) {
+		this.ctx.fillStyle = 'white'
+		this.ctx.font = '25px Arial'
+		this.ctx.fillText(text, x + 20, y + height / 2)
+	}
 
 	new_text(position, text, color='white') {
 		this.ctx.fillStyle = color

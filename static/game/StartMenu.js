@@ -3,13 +3,13 @@ export class StartMenu {
 		// this.world = new World(levelSelector, camera, mouse)
 		this.camera = camera
 		this.mouse = mouse
-		
-		this.startGame = new Button(new Position(0, -400, 400, 200), "Start game", mouse, () => {
+
+		this.startGame = new Button(new Position(0, -400, 400, 200), 'Start game', mouse, () => {
 			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
 		})
 
-		this.settings = new Button(new Position(0, -150, 400, 200), "Settings", mouse, () => {
-			console.log("hei")
+		this.settings = new Button(new Position(0, -150, 400, 200), 'Settings', mouse, () => {
+			console.log('hei')
 		})
 
 
