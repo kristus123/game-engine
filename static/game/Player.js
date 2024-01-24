@@ -1,6 +1,6 @@
 export class Player extends GameObject {
 	constructor(mouse) {
-		super(-1200, 10, 40, 50, 200, 5)
+		super(-120, 10, 40, 50, 200, 5)
 
 		this.mouse = mouse
 
