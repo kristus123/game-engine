@@ -68,6 +68,7 @@
         ]
     },
     "globals": {
+        "AudioEngine": "readonly",
         "BeaconShit": "readonly",
         "Bullet": "readonly",
         "Calculate": "readonly",

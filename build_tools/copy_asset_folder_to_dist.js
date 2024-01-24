@@ -1,14 +1,19 @@
 const fs = require('fs')
 const path = require('path')
 
-const sourceFolder = 'static/assets/'
-const destinationFolder = 'dist/static/assets/'
 
 // Function to recursively copy a folder
 function copyFolderRecursive(source, destination) {
+	if (!fs.existsSync(source)) {
+		console.error('Source folder does not exist.')
+		process.exit(1)
+	}
+
 	if (!fs.existsSync(destination)) {
 		fs.mkdirSync(destination)
 	}
+
+
 
 	const files = fs.readdirSync(source)
 
@@ -25,14 +30,6 @@ function copyFolderRecursive(source, destination) {
 	})
 }
 
-// Ensure the source folder exists
-if (!fs.existsSync(sourceFolder)) {
-	console.error('Source folder does not exist.')
-	process.exit(1)
-}
 
-// Copy the folder recursively
-copyFolderRecursive(sourceFolder, destinationFolder)
-
-console.log('Folder copied successfully!')
-
+copyFolderRecursive('static/assets/', 'dist/static/assets/')
+copyFolderRecursive('static/audio/', 'dist/static/audio/')
