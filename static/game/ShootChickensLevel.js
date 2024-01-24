@@ -3,6 +3,8 @@ export class ShootChickensLevel {
 
 		this.chicken = new Chicken(world.player)
 
+		this.pisses = Array.from({ length: 20 }, () => this.createRandomPiss(world));
+
 		this.spaceship = new Spaceship(world.player, world.mouse, world.controller)
 		this.spaceship.onEnter = () => {
 			world.camera.follow(this.spaceship)
@@ -23,8 +25,14 @@ export class ShootChickensLevel {
 			new Fire(),
 		])
 
-		this.chicken.runAll = this.runAll
+		this.chicken.runAll = this.runAll;
 	}
+
+	createRandomPiss(world) {
+		const x = Random.integerBetween(1000, -1000);
+		const y = Random.integerBetween(1000, -1000);
+		return new Piss(world.player, world.mouse, new Position(x, y, 100, 100));
+	};
 
 	update() {
 		this.runAll.update()
@@ -32,5 +40,8 @@ export class ShootChickensLevel {
 
 	draw(draw) {
 		this.runAll.draw(draw)
+		this.pisses.forEach((piss) => {
+			piss.draw(draw)
+		})
 	}
 }
