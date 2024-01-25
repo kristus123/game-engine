@@ -11,23 +11,22 @@ export class CinematicIntroLevel {
 		])
 
 
-		// camera.follow(new GameObject(-1800, 0, 1, 1, 1, 20))
+		camera.follow(new GameObject(-1800, 0, 1, 1, 1, 20))
 
 		AudioEngine.play()
 
 		setTimeout(() => {
 			Push(camera.objectToFollow).towards(new Position(500, 100), 10)
-			// camera.zoom = 0.5
+			camera.zoom = 0.5
 		}, 1_000)
 
 		setTimeout(() => {
 			Push(camera.objectToFollow).towards(new Position(3000, 8000), 10)
-			// camera.zoom = 0.4
+			camera.zoom = 0.5
 		}, 10_000)
 
 		setTimeout(() => {
 			Push(camera.objectToFollow).towards(new Position(10_000, 8000), 50)
-			// camera.zoom = 0.5
 		}, 21_000)
 
 		setTimeout(() => {
