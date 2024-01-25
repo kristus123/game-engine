@@ -7,6 +7,7 @@ export class CinematicIntroLevel {
 			this.world,
 			new Picture(new GameObject(500, 0, 1500, 1500, 1, 1), '/static/assets/planets/exoplanet32x32.png'),
 			new Picture(new GameObject(1500, 3000, 800, 800, 1, 1), '/static/assets/planets/moon27x26.png'),
+			new Picture(new GameObject(2100, 5000, 3000, 3000, 1, 1), '/static/assets/planets/sun.png'),
 		])
 
 
@@ -28,10 +29,14 @@ export class CinematicIntroLevel {
 			Push(camera.objectToFollow).towards(new Position(10_000, 8000), 50)
 		}, 21_000);
 
+		setTimeout(() => {
+			Push(camera.objectToFollow).towards(new Position(10_000, 8000), 100)
+		}, 28_000);
 
 		setTimeout(() => {
-			Push(camera.objectToFollow).towards(new Position(10_000, 8000), 200)
-		}, 28_000);
+			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
+		}, 30_000);
+
 	}
 
 
@@ -40,8 +45,6 @@ export class CinematicIntroLevel {
 	}
 
 	draw(draw) {
-		draw.position(this.camera.objectToFollow)
-		// draw.new_text(this.camera.objectToFollow, "hol")
 		this.runAll.draw(draw)
 	}
 	
