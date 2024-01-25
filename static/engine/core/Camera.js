@@ -19,7 +19,6 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
-		// this.smoothZoom = new SmoothValue(0.5, 0.5, 0.01, 0.0001)
 	}
 
 	get zoom() {
