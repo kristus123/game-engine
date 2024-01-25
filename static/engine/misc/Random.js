@@ -17,17 +17,17 @@ export class Random {
 	}
 
 	static positions(minX, maxX, minY, maxY, amount) {
-		const positions = [];
+		const positions = []
 
 		for (let i = 0; i < amount; i++) {
-			const randomX = Random.integerBetween(minX, maxX);
-			const randomY = Random.integerBetween(minY, maxY);
+			const randomX = Random.integerBetween(minX, maxX)
+			const randomY = Random.integerBetween(minY, maxY)
 
 			const newPosition = new Position(randomX, randomY, 1, 1)
 
-			positions.push(newPosition);
+			positions.push(newPosition)
 		}
 
-		return positions;
+		return positions
 	}
 }
