@@ -12,7 +12,7 @@ export class Planets {
 			'/static/assets/planets/org_lava_planet.png',
 			'/static/assets/planets/org_machine_world.png',
 			'/static/assets/planets/org_shattered_planet.png',
-			'/static/assets/planets/sphereplanet70x70.png'
+			'/static/assets/planets/sphereplanet70x70.png',
 		]
 
 		this.planets = Random.positions(-10000, 10000, -10000, 10000, 100)
