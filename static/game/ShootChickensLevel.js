@@ -26,6 +26,9 @@ export class ShootChickensLevel {
 		])
 
 		this.chicken.runAll = this.runAll
+
+		AudioEngine.play()
+
 	}
 
 	update() {
