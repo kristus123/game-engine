@@ -1,6 +1,5 @@
 export class StartMenu {
 	constructor(levelSelector, camera, mouse) {
-		// this.world = new World(levelSelector, camera, mouse)
 		this.camera = camera
 		this.mouse = mouse
 
