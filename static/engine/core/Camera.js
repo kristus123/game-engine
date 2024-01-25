@@ -27,7 +27,9 @@ export class Camera {
 		this.position.x += (this.objectToFollow.velocity.x * 0.002)
 		this.position.y += (this.objectToFollow.velocity.y * 0.002)
 
-		const smoothness = 1 //0.01
+		// const smoothness = 1 //0.01
+		const smoothness = 0.1
+
 		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * smoothness
 		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * smoothness
 
