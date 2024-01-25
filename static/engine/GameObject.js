@@ -17,7 +17,7 @@ export class GameObject {
 	}
 
 	onCollision(o) {
-		console.log(o + ' collided with ' + this)
+		// console.log(o + ' collided with ' + this)
 	}
 
 	resetVelocity() {
