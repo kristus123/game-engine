@@ -129,6 +129,7 @@
         "ShootChickensLevel": "readonly",
         "ShowLogs": "readonly",
         "SlingshotExtension": "readonly",
+        "SmoothValue": "readonly",
         "Spaceship": "readonly",
         "Splash": "readonly",
         "Sprite": "readonly",

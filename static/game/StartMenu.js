@@ -21,6 +21,7 @@ export class StartMenu {
 	}
 
 	update() {
+		this.levelSelector.changeActiveLevel(new CinematicIntroLevel(this.levelSelector, this.camera, this.mouse))
 		this.runAll.update()
 	}
 
