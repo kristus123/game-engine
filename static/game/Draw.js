@@ -31,6 +31,25 @@ export class Draw {
 
 	}
 
+	gradient(position) {
+		const radius = 2000;
+
+		const scaledX = position.x
+		const scaledY = position.y
+
+		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 500, scaledX, scaledY, radius);
+		// Add transparent colors with alpha channel
+		gradient.addColorStop(0, 'rgba(255, 0, 0, 0)');           // Inner color (fully transparent red)
+		gradient.addColorStop(0.5, `rgba(0, 0, 255, 1)`);       // Middle color (partially transparent blue)
+		gradient.addColorStop(1, `rgba(0, 0, 255, 0)`);       // Middle color (partially transparent blue)
+
+		this.ctx.fillStyle = gradient;
+		this.ctx.beginPath();
+		this.ctx.arc(scaledX, scaledY, radius, 0, 2 * Math.PI);
+		this.ctx.fill();
+	}
+
+
 	star(position) {
 		this.rectangle(position.x, position.y, position.width, position.height, 'white')
 	}

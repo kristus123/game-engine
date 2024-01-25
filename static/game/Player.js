@@ -45,7 +45,7 @@ export class Player extends GameObject {
 	}
 
 	draw(draw) {
-		// console.log(this.x + " " + this.y)
+		console.log(this.x + " " + this.y)
 		this.picture.draw(draw)
 
 		if (this.beacon) {
