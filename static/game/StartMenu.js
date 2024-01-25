@@ -1,5 +1,6 @@
 export class StartMenu {
 	constructor(levelSelector, camera, mouse) {
+		this.levelSelector = levelSelector
 		this.camera = camera
 		this.mouse = mouse
 
@@ -20,6 +21,7 @@ export class StartMenu {
 	}
 
 	update() {
+		this.levelSelector.changeActiveLevel(new CinematicIntroLevel(this.levelSelector, this.camera, this.mouse))
 		this.runAll.update()
 	}
 
