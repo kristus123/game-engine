@@ -1,6 +1,6 @@
 export class StarBackground {
 	constructor() {
-		this.stars = Random.positions(new Position(-10000, -10000), new Position(10000, 10000), 1000)
+		this.stars = Random.positions(-10000, 10000, -10000, 10000, 10000)
 	}
 
 	update() {
