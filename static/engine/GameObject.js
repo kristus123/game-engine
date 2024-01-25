@@ -16,8 +16,8 @@ export class GameObject {
 		Physics.global.applyPhysics(this)
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	onCollision(o) {
-		// console.log(o + ' collided with ' + this)
 	}
 
 	resetVelocity() {
