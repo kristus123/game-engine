@@ -132,6 +132,7 @@
         "StarBackground": "readonly",
         "TemporaryChange": "readonly",
         "ThirdChat": "readonly",
+        "Thread": "readonly",
         "VoidDialogue": "readonly",
         "Water": "readonly",
         "World": "readonly",
