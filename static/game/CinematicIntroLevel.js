@@ -46,6 +46,7 @@ export class CinematicIntroLevel {
 
 	draw(draw) {
 		this.runAll.draw(draw)
+		draw.gradient(new Position(1300, 800))
 	}
 
 }

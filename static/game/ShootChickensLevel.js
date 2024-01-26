@@ -1,5 +1,6 @@
 export class ShootChickensLevel {
 	constructor(world) {
+		this.world = world
 
 		this.chicken = new Chicken(world.player)
 
