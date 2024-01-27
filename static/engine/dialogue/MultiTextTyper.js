@@ -14,7 +14,6 @@ export class MultiTextTyper {
 			else {
 				t.update()
 			}
-
 		}
 	}
 
@@ -23,7 +22,7 @@ export class MultiTextTyper {
 			return this.texts[this.index].text
 		}
 		else {
-			return this.texts[0].text
+			return ""
 		}
 	}
 
