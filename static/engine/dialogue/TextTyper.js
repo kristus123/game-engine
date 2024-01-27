@@ -4,14 +4,17 @@ export class TextTyper {
         this.currentIndex = 0;
         this.isTyping = true;
         this.ready = false;
-        this.framesPerLetter = framesPerLetter || 5
+        this.framesPerLetter = framesPerLetter || 2
         this.frameCount = 0;
 		this.firstTimeFinish = new FirstTimeFinish(() => this.text == this.textToType)
+		this.finishedTyping = false
     }
 
     update() {
 		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
 			Call(this.onFinish)
+			this.finishedTyping = true
+			return
 		}
 
         if (this.currentIndex < this.textToType.length && this.frameCount % this.framesPerLetter === 0) {
@@ -26,9 +29,5 @@ export class TextTyper {
 
     get text() {
         return this.textToType.substring(0, this.currentIndex);
-    }
-
-    get finishedTyping() {
-        return 
     }
 }

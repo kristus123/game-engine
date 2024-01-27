@@ -3,6 +3,6 @@ export const Call = (methodName) => {
 		methodName()
 	}
 	else {
-		throw new Error(methodName + ' is not implemented')
+		// throw new Error(methodName + ' is not implemented')
 	}
 }
