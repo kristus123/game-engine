@@ -1,10 +1,10 @@
 export class TextTyper {
     constructor(textToType, framesPerLetter) {
         this.textToType = textToType;
-        this.currentIndex = 0;
+        this.currentIndex = -1;
         this.isTyping = true;
         this.ready = false;
-        this.framesPerLetter = framesPerLetter || 2
+        this.framesPerLetter = framesPerLetter || 4
         this.frameCount = 0;
 		this.firstTimeFinish = new FirstTimeFinish(() => this.text == this.textToType)
 		this.finishedTyping = false

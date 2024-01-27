@@ -32,14 +32,14 @@ export class Draw {
 	}
 
 	gradient(position) {
-		const radius = 2000
+		const radius = 1500
 
 		const scaledX = position.x
 		const scaledY = position.y
 
-		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 500, scaledX, scaledY, radius)
+		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 200, scaledX, scaledY, radius)
 		// Add transparent colors with alpha channel
-		gradient.addColorStop(0, 'rgba(255, 0, 0, 0)') // Inner color (fully transparent red)
+		gradient.addColorStop(0, 'rgba(255, 0, 0, 0.2)') // Inner color (fully transparent red)
 		gradient.addColorStop(0.5, 'rgba(0, 0, 255, 1)') // Middle color (partially transparent blue)
 		gradient.addColorStop(1, 'rgba(0, 0, 255, 0)') // Middle color (partially transparent blue)
 

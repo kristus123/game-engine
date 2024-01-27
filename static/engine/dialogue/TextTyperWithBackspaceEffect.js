@@ -7,7 +7,7 @@ export class TextTyperWithBackspaceEffect {
 				this.t.onFinish = () => {
 					Call(this.onFinish)
 				}
-			}, 500);
+			}, 900);
 		}
 	}
 
