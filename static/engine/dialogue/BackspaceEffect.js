@@ -7,7 +7,7 @@ export class BackspaceEffect {
     }
 
     update() {
-		if (this.finishedDeleting) {
+		if (this.finished) {
 			Call(this.onFinish)
 		}
 
@@ -22,7 +22,7 @@ export class BackspaceEffect {
         return this.textToBackspace.substring(0, this.currentIndex);
     }
 
-    get finishedDeleting() {
+    get finished() {
         return this.currentIndex <= 0;
     }
 }

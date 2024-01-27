@@ -15,4 +15,12 @@ export class List {
 		}
 	}
 
+	static lastIndex(list, index) {
+		return index === list.length - 1;
+	}
+
+	static validIndex(list, index) {
+		return index >= 0 && index < list.length;
+	}
+
 }

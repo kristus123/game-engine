@@ -48,12 +48,20 @@ export class CinematicIntroLevel {
 			
 		}, 4_900);
 
-		this.t = new TextTyperWithBackspaceEffect("Current objective:")
-		this.t.onFinish = () => {
-			setTimeout(() => {
-				this.t = new TextTyperWithBackspaceEffect("Deliver package")
-			}, 500);
-		}
+		this.t = new MultiTextTyper([
+			"Current objective:", 
+			"Deliver package", 
+			"",
+			"",
+			"Would be nice to have a greater purpose",
+			"",
+			"",
+			"Maybe one day",
+			"",
+			"",
+			"But not today",
+		])
+
 	}
 
 	update() {
@@ -62,9 +70,8 @@ export class CinematicIntroLevel {
 	}
 
 	draw(draw, guiDraw) {
-		guiDraw.new_text(GuiPosition.middle(), this.t.text, 50)
-
 		this.runAll.draw(draw)
+		draw.new_text(this.deliveryDrone.position.offset(-50, 60), this.t.text)
 	}
 
 }

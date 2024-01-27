@@ -276,10 +276,18 @@ export class Draw {
 		this.ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	new_text(position, text, color='white') {
-		this.ctx.fillStyle = color
-		this.ctx.font = '25px Arial'
-		this.ctx.fillText(text, position.x, position.y)
+	new_text(position, text, color='white', fontSize = 40) {
+		this.ctx.fillStyle = "black";
+
+		this.ctx.font = `${fontSize}px Arial`;
+
+		const textWidth = this.ctx.measureText(text).width;
+
+		// Adjust the rectangle dimensions based on the font size
+		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40);
+
+		this.ctx.fillStyle = color;
+		this.ctx.fillText(text, position.x, position.y);
 	}
 
 
