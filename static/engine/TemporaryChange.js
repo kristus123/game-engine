@@ -1,38 +1,35 @@
 export class TemporaryChange {
-	constructor(fieldsToChange) {
+	constructor(object, fieldsToChange) {
+		this.object = object
 		this.fieldsToChange = fieldsToChange
 		this.oldValues = {}
 
-		for (const field of fieldsToChange) {
-			const object = field[0]
-			const fieldName = field[1]
-
-			this.oldValues[fieldName] = object[fieldName]
+		for (const fieldName in fieldsToChange) {
+			if (fieldsToChange.hasOwnProperty(fieldName)) {
+				this.oldValues[fieldName] = object[fieldName]
+			}
 		}
 	}
 
 	applyIf(condition, run) {
 		if (condition) {
-			for (const field of this.fieldsToChange) {
-				const object = field[0]
-				const fieldName = field[1]
-				const temporaryValue = field[2]
-
-				object[fieldName] = temporaryValue
+			for (const fieldName in this.fieldsToChange) {
+				if (this.fieldsToChange.hasOwnProperty(fieldName)) {
+					const temporaryValue = this.fieldsToChange[fieldName]
+					this.object[fieldName] = temporaryValue
+				}
 			}
 
 			run()
 		}
 
 		if (!condition) {
-			for (const field of this.fieldsToChange) {
-				const object = field[0]
-				const fieldName = field[1]
-
-				object[fieldName] = this.oldValues[fieldName]
+			for (const fieldName in this.fieldsToChange) {
+				if (this.fieldsToChange.hasOwnProperty(fieldName)) {
+					this.object[fieldName] = this.oldValues[fieldName]
+				}
 			}
 		}
 	}
 }
-
 

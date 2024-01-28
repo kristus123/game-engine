@@ -26,7 +26,7 @@ export class GuiPosition {
 		const y = Palette.height / 2
 
 		return new Position(x, y)
-		
+
 	}
 
 	static middle() {

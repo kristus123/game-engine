@@ -9,7 +9,7 @@ export class TextTyperWithBackspaceEffect {
 					Call(this.onFinish)
 					this.finished = true
 				}
-			}, 900);
+			}, 900)
 		}
 	}
 

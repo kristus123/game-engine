@@ -4,10 +4,10 @@ export class Fleet extends GameObject {
 
 		this.player = player
 
-		this.temporaryChange = new TemporaryChange([
-			[this.player, 'weight', this.weight],
-			[this.player, 'velocityFactor', 400],
-		])
+		this.temporaryChange = new TemporaryChange(this.player, {
+			weight: this.weight,
+			velocityFactor: 400
+		})
 	}
 
 	update() {

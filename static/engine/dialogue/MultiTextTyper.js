@@ -22,7 +22,7 @@ export class MultiTextTyper {
 			return this.texts[this.index].text
 		}
 		else {
-			return ""
+			return ''
 		}
 	}
 

@@ -19,7 +19,7 @@ export class CinematicIntroLevel {
 
 		// camera.follow(new GameObject(-1000, 0, 1, 1, 1, 20))
 		camera.follow(new GameObject(0, 0, 1, 1, 1, 20))
-			camera.zoom = 0.7
+		camera.zoom = 0.7
 
 		AudioEngine.play()
 
@@ -45,21 +45,21 @@ export class CinematicIntroLevel {
 			setTimeout(() => {
 				levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
 			}, 40_000)
-			
-		}, 4_900);
+
+		}, 4_900)
 
 		this.t = new MultiTextTyper([
-			"Current objective:", 
-			"Deliver package", 
-			"",
-			"",
-			"Would be nice to have a greater purpose",
-			"",
-			"",
-			"Maybe one day",
-			"",
-			"",
-			"But not today",
+			'Current objective:',
+			'Deliver package',
+			'',
+			'',
+			'Would be nice to have a greater purpose',
+			'',
+			'',
+			'Maybe one day',
+			'',
+			'',
+			'But not today',
 		])
 
 	}

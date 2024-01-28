@@ -51,6 +51,7 @@ export class Draw {
 
 
 	star(position) {
+		this.ctx.fillStyle = 'white'
 		this.rectangle(position.x, position.y, position.width, position.height, 'white')
 	}
 
@@ -277,17 +278,17 @@ export class Draw {
 	}
 
 	new_text(position, text, color='white', fontSize = 40) {
-		this.ctx.fillStyle = "black";
+		this.ctx.fillStyle = 'black'
 
-		this.ctx.font = `${fontSize}px Arial`;
+		this.ctx.font = `${fontSize}px Arial`
 
-		const textWidth = this.ctx.measureText(text).width;
+		const textWidth = this.ctx.measureText(text).width
 
 		// Adjust the rectangle dimensions based on the font size
-		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40);
+		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40)
 
-		this.ctx.fillStyle = color;
-		this.ctx.fillText(text, position.x, position.y);
+		this.ctx.fillStyle = color
+		this.ctx.fillText(text, position.x, position.y)
 	}
 
 

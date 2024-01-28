@@ -7,6 +7,6 @@ export class CallOnce {
 		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
 			Call()
 		}
-		
+
 	}
 }
