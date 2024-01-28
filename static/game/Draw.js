@@ -6,20 +6,53 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-	new_rectangle(position) {
-		this.ctx.fillStyle = 'yellow'
+	// drawTextInCenter(text, centerPosition) {
+	// 	this.ctx.fillStyle = 'white';
+	// 	this.ctx.font = '25px Arial';
+
+	// 	// Set text alignment to center
+	// 	this.ctx.textAlign = 'center';
+	// 	this.ctx.textBaseline = 'middle';
+
+	// 	// Draw text in the middle of the rectangle
+	// 	this.ctx.fillText(text, centerPosition.x, centerPosition.y);
+	// }
+
+	new_rectangle(position, color='yellow') {
+		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
-		this.ctx.strokeStyle = 'yellow'
+		this.ctx.strokeStyle = color
 		this.ctx.lineWidth = 4
 		this.ctx.strokeRect(position.x, position.y, position.width, position.height)
 
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
+
 	}
 
+	gradient(position) {
+		const radius = 1500
+
+		const scaledX = position.x
+		const scaledY = position.y
+
+		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 200, scaledX, scaledY, radius)
+		// Add transparent colors with alpha channel
+		gradient.addColorStop(0, 'rgba(255, 0, 0, 0.2)') // Inner color (fully transparent red)
+		gradient.addColorStop(0.5, 'rgba(0, 0, 255, 1)') // Middle color (partially transparent blue)
+		gradient.addColorStop(1, 'rgba(0, 0, 255, 0)') // Middle color (partially transparent blue)
+
+		this.ctx.fillStyle = gradient
+		this.ctx.beginPath()
+		this.ctx.arc(scaledX, scaledY, radius, 0, 2 * Math.PI)
+		this.ctx.fill()
+	}
+
+
 	star(position) {
-		this.rectangle(position.x, position.x, position.xidth, position.xeight, 'white')
+		this.ctx.fillStyle = 'white'
+		this.rectangle(position.x, position.y, position.width, position.height, 'white')
 	}
 
 	rectangle(x, y, width, height, color = 'orange') {
@@ -239,19 +272,23 @@ export class Draw {
 	}
 
 	text(x, y, width, height, text) {
-		this.rectangle(x, y, width, height)
-
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
 		this.ctx.fillText(text, x + 20, y + height / 2)
 	}
 
-	new_text(position, text, color = 'orange') {
-		this.rectangle(position.x, position.y, position.width, position.height, color)
+	new_text(position, text, color='white', fontSize = 40) {
+		this.ctx.fillStyle = 'black'
 
-		this.ctx.fillStyle = 'white'
-		this.ctx.font = '25px Arial'
-		this.ctx.fillText(text, position.x + 20, position.y + 50)
+		this.ctx.font = `${fontSize}px Arial`
+
+		const textWidth = this.ctx.measureText(text).width
+
+		// Adjust the rectangle dimensions based on the font size
+		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40)
+
+		this.ctx.fillStyle = color
+		this.ctx.fillText(text, position.x, position.y)
 	}
 
 

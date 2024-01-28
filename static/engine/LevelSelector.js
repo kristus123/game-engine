@@ -11,8 +11,8 @@ export class LevelSelector {
 		this.activeLevel.update()
 	}
 
-	draw(draw) {
-		this.activeLevel.draw(draw)
+	draw(draw, guiDraw) {
+		this.activeLevel.draw(draw, guiDraw)
 	}
 
 }

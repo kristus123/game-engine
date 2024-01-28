@@ -23,7 +23,7 @@ for (const srcPath of jsFiles) {
 		const className = path.basename(jsFilePath, '.js')
 		const i = `import { ${className} } from '/${jsFilePath}'`
 
-		if (content.includes(`export class ${className}`)) {
+		if (content.includes(`export class ${className} {`)) {
 			// Do nothing
 		}
 		else if (

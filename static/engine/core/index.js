@@ -11,7 +11,7 @@ ErrorHandler.run(() => {
 	camera.mouse = mouse
 
 	const levelSelector = new LevelSelector()
-	levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
+	levelSelector.changeActiveLevel(new StartMenu(levelSelector, camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -21,7 +21,7 @@ ErrorHandler.run(() => {
 
 			camera.context(() => {
 				levelSelector.update()
-				levelSelector.draw(new Draw(camera.palette.ctx))
+				levelSelector.draw(new Draw(camera.palette.ctx), new Draw(guiPalette.ctx))
 			})
 
 			showLogs.draw()

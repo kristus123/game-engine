@@ -43,6 +43,6 @@ export class Palette {
 
 	static fill(palette, color) {
 		palette.ctx.fillStyle = color
-		palette.ctx.fillRect(0, 0, Palette.width, Palette.height)
+		palette.ctx.fillRect(0, 0, palette.width, palette.height)
 	}
 }

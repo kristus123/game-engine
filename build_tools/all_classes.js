@@ -1,3 +1,5 @@
+/* eslint-disable */ // do this until you actually start using this file
+
 const fs = require('fs')
 const path = require('path')
 

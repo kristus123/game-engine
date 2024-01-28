@@ -46,29 +46,3 @@ export class Dialogue {
 		this._drawReplies(draw)
 	}
 }
-
-class TextTyper {
-	constructor(text) {
-		this.text = text
-		this.currentIndex = 0
-		this.isTyping = true
-		this.ready = false
-	}
-
-	update() {
-		if (this.currentIndex < this.text.length) {
-			this.currentIndex++
-		}
-		else {
-			this.isTyping = false
-		}
-	}
-
-	get typedText() {
-		return this.text.substring(0, this.currentIndex)
-	}
-
-	get finishedTyping() {
-		return this.typedText == this.text
-	}
-}

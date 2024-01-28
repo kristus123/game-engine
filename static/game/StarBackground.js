@@ -1,13 +1,12 @@
 export class StarBackground {
 	constructor() {
-		this.stars = Random.positions(new Position(-10000, -10000), new Position(10000, 10000), 1000)
+		this.stars = Random.positions(-1000, 20000, -1000, 20000, 10000)
 	}
 
 	update() {
 	}
 
 	draw(draw) {
-		draw.ctx.fillStyle = 'white'
 		this.stars.forEach((s) => {
 			draw.star(s)
 		})
