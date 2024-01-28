@@ -26,7 +26,7 @@ export class Camera {
 	}
 
 	set zoom(x) {
-		return this.smoothZoom.targetValue = x
+		this.smoothZoom.targetValue = x
 	}
 
 	context(run) {
