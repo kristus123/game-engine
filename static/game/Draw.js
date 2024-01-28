@@ -300,40 +300,41 @@ export class Draw {
 		this.ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
 	}
 
-	grid() {
-		this.ctx.strokeStyle = '#ccc' // Grid color
-		this.ctx.lineWidth = 2
+grid(x=0, y=0) {
+    this.ctx.strokeStyle = '#ccc'; // Grid color
+    this.ctx.lineWidth = 2;
 
-		const cellSize = 100 // Adjust this to change the grid cell size
-		const mapWidth = 1000 // Adjust this to match your map's width
-		const mapHeight = 1000 // Adjust this to match your map's height
-		const rows = Math.floor(mapHeight / cellSize)
-		const columns = Math.floor(mapWidth / cellSize)
+    const cellWidth = 64; // Adjust this to change the grid cell width
+    const cellHeight = 64; // Adjust this to change the grid cell height
+    const mapWidth = 1000; // Adjust this to match your map's width
+    const mapHeight = 1000; // Adjust this to match your map's height
+    const rows = Math.floor(mapHeight / cellHeight);
+    const columns = Math.floor(mapWidth / cellWidth);
 
-		for (let i = 0; i < rows; i++) {
-			this.ctx.beginPath()
-			this.ctx.moveTo(0, i * cellSize)
-			this.ctx.lineTo(mapWidth, i * cellSize)
-			this.ctx.stroke()
-		}
+    for (let i = 0; i < rows; i++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x, y + i * cellHeight);
+        this.ctx.lineTo(x + mapWidth, y + i * cellHeight);
+        this.ctx.stroke();
+    }
 
-		this.ctx.beginPath()
-		this.ctx.moveTo(0, mapHeight)
-		this.ctx.lineTo(mapWidth, mapHeight)
-		this.ctx.stroke()
+    this.ctx.beginPath();
+    this.ctx.moveTo(x, y + mapHeight);
+    this.ctx.lineTo(x + mapWidth, y + mapHeight);
+    this.ctx.stroke();
 
-		for (let j = 0; j < columns; j++) {
-			this.ctx.beginPath()
-			this.ctx.moveTo(j * cellSize, 0)
-			this.ctx.lineTo(j * cellSize, mapHeight)
-			this.ctx.stroke()
-		}
+    for (let j = 0; j < columns; j++) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(x + j * cellWidth, y);
+        this.ctx.lineTo(x + j * cellWidth, y + mapHeight);
+        this.ctx.stroke();
+    }
 
-		this.ctx.beginPath()
-		this.ctx.moveTo(mapWidth, 0)
-		this.ctx.lineTo(mapWidth, mapHeight)
-		this.ctx.stroke()
-	}
+    this.ctx.beginPath();
+    this.ctx.moveTo(x + mapWidth, y);
+    this.ctx.lineTo(x + mapWidth, y + mapHeight);
+    this.ctx.stroke();
+}
 
 	static sprite() {
 		const spriteSheet = new Image()

@@ -24,29 +24,34 @@ export class CinematicIntroLevel {
 		AudioEngine.play()
 
 		setTimeout(() => {
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(500, 100), 10)
-				camera.zoom = 0.7
-			}, 1_000)
+			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
+			
+		}, 1);
 
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(3000, 8000), 10)
-				camera.zoom = 0.4
-			}, 10_000)
+		// setTimeout(() => {
+		// 	setTimeout(() => {
+		// 		Push(camera.objectToFollow).towards(new Position(500, 100), 10)
+		// 		camera.zoom = 0.7
+		// 	}, 1_000)
 
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(10_000, 8000), 50)
-			}, 21_000)
+		// 	setTimeout(() => {
+		// 		Push(camera.objectToFollow).towards(new Position(3000, 8000), 10)
+		// 		camera.zoom = 0.4
+		// 	}, 10_000)
 
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(10_000, 8000), 100)
-			}, 28_000)
+		// 	setTimeout(() => {
+		// 		Push(camera.objectToFollow).towards(new Position(10_000, 8000), 50)
+		// 	}, 21_000)
 
-			setTimeout(() => {
-				levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-			}, 40_000)
+		// 	setTimeout(() => {
+		// 		Push(camera.objectToFollow).towards(new Position(10_000, 8000), 100)
+		// 	}, 28_000)
 
-		}, 4_900)
+		// 	setTimeout(() => {
+		// 		levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
+		// 	}, 40_000)
+
+		// }, 4_900)
 
 		this.t = new MultiTextTyper([
 			'Current objective:',
