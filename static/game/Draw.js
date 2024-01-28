@@ -278,13 +278,14 @@ export class Draw {
 	}
 
 	new_text(position, text, color='white', fontSize = 40) {
+		this.new_rectangle(position)
+
 		this.ctx.fillStyle = 'black'
 
 		this.ctx.font = `${fontSize}px Arial`
 
 		const textWidth = this.ctx.measureText(text).width
 
-		// Adjust the rectangle dimensions based on the font size
 		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40)
 
 		this.ctx.fillStyle = color
