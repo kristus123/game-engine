@@ -15,8 +15,8 @@ export class Mouse {
 
 		setInterval(() => {
 			console.log(this.position.x)
-			
-		}, 10);
+
+		}, 10)
 
 		setInterval(() => {
 			// this.mouseLastMoved += 1

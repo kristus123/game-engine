@@ -25,8 +25,8 @@ export class CinematicIntroLevel {
 
 		setTimeout(() => {
 			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-			
-		}, 1);
+
+		}, 1)
 
 		// setTimeout(() => {
 		// 	setTimeout(() => {
