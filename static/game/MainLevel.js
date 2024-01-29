@@ -12,6 +12,8 @@ export class MainLevel {
 		this.piss = new Piss(this.world.player, mouse, new Position(-1000, 100, 100, 100))
 		this.piss.onFinish = () => {
 			levelSelector.changeActiveLevel(new DeliverPissLevel(this.world, this.npc, levelSelector))
+			
+			// Make taskCompleted "True"
 			this.taskTracker.completeTask()
 		}
 
