@@ -3,9 +3,9 @@ export class Piss {
 		this.inventory = new Inventory()
 		this.player = player
 		this.mouse = mouse
-		this.firstTimeFinish = new FirstTimeFinish(() => this.inventory.size >= 450)
+		this.firstTimeFinish = new FirstTimeFinish(() => this.inventory.size >= 1)
 
-		for (let i = 0; i < 500; i++) {
+		for (let i = 0; i < 1; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
 			const y = Random.integerBetween(position.y, position.y + position.height)
 			this.inventory.addPickable(

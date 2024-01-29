@@ -1,4 +1,4 @@
-function limitNumber(num, min, max){
+function limitNumber(num, min, max) {
 	const MIN = min ?? 1
 	const MAX = max ?? 20
 	const parsed = parseInt(num)
@@ -26,7 +26,7 @@ export class Camera {
 	}
 
 	set zoom(x) {
-		return this.smoothZoom.targetValue = x
+		this.smoothZoom.targetValue = x
 	}
 
 	context(run) {
