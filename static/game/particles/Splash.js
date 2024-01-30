@@ -18,7 +18,7 @@ export class Splash {
 		let maxAngle = -Infinity
 
 		// color = Random.choice(['white', 'blue', 'orange', 'yellow', 'red'])
-		for (let i = 1; i <= 400; i++) {
+		for (let i = 1; i <= 10; i++) {
 
 			const size = Random.floatBetween(1, 5)
 			const newParticle = new GameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)
@@ -51,7 +51,7 @@ export class Splash {
 				y: Math.sin(angle) * speed,
 			}
 
-			newParticle.life = 200
+			newParticle.life = 10
 			newParticle.color = color
 			this.particles.push(newParticle)
 			Physics.global.removePhysics(newParticle)

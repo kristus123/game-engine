@@ -1,33 +1,32 @@
-
-
 export class PissQuest {
 	constructor(world) {
-		this.pisses = Random.positions(-200, 500, -200, 500, 2).map(position => {
-			return new Piss(world.player, world.mouse, position)
-		})
-
 		this.cleanedPisses = 0
 
+		this.runAll = new RunAll(Random.positions(-200, 300, -200, 3000, 30).map(position => {
+			position.width = 200
+			position.height = 200
+			const piss = new Piss(world.player, world.mouse, position)
+			piss.onFinish = () => {
+				this.cleanedPisses += 1
+			}
+
+			return piss
+		}))
+
+		this.firstTimeFinish = new FirstTimeFinish(() => this.cleanedPisses == 100)
 	}
 
 	update() {
-		this.pisses.forEach((piss) => {
-			if (piss?.firstTimeFinish.returnTrueIfFinishedOnce()) {
-				this.cleanedPisses += 1
-			}
-		})
-
-
-		if (this.cleanedPisses === this.pisses.length) {
+		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
 			Call(this.onFinish)
 		}
+
+		this.runAll.update()
 	}
 
 
 	draw(draw) {
-		this.pisses.forEach((piss) => {
-			piss.draw(draw)
-		})
+		this.runAll.draw(draw)
 	}
 
 }

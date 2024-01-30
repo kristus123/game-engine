@@ -6,7 +6,6 @@ export class MainLevel {
 		this.npc = new Npc()
 
 		this.pissQuest = new PissQuest(this.world)
-
 		this.pissQuest.onFinish = () => {
 			this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
 		}
@@ -16,7 +15,7 @@ export class MainLevel {
 		this.runAll = new RunAll([
 			this.world,
 			this.npc,
-			this.pissQuest
+			this.pissQuest,
 			// new FirstChat(this.npc.position, this.piss, mouse)
 		])
 	}
