@@ -16,16 +16,25 @@ export class Random {
 		return list[Math.floor(Math.random() * list.length)]
 	}
 
+	static direction(o, amount) {
+		const x = Random.integerBetween(o.x - amount, o.x + amount)
+		const y = Random.integerBetween(o.y - amount, o.y + amount)
+
+		return new Position(x, y)
+	}
+
+	static position(minX, maxX, minY, maxY) {
+		const randomX = Random.integerBetween(minX, maxX)
+		const randomY = Random.integerBetween(minY, maxY)
+
+		return new Position(randomX, randomY, 1, 1)
+	}
+
 	static positions(minX, maxX, minY, maxY, amount) {
 		const positions = []
 
 		for (let i = 0; i < amount; i++) {
-			const randomX = Random.integerBetween(minX, maxX)
-			const randomY = Random.integerBetween(minY, maxY)
-
-			const newPosition = new Position(randomX, randomY, 1, 1)
-
-			positions.push(newPosition)
+			positions.push(Random.position(minX, maxX, minY, maxY))
 		}
 
 		return positions

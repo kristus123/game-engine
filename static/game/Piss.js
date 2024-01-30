@@ -8,8 +8,11 @@ export class Piss {
 		for (let i = 0; i < 50; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
 			const y = Random.integerBetween(position.y, position.y + position.height)
-			this.inventory.addPickable(
-				new GameObject(x, y, Random.integerBetween(1, 3), Random.integerBetween(1, 3), 200, 50))
+
+			const p = Random.direction(new Position(x, y), 100)
+			const piss = new GameObject(p.x, p.y, Random.integerBetween(1, 3), Random.integerBetween(1, 3), 200, 50)
+
+			this.inventory.addPickable(piss)
 		}
 	}
 
@@ -20,6 +23,7 @@ export class Piss {
 	}
 
 	draw(draw) {
+
 		this.inventory.draw(draw)
 
 		const angle = 50 // rn it only works with 50
