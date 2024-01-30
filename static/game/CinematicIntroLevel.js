@@ -69,7 +69,7 @@ export class CinematicIntroLevel {
 		this.runAll.update()
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.runAll.draw(draw)
 		draw.new_text(this.deliveryDrone.position.offset(-50, 60), this.t.text)
 	}

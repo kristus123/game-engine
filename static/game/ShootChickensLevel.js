@@ -3,13 +3,14 @@ export class ShootChickensLevel {
 		this.world = world
 
 		this.chicken = new Chicken(world.player)
-
 		this.spaceship = new Spaceship(world.player, world.mouse, world.controller)
+
 		this.spaceship.onEnter = () => {
 			world.camera.follow(this.spaceship)
 			world.camera.zoom = 0.5
 			world.controller.control(this.spaceship)
 		}
+
 		this.spaceship.onExit = () => {
 			world.controller.control(world.player)
 			world.camera.follow(world.player)

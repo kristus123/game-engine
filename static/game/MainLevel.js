@@ -1,30 +1,32 @@
+
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world = new World(levelSelector, camera, mouse)
 
 		this.npc = new Npc()
 
-		this.levelSelector = levelSelector
-
-		this.piss = new Piss(this.world.player, mouse, new Position(-1000, 100, 100, 100))
-		this.piss.onFinish = () => {
-			levelSelector.changeActiveLevel(new DeliverPissLevel(this.world, this.npc, levelSelector))
+		this.pissQuest = new PissQuest(this.world)
+		this.pissQuest.onFinish = () => {
+			this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
 		}
+
+		this.levelSelector = levelSelector
 
 		this.runAll = new RunAll([
 			this.world,
 			this.npc,
-			this.piss,
-			new FirstChat(this.npc.position, this.piss, mouse)
+			this.pissQuest,
+			// new FirstChat(this.npc.position, this.piss, mouse)
 		])
 	}
 
 	update() {
-		this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
+
 		this.runAll.update()
 	}
 
 	draw(draw) {
 		this.runAll.draw(draw)
+
 	}
 }
