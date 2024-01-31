@@ -1,7 +1,6 @@
 export class FirstChat {
-	constructor(position, piss, mouse) {
+	constructor(position, mouse) {
 		this.position = position
-		this.piss = piss
 
 		const p = position.copy()
 		p.width = 700

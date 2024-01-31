@@ -16,12 +16,11 @@ export class MainLevel {
 			this.world,
 			this.npc,
 			this.pissQuest,
-			// new FirstChat(this.npc.position, this.piss, mouse)
+			new FirstChat(this.npc.position, mouse),
 		])
 	}
 
 	update() {
-
 		this.runAll.update()
 	}
 
