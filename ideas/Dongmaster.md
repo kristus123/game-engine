@@ -55,4 +55,4 @@ He spares one, forcing her to reveal information.
 
 - Dongmaster dies in one movie and his funeral is held by letting him drift out in the sea.
 - Dwayne The Rock er i filmen hvor de har base i jungelen.
-- He has a soon in one of the prequel movies
+- He has a son in one of the prequel movies
