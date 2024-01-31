@@ -77,3 +77,5 @@ Various ideas discussed:
 - Idea to allow players to create their own bases or planets.
 - Introduction of an editor and tools to involve friends in the game development process.
 - Concept of floating bases in space, resembling the game "Rust."
+- for eksempel om en karakter blir skadet og du har komt langt i spillet kan du lage forskjellige typer prostetics osv
+- en annen ting eg tenkte litt på når det kommer til lore, i lethal company e det egt ikkje noe særlig lore som e viktig, men for de som e interessert kan man gå rundt på maps å lete etter "notater" fra en scientist eller scanne monstre så får man opp info om de skrevet av denne scientisten (unveil dongmaster)
