@@ -2,6 +2,10 @@
 
 Jeg husker ikke hva som skjedde i hvilken film, men det er ikke så viktig så lenge det er ca. nøyaktig.
 
+# His gear
+
+Over the course of his story, his gear gets regurlarly upgraded.
+
 # Lore
 
 Dongmaster was raised on a farm, eating the same 'steroid food' as the cows or something like that, hence why he is so strong.
@@ -10,7 +14,7 @@ Dongmaster was raised on a farm, eating the same 'steroid food' as the cows or s
 
 Dongmaster is an upcoming hero on earth.
 
-Women take over.
+Women take over. *(this can be changed to something else to make it less brutal for women)*  
 
 Ending of first movie is where Dongmaster kills an important politician with his boomerang penis.
 
@@ -18,8 +22,8 @@ Men will get "makrellisert"
 
 # 2nd Movie
 
-I guess this is where he gets roided.
-(maybe a scientist in the military help him with this? *not official lore*)
+I guess this is where he gets 'roided.
+(maybe a scientist in the military help him with this? *not official lore, can't remember what happened*)
 
 He has to go undercover, finding out what is happening.
 
@@ -31,12 +35,16 @@ That guy is jealous of Dongmaster and his massive muscles and big penis.
 
 Women are looking for him.
 Sexy Nun soldiers are on the lookout for him.
-They have covered their faces because they had sexy bodies, but not sexy faces, and that was important for the women for some reason.
+They cover their faces because they might have sexy bodies, but unfortunately lack good-looking faces and that was important for the women for some reason.
 
 He kills them in a warehouse in batman style (swoope ned fra taket og ta ut en etter en)
 He spares one, forcing her to reveal information.
 
 # 3rd Movie
+
+I remember Dongmaster goes to space to visit the leader of the women.
+He gets taken as a prisoner, and i believe someone rescues him.
+I think that's how they end up in the jungle.
 
 
 # 4th Movie
@@ -50,6 +58,7 @@ He spares one, forcing her to reveal information.
 
 # 7th Movie
 
+I think i remember it being 7 movies (excluding prequesl movies)
 
 ## Other stuff
 
