@@ -42,7 +42,7 @@ export class CinematicIntroLevel {
 
 		setTimeout(() => {
 			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-		}, 1);
+		}, 1)
 
 		this.t = new MultiTextTyper([
 			'Current objective:',
