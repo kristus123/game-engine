@@ -1,4 +1,4 @@
-class RecordMovement {
+export class RecordMovement {
 	constructor(object, mouse) {
 		this.object = object
 		this.mouse = mouse
