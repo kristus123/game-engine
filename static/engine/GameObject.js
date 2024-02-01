@@ -56,4 +56,24 @@ export class GameObject {
 		this.position.y = y
 	}
 
+	get width() {
+		return this.position.width
+	}
+
+	get height() {
+		return this.position.height
+	}
+
+	set width(w) {
+		if (this.position) {
+			this.position.width = w
+		}
+	}
+
+	set height(h) {
+		if (this.position) {
+			this.position.height = h
+		}
+	}
+
 }

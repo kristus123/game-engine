@@ -99,6 +99,7 @@
         "Fleet": "readonly",
         "GameObject": "readonly",
         "Get": "readonly",
+        "Grid": "readonly",
         "GuiPosition": "readonly",
         "Gun": "readonly",
         "InsideLevel": "readonly",
