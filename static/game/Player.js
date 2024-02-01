@@ -28,6 +28,10 @@ export class Player extends GameObject {
 		}, 20)
 
 		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png')
+
+
+		// this.recordMovement = new RecordMovement(this, mouse)
+
 	}
 
 	// onCollision(o) {
@@ -37,6 +41,7 @@ export class Player extends GameObject {
 	// }
 
 	update() {
+		// this.recordMovement.update()
 		this.charge += 1
 		if (this.beacon) {
 			this.beacon.update()
