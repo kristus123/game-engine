@@ -3,38 +3,52 @@ export class RecordMovement {
 		this.object = object
 		this.mouse = mouse
 
+		this.originalX = this.object.x
+		this.originalY = this.object.y
+
 		this.actions = []
-
-		this.record = true
-
-		this.originalX = this.x
-		this.originalY = this.y
-
-		setTimeout(() => {
-			this.record = false
-			this.x = this.originalX
-			this.y = this.originalY
-		}, 10_000);
-
+		this.stringifiedActions = ""
 		this.index = 0
+		this.record = false
+
+		new KeypressEvent().addKeyDownListener('a', () => {
+			this.record = !this.record
+
+			if (this.record) {
+				this.actions = []
+				this.stringifiedActions = ""
+			}
+			else {
+				Clipboard.paste(this.stringifiedActions)
+				console.log("copied to clipboard")
+
+				this.object.x = this.originalX
+				this.object.y = this.originalY
+				this.index = 0
+			}
+		})
 	}
 
-
 	update() {
-		if (this.record) {
-			const c = this.mouse.position.copy()
-			const a = () => Push(this.object).towards(c, 20)
-			this.actions.push(a)
-			a()
-			console.log("recording")
+		console.log(this.record)
+		if (List.validIndex(this.actions, this.index)) {
+			this.actions[this.index]()
+			this.index++
 		}
 
-		if (!this.record) {
-			if (List.validIndex(this.actions, this.index)) {
-				this.actions[this.index]()
-				this.index++
-			}
-			console.log("replaying recording")
+		if (this.recording) {
+			
 		}
+	}
+
+	record() {
+		const c = this.mouse.position.copy()
+		const a = () => Push(this.object).towards(c, 1)	
+
+		this.actions.push(a)
+		a()
+
+		this.stringifiedActions += `Push(this.object).towards(new Position(${c.x}, ${c.y}), 60)`
+		this.stringifiedActions += "\n"
 	}
 }

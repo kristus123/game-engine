@@ -2,47 +2,24 @@ export class CinematicIntroLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.camera = camera
 		this.world = new World(levelSelector, camera, mouse)
+		// camera.follow(new GameObject(-1000, 0, 1, 1, 1, 20))
+		camera.follow(new GameObject(10_000, 5_000, 1, 1, 1, 20))
+		camera.position = new Position(10_000, 5_000)
+		// camera.zoom = 0.1
 
 		this.deliveryDrone = new GameObject(10_000, 5_000, 10, 10, 1, 10)
 		this.world.controller.control(this.deliveryDrone)
 
 		this.runAll = new RunAll([
+			new RecordMovement(this.camera.objectToFollow, mouse),
 			this.world,
 			this.deliveryDrone,
 		])
+			// new RecordMovement(this.camera.objectToFollow, this.mouse),
 
-		// camera.follow(new GameObject(-1000, 0, 1, 1, 1, 20))
-		camera.follow(new GameObject(10_000, 5_000, 1, 1, 1, 20))
-		// camera.zoom = 0.1
 
 		AudioEngine.play()
 
-		setTimeout(() => {
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 4700), 10)
-				// camera.zoom = 0.7
-			}, 1_0)
-
-
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 4700), 20)
-				// camera.zoom = 0.7
-			}, 1_000)
-
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 1000), 20)
-				// camera.zoom = 0.7
-			}, 3_000)
-
-			setTimeout(() => {
-				levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-			}, 5)
-
-		}, 4_9)
-
-		setTimeout(() => {
-			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-		}, 1)
 
 		this.t = new MultiTextTyper([
 			'Current objective:',

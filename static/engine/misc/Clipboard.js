@@ -3,15 +3,13 @@ export class Clipboard {
 
 	}
 
-	copyText() {
-		var textToCopy = 'hello\nhow are you\ni\'m good'
-
-		navigator.clipboard.writeText(textToCopy)
+	static paste(text) {
+		navigator.clipboard.writeText(text)
 			.then(function() {
 				console.log('Text copied to clipboard!')
 			})
 			.catch(function(err) {
-				console.error('Unable to copy text to clipboard', err)
+				console.error('Unable to copy text to clipboard: ' + err)
 			})
 	}
 }
