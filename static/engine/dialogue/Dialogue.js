@@ -6,9 +6,9 @@ export class Dialogue {
 
 		this.textTyper = new TextTyper(conversation.question)
 
-		this.Buttons = this.conversation.replies.map(r => {
-			return new Button(p, reply.text, this.mouse).draw(draw)
-		})
+		// this.Buttons = this.conversation.replies.map(r => {
+		// 	return new Button(position, reply.text, this.mouse).draw(draw)
+		// })
 	}
 
 	_drawReplies(draw) {
