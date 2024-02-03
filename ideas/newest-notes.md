@@ -1,205 +1,62 @@
-unstructured
-
-Underground chicken cock fights 
-Feed your own chicken and have him fight like Pokemon . 
-There are AI pixel art of masculine's chickens fighting during the actual fights
-
-Ships fly like birds to save energy 
-You can see spaceship fly below you alone or in formation. 
-
-Feed fishes and squirrels Birds flooding are sitting around in different places. 
-Rain 
-Leaves falling from trees
-
-Not so tasks need to be done in The Orphanage to laundering of the floor and at night have a nice dialogue with your friends 
-Eat food. 
-Play various games, hide and seek. tikken, 
-press space for å slenge seg
-
-You get to the gas station you can buy food for your friends or buy something for yourself 
-
-You are the son of dongmaster almost every kid in orphanage is the son of dog 
-
-Philosophy: 
-Some are just bystanders in life while others are destined for a task greater than life. 
-
-10 years later and you work in a cargo transporting business your first solo mission lets you explore and experience factions borders inspections cities villages. 
-
-
-
-When you visit a village in space a planet will be blurred in the background. 
-
-- Homeless shelter 
-- bordell 
-- crack house 
-
-
-You can hire a homeless people, or higher cheaper drones. Profit versus community. 
-
-There are police officers around the villages 
-
-Everything is quick and intuitive you're never stuck in a dialogue or loading screen 
-
-samurai side quest (either in game-within-game or sidequest) 
-https://i.imgur.com/JnR0fPt.png 
-multiple enemeis, story arc 
-
-rsp og thomax må være i spillet 
-
-When you are left in space everything goes darker and the camera soon as slowly in 
-To make fear 
-
-
-fancy airship effect 
-Smoke when you reach a certain speed
-https://i.imgur.com/IGxnHug.png 
-
-Wow 
-
-
-When you set up a factory you can either buy instantly like in Sims 
-Or you can fetch packages and set it up manually this will save money 
-
-
-One mission where you have to go inside of a space cloud and turn off all lights 
-The goal of that side Quest Can Be to infiltrate deliver cargo or hide 
-A little bit like the Call of Duty 4 sniper mission where you have to move slowly because there are many enemies nearby 
-- another idea: Shadow someone with a throne inside of a city
-
-You become so successful that Elon Musk gets worried only if you take the dark path 
-
-
-
-
-So people suicide 
-
-Sign up for dating sites 
-Get married 
-farm crops (not profitable but honorable) 
-
-
-Create your own entire faction 
-
-Get that inside man or a correct policeman in your squad so you can deliver drugs safely 
-Find and hire people for your business 
-You can hire elderly people that live in elderly homes 
-
-
-_____________________ COOL IDEA  ________________-- 
-
-The AI that delivers your lawnmower for piss cleaning 
-Is an AI that wants to find purpose but she does not know what purpose is and how to find it
-The Voice says he will help 
-
---------------- 
-The piss level the AI waits for the boy to finish she offers to help she asks about life and wholesome stuff 
-She is at the end of life and will be replaced by a newer model 
-When the boy asks if she is just a car she pops out with her rectangle formmy
-
-The AI is not focused on what gender it is so the player gets to choose its pronouns
-
-When the boy is finished the he will radio the officer 
-https://i.imgur.com/LmOMf1f.png 
-
-It will be a fancy UI and everyone you talk to will have its own detailed picture. 
-
-
-
-----------------
-
-The AI is a chip that can be plugged into electronic devices. 
-
-A simple rectangle thing that flies is her main form 
-Your choices in the game will affect the AI's behavior. 
-
-the children will call her "sophie" (note to me : use sophie music) 
-Reveal to the Elder children at night
-
-Flash Forward 12 years later you are now a full-time Transporter. 
-
-
-_________________ _ 
-When delivering cargo you might have to drive around factions to avoid legal issues 
- On some missions certain side quests might occur: 
-Engine trouble 
-Help stranded people 
-    - drag them to the nearest gas station 
-coworkers need help 
-You get hijacked 
-Cargo disconnects 
-sexy woman who steals your truck 
-you discover a drugs or weapons in your cargo
-_________________ 
-
-You can also take drugs like cocaine or coffee to stay awake while delivering cargo 
-That means there is a time system in the game and you may be you have to go to sleep as well or something like that 
-
-You can eject piss from your spaceship 
-
-You have your own little apartment with your own PC 
-
-___ maybe 
-You can steal Rob kill or kidnap 
-___ 
-
-Cat girls are in space Elon musk's secret project 
-
-Conspiracy theories and why everyone is in space 
-Maybe the memories of the first generation was changed 
-
-Epic intro 
-- drone delivers piss cleaner 
-- then it will come an epic intro before gameplay starts? 
-
-Interaction system like The Last of Us to show the player what it can interact with 
-
-Multiple choices dialogue system art  (for me) 
-Hovering over an option you get more information about it
-https://i.imgur.com/VtleofQ.png 
-
-Nfts are actually valuable in space because there is a finite amount,
-When you go to the gas station the man asks you if you want to redeem your piss tokens into nfts which you can then turn into currency. 
-
-There are nfts around the world to be found . 
-You can find physical ones or they can be hidden in a USB
-And they might actually be valuable 
-But they have to be put in a feasible collectors card before actually being valuable. 
-The government keeps tracked in order to make sure that each nft is unique 
-
-mayby_____
-There is only one music artist in space because he owns the only computer that has music software 
-______ 
-
-
-There are a limited amount of humans making every human life extremely valuable 
-There is a human counter somewhere that is updated when new info is discovered maybe someone dies or someone gets born. 
-killing another human is the biggest crime 
-
-This is the reason why the government spends a lot of money on orphanages. 
-
-not sure about this part: ___________ 
-Mafia smuggles people but why do they do that I don't really know 
-some Women sell their babies to the government
-____________________
-
-Elon was motivated to get mankind to space because you wanted to experience a space civilization before his death 
-
-plot twist Elon is already dead we have been talking with his AI consciousness the whole time 
-Maybe some conspiracy theory can be true I am not sure yet maybe the first generation of humans that went to space that they are memories were altered 
-
-Sometimes you can meet a prisoner doing community service. 
-
-note to me:__________ 
-During cut scenes and important events you can use cool pixel art pictures in a very artistic way to make it cool. 
-In this sequences I mix of cutscenes pictures dialogue with options and maybe gameplay if it fits. 
-
-One idea is that he has to go undercover and then it will be a Western movie cowboy intro with the sun in the background and it's fades into his face and then it fits into something else while he is writing across the screen 
-Maybe because Elon Musk sensing out on a mission and has to stay away from the government or not let the government know
-________________
-
-
-songs to be used: 
-nrk exit intro song 
-sophie 
-rsp og thomax 
-god's gonna cut you down
+Kristian’s ideas
+Introduction
+-	The beginning of the game will consist of an introductory phase where the core mechanics of the game are introduced, alongside the lore and backstory. 
+-	In the introduction you learn that you are the son of the legendary Dongmaster, just as the majority of the kids in the orphanage. 
+-	There will be an epic intro before gameplay starts to introduce the game’s settings and set the tone.
+-	Gameplay will be introduced in a piss-cleaning mission, which is one of several menial tasks/missions boys are forced to complete in space in order to survive.
+-	In the intro the so-called “piss cleaner” will be delivered by a drone. This cleaner will resemble a lawnmower. 
+-	The AI drone that delivers the cleaner that wants to find a purpose, however, she does not know what purpose is and how to find it. The voice says he will help. 
+-	During this mission, the AI waits for the boy to finish his task before she offers to help. She asks the boy several questions about life and purpose. The AI is at the end of her life cycle and will soon be replaced by a newer model. The boy asks if she is just a transporter, and she shapeshifts to be able to transport the boy. 
+-	The AI is not focused on gender, subsequently the player can choose its pronouns. 
+-	When the boy finishes his task, he contacts an officer on his radio https://imgur.com/LmOMf1f
+-	The AI is a chip that can be plugged into electronic devices.
+-	A simple rectangle device that flies is her main form. In-game choices will affect the AI’s behaviour. 
+-	The children call the AI “Sophie”. (Note to Kristian: Use Sophie music). Reveal to elder children at night. 
+-	Simple tasks within the orphanage such as cleaning the floors. Interaction with the other children at night will be possible. Eat food, play various games. Games such as hide and seek and “tikken”. 
+
+Ideas for the main portion of the game
+-	The main portion of the game takes place approximately 10 years after the introduction. You start off working in the cargo transportation business as you conduct your first solo delivery mission in space. This will let you explore the world and interact with and experience the different factions, planets, villages, space stations and features of the game.  
+Game mechanics
+-	Fancy UI where everyone you talk to have detailed pictures.
+-	Ships fly like birds to save fuel. You can see other spaceships flying below you, either solo or in formations.
+-	Stop at gas stations when traveling in space, either to refuel, sell items and purchase essentials such as food. You can purchase items for your friends and trade. 
+-	Visit villages or colonies/bases on planets. In these villages you may find homeless shelters, brothels and drug houses that you can interact with. 
+-	You can choose to hire homeless people or purchase low quality products to save money, at a cost to quality. 
+-	You may find police officers that patrol these villages. 
+-	Everything should be quick and intuitive – never stuck in dialogue or loading screens.
+-	When you are left alone in space the light slowly disappears – entices feelings of fear. 
+-	Smoke effects from spaceships when they reach a certain speed. (Warp speed??) https://imgur.com/IGxnHug
+-	You can set up factories – these factories can either be instantly bought ( as in the sims) or you can choose to collect all the materials and transport them yourself in order to save money.
+-	You can become so successful that Elon Musk becomes worried – if you select the dark path.
+-	The ability to set up your own faction – if you become powerful enough. 
+-	You can hire a variety of different people – from policemen to elderly people – they will help you with certain tasks such as drug smuggling. 
+-	There will be survival elements such as hunger and a need for sleep. These needs can be met by sleeping and eating among other things. Can also use items such as drugs and coffee to stay awake. 
+-	When travelling your spaceship fills up on garbage and waste such as piss. This can either be delivered to certain places, or simply ejected into space. 
+-	You can have your own room with a computer within your base.
+-	You can commit crimes such as robbing, killing and kidnapping. This may be profitable but comes with risks. 
+-	Interaction system similar to the last of us.
+-	Multiple choice dialogue system. Hovering over an answer will reveal more information about the answer and its consequences. https://imgur.com/VtleofQ
+-	
+
+World design
+-	Philosophy: Some people are simply bystanders, whilst others are destined for tasks and challenges larger than themselves. 
+-	When traveling in space you may have to avoid traveling through certain areas that are controlled by certain factions in order to avoid legal issues and subsequent penalties to your relationship to said faction and your reputation. 
+-	Around the world you can encounter people in trouble – perhaps someone with engine issues – You can elect to assist these unfortunate souls (or take advantage of them wink wink?), perhaps by dragging them to the nearest gas station. 
+-	There are many dangers that can pose a threat to you whilst you are traveling through space. This includes pirates, hostile factions and women? They can among other things hijack your cargo, steal your ship etc. 
+-	People believe in different theories as to why men are in space – some of which are conspiracies.
+-	NFTS that can be found throughout the world. These nfts are in this world actually valuable as there are finite amounts of them. They function as a currency – for example- At gas stations you can redeem piss tokens for nfts which in turn can be exchanged for more traditional currency. NFTS are both physical and stored on usbs that you can find. Only valuable in feasible collection or to collectors. Governments track nfts to ensure that they are unique. 
+-	The population in space is very limited, which means that human life is very valuable. A counter can be found showing the population. Killing another human is the most serious crime. Therefore, punishments such as forced labour is more common. 
+-	Elon Musk was motivated to send humanity to space in order to witness space travel before his death: plot twist – he is already dead and has been communicating to humans via  an AI consciousness the whole time. Perhaps a conspiracy theory involved. Altered memories of the first humans that moved to space. 
+-	You can encounter prisoners doing community service throughout the world. 
+
+Smaller features
+-	Underground cockfighting (chickens not male genitalia duh). Feed your very own chicken and train it fight, like a pokemon. AI pixel art of masculine chickens fighting during the fighting scenes. 
+-	Feed fish, squirrels and birds. Experience rain and falling leaves.
+-	Samurai side quest -  either in a game within the game or as a side quest – Multiple enemies and story arc. https://imgur.com/JnR0fPt
+-	Game must include rsp and thomax.
+-	A mission where you have to enter a space cloud and turn off all lights. The goal of this side quest can include infiltration, deliver cargo or stealth (similar to the call of duty 4 mission “all ghillied up”. Also, a mission where you may need to shadow someone in a village using your drone. 
+-	Catgirls – which are Elon Musk’s secret project. 
+-	Maybe – only one music artist in space because there is only one computer with the software to produce music. 
+-	Note to Kristian: During cutscenes and important events you can use cool pixel art in an artistic way to make it cooler. In these sequences there will be a mix of cutscenes pictures, dialogue and gameplay. 
+-	One idea is that he has to go undercover and then it will be a Western movie cowboy intro with the sun in the background and it's fades into his face and then it fits into something else while he is writing across the screen Maybe because Elon Musk sensing out on a mission and has to stay away from the government or not let the government know
+-	songs to be used: nrk exit intro song sophie rsp og thomax god's gonna cut you down
