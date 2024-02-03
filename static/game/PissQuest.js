@@ -28,4 +28,5 @@ export class PissQuest {
 	draw(draw) {
 		this.runAll.draw(draw)
 	}
+
 }

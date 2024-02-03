@@ -65,15 +65,11 @@ export class GameObject {
 	}
 
 	set width(w) {
-		if (this.position) {
-			this.position.width = w
-		}
+		this.position.width = w
 	}
 
 	set height(h) {
-		if (this.position) {
-			this.position.height = h
-		}
+		this.position.height = h
 	}
 
 }

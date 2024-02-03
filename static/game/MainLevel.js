@@ -1,4 +1,3 @@
-
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world = new World(levelSelector, camera, mouse)
@@ -19,7 +18,6 @@ export class MainLevel {
 			this.pissQuest,
 			new FirstChat(this.npc.position, mouse),
 			this.grid,
-			// new FirstChat(this.npc.position, this.piss, mouse)
 		])
 	}
 
