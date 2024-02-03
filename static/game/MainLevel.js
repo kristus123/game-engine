@@ -3,6 +3,7 @@ export class MainLevel {
 		this.world = new World(levelSelector, camera, mouse)
 
 		this.npc = new Npc()
+		this.grid = new Grid(mouse)
 
 		this.pissQuest = new PissQuest(this.world)
 		this.pissQuest.onFinish = () => {
@@ -16,6 +17,7 @@ export class MainLevel {
 			this.npc,
 			this.pissQuest,
 			new FirstChat(this.npc.position, mouse),
+			this.grid,
 		])
 	}
 
@@ -25,6 +27,5 @@ export class MainLevel {
 
 	draw(draw) {
 		this.runAll.draw(draw)
-
 	}
 }

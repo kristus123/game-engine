@@ -1,7 +1,5 @@
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
-		this.width = width
-		this.height = height
 
 		this.position = new Position(x, y, width, height)
 
@@ -54,6 +52,22 @@ export class GameObject {
 
 	set y(y) {
 		this.position.y = y
+	}
+
+	get width() {
+		return this.position.width
+	}
+
+	get height() {
+		return this.position.height
+	}
+
+	set width(w) {
+		this.position.width = w
+	}
+
+	set height(h) {
+		this.position.height = h
 	}
 
 }
