@@ -14,15 +14,16 @@ export class Grid {
 		return new Position(adjustedX, adjustedY, this.cellSize, this.cellSize)
 	}
 
-	drawGrid(context, gridSize, offsetX = 0, offsetY = 0, gridColor = 'white') {
+	drawGrid(context, offsetX = 0, offsetY = 0) {
+		context.strokeStyle = 'white'
 		const canvasWidth = context.canvas.width
 		const canvasHeight = context.canvas.height
 
 		context.clearRect(0, 0, canvasWidth, canvasHeight)
 
-		for (let x = offsetX; x < canvasWidth; x += gridSize) {
-			for (let y = offsetY; y < canvasHeight; y += gridSize) {
-				context.strokeRect(x, y, gridSize, gridSize)
+		for (let x = offsetX; x < canvasWidth; x += this.cellSize) {
+			for (let y = offsetY; y < canvasHeight; y += this.cellSize) {
+				context.strokeRect(x, y, this.cellSize, this.cellSize)
 			}
 		}
 	}
@@ -31,7 +32,7 @@ export class Grid {
 		const { ctx } = draw
 		const snappedPosition = this.snapGrid()
 
-		this.drawGrid(ctx, this.cellSize, this.cellSize * 10, this.cellSize * 10)
+		this.drawGrid(ctx, this.cellSize * 10, this.cellSize * 10)
 
 		ctx.fillStyle = 'white'
 		ctx.fillRect(
