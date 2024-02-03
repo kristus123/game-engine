@@ -3,7 +3,6 @@ export class ShootChickensLevel {
 		this.world = world
 
 		this.chicken = new Chicken(world.player)
-		this.pisses = Array.from({ length: 20 }, () => this.createRandomPiss(world));
 
 		this.spaceship = new Spaceship(world.player, world.mouse, world.controller)
 
