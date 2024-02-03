@@ -1,7 +1,5 @@
 export class GameObject {
 	constructor(x, y, width, height, weight, velocityFactor) {
-		this.width = width
-		this.height = height
 
 		this.position = new Position(x, y, width, height)
 
