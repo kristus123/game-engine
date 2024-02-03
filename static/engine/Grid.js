@@ -5,41 +5,39 @@ export class Grid {
 		this.cellSize = 64
 	}
 
-	snapGrid() {
-		const { x, y } = this.mouse.position
-		const cellX = Math.floor(x / this.cellSize)
-		const cellY = Math.floor(y / this.cellSize)
-		const adjustedX = cellX * this.cellSize + this.cellSize / 2
-		const adjustedY = cellY * this.cellSize + this.cellSize / 2
-		return new Position(adjustedX, adjustedY, this.cellSize, this.cellSize)
+	mouseGrid() {
+		const cellX = Math.floor(this.mouse.position.x / this.cellSize)
+		const cellY = Math.floor(this.mouse.position.y / this.cellSize)
+
+		const x = cellX * this.cellSize + this.cellSize / 2
+		const y = cellY * this.cellSize + this.cellSize / 2
+
+		return new Position(x, y, this.cellSize, this.cellSize)
 	}
 
-	drawGrid(context, offsetX = 0, offsetY = 0) {
-		context.strokeStyle = 'white'
-		const canvasWidth = context.canvas.width
-		const canvasHeight = context.canvas.height
+	drawGrid(ctx, offsetX = 0, offsetY = 0) {
+		ctx.strokeStyle = 'white'
+		ctx.lineWidth = 2
 
-		context.clearRect(0, 0, canvasWidth, canvasHeight)
-
-		for (let x = offsetX; x < canvasWidth; x += this.cellSize) {
-			for (let y = offsetY; y < canvasHeight; y += this.cellSize) {
-				context.strokeRect(x, y, this.cellSize, this.cellSize)
+		for (let x = offsetX; x < Palette.width; x += this.cellSize) {
+			for (let y = offsetY; y < Palette.height; y += this.cellSize) {
+				ctx.strokeRect(x, y, this.cellSize, this.cellSize)
 			}
 		}
 	}
 
 	draw(draw) {
 		const { ctx } = draw
-		const snappedPosition = this.snapGrid()
+		const snappedPosition = this.mouseGrid()
 
-		this.drawGrid(ctx, this.cellSize * 10, this.cellSize * 10)
+		this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
 		ctx.fillStyle = 'white'
 		ctx.fillRect(
 			snappedPosition.x - snappedPosition.width / 2,
 			snappedPosition.y - snappedPosition.height / 2,
 			snappedPosition.width,
-			snappedPosition.height
-		)
+			snappedPosition.height)
 	}
+
 }

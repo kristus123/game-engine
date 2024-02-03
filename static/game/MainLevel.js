@@ -28,7 +28,6 @@ export class MainLevel {
 	}
 
 	draw(draw) {
-		this.grid.draw(draw)
 		this.runAll.draw(draw)
 	}
 }
