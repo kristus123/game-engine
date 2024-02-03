@@ -1,5 +1,5 @@
-Kristian’s ideas
-Introduction
+# Kristian’s ideas
+## Introduction
 -	The beginning of the game will consist of an introductory phase where the core mechanics of the game are introduced, alongside the lore and backstory. 
 -	In the introduction you learn that you are the son of the legendary Dongmaster, just as the majority of the kids in the orphanage. 
 -	There will be an epic intro before gameplay starts to introduce the game’s settings and set the tone.
@@ -14,9 +14,9 @@ Introduction
 -	The children call the AI “Sophie”. (Note to Kristian: Use Sophie music). Reveal to elder children at night. 
 -	Simple tasks within the orphanage such as cleaning the floors. Interaction with the other children at night will be possible. Eat food, play various games. Games such as hide and seek and “tikken”. 
 
-Ideas for the main portion of the game
+## Ideas for the main portion of the game
 -	The main portion of the game takes place approximately 10 years after the introduction. You start off working in the cargo transportation business as you conduct your first solo delivery mission in space. This will let you explore the world and interact with and experience the different factions, planets, villages, space stations and features of the game.  
-Game mechanics
+### Game mechanics
 -	Fancy UI where everyone you talk to have detailed pictures.
 -	Ships fly like birds to save fuel. You can see other spaceships flying below you, either solo or in formations.
 -	Stop at gas stations when traveling in space, either to refuel, sell items and purchase essentials such as food. You can purchase items for your friends and trade. 
@@ -38,7 +38,7 @@ Game mechanics
 -	Multiple choice dialogue system. Hovering over an answer will reveal more information about the answer and its consequences. https://imgur.com/VtleofQ
 -	
 
-World design
+### World design
 -	Philosophy: Some people are simply bystanders, whilst others are destined for tasks and challenges larger than themselves. 
 -	When traveling in space you may have to avoid traveling through certain areas that are controlled by certain factions in order to avoid legal issues and subsequent penalties to your relationship to said faction and your reputation. 
 -	Around the world you can encounter people in trouble – perhaps someone with engine issues – You can elect to assist these unfortunate souls (or take advantage of them wink wink?), perhaps by dragging them to the nearest gas station. 
@@ -49,7 +49,7 @@ World design
 -	Elon Musk was motivated to send humanity to space in order to witness space travel before his death: plot twist – he is already dead and has been communicating to humans via  an AI consciousness the whole time. Perhaps a conspiracy theory involved. Altered memories of the first humans that moved to space. 
 -	You can encounter prisoners doing community service throughout the world. 
 
-Smaller features
+### Smaller features
 -	Underground cockfighting (chickens not male genitalia duh). Feed your very own chicken and train it fight, like a pokemon. AI pixel art of masculine chickens fighting during the fighting scenes. 
 -	Feed fish, squirrels and birds. Experience rain and falling leaves.
 -	Samurai side quest -  either in a game within the game or as a side quest – Multiple enemies and story arc. https://imgur.com/JnR0fPt
