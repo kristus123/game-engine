@@ -9,6 +9,7 @@ Over the course of his story, his gear gets regurlarly upgraded.
 # Lore
 
 Dongmaster was raised on a farm, eating the same 'steroid food' as the cows or something like that, hence why he is so strong.
+the nuns killed his mother, because she wanted him to become the strongest soldier.
 
 # 1st Movie
 
@@ -20,10 +21,17 @@ Ending of first movie is where Dongmaster kills an important politician with his
 
 Men will get "makrellisert"
 
+he lost his original penis.
+
+at the end, someone picks it up
+
 # 2nd Movie
 
-I guess this is where he gets 'roided.
-(maybe a scientist in the military help him with this? *not official lore, can't remember what happened*)
+he equips the real dong in the second movie.
+there was a woman designing the dong tech, but she gets kidnapped.
+
+I guess this is where he gets 'roided and better equiped with DongTech 1.0
+(maybe a scientist in the military help him with this?)
 
 He has to go undercover, finding out what is happening.
 
@@ -37,17 +45,25 @@ Women are looking for him.
 Sexy Nun soldiers are on the lookout for him.
 They cover their faces because they might have sexy bodies, but unfortunately lack good-looking faces and that was important for the women for some reason.
 
+he killed them one by one because he didn't want to kill them actually.
+
 He kills them in a warehouse in batman style (swoope ned fra taket og ta ut en etter en)
 He spares one, forcing her to reveal information.
 
 # 3rd Movie
 
 I remember Dongmaster goes to space to visit the leader of the women.
+he went to rescue, and ended up talking with leader, but it was a trap.
 He gets taken as a prisoner, and i believe someone rescues him.
 I think that's how they end up in the jungle.
 
+in the jungle he choked people with his dong.
+
 
 # 4th Movie
+
+han gikk full assassin i jungel planeten.
+han måtte overta en base.
 
 
 # 5th Movie
@@ -63,8 +79,9 @@ I think i remember it being 7 movies (excluding prequesl movies)
 ## Other stuff
 
 - Dongmaster dies in one movie and his funeral is held by letting him drift out in the sea.
-- Dwayne The Rock er i filmen hvor de har base i jungelen.
-- He has a son in one of the prequel movies
+- Dwayne The Rock er i filmen hvor de har base i jungelen han spiser alltid mat og har et kjøleskap.
+- He has a son in one of the sequel movies
+- the women has dongmaster original penis, and they researched 
 
 
 
@@ -85,4 +102,5 @@ Elon Musk knew about DongMaster, and helped him with his DongTech.
 In return Elon got to place a Chip inside of DongMaster's head, in hopes that DongMaster Would be the first to survive the implant.
 
 Elon might be the key to find DongMaster
+
 
