@@ -6,10 +6,7 @@ export class GameObject {
 		this.weight = weight
 		this.velocityFactor = velocityFactor
 
-		this.velocity = {
-			x: 0,
-			y: 0,
-		}
+		this.velocity = new Velocity(0, 0)
 
 		Physics.global.applyPhysics(this)
 	}
@@ -69,5 +66,31 @@ export class GameObject {
 	set height(h) {
 		this.position.height = h
 	}
+
+
+	get movingLeft() {
+		return this.velocity.x < -20
+	}
+
+	get movingRight() {
+		return this.velocity.x > 20
+	}
+
+	get movingUp() {
+		return this.velocity.y < -20
+	}
+
+	get movingDown() {
+		return this.velocity.y > 20
+	}
+
+	get movingHorizontally() {
+		return this.movingLeft || this.movingRight
+	}
+
+	get movingVertically() {
+		return this.movingUp || this.movingDown
+	}
+
 
 }

@@ -10,9 +10,9 @@ export class Splash {
 
 	}
 
-	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null) {
-		spawnPosition = Get.Position(spawnPosition)
-		mousePosition = Get.Position(mousePosition)
+	splash(spawnPosition, mousePosition, angleSpread = 0.4, color = 'white', speed = null, life = 10) {
+		// spawnPosition = Get.Position(spawnPosition)
+		// mousePosition = Get.Position(mousePosition)
 
 		let minAngle = Infinity
 		let maxAngle = -Infinity
@@ -51,7 +51,7 @@ export class Splash {
 				y: Math.sin(angle) * speed,
 			}
 
-			newParticle.life = 10
+			newParticle.life = life
 			newParticle.color = color
 			this.particles.push(newParticle)
 			Physics.global.removePhysics(newParticle)
