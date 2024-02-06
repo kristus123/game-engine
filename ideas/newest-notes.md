@@ -12,10 +12,13 @@
 -	The AI is a chip that can be plugged into electronic devices.
 -	A simple rectangle device that flies is her main form. In-game choices will affect the AI’s behaviour. 
 -	The children call the AI “Sophie”. (Note to Kristian: Use Sophie music). Reveal to elder children at night. 
--	Simple tasks within the orphanage such as cleaning the floors. Interaction with the other children at night will be possible. Eat food, play various games. Games such as hide and seek and “tikken”. 
+-	Simple tasks within the orphanage such as cleaning the floors. Interaction with the other children at night will be possible. Eat food, play various games. Games such as hide and seek and “tikken”.  
 
 ## Ideas for the main portion of the game
 -	The main portion of the game takes place approximately 10 years after the introduction. You start off working in the cargo transportation business as you conduct your first solo delivery mission in space. This will let you explore the world and interact with and experience the different factions, planets, villages, space stations and features of the game.  
+-	Embark on a journey through the vast expanse of space in "Cosmic Choices," a game that offers a unique blend of exploration, strategy, and moral decisions. As you traverse the cosmos, encountering diverse factions, dangerous pirates, and mysterious phenomena, you must navigate the intricacies of a complex universe.
+-	Upon starting the game, players find themselves in a bustling cosmic hub. The narrative kicks off with a visit to the local grocery store or gas station. Early choices include whether to help individuals in need or strictly follow orders. A map reveals nearby locations, such as a space gas station, offering options to either steal a motorbike or explore job opportunities on a centralized job board.
+  
 ### Game mechanics
 -	Fancy UI where everyone you talk to have detailed pictures.
 -	Ships fly like birds to save fuel. You can see other spaceships flying below you, either solo or in formations.
@@ -36,9 +39,16 @@
 -	You can commit crimes such as robbing, killing and kidnapping. This may be profitable but comes with risks. 
 -	Interaction system similar to the last of us.
 -	Multiple choice dialogue system. Hovering over an answer will reveal more information about the answer and its consequences. https://imgur.com/VtleofQ
--	
+-	The game will include an inventory system that allows players to manage various cargo items with their own blend of traits. 
+-	In order to make money and earn reputation, there will be a plethora of opportunities for the player to choose from. This includes traditional jobs such as pizza delivery or more unconventional missions such as participating in a Purge circle. Players will also be able to start their own companies in order to gain passive funds. This includes pizza delivery services, drop shipping, elder care or manufacturing. Factional dynamics adds a layer of complexity to the business system. Factions can sabotage or support other faction’s businesses. 
+-	Similarly to the game “Papers, Please” the player will face moral dilemmas and be forced to make tough decisions. This can include deciding who lives or dies as resources are scarce in the world. 
+-	Players can choose whether they want to be involved in the political intrigue or simply live a simple life of exploration and menial tasks. Player choices can impact both the political landscape and smaller features of the game on a vast scale. 
+-	The ability to fast travel or “super speed travel” in space. Ships need smooth turns at high speeds to reduce the stress on the ship. Routes need to be planned carefully in order to be efficient and to avoid dangers. 	
 
 ### World design
+-	Based on our own solar system. Factions control areas of our solar system and the planets. 
+-	Resource scarce world.
+-	Besides the main factions there are faction-less groups or minor factions that control parts of the cosmos or roam the solar system. This includes pirates.
 -	Philosophy: Some people are simply bystanders, whilst others are destined for tasks and challenges larger than themselves. 
 -	When traveling in space you may have to avoid traveling through certain areas that are controlled by certain factions in order to avoid legal issues and subsequent penalties to your relationship to said faction and your reputation. 
 -	Around the world you can encounter people in trouble – perhaps someone with engine issues – You can elect to assist these unfortunate souls (or take advantage of them wink wink?), perhaps by dragging them to the nearest gas station. 
@@ -48,6 +58,14 @@
 -	The population in space is very limited, which means that human life is very valuable. A counter can be found showing the population. Killing another human is the most serious crime. Therefore, punishments such as forced labour is more common. 
 -	Elon Musk was motivated to send humanity to space in order to witness space travel before his death: plot twist – he is already dead and has been communicating to humans via  an AI consciousness the whole time. Perhaps a conspiracy theory involved. Altered memories of the first humans that moved to space. 
 -	You can encounter prisoners doing community service throughout the world. 
+-	Shady “hospitals” and harvesting of human body parts. (Similar to rimworld?)
+-	“cryopods”.
+-	Politics play a crucial role in the world design. Constant power struggle between factions that the player can influence.
+-	Moons that can be explored to avoid political restrictions.
+-	Political system inspired by feudalism – leaders of factions will not necessarily rule with direct power, but delegate portions of it to their “vassals”. For example, a “king” will be the ruler of a planet but will only have direct rule over portions of it. Vassals will rule parts of the realm directly in the “king’s” name. 
+-	The existence of several races.
+-	Social system similar to the Indian caste system. 
+-	Social issues such as racism and segregation exists in the world.
 
 ### Smaller features
 -	Underground cockfighting (chickens not male genitalia duh). Feed your very own chicken and train it fight, like a pokemon. AI pixel art of masculine chickens fighting during the fighting scenes. 
@@ -59,4 +77,24 @@
 -	Maybe – only one music artist in space because there is only one computer with the software to produce music. 
 -	Note to Kristian: During cutscenes and important events you can use cool pixel art in an artistic way to make it cooler. In these sequences there will be a mix of cutscenes pictures, dialogue and gameplay. 
 -	One idea is that he has to go undercover and then it will be a Western movie cowboy intro with the sun in the background and it's fades into his face and then it fits into something else while he is writing across the screen Maybe because Elon Musk sensing out on a mission and has to stay away from the government or not let the government know
--	songs to be used: nrk exit intro song sophie rsp og thomax god's gonna cut you down
+-	songs to be used: nrk exit intro song sophie rsp og thomax god's gonna cut you down.
+-	The overarching mystery of why humanity is in space will slowly be reviled to the player. Players will have to investigate to solve the mystery behind why humans went to space. 
+-	Orphanages will play a significant role as they show players the harsh reality of orphans left in the care of factions due to their parent’s inability to provide for them. Players can witness the struggle of these orphans in their dream to reunite with their parents and live a fulfilling life. The narrative will delve deep in to the complexities of socioeconomic issues and the impact they have on orphans and families.
+-	The ability to emote (such as pissing on other players). 
+-	Jet engines can kill you.
+-	Kidnapping – For instance, pirates can kidnap you and attempt to ransom you, if nobody pays a ransom, you may be abandoned in space. 
+-	Pushing and grabbing other players. (Perhaps throwing people into jet engines and meat grinders?).
+-	Spaceship maintenance and customization.
+-	Dating simulator.
+-	Space dangers – such as black holes.
+-	Bars where you can drink and socialize.
+-	Set up bases and warehouses that need to be protected.
+-	Chicken massacre mini game if you choose to work at Wacky Mac’s chicken and burger shop.
+-	Bounty hunting.
+-	Parallel universes?
+-	Bounty hunter: Chicken infiltration
+-	You have to go undercover as a chicken in one of the chicken farms because someone (for example; dictator, corrupt politician) has been hiding there for 5 years. Find out who is a real chicken, and who is the impostor among us.
+-	Several pirate-inspired themes.
+-	Brutal methods of executions – such as beheading, keelhauling, walking the plank (instead of jumping into water,  you are sucked in to space) or “blood eagle”. 
+-	Spcaevikings?
+-	As in lethal company, the lore is not important in order to play the game but exists for the players that want to explore it. You can find “clues” or notes on the lore scattered around the map. 
