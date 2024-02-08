@@ -14,6 +14,17 @@ ErrorHandler.run(() => {
 	// levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
 	levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
 
+
+
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0xFF0000); // Red color
+graphics.drawRect(50, 50, 100, 100); // x, y, width, height
+graphics.endFill();
+
+// Add the graphics to the Pixi stage
+mainPalette.app.stage.addChild(graphics);
+
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
 			Palette.clear([camera.palette, guiPalette])
@@ -23,6 +34,7 @@ ErrorHandler.run(() => {
 			camera.context(() => {
 				levelSelector.update()
 				levelSelector.draw(new Draw(camera.palette.ctx), new Draw(guiPalette.ctx))
+				mainPalette.app.render()
 			})
 
 			showLogs.draw()

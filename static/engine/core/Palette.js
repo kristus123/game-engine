@@ -8,11 +8,22 @@ export class Palette {
 		canvas.height = Palette.height
 		const ctx = canvas.getContext('2d')
 
+		// Create a Pixi application with the same dimensions as your existing canvas
+		const app = new PIXI.Application({
+			view: canvas,
+			width: canvas.width,
+			height: canvas.height,
+			antialias: true, // optional
+			transparent: true, // optional
+			resolution: 1, // optional
+		});
+
 		return {
 			canvas,
 			ctx,
 			width: Palette.width,
 			height: Palette.height,
+			app: app,
 		}
 	}
 
