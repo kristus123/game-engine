@@ -34,7 +34,6 @@ ErrorHandler.run(() => {
 			camera.context(() => {
 				levelSelector.update()
 				levelSelector.draw(new Draw(camera.palette.ctx), new Draw(guiPalette.ctx))
-				mainPalette.app.render()
 			})
 
 			showLogs.draw()
@@ -42,6 +41,7 @@ ErrorHandler.run(() => {
 			Palette.fill(backgroundPalette, '#130927')
 			// new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
+			mainPalette.app.render()
 		})
 	})
 })
