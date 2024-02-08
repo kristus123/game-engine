@@ -17,13 +17,13 @@ ErrorHandler.run(() => {
 
 
 
-const graphics = new PIXI.Graphics();
-graphics.beginFill(0xFF0000); // Red color
-graphics.drawRect(50, 50, 100, 100); // x, y, width, height
-graphics.endFill();
+	const graphics = new PIXI.Graphics()
+	graphics.beginFill(0xFF0000) // Red color
+	graphics.drawRect(50, 50, 100, 100) // x, y, width, height
+	graphics.endFill()
 
-// Add the graphics to the Pixi stage
-mainPalette.app.stage.addChild(graphics);
+	// Add the graphics to the Pixi stage
+	mainPalette.app.stage.addChild(graphics)
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {

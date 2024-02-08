@@ -16,7 +16,7 @@ export class Palette {
 			antialias: true, // optional
 			transparent: true, // optional
 			resolution: 1, // optional
-		});
+		})
 
 		return {
 			canvas,
