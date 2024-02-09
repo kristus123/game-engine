@@ -24,12 +24,11 @@ export class Physics {
 			// 	}
 			// }
 
-			// Calculate friction based on weight
 			const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
 
-			// Apply friction to velocity
-			o.velocity.x *= frictionFactor
-			o.velocity.y *= frictionFactor
+			// Apply friction to velocity with deltaTime
+			o.velocity.x *= Math.pow(frictionFactor, deltaTime)
+			o.velocity.y *= Math.pow(frictionFactor, deltaTime)
 
 			o.x += o.velocity.x * deltaTime
 			o.y += o.velocity.y * deltaTime
