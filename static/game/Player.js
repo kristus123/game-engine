@@ -69,7 +69,6 @@ export class Player extends GameObject {
 	}
 
 	draw(draw) {
-
 		if (this.keyboard.up) {
 			this.flyingUp.draw(draw)
 			this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 20, 100)

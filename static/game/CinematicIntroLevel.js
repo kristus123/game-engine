@@ -3,7 +3,7 @@ export class CinematicIntroLevel {
 		this.camera = camera
 		this.world = new World(levelSelector, camera, mouse)
 
-		this.deliveryDrone = new GameObject(10_000, 5_000, 10, 10, 1, 10)
+		this.deliveryDrone = new GameObject(-120, 400, 10, 10, 10, 2)
 		this.world.controller.control(this.deliveryDrone)
 
 		this.runAll = new RunAll([
@@ -12,37 +12,10 @@ export class CinematicIntroLevel {
 		])
 
 		// camera.follow(new GameObject(-1000, 0, 1, 1, 1, 20))
-		camera.follow(new GameObject(10_000, 5_000, 1, 1, 1, 20))
+		camera.followInstantly(this.deliveryDrone)
 		// camera.zoom = 0.1
 
 		AudioEngine.play()
-
-		setTimeout(() => {
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 4700), 10)
-				// camera.zoom = 0.7
-			}, 1_0)
-
-
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 4700), 20)
-				// camera.zoom = 0.7
-			}, 1_000)
-
-			setTimeout(() => {
-				Push(camera.objectToFollow).towards(new Position(4700, 1000), 20)
-				// camera.zoom = 0.7
-			}, 3_000)
-
-			setTimeout(() => {
-				levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-			}, 5)
-
-		}, 4_9)
-
-		setTimeout(() => {
-			levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-		}, 1)
 
 		this.t = new MultiTextTyper([
 			'Current objective:',
@@ -60,19 +33,40 @@ export class CinematicIntroLevel {
 			'',
 			'',
 			'',
+		])
+
+
+		this.playerTalking = new MultiTextTyper([
+			'wow. what is that?',
+			'Wait... are we talking at the same time',
 			'',
-			'I eat ass',
+			'',
+			'is this a bug or a feature?',
 		])
 	}
 
 	update() {
 		this.t.update()
 		this.runAll.update()
+
+		if (Distance.withinRadius(this.deliveryDrone, this.world.player, 300)) {
+			this.world.controller.control(this.world.player)
+			this.playerTalking.update()
+			this.world.camera.follow(this.world.player)
+
+			// this.deliveryDrone.position = this.world.player.position
+		}
 	}
 
 	draw(draw) {
 		this.runAll.draw(draw)
-		draw.new_text(this.deliveryDrone.position.offset(-50, 60), this.t.text)
+		draw.new_text(this.deliveryDrone.position.offset(50, 80), this.t.text)
+
+
+		draw.new_text(this.world.player.position.offset(-50, -50), this.playerTalking.text)
+
+		draw.objectThatIsMovingInRectangularPathAroundObject(this.deliveryDrone, this.world.player)
+
 	}
 
 }

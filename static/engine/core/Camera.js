@@ -19,6 +19,7 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
+		this.smoothness = 0.1
 	}
 
 	get zoom() {
@@ -33,15 +34,11 @@ export class Camera {
 		this.smoothZoom.update()
 		this.palette.ctx.save()
 
-		this.position.x += (this.objectToFollow.velocity.x * 0.002)
-		this.position.y += (this.objectToFollow.velocity.y * 0.002)
+		this.position.x += (this.objectToFollow.velocity.x * 0.05)
+		this.position.y += (this.objectToFollow.velocity.y * 0.05)
 
-		// const smoothness = 1 //0.01
-		const smoothness = 1 //0.01
-		// const smoothness = 0.01
-
-		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * smoothness
-		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * smoothness
+		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * this.smoothness
+		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * this.smoothness
 
 		const x_distanceToMouse = this.mouse.position.x - this.position.x
 		this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01
@@ -64,6 +61,11 @@ export class Camera {
 
 	follow(o) {
 		this.objectToFollow = o
+	}
+
+	followInstantly(o) {
+		this.objectToFollow = o
+		this.position = o.position.copy()
 	}
 }
 

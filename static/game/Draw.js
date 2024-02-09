@@ -210,8 +210,8 @@ export class Draw {
 		const dx = mousePosition.x - player.position.center.x
 		const dy = mousePosition.y - player.position.center.y
 		// Calculate the maximum allowed distances for rectangular movement
-		const horizontalRectDistance = 800
-		const verticalRectDistance = 300
+		const horizontalRectDistance = 100
+		const verticalRectDistance = 100
 
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
@@ -222,7 +222,7 @@ export class Draw {
 			Math.min(Math.abs(dy), verticalRectDistance) * Math.sign(dy)
 
 		// Draw the circle
-		const playerRadius = 20
+		const playerRadius = 10
 		this.circle(circleX, circleY, playerRadius, 'red')
 
 		// Draw the rectangle

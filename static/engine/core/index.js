@@ -1,3 +1,4 @@
+
 export const index = 'this is needed or else shit will crash'
 
 ErrorHandler.run(() => {
@@ -12,7 +13,7 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	// levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-	levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
+	levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {

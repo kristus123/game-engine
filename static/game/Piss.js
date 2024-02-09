@@ -5,7 +5,7 @@ export class Piss {
 		this.mouse = mouse
 		this.firstTimeFinish = new FirstTimeFinish(() => this.inventory.size >= 1)
 
-		for (let i = 0; i < 50; i++) {
+		for (let i = 0; i < 10; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
 			const y = Random.integerBetween(position.y, position.y + position.height)
 
