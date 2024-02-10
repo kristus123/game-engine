@@ -8,6 +8,10 @@ export class Controller {
 		}
 
 		this.objectToControl = null
+
+		setTimeout(() => {
+			Push(this.objectToControl).towards(this.objectToControl.position.offset(1000, 0), 100)
+		}, 500);
 	}
 
 	control(o) {
