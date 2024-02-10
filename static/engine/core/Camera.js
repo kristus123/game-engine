@@ -20,6 +20,7 @@ export class Camera {
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
 		this.smoothness = 0.1
+		this.velocityPrediction = 0.05
 	}
 
 	get zoom() {
@@ -34,8 +35,8 @@ export class Camera {
 		this.smoothZoom.update()
 		this.palette.ctx.save()
 
-		this.position.x += (this.objectToFollow.velocity.x * 0.05)
-		this.position.y += (this.objectToFollow.velocity.y * 0.05)
+		this.position.x += (this.objectToFollow.velocity.x * this.velocityPrediction)
+		this.position.y += (this.objectToFollow.velocity.y * this.velocityPrediction)
 
 		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * this.smoothness
 		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * this.smoothness
