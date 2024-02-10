@@ -29,7 +29,7 @@ export class Controller {
 
 		if (this.keyboard.right) {
 			// this.objectToControl.velocity.x += this.objectToControl.velocityFactor
-			Push(this.objectToControl).towards(this.objectToControl.position.offset(1000, 0))
+			Push(this.objectToControl).towards(this.objectToControl.position.offset(1000, 0), 100)
 		}
 
 		this.velocity.x = this.keyboard.right ? 1 : this.keyboard.left ? -1 : 0
