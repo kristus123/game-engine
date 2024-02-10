@@ -28,7 +28,15 @@ export class Draw {
 
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
+	}
 
+	block(position, color="white") {
+		this.ctx.fillStyle = color
+		this.ctx.fillRect(
+			position.x - position.width / 2,
+			position.y - position.height / 2,
+			position.width,
+			position.height)
 	}
 
 	gradient(position) {

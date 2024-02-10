@@ -3,11 +3,18 @@ export class Grid {
 	constructor(mouse) {
 		this.mouse = mouse
 		this.cellSize = 64
+
+		this.clickedPositions = []
+
+		mouse.addOnClick("place block", mousePosition => {
+			this.clickedPositions.push(this.mouseGrid(mousePosition))
+		})
+
 	}
 
-	mouseGrid() {
-		const cellX = Math.floor(this.mouse.position.x / this.cellSize)
-		const cellY = Math.floor(this.mouse.position.y / this.cellSize)
+	mouseGrid(mousePosition) {
+		const cellX = Math.floor(mousePosition.x / this.cellSize)
+		const cellY = Math.floor(mousePosition.y / this.cellSize)
 
 		const x = cellX * this.cellSize + this.cellSize / 2
 		const y = cellY * this.cellSize + this.cellSize / 2
@@ -28,7 +35,7 @@ export class Grid {
 
 	draw(draw) {
 		const { ctx } = draw
-		const snappedPosition = this.mouseGrid()
+		const snappedPosition = this.mouseGrid(this.mouse.position)
 
 		this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
@@ -38,6 +45,12 @@ export class Grid {
 			snappedPosition.y - snappedPosition.height / 2,
 			snappedPosition.width,
 			snappedPosition.height)
+
+		draw.block(snappedPosition)
+
+		for (const p of this.clickedPositions) {
+			draw.block(p)
+		}
 	}
 
 }
