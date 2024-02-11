@@ -3,7 +3,6 @@ export class Piss {
 		this.inventory = new Inventory()
 		this.player = player
 		this.mouse = mouse
-		this.firstTimeFinish = new FirstTimeFinish(() => this.inventory.size >= 1)
 
 		for (let i = 0; i < 100; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
@@ -17,9 +16,9 @@ export class Piss {
 	}
 
 	update() {
-		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
+		RunOnce(this.inventory.size >= 1, () => {
 			Call(this.onFinish)
-		}
+		})
 	}
 
 	draw(draw) {
