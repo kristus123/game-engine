@@ -22,8 +22,8 @@ export class MainLevel {
 	}
 
 	update() {
-		RunOnce(this).If(true, () => {
-			console.log("hei!")
+		RunOnce(true, () => {
+			console.log("hei")
 		})
 
 		this.runAll.update()

@@ -37,6 +37,15 @@ for (const srcPath of jsFiles) {
 		}
 	}
 
+	let uuid = 0
+	while (content.includes("RunOnce(")) {
+		uuid += 1
+
+		content = content.replace("RunOnce(", `XX RunOnce(${uuid}, `)
+		console.log(uuid)
+	}
+
+
 	content = imports + '\n' + content
 
 	createFileAndFolderStructure(destPath, content)
