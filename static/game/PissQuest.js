@@ -12,14 +12,12 @@ export class PissQuest {
 
 			return piss
 		}))
-
-		this.firstTimeFinish = new FirstTimeFinish(() => this.cleanedPisses == 100)
 	}
 
 	update() {
-		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
+		RunOnce(this.cleanedPisses == 1, () => {
 			Call(this.onFinish)
-		}
+		})
 
 		this.runAll.update()
 	}

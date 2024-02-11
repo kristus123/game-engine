@@ -22,10 +22,6 @@ export class MainLevel {
 	}
 
 	update() {
-		RunOnce(true, () => {
-			console.log("hei")
-		})
-
 		this.runAll.update()
 	}
 
