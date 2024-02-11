@@ -30,7 +30,7 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
-	block(position, color="white") {
+	block(position, color='white') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(
 			position.x - position.width / 2,

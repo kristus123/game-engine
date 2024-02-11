@@ -13,7 +13,7 @@ function getJsFiles(dir) {
 			getJsFiles(filePath)
 		}
 		else if (file.endsWith('.js')) {
-			jsFiles.push(filePath.replaceAll("\\", "/"))
+			jsFiles.push(filePath.replaceAll('\\', '/'))
 		}
 	}
 }

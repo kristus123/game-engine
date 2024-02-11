@@ -14,15 +14,15 @@ function createFileAndFolderStructure(destPath, content) {
 }
 
 function countOccurrences(inputString, substring) {
-    let count = 0;
-    let index = inputString.indexOf(substring);
+	let count = 0
+	let index = inputString.indexOf(substring)
 
-    while (index !== -1) {
-        count++;
-        index = inputString.indexOf(substring, index + 1);
-    }
+	while (index !== -1) {
+		count++
+		index = inputString.indexOf(substring, index + 1)
+	}
 
-    return count;
+	return count
 }
 
 
@@ -58,11 +58,11 @@ for (const srcPath of jsFiles) {
 
 
 
-	content = content.replaceAll("RunOnce(", "RunOnce(this, TEMP_UUID, ")
+	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
 
-	let count = countOccurrences(content, "TEMP_UUID")
+	let count = countOccurrences(content, 'TEMP_UUID')
 	for (let i = 0; i < count; i++) {
-		content = content.replace("TEMP_UUID", uuid())
+		content = content.replace('TEMP_UUID', uuid())
 	}
 
 

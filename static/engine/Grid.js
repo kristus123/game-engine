@@ -6,7 +6,7 @@ export class Grid {
 
 		this.clickedPositions = []
 
-		mouse.addOnClick("place block", mousePosition => {
+		mouse.addOnClick('place block', mousePosition => {
 			this.clickedPositions.push(this.mouseGrid(mousePosition))
 		})
 
