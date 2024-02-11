@@ -36,17 +36,9 @@ export class Grid {
 	draw(draw) {
 		const { ctx } = draw
 		const snappedPosition = this.mouseGrid(this.mouse.position)
+		// draw.block(snappedPosition)
 
-		this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
-
-		ctx.fillStyle = 'white'
-		ctx.fillRect(
-			snappedPosition.x - snappedPosition.width / 2,
-			snappedPosition.y - snappedPosition.height / 2,
-			snappedPosition.width,
-			snappedPosition.height)
-
-		draw.block(snappedPosition)
+		// this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
 		for (const p of this.clickedPositions) {
 			draw.block(p)
