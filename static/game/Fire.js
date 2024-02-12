@@ -1,6 +1,6 @@
 export class Fire extends GameObject {
 	constructor() {
-		super(-1000, -200, 200, 200, 10, 10)
+		super(400, 200, 200, 200, 10, 10)
 
 		const frameWidth = 96
 		const frameHeight = 96
@@ -32,7 +32,7 @@ export class Fire extends GameObject {
 			{ x: 2, y: 4 },
 		]
 
-		this.sprite = new Sprite(this.position.offset(-100, -180), '/static/assets/particles/Fire+Sparks-SpriteSheet.png', frameWidth, frameHeight, scale, frameSequence)
+		this.sprite = new Sprite(this.position, '/static/assets/particles/Fire+Sparks-SpriteSheet.png', frameWidth, frameHeight, scale, frameSequence)
 	}
 
 	update() {
