@@ -132,6 +132,7 @@
         "Reply": "readonly",
         "RunAll": "readonly",
         "RunOnce": "readonly",
+        "RunUntil": "readonly",
         "SecondChat": "readonly",
         "ShootChickensLevel": "readonly",
         "ShowLogs": "readonly",

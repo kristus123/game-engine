@@ -285,7 +285,7 @@ export class Draw {
 	}
 
 	new_text(position, text, color='white', fontSize = 40) {
-		this.new_rectangle(position)
+		// this.new_rectangle(position)
 
 		this.ctx.fillStyle = 'black'
 

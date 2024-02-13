@@ -42,7 +42,7 @@ for (const srcPath of jsFiles) {
 		const className = path.basename(jsFilePath, '.js')
 		const i = `import { ${className} } from '/${jsFilePath}'`
 
-		if (content.includes(`export class ${className} {`)) {
+		if (content.includes(`export class ${className} {`) || content.includes(`export const ${className} =`)) {
 			// Do nothing
 		}
 		else if (
@@ -59,10 +59,14 @@ for (const srcPath of jsFiles) {
 
 
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
-
 	let count = countOccurrences(content, 'TEMP_UUID')
 	for (let i = 0; i < count; i++) {
 		content = content.replace('TEMP_UUID', uuid())
+	}
+
+	content = content.replaceAll('RunUntil(', 'RunUntil(this, TEMP_UUID_1, ')
+	for (let i = 0; i < countOccurrences(content, 'TEMP_UUID_1'); i++) {
+		content = content.replace('TEMP_UUID_1', uuid())
 	}
 
 
