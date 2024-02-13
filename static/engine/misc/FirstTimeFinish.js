@@ -1,7 +1,5 @@
 export class FirstTimeFinish {
 	constructor(predicate) {
-		this.predicate = predicate
-
 		this.finished = false
 		this.returnedTrueOnce = false
 	}

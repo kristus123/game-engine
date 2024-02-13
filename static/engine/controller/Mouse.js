@@ -1,7 +1,5 @@
 export class Mouse {
 	constructor(camera) {
-		this.camera = camera
-
 		this.position = camera.position.copy()
 		this.screenPosition = camera.position.copy()
 

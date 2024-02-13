@@ -7,7 +7,6 @@ function limitNumber(num, min, max) {
 
 export class Camera {
 	constructor(mouse) {
-		this.mouse = mouse
 		this.palette = Palette.offscreen()
 
 		this.objectToFollow = new GameObject(0, 0, 1, 1, 1, 1)

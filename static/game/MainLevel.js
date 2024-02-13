@@ -7,10 +7,8 @@ export class MainLevel {
 
 		this.pissQuest = new PissQuest(this.world)
 		this.pissQuest.onFinish = () => {
-			this.levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
+			levelSelector.changeActiveLevel(new ShootChickensLevel(this.world))
 		}
-
-		this.levelSelector = levelSelector
 
 		this.runAll = new RunAll([
 			this.world,

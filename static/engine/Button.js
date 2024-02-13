@@ -1,9 +1,5 @@
 export class Button {
 	constructor(position, text, mouse, onClick=() => {}) {
-		this.position = position
-		this.text = text
-		this.mouse = mouse
-		this.onClick = onClick
 		this.firstTimeFinish = new FirstTimeFinish(() => this.mouse.clicking(this.position))
 	}
 

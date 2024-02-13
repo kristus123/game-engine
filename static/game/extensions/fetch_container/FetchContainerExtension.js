@@ -1,7 +1,5 @@
 export class FetchContainerExtension {
 	constructor(spaceship) {
-		this.spaceship = spaceship
-
 		this.container = new Crate({ x: 100, y: 200 })
 		this.connectedToSpaceship = false
 		this.ropeLength = 400 // Set your desired rope length here

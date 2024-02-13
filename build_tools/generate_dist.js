@@ -66,6 +66,42 @@ for (const srcPath of jsFiles) {
 	}
 
 
+	const regex = /export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/
+	const match = content.match(regex)
+
+	if (match) {
+		const parameters = match[1].split(',')
+			.map(param => param.trim())
+			.map(p => p.replaceAll(' ', ''))
+			.map(p => p.split('=')[0])
+
+		if (!(parameters.length == 1 && parameters[0] == '')) {
+
+			const initVariables = parameters
+				.map(p => `this.${p} = ${p}; \n`)
+				.map(p => '\t\t' + p)
+				.join()
+				.replaceAll(',', '')
+			const className = path.basename(srcPath, '.js')
+
+			let lines = content.split('\n')
+			for (let i = 0; i < lines.length; i++) {
+				if (lines[i].includes('constructor') && !lines[i].includes('IGNORE')) {
+					lines[i] = lines[i] + '\n' + initVariables
+				}
+
+				for (const p of parameters) {
+					if (lines[i].replace(' ', '').includes(`this.${p}=`)) {
+						console.log('Found shit in ' + className)
+					}
+				}
+			}
+
+			content = lines.join('\n')
+		}
+	}
+
+
 	content = imports + '\n' + content
 
 	createFileAndFolderStructure(destPath, content)

@@ -1,6 +1,5 @@
 export class ClickEvents {
 	constructor(mouse) {
-		this.mouse = mouse
 		this.clickHandlers = {}
 
 		this.handleClick = this.handleClick.bind(this)

@@ -1,8 +1,6 @@
 export class BackspaceEffect {
-	constructor(textToBackspace, framesPerLetter) {
-		this.textToBackspace = textToBackspace
+	constructor(textToBackspace, framesPerLetter=1) {
 		this.currentIndex = textToBackspace.length
-		this.framesPerLetter = framesPerLetter || 1
 		this.frameCount = 0
 	}
 

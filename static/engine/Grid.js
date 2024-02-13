@@ -1,7 +1,6 @@
 export class Grid {
 
 	constructor(mouse) {
-		this.mouse = mouse
 		this.cellSize = 64
 
 		this.clickedPositions = []
