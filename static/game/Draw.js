@@ -1,8 +1,6 @@
 export class Draw {
 
 	constructor(ctx) {
-		this.ctx = ctx
-
 		this.angle = 0 // temporary hack
 	}
 

@@ -1,8 +1,7 @@
 export class Piss {
 	constructor(player, mouse, position) {
+
 		this.inventory = new Inventory()
-		this.player = player
-		this.mouse = mouse
 
 		for (let i = 0; i < 100; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)

@@ -6,10 +6,6 @@
 
 export class SmoothValue {
 	constructor(currentValue, targetValue, smoothness, threshold=0.0001) {
-		this.currentValue = currentValue
-		this.targetValue = targetValue
-		this.smoothness = smoothness
-		this.threshold = threshold
 	}
 
 	update() {

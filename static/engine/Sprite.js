@@ -1,18 +1,11 @@
 export class Sprite {
 	constructor(gameObject, src, frameWidth, frameHeight, scale, frameSequence) {
-		this.gameObject = gameObject
-
 		this.spriteSheet = new Image()
 		this.spriteSheet.src = src
 
-		this.frameWidth = frameWidth // Width of each frame in the sprite sheet
-		this.frameHeight = frameHeight // Height of each frame in the sprite sheet
-		this.scale = scale // Scale factor
-
-		this.frameSequence = frameSequence
-
 		this.currentFrameIndex = 0 // Index of the current frame in frameSequence
-		const totalFrames = this.frameSequence.length
+		const totalFrames = frameSequence.length
+
 		setInterval(() => {
 			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
 		}, 100)

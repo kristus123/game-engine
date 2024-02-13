@@ -1,10 +1,7 @@
 export class Particle {
 	constructor(x, y, radius, velocity) {
-		this.x = x
-		this.y = y
-		this.radius = radius
+
 		this.angle = Math.random() * Math.PI * 2 // Initial angle
-		this.velocity = velocity
 		this.color = Random.color()
 		this.opacity = 1
 		this.prevPositions = []

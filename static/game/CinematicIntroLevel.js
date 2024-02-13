@@ -1,6 +1,5 @@
 export class CinematicIntroLevel {
 	constructor(levelSelector, camera, mouse) {
-		this.camera = camera
 		this.world = new World(levelSelector, camera, mouse)
 
 		this.deliveryDrone = new GameObject(-120, 400, 10, 10, 10, 2)

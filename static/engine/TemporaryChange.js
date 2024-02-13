@@ -1,7 +1,5 @@
 export class TemporaryChange {
 	constructor(object, fieldsToChange) {
-		this.object = object
-		this.fieldsToChange = fieldsToChange
 		this.oldValues = {}
 
 		for (const fieldName in fieldsToChange) {

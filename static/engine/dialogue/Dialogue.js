@@ -1,8 +1,5 @@
 export class Dialogue {
 	constructor(conversation, position, mouse) {
-		this.conversation = conversation
-		this.position = position
-		this.mouse = mouse
 
 		this.textTyper = new TextTyper(conversation.question)
 

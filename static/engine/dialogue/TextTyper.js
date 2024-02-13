@@ -1,10 +1,8 @@
 export class TextTyper {
-	constructor(textToType, framesPerLetter) {
-		this.textToType = textToType
+	constructor(textToType, framesPerLetter=4) {
 		this.currentIndex = -1
 		this.isTyping = true
 		this.ready = false
-		this.framesPerLetter = framesPerLetter || 4
 		this.frameCount = 0
 		this.finishedTyping = false
 	}

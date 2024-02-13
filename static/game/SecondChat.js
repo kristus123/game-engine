@@ -1,7 +1,5 @@
 export class SecondChat {
 	constructor(position, mouse) {
-		this.position = position
-
 		const p = position.copy()
 		p.width = 700
 		p.height = 100

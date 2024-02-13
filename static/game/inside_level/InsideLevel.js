@@ -1,7 +1,5 @@
 export class InsideLevel {
 	constructor(levelSelector, camera, mouse) {
-		this.levelSelector = levelSelector
-		this.mouse = mouse
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)

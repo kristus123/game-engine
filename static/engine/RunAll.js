@@ -1,6 +1,5 @@
 export class RunAll {
 	constructor(classes) {
-		this.classes = classes
 	}
 
 	update() {
