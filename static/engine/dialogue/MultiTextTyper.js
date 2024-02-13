@@ -1,5 +1,5 @@
 export class MultiTextTyper {
-	constructor(texts) { // IGNORE -- make it so that if u declare this.texts, it will not automatically add it
+	constructor(texts) {
 		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
 		this.index = 0
 	}

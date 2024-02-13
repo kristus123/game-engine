@@ -1,10 +1,7 @@
 export class GameObject {
-	constructor(x, y, width, height, weight, velocityFactor) { // IGNORE
+	constructor(_x, _y, _width, _height, weight, velocityFactor) {
 
-		this.position = new Position(x, y, width, height)
-
-		this.weight = weight
-		this.velocityFactor = velocityFactor
+		this.position = new Position(_x, _y, _width, _height)
 
 		this.velocity = new Velocity(0, 0)
 
