@@ -6,6 +6,8 @@ ErrorHandler.run(() => {
 	const backgroundPalette = Palette.offscreen()
 	const showLogs = new ShowLogs(guiPalette)
 
+	const gl = new WebGl()
+
 	const camera = new Camera()
 	const mouse = new Mouse(camera)
 	camera.mouse = mouse
@@ -23,6 +25,7 @@ ErrorHandler.run(() => {
 			camera.context(() => {
 				levelSelector.update()
 				levelSelector.draw(new Draw(camera.palette.ctx), new Draw(guiPalette.ctx))
+				gl.draw()
 			})
 
 			showLogs.draw()

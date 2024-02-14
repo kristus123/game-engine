@@ -151,6 +151,7 @@
         "Velocity": "readonly",
         "VoidDialogue": "readonly",
         "Water": "readonly",
+        "WebGl": "readonly",
         "World": "readonly",
         "index": "readonly"
     }
