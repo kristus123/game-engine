@@ -55,8 +55,8 @@ export class CinematicIntroLevel {
 			}, 1500)
 
 			setTimeout(() => {
-				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I am here to help you']))
-			}, 3500)
+				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I have your piss equipment']))
+			}, 6000)
 		})
 	}
 
