@@ -31,6 +31,7 @@ export class CinematicIntroLevel {
 		])
 
 		AudioEngine.play()
+
 	}
 
 	update() {
@@ -60,7 +61,10 @@ export class CinematicIntroLevel {
 		})
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
+		guiDraw.rectangle(0, 0, Palette.width, 100, "black")
+		guiDraw.rectangle(0, Palette.height - 100, Palette.width, 100, "black")
+
 		this.runAll.draw(draw)
 
 		draw.objectThatIsMovingInRectangularPathAroundObject(this.deliveryDrone, this.world.player.position.center)
