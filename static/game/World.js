@@ -7,7 +7,7 @@ export class World {
 		this.controller.control(this.player)
 
 		this.runAll = new RunAll([
-			new StarBackground(this.player),
+			new StarBackground(camera),
 			// new Planets(),
 			this.controller,
 			new Picture(new GameObject(500, 0, 1500, 1500, 1, 1), '/static/assets/planets/exoplanet32x32.png'),
