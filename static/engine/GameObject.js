@@ -89,5 +89,4 @@ export class GameObject {
 		return this.movingUp || this.movingDown
 	}
 
-
 }
