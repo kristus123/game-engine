@@ -1,5 +1,12 @@
 export class RunAll {
-	constructor(classes) {
+	constructor(classes=[]) {
+
+		for (const c of classes) {
+			if (c == null) {
+				throw new Error("null passed into Runall")
+			}
+			
+		}
 	}
 
 	update() {
@@ -33,6 +40,7 @@ export class RunAll {
 
 	add(c) {
 		this.classes.push(c)
+		return c
 	}
 
 	remove(c) {

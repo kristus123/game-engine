@@ -6,7 +6,12 @@ export class CinematicIntroLevel {
 		camera.followInstantly(this.deliveryDrone)
 		this.world.controller.control(this.deliveryDrone)
 
-		this.t = new MultiTextTyper(this.deliveryDrone.position.offset(0, 200), [
+		this.runAll = new RunAll([
+			this.world,
+			this.deliveryDrone,
+		])
+
+		this.runAll.add(new MultiTextTyper(this.deliveryDrone.position.offset(0, 200), [
 			'Current objective:',
 			'Deliver package',
 			'',
@@ -18,64 +23,38 @@ export class CinematicIntroLevel {
 			'',
 			'',
 			'But not today',
-			'',
-			'',
-			'',
-			'',
-		])
-
-
-		this.runAll = new RunAll([
-			this.t,
-			this.world,
-			this.deliveryDrone,
-		])
+		]))
 
 		AudioEngine.play()
 	}
 
 	update() {
-		Steps
-			.once(() => {
-				console.log('hallo')
-			})
-			.once(() => {
-				console.log('hei på dei')
-			})
-			.wait(2_000)
-			.until(() => {
-				console.log('ahahah')
-				return true
-			})
-			.loop()
-
-
 		this.runAll.update()
 
 		RunOnce(Distance.withinRadius(this.deliveryDrone, this.world.player, 300), () => {
-			this.runAll.remove(this.t)
-
 			this.world.controller.control(this.world.player)
 			this.world.camera.follow(this.world.player)
-
 			this.deliveryDrone.resetVelocity()
-
-			this.runAll.add(new MultiTextTyper(this.world.player.position, ['who are you?']))
-
-			setTimeout(() => {
-				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I am here to help']))
-			}, 1500)
-
-			setTimeout(() => {
-				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I have your piss equipment']))
-			}, 6000)
 		})
+
+		if (Distance.withinRadius(this.deliveryDrone, this.world.player, 300)) {
+			Steps
+			.once(() => {
+				this.runAll.add(new MultiTextTyper(this.world.player.position, ['who are you?']))
+			})
+			.wait(4_000)
+			.once(() => {
+				this.runAll.add(new MultiTextTyper(this.world.player.position, ['Gay?']))
+			})
+			.wait(6_000)
+			.once(() => {
+				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I am here to help']))
+			})
+		}
 	}
 
 	draw(draw) {
 		this.runAll.draw(draw)
-
 		draw.objectThatIsMovingInRectangularPathAroundObject(this.deliveryDrone, this.world.player.position.center)
 	}
-
 }
