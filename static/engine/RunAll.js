@@ -3,9 +3,9 @@ export class RunAll {
 
 		for (const c of classes) {
 			if (c == null) {
-				throw new Error("null passed into Runall")
+				throw new Error('null passed into Runall')
 			}
-			
+
 		}
 	}
 
