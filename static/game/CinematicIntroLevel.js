@@ -24,6 +24,7 @@ export class CinematicIntroLevel {
 			'',
 		])
 
+
 		this.runAll = new RunAll([
 			this.t,
 			this.world,
@@ -34,11 +35,22 @@ export class CinematicIntroLevel {
 	}
 
 	update() {
-		this.runAll.update()
+		Steps
+			.once(() => {
+				console.log('hallo')
+			})
+			.once(() => {
+				console.log('hei på dei')
+			})
+			.wait(2_000)
+			.until(() => {
+				console.log('ahahah')
+				return true
+			})
+			.loop()
 
-		// RunUntil(Distance.withinRadius(this.deliveryDrone, this.world.player, 300), () => {
-		// 	Push(this.deliveryDrone).towards(this.world.player, 100)
-		// })
+
+		this.runAll.update()
 
 		RunOnce(Distance.withinRadius(this.deliveryDrone, this.world.player, 300), () => {
 			this.runAll.remove(this.t)

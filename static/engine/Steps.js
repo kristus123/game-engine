@@ -1,40 +1,72 @@
-class RunOnceChecker {
-  constructor() {
-    this.id = {};
-  }
+export class Steps {
+	constructor() {
+		this.steps = []
+		this.index = 0
+		this.lock = false
 
-  runOnce(uuid, object, functionToRun) {
-    if (!(object in this.id)) {
-      this.id[object] = [];
-    }
+		this._loop = false
+	}
 
-    if (!this.id[object].includes(uuid)) {
-      this.id[object].push(uuid);
-      functionToRun();
-    }
-  }
+	once(run) {
+		if (!this.lock) {
+			this.steps.push(() => {
+				run()
+				return true
+			})
+		}
+
+		return this
+	}
+
+	wait(milliseconds) {
+		if (!this.lock) {
+
+			let c = false
+			setTimeout(() => {
+				c = true
+			}, milliseconds)
+
+			this.steps.push(() => {
+				return c
+			})
+		}
+
+		return this
+	}
+
+	until(run) {
+		if (!this.lock) {
+			this.steps.push(run)
+		}
+
+		return this
+	}
+
+	loop() {
+		this._loop = true
+
+		return this
+	}
+
+	update() {
+		if (this.steps.length != 0) {
+			this.lock = true
+		}
+
+		if (List.validIndex(this.steps, this.index)) {
+			const f = this.steps[this.index]
+
+			if (f()) {
+				this.index += 1
+			}
+		}
+		else if (this._loop) {
+			this.steps = []
+			this.index = 0
+			this.lock = false
+		}
+
+		return this
+	}
+
 }
-
-
-const runOnceChecker = new RunOnceChecker()
-const activeBlock = 0
-
-export const Steps = {
-
-	runOnce(uuid, object, run) {
-		runOnceChecker.runOnce(uuid, object, run)
-		activeBlock = uuid + 1
-	},
-
-	wait() {
-		
-	},
-	
-}
-
-
-
-
-
-
-

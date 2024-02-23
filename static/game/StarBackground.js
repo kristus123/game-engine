@@ -13,10 +13,10 @@ export class StarBackground {
 	draw(draw) {
 		this.stars.forEach((star) => {
 			const parallaxFactor = 0.99
-			const x = star.position.x + this.camera.position.x * parallaxFactor;
-			const y = star.position.y + this.camera.position.y * parallaxFactor;
+			const x = star.position.x + this.camera.position.x * parallaxFactor
+			const y = star.position.y + this.camera.position.y * parallaxFactor
 
-			draw.old_star(x, y, star.color);
+			draw.old_star(x, y, star.color)
 		})
 	}
 }
