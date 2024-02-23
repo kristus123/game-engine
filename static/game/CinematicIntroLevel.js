@@ -36,21 +36,6 @@ export class CinematicIntroLevel {
 			this.world.camera.follow(this.world.player)
 			this.deliveryDrone.resetVelocity()
 		})
-
-		if (Distance.withinRadius(this.deliveryDrone, this.world.player, 300)) {
-			Steps
-			.once(() => {
-				this.runAll.add(new MultiTextTyper(this.world.player.position, ['who are you?']))
-			})
-			.wait(4_000)
-			.once(() => {
-				this.runAll.add(new MultiTextTyper(this.world.player.position, ['Gay?']))
-			})
-			.wait(6_000)
-			.once(() => {
-				this.runAll.add(new MultiTextTyper(this.deliveryDrone.position, ['I am here to help']))
-			})
-		}
 	}
 
 	draw(draw) {
