@@ -2,6 +2,8 @@ export class MultiTextTyper {
 	constructor(position, texts) {
 		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
 		this.index = 0
+
+		this.finished = false
 	}
 
 	update() {
@@ -14,6 +16,9 @@ export class MultiTextTyper {
 			else {
 				t.update()
 			}
+		}
+		else {
+			this.finished = true
 		}
 	}
 
@@ -29,6 +34,4 @@ export class MultiTextTyper {
 	draw(draw) {
 		draw.new_text(this.position, this.text)
 	}
-
-
 }

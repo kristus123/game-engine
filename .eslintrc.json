@@ -143,6 +143,7 @@
         "Sprite": "readonly",
         "StarBackground": "readonly",
         "StartMenu": "readonly",
+        "Steps": "readonly",
         "TemporaryChange": "readonly",
         "TextTyper": "readonly",
         "TextTyperWithBackspaceEffect": "readonly",
