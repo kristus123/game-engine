@@ -41,5 +41,10 @@ export class CinematicIntroLevel {
 	draw(draw) {
 		this.runAll.draw(draw)
 		draw.objectThatIsMovingInRectangularPathAroundObject(this.deliveryDrone, this.world.player.position.center)
+
+		if (Distance.withinRadius( this.world.player, this.deliveryDrone, 100)) {
+			draw.new_text(this.deliveryDrone.position, 'E to enter')
+		}
+
 	}
 }

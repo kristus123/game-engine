@@ -23,11 +23,11 @@ export class RunAll {
 		})
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		this.classes.forEach(e => {
 			try {
 				if (e.draw) {
-					e.draw(draw)
+					e.draw(draw, guiDraw)
 				}
 			}
 			catch (error) {
