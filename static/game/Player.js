@@ -14,7 +14,7 @@ export class Player extends GameObject {
 		this.keyboardEvent.addKeyDownListener('e', () => {
 			if (this.charge >= 100) {
 				this.charge -= 100
-				Push(this).towards(this.mouse.position, 200)
+				ForcePush(this).towards(this.mouse.position, 200)
 			}
 		})
 

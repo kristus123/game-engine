@@ -10,7 +10,7 @@ export class Bullet extends GameObject {
 		this.to = to
 		this.hit = null
 
-		Push(this).towards(to)
+		ForcePush(this).towards(to)
 	}
 
 	onCollision(o) {

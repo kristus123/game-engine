@@ -33,11 +33,11 @@ export class Piss {
 			}
 
 			if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
-				Push(i).towards(this.player, 5)
+				ForcePush(i).towards(this.player, 5)
 			}
 
 			if (Distance.between(i, this.player) < 100) {
-				Push(i).towards(this.player, 10)
+				ForcePush(i).towards(this.player, 10)
 			}
 		})
 	}

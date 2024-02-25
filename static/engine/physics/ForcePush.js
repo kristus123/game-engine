@@ -1,4 +1,4 @@
-export const Push = (o) => ({
+export const ForcePush = (o) => ({
 	awayFrom: (position, multiplier=1) => {
 		const dir = Math.atan2(o.y - position.y, o.x - position.x)
 		o.velocity = {

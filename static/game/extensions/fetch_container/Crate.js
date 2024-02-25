@@ -9,7 +9,7 @@ export class Crate extends GameObject {
 	}
 
 	onCollision(o) {
-		Push(this).awayFrom(o, 1.1)
+		ForcePush(this).awayFrom(o, 1.1)
 	}
 
 	draw(draw) {

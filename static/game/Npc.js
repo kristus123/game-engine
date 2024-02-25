@@ -5,7 +5,7 @@ export class Npc extends GameObject {
 	}
 
 	onCollision(o) {
-		Push(this).awayFrom(o, 50)
+		ForcePush(this).awayFrom(o, 50)
 	}
 
 	update() {
