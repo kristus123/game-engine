@@ -9,6 +9,7 @@ export class CinematicIntroLevel {
 		this.runAll = new RunAll([
 			this.world,
 			this.deliveryDrone,
+			new Spaceship(this.world.player),
 		])
 
 		this.runAll.add(new MultiTextTyper(this.deliveryDrone.position.offset(0, 200), [
@@ -45,6 +46,5 @@ export class CinematicIntroLevel {
 		if (Distance.withinRadius( this.world.player, this.deliveryDrone, 100)) {
 			draw.new_text(this.deliveryDrone.position, 'E to enter')
 		}
-
 	}
 }
