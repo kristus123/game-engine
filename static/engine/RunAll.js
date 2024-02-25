@@ -1,12 +1,5 @@
 export class RunAll {
-	constructor(classes=[]) {
-
-		for (const c of classes) {
-			if (c == null) {
-				throw new Error('null passed into Runall')
-			}
-
-		}
+	constructor(classes) {
 	}
 
 	update() {
@@ -23,11 +16,11 @@ export class RunAll {
 		})
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.classes.forEach(e => {
 			try {
 				if (e.draw) {
-					e.draw(draw, guiDraw)
+					e.draw(draw)
 				}
 			}
 			catch (error) {
@@ -40,7 +33,6 @@ export class RunAll {
 
 	add(c) {
 		this.classes.push(c)
-		return c
 	}
 
 	remove(c) {

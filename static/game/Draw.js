@@ -37,13 +37,12 @@ export class Draw {
 			position.height)
 	}
 
-	gradient(position) {
-		const radius = 1500
+	gradient(position, radius=1500, qq=200) {
 
 		const scaledX = position.x
 		const scaledY = position.y
 
-		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 200, scaledX, scaledY, radius)
+		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, qq, scaledX, scaledY, radius)
 		// Add transparent colors with alpha channel
 		gradient.addColorStop(0, 'rgba(255, 0, 0, 0.2)') // Inner color (fully transparent red)
 		gradient.addColorStop(0.5, 'rgba(0, 0, 255, 1)') // Middle color (partially transparent blue)
@@ -60,13 +59,6 @@ export class Draw {
 		this.ctx.fillStyle = color
 		this.ctx.strokeStyle = color
 		this.rectangle(position.x, position.y, position.width, position.height, color)
-	}
-
-	old_star(x, y, color='white') {
-		this.ctx.lineWidth = 0
-		this.ctx.fillStyle = color
-		this.ctx.strokeStyle = color
-		this.rectangle(x, y, 1, 1, color)
 	}
 
 	rectangle(x, y, width, height, color = 'orange') {

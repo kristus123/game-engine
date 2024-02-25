@@ -29,3 +29,7 @@ then open [http://localhost:5000]()
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
+
+# Misc. info
+
+- `runtime.txt` is used for netlify.

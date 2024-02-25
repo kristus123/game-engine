@@ -1,6 +1,11 @@
 const id = {}
 
-// generate_dist.js adds uuid and object, you should only add condition and run
+// THIS IS HOW YOU SHOULD USE IT.
+// generate_dist.js adds the sugar
+//
+// runonce(true).then(() => {
+// 	console.log("hei!")
+// })
 
 export const RunOnce = (uuid, object, condition, run) => {
 

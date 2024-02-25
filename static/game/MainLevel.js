@@ -17,7 +17,6 @@ export class MainLevel {
 			new FirstChat(this.npc.position, mouse),
 			this.grid,
 		])
-
 	}
 
 	update() {

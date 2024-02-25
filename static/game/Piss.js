@@ -3,7 +3,7 @@ export class Piss {
 
 		this.inventory = new Inventory()
 
-		for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < 50; i++) {
 			const x = Random.integerBetween(position.x, position.x + position.width)
 			const y = Random.integerBetween(position.y, position.y + position.height)
 

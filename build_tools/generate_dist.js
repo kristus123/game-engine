@@ -38,7 +38,6 @@ for (const srcPath of jsFiles) {
 	const destPath = path.join('dist/static', path.relative('static', srcPath))
 
 	let imports = ''
-	let steps = ''
 	for (const jsFilePath of jsFiles) {
 		const className = path.basename(jsFilePath, '.js')
 		const i = `import { ${className} } from '/${jsFilePath}'`
@@ -57,6 +56,8 @@ for (const srcPath of jsFiles) {
 		}
 	}
 
+
+
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
 	let count = countOccurrences(content, 'TEMP_UUID')
 	for (let i = 0; i < count; i++) {
@@ -67,10 +68,6 @@ for (const srcPath of jsFiles) {
 	for (let i = 0; i < countOccurrences(content, 'TEMP_UUID_1'); i++) {
 		content = content.replace('TEMP_UUID_1', uuid())
 	}
-
-
-
-
 
 
 	const regex = /export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/
@@ -97,17 +94,6 @@ for (const srcPath of jsFiles) {
 					lines[i] = lines[i] + '\n' + initVariables
 				}
 
-				if (lines[i].trim() == 'Steps') {
-					steps += 'const __steps = new Steps()' + '\n'
-					lines[i] = '\t\t__steps.update()'
-
-					const stepImport = 'import { Steps } from \'/static/engine/Steps.js\';'
-
-					if (!imports.includes(stepImport)) {
-						imports += stepImport + '\n'
-					}
-				}
-
 				for (const p of parameters) {
 					if (lines[i].replace(' ', '').includes(`this.${p}=`)) {
 						console.log('Found shit in ' + className)
@@ -120,8 +106,7 @@ for (const srcPath of jsFiles) {
 	}
 
 
-	content = imports + '\n' + steps + '\n' + content
-	// content = steps + content
+	content = imports + '\n' + content
 
 	createFileAndFolderStructure(destPath, content)
 }
