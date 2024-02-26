@@ -1,5 +1,5 @@
 export class World {
-	constructor(levelSelector, camera, mouse) {
+	constructor(camera, mouse) {
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)

@@ -1,6 +1,6 @@
 export class MainLevel {
 	constructor(levelSelector, camera, mouse) {
-		this.world = new World(levelSelector, camera, mouse)
+		this.world = new World(camera, mouse)
 
 		this.npc = new Npc()
 		this.grid = new Grid(mouse)
