@@ -82,4 +82,28 @@ export class Physics {
 			player.velocity.y -= diffY * velocityAdjustment
 		}
 	}
+
+static enforceMinDistance(player, spaceship, minDistance=100, velocityAdjustment=0.3) {
+
+		const dx = spaceship.x - player.x;
+		const dy = spaceship.y - player.y;
+		const distance = Math.sqrt(dx * dx + dy * dy);
+
+		if (distance < minDistance) {
+			const angle = Math.atan2(dy, dx);
+			const targetX = player.x + Math.cos(angle) * minDistance;
+			const targetY = player.y + Math.sin(angle) * minDistance;
+
+			const diffX = targetX - spaceship.x;
+			const diffY = targetY - spaceship.y;
+
+			player.velocity.x -= diffX * velocityAdjustment;
+			player.velocity.y -= diffY * velocityAdjustment;
+		}
+	}
+
+
+
+
+
 }
