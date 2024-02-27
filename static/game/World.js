@@ -3,10 +3,16 @@ export class World {
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)
-		this.camera.follow(this.player)
-		this.controller.control(this.player)
+
+		this.npc = new Npc()
+		this.pissQuest = new PissQuest(this)
+
+		this.deliveryDrone = new DeliveryDrone(this.player, camera, this.controller, this.player, 0, 400)
+		camera.followInstantly(this.deliveryDrone)
+		this.controller.control(this.deliveryDrone)
 
 		this.runAll = new RunAll([
+
 			new StarBackground(camera),
 			// new Planets(),
 			this.controller,
@@ -17,6 +23,9 @@ export class World {
 			},
 			new Picture(new GameObject(-3491, 2101, 800, 800, 1, 1), '/static/assets/planets/moon27x26.png'),
 			new Picture(new GameObject(2100, 5000, 3000, 3000, 1, 1), '/static/assets/planets/sun.png'),
+			this.deliveryDrone,
+			this.npc,
+			this.pissQuest,
 		])
 	}
 

@@ -18,7 +18,7 @@ export class FirstChat {
 				Reply('frick!', Conversation('Well.. Bye kid. Get to work...', [howToPlay]))
 			]))
 
-		this.dialogue = new Dialogue(Conversation('x', [yes, no]), p, mouse)
+		this.dialogue = new Dialogue(Conversation('Finally. The delivery has arrived. Are you ready to clean some piss boy?', [yes, no]), p, mouse)
 	}
 
 	update() {
