@@ -2,7 +2,7 @@ export class CinematicIntroLevel {
 	constructor(levelSelector, camera, mouse) {
 		this.world = new World(camera, mouse)
 
-		this.deliveryDrone = new DeliveryDrone(0, 400)
+		this.deliveryDrone = new DeliveryDrone(camera, this.world.player, -15000, 400)
 		camera.followInstantly(this.deliveryDrone)
 		this.world.controller.control(this.deliveryDrone)
 
@@ -40,7 +40,6 @@ export class CinematicIntroLevel {
 
 	draw(draw) {
 		this.runAll.draw(draw)
-		draw.objectThatIsMovingInRectangularPathAroundObject(this.deliveryDrone, this.world.player.position.center)
 
 		if (Distance.withinRadius( this.world.player, this.deliveryDrone, 100)) {
 			draw.new_text(this.deliveryDrone.position, 'E to enter')

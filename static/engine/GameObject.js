@@ -3,7 +3,7 @@ export class GameObject {
 
 		this.position = new Position(_x, _y, _width, _height)
 
-		this.velocity = new Velocity(0, 0)
+		this.velocity = new Velocity(this, 0, 0)
 
 		Physics.global.applyPhysics(this)
 	}
