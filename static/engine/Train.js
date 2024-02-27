@@ -19,29 +19,30 @@ export class Train {
 
 			const distance = Distance.between(cargo, connectedTo)
 
-			if (distance > 800) {
-				ForcePush(cargo).towards(connectedTo, distance * 40)
+			// if (distance > 1000) {
+			// 	ForcePush(cargo).towards(connectedTo, 1000)
+			// }
+			// else if (distance > 800) {
+			// 	ForcePush(cargo).towards(connectedTo, 1000)
+			// }
+			// else if (distance > 600) {
+			// 	ForcePush(cargo).towards(connectedTo, distance, 0.05)
+			// }
+			// else if (distance > 200) {
+			// 	ForcePush(cargo).towards(connectedTo, distance, 0.001)
+			// }
+			if (distance > 100) {
+				Push(cargo).towards(connectedTo, distance, 2)
 			}
-			else if (distance > 400) {
-				ForcePush(cargo).towards(connectedTo, distance * 20)
-			}
-			else if (distance > 100) {
-				ForcePush(cargo).towards(connectedTo, distance, 0.05)
-			}
-			else if (distance > 50) {
-				ForcePush(cargo).towards(connectedTo, distance, 0.01)
-			}
-			else if (distance > 20) {
-				ForcePush(cargo).towards(connectedTo, distance, 0.1)
-			}
+			console.log(distance)
 
 			if (Collision.between(cargo, connectedTo)) {
-				ForcePush(cargo).awayFrom(connectedTo, 40)
-				ForcePush(connectedTo).awayFrom(cargo, 20)
+				// ForcePush(cargo).awayFrom(connectedTo, 40)
+				// ForcePush(connectedTo).awayFrom(cargo, 20)
 			}
 
-			Physics.enforceMaxDistance(connectedTo, cargo, 100, 0.1)
-			Physics.enforceMinDistance(connectedTo, cargo, 20, 50)
+			Physics.enforceMaxDistance(connectedTo, cargo, 800, 0.1)
+			Physics.enforceMinDistance(connectedTo, cargo, 400, 0.1)
 		}
 	}
 

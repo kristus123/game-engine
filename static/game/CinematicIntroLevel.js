@@ -9,7 +9,6 @@ export class CinematicIntroLevel {
 		this.runAll = new RunAll([
 			this.world,
 			this.deliveryDrone,
-			new Spaceship(this.world.player),
 		])
 
 		this.runAll.add(new MultiTextTyper(this.deliveryDrone.position.offset(0, 200), [

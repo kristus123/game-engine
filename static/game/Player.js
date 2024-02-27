@@ -93,9 +93,5 @@ export class Player extends GameObject {
 			this.flyingDown.draw(draw)
 			this.splash.draw(draw)
 		}
-
-
-
-
 	}
 }

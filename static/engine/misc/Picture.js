@@ -6,7 +6,7 @@ export class Picture {
 		this.image.src = src
 	}
 
-	r(draw) {
+	r(draw, rotation=2) {
 		const newWidth = this.gameObject.width
 		const newHeight = this.gameObject.height
 
@@ -15,7 +15,7 @@ export class Picture {
 		draw.ctx.translate(this.gameObject.position.center.x, this.gameObject.position.center.y)
 		const rotationAngle = Math.atan2(this.gameObject.velocity.y, this.gameObject.velocity.x)
 		draw.ctx.rotate(rotationAngle)
-		draw.ctx.rotate(Math.PI / 2) // 90 degrees
+		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
 
 		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 

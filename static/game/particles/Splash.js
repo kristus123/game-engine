@@ -29,7 +29,7 @@ export class Splash {
 				y: mousePosition.y - spawnPosition.y,
 			}
 
-			speed = Random.floatBetween(1, 5)
+			speed = speed || Random.floatBetween(1, 5)
 
 
 			// Calculate initial angle
