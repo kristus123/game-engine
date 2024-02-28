@@ -1,6 +1,6 @@
 export class Npc extends GameObject {
 	constructor() {
-		super(-1000, -200, 50, 100, 100, 10)
+		super(-900, -200, 50, 100, 100, 10)
 		this.picture = new Picture(this, 'https://i.imgur.com/w9dZE0H.png')
 	}
 
@@ -12,7 +12,6 @@ export class Npc extends GameObject {
 	}
 
 	draw(draw) {
-		super.draw(draw)
 		this.picture.draw(draw)
 	}
 }

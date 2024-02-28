@@ -1,17 +1,12 @@
 export class CinematicIntroLevel {
 	constructor(levelSelector, camera, mouse) {
-		this.world = new World(camera, mouse)
-
-		this.deliveryDrone = new DeliveryDrone(camera, this.world.player, -15000, 400)
-		camera.followInstantly(this.deliveryDrone)
-		this.world.controller.control(this.deliveryDrone)
+		this.world = new World(levelSelector, camera, mouse)
 
 		this.runAll = new RunAll([
 			this.world,
-			this.deliveryDrone,
 		])
 
-		this.runAll.add(new MultiTextTyper(this.deliveryDrone.position.offset(0, 200), [
+		this.runAll.add(new MultiTextTyper(this.world.deliveryDrone.position.offset(0, 200), [
 			'Current objective:',
 			'Deliver package',
 			'',
@@ -31,18 +26,16 @@ export class CinematicIntroLevel {
 	update() {
 		this.runAll.update()
 
-		RunOnce(Distance.withinRadius(this.deliveryDrone, this.world.player, 300), () => {
+		if (Distance.withinRadius(this.world.deliveryDrone, this.world.player, 300)) {
 			this.world.controller.control(this.world.player)
 			this.world.camera.follow(this.world.player)
-			this.deliveryDrone.resetVelocity()
-		})
+			this.world.deliveryDrone.resetVelocity()
+
+			this.levelSelector.changeActiveLevel(new MainLevel(this.levelSelector, this.world, this.camera, this.mouse))
+		}
 	}
 
 	draw(draw) {
 		this.runAll.draw(draw)
-
-		if (Distance.withinRadius( this.world.player, this.deliveryDrone, 100)) {
-			draw.new_text(this.deliveryDrone.position, 'E to enter')
-		}
 	}
 }
