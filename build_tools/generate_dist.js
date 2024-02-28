@@ -1,8 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-const jsFiles = require('./get_js_files')
-
 function createFileAndFolderStructure(destPath, content) {
 	const folderPath = path.dirname(destPath)
 
@@ -32,6 +30,8 @@ function uuid() {
 	return u
 }
 
+const jsFiles = require('./get_js_files')
+const Imports = require('./Imports')
 
 for (const srcPath of jsFiles) {
 	let content = fs.readFileSync(srcPath, 'utf-8')
@@ -43,16 +43,7 @@ for (const srcPath of jsFiles) {
 		const className = path.basename(jsFilePath, '.js')
 		const i = `import { ${className} } from '/${jsFilePath}'`
 
-		if (content.includes(`export class ${className} {`) || content.includes(`export const ${className} =`)) {
-			// Do nothing
-		}
-		else if (
-			content.includes(`new ${className}`) ||
-			content.includes(`${className}.`) ||
-			content.includes(`${className}(`) ||
-			content.includes(`instanceof ${className}`) ||
-			content.includes(`extends ${className}`)
-		) {
+		if (Imports.include(content, className)) {
 			imports += i + ';\n'
 		}
 	}
@@ -68,13 +59,7 @@ for (const srcPath of jsFiles) {
 		content = content.replace('TEMP_UUID_1', uuid())
 	}
 
-
-
-
-
-
-	const regex = /export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/
-	const match = content.match(regex)
+	const match = content.match(/export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/)
 
 	if (match) {
 		const parameters = match[1].split(',')
@@ -89,7 +74,6 @@ for (const srcPath of jsFiles) {
 				.map(p => '\t\t' + p)
 				.join()
 				.replaceAll(',', '')
-			const className = path.basename(srcPath, '.js')
 
 			let lines = content.split('\n')
 			for (let i = 0; i < lines.length; i++) {
@@ -102,15 +86,8 @@ for (const srcPath of jsFiles) {
 					lines[i] = '\t\t__steps.update()'
 
 					const stepImport = 'import { Steps } from \'/static/engine/Steps.js\';'
-
 					if (!imports.includes(stepImport)) {
 						imports += stepImport + '\n'
-					}
-				}
-
-				for (const p of parameters) {
-					if (lines[i].replace(' ', '').includes(`this.${p}=`)) {
-						console.log('Found shit in ' + className)
 					}
 				}
 			}
@@ -119,9 +96,7 @@ for (const srcPath of jsFiles) {
 		}
 	}
 
-
 	content = imports + '\n' + steps + '\n' + content
-	// content = steps + content
 
 	createFileAndFolderStructure(destPath, content)
 }
@@ -129,6 +104,8 @@ for (const srcPath of jsFiles) {
 require('./copy_asset_folder_to_dist')
 
 const scriptImports = jsFiles.map(f => `<script type="module" src="/${f}"></script>`).join('\n')
+
 const indexHtml = fs.readFileSync('templates/index.html', 'utf-8')
 	.replace('SCRIPT_IMPORTS', scriptImports)
+
 fs.writeFileSync('dist/index.html', indexHtml)
