@@ -26,9 +26,9 @@ export class DeliveryDrone extends GameObject {
 		}
 
 		this.runAll.draw(draw)
-		this.splash.splash(this.position.center,  this.position.center, 200, 'orange', 1, 300)
+		this.splash.splash(this.position.center, this.position.center, 200, 'orange', 1, 300)
 		this.splash.draw(draw)
-		
+
 		this.picture.r(draw, 0)
 
 	}
