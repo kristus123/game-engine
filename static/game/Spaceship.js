@@ -1,5 +1,5 @@
 export class Spaceship extends GameObject {
-	constructor(player) {
+	constructor(player, camera, controller) {
 		super(-120, 0, 300, 300, 10, 25)
 		this.player = player
 		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/13-138961_vector-spaces-ship-8-bit-spaceship-sprite.png')

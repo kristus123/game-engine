@@ -25,19 +25,19 @@ export class Piss {
 		this.inventory.draw(draw)
 
 		const angle = 50 // rn it only works with 50
-		draw.splash(this.player.position, this.mouse.position, angle)
+		// draw.splash(this.player.position, this.mouse.position, angle)
 
 		this.inventory.pickableItems.forEach(i => {
 			if (Collision.between(this.player, i)) {
 				this.inventory.pickUp(i)
 			}
 
-			if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
-				ForcePush(i).towards(this.player, 2)
-			}
+			// if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
+			// 	ForcePush(i).towards(this.player, 2)
+			// }
 
-			if (Distance.between(i, this.player) < 100) {
-				ForcePush(i).towards(this.player, 19)
+			if (Distance.between(i, this.player) < 300) {
+				ForcePush(i).towards(this.player, 10)
 			}
 		})
 	}

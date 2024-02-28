@@ -3,10 +3,6 @@ export class MainLevel {
 
 		this.grid = new Grid(mouse)
 
-		// this.pissQuest.onFinish = () => {
-		// 	levelSelector.changeActiveLevel(new ShootChickensLevel(world))
-		// }
-
 		this.runAll = new RunAll([
 			this.world,
 			new FirstChat(world.npc.position, mouse),

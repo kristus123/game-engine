@@ -1,5 +1,5 @@
 export class World {
-	constructor(camera, mouse) {
+	constructor(levelSelector, camera, mouse) {
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)
@@ -12,9 +12,7 @@ export class World {
 		this.controller.control(this.deliveryDrone)
 
 		this.runAll = new RunAll([
-
 			new StarBackground(camera),
-			// new Planets(),
 			this.controller,
 			new Picture(new GameObject(500, 0, 1500, 1500, 1, 1), '/static/assets/planets/exoplanet32x32.png'),
 			this.player,

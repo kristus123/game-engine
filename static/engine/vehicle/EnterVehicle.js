@@ -27,6 +27,14 @@ export class EnterVehicle {
 		})
 	}
 
+	update() {
+		if (this.entered) {
+			this.player.x = this.vehicle.x
+			this.player.y = this.vehicle.y
+		}
+	}
+
+
 	draw(draw) {
 		if (!this.entered && Distance.withinRadius(this.player, this.vehicle, 100)) {
 			draw.new_text(this.vehicle.position, 'E to enter')
