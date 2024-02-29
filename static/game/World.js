@@ -5,11 +5,12 @@ export class World {
 		this.player = new Player(mouse)
 
 		this.npc = new Npc()
-		this.pissQuest = new PissQuest(this)
 
 		this.deliveryDrone = new DeliveryDrone(this.player, camera, this.controller, this.player, 0, 400)
 		camera.followInstantly(this.deliveryDrone)
 		this.controller.control(this.deliveryDrone)
+
+		this.pissQuest = new PissQuest(this)
 
 		this.runAll = new RunAll([
 			new StarBackground(camera),

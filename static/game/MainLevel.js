@@ -8,6 +8,9 @@ export class MainLevel {
 			new FirstChat(world.npc.position, mouse),
 		])
 
+		setTimeout(() => {
+			this.runAll.add(new AiChat(this.world.deliveryDrone.position, mouse))
+		}, 30);
 	}
 
 	update() {

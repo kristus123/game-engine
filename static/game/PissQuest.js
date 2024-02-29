@@ -5,7 +5,7 @@ export class PissQuest {
 		this.runAll = new RunAll(Random.positions(-900, -200, -200, 3000, 20).map(position => {
 			position.width = 200
 			position.height = 200
-			const piss = new Piss(world.player, world.mouse, position)
+			const piss = new Piss(world.deliveryDrone, world.mouse, position)
 			piss.onFinish = () => {
 				this.cleanedPisses += 1
 			}

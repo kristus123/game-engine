@@ -16,4 +16,8 @@ export class OffsetPosition {
 		return this.position.y + this.offset.y
 	}
 
+	copy() {
+		return new Position(this.position.x + this.offset.x, this.position.y + this.offset.y, this.position.width, this.position.height)
+	}
+
 }

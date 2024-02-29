@@ -9,7 +9,7 @@ export class FirstChat {
 
 		const yes = Reply('yes i look forward to it',
 			Conversation('Thats good to hear. hopefully you will not do anything stupid', [
-				Reply('ok!', Conversation('Great. Now, get to work!', [howToPlay]), 'ok')
+				Reply('ok!', Conversation('Great. Now, get to work!', [howToPlay]))
 			]),
 		)
 

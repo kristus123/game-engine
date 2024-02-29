@@ -7,6 +7,7 @@ export class CinematicIntroLevel {
 		])
 
 		this.runAll.add(new MultiTextTyper(this.world.deliveryDrone.position.offset(0, 200), [
+			'use wasd or arrows to drive',
 			'Current objective:',
 			'Deliver package',
 			'',

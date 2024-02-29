@@ -14,7 +14,7 @@ export class Player extends GameObject {
 		this.keyboardEvent.addKeyDownListener('e', () => {
 			if (this.charge >= 100) {
 				this.charge -= 100
-				ForcePush(this).towards(this.mouse.position, 200)
+				ForcePush(this).towards(this.mouse.position, 50)
 			}
 		})
 
@@ -71,21 +71,21 @@ export class Player extends GameObject {
 	draw(draw) {
 		if (this.keyboard.up) {
 			this.flyingUp.draw(draw)
-			this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
+			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
 			this.splash.draw(draw)
 		}
 		else if (this.keyboard.down) {
 			this.splash.draw(draw)
 			this.flyingDown.draw(draw)
-			this.splash.splash(this.position.offset(40, 50), this.position.offset(0, -200), 1, 'white',1, 100)
+			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, -200), 1, 'white',1, 100)
 		}
 		else if (this.keyboard.left) {
-			this.splash.splash(this.position.offset(40, 50), this.position.offset(200, 0), 1, 'white', 1, 100)
+			// this.splash.splash(this.position.offset(40, 50), this.position.offset(200, 0), 1, 'white', 1, 100)
 			this.splash.draw(draw)
 			this.flyingRight.mirror(draw)
 		}
 		else if (this.keyboard.right) {
-			this.splash.splash(this.position.offset(40, 50), this.position.offset(-200, 0), 1, 'white', 1, 100)
+			// this.splash.splash(this.position.offset(40, 50), this.position.offset(-200, 0), 1, 'white', 1, 100)
 			this.splash.draw(draw)
 			this.flyingRight.draw(draw)
 		}
