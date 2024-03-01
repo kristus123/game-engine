@@ -4,22 +4,8 @@ export class CinematicIntroLevel {
 
 		this.runAll = new RunAll([
 			this.world,
+			new Monologue(this.world.deliveryDrone),
 		])
-
-		this.runAll.add(new MultiTextTyper(this.world.deliveryDrone.position.offset(0, 200), [
-			'use wasd or arrows to drive',
-			'Current objective:',
-			'Deliver package',
-			'',
-			'',
-			'Would be nice to have a greater purpose',
-			'',
-			'',
-			'Maybe one day',
-			'',
-			'',
-			'But not today',
-		]))
 
 		AudioEngine.play()
 	}
@@ -36,7 +22,7 @@ export class CinematicIntroLevel {
 		}
 	}
 
-	draw(draw) {
-		this.runAll.draw(draw)
+	draw(draw, guiDraw) {
+		this.runAll.draw(draw, guiDraw)
 	}
 }

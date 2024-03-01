@@ -32,6 +32,7 @@ export class Camera {
 
 	context(run) {
 		this.smoothZoom.update()
+
 		this.palette.ctx.save()
 
 		this.position.x += (this.objectToFollow.velocity.x * this.velocityPrediction)

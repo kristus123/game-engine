@@ -223,8 +223,8 @@ export class Draw {
 		const dx = target.x - camera.position.x
 		const dy = target.y - camera.position.y
 		// Calculate the maximum allowed distances for rectangular movement
-		const horizontalRectDistance = Palette.width / 2 - 20
-		const verticalRectDistance = Palette.height / 2 - 20
+		const horizontalRectDistance = (Palette.width / 2 - 20)
+		const verticalRectDistance = (Palette.height / 2 - 20)
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
 			camera.position.x +

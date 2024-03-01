@@ -20,8 +20,8 @@ export class DeliveryDrone extends GameObject {
 		this.runAll.update()
 	}
 
-	draw(draw) {
-		this.compass.draw(draw)
+	draw(draw, guiDraw) {
+		this.compass.draw(draw, guiDraw)
 
 		this.runAll.draw(draw)
 		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)

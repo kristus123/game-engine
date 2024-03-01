@@ -2,7 +2,7 @@ export class Compass {
 	constructor(camera, target) {
 	}
 
-	draw(draw) {
-		draw.objectThatIsMovingInRectangularPathAroundObject(this.camera, this.target)
+	draw(draw, guiDraw) {
+		guiDraw.objectThatIsMovingInRectangularPathAroundObject(this.camera, this.target)
 	}
 }
