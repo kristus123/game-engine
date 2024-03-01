@@ -11,7 +11,7 @@ export class MainLevel {
 		])
 
 		this.pissQuest.cleanedOnePile = () => {
-			this.runAll.add(new MultiTextTyper(position, [
+			this.runAll.add(new MultiTextTyper(world.npc.position, [
 				'Good job!',
 			]))
 		}
