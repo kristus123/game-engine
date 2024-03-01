@@ -18,7 +18,7 @@ export class DeliverPissLevel {
 		this.runAll.update()
 	}
 
-	draw(draw) {
-		this.runAll.draw(draw)
+	draw(draw, guiDraw) {
+		this.runAll.draw(draw, guiDraw)
 	}
 }

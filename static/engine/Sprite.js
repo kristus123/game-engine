@@ -11,7 +11,7 @@ export class Sprite {
 		}, 100)
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		if (this.spriteSheet.complete) {
 
 			const frameInfo = this.frameSequence[this.currentFrameIndex]

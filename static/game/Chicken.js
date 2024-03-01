@@ -27,7 +27,7 @@ export class Chicken extends GameObject {
 	update() {
 	}
 
-	draw(draw) {
-		this.sprite.draw(draw)
+	draw(draw, guiDraw) {
+		this.sprite.draw(draw, guiDraw)
 	}
 }

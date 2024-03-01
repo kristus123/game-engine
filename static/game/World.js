@@ -6,11 +6,9 @@ export class World {
 
 		this.npc = new Npc()
 
-		this.deliveryDrone = new DeliveryDrone(this.player, camera, this.controller, this.player, 0, 400)
+		this.deliveryDrone = new DeliveryDrone(this.player, camera, this.controller, this.player, -100, 0)
 		camera.followInstantly(this.deliveryDrone)
 		this.controller.control(this.deliveryDrone)
-
-		this.pissQuest = new PissQuest(this)
 
 		this.runAll = new RunAll([
 			new StarBackground(camera),
@@ -24,7 +22,6 @@ export class World {
 			new Picture(new GameObject(2100, 5000, 3000, 3000, 1, 1), '/static/assets/planets/sun.png'),
 			this.deliveryDrone,
 			this.npc,
-			this.pissQuest,
 		])
 	}
 

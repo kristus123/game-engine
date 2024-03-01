@@ -20,9 +20,9 @@ export class Piss {
 		})
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 
-		this.inventory.draw(draw)
+		this.inventory.draw(draw, guiDraw)
 
 		// const angle = 50 // rn it only works with 50
 		// if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {

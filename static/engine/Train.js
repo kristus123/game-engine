@@ -46,9 +46,9 @@ export class Train {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		this.cargos.forEach(c => {
-			c.draw(draw)
+			c.draw(draw, guiDraw)
 		})
 	}
 }

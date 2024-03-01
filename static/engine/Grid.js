@@ -32,7 +32,7 @@ export class Grid {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		const { ctx } = draw
 		const snappedPosition = this.mouseGrid(this.mouse.position)
 		// draw.block(snappedPosition)

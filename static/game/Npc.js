@@ -11,7 +11,7 @@ export class Npc extends GameObject {
 	update() {
 	}
 
-	draw(draw) {
-		this.picture.draw(draw)
+	draw(draw, guiDraw) {
+		this.picture.draw(draw, guiDraw)
 	}
 }

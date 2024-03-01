@@ -19,7 +19,7 @@ export class GameObject {
 
 	update() { }
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		draw.new_rectangle(this.position)
 	}
 

@@ -25,7 +25,7 @@ export class AiChat {
 	update() {
 	}
 
-	draw(draw) {
-		this.dialogue.draw(draw)
+	draw(draw, guiDraw) {
+		this.dialogue.draw(draw, guiDraw)
 	}
 }

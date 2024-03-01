@@ -19,12 +19,13 @@ export class FirstChat {
 			]))
 
 		this.dialogue = new Dialogue(Conversation('Finally. The delivery has arrived. Are you ready to clean some piss boy?', [yes, no]), p, mouse)
+		this.dialogue = new Dialogue(Conversation('x', [yes, no]), p, mouse)
 	}
 
 	update() {
 	}
 
-	draw(draw) {
-		this.dialogue.draw(draw)
+	draw(draw, guiDraw) {
+		this.dialogue.draw(draw, guiDraw)
 	}
 }

@@ -24,9 +24,9 @@ export class FetchContainerExtension {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 
-		this.container.draw(draw)
+		this.container.draw(draw, guiDraw)
 
 		if (this.connectedToSpaceship) {
 			draw.lineBetween(this.spaceship.position.center, this.container.position.center)

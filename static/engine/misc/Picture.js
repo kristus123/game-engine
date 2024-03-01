@@ -22,7 +22,7 @@ export class Picture {
 		draw.ctx.restore()
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		if (this.image.complete) {
 			const newWidth = this.gameObject.width
 			const newHeight = this.gameObject.height

@@ -8,7 +8,11 @@ ErrorHandler.run(() => {
 
 	const camera = new Camera()
 	const mouse = new Mouse(camera)
+
 	camera.mouse = mouse
+
+	const draw = new Draw(camera.palette.ctx)
+	const guiDraw = new Draw(guiPalette.ctx)
 
 	const levelSelector = new LevelSelector()
 	// levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
@@ -22,7 +26,7 @@ ErrorHandler.run(() => {
 
 			camera.context(() => {
 				levelSelector.update()
-				levelSelector.draw(new Draw(camera.palette.ctx), new Draw(guiPalette.ctx))
+				levelSelector.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()

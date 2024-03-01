@@ -9,7 +9,7 @@ export class Button {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		if (this.mouse.hovering(this.position)) {
 			draw.new_rectangle(this.position, 'green')
 			draw.new_text(this.position.offset(0, 70), this.text, 'white')

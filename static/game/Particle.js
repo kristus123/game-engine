@@ -26,7 +26,7 @@ export class Particle {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		draw.ctx.lineWidth = 2
 
 		for (let i = 0; i < this.prevPositions.length - 1; i++) {

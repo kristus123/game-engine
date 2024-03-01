@@ -15,7 +15,7 @@ export class Factory extends GameObject {
 		}
 	}
 
-	draw(draw) {
-		super.draw(draw)
+	draw(draw, guiDraw) {
+		super.draw(draw, guiDraw)
 	}
 }

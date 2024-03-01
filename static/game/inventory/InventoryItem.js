@@ -10,12 +10,12 @@ export class InventoryItem extends GameObject {
 		this.inventory.pickUp(this)
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		if (!this.pickedUp) {
-			super.draw(draw)
+			super.draw(draw, guiDraw)
 		}
 
-		this.splash.draw(draw)
+		this.splash.draw(draw, guiDraw)
 	}
 
 }

@@ -12,8 +12,8 @@ export class Crate extends GameObject {
 		ForcePush(this).awayFrom(o, 1.1)
 	}
 
-	draw(draw) {
-		super.draw(draw)
+	draw(draw, guiDraw) {
+		super.draw(draw, guiDraw)
 		this.crateImage.draw(draw, 200)
 		draw.new_circle(this.position.center)
 	}

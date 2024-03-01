@@ -19,7 +19,7 @@ export class Planets {
 			.map(p => new Picture(new GameObject(p.x, p.y, 1000, 1000, 10, 10), Random.choice(imgs)))
 	}
 
-	draw(draw) {
-		this.planets.forEach(p => p.draw(draw))
+	draw(draw, guiDraw) {
+		this.planets.forEach(p => p.draw(draw, guiDraw))
 	}
 }

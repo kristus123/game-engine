@@ -38,7 +38,7 @@ export class Projectile extends GameObject {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		if (this.shot && this.connectedTo) {
 			draw.lineBetween(this.from, this.connectedTo)
 			draw.circle(

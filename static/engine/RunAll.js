@@ -24,6 +24,10 @@ export class RunAll {
 	}
 
 	draw(draw, guiDraw) {
+		if (draw == null || guiDraw == null) {
+			throw new Error('null value passed to draw')
+		}
+
 		this.classes.forEach(e => {
 			try {
 				if (e.draw) {

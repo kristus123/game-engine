@@ -20,7 +20,7 @@ export class Water {
 		}
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		this.droplets.forEach((s) => {
 			draw.blueRectangle(s.x, s.y, s.width, s.height)
 		})

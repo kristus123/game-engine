@@ -111,7 +111,7 @@ export class Splash {
 
 
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		this.particles.forEach((p, index) => {
 			p.x += p.velocity.x
 			p.y += p.velocity.y

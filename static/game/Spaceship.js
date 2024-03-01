@@ -19,7 +19,7 @@ export class Spaceship extends GameObject {
 		})
 	}
 
-	draw(draw) {
+	draw(draw, guiDraw) {
 		this.picture.r(draw)
 
 		if (!this.entered && Distance.withinRadius(this.player, this, 100)) {

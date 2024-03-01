@@ -23,9 +23,9 @@ export class DeliveryDrone extends GameObject {
 	draw(draw, guiDraw) {
 		this.compass.draw(draw, guiDraw)
 
-		this.runAll.draw(draw)
+		this.runAll.draw(draw, guiDraw)
 		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)
-		this.splash.draw(draw)
+		this.splash.draw(draw, guiDraw)
 
 		this.picture.r(draw, 0)
 
