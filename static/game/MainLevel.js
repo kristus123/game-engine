@@ -7,7 +7,7 @@ export class MainLevel {
 			this.world,
 			this.pissQuest,
 			// new FirstChat(world.npc.position, mouse),
-			new AiChat(this.world.deliveryDrone.position, mouse),
+			// new AiChat(this.world.deliveryDrone.position, mouse),
 		])
 
 		this.pissQuest.cleanedOnePile = () => {

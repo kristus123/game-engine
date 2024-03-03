@@ -12,11 +12,8 @@ export class StarBackground {
 
 	draw(draw, guiDraw) {
 		this.stars.forEach((star) => {
-			const parallaxFactor = 0.99
-			const x = star.position.x + this.camera.position.x * parallaxFactor
-			const y = star.position.y + this.camera.position.y * parallaxFactor
-
-			draw.old_star(x, y, star.color)
+			const p = Parallax(star, this.camera, 0.99)
+			draw.star(p, star.color)
 		})
 	}
 }
