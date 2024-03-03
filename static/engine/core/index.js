@@ -8,7 +8,6 @@ ErrorHandler.run(() => {
 
 	const camera = new Camera()
 	const mouse = new Mouse(camera)
-
 	camera.mouse = mouse
 
 	const draw = new Draw(camera.palette.ctx)
@@ -16,7 +15,8 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	// levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-	levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
+	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
+	levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
