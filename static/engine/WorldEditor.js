@@ -32,7 +32,6 @@ export class WorldEditor {
 
 		for (const o of this.runAll.classes) {
 			if (this.mouse.clicking(o)) {
-				console.log("hei")
 				o.position.center.x = this.mouse.position.x
 				o.position.center.y = this.mouse.position.y
 			}

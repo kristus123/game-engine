@@ -1,5 +1,6 @@
 export class GameObject {
-	constructor(_x, _y, _width, _height, weight, velocityFactor) {
+	constructor(_x, _y, _width, _height, weight, velocityFactor, srcPicture=null) {
+		this.picture = new Picture(this, srcPicture)
 
 		this.position = new Position(_x, _y, _width, _height)
 
@@ -21,7 +22,12 @@ export class GameObject {
 	update() { }
 
 	draw(draw, guiDraw) {
-		draw.new_rectangle(this.position)
+		if (this.picture) {
+			this.picture.draw(draw, guiDraw)
+		}
+		else {
+			draw.block(this.position)
+		}
 	}
 
 	followIfOutsideOfRadius(o, radius) {
