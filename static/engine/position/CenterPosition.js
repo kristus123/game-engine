@@ -15,5 +15,12 @@ export class CenterPosition {
 	}
 
 
+	set x(x) {
+		this.position.x = x - (this.width / 2)
+	}
+
+	set y(y) {
+		this.position.y = y - (this.height / 2)
+	}
 
 }
