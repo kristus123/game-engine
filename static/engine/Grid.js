@@ -2,6 +2,8 @@ export class Grid {
 
 	constructor(mouse) {
 		this.cellSize = 64
+		this.width = 1_000
+		this.height = 1_000
 
 		this.clickedPositions = []
 
@@ -25,19 +27,18 @@ export class Grid {
 		ctx.strokeStyle = 'white'
 		ctx.lineWidth = 2
 
-		for (let x = offsetX; x < Palette.width; x += this.cellSize) {
-			for (let y = offsetY; y < Palette.height; y += this.cellSize) {
+		for (let x = offsetX; x < this.width; x += this.cellSize) {
+			for (let y = offsetY; y < this.height; y += this.cellSize) {
 				ctx.strokeRect(x, y, this.cellSize, this.cellSize)
 			}
 		}
 	}
 
 	draw(draw, guiDraw) {
-		const { ctx } = draw
 		const snappedPosition = this.mouseGrid(this.mouse.position)
-		// draw.block(snappedPosition)
+		draw.block(snappedPosition)
 
-		// this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
+		this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
 		for (const p of this.clickedPositions) {
 			draw.block(p)

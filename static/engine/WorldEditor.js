@@ -13,6 +13,7 @@ export class WorldEditor {
 			new GuiButton(GuiPosition.bottomMiddle(10, -100, 100, 100), "hei", this.mouse, () => {
 				console.log("hei")
 			}),
+			new Grid(mouse),
 		])
 
 		new KeypressEvent().addKeyDownListener("-", () => {
