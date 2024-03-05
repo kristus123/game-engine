@@ -16,13 +16,13 @@ export class WorldEditor {
 			// new Grid(mouse),
 		])
 
-		new KeypressEvent().addKeyDownListener("-", () => {
-			console.log("zooming out")
+		new KeypressEvent().addKeyDownListener('-', () => {
+			console.log('zooming out')
 			camera.zoom -= 0.5
 		})
 
-		new KeypressEvent().addKeyDownListener("_", () => {
-			console.log("zooming in")
+		new KeypressEvent().addKeyDownListener('_', () => {
+			console.log('zooming in')
 			camera.zoom += 0.5
 		})
 	}
@@ -35,16 +35,16 @@ export class WorldEditor {
 				o.position.center.x = this.mouse.position.x
 				o.position.center.y = this.mouse.position.y
 			}
-			
+
 		}
 
 		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		
-		
-		
+
+
+
 		this.runAll.draw(draw, guiDraw)
 	}
 
