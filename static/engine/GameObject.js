@@ -28,6 +28,8 @@ export class GameObject {
 		else {
 			draw.block(this.position)
 		}
+
+
 	}
 
 	followIfOutsideOfRadius(o, radius) {

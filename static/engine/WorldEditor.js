@@ -8,12 +8,12 @@ export class WorldEditor {
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
-			new Planet(500, 0),
+			// new Planet(500, 0),
 
-			new GuiButton(GuiPosition.bottomMiddle(10, -100, 100, 100), "hei", this.mouse, () => {
-				console.log("hei")
-			}),
-			new Grid(mouse),
+			// new GuiButton(GuiPosition.bottomMiddle(10, -100, 100, 100), "hei", this.mouse, () => {
+			// 	console.log("hei")
+			// }),
+			// new Grid(mouse),
 		])
 
 		new KeypressEvent().addKeyDownListener("-", () => {
