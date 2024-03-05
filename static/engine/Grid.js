@@ -1,12 +1,17 @@
 export class Grid {
 
 	constructor(mouse) {
-		this.cellSize = 64
+		this.cellSize = 32
+		this.width = 1_000
+		this.height = 1_000
 
 		this.clickedPositions = []
 
 		mouse.addOnClick('place block', mousePosition => {
-			this.clickedPositions.push(this.mouseGrid(mousePosition))
+			const p = this.mouseGrid(mousePosition)
+			console.log(p.x)
+			this.clickedPositions.push(new GameObject(
+				p.x, p.y, 32, 32, 10, 10, '/static/assets/planets/exoplanet32x32.png'))
 		})
 
 	}
@@ -25,22 +30,21 @@ export class Grid {
 		ctx.strokeStyle = 'white'
 		ctx.lineWidth = 2
 
-		for (let x = offsetX; x < Palette.width; x += this.cellSize) {
-			for (let y = offsetY; y < Palette.height; y += this.cellSize) {
+		for (let x = offsetX; x < this.width; x += this.cellSize) {
+			for (let y = offsetY; y < this.height; y += this.cellSize) {
 				ctx.strokeRect(x, y, this.cellSize, this.cellSize)
 			}
 		}
 	}
 
 	draw(draw, guiDraw) {
-		const { ctx } = draw
 		const snappedPosition = this.mouseGrid(this.mouse.position)
-		// draw.block(snappedPosition)
+		draw.block(snappedPosition)
 
-		// this.drawGrid(ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
+		this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
 		for (const p of this.clickedPositions) {
-			draw.block(p)
+			p.draw(draw)
 		}
 	}
 

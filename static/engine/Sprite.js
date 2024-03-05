@@ -1,5 +1,5 @@
 export class Sprite {
-	constructor(gameObject, src, frameWidth, frameHeight, scale, frameSequence) {
+	constructor(gameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
 		this.spriteSheet = new Image()
 		this.spriteSheet.src = src
 
@@ -8,7 +8,7 @@ export class Sprite {
 
 		setInterval(() => {
 			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
-		}, 100)
+		}, speed)
 	}
 
 	draw(draw, guiDraw) {

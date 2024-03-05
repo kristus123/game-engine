@@ -68,6 +68,7 @@
         ]
     },
     "globals": {
+        "AiChat": "readonly",
         "AudioEngine": "readonly",
         "BackspaceEffect": "readonly",
         "BeaconShit": "readonly",
@@ -103,6 +104,7 @@
         "GameObject": "readonly",
         "Get": "readonly",
         "Grid": "readonly",
+        "GuiButton": "readonly",
         "GuiPosition": "readonly",
         "Gun": "readonly",
         "InsideLevel": "readonly",
@@ -115,17 +117,20 @@
         "List": "readonly",
         "Loop": "readonly",
         "MainLevel": "readonly",
+        "Monologue": "readonly",
         "Mouse": "readonly",
         "MultiTextTyper": "readonly",
         "Npc": "readonly",
         "NumberThreshold": "readonly",
         "OffsetPosition": "readonly",
         "Palette": "readonly",
+        "Parallax": "readonly",
         "Particle": "readonly",
         "Physics": "readonly",
         "Picture": "readonly",
         "Piss": "readonly",
         "PissQuest": "readonly",
+        "Planet": "readonly",
         "Planets": "readonly",
         "Player": "readonly",
         "Position": "readonly",
@@ -146,6 +151,7 @@
         "Splash": "readonly",
         "Sprite": "readonly",
         "StarBackground": "readonly",
+        "Stars": "readonly",
         "StartMenu": "readonly",
         "Steps": "readonly",
         "TemporaryChange": "readonly",
@@ -158,6 +164,7 @@
         "VoidDialogue": "readonly",
         "Water": "readonly",
         "World": "readonly",
+        "WorldEditor": "readonly",
         "index": "readonly"
     }
 }

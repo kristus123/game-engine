@@ -3,7 +3,7 @@ const Path = require('path')
 class Imports {
 
 	static needed(content, jsFiles) {
-		let imports = ""
+		let imports = ''
 
 		for (const jsFile of jsFiles) {
 			const className = Path.basename(jsFile, '.js')
@@ -12,14 +12,14 @@ class Imports {
 				imports += `import { ${className} } from '/${jsFile}'; \n`
 			}
 		}
-		
+
 		return imports
 	}
 
 	static include(content, className) {
 		if (
-			content.includes(`export class ${className} {`) || 
-			content.includes(`export function ${className}(`) || 
+			content.includes(`export class ${className} {`) ||
+			content.includes(`export function ${className}(`) ||
 			content.includes(`export const ${className} =`)
 		) {
 			return false

@@ -65,7 +65,15 @@ export class Mouse {
 		return Collision.between(this.position, o)
 	}
 
+	hoveringGui(o) {
+		return Collision.between(this.screenPosition, o)
+	}
+
 	clicking(o) {
 		return Collision.between(this.position, o) && this.down
+	}
+
+	clickingGui(o) {
+		return Collision.between(this.screenPosition, o) && this.down
 	}
 }

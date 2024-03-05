@@ -16,8 +16,8 @@ export class KeypressEvent {
 		this.keyUpHandlers[key] = execute
 	}
 
-	handleKeyDown(event) {
-		const key = event.key
+	handleKeyDown(e) {
+		const key = e.key
 
 		if (!this.keyState[key]) {
 			this.keyState[key] = true

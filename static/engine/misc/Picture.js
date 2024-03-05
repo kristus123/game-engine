@@ -31,7 +31,7 @@ export class Picture {
 
 			draw.ctx.save()
 			draw.ctx.translate(this.gameObject.x + this.gameObject.width / 2, this.gameObject.y + this.gameObject.height / 2)
-			draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
 			draw.ctx.restore()
 
 		}
