@@ -6,7 +6,8 @@ function limitNumber(num, min, max) {
 }
 
 export class Camera {
-	constructor(mouse) {
+	constructor() {
+
 		this.palette = Palette.offscreen()
 
 		this.objectToFollow = new GameObject(0, 0, 1, 1, 1, 1)
@@ -20,6 +21,8 @@ export class Camera {
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
 		this.smoothness = 0.1
 		this.velocityPrediction = 0.05
+
+		this.mouse = null
 	}
 
 	get zoom() {
