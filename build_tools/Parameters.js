@@ -12,15 +12,10 @@ function arraysAreEqual(arr1, arr2) {
 	return true
 }
 
-
-
-
-
-
 class Parameters {
 
 	static inConstructor(content) {
-		const match = content.match(/export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/)
+		const match = content.match(/constructor\((.*?)\)/)
 
 		if (match) {
 			const parameters = match[1].split(',')
@@ -41,7 +36,6 @@ class Parameters {
 	}
 
 	static initVariablesFromConstructor(content) {
-		console.log(Parameters.inConstructor(content))
 		return Parameters.inConstructor(content)
 			.map(p => `this.${p} = ${p}; \n`)
 			.map(p => '\t\t' + p)
@@ -52,12 +46,11 @@ class Parameters {
 	static nullCheckForConstructorArguments(content) {
 		return Parameters.inConstructor(content)
 			.map(p => `
-				if (${p} === null) {
-					throw new Error("${p} in " + this.constructor.name + " should not be null")
-				}
+				AssertNotNull(${p}COMMA "argument ${p} in " + this.constructor.name + ".js should not be null")
 			`)
 			.join()
-			.replaceAll(',', '')
+			.replaceAll(",", "")
+			.replaceAll("COMMA", ",")
 	}
 }
 

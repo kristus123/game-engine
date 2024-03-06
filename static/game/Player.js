@@ -2,7 +2,7 @@ export class Player extends GameObject {
 	constructor(mouse) {
 		super(-120, 10, 40, 50, 2300, 8)
 
-		this.mouse = mouse
+		console.log()
 
 		this.keyboardEvent = new KeyboardEvent()
 
@@ -14,7 +14,7 @@ export class Player extends GameObject {
 		this.keyboardEvent.addKeyDownListener('e', () => {
 			if (this.charge >= 100) {
 				this.charge -= 100
-				ForcePush(this).towards(this.mouse.position, 50)
+				ForcePush(this).towards(this.mouse.position, 100)
 			}
 		})
 
@@ -69,6 +69,7 @@ export class Player extends GameObject {
 	}
 
 	draw(draw, guiDraw) {
+		// draw.revertMouse(this, this.mouse.position)
 		if (this.keyboard.up) {
 			this.flyingUp.draw(draw, guiDraw)
 			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)

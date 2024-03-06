@@ -53,15 +53,25 @@ for (const srcPath of jsFiles) {
 		content = content.replace('TEMP_UUID_1', uuid())
 	}
 
+
 	// todo bug if class does not have constructor?
-	const fileExportsClass = content.match(/export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/)
-	if (fileExportsClass) {
+	const match = content.includes("export class")
+
+	if (match) {
 		let lines = content.split('\n')
 
 		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes('constructor(')) {
-				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(content)
+			if (lines[i].includes('constructor(') && lines[i+1].includes('super(')) {
+				if (content.includes("class Player")) {
+					console.log(Parameters.inConstructor(content))
+				}
+
+				lines[i+1] = lines[i+1] + '\n' + Parameters.nullCheckForConstructorArguments(content)
+				lines[i+1] = lines[i+1] + '\n' + Parameters.initVariablesFromConstructor(content)
+			}
+			else if (lines[i].includes('constructor(')) {
 				lines[i] = lines[i] + '\n' + Parameters.nullCheckForConstructorArguments(content)
+				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(content)
 			}
 
 			if (lines[i].trim() == 'Steps') {
