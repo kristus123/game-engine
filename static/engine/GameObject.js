@@ -1,6 +1,6 @@
 export class GameObject {
-	constructor(_x, _y, _width, _height, weight, velocityFactor, srcPicture="nullable") {
-		if (srcPicture != "nullable") {
+	constructor(_x, _y, _width, _height, weight, velocityFactor, srcPicture='nullable') {
+		if (srcPicture != 'nullable') {
 			this.picture = new Picture(this, srcPicture)
 		}
 

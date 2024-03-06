@@ -19,8 +19,8 @@ export class Grid {
 		const cellX = Math.floor(mousePosition.x / this.cellSize)
 		const cellY = Math.floor(mousePosition.y / this.cellSize)
 
-		const x = cellX * this.cellSize 
-		const y = cellY * this.cellSize 
+		const x = cellX * this.cellSize
+		const y = cellY * this.cellSize
 
 		return new Position(x, y, this.cellSize, this.cellSize)
 	}

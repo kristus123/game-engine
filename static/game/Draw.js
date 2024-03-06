@@ -4,18 +4,6 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-	// drawTextInCenter(text, centerPosition) {
-	// 	this.ctx.fillStyle = 'white';
-	// 	this.ctx.font = '25px Arial';
-
-	// 	// Set text alignment to center
-	// 	this.ctx.textAlign = 'center';
-	// 	this.ctx.textBaseline = 'middle';
-
-	// 	// Draw text in the middle of the rectangle
-	// 	this.ctx.fillText(text, centerPosition.x, centerPosition.y);
-	// }
-
 	new_rectangle(position, color='yellow') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
@@ -205,8 +193,8 @@ export class Draw {
 		this.circle(circleX, circleY, playerRadius, 'red')
 
 		player.angle = getAngle(
-			player.x + player.width / 2,
-			player.y + player.height / 2,
+			player.position.center.x,
+			player.position.center.y,
 			mousePosition.x,
 			mousePosition.y)
 

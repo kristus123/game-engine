@@ -69,6 +69,7 @@
     },
     "globals": {
         "AiChat": "readonly",
+        "AssertNotNull": "readonly",
         "AudioEngine": "readonly",
         "BackspaceEffect": "readonly",
         "BeaconShit": "readonly",

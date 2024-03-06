@@ -39,7 +39,7 @@ const jsFiles = require('./get_js_files')
 for (const srcPath of jsFiles) {
 	let content = fs.readFileSync(srcPath, 'utf-8')
 
-	let imports = Imports.needed(content, jsFiles)
+
 	let steps = ''
 
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
@@ -53,32 +53,28 @@ for (const srcPath of jsFiles) {
 		content = content.replace('TEMP_UUID_1', uuid())
 	}
 
+
 	// todo bug if class does not have constructor?
-	const fileExportsClass = content.match(/export\s+class\s+\w+\s*{\s*constructor\s*\(([^)]*)\)/)
-	if (fileExportsClass) {
+	const match = content.includes('export class')
+
+	if (match) {
 		let lines = content.split('\n')
 
 		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes('constructor(')) {
-				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(content)
-				lines[i] = lines[i] + '\n' + Parameters.nullCheckForConstructorArguments(content)
+			if (lines[i].includes('constructor(') && lines[i+1].includes('super(')) {
+				lines[i+1] = lines[i+1] + '\n' + Parameters.nullCheckForConstructorArguments(content)
+				lines[i+1] = lines[i+1] + '\n' + Parameters.initVariablesFromConstructor(content)
 			}
-
-			if (lines[i].trim() == 'Steps') {
-				steps += 'const __steps = new Steps()' + '\n'
-				lines[i] = '\t\t__steps.update()'
-
-				const stepImport = 'import { Steps } from \'/static/engine/Steps.js\';'
-				if (!imports.includes(stepImport)) {
-					imports += stepImport + '\n'
-				}
+			else if (lines[i].includes('constructor(')) {
+				lines[i] = lines[i] + '\n' + Parameters.nullCheckForConstructorArguments(content)
+				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(content)
 			}
 		}
 
 		content = lines.join('\n')
 	}
 
-	content = imports + '\n' + steps + '\n' + content
+	content = Imports.needed(content, jsFiles) + '\n' + steps + '\n' + content
 
 	writeFileToDist(srcPath, content)
 }
