@@ -61,6 +61,7 @@ for (const srcPath of jsFiles) {
 		for (let i = 0; i < lines.length; i++) {
 			if (lines[i].includes('constructor(')) {
 				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(content)
+				lines[i] = lines[i] + '\n' + Parameters.nullCheckForConstructorArguments(content)
 			}
 
 			if (lines[i].trim() == 'Steps') {

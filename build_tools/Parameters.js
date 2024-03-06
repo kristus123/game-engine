@@ -41,14 +41,24 @@ class Parameters {
 	}
 
 	static initVariablesFromConstructor(content) {
+		console.log(Parameters.inConstructor(content))
 		return Parameters.inConstructor(content)
 			.map(p => `this.${p} = ${p}; \n`)
 			.map(p => '\t\t' + p)
 			.join()
 			.replaceAll(',', '')
 	}
+
+	static nullCheckForConstructorArguments(content) {
+		return Parameters.inConstructor(content)
+			.map(p => `
+				if (${p} === null) {
+					throw new Error("${p} in " + this.constructor.name + " should not be null")
+				}
+			`)
+			.join()
+			.replaceAll(',', '')
+	}
 }
-
-
 
 module.exports = Parameters
