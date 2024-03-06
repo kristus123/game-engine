@@ -49,8 +49,8 @@ class Parameters {
 				AssertNotNull(${p}COMMA "argument ${p} in " + this.constructor.name + ".js should not be null")
 			`)
 			.join()
-			.replaceAll(",", "")
-			.replaceAll("COMMA", ",")
+			.replaceAll(',', '')
+			.replaceAll('COMMA', ',')
 	}
 }
 

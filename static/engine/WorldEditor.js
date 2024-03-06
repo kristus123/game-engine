@@ -17,11 +17,11 @@ export class WorldEditor {
 
 
 		this.selected = null
-		this.runAll.add(new GuiButton(GuiPosition.bottomMiddle(10, -100, 400, 100), "click to select a star to draw", this.mouse, () => {
+		this.runAll.add(new GuiButton(GuiPosition.bottomMiddle(10, -100, 400, 100), 'click to select a star to draw', this.mouse, () => {
 			this.selected = Stars // new Stars
 		}))
 
-		mouse.addOnClick("paint", p => {
+		mouse.addOnClick('paint', p => {
 			this.starsRunAll.add(new this.selected(p.x, p.y))
 		})
 

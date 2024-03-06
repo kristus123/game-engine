@@ -39,7 +39,7 @@ const jsFiles = require('./get_js_files')
 for (const srcPath of jsFiles) {
 	let content = fs.readFileSync(srcPath, 'utf-8')
 
-	
+
 	let steps = ''
 
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
@@ -55,7 +55,7 @@ for (const srcPath of jsFiles) {
 
 
 	// todo bug if class does not have constructor?
-	const match = content.includes("export class")
+	const match = content.includes('export class')
 
 	if (match) {
 		let lines = content.split('\n')
