@@ -5,12 +5,12 @@ export class Grid {
 		this.width = 1_000
 		this.height = 1_000
 
-		this.clickedPositions = []
+		this.blocks = []
 
 		mouse.addOnClick('place block', mousePosition => {
 			const p = this.mouseGrid(mousePosition)
 			console.log(p.x)
-			this.clickedPositions.push(new GameObject(
+			this.blocks.push(new GameObject(
 				p.x, p.y, 32, 32, 10, 10, '/static/assets/planets/exoplanet32x32.png'))
 		})
 	}
@@ -42,7 +42,7 @@ export class Grid {
 
 		this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
-		for (const p of this.clickedPositions) {
+		for (const p of this.blocks) {
 			p.draw(draw)
 		}
 	}

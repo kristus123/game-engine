@@ -3,18 +3,16 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new GameObject(0, 0, 10, 10, 4500, 50))
 
-		const savedConfig = []
+		this.starsRunAll = new RunAll()
 
-		this.starsRunAll = new RunAll([])
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			this.starsRunAll,
 			new Planet(500, 0),
 
-			// new Grid(mouse),
+			new Grid(mouse),
 		])
-
 
 		this.selected = null
 		this.runAll.add(new GuiButton(GuiPosition.bottomMiddle(10, -100, 400, 100), 'click to select a star to draw', this.mouse, () => {
@@ -54,9 +52,6 @@ export class WorldEditor {
 			new this.selected(this.mouse.position.x, this.mouse.position.y).draw(draw, guiDraw)
 		}
 
-
-
 		this.runAll.draw(draw, guiDraw)
 	}
-
 }

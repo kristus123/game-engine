@@ -15,8 +15,8 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	// levelSelector.changeActiveLevel(new MainLevel(levelSelector, camera, mouse))
-	levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
-	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
+	levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {

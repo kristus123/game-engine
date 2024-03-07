@@ -30,8 +30,6 @@ export class GameObject {
 		else {
 			draw.new_rectangle(this.position)
 		}
-
-		draw.new_rectangle(this.position)
 	}
 
 	followIfOutsideOfRadius(o, radius) {
@@ -74,7 +72,6 @@ export class GameObject {
 	set height(h) {
 		this.position.height = h
 	}
-
 
 	get movingLeft() {
 		return this.velocity.x < -20
