@@ -11,7 +11,7 @@ export class Factory extends GameObject {
 
 	update() {
 		if (Collision.between(this.player, this)) {
-			this.onFinish()
+			Call(this.onFinish)
 		}
 	}
 

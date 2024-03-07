@@ -8,11 +8,14 @@ export class DeliveryDrone extends GameObject {
 		this.picture = new Picture(this, '/static/assets/cargo_ship.png')
 
 
-		this.compass = new Compass(camera, target),
+		this.compass = new Compass(camera)
+		this.compass.add(player, 'red')
+
 		this.enterVehicle = new EnterVehicle(this, player, camera, controller)
 
 		this.runAll = new RunAll([
-			this.enterVehicle
+			this.enterVehicle,
+			this.compass,
 		])
 	}
 
@@ -21,7 +24,6 @@ export class DeliveryDrone extends GameObject {
 	}
 
 	draw(draw, guiDraw) {
-		this.compass.draw(draw, guiDraw)
 
 		this.runAll.draw(draw, guiDraw)
 		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)

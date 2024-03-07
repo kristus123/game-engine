@@ -204,7 +204,7 @@ export class Draw {
 		}
 	}
 
-	objectThatIsMovingInRectangularPathAroundObject(camera, target) {
+	objectThatIsMovingInRectangularPathAroundObject(camera, target, color='red') {
 		this.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
@@ -223,7 +223,7 @@ export class Draw {
 
 		// Draw the circle
 		const playerRadius = 10
-		this.circle(circleX, circleY, playerRadius, 'red')
+		this.circle(circleX, circleY, playerRadius, color)
 
 		// Draw the rectangle
 		const rectX = camera.position.x - horizontalRectDistance

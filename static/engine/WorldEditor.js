@@ -9,8 +9,7 @@ export class WorldEditor {
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			this.starsRunAll,
-			new Planet(500, 0),
-
+			new Planet(0, 0),
 			new Grid(mouse),
 		])
 
@@ -37,12 +36,12 @@ export class WorldEditor {
 	update() {
 		// Push(this.camera.objectToFollow).towards(this.mouse.position, 0.5)
 
-		// for (const o of this.runAll.classes) {
-		// 	if (this.mouse.clicking(o)) {
-		// 		o.position.center.x = this.mouse.position.x
-		// 		o.position.center.y = this.mouse.position.y
-		// 	}
-		// }
+		for (const o of this.runAll.classes) {
+			if (this.mouse.clicking(o)) {
+				o.position.center.x = this.mouse.position.x
+				o.position.center.y = this.mouse.position.y
+			}
+		}
 
 		this.runAll.update()
 	}

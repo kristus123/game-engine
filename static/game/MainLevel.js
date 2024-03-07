@@ -6,14 +6,12 @@ export class MainLevel {
 		this.runAll = new RunAll([
 			this.world,
 			this.pissQuest,
-			// new FirstChat(world.npc.position, mouse),
+			new FirstChat(world.npc.position, mouse),
 			// new AiChat(this.world.deliveryDrone.position, mouse),
 		])
 
-		this.pissQuest.cleanedOnePile = () => {
-			this.runAll.add(new MultiTextTyper(world.npc.position, [
-				'Good job!',
-			]))
+		this.pissQuest.onFinish = () => {
+			levelSelector.changeActiveLevel(new DeliverPissLevel(world, this.world.npc, levelSelector))
 		}
 	}
 

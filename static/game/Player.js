@@ -2,8 +2,6 @@ export class Player extends GameObject {
 	constructor(mouse) {
 		super(-120, 10, 40, 50, 2300, 8)
 
-		console.log()
-
 		this.keyboardEvent = new KeyboardEvent()
 
 		this.splash = new Splash()

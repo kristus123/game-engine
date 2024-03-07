@@ -4,9 +4,6 @@ export class Planet extends GameObject {
 
 		this.runAll = new RunAll([
 			new Picture(this, '/static/assets/planets/exoplanet32x32.png'),
-			{
-				draw: draw => draw.gradient(new Position(1250, 750)),
-			},
 		])
 	}
 
@@ -16,7 +13,7 @@ export class Planet extends GameObject {
 
 	draw(draw, guiDraw) {
 		this.runAll.draw(draw, guiDraw)
+		draw.gradient(new Position(this.x + 750, this.y + 750))
 	}
-
 
 }

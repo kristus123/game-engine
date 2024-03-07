@@ -4,22 +4,40 @@ export class FirstChat {
 		p.width = 700
 		p.height = 100
 
-		const howToPlay = Reply(
-			'Wait, how do i move around?', Conversation('Press \'e\' to dash, the rest should be obvious', []))
+		const howDoIPlay = {
+			key: "play",
+			text: 'Wait, how do i move around?', 
+			conversation: {
+				question: 'Press \'e\' to dash and press \'e\' to enter the piss cleaning vehicle, the rest should be obvious',
+				replies: [],
+			},
+		}
 
-		const yes = Reply('yes i look forward to it',
-			Conversation('Thats good to hear. hopefully you will not do anything stupid', [
-				Reply('ok!', Conversation('Great. Now, get to work!', [howToPlay]))
-			]),
-		)
+		const yes = {
+			key: 'yes',
+			text: 'yes i look forward to it',
+			conversation: {
+				question: 'Thats good to hear. hopefully you will not do anything stupid', 
+				replies: [
+					{
+						key: 'ok',
+						text: 'Don\'t worry', 
+						conversation: {
+							question:'Great. Now, get to work!', 
+							replies: [howDoIPlay]
+						}, 
+					},
+				],
+			},
+		}
 
-		const no = Reply('No. this was not what i want to do',
-			Conversation('Well, too bad ', [
-				Reply('frick!', Conversation('Well.. Bye kid. Get to work...', [howToPlay]))
-			]))
-
-		this.dialogue = new Dialogue(Conversation('Finally. The delivery has arrived. Are you ready to clean some piss boy?', [yes, no]), p, mouse)
-		this.dialogue = new Dialogue(Conversation('x', [yes, no]), p, mouse)
+		this.dialogue = new Dialogue({
+			question: 'Finally. The delivery has arrived. Are you ready to clean some piss boy?', 
+			replies: [
+				yes, 
+				howDoIPlay,
+			]
+		}, p, mouse)
 	}
 
 	update() {

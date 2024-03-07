@@ -36,11 +36,8 @@ function uuid() {
 
 const jsFiles = require('./get_js_files')
 
-for (const srcPath of jsFiles) {
-	let content = fs.readFileSync(srcPath, 'utf-8')
-
-
-	let steps = ''
+for (const jsFilePath of jsFiles) {
+	let content = fs.readFileSync(jsFilePath, 'utf-8')
 
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
 	let count = countOccurrences(content, 'TEMP_UUID')
@@ -74,16 +71,16 @@ for (const srcPath of jsFiles) {
 		content = lines.join('\n')
 	}
 
-	content = Imports.needed(content, jsFiles) + '\n' + steps + '\n' + content
+	content = Imports.needed(content, jsFiles) + '\n' + content
 
-	writeFileToDist(srcPath, content)
+	writeFileToDist(jsFilePath, content)
 }
 
 require('./copy_asset_folder_to_dist')
 
-const scriptImports = jsFiles.map(f => `<script type="module" src="/${f}"></script>`).join('\n')
-
-const indexHtml = fs.readFileSync('templates/index.html', 'utf-8')
-	.replace('SCRIPT_IMPORTS', scriptImports)
+const scriptImports = jsFiles
+	.map(f => `<script type="module" src="/${f}"></script>`)
+	.join('\n')
+const indexHtml = fs.readFileSync('templates/index.html', 'utf-8').replace('SCRIPT_IMPORTS', scriptImports)
 
 fs.writeFileSync('dist/index.html', indexHtml)
