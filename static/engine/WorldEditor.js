@@ -13,8 +13,8 @@ export class WorldEditor {
 			new Grid(mouse),
 		])
 
-		this.selected = null
-		this.runAll.add(new GuiButton(GuiPosition.bottomMiddle(10, -100, 400, 100), 'click to select a star to draw', this.mouse, () => {
+		const p = GuiPosition.bottomMiddle(10, -100, 400, 100)
+		this.runAll.add(new GuiButton(p, 'click to select a star to draw', this.mouse, () => {
 			this.selected = Stars // new Stars
 		}))
 
@@ -34,7 +34,7 @@ export class WorldEditor {
 	}
 
 	update() {
-		// Push(this.camera.objectToFollow).towards(this.mouse.position, 0.5)
+		// ForcePush(this.camera.objectToFollow).towards(this.mouse.position, 0.5)
 
 		for (const o of this.runAll.classes) {
 			if (this.mouse.clicking(o)) {
