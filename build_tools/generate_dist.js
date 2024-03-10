@@ -39,6 +39,10 @@ const jsFiles = require('./get_js_files')
 for (const jsFilePath of jsFiles) {
 	let content = fs.readFileSync(jsFilePath, 'utf-8')
 
+	if (countOccurrences("class ", content) > 1) {
+		console.log("ONLY ONE CLASS PER FILE")
+	}
+
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
 	let count = countOccurrences(content, 'TEMP_UUID')
 	for (let i = 0; i < count; i++) {
@@ -50,11 +54,7 @@ for (const jsFilePath of jsFiles) {
 		content = content.replace('TEMP_UUID_1', uuid())
 	}
 
-
-	// todo bug if class does not have constructor?
-	const match = content.includes('export class')
-
-	if (match) {
+	if (content.includes('export class')) {
 		let lines = content.split('\n')
 
 		for (let i = 0; i < lines.length; i++) {

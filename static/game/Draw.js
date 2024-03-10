@@ -176,15 +176,9 @@ export class Draw {
 		}
 	}
 
-	// needs some work obviously, but it works
 	revertMouse(player, mousePosition) {
-		function getAngle(x1, y1, x2, y2) {
-			return Math.atan2(y2 - y1, x2 - x1)
-		}
-
-		player.angle = 0
-		const playerRadius = 20
-		const circleRadius = 50
+		const playerRadius = 10
+		const circleRadius = 100
 
 		const oppositeAngle = player.angle + Math.PI
 		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
@@ -192,16 +186,7 @@ export class Draw {
 
 		this.circle(circleX, circleY, playerRadius, 'red')
 
-		player.angle = getAngle(
-			player.position.center.x,
-			player.position.center.y,
-			mousePosition.x,
-			mousePosition.y)
-
-		return {
-			x: circleX,
-			y: circleY,
-		}
+		player.angle = Math.atan2(mousePosition.y - player.position.center.y, mousePosition.x - player.position.center.x)
 	}
 
 	objectThatIsMovingInRectangularPathAroundObject(camera, target, color='red') {

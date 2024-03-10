@@ -24,7 +24,7 @@ export class Physics {
 			// 	}
 			// }
 
-			const frictionFactor = 1 - o.weight / 5000 // Adjust this factor as needed
+			const frictionFactor = 1 - o.weight / 100_000 // Adjust this factor as needed
 
 			// Apply friction to velocity with deltaTime
 			o.velocity.x *= Math.pow(frictionFactor, deltaTime)
@@ -101,9 +101,4 @@ export class Physics {
 			player.velocity.y -= diffY * velocityAdjustment
 		}
 	}
-
-
-
-
-
 }

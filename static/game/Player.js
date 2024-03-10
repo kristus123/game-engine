@@ -26,8 +26,6 @@ export class Player extends GameObject {
 			this.charge += 1
 		}, 20)
 
-		this.picture = new Picture(this, 'https://www.nicepng.com/png/full/343-3434119_overworld-pokemon-trainer-fusion-with-hydreigon-pokemon-red.png')
-
 		this.flyingUp = new Sprite(this, '/static/assets/player.png', 16, 16, 5, [
 			{ x: 4, y: 3 },
 			{ x: 5, y: 3 },
@@ -67,7 +65,8 @@ export class Player extends GameObject {
 	}
 
 	draw(draw, guiDraw) {
-		// draw.revertMouse(this, this.mouse.position)
+		draw.revertMouse(this, this.mouse.position)
+
 		if (this.keyboard.up) {
 			this.flyingUp.draw(draw, guiDraw)
 			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
