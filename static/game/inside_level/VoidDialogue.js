@@ -14,7 +14,6 @@ const canILeave = Reply('Can i leave?',
 	])
 )
 
-
 export const VoidDialogue = (player, mouse) => {
 
 	const p = player.position.copy()

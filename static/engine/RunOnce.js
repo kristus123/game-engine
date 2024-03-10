@@ -11,7 +11,7 @@ export const RunOnce = (uuid, object, condition, run) => {
 
 	const x = !id[object].includes(uuid)
 
-	if (x && condition == true) {
+	if (x && condition) {
 		id[object].push(uuid)
 
 		run()

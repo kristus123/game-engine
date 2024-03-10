@@ -15,7 +15,7 @@ function writeFileToDist(srcPath, content) {
 	fs.writeFileSync(destPath, content)
 }
 
-function countOccurrences(wordToCount, string) {
+function countOccurrences(wordToCount, string) { // semantic error with parameter order
 	let count = 0
 	let index = wordToCount.indexOf(string)
 
@@ -38,10 +38,6 @@ const jsFiles = require('./get_js_files')
 
 for (const jsFilePath of jsFiles) {
 	let content = fs.readFileSync(jsFilePath, 'utf-8')
-
-	if (countOccurrences("class ", content) > 1) {
-		console.log("ONLY ONE CLASS PER FILE")
-	}
 
 	content = content.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
 	let count = countOccurrences(content, 'TEMP_UUID')

@@ -41,6 +41,9 @@ export class FirstChat {
 	}
 
 	update() {
+		RunOnce(this.dialogue.ok, () => {
+			Call(this.onFinish)
+		})
 	}
 
 	draw(draw, guiDraw) {

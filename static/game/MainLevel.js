@@ -6,9 +6,15 @@ export class MainLevel {
 		this.runAll = new RunAll([
 			this.world,
 			this.pissQuest,
-			new FirstChat(world.npc.position, mouse),
-			// new AiChat(this.world.deliveryDrone.position, mouse),
 		])
+
+		const x = this.runAll.add(new FirstChat(world.npc.position, mouse))
+		x.onFinish = () => {
+			setTimeout(() => {
+				this.runAll.add(new AiChat(this.world.deliveryDrone.position, mouse))
+				this.runAll.remove(x)
+			}, 10_000);
+		}
 
 		this.pissQuest.onFinish = () => {
 			levelSelector.changeActiveLevel(new DeliverPissLevel(world, this.world.npc, levelSelector))
