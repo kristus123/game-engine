@@ -10,16 +10,11 @@ export class WorldEditor {
 			new StarBackground(camera),
 			this.starsRunAll,
 			new Planet(0, 0),
-			new Grid(mouse),
+			// new Grid(mouse),
 		])
 
-		const p = GuiPosition.bottomMiddle(10, -100, 400, 100)
-		this.runAll.add(new GuiButton(p, 'click to select a star to draw', this.mouse, () => {
-			this.selected = Stars // new Stars
-		}))
-
 		mouse.addOnClick('paint', p => {
-			this.starsRunAll.add(new this.selected(p.x, p.y))
+			this.runAll.add(new GameObject(p.x, p.y, 100, 100, 10, 10))
 		})
 
 		new KeypressEvent().addKeyDownListener('-', () => {
@@ -34,23 +29,26 @@ export class WorldEditor {
 	}
 
 	update() {
-		// ForcePush(this.camera.objectToFollow).towards(this.mouse.position, 0.5)
-
-		for (const o of this.runAll.classes) {
-			if (this.mouse.clicking(o)) {
-				o.position.center.x = this.mouse.position.x
-				o.position.center.y = this.mouse.position.y
-			}
-		}
-
 		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		if (this.selected) {
-			new this.selected(this.mouse.position.x, this.mouse.position.y).draw(draw, guiDraw)
-		}
-
 		this.runAll.draw(draw, guiDraw)
+
+		for (const o of this.runAll.classes) {
+
+			if (o.position) {
+				if (this.mouse.hovering(o.position.offset(o.width - 20, o.height, 50, 50))) {
+					draw.new_text(o.position.offset(0, -50), 'resize')
+				}
+			}
+			
+
+			this.mouse.moveIf(o)
+
+			if (this.mouse.hovering(o) && !this.mouse.holding) {
+				draw.new_text(o.position.offset(0, -50), 'edit')
+			}
+		}
 	}
 }

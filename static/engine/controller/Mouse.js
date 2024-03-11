@@ -33,6 +33,8 @@ export class Mouse {
 		// document.addEventListener('contextmenu', event => event.preventDefault())
 
 		this.clickEvents = new ClickEvents(this)
+
+		this.holding = null
 	}
 
 	addOnClick(name, handler) {
@@ -69,8 +71,24 @@ export class Mouse {
 		return Collision.between(this.screenPosition, o)
 	}
 
-	clicking(o) {
+	clicking(o) { // rename to 'clicked'
 		return Collision.between(this.position, o) && this.down
+	}
+
+	moveIf(o) {
+		if (!this.holding) {
+			if (Collision.between(this.position, o) && this.down) {
+				this.holding = o 
+			}
+		}
+		else if (o === this.holding) {
+			o.position.center.x = this.position.x
+			o.position.center.y = this.position.y
+		}
+
+		if (this.holding && this.up) {
+			this.holding = null
+		}
 	}
 
 	clickingGui(o) {
