@@ -14,7 +14,9 @@ export class WorldEditor {
 		])
 
 		mouse.addOnClick('paint', p => {
-			this.runAll.add(new GameObject(p.x, p.y, 100, 100, 10, 10))
+			const o = new GameObject(p.x, p.y, 100, 100, 10, 10)
+			o.corner = o.position.offset(o.width - 20, o.height, 50, 50)
+			this.runAll.add(o)
 		})
 
 		new KeypressEvent().addKeyDownListener('-', () => {
@@ -38,11 +40,23 @@ export class WorldEditor {
 		for (const o of this.runAll.classes) {
 
 			if (o.position) {
-				if (this.mouse.hovering(o.position.offset(o.width - 20, o.height, 50, 50))) {
+				if (this.mouse.hovering(o.position.corner.bottom.right)) {
 					draw.new_text(o.position.offset(0, -50), 'resize')
 				}
+
+				if (this.mouse.holdingO(o.position.corner.bottom.right)) {
+
+
+					o.position.width = this.mouse.position.x - o.position.x
+					o.position.height = this.mouse.position.y - o.position.y
+
+					o.position.corner.bottom.right.offset.x = o.position.width
+					o.position.corner.bottom.right.offset.y = o.position.height
+				}
+
+				draw.new_rectangle(o.position.corner.bottom.right)
 			}
-			
+
 			this.mouse.moveIf(o)
 
 			if (this.mouse.hovering(o) && !this.mouse.holding) {
