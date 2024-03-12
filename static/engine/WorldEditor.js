@@ -43,7 +43,6 @@ export class WorldEditor {
 				}
 			}
 			
-
 			this.mouse.moveIf(o)
 
 			if (this.mouse.hovering(o) && !this.mouse.holding) {
