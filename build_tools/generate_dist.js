@@ -77,6 +77,6 @@ require('./copy_asset_folder_to_dist')
 const scriptImports = jsFiles
 	.map(f => `<script type="module" src="/${f}"></script>`)
 	.join('\n')
-const indexHtml = fs.readFileSync('templates/index.html', 'utf-8').replace('SCRIPT_IMPORTS', scriptImports)
+const indexHtml = fs.readFileSync('static/index.html', 'utf-8').replace('SCRIPT_IMPORTS', scriptImports)
 
 fs.writeFileSync('dist/index.html', indexHtml)
