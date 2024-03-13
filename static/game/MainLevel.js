@@ -8,11 +8,11 @@ export class MainLevel {
 			this.pissQuest,
 		])
 
-		const x = this.runAll.add(new FirstChat(world.npc.position, mouse))
-		x.onFinish = () => {
+		const chat = this.runAll.add(new FirstChat(world.npc.position, mouse))
+		chat.onFinish = () => {
 			setTimeout(() => {
 				this.runAll.add(new AiChat(this.world.deliveryDrone.position, mouse))
-				this.runAll.remove(x)
+				this.runAll.remove(chat)
 			}, 10_000);
 		}
 
