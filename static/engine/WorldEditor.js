@@ -3,12 +3,9 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new GameObject(0, 0, 10, 10, 4500, 50))
 
-		this.starsRunAll = new RunAll()
-
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
-			this.starsRunAll,
 			new Planet(0, 0),
 			// new Grid(mouse),
 		])
@@ -19,12 +16,12 @@ export class WorldEditor {
 			this.runAll.add(o)
 		})
 
-		new KeypressEvent().addKeyDownListener('-', () => {
+		KeyDown("-", () => {
 			console.log('zooming out')
 			camera.zoom -= 0.5
 		})
 
-		new KeypressEvent().addKeyDownListener('_', () => {
+		KeyDown('_', () => {
 			console.log('zooming in')
 			camera.zoom += 0.5
 		})
@@ -43,9 +40,11 @@ export class WorldEditor {
 				if (this.mouse.hovering(o.position.corner.bottom.right)) {
 					draw.new_text(o.position.offset(0, -50), 'resize')
 				}
+				else if (this.mouse.hovering(o) && !this.mouse.holding) {
+					draw.new_text(o.position.offset(0, -50), 'edit')
+				}
 
 				if (this.mouse.holdingO(o.position.corner.bottom.right)) {
-
 
 					o.position.width = this.mouse.position.x - o.position.x
 					o.position.height = this.mouse.position.y - o.position.y
@@ -58,10 +57,6 @@ export class WorldEditor {
 			}
 
 			this.mouse.moveIf(o)
-
-			if (this.mouse.hovering(o) && !this.mouse.holding) {
-				draw.new_text(o.position.offset(0, -50), 'edit')
-			}
 		}
 	}
 }

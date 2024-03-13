@@ -23,4 +23,20 @@ export class CenterPosition {
 		this.position.y = y - (this.height / 2)
 	}
 
+	get width() {
+		return this.position.width
+	}
+
+	get height() {
+		return this.position.height
+	}
+
+	set width(w) {
+		this.position.width = w
+	}
+
+	set height(h) {
+		this.position.height = h
+	}
+
 }
