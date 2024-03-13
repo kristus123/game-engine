@@ -54,7 +54,7 @@ export class WorldEditor {
 					o.position.corner.bottom.right.offset.y = o.position.height
 				}
 
-				draw.new_rectangle(o.position.corner.bottom.right)
+				draw.new_rectangle(o.position.corner.bottom.right, 'orange')
 			}
 
 			this.mouse.moveIf(o)
