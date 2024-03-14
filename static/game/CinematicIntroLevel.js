@@ -11,6 +11,7 @@ export class CinematicIntroLevel {
 	}
 
 	update() {
+
 		this.runAll.update()
 
 		if (Distance.withinRadius(this.world.deliveryDrone, this.world.player, 300)) {

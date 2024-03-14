@@ -1,11 +1,14 @@
 export class MainLevel {
 	constructor(levelSelector, world, camera, mouse) {
 
-		this.pissQuest = new PissQuest(this.world)
+		const pissQuest = new PissQuest(this.world.deliveryDrone, mouse)
+		pissQuest.onFinish = () => {
+			levelSelector.changeActiveLevel(new DeliverPissLevel(world, this.world.npc, levelSelector))
+		}
 
 		this.runAll = new RunAll([
 			this.world,
-			this.pissQuest,
+			pissQuest,
 		])
 
 		const chat = this.runAll.add(new FirstChat(world.npc.position, mouse))
@@ -13,15 +16,12 @@ export class MainLevel {
 			setTimeout(() => {
 				this.runAll.add(new AiChat(this.world.deliveryDrone.position, mouse))
 				this.runAll.remove(chat)
-			}, 10_000);
-		}
-
-		this.pissQuest.onFinish = () => {
-			levelSelector.changeActiveLevel(new DeliverPissLevel(world, this.world.npc, levelSelector))
+			}, 10_000)
 		}
 	}
 
 	update() {
+		console.log(Distance.between(this.world.player, this.world.deliveryDrone))
 		this.runAll.update()
 	}
 

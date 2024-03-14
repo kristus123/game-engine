@@ -24,11 +24,6 @@ export class Piss {
 
 		this.inventory.draw(draw, guiDraw)
 
-		// const angle = 50 // rn it only works with 50
-		// if (Calculate.isObjectWithinTheAngle(i, this.player, this.mouse.position, angle) && Distance.between(i, this.player) < 500) {
-		// 	ForcePush(i).towards(this.player, 2)
-		// }
-
 		this.inventory.pickableItems.forEach(i => {
 			if (Distance.between(i, this.player.position.center) < 50) {
 				this.inventory.pickUp(i)

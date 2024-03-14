@@ -66,9 +66,9 @@ export class Draw {
 		this.ctx.strokeRect(x, y, width, height)
 	}
 
-	blueRectangle(x, y) {
+	blueRectangle(position) {
 		this.ctx.fillStyle = 'blue'
-		this.ctx.fillRect(x, y, 10, 10)
+		this.ctx.fillRect(position.x, position.y, 10, 10)
 	}
 
 	splash(spawnPosition, targetLocation, angleWidth, length = 500) {

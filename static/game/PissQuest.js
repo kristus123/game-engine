@@ -1,19 +1,19 @@
 export class PissQuest {
-	constructor(world) {
+	constructor(deliveryDrone, mouse) {
 		this.cleanedPisses = 0
 
-		world.deliveryDrone.compass.clear()
+		deliveryDrone.compass.clear()
 
 		this.runAll = new RunAll(Random.positions(0, 200, -200, 3000, 20).map(position => {
 			position.width = 200
 			position.height = 200
 
-			world.deliveryDrone.compass.add(position, 'yellow')
+			deliveryDrone.compass.add(position, 'yellow')
 
-			const piss = new Piss(world.deliveryDrone, world.mouse, position)
+			const piss = new Piss(deliveryDrone, mouse, position)
 			piss.onFinish = () => {
 				this.cleanedPisses += 1
-				world.deliveryDrone.compass.remove(position, 'yellow')
+				deliveryDrone.compass.remove(position, 'yellow')
 			}
 
 			return piss
