@@ -1,12 +1,11 @@
 export class Button {
 	constructor(position, text, mouse, onClick=() => {}) {
-		this.firstTimeFinish = new FirstTimeFinish(() => this.mouse.clicking(this.position))
 	}
 
 	update() {
-		if (this.firstTimeFinish.returnTrueIfFinishedOnce()) {
+		RunOnce(this.mouse.clicking(this.position), () => {
 			Call(this.onClick)
-		}
+		})
 	}
 
 	draw(draw, guiDraw) {
