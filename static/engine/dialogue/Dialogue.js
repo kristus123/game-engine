@@ -1,5 +1,7 @@
 export class Dialogue {
-	constructor(conversation, position, mouse) {
+	constructor(conversation, dialoguePosition, mouse) {
+
+		this.replyPosition = dialoguePosition
 
 		this.textTyper = new TextTyper(conversation.question)
 	}
@@ -7,7 +9,7 @@ export class Dialogue {
 	_drawReplies(draw) {
 		if (this.conversation.replies && this.textTyper.finishedTyping) {
 
-			const p = this.position.copy()
+			const p = this.replyPosition.copy()
 
 			for (const reply of this.conversation.replies) {
 				p.y += 120
@@ -30,7 +32,7 @@ export class Dialogue {
 
 	draw(draw, guiDraw) {
 		this.textTyper.update()
-		draw.new_text(this.position, this.textTyper.text)
+		draw.new_text(this.dialoguePosition, this.textTyper.text)
 		this._drawReplies(draw)
 	}
 }

@@ -22,7 +22,7 @@ export class Picture {
 		draw.ctx.restore()
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw, guiDraw) { // todo
 		if (this.image.complete) {
 			const newWidth = this.gameObject.width
 			const newHeight = this.gameObject.height
@@ -33,7 +33,6 @@ export class Picture {
 			draw.ctx.translate(this.gameObject.x + this.gameObject.width, this.gameObject.y + this.gameObject.height)
 			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
 			draw.ctx.restore()
-
 		}
 	}
 
