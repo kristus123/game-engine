@@ -78,7 +78,7 @@ export class Mouse {
 	holdingO(o) {
 		if (!this.holding) {
 			if (Collision.between(this.position, o) && this.down) {
-				this.holding = o 
+				this.holding = o
 				return true
 			}
 		}
@@ -95,7 +95,7 @@ export class Mouse {
 	moveIf(o) {
 		if (!this.holding) {
 			if (Collision.between(this.position, o) && this.down) {
-				this.holding = o 
+				this.holding = o
 			}
 		}
 		else if (o === this.holding) {

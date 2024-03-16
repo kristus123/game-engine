@@ -3,7 +3,7 @@ export class DeliverPissLevel {
 
 		this.factory = new Factory(world.player)
 		this.factory.onFinish = () => {
-			console.log("GOOD JOB BOI!")
+			console.log('GOOD JOB BOI!')
 		}
 
 		this.runAll = new RunAll([

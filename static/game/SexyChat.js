@@ -8,43 +8,43 @@ export class SexyChat {
 			key: null,
 			text: 'Yes. Who are you?',
 			conversation: {
-				question: 'I am Choopy-choo-choo-chan. Nice to meet you!', 
+				question: 'I am Choopy-choo-choo-chan. Nice to meet you!',
 				replies: [
 					{
 						key: null,
-						text: 'Don\'t worry', 
+						text: 'Don\'t worry',
 						conversation: {
-							question:'Great. Now, get to work!', 
+							question:'Great. Now, get to work!',
 							replies: [
 								{
 									key: null,
-									text: 'You are very cute', 
+									text: 'You are very cute',
 									conversation: {
-										question:'I know. Do you want to sex me ?', 
+										question:'I know. Do you want to sex me ?',
 										replies: [
 											{
 												key: null,
-												text: 'Yes. I love you Choopy-chan', 
+												text: 'Yes. I love you Choopy-chan',
 												conversation: {
-													question:'Aaa. you are so sexy and big penis', 
+													question:'Aaa. you are so sexy and big penis',
 													replies: [
 													],
-												}, 
+												},
 											},
 											{
 												key: null,
-												text: 'No. I love Robin', 
+												text: 'No. I love Robin',
 												conversation: {
-													question:'Nooooo. Please sex me', 
+													question:'Nooooo. Please sex me',
 													replies: [
 													],
-												}, 
+												},
 											},
 										],
-									}, 
+									},
 								},
 							],
-						}, 
+						},
 					},
 				],
 			},
@@ -54,24 +54,24 @@ export class SexyChat {
 			key: null,
 			text: 'No. I am a lone wolf',
 			conversation: {
-				question: 'Aaw. I would hope we could become more than strangers. CHOO-CHOO hihi', 
+				question: 'Aaw. I would hope we could become more than strangers. CHOO-CHOO hihi',
 				replies: [
 					{
 						key: null,
-						text: 'Don\'t worry', 
+						text: 'Don\'t worry',
 						conversation: {
-							question:'Great. Now, get to work!', 
+							question:'Great. Now, get to work!',
 							replies: []
-						}, 
+						},
 					},
 				],
 			},
 		}
 
 		this.dialogue = new Dialogue({
-			question: 'Hello there. you might be wondering who i am', 
+			question: 'Hello there. you might be wondering who i am',
 			replies: [
-				yes, 
+				yes,
 				no,
 			]
 		}, p, mouse)

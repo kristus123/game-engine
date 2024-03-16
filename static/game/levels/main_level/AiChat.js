@@ -17,7 +17,7 @@ export class AiChat {
 		)
 
 		this.dialogue = new Dialogue(Conversation('quite a lot of piss around i must say', [
-			yes, 
+			yes,
 			no,
 		]), p, mouse)
 	}

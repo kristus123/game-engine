@@ -18,7 +18,7 @@ export class List {
 	static removeIf(list, predicate) {
 		for (let i = list.length - 1; i >= 0; i--) {
 			if (predicate(list[i])) {
-				list.splice(i, 1);
+				list.splice(i, 1)
 			}
 		}
 	}

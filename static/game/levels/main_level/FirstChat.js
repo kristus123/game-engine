@@ -5,8 +5,8 @@ export class FirstChat {
 		p.height = 100
 
 		const howDoIPlay = {
-			key: "play",
-			text: 'Wait, how do i move around?', 
+			key: 'play',
+			text: 'Wait, how do i move around?',
 			conversation: {
 				question: 'Press \'e\' to dash and press \'e\' to enter the piss cleaning vehicle, the rest should be obvious',
 				replies: [],
@@ -17,24 +17,24 @@ export class FirstChat {
 			key: 'yes',
 			text: 'yes i look forward to it',
 			conversation: {
-				question: 'Thats good to hear. hopefully you will not do anything stupid', 
+				question: 'Thats good to hear. hopefully you will not do anything stupid',
 				replies: [
 					{
 						key: 'ok',
-						text: 'Don\'t worry', 
+						text: 'Don\'t worry',
 						conversation: {
-							question:'Great. Now, get to work!', 
+							question:'Great. Now, get to work!',
 							replies: [howDoIPlay]
-						}, 
+						},
 					},
 				],
 			},
 		}
 
 		this.dialogue = new Dialogue({
-			question: 'Finally. The delivery has arrived. Are you ready to clean some piss boy?', 
+			question: 'Finally. The delivery has arrived. Are you ready to clean some piss boy?',
 			replies: [
-				yes, 
+				yes,
 				howDoIPlay,
 			]
 		}, p, mouse)

@@ -16,7 +16,7 @@ export class WorldEditor {
 			this.runAll.add(o)
 		})
 
-		KeyDown("-", () => {
+		KeyDown('-', () => {
 			console.log('zooming out')
 			camera.zoom -= 0.5
 		})
