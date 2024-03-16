@@ -6,21 +6,21 @@ export class SexyChat {
 
 		const yes = {
 			key: null,
-			text: 'Yes. Who are you?',
+			text: 'Who are you?',
 			conversation: {
 				question: 'I am Choopy-choo-choo-chan. Nice to meet you!',
 				replies: [
 					{
 						key: null,
-						text: 'Don\'t worry',
+						text: 'Nice to meet you as well',
 						conversation: {
-							question:'Great. Now, get to work!',
+							question:'You are so polite and big penis',
 							replies: [
 								{
 									key: null,
 									text: 'You are very cute',
 									conversation: {
-										question:'I know. Do you want to sex me ?',
+										question:'I know. Do you want to sexy sex me ?',
 										replies: [
 											{
 												key: null,
@@ -37,6 +37,34 @@ export class SexyChat {
 												conversation: {
 													question:'Nooooo. Please sex me',
 													replies: [
+														{
+															key: null,
+															text: 'I am sorry. Robin is in my heart',
+															conversation: {
+																question:'It seems you love him more than anything',
+																replies: [
+																	{
+																		key: null,
+																		text: 'Yes. His sexy body makes it hard to think',
+																		conversation: {
+																			question:'I am so choo-choo-choopy-sad awhuuuuuu',
+																			replies: [
+																				{
+																					key: null,
+																					text: 'Do not cry. i can exploit your insecurity',
+																					conversation: {
+																						question:'Wow. you are so kind and sexy penis man',
+																						replies: [
+																						],
+																					},
+																				},
+
+																			],
+																		},
+																	},
+																],
+															},
+														},
 													],
 												},
 											},
@@ -54,14 +82,14 @@ export class SexyChat {
 			key: null,
 			text: 'No. I am a lone wolf',
 			conversation: {
-				question: 'Aaw. I would hope we could become more than strangers. CHOO-CHOO hihi',
+				question: 'Aaw. I would hope we could become sexy friends. CHOO-CHOO hihi',
 				replies: [
 					{
 						key: null,
-						text: 'Don\'t worry',
+						text: 'Sorry. My heart is elsewhere',
 						conversation: {
-							question:'Great. Now, get to work!',
-							replies: []
+							question:'Choo-choooooooowwww wuwhuuu',
+							replies: [yes]
 						},
 					},
 				],
