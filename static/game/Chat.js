@@ -24,5 +24,4 @@ export class Chat {
 		this.runAll.draw(draw, guiDraw)
 	}
 
-
 }
