@@ -4,7 +4,6 @@ export class SexyChat {
 		p.width = 700
 		p.height = 100
 
-
 		const yes = {
 			key: null,
 			text: 'Yes. Who are you?',
@@ -16,7 +15,35 @@ export class SexyChat {
 						text: 'Don\'t worry', 
 						conversation: {
 							question:'Great. Now, get to work!', 
-							replies: []
+							replies: [
+								{
+									key: null,
+									text: 'You are very cute', 
+									conversation: {
+										question:'I know. Do you want to sex me ?', 
+										replies: [
+											{
+												key: null,
+												text: 'Yes. I love you Choopy-chan', 
+												conversation: {
+													question:'Aaa. you are so sexy and big penis', 
+													replies: [
+													],
+												}, 
+											},
+											{
+												key: null,
+												text: 'No. I love Robin', 
+												conversation: {
+													question:'Nooooo. Please sex me', 
+													replies: [
+													],
+												}, 
+											},
+										],
+									}, 
+								},
+							],
 						}, 
 					},
 				],
