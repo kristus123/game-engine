@@ -7,7 +7,6 @@ export class DeliveryDrone extends GameObject {
 		this.splash = new Splash()
 		this.picture = new Picture(this, '/static/assets/cargo_ship.png')
 
-
 		this.compass = new Compass(camera)
 		this.compass.add(player, 'red')
 
