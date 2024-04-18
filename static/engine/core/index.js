@@ -1,5 +1,6 @@
 export const index = 'this is needed or else shit will crash'
 
+
 ErrorHandler.run(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
@@ -14,7 +15,12 @@ ErrorHandler.run(() => {
 	const guiDraw = new Draw(guiPalette.ctx)
 
 	const levelSelector = new LevelSelector()
-	levelSelector.changeActiveLevel(new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse))
+	const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
+	levelSelector.changeActiveLevel(level)
+
+	Overlay.create(level.world.player)
+
+
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
