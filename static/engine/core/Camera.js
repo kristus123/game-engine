@@ -1,4 +1,4 @@
-function limitNumber(num, min, max) {
+function limitNumber(num, min, max) { // not the best method name
 	const MIN = min ?? 1
 	const MAX = max ?? 20
 	const parsed = parseInt(num)
