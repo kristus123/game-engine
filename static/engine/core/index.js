@@ -36,6 +36,8 @@ ErrorHandler.run(() => {
 				levelSelector.draw(draw, guiDraw)
 			})
 
+			Overlay.follow(level.world.player)
+
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, '#130927')

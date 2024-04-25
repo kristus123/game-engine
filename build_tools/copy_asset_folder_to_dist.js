@@ -33,3 +33,4 @@ function copyFolderRecursive(source, destination) {
 
 copyFolderRecursive('static/assets/', 'dist/static/assets/')
 copyFolderRecursive('static/audio/', 'dist/static/audio/')
+copyFolderRecursive('static/gui/', 'dist/static/gui/')
