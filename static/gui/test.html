@@ -1,7 +1,7 @@
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     gap: 20px;
     overflow: auto; /* Add scrollbar when content overflows */
     max-height: 80vh; /* Limit maximum height to 80% of viewport height */
@@ -10,14 +10,13 @@
     background-color: #ccc;
     padding: 20px;
     text-align: center;
-    <!-- height:100px; -->
   }
   .container {
     display: flex;
     flex-wrap: wrap;
   }
   .box {
-    width: 600px;
+    width: 500px;
     padding: 20px;
     box-sizing: border-box;
     margin: 20px;
