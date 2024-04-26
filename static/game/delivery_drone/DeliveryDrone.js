@@ -1,6 +1,6 @@
 export class DeliveryDrone extends GameObject {
 	constructor(player, camera, controller, target, x, y) {
-		super(x, y, 150, 150, 10, 2)
+		super(x, y, 150, 150, 10, 5)
 
 		// const train = new Train(this, [new GameObject(this.x+100, 400, 10, 10, 10, 2)])
 
@@ -17,8 +17,8 @@ export class DeliveryDrone extends GameObject {
 			this.compass,
 		])
 
-		this.velocity.y = 2000
-		this.velocity.x = 2000
+		this.velocity.y = 20
+		this.velocity.x = 200
 	}
 
 	update() {

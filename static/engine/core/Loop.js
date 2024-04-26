@@ -15,12 +15,13 @@ export class Loop {
 		let lastTimestamp = performance.now()
 
 		function loop(currentTimestamp) {
+			// sleep(Random.integerBetween(0, 500))
+
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp
 
 			run(deltaTime)
 
-			// sleep(Random.integerBetween(0, 20))
 
 			if (Loop.lastUpdated > 10) {
 				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
