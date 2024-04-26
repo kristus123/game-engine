@@ -13,7 +13,7 @@ webSocketServer.on('connection', webSocketClient => {
 	console.log('New client connected')
 
 	const player = {
-		action: "SET_PLAYER_ID",
+		action: 'SET_PLAYER_ID',
 		playerId: uuid(),
 	}
 	webSocketClient.send(JSON.stringify(player))
@@ -31,11 +31,11 @@ webSocketServer.on('connection', webSocketClient => {
 	webSocketClient.on('message', message => {
 		message = JSON.parse(message)
 
-		if (message.action == "UPDATE_PLAYER_POSITION") {
+		if (message.action == 'UPDATE_PLAYER_POSITION') {
 			clients.forEach(client => {
 				if (client !== webSocketClient && client.readyState === WebSocket.OPEN) {
 					client.send(JSON.stringify({
-						action: "UPDATE_PLAYER_POSITION",
+						action: 'UPDATE_PLAYER_POSITION',
 						position: message.position,
 					}))
 				}

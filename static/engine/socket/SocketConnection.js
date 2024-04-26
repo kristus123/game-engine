@@ -15,7 +15,7 @@ export class SocketConnection {
 		this.ws.onmessage = e => {
 			const data = JSON.parse(e.data)
 
-			if (data.action == "UPDATE_PLAYER_POSITION") {
+			if (data.action == 'UPDATE_PLAYER_POSITION') {
 				this.npc.x = data.position.x
 				this.npc.y = data.position.y
 			}
