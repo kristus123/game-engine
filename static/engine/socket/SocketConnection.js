@@ -8,9 +8,6 @@ export class SocketConnection {
 		}
 
 		this.npc = new Npc()
-		this.runAll = new RunAll([
-			this.npc,
-		])
 
 		this.ws.onmessage = e => {
 			const data = JSON.parse(e.data)
@@ -33,7 +30,7 @@ export class SocketConnection {
 	}
 
 	update() {
-		this.runAll.update()
+		this.npc.update()
 
 		this.send({
 			x: this.player.x,
@@ -43,6 +40,6 @@ export class SocketConnection {
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
+		this.npc.draw(draw, guiDraw)
 	}
 }
