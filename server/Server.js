@@ -13,22 +13,20 @@ module.exports = class Server {
 
 	send(client, data) {
 		this.clients
-			.filter(c => c !== client) // Exclude the client that initiated the action
+			.filter(c => c.client !== client) // Exclude the client that initiated the action
 			.forEach(c => {
-				c.send(JSON.stringify(data))
+				c.client.send(JSON.stringify(data))
 			})
 	}
 
 	sendToEveryone(data) {
 		this.clients.forEach(c => {
-			c.send(JSON.stringify(data))
+			c.client.send(JSON.stringify(data))
 		})
 	}
 
 	start() {
 		new WebSocket.Server({ port: 8080 }).on('connection', client => {
-
-			this.clients.push(client)
 
 			this.onConnection(client)
 
