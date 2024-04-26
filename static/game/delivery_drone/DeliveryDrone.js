@@ -16,6 +16,9 @@ export class DeliveryDrone extends GameObject {
 			this.enterVehicle,
 			this.compass,
 		])
+
+		this.velocity.y = 2000
+		this.velocity.x = 2000
 	}
 
 	update() {

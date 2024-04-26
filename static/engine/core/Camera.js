@@ -19,10 +19,11 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
-		this.smoothness = 0.1
-		this.velocityPrediction = 0.05
+		this.velocityPrediction = 0.1
+		this.smoothMovement = 0.05
 
-		this.mouse = null
+
+		this.mouse = null // it is being set right after initializing this class
 	}
 
 	get zoom() {
@@ -38,11 +39,16 @@ export class Camera {
 
 		this.palette.ctx.save()
 
+		this.position.x += (this.objectToFollow.position.center.x - this.position.x)
+		this.position.y += (this.objectToFollow.position.center.y - this.position.y)
+
 		this.position.x += (this.objectToFollow.velocity.x * this.velocityPrediction)
 		this.position.y += (this.objectToFollow.velocity.y * this.velocityPrediction)
 
-		this.position.x += (this.objectToFollow.position.center.x - this.position.x) * this.smoothness
-		this.position.y += (this.objectToFollow.position.center.y - this.position.y) * this.smoothness
+		const x = 200
+		this.position.x += limitNumber(this.objectToFollow.position.center.x * this.smoothMovement, -x, x)
+		this.position.y += limitNumber(this.objectToFollow.position.center.y * this.smoothMovement, -x, x)
+
 
 		const x_distanceToMouse = this.mouse.position.x - this.position.x
 		this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01

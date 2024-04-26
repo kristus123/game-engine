@@ -1,3 +1,12 @@
+function sleep(milliseconds) {
+	const date = Date.now()
+	let currentDate = null
+	do {
+		currentDate = Date.now()
+	} while (currentDate - date < milliseconds)
+}
+
+
 export class Loop {
 	static fps = 0
 	static lastUpdated = 0
@@ -10,6 +19,9 @@ export class Loop {
 			lastTimestamp = currentTimestamp
 
 			run(deltaTime)
+
+			// sleep(Random.integerBetween(0, 20))
+
 			if (Loop.lastUpdated > 10) {
 				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
 				Loop.lastUpdated = 0

@@ -17,6 +17,7 @@ export class Spaceship extends GameObject {
 				Call(this.onEnter)
 			}
 		})
+
 	}
 
 	draw(draw, guiDraw) {
