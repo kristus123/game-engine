@@ -1,23 +1,40 @@
-// Import the required modules
-const WebSocket = require('ws');
+const WebSocket = require('ws')
 
-// Create a WebSocket server instance
-const wss = new WebSocket.Server({ port: 8080 });
+const webSocketServer = new WebSocket.Server({ port: 8080 })
 
-// Event handler for when a client connects
-wss.on('connection', function connection(ws) {
-  console.log('A new client connected');
+const clients = []
 
-  // Event handler for when a client sends a message
-  ws.on('message', function incoming(message) {
-    console.log('Received:', message);
-  });
+webSocketServer.on('connection', webSocketClient => {
+	console.log('New client connected')
 
-  // Event handler for when a client closes the connection
-  ws.on('close', function close() {
-    console.log('Client disconnected');
-  });
-});
+	clients.push(webSocketClient)
 
-console.log('WebSocket server is running on port 8080');
+	webSocketClient.on('message', message => {
+		console.log('Received:', JSON.parse(message))
 
+		clients.forEach(client => {
+			if (client !== webSocketClient && client.readyState === WebSocket.OPEN) {
+				client.send(JSON.stringify({ho: true}))
+			}
+		})
+	})
+
+
+	webSocketClient.on('close', () => {
+		console.log('Client disconnected')
+
+		const index = clients.indexOf(webSocketClient)
+		if (index > -1) {
+			const disconnectedUserId = clients[index].userId // Assuming you have a userId property
+			clients.splice(index, 1)
+
+			// Send a message to all other clients
+			const message = JSON.stringify({ action: 'userDisconnected', userId: disconnectedUserId })
+			clients.forEach(client => {
+				if (client.readyState === WebSocket.OPEN) {
+					client.send(message)
+				}
+			})
+		}
+	})
+})

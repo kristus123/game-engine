@@ -21,7 +21,7 @@ export class MainLevel {
 	}
 
 	update() {
-		console.log(Distance.between(this.world.player, this.world.deliveryDrone))
+		// console.log(Distance.between(this.world.player, this.world.deliveryDrone))
 		this.runAll.update()
 	}
 
