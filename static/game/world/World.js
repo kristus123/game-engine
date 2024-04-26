@@ -3,7 +3,6 @@ export class World {
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)
-		this.socketConnection = new SocketConnection(this.player)
 
 		this.npc = new Npc()
 
@@ -12,7 +11,7 @@ export class World {
 		this.controller.control(this.deliveryDrone)
 
 		this.runAll = new RunAll([
-			this.socketConnection,
+			new SocketConnection(this.player),
 			new StarBackground(camera),
 			new Planet(500, 0),
 			this.controller,

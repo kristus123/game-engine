@@ -24,19 +24,17 @@ export class SocketConnection {
 	}
 
 	send(data) {
-	  if (this.ws.readyState === WebSocket.OPEN) {
-	    this.ws.send(JSON.stringify(data))
-	  }
 	}
 
 	update() {
 		this.npc.update()
 
-		this.send({
-			x: this.player.x,
-			y: this.player.y,
-
-		})
+		if (this.ws.readyState === WebSocket.OPEN) {
+			this.ws.send(JSON.stringify({
+				x: this.player.x,
+				y: this.player.y,
+			}))
+		}
 	}
 
 	draw(draw, guiDraw) {
