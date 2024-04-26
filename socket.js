@@ -12,7 +12,12 @@ function uuid() {
 webSocketServer.on('connection', webSocketClient => {
 	console.log('New client connected')
 
-	clients.push(webSocketClient)
+	const player = {
+		action: "SET_PLAYER_ID",
+		playerId: uuid(),
+	}
+	webSocketClient.send(JSON.stringify(player))
+	clients.push(player)
 
 	// clients.forEach(client => {
 	// 	console.log("loading existing players")
@@ -23,37 +28,33 @@ webSocketServer.on('connection', webSocketClient => {
 	// 	}
 	// })
 
-
-
 	webSocketClient.on('message', message => {
-		// console.log('Received:', JSON.parse(message))
+		message = JSON.parse(message)
 
-		clients.forEach(client => {
-			if (client !== webSocketClient && client.readyState === WebSocket.OPEN) {
-				client.send(JSON.stringify({
-					action: "UPDATE_PLAYER_POSITION",
-					position: JSON.parse(message),
-				}))
-			}
-		})
-
-
+		if (message.action == "UPDATE_PLAYER_POSITION") {
+			clients.forEach(client => {
+				if (client !== webSocketClient && client.readyState === WebSocket.OPEN) {
+					client.send(JSON.stringify({
+						action: "UPDATE_PLAYER_POSITION",
+						position: message.position,
+					}))
+				}
+			})
+		}
 	})
-
 
 	webSocketClient.on('close', () => {
 		console.log('Client disconnected')
 
 		const index = clients.indexOf(webSocketClient)
 		if (index > -1) {
-			const disconnectedUserId = clients[index].userId // Assuming you have a userId property
+			const message = JSON.stringify({
+				action: 'PLAYER_DISCONNECTED',
+				playerId: clients[index].playerId,
+			})
+
 			clients.splice(index, 1)
 
-			// Send a message to all other clients
-			const message = JSON.stringify({
-				action: 'USER_DISCONNECTED',
-				userId: disconnectedUserId
-			})
 			clients.forEach(client => {
 				if (client.readyState === WebSocket.OPEN) {
 					client.send(message)
