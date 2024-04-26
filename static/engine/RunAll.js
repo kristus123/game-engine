@@ -5,7 +5,6 @@ export class RunAll {
 			if (c == null) {
 				throw new Error('null passed into Runall')
 			}
-
 		}
 	}
 
@@ -40,7 +39,6 @@ export class RunAll {
 			}
 		})
 	}
-
 
 	add(c) {
 		this.classes.push(c)
