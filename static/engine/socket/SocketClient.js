@@ -5,7 +5,7 @@ export class SocketClient {
 
 		this.ws.onopen = () => {
 			this.send({
-				action: "NEW_PLAYER",
+				action: 'NEW_PLAYER',
 				playerId: Uuid.create()
 			})
 		}
@@ -27,11 +27,11 @@ export class SocketClient {
 	}
 
 	message() {
-		
+
 	}
 
 	close() {
-		
+
 	}
 
 }
