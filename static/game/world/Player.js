@@ -2,7 +2,6 @@ export class Player extends GameObject {
 	constructor(mouse) {
 		super(-120, 10, 40, 50, 2300, 8)
 
-		this.socketConnection = new SocketConnection()
 
 		this.keyboardEvent = new KeyboardEvent()
 
@@ -64,12 +63,10 @@ export class Player extends GameObject {
 		if (this.beacon) {
 			this.beacon.update()
 		}
-
-		this.socketConnection.send({x: this.x, y: this.y})
 	}
 
 	draw(draw, guiDraw) {
-		draw.revertMouse(this, this.mouse.position)
+		// draw.revertMouse(this, this.mouse.position)
 
 		if (this.keyboard.up) {
 			this.flyingUp.draw(draw, guiDraw)

@@ -18,7 +18,7 @@ ErrorHandler.run(() => {
 	const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
 	levelSelector.changeActiveLevel(level)
 
-	Overlay.create(level.world.player)
+	// Overlay.create(level.world.player)
 
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
