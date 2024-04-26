@@ -36,7 +36,7 @@ module.exports = class Server {
 				data = JSON.parse(data)
 
 				if (this.actions[data.action]) {
-					this.actions[data.action](client, data); // Pass the client to the action callback
+					this.actions[data.action](client, data)
 				}
 			})
 
@@ -47,6 +47,6 @@ module.exports = class Server {
 	}
 
 	on(action, callback) {
-		this.actions[action] = callback;
+		this.actions[action] = callback
 	}
 }

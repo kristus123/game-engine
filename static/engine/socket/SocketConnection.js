@@ -13,8 +13,8 @@ export class SocketConnection {
 			const data = JSON.parse(e.data)
 
 			if (data.action == 'UPDATE_PLAYER_POSITION') {
-				this.npc.x = data.position.x
-				this.npc.y = data.position.y
+				this.npc.x = data.x
+				this.npc.y = data.y
 			}
 		}
 
@@ -23,14 +23,12 @@ export class SocketConnection {
 		}
 	}
 
-	send(data) {
-	}
-
 	update() {
 		this.npc.update()
 
 		if (this.ws.readyState === WebSocket.OPEN) {
 			this.ws.send(JSON.stringify({
+				action: 'UPDATE_PLAYER_POSITION',
 				x: this.player.x,
 				y: this.player.y,
 			}))
