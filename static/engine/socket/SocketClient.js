@@ -1,37 +1,39 @@
 export class SocketClient {
 
 	constructor() {
-		this.ws = new WebSocket('ws://localhost:8080')
+		this.ws = new WebSocket('ws://localhost:8080');
+		this.listeners = {};
 
 		this.ws.onopen = () => {
 			this.send({
 				action: 'NEW_PLAYER',
 				playerId: Uuid.create()
-			})
-		}
+			});
+		};
 
 		this.ws.onmessage = e => {
-			const data = JSON.parse(e.data)
-			this.message(data)
-		}
+			const data = JSON.parse(e.data);
+
+			if (this.listeners[data.action]) {
+				this.listeners[data.action](data);
+			}
+		};
 
 		this.ws.onclose = () => {
-			this.close()
-		}
+			this.close();
+		};
 	}
 
 	send(data) {
 		if (this.ws.readyState === WebSocket.OPEN) {
-			this.ws.send(JSON.stringify(data))
+			this.ws.send(JSON.stringify(data));
 		}
 	}
 
-	message() {
+	close() {}
 
+	on(event, callback) {
+		this.listeners[event] = callback;
 	}
-
-	close() {
-
-	}
-
 }
+
