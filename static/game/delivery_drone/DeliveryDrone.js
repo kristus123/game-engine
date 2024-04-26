@@ -29,7 +29,5 @@ export class DeliveryDrone extends GameObject {
 		this.splash.draw(draw, guiDraw)
 
 		this.picture.r(draw, 0)
-
 	}
-
 }

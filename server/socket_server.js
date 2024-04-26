@@ -4,29 +4,21 @@ const crypto = require('crypto')
 const server = new Server()
 
 server.onConnection = client => {
-	server.clients.push({
+	server.clientsAndPlayerIds.push({
 		client: client,
-		playerId: data.playerId,
+		playerId: crypto.randomUUID(),
 	})
-
 }
 
 server.onClose = client => {
-
+	// todo remove player
 }
 
 server.on('UPDATE_PLAYER_POSITION', (client, data) => {
-	server.send(client, {
+	server.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
 		x: data.x,
 		y: data.y,
-	})
-})
-
-server.on('NEW_PLAYER', (client, data) => {
-	server.clients.push({
-		client: client,
-		playerId: data.playerId,
 	})
 })
 

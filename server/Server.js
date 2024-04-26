@@ -7,12 +7,12 @@ function uuid() {
 
 module.exports = class Server {
 	constructor() {
-		this.clients = []
+		this.clientsAndPlayerIds = []
 		this.actions = {}
 	}
 
-	send(client, data) {
-		this.clients
+	sendToOthers(client, data) {
+		this.clientsAndPlayerIds
 			.filter(c => c.client !== client) // Exclude the client that initiated the action
 			.forEach(c => {
 				c.client.send(JSON.stringify(data))
@@ -20,7 +20,7 @@ module.exports = class Server {
 	}
 
 	sendToEveryone(data) {
-		this.clients.forEach(c => {
+		this.clientsAndPlayerIds.forEach(c => {
 			c.client.send(JSON.stringify(data))
 		})
 	}

@@ -1,11 +1,12 @@
 export class SocketConnection {
-	constructor() {
+	constructor(player) {
 		this.sc = new SocketClient()
 
 		this.npc = new Npc()
 
 		this.sc.message = data => {
 			if (data.action == 'UPDATE_PLAYER_POSITION') {
+				console.log(data)
 				this.npc.x = data.x
 				this.npc.y = data.y
 			}
