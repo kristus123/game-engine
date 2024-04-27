@@ -15,8 +15,10 @@ export class WorldEditor {
 		})
 
 		mouse.addOnClick('paint', p => {
-			const o = new DynamicGameObject(p.x, p.y, 100, 100, 10, 10)
-			o.corner = o.position.offset(o.width - 20, o.height, 50, 50)
+			p.height = 100
+			p.width = 100
+			const o = new StaticPicture(p, 'https://i.imgur.com/w9dZE0H.png')
+
 			this.runAll.add(o)
 
 			const saved = Http.get('/world-editor')
@@ -41,30 +43,5 @@ export class WorldEditor {
 
 	draw(draw, guiDraw) {
 		this.runAll.draw(draw, guiDraw)
-
-		for (const o of this.runAll.classes) {
-
-			if (o.position) {
-				if (this.mouse.hovering(o.position.corner.bottom.right)) {
-					draw.new_text(o.position.offset(0, -50), 'resize')
-				}
-				else if (this.mouse.hovering(o) && !this.mouse.holding) {
-					draw.new_text(o.position.offset(0, -50), 'edit')
-				}
-
-				if (this.mouse.holdingO(o.position.corner.bottom.right)) {
-
-					o.position.width = this.mouse.position.x - o.position.x
-					o.position.height = this.mouse.position.y - o.position.y
-
-					o.position.corner.bottom.right.offset.x = o.position.width
-					o.position.corner.bottom.right.offset.y = o.position.height
-				}
-
-				draw.new_rectangle(o.position.corner.bottom.right, 'orange')
-			}
-
-			this.mouse.moveIf(o)
-		}
 	}
 }

@@ -1,11 +1,14 @@
+function positionFromJson(o) {
+	return new Position(o.x, o.y, o.width, o.height, o.weight)
+}
 export class ObjectMapper {
 
 	static fromFile(body) {
 		body.objects.map(o => {
 			o = JSON.parse(o)
 			switch (o.type) {
-			case 'DynamicGameObject':
-				return new DynamicGameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+			case 'StaticPicture':
+				return new StaticPicture(positionFromJson(o.position), "https://i.imgur.com/w9dZE0H.png")
 			default:
 				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 			}
@@ -17,8 +20,8 @@ export class ObjectMapper {
 	static x(o) {
 		o = JSON.parse(o)
 		switch (o.type) {
-		case 'DynamicGameObject':
-			return new DynamicGameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+		case 'StaticPicture':
+			return new StaticPicture(positionFromJson(o.position), "https://i.imgur.com/w9dZE0H.png")
 		default:
 			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
@@ -26,15 +29,15 @@ export class ObjectMapper {
 
 	static toFile(body) {
 		body.objects.map(o => {
-			if (o instanceof DynamicGameObject) {
+			if (o instanceof StaticPicture) {
 				return {
-					type: 'DynamicGameObject',
-					x: o.x,
-					y: o.y,
-					width: o.width ,
-					height: o.height ,
-					weight: o.weight ,
-					velocityFactor: o.velocityFactor ,
+					type: 'StaticPicture',
+					position: {
+						x: o.position.x,
+						y: o.position.y,
+						width: o.position.width ,
+						height: o.position.height ,
+					},
 				}
 			}
 			else {
@@ -46,15 +49,15 @@ export class ObjectMapper {
 	}
 
 	static toJson(o) {
-		if (o instanceof DynamicGameObject) {
+		if (o instanceof StaticPicture) {
 			return JSON.stringify({
-				type: 'DynamicGameObject',
-				x: o.x,
-				y: o.y,
-				width: o.width ,
-				height: o.height ,
-				weight: o.weight ,
-				velocityFactor: o.velocityFactor ,
+				type: 'StaticPicture',
+				position: {
+					x: o.position.x,
+					y: o.position.y,
+					width: o.position.width ,
+					height: o.position.height ,
+				},
 			}, null, 4)
 		}
 		else {
