@@ -1,8 +1,8 @@
 export class StaticPicture {
-	constructor(position, src) {
+	constructor(position, imagePath) {
 
 		this.image = new Image()
-		this.image.src = src
+		this.image.src = imagePath
 	}
 
 	r(draw, rotation=2) {
@@ -12,6 +12,7 @@ export class StaticPicture {
 		draw.ctx.save()
 
 		draw.ctx.translate(this.position.center.x, this.position.center.y)
+
 		const rotationAngle = Math.atan2(this.position.velocity.y, this.position.velocity.x)
 		draw.ctx.rotate(rotationAngle)
 		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
@@ -23,14 +24,16 @@ export class StaticPicture {
 
 	draw(draw, guiDraw) { // todo
 		if (this.image.complete) {
-			const newWidth = this.position.width
-			const newHeight = this.position.height
+			const newWidth = this.image.width
+			const newHeight = this.image.height
 
 			draw.ctx.imageSmoothingEnabled = false
 
 			draw.ctx.save()
 			draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
+
 			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
+
 			draw.ctx.restore()
 		}
 	}

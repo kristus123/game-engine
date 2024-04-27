@@ -10,20 +10,17 @@ export class WorldEditor {
 			// new Grid(mouse),
 		])
 
-		ObjectMapper.fromFile(Http.get('/world-editor')).objects.forEach(o => {
-			this.runAll.add(ObjectMapper.x(o))
+		ObjectPersistence.get().forEach(o => {
+			this.runAll.add(o)
 		})
 
 		mouse.addOnClick('paint', p => {
 			p.height = 100
 			p.width = 100
-			const o = new StaticPicture(p, 'https://i.imgur.com/w9dZE0H.png')
+			const o = new StaticPicture(p, '/static/assets/art/bar.jpg')
 
 			this.runAll.add(o)
-
-			const saved = Http.get('/world-editor')
-			saved.objects.push(ObjectMapper.toJson(o))
-			Http.post('/world-editor', saved)
+			ObjectPersistence.save(o)
 		})
 
 		KeyDown('-', () => {
@@ -33,7 +30,7 @@ export class WorldEditor {
 
 		KeyDown('_', () => {
 			console.log('zooming in')
-			camera.zoom += 0.5
+			camera.zoom += 1.5
 		})
 	}
 
