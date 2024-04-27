@@ -15,7 +15,7 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	// const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
-	// Overlay.create(level.world.player)
+	Overlay.create()
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, camera, mouse))
