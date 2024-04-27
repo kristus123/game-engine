@@ -11,7 +11,7 @@ export class WorldEditor {
 			// new Grid(mouse),
 		])
 
-		ObjectMapper.fromFile(Http.get("/world-editor")).objects.forEach(o => {
+		ObjectMapper.fromFile(Http.get('/world-editor')).objects.forEach(o => {
 			this.runAll.add(ObjectMapper.x(o))
 		})
 
@@ -20,9 +20,9 @@ export class WorldEditor {
 			o.corner = o.position.offset(o.width - 20, o.height, 50, 50)
 			this.runAll.add(o)
 
-			const saved = Http.get("/world-editor")
+			const saved = Http.get('/world-editor')
 			saved.objects.push(ObjectMapper.toJson(o))
-			Http.post("/world-editor", saved)
+			Http.post('/world-editor', saved)
 		})
 
 		KeyDown('-', () => {

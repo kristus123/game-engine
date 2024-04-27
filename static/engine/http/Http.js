@@ -14,17 +14,18 @@ export class Http {
 	}
 
 	static post(endpoint, body) {
-		const xhr = new XMLHttpRequest();
-		xhr.open('POST', 'http://localhost:3000' + endpoint, false); // Synchronous request
-		xhr.setRequestHeader('Content-Type', 'application/json');
+		const xhr = new XMLHttpRequest()
+		xhr.open('POST', 'http://localhost:3000' + endpoint, false) // Synchronous request
+		xhr.setRequestHeader('Content-Type', 'application/json')
 
-		xhr.send(JSON.stringify(body, null, 4));
+		xhr.send(JSON.stringify(body, null, 4))
 
 		if (xhr.status === 200) {
-		  console.log('Response:', xhr.responseText);
-		} else {
-		  console.error('Request failed with status:', xhr.status);
+		  console.log('Response:', xhr.responseText)
 		}
-		
+		else {
+		  console.error('Request failed with status:', xhr.status)
+		}
+
 	}
 }

@@ -4,10 +4,10 @@ export class ObjectMapper {
 		body.objects.map(o => {
 			o = JSON.parse(o)
 			switch (o.type) {
-				case "GameObject":
-					return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
-				default:
-					throw new Error("could not map " + o.type + " in ObjectMapper")
+			case 'GameObject':
+				return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+			default:
+				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 			}
 		})
 
@@ -17,10 +17,10 @@ export class ObjectMapper {
 	static x(o) {
 		o = JSON.parse(o)
 		switch (o.type) {
-			case "GameObject":
-				return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
-			default:
-				throw new Error("could not map " + o.type + " in ObjectMapper")
+		case 'GameObject':
+			return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+		default:
+			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
 	}
 
@@ -28,7 +28,7 @@ export class ObjectMapper {
 		body.objects.map(o => {
 			if (o instanceof GameObject) {
 				return {
-					type: "GameObject",
+					type: 'GameObject',
 					x: o.x,
 					y: o.y,
 					width: o.width ,
@@ -38,7 +38,7 @@ export class ObjectMapper {
 				}
 			}
 			else {
-				throw new Error("could not map " + o.type + " in ObjectMapper")
+				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 			}
 		})
 
@@ -48,7 +48,7 @@ export class ObjectMapper {
 	static toJson(o) {
 		if (o instanceof GameObject) {
 			return JSON.stringify({
-				type: "GameObject",
+				type: 'GameObject',
 				x: o.x,
 				y: o.y,
 				width: o.width ,
@@ -58,7 +58,7 @@ export class ObjectMapper {
 			}, null, 4)
 		}
 		else {
-			throw new Error("could not map " + o.type + " in ObjectMapper")
+			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
 	}
 }
