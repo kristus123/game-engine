@@ -1,4 +1,4 @@
-export class Factory extends GameObject {
+export class Factory extends DynamicGameObject {
 
 	constructor(player) {
 		super(-1500, -300, 150, 150, 100, 10)

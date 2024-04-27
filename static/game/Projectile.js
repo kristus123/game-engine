@@ -1,4 +1,4 @@
-export class Projectile extends GameObject {
+export class Projectile extends DynamicGameObject {
 	constructor() {
 		super(0, 0, 10, 10, 0, 4000)
 		this.from = null

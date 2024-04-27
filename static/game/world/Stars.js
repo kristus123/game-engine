@@ -1,4 +1,4 @@
-export class Stars extends GameObject {
+export class Stars extends DynamicGameObject {
 	constructor(x, y) {
 		super(x, y, 16, 16, 1, 0)
 

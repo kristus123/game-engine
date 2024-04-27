@@ -1,5 +1,5 @@
 export class Sprite {
-	constructor(gameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
+	constructor(dynamicGameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
 		this.spriteSheet = new Image()
 		this.spriteSheet.src = src
 
@@ -25,8 +25,8 @@ export class Sprite {
 				currentFrameY * this.frameHeight,
 				this.frameWidth,
 				this.frameHeight,
-				this.gameObject.x,
-				this.gameObject.y,
+				this.dynamicGameObject.x,
+				this.dynamicGameObject.y,
 				this.frameWidth * this.scale,
 				this.frameHeight * this.scale,
 			)
@@ -51,8 +51,8 @@ export class Sprite {
 				currentFrameY * this.frameHeight,
 				this.frameWidth,
 				this.frameHeight,
-				-this.gameObject.x - this.frameWidth * this.scale, // Adjusting x position for mirroring
-				this.gameObject.y,
+				-this.dynamicGameObject.x - this.frameWidth * this.scale, // Adjusting x position for mirroring
+				this.dynamicGameObject.y,
 				this.frameWidth * this.scale,
 				this.frameHeight * this.scale,
 			)

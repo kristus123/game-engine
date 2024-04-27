@@ -2,7 +2,7 @@ export class Water {
 	constructor() {
 
 		this.droplets = Random.positions(-300, 300, -300, 300, 100).map(p => {
-			const waterDroplet = new GameObject(x, y, width, height, 10, 1000)
+			const waterDroplet = new DynamicGameObject(x, y, width, height, 10, 1000)
 
 			waterDroplet.originalPosition = {
 				x: waterDroplet.x,

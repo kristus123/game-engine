@@ -1,5 +1,5 @@
 export class SpinningAroundPosition {
-	constructor(gameObject) {
+	constructor(dynamicGameObject) {
 		this.angle = 0
 
 		this.cleanPosition = new Position()
@@ -9,8 +9,8 @@ export class SpinningAroundPosition {
 	update() {
 		const radius = 200
 
-		this.cleanPosition.x = this.gameObject.position.center.x + radius * Math.cos(this.angle)
-		this.cleanPosition.y = this.gameObject.position.center.y + radius * Math.sin(this.angle)
+		this.cleanPosition.x = this.dynamicGameObject.position.center.x + radius * Math.cos(this.angle)
+		this.cleanPosition.y = this.dynamicGameObject.position.center.y + radius * Math.sin(this.angle)
 
 		this.position = Random.direction(this.cleanPosition, 200)
 	}

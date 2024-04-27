@@ -1,8 +1,8 @@
-export class DeliveryDrone extends GameObject {
+export class DeliveryDrone extends DynamicGameObject {
 	constructor(player, camera, controller, target, x, y) {
 		super(x, y, 150, 150, 10, 5)
 
-		// const train = new Train(this, [new GameObject(this.x+100, 400, 10, 10, 10, 2)])
+		// const train = new Train(this, [new DynamicGameObject(this.x+100, 400, 10, 10, 10, 2)])
 
 		this.splash = new Splash()
 		this.picture = new Picture(this, '/static/assets/cargo_ship.png')

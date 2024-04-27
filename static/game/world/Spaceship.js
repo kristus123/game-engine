@@ -1,4 +1,4 @@
-export class Spaceship extends GameObject {
+export class Spaceship extends DynamicGameObject {
 	constructor(player, camera, controller) {
 		super(-120, 0, 300, 300, 10, 25)
 		this.player = player

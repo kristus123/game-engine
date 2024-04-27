@@ -1,4 +1,4 @@
-export class Fleet extends GameObject {
+export class Fleet extends DynamicGameObject {
 	constructor(player) {
 		super(200, 0, 300, 300, 1000, 25)
 

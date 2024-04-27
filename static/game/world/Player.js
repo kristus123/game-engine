@@ -1,4 +1,4 @@
-export class Player extends GameObject {
+export class Player extends DynamicGameObject {
 	constructor(mouse) {
 		super(-120, 10, 40, 50, 2300, 8)
 

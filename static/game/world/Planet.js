@@ -1,4 +1,4 @@
-export class Planet extends GameObject {
+export class Planet extends DynamicGameObject {
 	constructor(x, y) {
 		super(x, y, 1500, 1500, 2300, 8)
 

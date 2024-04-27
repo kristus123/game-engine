@@ -1,19 +1,19 @@
 export class Picture {
-	constructor(gameObject, src) {
-		this.gameObject = gameObject
+	constructor(dynamicGameObject, src) {
+		this.dynamicGameObject = dynamicGameObject
 
 		this.image = new Image()
 		this.image.src = src
 	}
 
 	r(draw, rotation=2) {
-		const newWidth = this.gameObject.width
-		const newHeight = this.gameObject.height
+		const newWidth = this.dynamicGameObject.width
+		const newHeight = this.dynamicGameObject.height
 
 		draw.ctx.save()
 
-		draw.ctx.translate(this.gameObject.position.center.x, this.gameObject.position.center.y)
-		const rotationAngle = Math.atan2(this.gameObject.velocity.y, this.gameObject.velocity.x)
+		draw.ctx.translate(this.dynamicGameObject.position.center.x, this.dynamicGameObject.position.center.y)
+		const rotationAngle = Math.atan2(this.dynamicGameObject.velocity.y, this.dynamicGameObject.velocity.x)
 		draw.ctx.rotate(rotationAngle)
 		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
 
@@ -24,13 +24,13 @@ export class Picture {
 
 	draw(draw, guiDraw) { // todo
 		if (this.image.complete) {
-			const newWidth = this.gameObject.width
-			const newHeight = this.gameObject.height
+			const newWidth = this.dynamicGameObject.width
+			const newHeight = this.dynamicGameObject.height
 
 			draw.ctx.imageSmoothingEnabled = false
 
 			draw.ctx.save()
-			draw.ctx.translate(this.gameObject.x + this.gameObject.width, this.gameObject.y + this.gameObject.height)
+			draw.ctx.translate(this.dynamicGameObject.x + this.dynamicGameObject.width, this.dynamicGameObject.y + this.dynamicGameObject.height)
 			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
 			draw.ctx.restore()
 		}
@@ -53,7 +53,7 @@ export class Picture {
 		}
 
 		draw.ctx.save()
-		draw.ctx.translate(this.gameObject.x, this.gameObject.y)
+		draw.ctx.translate(this.dynamicGameObject.x, this.dynamicGameObject.y)
 		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 		draw.ctx.restore()
 	}

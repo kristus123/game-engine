@@ -8,7 +8,7 @@ export class Piss {
 			const y = Random.integerBetween(position.y, position.y + position.height)
 
 			const p = Random.direction(new Position(x, y), 100)
-			const piss = new GameObject(p.x, p.y, Random.integerBetween(1, 3), Random.integerBetween(1, 3), 200, 20)
+			const piss = new DynamicGameObject(p.x, p.y, Random.integerBetween(1, 3), Random.integerBetween(1, 3), 200, 20)
 
 			this.inventory.addPickable(piss)
 		}

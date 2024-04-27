@@ -1,4 +1,4 @@
-export class Bullet extends GameObject {
+export class Bullet extends DynamicGameObject {
 
 	constructor(from, to) {
 		super(from.x, from.y, 40, 40, 0, 3000)

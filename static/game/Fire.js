@@ -1,4 +1,4 @@
-export class Fire extends GameObject {
+export class Fire extends DynamicGameObject {
 	constructor() {
 		super(400, 200, 200, 200, 10, 10)
 

@@ -4,8 +4,8 @@ export class ObjectMapper {
 		body.objects.map(o => {
 			o = JSON.parse(o)
 			switch (o.type) {
-			case 'GameObject':
-				return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+			case 'DynamicGameObject':
+				return new DynamicGameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
 			default:
 				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 			}
@@ -17,8 +17,8 @@ export class ObjectMapper {
 	static x(o) {
 		o = JSON.parse(o)
 		switch (o.type) {
-		case 'GameObject':
-			return new GameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
+		case 'DynamicGameObject':
+			return new DynamicGameObject(o.x, o.y, o.width, o.height, o.weight, o.velocityFactor)
 		default:
 			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
@@ -26,9 +26,9 @@ export class ObjectMapper {
 
 	static toFile(body) {
 		body.objects.map(o => {
-			if (o instanceof GameObject) {
+			if (o instanceof DynamicGameObject) {
 				return {
-					type: 'GameObject',
+					type: 'DynamicGameObject',
 					x: o.x,
 					y: o.y,
 					width: o.width ,
@@ -46,9 +46,9 @@ export class ObjectMapper {
 	}
 
 	static toJson(o) {
-		if (o instanceof GameObject) {
+		if (o instanceof DynamicGameObject) {
 			return JSON.stringify({
-				type: 'GameObject',
+				type: 'DynamicGameObject',
 				x: o.x,
 				y: o.y,
 				width: o.width ,

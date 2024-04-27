@@ -1,4 +1,4 @@
-export class GameObject {
+export class DynamicGameObject {
 	constructor(_x, _y, _width, _height, weight, velocityFactor, srcPicture='nullable') {
 		if (srcPicture != 'nullable') { // temp hack until i figure out what to do
 			this.picture = new Picture(this, srcPicture)

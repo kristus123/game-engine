@@ -1,4 +1,4 @@
-export class Chicken extends GameObject {
+export class Chicken extends DynamicGameObject {
 	constructor(player) {
 		super(-1800, -200, 150, 150, 10, 10)
 

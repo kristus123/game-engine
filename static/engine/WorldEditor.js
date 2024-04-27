@@ -1,8 +1,7 @@
-
 export class WorldEditor {
 
 	constructor(camera, mouse) {
-		camera.followInstantly(new GameObject(0, 0, 10, 10, 4500, 50))
+		camera.followInstantly(new DynamicGameObject(0, 0, 10, 10, 4500, 50))
 
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
@@ -16,7 +15,7 @@ export class WorldEditor {
 		})
 
 		mouse.addOnClick('paint', p => {
-			const o = new GameObject(p.x, p.y, 100, 100, 10, 10)
+			const o = new DynamicGameObject(p.x, p.y, 100, 100, 10, 10)
 			o.corner = o.position.offset(o.width - 20, o.height, 50, 50)
 			this.runAll.add(o)
 
