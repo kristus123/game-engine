@@ -10,14 +10,13 @@ function fetchHTML() {
 	else {
 		console.error('Error fetching HTML:', xhr.statusText)
 	}
-
 }
 
 const html = fetchHTML()
 
 export class Overlay {
 	static create(player) {
-		document.getElementById('Overlay').innerHTML = html
+		document.getElementById('overlay').innerHTML = html
 	}
 
 	static follow(player) {
