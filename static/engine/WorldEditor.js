@@ -1,3 +1,4 @@
+
 export class WorldEditor {
 
 	constructor(camera, mouse) {
@@ -6,14 +7,22 @@ export class WorldEditor {
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
-			new Planet(0, 0),
+			// new Planet(0, 0),
 			// new Grid(mouse),
 		])
+
+		ObjectMapper.fromFile(Http.get("/world-editor")).objects.forEach(o => {
+			this.runAll.add(ObjectMapper.x(o))
+		})
 
 		mouse.addOnClick('paint', p => {
 			const o = new GameObject(p.x, p.y, 100, 100, 10, 10)
 			o.corner = o.position.offset(o.width - 20, o.height, 50, 50)
 			this.runAll.add(o)
+
+			const saved = Http.get("/world-editor")
+			saved.objects.push(ObjectMapper.toJson(o))
+			Http.post("/world-editor", saved)
 		})
 
 		KeyDown('-', () => {

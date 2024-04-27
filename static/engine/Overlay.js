@@ -15,8 +15,6 @@ function fetchHTML() {
 
 const html = fetchHTML()
 
-console.log(html)
-
 export class Overlay {
 	static create(player) {
 		const div = document.createElement('div')

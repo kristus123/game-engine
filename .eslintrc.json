@@ -111,6 +111,7 @@
         "GuiButton": "readonly",
         "GuiPosition": "readonly",
         "Gun": "readonly",
+        "Http": "readonly",
         "InsideLevel": "readonly",
         "Inventory": "readonly",
         "InventoryItem": "readonly",
