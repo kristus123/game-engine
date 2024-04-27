@@ -1,7 +1,4 @@
 export class List {
-	constructor() {
-
-	}
 
 	static remove(list, object) {
 		const index = list.indexOf(object)

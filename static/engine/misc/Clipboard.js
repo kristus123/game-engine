@@ -1,9 +1,6 @@
 export class Clipboard {
-	constructor() {
 
-	}
-
-	copyText() {
+	static copyText() {
 		var textToCopy = 'hello\nhow are you\ni\'m good'
 
 		navigator.clipboard.writeText(textToCopy)

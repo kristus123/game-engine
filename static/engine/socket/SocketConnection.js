@@ -2,7 +2,7 @@ export class SocketConnection {
 	constructor(player) {
 		this.socketClient = new SocketClient()
 
-		this.npc = new Npc()
+		this.npc = new Player("")
 
 		this.socketClient.on('UPDATE_PLAYER_POSITION', data => {
 			this.npc.x = data.x
