@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run start",
-    "start": "concurrently \"reload -d dist/ -p 5000\" \"nodemon build_tools/generate_dist.js -e html,css,js --delay 1 --ignore dist/\" \"nodemon server/socket_server.js\""
+    "start": "concurrently \"reload -d dist/ -p 5000\" \"nodemon build_tools/generate_dist.js -e html,css,js --delay 1 --ignore dist/\" \"nodemon server/socket_server.js\" \"node http_server/main.js\""
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
@@ -13,5 +13,8 @@
     "eslint": "^8.56.0",
     "nodemon": "^3.0.2",
     "reload": "^3.2.1"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
