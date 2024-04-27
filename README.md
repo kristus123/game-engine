@@ -29,3 +29,9 @@ then open [http://localhost:5000]()
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
+
+## Work with the GUI
+
+You can open the gui here
+
+http://localhost:5000/static/gui/test.html
