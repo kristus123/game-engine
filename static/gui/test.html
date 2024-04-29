@@ -1,6 +1,95 @@
-<div tabindex="-1" style="user-select: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+<style>
+  .container {
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-  <div style="text-align: center; color: white;">
-	  <h1>hei</h1>
+  .inner-container {
+    width: 80vw;
+    height: 80vh;
+    background: white;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+  }
+
+  .main {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100px;
+    gap: 50px;
+  }
+
+  .item {
+    width: 100px;
+    background: indianred;
+    height: 100px;
+  }
+</style>
+
+<div tabindex="-1" class="container">
+  <div class="inner-container">
+    <div class="header">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+
+    <div class="main">
+      <div class="sidebar">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+
+      <div class="sidebar">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+    </div>
+
+    <div class="header">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
   </div>
 </div>
