@@ -13,9 +13,10 @@ ErrorHandler.run(() => {
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
+	const allGameObjects = new AllGameObjects()
 	const levelSelector = new LevelSelector()
-	const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
-	levelSelector.changeActiveLevel(level)
+	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse))
+
 	// Overlay.create()
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
@@ -29,11 +30,12 @@ ErrorHandler.run(() => {
 			Physics.global.update(deltaTime)
 
 			camera.context(() => {
+				allGameObjects.update()
+				allGameObjects.draw(draw, guiDraw)
+
 				levelSelector.update()
 				levelSelector.draw(draw, guiDraw)
 			})
-
-			// Overlay.follow(level.world.player)
 
 			showLogs.draw()
 

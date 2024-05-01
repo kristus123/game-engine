@@ -3,7 +3,7 @@ export class EnterVehicle {
 
 		this.entered = false
 
-		new KeypressEvent().addKeyDownListener('e', () => {
+		KeyDown('e', () => {
 			if (this.entered) {
 				this.entered = false
 
