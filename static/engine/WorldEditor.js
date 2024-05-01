@@ -1,4 +1,3 @@
-
 export class WorldEditor {
 
 	constructor(camera, mouse) {

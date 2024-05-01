@@ -25,6 +25,10 @@ module.exports = class Server {
 		})
 	}
 
+	sendToClient(client, data) {
+		client.send(JSON.stringify(data))
+	}
+
 	start() {
 		new WebSocket.Server({ port: 8080 }).on('connection', client => {
 
