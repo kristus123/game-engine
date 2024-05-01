@@ -1,5 +1,5 @@
 export class World {
-	constructor(levelSelector, camera, mouse) {
+	constructor(levelSelector, allGameObjects, camera, mouse) {
 		this.controller = new Controller()
 
 		this.player = new Player(mouse)
@@ -7,10 +7,10 @@ export class World {
 		this.npc = new Npc()
 
 		this.deliveryDrone = new DeliveryDrone(this.player, camera, this.controller, this.player, -100, 0)
-		camera.followInstantly(this.deliveryDrone)
-		this.controller.control(this.deliveryDrone)
+		camera.followInstantly(this.player)
+		this.controller.control(this.player)
 
-		this.runAll = new RunAll([
+		allGameObjects.register(this, [
 			new SocketConnection(this.player),
 			new StarBackground(camera),
 			new Planet(500, 0),
@@ -22,10 +22,11 @@ export class World {
 	}
 
 	update() {
-		this.runAll.update()
+		if (Collision.between(this.player, this.deliveryDrone)) {
+			Push(this.player).awayFrom(this.deliveryDrone, 20)
+		}
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
 	}
 }
