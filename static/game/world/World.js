@@ -1,6 +1,5 @@
 export class World {
-	constructor(levelSelector, allGameObjects, camera, mouse) {
-		this.controller = new Controller()
+	constructor(levelSelector, allGameObjects, camera, mouse, controller) {
 
 		this.player = new Player(mouse)
 
@@ -14,7 +13,6 @@ export class World {
 			new SocketConnection(this.player),
 			new StarBackground(camera),
 			new Planet(500, 0),
-			this.controller,
 			this.player,
 			this.deliveryDrone,
 			this.npc,

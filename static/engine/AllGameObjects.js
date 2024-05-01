@@ -14,6 +14,10 @@ export class AllGameObjects {
 	}
 
 	add(origin, gameObject) {
+		if (!this.origins[origin]) {
+			this.origins[origin] = []
+		}
+
 		this.origins[origin].push(gameObject)
 
 		this.allGameObjects.push(gameObject)
