@@ -14,12 +14,13 @@ ErrorHandler.run(() => {
 	const guiDraw = new Draw(guiPalette.ctx)
 
 	const levelSelector = new LevelSelector()
-	// const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
+	const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
+	levelSelector.changeActiveLevel(level)
 	// Overlay.create()
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, camera, mouse))
-	levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {

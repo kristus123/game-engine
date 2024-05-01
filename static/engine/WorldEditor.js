@@ -1,3 +1,4 @@
+
 export class WorldEditor {
 
 	constructor(camera, mouse) {
@@ -17,7 +18,7 @@ export class WorldEditor {
 		mouse.addOnClick('paint', p => {
 			p.height = 100
 			p.width = 100
-			const o = new StaticPicture(p, '/static/assets/art/bar.jpg')
+			const o = new DynamicGameObject(p.x, p.y, p.width, p.height, 100, 100)
 
 			this.runAll.add(o)
 			ObjectPersistence.save(o)
