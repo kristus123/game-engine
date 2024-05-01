@@ -13,9 +13,13 @@ ErrorHandler.run(() => {
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
+
+	const controller = new Controller()
 	const allGameObjects = new AllGameObjects()
+	allGameObjects.add(this, controller)
+
 	const levelSelector = new LevelSelector()
-	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse))
+	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
 
 	// Overlay.create()
 
