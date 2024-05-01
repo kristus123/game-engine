@@ -1,4 +1,3 @@
-const fs = require('fs')
 const Server = require('./Server')
 const crypto = require('crypto')
 
