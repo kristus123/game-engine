@@ -1,22 +1,22 @@
 export class SocketClient {
-
-	constructor() {
+	constructor(run) {
 		this.listeners = {}
 
 		this.webSocket = new WebSocket('ws://localhost:8080')
 
 		this.webSocket.onopen = () => {
-			this.send({
-				action: 'NEW_PLAYER',
-				playerId: Uuid.create()
-			})
 		}
+
+		run(this)
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
 
 			if (this.listeners[data.action]) {
 				this.listeners[data.action](data)
+			}
+			else {
+				console.log(data.action + " not found")
 			}
 		}
 
@@ -34,6 +34,7 @@ export class SocketClient {
 	close() {}
 
 	on(event, callback) {
+		console.log(event)
 		this.listeners[event] = callback
 	}
 }

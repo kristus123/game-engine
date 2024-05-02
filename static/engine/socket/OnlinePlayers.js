@@ -1,26 +1,49 @@
 export class OnlinePlayers {
 	constructor(player) {
-		this.socketClient = new SocketClient()
+		this.playersOnline = []
 
-		this.npc = new Player('')
+		this.socketClient = new SocketClient(c => {
 
-		this.socketClient.on('UPDATE_PLAYER_POSITION', data => {
-			this.npc.x = data.x
-			this.npc.y = data.y
+			c.on('PLAYER_ID', data => {
+				player.id = data.playerId
+			})
+
+			c.on('PLAYERS_ONLINE', data => {
+				this.playersOnline = data.players.map(playerId => {
+					const p = new Player("x")
+					p.id = playerId
+				})
+			})
+
+			c.on('UPDATE_PLAYER_POSITION', data => {
+				this.playersOnline
+					.filter(p => p.playerId == data.playerId)
+					.map(p => {
+						p.position.x = data.x
+						p.position.y = data.y
+						console.log("update position for player")
+
+						return null
+					})
+			})
 		})
 	}
 
 	update() {
-		this.npc.update()
+	}
 
+	updatePositionForPlayer(player) {
 		this.socketClient.send({
 			action: 'UPDATE_PLAYER_POSITION',
-			x: this.player.x,
-			y: this.player.y,
+			playerId: player.id,
+			x: player.x,
+			y: player.y,
 		})
 	}
 
 	draw(draw, guiDraw) {
-		this.npc.draw(draw, guiDraw)
+		this.playersOnline.forEach(p => {
+			p.draw(draw, guiDraw)
+		})
 	}
 }
