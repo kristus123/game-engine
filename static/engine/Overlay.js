@@ -15,10 +15,7 @@ function fetchHTML() {
 const html = fetchHTML()
 
 export class Overlay {
-	static create(player) {
+	static create() {
 		document.getElementById('overlay').innerHTML = html
-	}
-
-	static follow(player) {
 	}
 }
