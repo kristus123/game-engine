@@ -1,16 +1,14 @@
 export class DatingSimLevel {
-	constructor(levelSelector, camera, mouse) {
+	constructor(levelSelector, allGameObjects, camera, mouse) {
 
-		this.runAll = new RunAll([
+		allGameObjects.register(this, [
 			new Chat(camera, mouse),
 		])
 	}
 
 	update() {
-		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
 	}
 }
