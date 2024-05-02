@@ -10,7 +10,7 @@ export class World {
 		this.controller.control(this.player)
 
 		allGameObjects.register(this, [
-			new SocketConnection(this.player),
+			// new OnlinePlayers(this.player),
 			new StarBackground(camera),
 			new Planet(500, 0),
 			this.player,

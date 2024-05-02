@@ -1,4 +1,4 @@
-export class SocketConnection {
+export class OnlinePlayers {
 	constructor(player) {
 		this.socketClient = new SocketClient()
 
