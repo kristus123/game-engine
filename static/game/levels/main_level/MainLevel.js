@@ -7,10 +7,10 @@ export class MainLevel {
 		// }
 
 		// this.runAll = new RunAll([
-			this.world,
+			// this.world,
 			// pissQuest,
 		// ])
-		allGameObjects.add(world)
+		// allGameObjects.add(world)
 
 		// ObjectPersistence.get().forEach(o => {
 		// 	this.runAll.add(o)

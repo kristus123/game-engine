@@ -19,11 +19,11 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
+	levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, allGameObjects, camera, mouse))
 
 	// Overlay.create()
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
-	// levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
 	Loop.everyFrame((deltaTime) => {
