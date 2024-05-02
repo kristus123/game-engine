@@ -5,7 +5,6 @@ export class World {
 		client.on("WORLD", (client, data) => {
 			console.log(data)
 		})
-		client.connect()
 
 		this.player = new Player(mouse)
 		camera.followInstantly(this.player)
@@ -19,6 +18,10 @@ export class World {
 			this.player,
 			this.deliveryDrone,
 		])
+
+		ObjectPersistence.get().forEach(o => {
+			allGameObjects.add(this, o)
+		})
 	}
 
 	update() {

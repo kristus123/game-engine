@@ -2,9 +2,7 @@ export class SocketClient {
 
 	constructor() {
 		this.listeners = {}
-	}
 
-	connect() {
 		this.webSocket = new WebSocket('ws://localhost:8080')
 
 		this.webSocket.onopen = () => {
@@ -25,7 +23,6 @@ export class SocketClient {
 		this.webSocket.onclose = () => {
 			this.close()
 		}
-		
 	}
 
 	send(data) {
