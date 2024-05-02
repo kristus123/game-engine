@@ -7,9 +7,6 @@ const server = new Server()
 
 const world = JSON.parse(fs.readFileSync('data.json', 'utf8'));
 
-
-
-
 server.onConnection = client => {
 	server.clientsAndPlayerIds.push({
 		client: client,
