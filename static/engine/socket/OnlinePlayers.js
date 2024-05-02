@@ -13,6 +13,23 @@ export class OnlinePlayers {
 					const p = new Player("x")
 					p.id = playerId
 				})
+				console.log("player connected")
+			})
+
+			c.on('PLAYER_CONNECTED', data => {
+				const p = new Player("x")
+				p.id = data.playerId
+				this.playersOnline.push(p)
+				console.log("player connected")
+			})
+
+			c.on('PLAYER_DISCONNECTED', data => {
+				this.playersOnline
+					.filter(p => p.id == data.playerId)
+					.map(p => {
+						List.remove(this.playersOnline, p)
+						return null
+					})
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
@@ -30,6 +47,7 @@ export class OnlinePlayers {
 	}
 
 	update() {
+		// console.log(this.playersOnline.length)
 	}
 
 	updatePositionForPlayer(player) {

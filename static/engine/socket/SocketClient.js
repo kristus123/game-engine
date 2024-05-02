@@ -34,7 +34,6 @@ export class SocketClient {
 	close() {}
 
 	on(event, callback) {
-		console.log(event)
 		this.listeners[event] = callback
 	}
 }
