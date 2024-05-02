@@ -29,6 +29,12 @@ module.exports = class Server {
 		client.send(JSON.stringify(data))
 	}
 
+	getPlayerId(client) {
+		return this.clientsAndPlayerIds
+			.filter(c => c.client === client)
+			.map(c => c.playerId)
+	}
+
 	start() {
 		new WebSocket.Server({ port: 8080 }).on('connection', client => {
 
