@@ -1,11 +1,8 @@
 <style>
   .container {
-    user-select: none;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -17,34 +14,53 @@
     width: 80vw;
     height: 80vh;
     background: white;
-    overflow: hidden;
     padding: 20px;
-  }
-
-  .header {
-    display: flex;
-    gap: 50px;
-    width: 100%;
-  }
-
-  .main {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 0px;
-  }
-
-  .sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100px;
-    gap: 50px;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .item {
-    width: 100px;
-    background: indianred;
+  .header,
+  .footer {
+    white-space: nowrap;
+    width: 100%;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .right-bar,
+  .left-bar {
+    margin: 10px 0;
+    overflow-y: auto;
+    width: 100px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(100% - 200px);
+  }
+
+  .right-bar {
+    right: 20px;
+  }
+
+  .left-bar {
+    left: 20px;
+  }
+
+  .item,
+  .side-item {
+    width: 100px;
+    height: 100px;
+    background: indianred;
+    margin: 10px 0;
   }
 </style>
 
@@ -61,25 +77,41 @@
       <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
     </div>
 
-    <div class="main">
-      <div class="sidebar">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-      </div>
-
-      <div class="sidebar">
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-      </div>
+    <div class="right-bar">
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
     </div>
 
-    <div class="header">
+    <div class="left-bar">
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+    </div>
+
+    <div class="footer">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
       <div class="item"></div>
