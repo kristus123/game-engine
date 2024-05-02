@@ -22,10 +22,20 @@ server.onConnection = client => {
 		action: "PLAYERS_ONLINE",
 		players: server.clientsAndPlayerIds.map(x => x.playerId),
 	})
+
+	server.sendToClient(client, {
+		action: "PLAYER_CONNECTED",
+		playerId: server.getPlayerId(client),
+	})
 }
 
 server.onClose = client => {
-	// todo remove player
+	server.sendToOthers(client, {
+		action: 'PLAYER_DISCONNECTED',
+		playerId: server.getPlayerId(client),
+	})
+
+	server.remove(client)
 }
 
 server.on("NEW_PLAYER", (client, data) => {
@@ -38,7 +48,7 @@ server.on("NEW_PLAYER", (client, data) => {
 server.on('UPDATE_PLAYER_POSITION', (client, data) => {
 	server.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
-		playerId: server.getClientId(client),
+		playerId: server.getPlayerId(client),
 		x: data.x,
 		y: data.y,
 	})

@@ -19,6 +19,7 @@ module.exports = class Server {
 			})
 	}
 
+
 	sendToEveryone(data) {
 		this.clientsAndPlayerIds.forEach(c => {
 			c.client.send(JSON.stringify(data))
@@ -33,6 +34,14 @@ module.exports = class Server {
 		return this.clientsAndPlayerIds
 			.filter(c => c.client === client)
 			.map(c => c.playerId)
+	}
+
+	remove(client) {
+		for (let i = this.clientsAndPlayerIds.length - 1; i >= 0; i--) {
+			if (this.clientsAndPlayerIds[i].client === client) {
+				this.clientsAndPlayerIds.splice(i, 1)
+			}
+		}
 	}
 
 	start() {
