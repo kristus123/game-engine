@@ -15,12 +15,13 @@ export class AllGameObjects {
 
 	add(origin, gameObject) {
 		if (!this.origins[origin]) {
-			this.origins[origin] = []
+			this.origins[origin] = new RunAll(gameObjects)
 		}
 
-		this.origins[origin].push(gameObject)
+		this.origins[origin].add(gameObject)
 
 		this.allGameObjects.push(gameObject)
+
 		return gameObject
 	}
 
