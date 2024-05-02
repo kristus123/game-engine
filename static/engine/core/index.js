@@ -11,7 +11,6 @@ ErrorHandler.run(() => {
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-
 	const controller = new Controller()
 	const allGameObjects = new AllGameObjects()
 
@@ -27,6 +26,8 @@ ErrorHandler.run(() => {
 
 	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
 	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+
+	Overlay.create()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
