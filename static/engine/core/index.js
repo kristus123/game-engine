@@ -16,7 +16,6 @@ ErrorHandler.run(() => {
 
 	const controller = new Controller()
 	const allGameObjects = new AllGameObjects()
-	allGameObjects.add(this, controller)
 
 	const levelSelector = new LevelSelector()
 	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
@@ -34,6 +33,9 @@ ErrorHandler.run(() => {
 			Physics.global.update(deltaTime)
 
 			camera.context(() => {
+				controller.update()
+				controller.draw(draw, guiDraw)
+
 				allGameObjects.update()
 				allGameObjects.draw(draw, guiDraw)
 
