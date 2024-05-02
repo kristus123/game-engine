@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+	<head>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 0;
+				margin: 0;
+				height: 100vh;
+				overflow: hidden; /* Prevent scrollbars */
+			}
+			canvas {
+				display: block; /* Remove any default spacing */
+				/* cursor: none; hide cursor, currently disabled*/
+			}
+
+			#errorOverlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(255, 0, 0, 0.7);
+				display: none;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#errorMessage {
+				text-align: left;
+				color: white;
+				font-size: 40px;
+				letter-spacing: 3px;
+				line-height: 90px;
+				word-spacing: 15px;
+				padding: 20px;
+			}
+			#stackMessage {
+				text-align: left;
+				color: white;
+				font-size: 22px;
+				letter-spacing: 3px;
+				line-height: 40px;
+				word-spacing: 5px;
+				padding: 1px;
+			}
+		</style>
+	</head>
+	<body>
+
+		SCRIPT_IMPORTS
+
+		<canvas id="game"></canvas>
+		<div id="overlay"></div>
+
+		<div id="errorOverlay">
+			<div id="errorMessage"></div>
+			<div id="stackMessage"></div>
+		</div>
+	</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</html>

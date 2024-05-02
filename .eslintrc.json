@@ -1,0 +1,180 @@
+{
+    "plugins": [
+        "@stylistic/js"
+    ],
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "@stylistic/js/comma-dangle": [
+            "error",
+            "only-multiline"
+        ],
+        "@stylistic/js/brace-style": [
+            "error",
+            "stroustrup"
+        ],
+        "@stylistic/js/indent": [
+            "error",
+            "tab"
+        ],
+        "@stylistic/js/linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "@stylistic/js/quotes": [
+            "error",
+            "single"
+        ],
+        "@stylistic/js/semi": [
+            "error",
+            "never"
+        ],
+        "@stylistic/js/no-trailing-spaces": [
+            "error"
+        ],
+        "@stylistic/js/no-multi-spaces": [
+            "error"
+        ],
+        "@stylistic/js/array-element-newline": [
+            "error",
+            {
+                "ArrayExpression": "consistent",
+                "ArrayPattern": {
+                    "minItems": 3,
+                    "multiline": true
+                }
+            }
+        ]
+    },
+    "globals": {
+        "AiChat": "readonly",
+        "AssertNotNull": "readonly",
+        "AudioEngine": "readonly",
+        "BackspaceEffect": "readonly",
+        "BeaconShit": "readonly",
+        "Blur": "readonly",
+        "Bullet": "readonly",
+        "Button": "readonly",
+        "Calculate": "readonly",
+        "Call": "readonly",
+        "Camera": "readonly",
+        "CenterPosition": "readonly",
+        "Chat": "readonly",
+        "Chicken": "readonly",
+        "CinematicIntroLevel": "readonly",
+        "ClickEvents": "readonly",
+        "Clipboard": "readonly",
+        "Collision": "readonly",
+        "Compass": "readonly",
+        "Controller": "readonly",
+        "Conversation": "readonly",
+        "CornerPosition": "readonly",
+        "Crate": "readonly",
+        "DatingSimLevel": "readonly",
+        "DeliverPissLevel": "readonly",
+        "DeliveryDrone": "readonly",
+        "Dialogue": "readonly",
+        "Distance": "readonly",
+        "Draw": "readonly",
+        "EnterVehicle": "readonly",
+        "ErrorHandler": "readonly",
+        "Factory": "readonly",
+        "FetchContainerExtension": "readonly",
+        "Fire": "readonly",
+        "FirstChat": "readonly",
+        "Fleet": "readonly",
+        "ForcePush": "readonly",
+        "GameObject": "readonly",
+        "Get": "readonly",
+        "Grid": "readonly",
+        "GuiButton": "readonly",
+        "GuiPosition": "readonly",
+        "Gun": "readonly",
+        "Http": "readonly",
+        "InsideLevel": "readonly",
+        "Inventory": "readonly",
+        "InventoryItem": "readonly",
+        "KeyDown": "readonly",
+        "Keyboard": "readonly",
+        "KeyboardEvent": "readonly",
+        "KeypressEvent": "readonly",
+        "LevelSelector": "readonly",
+        "List": "readonly",
+        "Loop": "readonly",
+        "MainLevel": "readonly",
+        "Monologue": "readonly",
+        "Mouse": "readonly",
+        "MultiTextTyper": "readonly",
+        "Npc": "readonly",
+        "NumberThreshold": "readonly",
+        "ObjectMapper": "readonly",
+        "OffsetPosition": "readonly",
+        "Overlay": "readonly",
+        "Palette": "readonly",
+        "Parallax": "readonly",
+        "Particle": "readonly",
+        "Physics": "readonly",
+        "Picture": "readonly",
+        "Piss": "readonly",
+        "PissQuest": "readonly",
+        "Planet": "readonly",
+        "Player": "readonly",
+        "Position": "readonly",
+        "PrettyParticles": "readonly",
+        "Projectile": "readonly",
+        "Push": "readonly",
+        "Random": "readonly",
+        "Reply": "readonly",
+        "RunAll": "readonly",
+        "RunOnce": "readonly",
+        "RunUntil": "readonly",
+        "SecondChat": "readonly",
+        "SexyChat": "readonly",
+        "ShowLogs": "readonly",
+        "SlingshotExtension": "readonly",
+        "SmoothValue": "readonly",
+        "SocketClient": "readonly",
+        "SocketConnection": "readonly",
+        "Spaceship": "readonly",
+        "SpinningAroundPosition": "readonly",
+        "Splash": "readonly",
+        "Sprite": "readonly",
+        "StarBackground": "readonly",
+        "Stars": "readonly",
+        "StartMenu": "readonly",
+        "Steps": "readonly",
+        "TemporaryChange": "readonly",
+        "TextTyper": "readonly",
+        "TextTyperWithBackspaceEffect": "readonly",
+        "Thread": "readonly",
+        "Train": "readonly",
+        "Uuid": "readonly",
+        "Velocity": "readonly",
+        "VoidDialogue": "readonly",
+        "Water": "readonly",
+        "World": "readonly",
+        "WorldEditor": "readonly",
+        "index": "readonly"
+    }
+}
