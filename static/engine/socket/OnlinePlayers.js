@@ -9,13 +9,13 @@ export class OnlinePlayers {
 			})
 
 			c.on('PLAYERS_ONLINE', data => {
-				data.players.map(playerId => {
+				for (const playerId of data.players) {
 					const p = new Player("x")
 					p.playerId = playerId.toString()
 
 					this.playersOnline.push(p)
 					allGameObjects.register(this, p)
-				})
+				}
 			})
 
 			c.on('PLAYER_CONNECTED', data => {
@@ -47,6 +47,7 @@ export class OnlinePlayers {
 	}
 
 	update() {
+		console.log(this.playersOnline.length)
 	}
 
 	updatePositionForPlayer(player) {

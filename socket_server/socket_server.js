@@ -21,7 +21,9 @@ server.onConnection = client => {
 	server.sendToClient(client, {
 
 		action: "PLAYERS_ONLINE",
-		players: server.clientsAndPlayerIds.map(x => x.playerId),
+		players: server.clientsAndPlayerIds
+			.filter(x => x.client !== client)
+			.map(x => x.playerId),
 	})
 
 	server.sendToOthers(client, {
