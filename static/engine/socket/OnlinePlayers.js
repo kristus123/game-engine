@@ -4,14 +4,12 @@ export class OnlinePlayers {
 
 		this.socketClient = new SocketClient(c => {
 
-			c.on('GET_PLAYER_ID', data => {
+			c.on('ON_CONNECTION_PLAYER_ID', data => {
 				player.playerId = data.playerId.toString()
 			})
 
 			c.on('PLAYERS_ONLINE', data => {
-				console.log("fetched all online players")
 				data.players.map(playerId => {
-					console.log(playerId)
 					const p = new Player("x")
 					p.playerId = playerId.toString()
 
@@ -21,7 +19,6 @@ export class OnlinePlayers {
 			})
 
 			c.on('PLAYER_CONNECTED', data => {
-				console.log("player connected")
 				const p = new Player("x")
 				p.playerId = data.playerId.toString()
 
@@ -30,19 +27,17 @@ export class OnlinePlayers {
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
-				this.playersOnline
-					.filter(p => p.playerId === data.playerId)
-					.map(p => {
+				for (const p of this.playersOnline) {
+					if (p.playerId == data.playerId) {
 						List.remove(this.playersOnline, p)
 						allGameObjects.remove(this, p)
-
-						return null
-					})
+					}
+				}
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
 				for (const p of this.playersOnline) {
-					if (p.playerId.toString() === data.playerId) {
+					if (p.playerId == data.playerId) {
 						p.x = data.x
 						p.y = data.y
 					}

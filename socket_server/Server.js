@@ -33,7 +33,7 @@ module.exports = class Server {
 	getPlayerId(client) {
 		return this.clientsAndPlayerIds
 			.filter(c => c.client === client)
-			.map(c => c.playerId)
+			.map(c => c.playerId.toString())
 	}
 
 	remove(client) {

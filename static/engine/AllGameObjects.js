@@ -34,8 +34,9 @@ export class AllGameObjects {
 	}
 
 	remove(origin, o) {
-		List.remove(this.gameObjects, o)
-		List.remove(this.origins[origin], o)
+		List.remove(this.allGameObjects, o)
+
+		this.origins[origin].remove(o)
 	}
 
 	update() {

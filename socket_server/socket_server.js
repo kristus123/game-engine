@@ -10,11 +10,11 @@ server.onConnection = client => {
 
 	server.clientsAndPlayerIds.push({
 		client: client,
-		playerId: crypto.randomUUID(),
+		playerId: crypto.randomUUID().toString(),
 	})
 
 	server.sendToClient(client, {
-		action: "GET_PLAYER_ID",
+		action: "ON_CONNECTION_PLAYER_ID",
 		playerId: server.getPlayerId(client),
 	})
 
@@ -38,7 +38,6 @@ server.onClose = client => {
 
 	server.remove(client)
 }
-
 server.on("NEW_PLAYER", (client, data) => {
 	server.sendToClient(client, {
 		action: "WORLD",
