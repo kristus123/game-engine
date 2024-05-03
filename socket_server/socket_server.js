@@ -14,16 +14,17 @@ server.onConnection = client => {
 	})
 
 	server.sendToClient(client, {
-		action: "PLAYER_ID",
+		action: "GET_PLAYER_ID",
 		playerId: server.getPlayerId(client),
 	})
 
 	server.sendToClient(client, {
+
 		action: "PLAYERS_ONLINE",
 		players: server.clientsAndPlayerIds.map(x => x.playerId),
 	})
 
-	server.sendToClient(client, {
+	server.sendToOthers(client, {
 		action: "PLAYER_CONNECTED",
 		playerId: server.getPlayerId(client),
 	})

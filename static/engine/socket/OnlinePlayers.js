@@ -1,59 +1,63 @@
 export class OnlinePlayers {
-	constructor(player) {
+	constructor(allGameObjects, player) {
 		this.playersOnline = []
 
 		this.socketClient = new SocketClient(c => {
 
-			c.on('PLAYER_ID', data => {
-				player.id = data.playerId
+			c.on('GET_PLAYER_ID', data => {
+				player.playerId = data.playerId.toString()
 			})
 
 			c.on('PLAYERS_ONLINE', data => {
-				this.playersOnline = data.players.map(playerId => {
+				console.log("fetched all online players")
+				data.players.map(playerId => {
+					console.log(playerId)
 					const p = new Player("x")
-					p.id = playerId
+					p.playerId = playerId.toString()
+
+					this.playersOnline.push(p)
+					allGameObjects.register(this, p)
 				})
-				console.log("player connected")
 			})
 
 			c.on('PLAYER_CONNECTED', data => {
-				const p = new Player("x")
-				p.id = data.playerId
-				this.playersOnline.push(p)
 				console.log("player connected")
+				const p = new Player("x")
+				p.playerId = data.playerId.toString()
+
+				this.playersOnline.push(p)
+				allGameObjects.register(this, p)
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
 				this.playersOnline
-					.filter(p => p.id == data.playerId)
+					.filter(p => p.playerId === data.playerId)
 					.map(p => {
 						List.remove(this.playersOnline, p)
+						allGameObjects.remove(this, p)
+
 						return null
 					})
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
-				this.playersOnline
-					.filter(p => p.playerId == data.playerId)
-					.map(p => {
-						p.position.x = data.x
-						p.position.y = data.y
-						console.log("update position for player")
-
-						return null
-					})
+				for (const p of this.playersOnline) {
+					if (p.playerId.toString() === data.playerId) {
+						p.x = data.x
+						p.y = data.y
+					}
+				}
 			})
 		})
 	}
 
 	update() {
-		// console.log(this.playersOnline.length)
 	}
 
 	updatePositionForPlayer(player) {
 		this.socketClient.send({
 			action: 'UPDATE_PLAYER_POSITION',
-			playerId: player.id,
+			playerId: player.playerId,
 			x: player.x,
 			y: player.y,
 		})
@@ -61,7 +65,9 @@ export class OnlinePlayers {
 
 	draw(draw, guiDraw) {
 		this.playersOnline.forEach(p => {
-			p.draw(draw, guiDraw)
+			if (p) {
+				p.draw(draw, guiDraw)
+			}
 		})
 	}
 }
