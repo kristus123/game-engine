@@ -4,11 +4,11 @@ export class OnlinePlayers {
 
 		this.socketClient = new SocketClient(c => {
 
-			c.on('ON_CONNECTION_PLAYER_ID', data => {
+			c.on('ON_CONNECTION__PLAYER_ID', data => {
 				player.playerId = data.playerId.toString()
 			})
 
-			c.on('PLAYERS_ONLINE', data => {
+			c.on('ON_CONNECTION__PLAYERS_ONLINE', data => {
 				for (const playerId of data.players) {
 					const p = new Player("x")
 					p.playerId = playerId.toString()
@@ -18,7 +18,7 @@ export class OnlinePlayers {
 				}
 			})
 
-			c.on('PLAYER_CONNECTED', data => {
+			c.on('ON_CONNECTION__PLAYER_CONNECTED', data => {
 				const p = new Player("x")
 				p.playerId = data.playerId.toString()
 
@@ -26,11 +26,12 @@ export class OnlinePlayers {
 				allGameObjects.register(this, p)
 			})
 
-			c.on('PLAYER_DISCONNECTED', data => {
+			c.on('ON_CLOSE__PLAYER_DISCONNECTED', data => {
 				for (const p of this.playersOnline) {
 					if (p.playerId == data.playerId) {
 						List.remove(this.playersOnline, p)
 						allGameObjects.remove(this, p)
+						break
 					}
 				}
 			})

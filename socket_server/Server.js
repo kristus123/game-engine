@@ -1,12 +1,9 @@
 const WebSocket = require('ws')
 
-let i = 0
-function uuid() {
-	return i += 1
-}
+module.exports = class {
+	constructor(port) {
+		this.port = port
 
-module.exports = class Server {
-	constructor() {
 		this.clientsAndPlayerIds = []
 		this.actions = {}
 	}
@@ -18,7 +15,6 @@ module.exports = class Server {
 				c.client.send(JSON.stringify(data))
 			})
 	}
-
 
 	sendToEveryone(data) {
 		this.clientsAndPlayerIds.forEach(c => {
@@ -45,7 +41,7 @@ module.exports = class Server {
 	}
 
 	start() {
-		new WebSocket.Server({ port: 8080 }).on('connection', client => {
+		new WebSocket.Server({ port: this.port }).on('connection', client => {
 
 			this.onConnection(client)
 

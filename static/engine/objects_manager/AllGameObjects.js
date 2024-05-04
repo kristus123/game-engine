@@ -29,7 +29,7 @@ export class AllGameObjects {
 
 		this.origins[origin].add(gameObject)
 
-		const uuid = Uuid.create()
+		const uuid = Random.uuid()
 
 		this.all.push({uuid, gameObject})
 

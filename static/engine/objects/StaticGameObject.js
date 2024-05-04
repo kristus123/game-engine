@@ -6,7 +6,7 @@ export class StaticGameObject {
 
 		this.position = new Position(_x, _y, _width, _height)
 
-		this.uuid = Uuid.create()
+		this.uuid = Random.uuid()
 	}
 
 	update() { }

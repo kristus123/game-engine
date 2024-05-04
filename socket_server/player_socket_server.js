@@ -1,10 +1,10 @@
-const fs = require('fs');
+// const fs = require('fs');
+// const world = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+
 const Server = require('./Server')
 const crypto = require('crypto')
 
-const server = new Server()
-
-const world = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+const server = new Server(8080)
 
 server.onConnection = client => {
 
@@ -14,39 +14,31 @@ server.onConnection = client => {
 	})
 
 	server.sendToClient(client, {
-		action: "ON_CONNECTION_PLAYER_ID",
+		action: "ON_CONNECTION__PLAYER_ID",
 		playerId: server.getPlayerId(client),
 	})
 
 	server.sendToClient(client, {
-
-		action: "PLAYERS_ONLINE",
+		action: "ON_CONNECTION__PLAYERS_ONLINE",
 		players: server.clientsAndPlayerIds
 			.filter(x => x.client !== client)
 			.map(x => x.playerId),
 	})
 
 	server.sendToOthers(client, {
-		action: "PLAYER_CONNECTED",
+		action: "ON_CONNECTION__PLAYER_CONNECTED",
 		playerId: server.getPlayerId(client),
 	})
 }
 
 server.onClose = client => {
 	server.sendToOthers(client, {
-		action: 'PLAYER_DISCONNECTED',
+		action: 'ON_CLOSE__PLAYER_DISCONNECTED',
 		playerId: server.getPlayerId(client),
 	})
 
 	server.remove(client)
 }
-
-server.on("NEW_PLAYER", (client, data) => {
-	server.sendToClient(client, {
-		action: "WORLD",
-		data: world,
-	})
-})
 
 server.on('UPDATE_PLAYER_POSITION', (client, data) => {
 	server.sendToOthers(client, {
