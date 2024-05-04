@@ -47,7 +47,6 @@ export class OnlinePlayers {
 	}
 
 	update() {
-		console.log(this.playersOnline.length)
 	}
 
 	updatePositionForPlayer(player) {
@@ -61,9 +60,7 @@ export class OnlinePlayers {
 
 	draw(draw, guiDraw) {
 		this.playersOnline.forEach(p => {
-			if (p) {
-				p.draw(draw, guiDraw)
-			}
+			p.draw(draw, guiDraw)
 		})
 	}
 }

@@ -40,6 +40,7 @@ server.onClose = client => {
 
 	server.remove(client)
 }
+
 server.on("NEW_PLAYER", (client, data) => {
 	server.sendToClient(client, {
 		action: "WORLD",

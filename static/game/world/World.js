@@ -9,23 +9,21 @@ export class World {
 
 		this.onlinePlayers = new OnlinePlayers(allGameObjects, this.player)
 
-		allGameObjects.register(this, [
-			this.onlinePlayers,
+		this.runAll = new RunAll([
+			// this.deliveryDrone,
 			new StarBackground(camera),
 			new Planet(500, 0),
+			this.onlinePlayers,
 			this.player,
-			// this.deliveryDrone,
 		])
-
-		ObjectPersistence.get().forEach(o => {
-			allGameObjects.add(this, o)
-		})
 	}
 
 	update() {
+		this.runAll.update()
 		this.onlinePlayers.updatePositionForPlayer(this.player)
 	}
 
 	draw(draw, guiDraw) {
+		this.runAll.draw(draw, guiDraw)
 	}
 }

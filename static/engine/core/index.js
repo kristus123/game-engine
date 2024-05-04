@@ -30,11 +30,11 @@ ErrorHandler.run(() => {
 				controller.update()
 				controller.draw(draw, guiDraw)
 
-				allGameObjects.update()
-				allGameObjects.draw(draw, guiDraw)
-
 				levelSelector.update()
 				levelSelector.draw(draw, guiDraw)
+
+				allGameObjects.update()
+				allGameObjects.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()
