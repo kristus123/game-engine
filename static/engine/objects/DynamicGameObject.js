@@ -9,6 +9,8 @@ export class DynamicGameObject {
 		this.velocity = new Velocity(this, 0, 0)
 
 		Physics.global.applyPhysics(this)
+
+		this.uuid = Uuid.create()
 	}
 
 	// eslint-disable-next-line no-unused-vars

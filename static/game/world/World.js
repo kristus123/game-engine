@@ -16,6 +16,15 @@ export class World {
 			this.onlinePlayers,
 			this.player,
 		])
+
+		ObjectPersistence.get().forEach(o => {
+			this.runAll.add(o)
+			o.onCollision = x => {
+				if (x === this.player) {
+					Push(o).awayFrom(x)
+				}
+			}
+		})
 	}
 
 	update() {

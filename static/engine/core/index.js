@@ -17,6 +17,7 @@ ErrorHandler.run(() => {
 
 	const levelSelector = new LevelSelector()
 	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
+	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
 	Overlay.create()
 

@@ -38,17 +38,20 @@ export class ObjectMapper {
 			}, null, 4)
 		}
 
-		if (o instanceof DynamicGameObject) {
+		else if (o instanceof DynamicGameObject) {
 			return JSON.stringify({
 				type: DynamicGameObject.name,
 				position: positionToJson(o.position),
 				weight: o.weight,
 				velocityFactor: o.velocityFactor,
 				srcPicture: o.srcPicture,
+				uuid: o.uuid,
 			}, null, 4)
 		}
 
-		throw new Error('could not map ' + o.type + ' in ObjectMapper')
+		else {
+			throw new Error('could not map ' + o.type + ' in ObjectMapper')
+		}
 	}
 
 	static mapSingleObject(o) {
@@ -59,7 +62,9 @@ export class ObjectMapper {
 				return new StaticPicture(positionFromJson(o.position), o.imagePath)
 			case DynamicGameObject.name:
 				const p = positionFromJson(o.position)
-				return new DynamicGameObject(p.x, p.y, p.width, p.height, o.weight, o.velocityFactor, o.imagePath)
+				const x =  new DynamicGameObject(p.x, p.y, p.width, p.height, o.weight, o.velocityFactor, o.imagePath)
+				x.uuid = o.uuid
+				return x
 			default:
 				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
