@@ -11,7 +11,6 @@ ErrorHandler.run(() => {
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-
 	const controller = new Controller()
 	const allGameObjects = new AllGameObjects()
 
