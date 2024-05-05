@@ -6,41 +6,50 @@ const crypto = require('crypto')
 
 const server = new Server(8080)
 
+
+const playerIdFor = {}
+
 server.onConnection = client => {
+	playerIdFor[client] = crypto.randomUUID().toString()
 
 	server.clientsAndPlayerIds.push({
 		client: client,
-		playerId: crypto.randomUUID().toString(),
+		playerId: playerIdFor[client],
 	})
 
 	server.sendToClient(client, {
 		action: "ON_CONNECTION__PLAYER_ID",
-		playerId: server.getPlayerId(client),
+		playerId: playerIdFor[client],
 	})
+
+
+
+	// const x = 
+	// console.log(x)
 
 	server.sendToClient(client, {
 		action: "ON_CONNECTION__PLAYERS_ONLINE",
-		players: server.clientsAndPlayerIds
-			.filter(x => x.client !== client)
-			.map(x => x.playerId),
+		players: Object.entries(playerIdFor)
+			.map(([client, playerId]) => playerId),
 	})
 
 	server.sendToOthers(client, {
 		action: "ON_CONNECTION__PLAYER_CONNECTED",
-		playerId: server.getPlayerId(client),
+		playerId: playerIdFor[client],
 	})
 }
 
 server.onClose = client => {
 	server.sendToOthers(client, {
 		action: 'ON_CLOSE__PLAYER_DISCONNECTED',
-		playerId: server.getPlayerId(client),
+		playerId: playerIdFor[client],
 	})
 
 	server.remove(client)
 }
 
 server.on('UPDATE_PLAYER_POSITION', (client, data) => {
+	console.log(playerIdFor[client] == server.getPlayerId(client))
 	server.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
 		playerId: server.getPlayerId(client),

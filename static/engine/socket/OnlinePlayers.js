@@ -2,7 +2,7 @@ export class OnlinePlayers {
 	constructor(allGameObjects, player) {
 		this.playersOnline = []
 
-		this.socketClient = new SocketClient(c => {
+		this.socketClient = new SocketClient(8080, c => {
 
 			c.on('ON_CONNECTION__PLAYER_ID', data => {
 				player.playerId = data.playerId.toString()

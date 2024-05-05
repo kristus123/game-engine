@@ -1,8 +1,8 @@
 export class SocketClient {
-	constructor(run) {
+	constructor(port, run) {
 		this.listeners = {}
 
-		this.webSocket = new WebSocket('ws://localhost:8080')
+		this.webSocket = new WebSocket(`ws://localhost:${port}`)
 
 		this.webSocket.onopen = () => {
 		}
