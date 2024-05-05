@@ -1,14 +1,14 @@
+
 export class PrettyParticles {
 	constructor() {
 		this.particles = []
 	}
 
 	piss(ctx, player, mousePosition, mouse) {
-		const size = Random.floatBetween(1, 5)
+		// const size = Random.floatBetween(1, 5)
 
 		if (this.particles.length < 100 && mouse.down) {
-			const newParticle = new DynamicGameObject(player.x, player.y, size, size, 10, 200)
-
+			const newParticle = new DynamicGameObject(new Position(player.position.copy()),10,200)
 			const pos = Calculate.directionBetween(Get.position(player), mousePosition)
 			const vel = Calculate.velocity(player, pos)
 
@@ -45,7 +45,7 @@ export class PrettyParticles {
 		const size = Random.floatBetween(1, 10)
 
 		if (this.particles.length < 1000) {
-			const newParticle = new DynamicGameObject(x, y, size, size, 10, 200)
+			const newParticle = new DynamicGameObject(new Position(x,y,size, size), 10, 200)
 			newParticle.velocity = {
 				x: Random.floatBetween(-2.0, 2.0),
 				y: Random.floatBetween(-2.0, 2.0),
