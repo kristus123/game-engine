@@ -22,7 +22,6 @@ export class World {
 
 	update() {
 		this.runAll.update()
-		this.onlinePlayers.updatePositionForPlayer(this.player)
 	}
 
 	draw(draw, guiDraw) {

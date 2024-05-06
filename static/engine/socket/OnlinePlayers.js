@@ -48,14 +48,11 @@ export class OnlinePlayers {
 	}
 
 	update() {
-	}
-
-	updatePositionForPlayer(player) {
 		this.socketClient.send({
 			action: 'UPDATE_PLAYER_POSITION',
-			playerId: player.playerId,
-			x: player.x,
-			y: player.y,
+			playerId: this.player.playerId,
+			x: this.player.x,
+			y: this.player.y,
 		})
 	}
 
