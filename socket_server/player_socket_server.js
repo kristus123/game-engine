@@ -1,60 +1,34 @@
-// const fs = require('fs');
-// const world = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+const SocketServer = require('./SocketServer')
 
-const Server = require('./Server')
-const crypto = require('crypto')
+const s = new SocketServer(8080)
 
-const server = new Server(8080)
+s.onConnection = client => {
 
-
-const playerIdFor = {}
-
-server.onConnection = client => {
-	playerIdFor[client] = crypto.randomUUID().toString()
-
-	server.clientsAndPlayerIds.push({
-		client: client,
-		playerId: playerIdFor[client],
+	s.sendToClient(client, {
+		action: "CONNECTED_PLAYERS",
+		clientIds: s.allClientIds,
 	})
 
-	server.sendToClient(client, {
-		action: "ON_CONNECTION__PLAYER_ID",
-		playerId: playerIdFor[client],
-	})
-
-
-
-	// const x = 
-	// console.log(x)
-
-	server.sendToClient(client, {
-		action: "ON_CONNECTION__PLAYERS_ONLINE",
-		players: Object.entries(playerIdFor)
-			.map(([client, playerId]) => playerId),
-	})
-
-	server.sendToOthers(client, {
-		action: "ON_CONNECTION__PLAYER_CONNECTED",
-		playerId: playerIdFor[client],
+	s.sendToOthers(client, {
+		action: "NEW_PLAYER_CONNECTED",
+		clientId:  s.clientIdFrom[client],
 	})
 }
 
-server.onClose = client => {
-	server.sendToOthers(client, {
-		action: 'ON_CLOSE__PLAYER_DISCONNECTED',
-		playerId: playerIdFor[client],
+s.onClose = client => {
+	s.sendToOthers(client, {
+		action: 'PLAYER_DISCONNECTED',
+		clientId: s.clientIdFrom[client],
 	})
-
-	server.remove(client)
 }
 
-server.on('UPDATE_PLAYER_POSITION', (client, data) => {
-	server.sendToOthers(client, {
+s.on('UPDATE_PLAYER_POSITION', (client, data) => {
+	s.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
-		playerId: server.getPlayerId(client),
+		clientId: s.clientIdFrom[client],
 		x: data.x,
 		y: data.y,
 	})
 })
 
-server.start()
+s.start()

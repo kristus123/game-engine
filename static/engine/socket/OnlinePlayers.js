@@ -4,31 +4,27 @@ export class OnlinePlayers {
 
 		this.socketClient = new SocketClient(8080, c => {
 
-			c.on('ON_CONNECTION__PLAYER_ID', data => {
-				player.playerId = data.playerId.toString()
-			})
-
-			c.on('ON_CONNECTION__PLAYERS_ONLINE', data => {
-				for (const playerId of data.players) {
+			c.on('CONNECTED_PLAYERS', data => {
+				for (const clientId of data.clientIds) {
 					const p = new Player("x")
-					p.playerId = playerId.toString()
+					p.clientId = clientId.toString()
 
 					this.playersOnline.push(p)
 					allGameObjects.register(this, p)
 				}
 			})
 
-			c.on('ON_CONNECTION__PLAYER_CONNECTED', data => {
+			c.on('NEW_PLAYER_CONNECTED', data => {
 				const p = new Player("x")
-				p.playerId = data.playerId.toString()
+				p.clientId = data.clientId.toString()
 
 				this.playersOnline.push(p)
 				allGameObjects.register(this, p)
 			})
 
-			c.on('ON_CLOSE__PLAYER_DISCONNECTED', data => {
+			c.on('PLAYER_DISCONNECTED', data => {
 				for (const p of this.playersOnline) {
-					if (p.playerId == data.playerId) {
+					if (p.clientId == data.clientId) {
 						List.remove(this.playersOnline, p)
 						allGameObjects.remove(this, p)
 						break
@@ -37,10 +33,10 @@ export class OnlinePlayers {
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
-				for (const p of this.playersOnline) {
-					if (p.playerId == data.playerId) {
-						p.x = data.x
-						p.y = data.y
+				for (const player of this.playersOnline) {
+					if (player.clientId == data.clientId) {
+						player.x = data.x
+						player.y = data.y
 						break
 					}
 				}
@@ -51,7 +47,6 @@ export class OnlinePlayers {
 	update() {
 		this.socketClient.send({
 			action: 'UPDATE_PLAYER_POSITION',
-			playerId: this.player.playerId,
 			x: this.player.x,
 			y: this.player.y,
 		})
