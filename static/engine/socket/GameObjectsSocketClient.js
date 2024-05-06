@@ -19,14 +19,15 @@ export class GameObjectsSocketClient {
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
-				console.log("hei")
-				console.log(p.uuid == data.uuid)
+
 				for (const p of this.gameObjects) {
 					if (p.uuid == data.uuid) {
 						p.position.x = data.x
 						p.position.y = data.y
+						break
 					}
 				}
+
 			})
 		})
 	}
@@ -36,6 +37,7 @@ export class GameObjectsSocketClient {
 			if (Collision.between(g, this.player)) {
 				Push(g).awayFrom(this.player, 0.01)
 
+				console.log("moving object")
 				this.socketClient.send({
 					action: 'UPDATE_OBJECT_POSITION',
 					uuid: g.uuid,

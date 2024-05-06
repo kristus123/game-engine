@@ -49,7 +49,6 @@ server.onClose = client => {
 }
 
 server.on('UPDATE_PLAYER_POSITION', (client, data) => {
-	console.log(playerIdFor[client] == server.getPlayerId(client))
 	server.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
 		playerId: server.getPlayerId(client),
