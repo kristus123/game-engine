@@ -6,20 +6,18 @@ const gameObjectsHandledBy = {}
 const Server = require('./Server')
 const server = new Server(8081)
 
-
-const playerIdFor = {}
+const uuidFor = {}
 
 server.onConnection = client => {
 
-	playerIdFor[client] = crypto.randomUUID().toString()
+	uuidFor[client] = crypto.randomUUID().toString()
 
 	server.clientsAndPlayerIds.push({
 		client: client,
-		playerId: playerIdFor[client],
+		playerId: uuidFor[client],
 	})
 
 	gameObjectsHandledBy[client] = []
-
 
 	server.sendToClient(client, {
 		action: "ON_CONNECTION__GET_GAME_OBJECTS",
