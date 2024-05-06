@@ -41,6 +41,7 @@ export class OnlinePlayers {
 					if (p.playerId == data.playerId) {
 						p.x = data.x
 						p.y = data.y
+						break
 					}
 				}
 			})
