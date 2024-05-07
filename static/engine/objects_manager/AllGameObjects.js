@@ -46,7 +46,7 @@ export class AllGameObjects {
 
 		const uuid = this.gameObjectUuid[gameObject]
 
-		delete this.gameObjectUuid[this.gameObjectUuid]
+		delete this.gameObjectUuid[gameObject]
 		delete this.uuidForGameObject[uuid]
 	}
 

@@ -6,7 +6,8 @@ s.onConnection = client => {
 
 	s.sendToClient(client, {
 		action: "CONNECTED_PLAYERS",
-		clientIds: s.allClientIds,
+		clientIds: s.allClientIds
+		.filter(clientId => clientId != s.clientIdFrom[client]),
 	})
 
 	s.sendToOthers(client, {
@@ -15,14 +16,15 @@ s.onConnection = client => {
 	})
 }
 
-s.onClose = client => {
+s.onClose = (client, clientId) => {
 	s.sendToOthers(client, {
 		action: 'PLAYER_DISCONNECTED',
-		clientId: s.clientIdFrom[client],
+		clientId: clientId,
 	})
 }
 
 s.on('UPDATE_PLAYER_POSITION', (client, data) => {
+	console.log(data)
 	s.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
 		clientId: s.clientIdFrom[client],

@@ -11,9 +11,9 @@ module.exports = class {
 		new WebSocket.Server({ port: this.port }).on('connection', (client, request) => {
 
 			const urlParameters = new URLSearchParams(request.url.split('?')[1]);
-			const clientUuid = urlParameters.get('clientUuid')
+			const clientId = urlParameters.get('clientId')
 
-			this.onConnection(client, clientUuid)
+			this.onConnection(client, clientId)
 
 			client.on('message', data => {
 				data = JSON.parse(data)

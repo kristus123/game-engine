@@ -12,7 +12,7 @@ module.exports = class {
 
 		this.lowLevelSocketServer = new LowLevelSocketServer(port)
 
-		this.lowLevelSocketServer.onConnection = function(client, clientId) {
+		this.lowLevelSocketServer.onConnection = (client, clientId) => {
 			this.allClients.push(client)
 			this.allClientIds.push(clientId)
 
@@ -22,20 +22,21 @@ module.exports = class {
 			this.onConnection(client, clientId)
 		}
 
-		this.lowLevelSocketServer.onClose = function onClose(client) {
-			const clientUuid = this.clientIdFrom[client]
+		this.lowLevelSocketServer.onClose = client => {
+			const clientId = this.clientIdFrom[client]
 
 			List.remove(this.allClients, client)
-			List.remove(this.allClientIds, clientUuid)
+			List.remove(this.allClientIds, clientId)
 
-			delete this.clientFrom[clientUuid]
+			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]
 
-			this.onClose(client)
+			this.onClose(client, clientId)
 		}
 	}
 
 	sendToOthers(from, data) {
+		console.log(this.allClientIds)
 		for (const client of this.allClients) {
 			if (client !== from) {
 				client.send(JSON.stringify(data))

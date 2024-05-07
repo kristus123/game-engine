@@ -65,6 +65,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		draw.new_text(this.position.offset(0, -100), this.clientId, 'white', 20)
 		// draw.revertMouse(this, this.mouse.position)
 
 			this.flyingUp.draw(draw, guiDraw)
