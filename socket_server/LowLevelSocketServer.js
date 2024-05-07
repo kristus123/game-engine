@@ -16,10 +16,14 @@ module.exports = class {
 			this.onConnection(client, clientId)
 
 			client.on('message', data => {
-				data = JSON.parse(data)
+				try {
+					data = JSON.parse(data)
 
-				if (this.actions[data.action]) {
-					this.actions[data.action](client, data)
+					if (this.actions[data.action]) {
+						this.actions[data.action](client, data)
+					}
+				} catch (e) {
+					console.log(e)
 				}
 			})
 

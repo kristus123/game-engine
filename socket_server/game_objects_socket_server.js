@@ -3,7 +3,7 @@ const fs = require('fs');
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const gameObjectsHandledBy = {}
 
-const Server = require('./Server')
+const Server = require('./SocketServer')
 const server = new Server(8081)
 
 const uuidFor = {}
