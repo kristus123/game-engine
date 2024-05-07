@@ -2,6 +2,9 @@ export class OnlinePlayers {
 	constructor(allGameObjects, player) {
 		this.playersOnline = []
 
+		Overlay.addTop("hola amigo")
+
+
 		this.socketClient = new SocketClient(8080, c => {
 
 			player.clientId = c.clientId.toString()

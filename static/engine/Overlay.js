@@ -15,10 +15,30 @@ function fetchHTML() {
 const html = fetchHTML()
 
 export class Overlay {
-	static create(player) {
+	static create() {
 		document.getElementById('overlay').innerHTML = html
 	}
 
-	static follow(player) {
+	static addTop(message) {
+		setTimeout(() => {
+			const div = document.createElement("div")
+
+			div.classList.add("item");
+			div.innerHTML = message
+			
+			document.getElementsByClassName('header')[0].appendChild(div)
+			
+		}, 10);
+
+		setTimeout(() => {
+			const div = document.createElement("div")
+
+			div.classList.add("item");
+			div.innerHTML = message
+			
+			document.getElementsByClassName('header')[0].appendChild(div)
+			
+		}, 10);
+
 	}
 }
