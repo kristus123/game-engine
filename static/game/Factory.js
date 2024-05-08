@@ -1,7 +1,7 @@
 export class Factory extends DynamicGameObject {
 
 	constructor(player) {
-		super(-1500, -300, 150, 150, 100, 10)
+		super(new Position(-1500, -300, 150, 150), 100, 10)
 		this.player = player
 	}
 

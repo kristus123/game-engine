@@ -1,6 +1,6 @@
 export class Crate extends DynamicGameObject {
 	constructor(position) {
-		super(position.x, position.y, 200, 200, 50, 300, 'https://cdn-icons-png.flaticon.com/512/6618/6618414.png')
+		super(new Position(position.x, position.y, 200, 200), 50, 300, 'https://cdn-icons-png.flaticon.com/512/6618/6618414.png')
 	}
 
 	update() {

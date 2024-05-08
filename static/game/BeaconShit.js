@@ -1,6 +1,6 @@
 export class BeaconShit extends DynamicGameObject {
 	constructor(position) {
-		super(position.x, position.y, 20, 20, 100, 10)
+		super(new Position(position.x, position.y, 20, 20), 100, 10)
 
 		this.radius = 0
 	}

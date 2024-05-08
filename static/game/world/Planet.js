@@ -1,6 +1,6 @@
 export class Planet extends DynamicGameObject {
 	constructor(x, y) {
-		super(x, y, 1500, 1500, 2300, 8)
+		super(new Position(x, y, 1500, 1500), 2300, 8)
 
 		this.runAll = new RunAll([
 			new Picture(this, '/static/assets/planets/exoplanet32x32.png'),

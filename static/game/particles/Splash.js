@@ -21,7 +21,7 @@ export class Splash {
 		for (let i = 1; i <= 10; i++) {
 
 			const size = Random.floatBetween(1, 5)
-			const newParticle = new DynamicGameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)
+			const newParticle = new DynamicGameObject(new Position(spawnPosition.x, spawnPosition.y, size, size), 5, 400)
 
 			// Calculate direction vector
 			const direction = {
@@ -71,7 +71,7 @@ export class Splash {
 
 		for (let i = 1; i <= 400; i++) {
 			const size = Random.floatBetween(1, 5)
-			const newParticle = new DynamicGameObject(spawnPosition.x, spawnPosition.y, size, size, 5, 400)
+			const newParticle = new DynamicGameObject(new Position(spawnPosition.x, spawnPosition.y, size, size), 5, 400)
 
 			// Calculate direction vector in the opposite direction
 			const direction = {

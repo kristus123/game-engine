@@ -10,8 +10,7 @@ export class Grid {
 		mouse.addOnClick('place block', mousePosition => {
 			const p = this.mouseGrid(mousePosition)
 			console.log(p.x)
-			this.blocks.push(new DynamicGameObject(
-				p.x, p.y, 32, 32, 10, 10, '/static/assets/planets/exoplanet32x32.png'))
+			this.blocks.push(new DynamicGameObject(new Position(p.x, p.y, 32, 32), 10, 10, '/static/assets/planets/exoplanet32x32.png'))
 		})
 	}
 
