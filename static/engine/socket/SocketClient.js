@@ -29,6 +29,7 @@ export class SocketClient {
 	send(data) {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
+			console.log(JSON.stringify(data))
 		}
 	}
 
