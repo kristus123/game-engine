@@ -10,15 +10,12 @@ module.exports = class {
 		this.clientFrom = {}
 		this.clientIdFrom = {}
 
-		setInterval(() => {
-			console.log(this.allClientIds)
-		}, 200);
-
 		this.lowLevelSocketServer = new LowLevelSocketServer(port)
 
 		this.lowLevelSocketServer.onConnection = (client, clientId) => {
 			this.allClients.push(client)
 			this.allClientIds.push(clientId)
+			console.log(this.allClientIds)
 
 			this.clientFrom[clientId] = client
 			this.clientIdFrom[client] = clientId
@@ -31,6 +28,7 @@ module.exports = class {
 
 			List.remove(this.allClients, client)
 			List.remove(this.allClientIds, clientId)
+			console.log(this.allClientIds)
 
 			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]

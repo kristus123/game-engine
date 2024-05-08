@@ -16,6 +16,7 @@ s.onConnection = (client, clientId) => {
 }
 
 s.onClose = (client, clientId) => {
+	console.log("disconnecting " + clientId)
 	s.sendToOthers(client, {
 		action: 'PLAYER_DISCONNECTED',
 		clientId: clientId,

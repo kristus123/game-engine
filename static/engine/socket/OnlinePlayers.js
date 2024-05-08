@@ -4,6 +4,7 @@ export class OnlinePlayers {
 
 		this.socketClient = new SocketClient(8080, c => {
 			this.player.clientId = c.clientId
+			console.log("setting local player clientId to " + c.clientId)
 
 			c.on('CONNECTED_PLAYERS', data => {
 				for (const clientId of data.clientIds) {
