@@ -19,7 +19,7 @@ module.exports = class {
 					data = JSON.parse(data)
 
 					if (this.actions[data.action]) {
-						this.actions[data.action](client, data)
+						this.actions[data.action](client, clientId, data)
 					}
 				} catch (e) {
 					console.log(e)

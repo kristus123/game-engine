@@ -3,26 +3,40 @@ export class OnlinePlayers {
 		this.connectedPlayers = []
 
 		this.socketClient = new SocketClient(8080, c => {
-			this.player.clientId = c.clientId
-			console.log("setting local player clientId to " + c.clientId)
+			player.clientId = c.clientId
 
 			c.on('CONNECT_PLAYER', data => {
-				this.connectedPlayers.push(data.clientId)
+				const p = new Player('x')
+				p.clientId = data.clientId
+				this.connectedPlayers.push(p)
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
-				List.remove(this.connectedPlayers, data.clientId)
+				List.removeIf(this.connectedPlayers, p => p.clientId == data.clientId)
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
+				for (const p of this.connectedPlayers) {
+					if (data.clientId == p.clientId) {
+						p.x = data.x
+						p.y = data.y
+					}
+				}
 			})
 		})
 	}
 
 	update() {
-		console.log(this.connectedPlayers)
+		this.socketClient.send({
+			action: "UPDATE_PLAYER_POSITION",
+			x: this.player.x,
+			y: this.player.y,
+		})
 	}
 
 	draw(draw, guiDraw) {
+		for (const p of this.connectedPlayers) {
+			p.draw(draw, guiDraw)
+		}
 	}
 }
