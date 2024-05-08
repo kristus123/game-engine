@@ -12,7 +12,6 @@ module.exports = class {
 
 			const urlParameters = new URLSearchParams(request.url.split('?')[1]);
 			const clientId = urlParameters.get('clientId')
-
 			this.onConnection(client, clientId)
 
 			client.on('message', data => {
@@ -28,7 +27,7 @@ module.exports = class {
 			})
 
 			client.on('close', () => {
-				this.onClose(client)
+				this.onClose(client,clientId)
 			})
 		})
 	}
