@@ -24,8 +24,7 @@ module.exports = class {
 			this.onConnection(client, clientId)
 		}
 
-		this.lowLevelSocketServer.onClose = client => {
-			const clientId = this.clientIdFrom[client]
+		this.lowLevelSocketServer.onClose = (client,clientId) => {
 			console.log("disconnecting " + clientId)
 
 			List.remove(this.allClients, client)
