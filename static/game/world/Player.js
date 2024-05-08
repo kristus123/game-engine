@@ -1,6 +1,6 @@
 export class Player extends DynamicGameObject {
 	constructor(mouse) {
-		super(-120, 10, 40, 50, 2300, 8)
+		super(new Position(-120, 10, 40, 50), 2300, 8)
 
 		this.keyboardEvent = new KeyboardEvent()
 

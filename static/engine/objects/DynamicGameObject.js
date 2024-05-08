@@ -1,10 +1,10 @@
 export class DynamicGameObject {
-	constructor(_x, _y, _width, _height, weight, velocityFactor, srcPicture='nullable') {
+	constructor(position, weight, velocityFactor, srcPicture='nullable') {
 		if (srcPicture != 'nullable') { // temp hack until i figure out what to do
 			this.picture = new Picture(this, srcPicture)
 		}
 
-		this.position = new Position(_x, _y, _width, _height)
+		this.position = new Position(position.x, position.y, position.width, position.height)
 
 		this.velocity = new Velocity(this, 0, 0)
 

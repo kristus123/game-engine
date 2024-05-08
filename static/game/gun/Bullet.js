@@ -1,7 +1,7 @@
 export class Bullet extends DynamicGameObject {
 
 	constructor(from, to) {
-		super(from.x, from.y, 40, 40, 0, 3000)
+		super(new Position(from.x, from.y, 40, 40), 0, 3000)
 
 		this.from = {
 			x: from.x,

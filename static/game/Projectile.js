@@ -1,6 +1,6 @@
 export class Projectile extends DynamicGameObject {
 	constructor() {
-		super(0, 0, 10, 10, 0, 4000)
+		super(new Position(0, 0, 10, 10), 0, 4000)
 		this.from = null
 
 		this.radius = 10

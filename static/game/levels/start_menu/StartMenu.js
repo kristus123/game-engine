@@ -10,7 +10,7 @@ export class StartMenu {
 
 
 		this.runAll = new RunAll([
-			new Picture(new DynamicGameObject(200, 0, 800, 800, 1, 1), '/static/assets/planets/exoplanet32x32.png'),
+			new Picture(new DynamicGameObject(new Position(200, 0, 800, 800), 1, 1), '/static/assets/planets/exoplanet32x32.png'),
 			this.startGame,
 			this.settings,
 		])
