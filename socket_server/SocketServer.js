@@ -15,6 +15,7 @@ module.exports = class {
 		this.lowLevelSocketServer.onConnection = (client, clientId) => {
 			this.allClients.push(client)
 			this.allClientIds.push(clientId)
+			console.log(this.allClientIds)
 
 			this.clientFrom[clientId] = client
 			this.clientIdFrom[client] = clientId
@@ -27,6 +28,7 @@ module.exports = class {
 
 			List.remove(this.allClients, client)
 			List.remove(this.allClientIds, clientId)
+			console.log(this.allClientIds)
 
 			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]
@@ -36,7 +38,6 @@ module.exports = class {
 	}
 
 	sendToOthers(from, data) {
-		console.log(this.allClientIds)
 		for (const client of this.allClients) {
 			if (client !== from) {
 				client.send(JSON.stringify(data))

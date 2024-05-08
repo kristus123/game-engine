@@ -2,21 +2,21 @@ const SocketServer = require('./SocketServer')
 
 const s = new SocketServer(8080)
 
-s.onConnection = client => {
+s.onConnection = (client, clientId) => {
 
 	s.sendToClient(client, {
 		action: "CONNECTED_PLAYERS",
-		clientIds: s.allClientIds
-		.filter(clientId => clientId != s.clientIdFrom[client]),
+		clientIds: s.allClientIds.filter(x => x != clientId),
 	})
 
 	s.sendToOthers(client, {
 		action: "NEW_PLAYER_CONNECTED",
-		clientId:  s.clientIdFrom[client],
+		clientId:  clientId,
 	})
 }
 
 s.onClose = (client, clientId) => {
+	console.log("disconnecting " + clientId)
 	s.sendToOthers(client, {
 		action: 'PLAYER_DISCONNECTED',
 		clientId: clientId,

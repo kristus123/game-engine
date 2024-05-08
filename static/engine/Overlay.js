@@ -29,16 +29,5 @@ export class Overlay {
 			document.getElementsByClassName('header')[0].appendChild(div)
 			
 		}, 10);
-
-		setTimeout(() => {
-			const div = document.createElement("div")
-
-			div.classList.add("item");
-			div.innerHTML = message
-			
-			document.getElementsByClassName('header')[0].appendChild(div)
-			
-		}, 10);
-
 	}
 }
