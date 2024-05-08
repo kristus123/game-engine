@@ -13,6 +13,7 @@ module.exports = class {
 		this.lowLevelSocketServer = new LowLevelSocketServer(port)
 
 		this.lowLevelSocketServer.onConnection = (client, clientId) => {
+			console.log("connecting " + clientId)
 			this.allClients.push(client)
 			this.allClientIds.push(clientId)
 			console.log(this.allClientIds)
@@ -25,6 +26,7 @@ module.exports = class {
 
 		this.lowLevelSocketServer.onClose = client => {
 			const clientId = this.clientIdFrom[client]
+			console.log("disconnecting " + clientId)
 
 			List.remove(this.allClients, client)
 			List.remove(this.allClientIds, clientId)

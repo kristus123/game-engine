@@ -4,19 +4,20 @@ const s = new SocketServer(8080)
 
 s.onConnection = (client, clientId) => {
 
-	s.sendToClient(client, {
-		action: "CONNECTED_PLAYERS",
-		clientIds: s.allClientIds.filter(x => x != clientId),
-	})
+	for (const otherClientId of s.allClientIds) {
+		s.sendToClient(client, {
+			action: "CONNECT_PLAYER",
+			clientId: otherClientId,
+		})
+	}
 
 	s.sendToOthers(client, {
-		action: "NEW_PLAYER_CONNECTED",
+		action: "CONNECT_PLAYER",
 		clientId:  clientId,
 	})
 }
 
 s.onClose = (client, clientId) => {
-	console.log("disconnecting " + clientId)
 	s.sendToOthers(client, {
 		action: 'PLAYER_DISCONNECTED',
 		clientId: clientId,
@@ -24,7 +25,6 @@ s.onClose = (client, clientId) => {
 }
 
 s.on('UPDATE_PLAYER_POSITION', (client, data) => {
-	console.log(data)
 	s.sendToOthers(client, {
 		action: 'UPDATE_PLAYER_POSITION',
 		clientId: s.clientIdFrom[client],
