@@ -1,69 +1,35 @@
 export class OnlinePlayers {
-	constructor(allGameObjects, player) {
-		this.playersOnline = []
-
-		Overlay.addTop("hola amigo")
+	constructor(player) {
+		this.connectedPlayers = []
 
 		this.socketClient = new SocketClient(8080, c => {
-
-			player.clientId = c.clientId.toString()
+			this.player.clientId = c.clientId
 
 			c.on('CONNECTED_PLAYERS', data => {
 				for (const clientId of data.clientIds) {
-					const p = new Player("x")
-					p.clientId = clientId.toString()
-
-					this.playersOnline.push(p)
-					// allGameObjects.add(this, p)
+					this.connectedPlayers.push(clientId)
 				}
 			})
 
 			c.on('NEW_PLAYER_CONNECTED', data => {
-				console.log("new player connectec")
-				const p = new Player("x")
-				p.clientId = data.clientId.toString()
-
-				this.playersOnline.push(p)
-				// allGameObjects.add(this, p)
+					this.connectedPlayers.push(data.clientId)
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
-				for (const p of this.playersOnline) {
-					if (p.clientId == data.clientId) {
-						console.log("removed " + p.clientId)
-						List.remove(this.playersOnline, p)
-						// allGameObjects.remove(this, p)
-						break
-					}
-				}
+				console.log(this.connectedPlayers)
+				List.remove(this.connectedPlayers, data.clientId)
+				console.log(this.connectedPlayers)
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
-				console.log("updating position for player")
-				console.log(JSON.stringify(data))
-				for (const player of this.playersOnline) {
-					if (player.clientId == data.clientId) {
-						player.x = data.x
-						player.y = data.y
-						return
-					}
-				}
-				
 			})
 		})
 	}
 
 	update() {
-		this.socketClient.send({
-			action: 'UPDATE_PLAYER_POSITION',
-			x: this.player.x,
-			y: this.player.y,
-		})
+		// console.log(this.connectedPlayers)
 	}
 
 	draw(draw, guiDraw) {
-		this.playersOnline.forEach(p => {
-			p.draw(draw, guiDraw)
-		})
 	}
 }

@@ -10,6 +10,10 @@ module.exports = class {
 		this.clientFrom = {}
 		this.clientIdFrom = {}
 
+		setInterval(() => {
+			console.log(this.allClientIds)
+		}, 200);
+
 		this.lowLevelSocketServer = new LowLevelSocketServer(port)
 
 		this.lowLevelSocketServer.onConnection = (client, clientId) => {
@@ -36,7 +40,6 @@ module.exports = class {
 	}
 
 	sendToOthers(from, data) {
-		console.log(this.allClientIds)
 		for (const client of this.allClients) {
 			if (client !== from) {
 				client.send(JSON.stringify(data))

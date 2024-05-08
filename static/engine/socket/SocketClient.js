@@ -2,7 +2,7 @@ export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
 
-		this.clientId = Random.uuid()
+		this.clientId = Random.uuid().toString()
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
 		this.webSocket.onopen = () => {
