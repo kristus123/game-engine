@@ -1,7 +1,6 @@
 export class GameObjectsSocketClient {
 	constructor(allGameObjects, player) {
 		this.gameObjects = []
-
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
@@ -34,14 +33,15 @@ export class GameObjectsSocketClient {
 		for (const o of this.gameObjects) {
 			if (Collision.between(o, this.player)) {
 				Push(o).awayFrom(this.player, 0.01)
-
-				this.socketClient.send({
-					action: 'UPDATE_OBJECT_POSITION',
-					x: o.x,
-					y: o.y,
-					uuid: o.uuid,
-				})
+				
+				console.log("yoo you are the one updating"+o.uuid);
 			}
+			this.socketClient.send({
+				action: 'UPDATE_OBJECT_POSITION',
+				x: o.x,
+				y: o.y,
+				uuid: o.uuid,
+			})
 		}
 	}
 
