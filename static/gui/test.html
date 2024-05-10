@@ -1,6 +1,126 @@
-<div tabindex="-1" style="user-select: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+<style>
+  .container {
+    width: 90vw;
+    height: 90vh;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-  <div style="text-align: center; color: white;">
-	  <h1>hei</h1>
+  .header,
+  .footer {
+    white-space: nowrap;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .right-bar,
+  .left-bar {
+    margin: 10px 0;
+    overflow-y: auto;
+    width: 100px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: calc(100% - 200px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .right-bar {
+    right: 20px;
+  }
+
+  .left-bar {
+    left: 20px;
+  }
+
+  .item,
+  .side-item {
+    width: 100px;
+    height: 100px;
+    background: indianred;
+    margin: 10px 0;
+  }
+</style>
+
+<div tabindex="-1" style="user-select: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center;">
+  <div class="container">
+    <div class="header">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+
+    <div class="right-bar">
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+    </div>
+
+    <div class="left-bar">
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+      <div class="side-item"></div>
+    </div>
+
+    <div class="footer">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+
+    </div>
   </div>
 </div>
+
+
