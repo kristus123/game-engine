@@ -18,7 +18,7 @@ let offsetX = 0;
 let offsetY = 0;
 
 export class Overlay {
-	static create() {
+	static create(camera) {
 		document.getElementById('overlay').innerHTML = html
 
 		setTimeout(() => {
@@ -28,21 +28,21 @@ export class Overlay {
 			});
 			
 		}, 10);
+	}
 
+	static update(camera) {
+		const button = document.getElementById('myButton');
 
-		setInterval(() => {
-			const button = document.getElementById('myButton');
+		button.addEventListener("mousedown", e => {
+			e.preventDefault();
+		})
 
-			offsetX += 10; // Adjust these values as needed
+		// offsetX = camera.position.x
+		offsetX = 0 - camera.position.x + (Palette.width/2)
+		offsetY = 0 - camera.position.y
 
-			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-
-		}, 500)
-
-
-
-
-
+		button.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+		
 	}
 
 	static addTop(message) {
