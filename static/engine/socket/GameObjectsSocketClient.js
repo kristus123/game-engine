@@ -1,6 +1,7 @@
 export class GameObjectsSocketClient {
 	constructor(allGameObjects, player) {
 		this.gameObjects = []
+
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
@@ -15,7 +16,11 @@ export class GameObjectsSocketClient {
 					}
 				}
 			})
-
+			c.on("GET_CLINET_UPDATE", data =>{
+				for (const p of this.gameObjects) {
+					p.handledByClientId = data.uuid
+				}
+			})
 			c.on('UPDATE_OBJECT_POSITION', data => {
 				for (const p of this.gameObjects) {
 					if (p.uuid == data.uuid) {
@@ -31,16 +36,20 @@ export class GameObjectsSocketClient {
 
 	update() {
 		for (const o of this.gameObjects) {
-			if (Collision.between(o, this.player)) {
+			if (Collision.between(o, this.player) && o.handledByClientId == this.player.clientId) {
 				Push(o).awayFrom(this.player, 0.01)
 				
-				console.log("yoo you are the one updating"+o.uuid);
 			}
 			this.socketClient.send({
 				action: 'UPDATE_OBJECT_POSITION',
 				x: o.x,
 				y: o.y,
 				uuid: o.uuid,
+			})
+			
+			this.socketClient.send({
+				action:"GET_CLINET_UPDATE",
+				uuid:o.handledByClientId
 			})
 		}
 	}

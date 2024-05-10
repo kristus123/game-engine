@@ -3,22 +3,33 @@ const fs = require('fs');
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
 const s = new SocketServer(8081)
-
+let client_id;
 s.onConnection = (client, clientId) => {
 
 	s.sendToClient(client, {
 		action: "GET_GAME_OBJECTS",
 		gameObjects: gameObjects,
 	})
-
+	
 	for (const o of gameObjects) {
 		if (o.handledByClientId == null) {
 			o.handledByClientId = clientId
+			client_id = clientId
 		}
 	}
+	s.sendToClient(client,{
+		action:"GET_CLINET_UPDATE",
+		uuid:client_id
+	})
+	s.sendToOthers(client,{
+		action:"GET_CLINET_UPDATE",
+		uuid:client_id
+	})
+	
 }
 
 s.onClose = (client, clientId) => {
+
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = null
@@ -28,10 +39,14 @@ s.onClose = (client, clientId) => {
 	for (const o of gameObjects) {
 		if (o.handledByClientId == null) {
 			o.handledByClientId = s.allClientIds[0]
+			client_id = s.allClientIds[0]
 		}
+		
 	}
-
-
+	s.sendToOthers(client,{
+		action:"GET_CLINET_UPDATE",
+		uuid:client_id
+	})
 }
 
 s.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
@@ -51,5 +66,10 @@ s.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 		}
 	}
 })
-
+s.on('GET_CLINET_UPDATE',(client,data)=>{
+	s.sendToOthers(client,{
+		action:"GET_CLINET_UPDATE",
+		uuid:client_id
+	})
+})
 s.start()
