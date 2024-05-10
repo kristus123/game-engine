@@ -14,9 +14,35 @@ function fetchHTML() {
 
 const html = fetchHTML()
 
+let offsetX = 0;
+let offsetY = 0;
+
 export class Overlay {
 	static create() {
 		document.getElementById('overlay').innerHTML = html
+
+		setTimeout(() => {
+			const button = document.getElementById('myButton');
+				   button.addEventListener('click', () => {
+					   console.log("haiahaiahihai")
+			});
+			
+		}, 10);
+
+
+		setInterval(() => {
+			const button = document.getElementById('myButton');
+
+			offsetX += 10; // Adjust these values as needed
+
+			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+		}, 500)
+
+
+
+
+
 	}
 
 	static addTop(message) {
