@@ -1,101 +1,104 @@
 export class DynamicGameObject {
-	constructor(position, weight, velocityFactor, srcPicture='nullable') {
-		if (srcPicture != 'nullable') { // temp hack until i figure out what to do
-			this.picture = new Picture(this, srcPicture)
-		}
+  constructor(position, weight, velocityFactor, srcPicture = "nullable") {
+    if (srcPicture != "nullable") {
+      // temp hack until i figure out what to do
+      this.picture = new Picture(this, srcPicture);
+    }
 
-		this.position = new Position(position.x, position.y, position.width, position.height)
+    this.position = new Position(
+      position.x,
+      position.y,
+      position.width,
+      position.height
+    );
 
-		this.velocity = new Velocity(this, 0, 0)
+    this.velocity = new Velocity(this, 0, 0);
 
-		Physics.global.applyPhysics(this)
+    Physics.global.applyPhysics(this);
 
-		this.uuid = Random.uuid()
-	}
+    this.uuid = Random.uuid();
+  }
 
-	// eslint-disable-next-line no-unused-vars
-	onCollision(o) {
-	}
+  // eslint-disable-next-line no-unused-vars
+  onCollision(o) {}
 
-	resetVelocity() {
-		this.velocity.x = 0
-		this.velocity.y = 0
-	}
+  resetVelocity() {
+    this.velocity.x = 0;
+    this.velocity.y = 0;
+  }
 
-	update() { }
+  update() {}
 
-	draw(draw, guiDraw) {
-		if (this.picture) {
-			this.picture.draw(draw, guiDraw)
-		}
-		else {
-			draw.new_rectangle(this.position)
-		}
-	}
+  draw(draw, guiDraw) {
+    if (this.picture) {
+      this.picture.draw(draw, guiDraw);
+    } else {
+      draw.new_rectangle(this.position);
+    }
+  }
 
-	followIfOutsideOfRadius(o, radius) {
-		if (Distance.between(this, o) > radius) {
-			const angle = Math.atan2(o.y - this.y, o.x - this.x)
+  followIfOutsideOfRadius(o, radius) {
+    if (Distance.between(this, o) > radius) {
+      const angle = Math.atan2(o.y - this.y, o.x - this.x);
 
-			this.x = o.x - radius * Math.cos(angle)
-			this.y = o.y - radius * Math.sin(angle)
-		}
-	}
+      this.x = o.x - radius * Math.cos(angle);
+      this.y = o.y - radius * Math.sin(angle);
+    }
+  }
 
-	get x() {
-		return this.position.x
-	}
+  get x() {
+    return this.position.x;
+  }
 
-	get y() {
-		return this.position.y
-	}
+  get y() {
+    return this.position.y;
+  }
 
-	set x(x) {
-		this.position.x = x
-	}
+  set x(x) {
+    this.position.x = x;
+  }
 
-	set y(y) {
-		this.position.y = y
-	}
+  set y(y) {
+    this.position.y = y;
+  }
 
-	get width() {
-		return this.position.width
-	}
+  get width() {
+    return this.position.width;
+  }
 
-	get height() {
-		return this.position.height
-	}
+  get height() {
+    return this.position.height;
+  }
 
-	set width(w) {
-		this.position.width = w
-	}
+  set width(w) {
+    this.position.width = w;
+  }
 
-	set height(h) {
-		this.position.height = h
-	}
+  set height(h) {
+    this.position.height = h;
+  }
 
-	get movingLeft() {
-		return this.velocity.x < -20
-	}
+  get movingLeft() {
+    return this.velocity.x < -20;
+  }
 
-	get movingRight() {
-		return this.velocity.x > 20
-	}
+  get movingRight() {
+    return this.velocity.x > 20;
+  }
 
-	get movingUp() {
-		return this.velocity.y < -20
-	}
+  get movingUp() {
+    return this.velocity.y < -20;
+  }
 
-	get movingDown() {
-		return this.velocity.y > 20
-	}
+  get movingDown() {
+    return this.velocity.y > 20;
+  }
 
-	get movingHorizontally() {
-		return this.movingLeft || this.movingRight
-	}
+  get movingHorizontally() {
+    return this.movingLeft || this.movingRight;
+  }
 
-	get movingVertically() {
-		return this.movingUp || this.movingDown
-	}
-
+  get movingVertically() {
+    return this.movingUp || this.movingDown;
+  }
 }
