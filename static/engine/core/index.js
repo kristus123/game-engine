@@ -18,7 +18,7 @@ ErrorHandler.run(() => {
 	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
 	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
-	// Overlay.create()
+	Overlay.create()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
