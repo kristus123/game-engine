@@ -40,4 +40,8 @@ export class Random {
 
 		return positions
 	}
+
+	static uuid() {
+	  return crypto.randomUUID()
+	}
 }

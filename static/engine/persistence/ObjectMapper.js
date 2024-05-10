@@ -2,6 +2,15 @@ function positionFromJson(o) {
 	return new Position(o.x, o.y, o.width, o.height, o.weight)
 }
 
+function positionToJson(p) {
+	return {
+		x: p.x,
+		y: p.y,
+		width: p.width ,
+		height: p.height,
+	}
+}
+
 export class ObjectMapper {
 
 	static fromFile(body) {
@@ -10,17 +19,6 @@ export class ObjectMapper {
 		})
 
 		return body
-	}
-
-	static mapSingleObject(o) {
-		o = JSON.parse(o)
-
-		switch (o.type) {
-			case 'StaticPicture':
-				return new StaticPicture(positionFromJson(o.position), o.imagePath)
-			default:
-				throw new Error('could not map ' + o.type + ' in ObjectMapper')
-		}
 	}
 
 	static toFile(body) {
@@ -34,18 +32,41 @@ export class ObjectMapper {
 	static toJson(o) {
 		if (o instanceof StaticPicture) {
 			return JSON.stringify({
-				type: 'StaticPicture',
-				position: {
-					x: o.position.x,
-					y: o.position.y,
-					width: o.position.width ,
-					height: o.position.height,
-				},
+				type: StaticPicture.name,
+				position: positionToJson(o.position),
 				imagePath: o.imagePath,
 			}, null, 4)
 		}
+
+		else if (o instanceof DynamicGameObject) {
+			return JSON.stringify({
+				type: DynamicGameObject.name,
+				position: positionToJson(o.position),
+				weight: o.weight,
+				velocityFactor: o.velocityFactor,
+				srcPicture: o.srcPicture,
+				uuid: o.uuid,
+			}, null, 4)
+		}
+
 		else {
 			throw new Error('could not map ' + o.type + ' in ObjectMapper')
+		}
+	}
+
+	static mapSingleObject(o) {
+		o = JSON.parse(o)
+
+		switch (o.type) {
+			case StaticPicture.name:
+				return new StaticPicture(positionFromJson(o.position), o.imagePath)
+			case DynamicGameObject.name:
+				const p = positionFromJson(o.position)
+				const x =  new DynamicGameObject(new Position(p.x, p.y, p.width, p.height), o.weight, o.velocityFactor, o.imagePath)
+				x.uuid = o.uuid
+				return x
+			default:
+				throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
 	}
 }

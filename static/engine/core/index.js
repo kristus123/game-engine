@@ -1,5 +1,3 @@
-export const index = 'this is needed or else shit will crash'
-
 ErrorHandler.run(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
@@ -13,13 +11,14 @@ ErrorHandler.run(() => {
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-	const levelSelector = new LevelSelector()
-	// const level = new MainLevel(levelSelector, new World(levelSelector, camera, mouse), camera, mouse)
-	// Overlay.create()
+	const controller = new Controller()
+	const allGameObjects = new AllGameObjects()
 
-	// levelSelector.changeActiveLevel(new CinematicIntroLevel(levelSelector, camera, mouse))
-	// levelSelector.changeActiveLevel(new DatingSimLevel(levelSelector, camera, mouse))
-	levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+	const levelSelector = new LevelSelector()
+	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
+	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+
+	// Overlay.create()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -28,11 +27,15 @@ ErrorHandler.run(() => {
 			Physics.global.update(deltaTime)
 
 			camera.context(() => {
+				controller.update()
+				controller.draw(draw, guiDraw)
+
 				levelSelector.update()
 				levelSelector.draw(draw, guiDraw)
-			})
 
-			// Overlay.follow(level.world.player)
+				allGameObjects.update()
+				allGameObjects.draw(draw, guiDraw)
+			})
 
 			showLogs.draw()
 

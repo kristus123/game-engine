@@ -1,32 +1,34 @@
 export class SocketClient {
-
-	constructor() {
-		this.ws = new WebSocket('ws://localhost:8080')
+	constructor(port, run) {
 		this.listeners = {}
 
-		this.ws.onopen = () => {
-			this.send({
-				action: 'NEW_PLAYER',
-				playerId: Uuid.create()
-			})
+		this.clientId = Random.uuid().toString()
+		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
+
+		this.webSocket.onopen = () => {
 		}
 
-		this.ws.onmessage = e => {
+		run(this)
+
+		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
 
 			if (this.listeners[data.action]) {
 				this.listeners[data.action](data)
 			}
+			else {
+				console.log(data.action + " not found")
+			}
 		}
 
-		this.ws.onclose = () => {
+		this.webSocket.onclose = () => {
 			this.close()
 		}
 	}
 
 	send(data) {
-		if (this.ws.readyState === WebSocket.OPEN) {
-			this.ws.send(JSON.stringify(data))
+		if (this.webSocket.readyState === WebSocket.OPEN) {
+			this.webSocket.send(JSON.stringify(data))
 		}
 	}
 

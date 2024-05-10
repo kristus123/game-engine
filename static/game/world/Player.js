@@ -1,6 +1,6 @@
 export class Player extends DynamicGameObject {
 	constructor(mouse) {
-		super(-120, 10, 40, 50, 2300, 8)
+		super(new Position(-120, 10, 40, 50), 2300, 8)
 
 		this.keyboardEvent = new KeyboardEvent()
 
@@ -65,31 +65,33 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		draw.new_text(this.position.offset(0, -100), this.clientId, 'white', 20)
 		// draw.revertMouse(this, this.mouse.position)
 
-		if (this.keyboard.up) {
 			this.flyingUp.draw(draw, guiDraw)
-			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
-			this.splash.draw(draw, guiDraw)
-		}
-		else if (this.keyboard.down) {
-			this.splash.draw(draw, guiDraw)
-			this.flyingDown.draw(draw, guiDraw)
-			// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, -200), 1, 'white',1, 100)
-		}
-		else if (this.keyboard.left) {
-			// this.splash.splash(this.position.offset(40, 50), this.position.offset(200, 0), 1, 'white', 1, 100)
-			this.splash.draw(draw, guiDraw)
-			this.flyingRight.mirror(draw)
-		}
-		else if (this.keyboard.right) {
-			// this.splash.splash(this.position.offset(40, 50), this.position.offset(-200, 0), 1, 'white', 1, 100)
-			this.splash.draw(draw, guiDraw)
-			this.flyingRight.draw(draw, guiDraw)
-		}
-		else {
-			this.flyingDown.draw(draw, guiDraw)
-			this.splash.draw(draw, guiDraw)
-		}
+		// if (this.keyboard.up) {
+		// 	this.flyingUp.draw(draw, guiDraw)
+		// 	// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
+		// 	this.splash.draw(draw, guiDraw)
+		// }
+		// else if (this.keyboard.down) {
+		// 	this.splash.draw(draw, guiDraw)
+		// 	this.flyingDown.draw(draw, guiDraw)
+		// 	// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, -200), 1, 'white',1, 100)
+		// }
+		// else if (this.keyboard.left) {
+		// 	// this.splash.splash(this.position.offset(40, 50), this.position.offset(200, 0), 1, 'white', 1, 100)
+		// 	this.splash.draw(draw, guiDraw)
+		// 	this.flyingRight.mirror(draw)
+		// }
+		// else if (this.keyboard.right) {
+		// 	// this.splash.splash(this.position.offset(40, 50), this.position.offset(-200, 0), 1, 'white', 1, 100)
+		// 	this.splash.draw(draw, guiDraw)
+		// 	this.flyingRight.draw(draw, guiDraw)
+		// }
+		// else {
+		// 	this.flyingDown.draw(draw, guiDraw)
+		// 	this.splash.draw(draw, guiDraw)
+		// }
 	}
 }

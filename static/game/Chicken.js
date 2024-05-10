@@ -1,6 +1,6 @@
 export class Chicken extends DynamicGameObject {
 	constructor(player) {
-		super(-1800, -200, 150, 150, 10, 10)
+		super(new Position(-1800, -200, 150, 150), 10, 10)
 
 		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png', 32, 32, 5, [
 			{ x: 1, y: 0 },
