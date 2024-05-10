@@ -38,7 +38,6 @@ export class GameObjectsSocketClient {
 		for (const o of this.gameObjects) {
 			if (Collision.between(o, this.player)) {
 				Push(o).awayFrom(this.player, 0.01)
-				o.handledByClientId = this.player.clientId
 			}
 			this.socketClient.send({
 				action: 'UPDATE_OBJECT_POSITION',
