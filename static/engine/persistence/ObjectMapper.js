@@ -58,15 +58,15 @@ export class ObjectMapper {
 		o = JSON.parse(o)
 
 		switch (o.type) {
-			case StaticPicture.name:
-				return new StaticPicture(positionFromJson(o.position), o.imagePath)
-			case DynamicGameObject.name:
-				const p = positionFromJson(o.position)
-				const x =  new DynamicGameObject(new Position(p.x, p.y, p.width, p.height), o.weight, o.velocityFactor, o.imagePath)
-				x.uuid = o.uuid
-				return x
-			default:
-				throw new Error('could not map ' + o.type + ' in ObjectMapper')
+		case StaticPicture.name:
+			return new StaticPicture(positionFromJson(o.position), o.imagePath)
+		case DynamicGameObject.name:
+			const p = positionFromJson(o.position)
+			const x = new DynamicGameObject(new Position(p.x, p.y, p.width, p.height), o.weight, o.velocityFactor, o.imagePath)
+			x.uuid = o.uuid
+			return x
+		default:
+			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
 	}
 }

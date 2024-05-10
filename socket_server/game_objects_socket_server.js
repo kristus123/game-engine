@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const gameObjectsHandledBy = {}
@@ -20,7 +20,7 @@ server.onConnection = client => {
 	gameObjectsHandledBy[client] = []
 
 	server.sendToClient(client, {
-		action: "ON_CONNECTION__GET_GAME_OBJECTS",
+		action: 'ON_CONNECTION__GET_GAME_OBJECTS',
 		gameObjects: gameObjects,
 	})
 
@@ -32,7 +32,7 @@ server.onConnection = client => {
 	}
 
 	server.sendToClient(client, {
-		action: "ON_CONNECTION__GET_GAME_OBJECTS_HANDLED_BY_YOU",
+		action: 'ON_CONNECTION__GET_GAME_OBJECTS_HANDLED_BY_YOU',
 		gameObjects: gameObjectsHandledBy[client],
 	})
 }

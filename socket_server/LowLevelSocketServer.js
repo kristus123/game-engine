@@ -10,7 +10,7 @@ module.exports = class {
 	start() {
 		new WebSocket.Server({ port: this.port }).on('connection', (client, request) => {
 
-			const urlParameters = new URLSearchParams(request.url.split('?')[1]);
+			const urlParameters = new URLSearchParams(request.url.split('?')[1])
 			const clientId = urlParameters.get('clientId')
 			this.onConnection(client, clientId)
 
@@ -21,7 +21,8 @@ module.exports = class {
 					if (this.actions[data.action]) {
 						this.actions[data.action](client, clientId, data)
 					}
-				} catch (e) {
+				}
+				catch (e) {
 					console.log(e)
 				}
 			})

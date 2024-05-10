@@ -7,8 +7,8 @@ export class MainLevel {
 		// }
 
 		// this.runAll = new RunAll([
-			// this.world,
-			// pissQuest,
+		// this.world,
+		// pissQuest,
 		// ])
 		// allGameObjects.add(world)
 
