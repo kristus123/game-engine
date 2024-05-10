@@ -1,14 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-
-// module.exports = 
+const fs = require("fs");
+const path = require("path");
 
 class Files {
   static inFolder(directoryPath) {
     const files = fs.readdirSync(directoryPath);
     const filesAndFolders = {};
 
-    files.forEach(file => {
+    files.forEach((file) => {
       const stat = fs.statSync(path.join(directoryPath, file));
       if (stat.isDirectory()) {
         filesAndFolders[file] = fs.readdirSync(path.join(directoryPath, file));
@@ -23,8 +21,8 @@ class Files {
 
     return filesAndFolders;
   }
-};
+}
 
+module.exports = Files;
 
-console.log(Files.inFolder("static/assets"))
-
+console.log(Files.inFolder("static/assets"));
