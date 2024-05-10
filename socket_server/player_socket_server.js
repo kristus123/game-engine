@@ -7,14 +7,14 @@ s.onConnection = (client, clientId) => {
 	for (const otherClientId of s.allClientIds) {
 		if (clientId != otherClientId) {
 			s.sendToClient(client, {
-				action: "CONNECT_PLAYER",
+				action: 'CONNECT_PLAYER',
 				clientId: otherClientId,
 			})
 		}
 	}
 
 	s.sendToOthers(client, {
-		action: "CONNECT_PLAYER",
+		action: 'CONNECT_PLAYER',
 		clientId:  clientId,
 	})
 }

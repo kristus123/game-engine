@@ -14,46 +14,46 @@ function fetchHTML() {
 
 const html = fetchHTML()
 
-let offsetX = 0;
-let offsetY = 0;
+let offsetX = 0
+let offsetY = 0
 
 export class Overlay {
 	static create(camera) {
 		document.getElementById('overlay').innerHTML = html
 
 		setTimeout(() => {
-			const button = document.getElementById('myButton');
+			const button = document.getElementById('myButton')
 				   button.addEventListener('click', () => {
-					   console.log("haiahaiahihai")
-			});
-			
-		}, 10);
+					   console.log('haiahaiahihai')
+			})
+
+		}, 10)
 	}
 
 	static update(camera) {
-		const button = document.getElementById('myButton');
+		const button = document.getElementById('myButton')
 
-		button.addEventListener("mousedown", e => {
-			e.preventDefault();
+		button.addEventListener('mousedown', e => {
+			e.preventDefault()
 		})
 
 		// offsetX = camera.position.x
 		offsetX = 0 - camera.position.x + (Palette.width/2)
 		offsetY = 0 - camera.position.y
 
-		button.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-		
+		button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+
 	}
 
 	static addTop(message) {
 		setTimeout(() => {
-			const div = document.createElement("div")
+			const div = document.createElement('div')
 
-			div.classList.add("item");
+			div.classList.add('item')
 			div.innerHTML = message
-			
+
 			document.getElementsByClassName('header')[0].appendChild(div)
-			
-		}, 10);
+
+		}, 10)
 	}
 }

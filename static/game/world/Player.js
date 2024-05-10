@@ -68,7 +68,7 @@ export class Player extends DynamicGameObject {
 		draw.new_text(this.position.offset(0, -100), this.clientId, 'white', 20)
 		// draw.revertMouse(this, this.mouse.position)
 
-			this.flyingUp.draw(draw, guiDraw)
+		this.flyingUp.draw(draw, guiDraw)
 		// if (this.keyboard.up) {
 		// 	this.flyingUp.draw(draw, guiDraw)
 		// 	// this.splash.splash(this.position.offset(40, 50), this.position.offset(0, 200), 1, 'white', 1, 100)
