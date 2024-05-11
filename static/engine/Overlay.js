@@ -15,30 +15,30 @@ function fetchHTML() {
 const html = fetchHTML()
 
 const appendLabelSelect = (parent) => {
-	let element = document.createElement("option");
-	element.innerHTML = "select-pack";
-	element.disabled = true;
-	element.selected = true;
-	parent.appendChild(element);
-};
+	let element = document.createElement('option')
+	element.innerHTML = 'select-pack'
+	element.disabled = true
+	element.selected = true
+	parent.appendChild(element)
+}
 
 const createSelect = () => {
-	const footerDiv = document.querySelector(".footer .item");
-	const select = document.createElement("select");
-	footerDiv.appendChild(select);
-	appendLabelSelect(select);
-	select.className = "selector";
-	return select;
-};
+	const footerDiv = document.querySelector('.footer .item')
+	const select = document.createElement('select')
+	footerDiv.appendChild(select)
+	appendLabelSelect(select)
+	select.className = 'selector'
+	return select
+}
 let offsetX = 0
 let offsetY = 0
 
 export class Overlay {
 	static create(camera) {
 		document.getElementById('overlay').innerHTML = html
-		let data = Http.get("/canvas-image");
+		let data = Http.get('/canvas-image')
 
-		Overlay.handleSelectElement(data);
+		Overlay.handleSelectElement(data)
 		setTimeout(() => {
 			const button = document.getElementById('myButton')
 				   button.addEventListener('click', () => {
@@ -64,7 +64,7 @@ export class Overlay {
 
 
 		if (button) {
-				
+
 			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
 		}
 
@@ -82,53 +82,54 @@ export class Overlay {
 		}, 10)
 	}
 
-	static selectedImage = "";
+	static selectedImage = ''
 
 	static handleSelectElement(data) {
-		const select = createSelect();
+		const select = createSelect()
 		for (const key in data) {
-			if (key == "path") {
-				continue;
+			if (key == 'path') {
+				continue
 			}
-			let element = document.createElement("option");
-			element.innerHTML = key;
-			select.appendChild(element);
+			let element = document.createElement('option')
+			element.innerHTML = key
+			select.appendChild(element)
 		}
-		select.addEventListener("change", function () {
-			var selectedValue = this.value;
-			Overlay.removeElement(this);
-			if (selectedValue == "root") {
-				Overlay.handleImageOption(data.root, data.path);
-			} else {
-				data[selectedValue].path = data.path + "/" + selectedValue;
-				Overlay.handleSelectElement(data[selectedValue]);
+		select.addEventListener('change', function () {
+			var selectedValue = this.value
+			Overlay.removeElement(this)
+			if (selectedValue == 'root') {
+				Overlay.handleImageOption(data.root, data.path)
 			}
-		});
+			else {
+				data[selectedValue].path = data.path + '/' + selectedValue
+				Overlay.handleSelectElement(data[selectedValue])
+			}
+		})
 	}
 
 	static handleImageOption(data, path) {
-		const select = createSelect();
+		const select = createSelect()
 		data.forEach((e) => {
-			let element = document.createElement("option");
-			element.innerHTML = e;
-			select.appendChild(element);
-		});
-		select.addEventListener("change", function () {
-			var selectedValue = this.value;
-			Overlay.selectedImage = path + "/" + selectedValue;
-		});
+			let element = document.createElement('option')
+			element.innerHTML = e
+			select.appendChild(element)
+		})
+		select.addEventListener('change', function () {
+			var selectedValue = this.value
+			Overlay.selectedImage = path + '/' + selectedValue
+		})
 	}
 
 	static removeElement(element) {
-		var selectElements = document.querySelectorAll(`.${element.className}`);
-		var selectArray = Array.from(selectElements);
+		var selectElements = document.querySelectorAll(`.${element.className}`)
+		var selectArray = Array.from(selectElements)
 		for (
 			var i = selectArray.indexOf(element) + 1;
 			i < selectArray.length;
 			i++
 		) {
-			var elementToRemove = selectElements[i];
-			elementToRemove.remove();
+			var elementToRemove = selectElements[i]
+			elementToRemove.remove()
 		}
 	}
 }

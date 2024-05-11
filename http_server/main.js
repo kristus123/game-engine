@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const Files = require("./FileExplorer")
+const Files = require('./FileExplorer')
 const fs = require('fs')
 const app = express()
 
@@ -35,18 +35,20 @@ app.get('/world-editor', (req, res) => {
 	})
 })
 
-app.get("/canvas-image", (req, res) => {
-  try {
-    const data = Files.inFolder("static/assets")
-    if (data) {
-      res.status(200).send(data)
-    } else {
-      res.status(404).send("no data")
-    }
-  } catch (error) {
-    res.status(500).send("Error while fetching Images")
-    return
-  }
+app.get('/canvas-image', (req, res) => {
+	try {
+		const data = Files.inFolder('static/assets')
+		if (data) {
+			res.status(200).send(data)
+		}
+		else {
+			res.status(404).send('no data')
+		}
+	}
+	catch (error) {
+		res.status(500).send('Error while fetching Images')
+		return
+	}
 })
 
 app.listen(PORT, () => {

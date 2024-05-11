@@ -11,13 +11,13 @@ export class ClickEvents {
 			this.clickHandlers[name] = []
 		}
 
-    const wrapperHandler = (e) => {
-      const mousePosition = this.mouse.positionRelativeToCamera(e);
-      const elementClickedClass = e.target.classList;
-      if (!this.mouse.holding) {
-        handler(mousePosition, elementClickedClass);
-      }
-    };
+		const wrapperHandler = (e) => {
+			const mousePosition = this.mouse.positionRelativeToCamera(e)
+			const elementClickedClass = e.target.classList
+			if (!this.mouse.holding) {
+				handler(mousePosition, elementClickedClass)
+			}
+		}
 
 		this.clickHandlers[name].push(wrapperHandler)
 	}

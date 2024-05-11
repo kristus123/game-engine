@@ -2,7 +2,7 @@ export class WorldEditor {
 
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
-        this.selectedImage = "";
+		this.selectedImage = ''
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
@@ -14,26 +14,27 @@ export class WorldEditor {
 			this.runAll.add(o)
 		})
 
-		mouse.addOnClick("paint", async (p, c) => {
+		mouse.addOnClick('paint', async (p, c) => {
 			if (
-				c.contains("item") ||
-				c.contains("selector") ||
-				c.contains("side-item") ||
+				c.contains('item') ||
+				c.contains('selector') ||
+				c.contains('side-item') ||
 				!Overlay.selectedImage
 			) {
-			} else {
+			}
+			else {
 				// making file path for randomise image
-				this.selectedImage = `../${Overlay.selectedImage}`;
+				this.selectedImage = `../${Overlay.selectedImage}`
 
-				p.height = this.selectedImage.width;
-				p.width = this.selectedImage.height;
+				p.height = this.selectedImage.width
+				p.width = this.selectedImage.height
 				const o = new StaticPicture(
 					new Position(p.x, p.y, p.width, p.height),
 					this.selectedImage
-				);
+				)
 
-				this.runAll.add(o);
-				ObjectPersistence.save(o);
+				this.runAll.add(o)
+				ObjectPersistence.save(o)
 			}
 
 			//   const o = new DynamicGameObject(
@@ -41,7 +42,7 @@ export class WorldEditor {
 			//     100,
 			//     100
 			//   );
-		});
+		})
 
 		KeyDown('-', () => {
 			console.log('zooming out')
