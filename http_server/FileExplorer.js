@@ -1,5 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs')
+const path = require('path')
+
+// module.exports =
 
 class Files {
   static inFolder(directoryPath) {
