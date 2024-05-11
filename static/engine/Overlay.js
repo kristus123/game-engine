@@ -46,7 +46,7 @@ export class Overlay {
 
 
 		if (button) {
-				
+
 			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
 		}
 
