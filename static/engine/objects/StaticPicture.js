@@ -1,88 +1,63 @@
 export class StaticPicture {
-  constructor(position, imagePath) {
-    this.image = new Image();
-    this.image.src = imagePath;
-    this.position = position;
-  }
+	constructor(position, imagePath) {
 
-  r(draw, rotation = 2) {
-    const newWidth = this.position.width;
-    const newHeight = this.position.height;
+		this.image = new Image()
+		this.image.src = imagePath
+	}
 
-    draw.ctx.save();
+	r(draw, rotation=2) {
+		const newWidth = this.position.width
+		const newHeight = this.position.height
 
-    draw.ctx.translate(this.position.center.x, this.position.center.y);
+		draw.ctx.save()
 
-    const rotationAngle = Math.atan2(
-      this.position.velocity.y,
-      this.position.velocity.x
-    );
-    draw.ctx.rotate(rotationAngle);
-    draw.ctx.rotate(Math.PI / rotation); // 90 degrees
+		draw.ctx.translate(this.position.center.x, this.position.center.y)
 
-    draw.ctx.drawImage(
-      this.image,
-      -newWidth / 2,
-      -newHeight / 2,
-      newWidth,
-      newHeight
-    );
+		const rotationAngle = Math.atan2(this.position.velocity.y, this.position.velocity.x)
+		draw.ctx.rotate(rotationAngle)
+		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
 
-    draw.ctx.restore();
-  }
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
-  //   changed draw paramenter to draws
-  draw(draws, guiDraw) {
-    // todo
-    if (this.image.complete) {
-      const newWidth = this.image.width;
-      const newHeight = this.image.height;
+		draw.ctx.restore()
+	}
 
-      draws.ctx.imageSmoothingEnabled = false;
+	draw(draw, guiDraw) { // todo
+		if (this.image.complete) {
+			const newWidth = this.image.width
+			const newHeight = this.image.height
 
-      draws.ctx.save();
-      draws.ctx.translate(
-        this.position.x + this.position.width,
-        this.position.y + this.position.height
-      );
+			draw.ctx.imageSmoothingEnabled = false
 
-      draws.ctx.drawImage(
-        this.image,
-        -newWidth,
-        -newHeight,
-        newWidth,
-        newHeight
-      );
+			draw.ctx.save()
+			draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
 
-      draws.ctx.restore();
-    }
-  }
+			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
 
-  old_draw(draw, size) {
-    const aspectRatio = this.image.width / this.image.height;
+			draw.ctx.restore()
+		}
+	}
 
-    let newWidth = size;
-    let newHeight = size;
+	old_draw(draw, size) {
+		const aspectRatio = this.image.width / this.image.height
 
-    if (this.image.width > size) {
-      newWidth = size;
-      newHeight = newWidth / aspectRatio;
-    }
+		let newWidth = size
+		let newHeight = size
 
-    if (newHeight > size) {
-      newHeight = size;
-      newWidth = newHeight * aspectRatio;
-    }
+		if (this.image.width > size) {
+			newWidth = size
+			newHeight = newWidth / aspectRatio
+		}
 
-    draw.ctx.save();
-    draw.ctx.translate(this.position.x, this.position.y);
-    draw.ctx.drawImage(
-      this.image,
-      -newWidth / 2,
-      -newHeight / 2,
-      newWidth,
-      newHeight
-    );
-    draw.ctx.restore();
-  }
+		if (newHeight > size) {
+			newHeight = size
+			newWidth = newHeight * aspectRatio
+		}
+
+		draw.ctx.save()
+		draw.ctx.translate(this.position.x, this.position.y)
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+		draw.ctx.restore()
+	}
 }
+

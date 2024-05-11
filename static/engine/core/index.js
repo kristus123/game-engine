@@ -1,51 +1,49 @@
 ErrorHandler.run(() => {
-  const mainPalette = Palette.main();
-  const guiPalette = Palette.offscreen();
-  const backgroundPalette = Palette.offscreen();
-  const showLogs = new ShowLogs(guiPalette);
+	const mainPalette = Palette.main()
+	const guiPalette = Palette.offscreen()
+	const backgroundPalette = Palette.offscreen()
+	const showLogs = new ShowLogs(guiPalette)
 
-  const camera = new Camera();
-  const mouse = new Mouse(camera);
-  camera.mouse = mouse;
+	const camera = new Camera()
+	const mouse = new Mouse(camera)
+	camera.mouse = mouse
 
-  const draw = new Draw(camera.palette.ctx);
-  const guiDraw = new Draw(guiPalette.ctx);
+	const draw = new Draw(camera.palette.ctx)
+	const guiDraw = new Draw(guiPalette.ctx)
 
-  const controller = new Controller();
-  const allGameObjects = new AllGameObjects();
+	const controller = new Controller()
+	const allGameObjects = new AllGameObjects()
 
-  const levelSelector = new LevelSelector();
-  // levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
-  levelSelector.changeActiveLevel(new WorldEditor(camera, mouse));
+	const levelSelector = new LevelSelector()
+	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
+	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
-  Overlay.create();
+	Overlay.create(camera)
 
-  Loop.everyFrame((deltaTime) => {
-    ErrorHandler.run(() => {
-      Palette.clear([camera.palette, guiPalette]);
+	Loop.everyFrame((deltaTime) => {
+		ErrorHandler.run(() => {
+			Palette.clear([camera.palette, guiPalette])
 
-      Physics.global.update(deltaTime);
+			Physics.global.update(deltaTime)
 
-      camera.context(() => {
-        controller.update();
-        controller.draw(draw, guiDraw);
+			Overlay.update(camera)
 
-        levelSelector.update();
-        levelSelector.draw(draw, guiDraw);
+			camera.context(() => {
+				controller.update()
+				controller.draw(draw, guiDraw)
 
-        allGameObjects.update();
-        allGameObjects.draw(draw, guiDraw);
-      });
+				levelSelector.update()
+				levelSelector.draw(draw, guiDraw)
 
-      showLogs.draw();
+				allGameObjects.update()
+				allGameObjects.draw(draw, guiDraw)
+			})
 
-      Palette.fill(backgroundPalette, "#130927");
-      // new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
-      Palette.apply(mainPalette, [
-        backgroundPalette,
-        camera.palette,
-        guiPalette,
-      ]);
-    });
-  });
-});
+			showLogs.draw()
+
+			Palette.fill(backgroundPalette, '#130927')
+			// new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
+			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
+		})
+	})
+})
