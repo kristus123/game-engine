@@ -1,18 +1,18 @@
 function fetchHTML() {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "/static/gui/test.html", false);
-  xhr.send();
+	const xhr = new XMLHttpRequest()
+	xhr.open('GET', '/static/gui/test.html', false)
+	xhr.send()
 
-  if (xhr.status === 200) {
-    const html = xhr.responseText;
-    return html;
-  } else {
-    console.error("Error fetching HTML:", xhr.statusText);
-  }
+	if (xhr.status === 200) {
+		const html = xhr.responseText
+		return html
+	}
+	else {
+		console.error('Error fetching HTML:', xhr.statusText)
+	}
 }
 
 const html = fetchHTML()
-// let isClicked = false;
 
 const appendLabelSelect = (parent) => {
 	let element = document.createElement("option");
