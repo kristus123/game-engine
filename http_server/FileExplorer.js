@@ -3,26 +3,33 @@ const path = require("path");
 
 class Files {
   static inFolder(directoryPath) {
-    const files = fs.readdirSync(directoryPath);
-    const filesAndFolders = {};
+    const filesAndImages = {};
+    this.processDirectory(directoryPath, filesAndImages);
+    filesAndImages.path = directoryPath;
+    return filesAndImages;
+  }
 
-    files.forEach((file) => {
-      const stat = fs.statSync(path.join(directoryPath, file));
-      if (stat.isDirectory()) {
-        filesAndFolders[file] = fs.readdirSync(path.join(directoryPath, file));
-      } else {
-        const folderName = path.dirname(file);
-        if (!filesAndFolders[folderName]) {
-          filesAndFolders[folderName] = [];
+  static processDirectory(directoryPath, filesAndImages) {
+    const items = fs.readdirSync(directoryPath);
+    if (items.length > 0) {
+      items.forEach((item) => {
+        const itemPath = path.join(directoryPath, item);
+        const itemName = path.basename(itemPath);
+
+        if (fs.statSync(itemPath).isDirectory()) {
+          const subFilesAndImages = {};
+          this.processDirectory(itemPath, subFilesAndImages);
+          filesAndImages[itemName] = subFilesAndImages;
+        } else {
+          if (filesAndImages.root) {
+            filesAndImages.root.push(itemName);
+          } else {
+            filesAndImages.root = [itemName];
+          }
         }
-        filesAndFolders[folderName].push(path.basename(file));
-      }
-    });
-
-    return filesAndFolders;
+      });
+    }
   }
 }
 
 module.exports = Files;
-
-console.log(Files.inFolder("static/assets"));

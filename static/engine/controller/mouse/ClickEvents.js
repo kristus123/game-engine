@@ -13,9 +13,9 @@ export class ClickEvents {
 
     const wrapperHandler = (e) => {
       const mousePosition = this.mouse.positionRelativeToCamera(e);
-
+      const elementClickedClass = event.target.classList;
       if (!this.mouse.holding) {
-        handler(mousePosition);
+        handler(mousePosition, elementClickedClass);
       }
     };
 
