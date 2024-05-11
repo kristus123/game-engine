@@ -13,21 +13,28 @@ server.onConnection = (client, clientId) => {
 	})
 
 	for (const g of gameObjects) {
-		server.sendToEveryone( {
-			action: "GET_CLIENT_UPDATE",
-			clientid:g.handledByClientId,
-			uuid:g.uuid
-		});
+		if(g.handledByClientId == null){
+			g.handledByClientId = clientId
+			server.sendToEveryone( {
+				action: "GET_CLIENT_UPDATE",
+				clientid:g.handledByClientId,
+				uuid:g.uuid
+			});
+		}
 	}
 
 	
 }
 
 server.onClose = (client,clientId) => {
-
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = null
+		}
+	}
+	for (const o of gameObjects) {
+		if (o.handledByClientId == clientId) {
+			o.handledByClientId = server.allClientIds[0]
 			server.sendToEveryone({
 				action:"GET_CLIENT_UPDATE",
 				clientid:o.handledByClientId,
