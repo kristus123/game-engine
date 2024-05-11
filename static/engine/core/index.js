@@ -18,13 +18,15 @@ ErrorHandler.run(() => {
 	levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
 	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 
-	// Overlay.create()
+	Overlay.create()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
 			Palette.clear([camera.palette, guiPalette])
 
 			Physics.global.update(deltaTime)
+
+			Overlay.update(camera)
 
 			camera.context(() => {
 				controller.update()

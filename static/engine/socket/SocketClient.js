@@ -26,7 +26,7 @@ export class SocketClient {
 				this.listeners[data.action](data)
 			}
 			else {
-				console.log(data.action + " not found")
+				console.log(data.action + ' not found')
 			}
 		}
 

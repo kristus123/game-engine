@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs')
 
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
@@ -6,31 +6,25 @@ const s = new SocketServer(8081)
 
 s.onConnection = (client, clientId) => {
 
-	s.sendToClient(client, {
-		action: "GET_GAME_OBJECTS",
+	server.sendToClient(client, {
+		action: "ON_CONNECTION__GET_GAME_OBJECTS",
 		gameObjects: gameObjects,
 	})
-	
-	for (const o of gameObjects) {
-		if (o.handledByClientId == null) {
-			o.handledByClientId = clientId
-			s.sendToClient(client,{
-				action:"GET_CLINET_UPDATE",
-				clientid:o.handledByClientId,
-				uuid:o.uuid
-			})
-			s.sendToOthers(client,{
-				action:"GET_CLINET_UPDATE",
-				clientid:o.handledByClientId,
-				uuid:o.uuid
-			})
+
+	for (const g of gameObjects) {
+		if (g.handledBy == null) {
+			g.handledBy = client
+			gameObjectsHandledBy[client].push(g)
 		}
 	}
 
-	
+	server.sendToClient(client, {
+		action: "ON_CONNECTION__GET_GAME_OBJECTS_HANDLED_BY_YOU",
+		gameObjects: gameObjectsHandledBy[client],
+	})
 }
 
-s.onClose = (client, clientId) => {
+server.onClose = client => {
 
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {

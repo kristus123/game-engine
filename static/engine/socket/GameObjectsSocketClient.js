@@ -4,13 +4,15 @@ export class GameObjectsSocketClient {
 		this.gameObjectHandleBy = this.player.clientId
 		this.socketClient = new SocketClient(8081, c => {
 
-			c.on('GET_GAME_OBJECTS', data => {
+			c.on('ON_CONNECTION__GET_GAME_OBJECTS', data => {
+				
 				for (const p of data.gameObjects) {
 					try {
 						const x = ObjectMapper.mapSingleObject(JSON.stringify(p))
 						allGameObjects.add(this, x)
 						this.gameObjects.push(x)
-					} catch (error) {
+					}
+					catch (error) {
 						console.log(error)
 						throw new Error(error)
 					}
@@ -42,14 +44,7 @@ export class GameObjectsSocketClient {
 			if (Collision.between(o, this.player)) {
 				Push(o).awayFrom(this.player, 0.01)
 
-				this.socketClient.send({
-					action:"GET_CLINET_UPDATE",
-					clientid:this.player.clientid,
-					uuid:o.uuid
-				})
-			}
-
-			if (o.handledBy == this.player.clientid) {
+				console.log("moving object")
 				this.socketClient.send({
 					action: 'UPDATE_OBJECT_POSITION',
 					x: o.x,
