@@ -3,7 +3,7 @@ const fs = require('fs');
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
 const s = new SocketServer(8081)
-let client_id;
+
 s.onConnection = (client, clientId) => {
 
 	s.sendToClient(client, {
@@ -57,6 +57,7 @@ s.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 		if (o.uuid == data.uuid) {
 			o.position.x = data.x
 			o.position.y = data.y
+
 			s.sendToOthers(client, {
 				action: 'UPDATE_OBJECT_POSITION',
 				uuid: data.uuid,
