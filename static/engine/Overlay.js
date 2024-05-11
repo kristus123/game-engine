@@ -27,21 +27,28 @@ export class Overlay {
 					   console.log('haiahaiahihai')
 			})
 
+			button.addEventListener('mousedown', e => {
+				e.preventDefault()
+			})
+
 		}, 10)
 	}
 
 	static update(camera) {
 		const button = document.getElementById('myButton')
 
-		button.addEventListener('mousedown', e => {
-			e.preventDefault()
-		})
 
-		// offsetX = camera.position.x
 		offsetX = 0 - camera.position.x + (Palette.width/2)
-		offsetY = 0 - camera.position.y
+		offsetY = 0 - camera.position.y + (Palette.height/2)
 
-		button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+		// offsetX = 0
+		// offsetY = 0
+
+
+		if (button) {
+				
+			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+		}
 
 	}
 
