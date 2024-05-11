@@ -2,57 +2,48 @@ const fs = require('fs')
 
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
-const s = new SocketServer(8081)
+const { log } = require('console')
+const server = new SocketServer(8081)
 
-s.onConnection = (client, clientId) => {
+server.onConnection = (client, clientId) => {
 
 	server.sendToClient(client, {
-		action: "ON_CONNECTION__GET_GAME_OBJECTS",
+		action: "GET_GAME_OBJECTS",
 		gameObjects: gameObjects,
 	})
 
 	for (const g of gameObjects) {
-		if (g.handledBy == null) {
-			g.handledBy = client
-			gameObjectsHandledBy[client].push(g)
-		}
+		server.sendToEveryone( {
+			action: "GET_CLIENT_UPDATE",
+			clientid:g.handledByClientId,
+			uuid:g.uuid
+		});
 	}
 
-	server.sendToClient(client, {
-		action: "ON_CONNECTION__GET_GAME_OBJECTS_HANDLED_BY_YOU",
-		gameObjects: gameObjectsHandledBy[client],
-	})
+	
 }
 
-server.onClose = client => {
+server.onClose = (client,clientId) => {
 
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = null
-		}
-	}
-
-	for (const o of gameObjects) {
-		if (o.handledByClientId == null) {
-			o.handledByClientId = s.allClientIds[0]
-			s.sendToOthers(client,{
-				action:"GET_CLINET_UPDATE",
+			server.sendToEveryone({
+				action:"GET_CLIENT_UPDATE",
 				clientid:o.handledByClientId,
 				uuid:o.uuid
 			})
 		}
-		
 	}
-	
 }
 
-s.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
+server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 	for (const o of gameObjects) {
 		if (o.uuid == data.uuid) {
 			o.position.x = data.x
 			o.position.y = data.y
 
-			s.sendToOthers(client, {
+			server.sendToOthers(client, {
 				action: 'UPDATE_OBJECT_POSITION',
 				uuid: data.uuid,
 				x: data.x,
@@ -63,17 +54,12 @@ s.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 		}
 	}
 })
-s.on('GET_CLINET_UPDATE',(client,clientId,data)=>{
+server.on('GET_CLIENT_UPDATE',(client,clientId,data)=>{
 	for (const o of gameObjects) {
 		if (o.uuid == data.uuid) {
 			o.handledByClientId = data.clientid
-			s.sendToOthers(client,{
-				action:"GET_CLINET_UPDATE",
-				clientid:o.handledByClientId,
-				uuid:o.uuid
-			})
-			s.sendToClient(client,{
-				action:"GET_CLINET_UPDATE",
+			server.sendToEveryone({
+				action:"GET_CLIENT_UPDATE",
 				clientid:o.handledByClientId,
 				uuid:o.uuid
 			})
@@ -81,4 +67,4 @@ s.on('GET_CLINET_UPDATE',(client,clientId,data)=>{
 		}
 	}
 })
-s.start()
+server.start()
