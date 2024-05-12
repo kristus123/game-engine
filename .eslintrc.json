@@ -26,6 +26,18 @@
         "sourceType": "module"
     },
     "rules": {
+        "keyword-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true,
+                "overrides": {
+                    "if": {
+                        "after": true
+                    }
+                }
+            }
+        ],
         "@stylistic/js/comma-dangle": [
             "error",
             "only-multiline"

@@ -13,7 +13,7 @@ server.onConnection = (client, clientId) => {
 	})
 
 	for (const g of gameObjects) {
-		if(g.handledByClientId == null){
+		if (g.handledByClientId == null){
 			g.handledByClientId = clientId
 			server.sendToEveryone( {
 				action: 'GET_CLIENT_UPDATE',

@@ -4,10 +4,10 @@ let portget = true
 export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
-		if(ports == undefined){
+		if (ports == undefined){
 			ports = port
 		}
-		if(ports == port){
+		if (ports == port){
 			clientId = Random.uuid().toString()
 
 		}

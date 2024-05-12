@@ -4,7 +4,7 @@ export class ErrorHandler {
 		try {
 			logic()
 		}
-		catch(error) {
+		catch (error) {
 			console.error(error)
 
 			document.getElementById('stackMessage').innerHTML = error.stack
