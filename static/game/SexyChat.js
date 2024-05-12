@@ -14,19 +14,19 @@ export class SexyChat {
 						key: null,
 						text: 'Nice to meet you as well',
 						conversation: {
-							question:'You are so polite and big penis',
+							question: 'You are so polite and big penis',
 							replies: [
 								{
 									key: null,
 									text: 'You are very cute',
 									conversation: {
-										question:'I know. Do you want to sexy sex me ?',
+										question: 'I know. Do you want to sexy sex me ?',
 										replies: [
 											{
 												key: null,
 												text: 'Yes. I love you Choopy-chan',
 												conversation: {
-													question:'Aaa. you are so sexy and big penis',
+													question: 'Aaa. you are so sexy and big penis',
 													replies: [
 													],
 												},
@@ -35,25 +35,25 @@ export class SexyChat {
 												key: null,
 												text: 'No. I love Robin',
 												conversation: {
-													question:'Nooooo. Please sex me',
+													question: 'Nooooo. Please sex me',
 													replies: [
 														{
 															key: null,
 															text: 'I am sorry. Robin is in my heart',
 															conversation: {
-																question:'It seems you love him more than anything',
+																question: 'It seems you love him more than anything',
 																replies: [
 																	{
 																		key: null,
 																		text: 'Yes. His sexy body makes it hard to think',
 																		conversation: {
-																			question:'I am so choo-choo-choopy-sad awhuuuuuu',
+																			question: 'I am so choo-choo-choopy-sad awhuuuuuu',
 																			replies: [
 																				{
 																					key: null,
 																					text: 'Do not cry. i can exploit your insecurity',
 																					conversation: {
-																						question:'Wow. you are so kind and sexy penis man',
+																						question: 'Wow. you are so kind and sexy penis man',
 																						replies: [
 																						],
 																					},
@@ -88,7 +88,7 @@ export class SexyChat {
 						key: null,
 						text: 'Sorry. My heart is elsewhere',
 						conversation: {
-							question:'Choo-choooooooowwww wuwhuuu',
+							question: 'Choo-choooooooowwww wuwhuuu',
 							replies: [yes]
 						},
 					},

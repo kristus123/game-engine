@@ -1,8 +1,8 @@
 export class OffsetPosition {
 	constructor(position, _x=0, _y=0, width=position.width, height=position.height) {
 		this.offset = {
-			x:_x,
-			y:_y,
+			x: _x,
+			y: _y,
 		}
 	}
 

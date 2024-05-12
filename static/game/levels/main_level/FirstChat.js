@@ -23,7 +23,7 @@ export class FirstChat {
 						key: 'ok',
 						text: 'Don\'t worry',
 						conversation: {
-							question:'Great. Now, get to work!',
+							question: 'Great. Now, get to work!',
 							replies: [howDoIPlay]
 						},
 					},

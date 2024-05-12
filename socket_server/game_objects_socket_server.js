@@ -17,8 +17,8 @@ server.onConnection = (client, clientId) => {
 			g.handledByClientId = clientId
 			server.sendToEveryone( {
 				action: 'GET_CLIENT_UPDATE',
-				clientid:g.handledByClientId,
-				uuid:g.uuid
+				clientid: g.handledByClientId,
+				uuid: g.uuid
 			})
 		}
 	}
@@ -34,9 +34,9 @@ server.onClose = (client,clientId) => {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = server.allClientIds[0]
 			server.sendToEveryone({
-				action:'GET_CLIENT_UPDATE',
-				clientid:o.handledByClientId,
-				uuid:o.uuid
+				action: 'GET_CLIENT_UPDATE',
+				clientid: o.handledByClientId,
+				uuid: o.uuid
 			})
 		}
 	}
@@ -64,9 +64,9 @@ server.on('GET_CLIENT_UPDATE',(client,clientId,data)=>{
 		if (o.uuid == data.uuid) {
 			o.handledByClientId = data.clientid
 			server.sendToEveryone({
-				action:'GET_CLIENT_UPDATE',
-				clientid:o.handledByClientId,
-				uuid:o.uuid
+				action: 'GET_CLIENT_UPDATE',
+				clientid: o.handledByClientId,
+				uuid: o.uuid
 			})
 			break
 		}

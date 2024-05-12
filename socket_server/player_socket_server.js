@@ -15,7 +15,7 @@ s.onConnection = (client, clientId) => {
 
 	s.sendToOthers(client, {
 		action: 'CONNECT_PLAYER',
-		clientId:  clientId,
+		clientId: clientId,
 	})
 }
 

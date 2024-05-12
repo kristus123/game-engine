@@ -38,9 +38,9 @@ export class GameObjectsSocketClient {
 				o.handledByClientId = this.player.clientId
 
 				this.socketClient.send({
-					action:'GET_CLIENT_UPDATE',
-					clientid:o.handledByClientId,
-					uuid:o.uuid
+					action: 'GET_CLIENT_UPDATE',
+					clientid: o.handledByClientId,
+					uuid: o.uuid
 				})
 			}
 
