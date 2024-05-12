@@ -11,7 +11,7 @@ export class GameObjectsSocketClient {
 
 			c.on('GET_CLIENT_UPDATE', data =>{
 				for (const p of this.gameObjects) {
-					if (p.uuid == data.uuid){
+					if (p.uuid == data.uuid) {
 						p.handledByClientId = data.clientid
 						break
 					}

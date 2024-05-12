@@ -13,7 +13,7 @@ export class Compass {
 	}
 
 	add(position, color) {
-		this.targets.push({position, color})
+		this.targets.push({ position, color })
 	}
 
 	remove(position, color) {

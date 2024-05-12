@@ -26,6 +26,14 @@
         "sourceType": "module"
     },
     "rules": {
+        "space-before-blocks": [
+            "error",
+            "always"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
         "keyword-spacing": [
             "error",
             {

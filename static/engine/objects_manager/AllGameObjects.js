@@ -31,7 +31,7 @@ export class AllGameObjects {
 
 		const uuid = Random.uuid()
 
-		this.all.push({uuid, gameObject})
+		this.all.push({ uuid, gameObject })
 
 		this.gameObjectUuid[gameObject] = uuid
 		this.uuidForGameObject[uuid] = gameObject
