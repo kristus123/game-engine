@@ -1,24 +1,14 @@
 export class GameObjectsSocketClient {
 	constructor(allGameObjects, player) {
 		this.gameObjects = []
-		this.gameObjectHandleBy = []
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
 				for (const p of data.gameObjects) {
-					try {
-						const x = ObjectMapper.mapSingleObject(JSON.stringify(p))
-						x.handledByClientId = p.handledByClientId
-
-						allGameObjects.add(this, x)
-						this.gameObjects.push(x)
-					}
-					catch (error) {
-						console.log(error)
-						throw new Error(error)
-					}
+					this.gameObjects.push(ObjectMapper.mapSingleObject(JSON.stringify(p)))
 				}
 			})
+
 			c.on('GET_CLIENT_UPDATE', data =>{
 				for (const p of this.gameObjects) {
 					if(p.uuid == data.uuid){
@@ -27,6 +17,7 @@ export class GameObjectsSocketClient {
 					}
 				}
 			})
+
 			c.on('UPDATE_OBJECT_POSITION', data => {
 				for (const p of this.gameObjects) {
 					if (p.uuid == data.uuid) {
@@ -35,7 +26,6 @@ export class GameObjectsSocketClient {
 						break
 					}
 				}
-
 			})
 		})
 	}
