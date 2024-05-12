@@ -2,7 +2,7 @@ const fs = require('fs')
 
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
-const { log } = require('console')
+
 const server = new SocketServer(8081)
 
 server.onConnection = (client, clientId) => {
@@ -22,8 +22,6 @@ server.onConnection = (client, clientId) => {
 			});
 		}
 	}
-
-	
 }
 
 server.onClose = (client,clientId) => {
