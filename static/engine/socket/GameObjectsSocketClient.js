@@ -1,26 +1,32 @@
 export class GameObjectsSocketClient {
 	constructor(allGameObjects, player) {
 		this.gameObjects = []
-
+		this.gameObjectHandleBy = []
 		this.socketClient = new SocketClient(8081, c => {
 
-			c.on('ON_CONNECTION__GET_GAME_OBJECTS', data => {
-
+			c.on('GET_GAME_OBJECTS', data => {
 				for (const p of data.gameObjects) {
 					try {
 						const x = ObjectMapper.mapSingleObject(JSON.stringify(p))
+						x.handledByClientId = p.handledByClientId
+
 						allGameObjects.add(this, x)
 						this.gameObjects.push(x)
-					}
-					catch (error) {
+					} catch (error) {
 						console.log(error)
 						throw new Error(error)
 					}
 				}
 			})
-
+			c.on("GET_CLIENT_UPDATE", data =>{
+				for (const p of this.gameObjects) {
+					if(p.uuid == data.uuid){
+						p.handledByClientId =  data.clientid
+						break
+					}
+				}
+			})
 			c.on('UPDATE_OBJECT_POSITION', data => {
-
 				for (const p of this.gameObjects) {
 					if (p.uuid == data.uuid) {
 						p.position.x = data.x
@@ -34,16 +40,25 @@ export class GameObjectsSocketClient {
 	}
 
 	update() {
-		for (const g of this.gameObjects) {
-			if (Collision.between(g, this.player)) {
-				Push(g).awayFrom(this.player, 0.01)
+		for (const o of this.gameObjects) {
+			if (Collision.between(o, this.player)) {
+				Push(o).awayFrom(this.player, 0.01)
 
-				console.log('moving object')
+				o.handledByClientId = this.player.clientId
+
+				this.socketClient.send({
+					action:"GET_CLIENT_UPDATE",
+					clientid:o.handledByClientId,
+					uuid:o.uuid
+				})
+			}
+
+			if (o.handledByClientId == this.player.clientId) {
 				this.socketClient.send({
 					action: 'UPDATE_OBJECT_POSITION',
-					uuid: g.uuid,
-					x: g.x,
-					y: g.y,
+					x: o.x,
+					y: o.y,
+					uuid: o.uuid,
 				})
 			}
 		}

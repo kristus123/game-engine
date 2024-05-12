@@ -1,5 +1,5 @@
 export class ShowLogs {
-	constructor(guiPalette, maxMessages = 5, consoleHeight = 200) {
+	constructor(guiPalette, maxMessages = 10, consoleHeight = 200) {
 		this.consoleMessages = []
 
 		console.log = (message) => {

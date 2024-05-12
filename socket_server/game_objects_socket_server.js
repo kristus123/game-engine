@@ -1,54 +1,48 @@
 const fs = require('fs')
 
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
-const gameObjectsHandledBy = {}
+const SocketServer = require('./SocketServer')
 
-const Server = require('./SocketServer')
-const server = new Server(8081)
+const server = new SocketServer(8081)
 
-const uuidFor = {}
-
-server.onConnection = client => {
-
-	uuidFor[client] = crypto.randomUUID().toString()
-
-	server.clientsAndPlayerIds.push({
-		client: client,
-		playerId: uuidFor[client],
-	})
-
-	gameObjectsHandledBy[client] = []
+server.onConnection = (client, clientId) => {
 
 	server.sendToClient(client, {
-		action: 'ON_CONNECTION__GET_GAME_OBJECTS',
+		action: "GET_GAME_OBJECTS",
 		gameObjects: gameObjects,
 	})
 
 	for (const g of gameObjects) {
-		if (g.handledBy == null) {
-			g.handledBy = client
-			gameObjectsHandledBy[client].push(g)
+		if(g.handledByClientId == null){
+			g.handledByClientId = clientId
+			server.sendToEveryone( {
+				action: "GET_CLIENT_UPDATE",
+				clientid:g.handledByClientId,
+				uuid:g.uuid
+			});
 		}
 	}
-
-	server.sendToClient(client, {
-		action: 'ON_CONNECTION__GET_GAME_OBJECTS_HANDLED_BY_YOU',
-		gameObjects: gameObjectsHandledBy[client],
-	})
 }
 
-server.onClose = client => {
-
-	for (const g of gameObjectsHandledBy[client]) {
-		g.handledBy = null
+server.onClose = (client,clientId) => {
+	for (const o of gameObjects) {
+		if (o.handledByClientId == clientId) {
+			o.handledByClientId = null
+		}
 	}
-
-	delete gameObjectsHandledBy[client]
+	for (const o of gameObjects) {
+		if (o.handledByClientId == clientId) {
+			o.handledByClientId = server.allClientIds[0]
+			server.sendToEveryone({
+				action:"GET_CLIENT_UPDATE",
+				clientid:o.handledByClientId,
+				uuid:o.uuid
+			})
+		}
+	}
 }
 
-server.on('UPDATE_OBJECT_POSITION', (client, data) => {
-	console.log(data)
-
+server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 	for (const o of gameObjects) {
 		if (o.uuid == data.uuid) {
 			o.position.x = data.x
@@ -65,5 +59,17 @@ server.on('UPDATE_OBJECT_POSITION', (client, data) => {
 		}
 	}
 })
-
+server.on('GET_CLIENT_UPDATE',(client,clientId,data)=>{
+	for (const o of gameObjects) {
+		if (o.uuid == data.uuid) {
+			o.handledByClientId = data.clientid
+			server.sendToEveryone({
+				action:"GET_CLIENT_UPDATE",
+				clientid:o.handledByClientId,
+				uuid:o.uuid
+			})
+			break
+		}
+	}
+})
 server.start()

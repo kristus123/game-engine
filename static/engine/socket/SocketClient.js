@@ -1,8 +1,17 @@
+let clientId;
+let ports;
+let portget = true;
 export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
-
-		this.clientId = Random.uuid().toString()
+		if(ports == undefined){
+			ports = port
+		}
+		if(ports == port){
+		clientId = Random.uuid().toString()
+		
+		}
+		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
 		this.webSocket.onopen = () => {
@@ -29,6 +38,7 @@ export class SocketClient {
 	send(data) {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
+			console.log(JSON.stringify(data))
 		}
 	}
 
