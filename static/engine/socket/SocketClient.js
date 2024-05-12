@@ -1,6 +1,6 @@
-let clientId;
-let ports;
-let portget = true;
+let clientId
+let ports
+let portget = true
 export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
@@ -8,8 +8,8 @@ export class SocketClient {
 			ports = port
 		}
 		if(ports == port){
-		clientId = Random.uuid().toString()
-		
+			clientId = Random.uuid().toString()
+
 		}
 		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)

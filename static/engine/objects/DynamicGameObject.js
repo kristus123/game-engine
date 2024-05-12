@@ -27,7 +27,7 @@ export class DynamicGameObject {
 	draw(draw, guiDraw) {
 		if (this.handledByClientId) {
 			draw.new_text(this.position.offset(0, -100), this.handledByClientId, 'white', 10)
-			
+
 		}
 		if (this.picture) {
 			this.picture.draw(draw, guiDraw)

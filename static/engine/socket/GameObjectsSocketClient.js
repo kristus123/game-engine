@@ -12,16 +12,17 @@ export class GameObjectsSocketClient {
 
 						allGameObjects.add(this, x)
 						this.gameObjects.push(x)
-					} catch (error) {
+					}
+					catch (error) {
 						console.log(error)
 						throw new Error(error)
 					}
 				}
 			})
-			c.on("GET_CLIENT_UPDATE", data =>{
+			c.on('GET_CLIENT_UPDATE', data =>{
 				for (const p of this.gameObjects) {
 					if(p.uuid == data.uuid){
-						p.handledByClientId =  data.clientid
+						p.handledByClientId = data.clientid
 						break
 					}
 				}
@@ -47,7 +48,7 @@ export class GameObjectsSocketClient {
 				o.handledByClientId = this.player.clientId
 
 				this.socketClient.send({
-					action:"GET_CLIENT_UPDATE",
+					action:'GET_CLIENT_UPDATE',
 					clientid:o.handledByClientId,
 					uuid:o.uuid
 				})
