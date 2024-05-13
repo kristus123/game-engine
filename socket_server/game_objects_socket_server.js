@@ -24,7 +24,7 @@ server.onConnection = (client, clientId) => {
 	}
 }
 
-server.onClose = (client,clientId) => {
+server.onClose = (client, clientId) => {
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = null
@@ -59,7 +59,8 @@ server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 		}
 	}
 })
-server.on('GET_CLIENT_UPDATE',(client,clientId,data)=>{
+
+server.on('GET_CLIENT_UPDATE', (client, clientId, data) => {
 	for (const o of gameObjects) {
 		if (o.uuid == data.uuid) {
 			o.handledByClientId = data.clientid
@@ -68,8 +69,10 @@ server.on('GET_CLIENT_UPDATE',(client,clientId,data)=>{
 				clientid: o.handledByClientId,
 				uuid: o.uuid
 			})
+
 			break
 		}
 	}
 })
+
 server.start()

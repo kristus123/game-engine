@@ -28,7 +28,7 @@ module.exports = class {
 			})
 
 			client.on('close', () => {
-				this.onClose(client,clientId)
+				this.onClose(client, clientId)
 			})
 		})
 	}

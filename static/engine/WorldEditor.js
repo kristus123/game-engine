@@ -17,7 +17,7 @@ export class WorldEditor {
 		mouse.addOnClick('paint', p => {
 			p.height = 100
 			p.width = 100
-			const o = new DynamicGameObject(new Position(p.x, p.y, p.width, p.height) ,100, 100)
+			const o = new DynamicGameObject(new Position(p.x, p.y, p.width, p.height), 100, 100)
 
 			this.runAll.add(o)
 			ObjectPersistence.save(o)

@@ -6,7 +6,7 @@ function positionToJson(p) {
 	return {
 		x: p.x,
 		y: p.y,
-		width: p.width ,
+		width: p.width,
 		height: p.height,
 	}
 }
