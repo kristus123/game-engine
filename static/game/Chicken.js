@@ -12,7 +12,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onCollision(o) {
-		console.log(o)
+		// console.log(o)
 
 		this.runAll.remove(this)
 

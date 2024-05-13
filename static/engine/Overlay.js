@@ -1,6 +1,6 @@
-function fetchHTML() {
+function fetchHTML(path) {
 	const xhr = new XMLHttpRequest()
-	xhr.open('GET', '/static/gui/test.html', false)
+	xhr.open('GET', path, false)
 	xhr.send()
 
 	if (xhr.status === 200) {
@@ -12,31 +12,39 @@ function fetchHTML() {
 	}
 }
 
-const html = fetchHTML()
+
+function createButton(text, attributes = {}) {
+  const button = document.createElement('button');
+  button.textContent = text;
+  
+  // Set attributes
+  Object.entries(attributes).forEach(([key, value]) => {
+    button.setAttribute(key, value);
+  });
+
+
+	const buttons = document.getElementById('buttons')
+	buttons.appendChild(button)
+  
+  return button;
+}
+
+
+const overlay = fetchHTML('/static/gui/overlay.html')
+const button = fetchHTML('/static/gui/button.html')
 
 let offsetX = 0
 let offsetY = 0
 
 export class Overlay {
 	static create(camera) {
-		document.getElementById('overlay').innerHTML = html
+		document.getElementById('overlay').innerHTML = overlay
 
-		setTimeout(() => {
-			const button = document.getElementById('myButton')
-				   button.addEventListener('click', () => {
-					   console.log('haiahaiahihai')
-			})
-
-			button.addEventListener('mousedown', e => {
-				e.preventDefault()
-			})
-
-		}, 10)
+		Button.blue('hahaha')
 	}
 
 	static update(camera) {
 		const button = document.getElementById('myButton')
-
 
 		offsetX = 0 - camera.position.x + (Palette.width/2)
 		offsetY = 0 - camera.position.y + (Palette.height/2)
@@ -44,10 +52,10 @@ export class Overlay {
 		// offsetX = 0
 		// offsetY = 0
 
-
 		if (button) {
-
-			button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
+			button.style.left = `${offsetX}px`;
+			button.style.top = `${offsetY}px`;
+			// button.style.transform = `translate(${offsetX}px, ${offsetY}px)`
 		}
 
 	}
