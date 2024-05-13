@@ -1,16 +1,10 @@
-let clientId
-let ports
-let portget = true
+const clientId = Random.uuid().toString()
+
 export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
-		if (ports == undefined) {
-			ports = port
-		}
-		if (ports == port) {
-			clientId = Random.uuid().toString()
 
-		}
+
 		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
@@ -48,4 +42,3 @@ export class SocketClient {
 		this.listeners[event] = callback
 	}
 }
-
