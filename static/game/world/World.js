@@ -1,5 +1,5 @@
 export class World {
-	constructor(levelSelector, allGameObjects, camera, mouse, controller) {
+	constructor(levelSelector, camera, mouse, controller) {
 
 		this.player = new Player(mouse)
 		camera.followInstantly(this.player)
@@ -7,7 +7,7 @@ export class World {
 
 
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
-		this.gameObjects = new GameObjectsSocketClient(allGameObjects, this.player)
+		this.gameObjects = new GameObjectsSocketClient(this.player)
 
 		this.runAll = new RunAll([
 			// this.deliveryDrone,

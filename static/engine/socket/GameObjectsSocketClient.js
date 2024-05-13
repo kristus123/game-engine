@@ -1,5 +1,5 @@
 export class GameObjectsSocketClient {
-	constructor(allGameObjects, player) {
+	constructor(player) {
 		this.gameObjects = []
 		this.socketClient = new SocketClient(8081, c => {
 
