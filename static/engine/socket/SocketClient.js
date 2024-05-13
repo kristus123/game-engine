@@ -1,4 +1,4 @@
-const clientId = Random.uuid().toString()
+const clientId = Random.uuid()
 
 export class SocketClient {
 	constructor(port, run) {

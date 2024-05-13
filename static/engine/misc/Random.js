@@ -42,6 +42,6 @@ export class Random {
 	}
 
 	static uuid() {
-	  return crypto.randomUUID()
+	  return crypto.randomUUID().toString()
 	}
 }
