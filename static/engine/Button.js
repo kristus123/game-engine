@@ -1,22 +1,20 @@
 export class Button {
 	constructor(text, camera) {
 
-	  const button = document.createElement('button')
-	  button.textContent = text
-		this.button = button
+		this.button = document.createElement('button')
+		this.button.textContent = text
 
 		const attributes = { tabindex: -1, class: 'button', id: 'myButton' }
-	  Object.entries(attributes).forEach(([key, value]) => {
-			button.setAttribute(key, value)
-	  })
+		Object.entries(attributes).forEach(([key, value]) => {
+			this.button.setAttribute(key, value)
+		})
 
-		const buttons = document.getElementById('buttons')
-		buttons.appendChild(button)
+		document.getElementById('buttons').appendChild(this.button)
 
-	   button.addEventListener('click', () => {
-	   button.innerText = 'xxx'
-		 button.parentNode.removeChild(button)
-	   })
+		this.button.addEventListener('click', () => {
+			this.button.innerText = 'xxx'
+			this.removeFromScreen()
+		})
 
 		this.button.addEventListener('mousedown', e => {
 			e.preventDefault()
@@ -24,7 +22,7 @@ export class Button {
 	}
 
 	removeFromScreen() {
-		this.button.parentNode.removeChild(button)
+		this.button.parentNode.removeChild(this.button)
 	}
 
 	update() {

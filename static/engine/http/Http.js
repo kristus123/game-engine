@@ -1,30 +1,30 @@
 export class Http {
 
 	static get(endpoint) {
-		const xhr = new XMLHttpRequest()
-		xhr.open('GET', 'http://localhost:3000' + endpoint, false) // Synchronous request
-		xhr.send()
+		const r = new XMLHttpRequest()
+		r.open('GET', 'http://localhost:3000' + endpoint, false) // Synchronous request
+		r.send()
 
-		if (xhr.status === 200) {
-		  return JSON.parse(xhr.responseText)
+		if (r.status === 200) {
+		  return JSON.parse(r.responseText)
 		}
 		else {
-			throw new Error('Request failed with status: ' + xhr.status)
+			throw new Error('Request failed with status: ' + r.status)
 		}
 	}
 
 	static post(endpoint, body) {
-		const xhr = new XMLHttpRequest()
-		xhr.open('POST', 'http://localhost:3000' + endpoint, false) // Synchronous request
-		xhr.setRequestHeader('Content-Type', 'application/json')
+		const r = new XMLHttpRequest()
+		r.open('POST', 'http://localhost:3000' + endpoint, false) // Synchronous request
+		r.setRequestHeader('Content-Type', 'application/json')
 
-		xhr.send(JSON.stringify(body, null, 4))
+		r.send(JSON.stringify(body, null, 4))
 
-		if (xhr.status === 200) {
-		  console.log('Response:', xhr.responseText)
+		if (r.status === 200) {
+		  console.log('Response:', r.responseText)
 		}
 		else {
-		  console.error('Request failed with status:', xhr.status)
+		  console.error('Request failed with status:', r.status)
 		}
 
 	}

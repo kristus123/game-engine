@@ -77,6 +77,11 @@ require('./copy_asset_folder_to_dist')
 const scriptImports = jsFiles
 	.map(f => `<script type="module" src="/${f}"></script>`)
 	.join('\n')
-const indexHtml = fs.readFileSync('static/index.html', 'utf-8').replace('SCRIPT_IMPORTS', scriptImports)
+
+const overlay = fs.readFileSync('static/gui/overlay.html', 'utf-8')
+
+const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
+	.replace('SCRIPT_IMPORTS', scriptImports)
+	.replace('OVERLAY', overlay)
 
 fs.writeFileSync('dist/index.html', indexHtml)

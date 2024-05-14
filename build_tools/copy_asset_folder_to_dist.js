@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-
 // Function to recursively copy a folder
 function copyFolderRecursive(source, destination) {
 	if (!fs.existsSync(source)) {
@@ -12,8 +11,6 @@ function copyFolderRecursive(source, destination) {
 	if (!fs.existsSync(destination)) {
 		fs.mkdirSync(destination)
 	}
-
-
 
 	const files = fs.readdirSync(source)
 
