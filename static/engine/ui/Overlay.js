@@ -1,10 +1,10 @@
 export class Overlay {
 	constructor(camera) {
-		this.button = new Button('hahaha', camera)
+		// this.button = new Button('hahaha', camera)
 	}
 
 	update() {
-		this.button.update()
+		// this.button.update()
 	}
 
 	addTop(message) {

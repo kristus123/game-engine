@@ -12,9 +12,10 @@ export class World {
 			// this.deliveryDrone,
 			new StarBackground(camera),
 			new Planet(500, 0),
-			this.gameObjects,
+			// this.gameObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
+			new Chicken(),
 		])
 	}
 

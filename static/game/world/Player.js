@@ -53,6 +53,5 @@ export class Player extends DynamicGameObject {
 		draw.new_circle(this.mouse.position)
 
 		this.flyingUp.draw(draw, guiDraw)
-		super.draw(draw, guiDraw)
 	}
 }
