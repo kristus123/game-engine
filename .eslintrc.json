@@ -109,7 +109,6 @@
     },
     "globals": {
         "AiChat": "readonly",
-        "AllGameObjects": "readonly",
         "AssertNotNull": "readonly",
         "AudioEngine": "readonly",
         "BackspaceEffect": "readonly",
@@ -188,7 +187,6 @@
         "PrettyParticles": "readonly",
         "Projectile": "readonly",
         "Push": "readonly",
-        "Ra": "readonly",
         "Random": "readonly",
         "Reply": "readonly",
         "RunAll": "readonly",
@@ -215,7 +213,6 @@
         "TextTyperWithBackspaceEffect": "readonly",
         "Thread": "readonly",
         "Train": "readonly",
-        "Uuid": "readonly",
         "Velocity": "readonly",
         "VoidDialogue": "readonly",
         "Water": "readonly",
