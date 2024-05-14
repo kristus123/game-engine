@@ -5,7 +5,6 @@ export class World {
 		camera.followInstantly(this.player)
 		controller.control(this.player)
 
-
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
 		this.gameObjects = new GameObjectsSocketClient(this.player)
 

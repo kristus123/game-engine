@@ -2,7 +2,7 @@ export class Gun {
 	constructor(player, mouse) {
 		this.bullets = []
 
-		this.mouse.addOnClick('shoot', (mousePosition) => {
+		this.mouse.addOnClick('shoot', mousePosition => {
 			this.shoot(mousePosition)
 		})
 	}
@@ -13,6 +13,9 @@ export class Gun {
 		this.bullets.push(b)
 
 		return b
+	}
+
+	update() {
 	}
 
 	draw(draw, guiDraw) {
