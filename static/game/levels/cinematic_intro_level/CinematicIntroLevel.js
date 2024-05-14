@@ -7,7 +7,7 @@ export class CinematicIntroLevel {
 			new Monologue(this.world.deliveryDrone),
 		])
 
-		AudioEngine.play()
+		Audio.play()
 	}
 
 	update() {
