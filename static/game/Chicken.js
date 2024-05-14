@@ -12,8 +12,6 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onCollision(o) {
-		// console.log(o)
-
 		this.runAll.remove(this)
 
 		const splash = new Splash()

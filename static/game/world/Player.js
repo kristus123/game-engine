@@ -48,9 +48,11 @@ export class Player extends DynamicGameObject {
 	draw(draw, guiDraw) {
 		this.gun.draw(draw, guiDraw)
 
-		draw.new_text(this.position.offset(0, -100), this.clientId, 'white', 20)
-		// draw.revertMouse(this, this.mouse.position)
+		draw.new_text(this.position.offset(0, -100), this.clientId, 'orange', 20)
+
+		draw.new_circle(this.mouse.position)
 
 		this.flyingUp.draw(draw, guiDraw)
+		super.draw(draw, guiDraw)
 	}
 }

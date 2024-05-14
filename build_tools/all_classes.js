@@ -55,7 +55,6 @@ function processFilesInFolder(folderPath) {
 				}
 				else if (path.extname(filePath) === '.js') {
 					const fileContent = fs.readFileSync(filePath, 'utf-8')
-					console.log('Processing file:', filePath)
 
 					const classes = extractClassesAndMethods(fileContent)
 					if (classes.length > 0) {
@@ -87,7 +86,6 @@ const classInfo = processFilesInFolder(folderPath)
 // Additional formatted output for better human readability
 console.log('\nFormatted Output:')
 classInfo.forEach(({ className, methods }) => {
-	console.log(`\nClass: ${className}`)
 	methods.forEach(({ methodName, methodParameters }) => {
 		console.log(`  ${methodName}(${methodParameters.join(', ')})`)
 	})

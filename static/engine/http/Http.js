@@ -19,13 +19,5 @@ export class Http {
 		r.setRequestHeader('Content-Type', 'application/json')
 
 		r.send(JSON.stringify(body, null, 4))
-
-		if (r.status === 200) {
-		  console.log('Response:', r.responseText)
-		}
-		else {
-		  console.error('Request failed with status:', r.status)
-		}
-
 	}
 }

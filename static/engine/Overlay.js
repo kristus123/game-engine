@@ -1,13 +1,13 @@
 export class Overlay {
-	static create(camera) {
+	constructor(camera) {
 		this.button = new Button('hahaha', camera)
 	}
 
-	static update(camera) {
+	update() {
 		this.button.update()
 	}
 
-	static addTop(message) {
+	addTop(message) {
 		const div = document.createElement('div')
 
 		div.classList.add('item')

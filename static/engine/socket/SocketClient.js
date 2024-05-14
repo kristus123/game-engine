@@ -17,7 +17,13 @@ export class SocketClient {
 			const data = JSON.parse(e.data)
 
 			if (this.listeners[data.action]) {
-				this.listeners[data.action](data)
+				try {
+					this.listeners[data.action](data)
+				} catch (error) {
+					console.log("An error occurred when doing " + data.action)
+					console.log(error)
+					throw new Error(error)
+				}
 			}
 			else {
 				console.log(data.action + ' not found')
@@ -32,7 +38,6 @@ export class SocketClient {
 	send(data) {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
-			console.log(JSON.stringify(data))
 		}
 	}
 

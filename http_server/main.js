@@ -17,7 +17,6 @@ app.post('/world-editor', (req, res) => {
 			res.status(500).send('Error saving JSON data')
 			return
 		}
-		console.log('JSON data saved successfully')
 		res.status(200).send('JSON data saved successfully')
 	})
 })
