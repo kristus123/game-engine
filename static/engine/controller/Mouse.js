@@ -107,8 +107,4 @@ export class Mouse {
 			this.holding = null
 		}
 	}
-
-	clickingGui(o) {
-		return Collision.between(this.screenPosition, o) && this.down
-	}
 }

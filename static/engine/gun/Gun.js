@@ -1,21 +1,17 @@
 export class Gun {
 	constructor(player, mouse) {
 		this.bullets = []
+		this.hittableObjects = []
 
-		this.mouse.addOnClick('shoot', mousePosition => {
-			this.shoot(mousePosition)
+		this.mouse.addOnClick('shoot', position => {
+			this.bullets.push(new Bullet(this, this.player, position))
 		})
 	}
 
-	shoot(position) {
-		const b = new Bullet(this.player, position)
-
-		this.bullets.push(b)
-
-		return b
-	}
-
 	update() {
+		this.bullets.forEach(b => {
+			b.update()
+		})
 	}
 
 	draw(draw, guiDraw) {

@@ -8,6 +8,10 @@ export class World {
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
 		this.gameObjects = new GameObjectsSocketClient(this.player)
 
+		this.chicken = new Chicken()
+
+		this.player.gun.hittableObjects.push(this.chicken)
+
 		this.runAll = new RunAll([
 			// this.deliveryDrone,
 			new StarBackground(camera),
@@ -15,7 +19,7 @@ export class World {
 			// this.gameObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
-			new Chicken(),
+			this.chicken,
 		])
 	}
 

@@ -11,6 +11,10 @@ export class Chicken extends DynamicGameObject {
 		])
 	}
 
+	onHit() {
+		console.log("chicken hit!")
+	}
+
 	update() {
 	}
 

@@ -1,5 +1,5 @@
 export class Button {
-	constructor(text, camera) {
+	constructor(text, camera) { //add position and make a border around and make it extend dybnamigcameobject
 
 		this.button = document.createElement('button')
 		this.button.textContent = text
