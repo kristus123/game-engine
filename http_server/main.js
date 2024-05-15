@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-
+const Files = require('./Files')
 const fs = require('fs')
 const app = express()
 
@@ -17,6 +17,7 @@ app.post('/world-editor', (req, res) => {
 			res.status(500).send('Error saving JSON data')
 			return
 		}
+		console.log('JSON data saved successfully')
 		res.status(200).send('JSON data saved successfully')
 	})
 })
@@ -32,6 +33,16 @@ app.get('/world-editor', (req, res) => {
 			return
 		}
 	})
+})
+
+app.get('/picture-library', (req, res) => {
+	const media = Files.inFolder('static/assets')
+	if (media) {
+		res.status(200).send(media)
+	}
+	else {
+		res.status(404).send('no-media')
+	}
 })
 
 app.listen(PORT, () => {

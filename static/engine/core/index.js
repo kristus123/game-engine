@@ -14,9 +14,9 @@ ErrorHandler.run(() => {
 	const controller = new Controller()
 
 	const levelSelector = new LevelSelector()
-	levelSelector.changeActiveLevel(new World(levelSelector, camera, mouse, controller))
-	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+	//levelSelector.changeActiveLevel(new World(levelSelector, allGameObjects, camera, mouse, controller))
 
+	levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
 	const overlay = new Overlay(camera)
 
 	Loop.everyFrame((deltaTime) => {

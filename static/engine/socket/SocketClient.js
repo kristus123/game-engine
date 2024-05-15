@@ -19,8 +19,9 @@ export class SocketClient {
 			if (this.listeners[data.action]) {
 				try {
 					this.listeners[data.action](data)
-				} catch (error) {
-					console.log("An error occurred when doing " + data.action)
+				}
+				catch (error) {
+					console.log('An error occurred when doing ' + data.action)
 					console.log(error)
 					throw error
 				}
