@@ -1,6 +1,7 @@
 export class Overlay {
 	constructor(camera) {
 		// this.button = new Button('hahaha', camera)
+		ImageSelectorProvider.addImageSelector()
 	}
 
 	update() {

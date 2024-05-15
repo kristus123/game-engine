@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 
-// module.exports =
 
 class Files {
 	static inFolder(directoryPath) {
@@ -11,7 +10,9 @@ class Files {
 		files.forEach(file => {
 			const stat = fs.statSync(path.join(directoryPath, file))
 			if (stat.isDirectory()) {
-				filesAndFolders[file] = fs.readdirSync(path.join(directoryPath, file))
+				filesAndFolders[file] = fs.readdirSync(path.join(directoryPath, file)).map(img => {
+					return path.join(directoryPath, file, img)
+				})
 			}
 			else {
 				const folderName = path.dirname(file)
@@ -26,6 +27,4 @@ class Files {
 	}
 }
 
-
-console.log(Files.inFolder('static/assets'))
-
+module.exports = Files

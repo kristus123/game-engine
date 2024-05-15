@@ -2,7 +2,6 @@ export class WorldEditor {
 
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
-
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
@@ -14,13 +13,13 @@ export class WorldEditor {
 			this.runAll.add(o)
 		})
 
-		mouse.addOnClick('paint', p => {
-			p.height = 100
-			p.width = 100
-			const o = new DynamicGameObject(new Position(p.x, p.y, p.width, p.height), 100, 100)
-
-			this.runAll.add(o)
-			ObjectPersistence.save(o)
+		mouse.addOnClick('paint', (p) => {
+			let image = ImageSelectorProvider.getSelectedImage()
+			if (image) {
+				const o = new StaticPicture(p, image)
+				this.runAll.add(o)
+				ObjectPersistence.save(o)
+			}
 		})
 
 		KeyDown('-', () => {

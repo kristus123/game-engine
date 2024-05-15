@@ -12,7 +12,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onHit() {
-		console.log("chicken hit!")
+		console.log('chicken hit!')
 	}
 
 	update() {

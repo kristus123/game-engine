@@ -13,7 +13,6 @@ export class ClickEvents {
 
 		const wrapperHandler = (e) => {
 			const mousePosition = this.mouse.positionRelativeToCamera(e)
-
 			if (!this.mouse.holding) {
 				handler(mousePosition)
 			}
@@ -37,4 +36,3 @@ export class ClickEvents {
 		Object.values(this.clickHandlers).flat().forEach(handler => handler(event))
 	}
 }
-
