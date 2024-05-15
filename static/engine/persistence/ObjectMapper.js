@@ -1,5 +1,5 @@
 function positionFromJson(o) {
-	return new Position(o.x, o.y, o.width, o.height, o.weight)
+	return new Position(o.x, o.y, o.width, o.height)
 }
 
 function positionToJson(p) {
@@ -48,7 +48,6 @@ export class ObjectMapper {
 				uuid: o.uuid,
 			}, null, 4)
 		}
-
 		else {
 			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
@@ -63,11 +62,11 @@ export class ObjectMapper {
 		case DynamicGameObject.name:
 			const p = positionFromJson(o.position)
 
-			const xxx = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
-			xxx.uuid = o.uuid
-			xxx.handledByClientId = o.handledByClientId
+			const o = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
+			o.uuid = o.uuid
+			o.handledByClientId = o.handledByClientId
 
-			return xxx
+			return o
 		default:
 			throw new Error('could not map ' + o.type + ' in ObjectMapper')
 		}
