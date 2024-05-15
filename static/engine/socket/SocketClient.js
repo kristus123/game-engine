@@ -22,7 +22,7 @@ export class SocketClient {
 				} catch (error) {
 					console.log("An error occurred when doing " + data.action)
 					console.log(error)
-					throw new Error(error)
+					throw error
 				}
 			}
 			else {
