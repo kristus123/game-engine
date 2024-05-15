@@ -63,11 +63,11 @@ export class ObjectMapper {
 			case DynamicGameObject.name: {
 				const p = positionFromJson(o.position)
 
-				const o = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
-				o.uuid = o.uuid
-				o.handledByClientId = o.handledByClientId
+				const xxx = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
+				xxx.uuid = o.uuid
+				xxx.handledByClientId = o.handledByClientId
 
-				return o
+				return xxx
 			}
 			default: {
 				throw new Error('could not map ' + o.type + ' in ObjectMapper')

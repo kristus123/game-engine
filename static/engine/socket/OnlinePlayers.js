@@ -6,8 +6,7 @@ export class OnlinePlayers {
 			player.clientId = c.clientId
 
 			c.on('CONNECT_PLAYER', data => {
-				const mouse = new Mouse(camera)
-				const p = new Player(mouse)
+				const p = new Player('x')
 				p.clientId = data.clientId
 				this.connectedPlayers.push(p)
 			})
@@ -25,16 +24,6 @@ export class OnlinePlayers {
 					}
 				}
 			})
-
-			c.on('UPDATE_MOUSE_POSITION', data => {
-				for (const p of this.connectedPlayers) {
-					if (data.clientId == p.clientId) {
-						p.mouse.position.x = data.x
-						p.mouse.position.y = data.y
-						break
-					}
-				}
-			})
 		})
 	}
 
@@ -43,12 +32,6 @@ export class OnlinePlayers {
 			action: 'UPDATE_PLAYER_POSITION',
 			x: this.player.x,
 			y: this.player.y,
-		})
-
-		this.socketClient.send({
-			action: 'UPDATE_MOUSE_POSITION',
-			x: this.player.mouse.position.x,
-			y: this.player.mouse.position.y,
 		})
 	}
 

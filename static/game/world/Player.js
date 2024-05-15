@@ -9,20 +9,20 @@ export class Player extends DynamicGameObject {
 
 		this.keyboard = new Keyboard()
 
-		this.gun = new Gun(this, mouse)
+		// this.gun = new Gun(this, mouse)
 
-		this.keyboardEvent.addKeyDownListener('e', () => {
-			if (this.charge >= 100) {
-				this.charge -= 100
-				ForcePush(this).towards(this.mouse.position, 100)
-			}
-		})
+		// this.keyboardEvent.addKeyDownListener('e', () => {
+		// 	if (this.charge >= 100) {
+		// 		this.charge -= 100
+		// 		ForcePush(this).towards(this.mouse.position, 100)
+		// 	}
+		// })
 
-		this.keyboardEvent.addKeyDownListener('b', () => {
-			if (!this.beacon) {
-				this.beacon = new BeaconShit(this.mouse.position)
-			}
-		})
+		// this.keyboardEvent.addKeyDownListener('b', () => {
+		// 	if (!this.beacon) {
+		// 		this.beacon = new BeaconShit(this.mouse.position)
+		// 	}
+		// })
 
 		setInterval(() => {
 			this.charge += 1
@@ -38,7 +38,6 @@ export class Player extends DynamicGameObject {
 	}
 
 	update() {
-		this.gun.update()
 		this.charge += 1
 		if (this.beacon) {
 			this.beacon.update()
@@ -46,11 +45,11 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		this.gun.draw(draw, guiDraw)
+		// this.gun.draw(draw, guiDraw)
 
 		draw.new_text(this.position.offset(0, -100), this.clientId, 'orange', 20)
 
-		draw.new_circle(this.mouse.position)
+		// draw.new_circle(this.mouse.position)
 
 		this.flyingUp.draw(draw, guiDraw)
 	}

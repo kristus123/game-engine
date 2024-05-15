@@ -14,12 +14,11 @@ export class WorldEditor {
 		})
 
 		mouse.addOnClick('paint', (p) => {
-			let image = ImageSelectorProvider.getSelectedImage()
-			if (image) {
-				const o = new StaticPicture(p, image)
-				this.runAll.add(o)
-				ObjectPersistence.save(o)
-			}
+			p.width = 100
+			p.height = 100
+			const o = new DynamicGameObject(p, 100, 100)
+			this.runAll.add(o)
+			ObjectPersistence.save(o)
 		})
 
 		KeyDown('-', () => {

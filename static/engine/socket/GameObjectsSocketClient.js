@@ -4,8 +4,8 @@ export class GameObjectsSocketClient {
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
-				for (const p of data.gameObjects) {
-					this.gameObjects.push(ObjectMapper.mapSingleObject(JSON.stringify(p)))
+				for (const o of data.gameObjects) {
+					this.gameObjects.push(ObjectMapper.mapSingleObject(JSON.stringify(o)))
 				}
 			})
 
