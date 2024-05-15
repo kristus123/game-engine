@@ -1,5 +1,5 @@
 export class Chicken extends DynamicGameObject {
-	constructor() {
+	constructor(allObjects) {
 		super(new Position(0, 0, 150, 150), 10, 10)
 
 		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png', 32, 32, 5, [
@@ -13,6 +13,7 @@ export class Chicken extends DynamicGameObject {
 
 	onHit() {
 		console.log("chicken hit!")
+		allObjects.remove(this)
 	}
 
 	update() {
