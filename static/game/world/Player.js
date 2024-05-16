@@ -9,7 +9,7 @@ export class Player extends DynamicGameObject {
 
 		this.keyboard = new Keyboard()
 
-		// this.gun = new Gun(this, mouse)
+		this.gun = new Gun(this, mouse)
 
 		// this.keyboardEvent.addKeyDownListener('e', () => {
 		// 	if (this.charge >= 100) {
@@ -38,6 +38,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	update() {
+		this.gun.update()
 		this.charge += 1
 		if (this.beacon) {
 			this.beacon.update()
@@ -45,7 +46,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		// this.gun.draw(draw, guiDraw)
+		this.gun.draw(draw, guiDraw)
 
 		draw.new_text(this.position.offset(0, -100), this.clientId, 'orange', 20)
 

@@ -3,6 +3,7 @@ export const Call = method => {
 		method()
 	}
 	else {
+		console.log("Method not present")
 		// throw new Error(methodName + ' is not implemented')
 	}
 }

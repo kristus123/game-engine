@@ -5,7 +5,30 @@ export class GameObjectsSocketClient {
 
 			c.on('GET_GAME_OBJECTS', data => {
 				for (const o of data.gameObjects) {
-					this.gameObjects.push(ObjectMapper.mapSingleObject(JSON.stringify(o)))
+					const mappedObject = ObjectMapper.mapSingleObject(JSON.stringify(o))
+					mappedObject.removeFromGameLoop = () => {
+							c.send({
+								action: 'REMOVE_OBJECT',
+								uuid: o.uuid
+							})
+					}
+
+					this.gameObjects.push(mappedObject)
+
+					if (mappedObject instanceof Chicken) {
+						player.gun.hittableObjects.push(mappedObject)
+					}
+
+				}
+			})
+
+			c.on('REMOVE_OBJECT', data => {
+				for (const o of this.gameObjects) {
+					if (o.uuid == data.uuid) {
+						List.remove(this.gameObjects, o)
+						List.remove(player.gun.hittableObjects, o)
+						break
+					}
 				}
 			})
 

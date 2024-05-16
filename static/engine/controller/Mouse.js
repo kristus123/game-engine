@@ -60,7 +60,6 @@ export class Mouse {
 				this.camera.position.y
 
 		return new Position(x, y)
-
 	}
 
 	hovering(o) {

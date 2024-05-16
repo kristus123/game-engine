@@ -2,6 +2,7 @@ export class WorldEditor {
 
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
+
 		this.runAll = new RunAll([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
@@ -16,7 +17,7 @@ export class WorldEditor {
 		mouse.addOnClick('paint', (p) => {
 			p.width = 100
 			p.height = 100
-			const o = new DynamicGameObject(p, 100, 100)
+			const o = new Chicken(p)
 			this.runAll.add(o)
 			ObjectPersistence.save(o)
 		})

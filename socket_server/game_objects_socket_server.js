@@ -3,6 +3,8 @@ const fs = require('fs')
 const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
 const SocketServer = require('./SocketServer')
 
+const List = require('./List')
+
 const server = new SocketServer(8081)
 
 server.onConnection = (client, clientId) => {
@@ -54,6 +56,21 @@ server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 				x: data.x,
 				y: data.y,
 			})
+
+			break
+		}
+	}
+})
+
+server.on('REMOVE_OBJECT', (client, clientId, data) => {
+	for (const o of gameObjects) {
+		if (o.uuid == data.uuid) {
+			server.sendToEveryone({
+				action: 'REMOVE_OBJECT',
+				uuid: data.uuid,
+			})
+
+			List.remove(gameObjects, o)
 
 			break
 		}

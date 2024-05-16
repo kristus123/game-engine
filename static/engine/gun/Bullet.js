@@ -12,7 +12,7 @@ export class Bullet extends DynamicGameObject {
 		for (const o of this.gun.hittableObjects) {
 			if (Collision.between(o, this)) {
 				this.hit = o
-				Call(o.onHit)
+				break
 			}
 		}
 	}

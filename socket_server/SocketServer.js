@@ -43,7 +43,7 @@ module.exports = class {
 		}
 	}
 
-	sendToEveryone(data) {
+	sendToEveryone(data) { // todo maybe pass client first just to keep it consistent
 		for (const client of this.allClients) {
 			client.send(JSON.stringify(data))
 		}

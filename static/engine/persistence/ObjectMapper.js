@@ -37,7 +37,13 @@ export class ObjectMapper {
 				imagePath: o.imagePath,
 			}, null, 4)
 		}
-
+		else if (o instanceof Chicken) {
+			return JSON.stringify({
+				type: Chicken.name,
+				position: positionToJson(o.position),
+				uuid: o.uuid,
+			}, null, 4)
+		}
 		else if (o instanceof DynamicGameObject) {
 			return JSON.stringify({
 				type: DynamicGameObject.name,
@@ -59,6 +65,15 @@ export class ObjectMapper {
 		switch (o.type) {
 			case StaticPicture.name: {
 				return new StaticPicture(positionFromJson(o.position), o.imagePath)
+			}
+			case Chicken.name: {
+				const p = positionFromJson(o.position)
+
+				const chicken = new Chicken(p)
+				chicken.uuid = o.uuid
+				chicken.handledByClientId = o.handledByClientId
+
+				return chicken
 			}
 			case DynamicGameObject.name: {
 				const p = positionFromJson(o.position)
