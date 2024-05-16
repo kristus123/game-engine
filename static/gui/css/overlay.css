@@ -9,11 +9,11 @@
 	align-items: center;
 }
 
-.header,
-.footer {
+.top,
+.bottom {
 	white-space: nowrap;
 	width: 100%;
-	height: 100px;
+	height: 150px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -23,32 +23,32 @@
 	gap: 10px;
 }
 
-.right-bar,
-.left-bar {
+.right,
+.left {
 	margin: 10px 0;
 	overflow-y: auto;
-	width: 100px;
+	width: 120px;
+	/* height: 100%; */
+	/* height: calc(100% - 200px); */
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	height: calc(100% - 200px);
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 }
 
-.right-bar {
+.right {
     right: 20px;
 }
 
-.left-bar {
+.left {
     left: 20px;
 }
 
-.item,
-.side-item {
+.item {
     width: 100px;
     height: 100px;
-    background: indianred;
+    /* background: indianred; */
     margin: 10px 0;
 }

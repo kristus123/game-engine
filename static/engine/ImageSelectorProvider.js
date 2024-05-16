@@ -1,61 +1,47 @@
 export class ImageSelectorProvider {
 
-	static #selectedImage
-
-	static getSelectedImage() {
-		return ImageSelectorProvider.#selectedImage
-	}
+	static selectedImage
 
 	static addImageSelector() {
-		const response = Http.get('/picture-library')
-		this.createImageSelector(response, '.footer')
-	}
+		const images = Http.get('/picture-library')
 
-	static createImageSelector(imageData, parentClass) {
 
-		const selectDiv = HtmlUtils.createElement('div', parentClass, 'item')
-		const select = HtmlUtils.createElement('select', selectDiv, 'selector')
-		select.value = ''
+		const div = HtmlUtils.createElement('div', '.left', '')
+		for (const imageCategory in images) {
+			const b = HtmlUtils.createElement('button', div, '')
+			b.style.padding = '7px'
+			b.style.margin = '5px'
 
-		for (const key in imageData) {
-			let element = HtmlUtils.createElement('option', select)
-			element.innerHTML = key
-			element.value = key
+			b.innerHTML = imageCategory
+			b.value = imageCategory
+
+			b.addEventListener('click', () => {
+				ImageSelectorProvider.previewImages(images[imageCategory])
+			})
 		}
 
-		select.addEventListener('change', function () {
-			let selectedValue = this.value
-			let options = imageData[selectedValue]
-			ImageSelectorProvider.createImageOption(options, selectedValue)
-		})
-
+		ImageSelectorProvider.previewImages(images.smoke)
 	}
 
+	static previewImages(images) {
 
-	static createImageOption(images) {
+		// HtmlUtils.removeElements('.item.image')
+		var bottomDiv = document.getElementById('bottom')
+		while (bottomDiv.firstChild) {
+			bottomDiv.removeChild(bottomDiv.firstChild)
+		}
 
-		HtmlUtils.removeElements('.item.image')
+		images.forEach(image => {
 
-		images.forEach((e) => {
+			const imgDiv = HtmlUtils.createElement('div', '.bottom', 'item image')
+			imgDiv.style.background = 'white'
 
-			const imgDiv = HtmlUtils.createElement('div', '.footer', 'item image')
 			const img = HtmlUtils.createElement('img', imgDiv, 'image')
-
-			const imagePath = e
-			img.src = imagePath
-
-			imgDiv.style.background = 'green'
+			img.src = image
 			img.style.maxWidth = '100%'
-
-			img.addEventListener('click', function () {
-				ImageSelectorProvider.#selectedImage = this.src
+			img.addEventListener('click', () => {
+				ImageSelectorProvider.selectedImage = image
 			})
-
-			// Handle image loading error
-			img.onerror = function () {
-				imgDiv.remove()
-			}
-
 		})
 	}
 }
