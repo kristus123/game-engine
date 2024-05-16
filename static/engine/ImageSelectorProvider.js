@@ -1,35 +1,28 @@
 export class ImageSelectorProvider {
-
-	static selectedImage
-
-	static addImageSelector() {
+	constructor() {
+		this.selectedImage = null
 		const images = Http.get('/picture-library')
 
-
 		const div = HtmlUtils.createElement('div', '.left', '')
-		for (const imageCategory in images) {
-			const b = HtmlUtils.createElement('button', div, '')
-			b.style.padding = '7px'
-			b.style.margin = '5px'
+		for (const category in images) {
+			const button = HtmlUtils.createElement('button', div, '')
+			button.style.padding = '7px'
+			button.style.margin = '5px'
 
-			b.innerHTML = imageCategory
-			b.value = imageCategory
+			button.innerHTML = category
+			button.value = category
 
-			b.addEventListener('click', () => {
-				ImageSelectorProvider.previewImages(images[imageCategory])
+			button.addEventListener('click', () => {
+				this.previewImages(images[category])
 			})
 		}
 
-		ImageSelectorProvider.previewImages(images.smoke)
+		this.previewImages(images.smoke)
 	}
 
-	static previewImages(images) {
+	previewImages(images) {
 
-		// HtmlUtils.removeElements('.item.image')
-		var bottomDiv = document.getElementById('bottom')
-		while (bottomDiv.firstChild) {
-			bottomDiv.removeChild(bottomDiv.firstChild)
-		}
+		HtmlUtils.removeChildElementsInId('bottom')
 
 		images.forEach(image => {
 
@@ -40,7 +33,7 @@ export class ImageSelectorProvider {
 			img.src = image
 			img.style.maxWidth = '100%'
 			img.addEventListener('click', () => {
-				ImageSelectorProvider.selectedImage = image
+				this.selectedImage = image
 			})
 		})
 	}

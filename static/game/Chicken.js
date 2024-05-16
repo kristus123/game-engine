@@ -20,7 +20,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	update() {
-		const p = Random.direction(this, 2)
+		const p = Random.direction(this, 0.1)
 
 		this.x = p.x
 		this.y = p.y
