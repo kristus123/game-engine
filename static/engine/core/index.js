@@ -14,8 +14,8 @@ ErrorHandler.run(() => {
 	const controller = new Controller()
 
 	const level = new Level()
-	level.change(new World(level, camera, mouse, controller))
-	// level.change(new WorldEditor(camera, mouse))
+	// level.change(new World(level, camera, mouse, controller))
+	level.change(new WorldEditor(camera, mouse))
 	
 	const overlay = new Overlay(camera)
 
