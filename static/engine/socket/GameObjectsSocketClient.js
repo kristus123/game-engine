@@ -18,7 +18,6 @@ export class GameObjectsSocketClient {
 					if (mappedObject instanceof Chicken) {
 						player.gun.hittableObjects.push(mappedObject)
 					}
-
 				}
 			})
 
@@ -26,7 +25,7 @@ export class GameObjectsSocketClient {
 				for (const o of this.gameObjects) {
 					if (o.uuid == data.uuid) {
 						List.remove(this.gameObjects, o)
-						List.remove(player.gun.hittableObjects, o)
+						// List.remove(player.gun.hittableObjects, o)
 						break
 					}
 				}
@@ -55,6 +54,11 @@ export class GameObjectsSocketClient {
 
 	update() {
 		for (const o of this.gameObjects) {
+			o.update()
+			if (Distance.within(100, o, this.player)) {
+				ForcePush(o).awayFrom(this.player, 20)
+			}
+
 			if (Collision.between(o, this.player)) {
 				Push(o).awayFrom(this.player, 0.01)
 

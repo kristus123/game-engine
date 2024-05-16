@@ -5,6 +5,10 @@ export class Distance {
 		return Math.sqrt(dx * dx + dy * dy)
 	}
 
+	static within(radius, o1, o2) {
+		return Distance.between(o1, o2) <= radius
+	}
+
 	static withinRadius(o1, o2, radius) {
 		return Distance.between(o1, o2) <= radius
 	}

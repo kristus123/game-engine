@@ -4,7 +4,6 @@ export class Bullet extends DynamicGameObject {
 		super(from, 0, 3000)
 
 		this.hit = null
-
 		ForcePush(this).towards(to)
 	}
 
@@ -12,7 +11,8 @@ export class Bullet extends DynamicGameObject {
 		for (const o of this.gun.hittableObjects) {
 			if (Collision.between(o, this)) {
 				o.onHit()
-				List.remove(this.gun.Bullets, this)
+				List.remove(this.gun.hittableObjects, o)
+				List.remove(this.gun.bullets, this)
 				break
 			}
 		}
