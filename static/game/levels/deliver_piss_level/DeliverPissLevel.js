@@ -1,5 +1,5 @@
 export class DeliverPissLevel {
-	constructor(world, npc, levelSelector) {
+	constructor(world, npc, level) {
 
 		this.factory = new Factory(world.player)
 		this.factory.onFinish = () => {

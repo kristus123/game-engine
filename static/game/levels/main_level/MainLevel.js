@@ -1,9 +1,9 @@
 export class MainLevel {
-	constructor(levelSelector, allGameObjects, world, camera, mouse) {
+	constructor(level, allGameObjects, world, camera, mouse) {
 
 		// const pissQuest = new PissQuest(this.world.deliveryDrone, mouse)
 		// pissQuest.onFinish = () => {
-		// 	levelSelector.changeActiveLevel(new DeliverPissLevel(world, this.world.npc, levelSelector))
+		// 	level.change(new DeliverPissLevel(world, this.world.npc, level))
 		// }
 
 		// this.runAll = new RunAll([

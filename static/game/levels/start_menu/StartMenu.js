@@ -1,7 +1,7 @@
 export class StartMenu {
-	constructor(levelSelector, camera, mouse) {
+	constructor(level, camera, mouse) {
 		this.startGame = new Button(new Position(0, -400, 400, 200), 'Start game', mouse, () => {
-			this.levelSelector.changeActiveLevel(new CinematicIntroLevel(this.levelSelector, this.camera, this.mouse))
+			this.level.change(new CinematicIntroLevel(this.level, this.camera, this.mouse))
 		})
 
 		this.settings = new Button(new Position(0, -150, 400, 200), 'Settings', mouse, () => {
@@ -17,7 +17,7 @@ export class StartMenu {
 	}
 
 	update() {
-		this.levelSelector.changeActiveLevel(new CinematicIntroLevel(this.levelSelector, this.camera, this.mouse))
+		this.level.change(new CinematicIntroLevel(this.level, this.camera, this.mouse))
 		this.runAll.update()
 	}
 

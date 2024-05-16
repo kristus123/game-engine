@@ -13,9 +13,9 @@ ErrorHandler.run(() => {
 
 	const controller = new Controller()
 
-	const levelSelector = new LevelSelector()
-	levelSelector.changeActiveLevel(new World(levelSelector, camera, mouse, controller))
-	// levelSelector.changeActiveLevel(new WorldEditor(camera, mouse))
+	const level = new Level()
+	level.change(new World(level, camera, mouse, controller))
+	// level.change(new WorldEditor(camera, mouse))
 	
 	const overlay = new Overlay(camera)
 
@@ -31,8 +31,8 @@ ErrorHandler.run(() => {
 				controller.update()
 				controller.draw(draw, guiDraw)
 
-				levelSelector.update()
-				levelSelector.draw(draw, guiDraw)
+				level.update()
+				level.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()

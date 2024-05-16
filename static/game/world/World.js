@@ -1,5 +1,5 @@
 export class World {
-	constructor(levelSelector, camera, mouse, controller) {
+	constructor(level, camera, mouse, controller) {
 
 		this.player = new Player(mouse)
 		camera.followInstantly(this.player)
