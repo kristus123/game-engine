@@ -1,6 +1,6 @@
 export class GameObjectsSocketClient {
 	constructor(player) {
-		this.allGameObjects = new AllGameObjects()
+		this.allObjects = new AllObjects()
 
 		this.socketClient = new SocketClient(8081, c => {
 
@@ -19,7 +19,7 @@ export class GameObjectsSocketClient {
 					})
 
 				for (const o of x) {
-					this.allGameObjects.add(o)
+					this.allObjects.add(o)
 
 					if (o instanceof Chicken) {
 						player.gun.hittableObjects.push(o)
@@ -28,15 +28,15 @@ export class GameObjectsSocketClient {
 			})
 
 			c.on('REMOVE_OBJECT', data => {
-				this.allGameObjects.removeByObjectId(data.objectId)
+				this.allObjects.removeByObjectId(data.objectId)
 			})
 
 			c.on('GET_CLIENT_UPDATE', data => {
-				this.allGameObjects.setHandledBy(data.objectId, data.clientid)
+				this.allObjects.setHandledBy(data.objectId, data.clientid)
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
-				this.allGameObjects.getByObjectId(data.objectId, o => {
+				this.allObjects.getByObjectId(data.objectId, o => {
 					p.position.x = data.x
 					p.position.y = data.y
 				})
@@ -45,7 +45,7 @@ export class GameObjectsSocketClient {
 	}
 
 	update() {
-		this.allGameObjects.updateAnd(o => {
+		this.allObjects.updateAnd(o => {
 			if (Distance.within(100, o, this.player)) {
 				ForcePush(o).awayFrom(this.player, 20)
 			}
@@ -74,6 +74,6 @@ export class GameObjectsSocketClient {
 	}
 
 	draw(draw, guiDraw) {
-		this.allGameObjects.draw(draw, guiDraw)
+		this.allObjects.draw(draw, guiDraw)
 	}
 }

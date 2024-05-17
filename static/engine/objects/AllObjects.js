@@ -1,4 +1,4 @@
-export class AllGameObjects {
+export class AllObjects {
 	constructor() {
 		this.objects = []
 	}

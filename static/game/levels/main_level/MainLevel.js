@@ -1,5 +1,5 @@
 export class MainLevel {
-	constructor(level, allGameObjects, world, camera, mouse) {
+	constructor(level, allObjects, world, camera, mouse) {
 
 		// const pissQuest = new PissQuest(this.world.deliveryDrone, mouse)
 		// pissQuest.onFinish = () => {
@@ -10,7 +10,7 @@ export class MainLevel {
 		// this.world,
 		// pissQuest,
 		// ])
-		// allGameObjects.add(world)
+		// allObjects.add(world)
 
 		// ObjectPersistence.get().forEach(o => {
 		// 	this.runAll.add(o)
