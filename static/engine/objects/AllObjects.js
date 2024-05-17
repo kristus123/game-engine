@@ -1,40 +1,34 @@
 export class AllObjects {
 	constructor() {
 		this.objects = []
-		this.objectIdFrom = {}
-		this.gameObjectFrom = {}
 	}
 
-	add(objectId, o) {
-		this.objectIdFrom[o] = objectId
-
-		this.gameObjectFrom[objectId] = o
-
+	add(o) {
 		this.objects.push(o)
 	}
 
 	remove(o) {
-		const objectId = this.objectIdFrom[o]
-
-		delete this.objectIdFrom[o]
-
-		delete this.gameObjectFrom[objectId]
-
 		List.remove(this.objects, o)
 	}
 
 	removeByObjectId(objectId) {
-		delete this.objectIdFrom[o]
+		for (const o of this.objects) {
+			if (o.objectId == objectId) {
+				List.remove(this.objects, o)
 
-		delete this.gameObjectFrom[objectId]
-
-		List.remove(this.objects, o)
+				break
+			}
+		}
 	}
 
 	setHandledBy(objectId, clientId) {
-		const o = this.gameObjectFrom[objectId]
+		for (const o of this.objects) {
+			if (o.objectId == objectId) {
+				o.handledByClientId = clientId
 
-		o.handledByClientId = clientId
+				break
+			}
+		}
 	}
 
 	get(objectId) {

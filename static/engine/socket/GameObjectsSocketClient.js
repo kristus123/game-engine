@@ -5,19 +5,18 @@ export class GameObjectsSocketClient {
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
-				const mappedGameObjects = data.gameObjects
-					.map(obj => {
-						const mo = ObjectMapper.mapSingleObject(JSON.stringify(obj))
+				const mappedGameObjects = data.gameObjects.map(obj => {
+					const mo = ObjectMapper.mapSingleObject(JSON.stringify(obj))
 
-						mo.removeFromGameLoop = () => {
-							c.send({
-								action: 'REMOVE_OBJECT',
-								objectId: obj.objectId
-							})
-						}
+					mo.removeFromGameLoop = () => {
+						c.send({
+							action: 'REMOVE_OBJECT',
+							objectId: obj.objectId
+						})
+					}
 
-						return mo
-					})
+					return mo
+				})
 
 				for (const o of mappedGameObjects) {
 					this.allObjects.add(o)
