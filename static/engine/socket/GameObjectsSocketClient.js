@@ -31,7 +31,7 @@ export class GameObjectsSocketClient {
 				this.allObjects.removeByObjectId(data.objectId)
 			})
 
-			c.on('GET_CLIENT_UPDATE', data => {
+			c.on('OBJECT_HANDLED_BY', data => {
 				this.allObjects.setHandledBy(data.objectId, data.clientid)
 			})
 
@@ -56,7 +56,7 @@ export class GameObjectsSocketClient {
 				o.handledByClientId = this.player.clientId
 
 				this.socketClient.send({
-					action: 'GET_CLIENT_UPDATE',
+					action: 'OBJECT_HANDLED_BY',
 					clientid: o.handledByClientId,
 					objectId: o.objectId
 				})

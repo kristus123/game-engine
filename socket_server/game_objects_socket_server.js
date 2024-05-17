@@ -18,7 +18,7 @@ server.onConnection = (client, clientId) => {
 		if (g.handledByClientId == null) {
 			g.handledByClientId = clientId
 			server.sendToEveryone( {
-				action: 'GET_CLIENT_UPDATE',
+				action: 'OBJECT_HANDLED_BY',
 				clientid: g.handledByClientId,
 				objectId: g.objectId
 			})
@@ -36,7 +36,7 @@ server.onClose = (client, clientId) => {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = server.allClientIds[0]
 			server.sendToEveryone({
-				action: 'GET_CLIENT_UPDATE',
+				action: 'OBJECT_HANDLED_BY',
 				clientid: o.handledByClientId,
 				objectId: o.objectId
 			})
@@ -77,12 +77,12 @@ server.on('REMOVE_OBJECT', (client, clientId, data) => {
 	}
 })
 
-server.on('GET_CLIENT_UPDATE', (client, clientId, data) => {
+server.on('OBJECT_HANDLED_BY', (client, clientId, data) => {
 	for (const o of gameObjects) {
 		if (o.objectId == data.objectId) {
 			o.handledByClientId = data.clientid
 			server.sendToEveryone({
-				action: 'GET_CLIENT_UPDATE',
+				action: 'OBJECT_HANDLED_BY',
 				clientid: o.handledByClientId,
 				objectId: o.objectId
 			})
