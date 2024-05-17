@@ -12,7 +12,7 @@ export class Sprite {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.spriteSheet.complete) {
+	/*	if (this.spriteSheet.complete) {
 
 			const frameInfo = this.frameSequence[this.currentFrameIndex]
 			const currentFrameX = frameInfo.x
@@ -30,7 +30,7 @@ export class Sprite {
 				this.frameWidth * this.scale,
 				this.frameHeight * this.scale,
 			)
-		}
+		}*/
 	}
 
 	mirror(draw) {
