@@ -21,7 +21,7 @@ export class AllGameObjects {
 
 	removeByObjectId(objectId) {
 		for (const o of this.objects) {
-			if (o.uuid == objectId) {
+			if (o.objectId == objectId) {
 				List.remove(this.objects, o)
 
 				break
@@ -31,7 +31,7 @@ export class AllGameObjects {
 
 	setHandledBy(objectId, clientId) {
 		for (const o of this.objects) {
-			if (o.uuid == objectId) {
+			if (o.objectId == objectId) {
 				o.handledByClientId = clientId
 
 				break
@@ -41,7 +41,7 @@ export class AllGameObjects {
 
 	getByObjectId(objectId, run) {
 		for (const o of this.objects) {
-			if (o.uuid == objectId) {
+			if (o.objectId == objectId) {
 				run(o)
 				break
 			}

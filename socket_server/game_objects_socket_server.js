@@ -20,7 +20,7 @@ server.onConnection = (client, clientId) => {
 			server.sendToEveryone( {
 				action: 'GET_CLIENT_UPDATE',
 				clientid: g.handledByClientId,
-				uuid: g.uuid
+				objectId: g.objectId
 			})
 		}
 	}
@@ -38,7 +38,7 @@ server.onClose = (client, clientId) => {
 			server.sendToEveryone({
 				action: 'GET_CLIENT_UPDATE',
 				clientid: o.handledByClientId,
-				uuid: o.uuid
+				objectId: o.objectId
 			})
 		}
 	}
@@ -46,13 +46,13 @@ server.onClose = (client, clientId) => {
 
 server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.uuid == data.uuid) {
+		if (o.objectId == data.objectId) {
 			o.position.x = data.x
 			o.position.y = data.y
 
 			server.sendToOthers(client, {
 				action: 'UPDATE_OBJECT_POSITION',
-				uuid: data.uuid,
+				objectId: data.objectId,
 				x: data.x,
 				y: data.y,
 			})
@@ -64,10 +64,10 @@ server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 
 server.on('REMOVE_OBJECT', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.uuid == data.uuid) {
+		if (o.objectId == data.objectId) {
 			server.sendToEveryone({
 				action: 'REMOVE_OBJECT',
-				uuid: data.uuid,
+				objectId: data.objectId,
 			})
 
 			List.remove(gameObjects, o)
@@ -79,12 +79,12 @@ server.on('REMOVE_OBJECT', (client, clientId, data) => {
 
 server.on('GET_CLIENT_UPDATE', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.uuid == data.uuid) {
+		if (o.objectId == data.objectId) {
 			o.handledByClientId = data.clientid
 			server.sendToEveryone({
 				action: 'GET_CLIENT_UPDATE',
 				clientid: o.handledByClientId,
-				uuid: o.uuid
+				objectId: o.objectId
 			})
 
 			break

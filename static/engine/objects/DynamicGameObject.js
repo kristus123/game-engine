@@ -10,7 +10,7 @@ export class DynamicGameObject {
 
 		Physics.global.applyPhysics(this)
 
-		this.uuid = Random.uuid()
+		this.objectId = Random.uuid()
 	}
 
 	// eslint-disable-next-line no-unused-vars

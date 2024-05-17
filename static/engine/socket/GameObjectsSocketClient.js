@@ -11,7 +11,7 @@ export class GameObjectsSocketClient {
 						o.removeFromGameLoop = () => {
 							c.send({
 								action: 'REMOVE_OBJECT',
-								uuid: o.uuid
+								objectId: o.objectId
 							})
 						}
 
@@ -28,15 +28,15 @@ export class GameObjectsSocketClient {
 			})
 
 			c.on('REMOVE_OBJECT', data => {
-				this.allGameObjects.removeByObjectId(data.uuid)
+				this.allGameObjects.removeByObjectId(data.objectId)
 			})
 
 			c.on('GET_CLIENT_UPDATE', data => {
-				this.allGameObjects.setHandledBy(data.uuid, data.clientid)
+				this.allGameObjects.setHandledBy(data.objectId, data.clientid)
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
-				this.allGameObjects.getByObjectId(data.uuid, o => {
+				this.allGameObjects.getByObjectId(data.objectId, o => {
 					p.position.x = data.x
 					p.position.y = data.y
 				})
@@ -58,7 +58,7 @@ export class GameObjectsSocketClient {
 				this.socketClient.send({
 					action: 'GET_CLIENT_UPDATE',
 					clientid: o.handledByClientId,
-					uuid: o.uuid
+					objectId: o.objectId
 				})
 			}
 
@@ -67,7 +67,7 @@ export class GameObjectsSocketClient {
 					action: 'UPDATE_OBJECT_POSITION',
 					x: o.x,
 					y: o.y,
-					uuid: o.uuid,
+					objectId: o.objectId,
 				})
 			}
 		})

@@ -41,7 +41,7 @@ export class ObjectMapper {
 			return JSON.stringify({
 				type: Chicken.name,
 				position: positionToJson(o.position),
-				uuid: o.uuid,
+				objectId: o.objectId,
 			}, null, 4)
 		}
 		else if (o instanceof DynamicGameObject) {
@@ -51,7 +51,7 @@ export class ObjectMapper {
 				weight: o.weight,
 				velocityFactor: o.velocityFactor,
 				srcPicture: o.srcPicture,
-				uuid: o.uuid,
+				objectId: o.objectId,
 			}, null, 4)
 		}
 		else {
@@ -70,7 +70,7 @@ export class ObjectMapper {
 			const p = positionFromJson(o.position)
 
 			const chicken = new Chicken(p)
-			chicken.uuid = o.uuid
+			chicken.objectId = o.objectId
 			chicken.handledByClientId = o.handledByClientId
 
 			return chicken
@@ -79,7 +79,7 @@ export class ObjectMapper {
 			const p = positionFromJson(o.position)
 
 			const xxx = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
-			xxx.uuid = o.uuid
+			xxx.objectId = o.objectId
 			xxx.handledByClientId = o.handledByClientId
 
 			return xxx
