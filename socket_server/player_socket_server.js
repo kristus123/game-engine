@@ -7,6 +7,10 @@ s.onConnection = (client, clientId) => {
 		action: 'CONNECT_PLAYER',
 		clientId: clientId,
 	})
+	s.sendToClient(client, {
+		action: 'RTC_CLIENT_CONNECTED',
+		clientId: clientId,
+	})
 }
 
 s.onClose = (client, clientId) => {
