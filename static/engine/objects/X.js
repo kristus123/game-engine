@@ -17,8 +17,9 @@ export class X {
 				}
 			}
 			catch (error) {
-				throw new Error('an error occurred while running "update" method for '
-					+ o.constructor.name + '  ' + error)
+				throw error
+				// throw new Error('an error occurred while running "update" method for '
+					// + o.constructor.name + '  ' + error)
 			}
 		})
 	}

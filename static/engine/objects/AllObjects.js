@@ -5,14 +5,6 @@ export class AllObjects {
 		this.gameObjectFrom = {}
 	}
 
-	updateAnd(run) {
-		X.update(this.objects, run)
-	}
-
-	draw(draw, guiDraw) {
-		X.draw(this.objects, draw, guiDraw)
-	}
-
 	add(objectId, o) {
 		this.objectIdFrom[o] = objectId
 
@@ -45,13 +37,17 @@ export class AllObjects {
 		o.handledByClientId = clientId
 	}
 
-	getByObjectId(objectId, run) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				run(o)
-				break
-			}
-		}
+	get(objectId) {
+		return this.gameObjectFrom[objectId]
 	}
+
+	updateAnd(run) {
+		X.update(this.objects, run)
+	}
+
+	draw(draw, guiDraw) {
+		X.draw(this.objects, draw, guiDraw)
+	}
+
 }
 

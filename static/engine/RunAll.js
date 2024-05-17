@@ -16,6 +16,7 @@ export class RunAll {
 				}
 			}
 			catch (error) {
+				throw error
 				throw new Error('an error occurred while running "update" method for '
 					+ e.constructor.name + '  ' + error)
 			}
