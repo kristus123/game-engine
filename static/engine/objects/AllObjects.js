@@ -1,6 +1,8 @@
 export class AllObjects {
 	constructor() {
 		this.objects = []
+		this.objectIdFrom = {}
+		this.gameObjectFrom = {}
 	}
 
 	updateAnd(run) {
@@ -11,32 +13,36 @@ export class AllObjects {
 		X.draw(this.objects, draw, guiDraw)
 	}
 
-	add(o) {
+	add(objectId, o) {
+		this.objectIdFrom[o] = objectId
+
+		this.gameObjectFrom[objectId] = o
+
 		this.objects.push(o)
 	}
 
 	remove(o) {
+		const objectId = this.objectIdFrom[o]
+
+		delete this.objectIdFrom[o]
+
+		delete this.gameObjectFrom[objectId]
+
 		List.remove(this.objects, o)
 	}
 
 	removeByObjectId(objectId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				List.remove(this.objects, o)
+		delete this.objectIdFrom[o]
 
-				break
-			}
-		}
+		delete this.gameObjectFrom[objectId]
+
+		List.remove(this.objects, o)
 	}
 
 	setHandledBy(objectId, clientId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				o.handledByClientId = clientId
+		const o = this.gameObjectFrom[objectId]
 
-				break
-			}
-		}
+		o.handledByClientId = clientId
 	}
 
 	getByObjectId(objectId, run) {
