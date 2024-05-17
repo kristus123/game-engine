@@ -8,6 +8,10 @@ export class Overlay {
 		this.button.update()
 	}
 
+	draw(draw, guiDraw) {
+		this.button.draw(draw, guiDraw)
+	}
+
 	addTop(message) {
 		const div = document.createElement('div')
 

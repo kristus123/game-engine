@@ -1,5 +1,6 @@
-export class Button {
-	constructor(text, camera) { //add position and make a border around and make it extend dybnamigcameobject
+export class Button extends DynamicGameObject {
+	constructor(text, camera) { 
+		super(new Position(0, 0, 280, 140), 100, 100)
 
 		this.button = document.createElement('button')
 		this.button.textContent = text
@@ -26,8 +27,9 @@ export class Button {
 	}
 
 	update() {
-		const offsetX = 0 - this.camera.position.x + (Palette.width/2)
-		const offsetY = 0 - this.camera.position.y + (Palette.height/2)
+		this.position.x += 1
+		const offsetX = this.position.x - this.camera.position.x + (Palette.width/2)
+		const offsetY = this.position.y - this.camera.position.y + (Palette.height/2)
 
 		this.button.style.left = `${offsetX}px`
 		this.button.style.top = `${offsetY}px`
@@ -35,5 +37,6 @@ export class Button {
 	}
 
 	draw(draw, guiDraw) {
+		super.draw(draw, guiDraw)
 	}
 }

@@ -33,6 +33,7 @@ ErrorHandler.run(() => {
 
 				level.update()
 				level.draw(draw, guiDraw)
+				overlay.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()
