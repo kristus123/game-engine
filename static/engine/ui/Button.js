@@ -4,7 +4,7 @@ export class Button {
 		this.button = document.createElement('button')
 		this.button.textContent = text
 
-		const attributes = { tabindex: -1, class: 'button', id: 'myButton' }
+		const attributes = { tabindex: -1, class: 'ui button', id: 'myButton' }
 		Object.entries(attributes).forEach(([key, value]) => {
 			this.button.setAttribute(key, value)
 		})
