@@ -45,7 +45,7 @@ export class GameObjectsSocketClient {
 	}
 
 	update() {
-		this.allGameObjects.update(o => {
+		this.allGameObjects.updateAnd(o => {
 			if (Distance.within(100, o, this.player)) {
 				ForcePush(o).awayFrom(this.player, 20)
 			}

@@ -3,7 +3,7 @@ export class AllGameObjects {
 		this.objects = []
 	}
 
-	update(run) {
+	updateAnd(run) {
 		X.update(this.objects, run)
 	}
 
