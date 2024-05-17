@@ -1,4 +1,4 @@
-// Only use this inside of a class like 
+// Only use this inside of a class like
 // Call(this.onHit)
 // NOT
 // Call(o.onHit)
@@ -11,7 +11,7 @@ export const Call = method => {
 		method()
 	}
 	else {
-		console.log("Method not present")
+		console.log('Method not present')
 		// throw new Error(methodName + ' is not implemented')
 	}
 }

@@ -16,7 +16,7 @@ export class GameObjectsSocketClient {
 						}
 
 						return o
-				})
+					})
 
 				for (const o of x) {
 					this.allGameObjects.add(o)

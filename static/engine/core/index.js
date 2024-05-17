@@ -16,7 +16,7 @@ ErrorHandler.run(() => {
 	const level = new Level()
 	level.change(new World(level, camera, mouse, controller))
 	// level.change(new WorldEditor(camera, mouse))
-	
+
 	const overlay = new Overlay(camera)
 
 	Loop.everyFrame((deltaTime) => {
