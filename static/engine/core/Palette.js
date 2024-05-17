@@ -5,7 +5,7 @@ export class Palette {
 	static main() {
 		const canvases = document.getElementById('canvases')
 
-		const canvas = document.createElement('canvas');
+		const canvas = document.createElement('canvas')
 		canvases.appendChild(canvas)
 
 		canvas.width = Palette.width
