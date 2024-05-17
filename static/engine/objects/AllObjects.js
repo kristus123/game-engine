@@ -3,14 +3,6 @@ export class AllObjects {
 		this.objects = []
 	}
 
-	updateAnd(run) {
-		X.update(this.objects, run)
-	}
-
-	draw(draw, guiDraw) {
-		X.draw(this.objects, draw, guiDraw)
-	}
-
 	add(o) {
 		this.objects.push(o)
 	}
@@ -39,13 +31,17 @@ export class AllObjects {
 		}
 	}
 
-	getByObjectId(objectId, run) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				run(o)
-				break
-			}
-		}
+	get(objectId) {
+		return this.gameObjectFrom[objectId]
 	}
+
+	updateAnd(run) {
+		X.update(this.objects, run)
+	}
+
+	draw(draw, guiDraw) {
+		X.draw(this.objects, draw, guiDraw)
+	}
+
 }
 

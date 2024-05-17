@@ -5,20 +5,20 @@ export class GameObjectsSocketClient {
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
-				const x = data.gameObjects
-					.map(o => ObjectMapper.mapSingleObject(JSON.stringify(o)))
-					.map(o => {
-						o.removeFromGameLoop = () => {
-							c.send({
-								action: 'REMOVE_OBJECT',
-								objectId: o.objectId
-							})
-						}
+				const mappedGameObjects = data.gameObjects.map(obj => {
+					const mo = ObjectMapper.mapSingleObject(JSON.stringify(obj))
 
-						return o
-					})
+					mo.removeFromGameLoop = () => {
+						c.send({
+							action: 'REMOVE_OBJECT',
+							objectId: obj.objectId
+						})
+					}
 
-				for (const o of x) {
+					return mo
+				})
+
+				for (const o of mappedGameObjects) {
 					this.allObjects.add(o)
 
 					if (o instanceof Chicken) {
@@ -36,10 +36,10 @@ export class GameObjectsSocketClient {
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
-				this.allObjects.getByObjectId(data.objectId, o => {
-					p.position.x = data.x
-					p.position.y = data.y
-				})
+				const o = this.allObjects.get(data.objectId)
+
+				o.position.x = data.x
+				o.position.y = data.y
 			})
 		})
 	}
