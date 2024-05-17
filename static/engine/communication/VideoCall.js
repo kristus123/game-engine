@@ -1,102 +1,99 @@
 export class VideoCall  {
 	constructor() {
-		this.remoteVideo = document.createElement('VIDEO')
-		this.localVideo = document.createElement('VIDEO')
-		this.localVideo.autoplay = true
-		this.localVideo.muted = true
-		this.remoteVideo.autoplay = true
-		document.getElementById('videocallrtc').appendChild(this.localVideo)
-		document.getElementById('videocallrtc').appendChild(this.remoteVideo)
-		this.localStream
-		this.pc
 
-		this.configuration = {
-			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-		}
+		this.peerConnection
+
 		this.socketClient = new SocketClient(8080, c => {
+
 			c.on('RTC_CLIENT_CONNECTED', data => {
-				console.log(data.clientId)
 				this.startCall()
 			})
+
 			c.on('RTC_CLIENT_DISCONNECTED', data => {
-				console.log(data.clientId)
-				this.hangUp()
+				this.peerConnection.close()
+				this.socketClient.send({
+					action: 'RTC_HANGUP'
+				})
+
+				this.startCall()
 			})
-			c.on('RTC_OFFER', (data) => {
-				if (!this.pc) {
+
+			c.on('RTC_OFFER', data => {
+				if (!this.peerConnection) {
 					this.startCall()
 				}
-				this.pc.setRemoteDescription(new RTCSessionDescription(data.offer))
-					.then(() => {
-						return this.pc.createAnswer()
-					})
-					.then((answer) => {
-						return this.pc.setLocalDescription(answer).then(() => answer)
-					})
-					.then((answer) => {
+
+				this.peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer))
+					.then(() => this.peerConnection.createAnswer())
+					.then(answer => this.peerConnection.setLocalDescription(answer).then(() => answer))
+					.then(answer => {
 						this.socketClient.send({
 							action: 'RTC_ANSWER',
 							answer: answer
 						})
 					})
-					.catch((error) => {
+					.catch(error => {
 						console.error('Error handling offer', error)
 					})
 			})
-			c.on('RTC_ICE_CANDIDATE', (data) => {
-				this.pc.addIceCandidate(data.candidate)
+
+			c.on('RTC_ICE_CANDIDATE', data => {
+				this.peerConnection.addIceCandidate(data.candidate)
 					.catch((error) => {
 						console.error('Error adding received ice candidate', error)
 					})
 			})
-			c.on('RTC_ANSWER', (data) => {
-				this.pc.setRemoteDescription(new RTCSessionDescription(data.answer))
+
+			c.on('RTC_ANSWER', data => {
+				this.peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
 					.catch((error) => {
 						console.error('Error setting remote description from answer', error)
 					})
 			})
 		})
+	}
 
-	}
-	hangUp() {
-		this.pc.close()
-		this.pc = null
-		this.socketClient.send({
-			action: 'RTC_HANGUP'
-		})
-	}
 	startCall() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-			.then((stream) => {
-				this.localStream = stream
-				this.localVideo.srcObject = this.localStream
+			.then(stream => {
 
-				this.pc = new RTCPeerConnection(this.configuration)
+				const localVideo = document.createElement('VIDEO')
+				localVideo.autoplay = true
+				localVideo.muted = true
+				localVideo.srcObject = stream
+				document.getElementById('videocallrtc').appendChild(localVideo)
 
-				this.pc.onicecandidate = (event) => {
-					if (event.candidate) {
+				this.peerConnection = new RTCPeerConnection({
+					iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+				})
+
+				this.peerConnection.onicecandidate = e => {
+					if (e.candidate) {
 						this.socketClient.send({
 							action: 'RTC_ICE_CANDIDATE',
-							candidate: event.candidate
+							candidate: e.candidate,
 						})
 					}
 				}
 
-				this.pc.ontrack = (event) => {
-					this.remoteVideo.srcObject = event.streams[0]
+				this.peerConnection.ontrack = e => {
+					const remoteVideo = document.createElement('VIDEO')
+					remoteVideo.autoplay = true
+					remoteVideo.srcObject = e.streams[0]
+					document.getElementById('videocallrtc').appendChild(remoteVideo)
 				}
 
-				this.localStream.getTracks().forEach((track) => {
-					this.pc.addTrack(track, this.localStream)
+				stream.getTracks().forEach(track => {
+					this.peerConnection.addTrack(track, stream)
 				})
 
-				return this.pc.createOffer()
+				return this.peerConnection.createOffer()
 			})
-			.then((offer) => {
-				return this.pc.setLocalDescription(offer).then(() => offer)
+			.then(offer => {
+				return this.peerConnection.setLocalDescription(offer).then(() => offer)
 			})
-			.then((offer) => {
-				console.log('offer '+offer)
+			.then(offer => {
+				console.log('offer ' + offer)
 				this.socketClient.send({
 					action: 'RTC_OFFER',
 					offer: offer

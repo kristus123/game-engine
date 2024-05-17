@@ -19,6 +19,8 @@ ErrorHandler.run(() => {
 
 	// const overlay = new Overlay(camera)
 
+	new VideoCall()
+
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
 			Palette.clear([camera.palette, guiPalette])
