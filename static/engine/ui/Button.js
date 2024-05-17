@@ -6,10 +6,13 @@ export class Button extends DynamicGameObject {
 			this.button.innerText = 'xxx'
 			Html.remove(b)
 		})
+
+		Html.text('hei')
 	}
 
 	update() {
 		this.position.x += 1
+
 		const offsetX = this.position.x - this.camera.position.x + (Palette.width/2)
 		const offsetY = this.position.y - this.camera.position.y + (Palette.height/2)
 

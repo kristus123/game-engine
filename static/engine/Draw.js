@@ -268,7 +268,7 @@ export class Draw {
 
 		this.ctx.fillStyle = 'black'
 
-		this.ctx.font = `${fontSize}px Arial`
+		this.ctx.font = `${fontSize}px VT323`
 
 		const textWidth = this.ctx.measureText(text).width
 
