@@ -1,34 +1,114 @@
 export class Overlay {
 	constructor(camera) {
-		const localVideo = document.createElement("VIDEO")
-		localVideo.autoplay = true;
-		localVideo.muted = true;
-		localVideo.style.position = "absolute"
-		localVideo.style.top= 0;
-		localVideo.style.left= 0;
-		localVideo.style.width = "100px"
-		document.getElementById("videocallrtc").appendChild(localVideo)
-		let localStream,pc;
-		async function startCall() {
-			localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-			localVideo.srcObject = localStream;
-		}
-		
-		const configuration = {
+		this.remoteVideo = document.createElement("VIDEO")
+		this.localVideo = document.createElement("VIDEO")
+		this.localVideo.autoplay = true;
+		this.localVideo.muted = true;
+		this.remoteVideo.autoplay = true;
+		document.getElementById("videocallrtc").appendChild(this.localVideo)
+		document.getElementById("videocallrtc").appendChild(this.remoteVideo)
+		this.localStream;
+		this.pc;
+				
+		this.configuration = {
 			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 		};
 		this.socketClient = new SocketClient(8080,c =>{
 			c.on("RTC_CLIENT_CONNECTED",data =>{
 				console.log(data.clientId);
-				startCall()
+				this.startCall()
 			})
+			c.on("RTC_CLIENT_DISCONNECTED",data =>{
+				console.log(data.clientId);
+				this.hangUp()
+			})
+			c.on('RTC_OFFER',  (data) => {
+				if (!this.pc) {
+					this.startCall();
+				}
+				this.pc.setRemoteDescription(new RTCSessionDescription(data.offer))
+					.then(() => {
+						return this.pc.createAnswer();
+					})
+					.then((answer) => {
+						return this.pc.setLocalDescription(answer).then(() => answer);
+					})
+					.then((answer) => {
+						this.socketClient.send({
+							action:'RTC_ANSWER', 
+							answer:answer
+						});
+					})
+					.catch((error) => {
+						console.error('Error handling offer', error);
+					});
+			});
+			c.on('RTC_ICE_CANDIDATE',  (data) => {
+				this.pc.addIceCandidate(data.candidate)
+				.catch((error) => {
+					console.error('Error adding received ice candidate', error);
+				});
+			});
+			c.on('RTC_ANSWER',  (data) => {
+				this.pc.setRemoteDescription(new RTCSessionDescription(data.answer))
+				.catch((error) => {
+					console.error('Error setting remote description from answer', error);
+				});
+			});
 		})
+		
 	}
-
 	update() {
 		// this.button.update()
 	}
+	hangUp(){
+		this.pc.close();
+			this.pc = null;
+			this.socketClient.send({
+				action:'RTC_HANGUP'
+			})
+	}
+	startCall(){
+		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+            this.localStream = stream;
+            this.localVideo.srcObject = this.localStream;
 
+            this.pc = new RTCPeerConnection(this.configuration);
+
+            this.pc.onicecandidate = (event) => {
+				if (event.candidate) {
+					this.socketClient.send({
+						action:'RTC_ICE_CANDIDATE',
+						candidate:event.candidate
+					});
+				}
+			};
+
+            this.pc.ontrack = (event) => {
+                this.remoteVideo.srcObject = event.streams[0];
+            };
+
+            this.localStream.getTracks().forEach((track) => {
+                this.pc.addTrack(track, this.localStream);
+            });
+
+            return this.pc.createOffer();
+        })
+        .then((offer) => {
+            return this.pc.setLocalDescription(offer).then(() => offer);
+        })
+        .then((offer) => {
+			console.log("offer "+offer);
+			this.socketClient.send({
+				action:'RTC_OFFER',
+				offer:offer
+			})
+        })
+        .catch((error) => {
+            console.error('Error starting call', error);
+        });
+	}
 	addTop(message) {
 		const div = document.createElement('div')
 
@@ -38,74 +118,3 @@ export class Overlay {
 		document.getElementsByClassName('header')[0].appendChild(div)
 	}
 }
-/*
-const localVideo = document.getElementById('localVideo');
-const remoteVideo = document.getElementById('remoteVideo');
-const startButton = document.getElementById('startButton');
-const hangupButton = document.getElementById('hangupButton');
-
-let localStream;
-let remoteStream;
-let pc;
-const socket = io();
-
-const configuration = {
-    iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-};
-
-startButton.onclick = startCall;
-hangupButton.onclick = hangUp;
-
-async function startCall() {
-    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    localVideo.srcObject = localStream;
-
-    pc = new RTCPeerConnection(configuration);
-
-    pc.onicecandidate = (event) => {
-        if (event.candidate) {
-            socket.emit('ice-candidate', event.candidate);
-        }
-    };
-
-    pc.ontrack = (event) => {
-        remoteVideo.srcObject = event.streams[0];
-    };
-
-    localStream.getTracks().forEach((track) => {
-        pc.addTrack(track, localStream);
-    });
-
-    const offer = await pc.createOffer();
-    await pc.setLocalDescription(offer);
-    socket.emit('offer', offer);
-}
-
-socket.on('offer', async (offer) => {
-    if (!pc) {
-        startCall();
-    }
-    await pc.setRemoteDescription(new RTCSessionDescription(offer));
-    const answer = await pc.createAnswer();
-    await pc.setLocalDescription(answer);
-    socket.emit('answer', answer);
-});
-
-socket.on('answer', async (answer) => {
-    await pc.setRemoteDescription(new RTCSessionDescription(answer));
-});
-
-socket.on('ice-candidate', async (candidate) => {
-    try {
-        await pc.addIceCandidate(candidate);
-    } catch (e) {
-        console.error('Error adding received ice candidate', e);
-    }
-});
-
-function hangUp() {
-    pc.close();
-    pc = null;
-    socket.emit('hangup');
-}
-*/
