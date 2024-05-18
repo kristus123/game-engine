@@ -6,7 +6,7 @@ export class World {
 		controller.control(this.player)
 
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
-		this.gameObjects = new GameObjectsSocketClient(this.player)
+		this.gameObjects = new AllOnlineObjects(this.player)
 
 		this.runAll = new RunAll([
 			// this.deliveryDrone,

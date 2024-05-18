@@ -1,4 +1,4 @@
-export class GameObjectsSocketClient {
+export class AllOnlineObjects {
 	constructor(player) {
 		this.allObjects = new AllObjects()
 
