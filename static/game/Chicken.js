@@ -27,7 +27,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_text(this.position.offset(0, -20), 'Horny chicken', 'red', 38)
+		draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
 		// super.draw(draw, guiDraw)
 		this.sprite.draw(draw, guiDraw)
 	}

@@ -1,6 +1,6 @@
-export class AllOnlineObjects {
+export class AllOnlineObjects extends AllObjects {
 	constructor(player) {
-		this.allObjects = new AllObjects()
+		super()
 
 		this.socketClient = new SocketClient(8081, c => {
 
@@ -19,7 +19,7 @@ export class AllOnlineObjects {
 				})
 
 				for (const o of mappedGameObjects) {
-					this.allObjects.add(o)
+					super.add(o)
 
 					if (o instanceof Chicken) {
 						player.gun.hittableObjects.push(o)
@@ -28,15 +28,15 @@ export class AllOnlineObjects {
 			})
 
 			c.on('REMOVE_OBJECT', data => {
-				this.allObjects.removeByObjectId(data.objectId)
+				super.removeByObjectId(data.objectId)
 			})
 
 			c.on('OBJECT_HANDLED_BY', data => {
-				this.allObjects.setHandledBy(data.objectId, data.clientid)
+				super.setHandledBy(data.objectId, data.clientid)
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
-				const o = this.allObjects.get(data.objectId)
+				const o = super.get(data.objectId)
 
 				o.position.x = data.x
 				o.position.y = data.y
@@ -45,19 +45,14 @@ export class AllOnlineObjects {
 	}
 
 	update() {
-		this.allObjects.updateAnd(o => {
-			if (Distance.within(100, o, this.player)) {
-				ForcePush(o).awayFrom(this.player, 20)
-			}
+		super.updateAnd(o => {
 
 			if (Collision.between(o, this.player)) {
-				Push(o).awayFrom(this.player, 0.01)
-
-				o.handledByClientId = this.player.clientId
+				Push(o).awayFrom(this.player, 10)
 
 				this.socketClient.send({
 					action: 'OBJECT_HANDLED_BY',
-					clientid: o.handledByClientId,
+					clientid: this.player.clientId,
 					objectId: o.objectId
 				})
 			}
@@ -74,6 +69,6 @@ export class AllOnlineObjects {
 	}
 
 	draw(draw, guiDraw) {
-		this.allObjects.draw(draw, guiDraw)
+		super.draw(draw, guiDraw)
 	}
 }
