@@ -1,23 +1,65 @@
 export class Overlay {
 	constructor(camera) {
-		this.button = new Button('hahaha', camera)
-		// new ImageSelectorProvider()
 	}
 
 	update() {
-		this.button.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.button.draw(draw, guiDraw)
 	}
 
-	addTop(message) {
-		const div = document.createElement('div')
+	static leftButton(text, onClick) {
+			const div = HtmlUtils.createElement('div', '.left', '')
+			const b = HtmlUtils.createElement('button', div, '')
 
-		div.classList.add('item')
-		div.innerHTML = message
+			b.style.padding = '10px'
+			b.style.margin = '5px'
 
-		document.getElementsByClassName('header')[0].appendChild(div)
+			b.innerHTML = text
+			b.value = text
+
+			b.addEventListener('click', onClick)
+	}
+
+	static rightButton(text, onClick) {
+			const div = HtmlUtils.createElement('div', '.right', '')
+			const b = HtmlUtils.createElement('button', div, '')
+
+			b.style.padding = '10px'
+			b.style.margin = '5px'
+
+			b.innerHTML = text
+			b.value = text
+
+			b.addEventListener('click', onClick)
+	}
+
+
+	static bottomButton(text, onClick) {
+			const div = HtmlUtils.createElement('div', '.bottom', '')
+			const b = HtmlUtils.createElement('button', div, '')
+
+			b.style.padding = '10px'
+			b.style.margin = '5px'
+
+			b.innerHTML = text
+			b.value = text
+
+			b.addEventListener('click', onClick)
+	}
+
+	static clearBottom() {
+		HtmlUtils.removeChildElementsInId('bottom')
+	}
+
+	static bottomImage(image, onClick) {
+		const div = HtmlUtils.createElement('div', '.bottom', 'item image')
+		div.style.background = 'white'
+
+		const i = HtmlUtils.createElement('img', div, 'image')
+		i.src = image
+		i.style.maxWidth = '100%'
+
+		i.addEventListener('click', onClick)
 	}
 }

@@ -14,9 +14,37 @@ export class WorldEditor {
 			this.runAll.add(o)
 		})
 
+
+		this.add = null
+		Overlay.leftButton('game objects', () => {
+			HtmlUtils.removeChildElementsInId('bottom')
+
+			Overlay.bottomButton('chicken', () => {
+				this.add = new Chicken(p)
+			})
+
+		})
+
+		Overlay.leftButton('images', () => {
+			Overlay.clearBottom()
+
+			this.selectedImage = null
+
+			for (const category in images) {
+				Overlay.rightButton(category, () => {
+
+					Overlay.clearBottom()
+
+					for (const image of images) {
+						Overlay.bottomImage(image, () => this.add = () => {
+							
+						})
+					}
+				})
+			}
+		})
+
 		mouse.addOnClick('paint', (p) => {
-			p.width = 100
-			p.height = 100
 			const o = new Chicken(p)
 			this.runAll.add(o)
 			ObjectPersistence.save(o)
