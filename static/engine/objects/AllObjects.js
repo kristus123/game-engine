@@ -36,7 +36,7 @@ export class AllObjects {
 	}
 
 	updateAnd(run) {
-		X.update(this.objects, run)
+		X.updateAnd(this.objects, run)
 	}
 
 	draw(draw, guiDraw) {

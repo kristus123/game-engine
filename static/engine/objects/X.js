@@ -8,7 +8,7 @@ export class X {
 		}
 	}
 
-	static update(objects, run=() => {}) {
+	static updateAnd(objects, run=() => {}) {
 		objects.forEach(o => {
 			try {
 				if (o.update) {
