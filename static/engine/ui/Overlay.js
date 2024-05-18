@@ -36,7 +36,7 @@ export class Overlay {
 
 
 	static bottomButton(text, onClick) {
-			const div = HtmlUtils.createElement('div', '.bottom', '')
+			const div = HtmlUtils.createElement('div', '.bottom', 'item')
 			const b = HtmlUtils.createElement('button', div, '')
 
 			b.style.padding = '10px'
@@ -60,6 +60,6 @@ export class Overlay {
 		i.src = image
 		i.style.maxWidth = '100%'
 
-		i.addEventListener('click', onClick)
+		div.addEventListener('click', onClick)
 	}
 }

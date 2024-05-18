@@ -1,6 +1,8 @@
 export class Fire extends DynamicGameObject {
-	constructor() {
-		super(new Position(400, 200, 200, 200), 10, 10)
+	constructor(p) {
+		super(p, 10, 10)
+		this.position.width = 200
+		this.position.height = 200
 
 		const frameWidth = 96
 		const frameHeight = 96

@@ -37,6 +37,15 @@ export class ObjectMapper {
 				imagePath: o.imagePath,
 			}, null, 4)
 		}
+
+		else if (o instanceof Fire) {
+			return JSON.stringify({
+				type: Fire.name,
+				position: positionToJson(o.position),
+				objectId: o.objectId,
+			}, null, 4)
+		}
+
 		else if (o instanceof Chicken) {
 			return JSON.stringify({
 				type: Chicken.name,
@@ -65,6 +74,9 @@ export class ObjectMapper {
 		switch (o.type) {
 		case StaticPicture.name: {
 			return new StaticPicture(positionFromJson(o.position), o.imagePath)
+		}
+		case Fire.name: {
+			return new Fire(positionFromJson(o.position))
 		}
 		case Chicken.name: {
 			const p = positionFromJson(o.position)

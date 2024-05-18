@@ -12,10 +12,6 @@ function element(type, clazz) {
 	return e
 }
 
-
-
-
-
 export class Html {
 
 	static button(text, onClick) {
