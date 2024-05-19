@@ -2,7 +2,7 @@ export class CollectChickensQuest {
 	constructor(player, chickens) {
 
 		this.movableObjects = new MovableObjects(player, chickens)
-		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100))
+		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), chickens)
 
 		this.runAll = new RunAll([
 			this.movableObjects,
