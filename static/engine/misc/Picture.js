@@ -4,8 +4,16 @@ export class Picture {
 
 		this.image = new Image()
 		this.image.src = src
+		this.image.addEventListener("error",()=>{
+			this.imageFailed = true
+			console.warn("error got "+src);
+		})
+		this.image.addEventListener("load",()=>{
+			this.imageFailed = false;
+			console.warn("loaded")
+		})
 	}
-
+	
 	r(draw, rotation=2) {
 		const newWidth = this.dynamicGameObject.width
 		const newHeight = this.dynamicGameObject.height
@@ -23,6 +31,10 @@ export class Picture {
 	}
 
 	draw(draw, guiDraw) { // todo
+		if(this.spriteSheetFailed){
+			draw.rectangle(this.image, -newWidth, -newHeight, newWidth, newHeight)
+			return;
+		   }
 		if (this.image.complete) {
 			const newWidth = this.dynamicGameObject.width
 			const newHeight = this.dynamicGameObject.height

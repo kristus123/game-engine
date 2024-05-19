@@ -1,8 +1,17 @@
 export class Sprite {
 	constructor(dynamicGameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
 		this.spriteSheet = new Image()
+		
 		this.spriteSheet.src = src
-
+		this.spriteSheetFailed = true
+		this.spriteSheet.addEventListener("error",()=>{
+			this.spriteSheetFailed = true
+			console.warn("error got "+src);
+		})
+		this.spriteSheet.addEventListener("load",()=>{
+			this.spriteSheetFailed = false;
+			console.warn("loaded")
+		})
 		this.currentFrameIndex = 0 // Index of the current frame in frameSequence
 		const totalFrames = frameSequence.length
 
@@ -10,9 +19,15 @@ export class Sprite {
 			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
 		}, speed)
 	}
-
 	draw(draw, guiDraw) {
-	/*	if (this.spriteSheet.complete) {
+		if(this.spriteSheetFailed){
+			draw.rectangle(this.dynamicGameObject.x,
+				this.dynamicGameObject.y,
+				this.frameWidth * this.scale,
+				this.frameHeight * this.scale,"white")
+		return;
+	   }
+		if (this.spriteSheet.complete ) {
 
 			const frameInfo = this.frameSequence[this.currentFrameIndex]
 			const currentFrameX = frameInfo.x
@@ -30,10 +45,14 @@ export class Sprite {
 				this.frameWidth * this.scale,
 				this.frameHeight * this.scale,
 			)
-		}*/
+		}
 	}
 
 	mirror(draw) {
+		if(this.spriteSheetFailed){
+			this.checkBeforeDraw(draw)
+			return;
+		   }
 		if (this.spriteSheet.complete) {
 			const frameInfo = this.frameSequence[this.currentFrameIndex]
 			const currentFrameX = frameInfo.x

@@ -1,7 +1,6 @@
 const SocketServer = require('./SocketServer')
 
 const s = new SocketServer(8080)
-
 s.onConnection = (client, clientId) => {
 	s.sendToOthers(client, {
 		action: 'CONNECT_PLAYER',
@@ -11,6 +10,15 @@ s.onConnection = (client, clientId) => {
 		action: 'RTC_CLIENT_CONNECTED',
 		clientId: clientId,
 	})
+	for (let i = 0; i < s.allClientIds.length; i++) {
+		const id = s.allClientIds[i];
+		if(id != clientId){
+			s.sendToClient(client,{
+				action: 'RTC_CLIENT_CONNECTED',
+				clientId: id,
+			})
+		}
+	}
 }
 
 s.onClose = (client, clientId) => {
@@ -42,7 +50,6 @@ s.on('UPDATE_MOUSE_POSITION', (client, clientId, data) => {
 	})
 })
 s.on('RTC_ICE_CANDIDATE', (client, clientId, data) => {
-	console.log("ice works "+data.clientId);
 	s.sendToOthers(client, {
 		action: 'RTC_ICE_CANDIDATE',
 		candidate: data.candidate,

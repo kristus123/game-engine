@@ -1,8 +1,8 @@
+
 export class StaticPicture {
 	constructor(position, imagePath) {
 
-		this.image = new Image()
-		this.image.src = imagePath
+		this.image = new Picture(this,imagePath)
 	}
 
 	r(draw, rotation=2) {

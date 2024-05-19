@@ -323,9 +323,8 @@ export class Draw {
 	}
 
 	static sprite() {
-		const spriteSheet = new Image()
+		const spriteSheet = new Picture(this,'https://opengameart.org/sites/default/files/exp2.png')
 
-		spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
 		const frameWidth = 64 // Width of each frame in the sprite sheet
 		const frameHeight = 64 // Height of each frame in the sprite sheet
 		const scale = 5 // Scale factor

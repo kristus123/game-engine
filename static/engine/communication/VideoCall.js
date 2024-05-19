@@ -3,7 +3,23 @@ export class VideoCall  {
 		this.localStream ;
 		this.clientId;
 		this.peerConnection = {}
-		this.startCall()
+		//this.startCall()
+		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+			.then(stream => {
+				//creating and setting local streaming
+				const localVideo = document.createElement('VIDEO')
+				localVideo.autoplay = true
+				localVideo.muted = true
+				localVideo.srcObject = stream
+				document.getElementById('videocallrtc').appendChild(localVideo)
+				//setting stream to local stream
+				this.localStream = stream;
+				console.warn(stream);
+ 				
+			})
+			.catch((error) => {
+				console.error('Error starting call', error)
+			})
 		this.socketClient = new SocketClient(8080, c => {
 			/*c.on("RTC_CLIENT_CONNECTED",data =>{
 				console.warn(this.localstream);
@@ -11,11 +27,17 @@ export class VideoCall  {
 			
 			c.on("RTC_CLIENT_CONNECTED",data =>{
 				//CREATE PEER CONNECTION FOR NEW USER
+				const checkForConnection = setInterval(()=>{
+				if(this.localStream != undefined){
+					clearInterval(checkForConnection)
+				}
 				console.warn(data.clientId+" connected");
 				this.clientId = data.clientId
 				const peerConnection = this.createPeerConnection(data.clientId);
 				this.peerConnection[data.clientId] = peerConnection;
 				//geting and adding tracks
+				console.warn(this.localStream);
+				
 				this.localStream.getTracks().forEach(track => {
 					peerConnection.addTrack(track, this.localStream);
 				});
@@ -29,10 +51,10 @@ export class VideoCall  {
 						clientId:data.clientId
 					});
 				});
+			},1000)
 			})
 			// When an offer is received
 			c.on('RTC_OFFER', data => {
-				console.warn(data.clientId+" recives offer");
 				const peerConnection = this.createPeerConnection(data.clientId);
 				if (!peerConnection) {
 					startCall();
@@ -54,7 +76,6 @@ export class VideoCall  {
 			})
 			// When answer is received
 			c.on('RTC_ANSWER', data => {
-				console.warn(data.clientId+" recives answer");
 				const peerConnection = this.peerConnection[data.clientId]
 				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
 				.catch((error) => {
@@ -63,7 +84,7 @@ export class VideoCall  {
 			})
 			// When an ICE candidate is received
 			c.on('RTC_ICE_CANDIDATE', data => {
-				console.warn(data.clientId);
+				console.warn(data.clientId+" disconnected");
 				const peerConnection = this.peerConnection[data.clientId];
 				if (peerConnection) {
 					peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
@@ -81,7 +102,7 @@ export class VideoCall  {
 				const peerConnection = this.peerConnection[data.clientId];
 				if (peerConnection) {
 				  peerConnection.close();
-				  delete this.peerConnection[userId];
+				  delete this.peerConnection[data.clientId];
 				}
 			})
 			
@@ -103,7 +124,6 @@ export class VideoCall  {
 			remoteVideo.srcObject = event.streams[0];
 		};
 		peerConnection.onicecandidate = event => {
-			console.warn("sendice"+peerId);
 			if (event.candidate) {
 				this.socketClient.send({
 					action: 'RTC_ICE_CANDIDATE',
@@ -113,9 +133,6 @@ export class VideoCall  {
 			}
 		}
 		
-		peerConnection.addEventListener('signalingstatechange', () => {
-			console.warn('Signaling state change:', peerConnection.signalingState);
-		});
 		return peerConnection;
 	}
 	startCall() {
