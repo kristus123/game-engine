@@ -1,6 +1,5 @@
 export class MovableObjects {
-	constructor(movableBy) {
-		this.objects = []
+	constructor(movableBy, objects=[]) {
 
 		this.key = new Key('e')
 
@@ -12,7 +11,6 @@ export class MovableObjects {
 	}
 
 	update() {
-		console.log(this.key.down)
 		for (const o of this.objects) {
 			if (Distance.within(50, o, this.movableBy) && this.key.down) {
 				this.holding = o
@@ -20,10 +18,9 @@ export class MovableObjects {
 		}
 
 		if (this.holding) {
-			this.holding.x = this.movableBy.x + 20
+			this.holding.x = this.movableBy.x
 			this.holding.y = this.movableBy.y
 		}
-
 	}
 
 	draw(draw, guiDraw) {

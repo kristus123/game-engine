@@ -15,6 +15,7 @@ export class World {
 			this.gameObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
+			new CollectChickensQuest(this.player, this.gameObjects.chickens),
 		])
 	}
 

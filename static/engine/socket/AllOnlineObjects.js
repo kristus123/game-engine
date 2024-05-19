@@ -2,6 +2,8 @@ export class AllOnlineObjects extends AllObjects {
 	constructor(player) {
 		super()
 
+		this.chickens = []
+
 		this.socketClient = new SocketClient(8081, c => {
 
 			c.on('GET_GAME_OBJECTS', data => {
@@ -22,7 +24,7 @@ export class AllOnlineObjects extends AllObjects {
 					super.add(o)
 
 					if (o instanceof Chicken) {
-						player.movableObjects.add(o)
+						this.chickens.push(o)
 						player.gun.hittableObjects.push(o)
 					}
 				}
