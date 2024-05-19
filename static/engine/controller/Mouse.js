@@ -11,14 +11,6 @@ export class Mouse {
 			this.position = this.positionRelativeToCamera(e)
 		})
 
-		// setInterval(() => {
-		// 	this.mouseLastMoved += 1
-		// 	if (this.mouseLastMoved > 2) {
-		// 		this.position.x = this.camera.position.x - Palette.width + this.screenPosition.x + (Palette.width/2)
-		// 		this.position.y = this.camera.position.y - Palette.height + this.screenPosition.y + (Palette.height/2)
-		// 	}
-		// }, 1)
-
 		document.addEventListener('mousedown', () => {
 			this.down = true
 			this.up = false
@@ -62,15 +54,7 @@ export class Mouse {
 		return new Position(x, y)
 	}
 
-	hovering(o) {
-		return Collision.between(this.position, o)
-	}
-
-	hoveringGui(o) {
-		return Collision.between(this.screenPosition, o)
-	}
-
-	clicking(o) { // rename to 'clicked'
+	clicked(o) {
 		return Collision.between(this.position, o) && this.down
 	}
 

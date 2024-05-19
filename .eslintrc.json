@@ -109,6 +109,7 @@
     },
     "globals": {
         "AiChat": "readonly",
+        "AllGameObjects": "readonly",
         "AssertNotNull": "readonly",
         "Audio": "readonly",
         "BackspaceEffect": "readonly",
@@ -161,7 +162,7 @@
         "Keyboard": "readonly",
         "KeyboardEvent": "readonly",
         "KeypressEvent": "readonly",
-        "LevelSelector": "readonly",
+        "Level": "readonly",
         "List": "readonly",
         "Loop": "readonly",
         "MainLevel": "readonly",
@@ -220,6 +221,7 @@
         "Water": "readonly",
         "World": "readonly",
         "WorldEditor": "readonly",
+        "X": "readonly",
         "index": "readonly"
     }
 }

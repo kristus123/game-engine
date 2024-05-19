@@ -7,7 +7,7 @@ s.onConnection = (client, clientId) => {
 		action: 'CONNECT_PLAYER',
 		clientId: clientId,
 	})
-	s.sendToClient(client, {
+	s.sendToOthers(client,{
 		action: 'RTC_CLIENT_CONNECTED',
 		clientId: clientId,
 	})
@@ -18,7 +18,7 @@ s.onClose = (client, clientId) => {
 		action: 'PLAYER_DISCONNECTED',
 		clientId: clientId,
 	})
-	s.sendToClient(client, {
+	s.sendToOthers(client,{
 		action: 'RTC_CLIENT_DISCONNECTED',
 		clientId: clientId,
 	})
@@ -41,29 +41,34 @@ s.on('UPDATE_MOUSE_POSITION', (client, clientId, data) => {
 		y: data.y,
 	})
 })
-s.on("RTC_ICE_CANDIDATE",(client, clientId, data) => {
-	s.sendToOthers(client,{
-		action:"RTC_ICE_CANDIDATE",
-		candidate:data.candidate
+s.on('RTC_ICE_CANDIDATE', (client, clientId, data) => {
+	console.log("ice works "+data.clientId);
+	s.sendToOthers(client, {
+		action: 'RTC_ICE_CANDIDATE',
+		candidate: data.candidate,
+		clientId:data.clientId
 	})
 })
-s.on('RTC_OFFER', (client, clientId, data)=> {
-	s.sendToOthers(client,{
-		action:'RTC_OFFER',
-		offer:data.offer
-	});
-});
+s.on('RTC_OFFER', (client, clientId, data) => {
+	s.sendToOthers(client, {
+		action: 'RTC_OFFER',
+		offer: data.offer,
+		clientId:data.clientId
+	})
+})
 
 s.on('RTC_ANSWER', (client, clientId, data) => {
-	s.sendToOthers(client,{
-		action:'RTC_ANSWER', 
-		answer:data.answer
-	});
-});
+	s.sendToOthers(client, {
+		action: 'RTC_ANSWER',
+		answer: data.answer,
+		clientId:data.clientId
+	})
+})
 
 s.on('RTC_HANGUP', (client, clientId, data) => {
-	s.sendToOthers(client,{
-		action:'RTC_HANGUP'
-	});
-});
+	s.sendToOthers(client, {
+		action: 'RTC_HANGUP',
+		clientId:data.clientId
+	})
+})
 s.start()

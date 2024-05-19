@@ -16,7 +16,7 @@ export class Dialogue {
 
 				new Button(p, reply.text, this.mouse).draw(draw)
 
-				if (this.mouse.clicking(p)) {
+				if (this.mouse.clicked(p)) {
 					this[reply.key] = {
 						text: reply.text,
 					}

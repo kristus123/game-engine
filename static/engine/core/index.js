@@ -14,10 +14,12 @@ ErrorHandler.run(() => {
 	const controller = new Controller()
 
 	const level = new Level()
-	// level.change(new World(level, camera, mouse, controller))
-	level.change(new WorldEditor(camera, mouse))
-	
-	const overlay = new Overlay(camera)
+	level.change(new World(level, camera, mouse, controller))
+	// level.change(new WorldEditor(camera, mouse))
+
+	// const overlay = new Overlay(camera)
+
+	new VideoCall()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -25,7 +27,7 @@ ErrorHandler.run(() => {
 
 			Physics.global.update(deltaTime)
 
-			overlay.update()
+			// overlay.update()
 
 			camera.context(() => {
 				controller.update()

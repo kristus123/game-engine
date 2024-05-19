@@ -15,7 +15,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onHit() {
-		console.log(this + " got hit")
+		console.log(this + ' got hit')
 		this.removeFromGameLoop()
 	}
 
