@@ -22,6 +22,7 @@ export class AllOnlineObjects extends AllObjects {
 					super.add(o)
 
 					if (o instanceof Chicken) {
+						player.movableObjects.add(o)
 						player.gun.hittableObjects.push(o)
 					}
 				}
@@ -48,7 +49,7 @@ export class AllOnlineObjects extends AllObjects {
 		super.updateAnd(o => {
 
 			if (Collision.between(o, this.player)) {
-				Push(o).awayFrom(this.player, 10)
+				// Push(o).awayFrom(this.player, 10)
 
 				this.socketClient.send({
 					action: 'OBJECT_HANDLED_BY',
