@@ -10,7 +10,7 @@ export class WorldEditor {
 			// new Grid(mouse),
 		])
 
-		this.worldObjects = new LocalObjects([])
+		this.worldObjects = new LocalObjects()
 
 		ObjectPersistence.get().forEach(o => {
 			this.worldObjects.add(o)
