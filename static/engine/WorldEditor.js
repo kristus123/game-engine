@@ -3,7 +3,7 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
-		this.runAll = new RunAll([
+		this.localObjects = new LocalObjects([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			// new Planet(0, 0),
@@ -11,7 +11,7 @@ export class WorldEditor {
 		])
 
 		ObjectPersistence.get().forEach(o => {
-			this.runAll.add(o)
+			this.localObjects.add(o)
 		})
 
 
@@ -47,7 +47,7 @@ export class WorldEditor {
 
 		mouse.addOnClick('paint', (p) => {
 			const o = new Chicken(p)
-			this.runAll.add(o)
+			this.localObjects.add(o)
 			ObjectPersistence.save(o)
 		})
 
@@ -63,10 +63,10 @@ export class WorldEditor {
 	}
 
 	update() {
-		this.runAll.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
+		this.localObjects.draw(draw, guiDraw)
 	}
 }

@@ -8,7 +8,7 @@ export class World {
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
 		this.gameObjects = new AllOnlineObjects(this.player)
 
-		this.runAll = new RunAll([
+		this.localObjects = new LocalObjects([
 			// this.deliveryDrone,
 			new StarBackground(camera),
 			new Planet(500, 0),
@@ -20,10 +20,10 @@ export class World {
 	}
 
 	update() {
-		this.runAll.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
+		this.localObjects.draw(draw, guiDraw)
 	}
 }

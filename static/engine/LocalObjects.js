@@ -1,4 +1,4 @@
-export class RunAll {
+export class LocalObjects {
 	constructor(classes=[]) {
 
 		for (const c of classes) {

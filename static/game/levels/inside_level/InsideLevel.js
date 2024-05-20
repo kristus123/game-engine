@@ -7,17 +7,17 @@ export class InsideLevel {
 
 		this.controller.control(this.player)
 
-		this.runAll = new RunAll([
+		this.localObjects = new LocalObjects([
 			this.player,
 			VoidDialogue(this.player, this.mouse),
 		])
 	}
 
 	update() {
-		this.runAll.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.runAll.draw(draw, guiDraw)
+		this.localObjects.draw(draw, guiDraw)
 	}
 }
