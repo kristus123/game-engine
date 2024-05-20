@@ -32,4 +32,12 @@ export class List {
 		return list.includes(o)
 	}
 
+	static assertNoNullElements(list) {
+		for (const c of list) {
+			if (c == null) {
+				throw new Error('null passed into list')
+			}
+		}
+	}
+
 }

@@ -1,4 +1,4 @@
-export class X {
+export class HelperThing {
 	constructor(classes=[]) {
 
 		for (const c of classes) {
@@ -9,7 +9,7 @@ export class X {
 	}
 
 	static update(objects) {
-		X.updateAnd(objects, () => {})
+		HelperThing.updateAnd(objects, () => {})
 	}
 
 	static updateAnd(objects, run=() => {}) {

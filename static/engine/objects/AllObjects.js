@@ -36,11 +36,11 @@ export class AllObjects {
 	}
 
 	updateAnd(run) {
-		X.updateAnd(this.objects, run)
+		HelperThing.updateAnd(this.objects, run)
 	}
 
 	draw(draw, guiDraw) {
-		X.draw(this.objects, draw, guiDraw)
+		HelperThing.draw(this.objects, draw, guiDraw)
 	}
 
 }

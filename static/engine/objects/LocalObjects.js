@@ -13,11 +13,11 @@ export class LocalObjects {
 	}
 
 	update() {
-		X.update(this.classes)
+		HelperThing.update(this.classes)
 	}
 
 	draw(draw, guiDraw) {
-		X.draw(this.classes, draw, guiDraw)
+		HelperThing.draw(this.classes, draw, guiDraw)
 	}
 
 }
