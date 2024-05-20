@@ -7,6 +7,15 @@ s.onConnection = (client, clientId) => {
 		action: 'CONNECT_PLAYER',
 		clientId: clientId,
 	})
+	for (let i = 0; i < s.allClientIds.length; i++) {
+		const id = s.allClientIds[i];
+		if(id == clientId)continue;
+		s.sendToClient(client,{
+			action: 'CONNECT_PLAYER',
+			clientId: id
+		})
+		
+	}
 }
 
 s.onClose = (client, clientId) => {
