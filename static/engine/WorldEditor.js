@@ -3,17 +3,18 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
-		this.localObjects = new LocalObjects([
+		this.stuffs = new LocalObjects([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			// new Planet(0, 0),
 			// new Grid(mouse),
 		])
 
-		ObjectPersistence.get().forEach(o => {
-			this.localObjects.add(o)
-		})
+		this.worldObjects = new LocalObjects([])
 
+		ObjectPersistence.get().forEach(o => {
+			this.worldObjects.add(o)
+		})
 
 		this.add = null
 		Overlay.leftButton('game objects', () => {
@@ -46,26 +47,29 @@ export class WorldEditor {
 		mouse.addOnClick('paint', p => {
 			const o = this.add(p)
 			
-			this.localObjects.add(o)
+			this.worldObjects.add(o)
 			ObjectPersistence.save(o)
-		})
-
-		KeyDown('-', () => {
-			console.log('zooming out')
-			camera.zoom -= 0.5
-		})
-
-		KeyDown('_', () => {
-			console.log('zooming in')
-			camera.zoom += 1.5
 		})
 	}
 
 	update() {
-		this.localObjects.update()
+		this.stuffs.update()
+		this.worldObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.stuffs.draw(draw, guiDraw)
+		this.worldObjects.draw(draw, guiDraw)
+
+		for (const o of this.worldObjects.objects) {
+			if (this.mouse.hovering(o)) {
+				draw.new_rectangle(o.position)
+				draw.new_text(o.position, 'right click to move')
+				break
+			}
+			else  {
+				this.mouse.moveIf(o)
+			}
+		}
 	}
 }
