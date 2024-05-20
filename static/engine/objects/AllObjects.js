@@ -35,6 +35,11 @@ export class AllObjects {
 		return this.gameObjectFrom[objectId]
 	}
 
+
+	update() {
+		HelperThing.update(this.objects)
+	}
+
 	updateAnd(run) {
 		HelperThing.updateAnd(this.objects, run)
 	}
