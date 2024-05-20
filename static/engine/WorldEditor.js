@@ -20,7 +20,7 @@ export class WorldEditor {
 			HtmlUtils.removeChildElementsInId('bottom')
 
 			Overlay.bottomButton('chicken', () => {
-				this.add = new Chicken(p)
+				this.add = p => new Chicken(p)
 			})
 
 		})
@@ -28,25 +28,24 @@ export class WorldEditor {
 		Overlay.leftButton('images', () => {
 			Overlay.clearBottom()
 
-			this.selectedImage = null
-
+			const images = Http.get('/picture-library')
 			for (const category in images) {
 				Overlay.rightButton(category, () => {
 
 					Overlay.clearBottom()
 
-					for (const image of images) {
-						Overlay.bottomImage(image, () => this.add = () => {
-							return 
-							
+					for (const image of images[category]) {
+						Overlay.bottomImage(image, () => {
+							this.add = p => new StaticPicture(p, image)
 						})
 					}
 				})
 			}
 		})
 
-		mouse.addOnClick('paint', (p) => {
-			const o = new Chicken(p)
+		mouse.addOnClick('paint', p => {
+			const o = this.add(p)
+			
 			this.localObjects.add(o)
 			ObjectPersistence.save(o)
 		})
