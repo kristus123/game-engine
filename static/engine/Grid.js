@@ -1,7 +1,7 @@
 export class Grid {
 
 	constructor(mouse) {
-		this.cellSize = 32
+		this.cellSize = 128
 		this.width = 1_000
 		this.height = 1_000
 
@@ -12,9 +12,9 @@ export class Grid {
 
 	add(position) {
 		const p = this.mouseGrid(position)
-		p.width = 32
-		p.height = 32
-		return new StaticGameObject(p, '/static/assets/planets/exoplanet32x32.png')
+		p.width = 128
+		p.height = 128
+		return new StaticGameObject(p, '/static/assets/floors/wooden_floor_128x128.png')
 	}
 
 	mouseGrid(mousePosition) {
