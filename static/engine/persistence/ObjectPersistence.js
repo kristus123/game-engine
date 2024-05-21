@@ -15,4 +15,13 @@ export class ObjectPersistence {
 
 		Http.post('/world-editor', saved)
 	}
+
+	static update(o) {
+		const saved = Http.get('/world-editor')
+
+		List.findByObjectId(saved, )
+		saved.objects.push(ObjectMapper.toJson(o))
+
+		Http.post('/world-editor', saved)
+	}
 }

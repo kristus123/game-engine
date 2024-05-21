@@ -20,6 +20,16 @@ export class List {
 		}
 	}
 
+	static findByObjectId(list, objectId) {
+		for (const o of list) {
+			if (o.objectId == objectId) {
+				return o
+			}
+		}
+
+		throw new Error("COULD NOT FIND")
+	}
+
 	static lastIndex(list, index) {
 		return index === list.length - 1
 	}

@@ -3,18 +3,22 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
+		this.mouseMove = new MouseMove(mouse)
 		this.grid = new Grid(mouse)
 		this.stuffs = new LocalObjects([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			// new Planet(0, 0),
 			this.grid,
+			this.mouseMove,
 		])
+
 
 		this.worldObjects = new LocalObjects()
 
 		ObjectPersistence.get().forEach(o => {
 			this.worldObjects.add(o)
+			this.mouseMove.add(o)
 		})
 
 		this.add = null
@@ -62,25 +66,18 @@ export class WorldEditor {
 			const o = this.add(p)
 			
 			this.worldObjects.add(o)
+			this.mouseMove.add(o)
 			ObjectPersistence.save(o)
 		})
 	}
 
 	update() {
-		this.stuffs.update()
 		this.worldObjects.update()
+		this.stuffs.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.stuffs.draw(draw, guiDraw)
 		this.worldObjects.draw(draw, guiDraw)
-
-		for (const o of this.worldObjects.objects) {
-			if (this.mouse.hovering(o)) {
-				draw.new_rectangle(o.position)
-				draw.new_text(o.position, 'right click to move')
-				break
-			}
-		}
+		this.stuffs.draw(draw, guiDraw)
 	}
 }
