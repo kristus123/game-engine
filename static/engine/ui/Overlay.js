@@ -9,8 +9,8 @@ export class Overlay {
 	}
 
 	static leftButton(text, onClick) {
-			const div = HtmlUtils.createElement('div', '.left', '')
-			const b = HtmlUtils.createElement('button', div, '')
+			const div = Html.createElement('div', '.left', '')
+			const b = Html.createElement('button', div, '')
 
 			b.style.padding = '10px'
 			b.style.margin = '5px'
@@ -22,8 +22,8 @@ export class Overlay {
 	}
 
 	static rightButton(text, onClick) {
-			const div = HtmlUtils.createElement('div', '.right', '')
-			const b = HtmlUtils.createElement('button', div, '')
+			const div = Html.createElement('div', '.right', '')
+			const b = Html.createElement('button', div, '')
 
 			b.style.padding = '10px'
 			b.style.margin = '5px'
@@ -36,8 +36,8 @@ export class Overlay {
 
 
 	static bottomButton(text, onClick) {
-			const div = HtmlUtils.createElement('div', '.bottom', 'item')
-			const b = HtmlUtils.createElement('button', div, '')
+			const div = Html.createElement('div', '.bottom', 'item')
+			const b = Html.createElement('button', div, '')
 
 			b.style.padding = '10px'
 			b.style.margin = '5px'
@@ -49,14 +49,14 @@ export class Overlay {
 	}
 
 	static clearBottom() {
-		HtmlUtils.removeChildElementsInId('bottom')
+		Html.removeChildElementsInId('bottom')
 	}
 
 	static bottomImage(image, onClick) {
-		const div = HtmlUtils.createElement('div', '.bottom', 'item image')
+		const div = Html.createElement('div', '.bottom', 'item image')
 		div.style.background = 'white'
 
-		const i = HtmlUtils.createElement('img', div, 'image')
+		const i = Html.createElement('img', div, 'image')
 		i.src = image
 		i.style.maxWidth = '100%'
 

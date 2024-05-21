@@ -58,6 +58,10 @@ export class Mouse {
 		return Collision.between(this.position, o) && this.down
 	}
 
+	hovering(o) {
+		return Collision.between(this.position, o)
+	}
+
 	holdingO(o) {
 		if (!this.holding) {
 			if (Collision.between(this.position, o) && this.down) {

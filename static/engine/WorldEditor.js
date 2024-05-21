@@ -18,7 +18,7 @@ export class WorldEditor {
 
 		this.add = null
 		Overlay.leftButton('game objects', () => {
-			HtmlUtils.removeChildElementsInId('bottom')
+			Overlay.clearBottom()
 
 			Overlay.bottomButton('chicken', () => {
 				this.add = p => new Chicken(p)
@@ -66,9 +66,6 @@ export class WorldEditor {
 				draw.new_rectangle(o.position)
 				draw.new_text(o.position, 'right click to move')
 				break
-			}
-			else  {
-				this.mouse.moveIf(o)
 			}
 		}
 	}
