@@ -33,7 +33,7 @@ export class Picture {
 
 	draw(draw, guiDraw) { // todo
         if(this.spriteSheetFailed){
-			draw.rectangle(-newWidth, -newHeight, newWidth, newHeight,"white")
+			draw.rectangle(this.dynamicGameObject.x,this.dynamicGameObject.y,this.dynamicGameObject.width,this.dynamicGameObject.height,"white")
 		return;
 	   }
 		if (this.image.complete) {
