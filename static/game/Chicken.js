@@ -5,7 +5,7 @@ export class Chicken extends DynamicGameObject {
 		this.position.width = 60
 		this.position.height = 60
 
-		this.sprite = new Sprite(this, '/static/assets/Chicken_Sprite_Sheet.png', 32, 32, 2, [
+		this.sprite = new Sprite(this, '/static/assets/sprites/chicken_sprite_32x32.png', 2, [
 			{ x: 1, y: 0 },
 			{ x: 2, y: 1 },
 			{ x: 2, y: 2 },

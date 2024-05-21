@@ -1,34 +1,50 @@
+function dimensionsFrom(src) {
+    const pattern = /(\d+)x(\d+)/;
+    const match = src.match(pattern);
+
+    if (match) {
+        return {
+            width: parseInt(match[1], 10),
+            height: parseInt(match[2], 10)
+        };
+    } else {
+		throw new Error("xx")
+    }
+}
+
 export class Sprite {
-	constructor(dynamicGameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
+	constructor(position, src, scale, frameSequence, speed=100) {
 		this.spriteSheet = new Image()
 		this.spriteSheet.src = src
 
-		this.currentFrameIndex = 0 // Index of the current frame in frameSequence
+		const d = dimensionsFrom(src)
+		this.width = d.width
+		this.height = d.height
+
+		this.currentFrame = 0
 		const totalFrames = frameSequence.length
 
 		setInterval(() => {
-			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
+			this.currentFrame = (this.currentFrame + 1) % totalFrames
 		}, speed)
 	}
 
 	draw(draw, guiDraw) {
 		if (this.spriteSheet.complete) {
 
-			const frameInfo = this.frameSequence[this.currentFrameIndex]
-			const currentFrameX = frameInfo.x
-			const currentFrameY = frameInfo.y
+			const frame = this.frameSequence[this.currentFrame]
 
 			draw.ctx.imageSmoothingEnabled = false
 			draw.ctx.drawImage(
 				this.spriteSheet,
-				currentFrameX * this.frameWidth,
-				currentFrameY * this.frameHeight,
-				this.frameWidth,
-				this.frameHeight,
-				this.dynamicGameObject.x,
-				this.dynamicGameObject.y,
-				this.frameWidth * this.scale,
-				this.frameHeight * this.scale,
+				frame.x * this.width,
+				frame.y * this.height,
+				this.width,
+				this.height,
+				this.position.x,
+				this.position.y,
+				this.width * this.scale,
+				this.height * this.scale,
 			)
 		}
 	}

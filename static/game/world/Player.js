@@ -29,7 +29,7 @@ export class Player extends DynamicGameObject {
 			this.charge += 1
 		}, 20)
 
-		this.flyingUp = new Sprite(this, '/static/assets/player.png', 16, 16, 5, [
+		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', 5, [
 			{ x: 4, y: 3 },
 			{ x: 5, y: 3 },
 			{ x: 6, y: 3 },
