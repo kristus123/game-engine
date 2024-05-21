@@ -2,7 +2,6 @@ export class VideoCall  {
 	constructor() {
 		this.localStream ;
 		this.clientId
-		this.clientId
 		this.peerConnection = {}
 		this.startCall()
 		this.socketClient = new SocketClient(8082, c => {
@@ -97,10 +96,10 @@ export class VideoCall  {
 				if (videoElement) {
 				  videoElement.remove();
 				}
-				const peerConnection = this.peerConnection[data.fromClientId];
+				const peerConnection = this.peerConnection[data.clientId];
 				if (peerConnection) {
 				  peerConnection.close();
-				  delete this.peerConnection[data.fromClientId];
+				  delete this.peerConnection[data.clientId];
 				}
 			})
 			
@@ -124,11 +123,10 @@ export class VideoCall  {
 		peerConnection.onicecandidate = event => {
 			if (event.candidate) {
 				console.warn(peerId+" send icecandinate");
-				console.warn(peerId+" send icecandinate");
 				this.socketClient.send({
 					action: 'RTC_ICE_CANDIDATE',
 					candidate: event.candidate,
-					fromClientId:peerId
+					clientId:peerId
 				})
 			}
 		}
