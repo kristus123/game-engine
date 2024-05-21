@@ -3,11 +3,12 @@ export class WorldEditor {
 	constructor(camera, mouse) {
 		camera.followInstantly(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
+		this.grid = new Grid(mouse)
 		this.stuffs = new LocalObjects([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
 			// new Planet(0, 0),
-			// new Grid(mouse),
+			this.grid,
 		])
 
 		this.worldObjects = new LocalObjects()
@@ -23,6 +24,19 @@ export class WorldEditor {
 			Overlay.bottomButton('chicken', () => {
 				this.add = p => new Chicken(p)
 			})
+
+		})
+
+		Overlay.leftButton('grid', () => {
+			Overlay.clearBottom()
+			this.grid.show = true
+
+			this.add = p => this.grid.add(p)
+
+			// Overlay.bottomButton('chicken', () => {
+
+			// 	this.add = p => new Chicken(p)
+			// })
 
 		})
 
