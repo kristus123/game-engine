@@ -2,6 +2,7 @@ export class VideoCall  {
 	constructor() {
 		this.localStream ;
 		this.clientId
+		this.clientId
 		this.peerConnection = {}
 		this.startCall()
 		this.socketClient = new SocketClient(8082, c => {
@@ -12,6 +13,7 @@ export class VideoCall  {
 
 			c.on("RTC_CLIENT_CONNECTED",data =>{
 				//CREATE PEER CONNECTION FOR NEW USER
+
 
 				const checkForConnection = setInterval(()=>{
 					if(this.localStream != undefined){
@@ -45,6 +47,7 @@ export class VideoCall  {
 				if (!peerConnection) {
 					startCall();
 					console.warn("Star");
+					console.warn("Star");
 				}
 				
 				this.peerConnection[data.clientId] = peerConnection;
@@ -59,6 +62,7 @@ export class VideoCall  {
 							answer: peerConnection.localDescription,
 							clientId:data.clientId			
 						})
+
 
 					})
 					.catch(error => {
@@ -93,10 +97,10 @@ export class VideoCall  {
 				if (videoElement) {
 				  videoElement.remove();
 				}
-				const peerConnection = this.peerConnection[data.clientId];
+				const peerConnection = this.peerConnection[data.fromClientId];
 				if (peerConnection) {
 				  peerConnection.close();
-				  delete this.peerConnection[data.clientId];
+				  delete this.peerConnection[data.fromClientId];
 				}
 			})
 			
@@ -120,10 +124,11 @@ export class VideoCall  {
 		peerConnection.onicecandidate = event => {
 			if (event.candidate) {
 				console.warn(peerId+" send icecandinate");
+				console.warn(peerId+" send icecandinate");
 				this.socketClient.send({
 					action: 'RTC_ICE_CANDIDATE',
 					candidate: event.candidate,
-					clientId:peerId
+					fromClientId:peerId
 				})
 			}
 		}
