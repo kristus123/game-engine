@@ -18,7 +18,7 @@ ErrorHandler.run(() => {
 	level.change(new WorldEditor(camera, mouse))
 
 	const overlay = new Overlay(camera)
-
+	new VideoCall()
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
 			Palette.clear([camera.palette, guiPalette])
