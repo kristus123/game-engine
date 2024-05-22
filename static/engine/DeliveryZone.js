@@ -16,7 +16,7 @@ export class DeliveryZone extends StaticGameObject {
 			}
 		}
 
-		console.log("delivered " + this.deliveredObjects.length)
+		console.log('delivered ' + this.deliveredObjects.length)
 	}
 
 	draw(draw, guiDraw) {

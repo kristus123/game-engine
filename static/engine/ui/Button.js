@@ -1,5 +1,5 @@
 export class Button extends DynamicGameObject {
-	constructor(text, camera) { 
+	constructor(text, camera) {
 		super(new Position(0, 0, 265, 117), 100, 100)
 
 		this.button = Html.button('hei', b => {

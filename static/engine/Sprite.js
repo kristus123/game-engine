@@ -1,15 +1,16 @@
 function dimensionsFrom(src) {
-    const pattern = /(\d+)x(\d+)/;
-    const match = src.match(pattern);
+	const pattern = /(\d+)x(\d+)/
+	const match = src.match(pattern)
 
-    if (match) {
-        return {
-            width: parseInt(match[1], 10),
-            height: parseInt(match[2], 10)
-        };
-    } else {
-		throw new Error("xx")
-    }
+	if (match) {
+		return {
+			width: parseInt(match[1], 10),
+			height: parseInt(match[2], 10)
+		}
+	}
+	else {
+		throw new Error('xx')
+	}
 }
 
 export class Sprite {

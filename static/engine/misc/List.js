@@ -16,7 +16,7 @@ export class List {
 		for (let i = list.length - 1; i >= 0; i--) {
 			if (predicate(list[i])) {
 				list.splice(i, 1)
-				console.log("removed item")
+				console.log('removed item')
 			}
 		}
 	}

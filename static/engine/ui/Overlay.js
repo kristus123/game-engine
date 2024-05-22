@@ -9,43 +9,43 @@ export class Overlay {
 	}
 
 	static leftButton(text, onClick) {
-			const div = Html.createElement('div', '.left', '')
-			const b = Html.createElement('button', div, '')
+		const div = Html.createElement('div', '.left', '')
+		const b = Html.createElement('button', div, '')
 
-			b.style.padding = '10px'
-			b.style.margin = '5px'
+		b.style.padding = '10px'
+		b.style.margin = '5px'
 
-			b.innerHTML = text
-			b.value = text
+		b.innerHTML = text
+		b.value = text
 
-			b.addEventListener('click', onClick)
+		b.addEventListener('click', onClick)
 	}
 
 	static rightButton(text, onClick) {
-			const div = Html.createElement('div', '.right', '')
-			const b = Html.createElement('button', div, '')
+		const div = Html.createElement('div', '.right', '')
+		const b = Html.createElement('button', div, '')
 
-			b.style.padding = '10px'
-			b.style.margin = '5px'
+		b.style.padding = '10px'
+		b.style.margin = '5px'
 
-			b.innerHTML = text
-			b.value = text
+		b.innerHTML = text
+		b.value = text
 
-			b.addEventListener('click', onClick)
+		b.addEventListener('click', onClick)
 	}
 
 
 	static bottomButton(text, onClick) {
-			const div = Html.createElement('div', '.bottom', 'item')
-			const b = Html.createElement('button', div, '')
+		const div = Html.createElement('div', '.bottom', 'item')
+		const b = Html.createElement('button', div, '')
 
-			b.style.padding = '10px'
-			b.style.margin = '5px'
+		b.style.padding = '10px'
+		b.style.margin = '5px'
 
-			b.innerHTML = text
-			b.value = text
+		b.innerHTML = text
+		b.value = text
 
-			b.addEventListener('click', onClick)
+		b.addEventListener('click', onClick)
 	}
 
 	static clearBottom() {

@@ -33,7 +33,7 @@ export class Html {
 
 		const p = element('p', 'ui')
 		p.textContent = text
-		p.style.fontSize = '100px';
+		p.style.fontSize = '100px'
 		div.appendChild(p)
 
 		document.getElementById('ui_elements').appendChild(div)
