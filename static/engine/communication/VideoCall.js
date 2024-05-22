@@ -13,7 +13,6 @@ export class VideoCall {
 			})
 
 			c.on('RTC_CLIENT_CONNECTED', data => {
-				//CREATE PEER CONNECTION FOR NEW USER
 				for (let i = 0; i < this.connectedClientId.length; i++) {
 					const id = this.connectedClientId[i]
 					if (id == data.clientId) {
@@ -82,7 +81,6 @@ export class VideoCall {
 					})
 			})
 
-			// When answer is received
 			c.on('RTC_ANSWER', data => {
 				console.warn(data.clientId+' answer recived from '+data.fromClientId)
 				console.warn(data.answer)
@@ -97,7 +95,7 @@ export class VideoCall {
 						console.error('Error setting remote description from answer', error)
 					})
 			})
-			// When an ICE candidate is received
+
 			c.on('RTC_ICE_CANDIDATE', data => {
 				console.warn(data.clientId+' recives icecandinate')
 				const peerConnection = this.peerConnection[data.clientId]
@@ -123,12 +121,13 @@ export class VideoCall {
 			})
 		})
 	}
+
 	createPeerConnection(peerId) {
 		const peerConnection = new RTCPeerConnection({
 			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 		})
 
-		peerConnection.ontrack = (event) => {
+		peerConnection.ontrack = e => {
 			console.warn(this.clientId +' '+ this.fromClientId)
 
 			let remoteVideo = document.getElementById(this.fromClientId)
@@ -138,22 +137,19 @@ export class VideoCall {
 				remoteVideo.autoplay = true
 				document.getElementById('videocallrtc').appendChild(remoteVideo)
 			}
-			remoteVideo.srcObject = event.streams[0]
-
+			remoteVideo.srcObject = e.streams[0]
 		}
 
-		peerConnection.onicecandidate = event => {
-			if (event.candidate) {
-				console.warn(peerId+' send icecandinate')
+		peerConnection.onicecandidate = e => {
+			if (e.candidate) {
 				this.socketClient.send({
 					action: 'RTC_ICE_CANDIDATE',
-					candidate: event.candidate,
+					candidate: e.candidate,
 					clientId: peerId
 				})
 			}
 		}
 
-		console.warn(peerConnection.signalingState)
 		return peerConnection
 	}
 
