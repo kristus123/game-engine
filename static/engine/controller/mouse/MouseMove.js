@@ -21,7 +21,7 @@ export class MouseMove {
 
 			if (this.holding && this.mouse.up) {
 				this.holding = null
-				Call(this.moved)
+				this.moved(o)
 			}
 		}
 	}

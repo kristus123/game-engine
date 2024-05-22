@@ -62,6 +62,11 @@ export class WorldEditor {
 			}
 		})
 
+		this.mouseMove.moved = o => {
+			ObjectPersistence.update(o)
+			console.log("moved and updated")
+		}
+
 		mouse.addOnClick('paint', p => {
 			const o = this.add(p)
 			

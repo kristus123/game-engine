@@ -16,18 +16,9 @@ export class List {
 		for (let i = list.length - 1; i >= 0; i--) {
 			if (predicate(list[i])) {
 				list.splice(i, 1)
+				console.log("removed item")
 			}
 		}
-	}
-
-	static findByObjectId(list, objectId) {
-		for (const o of list) {
-			if (o.objectId == objectId) {
-				return o
-			}
-		}
-
-		throw new Error("COULD NOT FIND")
 	}
 
 	static lastIndex(list, index) {
