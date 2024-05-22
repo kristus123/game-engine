@@ -21,9 +21,11 @@ export class VideoCall {
 						return
 					}
 				}
+
 				if (this.clientId == data.clientId) {
 					return
 				}
+
 				this.connectedClientId.push(data.clientId)
 				const checkForConnection = setInterval(() => {
 					if (this.localStream != undefined) {
@@ -40,19 +42,18 @@ export class VideoCall {
 					peerConnection.createOffer()
 						.then(offer => peerConnection.setLocalDescription(offer))
 						.then(() => {
-							console.warn(data.clientId+' offer send')
+							console.warn(data.clientId + ' offer send')
 							this.socketClient.send({
 								action: 'RTC_OFFER',
 								offer: peerConnection.localDescription,
 								clientId: data.clientId
 							})
-
 						})
 				}, 1000)
 			})
-			// When an offer is received
+
 			c.on('RTC_OFFER', data => {
-				console.warn(data.clientId+' offer recived')
+				console.warn(data.clientId + ' offer recived')
 				this.fromClientId = data.fromClientId
 
 				console.warn('from '+this.fromClientId)
@@ -75,13 +76,12 @@ export class VideoCall {
 							clientId: data.clientId,
 							fromClientId: this.fromClientId
 						})
-
-
 					})
 					.catch(error => {
 						console.error('Error handling offer', error)
 					})
 			})
+
 			// When answer is received
 			c.on('RTC_ANSWER', data => {
 				console.warn(data.clientId+' answer recived from '+data.fromClientId)
@@ -108,7 +108,7 @@ export class VideoCall {
 					  })
 				  }
 			})
-			//When user is disconnected
+
 			c.on('RTC_CLIENT_DISCONNECTED', data => {
 				console.warn(data.clientId+' disconnected')
 				const videoElement = document.getElementById(data.clientId)
@@ -121,7 +121,6 @@ export class VideoCall {
 				  delete this.peerConnection[data.clientId]
 				}
 			})
-
 		})
 	}
 	createPeerConnection(peerId) {
@@ -142,6 +141,7 @@ export class VideoCall {
 			remoteVideo.srcObject = event.streams[0]
 
 		}
+
 		peerConnection.onicecandidate = event => {
 			if (event.candidate) {
 				console.warn(peerId+' send icecandinate')
@@ -152,21 +152,21 @@ export class VideoCall {
 				})
 			}
 		}
+
 		console.warn(peerConnection.signalingState)
 		return peerConnection
 	}
+
 	startCall() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
-				//creating and setting local streaming
 				const localVideo = document.createElement('VIDEO')
 				localVideo.autoplay = true
 				localVideo.muted = true
 				localVideo.srcObject = stream
-				document.getElementById('videocallrtc').appendChild(localVideo)
-				//setting stream to local stream
-				this.localStream = stream
 
+				document.getElementById('videocallrtc').appendChild(localVideo)
+				this.localStream = stream
 			})
 			.catch((error) => {
 				console.error('Error starting call', error)

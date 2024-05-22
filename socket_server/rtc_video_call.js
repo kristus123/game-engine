@@ -69,7 +69,6 @@ server.on('RTC_ICE_CANDIDATE', (client, clientId, data) => {
 })
 
 server.on('RTC_OFFER', (client, clientId, data) => {
-	console.log(clientId + ' to '+data.clientId)
 	server.sendToClient(server.clientFrom[data.clientId], {
 		action: 'RTC_OFFER',
 		offer: data.offer,
@@ -88,7 +87,6 @@ server.on('RTC_ANSWER', (client, clientId, data) => {
 })
 
 server.on('RTC_HANGUP', (client, clientId, data) => {
-	console.log('icesc' +clientId + ' to '+data.clientId)
 	server.sendToOthers(client, {
 		action: 'RTC_HANGUP',
 		clientId: data.clientId
