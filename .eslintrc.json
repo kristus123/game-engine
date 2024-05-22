@@ -223,6 +223,7 @@
         "Thread": "readonly",
         "Train": "readonly",
         "Velocity": "readonly",
+        "VideoCall": "readonly",
         "VoidDialogue": "readonly",
         "Water": "readonly",
         "World": "readonly",
