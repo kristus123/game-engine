@@ -1,13 +1,22 @@
 .button {
+	position: absolute;
+	top: 0; 
+	left: 0;
+
 	font-size: 50px;
+
+	z-index: 1; 
 	padding: 30px 50px; 
 
 	border-radius: 50px;
 
 	background-color: #007bff; 
 	color: #fff; 
+	border: none; 
+	cursor: auto;
 }
 
 .button:hover {
+	padding: 50px 50px;
 	background-color: green;
 }

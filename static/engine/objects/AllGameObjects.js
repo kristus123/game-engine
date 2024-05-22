@@ -1,6 +1,14 @@
-export class AllObjects {
+export class AllGameObjects {
 	constructor() {
 		this.objects = []
+	}
+
+	updateAnd(run) {
+		X.update(this.objects, run)
+	}
+
+	draw(draw, guiDraw) {
+		X.draw(this.objects, draw, guiDraw)
 	}
 
 	add(o) {
@@ -13,7 +21,7 @@ export class AllObjects {
 
 	removeByObjectId(objectId) {
 		for (const o of this.objects) {
-			if (o.objectId == objectId) {
+			if (o.uuid == objectId) {
 				List.remove(this.objects, o)
 
 				break
@@ -23,7 +31,7 @@ export class AllObjects {
 
 	setHandledBy(objectId, clientId) {
 		for (const o of this.objects) {
-			if (o.objectId == objectId) {
+			if (o.uuid == objectId) {
 				o.handledByClientId = clientId
 
 				break
@@ -31,22 +39,13 @@ export class AllObjects {
 		}
 	}
 
-	get(objectId) {
-		return this.gameObjectFrom[objectId]
+	getByObjectId(objectId, run) {
+		for (const o of this.objects) {
+			if (o.uuid == objectId) {
+				run(o)
+				break
+			}
+		}
 	}
-
-
-	update() {
-		HelperThing.update(this.objects)
-	}
-
-	updateAnd(run) {
-		HelperThing.updateAnd(this.objects, run)
-	}
-
-	draw(draw, guiDraw) {
-		HelperThing.draw(this.objects, draw, guiDraw)
-	}
-
 }
 

@@ -4,7 +4,7 @@ export class PissQuest {
 
 		deliveryDrone.compass.clear()
 
-		this.localObjects = new LocalObjects(Random.positions(0, 200, -200, 3000, 20).map(position => {
+		this.runAll = new RunAll(Random.positions(0, 200, -200, 3000, 20).map(position => {
 			position.width = 200
 			position.height = 200
 
@@ -25,10 +25,10 @@ export class PissQuest {
 			Call(this.onFinish)
 		})
 
-		this.localObjects.update()
+		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 	}
 }

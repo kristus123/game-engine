@@ -14,10 +14,12 @@ ErrorHandler.run(() => {
 	const controller = new Controller()
 
 	const level = new Level()
-	// level.change(new World(level, camera, mouse, controller))
-	level.change(new WorldEditor(camera, mouse))
+	level.change(new World(level, camera, mouse, controller))
+	// level.change(new WorldEditor(camera, mouse))
 
-	const overlay = new Overlay(camera)
+	// const overlay = new Overlay(camera)
+
+	new VideoCall()
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
@@ -25,7 +27,7 @@ ErrorHandler.run(() => {
 
 			Physics.global.update(deltaTime)
 
-			overlay.update()
+			// overlay.update()
 
 			camera.context(() => {
 				controller.update()
@@ -33,12 +35,12 @@ ErrorHandler.run(() => {
 
 				level.update()
 				level.draw(draw, guiDraw)
-				overlay.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, '#130927')
+			// new Draw.text(guiPalette.ctx, 20, 20, 80, 80, Loop.fps)
 			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 		})
 	})

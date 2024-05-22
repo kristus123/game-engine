@@ -3,7 +3,8 @@ export class Picture {
 		this.dynamicGameObject = dynamicGameObject
 
 		this.image = new Image()
-		this.image.src = src
+		this.image.src = src;
+       
 	}
 
 	r(draw, rotation=2) {
@@ -58,4 +59,3 @@ export class Picture {
 		draw.ctx.restore()
 	}
 }
-

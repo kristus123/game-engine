@@ -1,4 +1,4 @@
-export class HelperThing {
+export class X {
 	constructor(classes=[]) {
 
 		for (const c of classes) {
@@ -8,11 +8,7 @@ export class HelperThing {
 		}
 	}
 
-	static update(objects) {
-		HelperThing.updateAnd(objects, () => {})
-	}
-
-	static updateAnd(objects, run=() => {}) {
+	static update(objects, run=() => {}) {
 		objects.forEach(o => {
 			try {
 				if (o.update) {
@@ -21,9 +17,8 @@ export class HelperThing {
 				}
 			}
 			catch (error) {
-				throw error
-				// throw new Error('an error occurred while running "update" method for '
-				// + o.constructor.name + '  ' + error)
+				throw new Error('an error occurred while running "update" method for '
+					+ o.constructor.name + '  ' + error)
 			}
 		})
 	}

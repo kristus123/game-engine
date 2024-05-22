@@ -110,7 +110,6 @@
     "globals": {
         "AiChat": "readonly",
         "AllGameObjects": "readonly",
-        "AllObjects": "readonly",
         "AssertNotNull": "readonly",
         "Audio": "readonly",
         "BackspaceEffect": "readonly",

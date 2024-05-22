@@ -20,16 +20,6 @@ export class List {
 		}
 	}
 
-	static findByObjectId(list, objectId) {
-		for (const o of list) {
-			if (o.objectId == objectId) {
-				return o
-			}
-		}
-
-		throw new Error("COULD NOT FIND")
-	}
-
 	static lastIndex(list, index) {
 		return index === list.length - 1
 	}
@@ -40,14 +30,6 @@ export class List {
 
 	static includes(list, o) {
 		return list.includes(o)
-	}
-
-	static assertNoNullElements(list) {
-		for (const c of list) {
-			if (c == null) {
-				throw new Error('null passed into list')
-			}
-		}
 	}
 
 }

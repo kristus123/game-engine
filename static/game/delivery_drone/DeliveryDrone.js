@@ -12,19 +12,19 @@ export class DeliveryDrone extends DynamicGameObject {
 
 		this.enterVehicle = new EnterVehicle(this, player, camera, controller)
 
-		this.localObjects = new LocalObjects([
+		this.runAll = new RunAll([
 			this.enterVehicle,
 			this.compass,
 		])
 	}
 
 	update() {
-		this.localObjects.update()
+		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
 
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)
 		this.splash.draw(draw, guiDraw)
 

@@ -18,9 +18,9 @@ server.onConnection = (client, clientId) => {
 		if (g.handledByClientId == null) {
 			g.handledByClientId = clientId
 			server.sendToEveryone( {
-				action: 'OBJECT_HANDLED_BY',
+				action: 'GET_CLIENT_UPDATE',
 				clientid: g.handledByClientId,
-				objectId: g.objectId
+				uuid: g.uuid
 			})
 		}
 	}
@@ -36,9 +36,9 @@ server.onClose = (client, clientId) => {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = server.allClientIds[0]
 			server.sendToEveryone({
-				action: 'OBJECT_HANDLED_BY',
+				action: 'GET_CLIENT_UPDATE',
 				clientid: o.handledByClientId,
-				objectId: o.objectId
+				uuid: o.uuid
 			})
 		}
 	}
@@ -46,13 +46,13 @@ server.onClose = (client, clientId) => {
 
 server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.objectId == data.objectId) {
+		if (o.uuid == data.uuid) {
 			o.position.x = data.x
 			o.position.y = data.y
 
 			server.sendToOthers(client, {
 				action: 'UPDATE_OBJECT_POSITION',
-				objectId: data.objectId,
+				uuid: data.uuid,
 				x: data.x,
 				y: data.y,
 			})
@@ -64,10 +64,10 @@ server.on('UPDATE_OBJECT_POSITION', (client, clientId, data) => {
 
 server.on('REMOVE_OBJECT', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.objectId == data.objectId) {
+		if (o.uuid == data.uuid) {
 			server.sendToEveryone({
 				action: 'REMOVE_OBJECT',
-				objectId: data.objectId,
+				uuid: data.uuid,
 			})
 
 			List.remove(gameObjects, o)
@@ -77,14 +77,14 @@ server.on('REMOVE_OBJECT', (client, clientId, data) => {
 	}
 })
 
-server.on('OBJECT_HANDLED_BY', (client, clientId, data) => {
+server.on('GET_CLIENT_UPDATE', (client, clientId, data) => {
 	for (const o of gameObjects) {
-		if (o.objectId == data.objectId) {
+		if (o.uuid == data.uuid) {
 			o.handledByClientId = data.clientid
 			server.sendToEveryone({
-				action: 'OBJECT_HANDLED_BY',
+				action: 'GET_CLIENT_UPDATE',
 				clientid: o.handledByClientId,
-				objectId: o.objectId
+				uuid: o.uuid
 			})
 
 			break

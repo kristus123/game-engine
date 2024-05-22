@@ -3,9 +3,9 @@ export class Gun {
 		this.bullets = []
 		this.hittableObjects = []
 
-		this.mouse.addOnClick('shoot', position => {
+		/*this.mouse.addOnClick('shoot', position => {
 			this.bullets.push(new Bullet(this, this.player, position))
-		})
+		})*/
 	}
 
 	update() {

@@ -1,51 +1,67 @@
-function dimensionsFrom(src) {
-    const pattern = /(\d+)x(\d+)/;
-    const match = src.match(pattern);
-
-    if (match) {
-        return {
-            width: parseInt(match[1], 10),
-            height: parseInt(match[2], 10)
-        };
-    } else {
-		throw new Error("xx")
-    }
-}
-
 export class Sprite {
-	constructor(position, src, scale, frameSequence, speed=100) {
+	constructor(dynamicGameObject, src, frameWidth, frameHeight, scale, frameSequence, speed=100) {
 		this.spriteSheet = new Image()
+		
 		this.spriteSheet.src = src
-
-		const d = dimensionsFrom(src)
-		this.width = d.width
-		this.height = d.height
-
-		this.currentFrame = 0
+		
+		this.currentFrameIndex = 0 // Index of the current frame in frameSequence
 		const totalFrames = frameSequence.length
 
 		setInterval(() => {
-			this.currentFrame = (this.currentFrame + 1) % totalFrames
+			this.currentFrameIndex = (this.currentFrameIndex + 1) % totalFrames
 		}, speed)
 	}
-
 	draw(draw, guiDraw) {
-		if (this.spriteSheet.complete) {
+		if (this.spriteSheet.complete ) {
 
-			const frame = this.frameSequence[this.currentFrame]
+			const frameInfo = this.frameSequence[this.currentFrameIndex]
+			const currentFrameX = frameInfo.x
+			const currentFrameY = frameInfo.y
 
 			draw.ctx.imageSmoothingEnabled = false
 			draw.ctx.drawImage(
 				this.spriteSheet,
-				frame.x * this.width,
-				frame.y * this.height,
-				this.width,
-				this.height,
-				this.position.x,
-				this.position.y,
-				this.width * this.scale,
-				this.height * this.scale,
+				currentFrameX * this.frameWidth,
+				currentFrameY * this.frameHeight,
+				this.frameWidth,
+				this.frameHeight,
+				this.dynamicGameObject.x,
+				this.dynamicGameObject.y,
+				this.frameWidth * this.scale,
+				this.frameHeight * this.scale,
 			)
+		}
+	}
+
+	mirror(draw) {
+		if(this.spriteSheetFailed){
+			this.checkBeforeDraw(draw)
+			return;
+		   }
+		if (this.spriteSheet.complete) {
+			const frameInfo = this.frameSequence[this.currentFrameIndex]
+			const currentFrameX = frameInfo.x
+			const currentFrameY = frameInfo.y
+
+			draw.ctx.imageSmoothingEnabled = false
+
+			// Mirror the image horizontally
+			draw.ctx.save()
+			draw.ctx.scale(-1, 1)
+
+			draw.ctx.drawImage(
+				this.spriteSheet,
+				currentFrameX * this.frameWidth,
+				currentFrameY * this.frameHeight,
+				this.frameWidth,
+				this.frameHeight,
+				-this.dynamicGameObject.x - this.frameWidth * this.scale, // Adjusting x position for mirroring
+				this.dynamicGameObject.y,
+				this.frameWidth * this.scale,
+				this.frameHeight * this.scale,
+			)
+
+			draw.ctx.restore() // Restore the transformation to prevent affecting other drawings
 		}
 	}
 

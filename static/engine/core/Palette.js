@@ -3,11 +3,7 @@ export class Palette {
 	static height = window.innerHeight
 
 	static main() {
-		const canvases = document.getElementById('canvases')
-
-		const canvas = document.createElement('canvas')
-		canvases.appendChild(canvas)
-
+		const canvas = document.getElementById('game')
 		canvas.width = Palette.width
 		canvas.height = Palette.height
 		const ctx = canvas.getContext('2d')
@@ -33,13 +29,14 @@ export class Palette {
 	}
 
 	static clear(canvases) {
-		canvases.forEach(c => {
+		canvases.forEach((c) => {
+			c.ctx.clearRect(0, 0, Palette.width, Palette.height) // do not need 2 ? remove
 			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
 		})
 	}
 
 	static apply(mainPalette, palettes) {
-		palettes.forEach(p => {
+		palettes.forEach((p) => {
 			mainPalette.ctx.drawImage(p.canvas, 0, 0)
 		})
 	}

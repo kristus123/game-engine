@@ -1,20 +1,16 @@
 export class Grid {
 
 	constructor(mouse) {
-		this.cellSize = 128
+		this.cellSize = 32
 		this.width = 1_000
 		this.height = 1_000
 
 		this.blocks = []
 
-		this.show = false
-	}
-
-	add(position) {
-		const p = this.mouseGrid(position)
-		p.width = 128
-		p.height = 128
-		return new StaticGameObject(p, '/static/assets/floors/wooden_floor_128x128.png')
+		mouse.addOnClick('place block', mousePosition => {
+			const p = this.mouseGrid(mousePosition)
+			this.blocks.push(new DynamicGameObject(new Position(p.x, p.y, 32, 32), 10, 10, '/static/assets/planets/exoplanet32x32.png'))
+		})
 	}
 
 	mouseGrid(mousePosition) {
@@ -39,16 +35,13 @@ export class Grid {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.show) {
-			const snappedPosition = this.mouseGrid(this.mouse.position)
-			draw.new_rectangle(snappedPosition)
+		const snappedPosition = this.mouseGrid(this.mouse.position)
+		draw.new_rectangle(snappedPosition)
 
-			this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
+		this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid
 
-			for (const p of this.blocks) {
-				p.draw(draw)
-			}
-			
+		for (const p of this.blocks) {
+			p.draw(draw)
 		}
 	}
 }

@@ -10,7 +10,6 @@ export class Player extends DynamicGameObject {
 		this.keyboard = new Keyboard()
 
 		this.gun = new Gun(this, mouse)
-		this.movableObjects = new MovableObjects(this)
 
 		// this.keyboardEvent.addKeyDownListener('e', () => {
 		// 	if (this.charge >= 100) {
@@ -29,7 +28,7 @@ export class Player extends DynamicGameObject {
 			this.charge += 1
 		}, 20)
 
-		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', 5, [
+		this.flyingUp = new Sprite(this, '/static/assets/player.png', 16, 16, 5, [
 			{ x: 4, y: 3 },
 			{ x: 5, y: 3 },
 			{ x: 6, y: 3 },
@@ -44,7 +43,6 @@ export class Player extends DynamicGameObject {
 		if (this.beacon) {
 			this.beacon.update()
 		}
-		this.movableObjects.update()
 	}
 
 	draw(draw, guiDraw) {
@@ -55,6 +53,5 @@ export class Player extends DynamicGameObject {
 		// draw.new_circle(this.mouse.position)
 
 		this.flyingUp.draw(draw, guiDraw)
-		this.movableObjects.draw(draw, guiDraw)
 	}
 }

@@ -6,7 +6,7 @@ export class DeliverPissLevel {
 			console.log('GOOD JOB BOI!')
 		}
 
-		this.localObjects = new LocalObjects([
+		this.runAll = new RunAll([
 			world,
 			npc,
 			new SecondChat(npc.position, world.mouse),
@@ -15,10 +15,10 @@ export class DeliverPissLevel {
 	}
 
 	update() {
-		this.localObjects.update()
+		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 	}
 }

@@ -9,7 +9,7 @@ export class StartMenu {
 		})
 
 
-		this.localObjects = new LocalObjects([
+		this.runAll = new RunAll([
 			new Picture(new DynamicGameObject(new Position(200, 0, 800, 800), 1, 1), '/static/assets/planets/exoplanet32x32.png'),
 			this.startGame,
 			this.settings,
@@ -18,10 +18,10 @@ export class StartMenu {
 
 	update() {
 		this.level.change(new CinematicIntroLevel(this.level, this.camera, this.mouse))
-		this.localObjects.update()
+		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 	}
 }

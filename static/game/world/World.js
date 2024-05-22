@@ -6,24 +6,23 @@ export class World {
 		controller.control(this.player)
 
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
-		this.gameObjects = new AllOnlineObjects(this.player)
+		this.gameObjects = new GameObjectsSocketClient(this.player)
 
-		this.localObjects = new LocalObjects([
+		this.runAll = new RunAll([
 			// this.deliveryDrone,
 			new StarBackground(camera),
 			new Planet(500, 0),
 			this.gameObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
-			new CollectChickensQuest(this.player, this.gameObjects.chickens),
 		])
 	}
 
 	update() {
-		this.localObjects.update()
+		this.runAll.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 	}
 }

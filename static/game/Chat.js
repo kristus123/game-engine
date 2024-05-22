@@ -1,7 +1,7 @@
 export class Chat {
 	constructor(camera, mouse) {
 
-		this.localObjects = new LocalObjects([
+		this.runAll = new RunAll([
 		])
 
 		// this.blur = new Blur(camera)
@@ -11,7 +11,7 @@ export class Chat {
 	}
 
 	update() {
-		this.localObjects.update()
+		this.runAll.update()
 
 		this.thing.update()
 	}
@@ -21,7 +21,7 @@ export class Chat {
 		this.picture.draw(draw)
 		this.thing.draw(draw)
 
-		this.localObjects.draw(draw, guiDraw)
+		this.runAll.draw(draw, guiDraw)
 	}
 
 }

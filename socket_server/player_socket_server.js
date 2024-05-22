@@ -7,6 +7,7 @@ s.onConnection = (client, clientId) => {
 		action: 'CONNECT_PLAYER',
 		clientId: clientId,
 	})
+	
 }
 
 s.onClose = (client, clientId) => {
@@ -33,5 +34,6 @@ s.on('UPDATE_MOUSE_POSITION', (client, clientId, data) => {
 		y: data.y,
 	})
 })
+
 
 s.start()
