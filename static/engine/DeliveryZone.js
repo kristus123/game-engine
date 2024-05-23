@@ -16,6 +16,11 @@ export class DeliveryZone extends StaticGameObject {
 			}
 		}
 
+		for (const o of this.deliveredObjects) {
+			o.velocity.x = 0
+			o.velocity.y = 0
+		}
+
 		console.log('delivered ' + this.deliveredObjects.length)
 	}
 
