@@ -110,7 +110,6 @@
     "globals": {
         "AiChat": "readonly",
         "AllObjects": "readonly",
-        "AllOnlineObjects": "readonly",
         "AssertNotNull": "readonly",
         "Audio": "readonly",
         "BackspaceEffect": "readonly",
@@ -182,6 +181,7 @@
         "ObjectPersistence": "readonly",
         "OffsetPosition": "readonly",
         "OnlineMouse": "readonly",
+        "OnlineObjects": "readonly",
         "OnlinePlayers": "readonly",
         "Overlay": "readonly",
         "Palette": "readonly",

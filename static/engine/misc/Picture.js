@@ -1,25 +1,9 @@
 export class Picture {
-	constructor(dynamicGameObject, src) {
-		this.dynamicGameObject = dynamicGameObject
+	constructor(o, src) {
+		this.dynamicGameObject = o
 
 		this.image = new Image()
 		this.image.src = src
-	}
-
-	r(draw, rotation=2) {
-		const newWidth = this.dynamicGameObject.width
-		const newHeight = this.dynamicGameObject.height
-
-		draw.ctx.save()
-
-		draw.ctx.translate(this.dynamicGameObject.position.center.x, this.dynamicGameObject.position.center.y)
-		const rotationAngle = Math.atan2(this.dynamicGameObject.velocity.y, this.dynamicGameObject.velocity.x)
-		draw.ctx.rotate(rotationAngle)
-		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
-
-		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-
-		draw.ctx.restore()
 	}
 
 	draw(draw, guiDraw) { // todo
@@ -36,26 +20,5 @@ export class Picture {
 		}
 	}
 
-	old_draw(draw, size) {
-		const aspectRatio = this.image.width / this.image.height
-
-		let newWidth = size
-		let newHeight = size
-
-		if (this.image.width > size) {
-			newWidth = size
-			newHeight = newWidth / aspectRatio
-		}
-
-		if (newHeight > size) {
-			newHeight = size
-			newWidth = newHeight * aspectRatio
-		}
-
-		draw.ctx.save()
-		draw.ctx.translate(this.dynamicGameObject.x, this.dynamicGameObject.y)
-		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
-		draw.ctx.restore()
-	}
 }
 

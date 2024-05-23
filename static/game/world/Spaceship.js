@@ -21,7 +21,17 @@ export class Spaceship extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		this.picture.r(draw)
+		draw.ctx.save()
+
+		draw.ctx.translate(this.position.center.x, this.position.center.y)
+		const rotationAngle = Math.atan2(this.velocity.y, this.velocity.x)
+		draw.ctx.rotate(rotationAngle)
+		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
+
+		draw.ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height)
+
+		draw.ctx.restore()
+
 
 		if (!this.entered && Distance.withinRadius(this.player, this, 100)) {
 			draw.new_text(this.position, 'E to enter')
