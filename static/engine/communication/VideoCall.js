@@ -134,10 +134,7 @@ export class VideoCall  {
 			
 				let remoteVideo = document.getElementById(this.fromClientId);
 				if (!remoteVideo) {
-					remoteVideo = document.createElement('video');
-					remoteVideo.id = this.fromClientId;
-					remoteVideo.autoplay = true;
-					document.getElementById('videocallrtc').appendChild(remoteVideo);
+					remoteVideo = Html.guestVideo(event.streams[0],this.fromClientId)
 				}
 				remoteVideo.srcObject = event.streams[0];
 			
@@ -159,11 +156,7 @@ export class VideoCall  {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				//creating and setting local streaming
-				const localVideo = document.createElement('VIDEO')
-				localVideo.autoplay = true
-				localVideo.muted = true
-				localVideo.srcObject = stream
-				document.getElementById('videocallrtc').appendChild(localVideo)
+				const localVideo = Html.localVideo(stream)
 				//setting stream to local stream
 				this.localStream = stream;
  				
