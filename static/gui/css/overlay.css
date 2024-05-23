@@ -53,11 +53,3 @@
     margin: 10px 0;
 }
 
-#videocallrtc{
-	position: absolute;
-	z-index: 10;
-	width: 100px;
-	height: 100px;
-	display: flex;
-	flex-direction: row;
-}

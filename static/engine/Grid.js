@@ -48,7 +48,7 @@ export class Grid {
 			for (const p of this.blocks) {
 				p.draw(draw)
 			}
-			
+
 		}
 	}
 }

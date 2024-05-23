@@ -6,16 +6,16 @@ export class World {
 		controller.control(this.player)
 
 		// this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
-		this.gameObjects = new AllOnlineObjects(this.player)
+		this.onlineObjects = new OnlineObjects(this.player)
 
 		this.localObjects = new LocalObjects([
 			// this.deliveryDrone,
 			new StarBackground(camera),
 			new Planet(500, 0),
-			this.gameObjects,
+			this.onlineObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
-			new CollectChickensQuest(this.player, this.gameObjects.chickens),
+			new CollectChickensQuest(this.player, this.onlineObjects.chickens),
 		])
 	}
 

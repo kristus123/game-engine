@@ -1,4 +1,4 @@
-export class AllOnlineObjects extends AllObjects {
+export class OnlineObjects extends AllObjects {
 	constructor(player) {
 		super()
 
