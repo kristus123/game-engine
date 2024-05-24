@@ -283,13 +283,8 @@ export class Draw {
 		this.ctx.fillText(text, position.x, position.y)
 	}
 
-
 	position(o) {
-		this.rectangle(o.x, o.y, o.width, o.height)
-
-		this.ctx.fillStyle = 'white'
-		this.ctx.font = '25px Arial'
-		this.ctx.fillText(`${Math.floor(o.x)} - ${Math.floor(o.y)}`, o.x + 20, o.y + o.height / 2)
+		this.new_text(o, `${Math.floor(o.x)} _ ${Math.floor(o.y)}`)
 	}
 
 	grid() {
