@@ -26,6 +26,17 @@
         "sourceType": "module"
     },
     "rules": {
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
         "arrow-spacing": [
             "error",
             {

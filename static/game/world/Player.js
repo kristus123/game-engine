@@ -43,6 +43,7 @@ export class Player extends DynamicGameObject {
 		if (this.beacon) {
 			this.beacon.update()
 		}
+
 	}
 
 	draw(draw, guiDraw) {
