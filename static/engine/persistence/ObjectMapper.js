@@ -72,33 +72,33 @@ export class ObjectMapper {
 		o = JSON.parse(o)
 
 		switch (o.type) {
-		case StaticPicture.name: {
-			return new StaticPicture(positionFromJson(o.position), o.imagePath)
-		}
-		case Fire.name: {
-			return new Fire(positionFromJson(o.position))
-		}
-		case Chicken.name: {
-			const p = positionFromJson(o.position)
+			case StaticPicture.name: {
+				return new StaticPicture(positionFromJson(o.position), o.imagePath)
+			}
+			case Fire.name: {
+				return new Fire(positionFromJson(o.position))
+			}
+			case Chicken.name: {
+				const p = positionFromJson(o.position)
 
-			const chicken = new Chicken(p)
-			chicken.objectId = o.objectId
-			chicken.handledByClientId = o.handledByClientId
+				const chicken = new Chicken(p)
+				chicken.objectId = o.objectId
+				chicken.handledByClientId = o.handledByClientId
 
-			return chicken
-		}
-		case DynamicGameObject.name: {
-			const p = positionFromJson(o.position)
+				return chicken
+			}
+			case DynamicGameObject.name: {
+				const p = positionFromJson(o.position)
 
-			const xxx = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
-			xxx.objectId = o.objectId
-			xxx.handledByClientId = o.handledByClientId
+				const xxx = new DynamicGameObject(p, o.weight, o.velocityFactor, o.imagePath)
+				xxx.objectId = o.objectId
+				xxx.handledByClientId = o.handledByClientId
 
-			return xxx
-		}
-		default: {
-			throw new Error('could not map ' + o.type + ' in ObjectMapper')
-		}
+				return xxx
+			}
+			default: {
+				throw new Error('could not map ' + o.type + ' in ObjectMapper')
+			}
 		}
 	}
 }
