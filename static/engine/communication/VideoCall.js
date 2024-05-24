@@ -30,7 +30,7 @@ export class VideoCall {
 					if (this.localStream != undefined) {
 						clearInterval(checkForConnection)
 					}
-					console.warn(data.clientId+' connected')
+					console.warn(data.clientId + ' connected')
 					const peerConnection = this.createPeerConnection(data.clientId)
 					this.peerConnection[data.clientId] = peerConnection
 

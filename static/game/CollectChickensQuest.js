@@ -1,7 +1,7 @@
 export class CollectChickensQuest {
-	constructor(player, chickens) {
+	constructor(mouse, player, chickens) {
 
-		this.movableObjects = new MovableObjects(player, chickens)
+		this.movableObjects = new MovableObjects(mouse, player, chickens)
 		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), chickens)
 
 		this.localObjects = new LocalObjects([
@@ -12,10 +12,6 @@ export class CollectChickensQuest {
 
 	update() {
 		this.localObjects.update()
-
-		if (this.movableObjects.holding && this.deliveryZone.inside(this.movableObjects.holding)) {
-			this.movableObjects.holding = null
-		}
 	}
 
 	draw(draw, guiDraw) {

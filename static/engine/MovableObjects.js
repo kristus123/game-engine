@@ -1,9 +1,14 @@
 export class MovableObjects {
-	constructor(movableBy, objects=[]) {
+	constructor(mouse, movableBy, objects=[]) {
 
-		this.key = new Key('e')
+		this.e = new Key('e')
 
 		this.holding = null
+
+		KeyDown('q', () => {
+			ForcePush(this.holding).towards(mouse.position, 100)
+			this.holding = null
+		})
 	}
 
 	add(o) {
@@ -17,7 +22,7 @@ export class MovableObjects {
 		}
 		else {
 			for (const o of this.objects) {
-				if (Distance.within(50, o, this.movableBy) && this.key.down) {
+				if (Distance.within(50, o, this.movableBy) && this.e.down) {
 					this.holding = o
 				}
 			}
@@ -25,7 +30,10 @@ export class MovableObjects {
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.holding) {
+		if (this.holding) {
+			draw.new_text(this.holding.position.offset(0, -50), 'Press Q to throw')
+		}
+		else {
 			for (const o of this.objects) {
 				if (Distance.within(50, o, this.movableBy)) {
 					draw.new_text(o.position.offset(0, -50), 'Press E to pick up')
