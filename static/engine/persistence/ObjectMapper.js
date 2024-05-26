@@ -10,7 +10,7 @@ export class ObjectMapper {
 
 	static mapToJson(o) {
 		return JSON.stringify({
-			type: o.constructor.name,
+			className: o.constructor.name,
 			objectId: o.objectId,
 			position: {
 				x: o.x,
@@ -44,14 +44,13 @@ export class ObjectMapper {
 
 	static mapSingleObject(json) {
 		json = JSON.parse(json)
-		const c = eval(json.type)
-		console.log(c)
+		const c = eval(json.className)
 
 		if (c.mapFromJsonObject) {
 			return c.mapFromJsonObject(json)
 		}
 		else {
-			throw new Error(`you need to add 'static mapFromJsonObject' method in ${json.type} to be able to persist it`)
+			throw new Error(`you need to add 'static mapFromJsonObject' method in ${json.className} to be able to persist it`)
 		}
 	}
 }
