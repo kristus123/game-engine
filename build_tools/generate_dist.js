@@ -1,19 +1,7 @@
 const fs = require('fs')
-const Path = require('path')
 const Imports = require('./Imports')
 const Parameters = require('./Parameters')
-
-function writeFileToDist(srcPath, content) {
-	const destPath = Path.join('dist/static', Path.relative('static', srcPath))
-
-	const folderPath = Path.dirname(destPath)
-
-	if (!fs.existsSync(folderPath)) {
-		fs.mkdirSync(folderPath, { recursive: true })
-	}
-
-	fs.writeFileSync(destPath, content)
-}
+const Files = require('./Files')
 
 function countOccurrences(wordToCount, string) { // semantic error with parameter order
 	let count = 0
@@ -26,7 +14,6 @@ function countOccurrences(wordToCount, string) { // semantic error with paramete
 
 	return count
 }
-
 
 let u = 0
 function uuid() {
@@ -69,10 +56,11 @@ for (const jsFilePath of jsFiles) {
 
 	content = Imports.needed(content, jsFiles) + '\n' + content
 
-	writeFileToDist(jsFilePath, content)
+	Files.writeFileToDist(jsFilePath, content)
 }
 
 require('./copy_asset_folder_to_dist')
+require('./generate_helper_classes') 
 
 const scriptImports = jsFiles
 	.map(f => `<script type="module" src="/${f}"></script>`)
@@ -85,3 +73,4 @@ const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
 	.replace('OVERLAY', overlay)
 
 fs.writeFileSync('dist/index.html', indexHtml)
+
