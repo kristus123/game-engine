@@ -11,7 +11,7 @@ export class ObjectPersistence {
 	static save(o) {
 		const saved = Http.get('/world-editor')
 
-		saved.objects.push(ObjectMapper.toJson(o))
+		saved.objects.push(ObjectMapper.mapToJson(o))
 		Http.post('/world-editor', saved)
 	}
 
@@ -23,7 +23,7 @@ export class ObjectPersistence {
 			return x.objectId == o.objectId
 		})
 
-		saved.objects.push(ObjectMapper.toJson(o))
+		saved.objects.push(ObjectMapper.mapToJson(o))
 		Http.post('/world-editor', saved)
 	}
 }

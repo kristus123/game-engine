@@ -13,7 +13,6 @@ export class WorldEditor {
 			this.mouseMove,
 		])
 
-
 		this.worldObjects = new LocalObjects()
 
 		ObjectPersistence.get().forEach(o => {
@@ -36,12 +35,6 @@ export class WorldEditor {
 			this.grid.show = true
 
 			this.add = p => this.grid.add(p)
-
-			// Overlay.bottomButton('chicken', () => {
-
-			// 	this.add = p => new Chicken(p)
-			// })
-
 		})
 
 		Overlay.leftButton('images', () => {
@@ -64,10 +57,12 @@ export class WorldEditor {
 
 		this.mouseMove.moved = o => {
 			ObjectPersistence.update(o)
-			console.log('moved and updated')
 		}
 
 		mouse.addOnClick('paint', p => {
+			p.width = 100
+			p.height = 100
+
 			const o = this.add(p)
 
 			this.worldObjects.add(o)

@@ -31,4 +31,13 @@ export class Chicken extends DynamicGameObject {
 		// super.draw(draw, guiDraw)
 		this.sprite.draw(draw, guiDraw)
 	}
+
+	static mapFromJsonObject(json) {
+		// hack. find out why you can't do new Chicke*n* because of transpiler
+		return new this(ObjectMapper.positionFromJson(json.position)) 
+	}
+
+	mapToJson() {
+		return ObjectMapper.mapToJson(this)
+	}
 }

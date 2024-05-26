@@ -101,4 +101,15 @@ export class Physics {
 			player.velocity.y -= diffY * velocityAdjustment
 		}
 	}
+
+	followIfOutsideOfRadius(o, radius) {
+		if (Distance.between(this, o) > radius) {
+			const angle = Math.atan2(o.y - this.y, o.x - this.x)
+
+			this.x = o.x - radius * Math.cos(angle)
+			this.y = o.y - radius * Math.sin(angle)
+		}
+	}
+
+
 }

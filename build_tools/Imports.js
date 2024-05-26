@@ -2,10 +2,10 @@ const Path = require('path')
 
 class Imports {
 
-	static needed(content, jsFiles) {
+	static needed(content, jsFilePaths) {
 		let imports = ''
 
-		for (const jsFile of jsFiles) {
+		for (const jsFile of jsFilePaths) {
 			const className = Path.basename(jsFile, '.js')
 
 			if (Imports.include(content, className)) {

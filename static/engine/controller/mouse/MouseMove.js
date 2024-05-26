@@ -20,8 +20,8 @@ export class MouseMove {
 			}
 
 			if (this.holding && this.mouse.up) {
+				this.moved(this.holding)
 				this.holding = null
-				this.moved(o)
 			}
 		}
 	}

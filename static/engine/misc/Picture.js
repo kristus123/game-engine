@@ -1,9 +1,9 @@
 export class Picture {
-	constructor(o, src) {
+	constructor(o, imagePath) {
 		this.dynamicGameObject = o
 
 		this.image = new Image()
-		this.image.src = src
+		this.image.src = imagePath
 	}
 
 	draw(draw, guiDraw) { // todo
