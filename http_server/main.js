@@ -11,14 +11,16 @@ app.use(cors())
 
 app.post('/world-editor', (req, res) => {
 	const jsonData = req.body
-	fs.writeFile('data.json', JSON.stringify(jsonData), (err) => {
-		if (err) {
-			console.error('Error saving JSON data:', err)
+	fs.writeFile('data.json', JSON.stringify(jsonData), (error) => {
+		if (!error) {
+			console.log('JSON data saved successfully')
+			res.status(200).send('JSON data saved successfully')
+		}
+		else {
+			console.error('Error saving JSON data:', error)
 			res.status(500).send('Error saving JSON data')
 			return
 		}
-		console.log('JSON data saved successfully')
-		res.status(200).send('JSON data saved successfully')
 	})
 })
 

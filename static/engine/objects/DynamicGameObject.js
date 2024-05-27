@@ -5,15 +5,12 @@ export class DynamicGameObject extends _GameObject {
 		this.velocity = new Velocity(this, 0, 0)
 
 		Physics.global.applyPhysics(this)
-
-		this.objectId = Random.uuid()
 	}
 
 	resetVelocity() {
 		this.velocity.x = 0
 		this.velocity.y = 0
 	}
-
 
 	get movingLeft() {
 		return this.velocity.x < -20

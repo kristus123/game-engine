@@ -1,5 +1,5 @@
 export class Velocity {
-	constructor(object, x, y) {
+	constructor(object, x=0, y=0) {
 	}
 
 	oppositePosition() {

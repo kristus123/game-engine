@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8')).objects.map(o => JSON.parse(o))
+const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8'))
 const SocketServer = require('./SocketServer')
 
 const List = require('./List')
@@ -32,6 +32,7 @@ server.onClose = (client, clientId) => {
 			o.handledByClientId = null
 		}
 	}
+
 	for (const o of gameObjects) {
 		if (o.handledByClientId == clientId) {
 			o.handledByClientId = server.allClientIds[0]

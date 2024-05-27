@@ -22,15 +22,15 @@ export class ObjectMapper {
 	}
 
 	static fromFile(body) {
-		body.objects.map(o => {
-			return ObjectMapper.mapSingleObject(o)
+		body.map(o => {
+			return this.mapSingleObject(o)
 		})
 
 		return body
 	}
 
 	static toFile(body) {
-		body.objects.map(o => {
+		body.map(o => {
 			if (o.mapToJson) {
 				return o.mapToJson()
 			}

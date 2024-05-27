@@ -6,6 +6,21 @@ export class _GameObject {
 		}
 
 		this.position = position.copy()
+
+		this._objectId = null
+	}
+
+	get objectId() {
+		if (this._objectId) {
+			return this._objectId
+		}
+		else {
+			throw new Error("objectId is not set, make sure you have set it")
+		}
+	}
+
+	set objectId(x) {
+		this._objectId = x
 	}
 
 	get x() {

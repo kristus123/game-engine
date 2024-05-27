@@ -17,7 +17,18 @@ export class List {
 			if (predicate(list[i])) {
 				list.splice(i, 1)
 				console.log('removed item')
+				return true
 			}
+		}
+
+		console.log("no element removed from list")
+	}
+
+	static removeOneOrThrowException(list, predicate) {
+		const removed = this.removeIf(list, predicate)
+
+		if (!removed) {
+			throw new Error("no element removed from list")
 		}
 	}
 
