@@ -1,4 +1,4 @@
-export const index = ""
+export const index = ''
 
 ErrorHandler.run(() => {
 	const mainPalette = Palette.main()

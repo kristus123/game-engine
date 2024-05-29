@@ -30,7 +30,7 @@ export class VideoCall {
 					if (this.localStream != undefined) {
 						clearInterval(checkForConnection)
 					}
-					console.warn(data.clientId + ' connected')
+
 					const peerConnection = this.createPeerConnection(data.clientId)
 					this.peerConnection[data.clientId] = peerConnection
 
@@ -48,7 +48,7 @@ export class VideoCall {
 								clientId: data.clientId
 							})
 						})
-				}, 1000)
+				}, 100)
 			})
 
 			c.on('RTC_OFFER', data => {
@@ -132,10 +132,7 @@ export class VideoCall {
 
 			let remoteVideo = document.getElementById(this.fromClientId)
 			if (!remoteVideo) {
-				remoteVideo = document.createElement('video')
-				remoteVideo.id = this.fromClientId
-				remoteVideo.autoplay = true
-				document.getElementById('videocallrtc').appendChild(remoteVideo)
+				remoteVideo = Html.guestVideo(e.streams[0], this.fromClientId)
 			}
 			remoteVideo.srcObject = e.streams[0]
 		}
@@ -156,12 +153,7 @@ export class VideoCall {
 	startCall() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
-				const localVideo = document.createElement('VIDEO')
-				localVideo.autoplay = true
-				localVideo.muted = true
-				localVideo.srcObject = stream
-
-				document.getElementById('videocallrtc').appendChild(localVideo)
+				const localVideo = Html.localVideo(stream)
 				this.localStream = stream
 			})
 			.catch((error) => {

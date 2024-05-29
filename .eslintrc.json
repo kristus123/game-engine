@@ -240,6 +240,7 @@
         "Water": "readonly",
         "World": "readonly",
         "WorldEditor": "readonly",
+        "_GameObject": "readonly",
         "index": "readonly"
     }
 }

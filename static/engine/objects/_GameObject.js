@@ -1,5 +1,5 @@
 export class _GameObject {
-	constructor(position, imagePath="nullable") {
+	constructor(position, imagePath='nullable') {
 
 		if (imagePath != 'nullable') { // temp hack until i figure out what to do
 			this.picture = new Picture(this, imagePath)
@@ -15,7 +15,7 @@ export class _GameObject {
 			return this._objectId
 		}
 		else {
-			throw new Error("objectId is not set, make sure you have set it")
+			throw new Error('objectId is not set, make sure you have set it')
 		}
 	}
 

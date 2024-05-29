@@ -21,14 +21,14 @@ export class List {
 			}
 		}
 
-		console.log("no element removed from list")
+		console.log('no element removed from list')
 	}
 
 	static removeOneOrThrowException(list, predicate) {
 		const removed = this.removeIf(list, predicate)
 
 		if (!removed) {
-			throw new Error("no element removed from list")
+			throw new Error('no element removed from list')
 		}
 	}
 
