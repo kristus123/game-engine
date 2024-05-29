@@ -60,7 +60,7 @@ for (const jsFilePath of jsFiles) {
 }
 
 require('./copy_asset_folder_to_dist')
-require('./generate_helper_classes') 
+require('./generate_helper_classes')
 
 const scriptImports = jsFiles
 	.map(f => `<script type="module" src="/${f}"></script>`)

@@ -10,6 +10,6 @@ for (const jsFilePath of jsFiles) {
 }
 
 Files.writeFileToDist('static/engine/generated/ModulePathFor.js',
-`
+	`
 export const ModulePathFor = ${JSON.stringify(pathFor)}
 `)

@@ -12,4 +12,3 @@ export class StaticPicture {
 		return new StaticPicture(ObjectMapper.positionFromJson(json.position), json.imagePath)
 	}
 }
-
