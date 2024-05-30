@@ -4,20 +4,27 @@ export class Quest {
 		this.currentTask = tasks[0]
 
 		this.questCompleted = false
+
+		this.listLooper = new ListLooper(tasks)
 	}
 
 	update() {
-		console.log(this.currentTask.update)
-
-		if (this.currentTask.completed && List.validIndex(this.tasks, this.index+1)) {
-			this.index += 1
-			this.currentTask = this.tasks[this.index]
-		}
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.currentTask.completed) {
-			this.currentTask.draw(draw, guiDraw)
-		}
+		this.listLooper.run((task, next, loopedThroughAll) => {
+			if (loopedThroughAll) {
+				this.questCompleted = true
+				console.log("QUEST FINISHED")
+				return
+			}
+			else if (task.completed()) {
+				console.log("task complet ed = ")
+				next()
+			}
+
+			task.update()
+			task.draw(draw, guiDraw)
+		})
 	}
 }

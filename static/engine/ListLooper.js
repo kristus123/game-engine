@@ -5,16 +5,15 @@ export class ListLooper {
 
 	run(callback) {
 		if (this.index < this.list.length) {
-			const finished = this.index === this.list.length - 1
 
 			const next = () => {
 				this.index += 1
 			}
 
-			callback(this.list[this.index], next, finished)
+			callback(this.list[this.index], next, false)
 		}
 		else {
-			callback(null, null, true) // Indicate that we're finished
+			callback(() => {}, () => {}, true)
 		}
 	}
 }

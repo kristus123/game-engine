@@ -1,12 +1,12 @@
 export class Particle {
-	constructor(x, y, radius, velocity) {
+	constructor(position, radius, velocity) {
 
 		this.angle = Math.random() * Math.PI * 2 // Initial angle
 		this.color = Random.color()
 		this.opacity = 1
 		this.prevPositions = []
 
-		this.PrettyParticles = new PrettyParticles()
+		this.prettyParticles = new PrettyParticles()
 	}
 
 	updatePhysics(deltaTime) {
@@ -16,7 +16,7 @@ export class Particle {
 
 	update() {
 		this.prevPositions.push({
-			x: this.x + Math.cos(this.angle) * this.radius,
+			x: this.position.x + Math.cos(this.angle) * this.radius,
 			y: this.y + Math.sin(this.angle) * this.radius,
 			opacity: this.opacity,
 		})
@@ -37,12 +37,12 @@ export class Particle {
 			draw.ctx.beginPath()
 			draw.ctx.moveTo(pos.x, pos.y)
 			draw.ctx.lineTo(nextPos.x, nextPos.y)
-			this.PrettyParticles.updateAndDrawdraw(draw.ctx, nextPos.x, nextPos.y)
+			this.prettyParticles.updateAndDrawdraw(draw.ctx, nextPos.x, nextPos.y)
 			draw.ctx.stroke()
 		}
 
-		const particleX = this.x + Math.cos(this.angle) * this.radius
-		const particleY = this.y + Math.sin(this.angle) * this.radius
+		const particleX = this.position.x + Math.cos(this.angle) * this.radius
+		const particleY = this.position.y + Math.sin(this.angle) * this.radius
 
 		draw.ctx.fillStyle = this.color
 		draw.ctx.beginPath()

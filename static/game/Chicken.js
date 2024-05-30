@@ -12,11 +12,47 @@ export class Chicken extends DynamicGameObject {
 			{ x: 3, y: 3 },
 			{ x: 3, y: 3 },
 		])
+
+		this.killed = false
+		this.splatteredBody = []
+		setTimeout(() => {
+			this.killed = true
+
+			const bodyPart = (part) => {
+				const d = new DynamicGameObject(Random.direction(this.position, 10), 20, 20)
+				const s = new Sprite(d, '/static/assets/sprites/dead_chicken_32x32.png', 2, [
+					part
+				])
+
+				d.draw = (draw, guiDraw) => {
+					s.draw(draw, guiDraw)
+				}
+
+				ForcePush(d).towards(Random.direction(d), 3)
+				console.log(d.velocity.y)
+
+				return d
+			}
+
+			this.splatteredBody = [
+				bodyPart({ x: 1, y: 0 }),
+				bodyPart({ x: 2, y: 0 }),
+				bodyPart({ x: 2, y: 1 }),
+				bodyPart({ x: 1, y: 1 }),
+				bodyPart({ x: 1, y: 1 }),
+				//bodyPart({ x: 3, y: 0 }),
+				//bodyPart({ x: 1, y: 1 }),
+				//bodyPart({ x: 2, y: 2 }),
+			]
+
+
+			this.onHit()
+		}, 300);
+
 	}
 
 	onHit() {
-		console.log(this + ' got hit')
-		this.removeFromGameLoop()
+		//this.removeFromGameLoop()
 	}
 
 	update() {
@@ -27,9 +63,16 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
-		// super.draw(draw, guiDraw)
-		this.sprite.draw(draw, guiDraw)
+		if (this.killed) {
+			for (const b of this.splatteredBody) {
+				b.draw(draw, guiDraw)
+			}
+		}
+		else {
+			draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
+			// super.draw(draw, guiDraw)
+			this.sprite.draw(draw, guiDraw)
+		}
 	}
 
 	static mapFromJsonObject(json) {

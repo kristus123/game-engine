@@ -17,7 +17,7 @@ export class Random {
 		return list[Math.floor(Math.random() * list.length)]
 	}
 
-	static direction(currentPosition, amount) {
+	static direction(currentPosition, amount=200) {
 		const x = Random.integerBetween(currentPosition.x - amount, currentPosition.x + amount)
 		const y = Random.integerBetween(currentPosition.y - amount, currentPosition.y + amount)
 
