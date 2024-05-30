@@ -9,6 +9,10 @@ export class DeliveryZone extends StaticGameObject {
 		return Collision.between(this, o)
 	}
 
+	get amountDelivered() {
+		return this.deliveredObjects.length
+	}
+
 	update() {
 		for (const o of this.objectsToDeliver) {
 			if (Collision.between(this, o) && !List.includes(this.deliveredObjects, o)) {
@@ -20,8 +24,6 @@ export class DeliveryZone extends StaticGameObject {
 			o.velocity.x = 0
 			o.velocity.y = 0
 		}
-
-		console.log('delivered ' + this.deliveredObjects.length)
 	}
 
 	draw(draw, guiDraw) {

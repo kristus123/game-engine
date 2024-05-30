@@ -10,7 +10,13 @@ export class CollectChickensQuest {
 		])
 	}
 
+	get completed() {
+		return true
+		return this.deliveryZone.amountDelivered == 2
+	}
+
 	update() {
+		console.log('col chick')
 		this.localObjects.update()
 	}
 

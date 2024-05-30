@@ -15,7 +15,22 @@ export class World {
 			this.onlineObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
-			new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
+			new Quest([
+				new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
+				class {
+					constructor() {
+
+					}
+
+					update() {
+
+					}
+
+					draw(draw, guiDraw) {
+
+					}
+				}
+			]),
 		])
 	}
 
