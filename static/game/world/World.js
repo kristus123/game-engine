@@ -1,17 +1,17 @@
 function ObjectClass(params, methods) {
-  const instance = {};
-  
-  // Define methods dynamically based on the provided methods
-  Object.entries(methods).forEach(([methodName, method]) => {
-    instance[methodName] = () => method(params);
-  });
+	const instance = {}
 
-  // Prepare the draw method to be called later
-  instance.draw = (draw, guiDraw) => {
-    methods.draw(draw, guiDraw, params);
-  };
+	// Define methods dynamically based on the provided methods
+	Object.entries(methods).forEach(([methodName, method]) => {
+		instance[methodName] = () => method(params)
+	})
 
-  return instance;
+	// Prepare the draw method to be called later
+	instance.draw = (draw, guiDraw) => {
+		methods.draw(draw, guiDraw, params)
+	}
+
+	return instance
 }
 
 export class World {

@@ -47,7 +47,7 @@ export class Chicken extends DynamicGameObject {
 
 
 			this.onHit()
-		}, 300);
+		}, 300)
 
 	}
 

@@ -15,11 +15,11 @@ export class Quest {
 		this.listLooper.run((task, next, loopedThroughAll) => {
 			if (loopedThroughAll) {
 				this.questCompleted = true
-				console.log("QUEST FINISHED")
+				console.log('QUEST FINISHED')
 				return
 			}
 			else if (task.completed()) {
-				console.log("task complet ed = ")
+				console.log('task complet ed = ')
 				next()
 			}
 
