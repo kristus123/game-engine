@@ -1,3 +1,19 @@
+function ObjectClass(params, methods) {
+	const instance = {}
+
+	// Define methods dynamically based on the provided methods
+	Object.entries(methods).forEach(([methodName, method]) => {
+		instance[methodName] = () => method(params)
+	})
+
+	// Prepare the draw method to be called later
+	instance.draw = (draw, guiDraw) => {
+		methods.draw(draw, guiDraw, params)
+	}
+
+	return instance
+}
+
 export class World {
 	constructor(level, camera, mouse, controller) {
 
@@ -15,7 +31,23 @@ export class World {
 			this.onlineObjects,
 			this.player,
 			new OnlinePlayers(this.player, camera),
-			new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
+			new Quest([
+				new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
+				ObjectClass(
+					{
+						deliveryZone: new DeliveryZone(new Position(100, 0, 100, 100), [this.player]),
+					},
+					{
+						completed: (params) => params.deliveryZone.amountDelivered == 1,
+						update: (params) => {
+							params.deliveryZone.update()
+						},
+						draw: (draw, guiDraw, params) => {
+							params.deliveryZone.draw(draw, guiDraw)
+						},
+					}
+				),
+			]),
 		])
 	}
 

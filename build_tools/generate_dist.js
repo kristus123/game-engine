@@ -44,10 +44,12 @@ for (const jsFilePath of jsFiles) {
 			if (lines[i].includes('constructor(') && lines[i+1].includes('super(')) {
 				lines[i+1] = lines[i+1] + '\n' + Parameters.nullCheckForConstructorArguments(fileContent)
 				lines[i+1] = lines[i+1] + '\n' + Parameters.initVariablesFromConstructor(fileContent)
+				break
 			}
 			else if (lines[i].includes('constructor(')) {
 				lines[i] = lines[i] + '\n' + Parameters.nullCheckForConstructorArguments(fileContent)
 				lines[i] = lines[i] + '\n' + Parameters.initVariablesFromConstructor(fileContent)
+				break
 			}
 		}
 
