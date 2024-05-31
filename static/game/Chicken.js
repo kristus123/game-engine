@@ -18,7 +18,7 @@ export class Chicken extends DynamicGameObject {
 		setTimeout(() => {
 			this.killed = true
 
-			const bodyPart = (part) => {
+			const bodyPart = part => {
 				const d = new DynamicGameObject(Random.direction(this.position, 10), 20, 20)
 				const s = new Sprite(d, '/static/assets/sprites/dead_chicken_32x32.png', 2, [
 					part

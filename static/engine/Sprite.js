@@ -15,8 +15,8 @@ function dimensionsFrom(src) {
 
 export class Sprite {
 	constructor(position, src, scale, frameSequence, speed=100) {
-		this.spriteSheet = new Image()
-		this.spriteSheet.src = src
+		this.image = new Image()
+		this.image.src = src
 
 		const d = dimensionsFrom(src)
 		this.width = d.width
@@ -31,13 +31,13 @@ export class Sprite {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.spriteSheet.complete) {
+		if (this.image.complete) {
 
 			const frame = this.frameSequence[this.currentFrame]
 
 			draw.ctx.imageSmoothingEnabled = false
 			draw.ctx.drawImage(
-				this.spriteSheet,
+				this.image,
 				frame.x * this.width,
 				frame.y * this.height,
 				this.width,
@@ -49,5 +49,4 @@ export class Sprite {
 			)
 		}
 	}
-
 }

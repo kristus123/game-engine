@@ -1,19 +1,20 @@
 export class Planet extends DynamicGameObject {
-	constructor(x, y) {
-		super(new Position(x, y, 1500, 1500), 2300, 8)
+	constructor(position) {
+		super(position, 2300, 8)
 
-		this.localObjects = new LocalObjects([
-			new Picture(this, '/static/assets/planets/exoplanet32x32.png'),
-		])
+		this.position.width = 1500
+		this.position.height = 1500
+
+		this.picture = new Picture(this.position, '/static/assets/planets/exoplanet32x32.png')
 	}
 
 	update() {
-		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
-		draw.gradient(new Position(this.x + 750, this.y + 750))
+		this.picture.draw(draw, guiDraw)
+
+		draw.gradient(this.position.offset(750, 750))
 	}
 
 }

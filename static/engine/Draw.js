@@ -16,24 +16,6 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
-	image(image, position) {
-		if (image.complete) {
-			this.ctx.imageSmoothingEnabled = false
-
-			this.ctx.drawImage(
-				image,
-				position.width,
-				position.height,
-				position.width,
-				position.height,
-				position.x,
-				position.y,
-				position.width,
-				position.height,
-			)
-		}
-	}
-
 	transparentGreenRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.5)' // RGBA color (green with 50% opacity)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)

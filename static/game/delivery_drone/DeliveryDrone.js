@@ -28,6 +28,6 @@ export class DeliveryDrone extends DynamicGameObject {
 		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)
 		this.splash.draw(draw, guiDraw)
 
-		this.picture.r(draw, 0)
+		this.picture.draw(draw, guiDraw)
 	}
 }
