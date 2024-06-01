@@ -1,6 +1,6 @@
 export class Npc extends DynamicGameObject {
-	constructor(p) {
-		super(p, 100, 10)
+	constructor(position) {
+		super(position, 100, 10)
 		this.picture = new Picture(this, 'https://i.imgur.com/w9dZE0H.png')
 	}
 

@@ -19,11 +19,15 @@ export class World {
 						new Chicken(new Position(0, 0)),
 						new Chicken(new Position(-100, 0)),
 					],
+					chat: new MultiTextTyper(this.player.position.offset(0, -50), [
+						'use wasd or arrows to drive',
+					]),
 				},
 				{
 					completed: (p) => p.deliveryZone.amountDelivered == 1,
 					update: (p) => {
 						p.deliveryZone.update()
+						p.chat.update()
 					},
 					draw: (draw, guiDraw, p) => {
 						console.log(this.deliveryDrone.x)
@@ -32,6 +36,43 @@ export class World {
 							c.draw(draw, guiDraw)
 						}
 						p.deliveryZone.draw(draw, guiDraw)
+						p.chat.draw(draw, guiDraw)
+					},
+				},
+			),
+			ObjectClass(
+				{
+					npc: new Npc(this.player.position.copy()),
+					e: new Key('e'),
+					chat: new MultiTextTyper(this.player.position.copy(), [
+						'use wasd or arrows to drive',
+						'Current objective:',
+						'Deliver package',
+						'',
+						'',
+						'Would be nice to have a greater purpose',
+						'',
+						'',
+						'Maybe one day',
+						'',
+						'',
+						'But not today',
+					]),
+				},
+				{
+					completed: () => {
+						return false
+					},
+					update: (p) => {
+						p.npc.update()
+					},
+					draw: (draw, guiDraw, p) => {
+						if (Distance.within(50, this.player, p.npc)) {
+							p.chat.update()
+							p.chat.draw(draw, guiDraw)
+						}
+
+						p.npc.draw(draw, guiDraw)
 					},
 				},
 			),
