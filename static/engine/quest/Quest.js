@@ -1,5 +1,5 @@
 export class Quest {
-	constructor(tasks=[]) {
+	constructor(tasks=[], onQuestCompleted= () => {}) {
 		this.index = 0
 		this.currentTask = tasks[0]
 
@@ -12,14 +12,15 @@ export class Quest {
 	}
 
 	draw(draw, guiDraw) {
-		this.listLooper.run((task, next, loopedThroughAll) => {
+		this.listLooper.goThrough((task, next, loopedThroughAll) => {
 			if (loopedThroughAll) {
 				this.questCompleted = true
+				this.onQuestCompleted()
 				console.log('QUEST FINISHED')
 				return
 			}
 			else if (task.completed()) {
-				console.log('task complet ed = ')
+				console.log('task completed')
 				next()
 			}
 

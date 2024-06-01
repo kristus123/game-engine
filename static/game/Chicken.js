@@ -63,7 +63,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.killed) {
+		if (!this.killed) {
 			for (const b of this.splatteredBody) {
 				b.draw(draw, guiDraw)
 			}

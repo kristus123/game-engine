@@ -2,6 +2,10 @@ export class DeliveryZone extends StaticGameObject {
 	constructor(position, objectsToDeliver=[]) {
 		super(position, '')
 
+		if (!Array.isArray(objectsToDeliver)) {
+			this.objectsToDeliver = [objectsToDeliver]
+		}
+
 		this.deliveredObjects = []
 	}
 

@@ -3,7 +3,7 @@ export class ListLooper {
 		this.index = 0
 	}
 
-	run(callback) {
+	goThrough(callback) {
 		if (this.index < this.list.length) {
 
 			const next = () => {

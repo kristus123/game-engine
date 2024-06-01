@@ -2,10 +2,7 @@ export class DeliveryDrone extends DynamicGameObject {
 	constructor(player, camera, controller, target, x, y) {
 		super(new Position(x, y, 150, 150), 10, 5)
 
-		// const train = new Train(this, [new DynamicGameObject(this.x+100, 400, 10, 10, 10, 2)])
-
 		this.splash = new Splash()
-		this.picture = new RotatingPicture(this, '/static/assets/cargo_ship.png')
 
 		this.compass = new Compass(camera)
 		this.compass.add(player, 'red')
@@ -16,6 +13,8 @@ export class DeliveryDrone extends DynamicGameObject {
 			this.enterVehicle,
 			this.compass,
 		])
+
+		this.picture = new RotatingPicture(this, '/static/assets/cargo_ship.png')
 	}
 
 	update() {
