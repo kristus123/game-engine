@@ -5,7 +5,7 @@ export class DeliveryDrone extends DynamicGameObject {
 		// const train = new Train(this, [new DynamicGameObject(this.x+100, 400, 10, 10, 10, 2)])
 
 		this.splash = new Splash()
-		this.picture = new Picture(this, '/static/assets/cargo_ship.png')
+		this.picture = new RotatingPicture(this, '/static/assets/cargo_ship.png')
 
 		this.compass = new Compass(camera)
 		this.compass.add(player, 'red')
