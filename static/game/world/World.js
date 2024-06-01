@@ -7,11 +7,11 @@ export class World {
 
 		this.info = Html.text('na')
 
-		 this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
+		this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
 		this.onlineObjects = new OnlineObjects(this.player)
 
 		const quest = new Quest([
-			//new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
+			new CollectChickensQuest(mouse, this.player, this.onlineObjects.chickens),
 			ObjectClass(
 				{
 					deliveryZone: new DeliveryZone(new Position(100, 0, 100, 100), this.player),
