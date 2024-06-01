@@ -7,7 +7,7 @@ export class Button extends DynamicGameObject {
 			Html.remove(b)
 		})
 
-		Html.text('hei')
+		//Html.text('hei')
 	}
 
 	update() {

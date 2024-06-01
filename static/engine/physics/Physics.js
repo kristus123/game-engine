@@ -32,6 +32,13 @@ export class Physics {
 
 			o.x += o.velocity.x * deltaTime
 			o.y += o.velocity.y * deltaTime
+
+			if (Math.abs(o.velocity.x) < 0.9) { // todo this might be problematic if super low velocity is used
+				o.velocity.x = 0
+			}
+			if (Math.abs(o.velocity.y) < 0.9) {
+				o.velocity.y = 0
+			}
 		}
 	}
 

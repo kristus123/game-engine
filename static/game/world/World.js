@@ -5,6 +5,7 @@ export class World {
 		camera.followInstantly(this.player)
 		controller.control(this.player)
 
+		this.info = Html.text('na')
 
 		 this.deliveryDrone = new DeliveryDrone(this.player, camera, controller, new Position(2000, 2000), -100, 0)
 		this.onlineObjects = new OnlineObjects(this.player)
@@ -17,24 +18,22 @@ export class World {
 					chickens: [
 						new Chicken(new Position(0, 0)),
 						new Chicken(new Position(-100, 0)),
-					]
+					],
 				},
 				{
 					completed: (p) => p.deliveryZone.amountDelivered == 1,
 					update: (p) => {
-						for (const c of p.chickens) {
-							ForcePush(c).towards(this.deliveryDrone)
-						}
-						
 						p.deliveryZone.update()
 					},
 					draw: (draw, guiDraw, p) => {
+						console.log(this.deliveryDrone.x)
 						for (const c of p.chickens) {
+							c.position = this.deliveryDrone.position.copy()
 							c.draw(draw, guiDraw)
 						}
 						p.deliveryZone.draw(draw, guiDraw)
 					},
-				}
+				},
 			),
 		],() => {
 			console.log("quest finished")
@@ -52,6 +51,7 @@ export class World {
 	}
 
 	update() {
+		this.info.text('velocity: ' + this.player.velocity.x)
 		this.localObjects.update()
 	}
 

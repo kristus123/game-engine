@@ -11,6 +11,7 @@ function element(type, clazz) {
 
 	return e
 }
+
 export class Html {
 
 	static button(text, onClick) {
@@ -26,16 +27,28 @@ export class Html {
 	}
 
 	static text(text) {
-		const div = element('div', 'ui')
-		div.style.padding = '106px'
-		div.style.margin = '67px'
+		//const div = element('div', 'ui')
+		//div.style.padding = '106px'
+		//div.style.margin = '67px'
 
 		const p = element('p', 'ui')
 		p.textContent = text
 		p.style.fontSize = '100px'
-		div.appendChild(p)
+		//div.appendChild(p)
 
-		document.getElementById('ui_elements').appendChild(div)
+		document.getElementById('ui_elements').appendChild(p)
+
+		return {
+			text: text => {
+				p.textContent = text
+				return this
+			},
+			position: p => {
+				p.style.left = `${p.x}px`
+				p.style.top = `${p.y}px`
+				return this
+			}
+		}
 	}
 
 	static remove(e) {

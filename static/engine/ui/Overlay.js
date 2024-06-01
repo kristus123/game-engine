@@ -19,6 +19,8 @@ export class Overlay {
 		b.value = text
 
 		b.addEventListener('click', onClick)
+
+		return b
 	}
 
 	static rightButton(text, onClick) {
