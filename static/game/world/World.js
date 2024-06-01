@@ -76,8 +76,8 @@ export class World {
 					},
 				},
 			),
-		],() => {
-			console.log("quest finished")
+		], () => {
+			console.log('quest finished')
 		})
 
 		this.localObjects = new LocalObjects([
