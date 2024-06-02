@@ -35,6 +35,10 @@ export class Player extends DynamicGameObject {
 			{ x: 7, y: 3 },
 			{ x: 8, y: 3 },
 		])
+
+		this.e = new Key('e')
+
+		this.piss = new LocalObjects()
 	}
 
 	update() {
@@ -43,6 +47,18 @@ export class Player extends DynamicGameObject {
 		if (this.beacon) {
 			this.beacon.update()
 		}
+
+		if (this.e.down) {
+			const x = this.position.copy()
+			x.width = 0.1
+			x.height = 0.1
+
+			const p = new DynamicGameObject(x, 4, 100)
+			ForcePush(p).roughlyTowards(this.mouse.position, 12000)
+			this.piss.add(p)
+		}
+
+		this.piss.update()
 
 	}
 
@@ -55,5 +71,6 @@ export class Player extends DynamicGameObject {
 		// draw.new_circle(this.mouse.position)
 
 		this.flyingUp.draw(draw, guiDraw)
+		this.piss.draw(draw, guiDraw)
 	}
 }

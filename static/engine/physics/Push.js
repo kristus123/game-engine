@@ -11,4 +11,7 @@ export const Push = (o) => ({
 		o.velocity.x += Math.cos(dir) * o.velocityFactor * multiplier
 		o.velocity.y += Math.sin(dir) * o.velocityFactor * multiplier
 	},
+	roughlyTowards: (position, multiplier=1) => {
+		ForcePush(o).roughlyTowards(position, multiplier)
+	}
 })
