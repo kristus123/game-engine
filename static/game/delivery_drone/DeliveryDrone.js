@@ -2,7 +2,7 @@ export class DeliveryDrone extends DynamicGameObject {
 	constructor(player, camera, controller, target, x, y) {
 		super(new Position(x, y, 150, 150), 10, 5)
 
-		this.splash = new Splash()
+		//this.splash = new Splash()
 
 		this.compass = new Compass(camera)
 		this.compass.add(player, 'red')
@@ -24,8 +24,8 @@ export class DeliveryDrone extends DynamicGameObject {
 	draw(draw, guiDraw) {
 
 		this.localObjects.draw(draw, guiDraw)
-		this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)
-		this.splash.draw(draw, guiDraw)
+		//this.splash.splash(this.position.center, this.position.center, 100, 'orange', 1, 50)
+		//this.splash.draw(draw, guiDraw)
 
 		this.picture.draw(draw, guiDraw)
 	}

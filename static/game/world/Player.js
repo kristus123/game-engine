@@ -4,7 +4,7 @@ export class Player extends DynamicGameObject {
 
 		this.keyboardEvent = new KeyboardEvent()
 
-		this.splash = new Splash()
+		//this.splash = new Splash()
 		this.charge = 100
 
 		this.keyboard = new Keyboard()
