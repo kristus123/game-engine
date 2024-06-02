@@ -8,7 +8,7 @@ export class WorldEditor {
 		this.localObjects = new LocalObjects([
 			new Controller().control(camera.objectToFollow),
 			new StarBackground(camera),
-			// new Planet(0, 0),
+			//new Planet(new Position(0, 0)),
 			this.grid,
 			this.mouseMove,
 		])
@@ -21,13 +21,13 @@ export class WorldEditor {
 		})
 
 		this.add = null
+
 		Overlay.leftButton('game objects', () => {
 			Overlay.clearBottom()
 
 			Overlay.bottomButton('chicken', () => {
 				this.add = p => new Chicken(p)
 			})
-
 		})
 
 		Overlay.leftButton('grid', () => {

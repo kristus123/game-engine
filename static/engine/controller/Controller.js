@@ -16,6 +16,10 @@ export class Controller {
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
 	update() {
+		if (!this.objectToControl) {
+			return
+		}
+
 		if (this.keyboard.up) {
 			this.objectToControl.velocity.y -= this.objectToControl.velocityFactor
 		}

@@ -27,18 +27,14 @@ export class Html {
 	}
 
 	static text(text) {
-		//const div = element('div', 'ui')
-		//div.style.padding = '106px'
-		//div.style.margin = '67px'
-
 		const p = element('p', 'ui')
 		p.textContent = text
 		p.style.fontSize = '100px'
-		//div.appendChild(p)
 
 		document.getElementById('ui_elements').appendChild(p)
 
 		return {
+			style: p.style,
 			text: text => {
 				p.textContent = text
 				return this
