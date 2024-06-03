@@ -1,13 +1,14 @@
-function findThirdPosition(pos1, pos2) {
+function findThirdPosition(pos1, pos2, distance) {
+	// Calculate the vector from pos1 to pos2
 	const directionX = pos2.x - pos1.x
 	const directionY = pos2.y - pos1.y
 
-	const distance = Math.sqrt(directionX * directionX + directionY * directionY)
-
+	// Normalize the direction vector
 	const length = Math.sqrt(directionX * directionX + directionY * directionY)
 	const normalizedDirectionX = directionX / length
 	const normalizedDirectionY = directionY / length
 
+	// Extend this direction by the specified distance to find the third position
 	const extendedVectorX = normalizedDirectionX * distance
 	const extendedVectorY = normalizedDirectionY * distance
 	const pos3 = { x: pos2.x + extendedVectorX, y: pos2.y + extendedVectorY }
@@ -114,7 +115,7 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
-		const p = findThirdPosition(this.player, this.deliveryDrone)
+		const p = findThirdPosition(this.player, this.deliveryDrone, 100)
 		draw.new_circle(p)
 
 		this.localObjects.draw(draw, guiDraw)
