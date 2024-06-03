@@ -39,4 +39,8 @@ export class CenterPosition {
 		this.position.height = h
 	}
 
+	behind(anotherPosition, distance) {
+		return AnalShit.positionBehind(this, anotherPosition, distance)
+	}
+
 }

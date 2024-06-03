@@ -18,4 +18,8 @@ export class OffsetPosition {
 		return new Position(this.position.x + this.offset.x, this.position.y + this.offset.y, this.position.width, this.position.height)
 	}
 
+	behind(anotherPosition, distance) {
+		return AnalShit.positionBehind(this, anotherPosition, distance)
+	}
+
 }
