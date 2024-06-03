@@ -1,3 +1,20 @@
+function findThirdPosition(pos1, pos2) {
+	const directionX = pos2.x - pos1.x
+	const directionY = pos2.y - pos1.y
+
+	const distance = Math.sqrt(directionX * directionX + directionY * directionY)
+
+	const length = Math.sqrt(directionX * directionX + directionY * directionY)
+	const normalizedDirectionX = directionX / length
+	const normalizedDirectionY = directionY / length
+
+	const extendedVectorX = normalizedDirectionX * distance
+	const extendedVectorY = normalizedDirectionY * distance
+	const pos3 = { x: pos2.x + extendedVectorX, y: pos2.y + extendedVectorY }
+
+	return new Position(pos3.x, pos3.y)
+}
+
 export class World {
 	constructor(level, camera, mouse, controller) {
 
@@ -97,6 +114,9 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
+		const p = findThirdPosition(this.player, this.deliveryDrone)
+		draw.new_circle(p)
+
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
