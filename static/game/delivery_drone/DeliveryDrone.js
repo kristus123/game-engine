@@ -1,6 +1,6 @@
 export class DeliveryDrone extends DynamicGameObject {
-	constructor(player, camera, controller, target, x, y) {
-		super(new Position(x, y, 150, 150), 10, 5)
+	constructor(position, player, camera, controller) {
+		super(position, 10, 5)
 
 		//this.splash = new Splash()
 
