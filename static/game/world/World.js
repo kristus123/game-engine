@@ -16,7 +16,7 @@ export class World {
 			this.onlineObjects,
 			new OnlinePlayers(this.player, camera),
 			this.player,
-			new FirstQuest(this.controller, this.camera, this.mouse, this.player, [], this.deliveryDrone),
+			new FirstQuest(mouse, this.player),
 		])
 	}
 
