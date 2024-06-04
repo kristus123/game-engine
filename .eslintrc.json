@@ -26,6 +26,10 @@
         "sourceType": "module"
     },
     "rules": {
+        "space-in-parens": [
+            "error",
+            "never"
+        ],
         "no-fallthrough": "error",
         "lines-between-class-members": [
             "error",

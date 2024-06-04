@@ -1,5 +1,5 @@
 export class SlingshotExtension {
-	constructor( player) {
+	constructor(player) {
 		this.projectile = new Projectile(player, 10, 'red')
 
 		document.addEventListener('click', (e) => {

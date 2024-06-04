@@ -17,7 +17,7 @@ server.onConnection = (client, clientId) => {
 	for (const g of gameObjects) {
 		if (g.handledByClientId == null) {
 			g.handledByClientId = clientId
-			server.sendToEveryone( {
+			server.sendToEveryone({
 				action: 'OBJECT_HANDLED_BY',
 				clientid: g.handledByClientId,
 				objectId: g.objectId
