@@ -1,20 +1,20 @@
 export class World {
-	constructor(level) {
+	constructor(level, camera) {
 
 		this.player = new Player()
-		Camera.followInstantly(this.player)
+		camera.followInstantly(this.player)
 		Controller.control(this.player)
 
-		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), this.player)
+		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), this.player, camera)
 		this.onlineObjects = new OnlineObjects(this.player)
 
 
 		this.localObjects = new LocalObjects([
 			 this.deliveryDrone,
-			new StarBackground(),
+			new StarBackground(camera),
 			new Planet(new Position(0, 0)),
 			this.onlineObjects,
-			new OnlinePlayers(this.player),
+			new OnlinePlayers(this.player, camera),
 			this.player,
 			new FirstQuest( this.player),
 		])

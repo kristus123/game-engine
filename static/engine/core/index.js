@@ -5,25 +5,26 @@ ErrorHandler.run(() => {
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
 	const showLogs = new ShowLogs(guiPalette)
+	const camera = new Camera()
 
-	const draw = new Draw(Camera.palette.ctx)
+	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
 	const level = new Level()
-	 level.change(new World(level))
-	//level.change(new WorldEditor( ))
+	 level.change(new World(level,camera))
+	//level.change(new WorldEditor(camera))
 
-	const overlay = new Overlay()
+	const overlay = new Overlay(camera)
 	new VideoCall()
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
-			Palette.clear([Camera.palette, guiPalette])
+			Palette.clear([camera.palette, guiPalette])
 
 			Physics.global.update(deltaTime)
 
 			overlay.update()
 
-			Camera.context(() => {
+			camera.context(() => {
 				Controller.update()
 				Controller.draw(draw, guiDraw)
 
@@ -35,7 +36,7 @@ ErrorHandler.run(() => {
 			showLogs.draw()
 
 			Palette.fill(backgroundPalette, '#130927')
-			Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
+			Palette.apply(mainPalette, [backgroundPalette, camera.palette, guiPalette])
 		})
 	})
 })

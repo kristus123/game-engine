@@ -6,29 +6,33 @@ function limitNumber(num, min, max) { // not the best method name
 }
 
 export class Camera {
-	static palette = Palette.offscreen()
+	constructor() {
 
-	static objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
-	static position = new Position(0, 0)
+		this.palette = Palette.offscreen()
 
-	static offset = {
-		x: Palette.width / 2,
-		y: Palette.height / 2,
+		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
+		this.position = new Position(0, 0)
+
+		this.offset = {
+			x: Palette.width / 2,
+			y: Palette.height / 2,
+		}
+
+		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
+		this.velocityPrediction = 0.1
+		this.smoothMovement = 0.05
+// it is being set right after initializing this class
 	}
 
-	static smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
-	static velocityPrediction = 0.1
-	static smoothMovement = 0.05
-
-	static get zoom() {
+	get zoom() {
 		return this.smoothZoom.currentValue
 	}
 
-	static set zoom(x) {
+	set zoom(x) {
 		this.smoothZoom.targetValue = x
 	}
 
-	static context(run) {
+	context(run) {
 		this.smoothZoom.update()
 
 		this.palette.ctx.save()
@@ -63,11 +67,11 @@ export class Camera {
 		this.palette.ctx.restore()
 	}
 
-	static follow(o) {
+	follow(o) {
 		this.objectToFollow = o
 	}
 
-	static followInstantly(o) {
+	followInstantly(o) {
 		this.objectToFollow = o
 		this.position = o.position.copy()
 	}

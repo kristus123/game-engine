@@ -1,8 +1,8 @@
 export class InsideLevel {
-	constructor(level) {
+	constructor(level, camera) {
 
 		this.player = new Player()
-		Camera.follow(this.player)
+		camera.follow(this.player)
 
 		Controller.control(this.player)
 

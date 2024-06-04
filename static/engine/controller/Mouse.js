@@ -1,17 +1,34 @@
 export class Mouse {
-	static position = Camera.position.copy()
-	static screenPosition = Camera.position.copy()
+	static {
+		this.camera = new Camera()
+		this.position = this.camera.position.copy()
+		this.screenPosition = this.camera.position.copy()
 
-	static down = false
-	static mouseLastMoved = 0
+		this.down = false
+		this.mouseLastMoved = 0
 
+		document.addEventListener('mousemove', (e) => {
+			this.mouseLastMoved = 0
+			this.position = this.positionRelativeToCamera(e)
+		})
 
-	// Prevent right click to open menu
-	// document.addEventListener('contextmenu', event => event.preventDefault())
+		document.addEventListener('mousedown', () => {
+			this.down = true
+			this.up = false
+		})
 
-	static clickEvents = new ClickEvents(this)
+		document.addEventListener('mouseup', () => {
+			this.up = true
+			this.down = false
+		})
 
-	static holding = null
+		// Prevent right click to open menu
+		// document.addEventListener('contextmenu', event => event.preventDefault())
+
+		this.clickEvents = new ClickEvents(this)
+
+		this.holding = null
+	}
 
 	static addOnClick(name, handler) {
 		this.clickEvents.addOnClick(name, handler)
@@ -26,14 +43,14 @@ export class Mouse {
 		this.screenPosition.y = e.clientY
 
 		// Apply inverse transformations for translation and zoom
-		const inverseZoom = 1 /Camera.zoom
+		const inverseZoom = 1 /this.camera.zoom
 
 		const x =
-				(e.clientX - Camera.offset.x) * inverseZoom +
-				Camera.position.x
+				(e.clientX - this.camera.offset.x) * inverseZoom +
+				this.camera.position.x
 		const y =
-				(e.clientY - Camera.offset.y) * inverseZoom +
-				Camera.position.y
+				(e.clientY - this.camera.offset.y) * inverseZoom +
+				this.camera.position.y
 
 		return new Position(x, y)
 	}
@@ -46,18 +63,3 @@ export class Mouse {
 		return Collision.between(this.position, o)
 	}
 }
-
-document.addEventListener('mousemove', (e) => {
-	Mouse.mouseLastMoved = 0
-	Mouse.position = Mouse.positionRelativeToCamera(e)
-})
-
-document.addEventListener('mousedown', () => {
-	Mouse.down = true
-	Mouse.up = false
-})
-
-document.addEventListener('mouseup', () => {
-	Mouse.up = true
-	Mouse.down = false
-})
