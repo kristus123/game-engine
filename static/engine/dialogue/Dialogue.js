@@ -1,5 +1,5 @@
 export class Dialogue {
-	constructor(conversation, dialoguePosition, mouse) {
+	constructor(conversation, dialoguePosition) {
 
 		this.replyPosition = dialoguePosition
 
@@ -14,9 +14,9 @@ export class Dialogue {
 			for (const reply of this.conversation.replies) {
 				p.y += 120
 
-				new Button(p, reply.text, this.mouse).draw(draw)
+				new Button(p, reply.text).draw(draw)
 
-				if (this.mouse.clicked(p)) {
+				if (Mouse.clicked(p)) {
 					this[reply.key] = {
 						text: reply.text,
 					}

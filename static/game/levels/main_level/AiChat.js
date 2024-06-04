@@ -1,5 +1,5 @@
 export class AiChat {
-	constructor(position, mouse) {
+	constructor(position) {
 		const p = position.offset(-300, -100)
 		p.width = 700
 		p.height = 100
@@ -19,7 +19,7 @@ export class AiChat {
 		this.dialogue = new Dialogue(Conversation('quite a lot of piss around i must say', [
 			yes,
 			no,
-		]), p, mouse)
+		]), p)
 	}
 
 	update() {
