@@ -1,9 +1,11 @@
 export class Controller {
-	static keyboard = new Keyboard()
+	static {
+		this.keyboard = new Keyboard()
 
-	static velocity = new Velocity(this)
+		this.velocity = new Velocity(this)
 
-	static objectToControl = null
+		this.objectToControl = null
+	}
 
 	static control(o) {
 		this.objectToControl = o

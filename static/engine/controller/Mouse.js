@@ -1,17 +1,33 @@
 export class Mouse {
-	static position = Camera.position.copy()
-	static screenPosition = Camera.position.copy()
+	static {
+		this.position = Camera.position.copy()
+		this.screenPosition = Camera.position.copy()
 
-	static down = false
-	static mouseLastMoved = 0
+		this.down = false
+		this.mouseLastMoved = 0
 
+		document.addEventListener('mousemove', (e) => {
+			this.mouseLastMoved = 0
+			this.position = this.positionRelativeToCamera(e)
+		})
 
-	// Prevent right click to open menu
-	// document.addEventListener('contextmenu', event => event.preventDefault())
+		document.addEventListener('mousedown', () => {
+			this.down = true
+			this.up = false
+		})
 
-	static clickEvents = new ClickEvents(this)
+		document.addEventListener('mouseup', () => {
+			this.up = true
+			this.down = false
+		})
 
-	static holding = null
+		// Prevent right click to open menu
+		// document.addEventListener('contextmenu', event => event.preventDefault())
+
+		this.clickEvents = new ClickEvents(this)
+
+		this.holding = null
+	}
 
 	static addOnClick(name, handler) {
 		this.clickEvents.addOnClick(name, handler)
@@ -46,18 +62,3 @@ export class Mouse {
 		return Collision.between(this.position, o)
 	}
 }
-
-document.addEventListener('mousemove', (e) => {
-	Mouse.mouseLastMoved = 0
-	Mouse.position = Mouse.positionRelativeToCamera(e)
-})
-
-document.addEventListener('mousedown', () => {
-	Mouse.down = true
-	Mouse.up = false
-})
-
-document.addEventListener('mouseup', () => {
-	Mouse.up = true
-	Mouse.down = false
-})
