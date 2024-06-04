@@ -5,7 +5,7 @@ export class World {
 		camera.followInstantly(this.player)
 		controller.control(this.player)
 
-		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), this.player, camera, controller)
+		this.deliveryDrone = new DeliveryDrone(new Position(0, 0), this.player, camera, controller)
 		this.onlineObjects = new OnlineObjects(this.player)
 
 
