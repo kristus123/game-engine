@@ -1,12 +1,12 @@
 export class WorldEditor {
 
-	constructor(camera, mouse) {
+	constructor(camera) {
 		camera.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
-		this.mouseMove = new MouseMove(mouse)
-		this.grid = new Grid(mouse)
+		this.mouseMove = new MouseMove()
+		this.grid = new Grid()
 		this.localObjects = new LocalObjects([
-			new Controller().control(camera.objectToFollow),
+			Controller.control(camera.objectToFollow),
 			new StarBackground(camera),
 			//new Planet(new Position(0, 0)),
 			this.grid,
@@ -59,7 +59,7 @@ export class WorldEditor {
 			ObjectPersistence.update(o)
 		}
 
-		mouse.addOnClick('paint', p => {
+		Mouse.addOnClick('paint', p => {
 			if (this.add) {
 				p.width = 100
 				p.height = 100

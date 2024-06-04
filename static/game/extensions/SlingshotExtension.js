@@ -1,11 +1,11 @@
 export class SlingshotExtension {
-	constructor(mouse, player) {
+	constructor( player) {
 		this.projectile = new Projectile(player, 10, 'red')
 
 		document.addEventListener('click', (e) => {
 			this.projectile.shoot(
 				player,
-				mouse.positionRelativeToCamera(e),
+				Mouse.positionRelativeToCamera(e),
 			)
 		})
 	}

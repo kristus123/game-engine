@@ -5,19 +5,14 @@ ErrorHandler.run(() => {
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
 	const showLogs = new ShowLogs(guiPalette)
-
 	const camera = new Camera()
-	const mouse = new Mouse(camera)
-	camera.mouse = mouse
 
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-	const controller = new Controller()
-
 	const level = new Level()
-	 level.change(new World(level, camera, mouse, controller))
-	//level.change(new WorldEditor(camera, mouse))
+	 level.change(new World(level,camera))
+	//level.change(new WorldEditor(camera))
 
 	const overlay = new Overlay(camera)
 	new VideoCall()
@@ -30,8 +25,8 @@ ErrorHandler.run(() => {
 			overlay.update()
 
 			camera.context(() => {
-				controller.update()
-				controller.draw(draw, guiDraw)
+				Controller.update()
+				Controller.draw(draw, guiDraw)
 
 				level.update()
 				level.draw(draw, guiDraw)

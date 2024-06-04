@@ -1,5 +1,5 @@
 export class OnlinePlayers {
-	constructor(player, camera) {
+	constructor(player) {
 		this.connectedPlayers = []
 
 		this.socketClient = new SocketClient(8080, c => {

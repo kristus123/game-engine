@@ -1,5 +1,5 @@
 export class SexyChat {
-	constructor(position, mouse) {
+	constructor(position) {
 		const p = position.copy()
 		p.width = 700
 		p.height = 100
@@ -102,7 +102,7 @@ export class SexyChat {
 				yes,
 				no,
 			]
-		}, p, mouse)
+		}, p)
 	}
 
 	update() {
