@@ -1,5 +1,5 @@
 class ONE_DeliverChickens {
-	constructor(mouse, player) {
+	constructor( player) {
 		this.chickens = [
 			new Chicken(new Position(0, 0)),
 			new Chicken(new Position(-100, 0)),
@@ -7,7 +7,7 @@ class ONE_DeliverChickens {
 			new Chicken(new Position(-100, 0)),
 		]
 
-		this.movableObjects = new MovableObjects(mouse, player, this.chickens)
+		this.movableObjects = new MovableObjects(player, this.chickens)
 		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
 
 		this.localObjects = new LocalObjects([
@@ -31,14 +31,14 @@ class ONE_DeliverChickens {
 }
 
 class TWO_DriveChickens {
-	constructor(mouse, camera, controller, player) {
+	constructor( player) {
 		this.chickens = [
 			new Chicken(new Position(0, 0)),
 			new Chicken(new Position(-100, 0)),
 		]
 
-		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), player, camera, controller)
-		this.movableObjects = new MovableObjects(mouse, player, this.chickens)
+		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), player)
+		this.movableObjects = new MovableObjects( player, this.chickens)
 		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
 
 		this.localObjects = new LocalObjects([
@@ -62,9 +62,9 @@ class TWO_DriveChickens {
 }
 
 
-export function FirstQuest(mouse, player) {
+export function FirstQuest( player) {
 	return new Quest([
-		new ONE_DeliverChickens(mouse, player),
+		new ONE_DeliverChickens( player),
 	], () => {
 		console.log('quest finished')
 	})

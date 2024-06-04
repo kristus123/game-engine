@@ -14,12 +14,12 @@ const canILeave = Reply('Can i leave?',
 	])
 )
 
-export const VoidDialogue = (player, mouse) => {
+export const VoidDialogue = (player) => {
 
 	const p = player.position.copy()
 	p.x += 100
 	p.width = 700
 	p.height = 100
 
-	return new Dialogue(Conversation('welcome to the void', [whatIsThis, canILeave]), p, mouse)
+	return new Dialogue(Conversation('welcome to the void', [whatIsThis, canILeave]), p)
 }

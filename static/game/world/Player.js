@@ -1,5 +1,5 @@
 export class Player extends DynamicGameObject {
-	constructor(mouse) {
+	constructor() {
 		super(new Position(0, 0, 40, 50), 2300, 8)
 
 		this.keyboardEvent = new KeyboardEvent()
@@ -9,7 +9,7 @@ export class Player extends DynamicGameObject {
 
 		this.keyboard = new Keyboard()
 
-		this.gun = new Gun(this, mouse)
+		this.gun = new Gun(this)
 
 		// this.keyboardEvent.addKeyDownListener('e', () => {
 		// 	if (this.charge >= 100) {
@@ -54,7 +54,7 @@ export class Player extends DynamicGameObject {
 			x.height = 0.1
 
 			const p = new DynamicGameObject(x, 4, 100)
-			ForcePush(p).roughlyTowards(this.mouse.position, 12000)
+			ForcePush(p).roughlyTowards(Mouse.position, 12000)
 			this.piss.add(p)
 		}
 

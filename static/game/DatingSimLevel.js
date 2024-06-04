@@ -1,8 +1,8 @@
 export class DatingSimLevel {
-	constructor(level, allObjects, camera, mouse) {
+	constructor(level, allObjects) {
 
 		allObjects.register(this, [
-			new Chat(camera, mouse),
+			new Chat( ),
 		])
 	}
 
