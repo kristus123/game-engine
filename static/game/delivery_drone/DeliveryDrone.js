@@ -4,7 +4,7 @@ export class DeliveryDrone extends DynamicGameObject {
 
 		//this.splash = new Splash()
 
-		this.compass = new Compass()
+		this.compass = new Compass(camera)
 		this.compass.add(player, 'red')
 
 		this.enterVehicle = new EnterVehicle(this, player,camera)
