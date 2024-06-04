@@ -3,10 +3,10 @@ export class PrettyParticles {
 		this.particles = []
 	}
 
-	piss(ctx, player, mousePosition) {
+	piss(ctx, player, mousePosition, mouse) {
 		const size = Random.floatBetween(1, 5)
 
-		if (this.particles.length < 100 && Mouse.down) {
+		if (this.particles.length < 100 && mouse.down) {
 			const newParticle = new DynamicGameObject(new Position(player.x, player.y, size, size), 10, 200)
 
 			const pos = Calculate.directionBetween(Get.position(player), mousePosition)

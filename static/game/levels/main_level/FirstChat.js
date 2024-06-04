@@ -1,5 +1,5 @@
 export class FirstChat {
-	constructor(position) {
+	constructor(position, mouse) {
 		const p = position.copy()
 		p.width = 700
 		p.height = 100
@@ -37,7 +37,7 @@ export class FirstChat {
 				yes,
 				howDoIPlay,
 			]
-		}, p)
+		}, p, mouse)
 	}
 
 	update() {

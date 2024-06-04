@@ -1,12 +1,12 @@
 export class MovableObjects {
-	constructor( movableBy, objects=[]) {
+	constructor(mouse, movableBy, objects=[]) {
 
 		this.e = new Key('e')
 
 		this.holding = null
 
 		KeyDown('q', () => {
-			ForcePush(this.holding).towards(Mouse.position, 100)
+			ForcePush(this.holding).towards(mouse.position, 100)
 			this.holding = null
 		})
 	}

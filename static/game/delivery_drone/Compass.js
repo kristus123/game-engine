@@ -1,10 +1,10 @@
 export class Compass {
-	constructor( targets=[]) {
+	constructor(camera, targets=[]) {
 	}
 
 	draw(draw, guiDraw) {
 		for (const t of this.targets) {
-			draw.objectThatIsMovingInRectangularPathAroundObject( t.position, t.color)
+			draw.objectThatIsMovingInRectangularPathAroundObject(this.camera, t.position, t.color)
 		}
 	}
 

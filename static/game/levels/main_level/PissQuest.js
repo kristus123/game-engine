@@ -1,5 +1,5 @@
 export class PissQuest {
-	constructor(deliveryDrone) {
+	constructor(deliveryDrone, mouse) {
 		this.cleanedPisses = 0
 
 		deliveryDrone.compass.clear()
@@ -10,7 +10,7 @@ export class PissQuest {
 
 			deliveryDrone.compass.add(position, 'yellow')
 
-			const piss = new Piss(deliveryDrone, position)
+			const piss = new Piss(deliveryDrone, mouse, position)
 			piss.onFinish = () => {
 				this.cleanedPisses += 1
 				deliveryDrone.compass.remove(position, 'yellow')

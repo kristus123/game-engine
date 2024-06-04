@@ -1,5 +1,5 @@
 export class EnterVehicle {
-	constructor(vehicle, player) {
+	constructor(vehicle, player, camera, controller) {
 
 		this.entered = false
 
@@ -8,9 +8,9 @@ export class EnterVehicle {
 				this.entered = false
 
 				Call(this.onExit)
-				Controller.control(player)
-				Camera.follow(player)
-				Camera.zoom = 1
+				controller.control(player)
+				camera.follow(player)
+				camera.zoom = 1
 
 				this.player.x = vehicle.x
 				this.player.y = vehicle.y
@@ -19,9 +19,9 @@ export class EnterVehicle {
 				this.entered = true
 
 				Call(this.onEnter)
-				Controller.control(vehicle)
-				Camera.follow(vehicle)
-				Camera.zoom = 0.5
+				controller.control(vehicle)
+				camera.follow(vehicle)
+				camera.zoom = 0.5
 
 				this.player.x = -999999
 				this.player.y = -999999

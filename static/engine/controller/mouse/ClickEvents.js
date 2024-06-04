@@ -1,5 +1,5 @@
 export class ClickEvents {
-	constructor() {
+	constructor(mouse) {
 		this.clickHandlers = {}
 
 		this.handleClick = this.handleClick.bind(this)
@@ -12,8 +12,8 @@ export class ClickEvents {
 		}
 
 		const wrapperHandler = (e) => {
-			const mousePosition = Mouse.positionRelativeToCamera(e)
-			if (!Mouse.holding) {
+			const mousePosition = this.mouse.positionRelativeToCamera(e)
+			if (!this.mouse.holding) {
 				handler(mousePosition)
 			}
 		}

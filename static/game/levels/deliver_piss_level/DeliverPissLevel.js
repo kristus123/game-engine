@@ -9,7 +9,7 @@ export class DeliverPissLevel {
 		this.localObjects = new LocalObjects([
 			world,
 			npc,
-			new SecondChat(npc.position),
+			new SecondChat(npc.position, world.mouse),
 			this.factory
 		])
 	}

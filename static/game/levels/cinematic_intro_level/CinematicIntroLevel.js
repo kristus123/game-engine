@@ -1,6 +1,6 @@
 export class CinematicIntroLevel {
-	constructor(level) {
-		this.world = new World(level)
+	constructor(level, camera, mouse) {
+		this.world = new World(level, camera, mouse)
 
 		this.localObjects = new LocalObjects([
 			this.world,
@@ -15,11 +15,11 @@ export class CinematicIntroLevel {
 		this.localObjects.update()
 
 		if (Distance.withinRadius(this.world.deliveryDrone, this.world.player, 300)) {
-			Controller.control(this.world.player)
-			Camera.follow(this.world.player)
+			this.world.controller.control(this.world.player)
+			this.world.camera.follow(this.world.player)
 			this.world.deliveryDrone.resetVelocity()
 
-			this.level.change(new MainLevel(this.level, this.world))
+			this.level.change(new MainLevel(this.level, this.world, this.camera, this.mouse))
 		}
 	}
 

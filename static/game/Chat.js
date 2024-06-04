@@ -1,11 +1,11 @@
 export class Chat {
-	constructor( ) {
+	constructor(camera, mouse) {
 
 		this.localObjects = new LocalObjects([
 		])
 
-		// this.blur = new Blur()
-		this.thing = new SexyChat(new Position(0, -200))
+		// this.blur = new Blur(camera)
+		this.thing = new SexyChat(new Position(0, -200), mouse)
 
 		this.picture = new DynamicGameObject(new Position(-800, -400, 600, 600), 10, 10, '/static/assets/art/bar.jpg')
 	}

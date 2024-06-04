@@ -1,4 +1,7 @@
 export class Overlay {
+	constructor(camera) {
+	}
+
 	update() {
 	}
 

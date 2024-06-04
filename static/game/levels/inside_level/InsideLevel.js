@@ -1,14 +1,15 @@
 export class InsideLevel {
-	constructor(level) {
+	constructor(level, camera, mouse) {
+		this.controller = new Controller()
 
-		this.player = new Player()
-		Camera.follow(this.player)
+		this.player = new Player(mouse)
+		camera.follow(this.player)
 
-		Controller.control(this.player)
+		this.controller.control(this.player)
 
 		this.localObjects = new LocalObjects([
 			this.player,
-			VoidDialogue(this.player),
+			VoidDialogue(this.player, this.mouse),
 		])
 	}
 

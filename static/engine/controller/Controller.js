@@ -1,5 +1,5 @@
 export class Controller {
-	static {
+	constructor() {
 		this.keyboard = new Keyboard()
 
 		this.velocity = new Velocity(this)
@@ -7,7 +7,7 @@ export class Controller {
 		this.objectToControl = null
 	}
 
-	static control(o) {
+	control(o) {
 		this.objectToControl = o
 
 		return this
@@ -15,7 +15,7 @@ export class Controller {
 
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
-	static update() {
+	update() {
 		if (!this.objectToControl) {
 			return
 		}
@@ -41,7 +41,7 @@ export class Controller {
 		this.velocity.y = this.keyboard.down ? 1 : this.keyboard.up ? -1 : 0
 	}
 
-	static draw(draw, guiDraw) {
+	draw(draw, guiDraw) {
 	}
 
 }

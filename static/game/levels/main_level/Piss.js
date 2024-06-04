@@ -1,5 +1,5 @@
 export class Piss {
-	constructor(player, position) {
+	constructor(player, mouse, position) {
 
 		this.inventory = new Inventory()
 

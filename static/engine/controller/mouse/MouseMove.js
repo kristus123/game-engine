@@ -1,5 +1,5 @@
 export class MouseMove {
-	constructor() {
+	constructor(mouse) {
 		this.holding = null
 
 		this.movableObjects = []
@@ -11,15 +11,15 @@ export class MouseMove {
 
 	update() {
 		for (const o of this.movableObjects) {
-			if (!Mouse.holding && Mouse.clicked(o)) {
+			if (!this.mouse.holding && this.mouse.clicked(o)) {
 				this.holding = o
 			}
 			else if (o === this.holding) {
-				o.position.center.x = Mouse.position.x
-				o.position.center.y = Mouse.position.y
+				o.position.center.x = this.mouse.position.x
+				o.position.center.y = this.mouse.position.y
 			}
 
-			if (this.holding && Mouse.up) {
+			if (this.holding && this.mouse.up) {
 				this.moved(this.holding)
 				this.holding = null
 			}
@@ -28,7 +28,7 @@ export class MouseMove {
 
 	draw(draw, guiDraw) {
 		for (const o of this.movableObjects) {
-			if (Mouse.hovering(o) && !this.holding) {
+			if (this.mouse.hovering(o) && !this.holding) {
 				draw.new_text(o.position, 'click to move')
 				break
 			}

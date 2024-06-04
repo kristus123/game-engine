@@ -1,5 +1,5 @@
 export class CollectChickensQuest {
-	constructor( player, chickens) {
+	constructor(mouse, player, chickens) {
 		this.chickens = [
 			new Chicken(new Position(0, 0)),
 			new Chicken(new Position(-100, 0)),
@@ -7,7 +7,7 @@ export class CollectChickensQuest {
 			new Chicken(new Position(-100, 0)),
 		]
 
-		this.movableObjects = new MovableObjects( player, this.chickens)
+		this.movableObjects = new MovableObjects(mouse, player, this.chickens)
 		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
 
 		this.localObjects = new LocalObjects([
