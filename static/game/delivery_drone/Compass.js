@@ -1,5 +1,5 @@
 export class Compass {
-	constructor( camera,targets=[]) {
+	constructor( camera, targets=[]) {
 	}
 
 	draw(draw, guiDraw) {

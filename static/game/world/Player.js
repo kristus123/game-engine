@@ -9,7 +9,7 @@ export class Player extends DynamicGameObject {
 
 		this.keyboard = new Keyboard()
 
-		this.gun = new Gun(this,camera)
+		this.gun = new Gun(this, camera)
 
 		// this.keyboardEvent.addKeyDownListener('e', () => {
 		// 	if (this.charge >= 100) {

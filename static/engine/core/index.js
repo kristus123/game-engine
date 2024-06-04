@@ -5,14 +5,16 @@ ErrorHandler.run(() => {
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
 	const showLogs = new ShowLogs(guiPalette)
-	const camera = new Camera()
+
+	// Cam( - transpiler hack
+	const camera = Cam
 	Mouse.initialize(camera)
 
 	const draw = new Draw(camera.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
 	const level = new Level()
-	 level.change(new World(level,camera))
+	 level.change(new World(level, camera))
 	//level.change(new WorldEditor(camera))
 
 	const overlay = new Overlay(camera)

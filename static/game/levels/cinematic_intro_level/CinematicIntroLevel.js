@@ -1,5 +1,5 @@
 export class CinematicIntroLevel {
-	constructor(level,camera) {
+	constructor(level, camera) {
 		this.world = new World(level, camera)
 
 		this.localObjects = new LocalObjects([
