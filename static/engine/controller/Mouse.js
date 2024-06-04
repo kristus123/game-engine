@@ -1,6 +1,6 @@
 export class Mouse {
-	static {
-		this.camera = new Camera()
+	static constr(camera){
+		this.camera = camera
 		this.position = this.camera.position.copy()
 		this.screenPosition = this.camera.position.copy()
 
