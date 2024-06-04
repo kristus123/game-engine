@@ -1,6 +1,6 @@
 export class Grid {
 
-	constructor(mouse) {
+	constructor() {
 		this.cellSize = 128
 		this.width = 1_000
 		this.height = 1_000
@@ -40,7 +40,7 @@ export class Grid {
 
 	draw(draw, guiDraw) {
 		if (this.show) {
-			const snappedPosition = this.mouseGrid(this.mouse.position)
+			const snappedPosition = this.mouseGrid(Mouse.position)
 			draw.new_rectangle(snappedPosition)
 
 			this.drawGrid(draw.ctx, this.cellSize*1, this.cellSize*2) // for moving the grid

@@ -1,5 +1,5 @@
 export class MainLevel {
-	constructor(level, allObjects, world, camera, mouse) {
+	constructor(level, allObjects, world, camera) {
 
 		// const pissQuest = new PissQuest(this.world.deliveryDrone, mouse)
 		// pissQuest.onFinish = () => {

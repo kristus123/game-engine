@@ -1,7 +1,8 @@
 export class Mouse {
-	constructor(camera) {
-		this.position = camera.position.copy()
-		this.screenPosition = camera.position.copy()
+	static initialize(camera) {
+		this.camera = camera
+		this.position = this.camera.position.copy()
+		this.screenPosition = this.camera.position.copy()
 
 		this.down = false
 		this.mouseLastMoved = 0
@@ -29,20 +30,20 @@ export class Mouse {
 		this.holding = null
 	}
 
-	addOnClick(name, handler) {
+	static addOnClick(name, handler) {
 		this.clickEvents.addOnClick(name, handler)
 	}
 
-	removeOnClick(name, handler) {
+	static removeOnClick(name, handler) {
 		this.clickEvents.removeOnClick(name, handler)
 	}
 
-	positionRelativeToCamera(e) {
+	static positionRelativeToCamera(e) {
 		this.screenPosition.x = e.clientX
 		this.screenPosition.y = e.clientY
 
 		// Apply inverse transformations for translation and zoom
-		const inverseZoom = 1 / this.camera.zoom
+		const inverseZoom = 1 /this.camera.zoom
 
 		const x =
 				(e.clientX - this.camera.offset.x) * inverseZoom +
@@ -54,11 +55,11 @@ export class Mouse {
 		return new Position(x, y)
 	}
 
-	clicked(o) {
+	static clicked(o) {
 		return Collision.between(this.position, o) && this.down
 	}
 
-	hovering(o) {
+	static hovering(o) {
 		return Collision.between(this.position, o)
 	}
 }
