@@ -14,7 +14,7 @@ export class DeliveryDrone extends DynamicGameObject {
 			this.compass,
 		])
 
-		this.picture = new RotatingPicture(this, '/static/assets/cargo_ship.png')
+		this.picture = new RotatingPicture(this, '/static/assets/image/cargo_ship.png')
 	}
 
 	update() {
