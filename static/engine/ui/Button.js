@@ -1,5 +1,5 @@
 export class Button extends DynamicGameObject {
-	constructor(text, camera) {
+	constructor(text) {
 		super(new Position(0, 0, 265, 117), 100, 100)
 
 		this.button = Html.button('hei', b => {
@@ -13,8 +13,8 @@ export class Button extends DynamicGameObject {
 	update() {
 		this.position.x += 1
 
-		const offsetX = this.position.x - this.camera.position.x + (Palette.width/2)
-		const offsetY = this.position.y - this.camera.position.y + (Palette.height/2)
+		const offsetX = this.position.x - Cam.position.x + (Palette.width/2)
+		const offsetY = this.position.y - Cam.position.y + (Palette.height/2)
 
 		this.button.style.left = `${offsetX}px`
 		this.button.style.top = `${offsetY}px`

@@ -1,7 +1,7 @@
 export class Blur {
 	constructor(camera) {
-		this.canvas = camera.palette.canvas
-		this.ctx = camera.palette.ctx
+		this.canvas = Cam.palette.canvas
+		this.ctx = Cam.palette.ctx
 
 		this.pixelSize = 200
 	}

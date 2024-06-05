@@ -2,7 +2,7 @@ export class StarBackground {
 	constructor(camera) {
 		this.stars = Random.positions(-10, 20, -10, 20, 500)
 			.map(position => ({
-				position: Random.direction(camera.position, 1000),
+				position: Random.direction(Cam.position, 1000),
 				color: Random.choice(['#638782', '#304e4f', '#1f2d2c', '#15282a', 'white']),
 			}))
 	}

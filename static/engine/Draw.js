@@ -194,21 +194,21 @@ export class Draw {
 		player.angle = Math.atan2(mousePosition.y - player.position.center.y, mousePosition.x - player.position.center.x)
 	}
 
-	objectThatIsMovingInRectangularPathAroundObject(camera, target, color='red') {
+	objectThatIsMovingInRectangularPathAroundObject(target, color='red') {
 		this.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
-		const dx = target.x - camera.position.x
-		const dy = target.y - camera.position.y
+		const dx = target.x - Cam.position.x
+		const dy = target.y - Cam.position.y
 		// Calculate the maximum allowed distances for rectangular movement
 		const horizontalRectDistance = (Palette.width / 2 - 20)
 		const verticalRectDistance = (Palette.height / 2 - 20)
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
-			camera.position.x +
+			Cam.position.x +
 			Math.min(Math.abs(dx), horizontalRectDistance) * Math.sign(dx)
 		let circleY =
-			camera.position.y +
+			Cam.position.y +
 			Math.min(Math.abs(dy), verticalRectDistance) * Math.sign(dy)
 
 		// Draw the circle
@@ -216,8 +216,8 @@ export class Draw {
 		this.circle(circleX, circleY, playerRadius, color)
 
 		// Draw the rectangle
-		const rectX = camera.position.x - horizontalRectDistance
-		const rectY = camera.position.y - verticalRectDistance
+		const rectX = Cam.position.x - horizontalRectDistance
+		const rectY = Cam.position.y - verticalRectDistance
 		const rectWidth = horizontalRectDistance * 2
 		const rectHeight = verticalRectDistance * 2
 

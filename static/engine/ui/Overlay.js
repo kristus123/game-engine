@@ -1,9 +1,4 @@
 export class Overlay {
-	update() {
-	}
-
-	draw(draw, guiDraw) {
-	}
 
 	static leftButton(text, onClick) {
 		const div = Html.createElement('div', '.left', '')
