@@ -1,5 +1,5 @@
 export class Gun {
-	constructor(player, camera) {
+	constructor(player) {
 		this.bullets = []
 		this.hittableObjects = []
 

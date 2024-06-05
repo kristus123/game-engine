@@ -9,7 +9,7 @@ export class Player extends DynamicGameObject {
 
 		this.keyboard = new Keyboard()
 
-		this.gun = new Gun(this, camera)
+		this.gun = new Gun(this)
 
 		// this.keyboardEvent.addKeyDownListener('e', () => {
 		// 	if (this.charge >= 100) {
@@ -59,7 +59,6 @@ export class Player extends DynamicGameObject {
 		}
 
 		this.piss.update()
-
 	}
 
 	draw(draw, guiDraw) {
