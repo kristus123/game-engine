@@ -1,9 +1,5 @@
 export class _GameObject {
-	constructor(position, imagePath='nullable') {
-
-		if (imagePath != 'nullable') { // temp hack until i figure out what to do
-			this.picture = new Picture(this, imagePath)
-		}
+	constructor(position) {
 
 		this.position = position.copy()
 
@@ -59,11 +55,6 @@ export class _GameObject {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.picture) {
-			this.picture.draw(draw, guiDraw)
-		}
-		else {
-			draw.new_rectangle(this.position)
-		}
+		draw.new_rectangle(this)
 	}
 }

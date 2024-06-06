@@ -15,6 +15,9 @@ export class World {
 			this.player,
 			new FirstQuest(this.player),
 		])
+
+		Overlay.bottomButton('hei')
+		Overlay.bottomButton('hei')
 	}
 
 	update() {

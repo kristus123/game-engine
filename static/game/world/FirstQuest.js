@@ -1,11 +1,6 @@
 class ONE_DeliverChickens {
-	constructor(player, chickens) {
-
-		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
-
-		this.localObjects = new LocalObjects([
-			this.deliveryZone,
-		])
+	constructor(chickens) {
+		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), chickens)
 	}
 
 	completed() {
@@ -13,22 +8,20 @@ class ONE_DeliverChickens {
 	}
 
 	update() {
-		this.localObjects.update()
+		this.deliveryZone.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.deliveryZone.draw(draw, guiDraw)
 	}
 }
 
 class TWO_DriveChickens {
-	constructor(player, chickens) {
+	constructor(chickens) {
 		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
 
 		this.localObjects = new LocalObjects([
 			this.deliveryZone,
-			new Npc(new Position(0,0)),
-			new DeliveryDrone(new Position(0, 0), player),
 		])
 	}
 
@@ -45,36 +38,29 @@ class TWO_DriveChickens {
 	}
 }
 
-
 export class FirstQuest {
 	constructor(player) {
-		this.chickens = [
+		const chickens = [
 			new Chicken(new Position(0, 0)),
 			new Chicken(new Position(-100, 0)),
 		]
-		this.movableObjects = new MovableObjects(player, this.chickens)
 
-		this.quest = new Quest([
-			new ONE_DeliverChickens(player, this.chickens),
-			new TWO_DriveChickens(player, this.chickens),
-		], () => {
-			console.log('quest finished')
-		})
-		
+		this.localObjects = new LocalObjects([
+			new DeliveryDrone(new Position(0, 0), player),
+			new MovableObjects(player, chickens),
+			new Quest([
+				new ONE_DeliverChickens(chickens),
+				new TWO_DriveChickens(chickens),
+			]),
+			...chickens,
+		])
 	}
 
 	update() {
-		this.quest.update()
-		this.movableObjects.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.quest.draw(draw, guiDraw)
-		this.movableObjects.draw(draw, guiDraw)
-
-		for (const c of this.chickens) {
-			c.update
-			c.draw(draw, guiDraw)
-		}
+		this.localObjects.draw(draw, guiDraw)
 	}
 }
