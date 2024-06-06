@@ -2,33 +2,16 @@ export class Player extends DynamicGameObject {
 	constructor(camera) {
 		super(new Position(0, 0, 40, 50), 2300, 8)
 
-		this.keyboardEvent = new KeyboardEvent()
+		this.position.width = 100
+		this.position.height = 100
 
-		//this.splash = new Splash()
-		this.charge = 100
+		this.keyboardEvent = new KeyboardEvent()
 
 		this.keyboard = new Keyboard()
 
 		this.gun = new Gun(this)
 
-		// this.keyboardEvent.addKeyDownListener('e', () => {
-		// 	if (this.charge >= 100) {
-		// 		this.charge -= 100
-		// 		ForcePush(this).towards(this.mouse.position, 100)
-		// 	}
-		// })
-
-		// this.keyboardEvent.addKeyDownListener('b', () => {
-		// 	if (!this.beacon) {
-		// 		this.beacon = new BeaconShit(this.mouse.position)
-		// 	}
-		// })
-
-		setInterval(() => {
-			this.charge += 1
-		}, 20)
-
-		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', 5, [
+		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', [
 			{ x: 4, y: 3 },
 			{ x: 5, y: 3 },
 			{ x: 6, y: 3 },
@@ -43,10 +26,6 @@ export class Player extends DynamicGameObject {
 
 	update() {
 		this.gun.update()
-		this.charge += 1
-		if (this.beacon) {
-			this.beacon.update()
-		}
 
 		if (this.e.down) {
 			const x = this.position.copy()

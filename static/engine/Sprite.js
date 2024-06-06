@@ -14,7 +14,7 @@ function dimensionsFrom(src) {
 }
 
 export class Sprite {
-	constructor(position, src, scale, frameSequence, speed=100) {
+	constructor(position, src, frameSequence, speed=100) {
 		this.image = new Image()
 		this.image.src = src
 
@@ -44,8 +44,8 @@ export class Sprite {
 				this.height,
 				this.position.x,
 				this.position.y,
-				this.width * this.scale,
-				this.height * this.scale,
+				this.width,
+				this.height,
 			)
 		}
 	}

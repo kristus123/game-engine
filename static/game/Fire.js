@@ -4,10 +4,6 @@ export class Fire extends DynamicGameObject {
 		this.position.width = 200
 		this.position.height = 200
 
-		const frameWidth = 96
-		const frameHeight = 96
-		const scale = 4
-
 		const frameSequence = [
 			{ x: 0, y: 0 },
 			{ x: 1, y: 0 },
@@ -34,7 +30,7 @@ export class Fire extends DynamicGameObject {
 			{ x: 2, y: 4 },
 		]
 
-		this.sprite = new Sprite(this.position, '/static/assets/particles/Fire+Sparks-SpriteSheet.png', scale, frameSequence)
+		this.sprite = new Sprite(this.position, '/static/assets/particles/Fire+Sparks-SpriteSheet.png', frameSequence)
 	}
 
 	update() {
