@@ -14,7 +14,7 @@ ErrorHandler.run(() => {
 	const level = new Level()
 	 level.change(new World(level))
 	//level.change(new WorldEditor(Cam))
-
+	
 	new VideoCall()
 
 	Loop.everyFrame((deltaTime) => {
