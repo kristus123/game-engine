@@ -14,12 +14,11 @@ function element(type, clazz) {
 
 export class Html {
 
-	static div(text) {
-		var div = document.createElement("div");
+	static p(text) {
+		var p = document.createElement("p");
+		p.innerHTML = text
 
-		div.appendChild(document.createTextNode(text))
-
-		return div
+		return p
 	}
 
 	static button(text, onClick) {

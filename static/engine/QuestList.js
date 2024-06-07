@@ -1,18 +1,21 @@
 export class QuestList {
 
 	static add(text) {
-
-		const element = document.getElementById('quest_list');
-		element.innerHTML = '';
-
 		const q = document.getElementById('quest_list')
-		q.appendChild(Html.div(text))
+		const p = Html.p(text)
+		q.appendChild(p)
+
+		return {
+			completed: () => p.classList.add("crossed")
+		}
 	}
 
 	static clear() {
+		const div = document.getElementById('quest_list')
+		div.innerHTML = ''
 	}
 
-    static show(text = "Loading..."){
+    static show(){
         document.getElementById("quest_list").style.display = "flex";
     }
 

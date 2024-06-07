@@ -15,3 +15,8 @@
 
 	font-size: 30px;
 }
+
+.crossed {
+	color: grey;
+	text-decoration: line-through;
+}

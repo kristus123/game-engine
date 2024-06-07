@@ -9,8 +9,6 @@ export class Cargo extends DynamicGameObject {
 		}
 
 		ForcePush(this).towards(this.connectedTo, 10)
-
-		console.log("heihsiahi")
 	}
 
 
