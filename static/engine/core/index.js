@@ -11,9 +11,8 @@ ErrorHandler.run(() => {
 	const draw = new Draw(Cam.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-	const level = new Level()
-	 level.change(new World(level))
-	//level.change(new WorldEditor(Cam))
+	 Level.change(new World())
+	//Level.change(new WorldEditor(Cam))
 
 	new VideoCall()
 
@@ -30,8 +29,8 @@ ErrorHandler.run(() => {
 				Controller.update()
 				Controller.draw(draw, guiDraw)
 
-				level.update()
-				level.draw(draw, guiDraw)
+				Level.update()
+				Level.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()
