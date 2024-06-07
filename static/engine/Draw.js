@@ -21,6 +21,11 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
+	transparentRedRectangle(position) {
+		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)' // RGBA color (green with 50% opacity)
+		this.ctx.fillRect(position.x, position.y, position.width, position.height)
+	}
+
 	block(position, color='white') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(
