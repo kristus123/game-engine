@@ -18,13 +18,16 @@ class ONE_DeliverChickens {
 }
 
 class TWO_DriveChickens {
-	constructor(chickens, deliveryDrone) {
+	constructor(chickens) {
+
+		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
 
 		this.cargo = new Cargo(chickens, deliveryDrone)
 
 		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
 
 		this.localObjects = new LocalObjects([
+			this.deliveryDrone,
 			this.deliveryZone,
 			this.cargo,
 		])
@@ -52,14 +55,11 @@ export class FirstQuest {
 		]
 
 
-		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
-
 		this.localObjects = new LocalObjects([
-			deliveryDrone,
 			new MovableObjects(player, chickens),
 			new Quest([
-				new ONE_DeliverChickens(chickens),
-				new TWO_DriveChickens(chickens, deliveryDrone),
+				() => new ONE_DeliverChickens(chickens),
+				() => new TWO_DriveChickens(chickens),
 			]),
 			...chickens,
 		])
