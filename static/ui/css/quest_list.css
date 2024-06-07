@@ -1,0 +1,17 @@
+  #quest_list {
+	position: absolute;
+	top: 0;
+	left: 0;
+	flex-direction: column; /* Added this line */
+	/*display: flex;*/
+	color: white;
+	/*align-items: center;*/
+	/*justify-content: center;*/
+
+	background-color: black; 
+
+	margin:30px; 
+	min-width: 200px;
+
+	font-size: 30px;
+}

@@ -14,6 +14,14 @@ function element(type, clazz) {
 
 export class Html {
 
+	static div(text) {
+		var div = document.createElement("div");
+
+		div.appendChild(document.createTextNode(text))
+
+		return div
+	}
+
 	static button(text, onClick) {
 		const button = element('button', 'ui button')
 		button.textContent = text

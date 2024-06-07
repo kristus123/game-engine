@@ -17,6 +17,11 @@ ErrorHandler.run(() => {
 	
 	new VideoCall()
 
+	LoadingScreen.show()
+	QuestList.show()
+	QuestList.add('yo')
+	QuestList.add('yo')
+
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
 			Palette.clear([Cam.palette, guiPalette])
