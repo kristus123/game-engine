@@ -28,7 +28,6 @@ export class Overlay {
 		b.addEventListener('click', onClick)
 	}
 
-
 	static bottomButton(text, onClick) {
 		const div = Html.createElement('div', '.bottom', 'item')
 		const b = Html.createElement('button', div, '')
