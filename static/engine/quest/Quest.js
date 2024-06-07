@@ -1,8 +1,8 @@
 export class Quest {
 	constructor(tasks=[]) {
 
-		this.currentTask = tasks[0]()
 		this.index = 0
+		this.currentTask = tasks[this.index]()
 
 		this.questCompleted = false
 
@@ -16,7 +16,7 @@ export class Quest {
 			this.currentTask.update()
 
 			if (this.currentTask.completed()) {
-				if (List.lastIndex(this.currentTask, this.index)) {
+				if (List.lastIndex(this.tasks, this.index)) {
 					this.questCompleted = true
 					this.onQuestCompleted()
 				}
