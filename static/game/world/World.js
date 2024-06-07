@@ -1,5 +1,5 @@
 export class World {
-	constructor(level) {
+	constructor() {
 
 		this.player = new Player(Cam)
 		Cam.followInstantly(this.player)

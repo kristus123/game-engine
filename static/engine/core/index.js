@@ -15,6 +15,9 @@ ErrorHandler.run(() => {
 	 level.change(new World(level))
 	//level.change(new WorldEditor(Cam))
 	
+	 Level.change(new World())
+	//Level.change(new WorldEditor(Cam))
+
 	new VideoCall()
 
 	LoadingScreen.show()
@@ -30,8 +33,8 @@ ErrorHandler.run(() => {
 				Controller.update()
 				Controller.draw(draw, guiDraw)
 
-				level.update()
-				level.draw(draw, guiDraw)
+				Level.update()
+				Level.draw(draw, guiDraw)
 			})
 
 			showLogs.draw()

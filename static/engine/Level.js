@@ -1,18 +1,18 @@
 export class Level {
-	constructor() {
-		this.activeLevel = null
+	static {
+		this.active = null
 	}
 
-	change(level) {
-		this.activeLevel = level
+	static change(level) {
+		this.active = level
 	}
 
-	update() {
-		this.activeLevel.update()
+	static update() {
+		this.active.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.activeLevel.draw(draw, guiDraw)
+	static draw(draw, guiDraw) {
+		this.active.draw(draw, guiDraw)
 	}
 
 }
