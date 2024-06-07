@@ -49,11 +49,11 @@ export class Chicken extends DynamicGameObject {
 			{ x: 3, y: 3 },
 		])
 
-		setTimeout(() => {
-			this.killed = new Killed(this)
-			this.onHit()
-			console.log("chicken killed")
-		}, 300)
+		//setTimeout(() => {
+		//	this.killed = new Killed(this)
+		//	this.onHit()
+		//	console.log("chicken killed")
+		//}, 300)
 
 	}
 
