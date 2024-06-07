@@ -15,7 +15,7 @@ export class Cargo extends DynamicGameObject {
 
 
 	draw(draw, guiDraw) {
-		draw.transparentRedRectangle(this.position)
+		draw.transparentGreenRectangle(this.position)
 	}
 
 }
