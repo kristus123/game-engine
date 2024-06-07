@@ -1,4 +1,4 @@
-class Killed{
+class Killed {
 	constructor(c) {
 		const bodyPart = part => {
 			const d = new DynamicGameObject(Random.direction(c, 10), 20, 20)
@@ -10,7 +10,7 @@ class Killed{
 				s.draw(draw, guiDraw)
 			}
 
-			ForcePush(d).towards(Random.direction(d), 3)
+			ForcePush(d).towards(Random.direction(d), Random.integerBetween(0.5, 3))
 			console.log(d.velocity.y)
 
 			return d
@@ -22,9 +22,6 @@ class Killed{
 			bodyPart({ x: 2, y: 1 }),
 			bodyPart({ x: 1, y: 1 }),
 			bodyPart({ x: 1, y: 1 }),
-			//bodyPart({ x: 3, y: 0 }),
-			//bodyPart({ x: 1, y: 1 }),
-			//bodyPart({ x: 2, y: 2 }),
 		]
 	}
 
