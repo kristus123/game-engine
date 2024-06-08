@@ -1,13 +1,13 @@
 export class WorldEditor {
 
-	constructor(camera) {
+	constructor() {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
 		this.mouseMove = new MouseMove()
 		this.grid = new Grid()
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
-			new StarBackground(camera),
+			new StarBackground(),
 			//new Planet(new Position(0, 0)),
 			this.grid,
 			this.mouseMove,

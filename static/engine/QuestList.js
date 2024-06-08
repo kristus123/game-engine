@@ -1,12 +1,13 @@
 export class QuestList {
 
 	static add(text) {
-		const q = document.getElementById('quest_list')
+		const questList = document.getElementById('quest_list')
 		const p = Html.p(text)
-		q.appendChild(p)
+		questList.appendChild(p)
 
 		return {
-			completed: () => p.classList.add("crossed")
+			completed: () => p.classList.add("crossed"),
+			text: t => p.innerHTML = t,
 		}
 	}
 
