@@ -1,4 +1,4 @@
-.button {
+button {
 	font-size: 50px;
 	padding: 30px 50px; 
 
@@ -8,6 +8,6 @@
 	color: #fff; 
 }
 
-.button:hover {
+button:hover {
 	background-color: green;
 }
