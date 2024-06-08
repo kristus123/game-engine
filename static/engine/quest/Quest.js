@@ -16,13 +16,13 @@ export class Quest {
 			this.currentTask.update()
 
 			if (this.currentTask.completed()) {
-				if (List.lastIndex(this.tasks, this.index)) {
-					this.questCompleted = true
-					this.onQuestCompleted()
-				}
-				else {
+				if (List.validIndex(this.tasks, this.index)) {
 					this.index += 1
 					this.currentTask = this.tasks[this.index]()
+				}
+				else {
+					this.questCompleted = true
+					this.onQuestCompleted()
 				}
 			}
 		}
