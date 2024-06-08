@@ -24,10 +24,10 @@ export const ForcePush = (o) => ({
 		const angle = initialAngle + spread
 
 		const p = {
-			x: Math.cos(angle) * Random.floatBetween(1, 5) * multiplier,
-			y: Math.sin(angle) * Random.floatBetween(1, 5) * multiplier,
+			x: Math.cos(angle) * Random.floatBetween(1, 5),
+			y: Math.sin(angle) * Random.floatBetween(1, 5),
 		}
 
-		ForcePush(o).towards(p)
+		ForcePush(o).towards(p, multiplier)
 	},
 })

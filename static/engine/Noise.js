@@ -1,32 +1,24 @@
 export class Noise {
-    constructor() {
-        const simplex = new SimplexNoise();
+    constructor(position, size=10, seed=Math.random()) {
+        const simplexNoise = new SimplexNoise(seed);
 
-        this.mapWidth = 100;
-        this.mapHeight = 100;
-        
-        this.image = [];
-        for (let x = 0; x < this.mapWidth; x++) {
-            this.image[x] = [];
-            for (let y = 0; y < this.mapHeight; y++) {
-                const position = new Position(x, y);
-                const value = simplex.noise(position.x / 100, position.y / 100);
-                this.image[x][y] = {
-                    position: position,
-                    value: Math.abs(value) * 256 
-                };
-            }
-        }
+		this.positionAndNoiseValue = Positions.grid(position, size)
+			.map(position => ({
+				position: position,
+				noiseValue: simplexNoise.noise(position),
+				//noiseValue: Random.integerBetween(-1, 1)
+			}))
     }
 
     draw(draw, guiDraw) {
-        for (let x = 0; x < this.mapWidth; x++) {
-            for (let y = 0; y < this.mapHeight; y++) {
-                const position = this.image[x][y].position;
-                const value = this.image[x][y].value / 256;
-                const color = value < 0.2 ? 'blue' : 'green';
-                draw[color](position);
-            }
-        }
+		for (const {position, noiseValue} of this.positionAndNoiseValue) {
+		
+			if (noiseValue >= 0.0) {
+				draw.blue(position)
+			}
+			else {
+				draw.green(position)
+			}
+		}
     }
 }

@@ -17,7 +17,9 @@ export class SimplexNoise {
     perm = [];
 
     // Simplex noise function
-    noise(xin, yin) {
+    noise(position) {
+		const xin = position.x
+		const yin = position.y
         let n0, n1, n2; // Noise contributions from the three corners
         // Skew the input space to determine which simplex cell we're in
         const F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
@@ -70,7 +72,7 @@ export class SimplexNoise {
         }
         // Add contributions from each corner to get the final noise value.
         // The result is scaled to return values in the interval [-1,1].
-        return new Position(70.0 * (n0 + n1 + n2), 0);
+        return 70.0 * (n0 + n1 + n2);
     }
 
     dot(g, x, y) {
