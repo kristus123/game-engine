@@ -1,5 +1,5 @@
 export class StarBackground {
-	constructor(camera) {
+	constructor() {
 		this.stars = Random.positions(-10, 20, -10, 20, 500)
 			.map(position => ({
 				position: Random.direction(Cam.position, 1000),
@@ -12,7 +12,7 @@ export class StarBackground {
 
 	draw(draw, guiDraw) {
 		this.stars.forEach((star) => {
-			const p = Parallax(star, this.camera, 0.99)
+			const p = Parallax(star, Cam, 0.99)
 			draw.star(p, star.color)
 		})
 	}
