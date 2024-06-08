@@ -9,12 +9,12 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			new StarBackground(Cam),
-			new Planet(new Position(0, 0)),
+			//new Planet(new Position(0, 0)),
 			this.onlineObjects,
 			new OnlinePlayers(this.player, Cam),
 			this.player,
 			new FirstQuest(this.player),
-			new Noise(),
+			new Noise(new Position(0, 0, 100, 100)),
 		])
 
 		Overlay.bottomButton('hei')
