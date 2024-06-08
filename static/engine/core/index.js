@@ -11,12 +11,12 @@ ErrorHandler.run(() => {
 	const draw = new Draw(Cam.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-	 Level.change(new World())
-	//Level.change(new WorldEditor(Cam))
+	 //Level.change(new World())
+	Level.change(new WorldEditor(Cam))
 
 	new VideoCall()
 
-	LoadingScreen.show()
+	//LoadingScreen.show()
 	QuestList.show()
 
 	Loop.everyFrame((deltaTime) => {
