@@ -16,6 +16,18 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
+	green(position) {
+		this.new_rectangle(position, 'green')
+	}
+
+	blue(position) {
+		this.new_rectangle(position, 'blue')
+	}
+
+	grey(position) {
+		this.new_rectangle(position, 'grey')
+	}
+
 	transparentGreenRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.5)' // RGBA color (green with 50% opacity)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)

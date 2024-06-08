@@ -14,6 +14,7 @@ export class World {
 			new OnlinePlayers(this.player, Cam),
 			this.player,
 			new FirstQuest(this.player),
+			new Noise(),
 		])
 
 		Overlay.bottomButton('hei')
