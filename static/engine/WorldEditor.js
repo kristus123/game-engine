@@ -4,16 +4,6 @@ export class WorldEditor {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
 		const mouseMove = new MouseMove()
-
-		this.grid = new Grid()
-		this.localObjects = new LocalObjects([
-			Controller.control(Cam.objectToFollow),
-			new StarBackground(),
-			//new Planet(new Position(0, 0)),
-			this.grid,
-			mouseMove,
-		])
-
 		this.worldObjects = new LocalObjects()
 
 		ObjectPersistence.get().forEach(o => {
@@ -31,11 +21,12 @@ export class WorldEditor {
 			})
 		})
 
+		const grid = new Grid()
 		Overlay.leftButton('grid', () => {
 			Overlay.clearBottom()
-			this.grid.show = true
+			grid.show = true
 
-			this.add = p => this.grid.add(p)
+			this.add = p => grid.add(p)
 		})
 
 		Overlay.leftButton('images', () => {
@@ -72,6 +63,14 @@ export class WorldEditor {
 				ObjectPersistence.save(o)
 			}
 		})
+
+		this.localObjects = new LocalObjects([
+			Controller.control(Cam.objectToFollow),
+			new StarBackground(),
+			//new Planet(new Position(0, 0)),
+			grid,
+			mouseMove,
+		])
 	}
 
 	update() {
