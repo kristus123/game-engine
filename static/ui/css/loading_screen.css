@@ -10,6 +10,8 @@
 	align-items: center;
 	justify-content: center;
     pointer-events: none; /* Allow clicks to pass through */
+    user-select: none; /* Prevent text selection */
+
 }
 
  #loading_screen > div {
