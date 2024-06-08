@@ -9,6 +9,7 @@
 	color: white;
 	align-items: center;
 	justify-content: center;
+    pointer-events: none; /* Allow clicks to pass through */
 }
 
  #loading_screen > div {

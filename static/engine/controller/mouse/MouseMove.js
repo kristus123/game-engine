@@ -29,6 +29,7 @@ export class MouseMove {
 	draw(draw, guiDraw) {
 		for (const o of this.movableObjects) {
 			if (Mouse.hovering(o) && !this.holding) {
+				draw.new_text(o.position.offset(0, -100), o.constructor.name, 'white', 20)
 				draw.new_text(o.position, 'click to move')
 				break
 			}
