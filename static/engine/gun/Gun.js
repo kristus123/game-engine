@@ -4,7 +4,7 @@ export class Gun {
 		this.hittableObjects = []
 
 		Mouse.addOnClick('shoot', position => {
-			this.bullets.push(new Bullet(this, this.player, position))
+			this.bullets.push(new Bullet(this, this.player.position.copy(), position.copy()))
 		})
 	}
 
