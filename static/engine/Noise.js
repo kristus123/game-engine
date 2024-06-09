@@ -1,6 +1,6 @@
 export class Noise {
     constructor(position, size=10, seed=Math.random()) {
-        const simplexNoise = new SimplexNoise(seed);
+        const simplexNoise = new SimplexNoise(0.1);
 
 		this.positionAndNoiseValue = Positions.grid(position, size)
 			.map(position => ({

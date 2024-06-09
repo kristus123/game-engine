@@ -1,5 +1,10 @@
+// noiseScale
+// lower = more smooth - 0.1
+// higher = crazy - 1.5
+
 export class SimplexNoise {
-    constructor() {
+    constructor(noiseScale = 1) {
+        this.noiseScale = noiseScale;
         // Permutation table
         this.perm = [];
         for (let i = 0; i < 512; i++) {
@@ -18,8 +23,8 @@ export class SimplexNoise {
 
     // Simplex noise function
     noise(position) {
-		const xin = position.x
-		const yin = position.y
+        const xin = position.x * this.noiseScale;
+        const yin = position.y * this.noiseScale;
         let n0, n1, n2; // Noise contributions from the three corners
         // Skew the input space to determine which simplex cell we're in
         const F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
@@ -79,8 +84,4 @@ export class SimplexNoise {
         return g[0] * x + g[1] * y;
     }
 }
-
-// Example usage:
-const simplex = new SimplexNoise();
-console.log(simplex.noise(1, 2)); // Example: Generate simplex noise value for (1, 2)
 
