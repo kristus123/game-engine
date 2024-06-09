@@ -4,11 +4,11 @@ export class SpriteFrame {
 	}
 
 	update() {
-		
+
 	}
 
 	draw(draw, guiDraw) {
 		this.frame.draw(draw, guiDraw)
-		
+
 	}
 }
