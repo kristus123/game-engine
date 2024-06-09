@@ -14,7 +14,7 @@ export class World {
 			new OnlinePlayers(this.player, Cam),
 			this.player,
 			new FirstQuest(this.player),
-			new Noise(new Position(0, 0, 50, 50)),
+			new Noise(new Position(0, 0, 209, 209)),
 		])
 	}
 
