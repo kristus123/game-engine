@@ -29,7 +29,7 @@ class Killed {
 		for (const b of this.splatteredBody) {
 			b.draw(draw, guiDraw)
 		}
-		
+
 	}
 }
 

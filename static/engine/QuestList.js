@@ -6,7 +6,7 @@ export class QuestList {
 		questList.appendChild(p)
 
 		return {
-			completed: () => p.classList.add("crossed"),
+			completed: () => p.classList.add('crossed'),
 			text: t => p.innerHTML = t,
 		}
 	}
@@ -16,11 +16,11 @@ export class QuestList {
 		div.innerHTML = ''
 	}
 
-    static show(){
-        document.getElementById("quest_list").style.display = "flex";
-    }
+	static show() {
+		document.getElementById('quest_list').style.display = 'flex'
+	}
 
-    static close(){
-        document.getElementById("quest_list").style.display = "none"
-    }
+	static close() {
+		document.getElementById('quest_list').style.display = 'none'
+	}
 }

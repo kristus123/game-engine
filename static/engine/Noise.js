@@ -1,6 +1,6 @@
 export class Noise {
-    constructor(position, size=10, seed=Math.random()) {
-        const simplexNoise = new SimplexNoise(0.1);
+	constructor(position, size=10, seed=Math.random()) {
+		const simplexNoise = new SimplexNoise(0.1)
 
 		this.positionAndNoiseValue = Positions.grid(position, size)
 			.map(position => ({
@@ -8,11 +8,11 @@ export class Noise {
 				noiseValue: simplexNoise.noise(position),
 				//noiseValue: Random.integerBetween(-1, 1)
 			}))
-    }
+	}
 
-    draw(draw, guiDraw) {
-		for (const {position, noiseValue} of this.positionAndNoiseValue) {
-		
+	draw(draw, guiDraw) {
+		for (const { position, noiseValue } of this.positionAndNoiseValue) {
+
 			if (noiseValue >= 0.0) {
 				draw.blue(position)
 			}
@@ -20,5 +20,5 @@ export class Noise {
 				draw.green(position)
 			}
 		}
-    }
+	}
 }

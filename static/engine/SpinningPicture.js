@@ -6,19 +6,19 @@ export class SpinningPicture {
 	}
 
 	draw(draw) {
-		const newWidth = this.position.width;
-		const newHeight = this.position.height;
+		const newWidth = this.position.width
+		const newHeight = this.position.height
 
-		draw.ctx.save();
+		draw.ctx.save()
 
-		draw.ctx.translate(this.position.position.center.x, this.position.position.center.y);
-		this.currentRotation += this.rotationIncrement; // Increment the rotation
-		draw.ctx.rotate(this.currentRotation); // Apply the current rotation
+		draw.ctx.translate(this.position.position.center.x, this.position.position.center.y)
+		this.currentRotation += this.rotationIncrement // Increment the rotation
+		draw.ctx.rotate(this.currentRotation) // Apply the current rotation
 
-		draw.ctx.imageSmoothingEnabled = false;
-		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight);
+		draw.ctx.imageSmoothingEnabled = false
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
-		draw.ctx.restore();
+		draw.ctx.restore()
 	}
 }
 

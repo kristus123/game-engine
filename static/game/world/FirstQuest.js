@@ -8,7 +8,7 @@ class ONE_DeliverChickens {
 		if (this.deliveryZone.amountDelivered == 2) {
 			this.p.completed()
 			return true
-		} 
+		}
 		else {
 			return false
 		}

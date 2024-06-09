@@ -15,7 +15,7 @@ function element(type, clazz) {
 export class Html {
 
 	static p(text) {
-		var p = document.createElement("p");
+		var p = document.createElement('p')
 		p.innerHTML = text
 
 		return p
