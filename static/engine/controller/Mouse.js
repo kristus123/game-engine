@@ -1,6 +1,5 @@
 export class Mouse {
-	static initialize(camera) {
-		this.camera = camera
+	static initialize() {
 		this.position = Cam.position.copy()
 		this.screenPosition = Cam.position.copy()
 
@@ -25,7 +24,7 @@ export class Mouse {
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())
 
-		this.clickEvents = new ClickEvents(this)
+		this.clickEvents = new ClickEvents()
 
 		this.holding = null
 	}

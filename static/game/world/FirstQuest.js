@@ -63,11 +63,16 @@ export class FirstQuest {
 	constructor(player) {
 		const chickens = [
 			new Chicken(new Position(0, 0)),
+			new Chicken(new Position(-200, 0)),
+			new Chicken(new Position(-400, 0)),
 			new Chicken(new Position(-100, 0)),
 		]
 
-		QuestList.show()
+		for (const c of chickens) {
+			player.gun.hittableObjects.push(c)
+		}
 
+		QuestList.show()
 
 		this.localObjects = new LocalObjects([
 			new MovableObjects(player, chickens),

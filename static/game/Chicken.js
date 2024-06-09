@@ -29,10 +29,8 @@ class Killed {
 		for (const b of this.splatteredBody) {
 			b.draw(draw, guiDraw)
 		}
-
 	}
 }
-
 
 export class Chicken extends DynamicGameObject {
 	constructor(position) {
@@ -50,7 +48,6 @@ export class Chicken extends DynamicGameObject {
 		])
 
 		//setTimeout(() => {
-		//	this.killed = new Killed(this)
 		//	this.onHit()
 		//	console.log("chicken killed")
 		//}, 300)
@@ -58,6 +55,8 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onHit() {
+		console.log("hit hicjen")
+		this.killed = new Killed(this)
 		//this.removeFromGameLoop()
 	}
 
@@ -75,7 +74,9 @@ export class Chicken extends DynamicGameObject {
 		else {
 			draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
 			this.sprite.draw(draw, guiDraw)
+			//super.draw(draw, guiDraw)
 		}
+
 	}
 
 	static mapFromJsonObject(json) {
