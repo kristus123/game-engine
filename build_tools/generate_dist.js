@@ -59,7 +59,10 @@ for (const jsFilePath of jsFiles) {
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
 
-	Files.writeFileToDist(jsFilePath, fileContent)
+	if (!Files.ContentMatchingIn(jsFilePath, fileContent)) {
+		Files.writeFileToDist(jsFilePath, fileContent)
+		console.log("change detected in " + jsFilePath)
+	}
 }
 
 require('./copy_asset_folder_to_dist')

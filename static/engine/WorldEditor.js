@@ -12,50 +12,28 @@ export class WorldEditor {
 		})
 
 		this.add = null
-
-		Overlay.leftButton('game objects', () => {
-			Overlay.clearBottom()
-
-			Overlay.bottomButton('chicken', () => {
-				this.add = p => new Chicken(p)
-			})
-		})
-
 		const grid = new Grid()
-		Overlay.leftButton('grid', () => {
-			Overlay.clearBottom()
-			grid.show = true
 
-			this.add = p => grid.add(p)
+		Overlay.bottomButton('chicken', () => {
+			grid.show = false
+			this.add = p => new Chicken(p)
 		})
 
-		Overlay.leftButton('images', () => {
-			Overlay.clearBottom()
-
-			const images = Http.get('/picture-library')
-			for (const category in images) {
-				Overlay.rightButton(category, () => {
-
-					Overlay.clearBottom()
-
-					for (const image of images[category]) {
-						Overlay.bottomImage(image, () => {
-							this.add = p => new StaticPicture(p, image)
-						})
-					}
-				})
-			}
+		Overlay.bottomButton('grid', () => {
+			grid.show = true
+			this.add = p => grid.add(p)
 		})
 
 		mouseMove.moved = o => {
 			ObjectPersistence.update(o)
 		}
+		mouseMove.remove = o => {
+			ObjectPersistence.remove(o)
+			this.worldObjects.remove(o)
+		}
 
-		Mouse.addOnClick('paint', p => {
+		Mouse.addOnClick('add object to world', p => {
 			if (this.add) {
-				p.width = 100
-				p.height = 100
-
 				const o = this.add(p)
 
 				this.worldObjects.add(o)

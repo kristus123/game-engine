@@ -72,7 +72,7 @@ export class FirstQuest {
 			player.gun.hittableObjects.push(c)
 		}
 
-		QuestList.show()
+		//QuestList.show()
 
 		this.localObjects = new LocalObjects([
 			new MovableObjects(player, chickens),

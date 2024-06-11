@@ -1,7 +1,12 @@
-export class StaticPicture {
+export class StaticPicture extends _GameObject {
 	constructor(position, imagePath) {
+		super(position)
 
 		this.picture = new Picture(position, imagePath)
+	}
+
+	update() {
+		
 	}
 
 	draw(draw, guiDraw) { // todo
@@ -9,6 +14,10 @@ export class StaticPicture {
 	}
 
 	static mapFromJsonObject(json) {
-		return new StaticPicture(ObjectMapper.positionFromJson(json.position), json.imagePath)
+		return new this(ObjectMapper.positionFromJson(json.position), json.imagePath)
+	}
+
+	mapToJsonString() {
+		return ObjectMapper.mapToJsonString(this)
 	}
 }

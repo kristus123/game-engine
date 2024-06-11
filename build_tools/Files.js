@@ -13,4 +13,11 @@ module.exports = class {
 
 		fs.writeFileSync(destPath, content)
 	}
+
+	static ContentMatchingIn(path, fileContent) {
+		const distPath = Path.join('dist/static', Path.relative('static', path))
+		const distFile = fs.readFileSync(distPath, 'utf8')
+
+		return distFile == fileContent
+	}
 }
