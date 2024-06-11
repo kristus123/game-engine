@@ -9,5 +9,21 @@ export class Audio {
 
 		sound.play()
 	}
+
+	static breathing() {
+		const sound = new Howl({
+			src: ['/static/audio/astronaut_breathing.wav']
+		})
+
+		sound.play()
+	}
+
+	static music() {
+		const sound = new Howl({
+			src: ['/static/audio/kristian_space_music.mp3']
+		})
+
+		sound.play()
+	}
 }
 

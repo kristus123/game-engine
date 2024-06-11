@@ -22,6 +22,9 @@ export class Player extends DynamicGameObject {
 		this.e = new Key('e')
 
 		this.piss = new LocalObjects()
+
+		Audio.breathing()
+		Audio.music()
 	}
 
 	update() {
