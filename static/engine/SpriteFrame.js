@@ -1,6 +1,6 @@
 export class SpriteFrame {
 	constructor(position, imagePath, frame) {
-		this.frame = new Sprite(position, imagePath, 2, [frame])
+		this.frame = new Sprite(position, imagePath, [frame])
 	}
 
 	update() {
@@ -9,6 +9,5 @@ export class SpriteFrame {
 
 	draw(draw, guiDraw) {
 		this.frame.draw(draw, guiDraw)
-
 	}
 }

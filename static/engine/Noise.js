@@ -7,7 +7,6 @@ export class Noise {
 			.map(position => ({
 				position: position,
 				noiseValue: simplexNoise.noise(position),
-				//noiseValue: Random.integerBetween(-1, 1)
 			}))
 
 		this.t = 0
