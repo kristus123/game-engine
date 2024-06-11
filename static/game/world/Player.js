@@ -32,12 +32,13 @@ export class Player extends DynamicGameObject {
 
 		if (this.e.down) {
 			const x = this.position.copy()
-			x.width = 0.1
-			x.height = 0.1
+			x.width = 1
+			x.height = 1
 
-			const p = new DynamicGameObject(x, 4, 100)
-			ForcePush(p).roughlyTowards(Mouse.position, 12000)
+			const p = new DynamicGameObject(x, 2000, 100)
+			ForcePush(p).roughlyTowards(Mouse.position, 1)
 			this.piss.add(p)
+			console.log("piss is working, but velcoity stuff makes it weird")
 		}
 
 		this.piss.update()

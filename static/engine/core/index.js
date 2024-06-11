@@ -14,7 +14,7 @@ ErrorHandler.run(() => {
 	 Level.change(new World())
 	//Level.change(new WorldEditor(Cam))
 
-	new VideoCall()
+	//new VideoCall()
 
 	//LoadingScreen.show()
 	QuestList.close()
