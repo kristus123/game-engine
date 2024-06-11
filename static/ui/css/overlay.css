@@ -34,7 +34,7 @@
 	top: 50%;
 	transform: translateY(-50%);
 	display: flex;
-  flex-direction: column; /* Stack divs vertically */
+  flex-direction: row; /* Stack divs vertically */
 	flex-wrap: wrap;
 	align-items: center;
 }

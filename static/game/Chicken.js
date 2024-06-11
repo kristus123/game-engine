@@ -88,7 +88,7 @@ export class Chicken extends DynamicGameObject {
 		return c
 	}
 
-	mapToJson() {
-		return ObjectMapper.mapToJson(this)
+	mapToJsonString() {
+		return ObjectMapper.mapToJsonString(this)
 	}
 }
