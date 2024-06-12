@@ -32,7 +32,7 @@ export class Dialogue {
 
 	draw(draw, guiDraw) {
 		this.textTyper.update()
-		draw.new_text(this.dialoguePosition, this.textTyper.text)
+		draw.text(this.dialoguePosition, this.textTyper.text)
 		this._drawReplies(draw)
 	}
 }

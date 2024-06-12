@@ -40,19 +40,19 @@ export class FetchContainerExtension {
 		}
 
 		if (this.connectedToSpaceship) {
-			draw.new_text(this.container, 'Bring me to the destination')
+			draw.text(this.container, 'Bring me to the destination')
 
 			const p = draw.objectThatIsMovingInRectangularPathAroundObject(this.spaceship, this.deliverySpot)
-			draw.new_text(p, Math.round(Distance.between(this.container, this.deliverySpot)))
+			draw.text(p, Math.round(Distance.between(this.container, this.deliverySpot)))
 		}
 		else if (this.delivered) {
-			draw.new_text(this.container, 'Good job!')
+			draw.text(this.container, 'Good job!')
 		}
 		else {
 			const x = this.spaceship.position.copy()
 			x.y -= 100
-			draw.new_text(x, 'Enter spaceship')
-			draw.new_text(this.container, 'pick up crate')
+			draw.text(x, 'Enter spaceship')
+			draw.text(this.container, 'pick up crate')
 		}
 
 	}

@@ -32,6 +32,6 @@ export class MultiTextTyper {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_text(this.position, this.text)
+		draw.text(this.position, this.text)
 	}
 }
