@@ -67,22 +67,6 @@ export class Draw {
 		this.new_rectangle(position, color)
 	}
 
-	old_star(x, y, color='white') {
-		this.ctx.lineWidth = 0
-		this.ctx.fillStyle = color
-		this.ctx.strokeStyle = color
-		this.rectangle(x, y, 1, 1, color)
-	}
-
-	rectangle(x, y, width, height, color = 'orange') {
-		this.ctx.fillStyle = color
-		this.ctx.fillRect(x, y, width, height)
-
-		this.ctx.strokeStyle = color
-		this.ctx.lineWidth = 4
-		this.ctx.strokeRect(x, y, width, height)
-	}
-
 	blueRectangle(position) {
 		this.ctx.fillStyle = 'blue'
 		this.ctx.fillRect(position.x, position.y, 10, 10)
