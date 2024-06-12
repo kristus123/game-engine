@@ -64,7 +64,7 @@ export class Draw {
 		this.ctx.lineWidth = 0
 		this.ctx.fillStyle = color
 		this.ctx.strokeStyle = color
-		this.rectangle(position.x, position.y, position.width, position.height, color)
+		this.new_rectangle(position, color)
 	}
 
 	old_star(x, y, color='white') {
