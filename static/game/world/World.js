@@ -1,7 +1,7 @@
 export class World {
 	constructor() {
 
-		this.player = new Player(Cam)
+		this.player = new Player()
 		Cam.followInstantly(this.player)
 		Controller.control(this.player)
 
