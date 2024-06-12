@@ -11,7 +11,7 @@ export class Blur {
 			for (let y = 0; y < this.canvas.height; y += this.pixelSize) {
 				const color = Random.choice(['red', 'blue', 'orange', 'green'])
 				this.ctx.fillStyle = color
-				guiDraw.new_rectangle(new Position(x, y, 10, 10), color)
+				guiDraw.rectangle(new Position(x, y, 10, 10), color)
 			}
 		}
 	}

@@ -4,7 +4,7 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-	new_rectangle(position, color='yellow') {
+	rectangle(position, color='yellow') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
@@ -17,29 +17,20 @@ export class Draw {
 	}
 
 	green(position) {
-		this.new_rectangle(position, 'green')
+		this.rectangle(position, 'green')
 	}
 
 	blue(position) {
-		this.new_rectangle(position, 'blue')
+		this.rectangle(position, 'blue')
 	}
 
 	grey(position) {
-		this.new_rectangle(position, 'grey')
+		this.rectangle(position, 'grey')
 	}
 
 	transparentGreenRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.5)' // RGBA color (green with 50% opacity)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
-	}
-
-	block(position, color='white') {
-		this.ctx.fillStyle = color
-		this.ctx.fillRect(
-			position.x - position.width / 2,
-			position.y - position.height / 2,
-			position.width,
-			position.height)
 	}
 
 	gradient(position) {
@@ -64,10 +55,10 @@ export class Draw {
 		this.ctx.lineWidth = 0
 		this.ctx.fillStyle = color
 		this.ctx.strokeStyle = color
-		this.new_rectangle(position, color)
+		this.rectangle(position, color)
 	}
 
-	blueRectangle(position) {
+	blue(position) {
 		this.ctx.fillStyle = 'blue'
 		this.ctx.fillRect(position.x, position.y, 10, 10)
 	}
@@ -265,7 +256,7 @@ export class Draw {
 	}
 
 	new_text(position, text, color='white', fontSize = 40) {
-		// this.new_rectangle(position)
+		// this.rectangle(position)
 
 		this.ctx.fillStyle = 'black'
 
@@ -318,59 +309,4 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	static sprite() {
-		const spriteSheet = new Image()
-
-		spriteSheet.src = 'https://opengameart.org/sites/default/files/exp2.png'
-		const frameWidth = 64 // Width of each frame in the sprite sheet
-		const frameHeight = 64 // Height of each frame in the sprite sheet
-		const scale = 5 // Scale factor
-
-
-		const frameSequence = [
-			{ x: 0, y: 0 }, // Frame 2
-			{ x: 0, y: 1 }, // Frame 2
-			{ x: 0, y: 2 }, // Frame 2
-			{ x: 0, y: 3 }, // Frame 2
-		]
-
-		let currentFrameIndex = 0 // Index of the current frame in frameSequence
-		const totalFrames = frameSequence.length
-
-		setInterval(() => {
-			currentFrameIndex = (currentFrameIndex + 1) % totalFrames
-		}, 200)
-
-		const x = -300
-		const y = 0
-
-		return function drawFrame() {
-			const frameInfo = frameSequence[currentFrameIndex]
-			const currentFrameX = frameInfo.x
-			const currentFrameY = frameInfo.y
-
-			this.ctx.imageSmoothingEnabled = false
-			this.ctx.drawImage(
-				spriteSheet,
-				currentFrameX * frameWidth,
-				currentFrameY * frameHeight,
-				frameWidth,
-				frameHeight,
-				x,
-				y,
-				frameWidth * scale,
-				frameHeight * scale,
-			)
-		}
-	}
-
-	// this is not in use
-	fill(color) {
-		this.ctx.fillStyle = color
-		this.ctx.fillRect(0, 0, Palette.width, Palette.height)
-	}
-
-	// static crate(ctx, position) {
-	// 	Draw.crateImage.draw(ctx, position)
-	// }
 }
