@@ -70,7 +70,7 @@ export class Chicken extends DynamicGameObject {
 			this.killed.draw(draw, guiDraw)
 		}
 		else {
-			draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
+			draw.text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
 			this.sprite.draw(draw, guiDraw)
 			//super.draw(draw, guiDraw)
 		}

@@ -31,12 +31,12 @@ export class MovableObjects {
 
 	draw(draw, guiDraw) {
 		if (this.holding) {
-			draw.new_text(this.holding.position.offset(0, -50), 'Press Q to throw')
+			draw.text(this.holding.position.offset(0, -50), 'Press Q to throw')
 		}
 		else {
 			for (const o of this.objects) {
 				if (Distance.within(50, o, this.movableBy)) {
-					draw.new_text(o.position.offset(0, -50), 'Press E to pick up')
+					draw.text(o.position.offset(0, -50), 'Press E to pick up')
 					break
 				}
 			}

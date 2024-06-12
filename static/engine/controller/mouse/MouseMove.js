@@ -38,7 +38,7 @@ export class MouseMove {
 				const x = o.position.offset(-10, -10, 20,20)
 				draw.rectangle(x)
 				if (Mouse.clicked(x)) {
-					draw.new_text(o.position.offset(10, 10), 'delete')
+					draw.text(o.position.offset(10, 10), 'delete')
 					this.remove(o)
 					this.lastClicked = null
 				}
@@ -49,7 +49,7 @@ export class MouseMove {
 			}
 
 			if (Mouse.hovering(o) && !this.holding) {
-				draw.new_text(o.position.offset(10, 10), 'click to move')
+				draw.text(o.position.offset(10, 10), 'click to move')
 				break
 			}
 		}
