@@ -4,7 +4,7 @@ class BodyPart extends DynamicGameObject {
 		this.width = 64
 		this.height = 64
 
-		this.s = new SpriteFrame(this,imagePath, part)
+		this.s = new SpinningSpriteFrame(this,imagePath, part)
 
 		ForcePush(this).towards(Random.direction(position), Random.integerBetween(6, 12))
 	}

@@ -49,4 +49,26 @@ export class Sprite {
 			)
 		}
 	}
+	spinning_draw(draw, guiDraw,angle) {
+		if (this.image.complete) {
+			const frame = this.frameSequence[this.currentFrame]
+			draw.ctx.save()
+			draw.ctx.translate(this.position.x+this.position.width*0.5,this.position.y +this.position.height*0.5)
+			draw.ctx.imageSmoothingEnabled = false
+			
+			draw.ctx.rotate(angle)
+			draw.ctx.drawImage(
+				this.image,
+				frame.x * this.width,
+				frame.y * this.height,
+				this.width,
+				this.height,
+				this.position.width*-0.5,
+				this.position.height *-0.5,
+				this.position.width,
+				this.position.height 
+			)
+			draw.ctx.restore()
+		}
+	}
 }
