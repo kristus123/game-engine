@@ -1,8 +1,12 @@
 export class Quest {
-	constructor(tasks=[], onQuestCompleted= () => {}) {
+	constructor(tasks=[]) {
 		this.questCompleted = false
 
 		this.listLooper = new ListLooper(tasks)
+
+		this.onQuestCompleted = () => {
+			console.log('quest finished')
+		}
 	}
 
 	update() {

@@ -36,7 +36,6 @@ export class EnterVehicle {
 		}
 	}
 
-
 	draw(draw, guiDraw) {
 		if (!this.entered && Distance.withinRadius(this.player, this.vehicle, 100)) {
 			draw.new_text(this.vehicle.position, 'E to enter')

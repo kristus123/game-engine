@@ -1,6 +1,6 @@
 export class Chicken extends DynamicGameObject {
-	constructor(p) { // todo find out what to do with this, or test if it even is a problem
-		super(p, 10, 10)
+	constructor(position) { // todo find out what to do with this, or test if it even is a problem
+		super(position, 10, 10)
 
 		this.position.width = 60
 		this.position.height = 60
@@ -70,7 +70,6 @@ export class Chicken extends DynamicGameObject {
 		}
 		else {
 			draw.new_text(this.position.offset(0, -20), this.handledByClientId, 'red', 38)
-			// super.draw(draw, guiDraw)
 			this.sprite.draw(draw, guiDraw)
 		}
 	}
