@@ -31,12 +31,7 @@ class TWO_DriveChickens {
 
 		this.cargo = new Cargo(chickens, deliveryDrone)
 
-		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 64*10, 64*10), chickens)
-		const building = new StaticPicture(this.deliveryZone.position, '/static/assets/building/wacky_mac_warehouse_64x64.png')
-        
-		this.deliveryZone.draw = (draw, guiDraw) => {
-			building.draw(draw, guiDraw)
-		}
+		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
 
 		this.localObjects = new LocalObjects([
 			deliveryDrone,
@@ -64,26 +59,6 @@ class TWO_DriveChickens {
 	}
 }
 
-class InsideWackyMac {
-	constructor(player) {
-		Cam.followInstantly(player)
-		Controller.control(player)
-
-		this.localObjects = new LocalObjects([
-			player
-		])
-	}
-
-	update() {
-		this.localObjects.update()
-	}
-
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
-	}
-	
-}
-
 export class FirstQuest {
 	constructor(player) {
 		const chickens = [
@@ -103,10 +78,8 @@ export class FirstQuest {
 			new MovableObjects(player, chickens),
 			new Quest([
 				() => new ONE_DeliverChickens(chickens),
-				//() => new TWO_DriveChickens(chickens, player),
-			], () => {
-				Level.change(new InsideWackyMac(player))
-			}),
+				() => new TWO_DriveChickens(chickens, player),
+			]),
 			...chickens,
 		])
 	}
