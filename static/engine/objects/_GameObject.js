@@ -55,7 +55,7 @@ export class _GameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_rectangle(this)
+		draw.rectangle(this)
 	}
 
 

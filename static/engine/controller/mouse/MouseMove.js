@@ -36,13 +36,13 @@ export class MouseMove {
 			if (o == this.lastClicked) {
 				draw.transparentGreenRectangle(o)
 				const x = o.position.offset(-10, -10, 20,20)
-				draw.new_rectangle(x)
+				draw.rectangle(x)
 				if (Mouse.clicked(x)) {
 					draw.new_text(o.position.offset(10, 10), 'delete')
 					this.remove(o)
 					this.lastClicked = null
 				}
-				draw.new_rectangle(x)
+				draw.rectangle(x)
 				if (Mouse.hovering(o)) {
 					break
 				}
