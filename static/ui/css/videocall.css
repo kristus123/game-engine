@@ -1,6 +1,9 @@
 #videocallrtc{
 	position: absolute;
+<<<<<<< HEAD
 	z-index: 3;
+=======
+>>>>>>> a3c5ff6 (x)
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
