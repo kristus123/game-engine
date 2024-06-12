@@ -1,5 +1,5 @@
 export class MovableObjects {
-	constructor(movableBy, objects=[]) {
+	constructor( movableBy, objects=[]) {
 
 		this.e = new Key('e')
 

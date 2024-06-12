@@ -1,5 +1,5 @@
 export class EnterVehicle {
-	constructor(vehicle, player) {
+	constructor(vehicle, player, camera) {
 
 		this.entered = false
 
@@ -9,8 +9,8 @@ export class EnterVehicle {
 
 				Call(this.onExit)
 				Controller.control(player)
-				Cam.follow(player)
-				Cam.zoom = 1
+				camera.follow(player)
+				camera.zoom = 1
 
 				this.player.x = vehicle.x
 				this.player.y = vehicle.y
@@ -20,8 +20,8 @@ export class EnterVehicle {
 
 				Call(this.onEnter)
 				Controller.control(vehicle)
-				Cam.follow(vehicle)
-				Cam.zoom = 0.5
+				camera.follow(vehicle)
+				camera.zoom = 0.5
 
 				this.player.x = -999999
 				this.player.y = -999999
@@ -35,6 +35,7 @@ export class EnterVehicle {
 			this.player.y = this.vehicle.y
 		}
 	}
+
 
 	draw(draw, guiDraw) {
 		if (!this.entered && Distance.withinRadius(this.player, this.vehicle, 100)) {

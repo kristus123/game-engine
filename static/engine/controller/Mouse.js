@@ -1,7 +1,8 @@
 export class Mouse {
-	static initialize() {
-		this.position = Cam.position.copy()
-		this.screenPosition = Cam.position.copy()
+	static constr(camera){
+		this.camera = camera
+		this.position = this.camera.position.copy()
+		this.screenPosition = this.camera.position.copy()
 
 		this.down = false
 		this.mouseLastMoved = 0
@@ -24,7 +25,7 @@ export class Mouse {
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())
 
-		this.clickEvents = new ClickEvents()
+		this.clickEvents = new ClickEvents(this)
 
 		this.holding = null
 	}
@@ -42,14 +43,14 @@ export class Mouse {
 		this.screenPosition.y = e.clientY
 
 		// Apply inverse transformations for translation and zoom
-		const inverseZoom = 1 /Cam.zoom
+		const inverseZoom = 1 /this.camera.zoom
 
 		const x =
-				(e.clientX - Cam.offset.x) * inverseZoom +
-				Cam.position.x
+				(e.clientX - this.camera.offset.x) * inverseZoom +
+				this.camera.position.x
 		const y =
-				(e.clientY - Cam.offset.y) * inverseZoom +
-				Cam.position.y
+				(e.clientY - this.camera.offset.y) * inverseZoom +
+				this.camera.position.y
 
 		return new Position(x, y)
 	}

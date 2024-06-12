@@ -14,11 +14,11 @@ function dimensionsFrom(src) {
 }
 
 export class Sprite {
-	constructor(position, imagePath, frameSequence, speed=100) {
+	constructor(position, src, scale, frameSequence, speed=100) {
 		this.image = new Image()
-		this.image.src = imagePath
+		this.image.src = src
 
-		const d = dimensionsFrom(imagePath)
+		const d = dimensionsFrom(src)
 		this.width = d.width
 		this.height = d.height
 
@@ -44,8 +44,8 @@ export class Sprite {
 				this.height,
 				this.position.x,
 				this.position.y,
-				this.position.width,
-				this.position.height,
+				this.width * this.scale,
+				this.height * this.scale,
 			)
 		}
 	}

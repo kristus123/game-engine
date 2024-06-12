@@ -1,53 +1,55 @@
 class ONE_DeliverChickens {
-	constructor(chickens) {
-		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), chickens)
-		this.p = QuestList.add('Deliver chickens to the new destination')
+	constructor( camera , player) {
+		this.chickens = [
+			new Chicken(new Position(0, 0)),
+			new Chicken(new Position(-100, 0)),
+			new Chicken(new Position(-100, 0)),
+			new Chicken(new Position(-100, 0)),
+		]
+
+		this.movableObjects = new MovableObjects(player, this.chickens)
+		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
+
+		this.localObjects = new LocalObjects([
+			...this.chickens,
+			this.movableObjects,
+			this.deliveryZone,
+		])
 	}
 
 	completed() {
-		if (this.deliveryZone.amountDelivered == 2) {
-			this.p.completed()
-			return true
-		}
-		else {
-			return false
-		}
+		return this.deliveryZone.amountDelivered == 2
 	}
 
 	update() {
-		this.deliveryZone.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.deliveryZone.draw(draw, guiDraw)
+		this.localObjects.draw(draw, guiDraw)
 	}
 }
 
 class TWO_DriveChickens {
-	constructor(chickens, player) {
+	constructor(camera, player) {
+		this.chickens = [
+			new Chicken(new Position(0, 0)),
+			new Chicken(new Position(-100, 0)),
+		]
 
-		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
-		this.p = QuestList.add('drive them to wacky mac!')
-
-		this.cargo = new Cargo(chickens, deliveryDrone)
-
-		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
+		this.deliveryDrone = new DeliveryDrone(new Position(2000, 2000), player,camera)
+		this.movableObjects = new MovableObjects( player, this.chickens)
+		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), this.chickens)
 
 		this.localObjects = new LocalObjects([
-			deliveryDrone,
+			...this.chickens,
+			this.movableObjects,
 			this.deliveryZone,
-			this.cargo,
 		])
 	}
 
 	completed() {
-		if (this.deliveryZone.amountDelivered == 2) {
-			this.p.completed()
-			return true
-		}
-		else {
-			return false
-		}
+		return this.deliveryZone.amountDelivered == 2
 	}
 
 	update() {
@@ -59,36 +61,12 @@ class TWO_DriveChickens {
 	}
 }
 
-export class FirstQuest {
-	constructor(player) {
-		const chickens = [
-			new Chicken(new Position(0, 0)),
-			new Chicken(new Position(-200, 0)),
-			new Chicken(new Position(-400, 0)),
-			new Chicken(new Position(-100, 0)),
-		]
 
-		for (const c of chickens) {
-			player.gun.hittableObjects.push(c)
-		}
+export function FirstQuest(camera, player) {
+	return new Quest([
+		new ONE_DeliverChickens( camera,player),
+	], () => {
+		console.log('quest finished')
+	})
 
-		//QuestList.show()
-
-		this.localObjects = new LocalObjects([
-			new MovableObjects(player, chickens),
-			new Quest([
-				() => new ONE_DeliverChickens(chickens),
-				() => new TWO_DriveChickens(chickens, player),
-			]),
-			...chickens,
-		])
-	}
-
-	update() {
-		this.localObjects.update()
-	}
-
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
-	}
 }

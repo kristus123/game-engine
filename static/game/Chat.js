@@ -1,5 +1,5 @@
 export class Chat {
-	constructor(camera) {
+	constructor( camera) {
 
 		this.localObjects = new LocalObjects([
 		])

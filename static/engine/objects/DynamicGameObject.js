@@ -1,6 +1,6 @@
 export class DynamicGameObject extends _GameObject {
-	constructor(position, weight, velocityFactor) {
-		super(position)
+	constructor(position, weight, velocityFactor, imagePath='nullable') {
+		super(position, imagePath)
 
 		this.velocity = new Velocity(this, 0, 0)
 
@@ -42,5 +42,6 @@ export class DynamicGameObject extends _GameObject {
 
 	update() {
 	}
+
 
 }

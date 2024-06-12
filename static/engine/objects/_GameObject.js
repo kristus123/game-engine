@@ -1,5 +1,9 @@
 export class _GameObject {
-	constructor(position) {
+	constructor(position, imagePath='nullable') {
+
+		if (imagePath != 'nullable') { // temp hack until i figure out what to do
+			this.picture = new Picture(this, imagePath)
+		}
 
 		this.position = position.copy()
 
@@ -7,12 +11,12 @@ export class _GameObject {
 	}
 
 	get objectId() {
-		//if (this._objectId) {
+		if (this._objectId) {
 			return this._objectId
-		//}
-		//else {
-		//	throw new Error('objectId is not set, make sure you have set it')
-		//}
+		}
+		else {
+			throw new Error('objectId is not set, make sure you have set it')
+		}
 	}
 
 	set objectId(x) {
@@ -55,9 +59,11 @@ export class _GameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_rectangle(this)
+		if (this.picture) {
+			this.picture.draw(draw, guiDraw)
+		}
+		else {
+			draw.new_rectangle(this.position)
+		}
 	}
-
-
-
 }

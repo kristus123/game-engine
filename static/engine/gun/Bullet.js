@@ -1,7 +1,7 @@
 export class Bullet extends DynamicGameObject {
 
 	constructor(gun, from, to) {
-		super(from, 0, 600)
+		super(from, 0, 3000)
 
 		this.hit = null
 		ForcePush(this).towards(to)
@@ -19,6 +19,6 @@ export class Bullet extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.new_circle(this, 5)
+		draw.new_circle(this)
 	}
 }

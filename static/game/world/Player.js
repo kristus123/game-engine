@@ -2,16 +2,33 @@ export class Player extends DynamicGameObject {
 	constructor(camera) {
 		super(new Position(0, 0, 40, 50), 2300, 8)
 
-		this.position.width = 100
-		this.position.height = 100
-
 		this.keyboardEvent = new KeyboardEvent()
+
+		//this.splash = new Splash()
+		this.charge = 100
 
 		this.keyboard = new Keyboard()
 
-		this.gun = new Gun(this)
+		this.gun = new Gun(this,camera)
 
-		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', [
+		// this.keyboardEvent.addKeyDownListener('e', () => {
+		// 	if (this.charge >= 100) {
+		// 		this.charge -= 100
+		// 		ForcePush(this).towards(this.mouse.position, 100)
+		// 	}
+		// })
+
+		// this.keyboardEvent.addKeyDownListener('b', () => {
+		// 	if (!this.beacon) {
+		// 		this.beacon = new BeaconShit(this.mouse.position)
+		// 	}
+		// })
+
+		setInterval(() => {
+			this.charge += 1
+		}, 20)
+
+		this.flyingUp = new Sprite(this, '/static/assets/sprites/player_16x16.png', 5, [
 			{ x: 4, y: 3 },
 			{ x: 5, y: 3 },
 			{ x: 6, y: 3 },
@@ -22,26 +39,27 @@ export class Player extends DynamicGameObject {
 		this.e = new Key('e')
 
 		this.piss = new LocalObjects()
-
-		Audio.breathing()
-		Audio.music()
 	}
 
 	update() {
 		this.gun.update()
+		this.charge += 1
+		if (this.beacon) {
+			this.beacon.update()
+		}
 
 		if (this.e.down) {
 			const x = this.position.copy()
-			x.width = 1
-			x.height = 1
+			x.width = 0.1
+			x.height = 0.1
 
-			const p = new DynamicGameObject(x, 2000, 100)
-			ForcePush(p).roughlyTowards(Mouse.position, 1)
+			const p = new DynamicGameObject(x, 4, 100)
+			ForcePush(p).roughlyTowards(Mouse.position, 12000)
 			this.piss.add(p)
-			console.log("piss is working, but velcoity stuff makes it weird")
 		}
 
 		this.piss.update()
+
 	}
 
 	draw(draw, guiDraw) {

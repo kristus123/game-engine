@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const Imports = require('./Imports')
 const Parameters = require('./Parameters')
 const Files = require('./Files')
@@ -59,10 +58,7 @@ for (const jsFilePath of jsFiles) {
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
 
-	if (!Files.ContentMatchingIn(jsFilePath, fileContent)) {
-		Files.writeFileToDist(jsFilePath, fileContent)
-		console.log("change detected in " + jsFilePath)
-	}
+	Files.writeFileToDist(jsFilePath, fileContent)
 }
 
 require('./copy_asset_folder_to_dist')
@@ -72,17 +68,10 @@ const scriptImports = jsFiles
 	.map(f => `<script type="module" src="/${f}"></script>`)
 	.join('\n')
 
-
-const cssImports = fs.readdirSync('static/ui/css')
-	.map(f => path.join('static/ui/css', f).replaceAll('\\', '/'))
-	.map(f => `<link rel="stylesheet" href="/${f}">`)
-	.join('\n')
-
-const overlay = fs.readFileSync('static/ui/overlay.html', 'utf-8')
+const overlay = fs.readFileSync('static/gui/overlay.html', 'utf-8')
 
 const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
 	.replace('SCRIPT_IMPORTS', scriptImports)
-	.replace('CSS_IMPORTS', cssImports)
 	.replace('OVERLAY', overlay)
 
 fs.writeFileSync('dist/index.html', indexHtml)

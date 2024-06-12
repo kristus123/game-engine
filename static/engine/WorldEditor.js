@@ -1,54 +1,76 @@
 export class WorldEditor {
 
-	constructor() {
-		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
+	constructor(camera) {
+		camera.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
-		const mouseMove = new MouseMove()
+		this.mouseMove = new MouseMove()
+		this.grid = new Grid()
+		this.localObjects = new LocalObjects([
+			Controller.control(camera.objectToFollow),
+			new StarBackground(camera),
+			//new Planet(new Position(0, 0)),
+			this.grid,
+			this.mouseMove,
+		])
+
 		this.worldObjects = new LocalObjects()
 
 		ObjectPersistence.get().forEach(o => {
 			this.worldObjects.add(o)
-			mouseMove.add(o)
+			this.mouseMove.add(o)
 		})
 
 		this.add = null
-		const grid = new Grid()
 
-		Overlay.bottomButton('chicken', () => {
-			grid.show = false
-			this.add = p => new Chicken(p)
+		Overlay.leftButton('game objects', () => {
+			Overlay.clearBottom()
+
+			Overlay.bottomButton('chicken', () => {
+				this.add = p => new Chicken(p)
+			})
 		})
 
-		Overlay.bottomButton('grid', () => {
-			grid.show = true
-			this.add = p => grid.add(p)
+		Overlay.leftButton('grid', () => {
+			Overlay.clearBottom()
+			this.grid.show = true
+
+			this.add = p => this.grid.add(p)
 		})
 
-		mouseMove.moved = o => {
-			ObjectPersistence.update(o)
-		}
-		mouseMove.remove = o => {
-			ObjectPersistence.remove(o)
-			this.worldObjects.remove(o)
-		}
+		Overlay.leftButton('images', () => {
+			Overlay.clearBottom()
 
-		Mouse.addOnClick('add object to world', p => {
-			if (this.add) {
-				const o = this.add(p)
+			const images = Http.get('/picture-library')
+			for (const category in images) {
+				Overlay.rightButton(category, () => {
 
-				this.worldObjects.add(o)
-				mouseMove.add(o)
-				ObjectPersistence.save(o)
+					Overlay.clearBottom()
+
+					for (const image of images[category]) {
+						Overlay.bottomImage(image, () => {
+							this.add = p => new StaticPicture(p, image)
+						})
+					}
+				})
 			}
 		})
 
-		this.localObjects = new LocalObjects([
-			Controller.control(Cam.objectToFollow),
-			new StarBackground(),
-			//new Planet(new Position(0, 0)),
-			grid,
-			mouseMove,
-		])
+		this.mouseMove.moved = o => {
+			ObjectPersistence.update(o)
+		}
+
+		Mouse.addOnClick('paint', p => {
+			if (this.add) {
+				p.width = 100
+				p.height = 100
+
+				const o = this.add(p)
+
+				this.worldObjects.add(o)
+				this.mouseMove.add(o)
+				ObjectPersistence.save(o)
+			}
+		})
 	}
 
 	update() {

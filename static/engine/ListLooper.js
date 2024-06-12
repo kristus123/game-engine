@@ -10,10 +10,10 @@ export class ListLooper {
 				this.index += 1
 			}
 
-			callback(this, index, this.list[this.index], next, false)
+			callback(this.list[this.index], next, false)
 		}
 		else {
-			callback(-1, () => {}, () => {}, true)
+			callback(() => {}, () => {}, true)
 		}
 	}
 }

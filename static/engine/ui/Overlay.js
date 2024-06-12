@@ -1,4 +1,9 @@
 export class Overlay {
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+	}
 
 	static leftButton(text, onClick) {
 		const div = Html.createElement('div', '.left', '')
@@ -28,6 +33,7 @@ export class Overlay {
 		b.addEventListener('click', onClick)
 	}
 
+
 	static bottomButton(text, onClick) {
 		const div = Html.createElement('div', '.bottom', 'item')
 		const b = Html.createElement('button', div, '')
@@ -39,8 +45,6 @@ export class Overlay {
 		b.value = text
 
 		b.addEventListener('click', onClick)
-
-		return b
 	}
 
 	static clearBottom() {

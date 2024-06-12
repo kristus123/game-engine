@@ -1,0 +1,63 @@
+.container {
+	width: 90vw;
+	height: 90vh;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.top,
+.bottom {
+	white-space: nowrap;
+	width: 100%;
+	height: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	overflow-x: auto;
+	gap: 10px;
+}
+
+.right,
+.left {
+	margin: 10px 0;
+	overflow-y: auto;
+	width: 120px;
+	/* height: 100%; */
+	/* height: calc(100% - 200px); */
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.right {
+    right: 20px;
+}
+
+.left {
+    left: 20px;
+}
+
+.item {
+    width: 100px;
+    height: 100px;
+    /* background: indianred; */
+    margin: 10px 0;
+}
+
+#videocallrtc{
+	position: absolute;
+	z-index: 10;
+	width: 100px;
+	height: 100px;
+	display: flex;
+	flex-direction: row;
+}

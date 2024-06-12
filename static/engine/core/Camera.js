@@ -21,9 +21,7 @@ export class Camera {
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
 		this.velocityPrediction = 0.1
 		this.smoothMovement = 0.05
-
-		// it is being set right after initializing this class
-		this.mouse = null
+// it is being set right after initializing this class
 	}
 
 	get zoom() {

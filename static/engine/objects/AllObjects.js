@@ -1,5 +1,6 @@
 export class AllObjects {
-	constructor(objects=[]) {
+	constructor() {
+		this.objects = []
 	}
 
 	add(o) {

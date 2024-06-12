@@ -9,7 +9,7 @@ export class PrettyParticles {
 		if (this.particles.length < 100 && Mouse.down) {
 			const newParticle = new DynamicGameObject(new Position(player.x, player.y, size, size), 10, 200)
 
-			const pos = Calculate.directionBetween(player, mousePosition)
+			const pos = Calculate.directionBetween(Get.position(player), mousePosition)
 			const vel = Calculate.velocity(player, pos)
 
 			newParticle.velocity = {

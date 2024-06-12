@@ -14,13 +14,6 @@ function element(type, clazz) {
 
 export class Html {
 
-	static p(text) {
-		var p = document.createElement('p')
-		p.innerHTML = text
-
-		return p
-	}
-
 	static button(text, onClick) {
 		const button = element('button', 'ui button')
 		button.textContent = text

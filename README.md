@@ -34,4 +34,4 @@ then open [http://localhost:5000]()
 
 You can open the gui here
 
-http://localhost:5000/static/ui/test.html
+http://localhost:5000/static/gui/test.html
