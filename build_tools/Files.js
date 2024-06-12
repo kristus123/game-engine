@@ -15,9 +15,13 @@ module.exports = class {
 	}
 
 	static ContentMatchingIn(path, fileContent) {
-		const distPath = Path.join('dist/static', Path.relative('static', path))
-		const distFile = fs.readFileSync(distPath, 'utf8')
+		try {
+			const distPath = Path.join('dist/static', Path.relative('static', path))
+			const distFile = fs.readFileSync(distPath, 'utf8')
 
-		return distFile == fileContent
+			return distFile == fileContent
+		} catch (error) {
+			return false
+		}
 	}
 }
