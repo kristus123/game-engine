@@ -1,10 +1,10 @@
 class BodyPart extends DynamicGameObject {
-	constructor(position, part) {
+	constructor(position, imagePath, part) {
 		super(position, 20, 20)
 		this.width = 64
 		this.height = 64
 
-		this.s = new SpriteFrame(this,  '/static/assets/sprites/dead_chicken_32x32.png', part)
+		this.s = new SpriteFrame(this,imagePath, part)
 
 		ForcePush(this).towards(Random.direction(position), Random.integerBetween(6, 12))
 	}
@@ -17,12 +17,14 @@ class BodyPart extends DynamicGameObject {
 
 class Killed {
 	constructor(c) {
+		const chickenSprite = '/static/assets/sprites/dead_chicken_32x32.png'
+        
 		this.splatteredBody = [
-			new BodyPart(Random.direction(c, 10), { x: 1, y: 0 }),
-			new BodyPart(Random.direction(c, 10), { x: 2, y: 0 }),
-			new BodyPart(Random.direction(c, 10), { x: 2, y: 1 }),
-			new BodyPart(Random.direction(c, 10), { x: 1, y: 1 }),
-			new BodyPart(Random.direction(c, 10), { x: 1, y: 1 }),
+			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 0 }),
+			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 2, y: 0 }),
+			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 2, y: 1 }),
+			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 1 }),
+			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 1 }),
 		]
 	}
 
