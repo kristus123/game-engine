@@ -58,11 +58,6 @@ export class Draw {
 		this.rectangle(position, color)
 	}
 
-	blue(position) {
-		this.ctx.fillStyle = 'blue'
-		this.ctx.fillRect(position.x, position.y, 10, 10)
-	}
-
 	splash(spawnPosition, targetLocation, angleWidth, length = 500) {
 		this.ctx.beginPath()
 
