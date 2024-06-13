@@ -25,20 +25,17 @@ class ONE_DeliverChickens {
 
 class TWO_DriveChickens {
 	constructor(chickens, player) {
+		this.player = player
 
-		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
 		this.p = QuestList.add('drive them to wacky mac!')
-
-		this.cargo = new Cargo(chickens, deliveryDrone)
 
 		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
 
 		this.localObjects = new LocalObjects([
 			deliveryDrone,
 			this.deliveryZone,
-			this.cargo,
-			npc,
-			text,
+			new Cargo(chickens, deliveryDrone),
+			this.npc,
 		])
 	}
 
@@ -53,15 +50,18 @@ class TWO_DriveChickens {
 	}
 
 	update() {
-		if (Distance.within(100, this.npc, this.player)) {
-			this.text.update()
-			this.text.draw(draw, guiDraw)
-			
-		}
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
+		if (Distance.within(100, this.npc, this.player)) {
+			this.text.update()
+			this.text.draw(draw, guiDraw)
+		}
+		else {
+			draw.text(this.npc, 'come closer dude')
+		}
+
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
@@ -79,12 +79,12 @@ export class FirstQuest {
 			player.gun.hittableObjects.push(c)
 		}
 
-		//QuestList.show()
+		// QuestList.show()
 
 		this.localObjects = new LocalObjects([
-			new MovableObjects(player, chickens),
+			//new MovableObjects(player, chickens),
 			new Quest([
-				() => new ONE_DeliverChickens(chickens),
+				//() => new ONE_DeliverChickens(chickens),
 				() => new TWO_DriveChickens(chickens, player),
 			]),
 			...chickens,

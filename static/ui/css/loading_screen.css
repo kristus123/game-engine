@@ -1,4 +1,4 @@
-  #loading_screen {
+#loading_screen {
 	position: absolute;
 	z-index: 4;
 	width: 100%;
@@ -14,7 +14,7 @@
 
 }
 
- #loading_screen > div {
+#loading_screen > p {
 	width: 100%; 
 	text-align: center; 
 	color: white;

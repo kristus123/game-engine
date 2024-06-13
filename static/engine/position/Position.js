@@ -9,6 +9,15 @@ export class Position {
 		}
 	}
 
+	set(x=this.x, y=this.y, w=this.width, h=this.height) {
+		this.x = x
+		this.y = y
+		this.width = w
+		this.height = h
+
+		return this
+	}
+
 	copy() {
 		return new Position(this.x, this.y, this.width, this.height)
 	}

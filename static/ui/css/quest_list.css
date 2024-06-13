@@ -16,7 +16,7 @@
 	font-size: 30px;
 }
 
-.crossed {
+#quest_list > .crossed {
 	color: grey;
 	text-decoration: line-through;
 }
