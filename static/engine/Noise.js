@@ -12,13 +12,12 @@ export class Noise {
 		this.t = 0
 	}
 
-
 	draw(draw, guiDraw) {
 		for (const { position, } of this.positionAndNoiseValue) {
-			this.t += 0.0001
+			this.t += 0.001
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 
-			if (noiseValue >= -0.5) {
+			if (noiseValue >= 0) {
 				draw.blue(position)
 			}
 			else {
