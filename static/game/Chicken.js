@@ -35,6 +35,30 @@ class Killed {
 	}
 }
 
+class Feather extends DynamicGameObject {
+	
+	constructor(position) {
+		super(position, 10 ,10)
+		this.position = this.position.copy()
+
+
+		const choice = Random.choice([
+			{x: 0, y: 0},
+			{x: 1, y: 0},
+			{x: 2, y: 0},
+			{x: 3, y: 0},
+		])
+		this.image = new SpriteFrame(this, '/static/assets/sprites/chicken_feathers_16x16.png', choice)
+		this.position.width = 16
+		this.position.height = 16
+
+	}
+
+	draw(draw, guiDraw) {
+		this.image.draw(draw, guiDraw)
+	}
+}
+
 export class Chicken extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 10)
@@ -49,6 +73,8 @@ export class Chicken extends DynamicGameObject {
 			{ x: 3, y: 3 },
 			{ x: 3, y: 3 },
 		])
+
+		this.feathers = new LocalObjects()
 
 	}
 
@@ -66,6 +92,16 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		if (Math.abs(this.velocity.x) || Math.abs(this.velocity.y)) {
+			if (Random.chance()) {
+				const f = new Feather(this.position)
+				Push(f).towards(Random.direction(this.position), 10)
+				this.feathers.add(f)
+			}
+		}
+
+		this.feathers.draw(draw, guiDraw)
+
 		if (this.killed) {
 			this.killed.draw(draw, guiDraw)
 		}

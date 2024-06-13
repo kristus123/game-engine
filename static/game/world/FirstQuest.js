@@ -38,10 +38,21 @@ class TWO_DriveChickens {
 			building.draw(draw, guiDraw)
 		}
 
+
+		const npc = new Npc(new Position(1_000, 1_000, 20, 20))
+		this.npc = npc
+		const text = new MultiTextTyper(npc.position.offset(0, -20), [
+			"welcome!",
+			"time to get to work",
+		])
+		this.text = text
+
 		this.localObjects = new LocalObjects([
 			deliveryDrone,
 			this.deliveryZone,
 			this.cargo,
+			npc,
+			text,
 		])
 	}
 
@@ -56,6 +67,11 @@ class TWO_DriveChickens {
 	}
 
 	update() {
+		if (Distance.within(100, this.npc, this.player)) {
+			this.text.update()
+			this.text.draw(draw, guiDraw)
+			
+		}
 		this.localObjects.update()
 	}
 
@@ -103,7 +119,7 @@ export class FirstQuest {
 			new MovableObjects(player, chickens),
 			new Quest([
 				() => new ONE_DeliverChickens(chickens),
-				//() => new TWO_DriveChickens(chickens, player),
+				() => new TWO_DriveChickens(chickens, player),
 			], () => {
 				Level.change(new InsideWackyMac(player))
 			}),
