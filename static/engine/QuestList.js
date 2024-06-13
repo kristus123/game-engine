@@ -2,6 +2,7 @@ export class QuestList {
 
 	static add(text) {
 		const questList = document.getElementById('quest_list')
+
 		const p = Html.p(text)
 		questList.appendChild(p)
 
@@ -12,8 +13,7 @@ export class QuestList {
 	}
 
 	static clear() {
-		const div = document.getElementById('quest_list')
-		div.innerHTML = ''
+		Html.removeChildElementsInId('quest_list')
 	}
 
 	static show() {
@@ -21,6 +21,8 @@ export class QuestList {
 	}
 
 	static close() {
+		Html.removeChildElementsInId('quest_list')
+
 		document.getElementById('quest_list').style.display = 'none'
 	}
 }

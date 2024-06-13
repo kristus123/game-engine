@@ -59,9 +59,9 @@ export class Html {
 	}
 
 	static removeChildElementsInId(id) {
-		var bottomDiv = document.getElementById(id)
-		while (bottomDiv.firstChild) {
-			bottomDiv.removeChild(bottomDiv.firstChild)
+		const div = document.getElementById(id)
+		while (div.firstChild) {
+			div.removeChild(div.firstChild)
 		}
 	}
 

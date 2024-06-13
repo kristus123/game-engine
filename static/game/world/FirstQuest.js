@@ -25,11 +25,9 @@ class ONE_DeliverChickens {
 
 class TWO_DriveChickens {
 	constructor(chickens, player) {
+		this.player = player
 
-		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
 		this.p = QuestList.add('drive them to wacky mac!')
-
-		this.cargo = new Cargo(chickens, deliveryDrone)
 
 		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 64*10, 64*10), chickens)
 
@@ -38,21 +36,24 @@ class TWO_DriveChickens {
 			building.draw(draw, guiDraw)
 		}
 
-
-		const npc = new Npc(new Position(1_000, 1_000, 20, 20))
-		this.npc = npc
-		const text = new MultiTextTyper(npc.position.offset(0, -20), [
+		this.npc = new Npc(player.position.copy().set(200))
+		this.text = new MultiTextTyper(this.npc.position.offset(0, -20), [
 			"welcome!",
 			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
 		])
-		this.text = text
+
+		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
 
 		this.localObjects = new LocalObjects([
 			deliveryDrone,
 			this.deliveryZone,
-			this.cargo,
-			npc,
-			text,
+			new Cargo(chickens, deliveryDrone),
+			this.npc,
 		])
 	}
 
@@ -67,15 +68,18 @@ class TWO_DriveChickens {
 	}
 
 	update() {
-		if (Distance.within(100, this.npc, this.player)) {
-			this.text.update()
-			this.text.draw(draw, guiDraw)
-			
-		}
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
+		if (Distance.within(100, this.npc, this.player)) {
+			this.text.update()
+			this.text.draw(draw, guiDraw)
+		}
+		else {
+			draw.text(this.npc, 'come closer dude')
+		}
+
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
@@ -113,16 +117,17 @@ export class FirstQuest {
 			player.gun.hittableObjects.push(c)
 		}
 
-		//QuestList.show()
+		// QuestList.show()
 
 		this.localObjects = new LocalObjects([
-			new MovableObjects(player, chickens),
+			//new MovableObjects(player, chickens),
 			new Quest([
-				() => new ONE_DeliverChickens(chickens),
+				//() => new ONE_DeliverChickens(chickens),
 				() => new TWO_DriveChickens(chickens, player),
-			], () => {
-				Level.change(new InsideWackyMac(player))
-			}),
+			],
+				() => {
+					Level.change(new InsideWackyMac(player))
+				}),
 			...chickens,
 		])
 	}
