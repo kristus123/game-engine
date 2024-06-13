@@ -4,6 +4,10 @@ export class Random {
 		return Math.floor(Math.random() * (max - min + 1) + min)
 	}
 
+	static chance() {
+		return this.integerBetween(0, 1) == 1
+	}
+
 	static floatBetween(min, max) {
 		const randomValue = Math.random() * (max - min) + min
 		return parseFloat(randomValue.toFixed(2))
