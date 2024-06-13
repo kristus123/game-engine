@@ -2,12 +2,12 @@ export class Positions {
 	static grid(position, size) {
 		const positions = []
 
-		for (let y = 0; y < position.height; y++) {
-			for (let x = 0; x < position.width; x++) {
+		for (let y = position.y; y < position.y + position.height; y = y+1 + size) {
+			for (let x = position.x; x < position.x + position.width; x = x+1 + size) {
 				const nx = x * size
 				const ny = y * size
 
-				positions.push(new Position(nx, ny, size, size))
+				positions.push(new Position(x, y, size, size))
 			}
 		}
 
