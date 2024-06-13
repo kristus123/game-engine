@@ -50,6 +50,11 @@ class TWO_DriveChickens {
 	}
 
 	update() {
+		if (Distance.within(100, this.npc, this.player)) {
+			this.text.update()
+			this.text.draw(draw, guiDraw)
+			
+		}
 		this.localObjects.update()
 	}
 
