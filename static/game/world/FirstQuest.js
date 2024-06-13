@@ -31,14 +31,18 @@ class TWO_DriveChickens {
 
 		this.deliveryZone = new DeliveryZone(new Position(1_000, 1_000, 100, 100), chickens)
 
-
-		const npc = new Npc(new Position(1_000, 1_000, 20, 20))
-		this.npc = npc
-		const text = new MultiTextTyper(npc.position.offset(0, -20), [
+		this.npc = new Npc(player.position.copy().set(200))
+		this.text = new MultiTextTyper(this.npc.position.offset(0, -20), [
 			"welcome!",
 			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
+			"time to get to work",
 		])
-		this.text = text
+
+		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
 
 		this.localObjects = new LocalObjects([
 			deliveryDrone,
@@ -65,13 +69,17 @@ class TWO_DriveChickens {
 	}
 
 	update() {
+		this.localObjects.update()
+	}
+
+	draw(draw, guiDraw) {
 		if (Distance.within(100, this.npc, this.player)) {
 			this.text.update()
 			this.text.draw(draw, guiDraw)
-			
 		}
-		this.localObjects.update()
-	}
+		else {
+			draw.text(this.npc, 'come closer dude')
+		}
 
 	draw(draw, guiDraw) {
 		if (Distance.within(100, this.npc, this.player)) {
