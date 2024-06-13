@@ -50,13 +50,17 @@ class TWO_DriveChickens {
 	}
 
 	update() {
+		this.localObjects.update()
+	}
+
+	draw(draw, guiDraw) {
 		if (Distance.within(100, this.npc, this.player)) {
 			this.text.update()
 			this.text.draw(draw, guiDraw)
-			
 		}
-		this.localObjects.update()
-	}
+		else {
+			draw.text(this.npc, 'come closer dude')
+		}
 
 	draw(draw, guiDraw) {
 		if (Distance.within(100, this.npc, this.player)) {
@@ -89,7 +93,7 @@ export class FirstQuest {
 		this.localObjects = new LocalObjects([
 			//new MovableObjects(player, chickens),
 			new Quest([
-				() => new ONE_DeliverChickens(chickens),
+				//() => new ONE_DeliverChickens(chickens),
 				() => new TWO_DriveChickens(chickens, player),
 			]),
 			...chickens,
