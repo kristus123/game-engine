@@ -56,6 +56,8 @@ export class Chicken extends DynamicGameObject {
 		console.log("hit hicjen")
 		this.killed = new Killed(this)
 		//this.removeFromGameLoop()
+		
+		SineWave.play()
 	}
 
 	update() {

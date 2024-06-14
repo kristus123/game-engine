@@ -11,7 +11,6 @@ export class Bullet extends DynamicGameObject {
 		for (const o of this.gun.hittableObjects) {
 			if (Collision.between(o, this)) {
 				o.onHit()
-				SineWave.playBlastChickenDieSound()
 				List.remove(this.gun.hittableObjects, o)
 				List.remove(this.gun.bullets, this)
 				break
