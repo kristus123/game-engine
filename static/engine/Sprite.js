@@ -49,7 +49,4 @@ export class Sprite {
 			)
 		}
 	}
-	spinning_draw(draw, guiDraw,angle) {
-		
-	}
 }
