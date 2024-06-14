@@ -102,7 +102,7 @@ export class FirstQuest {
 		this.localObjects = new LocalObjects([
 			//new MovableObjects(player, chickens),
 			new Quest([
-				//() => new ONE_DeliverChickens(chickens),
+				() => new ONE_DeliverChickens(chickens),
 				() => new TWO_DriveChickens(chickens, player),
 			]),
 			...chickens,
