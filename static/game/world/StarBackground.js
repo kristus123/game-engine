@@ -1,10 +1,9 @@
 export class StarBackground {
 	constructor() {
-		this.stars = Random.positions(-10, 20, -10, 20, 500)
-			.map(position => ({
-				position: Random.direction(Cam.position, 1000),
-				color: Random.choice(['#638782', '#304e4f', '#1f2d2c', '#15282a', 'white']),
-			}))
+		this.stars = Iterate(500, i => ({
+			position: Random.direction(Cam.position, 1000),
+			color: Random.choice(['#638782', '#304e4f', '#1f2d2c', '#15282a', 'white']),
+		}))
 	}
 
 	update() {
@@ -12,8 +11,8 @@ export class StarBackground {
 
 	draw(draw, guiDraw) {
 		this.stars.forEach((star) => {
-			const p = Parallax(star, Cam, 0.99)
-			draw.star(p, star.color)
+			const position = Parallax(star, 0.99)
+			draw.star(position, star.color)
 		})
 	}
 }

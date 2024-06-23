@@ -8,7 +8,7 @@ export class World {
 		this.onlineObjects = new OnlineObjects(this.player)
 
 		this.localObjects = new LocalObjects([
-			new StarBackground(Cam),
+			new StarBackground(),
 			//new Planet(new Position(0, 0)),
 			this.onlineObjects,
 			new OnlinePlayers(this.player, Cam),
