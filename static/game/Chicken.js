@@ -4,7 +4,7 @@ class BodyPart extends DynamicGameObject {
 		this.width = 64
 		this.height = 64
 
-		this.s = new SpinningSpriteFrame(this,imagePath, part)
+		this.s = new SpinningSpriteFrame(this, imagePath, part)
 
 		ForcePush(this).towards(Random.direction(position), Random.integerBetween(6, 12))
 	}
@@ -12,13 +12,13 @@ class BodyPart extends DynamicGameObject {
 	draw(draw, guiDraw) {
 		this.s.draw(draw, guiDraw)
 	}
-	
+
 }
 
 class Killed {
 	constructor(c) {
 		const chickenSprite = '/static/assets/sprites/dead_chicken_32x32.png'
-        
+
 		this.splatteredBody = [
 			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 0 }),
 			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 2, y: 0 }),
@@ -36,17 +36,17 @@ class Killed {
 }
 
 class Feather extends DynamicGameObject {
-	
+
 	constructor(position) {
-		super(position, 10 ,10)
+		super(position, 10, 10)
 		this.position = this.position.copy()
 
 
 		const choice = Random.choice([
-			{x: 0, y: 0},
-			{x: 1, y: 0},
-			{x: 2, y: 0},
-			{x: 3, y: 0},
+			{ x: 0, y: 0 },
+			{ x: 1, y: 0 },
+			{ x: 2, y: 0 },
+			{ x: 3, y: 0 },
 		])
 		this.image = new SpriteFrame(this, '/static/assets/sprites/chicken_feathers_16x16.png', choice)
 		this.position.width = 16
@@ -79,7 +79,7 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	onHit() {
-		console.log("hit hicjen")
+		console.log('hit hicjen')
 		this.killed = new Killed(this)
 		//this.removeFromGameLoop()
 		SineWave.play()

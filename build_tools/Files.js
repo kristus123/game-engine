@@ -20,7 +20,8 @@ module.exports = class {
 			const distFile = fs.readFileSync(distPath, 'utf8')
 
 			return distFile == fileContent
-		} catch (error) {
+		}
+		catch (error) {
 			return false
 		}
 	}

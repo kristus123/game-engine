@@ -38,13 +38,13 @@ class TWO_DriveChickens {
 
 		this.npc = new Npc(player.position.copy().set(200))
 		this.text = new MultiTextTyper(this.npc.position.offset(0, -20), [
-			"welcome!",
-			"time to get to work",
-			"time to get to work",
-			"time to get to work",
-			"time to get to work",
-			"time to get to work",
-			"time to get to work",
+			'welcome!',
+			'time to get to work',
+			'time to get to work',
+			'time to get to work',
+			'time to get to work',
+			'time to get to work',
+			'time to get to work',
 		])
 
 		const deliveryDrone = new DeliveryDrone(new Position(0, 0), player)
@@ -101,7 +101,7 @@ class InsideWackyMac {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 	}
-	
+
 }
 
 export class FirstQuest {
@@ -125,9 +125,9 @@ export class FirstQuest {
 				//() => new ONE_DeliverChickens(chickens),
 				() => new TWO_DriveChickens(chickens, player),
 			],
-				() => {
-					Level.change(new InsideWackyMac(player))
-				}),
+			() => {
+				Level.change(new InsideWackyMac(player))
+			}),
 			...chickens,
 		])
 	}

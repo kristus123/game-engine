@@ -6,7 +6,7 @@ export class StaticPicture extends _GameObject {
 	}
 
 	update() {
-		
+
 	}
 
 	draw(draw, guiDraw) { // todo

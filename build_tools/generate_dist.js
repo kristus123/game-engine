@@ -61,7 +61,7 @@ for (const jsFilePath of jsFiles) {
 
 	if (!Files.ContentMatchingIn(jsFilePath, fileContent)) {
 		Files.writeFileToDist(jsFilePath, fileContent)
-		console.log("change detected in " + jsFilePath)
+		console.log('change detected in ' + jsFilePath)
 	}
 }
 
