@@ -1,18 +1,20 @@
 const express = require('express')
 const cors = require('cors')
-const Files = require('./Files')
 const fs = require('fs')
+
+const Files = require('./Files')
+const Format = require('./Format')
+
 const app = express()
-
-const PORT = process.env.PORT || 3000
-
 app.use(express.json()) // Automatically parses JSON bodies
 app.use(cors())
 
-app.post('/world-editor', (req, res) => {
-	const jsonData = req.body
-	fs.writeFile('data.json', JSON.stringify(jsonData), (error) => {
+app.post('/*', (req, res) => {
+    const filePath = req.params[0];  // This captures everything after /path/
+
+	fs.writeFile(filePath, JSON.stringify(req.body), error => {
 		if (!error) {
+
 			console.log('JSON data saved successfully')
 			res.status(200).send('JSON data saved successfully')
 		}
@@ -24,8 +26,10 @@ app.post('/world-editor', (req, res) => {
 	})
 })
 
-app.get('/world-editor', (req, res) => {
-	fs.readFile('data.json', 'utf8', (err, data) => {
+app.get('/*', (req, res) => {
+    const filePath = req.params[0];  // This captures everything after /path/
+
+	fs.readFile(filePath, 'utf8', (err, data) => {
 		if (!err) {
 			res.setHeader('Content-Type', 'application/json')
 			res.send(data)
@@ -47,6 +51,7 @@ app.get('/picture-library', (req, res) => {
 	}
 })
 
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })

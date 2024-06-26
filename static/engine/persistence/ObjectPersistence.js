@@ -1,33 +1,36 @@
 export class ObjectPersistence {
+	constructor(filePath) {
+		
+	}
 
-	static get() {
-		return Http.get('/world-editor')
+	get() {
+		return Http.get(this.filePath)
 			.map(string => ObjectMapper.mapFromString(string))
 	}
 
-	static save(gameObject) {
-		const objects = Http.get('/world-editor')
+	save(gameObject) {
+		const objects = Http.get(this.filePath)
 
 		objects.push(ObjectMapper.mapToJsonString(gameObject))
 
-		Http.post('/world-editor', objects)
+		Http.post(this.filePath, objects)
 	}
 
-	static update(gameObject) {
-		const objects = Http.get('/world-editor')
+	update(gameObject) {
+		const objects = Http.get(this.filePath)
 
 		List.removeIf(objects, x => JSON.parse(x).objectId == gameObject.objectId)
 
 		objects.push(ObjectMapper.mapToJsonString(gameObject))
 
-		Http.post('/world-editor', objects)
+		Http.post(this.filePath, objects)
 	}
 
-	static remove(gameObject) {
-		const objects = Http.get('/world-editor')
+	remove(gameObject) {
+		const objects = Http.get(this.filePath)
 
 		List.removeIf(objects, x => JSON.parse(x).objectId == gameObject.objectId)
 
-		Http.post('/world-editor', objects)
+		Http.post(this.filePath, objects)
 	}
 }

@@ -43,6 +43,13 @@ export class Overlay {
 		return b
 	}
 
+	static clearAll() {
+		Html.removeChildElementsInId('top')
+		Html.removeChildElementsInId('bottom')
+		Html.removeChildElementsInId('left')
+		Html.removeChildElementsInId('right')
+	}
+
 	static clearBottom() {
 		Html.removeChildElementsInId('bottom')
 	}

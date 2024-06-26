@@ -3,11 +3,15 @@ export class WorldEditor {
 	constructor() {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 
-		const mouseMove = new MouseMove()
-		this.worldObjects = new LocalObjects()
+		Overlay.leftButton('exit edit mode', () => {
+			Overlay.clearAll()
+			Level.change(new World())
+		})
 
-		ObjectPersistence.get().forEach(o => {
-			this.worldObjects.add(o)
+		const mouseMove = new MouseMove()
+
+		this.chickens = new PersistedObjects('/persisted-objects/data.json')
+		this.chickens.objects.forEach(o => {
 			mouseMove.add(o)
 		})
 
@@ -19,26 +23,23 @@ export class WorldEditor {
 			this.add = p => new Chicken(p)
 		})
 
-		Overlay.bottomButton('grid', () => {
-			grid.show = true
-			this.add = p => grid.add(p)
-		})
+		// Overlay.bottomButton('grid', () => {
+		// 	grid.show = true
+		// 	this.add = p => grid.add(p)
+		// })
 
 		mouseMove.moved = o => {
-			ObjectPersistence.update(o)
+			this.chickens.persist(o)
 		}
 		mouseMove.remove = o => {
-			ObjectPersistence.remove(o)
-			this.worldObjects.remove(o)
+			this.chickens.remove(o)
 		}
 
 		Mouse.addOnClick('add object to world', p => {
 			if (this.add) {
 				const o = this.add(p)
-
-				this.worldObjects.add(o)
 				mouseMove.add(o)
-				ObjectPersistence.save(o)
+				this.chickens.add(o)
 			}
 		})
 
@@ -52,12 +53,12 @@ export class WorldEditor {
 	}
 
 	update() {
-		this.worldObjects.update()
+		this.chickens.update()
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.worldObjects.draw(draw, guiDraw)
+		this.chickens.draw(draw, guiDraw)
 		this.localObjects.draw(draw, guiDraw)
 	}
 }

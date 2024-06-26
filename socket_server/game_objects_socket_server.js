@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const gameObjects = JSON.parse(fs.readFileSync('data.json', 'utf8'))
+const gameObjects = JSON.parse(fs.readFileSync('persisted-objects/data.json', 'utf8'))
 const SocketServer = require('./SocketServer')
 
 const List = require('./List')

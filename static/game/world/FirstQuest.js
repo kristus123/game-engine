@@ -1,6 +1,7 @@
 class ONE_DeliverChickens {
 	constructor(chickens) {
 		this.deliveryZone = new DeliveryZone(new Position(-1_000, 0, 100, 100), chickens)
+		QuestList.clear()
 		this.p = QuestList.add('Deliver chickens to the new destination')
 	}
 
@@ -122,8 +123,8 @@ export class FirstQuest {
 		this.localObjects = new LocalObjects([
 			//new MovableObjects(player, chickens),
 			new Quest([
-				//() => new ONE_DeliverChickens(chickens),
-				() => new TWO_DriveChickens(chickens, player),
+				() => new ONE_DeliverChickens(chickens),
+				// () => new TWO_DriveChickens(chickens, player),
 			],
 			() => {
 				Level.change(new InsideWackyMac(player))
