@@ -8,7 +8,7 @@ export class _GameObject {
 
 	get objectId() {
 		//if (this._objectId) {
-			return this._objectId
+		return this._objectId
 		//}
 		//else {
 		//	throw new Error('objectId is not set, make sure you have set it')

@@ -58,7 +58,8 @@ export class ObjectMapper {
 
 		try {
 			return c.mapFromJsonObject(json)
-		} catch (error) {
+		}
+		catch (error) {
 			throw new Error(`error while mapping json object ${json.className} to js object:<hr>${error}`)
 		}
 	}

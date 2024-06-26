@@ -13,7 +13,7 @@ export class Noise {
 	}
 
 	draw(draw, guiDraw) {
-		for (const { position, } of this.positionAndNoiseValue) {
+		for (const { position } of this.positionAndNoiseValue) {
 			this.t += 0.001
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 

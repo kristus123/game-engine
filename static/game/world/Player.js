@@ -38,7 +38,7 @@ export class Player extends DynamicGameObject {
 			const p = new DynamicGameObject(x, 2000, 100)
 			ForcePush(p).roughlyTowards(Mouse.position, 1)
 			this.piss.add(p)
-			console.log("piss is working, but velcoity stuff makes it weird")
+			console.log('piss is working, but velcoity stuff makes it weird')
 		}
 
 		this.piss.update()

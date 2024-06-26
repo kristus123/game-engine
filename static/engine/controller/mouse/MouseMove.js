@@ -35,7 +35,7 @@ export class MouseMove {
 		for (const o of this.movableObjects) {
 			if (o == this.lastClicked) {
 				draw.transparentGreenRectangle(o)
-				const x = o.position.offset(-10, -10, 20,20)
+				const x = o.position.offset(-10, -10, 20, 20)
 				draw.rectangle(x)
 				if (Mouse.clicked(x)) {
 					draw.text(o.position.offset(10, 10), 'delete')
