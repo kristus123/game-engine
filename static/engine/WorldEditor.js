@@ -10,55 +10,65 @@ export class WorldEditor {
 
 		const mouseMove = new MouseMove()
 
-		this.chickens = new PersistedObjects('/persisted-objects/data.json')
-		this.chickens.objects.forEach(o => {
+		const chickens = new PersistedObjects('/persisted-objects/chickens.json')
+		this.chickens = chickens
+		chickens.objects.forEach(o => {
 			mouseMove.add(o)
 		})
 
-		this.add = null
 		const grid = new Grid()
-
-		Overlay.bottomButton('chicken', () => {
+		Overlay.rightButton('chicken', () => {
 			grid.show = false
-			this.add = p => new Chicken(p)
+			mouseMove.onClick = p => {
+				const c = new Chicken(p)
+				chickens.add(c)
+				mouseMove.add(c)
+			}
 		})
 
-		// Overlay.bottomButton('grid', () => {
-		// 	grid.show = true
-		// 	this.add = p => grid.add(p)
-		// })
+		const floors = new PersistedObjects('/persisted-objects/floors.json')
+		floors.objects.forEach(o => {
+			mouseMove.add(o)
+		})
+		Overlay.rightButton('floor', () => {
+			grid.show = true
+			mouseMove.onClick = p => {
+				const c = grid.add(p)
+				floors.add(c)
+				mouseMove.add(c)
+			}
+		})
 
 		mouseMove.moved = o => {
-			this.chickens.persist(o)
+			chickens.persist(o)
 		}
+
 		mouseMove.remove = o => {
-			this.chickens.remove(o)
+			chickens.remove(o)
 		}
 
 		Mouse.addOnClick('add object to world', p => {
-			if (this.add) {
-				const o = this.add(p)
-				mouseMove.add(o)
-				this.chickens.add(o)
+			if (!mouseMove.holding) {
+				mouseMove.onClick(p)
 			}
 		})
 
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
-			new StarBackground(),
+			// new StarBackground(),
 			//new Planet(new Position(0, 0)),
 			grid,
+			chickens,
+			floors,
 			mouseMove,
 		])
 	}
 
 	update() {
-		this.chickens.update()
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.chickens.draw(draw, guiDraw)
 		this.localObjects.draw(draw, guiDraw)
 	}
 }

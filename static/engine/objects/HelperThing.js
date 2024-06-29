@@ -9,11 +9,11 @@ export class HelperThing {
 	}
 
 	static update(objects) {
-		HelperThing.updateAnd(objects, () => {})
+		this.updateAnd(objects, () => {})
 	}
 
 	static updateAnd(objects, run=() => {}) {
-		objects.forEach(o => {
+		for (const o of objects) {
 			try {
 				if (o.update) {
 					run(o)
@@ -22,10 +22,8 @@ export class HelperThing {
 			}
 			catch (error) {
 				throw error
-				// throw new Error('an error occurred while running "update" method for '
-				// + o.constructor.name + '  ' + error)
 			}
-		})
+		}
 	}
 
 	static draw(objects, draw, guiDraw) {

@@ -108,10 +108,10 @@ class InsideWackyMac {
 export class FirstQuest {
 	constructor(player) {
 		const chickens = [
-			new Chicken(new Position(0, 0)),
-			new Chicken(new Position(-200, 0)),
-			new Chicken(new Position(-400, 0)),
-			new Chicken(new Position(-100, 0)),
+			// new Chicken(new Position(0, 0)),
+			// new Chicken(new Position(-200, 0)),
+			// new Chicken(new Position(-400, 0)),
+			// new Chicken(new Position(-100, 0)),
 		]
 
 		for (const c of chickens) {

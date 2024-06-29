@@ -11,7 +11,7 @@ ErrorHandler.run(() => {
 	const draw = new Draw(Cam.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)
 
-	 Level.change(new World())
+	 Level.change(new WorldEditor())
 
 	//new VideoCall()
 

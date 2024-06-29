@@ -2,8 +2,7 @@ export class ClickEvents {
 	constructor() {
 		this.clickHandlers = {}
 
-		this.handleClick = this.handleClick.bind(this)
-		document.addEventListener('click', this.handleClick)
+		document.addEventListener('click', e => this.handleClick(e))
 	}
 
 	addOnClick(name, handler) {

@@ -3,7 +3,7 @@ export class _GameObject {
 
 		this.position = position.copy()
 
-		this._objectId = null
+		this._objectId = Random.uuid()
 	}
 
 	get objectId() {

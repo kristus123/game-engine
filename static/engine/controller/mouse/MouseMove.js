@@ -4,6 +4,8 @@ export class MouseMove {
 		this.holding = null
 
 		this.movableObjects = []
+
+		this.onClick = null
 	}
 
 	add(o) {
@@ -12,16 +14,14 @@ export class MouseMove {
 
 	update() {
 		for (const o of this.movableObjects) {
-			if (Mouse.clicked(o)) {
-				this.lastClicked = o
-			}
-
-			if (!Mouse.holding && Mouse.clicked(o)) {
-				this.holding = o
-			}
-			else if (o === this.holding) {
+			if (o == this.holding) {
 				o.position.center.x = Mouse.position.x
 				o.position.center.y = Mouse.position.y
+			}
+			else if (Mouse.clicked(o) && !this.holding) {
+				this.holding = o
+				this.lastClicked = o
+				break
 			}
 
 			if (this.holding && Mouse.up) {
@@ -37,10 +37,13 @@ export class MouseMove {
 				draw.transparentGreenRectangle(o)
 				const x = o.position.offset(-10, -10, 20, 20)
 				draw.rectangle(x)
+				if (Mouse.hovering(x)) {
+					draw.text(o.position.offset(-150, 10), 'delete')
+				}
 				if (Mouse.clicked(x)) {
-					draw.text(o.position.offset(10, 10), 'delete')
 					this.remove(o)
 					this.lastClicked = null
+					this.holding = null
 				}
 				draw.rectangle(x)
 				if (Mouse.hovering(o)) {

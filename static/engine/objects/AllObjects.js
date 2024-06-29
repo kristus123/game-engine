@@ -1,4 +1,4 @@
-export class AllObjects {
+export class AllObjects { // not a good name
 	constructor(objects=[]) {
 	}
 
