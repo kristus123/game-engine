@@ -10,7 +10,7 @@ app.use(express.json()) // Automatically parses JSON bodies
 app.use(cors())
 
 app.post('/*', (req, res) => {
-    const filePath = req.params[0];  // This captures everything after /path/
+	const filePath = req.params[0] // This captures everything after /path/
 
 	fs.writeFile(filePath, JSON.stringify(req.body), error => {
 		if (!error) {
@@ -27,7 +27,7 @@ app.post('/*', (req, res) => {
 })
 
 app.get('/*', (req, res) => {
-    const filePath = req.params[0];  // This captures everything after /path/
+	const filePath = req.params[0] // This captures everything after /path/
 
 	fs.readFile(filePath, 'utf8', (err, data) => {
 		if (!err) {

@@ -4,31 +4,31 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-    lightSource(lightSource, radius) {
-        const gradient = this.ctx.createRadialGradient(lightSource.x, lightSource.y, 0, lightSource.x, lightSource.y, radius);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        
-        this.ctx.fillStyle = gradient;
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    }
+	lightSource(lightSource, radius) {
+		const gradient = this.ctx.createRadialGradient(lightSource.x, lightSource.y, 0, lightSource.x, lightSource.y, radius)
+		gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
+		gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
+
+		this.ctx.fillStyle = gradient
+		this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+	}
 
 	shadow(gameObject) {
-		const {x,y,width,height}  = gameObject
+		const { x, y, width, height } = gameObject
 		const lightX = 0
-			const lightY = 0
+		const lightY = 0
 
-		this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-		this.ctx.shadowBlur = 200;
-		this.ctx.shadowOffsetX = (x - lightX) / 10;
-		this.ctx.shadowOffsetY = (y - lightY) / 10;
+		this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'
+		this.ctx.shadowBlur = 200
+		this.ctx.shadowOffsetX = (x - lightX) / 10
+		this.ctx.shadowOffsetY = (y - lightY) / 10
 
-		this.ctx.fillRect(x, y, width, height);
+		this.ctx.fillRect(x, y, width, height)
 
-		this.ctx.shadowColor = 'transparent';
-		this.ctx.shadowBlur = 0;
-		this.ctx.shadowOffsetX = 0;
-		this.ctx.shadowOffsetY = 0;
+		this.ctx.shadowColor = 'transparent'
+		this.ctx.shadowBlur = 0
+		this.ctx.shadowOffsetX = 0
+		this.ctx.shadowOffsetY = 0
 	}
 
 	rectangle(position, color='yellow') {

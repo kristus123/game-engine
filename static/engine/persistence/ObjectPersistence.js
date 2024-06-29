@@ -1,6 +1,6 @@
 export class ObjectPersistence {
 	constructor(filePath) {
-		
+
 	}
 
 	get() {
