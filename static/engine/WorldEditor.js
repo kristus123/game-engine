@@ -8,58 +8,22 @@ export class WorldEditor {
 			Level.change(new World())
 		})
 
-		const mouseEditor = new MouseEditor()
-
-		const chickens = new PersistedObjects('/persisted-objects/chickens.json')
-		chickens.objects.forEach(o => {
-			mouseEditor.add(o)
-		})
-
-		const grid = new Grid()
-		Overlay.rightButton('chicken', () => {
-			grid.show = false
-			mouseEditor.onClick = p => {
-				const c = new Chicken(p)
-				chickens.add(c)
-				mouseEditor.add(c)
-			}
-		})
-
-		const floors = new PersistedObjects('/persisted-objects/floors.json')
-		floors.objects.forEach(o => {
-			mouseEditor.add(o)
-		})
-		Overlay.rightButton('floor', () => {
-			grid.show = true
-			mouseEditor.onClick = p => {
-				const c = grid.add(p)
-				floors.add(c)
-				mouseEditor.add(c)
-			}
-		})
-
-		mouseEditor.moved = o => {
-			chickens.persist(o)
-		}
-
-		mouseEditor.remove = o => {
-			chickens.remove(o)
-		}
-
-		Mouse.addOnClick('add object to world', p => {
-			if (!mouseEditor.holding) {
-				mouseEditor.onClick(p)
-			}
-		})
-
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
-			// new StarBackground(),
-			//new Planet(new Position(0, 0)),
-			grid,
-			chickens,
-			floors,
-			mouseEditor,
+			new PersistedObjectsEditor([
+			{ 
+				filePath: '/persisted-objects/chickens.json', 
+				create: p => new Chicken(p),
+			},
+			{ 
+				filePath: '/persisted-objects/floors.json', 
+				create: p => {
+					p.width = 128
+					p.height = 128
+					return new StaticPicture(p, '/static/assets/floors/wooden_floor_128x128.png')
+				},
+			},
+		]),
 		])
 	}
 

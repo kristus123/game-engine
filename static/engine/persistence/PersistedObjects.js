@@ -17,10 +17,6 @@ export class PersistedObjects extends AllObjects {
 		this.objectPersistence.update(o)
 	}
 
-	update() {
-		super.update()
-	}
-
 	remove(o) {
 		this.objectPersistence.remove(o)
 		super.remove(o)
