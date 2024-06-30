@@ -8,48 +8,47 @@ export class WorldEditor {
 			Level.change(new World())
 		})
 
-		const mouseMove = new MouseMove()
+		const mouseEditor = new MouseEditor()
 
 		const chickens = new PersistedObjects('/persisted-objects/chickens.json')
-		this.chickens = chickens
 		chickens.objects.forEach(o => {
-			mouseMove.add(o)
+			mouseEditor.add(o)
 		})
 
 		const grid = new Grid()
 		Overlay.rightButton('chicken', () => {
 			grid.show = false
-			mouseMove.onClick = p => {
+			mouseEditor.onClick = p => {
 				const c = new Chicken(p)
 				chickens.add(c)
-				mouseMove.add(c)
+				mouseEditor.add(c)
 			}
 		})
 
 		const floors = new PersistedObjects('/persisted-objects/floors.json')
 		floors.objects.forEach(o => {
-			mouseMove.add(o)
+			mouseEditor.add(o)
 		})
 		Overlay.rightButton('floor', () => {
 			grid.show = true
-			mouseMove.onClick = p => {
+			mouseEditor.onClick = p => {
 				const c = grid.add(p)
 				floors.add(c)
-				mouseMove.add(c)
+				mouseEditor.add(c)
 			}
 		})
 
-		mouseMove.moved = o => {
+		mouseEditor.moved = o => {
 			chickens.persist(o)
 		}
 
-		mouseMove.remove = o => {
+		mouseEditor.remove = o => {
 			chickens.remove(o)
 		}
 
 		Mouse.addOnClick('add object to world', p => {
-			if (!mouseMove.holding) {
-				mouseMove.onClick(p)
+			if (!mouseEditor.holding) {
+				mouseEditor.onClick(p)
 			}
 		})
 
@@ -60,7 +59,7 @@ export class WorldEditor {
 			grid,
 			chickens,
 			floors,
-			mouseMove,
+			mouseEditor,
 		])
 	}
 

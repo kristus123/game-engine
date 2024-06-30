@@ -60,6 +60,11 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
+	transparentRedRectangle(position) {
+		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'; // rgba(red, green, blue, alpha)
+		this.ctx.fillRect(position.x, position.y, position.width, position.height)
+	}
+
 	gradient(position) {
 		const radius = 1500
 

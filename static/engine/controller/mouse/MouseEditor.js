@@ -1,4 +1,4 @@
-export class MouseMove {
+export class MouseEditor {
 	constructor() {
 		this.lastClicked = null
 		this.holding = null
