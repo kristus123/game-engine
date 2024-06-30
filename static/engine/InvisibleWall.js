@@ -7,7 +7,7 @@ export class InvisibleWall extends StaticGameObject {
 		const object = this.object
 		if (Collision.between(this, object)) {
 			if (this.hitRightEdge(object)) {
-				console.log("hei")
+				console.log('hei')
 				object.velocity.y = 0
 			}
 		}

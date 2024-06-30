@@ -61,7 +61,7 @@ export class Draw {
 	}
 
 	transparentRedRectangle(position) {
-		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)'; // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)' // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
