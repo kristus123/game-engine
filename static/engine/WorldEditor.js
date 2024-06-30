@@ -10,20 +10,8 @@ export class WorldEditor {
 
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
-			new PersistedObjectsEditor([
-			{ 
-				filePath: '/persisted-objects/chickens.json', 
-				create: p => new Chicken(p),
-			},
-			{ 
-				filePath: '/persisted-objects/floors.json', 
-				create: p => {
-					p.width = 128
-					p.height = 128
-					return new StaticPicture(p, '/static/assets/floors/wooden_floor_128x128.png')
-				},
-			},
-		]),
+			new PersistedObjectsEditor('/persisted-objects/chickens.json', p => new Chicken(p)),
+			new PersistedObjectsEditor('/persisted-objects/floors.json', p => new Chicken(p)),
 		])
 	}
 

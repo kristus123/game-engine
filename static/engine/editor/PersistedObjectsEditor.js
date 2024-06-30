@@ -1,55 +1,38 @@
 export class PersistedObjectsEditor {
-	constructor(filePaths) {
+	constructor(filePath, create) {
 		this.mouseEditor = new MouseEditor()
 
-		this.localObjects = new LocalObjects([
-			this.mouseEditor,
-		])
+		this.persistedObjects = new PersistedObjects(filePath)
+		this.persistedObjects.objects.forEach(o => {
+			this.mouseEditor.add(o)
+		})
 
-		this.persistedObjects = []
+		Overlay.rightButton(filePath, () => {
+			this.mouseEditor.onClick = p => {
 
-		for (const {filePath, create} of filePaths) {
+				const createdObject = create(p)
+				this.mouseEditor.add(createdObject)
+				this.persistedObjects.add(createdObject)
 
-			const objects = new PersistedObjects(filePath)
-			this.persistedObjects.push(objects)
-
-			objects.objects.forEach(o => {
-				this.mouseEditor.add(o)
-			})
-
-			Overlay.rightButton(filePath, () => {
-				this.mouseEditor.onClick = p => {
-					const c = create(p)
-					this.mouseEditor.add(c)
-					objects.add(c)
-
-					this.mouseEditor.moved = o => {
-						objects.persist(o)
-					}
-
-					this.mouseEditor.remove = o => {
-						objects.remove(o)
-						this.mouseEditor.remove(o)
-					}
+				this.mouseEditor.moved = o => {
+					this.persistedObjects.persist(o)
 				}
-			})
-		}
+
+				this.mouseEditor.remove = o => {
+					this.persistedObjects.remove(o)
+					this.mouseEditor.remove(o)
+				}
+			}
+		})
 	}
 
 	update() {
-		this.localObjects.update()
-
-		for (const o of this.persistedObjects) {
-			o.update()
-		}
-		
+		this.mouseEditor.update()
+		this.persistedObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
-
-		for (const o of this.persistedObjects) {
-			o.draw(draw, guiDraw)
-		}
+		this.mouseEditor.draw(draw, guiDraw)
+		this.persistedObjects.draw(draw, guiDraw)
 	}
 }
