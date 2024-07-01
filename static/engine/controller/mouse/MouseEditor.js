@@ -43,7 +43,7 @@ export class MouseEditor {
 					this.recentlyDeletedObject = true
 					setTimeout(() => {
 						this.recentlyDeletedObject = false
-					}, 100);
+					}, 100)
 				}
 			}
 		}

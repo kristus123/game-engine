@@ -54,7 +54,8 @@ export class ObjectMapper {
 
 		try {
 			eval(json.className)
-		} catch (e) {
+		}
+		catch (e) {
 			throw new Error(`you need to add 'import' for ${json.className} in ObjectMapper.js`)
 		}
 

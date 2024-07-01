@@ -217,6 +217,7 @@
         "PissQuest": "readonly",
         "Planet": "readonly",
         "Player": "readonly",
+        "Poop": "readonly",
         "Position": "readonly",
         "Positions": "readonly",
         "PrettyParticles": "readonly",
