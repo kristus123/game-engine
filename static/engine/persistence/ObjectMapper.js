@@ -2,6 +2,7 @@
 // new StaticPicture(
 // new Chicken(
 // new StaticGameObject(
+// new Poop(
 
 export class ObjectMapper {
 
