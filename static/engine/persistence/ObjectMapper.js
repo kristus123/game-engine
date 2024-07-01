@@ -51,6 +51,13 @@ export class ObjectMapper {
 
 	static mapFromString(json) {
 		json = JSON.parse(json)
+
+		try {
+			eval(json.className)
+		} catch (e) {
+			throw new Error(`you need to add 'import' for ${json.className} in ObjectMapper.js`)
+		}
+
 		const c = eval(json.className)
 
 		if (!c.mapFromJsonObject) {
