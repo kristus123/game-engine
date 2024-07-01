@@ -210,6 +210,7 @@
         "Parallax": "readonly",
         "Particle": "readonly",
         "PersistedObjects": "readonly",
+        "PersistedObjectsEditor": "readonly",
         "Physics": "readonly",
         "Picture": "readonly",
         "Piss": "readonly",

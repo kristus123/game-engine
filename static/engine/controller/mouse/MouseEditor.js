@@ -71,7 +71,7 @@ export class MouseEditor {
 					break
 				}
 			}
-			
+
 		}
 	}
 

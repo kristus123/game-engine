@@ -16,24 +16,16 @@ export class Physics {
 
 	update(deltaTime) {
 		for (let o of this.objects) {
-			//for (let anotherO of this.objects) {
-			//	if (Collision.between(o, anotherO)) {
-			//		if (o.onCollision) {
-			//			o.onCollision(anotherO)
-			//		}
-			//	}
-			//}
+			o.previousPosition = { x: o.x, y: o.y }
 
 			const frictionFactor = 1 - o.weight / 5_000 // Adjust this factor as needed
 
-			// Apply friction to velocity with deltaTime
 			o.velocity.x *= Math.pow(frictionFactor, deltaTime)
 			o.velocity.y *= Math.pow(frictionFactor, deltaTime)
 
 			o.x += o.velocity.x * deltaTime
 			o.y += o.velocity.y * deltaTime
 
-			// todo this might be problematic if super low velocity is used
 			if (Math.abs(o.velocity.x) < 0.9) {
 				o.velocity.x = 0
 			}
