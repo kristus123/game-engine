@@ -11,6 +11,7 @@ export class WorldEditor {
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
 			new PersistedObjectsEditor('/persisted-objects/chickens.json', p => new Chicken(p)),
+			new PersistedObjectsEditor('/persisted-objects/floors.json', p => new Chicken(p)),
 		])
 	}
 

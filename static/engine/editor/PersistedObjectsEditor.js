@@ -2,8 +2,6 @@ let active = null
 
 export class PersistedObjectsEditor {
 
-	static active = null
-
 	constructor(filePath, create) {
 
 		this.mouseEditor = new MouseEditor()
@@ -28,6 +26,7 @@ export class PersistedObjectsEditor {
 
 		Overlay.rightButton(filePath, () => {
 			active = this
+			this.mouseEditor.active = this.mouseEditor
 		})
 	}
 

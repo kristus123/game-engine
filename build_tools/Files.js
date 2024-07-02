@@ -14,7 +14,11 @@ module.exports = class {
 		fs.writeFileSync(destPath, content)
 	}
 
-	static ContentMatchingIn(path, fileContent) {
+	static changeDetected(path, fileContent) {
+		return !this.contentMatchingIn(path, fileContent)
+	}
+
+	static contentMatchingIn(path, fileContent) {
 		try {
 			const distPath = Path.join('dist/static', Path.relative('static', path))
 			const distFile = fs.readFileSync(distPath, 'utf8')
@@ -25,4 +29,31 @@ module.exports = class {
 			return false
 		}
 	}
+
+	static getJsFiles(folderPath, jsFiles=[]) {
+
+		for (const file of fs.readdirSync(folderPath)) {
+			const filePath = Path.join(folderPath, file)
+
+			if (fs.statSync(filePath).isDirectory()) {
+				this.getJsFiles(filePath, jsFiles)
+			}
+			else if (file.endsWith('.js')) {
+				jsFiles.push(filePath.replaceAll('\\', '/'))
+			}
+		}
+		return jsFiles
+	}
+
+	static getUniqueElements(firstList, secondList) {
+		const uniqueElements = []
+		for (const o of firstList) {
+			if (!secondList.includes(o)) {
+				uniqueElements.push(o)
+			}
+		}
+
+		return uniqueElements
+	}
+	
 }

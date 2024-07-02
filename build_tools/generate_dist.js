@@ -4,6 +4,7 @@ const Imports = require('./Imports')
 const Parameters = require('./Parameters')
 const Files = require('./Files')
 
+
 function countOccurrences(wordToCount, string) { // semantic error with parameter order
 	let count = 0
 	let index = wordToCount.indexOf(string)
@@ -23,6 +24,14 @@ function uuid() {
 }
 
 const jsFiles = require('./get_js_files')
+
+
+console.log()
+const distFiles = Files.getJsFiles('dist/static/').map(f => f.replace('dist/', ''))
+const staticFiles = Files.getJsFiles('static/')
+
+const filesToDeleteFrom = Files.getUniqueElements(distFiles, staticFiles)
+
 
 for (const jsFilePath of jsFiles) {
 	let fileContent = fs.readFileSync(jsFilePath, 'utf-8')
@@ -59,9 +68,8 @@ for (const jsFilePath of jsFiles) {
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
 
-	if (!Files.ContentMatchingIn(jsFilePath, fileContent)) {
+	if (Files.changeDetected(jsFilePath, fileContent)) {
 		Files.writeFileToDist(jsFilePath, fileContent)
-		console.log('change detected in ' + jsFilePath)
 	}
 }
 

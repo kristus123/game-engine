@@ -1,15 +1,26 @@
+
 export class MouseEditor {
+	static active = null
+
 	constructor() {
 		this.lastClicked = null
-		this.holding = null
 
 		this.objects = []
 
 		this.onClick = null
 
-		this.clickEvent = null
 		Mouse.addOnClick('add object to world', p => {
-			this.clickEvent = p
+			if (this.active != this) {
+				return
+			}
+
+			if (this.recentlyEditedObject) {
+				console.log("ignore")
+			}
+			else {
+				this.onClick(p)
+				// this.lastClicked = null
+			}
 		})
 	}
 
@@ -18,46 +29,53 @@ export class MouseEditor {
 	}
 
 	update() {
+			if (this.active != this) {
+				return
+			}
 
-		for (const o of this.objects) {
-			if (Mouse.down && o == this.holding) {
-				o.position.center.x = Mouse.position.x
-				o.position.center.y = Mouse.position.y
-			}
-			else if (Mouse.up && this.holding) {
-				this.moved(this.holding)
-				this.holding = null
-			}
-			else if (Mouse.clicked(o) && !this.holding) {
-				this.holding = o
-				this.lastClicked = o
-			}
-			else if (this.lastClicked == o) {
-				const deleteButton = o.position.offset(-10, -10, 20, 20)
-				if (Mouse.clicked(deleteButton)) {
-					this.remove(o)
-					List.remove(this.objects, o)
-					this.lastClicked = null
-					this.holding = null
+		if (this.lastClicked) {
+			if (Mouse.down) {
+				this.lastClicked.position.center.x = Mouse.position.x
+				this.lastClicked.position.center.y = Mouse.position.y
 
-					this.recentlyDeletedObject = true
-					setTimeout(() => {
-						this.recentlyDeletedObject = false
-					}, 100)
+				this.recentlyEditedObject = true
+			}
+			else if (Mouse.up) {
+				console.log("moved")
+				this.lastClicked = null
+
+				this.recentlyEditedObject = true
+				setTimeout(() => {
+					this.recentlyEditedObject = false
+				}, 2000)
+				// this.moved(this.lastClicked)
+			}
+
+			// const deleteButton = this.lastClicked.position.offset(-10, -10, 20, 20)
+			// if (Mouse.clicked(deleteButton)) {
+			// 	console.log("delet e = ")
+			// 	this.remove(this.lastClicked)
+			// 	List.remove(this.objects, this.lastClicked)
+			// 	this.lastClicked = null
+
+		
+		}
+		else {
+			for (const o of this.objects) {
+				if (Mouse.clicked(o)) {
+					this.lastClicked = o
+					console.log("clicked new object")
+					break
 				}
 			}
-		}
-
-		if (this.clickEvent && this.recentlyDeletedObject) {
-			this.clickEvent = null
-		}
-		else if (this.clickEvent && !this.lastClicked && !this.holding) {
-			this.onClick(this.clickEvent)
-			this.clickEvent = null
 		}
 	}
 
 	draw(draw, guiDraw) {
+			if (this.active != this) {
+				return
+			}
+
 		for (const o of this.objects) {
 			if (o == this.lastClicked) {
 
@@ -79,7 +97,5 @@ export class MouseEditor {
 				break
 			}
 		}
-
 	}
-
 }
