@@ -25,8 +25,10 @@ export class PersistedObjectsEditor {
 		})
 
 		Overlay.rightButton(filePath, () => {
+			console.log("active:")
+			console.log(filePath)
 			active = this
-			this.mouseEditor.active = this.mouseEditor
+			MouseEditor.active = this.mouseEditor
 		})
 	}
 
