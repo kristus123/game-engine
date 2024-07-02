@@ -59,7 +59,7 @@ export class ObjectMapper {
 		const c = eval(json.className)
 
 		if (!c.mapFromJsonObject) {
-			throw new Error(`you need to add 'static mapFromJsonObject' method in ${json.className} to be able to persist it`)
+			throw new Error(`you need to add 'static mapFromJsonObject(json) {...}' method in ${json.className} to be able to persist it`)
 		}
 
 		try {
