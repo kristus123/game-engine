@@ -3,6 +3,7 @@ let active = null
 export class PersistedObjectsEditor {
 
 	constructor(filePath, create) {
+		this.persistedObjects = new PersistedObjects(filePath)
 
 		this.mouseEditor = new MouseEditor()
 		this.mouseEditor.onClick = p => {
@@ -12,6 +13,7 @@ export class PersistedObjectsEditor {
 		}
 
 		this.mouseEditor.moved = o => {
+			console.log("moved")
 			this.persistedObjects.persist(o)
 		}
 
@@ -19,7 +21,6 @@ export class PersistedObjectsEditor {
 			this.persistedObjects.remove(o)
 		}
 
-		this.persistedObjects = new PersistedObjects(filePath)
 		this.persistedObjects.objects.forEach(o => {
 			this.mouseEditor.add(o)
 		})

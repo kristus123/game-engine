@@ -30,7 +30,10 @@ console.log()
 const distFiles = Files.getJsFiles('dist/static/').map(f => f.replace('dist/', ''))
 const staticFiles = Files.getJsFiles('static/')
 
-const filesToDeleteFrom = Files.getUniqueElements(distFiles, staticFiles)
+const filesToDeleteFromDist = Files.getUniqueElements(distFiles, staticFiles)
+for (const f of filesToDeleteFromDist) {
+	// Files.remove(f) 
+}
 
 
 for (const jsFilePath of jsFiles) {

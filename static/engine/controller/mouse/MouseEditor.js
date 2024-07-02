@@ -18,7 +18,6 @@ export class MouseEditor {
 			}
 			else {
 				this.onClick(p)
-				// this.lastClicked = null
 			}
 		})
 	}
@@ -41,13 +40,13 @@ export class MouseEditor {
 			}
 			else if (Mouse.up) {
 				console.log('moved')
+				this.moved(this.lastClicked)
 				this.lastClicked = null
 
 				this.recentlyEditedObject = true
 				setTimeout(() => {
 					this.recentlyEditedObject = false
 				}, 200)
-				// this.moved(this.lastClicked)
 			}
 
 			// const deleteButton = this.lastClicked.position.offset(-10, -10, 20, 20)

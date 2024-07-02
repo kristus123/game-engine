@@ -8,7 +8,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			new StarBackground(),
 			new PersistedObjects('/persisted-objects/chickens.json'),
-			new PersistedObjects('/persisted-objects/floors.json'),
+			// new PersistedObjects('/persisted-objects/floors.json'),
 			this.player,
 			new FirstQuest(this.player),
 		])
