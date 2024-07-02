@@ -12,6 +12,7 @@ export class WorldEditor {
 			Controller.control(Cam.objectToFollow),
 			new PersistedObjectsEditor('/persisted-objects/chickens.json', p => new Chicken(p)),
 			new PersistedObjectsEditor('/persisted-objects/floors.json', p => new Chicken(p)),
+			new PersistedObjectsEditor('/persisted-objects/invisible_walls.json', p => new InvisibleWall(p)),
 		])
 	}
 

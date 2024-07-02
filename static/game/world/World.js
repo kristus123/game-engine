@@ -11,8 +11,6 @@ export class World {
 			new PersistedObjects('/persisted-objects/floors.json'),
 			this.player,
 			new FirstQuest(this.player),
-			new InvisibleWall(new Position(-200, 0, 100, 200), this.player),
-			new InvisibleWall(new Position(200, 200, 100, 200), this.player),
 		])
 
 		Overlay.leftButton('edit mode', () => {

@@ -1,8 +1,11 @@
 export class InvisibleWall extends StaticGameObject {
-	constructor(position, object) {
+	constructor(position) {
 		super(position)
 
-		this.objects = [object]
+		this.position.width = 100
+		this.position.height = 100
+
+		this.objects = []
 	}
 
 	update() {
@@ -40,5 +43,18 @@ export class InvisibleWall extends StaticGameObject {
 
 	draw(draw, guiDraw) {
 		draw.transparentRedRectangle(this.position)
+	}
+
+	static mapFromJsonObject(json) {
+		// hack. find out why you can't do new Chicke*n* because of transpiler
+
+		const c = new this(ObjectMapper.positionFromJson(json.position))
+		c.objectId = json.objectId
+
+		return c
+	}
+
+	mapToJsonString() {
+		return ObjectMapper.mapToJsonString(this)
 	}
 }

@@ -10,7 +10,6 @@ export class MouseEditor {
 
 		Mouse.addOnClick('add object to world', p => {
 			if (MouseEditor.active != this) {
-				console.log('not active')
 				return
 			}
 
