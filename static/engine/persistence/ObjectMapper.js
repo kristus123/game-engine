@@ -1,6 +1,5 @@
 // hack to import necessary stuff
 // new Chicken(
-// new InvisibleWall(
 
 export class ObjectMapper {
 
