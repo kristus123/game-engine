@@ -31,18 +31,22 @@ module.exports = class {
 	}
 
 	static getJsFiles(folderPath, jsFiles=[]) {
+		try {
+			for (const file of fs.readdirSync(folderPath)) {
+				const filePath = Path.join(folderPath, file)
 
-		for (const file of fs.readdirSync(folderPath)) {
-			const filePath = Path.join(folderPath, file)
-
-			if (fs.statSync(filePath).isDirectory()) {
-				this.getJsFiles(filePath, jsFiles)
+				if (fs.statSync(filePath).isDirectory()) {
+					this.getJsFiles(filePath, jsFiles)
+				}
+				else if (file.endsWith('.js')) {
+					jsFiles.push(filePath.replaceAll('\\', '/'))
+				}
 			}
-			else if (file.endsWith('.js')) {
-				jsFiles.push(filePath.replaceAll('\\', '/'))
-			}
+			return jsFiles
+		} catch (error) {
+			console.log(folderPath + ' not found')
+			return []
 		}
-		return jsFiles
 	}
 
 	static getUniqueElements(firstList, secondList) {

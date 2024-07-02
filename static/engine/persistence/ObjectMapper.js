@@ -1,8 +1,6 @@
 // hack to import necessary stuff
-// new StaticPicture(
 // new Chicken(
-// new StaticGameObject(
-// new Poop(
+// new InvisibleWall(
 
 export class ObjectMapper {
 
