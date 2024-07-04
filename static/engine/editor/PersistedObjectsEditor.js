@@ -1,6 +1,6 @@
-let active = null
-
 export class PersistedObjectsEditor {
+
+	static active = null
 
 	constructor(filePath, create) {
 		this.persistedObjects = new PersistedObjects(filePath)
@@ -26,9 +26,8 @@ export class PersistedObjectsEditor {
 		})
 
 		Overlay.rightButton(filePath, () => {
-			console.log('active:')
 			console.log(filePath)
-			active = this
+			PersistedObjectsEditor.active = this
 			MouseEditor.active = this.mouseEditor
 		})
 	}
@@ -36,7 +35,7 @@ export class PersistedObjectsEditor {
 	update() {
 		this.persistedObjects.update()
 
-		if (active == this) {
+		if (PersistedObjectsEditor.active == this) {
 			this.mouseEditor.update()
 		}
 	}
@@ -44,7 +43,7 @@ export class PersistedObjectsEditor {
 	draw(draw, guiDraw) {
 		this.persistedObjects.draw(draw, guiDraw)
 
-		if (active == this) {
+		if (PersistedObjectsEditor.active == this) {
 			this.mouseEditor.draw(draw, guiDraw)
 		}
 	}

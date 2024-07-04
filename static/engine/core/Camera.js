@@ -73,6 +73,11 @@ export class Camera {
 		this.objectToFollow = o
 	}
 
+	goTo(o) {
+		this.objectToFollow.x = o.x
+		this.objectToFollow.y = o.y
+	}
+
 	followInstantly(o) {
 		this.objectToFollow = o
 		this.position = o.position.copy()
