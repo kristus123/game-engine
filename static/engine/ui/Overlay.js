@@ -1,46 +1,38 @@
+function button(text, position, onClick) {
+	const div = Html.createElement('div', position, '')
+	const b = Html.createElement('button', div, '')
+
+	b.style.padding = '10px'
+	b.style.margin = '5px'
+
+	b.innerHTML = text
+	b.value = text
+
+	b.addEventListener('click', onClick)
+
+	b.addEventListener('mouseover', () => {
+		Mouse.hoveringHtmlElement = true
+	});
+
+	b.addEventListener('mouseout', () => {
+		Mouse.hoveringHtmlElement = false
+	});
+
+	return b
+}
+
 export class Overlay {
 
 	static leftButton(text, onClick) {
-		const div = Html.createElement('div', '.left', '')
-		const b = Html.createElement('button', div, '')
-
-		b.style.padding = '10px'
-		b.style.margin = '5px'
-
-		b.innerHTML = text
-		b.value = text
-
-		b.addEventListener('click', onClick)
-
-		return b
+		return button(text, '.left', onClick)
 	}
 
 	static rightButton(text, onClick) {
-		const div = Html.createElement('div', '.right', '')
-		const b = Html.createElement('button', div, '')
-
-		b.style.padding = '10px'
-		b.style.margin = '5px'
-
-		b.innerHTML = text
-		b.value = text
-
-		b.addEventListener('click', onClick)
+		return button(text, '.right', onClick)
 	}
 
 	static bottomButton(text, onClick) {
-		const div = Html.createElement('div', '.bottom', 'item')
-		const b = Html.createElement('button', div, '')
-
-		b.style.padding = '10px'
-		b.style.margin = '5px'
-
-		b.innerHTML = text
-		b.value = text
-
-		b.addEventListener('click', onClick)
-
-		return b
+		return button(text, '.bottom', onClick)
 	}
 
 	static clearAll() {

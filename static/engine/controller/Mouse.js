@@ -27,6 +27,7 @@ export class Mouse {
 		this.clickEvents = new ClickEvents()
 
 		this.holding = null
+		this.hoveringHtmlElement = false
 	}
 
 	static addOnClick(name, handler) {
