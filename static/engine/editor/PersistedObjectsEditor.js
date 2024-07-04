@@ -2,8 +2,8 @@ export class PersistedObjectsEditor {
 
 	static active = null
 
-	constructor(filePath, create) {
-		this.persistedObjects = new PersistedObjects(filePath)
+	constructor(filePath, create, mapFromJson) {
+		this.persistedObjects = new PersistedObjects(filePath, mapFromJson)
 
 		this.mouseEditor = new MouseEditor()
 		this.mouseEditor.onClick = p => {
@@ -26,7 +26,6 @@ export class PersistedObjectsEditor {
 		})
 
 		Overlay.rightButton(filePath, () => {
-			console.log(filePath)
 			PersistedObjectsEditor.active = this
 			MouseEditor.active = this.mouseEditor
 		})

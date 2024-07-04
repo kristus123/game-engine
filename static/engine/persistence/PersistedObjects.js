@@ -1,24 +1,36 @@
 export class PersistedObjects extends AllObjects {
-	constructor(filePath) {
+	constructor(filePath, mapFromJson) {
 		super([])
-		this.objectPersistence = new ObjectPersistence(filePath)
 
-		for (const o of this.objectPersistence.get()) {
-			super.add(o)
-		}
+		Http.get(this.filePath)
+			.map(json => mapFromJson(json))
+			.forEach(o => super.add(o))
 	}
 
 	add(o) {
-		this.objectPersistence.save(o)
+		const objects = Http.get(this.filePath)
+
+		objects.push(o.mapToJson())
+
+		Http.post(this.filePath, objects)
+
 		super.add(o)
 	}
 
 	persist(o) {
-		this.objectPersistence.update(o)
+		const objects =  Http.get(this.filePath)
+			.map(json => this.mapFromJson(json))
+
+		List.removeIf(objects, x => x.objectId == o.objectId)
+		objects.push(o)
+		Http.post(this.filePath, objects.map(c => c.mapToJson()))
 	}
 
 	remove(o) {
-		this.objectPersistence.remove(o)
+		const objects = Http.get(this.filePath)
+		List.removeIf(objects, x => JSON.parse(x).objectId == o.objectId)
+		Http.post(this.filePath, objects)
+
 		super.remove(o)
 	}
 }
