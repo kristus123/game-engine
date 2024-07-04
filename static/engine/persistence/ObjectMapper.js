@@ -1,72 +1,26 @@
 // hack to import necessary stuff
 // new Chicken(
+// new InvisibleWall(
 
 export class ObjectMapper {
-
-	static positionFromJson(o) {
-		return new Position(o.x, o.y, o.width, o.height)
-	}
-
-	static mapToJsonObject(o) {
-		return {
-			className: o.constructor.name,
-			objectId: o.objectId,
-			imagePath: o.imagePath,
-			position: {
-				x: o.x,
-				y: o.y,
-				width: o.width,
-				height: o.height,
-			},
-		}
-	}
-
-	static mapToJsonString(o) {
-		return JSON.stringify(this.mapToJsonObject(o), null, 4)
-	}
-
-	static fromFile(body) {
-		body.map(o => {
-			return this.mapSingleObject(o)
-		})
-
-		return body
-	}
-
-	static toFile(body) {
-		body.map(o => {
-			if (o.mapToJson) {
-				return o.mapToJson()
-			}
-			else {
-				throw new Error(`${o.constructor.name} needs to have a mapToJson method to persist it`)
-			}
-		})
-
-		return JSON.stringify(body, null, 4)
-	}
-
-	static mapFromString(json) {
-		json = JSON.parse(json)
-
+	static mapFrom(jsonObject) {
 		try {
-			eval(json.className)
+			eval(jsonObject.className)
 		}
 		catch (e) {
-			throw new Error(`you need to add 'import' for ${json.className} in ObjectMapper.js`)
+			throw new Error(`you need to add 'import' for ${jsonObject.className} in ObjectMapper.js`)
 		}
 
-		const c = eval(json.className)
-
+		const c = eval(jsonObject.className)
 		if (!c.mapFromJsonObject) {
-			throw new Error(`you need to add 'static mapFromJsonObject(json) {...}' method in ${json.className} to be able to persist it`)
+			throw new Error(`you need to add 'static mapFromJsonObject(json) {...}' method in ${jsonObject.className} to be able to persist it`)
 		}
 
 		try {
-			return c.mapFromJsonObject(json)
+			return c.mapFromJsonObject(jsonObject)
 		}
 		catch (error) {
-			throw new Error(`error while mapping json object ${json.className} to js object:<hr>${error}`)
+			throw new Error(`error while mapping json object ${jsonObject.className} to js object:<hr>${error}`)
 		}
 	}
 }

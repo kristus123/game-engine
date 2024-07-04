@@ -1,64 +1,3 @@
-class BodyPart extends DynamicGameObject {
-	constructor(position, imagePath, part) {
-		super(position, 20, 20)
-		this.width = 64
-		this.height = 64
-
-		this.s = new SpinningSpriteFrame(this, imagePath, part)
-
-		ForcePush(this).towards(Random.direction(position), Random.integerBetween(6, 12))
-	}
-
-	draw(draw, guiDraw) {
-		this.s.draw(draw, guiDraw)
-	}
-
-}
-
-class Killed {
-	constructor(c) {
-		const chickenSprite = '/static/assets/sprites/dead_chicken_32x32.png'
-
-		this.splatteredBody = [
-			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 0 }),
-			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 2, y: 0 }),
-			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 2, y: 1 }),
-			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 1 }),
-			new BodyPart(Random.direction(c, 10), chickenSprite, { x: 1, y: 1 }),
-		]
-	}
-
-	draw(draw, guiDraw) {
-		for (const b of this.splatteredBody) {
-			b.draw(draw, guiDraw)
-		}
-	}
-}
-
-class Feather extends DynamicGameObject {
-
-	constructor(position) {
-		super(position, 10, 10)
-		this.position = this.position.copy()
-
-
-		const choice = Random.choice([
-			{ x: 0, y: 0 },
-			{ x: 1, y: 0 },
-			{ x: 2, y: 0 },
-			{ x: 3, y: 0 },
-		])
-		this.image = new SpriteFrame(this, '/static/assets/sprites/chicken_feathers_16x16.png', choice)
-		this.position.width = 16
-		this.position.height = 16
-
-	}
-
-	draw(draw, guiDraw) {
-		this.image.draw(draw, guiDraw)
-	}
-}
-
 export class Chicken extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 10)
@@ -115,15 +54,22 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	static mapFromJsonObject(json) {
-		// hack. find out why you can't do new Chicke*n* because of transpiler
+		const o = new this(new Position(json.position.x, json.position.y, json.position.width, json.position.height))
+		o.objectId = json.objectId
 
-		const c = new this(ObjectMapper.positionFromJson(json.position))
-		c.objectId = json.objectId
-
-		return c
+		return o
 	}
 
-	mapToJsonString() {
-		return ObjectMapper.mapToJsonString(this)
+	mapToJson() {
+		return {
+			className: this.constructor.name,
+			objectId: this.objectId,
+			position: {
+				x: this.x,
+				y: this.y,
+				width: this.width,
+				height: this.height,
+			},
+		}
 	}
 }

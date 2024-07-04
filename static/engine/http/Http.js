@@ -6,7 +6,11 @@ export class Http {
 		xhr.send()
 
 		if (xhr.status === 200) {
-		  return JSON.parse(xhr.responseText)
+			try {
+				return JSON.parse(xhr.responseText)
+			} catch (e) {
+				throw new Error("Error while mapping " + xhr.responseText)
+			}
 		}
 		else {
 			throw new Error('Request failed with status: ' + xhr.status)

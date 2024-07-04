@@ -46,15 +46,23 @@ export class InvisibleWall extends StaticGameObject {
 	}
 
 	static mapFromJsonObject(json) {
-		// hack. find out why you can't do new Chicke*n* because of transpiler
+		const o = new this(new Position(json.position.x, json.position.y, json.position.width, json.position.height))
+		o.objectId = json.objectId
 
-		const c = new this(ObjectMapper.positionFromJson(json.position))
-		c.objectId = json.objectId
-
-		return c
+		return o
 	}
 
-	mapToJsonString() {
-		return ObjectMapper.mapToJsonString(this)
+	mapToJson() {
+		return {
+			className: this.constructor.name,
+			objectId: this.objectId,
+			position: {
+				x: this.x,
+				y: this.y,
+				width: this.width,
+				height: this.height,
+			},
+		}
 	}
+
 }
