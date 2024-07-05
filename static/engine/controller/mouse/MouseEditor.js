@@ -1,4 +1,5 @@
 export class MouseEditor {
+
 	static active = null
 
 	constructor() {
@@ -6,18 +7,16 @@ export class MouseEditor {
 
 		this.objects = []
 
-		this.onClick = null
+		this.onClick = p => {}
 
 		Mouse.addOnClick('add object to world', p => {
-			if (MouseEditor.active != this) {
-				return
-			}
-
-			if (this.recentlyEditedObject) {
-				console.log('ignore')
-			}
-			else {
-				this.onClick(p)
+			if (MouseEditor.active == this) {
+				if (this.recentlyEditedObject) {
+					console.log('ignore')
+				}
+				else {
+					this.onClick(p)
+				}
 			}
 		})
 	}
@@ -27,10 +26,6 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (MouseEditor.active != this) {
-			return
-		}
-
 		if (this.lastClicked) {
 			if (Mouse.down) {
 				this.lastClicked.position.center.x = Mouse.position.x
@@ -70,10 +65,6 @@ export class MouseEditor {
 	}
 
 	draw(draw, guiDraw) {
-		if (MouseEditor.active != this) {
-			return
-		}
-
 		for (const o of this.objects) {
 			if (o == this.lastClicked) {
 

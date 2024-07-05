@@ -6,6 +6,7 @@ export class WorldEditor {
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
 			new PlayerEditor(),
+			new NoteEditor(),
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json', 
 				position => new Chicken(position), 
@@ -18,7 +19,11 @@ export class WorldEditor {
 			new PersistedObjectsEditor(
 				'/persisted-objects/invisible_walls.json', 
 				position => new InvisibleWall(position), 
-				json => new InvisibleWall(new Position(json.position.x, json.position.y)),
+				json => {
+					const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
+					wall.objectId = json.objectId
+					return wall
+				},
 			),
 		])
 	}

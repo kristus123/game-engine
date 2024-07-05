@@ -22,14 +22,12 @@ export class PlayerEditor {
 		}
 
 		Overlay.rightButton('player', () => {
-			PersistedObjectsEditor.active = this
 			MouseEditor.active = mouseEditor
 			// Cam.goTo(player)
 		})
 
 		this.localObjects = new LocalObjects([
 			player,
-			mouseEditor,
 		])
 	}
 

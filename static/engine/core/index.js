@@ -28,6 +28,11 @@ ErrorHandler.run(() => {
 
 				Level.update()
 				Level.draw(draw, guiDraw)
+
+				if (MouseEditor.active) {
+					MouseEditor.active.update()
+					MouseEditor.active.draw(draw, guiDraw)
+				}
 			})
 
 			showLogs.draw()
