@@ -72,8 +72,12 @@ export class MouseEditor {
 
 				const deleteButton = o.position.offset(-10, -10, 20, 20)
 				draw.rectangle(deleteButton)
+				draw.rectangle(o.position.bottomRight)
 				if (Mouse.hovering(deleteButton)) {
 					draw.text(o.position.offset(-150, 10), 'delete')
+				}
+				else if (Mouse.hovering(o.position.bottomRight)) {
+					draw.text(o.position.offset(-150, 10), 'resize')
 				}
 
 				if (Mouse.hovering(o)) {

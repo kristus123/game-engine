@@ -1,12 +1,10 @@
 export class Position {
 	constructor(x, y, _width=1, _height=1) {
 		this.center = new CenterPosition(this, _width, _height)
+	}
 
-		this.corner = {
-			bottom: {
-				right: new OffsetPosition(this, _width - _width/2, _height - _height/2, 100, 100),
-			}
-		}
+	get bottomRight() {
+		return this.offset(this.width, this.height, 20, 20)
 	}
 
 	set(x=this.x, y=this.y, w=this.width, h=this.height) {
