@@ -7,7 +7,7 @@ export class MouseEditor {
 
 		this.objects = []
 
-		this.onClick = p => {}
+		this.onClick = position => {}
 
 		Mouse.addOnClick('add object to world', p => {
 			if (MouseEditor.active == this) {

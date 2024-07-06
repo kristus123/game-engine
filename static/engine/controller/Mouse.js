@@ -3,23 +3,41 @@ export class Mouse {
 		this.position = Cam.position.copy()
 		this.screenPosition = Cam.position.copy()
 
+		this.up = true
 		this.down = false
-		this.mouseLastMoved = 0
+
+		this.rightUp = true
+		this.rightDown = false
 
 		document.addEventListener('mousemove', (e) => {
-			this.mouseLastMoved = 0
 			this.position = this.positionRelativeToCamera(e)
 		})
 
-		document.addEventListener('mousedown', () => {
-			this.down = true
-			this.up = false
+		document.addEventListener('mousedown', e => {
+			if (e.button == 0) {
+				this.down = true
+				this.up = false
+			}
+			else if (e.button == 2) {
+				this.rightDown = true
+				this.rightUp = false
+			}
 		})
 
-		document.addEventListener('mouseup', () => {
-			this.up = true
-			this.down = false
+		document.addEventListener('mouseup', e => {
+			if (e.button == 0) {
+				this.up = true
+				this.down = false
+			}
+			else if (e.button == 2) {
+				this.rightUp = true
+				this.rightDown = false
+			}
 		})
+
+		document.addEventListener('contextmenu', e => {
+			e.preventDefault()
+		});
 
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())
