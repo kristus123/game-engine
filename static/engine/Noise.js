@@ -1,6 +1,6 @@
 export class Noise {
-	constructor(position, size=5) {
-		const simplexNoise = new SimplexNoise(0.01)
+	constructor(position, size=10) {
+		const simplexNoise = new SimplexNoise(0.001)
 		this.simplexNoise = simplexNoise
 
 		this.positionAndNoiseValue = Positions.grid(position, size)
@@ -14,7 +14,7 @@ export class Noise {
 
 	draw(draw, guiDraw) {
 		for (const { position } of this.positionAndNoiseValue) {
-			this.t += 0.001
+			this.t += 0.0001
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 
 			if (noiseValue >= 0) {

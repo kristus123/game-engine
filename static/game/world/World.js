@@ -1,16 +1,17 @@
 export class World {
 	constructor() {
 
-		this.player = new Player()
+		this.player = new PlayerEditor().player
 		Cam.followInstantly(this.player)
 		Controller.control(this.player)
 
 		this.localObjects = new LocalObjects([
-			new StarBackground(),
-			new PersistedObjects('/persisted-objects/chickens.json'),
+			// new StarBackground(),
+			// new PersistedObjects('/persisted-objects/chickens.json'),
 			// new PersistedObjects('/persisted-objects/floors.json'),
 			this.player,
-			new FirstQuest(this.player),
+			new Noise(new Position(0, 0, 1000, 1000), 10),
+			// new FirstQuest(this.player),
 		])
 
 		Overlay.leftButton('edit mode', () => {

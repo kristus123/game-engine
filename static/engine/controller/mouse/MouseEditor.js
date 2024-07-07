@@ -26,34 +26,7 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (this.lastClicked) {
-			if (Mouse.down) {
-				this.lastClicked.position.center.x = Mouse.position.x
-				this.lastClicked.position.center.y = Mouse.position.y
-
-				this.recentlyEditedObject = true
-			}
-			else if (Mouse.up) {
-				console.log('moved')
-				this.moved(this.lastClicked)
-				this.lastClicked = null
-
-				this.recentlyEditedObject = true
-				setTimeout(() => {
-					this.recentlyEditedObject = false
-				}, 200)
-			}
-
-			// const deleteButton = this.lastClicked.position.offset(-10, -10, 20, 20)
-			// if (Mouse.clicked(deleteButton)) {
-			// 	console.log("delet e = ")
-			// 	this.remove(this.lastClicked)
-			// 	List.remove(this.objects, this.lastClicked)
-			// 	this.lastClicked = null
-
-
-		}
-		else {
+		if (!this.lastClicked) {
 			for (const o of this.objects) {
 				if (Mouse.clicked(o)) {
 					this.lastClicked = o
@@ -61,6 +34,38 @@ export class MouseEditor {
 					break
 				}
 			}
+		}
+		else if (this.lastClicked && Mouse.down) {
+			this.lastClicked.position.center.x = Mouse.position.x
+			this.lastClicked.position.center.y = Mouse.position.y
+
+			this.recentlyEditedObject = true
+		}
+		else if (this.lastClicked && Mouse.up) {
+			console.log('moved')
+			this.moved(this.lastClicked)
+			// this.lastClicked = null
+
+			this.recentlyEditedObject = true
+			setTimeout(() => {
+				this.recentlyEditedObject = false
+			}, 200)
+		}
+		if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 200) {
+			this.lastClicked = null
+		}
+
+		if (this.lastClicked && Mouse.clicked(this.lastClicked.position.topLeft)) {
+
+			this.remove(this.lastClicked)
+			List.remove(this.objects, this.lastClicked)
+
+			this.lastClicked = null
+
+			this.recentlyEditedObject = true
+			setTimeout(() => {
+				this.recentlyEditedObject = false
+			}, 200)
 		}
 	}
 
@@ -70,22 +75,17 @@ export class MouseEditor {
 
 				draw.transparentGreenRectangle(o)
 
-				const deleteButton = o.position.offset(-10, -10, 20, 20)
-				draw.rectangle(deleteButton)
+				draw.rectangle(o.position.topLeft)
 				draw.rectangle(o.position.bottomRight)
-				if (Mouse.hovering(deleteButton)) {
+				if (Mouse.hovering(o.position.topLeft)) {
 					draw.text(o.position.offset(-150, 10), 'delete')
 				}
 				else if (Mouse.hovering(o.position.bottomRight)) {
 					draw.text(o.position.offset(-150, 10), 'resize')
 				}
-
-				if (Mouse.hovering(o)) {
-					break
-				}
 			}
 
-			if (Mouse.hovering(o) && !this.holding) {
+			if (Mouse.hovering(o) && Mouse.up) {
 				draw.text(o.position.offset(10, 10), 'click to move')
 				break
 			}

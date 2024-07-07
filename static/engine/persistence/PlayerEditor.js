@@ -3,6 +3,7 @@ export class PlayerEditor {
 		const body = Http.get('/persisted-objects/player.json')
 
 		const player = new Player(new Position(body.x, body.y))
+		this.player = player
 
 		const mouseEditor = new MouseEditor()
 		mouseEditor.add(player)

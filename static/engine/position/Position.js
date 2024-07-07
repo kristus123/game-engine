@@ -3,6 +3,10 @@ export class Position {
 		this.center = new CenterPosition(this, _width, _height)
 	}
 
+	get topLeft() {
+		return this.offset(-(this.width/2), -(this.height/2), 20, 20)
+	}
+
 	get bottomRight() {
 		return this.offset(this.width, this.height, 20, 20)
 	}
