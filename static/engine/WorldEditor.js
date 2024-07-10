@@ -5,26 +5,26 @@ export class WorldEditor {
 
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
+			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
 			new PlayerEditor(),
-			new NoteEditor(),
-			new PersistedObjectsEditor(
-				'/persisted-objects/chickens.json', 
-				position => new Chicken(position), 
-				json => {
-					const c =  new Chicken(new Position(json.position.x, json.position.y))
-					c.objectId = json.objectId
-					return c
-				},
-			),
-			new PersistedObjectsEditor(
-				'/persisted-objects/invisible_walls.json', 
-				position => new InvisibleWall(position), 
-				json => {
-					const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
-					wall.objectId = json.objectId
-					return wall
-				},
-			),
+			// new PersistedObjectsEditor(
+			// 	'/persisted-objects/chickens.json', 
+			// 	position => new Chicken(position), 
+			// 	json => {
+			// 		const c =  new Chicken(new Position(json.position.x, json.position.y))
+			// 		c.objectId = json.objectId
+			// 		return c
+			// 	},
+			// ),
+			// new PersistedObjectsEditor(
+			// 	'/persisted-objects/invisible_walls.json', 
+			// 	position => new InvisibleWall(position), 
+			// 	json => {
+			// 		const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
+			// 		wall.objectId = json.objectId
+			// 		return wall
+			// 	},
+			// ),
 		])
 	}
 

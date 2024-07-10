@@ -3,19 +3,17 @@ export class World {
 
 		this.player = new PlayerEditor().player
 		Cam.followInstantly(this.player)
+		Cam.offset.x += 600
 		Controller.control(this.player)
-
-		this.fishingRod = new FishingRod(this.player)
 
 		this.localObjects = new LocalObjects([
 			// new StarBackground(),
+			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
+			new FishingRod(this.player),
 			// new PersistedObjects('/persisted-objects/chickens.json'),
 			// new PersistedObjects('/persisted-objects/floors.json'),
-			// new Noise(new Position(0,0, 1000, 1000), 10),
-			// this.fishingRod,
 			// new HeightMap(this.player, 20),
 			this.player,
-			new Boat(new Position(0, 0), this.player,)
 			// new FirstQuest(this.player),
 		])
 
@@ -34,10 +32,8 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
+		draw.position(this.player)
 		this.localObjects.draw(draw, guiDraw)
-		if (this.fishingRod.fishingRod) {
-			draw.curve(this.player, new Position(-20, 20), new Position(-20, 20), this.fishingRod.fishingRod)
-		}
 	}
 
 }

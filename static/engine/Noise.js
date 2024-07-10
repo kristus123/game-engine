@@ -1,21 +1,38 @@
 export class Noise {
 	constructor(position, size=10) {
-		const simplexNoise = new SimplexNoise(0.001)
-		this.simplexNoise = simplexNoise
+		this.simplexNoise = new SimplexNoise(0.001)
 
-		this.positionAndNoiseValue = Positions.grid(position, size)
-			.map(position => ({
-				position: position,
-				noise: simplexNoise.noise(position),
-			}))
+		this.time = 0
+
+		this.positionAndNoiseValue = []
+	}
+
+	red(p) {
+		for (const { position, noise } of this.positionAndNoiseValue) {
+			if (Collision.between(p, position)) {
+				if (noise >= 0.5) {
+					return true
+				}
+			}
+		}
+
+		return false
+
 	}
 
 	draw(draw, guiDraw) {
+		this.time += 2
+
+		this.positionAndNoiseValue = Positions.grid(this.position, this.size)
+			.map(position => ({
+				position: position,
+				noise: this.simplexNoise.noise(position, this.time),
+			}))
+
+
 		for (const { position, noise } of this.positionAndNoiseValue) {
-			if (Distance.between(this.player, position) < 500) {
-				if (noise >= 0) {
-					draw.blue(position)
-				}
+			if (noise >= 0.5) {
+				draw.transparentBlueRectangle(position)
 			}
 		}
 	}

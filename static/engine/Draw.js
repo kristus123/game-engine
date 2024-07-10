@@ -20,10 +20,10 @@ export class Draw {
 		this.ctx.strokeStyle = 'white'; // Set the stroke color to white
 		this.ctx.stroke();
 
-		this.new_circle(startPosition);
-		this.new_circle(controlPosition1); // Optionally show control point 1
-		this.new_circle(controlPosition2); // Optionally show control point 2
-		this.new_circle(endPosition);
+		// this.new_circle(startPosition);
+		// this.new_circle(controlPosition1); // Optionally show control point 1
+		// this.new_circle(controlPosition2); // Optionally show control point 2
+		// this.new_circle(endPosition);
 	}
 
 	shadow(gameObject) {
@@ -82,6 +82,11 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
+	transparentBlueRectangle(position) {
+		this.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)' // rgba(red, green, blue, alpha)
+		this.ctx.fillRect(position.x, position.y, position.width, position.height)
+	}
+
 	gradient(position) {
 		const radius = 1500
 
@@ -134,9 +139,7 @@ export class Draw {
 		this.ctx.lineWidth = 2
 		this.ctx.strokeStyle = 'red' // You can set your desired color
 
-		// Stroke the lines
-		this.ctx.stroke()
-		this.ctx.closePath()
+		// Stroke the lines this.ctx.stroke() this.ctx.closePath()
 	}
 
 	hpBar(position, currentHp, maxHp) {
@@ -284,7 +287,7 @@ export class Draw {
 		this.circle(circleX, circleY, playerRadius, 'red')
 	}
 
-	lineBetween(start, end) {
+	line(start, end) {
 		this.ctx.beginPath()
 		this.ctx.moveTo(start.x, start.y)
 		this.ctx.lineTo(end.x, end.y)

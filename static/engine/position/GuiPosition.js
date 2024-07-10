@@ -29,9 +29,9 @@ export class GuiPosition {
 
 	}
 
-	static middle() {
-		const x = Palette.width / 2
-		const y = Palette.height / 2
+	static middle(offset_x=0, offset_y=0) {
+		const x = (Palette.width + offset_x) / 2
+		const y = (Palette.height + offset_y) / 2
 
 		return new Position(x, y)
 	}

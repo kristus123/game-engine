@@ -21,6 +21,26 @@ function button(text, position, onClick) {
 	return b
 }
 
+function textField(text, position, onChange) {
+	const div = Html.createElement('div', position, '')
+	const b = Html.createElement('input', div, '')
+
+	b.addEventListener('input', () => {
+		onChange(b.value)
+	})
+
+	b.addEventListener('focusin', () => {
+		console.log("on focus")
+	})
+
+	b.addEventListener('focusout', () => {
+		console.log("focus out")
+	})
+
+	return b
+	
+}
+
 export class Overlay {
 
 	static leftButton(text, onClick) {
@@ -28,22 +48,11 @@ export class Overlay {
 	}
 
 	static leftTextField(text, onChange) {
-		const div = Html.createElement('div', '.left', '')
-		const b = Html.createElement('input', div, '')
+		return textField(text, '.left', onChange)
+	}
 
-		b.addEventListener('input', () => {
-			onChange(b.value)
-		})
-
-		b.addEventListener('focusin', () => {
-			console.log("on focus")
-		})
-
-		b.addEventListener('focusout', () => {
-			console.log("focus out")
-		})
-
-		return b
+	static bottomTextField(text, onChange) {
+		return textField(text, '.bottom', onChange)
 	}
 
 	static rightButton(text, onClick) {

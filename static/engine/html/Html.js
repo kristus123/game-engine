@@ -33,10 +33,13 @@ export class Html {
 		return button
 	}
 
-	static text(text) {
+	static text(text, position) {
 		const p = element('p', 'ui')
 		p.textContent = text
 		p.style.fontSize = '100px'
+
+		p.style.left = `${position.x}px`
+		p.style.top = `${position.y}px`
 
 		document.getElementById('ui_elements').appendChild(p)
 
@@ -46,9 +49,9 @@ export class Html {
 				p.textContent = text
 				return this
 			},
-			position: p => {
-				p.style.left = `${p.x}px`
-				p.style.top = `${p.y}px`
+			position: position => {
+				p.style.left = `${position.x}px`
+				p.style.top = `${position.y}px`
 				return this
 			}
 		}
