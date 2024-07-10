@@ -13,6 +13,19 @@ export class Draw {
 		this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
 	}
 
+	curve(startPosition, controlPosition1, controlPosition2, endPosition) {
+		this.ctx.beginPath();
+		this.ctx.moveTo(startPosition.x, startPosition.y); // Starting point
+		this.ctx.bezierCurveTo(controlPosition1.x, controlPosition1.y, controlPosition2.x, controlPosition2.y, endPosition.x, endPosition.y); // Control points and endpoint
+		this.ctx.strokeStyle = 'white'; // Set the stroke color to white
+		this.ctx.stroke();
+
+		this.new_circle(startPosition);
+		this.new_circle(controlPosition1); // Optionally show control point 1
+		this.new_circle(controlPosition2); // Optionally show control point 2
+		this.new_circle(endPosition);
+	}
+
 	shadow(gameObject) {
 		const { x, y, width, height } = gameObject
 		const lightX = 0
@@ -49,6 +62,10 @@ export class Draw {
 
 	blue(position) {
 		this.rectangle(position, 'blue')
+	}
+
+	color(position, color) {
+		this.rectangle(position, color)
 	}
 
 	grey(position) {

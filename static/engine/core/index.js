@@ -37,7 +37,7 @@ ErrorHandler.run(() => {
 
 			showLogs.draw()
 
-			Palette.fill(backgroundPalette, '#130927')
+			Palette.fill(backgroundPalette, '#2AB1C6')
 			Palette.apply(mainPalette, [backgroundPalette, Cam.palette, guiPalette])
 		})
 	})

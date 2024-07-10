@@ -27,6 +27,25 @@ export class Overlay {
 		return button(text, '.left', onClick)
 	}
 
+	static leftTextField(text, onChange) {
+		const div = Html.createElement('div', '.left', '')
+		const b = Html.createElement('input', div, '')
+
+		b.addEventListener('input', () => {
+			onChange(b.value)
+		})
+
+		b.addEventListener('focusin', () => {
+			console.log("on focus")
+		})
+
+		b.addEventListener('focusout', () => {
+			console.log("focus out")
+		})
+
+		return b
+	}
+
 	static rightButton(text, onClick) {
 		return button(text, '.right', onClick)
 	}

@@ -1,6 +1,6 @@
 // noiseScale
-// lower = more smooth - 0.1
-// higher = crazy - 1.5
+// lower = more smooth : 0.1
+// higher = crazy : 1.5
 
 export class SimplexNoise {
 	constructor(noiseScale = 1) {

@@ -6,22 +6,16 @@ export class Noise {
 		this.positionAndNoiseValue = Positions.grid(position, size)
 			.map(position => ({
 				position: position,
-				noiseValue: simplexNoise.noise(position),
+				noise: simplexNoise.noise(position),
 			}))
-
-		this.t = 0
 	}
 
 	draw(draw, guiDraw) {
-		for (const { position } of this.positionAndNoiseValue) {
-			this.t += 0.0001
-			const noiseValue = this.simplexNoise.noise(position, this.t)
-
-			if (noiseValue >= 0) {
-				draw.blue(position)
-			}
-			else {
-				draw.green(position)
+		for (const { position, noise } of this.positionAndNoiseValue) {
+			if (Distance.between(this.player, position) < 500) {
+				if (noise >= 0) {
+					draw.blue(position)
+				}
 			}
 		}
 	}

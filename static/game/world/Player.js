@@ -1,6 +1,6 @@
 export class Player extends DynamicGameObject {
 	constructor(position) {
-		super(position, 2300, 8)
+		super(position, 4000, 1)
 
 		this.position.width = 100
 		this.position.height = 100
@@ -46,13 +46,13 @@ export class Player extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		//draw.position(this)
-		this.gun.draw(draw, guiDraw)
+		// this.gun.draw(draw, guiDraw)
 
 		draw.text(this.position.offset(0, -100), this.clientId, 'orange', 20)
 
-		// draw.new_circle(this.mouse.position)
+		draw.new_circle(this.position)
 
-		this.flyingUp.draw(draw, guiDraw)
+// 		this.flyingUp.draw(draw, guiDraw)
 		this.piss.draw(draw, guiDraw)
 	}
 }
