@@ -1,5 +1,18 @@
 export class AllObjects { // not a good name
-	constructor(objects=[]) {
+	constructor(objects=[], connectedToClass='') {
+		for (const o of objects) {
+			if (Object.keys(o).length == 1 && !o.update && !o.draw) {
+				if (connectedToClass != '') {
+					console.log("assume it is a 'instance variable'")
+					const field = Object.keys(o)[0]
+
+					connectedToClass[field] = o[field]
+					List.remove(objects, o)
+
+					objects.push(o[field])
+				}
+			}
+		}
 	}
 
 	add(o) {

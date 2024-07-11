@@ -6,7 +6,7 @@ export class WorldEditor {
 		this.localObjects = new LocalObjects([
 			Controller.control(Cam.objectToFollow),
 			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
-			new PlayerEditor(),
+			{ playerEditor: new PlayerEditor() },
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json', 
 				position => new Chicken(position), 
@@ -25,7 +25,7 @@ export class WorldEditor {
 			// 		return wall
 			// 	},
 			// ),
-		])
+		], this)
 	}
 
 	update() {
