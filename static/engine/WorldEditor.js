@@ -2,9 +2,9 @@ export class WorldEditor {
 
 	constructor() {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
+		Controller.control(Cam.objectToFollow),
 
 		this.localObjects = new LocalObjects([
-			Controller.control(Cam.objectToFollow),
 			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
 			{ playerEditor: new PlayerEditor() },
 			new PersistedObjectsEditor(

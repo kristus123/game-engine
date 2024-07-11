@@ -9,8 +9,6 @@ export class Controller {
 
 	static control(o) {
 		this.objectToControl = o
-
-		return this
 	}
 
 	// todo fix deltatime bug here

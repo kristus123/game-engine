@@ -9,9 +9,11 @@ export class PlayerEditor {
 		mouseEditor.add(player)
 
 		mouseEditor.onClick = p => {
+			console.log("do nothing")
 		}
 
 		mouseEditor.moved = o => {
+			console.log("moved player")
 			const body = {
 				x: player.x,
 				y: player.y,

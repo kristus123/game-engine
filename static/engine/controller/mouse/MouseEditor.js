@@ -50,7 +50,8 @@ export class MouseEditor {
 
 			this.recentlyEditedObject = true
 		}
-		else if (this.lastClicked && Mouse.up) {
+		if (this.lastClicked && Mouse.up) {
+			console.log("moved player")
 			this.moved(this.lastClicked)
 			// this.lastClicked = null
 
