@@ -12,7 +12,7 @@ export class ClickEvents {
 
 		const wrapperHandler = (e) => {
 			const mousePosition = Mouse.positionRelativeToCamera(e)
-			if (!Mouse.holding && !Mouse.hoveringHtmlElement) {
+			if (!Mouse.holding && !Mouse.hoveringHtmlElement && !Mouse.disabled) {
 				handler(mousePosition)
 			}
 		}

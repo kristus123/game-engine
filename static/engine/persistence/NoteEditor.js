@@ -7,10 +7,10 @@ export class NoteEditor {
 		const mouseEditor = new MouseEditor()
 		mouseEditor.add(note)
 
-		mouseEditor.onClick = p => {
+		mouseEditor.onClick = position => {
 		}
 
-		mouseEditor.moved = o => {
+		mouseEditor.moved = object => {
 			const body = {
 				x: note.x,
 				y: note.y,

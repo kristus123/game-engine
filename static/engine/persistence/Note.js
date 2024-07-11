@@ -6,7 +6,13 @@ export class Note extends StaticGameObject {
 		this.position.height = 50
 
 		this.localObjects = new LocalObjects([
-			new MultiTextTyper(this.position.offset(0, -100), ['huh, a note .   .    .      .', 'what does it say?', message, '. . . . .', 'what an insane message'])
+			new MultiTextTyper(this.position.offset(0, -100), [
+				'huh, a note .   .    .      .', 
+				'what does it say?', 
+				message, 
+				'. . . . .', 
+				'what an insane message',
+			])
 		])
 	}
 

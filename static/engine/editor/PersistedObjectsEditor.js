@@ -15,7 +15,7 @@ export class PersistedObjectsEditor {
 		}
 
 		this.mouseEditor.moved = o => {
-			console.log("moved")
+			// console.log("moved")
 			this.persistedObjects.persist(o)
 		}
 

@@ -3,6 +3,8 @@ export class Mouse {
 		this.position = Cam.position.copy()
 		this.screenPosition = Cam.position.copy()
 
+		this.disabled = false
+
 		this.up = true
 		this.down = false
 
@@ -14,6 +16,10 @@ export class Mouse {
 		})
 
 		document.addEventListener('mousedown', e => {
+			if (this.disabled) {
+				return
+			}
+
 			if (e.button == 0) {
 				this.down = true
 				this.up = false
@@ -25,6 +31,7 @@ export class Mouse {
 		})
 
 		document.addEventListener('mouseup', e => {
+
 			if (e.button == 0) {
 				this.up = true
 				this.down = false

@@ -21,10 +21,6 @@ export class World {
 			Overlay.clearAll()
 			Level.change(new WorldEditor(Cam))
 		})
-
-		Overlay.leftTextField('hei', text => {
-			console.log(text)
-		})
 	}
 
 	update() {

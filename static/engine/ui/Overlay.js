@@ -31,10 +31,14 @@ function textField(text, position, onChange) {
 
 	b.addEventListener('focusin', () => {
 		console.log("on focus")
+		Mouse.disabled = true
+		Controller.disabled = true
 	})
 
 	b.addEventListener('focusout', () => {
 		console.log("focus out")
+		Mouse.disabled = false
+		Controller.disabled = false
 	})
 
 	return b

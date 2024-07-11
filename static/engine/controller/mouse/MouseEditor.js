@@ -26,46 +26,41 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (!this.lastClicked) {
-			for (const o of this.objects) {
-				if (Mouse.clicked(o)) {
-					this.lastClicked = o
-					console.log('clicked new object')
-					break
-				}
+		if (this.lastClicked && Mouse.clicked(this.lastClicked.position.topLeft)) {
+			this.remove(this.lastClicked)
+			List.remove(this.objects, this.lastClicked)
+
+			this.lastClicked = null
+			this.recentlyEditedObject = true
+
+			return
+		}
+
+		for (const o of this.objects) {
+			if (Mouse.clicked(o)) {
+				this.lastClicked = o
+				console.log('clicked new object')
+				break
 			}
 		}
-		else if (this.lastClicked && Mouse.down) {
+
+		if (this.lastClicked && Mouse.down) {
 			this.lastClicked.position.center.x = Mouse.position.x
 			this.lastClicked.position.center.y = Mouse.position.y
 
 			this.recentlyEditedObject = true
 		}
 		else if (this.lastClicked && Mouse.up) {
-			console.log('moved')
 			this.moved(this.lastClicked)
 			// this.lastClicked = null
 
 			this.recentlyEditedObject = true
 			setTimeout(() => {
 				this.recentlyEditedObject = false
-			}, 200)
+			}, 500)
 		}
-		if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 200) {
+		if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 100) {
 			this.lastClicked = null
-		}
-
-		if (this.lastClicked && Mouse.clicked(this.lastClicked.position.topLeft)) {
-
-			this.remove(this.lastClicked)
-			List.remove(this.objects, this.lastClicked)
-
-			this.lastClicked = null
-
-			this.recentlyEditedObject = true
-			setTimeout(() => {
-				this.recentlyEditedObject = false
-			}, 200)
 		}
 	}
 

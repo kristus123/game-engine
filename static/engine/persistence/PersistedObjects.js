@@ -28,7 +28,7 @@ export class PersistedObjects extends AllObjects {
 
 	remove(o) {
 		const objects = Http.get(this.filePath)
-		List.removeIf(objects, x => JSON.parse(x).objectId == o.objectId)
+		List.removeIf(objects, x => x.objectId == o.objectId)
 		Http.post(this.filePath, objects)
 
 		super.remove(o)

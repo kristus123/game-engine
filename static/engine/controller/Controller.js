@@ -3,6 +3,8 @@ export class Controller {
 
 	static velocity = new Velocity(this)
 
+	static disabled = false
+
 	static objectToControl = null
 
 	static control(o) {
@@ -14,7 +16,7 @@ export class Controller {
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
 	static update() {
-		if (!this.objectToControl) {
+		if (!this.objectToControl || this.disabled) {
 			return
 		}
 
