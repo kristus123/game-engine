@@ -6,7 +6,7 @@ export class WorldEditor {
 
 		this.localObjects = new LocalObjects([
 			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
-			{ playerEditor: new PlayerEditor() },
+			new PlayerEditor(),
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json', 
 				position => new Chicken(position), 
@@ -16,15 +16,15 @@ export class WorldEditor {
 					return c
 				},
 			),
-			// new PersistedObjectsEditor(
-			// 	'/persisted-objects/invisible_walls.json', 
-			// 	position => new InvisibleWall(position), 
-			// 	json => {
-			// 		const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
-			// 		wall.objectId = json.objectId
-			// 		return wall
-			// 	},
-			// ),
+			new PersistedObjectsEditor(
+				'/persisted-objects/invisible_walls.json', 
+				position => new InvisibleWall(position), 
+				json => {
+					const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
+					wall.objectId = json.objectId
+					return wall
+				},
+			),
 		], this)
 	}
 

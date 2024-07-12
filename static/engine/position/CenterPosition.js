@@ -7,11 +7,11 @@ export class CenterPosition {
 	}
 
 	get x() {
-		return this.position.x + this.width / 2
+		return Math.round(this.position.x + this.width / 2)
 	}
 
 	get y() {
-		return this.position.y + this.height / 2
+		return Math.round(this.position.y + this.height / 2)
 	}
 
 	set x(x) {

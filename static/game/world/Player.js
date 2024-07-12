@@ -1,11 +1,11 @@
 export class Player extends DynamicGameObject {
 	constructor(position) {
-		super(position, 4000, 1)
+		super(position, 4000, 10)
 
 		this.position.width = 145
 		this.position.height = 200
 
-		this.staticPicture = new StaticPicture(this.position, '/static/assets/player.png')
+		this.staticPicture = new StaticPicture(this.position, '/static/assets/petter.png')
 	}
 
 	update() {

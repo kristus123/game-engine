@@ -26,7 +26,15 @@ export class PlayerEditor {
 
 		Overlay.rightButton('player', () => {
 			MouseEditor.active = mouseEditor
-			// Cam.goTo(player)
+
+			Overlay.bottomButton('control player', () => {
+				console.log("hei")
+				Controller.control(this.player)
+				Overlay.clearBottom()
+				Overlay.bottomButton('back to camera', () => {
+					Controller.control(Cam.objectToFollow)
+				})
+			})
 		})
 
 		this.localObjects = new LocalObjects([
