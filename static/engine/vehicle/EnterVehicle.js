@@ -21,17 +21,14 @@ export class EnterVehicle {
 				Call(this.onEnter)
 				Controller.control(vehicle)
 				Cam.follow(vehicle)
-				Cam.zoom = 0.5
-
-				this.player.x = -999999
-				this.player.y = -999999
+				// Cam.zoom = 0.5
 			}
 		})
 	}
 
 	update() {
 		if (this.entered) {
-			this.player.x = this.vehicle.x
+			this.player.x = this.vehicle.x + 450
 			this.player.y = this.vehicle.y
 		}
 	}

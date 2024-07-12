@@ -25,7 +25,7 @@ export class WorldEditor {
 					return wall
 				},
 			),
-		], this)
+		])
 	}
 
 	update() {
