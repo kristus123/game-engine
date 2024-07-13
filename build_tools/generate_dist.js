@@ -32,7 +32,7 @@ const staticFiles = Files.getJsFiles('static/')
 
 const filesToDeleteFromDist = Files.getUniqueElements(distFiles, staticFiles)
 for (const f of filesToDeleteFromDist) {
-	// Files.remove(f) 
+	// Files.remove(f)
 }
 
 

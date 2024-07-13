@@ -14,11 +14,11 @@ export class Draw {
 	}
 
 	curve(startPosition, controlPosition1, controlPosition2, endPosition) {
-		this.ctx.beginPath();
-		this.ctx.moveTo(startPosition.x, startPosition.y); // Starting point
-		this.ctx.bezierCurveTo(controlPosition1.x, controlPosition1.y, controlPosition2.x, controlPosition2.y, endPosition.x, endPosition.y); // Control points and endpoint
-		this.ctx.strokeStyle = 'white'; // Set the stroke color to white
-		this.ctx.stroke();
+		this.ctx.beginPath()
+		this.ctx.moveTo(startPosition.x, startPosition.y) // Starting point
+		this.ctx.bezierCurveTo(controlPosition1.x, controlPosition1.y, controlPosition2.x, controlPosition2.y, endPosition.x, endPosition.y) // Control points and endpoint
+		this.ctx.strokeStyle = 'white' // Set the stroke color to white
+		this.ctx.stroke()
 
 		// this.new_circle(startPosition);
 		// this.new_circle(controlPosition1); // Optionally show control point 1

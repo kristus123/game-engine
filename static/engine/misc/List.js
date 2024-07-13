@@ -14,7 +14,7 @@ export class List {
 
 	static retainMax(list, maxEntries) {
 		if (list.length > maxEntries) {
-			list.splice(0, list.length - maxEntries);
+			list.splice(0, list.length - maxEntries)
 		}
 	}
 
@@ -42,7 +42,7 @@ export class List {
 
 	static empty(list) {
 		return list.length == 0
-		
+
 	}
 
 	static lastIndex(list, index) {

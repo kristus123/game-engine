@@ -8,8 +8,9 @@ export class Http {
 		if (xhr.status === 200) {
 			try {
 				return JSON.parse(xhr.responseText)
-			} catch (e) {
-				throw new Error("Error while mapping " + xhr.responseText)
+			}
+			catch (e) {
+				throw new Error('Error while mapping ' + xhr.responseText)
 			}
 		}
 		else {

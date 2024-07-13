@@ -1,7 +1,7 @@
 export class FollowPlayerNoise {
 	constructor(player, viewable=1, size=10) {
 		this.simplexNoise = new SimplexNoise(0.001)
-		
+
 		this.gridArea = player.position.offset(-viewable/2, (-viewable/2), viewable, viewable)
 
 		this.t = 0

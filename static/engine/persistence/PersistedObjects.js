@@ -18,7 +18,7 @@ export class PersistedObjects extends AllObjects {
 	}
 
 	persist(o) {
-		const objects =  Http.get(this.filePath)
+		const objects = Http.get(this.filePath)
 			.map(json => this.mapFromJson(json))
 
 		List.removeIf(objects, x => x.objectId == o.objectId)

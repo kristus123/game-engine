@@ -25,18 +25,18 @@ export class World {
 					}
 
 					update() {
-						console.log("sexy?")
+						console.log('sexy?')
 						console.log(this.sex)
 					}
 
 					draw(draw, guiDraw) {
 					}
 
-					
+
 				})]),
 			new Rices(this.player, () => {
 				this.main.update = () => {
-					console.log("hei")
+					console.log('hei')
 				}
 			}),
 			this.player,

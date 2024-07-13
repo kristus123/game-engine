@@ -12,11 +12,11 @@ function button(text, position, onClick) {
 
 	b.addEventListener('mouseover', () => {
 		Mouse.hoveringHtmlElement = true
-	});
+	})
 
 	b.addEventListener('mouseout', () => {
 		Mouse.hoveringHtmlElement = false
-	});
+	})
 
 	return b
 }
@@ -30,19 +30,19 @@ function textField(text, position, onChange) {
 	})
 
 	b.addEventListener('focusin', () => {
-		console.log("on focus")
+		console.log('on focus')
 		Mouse.disabled = true
 		Controller.disabled = true
 	})
 
 	b.addEventListener('focusout', () => {
-		console.log("focus out")
+		console.log('focus out')
 		Mouse.disabled = false
 		Controller.disabled = false
 	})
 
 	return b
-	
+
 }
 
 export class Overlay {

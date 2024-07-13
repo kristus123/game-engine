@@ -1,13 +1,13 @@
 export class FishingRod {
 	constructor(player) {
-		this.noise = new Noise(new Position(-1000,-500, 1000, 1000), 20)
+		this.noise = new Noise(new Position(-1000, -500, 1000, 1000), 20)
 
 		this.fishingRod = null
 
 		Mouse.addOnClick('throw fishing rod', p => {
-				this.fishingRod = p
-				this.countdown = 100
-				console.log("hei")
+			this.fishingRod = p
+			this.countdown = 100
+			console.log('hei')
 		})
 
 		this.countdown = 100

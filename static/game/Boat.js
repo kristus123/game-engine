@@ -18,6 +18,6 @@ export class Boat extends DynamicGameObject {
 		this.localObjects.draw(draw, guiDraw)
 
 		draw.color(this.position, 'brown')
-		
+
 	}
 }

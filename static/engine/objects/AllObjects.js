@@ -9,7 +9,7 @@ export class AllObjects { // not a good name
 
 
 				if (connectedToClass != '') {
-					console.log("assume it is a 'instance variable'")
+					console.log('assume it is a \'instance variable\'')
 					const field = Object.keys(o)[0]
 
 					connectedToClass[field] = o[field]

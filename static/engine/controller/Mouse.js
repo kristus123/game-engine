@@ -48,7 +48,7 @@ export class Mouse {
 
 		document.addEventListener('contextmenu', e => {
 			e.preventDefault()
-		});
+		})
 
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())

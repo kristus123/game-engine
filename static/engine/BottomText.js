@@ -8,13 +8,13 @@ export class BottomText {
 		overlayText.className = 'bottom-text'
 		overlayText.textContent = text
 
-		document.body.appendChild(overlayText);
+		document.body.appendChild(overlayText)
 	}
 
 	static remove() {
-		const overlayDiv = document.querySelector('.bottom-text');
+		const overlayDiv = document.querySelector('.bottom-text')
 		if (overlayDiv) {
-			document.body.removeChild(overlayDiv);
+			document.body.removeChild(overlayDiv)
 		}
 	}
 

@@ -11,7 +11,7 @@ export class Player extends DynamicGameObject {
 		setInterval(() => {
 			this.steps.push(this.position.offset(50, 200, 50, 20).copy())
 			List.retainMax(this.steps, 3)
-		}, 200);
+		}, 200)
 	}
 
 	update() {

@@ -9,11 +9,11 @@ export class PlayerEditor {
 		mouseEditor.add(player)
 
 		mouseEditor.onClick = p => {
-			console.log("do nothing")
+			console.log('do nothing')
 		}
 
 		mouseEditor.moved = o => {
-			console.log("moved player")
+			console.log('moved player')
 			const body = {
 				x: player.x,
 				y: player.y,
@@ -28,7 +28,7 @@ export class PlayerEditor {
 			MouseEditor.active = mouseEditor
 
 			Overlay.bottomButton('control player', () => {
-				console.log("hei")
+				console.log('hei')
 				Controller.control(this.player)
 				Overlay.clearBottom()
 				Overlay.bottomButton('back to camera', () => {

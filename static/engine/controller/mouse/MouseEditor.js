@@ -47,10 +47,10 @@ export class MouseEditor {
 			this.recentlyEditedObject = true
 			setTimeout(() => {
 				this.recentlyEditedObject = false
-			}, 200);
+			}, 200)
 		}
 		else if (this.lastClicked && Mouse.up) {
-			console.log("moved player")
+			console.log('moved player')
 			this.moved(this.lastClicked)
 			this.lastClicked = null
 
@@ -82,10 +82,12 @@ export class MouseEditor {
 		else if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 100) {
 			this.lastClicked = null
 		}
-		else for (const o of this.objects) {
-			if (Mouse.clicked(o)) {
-				this.lastClicked = o
-				break
+		else {
+			for (const o of this.objects) {
+				if (Mouse.clicked(o)) {
+					this.lastClicked = o
+					break
+				}
 			}
 		}
 	}
@@ -96,22 +98,24 @@ export class MouseEditor {
 		if (this.firstClickedArea && this.markedArea) {
 			draw.transparentGreenRectangle(this.markedArea)
 
-			for (const o of this.objects) if (Collision.between(o, this.markedArea)) {
-				if (List.empty(this.markedObjects)) {
-					Overlay.bottomButton('delete', () => {
-						for (const o of this.markedObjects) {
-							this.remove(o)
-							List.remove(this.objects, o)
-						}
+			for (const o of this.objects) {
+				if (Collision.between(o, this.markedArea)) {
+					if (List.empty(this.markedObjects)) {
+						Overlay.bottomButton('delete', () => {
+							for (const o of this.markedObjects) {
+								this.remove(o)
+								List.remove(this.objects, o)
+							}
 
-						this.markedObjects = []
+							this.markedObjects = []
 
-						Overlay.clearBottom()
-					})
-				}
+							Overlay.clearBottom()
+						})
+					}
 
-				if (!List.includes(this.markedObjects, o)) {
-					this.markedObjects.push(o)
+					if (!List.includes(this.markedObjects, o)) {
+						this.markedObjects.push(o)
+					}
 				}
 			}
 		}
@@ -120,24 +124,26 @@ export class MouseEditor {
 			draw.text(o.position.offset(0, -100), 'marked')
 		}
 
-		if (this.lastClicked) for (const o of this.objects) {
-			if (o == this.lastClicked) {
+		if (this.lastClicked) {
+			for (const o of this.objects) {
+				if (o == this.lastClicked) {
 
-				draw.transparentGreenRectangle(o)
+					draw.transparentGreenRectangle(o)
 
-				draw.rectangle(o.position.topLeft)
-				draw.rectangle(o.position.bottomRight)
-				if (Mouse.hovering(o.position.topLeft)) {
-					draw.text(o.position.offset(-150, 10), 'delete')
+					draw.rectangle(o.position.topLeft)
+					draw.rectangle(o.position.bottomRight)
+					if (Mouse.hovering(o.position.topLeft)) {
+						draw.text(o.position.offset(-150, 10), 'delete')
+					}
+					else if (Mouse.hovering(o.position.bottomRight)) {
+						draw.text(o.position.offset(-150, 10), 'resize')
+					}
 				}
-				else if (Mouse.hovering(o.position.bottomRight)) {
-					draw.text(o.position.offset(-150, 10), 'resize')
-				}
-			}
 
-			if (Mouse.hovering(o) && Mouse.up) {
-				draw.text(o.position.offset(10, 10), 'click to move')
-				break
+				if (Mouse.hovering(o) && Mouse.up) {
+					draw.text(o.position.offset(10, 10), 'click to move')
+					break
+				}
 			}
 		}
 	}
