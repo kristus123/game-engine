@@ -32,6 +32,11 @@ export class List {
 		}
 	}
 
+	static empty(list) {
+		return list.length == 0
+		
+	}
+
 	static lastIndex(list, index) {
 		return index === list.length - 1
 	}

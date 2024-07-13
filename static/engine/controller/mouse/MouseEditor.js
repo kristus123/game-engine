@@ -19,6 +19,10 @@ export class MouseEditor {
 				}
 			}
 		})
+
+		this.firstClickedArea = null
+		this.markedArea = null
+		this.markedObjects = []
 	}
 
 	add(o) {
@@ -26,7 +30,26 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (this.lastClicked && Mouse.up) {
+		if (!this.lastClicked && Mouse.downForLongerThan(200) && !this.firstClickedArea) {
+			this.firstClickedArea = Mouse.position.copy()
+		}
+		else if (!this.lastClicked && Mouse.down && this.firstClickedArea) {
+			this.markedArea = new Position(
+				this.firstClickedArea.x,
+				this.firstClickedArea.y,
+				Mouse.position.x - this.firstClickedArea.x,
+				Mouse.position.y - this.firstClickedArea.y)
+
+			this.recentlyEditedObject = true
+		}
+		else if (this.firstClickedArea && Mouse.up) {
+			this.firstClickedArea = null
+			this.recentlyEditedObject = true
+			setTimeout(() => {
+				this.recentlyEditedObject = false
+			}, 200);
+		}
+		else if (this.lastClicked && Mouse.up) {
 			console.log("moved player")
 			this.moved(this.lastClicked)
 			this.lastClicked = null
@@ -52,6 +75,9 @@ export class MouseEditor {
 			this.lastClicked.position.center.y = Mouse.position.y
 
 			this.recentlyEditedObject = true
+			this.markedArea = null
+			this.markedObjects = []
+			Overlay.clearBottom()
 		}
 		else if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 100) {
 			this.lastClicked = null
@@ -65,7 +91,36 @@ export class MouseEditor {
 	}
 
 	draw(draw, guiDraw) {
-		for (const o of this.objects) {
+		console.log(this.markedObjects.length)
+
+		if (this.firstClickedArea && this.markedArea) {
+			draw.transparentGreenRectangle(this.markedArea)
+
+
+			for (const o of this.objects) if (Collision.between(o, this.markedArea)) {
+				if (List.empty(this.markedObjects)) {
+					Overlay.bottomButton('delete', () => {
+						for (const o of this.markedObjects) {
+							this.remove(o)
+						}
+
+						this.markedObjects = []
+
+						Overlay.clearBottom()
+					})
+				}
+
+				if (!List.includes(this.markedObjects, o)) {
+					this.markedObjects.push(o)
+				}
+			}
+		}
+
+		for (const o of this.markedObjects) {
+			draw.text(o.position.offset(0, -100), 'marked')
+		}
+
+		if (this.lastClicked) for (const o of this.objects) {
 			if (o == this.lastClicked) {
 
 				draw.transparentGreenRectangle(o)

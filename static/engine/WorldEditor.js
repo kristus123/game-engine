@@ -6,7 +6,7 @@ export class WorldEditor {
 
 		this.localObjects = new LocalObjects([
 			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
-			new PlayerEditor(),
+			{ player: new PlayerEditor() },
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json', 
 				position => new Chicken(position), 
@@ -25,7 +25,12 @@ export class WorldEditor {
 					return wall
 				},
 			),
-		])
+		], this)
+
+		this.localObjects.add(new MultiTextTyper(this.player.player.position.offset(0, -100), [
+			'JEG ER TOM FOR RIS',
+			'Jeg får plukke opp alt jeg finner',
+		]))
 	}
 
 	update() {

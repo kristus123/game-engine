@@ -17,6 +17,7 @@ export class AllObjects { // not a good name
 
 	add(o) {
 		this.objects.push(o)
+		return o
 	}
 
 	remove(o) {

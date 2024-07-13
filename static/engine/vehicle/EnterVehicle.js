@@ -15,7 +15,7 @@ export class EnterVehicle {
 				this.player.x = vehicle.x
 				this.player.y = vehicle.y
 			}
-			else if (Distance.withinRadius(player, vehicle, 100)) {
+			else if (Collision.between(player, vehicle)) {
 				this.entered = true
 
 				Call(this.onEnter)
@@ -34,7 +34,7 @@ export class EnterVehicle {
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.entered && Distance.withinRadius(this.player, this.vehicle, 100)) {
+		if (!this.entered && Collision.between(this.player, this.vehicle)) {
 			draw.text(this.vehicle.position, 'E to enter')
 		}
 	}

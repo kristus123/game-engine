@@ -7,6 +7,7 @@ export class Mouse {
 
 		this.up = true
 		this.down = false
+		this.downStopWatch = new StopWatch()
 
 		this.rightUp = true
 		this.rightDown = false
@@ -23,6 +24,7 @@ export class Mouse {
 			if (e.button == 0) {
 				this.down = true
 				this.up = false
+				this.downStopWatch.start()
 			}
 			else if (e.button == 2) {
 				this.rightDown = true
@@ -35,6 +37,8 @@ export class Mouse {
 			if (e.button == 0) {
 				this.up = true
 				this.down = false
+				this.downStopWatch.stop()
+				this.downStopWatch.reset()
 			}
 			else if (e.button == 2) {
 				this.rightUp = true
@@ -53,6 +57,10 @@ export class Mouse {
 
 		this.holding = null
 		this.hoveringHtmlElement = false
+	}
+
+	static downForLongerThan(ms) {
+		return this.down && this.downStopWatch.elapsedTime > ms
 	}
 
 	static addOnClick(name, handler) {

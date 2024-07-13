@@ -9,4 +9,9 @@ export class Velocity {
 	draw(draw, guiDraw) {
 		draw.circle(this.object.x + this.x, this.object.y + this.y, 10, 'orange')
 	}
+
+	reset() {
+		this.x = 0
+		this.y = 0
+	}
 }
