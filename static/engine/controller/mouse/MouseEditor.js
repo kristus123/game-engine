@@ -96,12 +96,12 @@ export class MouseEditor {
 		if (this.firstClickedArea && this.markedArea) {
 			draw.transparentGreenRectangle(this.markedArea)
 
-
 			for (const o of this.objects) if (Collision.between(o, this.markedArea)) {
 				if (List.empty(this.markedObjects)) {
 					Overlay.bottomButton('delete', () => {
 						for (const o of this.markedObjects) {
 							this.remove(o)
+							List.remove(this.objects, o)
 						}
 
 						this.markedObjects = []
