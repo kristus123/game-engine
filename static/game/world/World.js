@@ -21,7 +21,6 @@ export class World {
 
 				BottomText.show('get in the car. TIME FOR GYM')
 
-
 				const bil = new Bil(this.player)
 				const compass = new Compass([bil])
 				this.localObjects.add(compass)
