@@ -48,4 +48,9 @@ export class Position {
 		return AnalShit.positionBehind(this, anotherPosition, distance)
 	}
 
+
+	draw(draw, guiDraw) {
+		draw.rectangle(this)
+	}
+
 }

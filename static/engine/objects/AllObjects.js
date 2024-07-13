@@ -1,7 +1,13 @@
 export class AllObjects { // not a good name
 	constructor(objects=[], connectedToClass='') {
 		for (const o of objects) {
+			o.removeFromLoop = () => {
+				this.remove(o)
+			}
+
 			if (Object.keys(o).length == 1 && !o.update && !o.draw) {
+
+
 				if (connectedToClass != '') {
 					console.log("assume it is a 'instance variable'")
 					const field = Object.keys(o)[0]
@@ -10,6 +16,13 @@ export class AllObjects { // not a good name
 					List.remove(objects, o)
 
 					objects.push(o[field])
+
+					o[field].removeFromLoop = () => {
+						this.remove(o[field])
+					}
+
+
+
 				}
 			}
 		}

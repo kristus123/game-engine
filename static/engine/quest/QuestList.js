@@ -20,7 +20,7 @@ export class QuestList {
 		document.getElementById('quest_list').style.display = 'flex'
 	}
 
-	static close() {
+	static hide() {
 		Html.removeChildElementsInId('quest_list')
 
 		document.getElementById('quest_list').style.display = 'none'

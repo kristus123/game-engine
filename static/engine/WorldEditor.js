@@ -2,11 +2,15 @@ export class WorldEditor {
 
 	constructor() {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
-		Controller.control(Cam.objectToFollow),
+		Controller.control(Cam.objectToFollow)
+
+		BottomText.show()
+		QuestList.add('hei')
+		QuestList.add('hei')
 
 		this.localObjects = new LocalObjects([
 			new StaticPicture(new Position(-1000,-1000, 2000, 2000), '/static/assets/beach_64x64.png'),
-			{ player: new PlayerEditor() },
+			new PlayerEditor(),
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json', 
 				position => new Chicken(position), 
@@ -26,11 +30,6 @@ export class WorldEditor {
 				},
 			),
 		], this)
-
-		this.localObjects.add(new MultiTextTyper(this.player.player.position.offset(0, -100), [
-			'JEG ER TOM FOR RIS',
-			'Jeg får plukke opp alt jeg finner',
-		]))
 	}
 
 	update() {

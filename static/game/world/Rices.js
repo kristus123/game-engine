@@ -7,16 +7,16 @@ export class Rices {
 
 	update() {
 		for (const r of this.rices) {
-			if (Collision.between(r, this.player)) {
+			if (this.player.touches(r)) {
 				this.ricePickedUp += 1
 				List.remove(this.rices, r)
 			}
 		}
 
-		if (this.ricePickedUp >= 500) {
+		if (this.ricePickedUp >= 5) {
 			this.rices = []
 			this.onFinish()
-			this.update = () => {}
+			this.removeFromLoop()
 		}
 	}
 
@@ -24,5 +24,6 @@ export class Rices {
 		for (const r of this.rices) {
 			r.draw(draw, guiDraw)
 		}
+
 	}
 }

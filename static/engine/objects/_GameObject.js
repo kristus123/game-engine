@@ -6,6 +6,10 @@ export class _GameObject {
 		this._objectId = Random.uuid()
 	}
 
+	touches(o) {
+		return Collision.between(this.position, o)
+	}
+
 	get objectId() {
 		//if (this._objectId) {
 		return this._objectId

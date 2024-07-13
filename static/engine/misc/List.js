@@ -12,6 +12,14 @@ export class List {
 		}
 	}
 
+	static retainMax(list, maxEntries) {
+		if (list.length > maxEntries) {
+			list.splice(0, list.length - maxEntries);
+		}
+	}
+
+
+
 	static removeIf(list, predicate) {
 		for (let i = list.length - 1; i >= 0; i--) {
 			if (predicate(list[i])) {

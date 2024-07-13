@@ -1,3 +1,9 @@
+/*
+ *
+ * a task is anything that has a completed() method
+ *
+*/
+
 export class Quest {
 	constructor(tasks=[], onQuestCompleted=() => {
 		console.log('quest completed')

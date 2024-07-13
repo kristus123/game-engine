@@ -3,19 +3,16 @@ export class BottomText {
 	}
 
 	static show(text) {
-		const overlayDiv = document.createElement('div');
-		overlayDiv.className = 'pokemon-overlay';
 
-		const overlayText = document.createElement('p');
+		const overlayText = document.createElement('p')
+		overlayText.className = 'bottom-text'
 		overlayText.textContent = text
 
-		overlayDiv.appendChild(overlayText);
-
-		document.body.appendChild(overlayDiv);
+		document.body.appendChild(overlayText);
 	}
 
 	static remove() {
-		const overlayDiv = document.querySelector('.pokemon-overlay');
+		const overlayDiv = document.querySelector('.bottom-text');
 		if (overlayDiv) {
 			document.body.removeChild(overlayDiv);
 		}
