@@ -30,7 +30,7 @@ export class Fire extends DynamicGameObject {
 			{ x: 2, y: 4 },
 		]
 
-		this.sprite = new Sprite(this.position, '/static/assets/particles/Fire+Sparks-SpriteSheet.png', frameSequence)
+		this.sprite = new Sprite(this.position, '/static/assets/particles/fire_200x200.png', frameSequence)
 	}
 
 	update() {

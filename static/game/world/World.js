@@ -14,9 +14,11 @@ export class World {
 		}
 
 		this.localObjects = new LocalObjects([
+			new Fire(new Position(0,0)),
 			new Quest([
 				() => new (class {
-					constructor() {
+					constructor(player) {
+						this.player = player
 						this.sex = true
 					}
 
@@ -26,14 +28,13 @@ export class World {
 
 					update() {
 						console.log('sexy?')
-						console.log(this.sex)
+						console.log(this.player)
 					}
 
 					draw(draw, guiDraw) {
 					}
 
-
-				})]),
+				})(this.player)]),
 			new Rices(this.player, () => {
 				this.main.update = () => {
 					console.log('hei')
