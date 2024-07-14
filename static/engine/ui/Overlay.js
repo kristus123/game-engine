@@ -1,6 +1,17 @@
+function createElement(element, parent, className) {
+	// check if parent argument is a "string" or HTMLelement
+	const parentElement = parent instanceof HTMLElement ? parent : document.querySelector(parent)
+	const newElement = document.createElement(element)
+
+	newElement.className = className
+
+	parentElement.appendChild(newElement)
+	return newElement
+}
+
 function button(text, position, onClick) {
-	const div = Html.createElement('div', position, '')
-	const b = Html.createElement('button', div, '')
+	const div = createElement('div', position, '')
+	const b = createElement('button', div, '')
 
 	b.style.padding = '10px'
 	b.style.margin = '5px'
@@ -22,8 +33,8 @@ function button(text, position, onClick) {
 }
 
 function textField(text, position, onChange) {
-	const div = Html.createElement('div', position, '')
-	const b = Html.createElement('input', div, '')
+	const div = createElement('div', position, '')
+	const b = createElement('input', div, '')
 
 	b.addEventListener('input', () => {
 		onChange(b.value)
@@ -79,10 +90,10 @@ export class Overlay {
 	}
 
 	static bottomImage(image, onClick) {
-		const div = Html.createElement('div', '.bottom', 'item image')
+		const div = createElement('div', '.bottom', 'item image')
 		div.style.background = 'white'
 
-		const i = Html.createElement('img', div, 'image')
+		const i = createElement('img', div, 'image')
 		i.src = image
 		i.style.maxWidth = '100%'
 
