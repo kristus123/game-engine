@@ -9,6 +9,7 @@ export class World {
 			this.player,
 			new Rain(this.player.position.offset(0,-700, 900, 100)),
 			new PersistedInvisibleWalls(this.player),
+			new Person(new Position(200,0), this.player)
 		], this)
 
 

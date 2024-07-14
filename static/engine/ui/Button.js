@@ -1,18 +1,11 @@
-export class Button extends DynamicGameObject {
-	constructor(text) {
-		super(new Position(0, 0, 265, 117), 100, 100)
-
-		this.button = Html.button('hei', b => {
-			this.button.innerText = 'xxx'
-			Html.remove(b)
-		})
-
+export class Button {
+	constructor(position, text, onClick=()=>{}) {
+		this.button = Html.button(text, onClick)
 		//Html.text('hei')
+		this.update()
 	}
 
 	update() {
-		this.position.x += 1
-
 		const offsetX = this.position.x - Cam.position.x + (Palette.width/2)
 		const offsetY = this.position.y - Cam.position.y + (Palette.height/2)
 
@@ -21,6 +14,5 @@ export class Button extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		super.draw(draw, guiDraw)
 	}
 }

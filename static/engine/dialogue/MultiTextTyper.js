@@ -1,5 +1,5 @@
 export class MultiTextTyper {
-	constructor(position, texts) {
+	constructor(position, texts, onFinish=()=>{}) {
 		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
 		this.index = 0
 
@@ -19,6 +19,9 @@ export class MultiTextTyper {
 		}
 		else {
 			this.finished = true
+			this.onFinish()
+			this.update = () => {}
+			this.draw = () => {}
 		}
 	}
 

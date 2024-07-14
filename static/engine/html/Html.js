@@ -30,6 +30,7 @@ export class Html {
 		})
 
 		document.getElementById('ui_elements').appendChild(button)
+
 		return button
 	}
 

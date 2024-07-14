@@ -10,6 +10,10 @@ export class _GameObject {
 		return Collision.between(this.position, o)
 	}
 
+	within(distance, o) {
+		return Distance.within(distance, this, o)
+	}
+
 	get objectId() {
 		//if (this._objectId) {
 		return this._objectId
