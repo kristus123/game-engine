@@ -5,8 +5,7 @@ export class AllObjects { // not a good name
 				this.remove(o)
 			}
 
-			if (Object.keys(o).length == 1 && !o.update && !o.draw) {
-
+			if (typeof o === 'object' && Object.keys(o).length == 1 && !o.update && !o.draw) {
 
 				if (connectedToClass != '') {
 					console.log('assume it is a \'instance variable\'')

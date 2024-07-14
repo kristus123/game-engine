@@ -1,21 +1,17 @@
 export class OffsetPosition {
-	constructor(position, _x=0, _y=0, width=position.width, height=position.height) {
-		this.offset = {
-			x: _x,
-			y: _y,
-		}
+	constructor(position, offset_x=0, offset_y=0, width=position.width, height=position.height) {
 	}
 
 	get x() {
-		return this.position.x + this.offset.x
+		return this.position.x + this.offset_x
 	}
 
 	get y() {
-		return this.position.y + this.offset.y
+		return this.position.y + this.offset_y
 	}
 
 	copy() {
-		return new Position(this.position.x + this.offset.x, this.position.y + this.offset.y, this.width, this.height)
+		return new Position(this.position.x + this.offset_x, this.position.y + this.offset_y, this.width, this.height)
 	}
 
 	behind(anotherPosition, distance) {

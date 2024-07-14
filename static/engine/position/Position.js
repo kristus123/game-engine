@@ -28,6 +28,11 @@ export class Position {
 		return new OffsetPosition(this, x, y, width, height)
 	}
 
+	over(y=100) {
+		return this.offset(this.width/2, -y)
+		
+	}
+
 	get width() {
 		return this._width
 	}

@@ -28,6 +28,10 @@ export class Random {
 		return new Position(x, y)
 	}
 
+	static positionWithin(p) {
+		return this.position(p.x, p.x + p.width, p.y, p.y + p.height)
+	}
+
 	static position(minX, maxX, minY, maxY) {
 		const randomX = Random.integerBetween(minX, maxX)
 		const randomY = Random.integerBetween(minY, maxY)

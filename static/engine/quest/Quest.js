@@ -5,9 +5,7 @@
 */
 
 export class Quest {
-	constructor(tasks=[], onQuestCompleted=() => {
-		console.log('quest completed')
-	}) {
+	constructor(tasks=[], onQuestCompleted=() => { console.log('quest completed') }) {
 
 		this.index = 0
 		this.currentTask = tasks[this.index]()
@@ -20,8 +18,8 @@ export class Quest {
 			this.currentTask.update()
 
 			if (this.currentTask.completed()) {
-				if (!List.lastIndex(this.tasks, this.index)) {
-					this.index += 1
+				this.index += 1
+				if (List.validIndex(this.tasks, this.index)) {
 					this.currentTask = this.tasks[this.index]()
 				}
 				else {
