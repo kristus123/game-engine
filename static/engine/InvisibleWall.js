@@ -8,6 +8,10 @@ export class InvisibleWall extends StaticGameObject {
 		this.objects = []
 	}
 
+	add(o) {
+		this.objects.push(o)
+	}
+
 	update() {
 		for (const o of this.objects) {
 			if (Collision.between(this, o)) {

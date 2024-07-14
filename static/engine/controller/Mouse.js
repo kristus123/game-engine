@@ -95,4 +95,12 @@ export class Mouse {
 	static hovering(o) {
 		return Collision.between(this.position, o)
 	}
+
+	static update() {
+	}
+
+	static draw(draw, guiDraw) {
+		draw.new_circle(this.position)
+	}
+
 }

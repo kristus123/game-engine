@@ -19,7 +19,7 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
-		this.velocityPrediction = 0.1
+		this.velocityPrediction = 0.2
 		this.smoothMovement = 0.05
 
 		// it is being set right after initializing this class
@@ -39,28 +39,28 @@ export class Camera {
 
 		this.palette.ctx.save()
 
-		this.position.x += (this.objectToFollow.position.center.x - this.position.x)
-		this.position.y += (this.objectToFollow.position.center.y - this.position.y)
+		this.position.x += this.objectToFollow.position.center.x - this.position.x
+		this.position.y += this.objectToFollow.position.center.y - this.position.y
 
 		this.position.x += (this.objectToFollow.velocity.x * this.velocityPrediction)
 		this.position.y += (this.objectToFollow.velocity.y * this.velocityPrediction)
 
-		const x = 200
+		const x = 500
 		this.position.x += limitNumber(this.objectToFollow.position.center.x * this.smoothMovement, -x, x)
 		this.position.y += limitNumber(this.objectToFollow.position.center.y * this.smoothMovement, -x, x)
 
 
+		const cx = 0.5
+		const maxMouseImpact = 600
 		const x_distanceToMouse = Mouse.position.x - this.position.x
-		this.position.x += limitNumber(x_distanceToMouse, -100, 100) * 0.01
+		this.position.x += limitNumber(x_distanceToMouse, -maxMouseImpact, maxMouseImpact) * cx
 
 		const y_distanceToMouse = Mouse.position.y - this.position.y
-		this.position.y += limitNumber(y_distanceToMouse, -100, 100) * 0.01
-
+		this.position.y += limitNumber(y_distanceToMouse, -maxMouseImpact, maxMouseImpact) * cx
 
 		this.palette.ctx.translate(
 			-this.position.x * this.zoom + this.offset.x,
-			-this.position.y * this.zoom + this.offset.y
-		)
+			-this.position.y * this.zoom + this.offset.y)
 
 		this.palette.ctx.scale(this.zoom, this.zoom)
 

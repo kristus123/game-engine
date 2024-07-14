@@ -18,11 +18,16 @@ ErrorHandler.run(() => {
 
 	Loop.everyFrame((deltaTime) => {
 		ErrorHandler.run(() => {
+
 			Palette.clear([Cam.palette, guiPalette])
 
 			Physics.global.update(deltaTime)
 
 			Cam.context(() => {
+
+				Mouse.update()
+				Mouse.draw(draw, guiDraw)
+
 				Controller.update()
 				Controller.draw(draw, guiDraw)
 
