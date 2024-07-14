@@ -1,7 +1,6 @@
 export class Button {
 	constructor(position, text, onClick=()=>{}) {
 		this.button = Html.button(text, onClick)
-		//Html.text('hei')
 		this.update()
 	}
 
