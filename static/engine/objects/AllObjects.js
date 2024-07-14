@@ -5,10 +5,8 @@ export class AllObjects { // not a good name
 				this.remove(o)
 			}
 
-			if (typeof o === 'object' && Object.keys(o).length == 1 && !o.update && !o.draw) {
-
+			if (typeof o === 'object' && Object.keys(o).length == 2 && !o.update && !o.draw) {
 				if (connectedToClass != '') {
-					console.log('assume it is a \'instance variable\'')
 					const field = Object.keys(o)[0]
 
 					connectedToClass[field] = o[field]
@@ -19,9 +17,6 @@ export class AllObjects { // not a good name
 					o[field].removeFromLoop = () => {
 						this.remove(o[field])
 					}
-
-
-
 				}
 			}
 		}

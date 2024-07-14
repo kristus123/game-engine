@@ -1,4 +1,5 @@
 button {
+	position: relative;
 	font-size: 15px;
 	padding: 30px 50px; 
 
@@ -6,6 +7,9 @@ button {
 
 	background-color: #007bff; 
 	color: #fff; 
+
+display: block;
+    margin: 10px 0;  /* Adjust as needed to stack with some space */
 
 
 }

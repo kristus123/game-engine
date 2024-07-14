@@ -51,7 +51,7 @@ export class Camera {
 
 
 		const cx = 0.5
-		const maxMouseImpact = 600
+		const maxMouseImpact = 1
 		const x_distanceToMouse = Mouse.position.x - this.position.x
 		this.position.x += limitNumber(x_distanceToMouse, -maxMouseImpact, maxMouseImpact) * cx
 
