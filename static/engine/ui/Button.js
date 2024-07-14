@@ -1,5 +1,5 @@
 export class Button {
-	constructor(position, text, onClick=()=>{}) {
+	constructor(position, text, onClick=() => {}) {
 		this.button = Html.button(text, onClick)
 		this.update()
 	}

@@ -10,10 +10,10 @@ export class Rain {
 				Push(rainDrop).towards(rainDrop.position.offset(0, 100))
 				setTimeout(() => {
 					this.localObjects.remove(rainDrop)
-				}, 8_000);
+				}, 8_000)
 			}
 			this.localObjects.add(rainDrop)
-		}, 50);
+		}, 50)
 	}
 
 	update() {

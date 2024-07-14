@@ -7,9 +7,9 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			this.player,
-			new Rain(this.player.position.offset(0,-700, 900, 100)),
+			new Rain(this.player.position.offset(0, -700, 900, 100)),
 			new PersistedInvisibleWalls(this.player),
-			{ person: new Person(new Position(200,0), this.player) },
+			{ person: new Person(new Position(200, 0), this.player) },
 		], this)
 
 		Html.ui([

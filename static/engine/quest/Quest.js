@@ -5,7 +5,9 @@
 */
 
 export class Quest {
-	constructor(tasks=[], onQuestCompleted=() => { console.log('quest completed') }) {
+	constructor(tasks=[], onQuestCompleted=() => {
+		console.log('quest completed')
+	}) {
 
 		this.index = 0
 		this.currentTask = tasks[this.index]()

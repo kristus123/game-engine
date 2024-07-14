@@ -5,9 +5,9 @@ export class Person extends DynamicGameObject {
 		this.position.height = 300
 
 		this.picture = new StaticPicture(this.position, '/static/assets/person.png')
-		
+
 		this.localObjects = new LocalObjects()
-		
+
 		this.text = new MultiTextTyper(this.position.over(), [
 			'HJEY!!!',
 		], () => {
