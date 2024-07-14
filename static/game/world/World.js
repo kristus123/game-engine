@@ -11,6 +11,12 @@ export class World {
 			new PersistedInvisibleWalls(this.player),
 			{ person: new Person(new Position(200,0), this.player) },
 		], this)
+
+		Html.ui([
+			Html.button('hei'),
+			Html.text('hehho'),
+			Html.button('ho'),
+		])
 	}
 
 	update() {

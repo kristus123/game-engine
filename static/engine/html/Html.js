@@ -10,6 +10,10 @@ function element(type, clazz) {
 	return e
 }
 
+function addToScreen(element) {
+	document.getElementById('ui_elements').appendChild(element)
+}
+
 export class Html {
 
 	static p(text) {
@@ -27,9 +31,19 @@ export class Html {
 			onClick(button)
 		})
 
-		document.getElementById('ui_elements').appendChild(button)
+		addToScreen(button)
 
 		return button
+	}
+
+	static ui(elements) {
+		const div = element('div', 'ui')
+		for (const e of elements) {
+			e.setAttribute('class', 'button')
+			div.appendChild(e)
+		}
+
+		addToScreen(div)
 	}
 
 	static text(text, position) {
@@ -37,23 +51,24 @@ export class Html {
 		p.textContent = text
 		p.style.fontSize = '100px'
 
-		p.style.left = `${position.x}px`
-		p.style.top = `${position.y}px`
+		// p.style.left = `${position.x}px`
+		// p.style.top = `${position.y}px`
 
-		document.getElementById('ui_elements').appendChild(p)
+		addToScreen(p)
 
-		return {
-			style: p.style,
-			text: text => {
-				p.textContent = text
-				return this
-			},
-			position: position => {
-				p.style.left = `${position.x}px`
-				p.style.top = `${position.y}px`
-				return this
-			}
-		}
+		return p
+		// return {
+		// 	style: p.style,
+		// 	text: text => {
+		// 		p.textContent = text
+		// 		return this
+		// 	},
+		// 	position: position => {
+		// 		p.style.left = `${position.x}px`
+		// 		p.style.top = `${position.y}px`
+		// 		return this
+		// 	}
+		// }
 	}
 
 	static remove(e) {
