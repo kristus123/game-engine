@@ -7,7 +7,6 @@ export class FishingRod {
 		Mouse.addOnClick('throw fishing rod', p => {
 			this.fishingRod = p
 			this.countdown = 100
-			console.log('hei')
 		})
 
 		this.countdown = 100

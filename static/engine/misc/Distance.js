@@ -11,6 +11,10 @@ export class Distance {
 		return Distance.between(o1, o2) <= radius
 	}
 
+	static notWithin(radius, o1, o2) {
+		return !this.within(radius, o1, o2)
+	}
+
 	static withinRadius(o1, o2, radius) {
 		return Distance.between(o1, o2) <= radius
 	}

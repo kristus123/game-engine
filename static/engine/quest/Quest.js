@@ -15,7 +15,9 @@ export class Quest {
 
 	update() {
 		if (!this.questCompleted) {
-			this.currentTask.update()
+			if (this.currentTask.update) {
+				this.currentTask.update()
+			}
 
 			if (this.currentTask.completed()) {
 				this.index += 1
@@ -31,7 +33,7 @@ export class Quest {
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.questCompleted) {
+		if (!this.questCompleted && this.currentTask.draw) {
 			this.currentTask.draw(draw, guiDraw)
 		}
 	}

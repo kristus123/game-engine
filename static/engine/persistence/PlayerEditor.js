@@ -28,7 +28,6 @@ export class PlayerEditor {
 			MouseEditor.active = mouseEditor
 
 			Overlay.bottomButton('control player', () => {
-				console.log('hei')
 				Controller.control(this.player)
 				Overlay.clearBottom()
 				Overlay.bottomButton('back to camera', () => {

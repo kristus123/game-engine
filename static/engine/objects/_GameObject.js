@@ -14,6 +14,10 @@ export class _GameObject {
 		return Distance.within(distance, this, o)
 	}
 
+	notWithin(distance, o) {
+		return Distance.notWithin(distance, this, o)
+	}
+
 	get objectId() {
 		//if (this._objectId) {
 		return this._objectId
