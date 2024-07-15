@@ -5,7 +5,9 @@ export class AllObjects { // not a good name
 				this.remove(o)
 			}
 
+
 			if (typeof o === 'object' && Object.keys(o).length == 2 && !o.update && !o.draw) {
+				console.log("hei")
 				if (connectedToClass != '') {
 					const field = Object.keys(o)[0]
 

@@ -1,13 +1,11 @@
 /*
  *
- * a task is anything that has a completed() method
+ * a task is anything that has a lambda that returns something that has a completed() method
  *
 */
 
 export class Quest {
-	constructor(tasks=[], onQuestCompleted=() => {
-		console.log('quest completed')
-	}) {
+	constructor(tasks=[], onQuestCompleted=() => {}) {
 
 		this.index = 0
 		this.currentTask = tasks[this.index]()

@@ -100,6 +100,7 @@ export class Mouse {
 	}
 
 	static draw(draw, guiDraw) {
+		// draw.position(this.position)
 		// draw.new_circle(this.position)
 	}
 

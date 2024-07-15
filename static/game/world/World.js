@@ -10,13 +10,14 @@ export class World {
 			new Rain(this.player.position.offset(0, -700, 900, 100)),
 			new PersistedInvisibleWalls(this.player),
 			{ person: new Person(new Position(200, 0), this.player) },
+			new Kid(new Position(800, 0), this.player),
 		], this)
 
-		Html.ui([
-			Html.button('hei'),
-			Html.text('hehho'),
-			Html.button('ho'),
-		])
+		// Html.ui([
+		// 	Html.button('hei'),
+		// 	Html.text('hehho'),
+		// 	Html.button('ho'),
+		// ])
 	}
 
 	update() {

@@ -7,6 +7,9 @@ export class Square extends DynamicGameObject {
 		run(this)
 	}
 
+	update() {
+		
+	}
 
 	draw(draw, guiDraw) {
 		draw.rectangle(this.position, 'white')

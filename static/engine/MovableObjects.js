@@ -22,7 +22,7 @@ export class MovableObjects {
 		}
 		else {
 			for (const o of this.objects) {
-				if (Distance.within(50, o, this.movableBy) && this.e.down) {
+				if (Distance.within(100, o, this.movableBy) && this.e.down) {
 					this.holding = o
 				}
 			}
@@ -35,7 +35,7 @@ export class MovableObjects {
 		}
 		else {
 			for (const o of this.objects) {
-				if (Distance.within(50, o, this.movableBy)) {
+				if (Distance.within(100, o, this.movableBy)) {
 					draw.text(o.position.offset(0, -50), 'Press E to pick up')
 					break
 				}

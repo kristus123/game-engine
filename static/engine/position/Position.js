@@ -30,6 +30,10 @@ export class Position {
 
 	over(y=100) {
 		return this.offset(this.width/2, -y)
+	}
+
+	right(x=100) {
+		return this.offset(this.width + x, 0)
 
 	}
 
