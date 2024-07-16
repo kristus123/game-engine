@@ -42,7 +42,7 @@ ErrorHandler.run(() => {
 
 			showLogs.draw()
 
-			Palette.fill(backgroundPalette, '#2AB1C6')
+			Palette.fill(backgroundPalette, '#FFC6B5')
 			Palette.apply(mainPalette, [backgroundPalette, Cam.palette, guiPalette])
 		})
 	})

@@ -1,13 +1,7 @@
 export class AllObjects { // not a good name
 	constructor(objects=[], connectedToClass='') {
 		for (const o of objects) {
-			o.removeFromLoop = () => {
-				this.remove(o)
-			}
-
-
-			if (typeof o === 'object' && Object.keys(o).length == 2 && !o.update && !o.draw) {
-				console.log("hei")
+			if (typeof o === 'object' && Object.keys(o).length == 1 && !o.update && !o.draw) {
 				if (connectedToClass != '') {
 					const field = Object.keys(o)[0]
 
@@ -21,6 +15,11 @@ export class AllObjects { // not a good name
 					}
 				}
 			}
+
+			o.removeFromLoop = () => {
+				this.remove(o)
+			}
+
 		}
 	}
 
