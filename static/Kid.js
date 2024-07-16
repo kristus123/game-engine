@@ -6,7 +6,7 @@ export class Kid extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new StaticPicture(this.position, '/static/assets/kid.png'),
-			new FindCatQuest(this, player),
+			new FindChickenQuest(this, player),
 		])
 	}
 

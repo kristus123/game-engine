@@ -1,4 +1,4 @@
-export class FindCatQuest {
+export class FindChickenQuest {
 	constructor(kid, player) {
 
 		const chicken = new Chicken(kid.position.offset(800).copy())
