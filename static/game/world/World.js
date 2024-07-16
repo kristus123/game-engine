@@ -5,9 +5,13 @@ export class World {
 		Cam.followInstantly(this.player)
 		Controller.control(this.player)
 
+		const house = new House(this.player)
+
 		this.localObjects = new LocalObjects([
+			house,
+			new Thing(new Position(-465, 469), this.player, house),
 			this.player,
-			new Rain(this.player.position.offset(-1500, -1000, 2000, 100)),
+			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		], this)
 	}
 
