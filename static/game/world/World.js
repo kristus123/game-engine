@@ -7,10 +7,13 @@ export class World {
 
 		const house = new House(this.player)
 
+		const thing = new Thing(new Position(-465, 469), this.player, house)
+
 		this.localObjects = new LocalObjects([
 			house,
-			new Thing(new Position(-465, 469), this.player, house),
+			thing,
 			this.player,
+			new Sword(this.player, [thing]),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		], this)
 	}
