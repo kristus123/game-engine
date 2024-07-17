@@ -7,7 +7,7 @@ export class Sword {
 	
 	update() {
 		for (const o of this.hittableObjects) {
-			if (o.within(100, this.player.position.center) && Mouse.down && this.angle.isWithinAngle(o, 100)) {
+			if (o.within(150, this.player.position.center) && Mouse.down && this.angle.isWithinAngle(o, 100)) {
 				console.log("cut")
 				o.removeFromLoop()
 			}

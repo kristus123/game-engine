@@ -29,7 +29,7 @@ export class Angle {
 
     draw(ctx) {
         const mousePos = Mouse.position;
-        const radius = 200; // Example radius for the arc
+        const radius = 160; // Example radius for the arc
         const halfRange = this.angleRange / 2;
 
         // Determine the angle towards the mouse position

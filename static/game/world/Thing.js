@@ -6,6 +6,7 @@ export class Thing extends DynamicGameObject {
 		this.position.height = 100
 
 		this.localObjects = new LocalObjects([
+			new Picture(this.position, '/static/assets/bad_ninja.png')
 		])
 	}
 
@@ -16,7 +17,6 @@ export class Thing extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		super.draw(draw, guiDraw)
 	}
 
 }
