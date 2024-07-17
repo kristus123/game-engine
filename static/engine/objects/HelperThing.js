@@ -1,4 +1,4 @@
-export class HelperPenguin {
+export class HelperThing {
 	constructor(classes=[]) {
 
 		for (const c of classes) {
