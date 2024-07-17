@@ -9,8 +9,8 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			house,
-			new Thing(new Position(-465, 469), this.player, house),
 			this.player,
+			new Penguin(new Position(-465, 469), this.player, house),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		], this)
 	}

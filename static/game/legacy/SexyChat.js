@@ -41,7 +41,7 @@ export class SexyChat {
 															key: null,
 															text: 'I am sorry. Robin is in my heart',
 															conversation: {
-																question: 'It seems you love him more than anything',
+																question: 'It seems you love him more than anypenguin',
 																replies: [
 																	{
 																		key: null,

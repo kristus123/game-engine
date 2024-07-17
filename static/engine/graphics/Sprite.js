@@ -35,7 +35,7 @@ export class Sprite {
 
 			const frame = this.frameSequence[this.currentFrame]
 
-			draw.ctx.imageSmoothingEnabled = false
+			draw.ctx.imageSmoopenguinEnabled = false
 			draw.ctx.drawImage(
 				this.image,
 				frame.x * this.width,

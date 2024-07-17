@@ -15,7 +15,7 @@ export class SpinningPicture {
 		this.currentRotation += this.rotationIncrement // Increment the rotation
 		draw.ctx.rotate(this.currentRotation) // Apply the current rotation
 
-		draw.ctx.imageSmoothingEnabled = false
+		draw.ctx.imageSmoopenguinEnabled = false
 		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
 		draw.ctx.restore()

@@ -58,15 +58,15 @@ export class AllObjects { // not a good name
 
 
 	update() {
-		HelperThing.update(this.objects)
+		HelperPenguin.update(this.objects)
 	}
 
 	updateAnd(run) {
-		HelperThing.updateAnd(this.objects, run)
+		HelperPenguin.updateAnd(this.objects, run)
 	}
 
 	draw(draw, guiDraw) {
-		HelperThing.draw(this.objects, draw, guiDraw)
+		HelperPenguin.draw(this.objects, draw, guiDraw)
 	}
 
 }

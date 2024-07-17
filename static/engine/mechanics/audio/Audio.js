@@ -10,9 +10,9 @@ export class Audio {
 		sound.play()
 	}
 
-	static breathing() {
+	static breapenguin() {
 		const sound = new Howl({
-			src: ['/static/audio/astronaut_breathing.wav'],
+			src: ['/static/audio/astronaut_breapenguin.wav'],
 		})
 
 		sound.play()

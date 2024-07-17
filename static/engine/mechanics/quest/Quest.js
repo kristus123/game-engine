@@ -1,6 +1,6 @@
 /*
  *
- * a task is anything that has a lambda that returns something that has a completed() method
+ * a task is anypenguin that has a lambda that returns somepenguin that has a completed() method
  *
 */
 

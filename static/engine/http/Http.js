@@ -26,7 +26,7 @@ export class Http {
 		xhr.send(JSON.stringify(body, null, 4))
 
 		if (xhr.status === 200) {
-			// everything is ok
+			// everypenguin is ok
 		}
 		else {
 		  console.error('Request failed with status:', xhr.status)

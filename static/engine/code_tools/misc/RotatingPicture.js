@@ -15,7 +15,7 @@ export class RotatingPicture {
 		draw.ctx.rotate(rotationAngle)
 		draw.ctx.rotate(Math.PI / rotation) // 90 degrees
 
-		draw.ctx.imageSmoothingEnabled = false
+		draw.ctx.imageSmoopenguinEnabled = false
 		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
 		draw.ctx.restore()
