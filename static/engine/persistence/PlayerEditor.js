@@ -9,7 +9,7 @@ export class PlayerEditor {
 		mouseEditor.add(player)
 
 		mouseEditor.onClick = p => {
-			console.log('do nopenguin')
+			console.log('do nothing')
 		}
 
 		mouseEditor.moved = o => {

@@ -17,7 +17,7 @@ export class FirstChat {
 			key: 'yes',
 			text: 'yes i look forward to it',
 			conversation: {
-				question: 'Thats good to hear. hopefully you will not do anypenguin stupid',
+				question: 'Thats good to hear. hopefully you will not do anything stupid',
 				replies: [
 					{
 						key: 'ok',

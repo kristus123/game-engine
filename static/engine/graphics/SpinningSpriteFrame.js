@@ -15,7 +15,7 @@ export class SpinningSpriteFrame {
 			const frame = this.frame.frameSequence[this.frame.currentFrame]
 			draw.ctx.save()
 			draw.ctx.translate(this.frame.position.x+this.frame.position.width*0.5, this.frame.position.y +this.frame.position.height*0.5)
-			draw.ctx.imageSmoopenguinEnabled = false
+			draw.ctx.imageSmoothingEnabled = false
 
 			draw.ctx.rotate(this.rotate)
 			draw.ctx.drawImage(

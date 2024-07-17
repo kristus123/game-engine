@@ -1,6 +1,6 @@
 /*
  *
- * a task is anypenguin that has a lambda that returns somepenguin that has a completed() method
+ * a task is anything that has a lambda that returns something that has a completed() method
  *
 */
 
@@ -19,7 +19,7 @@ export class Quest {
 				this.currentTask.update()
 			}
 
-			if (this.currentTask.completed()) {
+			if (this.currentTask.completed && this.currentTask.completed()) {
 				this.index += 1
 				if (List.validIndex(this.tasks, this.index)) {
 					this.currentTask = this.tasks[this.index]()

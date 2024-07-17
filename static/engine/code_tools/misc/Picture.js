@@ -10,7 +10,7 @@ export class Picture {
 			const newWidth = this.position.width
 			const newHeight = this.position.height
 
-			draw.ctx.imageSmoopenguinEnabled = false
+			draw.ctx.imageSmoothingEnabled = false
 
 			draw.ctx.save()
 			draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)

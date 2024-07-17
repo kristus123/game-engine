@@ -1,5 +1,5 @@
 export class StaticPicture extends _GameObject {
-	constructor(position, imagePath, scale=1) {
+	constructor(position, imagePath, scale=20) {
 		super(position)
 
 		this.picture = new Picture(position, imagePath, scale)

@@ -1,44 +1,41 @@
-export class Penguin extends DynamicGameObject {
+export class Thing extends StaticGameObject {
 	constructor(position, player, house) {
-		super(position, 10, 10)
+		super(position)
 
-		this.position.width = 120
-		this.position.height = 180
+		this.position.width = 100
+		this.position.height = 100
 
-		const penguin = this
+		const thing = this
 		
 		const e = new Key('e')
 
 		this.localObjects = new LocalObjects([
-			new Picture(this.position, '/static/assets/penguin.png'),
 			new Quest([
 				() => new class {
 					update() {
-						if (player.within(100, penguin)) {
+						if (player.within(100, thing)) {
 							BottomText.show('what is this')
 							this.completed = () => true
 						}
 					}
 				},
 				() => new class {
+					draw(draw, guiDraw) {
+						draw.text(thing.position.over(200), 'Press E to pick')
+						if (e.down) {
+							this.completed = () => true
+						}
+					}
+				},
+				() => new class {
 					constructor() {
-						this.movableObjects = new MovableObjects(player, [penguin])
-						BottomText.show('Find out what this strange penguin is')
+						BottomText.show('Find out what this strange thing is')
 						this.task = QuestList.add('Deliver unknown piece to science lab')
 					}
 
-					update() {
-						this.movableObjects.update()
-					}
-
-					draw(draw, guiDraw) {
-						this.movableObjects.draw(draw, guiDraw)
-					}
-
 					completed() {
-						if (penguin.within(300, house) || penguin.touches(house)) {
+						if (house.within(300, player) || house.touches(player)) {
 							this.task.completed()
-							penguin.velocity.reset()
 							return true
 						}
 						else {
@@ -56,6 +53,7 @@ export class Penguin extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		super.draw(draw, guiDraw)
 	}
 
 }
