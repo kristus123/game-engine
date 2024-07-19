@@ -53,7 +53,7 @@ export class Position {
 		this._height = h
 	}
 
-	behind(anotherPosition, distance) {
+	behind(anotherPosition, distance=200) {
 		return AnalShit.positionBehind(this, anotherPosition, distance)
 	}
 

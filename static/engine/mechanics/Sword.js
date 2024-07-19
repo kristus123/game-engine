@@ -1,15 +1,17 @@
 export class Sword {
 	constructor(player, hittableObjects) {
 		this.angle = new Angle(player.position.center, 200)
+
+		this.splash = new SplashParticles(player, hittableObjects[0])
 		this.localObjects = new LocalObjects([
-			new SplashParticles(player, hittableObjects[0]),
+			this.splash,
 		])
 	}
 	
 	update() {
 		for (const o of this.hittableObjects) {
 			if (o.within(150, this.player.position.center) && Mouse.down && this.angle.isWithinAngle(o, 100)) {
-				console.log("cut")
+				this.splash.random(o)
 				o.removeFromLoop()
 			}
 		}
