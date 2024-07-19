@@ -2,6 +2,9 @@ export class Angle {
     constructor(playerPosition, angleRange) {
         this.playerPosition = playerPosition;
         this.angleRange = angleRange;
+
+		this.blue = "rgba(0, 0, 255, 0.5)"; // Example color with transparency
+		this.color = this.blue
     }
 
     isWithinAngle(position) {
@@ -50,7 +53,7 @@ export class Angle {
             endAngleRad
         );
         ctx.lineTo(this.playerPosition.x, this.playerPosition.y);
-        ctx.fillStyle = "rgba(0, 0, 255, 0.5)"; // Example color with transparency
+        ctx.fillStyle = this.color
         ctx.fill();
     }
 }

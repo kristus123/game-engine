@@ -12,7 +12,7 @@ export class Rain {
 				}, 8_000)
 			}
 			this.localObjects.add(rainDrop)
-		}, 10)
+		}, 100)
 	}
 
 	update() {

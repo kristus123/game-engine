@@ -6,13 +6,36 @@ export class Sword {
 		this.localObjects = new LocalObjects([
 			this.splash,
 		])
+
+		this.cooldown = 0
 	}
 	
 	update() {
+		this.cooldown += 1
+
+		if (this.cooldown < 80) {
+			this.angle.color = 'red'
+		}
+		else {
+			this.angle.color = this.angle.blue
+		}
+
+		console.log(this.cooldown)
+
+		if (Mouse.down && this.cooldown >= 80) {
+			this.cooldown = 0
+		}
+
 		for (const o of this.hittableObjects) {
-			if (o.within(150, this.player.position.center) && Mouse.down && this.angle.isWithinAngle(o, 100)) {
+			if (
+				o.within(150, this.player.position.center) && 
+				Mouse.down && 
+				this.angle.isWithinAngle(o, 100) &&
+				this.cooldown >= 80
+			) {
 				this.splash.random(o)
 				o.removeFromLoop()
+				this.cooldown = 0
 			}
 		}
 

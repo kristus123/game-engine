@@ -10,6 +10,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			house,
 			this.player,
+			new CloudParallax(),
 			new Square(new Position(700, -400), 100, s => {
 
 				s.update = () => {
