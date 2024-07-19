@@ -23,7 +23,7 @@ export class Html {
 		return p
 	}
 
-	static button(text, onClick) {
+	static button(text, onClick=()=>{}) {
 		const button = element('button', 'ui button')
 		button.textContent = text
 
@@ -44,6 +44,8 @@ export class Html {
 		}
 
 		addToScreen(div)
+
+		return div
 	}
 
 	static text(text, position) {

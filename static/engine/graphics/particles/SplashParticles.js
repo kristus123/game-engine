@@ -1,5 +1,5 @@
 export class SplashParticles {
-	constructor(player, thing) {
+	constructor(player) {
 		this.particles = []
 	}
 

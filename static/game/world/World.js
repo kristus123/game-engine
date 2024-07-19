@@ -7,13 +7,24 @@ export class World {
 
 		const house = new House(this.player)
 
-		const enemy = new Enemy(new Position(-465, 469), this.player, house)
-
 		this.localObjects = new LocalObjects([
 			house,
-			enemy,
 			this.player,
-			new Sword(this.player, [enemy]),
+			new Square(new Position(700, -400), 100, s => {
+
+				s.update = () => {
+					
+				}
+
+				s.draw = (draw, guiDraw) => {
+					if (s.within(400, this.player)) {
+						draw.text(s.position.over(), 'yo dude')
+					}
+
+					draw.rectangle(s)
+				}
+			}),
+			new Sword(this.player, []),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		], this)
 	}

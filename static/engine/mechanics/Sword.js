@@ -2,7 +2,7 @@ export class Sword {
 	constructor(player, hittableObjects) {
 		this.angle = new Angle(player.position.center, 200)
 
-		this.splash = new SplashParticles(player, hittableObjects[0])
+		this.splash = new SplashParticles(player)
 		this.localObjects = new LocalObjects([
 			this.splash,
 		])
