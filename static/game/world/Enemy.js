@@ -1,4 +1,4 @@
-export class Thing extends DynamicGameObject {
+export class Enemy extends DynamicGameObject {
 	constructor(position, player, house) {
 		super(position, 1000, 10)
 
