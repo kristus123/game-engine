@@ -1,4 +1,4 @@
-export class PrettyParticles {
+export class SplashParticles {
 	constructor(player, thing) {
 		this.particles = []
 	}
