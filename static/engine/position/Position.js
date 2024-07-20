@@ -63,7 +63,7 @@ export class Position {
 	}
 
 	toJson() {
-		return  {
+		return {
 			x: this.x,
 			y: this.y,
 			width: this.width,

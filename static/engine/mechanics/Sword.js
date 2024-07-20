@@ -9,7 +9,7 @@ export class Sword {
 
 		this.cooldown = 0
 	}
-	
+
 	update() {
 		this.cooldown += 1
 
@@ -26,8 +26,8 @@ export class Sword {
 
 		for (const o of this.hittableObjects) {
 			if (
-				o.within(150, this.player.position.center) && 
-				Mouse.down && 
+				o.within(150, this.player.position.center) &&
+				Mouse.down &&
 				this.angle.isWithinAngle(o, 100) &&
 				this.cooldown >= 80
 			) {

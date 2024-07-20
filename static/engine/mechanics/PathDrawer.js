@@ -9,7 +9,7 @@ export class PathDrawer {
 						this.pathFinder
 					])
 				}
-				
+
 				update() {
 					this.localObjects.update()
 				}

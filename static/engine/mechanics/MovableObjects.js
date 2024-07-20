@@ -20,9 +20,11 @@ export class MovableObjects {
 			this.holding.x = this.movableBy.x
 			this.holding.y = this.movableBy.y
 		}
-		else for (const o of this.objects) {
-			if (Distance.within(100, o, this.movableBy) && this.e.down) {
-				this.holding = o
+		else {
+			for (const o of this.objects) {
+				if (Distance.within(100, o, this.movableBy) && this.e.down) {
+					this.holding = o
+				}
 			}
 		}
 	}

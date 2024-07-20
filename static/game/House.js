@@ -1,6 +1,6 @@
 export class House extends StaticGameObject {
 	constructor(player) {
-		super(new Position(-1000,-300, 1000, 500))
+		super(new Position(-1000, -300, 1000, 500))
 
 		const house = this
 
@@ -39,17 +39,17 @@ export class House extends StaticGameObject {
 							BottomText.show('No survivors in sight')
 							setTimeout(() => {
 								BottomText.remove()
-							}, 1000);
+							}, 1000)
 
 							this.task.completed()
 							this.completed = () => true
-						}, 1000);
+						}, 1000)
 					}
 				}
 			])
 		])
 	}
-	
+
 	update() {
 		this.localObjects.update()
 

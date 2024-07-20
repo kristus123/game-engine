@@ -8,7 +8,7 @@ export class Square extends DynamicGameObject {
 	}
 
 	update() {
-		
+
 	}
 
 	draw(draw, guiDraw) {

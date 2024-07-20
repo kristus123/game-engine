@@ -8,7 +8,7 @@ export const ForcePush = (o) => ({
 	towards: (position, multiplier=1) => {
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 
-		o.velocity.x =  Math.cos(dir) * o.velocityFactor * multiplier
+		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
 		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
 	},
 	roughlyTowards: (position, multiplier=1) => {

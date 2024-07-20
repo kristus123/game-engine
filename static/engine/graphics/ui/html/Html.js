@@ -23,7 +23,7 @@ export class Html {
 		return p
 	}
 
-	static button(text, onClick=()=>{}) {
+	static button(text, onClick=() => {}) {
 		const button = element('button', 'ui button')
 		button.textContent = text
 
