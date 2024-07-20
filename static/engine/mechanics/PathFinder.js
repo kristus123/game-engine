@@ -1,5 +1,3 @@
-//
-// PriorityQueue implementation using a binary heap
 class PriorityQueue {
 	constructor(compare) {
 		this.heap = []
@@ -71,7 +69,7 @@ class PriorityQueue {
 }
 
 // Constants for cell size
-const CELL_SIZE = 10 // Adjust based on your needs
+const CELL_SIZE = 1 // Adjust based on your needs
 
 // Heuristic function (Manhattan distance) adjusted for larger cells
 function heuristic(a, b) {
@@ -186,70 +184,51 @@ function astar(start, end, walls, onPathFound) {
 	processChunk()
 }
 
-// Move NPC along the path
-function moveNPC(npc, path) {
-	if (path.length > 0) {
-		const nextStep = path.shift()
-		npc.x = nextStep.x
-		npc.y = nextStep.y
-	}
-}
-
-// Assuming Position and isColliding functions are defined elsewhere
 function isColliding(pos, walls) {
 	return walls.some(wall => Collision.between(pos, wall))
 }
 
-// PathFinder class to handle NPC movement and pathfinding
 export class PathFinder {
-	constructor(object, end, invisibleWalls) {
-		this.object = object
+	constructor(objectToMove, end, invisibleWalls) {
+		this.objectToMove = objectToMove
 		this.invisibleWalls = invisibleWalls
 		this.end = new Position(end.x, end.y, CELL_SIZE, CELL_SIZE)
 		this.path = []
 		this.processing = false
 
-		this.updatePath()
+		this.processing = true
+		astar(this.objectToMove, this.end, this.invisibleWalls, (path) => {
+			this.path = path
+			this.processing = false
+			console.log('Path update complete.')
+		})
 
 	  this.localObjects = new LocalObjects([
-		  object,
+		  objectToMove,
+		  end,
 		  ...invisibleWalls,
 	  ])
 	}
 
-	updatePath() {
-		console.log('Updating path...')
-		this.processing = true
-		astar(this.object, this.end, this.invisibleWalls, (path) => {
-			this.path = path
-			this.processing = false
-			console.log('Path update complete.')
-
-			// Start moving the NPC if there is a path
-			const movementInterval = setInterval(() => {
-				if (!this.processing) {
-					moveNPC(this.object, this.path)
-					if (this.path.length === 0) {
-						console.log('Path completed.')
-			  this.completed = true
-						clearInterval(movementInterval)
-					}
-				}
-			}, 100) // Adjust the interval as needed
-		}, () => {
-			// This function is called on each update
-		})
-	}
-
 	update() {
-		// Update game logic if necessary
+		if (!this.processing && !this.completed) {
+			if (this.path.length > 0) {
+				const nextStep = this.path.shift()
+				this.objectToMove.x = nextStep.x
+				this.objectToMove.y = nextStep.y
+			}
+
+			if (this.path.length === 0) {
+				console.log('Path completed.')
+			  this.completed = true
+			}
+		}
+
 	  this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
 	  this.localObjects.draw(draw, guiDraw)
-	  draw.rectangle(this.end, 'orange')
-		// Draw game elements if necessary
 	}
 }
 
