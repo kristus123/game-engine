@@ -5,24 +5,7 @@ export class World {
 		Cam.followInstantly(this.player)
 		Controller.control(this.player)
 
-		const house = new House(this.player)
-
 		this.localObjects = new LocalObjects([
-			// house,
-			new Square(new Position(700, -400), 100, s => {
-
-				s.update = () => {
-					
-				}
-
-				s.draw = (draw, guiDraw) => {
-					if (s.touches(this.player)) {
-						draw.text(s.position.over(), 'yo dude')
-					}
-
-					draw.rectangle(s)
-				}
-			}),
 			this.player,
 			new Sword(this.player, []),
 			new CloudParallax(),
