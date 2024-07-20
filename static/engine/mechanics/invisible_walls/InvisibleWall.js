@@ -48,7 +48,8 @@ export class InvisibleWall extends StaticGameObject {
 	}
 
 	static mapFromJsonObject(json) {
-		const o = new this(new Position(json.position.x, json.position.y, json.position.width, json.position.height))
+		const o = new this(Position.from(json.position))
+
 		o.objectId = json.objectId
 
 		return o
@@ -56,14 +57,8 @@ export class InvisibleWall extends StaticGameObject {
 
 	mapToJson() {
 		return {
-			className: this.constructor.name,
 			objectId: this.objectId,
-			position: {
-				x: this.x,
-				y: this.y,
-				width: this.width,
-				height: this.height,
-			},
+			position: this.position.toJson(),
 		}
 	}
 

@@ -8,7 +8,7 @@ export class World {
 		const house = new House(this.player)
 
 		this.localObjects = new LocalObjects([
-			house,
+			// house,
 			new Square(new Position(700, -400), 100, s => {
 
 				s.update = () => {
@@ -27,6 +27,7 @@ export class World {
 			new Sword(this.player, []),
 			new CloudParallax(),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
+			new PathFinder(new Square(new Position(0,0), 20), new PersistedInvisibleWalls(this.player).walls.objects, this.player)
 		], this)
 	}
 

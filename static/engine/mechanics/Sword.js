@@ -20,8 +20,6 @@ export class Sword {
 			this.angle.color = this.angle.blue
 		}
 
-		console.log(this.cooldown)
-
 		if (Mouse.down && this.cooldown >= 80) {
 			this.cooldown = 0
 		}

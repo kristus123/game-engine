@@ -62,4 +62,17 @@ export class Position {
 		draw.rectangle(this)
 	}
 
+	toJson() {
+		return  {
+			x: this.x,
+			y: this.y,
+			width: this.width,
+			height: this.height,
+		}
+	}
+
+	static from(jsonPosition) {
+		return new Position(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
+	}
+
 }
