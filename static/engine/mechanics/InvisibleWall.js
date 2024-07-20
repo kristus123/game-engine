@@ -19,7 +19,6 @@ export class InvisibleWall extends StaticGameObject {
 
 				o.position.x = o.previousPosition.x
 				if (!Collision.between(this, o)) {
-					console.log('x axis collision')
 
 					o.velocity.x = 0
 					o.position.x = o.previousPosition.x
@@ -31,7 +30,6 @@ export class InvisibleWall extends StaticGameObject {
 
 				o.position.y = o.previousPosition.y
 				if (!Collision.between(this, o)) {
-					console.log('y axis collision')
 
 					o.velocity.y = 0
 					o.position.y = o.previousPosition.y

@@ -12,6 +12,11 @@ export class CloudParallax {
 
 	draw(draw, guiDraw) {
 		for (const {position, picture} of this.cloudPositions) {
+
+			position.x += 0.01
+			position.y += 0.001
+
+
 			const p = Parallax(position, -0.5)
 			picture.position.x = p.x
 			picture.position.y = p.y

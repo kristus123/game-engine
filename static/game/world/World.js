@@ -9,8 +9,6 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			house,
-			this.player,
-			new CloudParallax(),
 			new Square(new Position(700, -400), 100, s => {
 
 				s.update = () => {
@@ -18,14 +16,16 @@ export class World {
 				}
 
 				s.draw = (draw, guiDraw) => {
-					if (s.within(400, this.player)) {
+					if (s.touches(this.player)) {
 						draw.text(s.position.over(), 'yo dude')
 					}
 
 					draw.rectangle(s)
 				}
 			}),
+			this.player,
 			new Sword(this.player, []),
+			new CloudParallax(),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		], this)
 	}
