@@ -4,10 +4,6 @@ export class WorldEditor {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 		Controller.control(Cam.objectToFollow)
 
-		BottomText.show()
-		QuestList.add('hei')
-		QuestList.add('hei')
-
 		this.localObjects = new LocalObjects([
 			new StaticPicture(new Position(-1000, -1000, 2000, 2000), '/static/assets/beach_64x64.png'),
 			new PlayerEditor(),

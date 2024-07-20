@@ -190,11 +190,10 @@ function isColliding(pos, walls) {
 
 // PathFinder class to handle NPC movement and pathfinding
 export class PathFinder {
-  constructor(object, invisibleWalls, player) {
+  constructor(object, end, invisibleWalls) {
     this.object = object;
     this.invisibleWalls = invisibleWalls;
-    this.player = player;
-    this.end = new Position(-550, 141, CELL_SIZE, CELL_SIZE);
+    this.end = new Position(end.x, end.y, CELL_SIZE, CELL_SIZE);
     this.path = [];
     this.processing = false;
 
@@ -220,6 +219,7 @@ export class PathFinder {
           moveNPC(this.object, this.path);
           if (this.path.length === 0) {
             console.log('Path completed.');
+			  this.completed = true
             clearInterval(movementInterval);
           }
         }
