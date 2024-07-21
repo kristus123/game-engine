@@ -57,6 +57,10 @@ export class List {
 		return list.includes(o)
 	}
 
+	static contains(list, o) {
+		return list.includes(o)
+	}
+
 	static assertNoNullElements(list) {
 		for (const c of list) {
 			if (c == null) {

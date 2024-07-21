@@ -1,5 +1,5 @@
 export class Enemy extends DynamicGameObject {
-	constructor(position, player, house) {
+	constructor(position, player) {
 		super(position, 1000, 10)
 
 		this.position.width = 100

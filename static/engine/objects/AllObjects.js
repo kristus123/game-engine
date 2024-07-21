@@ -1,26 +1,5 @@
 export class AllObjects { // not a good name
-	constructor(objects=[], connectedToClass='') {
-		for (const o of objects) {
-			if (typeof o === 'object' && Object.keys(o).length == 1 && !o.update && !o.draw) {
-				if (connectedToClass != '') {
-					const field = Object.keys(o)[0]
-
-					connectedToClass[field] = o[field]
-					List.remove(objects, o)
-
-					objects.push(o[field])
-
-					o[field].removeFromLoop = () => {
-						this.remove(o[field])
-					}
-				}
-			}
-
-			o.removeFromLoop = () => {
-				this.remove(o)
-			}
-
-		}
+	constructor(objects=[]) {
 	}
 
 	add(o) {
@@ -55,7 +34,6 @@ export class AllObjects { // not a good name
 	get(objectId) {
 		return this.gameObjectFrom[objectId]
 	}
-
 
 	update() {
 		HelperThing.update(this.objects)

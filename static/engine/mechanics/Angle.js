@@ -1,13 +1,10 @@
 export class Angle {
-	constructor(playerPosition, angleRange) {
-		this.playerPosition = playerPosition
-		this.angleRange = angleRange
-
+	constructor(playerPosition, angleRange=20, radius=100) {
 		this.blue = 'rgba(0, 0, 255, 0.5)' // Example color with transparency
 		this.color = this.blue
 	}
 
-	isWithinAngle(position) {
+	within(position) {
 		const deltaX = position.x - this.playerPosition.x
 		const deltaY = position.y - this.playerPosition.y
 		const angleToPoint = Math.atan2(deltaY, deltaX) * (180 / Math.PI)
@@ -23,17 +20,17 @@ export class Angle {
 		const startAngle = (normalizedMouseAngle - halfRange + 360) % 360
 		const endAngle = (normalizedMouseAngle + halfRange) % 360
 
-		if (startAngle < endAngle) {
-			return normalizedAngle >= startAngle && normalizedAngle <= endAngle
-		}
-		else {
-			return normalizedAngle >= startAngle || normalizedAngle <= endAngle
-		}
+
+		const withinAngle = (startAngle < endAngle)
+			? normalizedAngle >= startAngle && normalizedAngle <= endAngle
+			: normalizedAngle >= startAngle || normalizedAngle <= endAngle
+
+		return withinAngle && Distance.within(this.radius, this.playerPosition, position)
 	}
 
-	draw(ctx) {
+	draw(draw, guiDraw) {
+		const ctx = draw.ctx
 		const mousePos = Mouse.position
-		const radius = 160 // Example radius for the arc
 		const halfRange = this.angleRange / 2
 
 		// Determine the angle towards the mouse position
@@ -49,7 +46,7 @@ export class Angle {
 		ctx.arc(
 			this.playerPosition.x,
 			this.playerPosition.y,
-			radius,
+			this.radius,
 			startAngleRad,
 			endAngleRad
 		)

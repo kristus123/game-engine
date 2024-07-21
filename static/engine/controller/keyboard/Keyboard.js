@@ -1,3 +1,10 @@
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Tab' || event.keyCode === 9) {
+    event.preventDefault();
+  }
+});
+
+
 export class Keyboard {
 	constructor() {
 		document.addEventListener('keydown', (e) => {

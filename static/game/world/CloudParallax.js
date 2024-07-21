@@ -1,5 +1,6 @@
 export class CloudParallax {
 	constructor() {
+		this.sex = 'ja'
 
 		this.cloudPositions = Iterate(10, i => ({
 			position: Random.direction(Cam.position, 1000),
@@ -13,8 +14,8 @@ export class CloudParallax {
 	draw(draw, guiDraw) {
 		for (const { position, picture } of this.cloudPositions) {
 
-			position.x += 0.01
-			position.y += 0.001
+			position.x += 0.1
+			position.y += 0.01
 
 
 			const p = Parallax(position, -0.5)
