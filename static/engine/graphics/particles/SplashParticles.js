@@ -3,6 +3,20 @@ export class SplashParticles {
 		this.particles = []
 	}
 
+	towards(object) {
+		const size = Random.floatBetween(0.1, 10)
+
+		Iterate(20, () => {
+			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			Push(p).towards(object, 15)
+
+			p.life = 200
+			p.color = Random.color()
+			this.particles.push(p)
+		})
+		
+	}
+
 	random(object) {
 		const size = Random.floatBetween(0.1, 10)
 

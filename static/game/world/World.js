@@ -12,6 +12,10 @@ function init(connectedClass, objects) {
 	return localObjects
 }
 
+function update(update) {
+	return {update}
+}
+
 export class World {
 	constructor() {
 
@@ -27,17 +31,13 @@ export class World {
 			init(this, [
 				{ enemies: new LocalObjects() },
 			]),
-			{
-				update: () => {
-					for (const e of this.enemies.objects) {
-						if (e.touches(this.player)) {
-							Push(this.player).awayFrom(e, 100)
-						}
-						
+			update(() => {
+				for (const e of this.enemies.objects) {
+					if (e.touches(this.player)) {
+						Push(this.player).awayFrom(e, 100)
 					}
 				}
-				
-			},
+			}),
 			new StaticPicture(new Position(-100, 0, 1700, 600), '/static/assets/houses.png'),
 			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
 			new CloudParallax(),

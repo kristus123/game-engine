@@ -16,6 +16,7 @@ export class Enemy extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		
 		this.localObjects.draw(draw, guiDraw)
 	}
 

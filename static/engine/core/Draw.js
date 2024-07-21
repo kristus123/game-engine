@@ -169,14 +169,7 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, currentHP * width, height)
 	}
 
-	circle(x, y, radius, color) {
-		this.ctx.beginPath()
-		this.ctx.arc(x, y, radius, 0, Math.PI * 2, false)
-		this.ctx.fillStyle = color
-		this.ctx.fill()
-	}
-
-	new_circle(position, radius = 10) {
+	circle(position, radius = 10) {
 		const color = 'red'
 
 		this.ctx.beginPath()

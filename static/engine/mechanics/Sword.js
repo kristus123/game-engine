@@ -25,13 +25,6 @@ export class Sword {
 			}
 		}
 
-		for (const o of this.hittableObjects) if (o.kill) {
-				this.splash.random(o)
-				o.removeFromLoop()
-				List.remove(this.hittableObjects, o)
-				this.cooldown = 0
-		}
-
 		if (this.cooldown < 80) {
 			this.angle.color = 'red'
 		}
@@ -49,5 +42,13 @@ export class Sword {
 	draw(draw, guiDraw) {
 		draw.splash(this.player, Mouse.position, 200)
 		this.localObjects.draw(draw, guiDraw)
+
+		for (const o of this.hittableObjects) if (o.kill) {
+			this.splash.towards(this.player.position.behind(o, 1))
+			o.removeFromLoop()
+			List.remove(this.hittableObjects, o)
+			this.cooldown = 0
+
+		}
 	}
 }
