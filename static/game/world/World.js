@@ -27,34 +27,23 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			this.player,
-			sword,
+			// sword,
 			init(this, [
 				{ enemies: new LocalObjects() },
 			]),
 			update(() => {
 				for (const e of this.enemies.objects) {
 					if (e.touches(this.player)) {
-						Push(this.player).awayFrom(e, 100)
+						// Push(this.player).awayFrom(e, 100)
 					}
 				}
 			}),
 			new StaticPicture(new Position(-100, 0, 1700, 600), '/static/assets/houses.png'),
 			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
 			new CloudParallax(),
+			new TalkToShopKeeper(this.player),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 		])
-
-		setInterval(() => {
-			const enemy = new Enemy(new Position(100, 0), this.player)
-
-			this.enemies.add(enemy)
-			enemy.removeFromLoop = () => {
-				this.enemies.remove(enemy)
-			}
-
-			sword.hittableObjects.push(enemy)
-		}, 400);
-
 	}
 
 	update() {
