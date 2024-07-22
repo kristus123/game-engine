@@ -2,13 +2,19 @@ export class BottomText {
 	constructor() {
 	}
 
-	static show(text) {
+	static show(text, removeAfterMs=null) {
 
 		const overlayText = document.createElement('p')
 		overlayText.className = 'bottom-text'
 		overlayText.textContent = text
 
 		document.body.appendChild(overlayText)
+
+		if (removeAfterMs) {
+			setTimeout(() => {
+				this.remove()
+			}, removeAfterMs);
+		}
 	}
 
 	static remove() {

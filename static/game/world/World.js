@@ -1,21 +1,3 @@
-function init(connectedClass, objects) {
-	const localObjects = new LocalObjects()
-
-	for (const object of objects) {
-		const instanceField = Object.keys(object)[0]
-		const thing = object[instanceField]
-
-		connectedClass[instanceField] = thing
-		localObjects.add(thing)
-	}
-
-	return localObjects
-}
-
-function update(update) {
-	return {update}
-}
-
 export class World {
 	constructor() {
 
@@ -28,10 +10,10 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.player,
 			// sword,
-			init(this, [
+			Init(this, [
 				{ enemies: new LocalObjects() },
 			]),
-			update(() => {
+			Update(() => {
 				for (const e of this.enemies.objects) {
 					if (e.touches(this.player)) {
 						// Push(this.player).awayFrom(e, 100)

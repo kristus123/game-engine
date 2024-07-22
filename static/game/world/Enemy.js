@@ -11,7 +11,7 @@ export class Enemy extends DynamicGameObject {
 	}
 
 	update() {
-		Push(this).towards(this.player.position.center)
+		Push(this).towards(this.player)
 		this.localObjects.update()
 	}
 

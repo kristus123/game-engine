@@ -44,7 +44,7 @@ export class Sword {
 		this.localObjects.draw(draw, guiDraw)
 
 		for (const o of this.hittableObjects) if (o.kill) {
-			this.splash.towards(this.player.position.behind(o, 1))
+			this.splash.towards(this.player)
 			o.removeFromLoop()
 			List.remove(this.hittableObjects, o)
 			this.cooldown = 0

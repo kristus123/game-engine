@@ -1,9 +1,20 @@
 export class AllObjects { // not a good name
 	constructor(objects=[]) {
+		for (const o of objects) {
+			o.removeFromLoop = () => {
+				this.remove(o)
+			}
+			
+		}
 	}
 
 	add(o) {
 		this.objects.push(o)
+
+		o.removeFromLoop = () => {
+			this.remove(o)
+		}
+
 		return o
 	}
 

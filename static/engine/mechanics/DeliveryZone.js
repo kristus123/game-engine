@@ -2,12 +2,16 @@ export class DeliveryZone extends StaticGameObject {
 	constructor(position, objectsToDeliver=[]) {
 		super(position, '')
 
-		if (!Array.isArray(objectsToDeliver)) {
-			this.objectsToDeliver = [objectsToDeliver]
-		}
+		AssertArray(objectsToDeliver)
+		AssertNoNullInArray(objectsToDeliver)
 
 		this.deliveredObjects = []
 	}
+
+	completed() {
+		return this.deliveredObjects.length == this.objectsToDeliver.length
+	}
+
 
 	inside(o) {
 		return Collision.between(this, o)
