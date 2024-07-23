@@ -40,7 +40,8 @@ export class TriggerSprite {
 		}, speed)
 	}
 
-	play() {
+	play(position = this.position) {
+		this.position = position
 		this.pause = false
 		this.currentFrame = 0
 	}
