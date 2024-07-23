@@ -1,9 +1,9 @@
 export class World {
 	constructor() {
-		Html.addToScreen(Html.div('lower-center-ui', [
-			Html.div('shoulder-to-shoulder', [
-					Html.button('hei'),
-					Html.button('hei'),
+		Html.addToScreen(
+			Html.div('upper-center-ui', [
+				Html.div('shoulder-to-shoulder', [
+					Html.text('hp'),
 				])
 		]))
 

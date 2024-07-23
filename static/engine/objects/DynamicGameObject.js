@@ -13,19 +13,19 @@ export class DynamicGameObject extends _GameObject {
 	}
 
 	get movingLeft() {
-		return this.velocity.x < -20
+		return this.velocity.x < -10
 	}
 
 	get movingRight() {
-		return this.velocity.x > 20
+		return this.velocity.x > 10
 	}
 
 	get movingUp() {
-		return this.velocity.y < -20
+		return this.velocity.y < -10
 	}
 
 	get movingDown() {
-		return this.velocity.y > 20
+		return this.velocity.y > 10
 	}
 
 	get movingHorizontally() {

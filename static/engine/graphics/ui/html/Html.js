@@ -35,15 +35,13 @@ export class Html {
 			onClick(button)
 		})
 
-		// addToScreen(button)
-
 		return button
 	}
 
 	static ui(elements) {
 		const div = element('div', 'ui')
 		for (const e of elements) {
-			e.setAttribute('class', 'button')
+			// e.setAttribute('class', 'button')
 			div.appendChild(e)
 		}
 
@@ -53,14 +51,9 @@ export class Html {
 	}
 
 	static text(text, position) {
-		const p = element('p', 'ui')
+		const p = element('p')
 		p.textContent = text
 		p.style.fontSize = '100px'
-
-		// p.style.left = `${position.x}px`
-		// p.style.top = `${position.y}px`
-
-		addToScreen(p)
 
 		return p
 		// return {
