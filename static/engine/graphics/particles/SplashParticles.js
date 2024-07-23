@@ -17,14 +17,18 @@ export class SplashParticles {
 		
 	}
 
-	random(object) {
-		const size = Random.floatBetween(0.1, 10)
+	random(object, color='white') {
+		const size = Random.floatBetween(1, 10)
 
 		Iterate(20, () => {
-			const p = new DynamicGameObject(new Position(object.position.x, object.position.y, size, size), 20, 100)
-			Push(p).towards(Random.direction(object), 15)
+			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			p.draw = (draw, guiDraw) => {
+				draw.rectangle(p, color)
+			}
 
-			p.life = 200
+			Push(p).towards(Random.direction(object), 10)
+
+			p.life = 20
 			p.color = Random.color()
 			this.particles.push(p)
 		})
@@ -44,7 +48,7 @@ export class SplashParticles {
 				this.particles.splice(index, 1)
 			}
 			else {
-				draw.rectangle(p, 'red')
+				p.draw(draw, guiDraw)
 			}
 		})
 

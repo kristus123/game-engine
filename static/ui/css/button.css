@@ -8,10 +8,8 @@ button {
 	background-color: #007bff; 
 	color: #fff; 
 
-display: block;
+	display: block;
     margin: 10px 0;  /* Adjust as needed to stack with some space */
-
-
 }
 
 button:hover {

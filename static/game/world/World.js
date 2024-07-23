@@ -1,11 +1,15 @@
 export class World {
 	constructor() {
+		Html.addToScreen(Html.div('lower-center-ui', [
+			Html.div('shoulder-to-shoulder', [
+					Html.button('hei'),
+					Html.button('hei'),
+				])
+		]))
 
 		this.player = new PlayerEditor().player
 		Cam.followInstantly(this.player)
 		Controller.control(this.player)
-
-		const sword = new Sword(this.player, [])
 
 		this.localObjects = new LocalObjects([
 			this.player,

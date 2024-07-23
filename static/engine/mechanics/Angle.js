@@ -1,6 +1,7 @@
 export class Angle {
 	constructor(playerPosition, angleRange=20, radius=100) {
-		this.blue = 'rgba(0, 0, 255, 0.5)' // Example color with transparency
+		this.blue = 'rgba(0, 0, 255, 0.1)' // Example color with transparency
+		this.red = 'rgba(255, 0, 0, 0.1)' // Example color with transparency
 		this.color = this.blue
 	}
 
@@ -29,29 +30,6 @@ export class Angle {
 	}
 
 	draw(draw, guiDraw) {
-		const ctx = draw.ctx
-		const mousePos = Mouse.position
-		const halfRange = this.angleRange / 2
-
-		// Determine the angle towards the mouse position
-		const mouseAngle = Math.atan2(mousePos.y - this.playerPosition.y, mousePos.x - this.playerPosition.x)
-
-		// Calculate the start and end angles in radians
-		const startAngleRad = mouseAngle - (halfRange * Math.PI / 180)
-		const endAngleRad = mouseAngle + (halfRange * Math.PI / 180)
-
-		// Draw the arc representing the angle range
-		ctx.beginPath()
-		ctx.moveTo(this.playerPosition.x, this.playerPosition.y)
-		ctx.arc(
-			this.playerPosition.x,
-			this.playerPosition.y,
-			this.radius,
-			startAngleRad,
-			endAngleRad
-		)
-		ctx.lineTo(this.playerPosition.x, this.playerPosition.y)
-		ctx.fillStyle = this.color
-		ctx.fill()
+		draw.angleFromMouse(this.playerPosition, this.radius, this.angleRange, this.color)
 	}
 }

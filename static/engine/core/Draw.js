@@ -4,6 +4,31 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
+	angleFromMouse(position, radius, angleRange, color) {
+
+		const mouseAngle = Math.atan2(Mouse.position.y - position.y, Mouse.position.x - position.x)
+
+		const halfRange = angleRange / 2
+		const startAngleRad = mouseAngle - (halfRange * Math.PI / 180)
+		const endAngleRad = mouseAngle + (halfRange * Math.PI / 180)
+
+
+		this.ctx.beginPath()
+		this.ctx.moveTo(position.x, position.y)
+		this.ctx.arc(
+			position.x,
+			position.y,
+			radius,
+			startAngleRad,
+			endAngleRad,
+		)
+
+		this.ctx.lineTo(position.x, position.y)
+		this.ctx.fillStyle = color
+		this.ctx.fill()
+	}
+
+
 	lightSource(lightSource, radius) {
 		const gradient = this.ctx.createRadialGradient(lightSource.x, lightSource.y, 0, lightSource.x, lightSource.y, radius)
 		gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')

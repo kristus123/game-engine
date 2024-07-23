@@ -13,7 +13,6 @@ export class PlayerEditor {
 		}
 
 		mouseEditor.moved = o => {
-			console.log('moved player')
 			const body = {
 				x: player.x,
 				y: player.y,

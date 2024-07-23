@@ -9,3 +9,25 @@
 	border: none; 
 	cursor: auto;
 }
+
+.center-ui {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.lower-center-ui {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.shoulder-to-shoulder {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adds space between the buttons */
+}

@@ -23,15 +23,19 @@ export class Html {
 		return p
 	}
 
+	static addToScreen(element) {
+		document.getElementById('ui_elements').appendChild(element)
+	}
+
 	static button(text, onClick=() => {}) {
-		const button = element('button', 'ui button')
+		const button = element('button', 'button')
 		button.textContent = text
 
 		button.addEventListener('click', () => {
 			onClick(button)
 		})
 
-		addToScreen(button)
+		// addToScreen(button)
 
 		return button
 	}
@@ -83,4 +87,17 @@ export class Html {
 			div.removeChild(div.firstChild)
 		}
 	}
+
+	static div(className, childrenElements=[]) {
+		const d =  document.createElement('div')
+
+		d.classList.add(className);
+
+		for (const e of childrenElements) {
+			d.appendChild(e)
+		}
+
+		return d
+	}
+
 }

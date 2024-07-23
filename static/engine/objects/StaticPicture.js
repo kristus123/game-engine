@@ -13,4 +13,12 @@ export class StaticPicture extends _GameObject {
 		this.picture.draw(draw, guiDraw)
 	}
 
+
+	mapToJson() {
+		return {
+			objectId: this.objectId,
+			position: this.position.toJson()
+		}
+	}
+
 }

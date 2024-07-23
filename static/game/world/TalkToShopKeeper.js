@@ -84,6 +84,7 @@ export class TalkToShopKeeper {
 								{ deliveryZone: new DeliveryZone(new Position(1188, -292, 100, 100), [hoe]) },
 							]),
 							new Sword(player, this.enemies.objects),
+							new PushEnemies(player, this.enemies.objects),
 							new MultiTextTyper(hoe.position.over(), [
 								'I might be a hoe, but i have feelings',
 							], () => {
@@ -101,8 +102,12 @@ export class TalkToShopKeeper {
 							}),
 							Update(u => {
 								if (player.within(1200, this.deliveryZone.position)) {
-									Cam.zoom = 1.5
-									this.enemies.add(new Enemy(player.position.offset(900).copy(), player))
+									Cam.zoom = 1.2
+
+									Iterate(20, () => {
+										this.enemies.add(new Enemy(Random.direction(player.position.offset(500).copy(), 100), player))
+									})
+
 									console.log("adding one enemy")
 									this.localObjects.add(
 										new MultiTextTyper(player.position.over(), [
