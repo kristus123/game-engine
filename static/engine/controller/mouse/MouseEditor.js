@@ -127,7 +127,7 @@ export class MouseEditor {
 		if (this.lastClicked && !this.activeObject) {
 			draw.transparentGreenRectangle(this.lastClicked)
 
-			draw.rectangle(this.lastClicked.position.topLeft)
+			draw.rectangle(this.lastClicked.position.topLeft, 'red')
 			draw.rectangle(this.lastClicked.position.bottomRight)
 			if (Mouse.hovering(this.lastClicked.position.topLeft)) {
 				draw.text(this.lastClicked.position.offset(-150, 10), 'delete')

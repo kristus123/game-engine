@@ -10,7 +10,7 @@ export class WorldEditor {
 			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
 
 			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
-			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
+			new PersistedStaticPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
 			new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
 
 			new PersistedObjectsEditor(
