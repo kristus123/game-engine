@@ -3,7 +3,7 @@ export class MouseEditor {
 	static active = null
 
 	constructor() {
-		this.lastClicked = null
+		this.activeObject = null
 
 		this.objects = []
 
@@ -30,10 +30,10 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (!this.lastClicked && Mouse.downForLongerThan(200) && !this.firstClickedArea) {
+		if (!this.activeObject && Mouse.downForLongerThan(200) && !this.firstClickedArea) {
 			this.firstClickedArea = Mouse.position.copy()
 		}
-		else if (!this.lastClicked && Mouse.down && this.firstClickedArea) {
+		else if (!this.activeObject && Mouse.down && this.firstClickedArea) {
 			this.markedArea = new Position(
 				this.firstClickedArea.x,
 				this.firstClickedArea.y,
@@ -49,43 +49,43 @@ export class MouseEditor {
 				this.recentlyEditedObject = false
 			}, 200)
 		}
-		else if (this.lastClicked && Mouse.up) {
+		else if (this.activeObject && Mouse.up) {
 			console.log('moved player')
-			this.moved(this.lastClicked)
-			this.lastClicked = null
+			this.moved(this.activeObject)
+			this.lastClicked = this.activeObject
+			this.activeObject = null
 
 			this.recentlyEditedObject = true
 			setTimeout(() => {
 				this.recentlyEditedObject = false
 			}, 500)
-
-			return
 		}
-		else if (this.lastClicked && Mouse.clicked(this.lastClicked.position.topLeft)) {
-			this.remove(this.lastClicked)
-			List.remove(this.objects, this.lastClicked)
+		else if (this.activeObject && Mouse.clicked(this.activeObject.position.topLeft)) {
+			this.remove(this.activeObject)
+			List.remove(this.objects, this.activeObject)
 
+			this.activeObject = null
 			this.lastClicked = null
 			this.recentlyEditedObject = true
-
-			return
 		}
-		else if (this.lastClicked && Mouse.down) {
-			this.lastClicked.position.center.x = Mouse.position.x
-			this.lastClicked.position.center.y = Mouse.position.y
+		else if (this.activeObject && Mouse.down) {
+			this.activeObject.position.center.x = Mouse.position.x
+			this.activeObject.position.center.y = Mouse.position.y
 
 			this.recentlyEditedObject = true
 			this.markedArea = null
 			this.markedObjects = []
 			Overlay.clearBottom()
 		}
-		else if (this.lastClicked && Distance.between(Mouse.position, this.lastClicked) > 100) {
-			this.lastClicked = null
+		else if (this.activeObject && Distance.between(Mouse.position, this.activeObject) > 100) {
+			this.lastClicked = this.activeObject
+			this.activeObject = null
 		}
 		else {
 			for (const o of this.objects) {
 				if (Mouse.clicked(o)) {
-					this.lastClicked = o
+					this.activeObject = o
+					this.lastClicked = null
 					break
 				}
 			}
@@ -93,7 +93,6 @@ export class MouseEditor {
 	}
 
 	draw(draw, guiDraw) {
-		console.log(this.markedObjects.length)
 
 		if (this.firstClickedArea && this.markedArea) {
 			draw.transparentGreenRectangle(this.markedArea)
@@ -124,22 +123,23 @@ export class MouseEditor {
 			draw.text(o.position.offset(0, -100), 'marked')
 		}
 
-		if (this.lastClicked) {
+
+		if (this.lastClicked && !this.activeObject) {
+			draw.transparentGreenRectangle(this.lastClicked)
+
+			draw.rectangle(this.lastClicked.position.topLeft)
+			draw.rectangle(this.lastClicked.position.bottomRight)
+			if (Mouse.hovering(this.lastClicked.position.topLeft)) {
+				draw.text(this.lastClicked.position.offset(-150, 10), 'delete')
+			}
+			else if (Mouse.hovering(this.lastClicked.position.bottomRight)) {
+				draw.text(this.lastClicked.position.offset(-150, 10), 'resize')
+			}
+		}
+
+
+		if (this.activeObject) {
 			for (const o of this.objects) {
-				if (o == this.lastClicked) {
-
-					draw.transparentGreenRectangle(o)
-
-					draw.rectangle(o.position.topLeft)
-					draw.rectangle(o.position.bottomRight)
-					if (Mouse.hovering(o.position.topLeft)) {
-						draw.text(o.position.offset(-150, 10), 'delete')
-					}
-					else if (Mouse.hovering(o.position.bottomRight)) {
-						draw.text(o.position.offset(-150, 10), 'resize')
-					}
-				}
-
 				if (Mouse.hovering(o) && Mouse.up) {
 					draw.text(o.position.offset(10, 10), 'click to move')
 					break

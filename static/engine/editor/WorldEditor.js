@@ -8,33 +8,11 @@ export class WorldEditor {
 			new PlayerEditor(),
 			new StaticPicture(new Position(-100, 0, 1700, 600), '/static/assets/houses.png'),
 			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
-			new PersistedObjectsEditor(
-				'/persisted-objects/stone1.json',
-				position => new StaticPicture(position.offset(0,0, 180, 100).copy(), '/static/assets/stones/stone1.png'),
-				json => {
-					const c = new StaticPicture(Position.from(json.position), '/static/assets/stones/stone1.png')
-					c.objectId = json.objectId
-					return c
-				},
-			),
-			new PersistedObjectsEditor(
-				'/persisted-objects/stone2.json',
-				position => new StaticPicture(position.offset(0,0, 180, 100).copy(), '/static/assets/stones/stone2.png'),
-				json => {
-					const c = new StaticPicture(Position.from(json.position), '/static/assets/stones/stone2.png')
-					c.objectId = json.objectId
-					return c
-				},
-			),
-			new PersistedObjectsEditor(
-				'/persisted-objects/stone3.json',
-				position => new StaticPicture(position.offset(0,0, 180, 100).copy(), '/static/assets/stones/stone3.png'),
-				json => {
-					const c = new StaticPicture(Position.from(json.position), '/static/assets/stones/stone3.png')
-					c.objectId = json.objectId
-					return c
-				},
-			),
+
+			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
+			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
+			new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
+
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json',
 				position => new Chicken(position),
