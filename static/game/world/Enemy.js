@@ -1,5 +1,5 @@
 export class Enemy extends DynamicGameObject {
-	constructor(position, player) {
+	constructor(position, player, onDamage= () => {}) {
 		super(position, 1000, 10)
 
 		this.position.width = 100
@@ -13,8 +13,7 @@ export class Enemy extends DynamicGameObject {
 	update() {
 		Push(this).towards(this.player, 0.2)
 		if (this.touches(this.player)) {
-			// Push(this.player).awayFrom(this, 200)
-			// Push(this).awayFrom(this.player, 20)
+			this.onDamage()
 		}
 		this.localObjects.update()
 	}

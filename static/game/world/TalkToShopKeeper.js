@@ -2,83 +2,98 @@ export class TalkToShopKeeper {
 
 	constructor(player) {
 
-		const square = new Square(new Position(-500, 0), 10)
+		const square = new Square(new Position(-500, 0), 200)
+		const staticPicture = new StaticPicture(square.position, '/static/assets/shopkeeper.png')
+		square.draw = (draw, guiDraw) => {
+			staticPicture.draw(draw, guiDraw)
+		}
+
+		const hoe = new DynamicGameObject(new Position(-400, 0, 100, 300), 10, 10)
+		const sprite = new Sprite(hoe.position.offset(0,0, 300, 250), '/static/assets/woman_32x32.png', [
+			{x:0, y:0},
+			{x:1, y:0},
+			{x:2, y:0},
+			{x:3, y:0},
+			{x:4, y:0},
+		])
+		hoe.draw = (draw, guiDraw) => {
+			sprite.draw(draw, guiDraw)
+		}
 
 		this.localObjects = new LocalObjects([
 			square,
+			hoe,
 			new Quest([
-				// () => new class {
-				// 	completed() {
-				// 		return square.touches(player)
-				// 	}
-				// },
+				() => new class {
+					completed() {
+						return square.touches(player)
+					}
+				},
 
-				// () => new class {
-				// 	constructor() {
-				// 		this.localObjects = new LocalObjects([
-				// 			new MultiTextTyper(square.position.over(), [
-				// 				'there you are bitch',
-				// 				'we need you',
-				// 			], () => {
-				// 				this.completed = () => true
+				() => new class {
+					constructor() {
+						this.localObjects = new LocalObjects([
+							new MultiTextTyper(square.position.over(), [
+								'there you are bitch',
+								'we need you',
+							], () => {
+								this.completed = () => true
 
-				// 				QuestList.add('find shit')
-				// 			}),
-				// 		])
-				// 	}
+								QuestList.add('find shit')
+							}),
+						])
+					}
 
-				// 	update() {
-				// 		this.localObjects.update()
-				// 	}
+					update() {
+						this.localObjects.update()
+					}
 
-				// 	draw(draw, guiDraw) {
-				// 		this.localObjects.draw(draw, guiDraw)
-				// 	}
-				// },
-				// () => new class {
-				// 	constructor() {
-				// 		this.clues = [
-				// 			new Square(new Position(-773, -4), 100),
-				// 		]
+					draw(draw, guiDraw) {
+						this.localObjects.draw(draw, guiDraw)
+					}
+				},
+				() => new class {
+					constructor() {
+						this.clues = [
+							new Square(new Position(-773, -4), 100),
+						]
 
-				// 		this.localObjects = new LocalObjects()
-				// 	}
+						this.localObjects = new LocalObjects()
+					}
 
-				// 	update() {
-				// 		for (const c of this.clues) {
-				// 			if (player.touches(c)) {
-				// 				List.remove(this.clues, c)
-				// 				BottomText.show('found a clue', 200)
-				// 				QuestList.clear()
-				// 				this.localObjects.add(new MultiTextTyper(player.position.over(), [
-				// 					'strange',
-				// 					'why is this here?',
-				// 					'why does the pimp want me to smuggle his hoes to the city?',
-				// 				], 
-				// 				() => {
-				// 					this.completed = () => true
-				// 				}))
-				// 			}
-				// 		}
+					update() {
+						for (const c of this.clues) {
+							if (player.touches(c)) {
+								List.remove(this.clues, c)
+								BottomText.show('found a clue', 200)
+								QuestList.clear()
+								this.localObjects.add(new MultiTextTyper(player.position.over(), [
+									'strange',
+									'why is this here?',
+									'why does the pimp want me to smuggle his hoes to the city?',
+								], 
+								() => {
+									this.completed = () => true
+								}))
+							}
+						}
 
-				// 		this.localObjects.update()
-				// 	}
+						this.localObjects.update()
+					}
 
-				// 	draw(draw, guiDraw) {
-				// 		for (const c of this.clues) {
-				// 			c.draw(draw, guiDraw)
-				// 		}
+					draw(draw, guiDraw) {
+						for (const c of this.clues) {
+							c.draw(draw, guiDraw)
+						}
 
-				// 		this.localObjects.draw(draw, guiDraw)
-				// 	}
-				// },
+						this.localObjects.draw(draw, guiDraw)
+					}
+				},
 				() => new class {
 					constructor() {
 
-						const hoe = new Square(new Position(-200, 0), 20)
-
 						this.localObjects = new LocalObjects([
-
+							hoe,
 							Init(this, [
 								{ enemies: new LocalObjects() },
 								{ deliveryZone: new DeliveryZone(new Position(1188, -292, 100, 100), [hoe]) },
@@ -105,7 +120,9 @@ export class TalkToShopKeeper {
 									Cam.zoom = 1.2
 
 									Iterate(20, () => {
-										this.enemies.add(new Enemy(Random.direction(player.position.offset(500).copy(), 100), player))
+										this.enemies.add(new Enemy(Random.direction(player.position.offset(500).copy(), 100), player), e => {
+											console.log('hei')
+										})
 									})
 
 									console.log("adding one enemy")
@@ -125,6 +142,21 @@ export class TalkToShopKeeper {
 										if (this.enemies.objects.length == 0) {
 											Cam.zoom = 1
 											this.localObjects.remove(u)
+
+											this.localObjects.add(
+												new MultiTextTyper(hoe.position.over(), [
+													'You analsexed them so hard',
+												])
+											)
+
+											setTimeout(() => {
+												this.localObjects.add(
+													new MultiTextTyper(player.position.over(), [
+														'i know. i have practiced',
+													])
+												)
+												
+											}, 400);
 										}
 									}))
 								}
