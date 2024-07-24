@@ -3,7 +3,7 @@ export class World {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					Html.text('hp'),
+					Ref(this, {hp: Html.text('hp')}),
 				])
 		]))
 
@@ -13,17 +13,6 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			this.player,
-			// sword,
-			Init(this, [
-				{ enemies: new LocalObjects() },
-			]),
-			Update(() => {
-				for (const e of this.enemies.objects) {
-					if (e.touches(this.player)) {
-						// Push(this.player).awayFrom(e, 100)
-					}
-				}
-			}),
 			new StaticPicture(new Position(-100, 0, 1700, 600), '/static/assets/houses.png'),
 			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
 			new CloudParallax(),

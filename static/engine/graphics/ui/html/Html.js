@@ -50,6 +50,10 @@ export class Html {
 		return div
 	}
 
+	static changeText(element, text) {
+		element.textContent = text
+	}
+
 	static text(text, position) {
 		const p = element('p')
 		p.textContent = text
