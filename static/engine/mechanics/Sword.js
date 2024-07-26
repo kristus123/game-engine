@@ -8,10 +8,10 @@ export class Sword {
 
 
 		this.sprite = new TriggerSprite(player.position.offset(100, 0, 200, 250), '/static/assets/sword_swing_32x32.png', [
-			{x:0, y:0},
-			{x:1, y:0},
-			{x:2, y:0},
-			{x:3, y:0},
+			{ x: 0, y: 0 },
+			{ x: 1, y: 0 },
+			{ x: 2, y: 0 },
+			{ x: 3, y: 0 },
 		], 50)
 
 
@@ -60,12 +60,14 @@ export class Sword {
 		draw.splash(this.player, Mouse.position, 200)
 		this.localObjects.draw(draw, guiDraw)
 
-		for (const o of this.hittableObjects) if (o.kill) {
-			this.splashParticles.random(o, 'red')
-			o.removeFromLoop()
-			List.remove(this.hittableObjects, o)
-			this.cooldown = 0
+		for (const o of this.hittableObjects) {
+			if (o.kill) {
+				this.splashParticles.random(o, 'red')
+				o.removeFromLoop()
+				List.remove(this.hittableObjects, o)
+				this.cooldown = 0
 
+			}
 		}
 	}
 }

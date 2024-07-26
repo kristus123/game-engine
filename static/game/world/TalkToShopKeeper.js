@@ -9,12 +9,12 @@ export class TalkToShopKeeper {
 		}
 
 		const hoe = new DynamicGameObject(new Position(-400, 0, 100, 300), 10, 10)
-		const sprite = new Sprite(hoe.position.offset(0,0, 300, 250), '/static/assets/woman_32x32.png', [
-			{x:0, y:0},
-			{x:1, y:0},
-			{x:2, y:0},
-			{x:3, y:0},
-			{x:4, y:0},
+		const sprite = new Sprite(hoe.position.offset(0, 0, 300, 250), '/static/assets/woman_32x32.png', [
+			{ x: 0, y: 0 },
+			{ x: 1, y: 0 },
+			{ x: 2, y: 0 },
+			{ x: 3, y: 0 },
+			{ x: 4, y: 0 },
 		])
 		hoe.draw = (draw, guiDraw) => {
 			sprite.draw(draw, guiDraw)
@@ -71,7 +71,7 @@ export class TalkToShopKeeper {
 									'strange',
 									'why is this here?',
 									'why does the pimp want me to smuggle his hoes to the city?',
-								], 
+								],
 								() => {
 									this.completed = () => true
 								}))
@@ -108,8 +108,8 @@ export class TalkToShopKeeper {
 										'I trust you.',
 										'I will protect you queen',
 									]))
-								}, 200);
-							}), 
+								}, 200)
+							}),
 							Update(() => {
 								if (!hoe.within(100, player)) {
 									ForcePush(hoe).towards(player.position.center, 4)
@@ -125,7 +125,7 @@ export class TalkToShopKeeper {
 										})
 									})
 
-									console.log("adding one enemy")
+									console.log('adding one enemy')
 									this.localObjects.add(
 										new MultiTextTyper(player.position.over(), [
 											'JEESUS ALLAHUUU AKBAAAR',
@@ -155,8 +155,8 @@ export class TalkToShopKeeper {
 														'i know. i have practiced',
 													])
 												)
-												
-											}, 400);
+
+											}, 400)
 										}
 									}))
 								}
@@ -175,12 +175,12 @@ export class TalkToShopKeeper {
 					draw(draw, guiDraw) {
 						this.localObjects.draw(draw, guiDraw)
 					}
-					
+
 				}
 			]),
 		])
 	}
-	
+
 	update() {
 		this.localObjects.update()
 	}

@@ -14,7 +14,7 @@ export class SplashParticles {
 			p.color = Random.color()
 			this.particles.push(p)
 		})
-		
+
 	}
 
 	random(object, color='white') {

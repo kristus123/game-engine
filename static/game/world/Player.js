@@ -34,7 +34,7 @@ export class Player extends DynamicGameObject {
 		}
 		else {
 			this.defaultPicture.draw(draw, guiDraw)
-			
+
 		}
 
 		for (const o of this.steps) {

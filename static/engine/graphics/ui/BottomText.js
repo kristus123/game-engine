@@ -13,7 +13,7 @@ export class BottomText {
 		if (removeAfterMs) {
 			setTimeout(() => {
 				this.remove()
-			}, removeAfterMs);
+			}, removeAfterMs)
 		}
 	}
 

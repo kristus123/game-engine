@@ -4,7 +4,7 @@ export class MouseResize {
 
 	update() {
 		if (Mouse.down) {
-			
+
 		}
 	}
 

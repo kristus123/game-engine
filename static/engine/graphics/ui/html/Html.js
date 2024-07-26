@@ -86,9 +86,9 @@ export class Html {
 	}
 
 	static div(className, childrenElements=[]) {
-		const d =  document.createElement('div')
+		const d = document.createElement('div')
 
-		d.classList.add(className);
+		d.classList.add(className)
 
 		for (const e of childrenElements) {
 			d.appendChild(e)

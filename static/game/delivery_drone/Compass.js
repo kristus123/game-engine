@@ -5,7 +5,7 @@ export class Compass {
 	one(position, color='red') {
 		this.clear()
 		this.add(position, color)
-		
+
 	}
 
 	add(position, color='red') {

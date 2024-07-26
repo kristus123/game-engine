@@ -19,9 +19,9 @@ export class Velocity {
 
 		this.x *= amount
 		this.y *= amount
-		
+
 		setTimeout(() => {
 			this.reset()
-		}, resetIn);
+		}, resetIn)
 	}
 }

@@ -4,7 +4,7 @@ export class AllObjects { // not a good name
 			o.removeFromLoop = () => {
 				this.remove(o)
 			}
-			
+
 		}
 	}
 

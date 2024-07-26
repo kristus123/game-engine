@@ -3,9 +3,9 @@ export class World {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					Ref(this, {hp: Html.text('hp')}),
+					Ref(this, { hp: Html.text('hp') }),
 				])
-		]))
+			]))
 
 		this.player = new PlayerEditor().player
 		Cam.followInstantly(this.player)
