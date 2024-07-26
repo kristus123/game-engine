@@ -1,6 +1,6 @@
 export class Player extends DynamicGameObject {
 	constructor(position) {
-		super(position, 4000, 2)
+		super(position, 4000, 5)
 
 		this.position.width = 145
 		this.position.height = 200

@@ -19,7 +19,11 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
-		this.velocityPrediction = 0.2
+		this.velocityPrediction = {
+			x: new SmoothValue(0, 0, 0.001, 0.0001),
+			y: new SmoothValue(0, 0, 0.001, 0.0001),
+		}
+
 		this.smoothMovement = 0.05
 
 		// it is being set right after initializing this class
@@ -42,8 +46,13 @@ export class Camera {
 		this.position.x += this.objectToFollow.position.center.x - this.position.x
 		this.position.y += this.objectToFollow.position.center.y - this.position.y
 
-		this.position.x += (this.objectToFollow.velocity.x * this.velocityPrediction)
-		this.position.y += (this.objectToFollow.velocity.y * this.velocityPrediction)
+		this.velocityPrediction.x.targetValue = (this.objectToFollow.velocity.x  * 5)
+		this.velocityPrediction.y.targetValue = (this.objectToFollow.velocity.y * 5)
+		this.velocityPrediction.x.update()
+		this.velocityPrediction.y.update()
+		console.log(this.velocityPrediction.y.currentValue)
+		this.position.x += this.velocityPrediction.x.currentValue
+		this.position.y += this.velocityPrediction.y.currentValue
 
 		const x = 500
 		this.position.x += limitNumber(this.objectToFollow.position.center.x * this.smoothMovement, -x, x)

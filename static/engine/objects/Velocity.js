@@ -15,13 +15,4 @@ export class Velocity {
 		this.y = 0
 	}
 
-	multiply(amount, resetIn) {
-
-		this.x *= amount
-		this.y *= amount
-
-		setTimeout(() => {
-			this.reset()
-		}, resetIn)
-	}
 }
