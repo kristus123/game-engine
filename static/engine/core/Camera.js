@@ -46,7 +46,7 @@ export class Camera {
 		this.position.x += this.objectToFollow.position.center.x - this.position.x
 		this.position.y += this.objectToFollow.position.center.y - this.position.y
 
-		this.velocityPrediction.x.targetValue = (this.objectToFollow.velocity.x  * 5)
+		this.velocityPrediction.x.targetValue = (this.objectToFollow.velocity.x * 5)
 		this.velocityPrediction.y.targetValue = (this.objectToFollow.velocity.y * 5)
 		this.velocityPrediction.x.update()
 		this.velocityPrediction.y.update()
