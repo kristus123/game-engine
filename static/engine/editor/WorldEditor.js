@@ -5,7 +5,9 @@ export class WorldEditor {
 		Controller.control(Cam.objectToFollow)
 
 		this.localObjects = new LocalObjects([
-			new PlayerEditor(),
+			Init(this, {
+				player: new PlayerEditor(),
+			}),
 
 			new PersistedStaticPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
 			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
@@ -33,6 +35,12 @@ export class WorldEditor {
 				},
 			),
 		])
+	}
+
+	exitEditMode() { // easy pz hack
+		this.localObjects.remove(this.player)
+		Overlay.clearAll()
+		return this
 	}
 
 	update() {

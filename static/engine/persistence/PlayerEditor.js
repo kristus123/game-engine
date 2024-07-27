@@ -27,7 +27,7 @@ export class PlayerEditor {
 			MouseEditor.active = mouseEditor
 
 			Overlay.bottomButton('control player', () => {
-				Controller.control(this.player)
+				Controller.control(player)
 				Overlay.clearBottom()
 				Overlay.bottomButton('back to camera', () => {
 					Controller.control(Cam.objectToFollow)
