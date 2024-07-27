@@ -12,11 +12,9 @@ export class World {
 		this.localObjects = new LocalObjects([
 			new WorldEditor().exitEditMode(),
 			this.player,
-			new StaticPicture(new Position(-100, 0, 1700, 600), '/static/assets/houses.png'),
-			new StaticPicture(new Position(-100, -1200, 1700, 600), '/static/assets/houses.png'),
 			new CloudParallax(),
-			new TalkToShopKeeper(this.player),
 			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
+			new TalkToShopKeeper(this.player),
 		])
 
 		Cam.followInstantly(this.player)
