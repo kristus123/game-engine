@@ -16,6 +16,19 @@ export class Mouse {
 			this.position = this.positionRelativeToCamera(e)
 		})
 
+		document.addEventListener('wheel', e => {
+			let delta = Math.sign(e.deltaY)
+
+			if (delta > 0) {
+				console.log('Scrolling out (down)')
+				Call(this.scrollOut)
+			}
+			else {
+				console.log('Scrolling in (up)')
+				Call(this.scrollIn)
+			}
+		})
+
 		document.addEventListener('mousedown', e => {
 			if (this.disabled) {
 				return

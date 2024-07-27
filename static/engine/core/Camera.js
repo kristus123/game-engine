@@ -26,8 +26,22 @@ export class Camera {
 
 		this.smoothMovement = 0.05
 
-		// it is being set right after initializing this class
-		this.mouse = null
+
+		Mouse.scrollIn = () => {
+			console.log(this.smoothZoom.currentValue)
+				this.smoothZoom.currentValue += 0.1
+				this.smoothZoom.targetValue =  this.smoothZoom.currentValue
+			if (this.zoom.currentValue > 10) {
+			}
+		}
+
+		Mouse.scrollOut = () => {
+			console.log(this.smoothZoom.currentValue)
+				this.smoothZoom.currentValue -= 0.1
+				this.smoothZoom.targetValue =  this.smoothZoom.currentValue
+			if (this.zoom.currentValue > 10) {
+			}
+		}
 	}
 
 	get zoom() {
@@ -50,7 +64,6 @@ export class Camera {
 		this.velocityPrediction.y.targetValue = (this.objectToFollow.velocity.y * 5)
 		this.velocityPrediction.x.update()
 		this.velocityPrediction.y.update()
-		console.log(this.velocityPrediction.y.currentValue)
 		this.position.x += this.velocityPrediction.x.currentValue
 		this.position.y += this.velocityPrediction.y.currentValue
 
