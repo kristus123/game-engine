@@ -12,7 +12,8 @@ export class WorldEditor {
 			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
 			new PersistedStaticPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
 			new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
-			new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
+			new PersistedStaticPictureEditor('/static/assets/bush.png', '/persisted-objects/bush.json', 200, 200),
+			new PersistedStaticPictureEditor('/static/assets/tree.png', '/persisted-objects/tree.json', 400, 400),
 
 			new PersistedObjectsEditor(
 				'/persisted-objects/chickens.json',
@@ -32,7 +33,7 @@ export class WorldEditor {
 					return wall
 				},
 			),
-		], this)
+		])
 	}
 
 	update() {
