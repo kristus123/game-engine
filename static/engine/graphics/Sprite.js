@@ -1,6 +1,6 @@
-function dimensionsFrom(src) {
+function dimensionsFrom(imagePath) {
 	const pattern = /(\d+)x(\d+)/
-	const match = src.match(pattern)
+	const match = imagePath.match(pattern)
 
 	if (match) {
 		return {
@@ -23,10 +23,9 @@ export class Sprite {
 		this.height = d.height
 
 		this.currentFrame = 0
-		const totalFrames = frameSequence.length
 
 		setInterval(() => {
-			this.currentFrame = (this.currentFrame + 1) % totalFrames
+			this.currentFrame = (this.currentFrame + 1) % this.frameSequence.length
 		}, speed)
 	}
 
