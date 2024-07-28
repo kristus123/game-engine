@@ -9,8 +9,6 @@ export class World {
 
 		this.player = new PlayerEditor().player
 
-
-
 		const sprite = new HorizontalSprite(new Position(0, 0, 400, 400), '/static/assets/blowing_tree_32x32.png', 150)
 
 		this.localObjects = new LocalObjects([

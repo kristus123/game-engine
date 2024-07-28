@@ -14,7 +14,6 @@ export class Sword {
 			{ x: 3, y: 0 },
 		], 50)
 
-
 		this.localObjects = new LocalObjects([
 			this.splashParticles,
 			this.angle,
@@ -25,19 +24,20 @@ export class Sword {
 
 		this.chargedAt = 500
 
+		this.killedObjecs = []
 	}
 
 	update() {
 		this.cooldown += 10
 
 		for (const o of this.hittableObjects) {
-
 			if (
 				Mouse.down &&
 				this.cooldown >= this.chargedAt &&
 				this.angle.within(o.position.center)
 			) {
-				o.kill = true
+				console.log("kill")
+				this.killedObjecs.push(o)
 			}
 		}
 
@@ -57,17 +57,13 @@ export class Sword {
 	}
 
 	draw(draw, guiDraw) {
-		draw.splash(this.player, Mouse.position, 200)
 		this.localObjects.draw(draw, guiDraw)
 
-		for (const o of this.hittableObjects) {
-			if (o.kill) {
-				this.splashParticles.random(o, 'red')
-				o.removeFromLoop()
-				List.remove(this.hittableObjects, o)
-				this.cooldown = 0
-
-			}
+		for (const o of this.killedObjecs) {
+			o.killAnimation()
+			console.log("hei")
+			this.cooldown = 0
 		}
+		this.killedObjecs = []
 	}
 }

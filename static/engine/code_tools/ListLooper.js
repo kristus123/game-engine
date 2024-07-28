@@ -3,17 +3,17 @@ export class ListLooper {
 		this.index = 0
 	}
 
+	next() {
+		this.index += 1
+	}
+
+	get finished() {
+		return !(this.index < this.list.length)
+	}
+
 	goThrough(callback) {
-		if (this.index < this.list.length) {
-
-			const next = () => {
-				this.index += 1
-			}
-
-			callback(this, index, this.list[this.index], next, false)
-		}
-		else {
-			callback(-1, () => {}, () => {}, true)
+		if (!this.finished) {
+			callback(this.list[this.index])
 		}
 	}
 }

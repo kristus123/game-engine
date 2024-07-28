@@ -3,7 +3,7 @@ export class MultiTextTyper {
 		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
 		this.index = 0
 
-		this.finished = false
+		this.finished = false // rename to completed?  or use finished for everything else?
 	}
 
 	update() {
