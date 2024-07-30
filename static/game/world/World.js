@@ -8,16 +8,18 @@ export class World {
 			]))
 
 		this.player = new PlayerEditor().player
+		const player = this.player
 
-		const sprite = new HorizontalSprite(new Position(0, 0, 400, 400), '/static/assets/blowing_tree_32x32.png', 150)
+		// const sprite = new HorizontalSprite(new Position(0, 0, 400, 400), '/static/assets/blowing_tree_32x32.png', 150)
 
 		this.localObjects = new LocalObjects([
-			new WorldEditor().exitEditMode(),
+			// new WorldEditor().exitEditMode(),
+			new DragonRoom(this.player),
 			this.player,
-			new CloudParallax(),
-			new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
-			new TalkToShopKeeper(this.player),
-			sprite,
+			// new CloudParallax(),
+			// new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
+			// new TalkToShopKeeper(this.player),
+			// sprite,
 		])
 
 		Cam.followInstantly(this.player)
