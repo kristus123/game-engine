@@ -26,13 +26,14 @@ ErrorHandler.run(() => {
 			Cam.context(() => {
 
 				Mouse.update()
-				Mouse.draw(draw, guiDraw)
 
 				Controller.update()
 				Controller.draw(draw, guiDraw)
 
 				Level.update()
 				Level.draw(draw, guiDraw)
+
+				Mouse.draw(draw, guiDraw)
 
 				if (MouseEditor.active) {
 					MouseEditor.active.update()
