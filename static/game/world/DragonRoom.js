@@ -19,6 +19,7 @@ export class DragonRoom {
 					'hei'
 				])
 			]),
+
 			D((draw, guiDraw) => {
 				const sword = new Position(936, 1174)
 				if (player.within(200, sword)) {
