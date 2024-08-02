@@ -65,7 +65,6 @@ export class Camera {
 	followInstantly(o) {
 		this.objectToFollow = o
 
-
 		this.position.x = o.position.x
 		this.position.y = o.position.y
 	}

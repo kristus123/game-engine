@@ -15,7 +15,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			// new WorldEditor().exitEditMode(),
 			new DragonRoom(this.player),
-			new SmoothPosition(new Position(0,0), Mouse.position, 0.01),
+			new SmoothPosition(new Position(0,0), Mouse.position, 0.1),
 			this.player,
 			// new CloudParallax(),
 			// new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),

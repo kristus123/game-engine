@@ -17,9 +17,6 @@ export class SmoothPosition {
 
 		this.currentPosition.x = this.x.currentValue
 		this.currentPosition.y = this.y.currentValue
-
-		console.log(this.x.targetValue)
-		console.log(this.targetPosition.x)
 	}
 
 	draw(draw, guiDraw) {
