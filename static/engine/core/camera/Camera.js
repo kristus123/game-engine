@@ -1,10 +1,3 @@
-function limitNumber(num, min, max) { // not the best method name
-	const MIN = min ?? 1
-	const MAX = max ?? 20
-	const parsed = parseInt(num)
-	return Math.min(Math.max(parsed, MIN), MAX)
-}
-
 export class Camera {
 	constructor() {
 
@@ -18,30 +11,27 @@ export class Camera {
 			y: Palette.height / 2,
 		}
 
-		this.smoothZoom = new SmoothValue(1, 1, 0.01, 0.0001)
+		this.smoothZoom = new SmoothValue(1, 1, 0.001, 0.5)
 		this.velocityPrediction = {
 			x: new SmoothValue(0, 0, 0.001, 0.0001),
 			y: new SmoothValue(0, 0, 0.001, 0.0001),
 		}
 
-		this.smoothMovement = 0.05
-
-
 		Mouse.scrollIn = () => {
-			console.log(this.smoothZoom.currentValue)
-				this.smoothZoom.currentValue += 0.1
-				this.smoothZoom.targetValue =  this.smoothZoom.currentValue
+				this.smoothZoom.targetValue +=  1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
 
 		Mouse.scrollOut = () => {
-			console.log(this.smoothZoom.currentValue)
-				this.smoothZoom.currentValue -= 0.1
-				this.smoothZoom.targetValue =  this.smoothZoom.currentValue
+				this.smoothZoom.targetValue -=  1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
+
+		this.anchoredPositions = new LocalObjects([
+			new Anchor(this, Mouse.position, 500, 0.01),
+		])
 	}
 
 	get zoom() {
@@ -55,40 +45,12 @@ export class Camera {
 	context(run) {
 		this.smoothZoom.update()
 
-		this.palette.ctx.save()
+		this.position.x = this.objectToFollow.position.center.x
+		this.position.y = this.objectToFollow.position.center.y
 
-		this.position.x += this.objectToFollow.position.center.x - this.position.x
-		this.position.y += this.objectToFollow.position.center.y - this.position.y
+		this.anchoredPositions.update()
 
-		this.velocityPrediction.x.targetValue = (this.objectToFollow.velocity.x * 5)
-		this.velocityPrediction.y.targetValue = (this.objectToFollow.velocity.y * 5)
-		this.velocityPrediction.x.update()
-		this.velocityPrediction.y.update()
-		this.position.x += this.velocityPrediction.x.currentValue
-		this.position.y += this.velocityPrediction.y.currentValue
-
-		const x = 500
-		this.position.x += limitNumber(this.objectToFollow.position.center.x * this.smoothMovement, -x, x)
-		this.position.y += limitNumber(this.objectToFollow.position.center.y * this.smoothMovement, -x, x)
-
-
-		const cx = 0.5
-		const maxMouseImpact = 1
-		const x_distanceToMouse = Mouse.position.x - this.position.x
-		this.position.x += limitNumber(x_distanceToMouse, -maxMouseImpact, maxMouseImpact) * cx
-
-		const y_distanceToMouse = Mouse.position.y - this.position.y
-		this.position.y += limitNumber(y_distanceToMouse, -maxMouseImpact, maxMouseImpact) * cx
-
-		this.palette.ctx.translate(
-			-this.position.x * this.zoom + this.offset.x,
-			-this.position.y * this.zoom + this.offset.y)
-
-		this.palette.ctx.scale(this.zoom, this.zoom)
-
-		run()
-
-		this.palette.ctx.restore()
+		LowLevelCamera.context(this, run)
 	}
 
 	follow(o) {
@@ -102,7 +64,10 @@ export class Camera {
 
 	followInstantly(o) {
 		this.objectToFollow = o
-		this.position = o.position.copy()
+
+
+		this.position.x = o.position.x
+		this.position.y = o.position.y
 	}
 }
 

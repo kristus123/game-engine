@@ -1,7 +1,8 @@
 export class Mouse {
+	static position = new Position(0,0)
+	static screenPosition = new Position(0,0)
+
 	static initialize() {
-		this.position = Cam.position.copy()
-		this.screenPosition = Cam.position.copy()
 
 		this.disabled = false
 
@@ -13,7 +14,7 @@ export class Mouse {
 		this.rightDown = false
 
 		document.addEventListener('mousemove', (e) => {
-			this.position = this.positionRelativeToCamera(e)
+			this.positionRelativeToCamera(e)
 		})
 
 		document.addEventListener('wheel', e => {
@@ -98,7 +99,10 @@ export class Mouse {
 				(e.clientY - Cam.offset.y) * inverseZoom +
 				Cam.position.y
 
-		return new Position(x, y)
+		this.position.x = x
+		this.position.y = y
+
+		return this.position.copy()
 	}
 
 	static clicked(o) {

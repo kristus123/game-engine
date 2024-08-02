@@ -5,31 +5,15 @@ function limitNumber(number, min, max) { // not the best method name
 }
 
 export class Anchor {
-	constructor(camera, anchorPosition, maxPixelMovement, multiplier=1) {
-
-		this.localObjects = new LocalObjects([
-			Init(this, {
-				x: new SmoothValue(anchorPosition.x, anchorPosition.x, 0.01, 0.005),
-				y: new SmoothValue(anchorPosition.y, anchorPosition.y, 0.01, 0.005),
-			}),
-			Update(() => {
-				this.x.targetValue = anchorPosition.x
-				this.y.targetValue = anchorPosition.y
-			}),
-			Update(() => {
-				camera.position.x += limitNumber(this.x.currentValue, -maxPixelMovement, maxPixelMovement, multiplier)
-				camera.position.y += limitNumber(this.y.currentValue, -maxPixelMovement, maxPixelMovement, multiplier)
-			}),
-		])
+	constructor(camera, anchoredPosition, maxPixelMovement=500, multiplier=1) {
+		
 	}
-
 
 	update() {
-		this.localObjects.update()
-	}
-
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		const x_distanceToMouse = this.anchoredPosition.x - this.camera.position.x
+		this.camera.position.x += limitNumber(x_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
+		const y_distanceToMouse = this.anchoredPosition.y - this.camera.position.y
+		this.camera.position.y += limitNumber(y_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
 	}
 
 }
