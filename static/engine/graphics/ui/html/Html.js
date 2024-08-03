@@ -10,14 +10,10 @@ function element(type, clazz) {
 	return e
 }
 
-function addToScreen(element) {
-	document.getElementById('ui_elements').appendChild(element)
-}
-
 export class Html {
 
 	static p(text) {
-		var p = document.createElement('p')
+		var p = element('p')
 		p.innerHTML = text
 
 		return p
@@ -45,7 +41,7 @@ export class Html {
 			div.appendChild(e)
 		}
 
-		addToScreen(div)
+		this.addToScreen(div)
 
 		return div
 	}

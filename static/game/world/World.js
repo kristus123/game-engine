@@ -3,9 +3,23 @@ export class World {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					Ref(this, { hp: Html.text('hp') }),
+					Html.text('time to poop'),
 				])
 			]))
+
+		Mouse.addOnClick('hei', () => {
+			const text = Html.p('picked up a sword')
+			text.setAttribute('class', 'ui fade-away')
+
+			text.style.left = `${Mouse.screenPosition.x}px`
+			text.style.top = `${Mouse.screenPosition.y - 50}px`
+
+			Html.addToScreen(text)
+
+			setTimeout(() => {
+				Html.remove(text)
+			}, 1000);
+		})
 
 		this.player = new PlayerEditor().player
 		const player = this.player
