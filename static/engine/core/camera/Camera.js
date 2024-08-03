@@ -18,13 +18,13 @@ export class Camera {
 		}
 
 		Mouse.scrollIn = () => {
-				this.smoothZoom.targetValue +=  1
+			this.smoothZoom.targetValue += 1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
 
 		Mouse.scrollOut = () => {
-				this.smoothZoom.targetValue -=  1
+			this.smoothZoom.targetValue -= 1
 			if (this.zoom.currentValue > 10) {
 			}
 		}

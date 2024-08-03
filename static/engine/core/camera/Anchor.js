@@ -6,7 +6,7 @@ function limitNumber(number, min, max) { // not the best method name
 
 export class Anchor {
 	constructor(camera, anchoredPosition, maxPixelMovement=500, multiplier=1) {
-		
+
 	}
 
 	update() {

@@ -36,7 +36,7 @@ export class Sword {
 				this.cooldown >= this.chargedAt &&
 				this.angle.within(o.position.center)
 			) {
-				console.log("kill")
+				console.log('kill')
 				this.killedObjecs.push(o)
 			}
 		}
@@ -61,7 +61,7 @@ export class Sword {
 
 		for (const o of this.killedObjecs) {
 			o.killAnimation()
-			console.log("hei")
+			console.log('hei')
 			this.cooldown = 0
 		}
 		this.killedObjecs = []

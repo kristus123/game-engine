@@ -9,14 +9,14 @@ export class HorizontalSprite {
 				const frameSequence = []
 				for (let i = 0; i < sprite.image.width / sprite.width; i++) {
 					console.log(i)
-					frameSequence.push({x: i, y:0})
+					frameSequence.push({ x: i, y: 0 })
 				}
 				sprite.frameSequence = frameSequence
 
-				console.log("hei")
+				console.log('hei')
 				clearInterval(x)
 			}
-		}, 10);
+		}, 10)
 
 
 		this.localObjects = new LocalObjects([sprite])

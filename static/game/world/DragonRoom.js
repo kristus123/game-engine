@@ -9,7 +9,7 @@ export class DragonRoom {
 			Init(this, {
 				oldMan: new Npc(new Position(1177, 1247, 140, 200)),
 			}),
-			
+
 
 			new Dialogue([
 				new MultiTextTyper(this.oldMan.position.over(), [
@@ -23,7 +23,7 @@ export class DragonRoom {
 			D((draw, guiDraw) => {
 				const sword = new Position(936, 1174)
 				if (player.within(200, sword)) {
-					console.log("hei")
+					console.log('hei')
 					draw.text(sword.offset(0, -100), 'E to pick up')
 				}
 			}),
