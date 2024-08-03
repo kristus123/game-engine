@@ -29,6 +29,9 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		draw.hpBar(this.position.over(), 80, 100)
+		draw.objectThatIsCirclingAroundObjectBasedOnMousePosition(this)
+
 		if (super.movingUp) {
 			this.behindPicture.draw(draw, guiDraw)
 		}

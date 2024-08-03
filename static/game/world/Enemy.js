@@ -9,6 +9,7 @@ export class Enemy extends DynamicGameObject {
 			new Picture(this.position, '/static/assets/bad_ninja.png'),
 
 			Init(this, {
+				hp: new Hp(this, 100, 100),
 				sprite: new TriggerSprite(this.position.offset(-200,-200, 500, 500), '/static/assets/kill_blood_animation_32x32.png', [
 					{ x: 0, y: 0 },
 					{ x: 1, y: 0 },
@@ -21,16 +22,16 @@ export class Enemy extends DynamicGameObject {
 		])
 	}
 
-	killAnimation() {
-		this.sprite.play()
-
-		setTimeout(() => {
-			this.removeFromLoop()
-		}, 300);
-	}
-
 	update() {
 		this.localObjects.update()
+
+		if (this.hp.dead) {
+			this.sprite.play()
+
+			setTimeout(() => {
+				this.removeFromLoop()
+			}, 300);
+		}
 	}
 
 	draw(draw, guiDraw) {

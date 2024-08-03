@@ -167,7 +167,7 @@ export class Draw {
 		// Stroke the lines this.ctx.stroke() this.ctx.closePath()
 	}
 
-	hpBar(position, currentHp, maxHp) {
+	hpBar(position, currentHp, maxHp, color='red') {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
 			const numerator = currentHp
 			const denominator = maxHp
@@ -182,15 +182,18 @@ export class Draw {
 		const width = 200
 		const height = 20
 
-		let currentHP = 1
-		currentHP = toPercentage()
-
-		currentHP = Math.max(0, currentHP - 0.01)
+		position = {
+			x: position.x - 100,
+			y: position.y + 50,
+		}
 
 		this.ctx.fillStyle = 'white'
 		this.ctx.fillRect(position.x, position.y, width, height)
 
-		this.ctx.fillStyle = 'red'
+
+		let currentHP = Math.max(0, toPercentage() - 0.01)
+
+		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, currentHP * width, height)
 	}
 
@@ -279,30 +282,25 @@ export class Draw {
 		return { x: circleX, y: circleY }
 	}
 
-	// needs some work obviously, but it works
-	objectThatIsCirclingAroundObjectBasedOnMousePosition(
-		player,
-		mousePosition,
-	) {
-		function getAngle(x1, y1, x2, y2) {
-			return Math.atan2(y2 - y1, x2 - x1)
+	objectThatIsCirclingAroundObjectBasedOnMousePosition(player) {
+		player = {
+			x: player.position.center.x,
+			y: player.position.center.y,
 		}
 
-		const angle = getAngle(
-			player.x,
-			player.y,
-			mousePosition.x,
-			mousePosition.y,
-		)
-		const playerRadius = 20
-		const circleRadius = 200
+		const mouse = {
+			x: Mouse.position.x,
+			y: Mouse.position.y,
+		}
 
-		const circleX =
-			player.x + player.width / 2 + circleRadius * Math.cos(angle)
-		const circleY =
-			player.y + player.height / 2 + circleRadius * Math.sin(angle)
+		const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x)
 
-		this.circle(circleX, circleY, playerRadius, 'red')
+		const circleRadius = 150
+
+		const x = player.x + circleRadius * Math.cos(angle)
+		const y = player.y + circleRadius * Math.sin(angle)
+
+		this.circle(new Position(x, y), 10, 'red')
 	}
 
 	line(start, end) {
@@ -329,8 +327,8 @@ export class Draw {
 		this.ctx.fillText(text, position.x, position.y)
 	}
 
-	position(o) {
-		this.text(o, `${Math.floor(o.x)} _ ${Math.floor(o.y)}`)
+	position(p) {
+		this.text(p, `${Math.floor(p.x)} _ ${Math.floor(p.y)}`)
 	}
 
 	grid() {
