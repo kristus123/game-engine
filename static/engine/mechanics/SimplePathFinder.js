@@ -6,9 +6,16 @@ export class SimplePathFinder {
 
 		this.localObjects = new LocalObjects([
 			this.object,
-			this.c1
+			this.c1,
 		])
 
+		this.rotationAmount = 0
+
+		this.speed = 5
+
+		Move(this.c1).towards(this.target, this.speed)
+
+		this.angle1 = this.c1.position.copy()
 	}
 
 	update() {
@@ -19,14 +26,19 @@ export class SimplePathFinder {
 				this.c1.position = this.object.position.copy()
 				this.c1.velocity.reset()
 				console.log("collision. resetting")
-			}
-			else {
-				Push(this.c1).towards(this.target, 1)
+				this.rotationAmount += 10
+
+				Move(this.c1).towards(this.target, this.speed)
+				this.c1.velocity.rotate(this.rotationAmount)
+
+				this.angle1 = this.c1.position.copy()
 			}
 		}
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+		draw.line(this.c1, this.target)
 	}
 }
