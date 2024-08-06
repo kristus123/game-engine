@@ -7,6 +7,7 @@ export class WorldEditor {
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				player: new PlayerEditor(),
+				invisibleWalls: new InvisibleWallsEditor(),
 			}),
 
 			new PersistedStaticPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
@@ -25,15 +26,9 @@ export class WorldEditor {
 					return c
 				},
 			),
-			new PersistedObjectsEditor(
-				'/persisted-objects/invisible_walls.json',
-				position => new InvisibleWall(position),
-				json => {
-					const wall = new InvisibleWall(new Position(json.position.x, json.position.y))
-					wall.objectId = json.objectId
-					return wall
-				},
-			),
+
+			new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
+
 		])
 	}
 

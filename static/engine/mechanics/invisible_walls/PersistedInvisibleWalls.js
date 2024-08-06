@@ -1,6 +1,8 @@
 export class PersistedInvisibleWalls {
 	constructor(player) {
-		this.walls = new PersistedObjects('/persisted-objects/invisible_walls.json', j => InvisibleWall.mapFromJsonObject(j))
+		this.walls = new PersistedObjects(
+			'/persisted-objects/invisible_walls.json',
+			json => InvisibleWall.mapFromJsonObject(json))
 
 		this.add(player)
 	}

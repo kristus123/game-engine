@@ -8,6 +8,8 @@ export class PersistedObjects extends AllObjects {
 	}
 
 	add(o) {
+		AssertNotNull(o.objectId, 'objectId should not be null. It is needed to persist')
+
 		const objects = Http.get(this.filePath)
 
 		objects.push(o.mapToJson())
@@ -23,6 +25,7 @@ export class PersistedObjects extends AllObjects {
 
 		List.removeIf(objects, x => x.objectId == o.objectId)
 		objects.push(o)
+
 		Http.post(this.filePath, objects.map(c => c.mapToJson()))
 	}
 
