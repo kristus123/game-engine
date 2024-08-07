@@ -16,7 +16,7 @@ export class SimplePathFinder {
 
 		this.rotationAmount = 0
 
-		this.speed = 5
+		this.speed = 15
 
 		this.angle1 = this.c1.position.copy()
 
@@ -46,7 +46,7 @@ export class SimplePathFinder {
 				}
 			}
 
-			if (Distance.between(this.c1, closestWall) > 100) {
+			if (Distance.between(this.c1, closestWall) > 300) {
 				Move(this.c1).to(this.target, 0, this.speed)
 			}
 
