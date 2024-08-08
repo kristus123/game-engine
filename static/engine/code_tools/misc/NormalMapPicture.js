@@ -44,19 +44,20 @@ export class NormalMapPicture {
 		const lightX = this.lightPosition.x - this.position.x
 		const lightY = this.lightPosition.y - this.position.y
 
-		for (let i = 0; i < data.length; i += 4) {
-			const x = (i / 4) % imageData.width
-			const y = Math.floor((i / 4) / imageData.width)
+		const width = imageData.width
+		const height = imageData.height
 
-			// if (data[i + 3] === 0) {
-			// 	// Skip transparent pixels
-			// 	continue
-			// }
+		for (let i = 0; i < data.length; i += 4) {
+			const x = (i / 4) % width
+			const y = Math.floor((i / 4) / width)
+
+			// Inverted Y-axis for normal map data
+			const ny = height - 1 - y // Flip Y-axis
 
 			// Get normal map values
-			const nx = normal[i] / 255 * 2 - 1
-			const ny = normal[i + 1] / 255 * 2 - 1
-			const nz = normal[i + 2] / 255 * 2 - 1
+			const nx = normal[(ny * width + x) * 4] / 255 * 2 - 1
+			const nyNormal = normal[(ny * width + x) * 4 + 1] / 255 * 2 - 1
+			const nz = normal[(ny * width + x) * 4 + 2] / 255 * 2 - 1
 
 			// Compute light direction
 			const lx = lightX - x
@@ -66,7 +67,7 @@ export class NormalMapPicture {
 			const ld = { x: lx / length, y: ly / length, z: lz / length }
 
 			// Dot product of normal and light direction
-			const dot = Math.max(0, nx * ld.x + ny * ld.y + nz * ld.z)
+			const dot = Math.max(0, nx * ld.x + nyNormal * ld.y + nz * ld.z)
 
 			// Create a Pixel instance and apply lighting
 			const pixel = new Pixel(data[i], data[i + 1], data[i + 2], data[i + 3])
@@ -76,5 +77,7 @@ export class NormalMapPicture {
 			pixel.applyToImageData(data, i)
 		}
 	}
+
+
 }
 
