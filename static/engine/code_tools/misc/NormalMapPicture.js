@@ -11,15 +11,16 @@ export class NormalMapPicture {
 
 		// Lighting parameters
 		this.lightPosition = new Position(0, 0)
-		this.lightColor = { r: 255, g: 255, b: 255 }
-		this.ambientLight = 0.001 // Increased ambient light for visibility
+		this.lightColor = { r: 255, g: 2, b: 100 }
+		this.ambientLight = 0.4 // Increased ambient light for visibility
 
-		this.picture = new Picture(this.position, normalMapPath)
+		this.picture = new Picture(this.position, '/static/assets/box.png')
 	}
 
 	draw(draw, guiDraw) {
-		this.lightPosition.x = Mouse.position.x
-		this.lightPosition.y = Mouse.position.y
+		this.lightPosition.x = Mouse.position.x + (Palette.width/2)
+		this.lightPosition.y = Mouse.position.y - (Palette.height/2)
+		draw.circle(this.lightPosition)
 
 
 		this.picture.draw(draw, guiDraw)
