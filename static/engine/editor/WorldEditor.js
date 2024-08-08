@@ -27,7 +27,7 @@ export class WorldEditor {
 				},
 			),
 
-			new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			// new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
 
 			new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])
@@ -46,7 +46,6 @@ export class WorldEditor {
 	}
 
 	draw(draw, guiDraw) {
-		this.pixels.add(new Pixel(Mouse.position.copy()))
 
 		this.localObjects.draw(draw, guiDraw)
 

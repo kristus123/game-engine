@@ -15,16 +15,16 @@ export class Velocity {
 		this.y = 0
 	}
 
-    rotate(angleDegrees) {
-        const angleRadians = angleDegrees * (Math.PI / 180);
-        const cosTheta = Math.cos(angleRadians);
-        const sinTheta = Math.sin(angleRadians);
+	rotate(angleDegrees) {
+		const angleRadians = angleDegrees * (Math.PI / 180)
+		const cosTheta = Math.cos(angleRadians)
+		const sinTheta = Math.sin(angleRadians)
 
-        const newX = this.x * cosTheta - this.y * sinTheta;
-        const newY = this.x * sinTheta + this.y * cosTheta;
+		const newX = this.x * cosTheta - this.y * sinTheta
+		const newY = this.x * sinTheta + this.y * cosTheta
 
-        this.x = newX;
-        this.y = newY;
-    }
+		this.x = newX
+		this.y = newY
+	}
 
 }

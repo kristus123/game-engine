@@ -31,7 +31,7 @@ export class SimplePathFinder {
 		this.localObjects.update()
 
 
-		let  closestWall = this.invisibleWalls[0]
+		let closestWall = this.invisibleWalls[0]
 		if (this.c1Active) {
 			Move(this.c1).to(this.target, this.rotationAmount, this.speed)
 
@@ -68,7 +68,7 @@ export class SimplePathFinder {
 			}
 
 			if (this.c2.within(100, this.target)) {
-				console.log("sucesss")
+				console.log('sucesss')
 				this.success = true
 			}
 		}
