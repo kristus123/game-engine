@@ -1,18 +1,14 @@
 export class PictureInPicture {
 	constructor() {
-		this.position = new Position(0, 100, 200, 50)
+		this.position = new Position(200, 100, 400, 500)
 	}
 
 	draw(draw, guiDraw) {
-		const ox = this.position.x - Cam.position.x + 200 + Mouse.position.x*0.8
-		const oy = this.position.y - Cam.position.y + 200  + Mouse.position.y*0.8
+		const imageData = draw.ctx.getImageData(this.position.x, this.position.y, this.position.width, this.position.height)
 
-		const xx = Mouse.position.x * 0.1
-		const yy = Mouse.position.y * 0.1
-
-		const imageData = draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
-
-		draw.ctx.putImageData(imageData, xx + this.position.x + ox, yy + this.position.y + oy)
+		draw.ctx.putImageData(imageData,
+			Mouse.position.x - Cam.position.x + (Palette.width/2),
+			Mouse.position.y - Cam.position.y + (Palette.height/2))
 	}
 }
 
