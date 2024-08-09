@@ -27,9 +27,9 @@ export class WorldEditor {
 				},
 			),
 
-			// new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
 
-			new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
+			// new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])
 
 		this.pixels = new LocalObjects()

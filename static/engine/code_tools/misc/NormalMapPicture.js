@@ -18,8 +18,8 @@ export class NormalMapPicture {
 	}
 
 	draw(draw, guiDraw) {
-		this.lightPosition.x = Mouse.position.x + (Palette.width/2)
-		this.lightPosition.y = Mouse.position.y - (Palette.height/2)
+		this.lightPosition.x = Mouse.position.x
+		this.lightPosition.y = Mouse.position.y
 		draw.circle(this.lightPosition)
 
 

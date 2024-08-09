@@ -1,6 +1,6 @@
 export class SimplePathFinder {
 	constructor(target, invisibleWalls) {
-		this.startPosition = new Square(new Position(400, 10), 100)
+		this.startPosition = new Square(new Position(400, 10), 30)
 
 		this.c1 = new Square(new Position(400, 10), 20)
 		this.c2 = new Square(new Position(400, 10), 20)
