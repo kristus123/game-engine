@@ -6,7 +6,7 @@ export class WorldEditor {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				player: new PlayerEditor(),
+				player: new PlayerEditor().player,
 				invisibleWalls: new InvisibleWallsEditor(),
 			}),
 
@@ -26,8 +26,8 @@ export class WorldEditor {
 					return c
 				},
 			),
-			new BlobMonster(this.player),
-			// new SimplePathFinder(this.player.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			new BlobMonster(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			// new SimplePathFinder(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
 			// new PictureInPicture()
 			// new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])

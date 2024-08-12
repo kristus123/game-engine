@@ -1,22 +1,21 @@
 export class SimplePathFinder {
-	constructor(target, invisibleWalls) {
-		this.startPosition = new Square(new Position(400, 10), 30)
+	constructor(startPosition, target, invisibleWalls) {
 
-		this.c1 = new Square(new Position(400, 10), 20)
-		this.c2 = new Square(new Position(400, 10), 20)
+		this.c1 = new Square(startPosition.position.copy(), 20)
+
+		this.c2 = new Square(startPosition.position.copy(), 20)
 		this.c2.draw = (draw, guiDraw) => {
 			draw.rectangle(this.c2.position, 'orange')
 		}
 
 		this.localObjects = new LocalObjects([
-			this.startPosition,
 			this.c1,
 			this.c2,
 		])
 
 		this.rotationAmount = 0
 
-		this.speed = 15
+		this.speed = 3
 
 		this.angle1 = this.c1.position.copy()
 
@@ -29,7 +28,6 @@ export class SimplePathFinder {
 	update() {
 
 		this.localObjects.update()
-
 
 		let closestWall = this.invisibleWalls[0]
 		if (this.c1Active) {
