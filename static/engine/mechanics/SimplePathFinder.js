@@ -15,7 +15,7 @@ export class SimplePathFinder {
 
 		this.rotationAmount = 0
 
-		this.speed = 3
+		this.speed = 10
 
 		this.angle1 = this.c1.position.copy()
 
