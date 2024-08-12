@@ -13,7 +13,6 @@ export class HorizontalSprite {
 				}
 				sprite.frameSequence = frameSequence
 
-				console.log('hei')
 				clearInterval(x)
 			}
 		}, 10)
