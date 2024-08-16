@@ -46,6 +46,6 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		draw.gradient(new Position(0,0))
+		draw.test(new Position(0,0))
 	}
 }
