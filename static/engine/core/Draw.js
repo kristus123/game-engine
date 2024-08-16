@@ -112,21 +112,18 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	gradient(position) {
-		const radius = 1500
+	gradient(position) {  // can be used for making a light source
+		const radius = 300
 
-		const scaledX = position.x
-		const scaledY = position.y
-
-		const gradient = this.ctx.createRadialGradient(scaledX, scaledY, 200, scaledX, scaledY, radius)
+		const gradient = this.ctx.createRadialGradient(position.x, position.y, 200, position.x, position.y, 50)
 		// Add transparent colors with alpha channel
-		gradient.addColorStop(0, 'rgba(255, 0, 0, 0.2)') // Inner color (fully transparent red)
-		gradient.addColorStop(0.5, 'rgba(0, 0, 255, 1)') // Middle color (partially transparent blue)
-		gradient.addColorStop(1, 'rgba(0, 0, 255, 0)') // Middle color (partially transparent blue)
+		gradient.addColorStop(0, 'rgba(255, 0, 255, 0.1)') // Inner color (fully transparent red)
+		gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)') // Middle color (partially transparent blue)
+		gradient.addColorStop(1, 'rgba(255, 255, 0, 0.1)') // Middle color (partially transparent blue)
 
 		this.ctx.fillStyle = gradient
 		this.ctx.beginPath()
-		this.ctx.arc(scaledX, scaledY, radius, 0, 2 * Math.PI)
+		this.ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI)
 		this.ctx.fill()
 	}
 

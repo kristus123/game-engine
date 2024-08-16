@@ -29,7 +29,7 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			// new WorldEditor().exitEditMode(),
-			new DragonRoom(this.player),
+			// new DragonRoom(this.player),
 			this.player,
 			// new SmoothPosition(new Position(0, 0), Mouse.position, 0.1),
 			// new Npc(new Position(0, 0)),
@@ -46,5 +46,6 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		draw.gradient(new Position(0,0))
 	}
 }
