@@ -26,11 +26,17 @@ export class WorldEditor {
 					return c
 				},
 			),
-			new BlobMonster(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
+
+			Init(this, {
+				blobMonster: new BlobMonster(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			})
+			
 			// new SimplePathFinder(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
 			// new PictureInPicture()
 			// new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])
+
+		Cam.anchoredPositions.add(new Anchor(Cam, this.blobMonster, 1000, 0.2))
 
 		this.pixels = new LocalObjects()
 	}

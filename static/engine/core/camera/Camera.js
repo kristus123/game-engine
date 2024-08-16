@@ -4,6 +4,7 @@ export class Camera {
 		this.palette = Palette.offscreen()
 
 		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
+
 		this.position = new Position(0, 0)
 
 		this.offset = {
@@ -57,7 +58,7 @@ export class Camera {
 		this.objectToFollow = o
 	}
 
-	goTo(o) {
+	goTo(o) { // this is wrong
 		this.objectToFollow.x = o.x
 		this.objectToFollow.y = o.y
 	}

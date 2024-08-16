@@ -3,18 +3,21 @@ export class DragonRoom {
 
 		this.entrance = new DynamicGameObject(new Position(200, 2037, 100, 100), 1, 1)
 
+		const oldMan = new Npc(new Position(1177, 1247, 140, 200))
+		Cam.zoom = 1.5
+		Cam.follow(oldMan)
+
 		this.localObjects = new LocalObjects([
 			new StaticPicture(new Position(0, 0, 100*20, 100*20), '/static/assets/dragon_room.png'),
 			this.entrance,
-			Init(this, {
-				oldMan: new Npc(new Position(1177, 1247, 140, 200)),
-			}),
-
+			oldMan,
 
 			new Dialogue([
-				new MultiTextTyper(this.oldMan.position.over(), [
+				new MultiTextTyper(oldMan.position.over(), [
 					'hei'
-				]),
+				], () => {
+					Cam.follow(player)
+				}),
 				new MultiTextTyper(player.position.over(), [
 					'hei'
 				])
@@ -37,7 +40,7 @@ export class DragonRoom {
 			Cam.follow(this.entrance)
 		}
 		else {
-			Cam.follow(this.player)
+			// Cam.follow(this.player)
 		}
 	}
 
