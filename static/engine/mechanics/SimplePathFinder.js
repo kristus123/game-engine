@@ -66,7 +66,6 @@ export class SimplePathFinder {
 			}
 
 			if (this.c2.within(100, this.target)) {
-				console.log('sucesss')
 				this.success = true
 			}
 		}

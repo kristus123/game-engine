@@ -23,7 +23,6 @@ export class Enemy extends DynamicGameObject {
 
 			Update(u => {
 				if (this.pathFinder.success) {
-					console.log("found him")
 					if (this.notWithin(100, this.player)) {
 						Push(this).towards(this.pathFinder.c2)
 					}

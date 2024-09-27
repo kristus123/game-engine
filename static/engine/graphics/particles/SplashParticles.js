@@ -1,5 +1,5 @@
 export class SplashParticles {
-	constructor(player) {
+	constructor() {
 		this.particles = []
 	}
 
@@ -18,17 +18,18 @@ export class SplashParticles {
 	}
 
 	random(object, color='white') {
-		const size = Random.floatBetween(1, 10)
 
-		Iterate(20, () => {
+		Iterate(200, () => {
+			const size = Random.floatBetween(0.1, 20)
+
 			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
 			p.draw = (draw, guiDraw) => {
 				draw.rectangle(p, color)
 			}
 
-			Push(p).towards(Random.direction(object), 10)
+			Push(p).towards(Random.direction(object), Random.integerBetween(0.1, 10))
 
-			p.life = 20
+			p.life = 200
 			p.color = Random.color()
 			this.particles.push(p)
 		})
