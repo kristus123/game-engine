@@ -33,6 +33,7 @@ export class World {
 			this.player,
 			new SmokeBomb(this.player),
 			new Enemy(this.player.position.offset(200).copy(), this.player),
+			new Picture(new Position(0, 0, 123*5, 68*5), '/static/assets/logo.png')
 			// new SmoothPosition(new Position(0, 0), Mouse.position, 0.1),
 			// new Npc(new Position(0, 0)),
 			// new CloudParallax(),
