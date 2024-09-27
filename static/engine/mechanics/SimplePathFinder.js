@@ -29,7 +29,7 @@ export class SimplePathFinder {
 
 		this.localObjects.update()
 
-		let closestWall = this.invisibleWalls[0]
+		let closestWall = new Position(9000, 9000, 100, 100)
 		if (this.c1Active) {
 			Move(this.c1).to(this.target, this.rotationAmount, this.speed)
 
@@ -73,8 +73,8 @@ export class SimplePathFinder {
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		// this.localObjects.draw(draw, guiDraw)
 
-		draw.line(this.c1, this.target)
+		// draw.line(this.c1, this.target)
 	}
 }

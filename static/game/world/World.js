@@ -31,6 +31,7 @@ export class World {
 			// new WorldEditor().exitEditMode(),
 			// new DragonRoom(this.player),
 			this.player,
+			new Enemy(this.player.position.offset(200).copy(), this.player),
 			// new SmoothPosition(new Position(0, 0), Mouse.position, 0.1),
 			// new Npc(new Position(0, 0)),
 			// new CloudParallax(),

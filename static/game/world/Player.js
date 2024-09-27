@@ -1,6 +1,6 @@
 export class Player extends DynamicGameObject {
 	constructor(position) {
-		super(position, 4000, 5)
+		super(position, 4000, 500)
 
 		this.position.width = 145
 		this.position.height = 200
@@ -29,7 +29,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.hpBar(this.position.over(), 80, 100)
+		draw.hpBar(this.position.over(), 50, 100)
 		draw.objectThatIsCirclingAroundObjectBasedOnMousePosition(this)
 
 		if (super.movingUp) {
