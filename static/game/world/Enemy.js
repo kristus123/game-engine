@@ -1,5 +1,5 @@
 export class Enemy extends DynamicGameObject {
-	constructor(position, player) {
+	constructor(position) {
 		super(position, 1000, 10)
 
 		this.position.width = 100
@@ -9,43 +9,59 @@ export class Enemy extends DynamicGameObject {
 			new Picture(this.position, '/static/assets/bad_ninja.png'),
 
 			Init(this, {
-				pathFinder: new SimplePathFinder(this, this.player, []),
 				hp: new Hp(this, 100, 100),
-				sprite: new TriggerSprite(this.position.offset(-200, -200, 500, 500), '/static/assets/kill_blood_animation_32x32.png', [
-					{ x: 0, y: 0 },
-					{ x: 1, y: 0 },
-					{ x: 2, y: 0 },
-					{ x: 3, y: 0 },
-					{ x: 4, y: 0 },
-					{ x: 5, y: 0 },
-				], 100),
 			}),
-
-			Update(u => {
-				if (this.pathFinder.success) {
-					if (this.notWithin(100, this.player)) {
-						Push(this).towards(this.pathFinder.c2)
-					}
-				}
-			})
 		])
 	}
 
 	update() {
 		this.localObjects.update()
+	}
 
-		if (this.hp.dead) {
-			this.sprite.play()
+	markBlinded() {
+		this.blinded = true
 
-			setTimeout(() => {
-				this.removeFromLoop()
-			}, 300)
-		}
+		setTimeout(() => {
+			this.blinded = false
+		}, 2_000);
+	}
 
+	kill() {
+		this.handledBy.add(new class {
+			constructor(position) {
+				this.sprite = new TriggerSprite(position.offset(-200, -200, 500, 500), '/static/assets/kill_blood_animation_32x32.png', [
+					// { x: 0, y: 0 },
+					{ x: 1, y: 0 },
+					{ x: 2, y: 0 },
+					{ x: 3, y: 0 },
+					{ x: 4, y: 0 },
+					{ x: 5, y: 0 },
+				], 50)
+
+				this.sprite.play()
+			}
+			
+			update() {
+				if (this.sprite.pause) {
+					console.log("sex")
+					this.removeFromLoop()
+				}
+			}
+
+			draw(draw, guiDraw) {
+				this.sprite.draw(draw, guiDraw)
+			}
+		}(this.position))
+
+		this.removeFromLoop()
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+		if (this.blinded) {
+			draw.text(this.position.offset(0, -100), '🫣')
+		}
 	}
 
 }

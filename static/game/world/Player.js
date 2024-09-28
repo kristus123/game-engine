@@ -26,6 +26,15 @@ export class Player extends DynamicGameObject {
 		}
 
 		this.charge.update()
+
+
+		for (const e of Registry.enemies) {
+			if (e.within(100, this)) {
+				if (e.blinded) {
+					e.kill()
+				}
+			}
+		}
 	}
 
 	draw(draw, guiDraw) {
@@ -37,7 +46,6 @@ export class Player extends DynamicGameObject {
 		}
 		else {
 			this.defaultPicture.draw(draw, guiDraw)
-
 		}
 
 		for (const o of this.steps) {

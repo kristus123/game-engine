@@ -28,6 +28,12 @@ export class SmokeBomb {
 		if (this.e.down && this.charge.ready()) {
 			this.particles.random(this.player)
 			this.charge.exhaust()
+
+			for (const e of Registry.enemies) {
+				if (e.within(350, this.player)) {
+					e.markBlinded()
+				}
+			}
 		}
 	}
 

@@ -5,6 +5,12 @@ export class AllObjects { // not a good name
 				this.remove(o)
 			}
 
+			o.handledBy = this
+
+			if (o instanceof Enemy) {
+				Registry.enemies.push(o)
+			}
+
 		}
 	}
 
@@ -15,11 +21,19 @@ export class AllObjects { // not a good name
 			this.remove(o)
 		}
 
+		o.handledBy = this
+
+		if (o instanceof Enemy) {
+			Registry.enemies.push(o)
+		}
+
+
 		return o
 	}
 
 	remove(o) {
 		List.remove(this.objects, o)
+		List.remove(Registry.enemies, o)
 	}
 
 	removeByObjectId(objectId) {
