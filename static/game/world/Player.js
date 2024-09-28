@@ -13,21 +13,9 @@ export class Player extends DynamicGameObject {
 			this.steps.push(this.position.offset(50, 200, 50, 20).copy())
 			List.retainMax(this.steps, 4)
 		}, 400)
-
-		this.e = new Key('e')
-		this.charge = new Charge(1, 100)
 	}
 
 	update() {
-		if (this.e.down && this.charge.ready()) {
-			this.charge.exhaust()
-			this.x += this.velocity.x * 5
-			this.y += this.velocity.y * 5
-		}
-
-		this.charge.update()
-
-
 		for (const e of Registry.enemies) {
 			if (e.within(100, this)) {
 				if (e.blinded) {
