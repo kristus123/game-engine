@@ -7,12 +7,12 @@ export class Enemy extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new Picture(this.position, '/static/assets/bad_ninja.png'),
-			// new StraightPath(this.position, Registry.player),
 
 			Init(this, {
 				hp: new Hp(this, 100, 100),
 				angle: new Angle(this.position.center, 100, 250),
 			}),
+			new PoopFace(this),
 		])
 	}
 

@@ -1,5 +1,6 @@
-export class StraightPath {
-	constructor(startPosition, target) {
+export class PoopFace {
+	constructor(startPosition) {
+		this.target = Registry.player
 
 		this.line = new Square(startPosition.position.copy(), 20)
 
