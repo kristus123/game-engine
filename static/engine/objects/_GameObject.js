@@ -10,6 +10,16 @@ export class _GameObject {
 		return Collision.between(this.position, o)
 	}
 
+	touchesAny(list) {
+		for (const o of list) {
+			if (Collision.between(this.position, o)) {
+				return true
+			}
+		}
+
+		return false
+	}
+
 	within(distance, o) {
 		return Distance.within(distance, this, o)
 	}

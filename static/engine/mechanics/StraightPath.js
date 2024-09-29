@@ -1,11 +1,12 @@
-export class PoopFace {
+export class StraightPath {
+
 	constructor(startPosition) {
 		this.target = Registry.player
 
-		this.line = new Square(startPosition.position.copy(), 20)
-
 		this.localObjects = new LocalObjects([
-			this.line,
+			Init(this, {
+				line: new Square(startPosition.position.copy(), 20)
+			})
 		])
 
 		this.blocked = true
@@ -14,18 +15,21 @@ export class PoopFace {
 	}
 
 	update() {
+		ForcePush(this.line).towards(this.target, 300)
 
-		ForcePush(this.line).towards(this.target, 5)
-
-		if (InvisibleWalls.touchedBy(this.line)) {
+		if (this.line.touchesAny(Registry.invisibleWalls)) {
 			this.blocked = true
+
 			this.line.x = this.startPosition.x
 			this.line.y = this.startPosition.y
 		}
-		else if (this.line.touches(this.target)) {
+
+		if (this.line.touches(this.target)) {
 			this.blocked = false
+
+			this.line.x = this.startPosition.x
+			this.line.y = this.startPosition.y
 		}
-		
 
 		this.localObjects.update()
 	}

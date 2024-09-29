@@ -27,7 +27,6 @@ export class World {
 		Controller.control(this.player)
 
 		this.localObjects = new LocalObjects([
-
 			new InvisibleWalls(),
 
 			// new WorldEditor().exitEditMode(),
