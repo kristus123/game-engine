@@ -18,21 +18,21 @@ export class Camera {
 			y: new SmoothValue(0, 0, 0.001, 0.0001),
 		}
 
-		Mouse.scrollIn = () => {
-			this.smoothZoom.targetValue += 1
-			if (this.zoom.currentValue > 10) {
-			}
-		}
+		// Mouse.scrollIn = () => {
+		// 	this.smoothZoom.targetValue += 1
+		// 	if (this.zoom.currentValue > 10) {
+		// 	}
+		// }
 
-		Mouse.scrollOut = () => {
-			this.smoothZoom.targetValue -= 1
-			if (this.zoom.currentValue > 10) {
-			}
-		}
+		// Mouse.scrollOut = () => {
+		// 	this.smoothZoom.targetValue -= 1
+		// 	if (this.zoom.currentValue > 10) {
+		// 	}
+		// }
 
-		this.anchoredPositions = new LocalObjects([
-			new Anchor(this, Mouse.position, 500, 0.01),
-		])
+		// this.anchoredPositions = new LocalObjects([
+		// 	new Anchor(this, Mouse.position, 500, 0.01),
+		// ])
 	}
 
 	get zoom() {
@@ -49,7 +49,7 @@ export class Camera {
 		this.position.x = this.objectToFollow.position.center.x
 		this.position.y = this.objectToFollow.position.center.y
 
-		this.anchoredPositions.update()
+		// this.anchoredPositions.update()
 
 		LowLevelCamera.context(this, run)
 	}

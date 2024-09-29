@@ -4,16 +4,13 @@ export class InvisibleWall extends StaticGameObject {
 
 		this.position.width = 100
 		this.position.height = 100
-
-		this.objects = []
-	}
-
-	add(o) {
-		this.objects.push(o)
 	}
 
 	update() {
-		for (const o of this.objects) {
+		for (const o of [
+			Registry.player,  
+			...Registry.enemies,
+		]) {
 			if (Collision.between(this, o)) {
 				const currentPosition = { x: o.position.x, y: o.position.y }
 
@@ -40,7 +37,6 @@ export class InvisibleWall extends StaticGameObject {
 				}
 			}
 		}
-
 	}
 
 	draw(draw, guiDraw) {

@@ -11,10 +11,10 @@ export class BlobMonster extends DynamicGameObject {
 			Update(u => {
 
 				if (pathFinder.success) {
-					Push(this).towards(pathFinder.c2, 2)
+					ForcePush(this).towards(pathFinder.c2, 29)
 				}
 				else {
-					Push(this).towards(pathFinder.c1, 2)
+					ForcePush(this).towards(pathFinder.c1, 29)
 				}
 
 				if (this.within(100, pathFinder.c2) || this.within(100, pathFinder.c1)) {

@@ -7,9 +7,11 @@ export class Enemy extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new Picture(this.position, '/static/assets/bad_ninja.png'),
+			// new StraightPath(this.position, Registry.player),
 
 			Init(this, {
 				hp: new Hp(this, 100, 100),
+				angle: new Angle(this.position.center, 100, 250),
 			}),
 		])
 	}
@@ -20,9 +22,11 @@ export class Enemy extends DynamicGameObject {
 
 	markBlinded() {
 		this.blinded = true
+		this.angle.color = this.angle.red
 
 		setTimeout(() => {
 			this.blinded = false
+			this.angle.color = this.angle.blue
 		}, 2_000);
 	}
 
@@ -43,7 +47,6 @@ export class Enemy extends DynamicGameObject {
 			
 			update() {
 				if (this.sprite.pause) {
-					console.log("sex")
 					this.removeFromLoop()
 				}
 			}

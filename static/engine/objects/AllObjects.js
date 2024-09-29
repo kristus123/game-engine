@@ -6,11 +6,7 @@ export class AllObjects { // not a good name
 			}
 
 			o.handledBy = this
-
-			if (o instanceof Enemy) {
-				Registry.enemies.push(o)
-			}
-
+			Registry.add(o)
 		}
 	}
 
@@ -23,17 +19,14 @@ export class AllObjects { // not a good name
 
 		o.handledBy = this
 
-		if (o instanceof Enemy) {
-			Registry.enemies.push(o)
-		}
-
+		Registry.add(o)
 
 		return o
 	}
 
 	remove(o) {
 		List.remove(this.objects, o)
-		List.remove(Registry.enemies, o)
+		Registry.remove(o)
 	}
 
 	removeByObjectId(objectId) {

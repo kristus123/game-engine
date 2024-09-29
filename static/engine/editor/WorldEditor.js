@@ -10,33 +10,33 @@ export class WorldEditor {
 				invisibleWalls: new InvisibleWallsEditor(),
 			}),
 
-			new PersistedStaticPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
-			new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
-			new PersistedStaticPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
-			new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
-			new PersistedStaticPictureEditor('/static/assets/bush.png', '/persisted-objects/bush.json', 200, 200),
-			new PersistedStaticPictureEditor('/static/assets/tree.png', '/persisted-objects/tree.json', 400, 400),
+			// new PersistedStaticPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
+			// new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
+			// new PersistedStaticPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
+			// new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
+			// new PersistedStaticPictureEditor('/static/assets/bush.png', '/persisted-objects/bush.json', 200, 200),
+			// new PersistedStaticPictureEditor('/static/assets/tree.png', '/persisted-objects/tree.json', 400, 400),
 
-			new PersistedObjectsEditor(
-				'/persisted-objects/chickens.json',
-				position => new Chicken(position),
-				json => {
-					const c = new Chicken(new Position(json.position.x, json.position.y))
-					c.objectId = json.objectId
-					return c
-				},
-			),
+			// new PersistedObjectsEditor(
+			// 	'/persisted-objects/chickens.json',
+			// 	position => new Chicken(position),
+			// 	json => {
+			// 		const c = new Chicken(new Position(json.position.x, json.position.y))
+			// 		c.objectId = json.objectId
+			// 		return c
+			// 	},
+			// ),
 
-			Init(this, {
-				blobMonster: new BlobMonster(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
-			})
+			// Init(this, {
+			// 	blobMonster: new BlobMonster(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
+			// })
 			
 			// new SimplePathFinder(this.player, this.invisibleWalls.persisted.persistedObjects.objects),
 			// new PictureInPicture()
 			// new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])
 
-		Cam.anchoredPositions.add(new Anchor(Cam, this.blobMonster, 1000, 0.2))
+		// Cam.anchoredPositions.add(new Anchor(Cam, this.blobMonster, 1000, 0.2))
 
 		this.pixels = new LocalObjects()
 	}

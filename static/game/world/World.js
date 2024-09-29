@@ -1,7 +1,6 @@
 export class World {
 	constructor() {
 
-
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
@@ -28,15 +27,18 @@ export class World {
 		Controller.control(this.player)
 
 		this.localObjects = new LocalObjects([
+
+			new InvisibleWalls(),
+
 			// new WorldEditor().exitEditMode(),
 			// new DragonRoom(this.player),
 			this.player,
 			new SmokeBomb(this.player),
-			new Enemy(this.player.position.offset(200).copy()),
-			new Picture(new Position(0, 0, 123*5, 68*5), '/static/assets/logo.png')
+			new Enemy(this.player.position.offset(300).copy()),
+			// new Picture(new Position(0, 0, 123*5, 68*5), '/static/assets/logo.png'),
 			// new SmoothPosition(new Position(0, 0), Mouse.position, 0.1),
 			// new Npc(new Position(0, 0)),
-			// new CloudParallax(),
+			new CloudParallax(),
 			// new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
 			// new TalkToShopKeeper(this.player),
 		])

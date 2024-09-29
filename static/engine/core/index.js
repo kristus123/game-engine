@@ -6,7 +6,7 @@ ErrorHandler.run(() => {
 	const backgroundPalette = Palette.offscreen()
 	const showLogs = new ShowLogs(guiPalette)
 
-	Mouse.initialize(Cam)
+	Mouse.initialize()
 
 	const draw = new Draw(Cam.palette.ctx)
 	const guiDraw = new Draw(guiPalette.ctx)

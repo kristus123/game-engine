@@ -4,9 +4,9 @@ export class Draw {
 		this.angle = 0 // temporary hack
 	}
 
-	angleFromMouse(position, radius, angleRange, color) {
+	angleFrom(p1, p2, radius, angleRange, color) {
 
-		const mouseAngle = Math.atan2(Mouse.position.y - position.y, Mouse.position.x - position.x)
+		const mouseAngle = Math.atan2(p2.position.y - p1.y, p2.position.x - p1.x)
 
 		const halfRange = angleRange / 2
 		const startAngleRad = mouseAngle - (halfRange * Math.PI / 180)
@@ -14,18 +14,22 @@ export class Draw {
 
 
 		this.ctx.beginPath()
-		this.ctx.moveTo(position.x, position.y)
+		this.ctx.moveTo(p1.x, p1.y)
 		this.ctx.arc(
-			position.x,
-			position.y,
+			p1.x,
+			p1.y,
 			radius,
 			startAngleRad,
 			endAngleRad,
 		)
 
-		this.ctx.lineTo(position.x, position.y)
+		this.ctx.lineTo(p1.x, p1.y)
 		this.ctx.fillStyle = color
 		this.ctx.fill()
+	}
+
+	angleFromMouse(position, radius, angleRange, color) {
+		this.angleFrom(position, Mouse, radius, angleRange, color)
 	}
 
 test(position) {  // Can be used for making a light source on a flat wall

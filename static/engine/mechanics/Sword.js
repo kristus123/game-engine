@@ -1,8 +1,7 @@
 export class Sword {
 
-	constructor(player, hittableObjects) {
+	constructor(player) {
 		this.angle = new Angle(player.position.center, 100, 250)
-
 
 		this.splashParticles = new SplashParticles(player)
 
@@ -30,7 +29,7 @@ export class Sword {
 	update() {
 		this.cooldown += 10
 
-		for (const o of this.hittableObjects) {
+		for (const o of Registry.enemies) {
 			if (
 				Mouse.down &&
 				this.cooldown >= this.chargedAt &&
