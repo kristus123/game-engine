@@ -7,17 +7,25 @@ export class Enemy extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new Picture(this.position, '/static/assets/bad_ninja.png'),
-			new StraightPath(this),
 
 			Init(this, {
 				hp: new Hp(this, 100, 100),
 				angle: new Angle(this.position.center, 100, 250),
+				straightPath: new StraightPath(this, Registry.player),
 			}),
 		])
 	}
 
 	update() {
 		this.localObjects.update()
+
+		if (this.straightPath.clear) {
+			console.log("following+!!")
+			ForcePush(this).towards(Registry.player, 10)
+		}
+		else {
+			this.velocity.reset()
+		}
 	}
 
 	markBlinded() {

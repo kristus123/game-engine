@@ -1,11 +1,9 @@
 export class StraightPath {
-
-	constructor(startPosition) {
-		this.target = Registry.player
+	constructor(start, end) {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				line: new Square(startPosition.position.copy(), 20)
+				line: new Square(start.position.copy(), 20)
 			})
 		])
 
@@ -14,21 +12,25 @@ export class StraightPath {
 		this.finishedChecking = false
 	}
 
+	get clear() {
+		return !this.blocked
+	}
+
 	update() {
-		ForcePush(this.line).towards(this.target, 300)
+		ForcePush(this.line).towards(this.end, 300)
 
 		if (this.line.touchesAny(Registry.invisibleWalls)) {
 			this.blocked = true
 
-			this.line.x = this.startPosition.x
-			this.line.y = this.startPosition.y
+			this.line.x = this.start.x
+			this.line.y = this.start.y
 		}
 
-		if (this.line.touches(this.target)) {
+		if (this.line.touches(this.end)) {
 			this.blocked = false
 
-			this.line.x = this.startPosition.x
-			this.line.y = this.startPosition.y
+			this.line.x = this.start.x
+			this.line.y = this.start.y
 		}
 
 		this.localObjects.update()
@@ -36,6 +38,6 @@ export class StraightPath {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		draw.line(this.line, this.target)
+		draw.line(this.line, this.end)
 	}
 }
