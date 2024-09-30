@@ -6,7 +6,7 @@ export class Draw {
 
 	angleFrom(p1, p2, radius, angleRange, color) {
 
-		const mouseAngle = Math.atan2(p2.position.y - p1.y, p2.position.x - p1.x)
+		const mouseAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
 
 		const halfRange = angleRange / 2
 		const startAngleRad = mouseAngle - (halfRange * Math.PI / 180)

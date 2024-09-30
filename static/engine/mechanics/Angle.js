@@ -28,6 +28,6 @@ export class Angle {
 	}
 
 	draw(draw, guiDraw) {
-		draw.angleFrom(this.position, Registry.player, this.radius, this.angleRange, this.color)
+		draw.angleFrom(this.position, this.position.velocity.position, this.radius, this.angleRange, this.color)
 	}
 }

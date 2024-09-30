@@ -6,6 +6,13 @@ export class Velocity {
 		return new Velocity(this.object, -this.x, -this.y)
 	}
 
+	get position() {
+		const x = this.object.x + this.x
+		const y = this.object.y + this.y
+
+		return new Position(x, y)
+	}
+
 	draw(draw, guiDraw) {
 		draw.circle(this.object.x + this.x, this.object.y + this.y, 10, 'orange')
 	}

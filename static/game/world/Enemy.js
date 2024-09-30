@@ -10,22 +10,29 @@ export class Enemy extends DynamicGameObject {
 
 			Init(this, {
 				hp: new Hp(this, 100, 100),
-				angle: new Angle(this.position.center, 100, 250),
+				angle: new Angle(this, 100, 250),
 				straightPath: new StraightPath(this, Registry.player),
 			}),
 		])
+
+		this.points = new InfiniteListLooper([new Position(600, 200), new Position(800, -300)])
 	}
 
 	update() {
-		this.localObjects.update()
-
-		if (this.straightPath.clear) {
-			console.log("following+!!")
-			ForcePush(this).towards(Registry.player, 10)
+		if (this.straightPath.clear && this.within(300, Registry.player)) {
+			ForcePush(this).towards(Registry.player, 20)
 		}
 		else {
-			this.velocity.reset()
+			this.points.goThrough(point => {
+				ForcePush(this).towards(point, 10)
+				
+				if (this.within(100, point)) {
+					this.points.next()
+				}
+			})
 		}
+
+		this.localObjects.update()
 	}
 
 	markBlinded() {
