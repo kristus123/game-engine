@@ -36,11 +36,9 @@ export class Enemy extends DynamicGameObject {
 
 	markBlinded() {
 		this.blinded = true
-		this.angle.color = this.angle.red
 
 		setTimeout(() => {
 			this.blinded = false
-			this.angle.color = this.angle.blue
 		}, 2_000);
 	}
 
