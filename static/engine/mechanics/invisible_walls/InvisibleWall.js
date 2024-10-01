@@ -2,8 +2,10 @@ export class InvisibleWall extends StaticGameObject {
 	constructor(position) {
 		super(position)
 
-		this.position.width = 100
-		this.position.height = 100
+		if (this.position.width == 1) {
+			this.position.width = 100
+			this.position.height = 100
+		}
 	}
 
 	update() {

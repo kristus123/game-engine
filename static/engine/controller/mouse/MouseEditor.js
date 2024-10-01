@@ -30,7 +30,12 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (!this.activeObject && Mouse.downForLongerThan(100) && !this.firstClickedArea) {
+		if (this.lastClicked && Mouse.rightDown) {
+			this.lastClicked.position.width = Mouse.position.x - this.lastClicked.position.x
+			this.lastClicked.position.height = Mouse.position.y - this.lastClicked.position.y
+			this.moved(this.lastClicked)
+		}
+		else if (!this.activeObject && Mouse.downForLongerThan(100) && !this.firstClickedArea) {
 			this.firstClickedArea = Mouse.position.copy()
 		}
 		else if (!this.activeObject && Mouse.down && this.firstClickedArea) {
@@ -50,7 +55,7 @@ export class MouseEditor {
 			}, 200)
 		}
 		else if (this.activeObject && Mouse.up) {
-			console.log('moved player')
+			console.log('moved')
 			this.moved(this.activeObject)
 			this.lastClicked = this.activeObject
 			this.activeObject = null

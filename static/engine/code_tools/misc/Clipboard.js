@@ -1,9 +1,7 @@
 export class Clipboard {
 
-	static copyText() {
-		var textToCopy = 'hello\nhow are you\ni\'m good'
-
-		navigator.clipboard.writeText(textToCopy)
+	static put(text) {
+		navigator.clipboard.writeText(text)
 			.then(function() {
 				console.log('Text copied to clipboard!')
 			})

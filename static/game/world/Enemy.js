@@ -10,7 +10,6 @@ export class Enemy extends DynamicGameObject {
 
 			Init(this, {
 				hp: new Hp(this, 100, 100),
-				angle: new Angle(this, 100, 250),
 				straightPath: new StraightPath(this, Registry.player),
 			}),
 		])
