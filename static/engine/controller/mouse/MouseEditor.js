@@ -30,7 +30,7 @@ export class MouseEditor {
 	}
 
 	update() {
-		if (!this.activeObject && Mouse.downForLongerThan(200) && !this.firstClickedArea) {
+		if (!this.activeObject && Mouse.downForLongerThan(100) && !this.firstClickedArea) {
 			this.firstClickedArea = Mouse.position.copy()
 		}
 		else if (!this.activeObject && Mouse.down && this.firstClickedArea) {
