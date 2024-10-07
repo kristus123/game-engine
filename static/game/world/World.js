@@ -28,7 +28,6 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			new InvisibleWalls(),
-
 			// new WorldEditor().exitEditMode(),
 			// new DragonRoom(this.player),
 			this.player,

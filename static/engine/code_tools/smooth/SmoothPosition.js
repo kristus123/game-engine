@@ -1,27 +1,28 @@
 export class SmoothPosition {
-	constructor(currentPosition, targetPosition, smoothness=0.01, threshold=0.0001) {
+	constructor(targetPosition, smoothness=0.01, threshold=0.0001) {
+		this.position = new Position(0, 0)
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				x: new SmoothValue(currentPosition.x, targetPosition.x, smoothness, threshold),
-				y: new SmoothValue(currentPosition.y, targetPosition.y, smoothness, threshold),
+				smooth_x: new SmoothValue(this.position.x, targetPosition.x, smoothness, threshold),
+				smooth_y: new SmoothValue(this.position.y, targetPosition.y, smoothness, threshold),
 			})
 		])
 	}
 
-	update() {
-		this.x.targetValue = this.targetPosition.x
-		this.y.targetValue = this.targetPosition.y
+	update(targetPosition) {
+		this.position.x = this.smooth_x.currentValue
+		this.position.y = this.smooth_y.currentValue
+
+		this.smooth_x.targetValue = targetPosition.x
+		this.smooth_y.targetValue = targetPosition.y
 
 		this.localObjects.update()
-
-		this.currentPosition.x = this.x.currentValue
-		this.currentPosition.y = this.y.currentValue
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		draw.circle(this.currentPosition)
+		draw.circle(this.position)
 	}
 }

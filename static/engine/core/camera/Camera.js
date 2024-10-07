@@ -6,6 +6,7 @@ export class Camera {
 		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
 
 		this.position = new Position(0, 0)
+		this.smoothPosition = new SmoothPosition(this.position, 0.1)
 
 		this.offset = {
 			x: Palette.width / 2,
@@ -13,10 +14,6 @@ export class Camera {
 		}
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.001, 0.5)
-		this.velocityPrediction = {
-			x: new SmoothValue(0, 0, 0.001, 0.0001),
-			y: new SmoothValue(0, 0, 0.001, 0.0001),
-		}
 
 		// Mouse.scrollIn = () => {
 		// 	this.smoothZoom.targetValue += 1
@@ -46,8 +43,10 @@ export class Camera {
 	context(run) {
 		this.smoothZoom.update()
 
-		this.position.x = this.objectToFollow.position.center.x
-		this.position.y = this.objectToFollow.position.center.y
+		this.smoothPosition.update(this.objectToFollow)
+		this.position.x = this.smoothPosition.position.x
+		this.position.y = this.smoothPosition.position.y
+
 
 		// this.anchoredPositions.update()
 
