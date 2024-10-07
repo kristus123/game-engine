@@ -24,7 +24,10 @@ export class World {
 
 		this.player = new PlayerEditor().player
 		Cam.follow(this.player)
+		Cam.anchoredPositions.add(new Anchor(this.player.velocity.position, 500, 0.5, 0.05))
+
 		Controller.control(this.player)
+
 
 		this.localObjects = new LocalObjects([
 			new InvisibleWalls(),

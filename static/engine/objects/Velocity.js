@@ -1,25 +1,19 @@
 export class Velocity {
-	constructor(object, x=0, y=0) {
+	constructor(object, _x=0, _y=0) {
+		this.position = new Position(0, 0)
 	}
 
 	oppositePosition() {
-		return new Velocity(this.object, -this.x, -this.y)
-	}
-
-	get position() {
-		const x = this.object.x + this.x
-		const y = this.object.y + this.y
-
-		return new Position(x, y)
+		return new Velocity(this.object, -this._x, -this._y)
 	}
 
 	draw(draw, guiDraw) {
-		draw.circle(this.object.x + this.x, this.object.y + this.y, 10, 'orange')
+		draw.circle(this.object.x + this._x, this.object.y + this._y, 10, 'orange')
 	}
 
 	reset() {
-		this.x = 0
-		this.y = 0
+		this._x = 0
+		this._y = 0
 	}
 
 	rotate(angleDegrees) {
@@ -27,11 +21,30 @@ export class Velocity {
 		const cosTheta = Math.cos(angleRadians)
 		const sinTheta = Math.sin(angleRadians)
 
-		const newX = this.x * cosTheta - this.y * sinTheta
-		const newY = this.x * sinTheta + this.y * cosTheta
+		const newX = this._x * cosTheta - this._y * sinTheta
+		const newY = this._x * sinTheta + this._y * cosTheta
 
-		this.x = newX
-		this.y = newY
+		this._x = newX
+		this._y = newY
+	}
+	
+	get x() {
+		return this._x
 	}
 
+	set x(new_x) {
+		this._x = new_x
+
+		this.position.x = this.object.x + this._x
+	}
+
+	get y() {
+		return this._y
+	}
+
+	set y(new_y) {
+		this._y = new_y
+
+		this.position.y = this.object.y + this._y
+	}
 }

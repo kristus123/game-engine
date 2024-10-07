@@ -6,7 +6,7 @@ export class Camera {
 		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
 
 		this.position = new Position(0, 0)
-		this.smoothPosition = new SmoothPosition(this.position, 0.1)
+		this.smoothPosition = new SmoothPosition(this.position, 0.01)
 
 		this.offset = {
 			x: Palette.width / 2,
@@ -27,9 +27,9 @@ export class Camera {
 		// 	}
 		// }
 
-		// this.anchoredPositions = new LocalObjects([
-		// 	new Anchor(this, Mouse.position, 500, 0.01),
-		// ])
+		this.anchoredPositions = new LocalObjects([
+			new Anchor(Mouse.position, 1_000, 0.1),
+		])
 	}
 
 	get zoom() {
@@ -48,7 +48,7 @@ export class Camera {
 		this.position.y = this.smoothPosition.position.y
 
 
-		// this.anchoredPositions.update()
+		this.anchoredPositions.update()
 
 		LowLevelCamera.context(this, run)
 	}

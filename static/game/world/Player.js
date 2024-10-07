@@ -13,6 +13,7 @@ export class Player extends DynamicGameObject {
 			this.steps.push(this.position.offset(50, 200, 50, 20).copy())
 			List.retainMax(this.steps, 4)
 		}, 400)
+
 	}
 
 	update() {
