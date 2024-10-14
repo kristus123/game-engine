@@ -49,6 +49,9 @@ export class Camera {
 
 
 		this.anchoredPositions.update()
+		this.anchoredPositions.objects.forEach(a => {
+			console.log(a.smoothPosition.position.x)
+		})
 
 		LowLevelCamera.context(this, run)
 	}

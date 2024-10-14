@@ -7,8 +7,7 @@ function limitNumber(number, min, max) { // not the best method name
 export class Anchor {
 	constructor(anchoredPosition, maxPixelMovement=500, multiplier=1, smoothness=0.1) {
 
-		this.smoothPosition = new SmoothPosition(anchoredPosition, smoothness, 1)
-
+		this.smoothPosition = new SmoothPosition(anchoredPosition, smoothness, 100)
 	}
 
 	update() {

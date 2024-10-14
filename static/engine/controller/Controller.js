@@ -9,6 +9,7 @@ export class Controller {
 
 	static control(o) {
 		this.objectToControl = o
+		this.velocity.object = o
 	}
 
 	// todo fix deltatime bug here
