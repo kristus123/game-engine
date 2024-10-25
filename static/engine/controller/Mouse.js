@@ -13,8 +13,18 @@ export class Mouse {
 		this.rightUp = true
 		this.rightDown = false
 
+		this.moving = false
+		this.lastPositionBeforeMoving = new Position(0, 0)
 		document.addEventListener('mousemove', (e) => {
 			this.positionRelativeToCamera(e)
+			this.moving = true
+			this.lastPositionBeforeMoving.x = this.position.x
+			this.lastPositionBeforeMoving.y = this.position.y
+
+			setTimeout(() => {
+				this.moving = false
+			}, 2);
+
 		})
 
 		document.addEventListener('wheel', e => {
@@ -117,7 +127,10 @@ export class Mouse {
 	}
 
 	static draw(draw, guiDraw) {
-		draw.position(this.position)
+
+		console.log(this.moving)
+
+		draw.circle(this.position)
 		// draw.new_circle(this.position)
 	}
 

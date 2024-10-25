@@ -1,10 +1,12 @@
 export class World {
 	constructor() {
 
+
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					Html.text('time to poop'),
+					new MovableElement(Html.text('time to poop')).element,
+					new MovableElement(Html.text('time to poop')).element,
 				])
 			]))
 

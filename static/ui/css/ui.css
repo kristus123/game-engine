@@ -27,7 +27,7 @@
 
 .upper-center-ui {
 	position: absolute;
-	top: 5%;
+	top: 10%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;
@@ -37,4 +37,13 @@
 	display: flex;
 	justify-content: center;
 	gap: 10px; /* Adds space between the buttons */
+}
+
+.draggable {
+  position: absolute;
+  cursor: grab;
+  /* background-color: #f0f0f0; */
+  /* padding: 10px; */
+  /* border: 1px solid #ccc; */
+  /* width: fit-content; */
 }
