@@ -23,6 +23,7 @@ export class World {
 			}, 1000)
 		})
 
+
 		this.player = new PlayerEditor().player
 		Cam.follow(this.player)
 		// Cam.anchoredPositions.add(new Anchor(Controller.velocity.position, 500, 2, 0.005))

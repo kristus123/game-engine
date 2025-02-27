@@ -10,7 +10,7 @@ export class SmokeBomb {
 
 		this.e = new Key('e')
 
-		const text = Html.text('hei')
+		const text = Html.text('')
 		this.charge.onExhaust = () => Html.changeText(text, 'smoke bomb recharging')
 		this.charge.onReady = () => Html.changeText(text, 'smoke bomb ready')
 

@@ -59,7 +59,7 @@ export class Html {
 	}
 
 	static text(text, position) {
-		const p = element('p', 'draggable')
+		const p = element('p', '')
 		p.textContent = text
 		p.style.fontSize = '100px'
 
