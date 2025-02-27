@@ -58,7 +58,7 @@ export class Draw {
 		gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
 		this.ctx.fillStyle = gradient
-		this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+		this.ctx.fillRect(0, 0, Palette.width, Palette.height)
 	}
 
 	curve(startPosition, controlPosition1, controlPosition2, endPosition) {
