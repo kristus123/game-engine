@@ -43,9 +43,9 @@ export class DynamicGameObject extends _GameObject {
 	update() {
 	}
 
-    decreaseVelocity(multiplier = 0.5) {
-        this.velocity.x *= multiplier;
-        this.velocity.y *= multiplier;
-    }
+	decreaseVelocity(multiplier = 0.5) {
+		this.velocity.x *= multiplier
+		this.velocity.y *= multiplier
+	}
 
 }

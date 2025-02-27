@@ -13,7 +13,7 @@ export class SmokeBomb {
 		const text = Html.text('hei')
 		this.charge.onExhaust = () => Html.changeText(text, 'smoke bomb recharging')
 		this.charge.onReady = () => Html.changeText(text, 'smoke bomb ready')
-		
+
 		Html.addToScreen(
 			Html.div('lower-center-ui', [
 				Html.div('shoulder-to-shoulder', [

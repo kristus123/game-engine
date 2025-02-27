@@ -10,7 +10,7 @@ export class InvisibleWall extends StaticGameObject {
 
 	update() {
 		for (const o of [
-			Registry.player,  
+			Registry.player,
 			...Registry.enemies,
 		]) {
 			if (Collision.between(this, o)) {

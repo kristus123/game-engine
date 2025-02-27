@@ -24,7 +24,7 @@ export class Enemy extends DynamicGameObject {
 		else {
 			this.points.goThrough(point => {
 				ForcePush(this).towards(point, 10)
-				
+
 				if (this.within(100, point)) {
 					this.points.next()
 				}
@@ -39,7 +39,7 @@ export class Enemy extends DynamicGameObject {
 
 		setTimeout(() => {
 			this.blinded = false
-		}, 2_000);
+		}, 2_000)
 	}
 
 	kill() {
@@ -56,7 +56,7 @@ export class Enemy extends DynamicGameObject {
 
 				this.sprite.play()
 			}
-			
+
 			update() {
 				if (this.sprite.pause) {
 					this.removeFromLoop()

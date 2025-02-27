@@ -32,23 +32,23 @@ export class Draw {
 		this.angleFrom(position, Mouse, radius, angleRange, color)
 	}
 
-test(position) {  // Can be used for making a light source on a flat wall
-    const gradientWidth = 800; // Width of the gradient area
-    const gradientHeight = 40; // Height of the gradient area
-    
-    const gradient = this.ctx.createLinearGradient(
-        position.x - gradientWidth / 2, position.y - gradientHeight / 2, // Starting point of the gradient
-        position.x + gradientWidth / 2, position.y + gradientHeight / 2  // Ending point of the gradient
-    );
+	test(position) { // Can be used for making a light source on a flat wall
+		const gradientWidth = 800 // Width of the gradient area
+		const gradientHeight = 40 // Height of the gradient area
 
-    // Add transparent colors with alpha channel
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)'); // Starting color (brighter center)
-    gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)'); // Middle color (fades outwards)
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); // End color (fully transparent)
+		const gradient = this.ctx.createLinearGradient(
+			position.x - gradientWidth / 2, position.y - gradientHeight / 2, // Starting point of the gradient
+			position.x + gradientWidth / 2, position.y + gradientHeight / 2 // Ending point of the gradient
+		)
 
-    this.ctx.fillStyle = gradient;
-    this.ctx.fillRect(position.x - gradientWidth / 2, position.y - gradientHeight / 2, gradientWidth, gradientHeight);
-}
+		// Add transparent colors with alpha channel
+		gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)') // Starting color (brighter center)
+		gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)') // Middle color (fades outwards)
+		gradient.addColorStop(1, 'rgba(255, 255, 255, 0)') // End color (fully transparent)
+
+		this.ctx.fillStyle = gradient
+		this.ctx.fillRect(position.x - gradientWidth / 2, position.y - gradientHeight / 2, gradientWidth, gradientHeight)
+	}
 
 
 
@@ -135,7 +135,7 @@ test(position) {  // Can be used for making a light source on a flat wall
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	gradient(position) {  // can be used for making a light source
+	gradient(position) { // can be used for making a light source
 		const radius = 300
 
 		const gradient = this.ctx.createRadialGradient(position.x, position.y, 200, position.x, position.y, 50)

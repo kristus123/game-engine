@@ -31,6 +31,14 @@ export class Html {
 			onClick(button)
 		})
 
+		button.addEventListener('mouseover', () => {
+			Mouse.hoveringHtmlElement = true
+		})
+
+		button.addEventListener('mouseout', () => {
+			Mouse.hoveringHtmlElement = false
+		})
+
 		return button
 	}
 

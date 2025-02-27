@@ -23,7 +23,7 @@ export class Mouse {
 
 			setTimeout(() => {
 				this.moving = false
-			}, 2);
+			}, 2)
 
 		})
 

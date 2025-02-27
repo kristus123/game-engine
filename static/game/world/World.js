@@ -1,12 +1,11 @@
 export class World {
 	constructor() {
 
-
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					new MovableElement(Html.text('time to poop')).element,
-					new MovableElement(Html.text('time to poop')).element,
+					Html.button('test'),
+					Html.button('test'),
 				])
 			]))
 
@@ -55,6 +54,6 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		draw.test(new Position(0,0))
+		draw.test(new Position(0, 0))
 	}
 }

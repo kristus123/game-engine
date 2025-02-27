@@ -27,7 +27,7 @@ export class Velocity {
 		this._x = newX
 		this._y = newY
 	}
-	
+
 	get x() {
 		return this._x
 	}
