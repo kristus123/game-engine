@@ -61,7 +61,7 @@ export class Html {
 	static text(text, position) {
 		const p = element('p', '')
 		p.textContent = text
-		p.style.fontSize = '100px'
+		p.style.fontSize = '2vw'
 
 		p.style.left = `${100}px`
 		p.style.top = `${100}px`
