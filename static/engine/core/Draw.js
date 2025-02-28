@@ -34,7 +34,7 @@ export class Draw {
 
 	test(position) { // Can be used for making a light source on a flat wall
 		const gradientWidth = 800 // Width of the gradient area
-		const gradientHeight = 40 // Height of the gradient area
+		const gradientHeight = 400 // Height of the gradient area
 
 		const gradient = this.ctx.createLinearGradient(
 			position.x - gradientWidth / 2, position.y - gradientHeight / 2, // Starting point of the gradient

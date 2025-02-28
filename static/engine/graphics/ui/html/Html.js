@@ -104,4 +104,21 @@ export class Html {
 		return d
 	}
 
+	static fadeaway(x) {
+		var text = element('p')
+		text.innerHTML = x
+
+
+		text.setAttribute('class', 'ui fade-away')
+
+		text.style.left = `${Mouse.screenPosition.x}px`
+		text.style.top = `${Mouse.screenPosition.y - 50}px`
+
+		Html.addToScreen(text)
+
+		setTimeout(() => {
+			Html.remove(text)
+		}, 1000)
+	}
+
 }

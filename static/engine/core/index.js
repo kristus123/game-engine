@@ -4,7 +4,7 @@ ErrorHandler.run(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()
-	const showLogs = new ShowLogs(guiPalette)
+	// const showLogs = new ShowLogs(guiPalette)
 
 	Mouse.initialize()
 
@@ -41,7 +41,7 @@ ErrorHandler.run(() => {
 				}
 			})
 
-			showLogs.draw()
+			// showLogs.draw()
 
 			Palette.fill(backgroundPalette, '#FFC6B5')
 			Palette.apply(mainPalette, [backgroundPalette, Cam.palette, guiPalette])
