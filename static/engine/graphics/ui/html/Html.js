@@ -11,6 +11,28 @@ function element(type, clazz) {
 }
 
 export class Html {
+	static modal(children) {
+		return this.dialog(children)
+	}
+
+	static dialog(children) {
+		const div = element('div')
+		const dialog = element('dialog')
+
+		for (const x of children) {
+			div.appendChild(x)
+		}
+
+		dialog.appendChild(div)
+
+		dialog.addEventListener("click", e => {
+			if (e.target === dialog) {
+			  dialog.close(); // close modal if clicking outside of it
+			}
+		  });
+
+		return dialog
+	}
 
 	static p(text) {
 		var p = element('p')

@@ -41,6 +41,17 @@ export class World {
 			// new TalkToShopKeeper(this.player),
 		])
 
+		const modal = Html.modal([
+			Html.p('hei'),
+			Html.p('hei'),
+			Html.p('hei'),
+			Html.p('hei'),
+			Html.button('farm $500'),
+		])
+		Html.addToScreen(modal)
+
+		modal.showModal()
+
 		Html.addToScreen(Html.div('lower-center-ui', [
 			Html.div('shoulder-to-shoulder', [
 				Html.button('Feed', b => {
