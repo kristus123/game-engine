@@ -6,7 +6,16 @@ export class SimpleMonster extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
+			Init(this, {
+				splash: new SplashParticles(),
+			})
 		])
+
+		Mouse.addOnClick('click monster', () => {
+			if (Mouse.hovering(this)) {
+				this.splash.random(Mouse.position)
+			}
+		})
 	}
 
 	update() {
@@ -18,7 +27,5 @@ export class SimpleMonster extends DynamicGameObject {
 		draw.hpBar(this.position.over(), this.hunger, 100)
 		draw.text(this.position.over(), 'happy')
 		this.localObjects.draw(draw, guiDraw)
-
-		ForcePush(this).towards(Random.direction(this.position, 400))
 	}
 }

@@ -8,7 +8,7 @@ export class World {
 
 		Controller.control(this.player)
 		const simpleMonster = new SimpleMonster()
-		Cam.follow(simpleMonster)
+		Cam.follow(simpleMonster.position.center)
 
 
 		this.localObjects = new LocalObjects([
@@ -35,6 +35,7 @@ export class World {
 						simpleMonster.hunger += 10
 						Html.fadeaway('wise choice')
 					}),
+					Html.button('Poop'),
 					Html.button('Poop'),
 				])
 			]))
