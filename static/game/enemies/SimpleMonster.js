@@ -24,8 +24,19 @@ export class SimpleMonster extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		if (this.hunger > 70) {
+			draw.text(this.position.over(), 'happy', 'green')
+		}
+		else if (this.hunger > 40) {
+			draw.text(this.position.over(), 'grumpy', 'orange')
+		}
+		else {
+			draw.text(this.position.over(), 'ANGRY', 'red')
+		}
+
+
+
 		draw.hpBar(this.position.over(), this.hunger, 100)
-		draw.text(this.position.over(), 'happy')
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
