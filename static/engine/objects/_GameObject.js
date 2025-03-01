@@ -1,4 +1,4 @@
-export class _GameObject {
+export class _GameObject { // _ means it is only meant to be extended, not used directly
 	constructor(position) {
 
 		this.position = position.copy()
@@ -79,7 +79,5 @@ export class _GameObject {
 	draw(draw, guiDraw) {
 		draw.rectangle(this)
 	}
-
-
 
 }

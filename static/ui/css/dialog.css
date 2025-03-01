@@ -1,12 +1,31 @@
 dialog {
-	border: none;
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: transparent;
+border: none;
+  box-shadow: none;
+	/* border-radius: 8px; */
+	/* padding: 20px; */
+	/* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+	/* background: transparent; */
 
 	/* width:90%; */
 	/* height:50%; */
 }
+
+
+dialog > div {
+	padding:20px;
+    border: none;
+	/* padding:0px; */
+	/* margin:0px; */
+  background-color: white;
+	/* padding:0px; */
+	/* margin:0px; */
+	/* padding:100px; */
+	/* margin:0px; */
+
+}
+
+
 .close {
 	cursor: pointer;
 	font-size: 20px;
@@ -14,6 +33,9 @@ dialog {
 }
 
 dialog::backdrop {
-  opacity: 0.5;
-  background-color: #898989;
+  opacity: 0.9;
+  background-color: transparent;
+  box-shadow: none;
+    border: none;
+backdrop-filter: blur(20px);
 }

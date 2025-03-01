@@ -26,6 +26,15 @@ export class World {
 		const modal = Html.modal([
 			Html.button('Food factory $500', () => {
 				modal.close()
+				
+
+				this.localObjects.add(new PlaceItems([
+					new Square(new Position(0,0), 200, () => {
+						
+					}),
+				], i => {
+					this.localObjects.add(i)
+				}))
 			}),
 		])
 		Html.addToScreen(modal)
