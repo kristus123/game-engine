@@ -100,7 +100,7 @@ export class Mouse {
 		this.screenPosition.y = e.clientY
 
 		// Apply inverse transformations for translation and zoom
-		const inverseZoom = 1 /Cam.zoom
+		const inverseZoom = 1 / Cam.zoom
 
 		const x =
 				(e.clientX - Cam.offset.x) * inverseZoom +
@@ -128,7 +128,7 @@ export class Mouse {
 
 	static draw(draw, guiDraw) {
 
-		console.log(this.moving)
+		// console.log(this.moving)
 
 		draw.circle(this.position)
 		// draw.new_circle(this.position)

@@ -1,6 +1,7 @@
 export class Position {
 	constructor(x, y, _width=1, _height=1) {
 		this.center = new CenterPosition(this, _width, _height)
+		this.screen = new ScreenPosition(this, _width, _height)
 	}
 
 	get topLeft() {

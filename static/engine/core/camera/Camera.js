@@ -56,9 +56,9 @@ export class Camera {
 
 
 		this.anchoredPositions.update()
-		this.anchoredPositions.objects.forEach(a => {
-			console.log(a.smoothPosition.position.x)
-		})
+		// this.anchoredPositions.objects.forEach(a => {
+		// 	console.log(a.smoothPosition.position.x)
+		// })
 
 		LowLevelCamera.context(this, run)
 	}
@@ -77,6 +77,13 @@ export class Camera {
 
 		this.position.x = o.position.x
 		this.position.y = o.position.y
+	}
+
+	p(p) {
+		return new Position(
+				p.x - this.position.x + p.width + 200,
+				p.y - this.position.y + p.height + 200,
+			)
 	}
 }
 

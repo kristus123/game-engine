@@ -8,8 +8,8 @@ export class World {
 
 		Controller.control(this.player)
 		const monster = new SimpleMonster()
-		this.simpleMonster = monster
-		Cam.follow(monster.position.center)
+		this.monster = monster
+		Cam.followInstantly(monster.position.center)
 
 		const food = new LocalObjects()
 		this.food = food
@@ -73,18 +73,19 @@ export class World {
 		this.localObjects.update()
 
 		if (this.food.empty()) {
-			this.simpleMonster.velocity.reset()
+			this.monster.velocity.reset()
 		}
 		else {
-			ForcePush(this.simpleMonster).towards(this.food.first(), 20)
+			ForcePush(this.monster).towards(this.food.first(), 20)
 
 		}
 		
 		for (const f of this.food.objects) {
-			if (this.simpleMonster.touches(f)) {
+			if (this.monster.touches(f)) {
 				this.splash.random(f)
 				this.food.remove(f)
-				this.simpleMonster.hunger += 10
+				this.monster.hunger += 10
+				Html.fadeaway('delicious!', Cam.p(this.monster))
 			}
 		}
 	}
