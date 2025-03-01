@@ -1,11 +1,6 @@
 export class World {
 	constructor() {
 
-		// this.player = new PlayerEditor().player
-		// Cam.follow(this.player)
-		// Cam.anchoredPositions.add(new Anchor(Controller.velocity.position, 500, 2, 0.005))
-		// Cam.anchoredPositions.add(new Anchor(Mouse.position, 100, 0.2, 0.005))
-
 		Controller.control(this.player)
 		const monster = new SimpleMonster()
 		this.monster = monster
@@ -17,7 +12,6 @@ export class World {
 		const poop = new LocalObjects()
 		this.poop = poop
 
-
 		this.localObjects = new LocalObjects([
 			poop,
 			monster,
@@ -27,26 +21,12 @@ export class World {
 				splash: new SplashParticles(),
 				brownSplash: new SplashParticles(),
 			})
-			// new InvisibleWalls(),
-			// new WorldEditor().exitEditMode(),
-			// new DragonRoom(this.player),
-			// this.player,
-			// new SmokeBomb(this.player),
-			// new Enemy(this.player.position.offset(300).copy()),
-			// new Picture(new Position(0, 0, 123*5, 68*5), '/static/assets/logo.png'),
-			// new SmoothPosition(new Position(0, 0), Mouse.position, 0.1),
-			// new Npc(new Position(0, 0)),
-			// new CloudParallax(),
-			// new Rain(this.player.position.offset(-1200, -1000, 2500, 100)),
-			// new TalkToShopKeeper(this.player),
 		])
 
 		const modal = Html.modal([
-			Html.p('hei'),
-			Html.p('hei'),
-			Html.p('hei'),
-			Html.p('hei'),
-			Html.button('farm $500'),
+			Html.button('Food factory $500', () => {
+				modal.close()
+			}),
 		])
 		Html.addToScreen(modal)
 
