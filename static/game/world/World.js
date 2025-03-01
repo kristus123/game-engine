@@ -41,32 +41,31 @@ export class World {
 			// new TalkToShopKeeper(this.player),
 		])
 
-
-		Html.addToScreen(
-			Html.div('lower-center-ui', [
-				Html.div('shoulder-to-shoulder', [
-					Html.button('Feed', b => {
-						monster.hunger += 10
-						Html.fadeaway('wise choice')
-						Html.disableFor(1000, b)
-					}),
-					Html.button('place candy', b => {
-						const p = Random.direction(monster.position, 400)
-						const f = new Square(p, 10)
-						food.add(f)
-						Html.fadeaway('wise choice')
-						// Html.disableFor(1000, b)
-					}),
-					Html.button('Poop', () => {
-						const p = new Square(monster.position.center.copy(), 10)
-						p.x += 150
-						p.y += 150
-						p.color = 'brown'
-						poop.add(p)
-						this.brownSplash.random(p, 'brown')
-					}),
-				])
-			]))
+		Html.addToScreen(Html.div('lower-center-ui', [
+			Html.div('shoulder-to-shoulder', [
+				Html.button('Feed', b => {
+					monster.hunger += 10
+					Html.fadeaway('wise choice')
+					Html.disableFor(1000, b)
+				}),
+				Html.button('place candy', b => {
+					const p = Random.direction(monster.position, 400)
+					const f = new Square(p, 10)
+					food.add(f)
+					Html.fadeaway('wise choice')
+					// Html.disableFor(1000, b)
+				}),
+				Html.button('Poop', () => {
+					const p = new Square(monster.position.center.copy(), 10)
+					p.x += 150
+					p.y += 150
+					p.color = 'brown'
+					poop.add(p)
+					this.brownSplash.random(p, 'brown')
+				}),
+			]),
+			HtmlProgressBar.create(),
+		]))
 	}
 
 	update() {
@@ -86,6 +85,7 @@ export class World {
 				this.food.remove(f)
 				this.monster.hunger += 10
 				Html.fadeaway('delicious!', Cam.p(this.monster))
+				HtmlProgressBar.change(1)
 			}
 		}
 	}
