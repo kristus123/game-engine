@@ -8,11 +8,20 @@ export class World {
 
 		Controller.control(this.player)
 		const simpleMonster = new SimpleMonster()
+		this.simpleMonster = simpleMonster
 		Cam.follow(simpleMonster.position.center)
+
+		const food = new LocalObjects()
+		this.food = food
 
 
 		this.localObjects = new LocalObjects([
 			simpleMonster,
+			food,
+
+			Init(this, {
+				splash: new SplashParticles(),
+			})
 			// new InvisibleWalls(),
 			// new WorldEditor().exitEditMode(),
 			// new DragonRoom(this.player),
@@ -31,11 +40,18 @@ export class World {
 		Html.addToScreen(
 			Html.div('lower-center-ui', [
 				Html.div('shoulder-to-shoulder', [
-					Html.button('Feed', () => {
+					Html.button('Feed', b => {
 						simpleMonster.hunger += 10
 						Html.fadeaway('wise choice')
+						Html.disableFor(1000, b)
 					}),
-					Html.button('Poop'),
+					Html.button('place candy', b => {
+						const p = Random.direction(simpleMonster.position, 400)
+						const f = new Square(p, 10)
+						food.add(f)
+						Html.fadeaway('wise choice')
+						Html.disableFor(1000, b)
+					}),
 					Html.button('Poop'),
 				])
 			]))
@@ -43,6 +59,18 @@ export class World {
 
 	update() {
 		this.localObjects.update()
+
+		if (!this.food.empty()) {
+			const f = this.food.first()
+			ForcePush(this.simpleMonster).towards(f, 20)
+
+			if (this.simpleMonster.touches(f)) {
+				this.splash.random(f)
+				this.food.remove(f)
+				this.simpleMonster.hunger += 10
+			}
+		}
+		if (this.food.empty()) this.simpleMonster.velocity.reset()
 	}
 
 	draw(draw, guiDraw) {

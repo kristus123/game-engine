@@ -23,7 +23,7 @@ export class Html {
 		document.getElementById('ui_elements').appendChild(element)
 	}
 
-	static button(text, onClick=() => {}) {
+	static button(text, onClick= b => {}) {
 		const button = element('button', 'button')
 		button.textContent = text
 
@@ -40,6 +40,14 @@ export class Html {
 		})
 
 		return button
+	}
+
+	static disableFor(ms, e) {
+		e.disabled = true
+
+		setTimeout(() => {
+			e.disabled = false
+		}, ms)
 	}
 
 	static ui(elements) {

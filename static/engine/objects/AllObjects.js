@@ -65,5 +65,13 @@ export class AllObjects { // not a good name
 		HelperThing.draw(this.objects, draw, guiDraw)
 	}
 
+	empty() {
+		return List.empty(this.objects)
+	}
+
+	first() {
+		return this.objects[0]
+	}
+
 }
 
