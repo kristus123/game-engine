@@ -7,20 +7,25 @@ export class World {
 		// Cam.anchoredPositions.add(new Anchor(Mouse.position, 100, 0.2, 0.005))
 
 		Controller.control(this.player)
-		const simpleMonster = new SimpleMonster()
-		this.simpleMonster = simpleMonster
-		Cam.follow(simpleMonster.position.center)
+		const monster = new SimpleMonster()
+		this.simpleMonster = monster
+		Cam.follow(monster.position.center)
 
 		const food = new LocalObjects()
 		this.food = food
 
+		const poop = new LocalObjects()
+		this.poop = poop
+
 
 		this.localObjects = new LocalObjects([
-			simpleMonster,
+			poop,
+			monster,
 			food,
 
 			Init(this, {
 				splash: new SplashParticles(),
+				brownSplash: new SplashParticles(),
 			})
 			// new InvisibleWalls(),
 			// new WorldEditor().exitEditMode(),
@@ -41,18 +46,25 @@ export class World {
 			Html.div('lower-center-ui', [
 				Html.div('shoulder-to-shoulder', [
 					Html.button('Feed', b => {
-						simpleMonster.hunger += 10
+						monster.hunger += 10
 						Html.fadeaway('wise choice')
 						Html.disableFor(1000, b)
 					}),
 					Html.button('place candy', b => {
-						const p = Random.direction(simpleMonster.position, 400)
+						const p = Random.direction(monster.position, 400)
 						const f = new Square(p, 10)
 						food.add(f)
 						Html.fadeaway('wise choice')
-						Html.disableFor(1000, b)
+						// Html.disableFor(1000, b)
 					}),
-					Html.button('Poop'),
+					Html.button('Poop', () => {
+						const p = new Square(monster.position.center.copy(), 10)
+						p.x += 150
+						p.y += 150
+						p.color = 'brown'
+						poop.add(p)
+						this.brownSplash.random(p, 'brown')
+					}),
 				])
 			]))
 	}
@@ -60,17 +72,21 @@ export class World {
 	update() {
 		this.localObjects.update()
 
-		if (!this.food.empty()) {
-			const f = this.food.first()
-			ForcePush(this.simpleMonster).towards(f, 20)
+		if (this.food.empty()) {
+			this.simpleMonster.velocity.reset()
+		}
+		else {
+			ForcePush(this.simpleMonster).towards(this.food.first(), 20)
 
+		}
+		
+		for (const f of this.food.objects) {
 			if (this.simpleMonster.touches(f)) {
 				this.splash.random(f)
 				this.food.remove(f)
 				this.simpleMonster.hunger += 10
 			}
 		}
-		if (this.food.empty()) this.simpleMonster.velocity.reset()
 	}
 
 	draw(draw, guiDraw) {
