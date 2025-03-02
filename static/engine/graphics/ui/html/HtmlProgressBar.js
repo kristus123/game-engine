@@ -1,6 +1,4 @@
 export class HtmlProgressBar {
-	constructor() {
-	}
 
 	static progress = 0
 
@@ -8,7 +6,6 @@ export class HtmlProgressBar {
 	static create() {
 		return Html.div('progress-container', [
 			Html.div('progress-bar')
-
 		])
 	}
 

@@ -15,7 +15,7 @@ export class Velocity {
 		this._x = 0
 		this._y = 0
 	}
- 
+
 	random(amount=10) {
 		this._x += Random.integerBetween(-amount, amount)
 		this._y += Random.integerBetween(-amount, amount)

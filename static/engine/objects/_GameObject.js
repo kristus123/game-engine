@@ -20,6 +20,10 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 		return false
 	}
 
+	distance(o) {
+		return Distance.between(this, o)
+	}
+
 	within(distance, o) {
 		return Distance.within(distance, this, o)
 	}

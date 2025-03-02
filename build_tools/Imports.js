@@ -19,6 +19,7 @@ class Imports {
 	static include(content, className) {
 		if (
 			content.includes(`export class ${className} {`) ||
+			content.includes(`class ${className} {`) ||
 			content.includes(`export function ${className}(`) ||
 			content.includes(`export const ${className} =`)
 		) {

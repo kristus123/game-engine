@@ -32,5 +32,5 @@ export class Store {
 	draw(draw, guiDraw) {
 		this.foodFactories.draw(draw, guiDraw)
 	}
-	
+
 }

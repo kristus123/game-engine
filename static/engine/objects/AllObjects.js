@@ -1,5 +1,8 @@
 export class AllObjects { // not a good name
 	constructor(objects=[]) {
+		AssertArray(objects)
+		AssertNoNullInArray(objects)
+
 		for (const o of objects) {
 			o.removeFromLoop = () => {
 				this.remove(o)
@@ -79,6 +82,22 @@ export class AllObjects { // not a good name
 
 	first() {
 		return this.objects[0]
+	}
+
+	closestTo(object) {
+		if (List.empty(this.objects)) {
+			return null
+		}
+
+		let closest = this.objects[0]
+
+		for (const o of this.objects) {
+			if (Distance.between(object, o) < Distance.between(closest, object)) {
+				closest = o
+			}
+		}
+
+		return closest
 	}
 
 }

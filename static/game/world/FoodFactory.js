@@ -5,13 +5,10 @@ export class FoodFactory extends StaticGameObject {
 		this.position.width = 100
 		this.position.height = 100
 
-		this.foods = new LocalObjects([
-		])
 	}
 
 	update() {
-		this.foods.update()
-
+		G.foods.update()
 
 		if (Random.percentageChance(10)) {
 			const f = new Square(this.position.copy(), 10)
@@ -19,15 +16,15 @@ export class FoodFactory extends StaticGameObject {
 			f.velocityFactor = Random.integerBetween(10, 20)
 			ForcePush(f).randomly(20)
 
-			this.foods.add(f)
+			G.foods.add(f)
 		}
 
 	}
 
 	draw(draw, guiDraw) {
-		this.foods.draw(draw, guiDraw)
+		G.foods.draw(draw, guiDraw)
 
 		super.draw(draw, guiDraw)
 	}
-	
+
 }

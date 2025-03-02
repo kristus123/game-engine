@@ -6,7 +6,6 @@ export class SimpleMonster extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
-			// new RotatingPicture(this, '/static/assets/blob_57x32.png'),
 			Init(this, {
 				splash: new SplashParticles(),
 			})
@@ -15,29 +14,30 @@ export class SimpleMonster extends DynamicGameObject {
 		Mouse.addOnClick('click monster', () => {
 			if (Mouse.hovering(this)) {
 				this.splash.random(Mouse.position)
+				this.hunger += 4
 			}
 		})
-
 	}
 
 	update() {
 		this.hunger -= 0.1
 		this.localObjects.update()
+
+		if (!G.foods.empty()) {
+			ForcePush(this).towards(G.foods.closestTo(this), 20)
+		}
+
+		for (const f of G.foods) {
+			if (this.touches(f)) {
+				this.splash.random(f)
+				G.foods.remove(f)
+				this.hunger += 10
+				Html.fadeaway('delicious!', Cam.p(this))
+			}
+		}
 	}
 
 	draw(draw, guiDraw) {
-		if (this.hunger > 70) {
-			draw.text(this.position.over(), 'happy', 'green')
-		}
-		else if (this.hunger > 40) {
-			draw.text(this.position.over(), 'grumpy', 'orange')
-		}
-		else {
-			draw.text(this.position.over(), 'ANGRY', 'red')
-		}
-
-
-
 		draw.hpBar(this.position.over(), this.hunger, 100)
 		this.localObjects.draw(draw, guiDraw)
 	}
