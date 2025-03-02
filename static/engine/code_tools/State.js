@@ -1,4 +1,4 @@
-export class EventSwitch { // todo better name
+export class State { // todo better name
 	constructor() {
 	}
 

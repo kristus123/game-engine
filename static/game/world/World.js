@@ -1,67 +1,19 @@
 export class World {
 	constructor() {
 
-		Controller.control(this.player)
-		const monster = new SimpleMonster()
-		this.monster = monster
-		Cam.followInstantly(monster.position.center)
+		this.monster = new SimpleMonster()
+		Cam.followInstantly(this.monster.position.center)
 
-		const poop = new LocalObjects()
-		this.poop = poop
-
-		this.foodFactory = new FoodFactory(new Position(0,0), monster)
+		this.foodFactory = new FoodFactory(new Position(0,0), this.monster)
 		this.localObjects = new LocalObjects([
-			poop,
-			monster,
+			this.monster,
+			
 
 			Init(this, {
 				splash: new SplashParticles(),
-				brownSplash: new SplashParticles(),
+				store: new Store(),
 			})
 		])
-
-		Html.addToScreen(Html.div('upper-center-ui', [
-			Html.div('x', [
-				Html.button('open store', b => {
-					const modal = Html.modal([
-						Html.button('Food factory $500', () => {
-							modal.close()
-
-							this.localObjects.add(new PlaceItems([
-								new FoodFactory(Mouse.position.copy(), monster),
-							], i => {
-								this.localObjects.add(Init(this, {
-									foodFactory: i,
-								}))
-							}))
-						}),
-					])
-					Html.addToScreen(modal)
-
-					modal.showModal()
-				}),
-			]),
-		]))
-
-
-		Html.addToScreen(Html.div('lower-center-ui', [
-			Html.div('shoulder-to-shoulder', [
-				Html.button('Feed', b => {
-					monster.hunger += 10
-					Html.fadeaway('wise choice')
-					Html.disableFor(1000, b)
-				}),
-				Html.button('Poop', () => {
-					const p = new Square(monster.position.center.copy(), 10)
-					p.x += 150
-					p.y += 150
-					p.color = 'brown'
-					poop.add(p)
-					this.brownSplash.random(p, 'brown')
-				}),
-			]),
-			HtmlProgressBar.create(),
-		]))
 	}
 
 	update() {

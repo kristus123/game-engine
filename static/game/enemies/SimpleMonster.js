@@ -5,8 +5,8 @@ export class SimpleMonster extends DynamicGameObject {
 		this.hunger = 100
 
 		this.localObjects = new LocalObjects([
-			// new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
-			new RotatingPicture(this, '/static/assets/blob_57x32.png'),
+			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
+			// new RotatingPicture(this, '/static/assets/blob_57x32.png'),
 			Init(this, {
 				splash: new SplashParticles(),
 			})

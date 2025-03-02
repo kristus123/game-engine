@@ -10,6 +10,14 @@ export class AllObjects { // not a good name
 		}
 	}
 
+	[Symbol.iterator]() {
+		return this.objects[Symbol.iterator]()
+	}
+
+	forEach(callback) {
+		return this.objects.forEach(callback)
+	}
+
 	add(o) {
 		this.objects.push(o)
 

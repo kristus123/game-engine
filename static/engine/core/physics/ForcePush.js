@@ -11,6 +11,17 @@ export const ForcePush = (o) => ({
 		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
 		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
 	},
+
+	randomly: (multiplier=1) => {
+		const position = {
+			x: o.x + Random.integerBetween(-10, 10),
+			y: o.y + Random.integerBetween(-10, 10),
+		}
+		const dir = Math.atan2(position.y - o.y, position.x - o.x)
+
+		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
+		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+	},
 	roughlyTowards: (position, multiplier=1) => {
 		const angleSpread = 0.9
 
