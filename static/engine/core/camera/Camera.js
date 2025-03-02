@@ -81,9 +81,9 @@ export class Camera {
 
 	p(p) {
 		return new Position(
-				p.x - this.position.x + p.width + 200,
-				p.y - this.position.y + p.height + 200,
-			)
+			p.x - this.position.x + p.width + 200,
+			p.y - this.position.y + p.height + 200,
+		)
 	}
 }
 

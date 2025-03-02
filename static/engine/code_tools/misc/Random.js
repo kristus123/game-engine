@@ -8,6 +8,10 @@ export class Random {
 		return this.integerBetween(0, 1) == 1
 	}
 
+	static percentageChance(number) {
+		return this.integerBetween(0, number) == 1
+	}
+
 	static floatBetween(min, max) {
 		const randomValue = Math.random() * (max - min) + min
 		return parseFloat(randomValue.toFixed(2))

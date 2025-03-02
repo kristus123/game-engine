@@ -12,6 +12,7 @@ export class World {
 		const poop = new LocalObjects()
 		this.poop = poop
 
+		this.foodFactory = new FoodFactory(new Position(0,0))
 		this.localObjects = new LocalObjects([
 			poop,
 			monster,
@@ -23,23 +24,29 @@ export class World {
 			})
 		])
 
-		const modal = Html.modal([
-			Html.button('Food factory $500', () => {
-				modal.close()
-				
+		Html.addToScreen(Html.div('upper-center-ui', [
+			Html.div('x', [
+				Html.button('open store', b => {
+					const modal = Html.modal([
+						Html.button('Food factory $500', () => {
+							modal.close()
 
-				this.localObjects.add(new PlaceItems([
-					new Square(new Position(0,0), 200, () => {
-						
-					}),
-				], i => {
-					this.localObjects.add(i)
-				}))
-			}),
-		])
-		Html.addToScreen(modal)
+							this.localObjects.add(new PlaceItems([
+								new FoodFactory(Mouse.position.copy()),
+							], i => {
+								this.localObjects.add(Init(this, {
+									foodFactory: i,
+								}))
+							}))
+						}),
+					])
+					Html.addToScreen(modal)
 
-		modal.showModal()
+					modal.showModal()
+				}),
+			]),
+		]))
+
 
 		Html.addToScreen(Html.div('lower-center-ui', [
 			Html.div('shoulder-to-shoulder', [
@@ -78,8 +85,8 @@ export class World {
 			ForcePush(this.monster).towards(this.food.first(), 20)
 
 		}
-		
-		for (const f of this.food.objects) {
+
+		for (const f of [...this.food.objects, ...this.foodFactory.foods.objects]) {
 			if (this.monster.touches(f)) {
 				this.splash.random(f)
 				this.food.remove(f)

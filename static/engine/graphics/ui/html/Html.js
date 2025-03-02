@@ -25,11 +25,11 @@ export class Html {
 
 		dialog.appendChild(div)
 
-		dialog.addEventListener("click", e => {
+		dialog.addEventListener('click', e => {
 			if (e.target === dialog) {
-			  dialog.close(); // close modal if clicking outside of it
+			  dialog.close() // close modal if clicking outside of it
 			}
-		  });
+		  })
 
 		return dialog
 	}
