@@ -4,7 +4,7 @@ export class RotatingPicture {
 		this.image.src = imagePath
 	}
 
-	draw(draw, rotation=2) {
+	draw(draw, rotation=20) {
 		const newWidth = this.position.width
 		const newHeight = this.position.height
 
