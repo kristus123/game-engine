@@ -1,19 +1,18 @@
 export class Store {
 	constructor() {
-		this.foodFactories = new LocalObjects()
+		this.localObjects = new LocalObjects()
 
 		Html.addToScreen(Html.div('upper-center-ui', [
-			Html.text('500'),
 			Html.div('x', [
 				Html.button('open store', b => {
 					const modal = Html.modal([
 						Html.button('Food factory $500', () => {
 							modal.close()
 
-							this.foodFactories.add(new PlaceItems([
+							this.localObjects.add(new PlaceItems([
 								new FoodFactory(Mouse.position.copy(), this.monster),
 							], i => {
-								this.foodFactories.add(i)
+								this.localObjects.add(i)
 							}))
 						}),
 					])
@@ -26,11 +25,11 @@ export class Store {
 	}
 
 	update() {
-		this.foodFactories.update()
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.foodFactories.draw(draw, guiDraw)
+		this.localObjects.draw(draw, guiDraw)
 	}
 
 }

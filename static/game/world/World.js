@@ -8,8 +8,13 @@ export class World {
 				splash: new SplashParticles(),
 				store: new Store(),
 			}),
+			G.poop,
+			G.splash,
 		])
 
+		Html.addToScreen(Html.div('lower-center-ui', [
+			HtmlProgressBar.create()
+		]))
 
 		Cam.followInstantly(this.monster.position.center)
 	}

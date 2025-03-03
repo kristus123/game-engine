@@ -27,6 +27,10 @@ export class SimpleMonster extends DynamicGameObject {
 			ForcePush(this).towards(G.foods.closestTo(this), 20)
 		}
 
+		if (Random.percentageChance(100)) {
+			G.poop.add(new Poop(this.position.copy()))
+		}
+
 		for (const f of G.foods) {
 			if (this.touches(f)) {
 				this.splash.random(f)

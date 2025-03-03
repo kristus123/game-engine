@@ -4,13 +4,12 @@ export class FoodFactory extends StaticGameObject {
 
 		this.position.width = 100
 		this.position.height = 100
-
 	}
 
 	update() {
 		G.foods.update()
 
-		if (Random.percentageChance(10)) {
+		if (Random.percentageChance(100)) {
 			const f = new Square(this.position.copy(), 10)
 			f.weight = 2000
 			f.velocityFactor = Random.integerBetween(10, 20)
@@ -18,7 +17,6 @@ export class FoodFactory extends StaticGameObject {
 
 			G.foods.add(f)
 		}
-
 	}
 
 	draw(draw, guiDraw) {
@@ -26,5 +24,4 @@ export class FoodFactory extends StaticGameObject {
 
 		super.draw(draw, guiDraw)
 	}
-
 }
