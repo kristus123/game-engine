@@ -18,7 +18,7 @@ export class World {
 		]))
 
 		G.monsters.add(new SimpleMonster())
-		Cam.followInstantly(G.monsters.first())
+		// Cam.followInstantly(G.monsters.first())
 	}
 
 	update() {

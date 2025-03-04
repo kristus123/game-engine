@@ -3,4 +3,5 @@ export const G = {
 	poop: new LocalObjects([]),
 	monsters: new LocalObjects([]),
 	splash: new SplashParticles(),
+	money: 0,
 }

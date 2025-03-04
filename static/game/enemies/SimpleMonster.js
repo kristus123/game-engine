@@ -2,7 +2,7 @@ export class SimpleMonster extends DynamicGameObject {
 	constructor() {
 		super(new Position(0, 0, 300, 200), 10, 10)
 
-		this.hunger = 99
+		this.hunger = 50
 
 		this.localObjects = new LocalObjects([
 			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
@@ -41,12 +41,26 @@ export class SimpleMonster extends DynamicGameObject {
 				const m = G.monsters.add(new SimpleMonster())
 				m.hunger = 50
 			})
-			
+		}
+
+		for (const m of G.monsters) {
+			if (this === m) {
+				continue
+				
+			}
+			if (this.touches(m)) {
+				ForcePush(this).awayFrom(m, 10)
+			}
 		}
 	}
 
 	draw(draw, guiDraw) {
 		draw.hpBar(this.position.over(), this.hunger, 100)
 		this.localObjects.draw(draw, guiDraw)
+
+		if (this.hunger < 0) {
+			this.velocity.reset()
+			draw.red(this.poop)
+		}
 	}
 }

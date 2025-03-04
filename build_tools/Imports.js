@@ -2,13 +2,9 @@ const Path = require('path')
 
 
 function contains(type, className, str) {
-    const exportType = new RegExp(`\\bexport\\s+${type}\\s+${className}\\b`).test(str)
-    const normalType = new RegExp(`\\b${type}\\s+${className}\\b`).test(str)
-
-	return exportType || normalType
+    const regex = new RegExp(`(export\\s+)?${type}\\s+${className}\\b`, 'm');
+    return regex.test(str);
 }
-
-
 
 class Imports {
 
@@ -39,7 +35,7 @@ class Imports {
 			content.includes(`${className}.`) ||
 			content.includes(`${className}(`) ||
 			content.includes(`instanceof ${className}`) ||
-			(`extends ${className}`)
+			content.includes(`extends ${className}`)
 		) {
 			return true
 		}

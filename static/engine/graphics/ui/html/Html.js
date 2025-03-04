@@ -64,6 +64,14 @@ export class Html {
 		return button
 	}
 
+	static disable(e) {
+		e.disabled = true
+	}
+
+	static enable(e) {
+		e.disabled = false
+	}
+
 	static disableFor(ms, e) {
 		e.disabled = true
 
