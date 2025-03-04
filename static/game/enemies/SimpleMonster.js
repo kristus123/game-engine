@@ -24,7 +24,7 @@ export class SimpleMonster extends DynamicGameObject {
 			ForcePush(this).towards(G.foods.closestTo(this), 20)
 		}
 
-		if (Random.percentageChance(100)) {
+		if (Random.percentageChance(1000)) {
 			G.poop.add(new Poop(this.position.copy()))
 		}
 
@@ -33,7 +33,7 @@ export class SimpleMonster extends DynamicGameObject {
 				// G.splash.random(f)
 				G.foods.remove(f)
 				this.hunger += 10
-				Html.fadeaway('delicious!', Cam.p(this))
+				Audio.eat()
 			}
 		}
 
@@ -44,15 +44,6 @@ export class SimpleMonster extends DynamicGameObject {
 				const m = G.monsters.add(new SimpleMonster(this.position.copy()))
 				m.hunger = 50
 			})
-		}
-
-		for (const m of G.monsters) {
-			if (m !== this) {
-				if (Collision.between(this, m)) {
-					ForcePush(m).awayFrom(this, 20)
-					Collision.deny(this, m)
-				}
-			}
 		}
 	}
 
