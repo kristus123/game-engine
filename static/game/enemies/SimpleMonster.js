@@ -48,7 +48,7 @@ export class SimpleMonster extends DynamicGameObject {
 				continue
 				
 			}
-			if (this.touches(m)) {
+			while (this.touches(m)) {
 				ForcePush(this).awayFrom(m, 10)
 			}
 		}
