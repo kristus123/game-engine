@@ -9,13 +9,17 @@ export class FoodFactory extends StaticGameObject {
 	update() {
 		G.foods.update()
 
-		if (Random.percentageChance(10)) {
+		if (Random.percentageChance(1)) {
 			const f = new Square(this.position.copy(), 10)
 			f.weight = 2000
 			f.velocityFactor = Random.integerBetween(10, 10)
 			ForcePush(f).randomly(20)
 
 			G.foods.add(f)
+
+			setTimeout(() => {
+				f.removeFromLoop()
+			}, 5000)
 		}
 	}
 

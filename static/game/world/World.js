@@ -17,7 +17,7 @@ export class World {
 			HtmlProgressBar.create()
 		]))
 
-		G.monsters.add(new SimpleMonster(new Position(0,0)))
+		G.monsters.add(new SimpleMonster(new Position(0, 0)))
 		// Cam.followInstantly(G.monsters.first())
 	}
 

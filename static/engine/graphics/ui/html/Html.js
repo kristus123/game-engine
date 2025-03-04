@@ -65,11 +65,15 @@ export class Html {
 	}
 
 	static disable(e) {
-		e.disabled = true
+		if (!e.disabled) {
+			e.disabled = true
+		}
 	}
 
 	static enable(e) {
-		e.disabled = false
+		if (e.disabled) {
+			e.disabled = false
+		}
 	}
 
 	static disableFor(ms, e) {

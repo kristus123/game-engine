@@ -2,8 +2,8 @@ const Path = require('path')
 
 
 function contains(type, className, str) {
-    const regex = new RegExp(`(export\\s+)?${type}\\s+${className}\\b`, 'm');
-    return regex.test(str);
+	const regex = new RegExp(`(export\\s+)?${type}\\s+${className}\\b`, 'm')
+	return regex.test(str)
 }
 
 class Imports {

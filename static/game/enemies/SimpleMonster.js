@@ -2,8 +2,8 @@ export class SimpleMonster extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 10)
 
-		this.position.width = 300
-		this.position.height = 200
+		this.position.width = 30
+		this.position.height = 20
 
 		this.hunger = 50
 
@@ -15,7 +15,7 @@ export class SimpleMonster extends DynamicGameObject {
 	update() {
 		this.localObjects.update()
 
-		this.hunger -= 0.1
+		this.hunger -= 1
 		if (this.hunger < 0) {
 			this.removeFromLoop()
 		}
@@ -30,14 +30,14 @@ export class SimpleMonster extends DynamicGameObject {
 
 		for (const f of G.foods) {
 			if (this.touches(f)) {
-				G.splash.random(f)
+				// G.splash.random(f)
 				G.foods.remove(f)
 				this.hunger += 10
 				Html.fadeaway('delicious!', Cam.p(this))
 			}
 		}
 
-		if (this.hunger > 100) {
+		if (this.hunger > 200) {
 			this.removeFromLoop()
 
 			Iterate(2, () => {
@@ -47,21 +47,19 @@ export class SimpleMonster extends DynamicGameObject {
 		}
 
 		for (const m of G.monsters) {
-			if (this === m) {
-				continue
-				
-			}
-			if (this.touches(m)) {
-				ForcePush(this).awayFrom(m, 10)
-
-				break
+			if (m !== this) {
+				if (Collision.between(this, m)) {
+					ForcePush(m).awayFrom(this, 20)
+					Collision.deny(this, m)
+				}
 			}
 		}
 	}
 
 	draw(draw, guiDraw) {
-		draw.hpBar(this.position.over(), this.hunger, 100)
+		// draw.hpBar(this.position.over(), this.hunger, 100)
 		this.localObjects.draw(draw, guiDraw)
+		draw.green(this)
 
 		if (this.hunger < 0) {
 			this.velocity.reset()
