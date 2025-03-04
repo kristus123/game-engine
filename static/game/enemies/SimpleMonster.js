@@ -2,23 +2,20 @@ export class SimpleMonster extends DynamicGameObject {
 	constructor() {
 		super(new Position(0, 0, 300, 200), 10, 10)
 
-		this.hunger = 100
+		this.hunger = 99
 
 		this.localObjects = new LocalObjects([
 			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
 		])
-
-		Mouse.addOnClick('click monster', () => {
-			if (Mouse.hovering(this)) {
-				G.splash.random(Mouse.position)
-				this.hunger += 4
-			}
-		})
 	}
 
 	update() {
-		this.hunger -= 0.1
 		this.localObjects.update()
+
+		this.hunger -= 0.1
+		if (this.hunger < 0) {
+			this.removeFromLoop()
+		}
 
 		if (!G.foods.empty()) {
 			ForcePush(this).towards(G.foods.closestTo(this), 20)
@@ -35,6 +32,16 @@ export class SimpleMonster extends DynamicGameObject {
 				this.hunger += 10
 				Html.fadeaway('delicious!', Cam.p(this))
 			}
+		}
+
+		if (this.hunger > 100) {
+			this.removeFromLoop()
+
+			Iterate(2, () => {
+				const m = G.monsters.add(new SimpleMonster())
+				m.hunger = 50
+			})
+			
 		}
 	}
 

@@ -1,5 +1,15 @@
 const Path = require('path')
 
+
+function contains(type, className, str) {
+    const exportType = new RegExp(`\\bexport\\s+${type}\\s+${className}\\b`).test(str)
+    const normalType = new RegExp(`\\b${type}\\s+${className}\\b`).test(str)
+
+	return exportType || normalType
+}
+
+
+
 class Imports {
 
 	static needed(content, jsFilePaths) {
@@ -18,10 +28,9 @@ class Imports {
 
 	static include(content, className) {
 		if (
-			content.includes(`export class ${className} {`) ||
-			content.includes(`class ${className} {`) ||
-			content.includes(`export function ${className}(`) ||
-			content.includes(`export const ${className} =`)
+			contains('class', className, content) ||
+			contains('function', className, content) ||
+			contains('const', className, content)
 		) {
 			return false
 		}
@@ -30,7 +39,7 @@ class Imports {
 			content.includes(`${className}.`) ||
 			content.includes(`${className}(`) ||
 			content.includes(`instanceof ${className}`) ||
-			content.includes(`extends ${className}`)
+			(`extends ${className}`)
 		) {
 			return true
 		}

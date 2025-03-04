@@ -3,20 +3,22 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				monster: new SimpleMonster(),
 				foodFactory: new FoodFactory(new Position(0, 0)),
 				splash: new SplashParticles(),
 				store: new Store(),
 			}),
 			G.poop,
 			G.splash,
+			G.monsters,
 		])
+
 
 		Html.addToScreen(Html.div('lower-center-ui', [
 			HtmlProgressBar.create()
 		]))
 
-		Cam.followInstantly(this.monster.position.center)
+		G.monsters.add(new SimpleMonster())
+		Cam.followInstantly(G.monsters.first())
 	}
 
 	update() {
