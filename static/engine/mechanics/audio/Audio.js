@@ -1,5 +1,8 @@
 /* eslint-disable no-undef, */ // Ignore Howl import warning
 
+
+
+
 export class Audio {
 
 	static play() {
@@ -13,6 +16,23 @@ export class Audio {
 	static breathing() {
 		const sound = new Howl({
 			src: ['/static/audio/astronaut_breathing.wav'],
+		})
+
+		sound.play()
+	}
+
+
+	static eat() {
+		const sound = new Howl({
+			src: ['/static/audio/eat.m4a'],
+		})
+
+		sound.play()
+	}
+
+	static poop() {
+		const sound = new Howl({
+			src: ['/static/audio/poop.m4a'],
 		})
 
 		sound.play()

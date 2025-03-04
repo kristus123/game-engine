@@ -24,7 +24,7 @@ export class SimpleMonster extends DynamicGameObject {
 			ForcePush(this).towards(G.foods.closestTo(this), 20)
 		}
 
-		if (Random.percentageChance(1000)) {
+		if (Random.percentageChance(100)) {
 			G.poop.add(new Poop(this.position.copy()))
 		}
 
@@ -37,7 +37,7 @@ export class SimpleMonster extends DynamicGameObject {
 			}
 		}
 
-		if (this.hunger > 200) {
+		if (this.hunger > 400) {
 			this.removeFromLoop()
 
 			Iterate(2, () => {

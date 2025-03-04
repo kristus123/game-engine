@@ -22,6 +22,7 @@ export class Poop extends DynamicGameObject {
 			G.splash.random(this.position, 'brown')
 			HtmlProgressBar.change(3)
 			G.money += 1
+			Audio.poop()
 		}
 	}
 }
