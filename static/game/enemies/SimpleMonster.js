@@ -1,6 +1,9 @@
 export class SimpleMonster extends DynamicGameObject {
-	constructor() {
-		super(new Position(0, 0, 300, 200), 10, 10)
+	constructor(position) {
+		super(position, 10, 10)
+
+		this.position.width = 300
+		this.position.height = 200
 
 		this.hunger = 50
 
@@ -38,7 +41,7 @@ export class SimpleMonster extends DynamicGameObject {
 			this.removeFromLoop()
 
 			Iterate(2, () => {
-				const m = G.monsters.add(new SimpleMonster())
+				const m = G.monsters.add(new SimpleMonster(this.position.copy()))
 				m.hunger = 50
 			})
 		}
@@ -48,8 +51,10 @@ export class SimpleMonster extends DynamicGameObject {
 				continue
 				
 			}
-			while (this.touches(m)) {
+			if (this.touches(m)) {
 				ForcePush(this).awayFrom(m, 10)
+
+				break
 			}
 		}
 	}
