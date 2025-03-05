@@ -4,28 +4,28 @@ export class Ranch extends StaticGameObject {
 
 		this.position.width = 500
 		this.position.height = 200
+
+		this.animals = []
+	}
+
+	add(animal) {
+		List.addIfNotPresent(this.animals, animal)
 	}
 
 	update() {
-		G.foods.update()
+		for (const a of this.animals) {
+			a.hunger += 0.2
 
-		if (Random.percentageChance(10)) {
-			const f = new Square(this.position.copy(), 10)
-			f.weight = 2000
-			f.velocityFactor = Random.integerBetween(10, 10)
-			ForcePush(f).randomly(20)
-
-			G.foods.add(f)
-
-			setTimeout(() => {
-				f.removeFromLoop()
-			}, 5000)
+			if (!a.touches(this)) {
+				ForcePush(a).towards(this.position.center, 20)
+			}
+			else {
+				a.velocity.reset()
+			}
 		}
 	}
 
 	draw(draw, guiDraw) {
-		G.foods.draw(draw, guiDraw)
-
 		super.draw(draw, guiDraw)
 	}
 }

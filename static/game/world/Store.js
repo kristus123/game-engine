@@ -5,12 +5,21 @@ export class Store {
 		Html.addToScreen(Html.div('upper-center-ui', [
 			Html.div('shoulder-to-shoulder', [
 				this.x = Html.text(G.money),
-				G.buyRanchButton = Html.button('buy food factory (10)', b => {
+				G.buyRanchButton = Html.button('buy ranch (10)', b => {
 					G.money -= 10
 					this.localObjects.add(new PlaceItems([
-						new Ranch(Mouse.position.copy(), this.monster),
+						new Ranch(Mouse.position.copy()),
 					], i => {
-						this.localObjects.add(i)
+						G.ranches.add(i)
+					}))
+				}),
+
+				G.buyAnimalButton = Html.button('buy animal (10)', b => {
+					G.money -= 10
+					this.localObjects.add(new PlaceItems([
+						new SimpleMonster(Mouse.position.copy()),
+					], i => {
+						G.monsters.add(i)
 					}))
 				}),
 			]),

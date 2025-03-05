@@ -61,6 +61,12 @@ export class List {
 		return list.includes(o)
 	}
 
+	static addIfNotPresent(list, o) {
+		if (!list.includes(o)) {
+			list.push(o)
+		}
+	}
+
 	static assertNoNullElements(list) {
 		for (const c of list) {
 			if (c == null) {

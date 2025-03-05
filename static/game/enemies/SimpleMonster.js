@@ -10,41 +10,36 @@ export class SimpleMonster extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			new HorizontalSprite(this.position, '/static/assets/blob_57x32.png'),
 		])
+
+		this.ranch = null
 	}
 
 	update() {
 		this.localObjects.update()
 
-		this.hunger -= 1
+		this.hunger -= 0.1
 		if (this.hunger < 0) {
 			this.removeFromLoop()
-		}
-
-		if (!G.foods.empty()) {
-			ForcePush(this).towards(G.foods.closestTo(this), 20)
 		}
 
 		if (Random.percentageChance(100)) {
 			G.poop.add(new Poop(this.position.copy()))
 		}
 
-		for (const f of G.foods) {
-			if (this.touches(f)) {
-				// G.splash.random(f)
-				G.foods.remove(f)
-				this.hunger += 10
-				Audio.eat()
-			}
+		const ranch = this.touchesAny(G.ranches)
+		if (ranch) {
+			ranch.add(this)
+			this.ranch = ranch
 		}
 
-		if (this.hunger > 400) {
-			this.removeFromLoop()
+		// if (this.hunger > 400) {
+		// 	this.removeFromLoop()
 
-			Iterate(2, () => {
-				const m = G.monsters.add(new SimpleMonster(this.position.copy()))
-				m.hunger = 50
-			})
-		}
+		// 	Iterate(2, () => {
+		// 		const m = G.monsters.add(new SimpleMonster(this.position.copy()))
+		// 		m.hunger = 50
+		// 	})
+		// }
 	}
 
 	draw(draw, guiDraw) {
@@ -55,6 +50,13 @@ export class SimpleMonster extends DynamicGameObject {
 		if (this.hunger < 0) {
 			this.velocity.reset()
 			draw.red(this.poop)
+		}
+
+		if (this.ranch && this.touches(this.ranch)) {
+			draw.text(this.position, 'happy')
+		}
+		else {
+			draw.text(this.position, 'sad')
 		}
 	}
 }
