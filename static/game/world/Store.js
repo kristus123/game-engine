@@ -5,10 +5,10 @@ export class Store {
 		Html.addToScreen(Html.div('upper-center-ui', [
 			Html.div('shoulder-to-shoulder', [
 				this.x = Html.text(G.money),
-				G.buyFoodFactoryButton = Html.button('buy food factory (10)', b => {
+				G.buyRanchButton = Html.button('buy food factory (10)', b => {
 					G.money -= 10
 					this.localObjects.add(new PlaceItems([
-						new FoodFactory(Mouse.position.copy(), this.monster),
+						new Ranch(Mouse.position.copy(), this.monster),
 					], i => {
 						this.localObjects.add(i)
 					}))
@@ -24,10 +24,10 @@ export class Store {
 
 
 		if (G.money >= 10) {
-			Html.enable(G.buyFoodFactoryButton)
+			Html.enable(G.buyRanchButton)
 		}
 		else {
-			Html.disable(G.buyFoodFactoryButton)
+			Html.disable(G.buyRanchButton)
 		}
 	}
 

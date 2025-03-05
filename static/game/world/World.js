@@ -3,7 +3,7 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				foodFactory: new FoodFactory(new Position(0, 0)),
+				ranch: new Ranch(new Position(0, 0)),
 				splash: new SplashParticles(),
 				store: new Store(),
 			}),

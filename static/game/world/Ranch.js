@@ -1,15 +1,15 @@
-export class FoodFactory extends StaticGameObject {
+export class Ranch extends StaticGameObject {
 	constructor(position) {
 		super(position)
 
-		this.position.width = 100
-		this.position.height = 100
+		this.position.width = 500
+		this.position.height = 200
 	}
 
 	update() {
 		G.foods.update()
 
-		if (Random.percentageChance(1)) {
+		if (Random.percentageChance(10)) {
 			const f = new Square(this.position.copy(), 10)
 			f.weight = 2000
 			f.velocityFactor = Random.integerBetween(10, 10)
