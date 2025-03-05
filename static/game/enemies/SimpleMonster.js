@@ -35,6 +35,8 @@ export class SimpleMonster extends DynamicGameObject {
 		if (Mouse.holdAndMove(this)) {
 			
 		}
+
+		ForcePush(this).towards(Random.direction(this.position), 5)
 	}
 
 	draw(draw, guiDraw) {

@@ -17,10 +17,7 @@ export class Ranch extends StaticGameObject {
 			a.hunger += 0.2
 
 			if (!a.touches(this)) {
-				ForcePush(a).towards(this.position.center, 20)
-			}
-			else {
-				a.velocity.reset()
+				Move(a).towards(this.position.center, 1)
 			}
 		}
 	}
