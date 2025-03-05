@@ -126,6 +126,19 @@ export class Mouse {
 	static update() {
 	}
 
+	static holdAndMove(object) {
+		if (this.holding && this.down) {
+			this.holding.x = this.position.x
+			this.holding.y = this.position.y
+		}
+		else if (this.up) {
+			this.holding = null
+		}
+		else if (this.clicked(object)) {
+			this.holding = object
+		}
+	}
+
 	static draw(draw, guiDraw) {
 
 		// console.log(this.moving)

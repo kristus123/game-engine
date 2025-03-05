@@ -18,21 +18,19 @@ export class Camera {
 		this.position = new Position(0, 0)
 		this.smoothPosition = new SmoothPosition(this.position, 0.01)
 
+		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
 
+		Mouse.scrollIn = () => {
+			this.smoothZoom.targetValue += 0.1
+			if (this.zoom.currentValue > 10) {
+			}
+		}
 
-		this.smoothZoom = new SmoothValue(1, 1, 0.001, 0.5)
-
-		// Mouse.scrollIn = () => {
-		// 	this.smoothZoom.targetValue += 1
-		// 	if (this.zoom.currentValue > 10) {
-		// 	}
-		// }
-
-		// Mouse.scrollOut = () => {
-		// 	this.smoothZoom.targetValue -= 1
-		// 	if (this.zoom.currentValue > 10) {
-		// 	}
-		// }
+		Mouse.scrollOut = () => {
+			this.smoothZoom.targetValue -= 0.1
+			if (this.zoom.currentValue > 10) {
+			}
+		}
 
 		this.anchoredPositions = new LocalObjects([
 			new Anchor(Mouse.position, 1_000, 0.1),

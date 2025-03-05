@@ -32,14 +32,9 @@ export class SimpleMonster extends DynamicGameObject {
 			this.ranch = ranch
 		}
 
-		// if (this.hunger > 400) {
-		// 	this.removeFromLoop()
-
-		// 	Iterate(2, () => {
-		// 		const m = G.monsters.add(new SimpleMonster(this.position.copy()))
-		// 		m.hunger = 50
-		// 	})
-		// }
+		if (Mouse.holdAndMove(this)) {
+			
+		}
 	}
 
 	draw(draw, guiDraw) {
@@ -52,7 +47,10 @@ export class SimpleMonster extends DynamicGameObject {
 			draw.red(this.poop)
 		}
 
-		if (this.ranch && this.touches(this.ranch)) {
+		if (Mouse.hovering(this)) {
+			draw.text(this.position, 'click to move')
+		}
+		else if (this.ranch && this.touches(this.ranch)) {
 			draw.text(this.position, 'happy')
 		}
 		else {

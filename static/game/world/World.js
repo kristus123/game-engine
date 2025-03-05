@@ -5,14 +5,13 @@ export class World {
 			Init(this, {
 				store: new Store(),
 			}),
-			G.splash,
 			G.ranches,
 			G.monsters,
 			G.poop,
+			G.splash,
 		])
 
 		G.ranches.add(new Ranch(new Position(0,0)))
-
 
 		Html.addToScreen(Html.div('lower-center-ui', [
 			HtmlProgressBar.create()
@@ -23,24 +22,6 @@ export class World {
 
 	update() {
 		this.localObjects.update()
-
-		if (Mouse.holding && Mouse.down) {
-			Mouse.holding.x = Mouse.position.x
-			Mouse.holding.y = Mouse.position.y
-		}
-		else if (Mouse.up) {
-			Mouse.holding = null
-		}
-		else {
-			for (const m of G.monsters) {
-				if (Mouse.clicked(m)) {
-					Mouse.holding = m
-					break
-				}
-			}
-		}
-
-
 	}
 
 	draw(draw, guiDraw) {
