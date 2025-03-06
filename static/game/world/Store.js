@@ -2,6 +2,7 @@ export class Store {
 	constructor() {
 		this.localObjects = new LocalObjects()
 
+
 		Html.addToScreen(Html.div('upper-center-ui', [
 			Html.div('shoulder-to-shoulder', [
 				this.x = Html.text(G.money),
@@ -22,6 +23,12 @@ export class Store {
 						G.monsters.add(i)
 					}))
 				}),
+
+				G.buyAnimalButton = Html.button('hire worker (10)', b => {
+					G.money -= 10
+					G.workers.add(new Worker(new Position(0,0)))
+				}),
+
 			]),
 		]))
 	}

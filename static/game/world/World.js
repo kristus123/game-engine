@@ -10,10 +10,11 @@ export class World {
 			Init(this, {
 				store: new Store(),
 			}),
-			// G.ranches,
-			// G.monsters,
-			// G.poop,
-			// G.splash,
+			G.ranches,
+			G.monsters,
+			G.poop,
+			G.workers,
+			G.splash,
 		])
 
 		G.ranches.add(new Ranch(new Position(0, 0)))
@@ -33,17 +34,15 @@ export class World {
 	}
 
 	update() {
+		for (const w of G.workers) {
+			G.money -= 0.001
+			G.money = Math.round(G.money * 100) / 100
+		}
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 		// draw.test(new Position(0, 0))
-
-		if (renderer.ib) {
-			pos.x += 1
-			pos.y += 1
-			draw.imageBitmap(pos, renderer.ib)
-		}
 	}
 }

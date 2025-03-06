@@ -18,11 +18,15 @@ export class Poop extends DynamicGameObject {
 		draw.brown(this)
 
 		if (Mouse.hovering(this)) {
-			G.poop.remove(this)
-			G.splash.random(this.position, 'brown')
-			HtmlProgressBar.change(3)
-			G.money += 1
-			Audio.poop()
+			this.remove()
 		}
+	}
+
+	remove() {
+		G.poop.remove(this)
+		G.splash.random(this.position, 'brown')
+		HtmlProgressBar.change(3)
+		G.money += 1
+		Audio.poop()
 	}
 }

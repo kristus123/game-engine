@@ -84,7 +84,7 @@ export class AllObjects { // not a good name
 		return this.objects[0]
 	}
 
-	closestTo(object) {
+	closestTo(object, run= c => {}) {
 		if (List.empty(this.objects)) {
 			return null
 		}
@@ -95,6 +95,10 @@ export class AllObjects { // not a good name
 			if (Distance.between(object, o) < Distance.between(closest, object)) {
 				closest = o
 			}
+		}
+
+		if (closest) {
+			run(closest)
 		}
 
 		return closest
