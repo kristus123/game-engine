@@ -92,6 +92,10 @@ export class Draw {
 		this.ctx.shadowOffsetY = 0
 	}
 
+	imageBitmap(position, imageBitmap) {
+			this.ctx.drawImage(imageBitmap, position.x,position.y);
+	}
+
 	rectangle(position, color='yellow') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)

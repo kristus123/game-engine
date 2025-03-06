@@ -1,35 +1,7 @@
-class CanvasRenderer {
-    constructor(width = 100, height = 100) {
-        this.canvas = new OffscreenCanvas(width, height);
-        this.ctx = this.canvas.getContext("2d");
-        this.width = width;
-        this.height = height;
-    }
-
-    drawRect(x, y, width, height, color = "blue") {
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(x, y, width, height);
-    }
-
-    getImageBitmap() {
-        return this.canvas.convertToBlob().then(blob => createImageBitmap(blob));
-    }
-}
 const renderer = new CanvasRenderer()
-
-
-renderer.drawRect(0, 0, 100, 100)
-let ib =  null
-renderer.getImageBitmap().then(imageBitmap => {
-	ib = imageBitmap
-});
-
-
-
-
-
-
-
+const pos = new Position(0,0,10,10)
+renderer.draw.rectangle(new Position(50,0,1000,1000))
+renderer.renderImageBitmap()
 
 export class World {
 	constructor() {
@@ -47,18 +19,17 @@ export class World {
 		G.ranches.add(new Ranch(new Position(0,0)))
 
 		Html.addToScreen(Html.div('lower-center-ui', [
-			HtmlProgressBar.create()
+			Html.slider(),
+			HtmlProgressBar.create(),
 		]))
 
 		G.monsters.add(new SimpleMonster(new Position(0, 0)))
 
 		BottomText.show('Welcome!', 2_000)
 
-
 		// LoadingScreen.show()
 		// QuestList.add('eat ass')
 		// QuestList.show()
-
 	}
 
 	update() {
@@ -69,10 +40,10 @@ export class World {
 		this.localObjects.draw(draw, guiDraw)
 		// draw.test(new Position(0, 0))
 
-
-		if (ib) {
-	draw.ctx.drawImage(ib, 0,200);
-			
+		if (renderer.ib) {
+			pos.x += 1
+			pos.y += 1
+			draw.imageBitmap(pos, renderer.ib)
 		}
 	}
 }

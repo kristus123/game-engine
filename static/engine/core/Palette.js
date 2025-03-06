@@ -59,6 +59,18 @@ export class Palette {
 		}
 	}
 
+	static fixedOffscreen(width, height) {
+		const canvas = new OffscreenCanvas(width, height)
+		const ctx = canvas.getContext('2d')
+
+		return {
+			canvas,
+			ctx,
+			width: Palette.width,
+			height: Palette.height,
+		}
+	}
+
 	static clear(canvases) {
 		canvases.forEach(c => {
 			c.ctx.clearRect(0, 0, Palette.width, Palette.height)

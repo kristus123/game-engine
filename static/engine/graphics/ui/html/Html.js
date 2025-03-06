@@ -3,9 +3,9 @@ function element(type, clazz) {
 	e.setAttribute('class', clazz)
 	e.setAttribute('tabindex', -1)
 
-	e.addEventListener('mousedown', e => {
-		e.preventDefault()
-	})
+	// e.addEventListener('mousedown', e => {
+	// 	e.preventDefault()
+	// })
 
 	return e
 }
@@ -32,6 +32,26 @@ export class Html {
 		  })
 
 		return dialog
+	}
+
+	static slider(min=1, max=100) {
+		const x = element('input')
+
+		x.type = 'range'
+		x.min = min
+		x.max = max
+		x.value = 0
+		x.step=1
+
+		x.addEventListener('mouseover', () => {
+			Mouse.hoveringHtmlElement = true
+		})
+
+		x.addEventListener('mouseout', () => {
+			Mouse.hoveringHtmlElement = false
+		})
+
+		return x
 	}
 
 	static p(text, className='na') {
