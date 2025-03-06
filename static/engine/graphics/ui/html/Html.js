@@ -34,8 +34,8 @@ export class Html {
 		return dialog
 	}
 
-	static p(text) {
-		var p = element('p')
+	static p(text, className='na') {
+		var p = element('p', className)
 		p.innerHTML = text
 
 		return p
@@ -96,6 +96,14 @@ export class Html {
 		return div
 	}
 
+	static show(e) {
+		e.style.display = "block"; // Show
+	}
+
+	static hide(e) {
+		e.style.display = "none"; // Hide
+	}
+
 	static changeText(element, text) {
 		element.textContent = text
 	}
@@ -135,9 +143,9 @@ export class Html {
 	}
 
 	static div(className, childrenElements=[]) {
-		const d = document.createElement('div')
+		const d = element('div', className)
+		
 
-		d.classList.add(className)
 
 		for (const e of childrenElements) {
 			d.appendChild(e)

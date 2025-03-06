@@ -1,3 +1,4 @@
+
 export class World {
 	constructor() {
 
@@ -18,6 +19,14 @@ export class World {
 		]))
 
 		G.monsters.add(new SimpleMonster(new Position(0, 0)))
+
+		BottomText.show('Welcome!', 2_000)
+
+
+		LoadingScreen.show()
+		// QuestList.add('eat ass')
+		// QuestList.show()
+
 	}
 
 	update() {

@@ -41,11 +41,18 @@
 	gap: 10px; /* Adds space between the buttons */
 }
 
-.draggable {
-  position: absolute;
-  cursor: grab;
-  /* background-color: #f0f0f0; */
-  /* padding: 10px; */
-  /* border: 1px solid #ccc; */
-  /* width: fit-content; */
+ .pokemon-text {
+	width: 50%;
+	background-color: white;
+	color: black;
+	text-align: center;
+	padding: 20px;
+	font-size: 60px; /* Adjust font size as needed */
+	border: 2px solid black; /* Optional border for the text area */
+	margin:10px;
+}
+
+.crossed {
+	color: grey;
+	text-decoration: line-through;
 }

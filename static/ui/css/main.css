@@ -7,9 +7,12 @@ body {
 	height: 100vh;
 	overflow: hidden; /* Prevent scrollbars */
 }
+
 canvas {
 	display: block; /* Remove any default spacing */
 	/* cursor: none; hide cursor, currently disabled*/
+	/* filter: hue-rotate(180deg) contrast(3.5); */
+
 }
 
 #errorOverlay {

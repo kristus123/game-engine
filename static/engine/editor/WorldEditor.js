@@ -4,6 +4,8 @@ export class WorldEditor {
 		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
 		Controller.control(Cam.objectToFollow)
 
+		Overlay.leftButton('left', () => {})
+
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				player: new PlayerEditor().player,

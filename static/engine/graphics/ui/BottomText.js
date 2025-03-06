@@ -1,26 +1,19 @@
+const p = Html.p('default', 'lower-center-ui pokemon-text')
+Html.addToScreen(p)
+Html.hide(p)
+
 export class BottomText {
-	constructor() {
-	}
+
 
 	static show(text, removeAfterMs=null) {
 
-		const overlayText = document.createElement('p')
-		overlayText.className = 'bottom-text'
-		overlayText.textContent = text
-
-		document.body.appendChild(overlayText)
+		Html.changeText(p, text)
+		Html.show(p)
 
 		if (removeAfterMs) {
 			setTimeout(() => {
-				this.remove()
+				Html.hide(p)
 			}, removeAfterMs)
-		}
-	}
-
-	static remove() {
-		const overlayDiv = document.querySelector('.bottom-text')
-		if (overlayDiv) {
-			document.body.removeChild(overlayDiv)
 		}
 	}
 
