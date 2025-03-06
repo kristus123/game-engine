@@ -1,6 +1,6 @@
 const renderer = new CanvasRenderer()
-const pos = new Position(0,0,10,10)
-renderer.draw.rectangle(new Position(50,0,1000,1000))
+const pos = new Position(0, 0, 10, 10)
+renderer.draw.rectangle(new Position(50, 0, 1000, 1000))
 renderer.renderImageBitmap()
 
 export class World {
@@ -16,7 +16,7 @@ export class World {
 			// G.splash,
 		])
 
-		G.ranches.add(new Ranch(new Position(0,0)))
+		G.ranches.add(new Ranch(new Position(0, 0)))
 
 		Html.addToScreen(Html.div('lower-center-ui', [
 			Html.slider(),

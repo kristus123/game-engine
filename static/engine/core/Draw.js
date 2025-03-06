@@ -93,7 +93,7 @@ export class Draw {
 	}
 
 	imageBitmap(position, imageBitmap) {
-			this.ctx.drawImage(imageBitmap, position.x,position.y);
+		this.ctx.drawImage(imageBitmap, position.x, position.y)
 	}
 
 	rectangle(position, color='yellow') {

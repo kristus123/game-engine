@@ -117,11 +117,11 @@ export class Html {
 	}
 
 	static show(e) {
-		e.style.display = "block"; // Show
+		e.style.display = 'block' // Show
 	}
 
 	static hide(e) {
-		e.style.display = "none"; // Hide
+		e.style.display = 'none' // Hide
 	}
 
 	static changeText(element, text) {
@@ -164,7 +164,7 @@ export class Html {
 
 	static div(className, childrenElements=[]) {
 		const d = element('div', className)
-		
+
 
 
 		for (const e of childrenElements) {
