@@ -174,7 +174,9 @@ export class Html {
 		return d
 	}
 
-	static fadeaway(x, position=Mouse.screenPosition) {
+	static fadeaway(x, position=Mouse.position) {
+		position = Cam.p(position) // todo imrpoveo ofc
+
 		var text = element('p')
 		text.innerHTML = x
 

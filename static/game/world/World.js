@@ -25,6 +25,8 @@ export class World {
 			HtmlProgressBar.create(),
 		]))
 
+		Controller.control(Cam.objectToFollow)
+
 		G.monsters.add(new SimpleMonster(new Position(0, 0)))
 
 		BottomText.show('Welcome!', 2_000)

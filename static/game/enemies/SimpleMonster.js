@@ -52,11 +52,10 @@ export class SimpleMonster extends DynamicGameObject {
 		if (Mouse.hovering(this)) {
 			draw.text(this.position, 'click to move')
 		}
-		// else if (this.ranch && this.touches(this.ranch)) {
-		// 	draw.text(this.position, 'happy')
-		// }
-		// else {
-		// 	draw.text(this.position, 'sad')
-		// }
+		else if (this.ranch && this.touches(this.ranch)) {
+		}
+		else {
+			draw.text(this.position, 'sad')
+		}
 	}
 }

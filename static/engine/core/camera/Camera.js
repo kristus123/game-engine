@@ -77,10 +77,10 @@ export class Camera {
 		this.position.y = o.position.y
 	}
 
-	p(p) {
+	p(p) { // screenPosition //todo improve ofc.
 		return new Position(
-			p.x - this.position.x + p.width + 200,
-			p.y - this.position.y + p.height + 200,
+			p.x - this.position.x + p.width + (Palette.width/2),
+			p.y - this.position.y + p.height + (Palette.height/2),
 		)
 	}
 }

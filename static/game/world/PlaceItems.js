@@ -1,23 +1,33 @@
 export class PlaceItems {
 	constructor(itemsToPlace, placeDown= p => {}) {
+		this.itemsToPlace = new ListLooper(itemsToPlace)
 	}
 
 	update() {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.itemsToPlace.length > 0) {
-			const i = this.itemsToPlace[0]
+		this.itemsToPlace.goThrough(i => {
+			console.log("hei")
 			i.x = Mouse.position.x
 			i.y = Mouse.position.y
 
-			draw.transparentGreenRectangle(i)
-
-			if (Mouse.down) {
-				this.placeDown(i)
-				List.remove(this.itemsToPlace, i)
-				this.removeFromLoop()
+			if (Mouse.timeSinceLastClick > 20) {
+				draw.transparentGreenRectangle(i)
 			}
+			else {
+				draw.transparentRedRectangle(i)
+			}
+			i.draw(draw, guiDraw)
+
+			if (Mouse.click(i)) {
+				this.placeDown(i)
+				this.itemsToPlace.next()
+			}
+		})
+
+		if (this.itemsToPlace.finished) {
+			this.removeFromLoop()
 		}
 	}
 

@@ -23,6 +23,7 @@ export class Poop extends DynamicGameObject {
 	}
 
 	remove() {
+		Html.fadeaway('poop', this.position)
 		G.poop.remove(this)
 		G.splash.random(this.position, 'brown')
 		HtmlProgressBar.change(3)

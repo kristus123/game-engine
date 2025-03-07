@@ -15,6 +15,7 @@ export class Mouse {
 
 		this.moving = false
 		this.lastPositionBeforeMoving = new Position(0, 0)
+		this.timeSinceLastClick = 0
 		document.addEventListener('mousemove', (e) => {
 			this.positionRelativeToCamera(e)
 			this.moving = true
@@ -119,11 +120,20 @@ export class Mouse {
 		return Collision.between(this.position, o) && this.down
 	}
 
+	static click(o, timeInMs=20) {
+		if (this.timeSinceLastClick > timeInMs && Mouse.down) {
+			this.timeSinceLastClick = 0
+			return this.clicked(o)
+		}
+		else return false
+	}
+
 	static hovering(o) {
 		return Collision.between(this.position, o)
 	}
 
 	static update() {
+		this.timeSinceLastClick += 1
 	}
 
 	static holdAndMove(object) {

@@ -18,8 +18,6 @@ export class List {
 		}
 	}
 
-
-
 	static removeIf(list, predicate) {
 		for (let i = list.length - 1; i >= 0; i--) {
 			if (predicate(list[i])) {
@@ -42,7 +40,10 @@ export class List {
 
 	static empty(list) {
 		return list.length == 0
+	}
 
+	static notEmpty(list) {
+		return !this.empty(list)
 	}
 
 	static lastIndex(list, index) {

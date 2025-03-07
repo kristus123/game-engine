@@ -35,6 +35,7 @@ export class Store {
 					this.localObjects.add(new PlaceItems([
 						new Tree(Mouse.position.copy()),
 						new Tree(Mouse.position.copy()),
+						new Tree(Mouse.position.copy()),
 					], i => {
 						G.trees.add(i)
 					}))
