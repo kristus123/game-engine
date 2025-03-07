@@ -32,7 +32,7 @@ export class Audio {
 
 	static poop() {
 		const sound = new Howl({
-			src: ['/static/audio/poop.m4a'],
+			src: ['/static/audio/poop.wav'],
 		})
 
 		sound.play()
