@@ -29,6 +29,17 @@ export class Store {
 					G.workers.add(new Worker(new Position(0,0)))
 				}),
 
+				G.buyAnimalButton = Html.button('buy tree (10)', b => {
+					G.money -= 10
+
+					this.localObjects.add(new PlaceItems([
+						new Tree(Mouse.position.copy()),
+						new Tree(Mouse.position.copy()),
+					], i => {
+						G.trees.add(i)
+					}))
+				}),
+
 			]),
 		]))
 	}

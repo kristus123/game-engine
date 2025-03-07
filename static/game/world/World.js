@@ -15,6 +15,7 @@ export class World {
 			G.poop,
 			G.workers,
 			G.splash,
+			G.trees,
 		])
 
 		G.ranches.add(new Ranch(new Position(0, 0)))

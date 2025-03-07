@@ -2,8 +2,8 @@ export class SimpleMonster extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 10)
 
-		this.position.width = 30
-		this.position.height = 20
+		this.position.width = 30*2
+		this.position.height = 20*2
 
 		this.hunger = 50
 
@@ -42,7 +42,7 @@ export class SimpleMonster extends DynamicGameObject {
 	draw(draw, guiDraw) {
 		// draw.hpBar(this.position.over(), this.hunger, 100)
 		this.localObjects.draw(draw, guiDraw)
-		draw.green(this)
+		// draw.green(this)
 
 		if (this.hunger < 0) {
 			this.velocity.reset()
@@ -52,11 +52,11 @@ export class SimpleMonster extends DynamicGameObject {
 		if (Mouse.hovering(this)) {
 			draw.text(this.position, 'click to move')
 		}
-		else if (this.ranch && this.touches(this.ranch)) {
-			draw.text(this.position, 'happy')
-		}
-		else {
-			draw.text(this.position, 'sad')
-		}
+		// else if (this.ranch && this.touches(this.ranch)) {
+		// 	draw.text(this.position, 'happy')
+		// }
+		// else {
+		// 	draw.text(this.position, 'sad')
+		// }
 	}
 }

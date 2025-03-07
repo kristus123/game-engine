@@ -1,3 +1,8 @@
+/*
+It expects files to be named in this format:
+'/static/assets/sprites/stars_16x16.png'
+
+*/
 function dimensionsFrom(imagePath) {
 	const pattern = /(\d+)x(\d+)/
 	const match = imagePath.match(pattern)

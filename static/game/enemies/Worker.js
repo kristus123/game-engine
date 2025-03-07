@@ -1,10 +1,12 @@
 export class Worker extends DynamicGameObject {
 	constructor(position) {
 		super(position, 100, 10)
-		this.position.width = 10
-		this.position.height = 10
+		this.position.width = 100
+		this.position.height = 100
 
-		this.localObjects = new LocalObjects()
+		this.localObjects = new LocalObjects([
+			new HorizontalSprite(this.position, '/static/assets/new_player_32x32.png'),
+		])
 	}
 
 	update() {
@@ -33,7 +35,5 @@ export class Worker extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-
-		draw.orange(this.position)
 	}
 }
