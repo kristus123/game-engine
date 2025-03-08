@@ -14,8 +14,6 @@ function doScale(region) {
         };
     }
 
-
-
 export class ImageColorDetector {
     constructor(imageElement, canvasRenderer) {
         this.image = imageElement;
@@ -48,64 +46,73 @@ export class ImageColorDetector {
         }
     }
 
-    detectRegions() {
-        const width = this.canvasRenderer.palette.canvas.width;
-        const height = this.canvasRenderer.palette.canvas.height;
-        const visited = Array.from({ length: height }, () => Array(width).fill(false));
+detectRegions() {
+    const width = this.canvasRenderer.palette.canvas.width;
+    const height = this.canvasRenderer.palette.canvas.height;
+    const visited = Array.from({ length: height }, () => Array(width).fill(false));
 
-        const directions = [
-            [0, 1], [1, 0], [0, -1], [-1, 0],  // Left, Right, Up, Down
-            [-1, -1], [-1, 1], [1, -1], [1, 1] // Diagonal moves
-        ];
+    const directions = [
+        [0, 1], [1, 0], [0, -1], [-1, 0],  // Left, Right, Up, Down
+        [-1, -1], [-1, 1], [1, -1], [1, 1] // Diagonal moves
+    ];
 
-        for (const [colorKey, pixelIndices] of this.colorMap) {
-            for (const index of pixelIndices) {
-                const x = index % width;
-                const y = Math.floor(index / width);
-                if (visited[y][x]) continue;
+    // Loop through each color group
+    for (const [colorKey, pixelIndices] of this.colorMap) {
+        let regionsForColor = [];
 
-                // Perform flood fill using BFS
-                const queue = [[x, y]];
-                const regionPixels = [];
-                let minX = x, minY = y, maxX = x, maxY = y;
+        // We process each pixel in the list of pixels for this color
+        for (const index of pixelIndices) {
+            const x = index % width;
+            const y = Math.floor(index / width);
 
-                while (queue.length > 0) {
-                    const [cx, cy] = queue.shift();
-                    if (visited[cy][cx]) continue;
+            // If the pixel has already been visited, skip it
+            if (visited[y][x]) continue;
 
-                    visited[cy][cx] = true;
-                    regionPixels.push([cx, cy]);
+            // Perform flood fill using BFS to find connected region of the same color
+            const queue = [[x, y]];
+            const regionPixels = [];
+            let minX = x, minY = y, maxX = x, maxY = y;
 
-                    // Expand bounding box
-                    minX = Math.min(minX, cx);
-                    minY = Math.min(minY, cy);
-                    maxX = Math.max(maxX, cx);
-                    maxY = Math.max(maxY, cy);
+            while (queue.length > 0) {
+                const [cx, cy] = queue.shift();
+                if (visited[cy][cx]) continue;
 
-                    // Check all 8 possible directions
-                    for (const [dx, dy] of directions) {
-                        const nx = cx + dx, ny = cy + dy;
-                        if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                            const neighborIndex = ny * width + nx;
-                            if (!visited[ny][nx] && this.colorMap.get(colorKey).includes(neighborIndex)) {
-                                queue.push([nx, ny]);
-                            }
+                visited[cy][cx] = true;
+                regionPixels.push([cx, cy]);
+
+                // Expand bounding box
+                minX = Math.min(minX, cx);
+                minY = Math.min(minY, cy);
+                maxX = Math.max(maxX, cx);
+                maxY = Math.max(maxY, cy);
+
+                // Check all 8 possible directions for connectivity
+                for (const [dx, dy] of directions) {
+                    const nx = cx + dx, ny = cy + dy;
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                        const neighborIndex = ny * width + nx;
+                        // Ensure the neighbor has the same color and has not been visited yet
+                        if (!visited[ny][nx] && pixelIndices.includes(neighborIndex)) {
+                            queue.push([nx, ny]);
                         }
                     }
                 }
-
-                this.regions.push({
-                    x: minX,
-                    y: minY,
-                    width: maxX - minX + 1,
-                    height: maxY - minY + 1,
-                    color: colorKey,
-                    pixels: regionPixels // Store exact pixels for more accurate shape info
-                });
             }
-        }
-    }
 
+            // After finishing the flood fill, store the region
+            regionsForColor.push({
+                x: minX,
+                y: minY,
+                width: maxX - minX + 1,
+                height: maxY - minY + 1,
+                color: colorKey,
+                pixels: regionPixels
+            });
+        }
+
+        this.regions.push(...regionsForColor); // Add all regions for the current color
+    }
+}
     processImage() {
         this.extractColors();
         this.detectRegions();
@@ -176,7 +183,6 @@ export class World {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 		for (const r of regions) {
-			r.x -= 0.1
 			draw.rectangle(r, r.color)
 		}
 		// draw.test(new Position(0, 0))
