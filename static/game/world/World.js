@@ -22,6 +22,7 @@ export class ImageColorDetector {
         this.colorMap = new Map();
         this.regions = [];
 
+			this.canvasRenderer.ctx.imageSmoothingEnabled = false
         this.canvasRenderer.ctx.drawImage(this.image, 0,0)
     }
 
@@ -111,6 +112,9 @@ detectRegions() {
         }
 
         this.regions.push(...regionsForColor); // Add all regions for the current color
+
+			this.canvasRenderer.ctx.imageSmoothingEnabled = false
+        this.canvasRenderer.ctx.drawImage(this.image, 0,0, this.image.width*scale, this.image.height*scale)
     }
 }
     processImage() {
@@ -130,8 +134,8 @@ let regions = []
 
 let canvasRenderer = null
 img.onload = () => {
-    canvasRenderer = new CanvasRenderer(200, 200);
-    const detector = new ImageColorDetector(img, canvasRenderer, new Position(0, 0, img.width, img.height));
+    canvasRenderer = new CanvasRenderer(img.width*scale, img.height*scale);
+    const detector = new ImageColorDetector(img, canvasRenderer, new Position(0, 0, img.width*scale, img.height*scale));
     regions = detector.processImage().map(r => {
 		return doScale(r)
     })
@@ -186,13 +190,13 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		if (canvasRenderer && canvasRenderer.ib) {
+			draw.imageBitmap(new Position(0,0), canvasRenderer.ib)
+		}
 		for (const r of regions) {
 			if (!Mouse.hovering(r)) {
 				draw.rectangle(r, r.color)
 			}
-		}
-		if (canvasRenderer && canvasRenderer.ib) {
-			draw.imageBitmap(new Position(0,0), canvasRenderer.ib)
 		}
 		// draw.test(new Position(0, 0))
 	}
