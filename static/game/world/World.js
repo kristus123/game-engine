@@ -15,14 +15,14 @@ function doScale(region) {
     }
 
 export class ImageColorDetector {
-    constructor(imageElement, canvasRenderer) {
+    constructor(imageElement, canvasRenderer,position) {
         this.image = imageElement;
         this.canvasRenderer = canvasRenderer;
         this.ctx = this.canvasRenderer.ctx;
         this.colorMap = new Map();
         this.regions = [];
 
-        this.canvasRenderer.ctx.drawImage(this.image, 0, 0);
+        this.canvasRenderer.ctx.drawImage(this.image, 0,0)
     }
 
     getColorKey(r, g, b) {
@@ -123,16 +123,20 @@ detectRegions() {
 const img = new Image();
 img.src = "/static/assets/test.png";
 img.crossOrigin = "Anonymous";
+// img.width *= scale
+// img.height *= scale
 
 let regions = []
 
+let canvasRenderer = null
 img.onload = () => {
-    const canvasRenderer = new CanvasRenderer(img.width, img.height);
-    const detector = new ImageColorDetector(img, canvasRenderer);
+    canvasRenderer = new CanvasRenderer(200, 200);
+    const detector = new ImageColorDetector(img, canvasRenderer, new Position(0, 0, img.width, img.height));
     regions = detector.processImage().map(r => {
 		return doScale(r)
     })
     console.log("Detected regions:", regions);
+	canvasRenderer.renderImageBitmap()
 };
 
 
@@ -183,7 +187,12 @@ export class World {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 		for (const r of regions) {
-			draw.rectangle(r, r.color)
+			if (!Mouse.hovering(r)) {
+				draw.rectangle(r, r.color)
+			}
+		}
+		if (canvasRenderer && canvasRenderer.ib) {
+			draw.imageBitmap(new Position(0,0), canvasRenderer.ib)
 		}
 		// draw.test(new Position(0, 0))
 	}
