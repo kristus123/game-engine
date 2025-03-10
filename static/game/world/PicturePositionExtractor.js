@@ -1,8 +1,8 @@
 const scale = 15
 
 export class PicturePositionExtractor {
-    constructor(image, canvasRenderer) {
-        this.canvasRenderer = canvasRenderer;
+    constructor(image) {
+		this.canvasRenderer = new CanvasRenderer(image.width*scale, image.height*scale);
         this.colorMap = new Map();
         this.regions = [];
 
@@ -10,6 +10,8 @@ export class PicturePositionExtractor {
 
 		//draws it so it can be parsed by code below
         this.canvasRenderer.ctx.drawImage(image, 0,0)
+
+		this.ib = null
     }
 
     extractColors() {
@@ -100,6 +102,10 @@ detectRegions() {
     processImage() {
         this.extractColors();
         this.detectRegions();
+
+		this.canvasRenderer.renderImageBitmap(() => {
+			this.ib = this.canvasRenderer.ib
+		})
         return this.regions;
     }
 }

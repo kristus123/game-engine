@@ -1,4 +1,42 @@
+
+const Pictures = {}
 export const index = ''
+
+function preload(x) {
+  const promises = x.map(o => {
+    return new Promise((resolve, reject) => {
+		console.log(o)
+      const img = new Image();
+		console.log(img.complete)
+      img.src = o.path;
+      img.onerror = reject;
+		if (img.complete) {
+			Pictures[o.name] = img
+			resolve()
+		}
+
+      img.onload = () => {
+			Pictures[o.name] = img
+			resolve()
+		  // console.log(Pictures)
+		  // console.log("resolved baby")
+      }
+    });
+  });
+
+  return Promise.all(promises);
+}
+
+
+// Usage
+preload([
+{name:"test", path:'/static/assets/test.png'}
+])
+  .then(() => {
+
+
+
+
 
 ErrorHandler.run(() => {
 	const mainPalette = Palette.main()
@@ -48,3 +86,8 @@ ErrorHandler.run(() => {
 		})
 	})
 })
+  })
+  .catch(err => {
+    console.error('Image failed to load', err);
+  throw err
+  });

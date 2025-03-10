@@ -9,22 +9,22 @@ function doScale(region) {
         };
     }
 
-const img = new Image();
-img.src = "/static/assets/test.png";
-img.crossOrigin = "Anonymous";
+const image = new Image()
+image.src = "/static/assets/test.png";
+image.crossOrigin = "Anonymous";
+
+
 
 let regions = []
 
-let canvasRenderer = {ib:null}
-img.onload = () => {
-    canvasRenderer = new CanvasRenderer(img.width*scale, img.height*scale);
-    const detector = new PicturePositionExtractor(img, canvasRenderer);
+let detector = null
+image.onload = () => {
+    detector = new PicturePositionExtractor(image);
     regions = detector.processImage().map(r => {
 		return doScale(r)
     })
     console.log("Detected regions:", regions);
-	canvasRenderer.renderImageBitmap()
-};
+}
 
 export class World {
 	constructor() {
@@ -60,22 +60,18 @@ export class World {
 	}
 
 	update() {
-		for (const w of G.workers) {
-			G.money -= 0.001
-			G.money = Math.round(G.money * 100) / 100
-		}
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		if (canvasRenderer.ib) {
+		if (detector && detector.ib) {
 		//for some reason the image is offset by 2 pixels
-			draw.imageBitmap(new Position(-2,-2), canvasRenderer.ib) 
+			draw.imageBitmap(new Position(-2,-2), detector.ib) 
 		}
 		for (const r of regions) {
 			if (!Mouse.hovering(r)) {
-				// draw.rectangle(r, r.color)
+				draw.rectangle(r, r.color)
 			}
 		}
 		// draw.test(new Position(0, 0))

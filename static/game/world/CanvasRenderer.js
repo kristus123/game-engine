@@ -12,13 +12,16 @@ export class CanvasRenderer {
 		this.ctx = this.palette.canvas.getContext('2d')
 
 		this.draw = new Draw(this.palette.ctx)
+
+		this.ib = null
 	}
 
-	renderImageBitmap() {
+	renderImageBitmap(run) {
 		this.palette.canvas.convertToBlob()
 			.then(blob => createImageBitmap(blob))
 			.then(imageBitmap => {
 				this.ib = imageBitmap
+				run()
 			})
 	}
 }
