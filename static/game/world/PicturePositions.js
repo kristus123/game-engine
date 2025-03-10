@@ -1,42 +1,44 @@
-const scale = 15
+const scale = 2
 
-export class PicturePositionExtractor {
+export class PicturePositions {
 	constructor(image) {
-		this.canvasRenderer = new CanvasRenderer(image.width*scale, image.height*scale)
-		this.colorMap = new Map()
-		this.regions = []
+		const canvasRenderer = new CanvasRenderer(image.width*scale, image.height*scale)
+		const colorMap = new Map()
+		const regions = []
 
-		this.canvasRenderer.ctx.imageSmoothingEnabled = false
+		canvasRenderer.ctx.imageSmoothingEnabled = false
 
-		//draws it so it can be parsed by code below
-		this.canvasRenderer.ctx.drawImage(image, 0, 0)
+		// draw it so it can be parsed by code below
+		canvasRenderer.ctx.drawImage(image, 0, 0)
 
-		this.ib = null
-	}
-
-	extractColors() {
-		const imageData = this.canvasRenderer.ctx.getImageData(0, 0, this.canvasRenderer.palette.canvas.width, this.canvasRenderer.palette.canvas.height)
-		const pixels = imageData.data
+		const pixels = canvasRenderer.ctx.getImageData(
+			0,
+			0,
+			canvasRenderer.palette.canvas.width,
+			canvasRenderer.palette.canvas.height,
+		).data
 
 		for (let i = 0; i < pixels.length; i += 4) {
-			const [r,
-				g,
-				b,
-				a] = [pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]]
+			const [r, g, b, a] = [
+				pixels[i], 
+				pixels[i + 1], 
+				pixels[i + 2], 
+				pixels[i + 3]
+			]
+
 			if (a === 0) {
 				continue
 			} // Ignore transparent pixels
 			const key = `${r},${g},${b}`
-			if (!this.colorMap.has(key)) {
-				this.colorMap.set(key, [])
+			if (!colorMap.has(key)) {
+				colorMap.set(key, [])
 			}
-			this.colorMap.get(key).push(i / 4) // Store pixel index
-		}
-	}
 
-	detectRegions() {
-		const width = this.canvasRenderer.palette.canvas.width
-		const height = this.canvasRenderer.palette.canvas.height
+			colorMap.get(key).push(i / 4) // Store pixel index
+		}
+
+		const width = canvasRenderer.palette.canvas.width
+		const height = canvasRenderer.palette.canvas.height
 		const visited = Array.from({ length: height }, () => Array(width).fill(false))
 
 		const directions = [
@@ -51,7 +53,7 @@ export class PicturePositionExtractor {
 		]
 
 		// Loop through each color group
-		for (const [colorKey, pixelIndices] of this.colorMap) {
+		for (const [color, pixelIndices] of colorMap) {
 			let regionsForColor = []
 
 			// We process each pixel in the list of pixels for this color
@@ -66,7 +68,6 @@ export class PicturePositionExtractor {
 
 				// Perform flood fill using BFS to find connected region of the same color
 				const queue = [[x, y]]
-				const regionPixels = []
 				let minX = x, minY = y, maxX = x, maxY = y
 
 				while (queue.length > 0) {
@@ -76,7 +77,6 @@ export class PicturePositionExtractor {
 					}
 
 					visited[cy][cx] = true
-					regionPixels.push([cx, cy])
 
 					// Expand bounding box
 					minX = Math.min(minX, cx)
@@ -103,25 +103,30 @@ export class PicturePositionExtractor {
 					y: minY,
 					width: maxX - minX + 1,
 					height: maxY - minY + 1,
-					color: colorKey,
-					pixels: regionPixels
+					color: color,
 				})
 			}
 
-			this.regions.push(...regionsForColor) // Add all regions for the current color
+			regions.push(...regionsForColor) // Add all regions for the current color
 
-			this.canvasRenderer.ctx.imageSmoothingEnabled = false
-			this.canvasRenderer.ctx.drawImage(this.image, 0, 0, this.image.width*scale, this.image.height*scale)
+			canvasRenderer.ctx.imageSmoothingEnabled = false
+			canvasRenderer.ctx.drawImage(image, 0, 0, image.width*scale, image.height*scale)
 		}
-	}
 
-	processImage() {
-		this.extractColors()
-		this.detectRegions()
+		// placement of execution is important
+		// canvasRenderer.tintBlue()
 
-		this.canvasRenderer.renderImageBitmap(() => {
-			this.ib = this.canvasRenderer.ib
+		this.ib = null
+		canvasRenderer.renderImageBitmap(() => {
+			this.ib = canvasRenderer.ib
 		})
-		return this.regions
+
+		this.regions = regions.map(r => ({
+			x: Math.round(r.x * scale),
+			y: Math.round(r.y * scale),
+			width: Math.round(r.width * scale),
+			height: Math.round(r.height * scale),
+			color: Random.color(),
+		}))
 	}
 }

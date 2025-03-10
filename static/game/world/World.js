@@ -1,26 +1,7 @@
-const scale = 15
-function doScale(region) {
-	return {
-		x: Math.round(region.x * scale),
-		y: Math.round(region.y * scale),
-		width: Math.round(region.width * scale),
-		height: Math.round(region.height * scale),
-		color: Random.color(),
-	}
-}
-
 export class World {
 	constructor() {
 
-		const image = G.Pictures.test
-		this.regions = []
-		this.detector = null
-		this.detector = new PicturePositionExtractor(image)
-		this.regions = this.detector.processImage().map(r => {
-			return doScale(r)
-		})
-		console.log('Detected regions:', this.regions)
-
+		this.picturePositions = new PicturePositions(G.Pictures.test)
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
@@ -58,12 +39,12 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		if (this.detector && this.detector.ib) {
+		if (this.picturePositions && this.picturePositions.ib) {
 		//for some reason the image is offset by 2 pixels
-			draw.imageBitmap(new Position(-2, -2), this.detector.ib)
+			draw.imageBitmap(new Position(-2, -2), this.picturePositions.ib)
 		}
-		for (const r of this.regions) {
-			if (!Mouse.hovering(r)) {
+		for (const r of this.picturePositions.regions) {
+			if (Mouse.hovering(r)) {
 				draw.rectangle(r, r.color)
 			}
 		}
