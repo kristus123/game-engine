@@ -1,12 +1,3 @@
-function sleep(milliseconds) {
-	const date = Date.now()
-	let currentDate = null
-	do {
-		currentDate = Date.now()
-	} while (currentDate - date < milliseconds)
-}
-
-
 export class Loop {
 	static fps = 0
 	static lastUpdated = 0
@@ -15,7 +6,7 @@ export class Loop {
 		let lastTimestamp = performance.now()
 
 		function loop(currentTimestamp) {
-			// sleep(Random.integerBetween(0, 500))
+			// Sleep(Random.integerBetween(0, 500))
 
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
 			lastTimestamp = currentTimestamp
