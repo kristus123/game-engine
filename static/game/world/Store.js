@@ -26,7 +26,7 @@ export class Store {
 
 				G.buyAnimalButton = Html.button('hire worker (10)', b => {
 					G.money -= 10
-					G.workers.add(new Worker(new Position(0,0)))
+					G.workers.add(new Worker(new Position(0, 0)))
 				}),
 
 				G.buyAnimalButton = Html.button('buy tree (10)', b => {

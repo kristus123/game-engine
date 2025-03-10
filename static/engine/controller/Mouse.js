@@ -125,7 +125,9 @@ export class Mouse {
 			this.timeSinceLastClick = 0
 			return this.clicked(o)
 		}
-		else return false
+		else {
+			return false
+		}
 	}
 
 	static hovering(o) {

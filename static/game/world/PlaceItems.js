@@ -8,7 +8,7 @@ export class PlaceItems {
 
 	draw(draw, guiDraw) {
 		this.itemsToPlace.goThrough(i => {
-			console.log("hei")
+			console.log('hei')
 			i.x = Mouse.position.x
 			i.y = Mouse.position.y
 
