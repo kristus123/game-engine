@@ -1,25 +1,22 @@
-
-const Pictures = {}
 export const index = ''
+
+G.Pictures = {}
 
 function preload(x) {
 	const promises = x.map(o => {
 		return new Promise((resolve, reject) => {
-			console.log(o)
 			const img = new Image()
-			console.log(img.complete)
 			img.src = o.path
 			img.onerror = reject
 			if (img.complete) {
-				Pictures[o.name] = img
+				G.Pictures[o.name] = img
 				resolve()
 			}
-
-			img.onload = () => {
-				Pictures[o.name] = img
-				resolve()
-		  // console.log(Pictures)
-		  // console.log("resolved baby")
+			else {
+				img.onload = () => {
+					G.Pictures[o.name] = img
+					resolve()
+				}
 			}
 		})
 	})
@@ -33,11 +30,6 @@ preload([
 	{ name: 'test', path: '/static/assets/test.png' }
 ])
 	.then(() => {
-
-
-
-
-
 		ErrorHandler.run(() => {
 			const mainPalette = Palette.main()
 			const guiPalette = Palette.offscreen()
