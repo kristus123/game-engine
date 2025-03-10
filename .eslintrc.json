@@ -255,7 +255,7 @@
         "Physics": "readonly",
         "Picture": "readonly",
         "PictureInPicture": "readonly",
-        "PicturePositionExtractor": "readonly",
+        "PicturePositions": "readonly",
         "Pictures": "readonly",
         "PicturesLoop": "readonly",
         "Piss": "readonly",

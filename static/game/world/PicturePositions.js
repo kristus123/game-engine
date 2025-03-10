@@ -19,10 +19,13 @@ export class PicturePositions {
 		).data
 
 		for (let i = 0; i < pixels.length; i += 4) {
-			const [r, g, b, a] = [
-				pixels[i], 
-				pixels[i + 1], 
-				pixels[i + 2], 
+			const [r,
+				g,
+				b,
+				a] = [
+				pixels[i],
+				pixels[i + 1],
+				pixels[i + 2],
 				pixels[i + 3]
 			]
 
