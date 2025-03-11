@@ -13,7 +13,6 @@ export class World {
 							c.removeFromLoop()
 						}, 3000);
 					}
-
 				}),
 			}),
 			G.ranches,
@@ -23,8 +22,6 @@ export class World {
 			G.splash,
 			G.trees,
 		])
-
-			
 
 		G.ranches.add(new Ranch(new Position(0, 0)))
 
