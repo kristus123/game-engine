@@ -1,7 +1,7 @@
 export class SineWave {
 	static audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
-	static play(frequency = 890, type = 'square', duration = 100) {
+	static play(frequency = 890, type = 'sine', duration = 500) {
 		const oscillator = SineWave.audioCtx.createOscillator()
 		oscillator.type = type
 		oscillator.frequency.setValueAtTime(frequency, SineWave.audioCtx.currentTime)

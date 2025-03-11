@@ -2,22 +2,15 @@ const scale = 2
 
 export class PicturePositions {
 	constructor(image) {
-		const canvasRenderer = new CanvasRenderer(image.width*scale, image.height*scale)
+		this.regions = []
+
+		const palette = Palette.fixedOffscreen(image.width*scale, image.height*scale)
+		palette.ctx.imageSmoothingEnabled = false
+		palette.drawImage(image)
+
 		const colorMap = new Map()
-		const regions = []
 
-		canvasRenderer.ctx.imageSmoothingEnabled = false
-
-		// draw it so it can be parsed by code below
-		canvasRenderer.ctx.drawImage(image, 0, 0)
-
-		const pixels = canvasRenderer.ctx.getImageData(
-			0,
-			0,
-			canvasRenderer.palette.canvas.width,
-			canvasRenderer.palette.canvas.height,
-		).data
-
+		const pixels = palette.ctx.getImageData(0, 0, palette.width, palette.height).data
 		for (let i = 0; i < pixels.length; i += 4) {
 			const [r,
 				g,
@@ -29,9 +22,10 @@ export class PicturePositions {
 				pixels[i + 3]
 			]
 
-			if (a === 0) {
+			if (a === 0) { // Ignore transparent pixels
 				continue
-			} // Ignore transparent pixels
+			} 
+
 			const key = `${r},${g},${b}`
 			if (!colorMap.has(key)) {
 				colorMap.set(key, [])
@@ -40,9 +34,7 @@ export class PicturePositions {
 			colorMap.get(key).push(i / 4) // Store pixel index
 		}
 
-		const width = canvasRenderer.palette.canvas.width
-		const height = canvasRenderer.palette.canvas.height
-		const visited = Array.from({ length: height }, () => Array(width).fill(false))
+		const visited = Array.from({ length: palette.height }, () => Array(palette.width).fill(false))
 
 		const directions = [
 			[0, 1],
@@ -61,8 +53,8 @@ export class PicturePositions {
 
 			// We process each pixel in the list of pixels for this color
 			for (const index of pixelIndices) {
-				const x = index % width
-				const y = Math.floor(index / width)
+				const x = index % palette.width
+				const y = Math.floor(index / palette.width)
 
 				// If the pixel has already been visited, skip it
 				if (visited[y][x]) {
@@ -90,8 +82,8 @@ export class PicturePositions {
 					// Check all 8 possible directions for connectivity
 					for (const [dx, dy] of directions) {
 						const nx = cx + dx, ny = cy + dy
-						if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-							const neighborIndex = ny * width + nx
+						if (nx >= 0 && nx < palette.width && ny >= 0 && ny < palette.height) {
+							const neighborIndex = ny * palette.width + nx
 							// Ensure the neighbor has the same color and has not been visited yet
 							if (!visited[ny][nx] && pixelIndices.includes(neighborIndex)) {
 								queue.push([nx, ny])
@@ -100,36 +92,26 @@ export class PicturePositions {
 					}
 				}
 
-				// After finishing the flood fill, store the region
 				regionsForColor.push({
-					x: minX,
-					y: minY,
-					width: maxX - minX + 1,
-					height: maxY - minY + 1,
-					color: color,
+					x: Math.round(minX * scale),
+					y: Math.round(minY * scale),
+					width: Math.round((maxX - minX + 1) * scale),
+					height: Math.round((maxY - minY + 1) * scale),
+					color: Random.color(),
 				})
 			}
 
-			regions.push(...regionsForColor) // Add all regions for the current color
+			this.regions.push(...regionsForColor)
 
-			canvasRenderer.ctx.imageSmoothingEnabled = false
-			canvasRenderer.ctx.drawImage(image, 0, 0, image.width*scale, image.height*scale)
+			palette.ctx.imageSmoothingEnabled = false
+			palette.ctx.drawImage(image, 0, 0, image.width*scale, image.height*scale)
 		}
 
 		// placement of execution is important
 		// canvasRenderer.tintBlue()
 
-		this.ib = null
-		canvasRenderer.renderImageBitmap(() => {
-			this.ib = canvasRenderer.ib
+		palette.toImageBitmap(ib => {
+			this.ib = ib
 		})
-
-		this.regions = regions.map(r => ({
-			x: Math.round(r.x * scale),
-			y: Math.round(r.y * scale),
-			width: Math.round(r.width * scale),
-			height: Math.round(r.height * scale),
-			color: Random.color(),
-		}))
 	}
 }

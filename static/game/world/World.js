@@ -1,11 +1,20 @@
 export class World {
 	constructor() {
-
 		this.picturePositions = new PicturePositions(G.Pictures.test)
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				store: new Store(),
+				chicken: new Chicken(new Position(-200, 0), c => {
+					if (Mouse.hovering(c)) {
+						c.onHit()
+						c.run =() => {} 
+						setTimeout(() => {
+							c.removeFromLoop()
+						}, 3000);
+					}
+
+				}),
 			}),
 			G.ranches,
 			G.monsters,
@@ -14,6 +23,8 @@ export class World {
 			G.splash,
 			G.trees,
 		])
+
+			
 
 		G.ranches.add(new Ranch(new Position(0, 0)))
 
@@ -39,7 +50,7 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		if (this.picturePositions && this.picturePositions.ib) {
+		if (this.picturePositions.ib) {
 		//for some reason the image is offset by 2 pixels
 			draw.imageBitmap(new Position(-2, -2), this.picturePositions.ib)
 		}

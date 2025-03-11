@@ -17,9 +17,9 @@ export class CanvasRenderer {
 	}
 
 
-	tintBlue() {
-		const ctx = this.palette.ctx
-		const canvas = this.palette.canvas
+	tintBlue(palette) {
+		const ctx = palette.ctx
+		const canvas = palette.canvas
 		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
 		const data = imageData.data
 

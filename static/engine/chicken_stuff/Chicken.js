@@ -1,5 +1,5 @@
 export class Chicken extends DynamicGameObject {
-	constructor(position) {
+	constructor(position, run=() => {}) {
 		super(position, 10, 10)
 
 		this.position.width = 60
@@ -28,6 +28,8 @@ export class Chicken extends DynamicGameObject {
 
 		this.x = p.x
 		this.y = p.y
+
+		this.run(this)
 	}
 
 	draw(draw, guiDraw) {

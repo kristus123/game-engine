@@ -63,12 +63,45 @@ export class Palette {
 		const canvas = new OffscreenCanvas(width, height)
 		const ctx = canvas.getContext('2d')
 
+
 		return {
 			canvas,
 			ctx,
 			width: Palette.width,
 			height: Palette.height,
-		}
+
+			toImageBitmap: (run) => {
+				canvas.convertToBlob()
+					.then(blob => createImageBitmap(blob))
+					.then(imageBitmap => {
+						run(imageBitmap)
+					})
+			},
+
+			drawImage: image => {
+				ctx.drawImage(image, 0, 0)
+			},
+
+			tintBlue: () => {
+				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+				const data = imageData.data
+
+				for (let i = 0; i < data.length; i += 4) {
+					const alpha = data[i + 3]
+					if (alpha === 0) {
+						continue
+					} // Skip fully transparent pixels
+
+					// Apply blue tint (adjust values as needed)
+					data[i] *= 0.1 // Red
+					data[i + 1] *= 0.7 // Green
+					data[i + 2] = Math.min(data[i + 2] + 50, 255) // Boost blue
+				}
+
+				ctx.putImageData(imageData, 0, 0)
+
+			},
+	}
 	}
 
 	static clear(canvases) {
