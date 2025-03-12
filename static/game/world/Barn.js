@@ -20,13 +20,13 @@ export class Barn extends StaticGameObject {
 
 	update() {
 		this.localObjects.update()
-		console.log(this.sleepyTime)
+		// console.log(this.sleepyTime)
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		console.log(Mouse.position.x)
+		// console.log(Mouse.position.x)
 
 		super.draw(draw, guiDraw)
 	}

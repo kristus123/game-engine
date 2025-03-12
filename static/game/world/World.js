@@ -1,10 +1,12 @@
 export class World {
 	constructor() {
 		this.picturePositions = new PicturePositions(G.Pictures.test)
+		
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				store: new Store(),
+				mic: new Microphone(),
 				chicken: new Chicken(new Position(-200, 0), c => {
 					if (Mouse.hovering(c)) {
 						c.onHit()
@@ -57,6 +59,9 @@ export class World {
 				draw.rectangle(r, r.color)
 			}
 		}
+
+		draw.text(new Position(0,0), this.mic.transcript)
+				console.log(this.mic.transcript)
 
 		// draw.test(new Position(0, 0))
 	}

@@ -7,17 +7,16 @@ export class Microphone {
 			recognition.interimResults = true // Show partial results while speaking
 			recognition.start()
 
-			// Handle results
-			recognition.onresult = function(event) {
+			recognition.onresult = (e) => {
 				let transcript = ''
-				for (let i = event.resultIndex; i < event.results.length; i++) {
-					transcript += event.results[i][0].transcript
+				for (let i = e.resultIndex; i < e.results.length; i++) {
+					transcript += e.results[i][0].transcript
 				}
-				console.log(transcript)
+				this.transcript = transcript
 			}
 
-			recognition.onerror = function(event) {
-				console.error('Speech recognition error', event.error)
+			recognition.onerror = function(e) {
+				console.error('Speech recognition error', e.error)
 			}
 		}
 		else {
