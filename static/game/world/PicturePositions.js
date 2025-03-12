@@ -24,7 +24,7 @@ export class PicturePositions {
 
 			if (a === 0) { // Ignore transparent pixels
 				continue
-			} 
+			}
 
 			const key = `${r},${g},${b}`
 			if (!colorMap.has(key)) {

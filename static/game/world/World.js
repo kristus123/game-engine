@@ -8,10 +8,10 @@ export class World {
 				chicken: new Chicken(new Position(-200, 0), c => {
 					if (Mouse.hovering(c)) {
 						c.onHit()
-						c.run =() => {} 
+						c.run =() => {}
 						setTimeout(() => {
 							c.removeFromLoop()
-						}, 3000);
+						}, 3000)
 					}
 				}),
 			}),
@@ -21,6 +21,7 @@ export class World {
 			G.workers,
 			G.splash,
 			G.trees,
+			G.barn,
 		])
 
 		G.ranches.add(new Ranch(new Position(0, 0)))

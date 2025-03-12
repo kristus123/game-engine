@@ -36,26 +36,37 @@ export class SimpleMonster extends DynamicGameObject {
 
 		}
 
-		ForcePush(this).towards(Random.direction(this.position), 5)
+		if (this.sleepyTime) {
+			Move(this).towards(G.barn)
+		}
+		else {
+			ForcePush(this).towards(Random.direction(this.position), 5)
+		}
 	}
 
 	draw(draw, guiDraw) {
 		// draw.hpBar(this.position.over(), this.hunger, 100)
-		this.localObjects.draw(draw, guiDraw)
-		// draw.green(this)
+		if (this.touches(G.barn) && this.sleepyTime) {
 
-		if (this.hunger < 0) {
-			this.velocity.reset()
-			draw.red(this.poop)
-		}
-
-		if (Mouse.hovering(this)) {
-			draw.text(this.position, 'click to move')
-		}
-		else if (this.ranch && this.touches(this.ranch)) {
 		}
 		else {
-			draw.text(this.position, 'sad')
+			this.localObjects.draw(draw, guiDraw)
+
+			if (this.hunger < 0) {
+				this.velocity.reset()
+				draw.red(this.poop)
+			}
+
+			if (Mouse.hovering(this)) {
+				draw.text(this.position, 'click to move')
+			}
+			else if (this.ranch && this.touches(this.ranch)) {
+			}
+			else {
+				draw.text(this.position, 'sad')
+			}
 		}
+		// draw.green(this)
+
 	}
 }

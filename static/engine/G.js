@@ -6,4 +6,5 @@ export const G = {
 	workers: new LocalObjects([]),
 	splash: new SplashParticles(),
 	money: 0,
+	barn: new Barn(new Position(-200, 0)),
 }

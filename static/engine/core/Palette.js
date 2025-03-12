@@ -101,7 +101,7 @@ export class Palette {
 				ctx.putImageData(imageData, 0, 0)
 
 			},
-	}
+		}
 	}
 
 	static clear(canvases) {
