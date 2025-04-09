@@ -156,7 +156,12 @@ export class Mouse {
 	}
 
 	static hovering(o) {
-		return Collision.between(this.position, o)
+		if (o instanceof HTMLElement) {
+			return o.contains(document.querySelector(':hover'));
+		}
+		else {
+			return Collision.between(this.position, o)
+		}
 	}
 
 	static update() {

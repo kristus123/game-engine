@@ -6,6 +6,14 @@ function element(type, clazz) {
 	// e.addEventListener('mousedown', e => {
 	// 	e.preventDefault()
 	// })
+	
+	e.addEventListener('mouseover', () => {
+		Mouse.hoveringHtmlElement = true
+	})
+
+	e.addEventListener('mouseout', () => {
+		Mouse.hoveringHtmlElement = false
+	})
 
 	return e
 }
@@ -63,6 +71,8 @@ export class Html {
 
 	static addToScreen(element) {
 		document.getElementById('ui_elements').appendChild(element)
+
+		return element
 	}
 
 	static button(text, onClick= b => {}) {
@@ -155,6 +165,12 @@ export class Html {
 		e.parentNode.removeChild(e)
 	}
 
+	static removeChildElements(div) {
+		while (div.firstChild) {
+			div.removeChild(div.firstChild)
+		}
+	}
+
 	static removeChildElementsInId(id) {
 		const div = document.getElementById(id)
 		while (div.firstChild) {
@@ -170,6 +186,12 @@ export class Html {
 		}
 
 		return d
+	}
+
+	static append(element, childrenElements=[]) {
+		for (const e of childrenElements) {
+			element.appendChild(e)
+		}
 	}
 
 	static fadeaway(x, position=Mouse.position) {
@@ -194,7 +216,7 @@ export class Html {
 	static floating(element, position) {
 		// position = Cam.p(position) // todo imrpoveo ofc
 
-		element.setAttribute('class', 'ui')
+		element.classList.add('ui')
 
 		element.style.left = `${position.x}px`
 		element.style.top = `${position.y - 50}px`

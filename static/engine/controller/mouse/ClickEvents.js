@@ -31,7 +31,7 @@ export class ClickEvents {
 		}
 	}
 
-	handleClick(event) {
-		Object.values(this.clickHandlers).flat().forEach(handler => handler(event))
+	handleClick(e) {
+		Object.values(this.clickHandlers).flat().forEach(handler => handler(e))
 	}
 }

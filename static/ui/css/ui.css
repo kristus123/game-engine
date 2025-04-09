@@ -58,9 +58,9 @@
 }
 
 .right-click-menu {
-	background-color: white;
+	background-color: black;
 	min-width: 200px;
-	min-height: 800px;
+	min-height: 400px;
 }
 
 .right-click-element {
