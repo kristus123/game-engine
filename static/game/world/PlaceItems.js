@@ -1,6 +1,12 @@
 export class PlaceItems {
-	constructor(itemsToPlace, placeDown= p => {}) {
-		this.itemsToPlace = new ListLooper(itemsToPlace)
+	constructor(items, placeDown= p => {}) {
+		//pseudo code
+		if (Array(items)) {
+			this.itemsToPlace = new ListLooper(items)
+		}
+		else {
+			this.itemsToPlace = new ListLooper([items])
+		}
 	}
 
 	update() {
@@ -8,7 +14,6 @@ export class PlaceItems {
 
 	draw(draw, guiDraw) {
 		this.itemsToPlace.goThrough(i => {
-			console.log('hei')
 			i.x = Mouse.position.x
 			i.y = Mouse.position.y
 
@@ -18,6 +23,7 @@ export class PlaceItems {
 			else {
 				draw.transparentRedRectangle(i)
 			}
+
 			i.draw(draw, guiDraw)
 
 			if (Mouse.click(i)) {

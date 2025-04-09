@@ -128,7 +128,6 @@ export class MouseEditor {
 			draw.text(o.position.offset(0, -100), 'marked')
 		}
 
-
 		if (this.lastClicked && !this.activeObject) {
 			draw.transparentGreenRectangle(this.lastClicked)
 
@@ -141,7 +140,6 @@ export class MouseEditor {
 				draw.text(this.lastClicked.position.offset(-150, 10), 'resize')
 			}
 		}
-
 
 		if (this.activeObject) {
 			for (const o of this.objects) {

@@ -3,7 +3,6 @@ const WebSocket = require('ws')
 module.exports = class {
 	constructor(port) {
 		this.port = port
-
 		this.actions = {}
 	}
 

@@ -2,42 +2,44 @@ export class Store {
 	constructor() {
 		this.localObjects = new LocalObjects()
 
-
 		Html.addToScreen(Html.div('upper-center-ui', [
 			Html.div('shoulder-to-shoulder', [
-				this.x = Html.text(G.money),
-				G.buyRanchButton = Html.button('buy ranch (10)', b => {
+
+				this.amountOfMoney = Html.text(G.money),
+
+				G.buyRanchButton = Html.button('buy ranch (10)', () => {
 					G.money -= 10
-					this.localObjects.add(new PlaceItems([
-						new Ranch(Mouse.position.copy()),
-					], i => {
+
+					tla(new PlaceItems(new Ranch(Mouse.position.copy()), () => {
 						G.ranches.add(i)
 					}))
 				}),
 
-				G.buyAnimalButton = Html.button('buy animal (10)', b => {
+				G.buyAnimalButton = Html.button('buy animal (10)', () => {
 					G.money -= 10
-					this.localObjects.add(new PlaceItems([
+
+					tla(new PlaceItems([
 						new SimpleMonster(Mouse.position.copy()),
-					], i => {
-						G.monsters.add(i)
+					], monster => {
+						G.monsters.add(monster)
 					}))
 				}),
 
-				G.buyAnimalButton = Html.button('hire worker (10)', b => {
+				G.hireWorkerButton = Html.button('hire worker (10)', () => {
 					G.money -= 10
+
 					G.workers.add(new Worker(new Position(0, 0)))
 				}),
 
-				G.buyAnimalButton = Html.button('buy tree (10)', b => {
+				G.buyTreeButton = Html.button('buy tree (10)', () => {
 					G.money -= 10
 
-					this.localObjects.add(new PlaceItems([
+					tla(new PlaceItems([
 						new Tree(Mouse.position.copy()),
 						new Tree(Mouse.position.copy()),
 						new Tree(Mouse.position.copy()),
-					], i => {
-						G.trees.add(i)
+					], tree => {
+						G.trees.add(tree)
 					}))
 				}),
 
@@ -48,8 +50,7 @@ export class Store {
 	update() {
 		this.localObjects.update()
 
-		Html.changeText(this.x, G.money)
-
+		Html.changeText(this.amountOfMoney, G.money)
 
 		if (G.money >= 10) {
 			Html.enable(G.buyRanchButton)

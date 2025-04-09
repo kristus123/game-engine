@@ -1,3 +1,5 @@
+// doesn't behave same on phone and pc
+
 export class Microphone {
 	constructor() {
 		if ('webkitSpeechRecognition' in window) {
@@ -23,4 +25,12 @@ export class Microphone {
 			alert('Speech recognition is not supported in your browser.')
 		}
 	}
+
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+		draw.text(new Position(0,0), this.transcript)
+	}
 }
+

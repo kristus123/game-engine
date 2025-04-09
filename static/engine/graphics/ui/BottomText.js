@@ -4,7 +4,6 @@ Html.hide(p)
 
 export class BottomText {
 
-
 	static show(text, removeAfterMs=null) {
 
 		Html.changeText(p, text)
@@ -17,4 +16,7 @@ export class BottomText {
 		}
 	}
 
+	static hide() {
+		Html.hide(p)
+	}
 }

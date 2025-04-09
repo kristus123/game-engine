@@ -1,5 +1,8 @@
 const scale = 2
 
+// this can be used to extract areas of a picture
+// it expects simple rectangles
+
 export class PicturePositions {
 	constructor(image) {
 		this.regions = []
@@ -113,5 +116,20 @@ export class PicturePositions {
 		palette.toImageBitmap(ib => {
 			this.ib = ib
 		})
+	}
+
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+		if (this.ib) {
+			draw.imageBitmap(new Position(-2, -2), this.ib)
+		}
+
+		for (const r of this.regions) {
+			if (Mouse.hovering(r)) {
+				draw.rectangle(r, r.color)
+			}
+		}
 	}
 }

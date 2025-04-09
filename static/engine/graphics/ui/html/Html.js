@@ -165,8 +165,6 @@ export class Html {
 	static div(className, childrenElements=[]) {
 		const d = element('div', className)
 
-
-
 		for (const e of childrenElements) {
 			d.appendChild(e)
 		}
@@ -191,6 +189,18 @@ export class Html {
 		setTimeout(() => {
 			Html.remove(text)
 		}, 1000)
+	}
+
+	static floating(element, position) {
+		// position = Cam.p(position) // todo imrpoveo ofc
+
+		element.setAttribute('class', 'ui')
+
+		element.style.left = `${position.x}px`
+		element.style.top = `${position.y - 50}px`
+
+		return element
+		
 	}
 
 }

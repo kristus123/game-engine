@@ -2,8 +2,8 @@ export const index = ''
 
 G.Pictures = {}
 
-function preload(x) {
-	const promises = x.map(o => {
+function preload(images) {
+	const promises = images.map(o => {
 		return new Promise((resolve, reject) => {
 			const img = new Image()
 			img.src = o.path
@@ -27,7 +27,7 @@ function preload(x) {
 
 // Usage
 preload([
-	{ name: 'test', path: '/static/assets/test.png' }
+	{ name: 'test', path: '/static/assets/test.png' },
 ])
 	.then(() => {
 		ErrorHandler.run(() => {
@@ -40,6 +40,9 @@ preload([
 
 			const draw = new Draw(Cam.palette.ctx)
 			const guiDraw = new Draw(guiPalette.ctx)
+
+			const rightClickMenu = new RightClickMenu()
+
 
 	 Level.change(new World())
 	 // Level.change(new WorldEditor())
@@ -62,6 +65,9 @@ preload([
 
 						Level.update()
 						Level.draw(draw, guiDraw)
+
+						rightClickMenu.update()
+						rightClickMenu.draw(draw, guiDraw)
 
 						Mouse.draw(draw, guiDraw)
 

@@ -4,7 +4,6 @@ const Imports = require('./Imports')
 const Parameters = require('./Parameters')
 const Files = require('./Files')
 
-
 function countOccurrences(wordToCount, string) { // semantic error with parameter order
 	let count = 0
 	let index = wordToCount.indexOf(string)
@@ -25,8 +24,6 @@ function uuid() {
 
 const jsFiles = require('./get_js_files')
 
-
-console.log()
 const distFiles = Files.getJsFiles('dist/static/').map(f => f.replace('dist/', ''))
 const staticFiles = Files.getJsFiles('static/')
 
@@ -49,6 +46,8 @@ for (const jsFilePath of jsFiles) {
 	for (let i = 0; i < countOccurrences(fileContent, 'TEMP_UUID_1'); i++) {
 		fileContent = fileContent.replace('TEMP_UUID_1', uuid())
 	}
+
+	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
 
 	if (fileContent.includes('export class')) {
 		let lines = fileContent.split('\n')
@@ -97,4 +96,3 @@ const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
 	.replace('OVERLAY', overlay)
 
 fs.writeFileSync('dist/index.html', indexHtml)
-

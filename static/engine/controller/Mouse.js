@@ -10,12 +10,16 @@ export class Mouse {
 		this.down = false
 		this.downStopWatch = new StopWatch()
 
+		this.onClick = () => {}
+		this.onRightClick = () => {}
+
 		this.rightUp = true
 		this.rightDown = false
 
 		this.moving = false
 		this.lastPositionBeforeMoving = new Position(0, 0)
 		this.timeSinceLastClick = 0
+
 		document.addEventListener('mousemove', (e) => {
 			this.positionRelativeToCamera(e)
 			this.moving = true
@@ -46,12 +50,12 @@ export class Mouse {
 				return
 			}
 
-			if (e.button == 0) {
+			if (e.button == 0) { // Left click
 				this.down = true
 				this.up = false
 				this.downStopWatch.start()
 			}
-			else if (e.button == 2) {
+			else if (e.button == 2) { // Right click
 				this.rightDown = true
 				this.rightUp = false
 			}
@@ -71,8 +75,29 @@ export class Mouse {
 			}
 		})
 
+		document.addEventListener('click', e => {
+			if (this.disabled) {
+				return
+			}
+
+			console.log(e.button)
+
+			if (e.button == 0) { // Left click
+				this.onClick(this.screenPosition)
+			}
+		})
+
 		document.addEventListener('contextmenu', e => {
 			e.preventDefault()
+
+			if (this.disabled) {
+				return
+			}
+			else { // Right click
+				this.onRightClick(this.screenPosition)
+				console.log("user right lcicked")
+			}
+			
 		})
 
 		// Prevent right click to open menu

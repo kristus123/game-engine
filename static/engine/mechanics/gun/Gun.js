@@ -2,10 +2,10 @@ export class Gun {
 	constructor(player) {
 		this.bullets = []
 		this.hittableObjects = []
+	}
 
-		Mouse.addOnClick('shoot', position => {
-			this.bullets.push(new Bullet(this, this.player.position.copy(), position.copy()))
-		})
+	onClick(position) {
+		this.bullets.push(new Bullet(this, this.player.position.copy(), position.copy()))
 	}
 
 	update() {
