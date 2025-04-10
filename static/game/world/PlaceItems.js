@@ -1,7 +1,7 @@
 export class PlaceItems {
 	constructor(items, placeDown= p => {}) {
 		//pseudo code
-		if (Array(items)) {
+		if (AnArray(items)) {
 			this.itemsToPlace = new ListLooper(items)
 		}
 		else {

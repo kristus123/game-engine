@@ -10,7 +10,7 @@ export class Store {
 				G.buyRanchButton = Html.button('buy ranch (10)', () => {
 					G.money -= 10
 
-					tla(new PlaceItems(new Ranch(Mouse.position.copy()), () => {
+					tla(new PlaceItems(new Ranch(Mouse.position.copy()), i => {
 						G.ranches.add(i)
 					}))
 				}),
@@ -18,9 +18,7 @@ export class Store {
 				G.buyAnimalButton = Html.button('buy animal (10)', () => {
 					G.money -= 10
 
-					tla(new PlaceItems([
-						new SimpleMonster(Mouse.position.copy()),
-					], monster => {
+					tla(new PlaceItems(new SimpleMonster(Mouse.position.copy()), monster => {
 						G.monsters.add(monster)
 					}))
 				}),
