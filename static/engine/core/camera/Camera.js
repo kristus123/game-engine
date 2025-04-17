@@ -53,6 +53,12 @@ export class Camera {
 		this.position.y = this.smoothPosition.position.y
 
 
+		// maybe ?
+		// this.position.x = Math.round(this.position.x)
+		// this.position.y = Math.round(this.position.y)
+
+
+
 		this.anchoredPositions.update()
 		// this.anchoredPositions.objects.forEach(a => {
 		// 	console.log(a.smoothPosition.position.x)

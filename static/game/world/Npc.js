@@ -1,7 +1,7 @@
 export class Npc extends DynamicGameObject {
 	constructor(position, picture='/static/assets/old_man.png') {
-		super(position, 100, 10)
-		this.picture = new StaticPicture(this.position, picture)
+		super(position, 100, 100)
+		this.picture = new StaticPicture(position, picture)
 	}
 
 	update() {
@@ -10,5 +10,10 @@ export class Npc extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.picture.draw(draw, guiDraw)
+
+		if (Mouse.hovering(this)) {
+			draw.text(this.position.over(50), 'hei')
+			
+		}
 	}
 }

@@ -1,9 +1,9 @@
 export class Player extends DynamicGameObject {
 	constructor(position) {
-		super(position, 4000, 500)
+		super(position, 4000, 200)
 
-		this.position.width = 145
-		this.position.height = 200
+		// this.position.width = 145
+		// this.position.height = 200
 
 		this.defaultPicture = new StaticPicture(this.position, '/static/assets/snowman.png')
 		this.behindPicture = new StaticPicture(this.position, '/static/assets/snowman_behind.png')
@@ -14,6 +14,7 @@ export class Player extends DynamicGameObject {
 			List.retainMax(this.steps, 4)
 		}, 400)
 
+		this.god = new Sprite(this.position, '/static/assets/god_48x56.png', [{x:1,y:0}])
 	}
 
 	update() {
@@ -27,20 +28,25 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		draw.hpBar(this.position.over(), 50, 100)
-		draw.objectThatIsCirclingAroundObjectBasedOnMousePosition(this)
+		// draw.hpBar(this.position.over(), 50, 100)
+		// draw.objectThatIsCirclingAroundObjectBasedOnMousePosition(this)
 
-		if (super.movingUp) {
-			this.behindPicture.draw(draw, guiDraw)
-		}
-		else {
-			this.defaultPicture.draw(draw, guiDraw)
-		}
+		// if (super.movingUp) {
+		// 	this.behindPicture.draw(draw, guiDraw)
+		// }
+		// else {
+		// 	this.defaultPicture.draw(draw, guiDraw)
+		// }
 
-		for (const o of this.steps) {
-			o.draw(draw, guiDraw)
-			draw.color(o, 'white')
-		}
+		// for (const o of this.steps) {
+		// 	o.draw(draw, guiDraw)
+		// 	draw.color(o, 'white')
+		// }
+
+
+		this.position.x = Math.round(this.position.x)
+		this.position.y = Math.round(this.position.y)
+		this.god.draw(draw, guiDraw)
 
 	}
 }

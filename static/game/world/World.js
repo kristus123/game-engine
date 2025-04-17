@@ -1,6 +1,9 @@
 export class World {
 	constructor() {
 
+		const player = new Player(new Position(-410,10, 300, 500), '/static/assets/god_48x56.png', [{x:1,y:0}])
+		Controller.control(player)
+
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				store: new Store(),
@@ -25,7 +28,8 @@ export class World {
 			Init(this, {
 				picturePositions: new PicturePositions(G.Pictures.test),
 			}),
-			new Npc(new Position(-110,10), '/static/assets/girl.png'),
+			new Npc(new Position(-110,10, 100, 200), '/static/assets/girl.png'),
+			player,
 		])
 
 		Html.addToScreen(Html.div('lower-center-ui', [
