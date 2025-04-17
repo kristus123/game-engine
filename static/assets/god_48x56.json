@@ -19,7 +19,7 @@
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3.7-dev",
-  "image": "god.png",
+  "image": "god_48x56.png",
   "format": "RGBA8888",
   "size": { "w": 96, "h": 56 },
   "scale": "1",
