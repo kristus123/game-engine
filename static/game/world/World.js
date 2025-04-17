@@ -25,6 +25,7 @@ export class World {
 			Init(this, {
 				picturePositions: new PicturePositions(G.Pictures.test),
 			}),
+			new Npc(new Position(-110,10), '/static/assets/girl.png'),
 		])
 
 		Html.addToScreen(Html.div('lower-center-ui', [
