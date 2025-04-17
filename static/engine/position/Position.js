@@ -54,6 +54,11 @@ export class Position {
 		this._height = h
 	}
 
+	resize(amount) {
+		this.width += amount
+		this.height += amount
+	}
+
 	behind(anotherPosition, distance=200) {
 		return AnalShit.positionBehind(this, anotherPosition, distance)
 	}
