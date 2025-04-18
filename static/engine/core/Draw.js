@@ -150,6 +150,11 @@ export class Draw {
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
+	blueRectangle(position) {
+		this.ctx.fillStyle = 'rgba(0, 0, 255, 1)' // rgba(red, green, blue, alpha)
+		this.ctx.fillRect(position.x, position.y, position.width, position.height)
+	}
+
 	gradient(position) { // can be used for making a light source
 		const radius = 300
 

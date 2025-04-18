@@ -194,35 +194,42 @@ export class Html {
 		}
 	}
 
-	static fadeaway(x, position=Mouse.position) {
+	static fadeaway(text, position=Mouse.position) {
 		position = Cam.p(position) // todo imrpoveo ofc
 
-		var text = element('p')
-		text.innerHTML = x
+		var textElement = element('p')
+		textElement.innerHTML = text
 
 
-		text.setAttribute('class', 'ui fade-away')
+		textElement.setAttribute('class', 'ui fade-away')
 
-		text.style.left = `${position.x}px`
-		text.style.top = `${position.y - 50}px`
+		textElement.style.left = `${position.x}px`
+		textElement.style.top = `${position.y - 50}px`
 
-		Html.addToScreen(text)
+		Html.addToScreen(textElement)
 
 		setTimeout(() => {
-			Html.remove(text)
+			Html.remove(textElement)
 		}, 1000)
 	}
 
-	static floating(element, position) {
-		// position = Cam.p(position) // todo imrpoveo ofc
+	static floating(htmlElement, position) {
+		position = Cam.p(position) // todo imrpoveo ofc
 
-		element.classList.add('ui')
+		htmlElement.classList.add('ui')
 
-		element.style.left = `${position.x}px`
-		element.style.top = `${position.y - 50}px`
+		htmlElement.style.left = `${position.x}px`
+		htmlElement.style.top = `${position.y - 50}px`
 
-		return element
-		
+		Html.addToScreen(htmlElement)
+
+		return htmlElement
+	}
+
+	static floatingPosition(e, position) {
+		position = Cam.p(position) // todo imrpoveo ofc
+		e.style.left = `${position.x}px`
+		e.style.top = `${position.y - 50}px`
 	}
 
 }

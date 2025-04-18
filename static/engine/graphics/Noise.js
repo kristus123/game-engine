@@ -1,6 +1,6 @@
 export class Noise {
 	constructor(position, size=10) {
-		this.simplexNoise = new SimplexNoise(0.0001)
+		this.simplexNoise = new SimplexNoise(0.001)
 
 		this.time = 0
 
@@ -16,7 +16,7 @@ export class Noise {
 	draw(draw, guiDraw) {
 		for (const { position, noise } of this.positionAndNoiseValue) {
 			if (noise >= 0.5) {
-				draw.transparentBlueRectangle(position)
+				draw.blueRectangle(position)
 			}
 			else {
 				draw.green(position)

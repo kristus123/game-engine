@@ -16,15 +16,15 @@ export class Player extends DynamicGameObject {
 
 		this.god = new Sprite(this.position, '/static/assets/god_48x56.png', [{x:1,y:0}])
 
-				this.sine = new Sine(1, 0.05)
+				// this.sine = new Sine(1, 0.05)
 	}
 
 	update() {
-		this.sine.update()
-		console.log(this.sine.value)
-		this.position.resize(this.sine.value)
+		// this.sine.update()
+		// console.log(this.sine.value)
+		// this.position.resize(this.sine.value)
 
-		this.position.y -= this.sine.value * 2
+		// this.position.y -= this.sine.value * 2
 
 		for (const e of Registry.enemies) {
 			if (e.within(100, this)) {
