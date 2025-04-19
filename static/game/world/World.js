@@ -1,15 +1,15 @@
 export class World {
 	constructor() {
 
-		const player = new Player(new Position(-410,10, 300, 500), '/static/assets/god_48x56.png', [{x:1,y:0}])
-		this.player = player
-		Controller.control(player)
+		// const player = new Player(new Position(-410,10, 300, 500), '/static/assets/god_48x56.png', [{x:1,y:0}])
+		// this.player = player
+		// Controller.control(player)
 
-		this.followPlayerNoise = new Noise(new Position(-100,0, 2000, 2000))
-		Cam.follow(this.player)
+		// this.followPlayerNoise = new Noise(new Position(-100,0, 2000, 2000))
+		// Cam.follow(this.player)
 
 		this.localObjects = new LocalObjects([
-			this.followPlayerNoise,
+			// this.followPlayerNoise,
 			Init(this, {
 				store: new Store(),
 				mic: new Microphone(),
@@ -30,11 +30,14 @@ export class World {
 			G.splash,
 			G.trees,
 			G.barn,
+			G.fire,
 			Init(this, {
 				picturePositions: new PicturePositions(G.Pictures.test),
 			}),
 			new Npc(new Position(-110,-100, 100, 200), '/static/assets/girl.png'),
-			player,
+			// player,
+
+			new HorizontalSprite(new Position(-100,0, 200, 300), '/static/assets/fire_16x28.png')
 		])
 
 		Html.addToScreen(Html.div('lower-center-ui', [

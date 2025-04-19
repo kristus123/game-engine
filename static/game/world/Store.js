@@ -41,6 +41,17 @@ export class Store {
 					}))
 				}),
 
+				G.buyFireButton = Html.button('buy fire (10)', () => {
+					G.money -= 10
+
+					tla(new PlaceItems([
+						new HorizontalSprite(Mouse.position.copy().size(200, 300), '/static/assets/fire_16x28.png'),
+						// new Fire(Mouse.position.copy()),
+					], fire => {
+						G.fire.add(fire)
+					}))
+				}),
+
 			]),
 		]))
 	}

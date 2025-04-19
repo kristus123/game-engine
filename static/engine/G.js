@@ -4,6 +4,7 @@ export const G = {
 	trees: new LocalObjects([]),
 	monsters: new LocalObjects([]),
 	workers: new LocalObjects([]),
+	fire: new LocalObjects([]),
 	splash: new SplashParticles(),
 	money: 0,
 	barn: new Barn(new Position(-200, 0)),

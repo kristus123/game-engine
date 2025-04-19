@@ -1,6 +1,7 @@
-export class HorizontalSprite {
+export class HorizontalSprite extends StaticGameObject {
 	constructor(position, imagePath, speed=100) {
-		const sprite = new Sprite(position, imagePath, [
+		super(position)
+		const sprite = new Sprite(this.position, imagePath, [
 			{ x: 0, y: 0 },
 		], speed)
 

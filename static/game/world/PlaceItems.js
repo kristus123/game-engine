@@ -1,6 +1,5 @@
 export class PlaceItems {
 	constructor(items, placeDown= p => {}) {
-		//pseudo code
 		if (AnArray(items)) {
 			this.itemsToPlace = new ListLooper(items)
 		}
@@ -17,7 +16,7 @@ export class PlaceItems {
 			i.x = Mouse.position.x
 			i.y = Mouse.position.y
 
-			if (Mouse.timeSinceLastClick > 20) {
+			if (Mouse.timeSinceLastClick > 50) {
 				draw.transparentGreenRectangle(i)
 			}
 			else {
