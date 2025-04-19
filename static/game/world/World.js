@@ -37,7 +37,7 @@ export class World {
 			new Npc(new Position(-110,-100, 100, 200), '/static/assets/girl.png'),
 			// player,
 
-			new HorizontalSprite(new Position(-100,0, 200, 300), '/static/assets/fire_16x28.png')
+			new HorizontalSprite(new Position(-100,0, 200, 300), '/static/assets/fire_16x28.png'),
 		])
 
 		Html.addToScreen(Html.div('lower-center-ui', [

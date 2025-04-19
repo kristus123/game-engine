@@ -1,4 +1,4 @@
-export class Picture extends _GameObject {
+export class Picture extends StaticGameObject {
 	constructor(position, imagePath) {
 		super(position)
 
