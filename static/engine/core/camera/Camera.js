@@ -1,5 +1,5 @@
 export class Camera {
-	constructor() {
+	static initialize() { // initialize() Mouse first
 
 		this.offset = {
 			x: Palette.width / 2,
@@ -37,15 +37,15 @@ export class Camera {
 		])
 	}
 
-	get zoom() {
+	static get zoom() {
 		return this.smoothZoom.currentValue
 	}
 
-	set zoom(x) {
+	static set zoom(x) {
 		this.smoothZoom.targetValue = x
 	}
 
-	context(run) {
+	static context(run) {
 		this.smoothZoom.update()
 
 		this.smoothPosition.update(this.objectToFollow)
@@ -67,23 +67,23 @@ export class Camera {
 		LowLevelCamera.context(this, run)
 	}
 
-	follow(o) {
+	static follow(o) {
 		this.objectToFollow = o
 	}
 
-	goTo(o) { // this is wrong
+	static goTo(o) { // this is wrong
 		this.objectToFollow.x = o.x
 		this.objectToFollow.y = o.y
 	}
 
-	followInstantly(o) {
+	static followInstantly(o) {
 		this.objectToFollow = o
 
 		this.position.x = o.position.x
 		this.position.y = o.position.y
 	}
 
-	p(p) { // screenPosition //todo improve ofc.
+	static p(p) { // screenPosition //todo improve ofc.
 		return new Position(
 			p.x - this.position.x + p.width + (Palette.width/2),
 			p.y - this.position.y + p.height + (Palette.height/2),

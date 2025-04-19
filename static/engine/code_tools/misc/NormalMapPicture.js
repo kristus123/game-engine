@@ -27,8 +27,8 @@ export class NormalMapPicture {
 
 		if (this.normalMap.complete) {
 
-			const ox = (-Cam.position.x + (Palette.width/2))
-			const oy = (-Cam.position.y + (Palette.height/2))
+			const ox = (-Camera.position.x + (Palette.width/2))
+			const oy = (-Camera.position.y + (Palette.height/2))
 
 			const normalData = draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
 

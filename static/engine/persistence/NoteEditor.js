@@ -24,7 +24,7 @@ export class NoteEditor {
 
 		Overlay.rightButton('note', () => {
 			MouseEditor.active = mouseEditor
-			// Cam.goTo(player)
+			// Camera.goTo(player)
 		})
 
 		this.localObjects = new LocalObjects([

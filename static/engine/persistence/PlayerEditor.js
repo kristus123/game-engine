@@ -30,7 +30,7 @@ export class PlayerEditor {
 				Controller.control(player)
 				Overlay.clearBottom()
 				Overlay.bottomButton('back to camera', () => {
-					Controller.control(Cam.objectToFollow)
+					Controller.control(Camera.objectToFollow)
 				})
 			})
 		})

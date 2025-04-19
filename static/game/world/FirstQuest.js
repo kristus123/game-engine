@@ -87,7 +87,7 @@ class TWO_DriveChickens {
 
 class InsideWackyMac {
 	constructor(player) {
-		Cam.followInstantly(player)
+		Camera.followInstantly(player)
 		Controller.control(player)
 
 		this.localObjects = new LocalObjects([

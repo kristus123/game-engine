@@ -20,18 +20,6 @@ export class Mouse {
 		this.lastPositionBeforeMoving = new Position(0, 0)
 		this.timeSinceLastClick = 0
 
-		document.addEventListener('mousemove', (e) => {
-			this.positionRelativeToCamera(e)
-			this.moving = true
-			this.lastPositionBeforeMoving.x = this.position.x
-			this.lastPositionBeforeMoving.y = this.position.y
-
-			setTimeout(() => {
-				this.moving = false
-			}, 2)
-
-		})
-
 		document.addEventListener('wheel', e => {
 			let delta = Math.sign(e.deltaY)
 
@@ -121,19 +109,32 @@ export class Mouse {
 		this.clickEvents.removeOnClick(name, handler)
 	}
 
+	static initializeAfterCameraIsInitialized() {
+		document.addEventListener('mousemove', (e) => {
+			this.positionRelativeToCamera(e)
+			this.moving = true
+			this.lastPositionBeforeMoving.x = this.position.x
+			this.lastPositionBeforeMoving.y = this.position.y
+
+			setTimeout(() => {
+				this.moving = false
+			}, 2)
+		})
+	}
+
 	static positionRelativeToCamera(e) {
 		this.screenPosition.x = e.clientX
 		this.screenPosition.y = e.clientY
 
 		// Apply inverse transformations for translation and zoom
-		const inverseZoom = 1 / Cam.zoom
+		const inverseZoom = 1 / Camera.zoom
 
 		const x =
-				(e.clientX - Cam.offset.x) * inverseZoom +
-				Cam.position.x
+				(e.clientX - Camera.offset.x) * inverseZoom +
+				Camera.position.x
 		const y =
-				(e.clientY - Cam.offset.y) * inverseZoom +
-				Cam.position.y
+				(e.clientY - Camera.offset.y) * inverseZoom +
+				Camera.position.y
 
 		this.position.x = x
 		this.position.y = y

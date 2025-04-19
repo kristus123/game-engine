@@ -4,8 +4,8 @@ export class DragonRoom {
 		this.entrance = new DynamicGameObject(new Position(200, 2037, 100, 100), 1, 1)
 
 		const oldMan = new Npc(new Position(1177, 1247, 140, 200))
-		Cam.zoom = 1.5
-		Cam.follow(oldMan)
+		Camera.zoom = 1.5
+		Camera.follow(oldMan)
 
 		this.localObjects = new LocalObjects([
 			new Picture(new Position(0, 0, 100*20, 100*20), '/static/assets/dragon_room.png'),
@@ -16,7 +16,7 @@ export class DragonRoom {
 				new MultiTextTyper(oldMan.position.over(), [
 					'hei'
 				], () => {
-					Cam.follow(player)
+					Camera.follow(player)
 				}),
 				new MultiTextTyper(player.position.over(), [
 					'hei'
@@ -37,10 +37,10 @@ export class DragonRoom {
 		this.localObjects.update()
 
 		if (this.player.within(500, this.entrance)) {
-			Cam.follow(this.entrance)
+			Camera.follow(this.entrance)
 		}
 		else {
-			// Cam.follow(this.player)
+			// Camera.follow(this.player)
 		}
 	}
 

@@ -13,10 +13,10 @@ export class Anchor {
 	update() {
 		this.smoothPosition.update(this.anchoredPosition)
 
-		const x_distanceToMouse = this.smoothPosition.position.x - Cam.position.x
-		Cam.position.x += limitNumber(x_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
+		const x_distanceToMouse = this.smoothPosition.position.x - Camera.position.x
+		Camera.position.x += limitNumber(x_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
 
-		const y_distanceToMouse = this.smoothPosition.position.y - Cam.position.y
-		Cam.position.y += limitNumber(y_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
+		const y_distanceToMouse = this.smoothPosition.position.y - Camera.position.y
+		Camera.position.y += limitNumber(y_distanceToMouse, -this.maxPixelMovement, this.maxPixelMovement) * this.multiplier
 	}
 }

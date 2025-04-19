@@ -9,8 +9,8 @@ export class EnterVehicle {
 
 				Call(this.onExit)
 				Controller.control(player)
-				Cam.follow(player)
-				Cam.zoom = 1
+				Camera.follow(player)
+				Camera.zoom = 1
 
 				this.player.x = vehicle.x
 				this.player.y = vehicle.y
@@ -20,8 +20,8 @@ export class EnterVehicle {
 
 				Call(this.onEnter)
 				Controller.control(vehicle)
-				Cam.follow(vehicle)
-				// Cam.zoom = 0.5
+				Camera.follow(vehicle)
+				// Camera.zoom = 0.5
 			}
 		})
 	}

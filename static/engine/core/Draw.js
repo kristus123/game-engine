@@ -293,17 +293,17 @@ export class Draw {
 		this.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
-		const dx = target.x - Cam.position.x
-		const dy = target.y - Cam.position.y
+		const dx = target.x - Camera.position.x
+		const dy = target.y - Camera.position.y
 		// Calculate the maximum allowed distances for rectangular movement
 		const horizontalRectDistance = (Palette.width / 2 - 20)
 		const verticalRectDistance = (Palette.height / 2 - 20)
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
-			Cam.position.x +
+			Camera.position.x +
 			Math.min(Math.abs(dx), horizontalRectDistance) * Math.sign(dx)
 		let circleY =
-			Cam.position.y +
+			Camera.position.y +
 			Math.min(Math.abs(dy), verticalRectDistance) * Math.sign(dy)
 
 		// Draw the circle
@@ -311,8 +311,8 @@ export class Draw {
 		this.circle(circleX, circleY, playerRadius, color)
 
 		// Draw the rectangle
-		const rectX = Cam.position.x - horizontalRectDistance
-		const rectY = Cam.position.y - verticalRectDistance
+		const rectX = Camera.position.x - horizontalRectDistance
+		const rectY = Camera.position.y - verticalRectDistance
 		const rectWidth = horizontalRectDistance * 2
 		const rectHeight = verticalRectDistance * 2
 
@@ -357,7 +357,7 @@ export class Draw {
 
 		this.ctx.fillStyle = 'black'
 
-		this.ctx.font = `${fontSize / Cam.zoom}px VT323`
+		this.ctx.font = `${fontSize / Camera.zoom}px VT323`
 
 		const textWidth = this.ctx.measureText(text).width
 

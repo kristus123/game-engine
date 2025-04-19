@@ -3,7 +3,7 @@ export class CloudParallax {
 		this.sex = 'ja'
 
 		this.cloudPositions = Iterate(10, i => ({
-			position: Random.direction(Cam.position, 1000),
+			position: Random.direction(Camera.position, 1000),
 			picture: new Picture(new Position(0, 0, 400, 200), Random.choice([ '/static/assets/cloud.png', '/static/assets/cloud_2.png'])),
 		}))
 	}

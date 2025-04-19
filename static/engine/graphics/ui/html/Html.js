@@ -195,7 +195,7 @@ export class Html {
 	}
 
 	static fadeaway(text, position=Mouse.position) {
-		position = Cam.p(position) // todo imrpoveo ofc
+		position = Camera.p(position) // todo imrpoveo ofc
 
 		var textElement = element('p')
 		textElement.innerHTML = text
@@ -214,7 +214,7 @@ export class Html {
 	}
 
 	static floating(htmlElement, position) {
-		position = Cam.p(position) // todo imrpoveo ofc
+		position = Camera.p(position) // todo imrpoveo ofc
 
 		htmlElement.classList.add('ui')
 
@@ -227,7 +227,7 @@ export class Html {
 	}
 
 	static floatingPosition(e, position) {
-		position = Cam.p(position) // todo imrpoveo ofc
+		position = Camera.p(position) // todo imrpoveo ofc
 		e.style.left = `${position.x}px`
 		e.style.top = `${position.y - 50}px`
 	}

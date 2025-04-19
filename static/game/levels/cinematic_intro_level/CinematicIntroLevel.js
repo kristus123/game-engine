@@ -16,7 +16,7 @@ export class CinematicIntroLevel {
 
 		if (Distance.withinRadius(this.world.deliveryDrone, this.world.player, 300)) {
 			Controller.control(this.world.player)
-			this.world.Cam.follow(this.world.player)
+			this.world.Camera.follow(this.world.player)
 			this.world.deliveryDrone.resetVelocity()
 
 			this.level.change(new MainLevel(this.level, this.world, this.camera))

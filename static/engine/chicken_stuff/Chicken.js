@@ -1,6 +1,6 @@
 export class Chicken extends DynamicGameObject {
 	constructor(position, run=() => {}) {
-		super(position, 10, 10)
+		super(position, 10, 100)
 
 		this.position.width = 60
 		this.position.height = 60
@@ -30,6 +30,15 @@ export class Chicken extends DynamicGameObject {
 		this.y = p.y
 
 		this.run(this)
+
+		if (Mouse.hovering(this) && !this.killed) {
+			this.killed = true
+			this.kill()
+			this.run = () => {}
+			setTimeout(() => {
+				this.removeFromLoop()
+			}, 3000)
+		}
 	}
 
 	draw(draw, guiDraw) {

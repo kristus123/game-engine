@@ -8,15 +8,31 @@ export class Npc extends DynamicGameObject {
 		setInterval(() => {
 			Html.changeText(this.button, this.button.textContent += '.')
 		}, 1000);
+
+		const text = new Text(this.position.offset(-200), 'kyss meg ragnar')
+
+		this.localObjects = new LocalObjects([
+
+			new OnChange(() => this.within(200, G.player), within => {
+				if (within) {
+					text.show()
+				}
+				else {
+					text.hide()
+				}
+			}),
+
+		])
 	}
 
 
 	update() {
+		this.localObjects.update()
 		this.picture.update()
 
 		Html.floatingPosition(this.button, this.position.offset(-30, -250))
 
-		this.x += 2
+		this.x -= 2
 
 	}
 
@@ -28,5 +44,6 @@ export class Npc extends DynamicGameObject {
 		}
 
 
+		this.localObjects.draw(draw, guiDraw)
 	}
 }

@@ -1,12 +1,15 @@
 export class World {
 	constructor() {
 
-		// const player = new Player(new Position(-410,10, 300, 500), '/static/assets/god_48x56.png', [{x:1,y:0}])
-		// this.player = player
-		// Controller.control(player)
+		const player = new Player(new Position(-410,10, 300, 500), '/static/assets/god_48x56.png', [{x:1,y:0}])
+		this.player = player
+		Controller.control(player)
+		G.player = player
 
-		// this.followPlayerNoise = new Noise(new Position(-100,0, 2000, 2000))
-		// Cam.follow(this.player)
+		this.followPlayerNoise = new Noise(new Position(-100,0, 2000, 2000))
+		Camera.follow(this.player)
+
+		const npc = new Npc(new Position(-110,-100, 100, 200), '/static/assets/girl.png')
 
 		this.localObjects = new LocalObjects([
 			// this.followPlayerNoise,
@@ -14,13 +17,6 @@ export class World {
 				store: new Store(),
 				mic: new Microphone(),
 				chicken: new Chicken(new Position(-200, 0), chicken => {
-					if (Mouse.hovering(chicken)) {
-						chicken.kill()
-						chicken.run = () => {}
-						setTimeout(() => {
-							chicken.removeFromLoop()
-						}, 3000)
-					}
 				}),
 			}),
 			G.ranches,
@@ -34,11 +30,14 @@ export class World {
 			Init(this, {
 				picturePositions: new PicturePositions(G.Pictures.test),
 			}),
-			new Npc(new Position(-110,-100, 100, 200), '/static/assets/girl.png'),
-			// player,
+			npc,
+			new Text(new Position(0,0), 'hei sexy mann'),
+			player,
 
 			new HorizontalSprite(new Position(-100,0, 200, 300), '/static/assets/fire_16x28.png'),
 		])
+
+		Controller.control(this.chicken)
 
 		Html.addToScreen(Html.div('lower-center-ui', [
 			Html.slider(),

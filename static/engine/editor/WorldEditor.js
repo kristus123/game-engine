@@ -1,8 +1,8 @@
 export class WorldEditor {
 
 	constructor() {
-		Cam.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
-		Controller.control(Cam.objectToFollow)
+		Camera.follow(new DynamicGameObject(new Position(0, 0, 10, 10), 4500, 50))
+		Controller.control(Camera.objectToFollow)
 
 		Overlay.leftButton('left', () => {})
 
@@ -38,7 +38,7 @@ export class WorldEditor {
 			// new NormalMapPicture(new Position(0, 0, 100, 100), '/static/assets/nn.png')
 		])
 
-		// Cam.anchoredPositions.add(new Anchor(Cam, this.blobMonster, 1000, 0.2))
+		// Camera.anchoredPositions.add(new Anchor(Camera. this.blobMonster, 1000, 0.2))
 
 		this.pixels = new LocalObjects()
 	}

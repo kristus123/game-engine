@@ -37,8 +37,10 @@ preload([
 			// const showLogs = new ShowLogs(guiPalette)
 
 			Mouse.initialize()
+			Camera.initialize()
+			Mouse.initializeAfterCameraIsInitialized()
 
-			const draw = new Draw(Cam.palette.ctx)
+			const draw = new Draw(Camera.palette.ctx)
 			const guiDraw = new Draw(guiPalette.ctx)
 
 			const rightClickMenu = new RightClickMenu()
@@ -52,11 +54,11 @@ preload([
 			Loop.everyFrame((deltaTime) => {
 				ErrorHandler.run(() => {
 
-					Palette.clear([Cam.palette, guiPalette])
+					Palette.clear([Camera.palette, guiPalette])
 
 					Physics.global.update(deltaTime)
 
-					Cam.context(() => {
+					Camera.context(() => {
 
 						Mouse.update()
 
@@ -69,6 +71,8 @@ preload([
 						rightClickMenu.update()
 						rightClickMenu.draw(draw, guiDraw)
 
+						Text.updateAll()
+
 						Mouse.draw(draw, guiDraw)
 
 						if (MouseEditor.active) {
@@ -80,7 +84,7 @@ preload([
 					// showLogs.draw()
 
 					Palette.fill(backgroundPalette, '#6AB767')
-					Palette.apply(mainPalette, [backgroundPalette, Cam.palette, guiPalette])
+					Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
 				})
 			})
 		})

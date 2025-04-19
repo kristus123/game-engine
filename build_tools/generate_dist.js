@@ -78,9 +78,19 @@ for (const jsFilePath of jsFiles) {
 require('./copy_asset_folder_to_dist')
 require('./generate_helper_classes')
 
-const scriptImports = jsFiles
-	.map(f => `<script type="module" src="/${f}"></script>`)
-	.join('\n')
+
+const priority = ['Mouse.js', 'Camera.js'];
+
+const prioritized = priority.flatMap(key => jsFiles.filter(f => f.includes(key)))
+const others = jsFiles.filter(f => !priority.some(key => f.includes(key)))
+
+const orderedFiles = [...prioritized, ...others];
+
+console.log(orderedFiles)
+
+const scriptImports = orderedFiles
+  .map(f => `<script type="module" src="${f}"></script>`)
+  .join('\n');
 
 
 const cssImports = fs.readdirSync('static/ui/css')
