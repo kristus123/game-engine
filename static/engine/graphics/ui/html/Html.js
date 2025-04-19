@@ -225,4 +225,16 @@ export class Html {
 		
 	}
 
+	static dropDown(menu,sub_menus){
+		const subMenu = Html.div(menu.className,sub_menus);
+		subMenu.className = "sub-menu"
+		subMenu.addEventListener("mouseover", ()=>{Html.show(subMenu)})
+		menu.style.position = "relative"
+		menu.addEventListener("mouseout", ()=>{Html.hide(subMenu)})
+		menu.addEventListener("mouseover", ()=>{Html.show(subMenu)})
+		Html.hide(subMenu);
+		menu.appendChild(subMenu)
+		return menu
+	}
+
 }
