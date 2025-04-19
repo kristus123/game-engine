@@ -5,8 +5,8 @@ export class Player extends DynamicGameObject {
 		// this.position.width = 145
 		// this.position.height = 200
 
-		this.defaultPicture = new StaticPicture(this.position, '/static/assets/snowman.png')
-		this.behindPicture = new StaticPicture(this.position, '/static/assets/snowman_behind.png')
+		this.defaultPicture = new Picture(this.position, '/static/assets/snowman.png')
+		this.behindPicture = new Picture(this.position, '/static/assets/snowman_behind.png')
 
 		this.steps = []
 		setInterval(() => {

@@ -5,7 +5,7 @@ export class Kid extends DynamicGameObject {
 		this.position.height = 300
 
 		this.localObjects = new LocalObjects([
-			new StaticPicture(this.position, '/static/assets/kid.png'),
+			new Picture(this.position, '/static/assets/kid.png'),
 			new FindChickenQuest(this, player),
 		])
 	}

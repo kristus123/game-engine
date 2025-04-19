@@ -6,7 +6,7 @@ export class Tree extends StaticGameObject {
 		this.position.height = 200
 
 		this.localObjects = new LocalObjects([
-			new StaticPicture(this.position, '/static/assets/tree.png')
+			new Picture(this.position, '/static/assets/tree.png')
 		])
 	}
 

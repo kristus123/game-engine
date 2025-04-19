@@ -2,8 +2,8 @@ export class PicturesLoop {
 	constructor(position) {
 		position.width = 250
 		this.pictures = [
-			new StaticPicture(position, '/static/assets/lift_1.png'),
-			new StaticPicture(position, '/static/assets/lift_2.png'),
+			new Picture(position, '/static/assets/lift_1.png'),
+			new Picture(position, '/static/assets/lift_2.png'),
 		]
 
 		this.currentFrame = 0

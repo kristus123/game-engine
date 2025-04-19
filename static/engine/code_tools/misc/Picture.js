@@ -1,5 +1,6 @@
-export class Picture {
+export class Picture extends _GameObject {
 	constructor(position, imagePath) {
+		super(position)
 
 		this.image = new Image()
 		this.image.src = imagePath
@@ -16,6 +17,14 @@ export class Picture {
 			draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
 			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
 			draw.ctx.restore()
+		}
+	}
+
+	mapToJson() {
+		return {
+			objectId: this.objectId,
+			position: this.position.toJson(),
+			imagePath: this.imagePath,
 		}
 	}
 

@@ -8,7 +8,7 @@ export class DragonRoom {
 		Cam.follow(oldMan)
 
 		this.localObjects = new LocalObjects([
-			new StaticPicture(new Position(0, 0, 100*20, 100*20), '/static/assets/dragon_room.png'),
+			new Picture(new Position(0, 0, 100*20, 100*20), '/static/assets/dragon_room.png'),
 			this.entrance,
 			oldMan,
 

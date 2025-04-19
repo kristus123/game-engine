@@ -12,12 +12,12 @@ export class WorldEditor {
 				invisibleWalls: new InvisibleWallsEditor(),
 			}),
 
-			// new PersistedStaticPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
-			// new PersistedStaticPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
-			// new PersistedStaticPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
-			// new PersistedStaticPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
-			// new PersistedStaticPictureEditor('/static/assets/bush.png', '/persisted-objects/bush.json', 200, 200),
-			// new PersistedStaticPictureEditor('/static/assets/tree.png', '/persisted-objects/tree.json', 400, 400),
+			// new PersistedPictureEditor('/static/assets/houses.png', '/persisted-objects/houses.json', 1700, 600),
+			// new PersistedPictureEditor('/static/assets/stones/stone1.png', '/persisted-objects/stone1.json'),
+			// new PersistedPictureEditor('/static/assets/stones/stone2.png', '/persisted-objects/stone2.json'),
+			// new PersistedPictureEditor('/static/assets/stones/stone3.png', '/persisted-objects/stone3.json'),
+			// new PersistedPictureEditor('/static/assets/bush.png', '/persisted-objects/bush.json', 200, 200),
+			// new PersistedPictureEditor('/static/assets/tree.png', '/persisted-objects/tree.json', 400, 400),
 
 			// new PersistedObjectsEditor(
 			// 	'/persisted-objects/chickens.json',

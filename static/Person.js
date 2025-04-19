@@ -4,7 +4,7 @@ export class Person extends DynamicGameObject {
 		this.position.width = 170
 		this.position.height = 300
 
-		this.picture = new StaticPicture(this.position, '/static/assets/person.png')
+		this.picture = new Picture(this.position, '/static/assets/person.png')
 
 		this.localObjects = new LocalObjects()
 

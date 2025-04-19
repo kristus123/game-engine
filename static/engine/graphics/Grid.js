@@ -14,7 +14,7 @@ export class Grid {
 		const p = this.mouseGrid(position)
 		p.width = 128
 		p.height = 128
-		return new StaticPicture(p, '/static/assets/floors/wooden_floor_128x128.png')
+		return new Picture(p, '/static/assets/floors/wooden_floor_128x128.png')
 	}
 
 	mouseGrid(mousePosition) {

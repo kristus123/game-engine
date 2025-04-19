@@ -3,9 +3,9 @@ export class TalkToShopKeeper {
 	constructor(player) {
 
 		const square = new Square(new Position(-500, 0), 200)
-		const staticPicture = new StaticPicture(square.position, '/static/assets/shopkeeper.png')
+		const picture = new Picture(square.position, '/static/assets/shopkeeper.png')
 		square.draw = (draw, guiDraw) => {
-			staticPicture.draw(draw, guiDraw)
+			picture.draw(draw, guiDraw)
 		}
 
 		const hoe = new DynamicGameObject(new Position(-400, 0, 100, 300), 10, 10)

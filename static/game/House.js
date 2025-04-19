@@ -5,7 +5,7 @@ export class House extends StaticGameObject {
 		const house = this
 
 		this.localObjects = new LocalObjects([
-			new StaticPicture(this.position, '/static/assets/house.png'),
+			new Picture(this.position, '/static/assets/house.png'),
 			new Quest([
 				() => new class {
 					constructor() {

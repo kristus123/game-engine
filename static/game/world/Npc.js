@@ -1,7 +1,7 @@
 export class Npc extends DynamicGameObject {
 	constructor(position, picture='/static/assets/old_man.png') {
 		super(position, 100, 100)
-		this.picture = new StaticPicture(position, picture)
+		this.picture = new Picture(position, picture)
 
 		this.button = Html.floating(Html.button('hei'), this.position.over(100))
 

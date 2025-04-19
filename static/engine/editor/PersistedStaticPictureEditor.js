@@ -1,13 +1,13 @@
-export class PersistedStaticPictureEditor {
+export class PersistedPictureEditor {
 	constructor(imagePath, storagePath, width=180, height=100) {
 
 		this.localObjects = new LocalObjects([
 
 			new PersistedObjectsEditor(
 				storagePath,
-				position => new StaticPicture(position.offset(0, 0, width, height).copy(), imagePath),
+				position => new Picture(position.offset(0, 0, width, height).copy(), imagePath),
 				json => {
-					const c = new StaticPicture(Position.from(json.position), imagePath)
+					const c = new Picture(Position.from(json.position), imagePath)
 					c.objectId = json.objectId
 					return c
 				},
