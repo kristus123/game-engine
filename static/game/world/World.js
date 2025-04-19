@@ -35,6 +35,7 @@ export class World {
 				picturePositions: new PicturePositions(G.Pictures.test),
 			}),
 			new Npc(new Position(-110,-100, 100, 200), '/static/assets/girl.png'),
+			new Text(new Position(0,0), 'hei sexy mann'),
 			// player,
 
 			new HorizontalSprite(new Position(-100,0, 200, 300), '/static/assets/fire_16x28.png'),
