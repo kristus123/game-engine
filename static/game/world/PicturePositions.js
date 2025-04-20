@@ -1,10 +1,10 @@
-const scale = 2
+const scale = 4
 
 // this can be used to extract areas of a picture
 // it expects simple rectangles
 
 export class PicturePositions {
-	constructor(image) {
+	constructor(image, position) {
 		this.regions = []
 
 		const palette = Palette.fixedOffscreen(image.width*scale, image.height*scale)
@@ -96,11 +96,11 @@ export class PicturePositions {
 				}
 
 				regionsForColor.push({
-					x: Math.round(minX * scale),
-					y: Math.round(minY * scale),
+					x: Math.round(minX * scale) + position.x,
+					y: Math.round(minY * scale) + position.y,
 					width: Math.round((maxX - minX + 1) * scale),
 					height: Math.round((maxY - minY + 1) * scale),
-					color: Random.color(),
+					color: color,
 				})
 			}
 
@@ -123,13 +123,15 @@ export class PicturePositions {
 
 	draw(draw, guiDraw) {
 		if (this.ib) {
-			draw.imageBitmap(new Position(-2, -2), this.ib)
+			// draw.imageBitmap(new Position(-2, -2), this.ib)
 		}
 
 		for (const r of this.regions) {
 			if (Mouse.hovering(r)) {
+				console.log(r)
 				draw.rectangle(r, r.color)
 			}
 		}
 	}
+
 }

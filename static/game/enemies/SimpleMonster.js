@@ -14,6 +14,16 @@ export class SimpleMonster extends DynamicGameObject {
 		this.ranch = null
 	}
 
+	get happy() {
+		for (const zone of G.zone.regions) {
+			if (this.touches(zone)) {
+				return true
+			}
+		}
+
+		return false
+	}
+
 	update() {
 		this.localObjects.update()
 
@@ -45,28 +55,7 @@ export class SimpleMonster extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		// draw.hpBar(this.position.over(), this.hunger, 100)
-		if (this.touches(G.barn) && this.sleepyTime) {
-
-		}
-		else {
-			this.localObjects.draw(draw, guiDraw)
-
-			if (this.hunger < 0) {
-				this.velocity.reset()
-				draw.red(this.poop)
-			}
-
-			if (Mouse.hovering(this)) {
-				draw.text(this.position, 'click to move')
-			}
-			else if (this.ranch && this.touches(this.ranch)) {
-			}
-			else {
-				draw.text(this.position, 'sad')
-			}
-		}
-		// draw.green(this)
+		this.localObjects.draw(draw, guiDraw)
 
 	}
 }
