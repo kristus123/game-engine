@@ -1,6 +1,6 @@
 export class Chicken extends DynamicGameObject {
-	constructor(position, run=() => {}) {
-		super(position, 10, 100)
+	constructor(position) {
+		super(position, 100, 1000)
 
 		this.position.width = 60
 		this.position.height = 60
@@ -15,38 +15,52 @@ export class Chicken extends DynamicGameObject {
 
 		this.feathers = new LocalObjects()
 
+
+		if (!this.touchesAny(G.zones.regions)) {
+			this.zone = Random.choice(G.zones.regions)
+		}
+
+		this.p = new Position(0,0)
+		setInterval(() => {
+			this.p = Random.direction(this.zone.center, 200)
+		}, 1_000);
 	}
 
 	kill() {
+		this.killed = true
+		Html.fadeaway('killed chicken', this.position.over(20))
 		this.killed = new Killed(this)
-		//this.removeFromGameLoop()
 		SineWave.play()
+		setTimeout(() => {
+			this.removeFromLoop()
+		}, 3000)
 	}
 
 	update() {
-		const p = Random.direction(this, 0.1)
+		if (this.touches(this.zone)) {
+			// this.velocity.reset()
 
-		this.x = p.x
-		this.y = p.y
 
-		this.run(this)
+			ForcePush(this).towards(this.p, 0.1)
+		}
+		else {
+			Push(this).towards(this.zone, 1)
+		}
 
-		if (Mouse.hovering(this) && !this.killed) {
-			this.killed = true
+		if (this.touches(G.player) && !this.killed) {
 			this.kill()
-			this.run = () => {}
-			setTimeout(() => {
-				this.removeFromLoop()
-			}, 3000)
 		}
 	}
 
 	draw(draw, guiDraw) {
 		if (Math.abs(this.velocity.x) || Math.abs(this.velocity.y)) {
-			if (Random.chance()) {
+			if (Random.integerBetween(-100, 10) > 0) {
 				const f = new Feather(this.position)
 				Push(f).towards(Random.direction(this.position), 10)
 				this.feathers.add(f)
+				setTimeout(() => {
+					this.feathers.remove(f)
+				}, 300);
 			}
 		}
 
@@ -56,9 +70,14 @@ export class Chicken extends DynamicGameObject {
 			this.killed.draw(draw, guiDraw)
 		}
 		else {
-			// draw.text(this.position.offset(0, -20), this.objectId, 'red', 38)
 			this.sprite.draw(draw, guiDraw)
-			//super.draw(draw, guiDraw)
+		}
+
+		if (Mouse.hovering(this)) {
+			draw.text(this.position.over(20), 'click to shoot')
+			if (Mouse.clicked(this)) {
+				this.kill()
+			}
 		}
 
 	}

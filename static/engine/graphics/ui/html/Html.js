@@ -15,6 +15,8 @@ function element(type, clazz) {
 		Mouse.hoveringHtmlElement = false
 	})
 
+	document.getElementById('ui_elements').appendChild(e)
+
 	return e
 }
 
@@ -71,7 +73,6 @@ export class Html {
 
 	static addToScreen(element) {
 		document.getElementById('ui_elements').appendChild(element)
-
 		return element
 	}
 

@@ -3,7 +3,6 @@ const texts = []
 export class Text {
 	constructor(position, text) {
 		this.t = Html.floating(Html.text(text), position)
-		Html.addToScreen(this.t)
 
 		texts.push(this)
 	}

@@ -95,13 +95,13 @@ export class PicturePositions {
 					}
 				}
 
-				regionsForColor.push({
-					x: Math.round(minX * scale) + position.x,
-					y: Math.round(minY * scale) + position.y,
-					width: Math.round((maxX - minX + 1) * scale),
-					height: Math.round((maxY - minY + 1) * scale),
-					color: color,
-				})
+				const xx = Math.round(minX * scale) + position.x
+				const yy = Math.round(minY * scale) + position.y
+				const width = Math.round((maxX - minX + 1) * scale)
+				const height = Math.round((maxY - minY + 1) * scale)
+				const pp = new Position(xx, yy, width, height)
+				pp.color = color
+				regionsForColor.push(pp)
 			}
 
 			this.regions.push(...regionsForColor)
