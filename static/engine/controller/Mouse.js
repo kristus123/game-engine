@@ -111,7 +111,7 @@ export class Mouse {
 
 	static initializeAfterCameraIsInitialized() {
 		document.addEventListener('mousemove', (e) => {
-			this.positionRelativeToCamera(e)
+			this.positionRelativeToCamera(e.clientX, e.clientY)
 			this.moving = true
 			this.lastPositionBeforeMoving.x = this.position.x
 			this.lastPositionBeforeMoving.y = this.position.y
@@ -120,20 +120,30 @@ export class Mouse {
 				this.moving = false
 			}, 2)
 		})
+
+		document.addEventListener('touchmove', function (event) {
+		  if (event.touches.length > 0) {
+			const touch = event.touches[0]; // First finger
+			  this.positionRelativeToCamera(touch.clientX, touch.clientY)
+
+			console.log(`Finger is at: (${x}, ${y})`);
+		  }
+		});
+
 	}
 
-	static positionRelativeToCamera(e) {
-		this.screenPosition.x = e.clientX
-		this.screenPosition.y = e.clientY
+	static positionRelativeToCamera(x, y) {
+		this.screenPosition.x = x
+		this.screenPosition.y = y
 
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / Camera.zoom
 
 		const x =
-				(e.clientX - Camera.offset.x) * inverseZoom +
+				(x - Camera.offset.x) * inverseZoom +
 				Camera.position.x
 		const y =
-				(e.clientY - Camera.offset.y) * inverseZoom +
+				(y - Camera.offset.y) * inverseZoom +
 				Camera.position.y
 
 		this.position.x = x

@@ -5,8 +5,29 @@ export class Player extends DynamicGameObject {
 		this.position.width = 110
 		this.position.height = 150
 
-		this.defaultPicture = new Picture(this.position, '/static/assets/snowman.png')
-		this.behindPicture = new Picture(this.position, '/static/assets/snowman_behind.png')
+		this.forward = new Sprite(this.position, '/static/assets/farmer_16x16.png', [
+			{x:0, y:0},
+			{x:1, y:0},
+			{x:2, y:0},
+			{x:3, y:0},
+			{x:4, y:0},
+		])
+
+		this.right = new Sprite(this.position, '/static/assets/farmer_16x16.png', [
+			{x:5, y:0},
+			{x:6, y:0},
+			{x:7, y:0},
+			{x:8, y:0},
+			{x:9, y:0},
+		])
+
+		this.up = new Sprite(this.position, '/static/assets/farmer_16x16.png', [
+			{x:10, y:0},
+			{x:11, y:0},
+			{x:12, y:0},
+			{x:13, y:0},
+			{x:14, y:0},
+		])
 
 		this.steps = []
 		setInterval(() => {
@@ -27,10 +48,19 @@ export class Player extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		if (super.movingUp) {
-			this.behindPicture.draw(draw, guiDraw)
+			this.up.draw(draw, guiDraw)
+		}
+		else if (super.movingDown) {
+			this.forward.draw(draw, guiDraw)
+		}
+		else if (super.movingRight) {
+			this.right.draw(draw, guiDraw)
+		}
+		else if (super.movingLeft) {
+			this.right.mirrorDraw(draw, guiDraw)
 		}
 		else {
-			this.defaultPicture.draw(draw, guiDraw)
+			this.forward.draw(draw, guiDraw)
 		}
 
 		this.position.x = Math.round(this.position.x)

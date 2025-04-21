@@ -1,3 +1,9 @@
+let  killAmount = 1
+
+const chickens = []
+
+		const quest = QuestList.add('Kill all the chickens')
+
 export class Chicken extends DynamicGameObject {
 	constructor(position) {
 		super(position, 100, 1000)
@@ -15,6 +21,8 @@ export class Chicken extends DynamicGameObject {
 
 		this.feathers = new LocalObjects()
 
+		chickens.push(this)
+
 
 		if (!this.touchesAny(G.zones.regions)) {
 			this.zone = Random.choice(G.zones.regions)
@@ -24,19 +32,28 @@ export class Chicken extends DynamicGameObject {
 		setInterval(() => {
 			this.p = Random.direction(this.zone.center, 200)
 		}, 1_000);
+
 	}
 
 	kill() {
+		if (killAmount > 10) {
+			quest.completed()
+		}
 		this.killed = true
-		Html.fadeaway('killed chicken', this.position.over(20))
 		this.killed = new Killed(this)
-		SineWave.play()
+		// SineWave.play()
 		setTimeout(() => {
 			this.removeFromLoop()
 		}, 3000)
+		killAmount += 1
+		Audio.poop()
 	}
 
 	update() {
+		if (this.touchesAny(chickens)) {
+			ForcePush(this).awayFrom(this.touchesAny(chickens), 2)
+			
+		}
 		if (this.touches(this.zone)) {
 			// this.velocity.reset()
 
@@ -48,6 +65,13 @@ export class Chicken extends DynamicGameObject {
 		}
 
 		if (this.touches(G.player) && !this.killed) {
+			Html.fadeaway(Random.choice([
+				"Killing chickens is my life",
+				"bye bye chicken",
+				"sayonara",
+				"adiós",
+				"F*ck you",
+			]), G.player.position.over(-20, 10))
 			this.kill()
 		}
 	}

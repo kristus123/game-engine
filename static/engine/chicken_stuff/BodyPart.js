@@ -6,7 +6,7 @@ export class BodyPart extends DynamicGameObject {
 
 		this.s = new SpinningSpriteFrame(this, imagePath, part)
 
-		ForcePush(this).towards(Random.direction(position), Random.integerBetween(6, 12))
+		ForcePush(this).towards(Random.direction(position), Random.integerBetween(12, 24))
 	}
 
 	draw(draw, guiDraw) {
