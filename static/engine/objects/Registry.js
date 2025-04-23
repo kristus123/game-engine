@@ -1,25 +1,17 @@
 export class Registry {
 	static {
-		this.enemies = []
-		this.invisibleWalls = []
-
-		this.player = null
 	}
 
 	static add(o) {
-		if (o instanceof Enemy) {
-			Registry.enemies.push(o)
-		}
-		else if (o instanceof Player) {
-			this.player = o
-		}
-		else if (o instanceof InvisibleWall) {
-			this.invisibleWalls.push(o)
+		const list = this[o.constructor.name]
+		if (list == null) {
+			this[o.constructor.name] = [o]
 		}
 	}
 
 	static remove(o) {
-		List.remove(this.enemies, o)
+		const list = this[o.constructor.name]
+		List.remove(list, o)
 	}
 
 }

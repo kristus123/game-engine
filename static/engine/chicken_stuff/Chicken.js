@@ -1,8 +1,6 @@
 let  killAmount = 1
 
-const chickens = []
-
-		const quest = QuestList.add('Kill all the chickens')
+const quest = QuestList.add('Kill all the chickens')
 
 export class Chicken extends DynamicGameObject {
 	constructor(position) {
@@ -20,9 +18,6 @@ export class Chicken extends DynamicGameObject {
 		])
 
 		this.feathers = new LocalObjects()
-
-		chickens.push(this)
-
 
 		if (!this.touchesAny(G.zones.regions)) {
 			this.zone = Random.choice(G.zones.regions)
@@ -50,8 +45,8 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	update() {
-		if (this.touchesAny(chickens)) {
-			ForcePush(this).awayFrom(this.touchesAny(chickens), 2)
+		if (this.touchesAny(Registry.Chicken)) {
+			ForcePush(this).awayFrom(this.touchesAny(Registry.Chicken), 2)
 			
 		}
 		if (this.touches(this.zone)) {

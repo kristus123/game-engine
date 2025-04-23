@@ -4,7 +4,6 @@ export class Feather extends DynamicGameObject {
 		super(position, 10, 10)
 		this.position = this.position.copy()
 
-
 		const choice = Random.choice([
 			{ x: 0, y: 0 },
 			{ x: 1, y: 0 },

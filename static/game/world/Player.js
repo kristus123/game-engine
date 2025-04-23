@@ -37,7 +37,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	update() {
-		for (const e of Registry.enemies) {
+		if (Registry.enemies) for (const e of Registry.enemies) {
 			if (e.within(100, this)) {
 				if (e.blinded) {
 					e.kill()
