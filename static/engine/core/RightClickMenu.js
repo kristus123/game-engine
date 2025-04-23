@@ -1,3 +1,4 @@
+
 const menu = Html.addToScreen(Html.div('right-click-menu', []))
 Html.hide(menu)
 
@@ -10,6 +11,7 @@ export class RightClickMenu {
 			Html.append(menu, [
 				this.x = Html.p('add smt idk', 'right-click-element'),
 				Html.p('add smt idk', 'right-click-element'),
+				Html.dropDown(Html.p("menu","right-click-element"),[Html.p("menu1","right-click-element"),Html.p("menu2","right-click-element")]),
 				Html.button('add smt idk', () => {
 					console.log("ckicked!")
 					Html.hide(menu)

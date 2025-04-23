@@ -62,13 +62,21 @@
 	min-width: 200px;
 	min-height: 400px;
 }
-
+.sub-menu {
+	background-color: black;
+	min-width: 200px;
+	min-height: fit-content;
+	position: absolute;
+	transform: translateX(100%);
+	margin-left: -20px																																																																																																		;
+	top:0;
+	
+}
 .right-click-element {
 	min-width: 200px;
 	min-height: 20px;
 
 	padding: 20px;
-
 	background-color: gray;
 }
 
