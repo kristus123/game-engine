@@ -29,25 +29,71 @@ export class Player extends DynamicGameObject {
 			{x:14, y:0},
 		])
 
+		this.jumpingDraw = new Sprite(this.position, '/static/assets/farmer_carrying_16x16.png', [
+			{x:0, y:0},
+			{x:1, y:0},
+			{x:2, y:0},
+			{x:3, y:0},
+			{x:4, y:0},
+			{x:5, y:0},
+		])
+
+		this.carryingDraw = new Sprite(this.position, '/static/assets/farmer_carrying_16x16.png', [
+			{x:6, y:0},
+			{x:7, y:0},
+			{x:8, y:0},
+		])
+
+		this.idle = new HorizontalSprite(this.position, '/static/assets/farmer_idle_16x16.png')
+
 		this.steps = []
 		setInterval(() => {
 			this.steps.push(this.position.offset(50, 200, 50, 20).copy())
 			List.retainMax(this.steps, 4)
 		}, 400)
+
+		KeyDown(' ', () => {
+			this.jumpingDraw.reset()
+			this.jumping = true
+			setTimeout(() => {
+				this.jumping = false
+			}, 300);
+			console.log("hei")
+		})
+
+		this.localObjects = new LocalObjects([
+			new OnChange(() => this.touchesAny(Registry.Chicken), chicken => {
+				if (Keyboard.e && !this.chicken) {
+					this.chicken = chicken
+					console.log("ho chick")
+				}
+			})
+		])
 	}
 
 	update() {
-		if (Registry.enemies) for (const e of Registry.enemies) {
-			if (e.within(100, this)) {
-				if (e.blinded) {
-					e.kill()
-				}
-			}
-		}
+		this.localObjects.update()
+
 	}
 
 	draw(draw, guiDraw) {
-		if (super.movingUp) {
+		this.localObjects.draw(draw, guiDraw)
+
+		if (this.touchesAny(Registry.Chicken)) {
+			draw.text(this.position, 'e to pic kupæ')
+			
+		}
+
+		if (this.chicken) {
+			this.chicken.position.x = this.position.x
+			this.chicken.position.y = this.position.y
+			
+		}
+
+		if (this.jumping) {
+			this.jumpingDraw.draw(draw, guiDraw)
+		}
+		else if (super.movingUp) {
 			this.up.draw(draw, guiDraw)
 		}
 		else if (super.movingDown) {
@@ -59,11 +105,19 @@ export class Player extends DynamicGameObject {
 		else if (super.movingLeft) {
 			this.right.mirrorDraw(draw, guiDraw)
 		}
+		else if (this.carrying) {
+			this.carryingDraw.draw(draw, guiDraw)
+		}
 		else {
-			this.forward.draw(draw, guiDraw)
+			this.idle.draw(draw, guiDraw)
 		}
 
 		this.position.x = Math.round(this.position.x)
 		this.position.y = Math.round(this.position.y)
+
+		const chicken = this.touchesAny(Registry.Chicken)
+		if (false) {
+			draw.text(chicken.position, '"E" to pick up')
+		}
 	}
 }

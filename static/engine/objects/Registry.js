@@ -7,6 +7,9 @@ export class Registry {
 		if (list == null) {
 			this[o.constructor.name] = [o]
 		}
+		else {
+			this[o.constructor.name].push(o)
+		}
 	}
 
 	static remove(o) {

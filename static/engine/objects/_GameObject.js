@@ -11,12 +11,14 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	}
 
 	touchesAny(list) {
-		for (const o of list) {
-			if (this == o) {
-				continue
-			}
-			else if (Collision.between(this.position, o)) {
-				return o
+		if (AnArray(list)) {
+			for (const o of list) {
+				if (this == o) {
+					continue
+				}
+				else if (Collision.between(this.position, o)) {
+					return o
+				}
 			}
 		}
 

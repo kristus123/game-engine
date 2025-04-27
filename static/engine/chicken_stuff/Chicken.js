@@ -58,17 +58,6 @@ export class Chicken extends DynamicGameObject {
 		else {
 			Push(this).towards(this.zone, 1)
 		}
-
-		if (this.touches(G.player) && !this.killed) {
-			Html.fadeaway(Random.choice([
-				"Killing chickens is my life",
-				"bye bye chicken",
-				"sayonara",
-				"adiós",
-				"F*ck you",
-			]), G.player.position.over(-20, 10))
-			this.kill()
-		}
 	}
 
 	draw(draw, guiDraw) {

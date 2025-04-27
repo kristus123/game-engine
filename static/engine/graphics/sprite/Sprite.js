@@ -34,6 +34,10 @@ export class Sprite {
 		}, speed)
 	}
 
+	reset() {
+		this.currentFrame = 0
+	}
+
 	draw(draw, guiDraw) {
 		if (this.image.complete) {
 

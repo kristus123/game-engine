@@ -6,7 +6,7 @@ document.addEventListener('keydown', function(event) {
 
 
 export class Keyboard {
-	constructor() {
+	static {
 		document.addEventListener('keydown', (e) => {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = true
