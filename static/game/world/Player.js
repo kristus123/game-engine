@@ -61,13 +61,31 @@ export class Player extends DynamicGameObject {
 			console.log("hei")
 		})
 
-		this.localObjects = new LocalObjects([
-			new OnChange(() => this.touchesAny(Registry.Chicken), chicken => {
-				if (Keyboard.e && !this.chicken) {
-					this.chicken = chicken
-					console.log("ho chick")
+		this.e = KeyDown('e', () => {
+			if (!this.chicken) {
+				if (this.touchesAny(Registry.Chicken) && !this.chicken && Keyboard.e) {
+					this.chicken = this.touchesAny(Registry.Chicken)
 				}
-			})
+			}
+			else {
+				this.chicken = null
+			}
+		})
+
+		this.e = KeyDown('q', () => {
+			if (this.chicken) {
+				this.chicken.kill()
+				this.chicken = null
+			}
+		})
+
+		this.localObjects = new LocalObjects([
+			Update(() => {
+				if (this.chicken) {
+					this.chicken.position.x = this.position.x + 20
+					this.chicken.position.y = this.position.y - 10
+				}
+			}),
 		])
 	}
 
@@ -79,19 +97,11 @@ export class Player extends DynamicGameObject {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		if (this.touchesAny(Registry.Chicken)) {
-			draw.text(this.position, 'e to pic kupæ')
-			
-		}
-
-		if (this.chicken) {
-			this.chicken.position.x = this.position.x
-			this.chicken.position.y = this.position.y
-			
-		}
-
 		if (this.jumping) {
 			this.jumpingDraw.draw(draw, guiDraw)
+		}
+		else if (this.chicken) {
+			this.carryingDraw.draw(draw, guiDraw)
 		}
 		else if (super.movingUp) {
 			this.up.draw(draw, guiDraw)
@@ -104,9 +114,6 @@ export class Player extends DynamicGameObject {
 		}
 		else if (super.movingLeft) {
 			this.right.mirrorDraw(draw, guiDraw)
-		}
-		else if (this.carrying) {
-			this.carryingDraw.draw(draw, guiDraw)
 		}
 		else {
 			this.idle.draw(draw, guiDraw)
