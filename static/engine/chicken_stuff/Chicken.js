@@ -34,7 +34,7 @@ export class Chicken extends DynamicGameObject {
 		if (killAmount > 10) {
 			quest.completed()
 		}
-		this.killed = true
+		this.dead = true
 		this.killed = new Killed(this)
 		// SineWave.play()
 		setTimeout(() => {

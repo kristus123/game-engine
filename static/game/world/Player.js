@@ -44,6 +44,10 @@ export class Player extends DynamicGameObject {
 			{x:8, y:0},
 		])
 
+		this.handsUp = new Sprite(this.position, '/static/assets/farmer_idle_16x16.png', [
+			{x:1, y:0},
+		])
+
 		this.idle = new HorizontalSprite(this.position, '/static/assets/farmer_idle_16x16.png')
 
 		this.steps = []
@@ -63,8 +67,9 @@ export class Player extends DynamicGameObject {
 
 		this.e = KeyDown('e', () => {
 			if (!this.chicken) {
-				if (this.touchesAny(Registry.Chicken) && !this.chicken && Keyboard.e) {
-					this.chicken = this.touchesAny(Registry.Chicken)
+				const closestChicken = this.touchesAny(Registry.Chicken, c => !c.dead)
+				if (closestChicken && !this.chicken && Keyboard.e) {
+					this.chicken = closestChicken
 				}
 			}
 			else {
@@ -116,7 +121,8 @@ export class Player extends DynamicGameObject {
 			this.right.mirrorDraw(draw, guiDraw)
 		}
 		else {
-			this.idle.draw(draw, guiDraw)
+			// this.idle.draw(draw, guiDraw)
+			this.handsUp.draw(draw, guiDraw)
 		}
 
 		this.position.x = Math.round(this.position.x)
