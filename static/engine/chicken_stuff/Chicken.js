@@ -45,14 +45,11 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	update() {
-		if (this.touchesAny(Registry.Chicken)) {
-			ForcePush(this).awayFrom(this.touchesAny(Registry.Chicken), 2)
-			
+		const nearbyChicken = this.touchesAny(Registry.Chicken)
+		if (nearbyChicken) {
+			ForcePush(this).awayFrom(nearbyChicken, 2)
 		}
 		if (this.touches(this.zone)) {
-			// this.velocity.reset()
-
-
 			ForcePush(this).towards(this.p, 0.1)
 		}
 		else {

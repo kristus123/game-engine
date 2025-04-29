@@ -11,7 +11,6 @@ export class InvisibleWall extends StaticGameObject {
 	update() {
 		for (const o of [
 			Registry.player,
-			...Registry.enemies,
 		]) {
 			if (Collision.between(this, o)) {
 				const currentPosition = { x: o.position.x, y: o.position.y }
