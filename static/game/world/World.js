@@ -1,7 +1,7 @@
 export class World {
 	constructor() {
 
-		const player = new Player(new Position(0,10, 300, 500))
+		const player = new Player(new Position(0,10))
 		this.player = player
 		Controller.control(player)
 		G.player = player
@@ -15,6 +15,7 @@ export class World {
 			Init(this, {
 				x: new Picture(new Position(-200,0, 512*4, 320*4), '/static/assets/farm_512x320.png'),
 			}),
+			new KillingMachine(new Position(100, 100, 20, 20)),
 			player,
 			new Chicken(new Position(200,0)),
 			new Chicken(new Position(200,0)),
@@ -30,12 +31,8 @@ export class World {
 			new Chicken(new Position(200,0)),
 			new Chicken(new Position(200,0)),
 			new Chicken(new Position(200,0)),
-		])
 
-		const t = new Text(G.player.position.over(200, -200), 'kill them all !!')
-		setTimeout(() => {
-			t.hide()
-		}, 5000);
+		])
 	}
 
 	update() {

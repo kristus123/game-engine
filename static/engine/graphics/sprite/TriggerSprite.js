@@ -25,16 +25,16 @@ export class TriggerSprite {
 		this.currentFrame = 0
 		const totalFrames = frameSequence.length
 
-		this.pause = true
+		this.finished = true
 		setInterval(() => {
-			if (this.pause) {
+			if (this.finished) {
 				// do nothing
 			}
 			else if (this.currentFrame+1 != totalFrames) {
 				this.currentFrame ++
 			}
 			else if (this.currentFrame+1 == totalFrames) {
-				this.pause = true
+				this.finished = true
 				this.currentFrame = 0
 			}
 		}, speed)
@@ -42,8 +42,13 @@ export class TriggerSprite {
 
 	play(position = this.position) {
 		this.position = position
-		this.pause = false
+		this.finished = false
 		this.currentFrame = 0
+	}
+
+	get playing() {
+		return !this.finished
+		
 	}
 
 	draw(draw, guiDraw) {

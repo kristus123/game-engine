@@ -5,9 +5,9 @@ export class OnChange {
 
 	update() {
 		const currentCondition = this.condition()
+		console.log(currentCondition)
 
 		if (this.lastCondition != currentCondition) {
-		console.log("hei")
 			this.action(currentCondition)
 			this.lastCondition = currentCondition
 		}

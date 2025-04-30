@@ -23,9 +23,9 @@ export class Chicken extends DynamicGameObject {
 			this.zone = Random.choice(G.zones.regions)
 		}
 
-		this.p = new Position(0,0)
+		this.positionInsideZone = new Position(0,0)
 		setInterval(() => {
-			this.p = Random.direction(this.zone.center, 200)
+			this.positionInsideZone = Random.direction(this.zone.center, 200)
 		}, 1_000);
 
 	}
@@ -50,7 +50,7 @@ export class Chicken extends DynamicGameObject {
 			ForcePush(this).awayFrom(nearbyChicken, 2)
 		}
 		if (this.touches(this.zone)) {
-			ForcePush(this).towards(this.p, 0.1)
+			ForcePush(this).towards(this.positionInsideZone, 0.1)
 		}
 		else {
 			Push(this).towards(this.zone, 1)
@@ -77,14 +77,6 @@ export class Chicken extends DynamicGameObject {
 		else {
 			this.sprite.draw(draw, guiDraw)
 		}
-
-		if (Mouse.hovering(this)) {
-			draw.text(this.position.over(20), 'click to shoot')
-			if (Mouse.clicked(this)) {
-				this.kill()
-			}
-		}
-
 	}
 
 	static mapFromJsonObject(json) {
