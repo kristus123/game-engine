@@ -1,5 +1,7 @@
 export class Registry {
 	static {
+		this.Chicken = []
+		this.ChickenBox = []
 	}
 
 	static add(o) {

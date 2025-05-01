@@ -31,14 +31,53 @@ export class KillingMachine extends StaticGameObject {
 		this.kvernerPosition = kvernerPosition
 
 		this.localObjects = new LocalObjects([
+			Init(this, {
+				house: new Picture(new Position(0,-800, 20*16, 20*16), '/static/assets/small_house.png'),
+			}),
+
 			new OnChange(() => G.player.chicken && G.player.touches(kvernerPosition), touches => {
 				if (touches) {
-					G.player.chicken.kill()
-					G.player.chicken = null
+					G.player.pickUp.holding = null
 					this.killing.play()
+					G.player.chicken.removeFromLoop()
 				}
-			})
+			}),
+
+			new OnChange(() => this.killing.finished, finished => {
+				if (finished) {
+					const box = new ChickenBox(this.position.copy().set(350))
+					this.localObjects.add(box)
+					Camera.follow(box)
+				}
+			}),
+
+			new OnChange(() => G.player.chicken, chicken => {
+				if (chicken) {
+					Camera.follow(this)
+				}
+				else {
+					Camera.follow(G.player)
+				}
+			}),
+
+			new OnChange(() => G.player.pickUp.holding instanceof ChickenBox, holdingBox => {
+				if (holdingBox) {
+					Camera.follow(this.house)
+				}
+			}),
+
+			new OnChange(() => G.player.pickUp.holding instanceof ChickenBox && G.player.pickUp.holding.touches(this.house), delivered => {
+				if (delivered) {
+					console.log("box delivered")
+					Html.fadeaway('box delivered', G.player)
+					G.player.pickUp.holding = null
+					Camera.follow(G.player)
+				}
+			}),
 		])
+
+		const box = new ChickenBox(this.position.copy().set(350))
+		this.localObjects.add(box)
 	}
 
 	update() {
@@ -51,13 +90,11 @@ export class KillingMachine extends StaticGameObject {
 
 		draw.rectangle(this.kvernerPosition)
 
-		if (G.player.chicken) {
+		if (G.player.pickUp.holding instanceof Chicken) {
 			draw.text(this.position.offset(-50, -150), 'putt kyllingen her')
 			draw.text(this.position.offset(-20, -40), '⬇️', 'red')
-			Camera.follow(this)
 		}
 		else {
-			Camera.follow(G.player)
 		}
 
 		if (this.killing.playing) {

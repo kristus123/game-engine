@@ -56,47 +56,29 @@ export class Player extends DynamicGameObject {
 			List.retainMax(this.steps, 4)
 		}, 400)
 
-		KeyDown(' ', () => {
+		KeyDown(' ', () => { // space
 			this.jumpingDraw.reset()
 			this.jumping = true
 			setTimeout(() => {
 				this.jumping = false
 			}, 300);
-			console.log("hei")
-		})
-
-		this.e = KeyDown('e', () => {
-			if (!this.chicken) {
-				const closestChicken = this.touchesAny(Registry.Chicken, c => !c.dead)
-				if (closestChicken && !this.chicken && Keyboard.e) {
-					this.chicken = closestChicken
-				}
-			}
-			else {
-				this.chicken = null
-			}
-		})
-
-		this.e = KeyDown('q', () => {
-			if (this.chicken) {
-				this.chicken.kill()
-				this.chicken = null
-			}
 		})
 
 		this.localObjects = new LocalObjects([
-			Update(() => {
-				if (this.chicken) {
-					this.chicken.position.x = this.position.x + 20
-					this.chicken.position.y = this.position.y - 10
-				}
+			Init(this, {
+				pickUp: new PickUp(() => [...Registry.Chicken, ...Registry.ChickenBox]),
+				throw: new Throw(),
 			}),
+			new OnChange(() => this.pickUp.holding, holding => {
+				if (holding && holding instanceof Chicken) {
+					this.chicken = holding
+				}
+			})
 		])
 	}
 
 	update() {
 		this.localObjects.update()
-
 	}
 
 	draw(draw, guiDraw) {
@@ -105,7 +87,7 @@ export class Player extends DynamicGameObject {
 		if (this.jumping) {
 			this.jumpingDraw.draw(draw, guiDraw)
 		}
-		else if (this.chicken) {
+		else if (this.pickUp.holding) {
 			this.carryingDraw.draw(draw, guiDraw)
 		}
 		else if (super.movingUp) {
@@ -121,16 +103,10 @@ export class Player extends DynamicGameObject {
 			this.right.mirrorDraw(draw, guiDraw)
 		}
 		else {
-			// this.idle.draw(draw, guiDraw)
-			this.handsUp.draw(draw, guiDraw)
+			this.idle.draw(draw, guiDraw)
 		}
 
 		this.position.x = Math.round(this.position.x)
 		this.position.y = Math.round(this.position.y)
-
-		const chicken = this.touchesAny(Registry.Chicken)
-		if (false) {
-			draw.text(chicken.position, '"E" to pick up')
-		}
 	}
 }

@@ -37,9 +37,6 @@ export class Chicken extends DynamicGameObject {
 		this.dead = true
 		this.killed = new Killed(this)
 		// SineWave.play()
-		setTimeout(() => {
-			this.removeFromLoop()
-		}, 3000)
 		killAmount += 1
 		Audio.poop()
 	}
@@ -60,6 +57,11 @@ export class Chicken extends DynamicGameObject {
 		}
 	}
 
+	get alive() {
+		return !this.killed
+		
+	}
+
 	draw(draw, guiDraw) {
 		if (Math.abs(this.velocity.x) || Math.abs(this.velocity.y)) {
 			if (Random.integerBetween(-100, 10) > 0) {
@@ -76,6 +78,10 @@ export class Chicken extends DynamicGameObject {
 
 		if (this.killed) {
 			this.killed.draw(draw, guiDraw)
+
+			this.position.size(20, 20)
+			draw.pink(this.position)
+			this.velocity.reset()
 		}
 		else {
 			this.sprite.draw(draw, guiDraw)
