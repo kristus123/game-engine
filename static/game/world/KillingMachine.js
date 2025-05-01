@@ -37,7 +37,6 @@ export class KillingMachine extends StaticGameObject {
 					G.player.chicken = null
 					this.killing.play()
 				}
-				
 			})
 		])
 	}
