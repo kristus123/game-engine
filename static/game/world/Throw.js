@@ -1,31 +1,28 @@
 export class Throw {
 	constructor() {
-		this.localObjects = new LocalObjects()
+		this.rocks = new LocalObjects()
 
 		KeyDown('q', () => {
 			const rock = new Square(G.player.position.copy(), 20)
-			this.localObjects.add(rock)
+			this.rocks.add(rock)
 
 			ForcePush(rock).towards(Mouse.position, 200)
 		})
-
 	}
 	
 	update() {
-		this.localObjects.update()
+		this.rocks.update()
 
-
-		for (const rock of this.localObjects) {
+		for (const rock of this.rocks) {
 			const chicken = rock.touchesAny(Registry.Chicken)
 			if (chicken && chicken.alive) {
 				chicken.kill()
 				rock.removeFromLoop()
 			}
-			
 		}
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.rocks.draw(draw, guiDraw)
 	}
 }
