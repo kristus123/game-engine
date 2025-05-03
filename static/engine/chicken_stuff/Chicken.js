@@ -13,7 +13,7 @@ export class Chicken extends DynamicGameObject {
 			{ x: 3, y: 3 },
 		])
 
-		this.eatingSprite = new Sprite(this, '/static/assets/sprites/chicken_eating_38x32.png', [
+		this.eatingSprite = new TriggerSprite(this, '/static/assets/sprites/chicken_eating_38x32.png', [
 			{ x: 1, y: 0 },
 			{ x: 2, y: 0 },
 			{ x: 3, y: 0 },
@@ -47,6 +47,7 @@ export class Chicken extends DynamicGameObject {
 			return
 		}
 
+
 		const nearbyChicken = this.touchesAny(Registry.Chicken)
 		if (nearbyChicken) {
 			ForcePush(this).awayFrom(nearbyChicken, 2)
@@ -57,16 +58,15 @@ export class Chicken extends DynamicGameObject {
 		else {
 			ForcePush(this).towards(this.zone, 1)
 		}
-
-		const food = this.closestWithin(100, [])
-
-		if (food) {
-			ForcePush(this).towards(food)
-		}
 	}
 
 	get alive() {
 		return !this.killed
+	}
+
+	eat() {
+		console.log("chicken Ate")
+		this.eatingSprite.play()
 	}
 
 	draw(draw, guiDraw) {
@@ -78,8 +78,14 @@ export class Chicken extends DynamicGameObject {
 			this.velocity.reset()
 		}
 		else {
-			this.sprite.draw(draw, guiDraw)
-			// this.eatingSprite.draw(draw, guiDraw)
+			if (this.eatingSprite.playing) {
+				this.eatingSprite.draw(draw, guiDraw)
+				this.velocity.reset()
+			}
+			else {
+				this.sprite.draw(draw, guiDraw)
+			}
+
 		}
 	}
 

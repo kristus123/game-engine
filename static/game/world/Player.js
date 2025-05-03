@@ -68,7 +68,7 @@ export class Player extends DynamicGameObject {
 			Init(this, {
 				pickUp: new PickUp(() => [...Registry.Chicken, ...Registry.ChickenBox]),
 				// shoot: new Throw(() => new Square(G.player.position.copy(), 20)),
-				chickenFood: new Throw(() => new Square(G.player.position.copy(), 20)),
+				chickenFood: new Throw(() => new ChickenFood(this.position.copy())),
 			}),
 			new OnChange(() => this.pickUp.holding, holding => {
 				if (holding && holding instanceof Chicken) {
@@ -91,18 +91,18 @@ export class Player extends DynamicGameObject {
 		else if (this.pickUp.holding) {
 			this.carryingDraw.draw(draw, guiDraw)
 		}
-		else if (super.movingUp) {
-			this.up.draw(draw, guiDraw)
-		}
-		else if (super.movingDown) {
-			this.forward.draw(draw, guiDraw)
-		}
-		else if (super.movingRight) {
-			this.right.draw(draw, guiDraw)
-		}
-		else if (super.movingLeft) {
-			this.right.mirrorDraw(draw, guiDraw)
-		}
+		// else if (super.movingUp) {
+		// 	this.up.draw(draw, guiDraw)
+		// }
+		// else if (super.movingDown) {
+		// 	this.forward.draw(draw, guiDraw)
+		// }
+		// else if (super.movingRight) {
+		// 	this.right.draw(draw, guiDraw)
+		// }
+		// else if (super.movingLeft) {
+		// 	this.right.mirrorDraw(draw, guiDraw)
+		// }
 		else {
 			this.idle.draw(draw, guiDraw)
 		}

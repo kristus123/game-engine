@@ -1,25 +1,29 @@
 export class Throw {
-	constructor(objectToThrow) {
+	constructor(objectToThrow, action= (o) => {}) {
 		this.objects = new LocalObjects()
 
 		KeyDown('q', () => {
 			const o = objectToThrow() 
 			this.objects.add(o)
 
-			ForcePush(o).towards(Mouse.position, 200)
+			const p = Mouse.position.copy()
+
+			ForcePush(o).towards(p, 100)
+
+			setTimeout(() => {
+				ForcePush(o).towards(p, 40)
+			}, 100);
+
+			setTimeout(() => {
+				o.velocity.reset()
+			}, 600);
+
+			action(o)
 		})
 	}
 	
 	update() {
 		this.objects.update()
-
-		for (const rock of this.objects) {
-			const chicken = rock.touchesAny(Registry.Chicken)
-			if (chicken && chicken.alive) {
-				chicken.kill()
-				rock.removeFromLoop()
-			}
-		}
 	}
 
 	draw(draw, guiDraw) {
