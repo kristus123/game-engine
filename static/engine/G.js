@@ -6,6 +6,7 @@ export const G = {
 	workers: new LocalObjects([]),
 	fire: new LocalObjects([]),
 	splash: new SplashParticles(),
+	chickenFood: new LocalObjects([]),
 	money: 0,
 	barn: new Barn(new Position(-200, 0)),
 }

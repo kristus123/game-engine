@@ -24,6 +24,36 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 		return Distance.between(this, o)
 	}
 
+	closest(objects) {
+		if (List.empty(objects)) {
+			return null
+		}
+		else {
+			let closestObject = objects[0]
+			
+			for (const o of objects) {
+				if (this.distance(closestObject) > this.distance(o)) {
+					this.closestObject = o
+				}
+			}
+		}
+
+
+		return closestObject
+	}
+
+	closestWithin(distance, objects) {
+		let closestObject = this.closest(objects)
+		
+		if (this.within(distance, closestObject)) {
+			return closestObject
+		}
+		else {
+			return null
+		}
+
+	}
+
 	within(distance, o) {
 		return Distance.within(distance, this, o)
 	}

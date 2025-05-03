@@ -39,7 +39,7 @@ export class List {
 	}
 
 	static empty(list) {
-		return list.length == 0
+		return list == null || list.length == 0
 	}
 
 	static notEmpty(list) {

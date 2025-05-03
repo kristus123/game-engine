@@ -67,13 +67,14 @@ export class Player extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				pickUp: new PickUp(() => [...Registry.Chicken, ...Registry.ChickenBox]),
-				throw: new Throw(),
+				// shoot: new Throw(() => new Square(G.player.position.copy(), 20)),
+				chickenFood: new Throw(() => new Square(G.player.position.copy(), 20)),
 			}),
 			new OnChange(() => this.pickUp.holding, holding => {
 				if (holding && holding instanceof Chicken) {
 					this.chicken = holding
 				}
-			})
+			}),
 		])
 	}
 
