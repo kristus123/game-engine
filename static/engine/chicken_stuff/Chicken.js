@@ -5,7 +5,8 @@ export class Chicken extends DynamicGameObject {
 		this.position.width = 60
 		this.position.height = 60
 
-		this.chickenSprites = new ChickenSprites(this)
+		this.alive = true
+
 
 		const zone = Random.choice(G.zones.regions)
 		if (!this.touches(zone)) {
@@ -16,6 +17,9 @@ export class Chicken extends DynamicGameObject {
 		this.randomPositionInsideZone = Random.direction(zone.center, 200)
 
 		this.localObjects = new LocalObjects([
+			Init(this, {
+				chickenSprites: new ChickenSprites(this),
+			}),
 			Update(() => {
 				const nearbyChicken = this.touchesAny(Registry.Chicken)
 				if (nearbyChicken) {
@@ -28,6 +32,10 @@ export class Chicken extends DynamicGameObject {
 			new OnTrue(() => this.touches(this.randomPositionInsideZone), () => {
 				this.randomPositionInsideZone = Random.positionWithin(zone.center)
 			}),
+			new OnTrue(() => this.touchesAny(Registry.ChickenFood), food => {
+				this.chickenSprites.eat()
+				food.removeFromLoop()
+			}),
 			D((draw, guiDraw) => {
 				draw.orange(this.randomPositionInsideZone)
 			}),
@@ -36,29 +44,16 @@ export class Chicken extends DynamicGameObject {
 
 	kill() {
 		this.chickenSprites.kill()
+		this.alive = false
 		Audio.poop()
 	}
 
 	update() {
-		const food = this.touchesAny(Registry.ChickenFood)
-		if (food) {
-			this.chickenSprites.eat()
-			food.removeFromLoop()
-		}
-
 		this.localObjects.update()
-		if (this.killed) {
-			return
-		}
-	}
-
-	get alive() {
-		return !this.chickenSprites.killed
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		this.chickenSprites.draw(draw, guiDraw)
 	}
 
 	static mapFromJsonObject(json) {

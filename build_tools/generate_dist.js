@@ -36,18 +36,9 @@ for (const f of filesToDeleteFromDist) {
 for (const jsFilePath of jsFiles) {
 	let fileContent = fs.readFileSync(jsFilePath, 'utf-8')
 
-	fileContent = fileContent.replaceAll('RunOnce(', 'RunOnce(this, TEMP_UUID, ')
-	let count = countOccurrences(fileContent, 'TEMP_UUID')
-	for (let i = 0; i < count; i++) {
-		fileContent = fileContent.replace('TEMP_UUID', uuid())
-	}
-
-	fileContent = fileContent.replaceAll('RunUntil(', 'RunUntil(this, TEMP_UUID_1, ')
-	for (let i = 0; i < countOccurrences(fileContent, 'TEMP_UUID_1'); i++) {
-		fileContent = fileContent.replace('TEMP_UUID_1', uuid())
-	}
-
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
+
+	fileContent = fileContent.replaceAll('OnChange(', 'new OnChange(')
 
 	if (fileContent.includes('export class')) {
 		let lines = fileContent.split('\n')

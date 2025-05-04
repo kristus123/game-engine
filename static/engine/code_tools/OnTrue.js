@@ -2,7 +2,7 @@ export class OnTrue {
 	constructor(condition, action) {
 		this.onChange = new OnChange(condition, b => {
 			if (b) {
-				action()
+				action(b)
 			}
 		})
 	}
