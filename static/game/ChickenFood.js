@@ -6,14 +6,6 @@ export class ChickenFood extends DynamicGameObject {
 		this.position.height = 20
 	}
 
-	update() {
-		const chicken = this.touchesAny(Registry.Chicken)
-		if (chicken) {
-			this.removeFromLoop()
-			chicken.eat()
-		}
-	}
-
 	draw(draw, guiDraw) {
 		draw.orange(this.position)
 	}

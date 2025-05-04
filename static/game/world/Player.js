@@ -44,6 +44,30 @@ export class Player extends DynamicGameObject {
 			{x:8, y:0},
 		])
 
+		const m = 8
+		const x = this.position.offset(-20, 0, 29*m, 16*m)
+
+		this.idleWithGun = new Sprite(x, '/static/assets/farmer_shooting_29x16.png', [
+			{x:0, y:0},
+			{x:1, y:0},
+			{x:2, y:0},
+			{x:3, y:0},
+			{x:4, y:0},
+			{x:5, y:0},
+			{x:6, y:0},
+			{x:7, y:0},
+		])
+
+		this.shooting = new Sprite(x, '/static/assets/farmer_shooting_29x16.png', [
+			{x:7, y:0},
+			{x:8, y:0},
+			{x:9, y:0},
+			{x:10, y:0},
+			{x:11, y:0},
+			{x:12, y:0},
+			{x:13, y:0},
+		])
+
 		this.handsUp = new Sprite(this.position, '/static/assets/farmer_idle_16x16.png', [
 			{x:1, y:0},
 		])
@@ -104,7 +128,8 @@ export class Player extends DynamicGameObject {
 		// 	this.right.mirrorDraw(draw, guiDraw)
 		// }
 		else {
-			this.idle.draw(draw, guiDraw)
+			// this.idle.draw(draw, guiDraw)
+			this.shooting.draw(draw, guiDraw)
 		}
 
 		this.position.x = Math.round(this.position.x)
