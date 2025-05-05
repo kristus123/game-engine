@@ -39,6 +39,7 @@ for (const jsFilePath of jsFiles) {
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
 
 	fileContent = fileContent.replaceAll('OnChange(', 'new OnChange(')
+	fileContent = fileContent.replaceAll('OnTrue(', 'new OnTrue(')
 
 	if (fileContent.includes('export class')) {
 		let lines = fileContent.split('\n')

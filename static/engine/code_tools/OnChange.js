@@ -1,3 +1,5 @@
+// 'new' is prefixed in transpiler, just write OnChange(...)
+
 export class OnChange {
 	constructor(condition, action) {
 		this.lastCondition = condition()

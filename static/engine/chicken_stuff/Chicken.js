@@ -29,10 +29,10 @@ export class Chicken extends DynamicGameObject {
 					ForcePush(this).towards(this.randomPositionInsideZone, 0.1)
 				}
 			}),
-			new OnTrue(() => this.touches(this.randomPositionInsideZone), () => {
+			OnTrue(() => this.touches(this.randomPositionInsideZone), () => {
 				this.randomPositionInsideZone = Random.positionWithin(zone.center)
 			}),
-			new OnTrue(() => this.touchesAny(Registry.ChickenFood), food => {
+			OnTrue(() => this.touchesAny(Registry.ChickenFood), food => {
 				this.chickenSprites.eat()
 				food.removeFromLoop()
 			}),

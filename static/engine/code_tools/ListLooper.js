@@ -1,19 +1,21 @@
 export class ListLooper {
-	constructor(list) {
+	constructor(list, callback= () =>  {}) {
 		this.index = 0
-	}
-
-	next() {
-		this.index += 1
 	}
 
 	get finished() {
 		return !(this.index < this.list.length)
 	}
 
-	goThrough(callback) {
+	update() {
 		if (!this.finished) {
-			callback(this.list[this.index])
+			this.callback(
+				this.list[this.index],
+				()=> this.index += 1,
+				this.finished)
 		}
+	}
+
+	draw(draw, guiDraw) {
 	}
 }

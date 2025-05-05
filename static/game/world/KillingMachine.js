@@ -35,7 +35,7 @@ export class KillingMachine extends StaticGameObject {
 				house: new Picture(new Position(0,-800, 20*16, 20*16), '/static/assets/small_house.png'),
 			}),
 
-			new OnChange(() => G.player.chicken && G.player.touches(kvernerPosition), touches => {
+			OnChange(() => G.player.chicken && G.player.touches(kvernerPosition), touches => {
 				if (touches) {
 					G.player.pickUp.holding = null
 					this.killing.play()
@@ -43,7 +43,7 @@ export class KillingMachine extends StaticGameObject {
 				}
 			}),
 
-			new OnChange(() => this.killing.finished, finished => {
+			OnChange(() => this.killing.finished, finished => {
 				if (finished) {
 					const box = new ChickenBox(this.position.copy().set(350))
 					this.localObjects.add(box)
@@ -51,7 +51,7 @@ export class KillingMachine extends StaticGameObject {
 				}
 			}),
 
-			new OnChange(() => G.player.chicken, chicken => {
+			OnChange(() => G.player.chicken, chicken => {
 				if (chicken) {
 					Camera.follow(this)
 				}
@@ -60,13 +60,13 @@ export class KillingMachine extends StaticGameObject {
 				}
 			}),
 
-			new OnChange(() => G.player.pickUp.holding instanceof ChickenBox, holdingBox => {
+			OnChange(() => G.player.pickUp.holding instanceof ChickenBox, holdingBox => {
 				if (holdingBox) {
 					Camera.follow(this.house)
 				}
 			}),
 
-			new OnChange(() => G.player.pickUp.holding instanceof ChickenBox && G.player.pickUp.holding.touches(this.house), delivered => {
+			OnChange(() => G.player.pickUp.holding instanceof ChickenBox && G.player.pickUp.holding.touches(this.house), delivered => {
 				if (delivered) {
 					console.log("box delivered")
 					Html.fadeaway('box delivered', G.player)

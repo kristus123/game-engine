@@ -13,7 +13,7 @@ export class Npc extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 
-			new OnChange(() => this.within(200, G.player), within => {
+			OnChange(() => this.within(200, G.player), within => {
 				if (within) {
 					text.show()
 				}

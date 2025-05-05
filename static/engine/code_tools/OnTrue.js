@@ -1,6 +1,6 @@
 export class OnTrue {
 	constructor(condition, action) {
-		this.onChange = new OnChange(condition, b => {
+		this.onChange = OnChange(condition, b => {
 			if (b) {
 				action(b)
 			}

@@ -94,9 +94,13 @@ export class Player extends DynamicGameObject {
 				// shoot: new Throw(() => new Square(G.player.position.copy(), 20)),
 				chickenFood: new Throw(() => new ChickenFood(this.position.copy())),
 			}),
-			new OnChange(() => this.pickUp.holding, holding => {
-				if (holding && holding instanceof Chicken) {
-					this.chicken = holding
+			OnTrue(() => this.pickUp.holding, h => {
+				if (h instanceof Chicken) {
+					this.chicken = h
+					BottomText.show('Bring the chicken to the KillingMachine', 2_000)
+				}
+				if (h instanceof ChickenBox) {
+					BottomText.show('Bring the box to the supermarket', 2_000)
 				}
 			}),
 		])
