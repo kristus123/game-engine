@@ -35,3 +35,9 @@ then open [http://localhost:5000]()
 You can open the gui here
 
 http://localhost:5000/static/ui/test.html
+
+
+## visual bug
+
+the strange line which looks unpleasent is all ebcaseu stuff are moved at not 'pixel perfect' aka positions are 1.23812837 and not 1
+so just make påositions not move in decimals

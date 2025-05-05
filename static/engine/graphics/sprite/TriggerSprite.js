@@ -48,7 +48,6 @@ export class TriggerSprite {
 
 	get playing() {
 		return !this.finished
-		
 	}
 
 	draw(draw, guiDraw) {

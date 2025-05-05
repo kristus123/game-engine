@@ -32,7 +32,6 @@ export class World {
 			new Chicken(new Position(200,0)),
 			new Chicken(new Position(200,0)),
 			new Chicken(new Position(200,0)),
-
 		])
 	}
 
