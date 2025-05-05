@@ -27,7 +27,6 @@ export class ChickenSprites {
 
 	kill() {
 		this.killedSprite = new Killed(this)
-		this.position.size(20, 20)
 	}
 
 	update() {

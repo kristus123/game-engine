@@ -5,9 +5,6 @@ export class Chicken extends DynamicGameObject {
 		this.position.width = 60
 		this.position.height = 60
 
-		this.alive = true
-
-
 		const zone = Random.choice(G.zones.regions)
 		if (!this.touches(zone)) {
 			this.x = zone.center.x
@@ -44,7 +41,7 @@ export class Chicken extends DynamicGameObject {
 
 	kill() {
 		this.chickenSprites.kill()
-		this.alive = false
+		this.position.size(20, 20)
 		Audio.poop()
 	}
 
