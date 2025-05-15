@@ -11,39 +11,42 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	}
 
 	touchesAny(list, condition= (o) => true) {
-		if (AnArray(list)) for (const o of list) {
-			if (Collision.between(this.position, o) && this != o && condition(o)) {
-				return o
+		if (AnArray(list)) {
+			for (const o of list) {
+				if (Collision.between(this.position, o) && this != o && condition(o)) {
+					return o
+				}
 			}
 		}
 
 		return null
 	}
 
-  enforceDistance(o) {
-    // centers
-    const cx1 = this.x + this.width / 2;
-    const cy1 = this.y + this.height / 2;
-    const cx2 = o.x + o.width / 2;
-    const cy2 = o.y + o.height / 2;
+	enforceDistance(o) {
+		// centers
+		const cx1 = this.x + this.width / 2
+		const cy1 = this.y + this.height / 2
+		const cx2 = o.x + o.width / 2
+		const cy2 = o.y + o.height / 2
 
-    // distance between centers
-    const dx = cx2 - cx1;
-    const dy = cy2 - cy1;
+		// distance between centers
+		const dx = cx2 - cx1
+		const dy = cy2 - cy1
 
-    // overlap on each axis
-    const overlapX = ((this.width + o.width) / 2 - Math.abs(dx)) +1
-    const overlapY = ((this.height + o.height) / 2 - Math.abs(dy)) +1
+		// overlap on each axis
+		const overlapX = ((this.width + o.width) / 2 - Math.abs(dx)) +1
+		const overlapY = ((this.height + o.height) / 2 - Math.abs(dy)) +1
 
-    if (overlapX > 0 && overlapY > 0) {
-      // resolve in the shortest direction
-      if (overlapX < overlapY) {
-        o.x += dx > 0 ? overlapX : -overlapX;
-      } else {
-        o.y += dy > 0 ? overlapY : -overlapY;
-      }
-    }
-  }
+		if (overlapX > 0 && overlapY > 0) {
+			// resolve in the shortest direction
+			if (overlapX < overlapY) {
+				o.x += dx > 0 ? overlapX : -overlapX
+			}
+			else {
+				o.y += dy > 0 ? overlapY : -overlapY
+			}
+		}
+	}
 
 	distance(o) {
 		return Distance.between(this, o)
@@ -55,7 +58,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 		}
 		else {
 			let closestObject = objects[0]
-			
+
 			for (const o of objects) {
 				if (this.distance(closestObject) > this.distance(o)) {
 					this.closestObject = o
@@ -69,7 +72,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 
 	closestWithin(distance, objects) {
 		let closestObject = this.closest(objects)
-		
+
 		if (this.within(distance, closestObject)) {
 			return closestObject
 		}

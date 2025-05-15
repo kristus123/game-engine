@@ -17,5 +17,5 @@ export class ChickenBox extends StaticGameObject {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 	}
-	
+
 }

@@ -6,25 +6,25 @@ export class KillingMachine extends StaticGameObject {
 		this.position.height = 16 * 5
 
 		this.idle = new Sprite(position, '/static/assets/killing_machine_48x16.png', [
-			{x:0, y:0},
-			{x:1, y:0},
-			{x:2, y:0},
-			{x:3, y:0},
+			{ x: 0, y: 0 },
+			{ x: 1, y: 0 },
+			{ x: 2, y: 0 },
+			{ x: 3, y: 0 },
 		])
 
 		this.killing = new TriggerSprite(position, '/static/assets/killing_machine_48x16.png', [
-			{x:4, y:0},
-			{x:5, y:0},
-			{x:6, y:0},
-			{x:7, y:0},
-			{x:8, y:0},
-			{x:9, y:0},
-			{x:10, y:0},
-			{x:11, y:0},
-			{x:12, y:0},
-			{x:13, y:0},
-			{x:14, y:0},
-			{x:15, y:0},
+			{ x: 4, y: 0 },
+			{ x: 5, y: 0 },
+			{ x: 6, y: 0 },
+			{ x: 7, y: 0 },
+			{ x: 8, y: 0 },
+			{ x: 9, y: 0 },
+			{ x: 10, y: 0 },
+			{ x: 11, y: 0 },
+			{ x: 12, y: 0 },
+			{ x: 13, y: 0 },
+			{ x: 14, y: 0 },
+			{ x: 15, y: 0 },
 		])
 
 		const kvernerPosition = this.position.offset(0, 40, 50, 40)
@@ -32,7 +32,7 @@ export class KillingMachine extends StaticGameObject {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				house: new Picture(new Position(0,-800, 20*16, 20*16), '/static/assets/small_house.png'),
+				house: new Picture(new Position(0, -800, 20*16, 20*16), '/static/assets/small_house.png'),
 			}),
 
 			OnChange(() => G.player.chicken && G.player.touches(kvernerPosition), touches => {
@@ -68,7 +68,7 @@ export class KillingMachine extends StaticGameObject {
 
 			OnChange(() => G.player.pickUp.holding instanceof ChickenBox && G.player.pickUp.holding.touches(this.house), delivered => {
 				if (delivered) {
-					console.log("box delivered")
+					console.log('box delivered')
 					Html.fadeaway('box delivered', G.player)
 					G.player.pickUp.holding = null
 					Camera.follow(G.player)

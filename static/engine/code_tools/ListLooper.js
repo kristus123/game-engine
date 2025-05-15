@@ -1,5 +1,5 @@
 export class ListLooper {
-	constructor(list, callback= () =>  {}) {
+	constructor(list, callback= () => {}) {
 		this.index = 0
 	}
 
@@ -11,7 +11,7 @@ export class ListLooper {
 		if (!this.finished) {
 			this.callback(
 				this.list[this.index],
-				()=> this.index += 1,
+				() => this.index += 1,
 				this.finished)
 		}
 	}

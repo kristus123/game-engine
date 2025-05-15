@@ -83,9 +83,9 @@ export class Mouse {
 			}
 			else { // Right click
 				this.onRightClick(this.screenPosition)
-				console.log("user right lcicked")
+				console.log('user right lcicked')
 			}
-			
+
 		})
 
 		// Prevent right click to open menu
@@ -123,7 +123,7 @@ export class Mouse {
 
 		document.addEventListener('touchmove', function (event) {
 		  if (event.touches.length > 0) {
-			const touch = event.touches[0]; // First finger
+				const touch = event.touches[0] // First finger
 			  Mouse.positionRelativeToCamera(touch.clientX, touch.clientY)
 
 				setTimeout(() => {
@@ -134,12 +134,12 @@ export class Mouse {
 
 
 		document.addEventListener('touchstart', e => {
-		  const t = e.changedTouches[0];
+		  const t = e.changedTouches[0]
 		  Mouse.positionRelativeToCamera(t.clientX, t.clientY)
-				setTimeout(() => {
-					this.moving = false
-				}, 2)
-		});
+			setTimeout(() => {
+				this.moving = false
+			}, 2)
+		})
 	}
 
 	static positionRelativeToCamera(xx, yy) {
@@ -178,7 +178,7 @@ export class Mouse {
 
 	static hovering(o) {
 		if (o instanceof HTMLElement) {
-			return o.contains(document.querySelector(':hover'));
+			return o.contains(document.querySelector(':hover'))
 		}
 		else {
 			return Collision.between(this.position, o)

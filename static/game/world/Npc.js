@@ -7,7 +7,7 @@ export class Npc extends DynamicGameObject {
 
 		setInterval(() => {
 			Html.changeText(this.button, this.button.textContent += '.')
-		}, 1000);
+		}, 1000)
 
 		const text = new Text(this.position.offset(-200), 'kyss meg ragnar')
 

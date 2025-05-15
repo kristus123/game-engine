@@ -1,7 +1,7 @@
 export class ChickenSprites {
 
 	constructor() {
-		this.idleSprite =  new Sprite(this, '/static/assets/sprites/chicken_sprite_32x32.png', [
+		this.idleSprite = new Sprite(this, '/static/assets/sprites/chicken_sprite_32x32.png', [
 			{ x: 1, y: 0 },
 			{ x: 2, y: 1 },
 			{ x: 2, y: 2 },

@@ -57,38 +57,39 @@ export class Sprite {
 			)
 		}
 	}
-mirrorDraw(draw, guiDraw, mirrorX = true, mirrorY = false) {
-    if (this.image.complete) {
-        const frame = this.frameSequence[this.currentFrame];
-        const { x, y, width, height } = this.position;
-        const ctx = draw.ctx;
 
-        ctx.save();
-        ctx.imageSmoothingEnabled = false;
+	mirrorDraw(draw, guiDraw, mirrorX = true, mirrorY = false) {
+		if (this.image.complete) {
+			const frame = this.frameSequence[this.currentFrame]
+			const { x, y, width, height } = this.position
+			const ctx = draw.ctx
 
-        // Set up the origin correctly for mirroring
-        ctx.translate(
-            mirrorX ? x + width : x,
-            mirrorY ? y + height : y
-        );
+			ctx.save()
+			ctx.imageSmoothingEnabled = false
 
-        ctx.scale(
-            mirrorX ? -1 : 1,
-            mirrorY ? -1 : 1
-        );
+			// Set up the origin correctly for mirroring
+			ctx.translate(
+				mirrorX ? x + width : x,
+				mirrorY ? y + height : y
+			)
 
-        ctx.drawImage(
-            this.image,
-            frame.x * this.width,
-            frame.y * this.height,
-            this.width,
-            this.height,
-            0, 0, width, height
-        );
+			ctx.scale(
+				mirrorX ? -1 : 1,
+				mirrorY ? -1 : 1
+			)
 
-        ctx.restore();
-    }
-}
+			ctx.drawImage(
+				this.image,
+				frame.x * this.width,
+				frame.y * this.height,
+				this.width,
+				this.height,
+				0, 0, width, height
+			)
+
+			ctx.restore()
+		}
+	}
 
 
 

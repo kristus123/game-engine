@@ -3,7 +3,7 @@ export class Throw {
 		this.objects = new LocalObjects()
 
 		KeyDown('q', () => {
-			const o = objectToThrow() 
+			const o = objectToThrow()
 			this.objects.add(o)
 
 			const p = Mouse.position.copy()
@@ -12,16 +12,16 @@ export class Throw {
 
 			setTimeout(() => {
 				ForcePush(o).towards(p, 40)
-			}, 100);
+			}, 100)
 
 			setTimeout(() => {
 				o.velocity.reset()
-			}, 600);
+			}, 600)
 
 			action(o)
 		})
 	}
-	
+
 	update() {
 		this.objects.update()
 	}

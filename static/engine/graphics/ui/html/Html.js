@@ -6,7 +6,7 @@ function element(type, clazz) {
 	// e.addEventListener('mousedown', e => {
 	// 	e.preventDefault()
 	// })
-	
+
 	e.addEventListener('mouseover', () => {
 		Mouse.hoveringHtmlElement = true
 	})
@@ -233,14 +233,20 @@ export class Html {
 		e.style.top = `${position.y - 50}px`
 	}
 
-	static dropDown(menu,sub_menus){
-		const subMenu = Html.div(menu.className,sub_menus);
-		subMenu.className = "sub-menu"
-		subMenu.addEventListener("mouseover", ()=>{Html.show(subMenu)})
-		menu.style.position = "relative"
-		menu.addEventListener("mouseout", ()=>{Html.hide(subMenu)})
-		menu.addEventListener("mouseover", ()=>{Html.show(subMenu)})
-		Html.hide(subMenu);
+	static dropDown(menu, sub_menus) {
+		const subMenu = Html.div(menu.className, sub_menus)
+		subMenu.className = 'sub-menu'
+		subMenu.addEventListener('mouseover', () => {
+			Html.show(subMenu)
+		})
+		menu.style.position = 'relative'
+		menu.addEventListener('mouseout', () => {
+			Html.hide(subMenu)
+		})
+		menu.addEventListener('mouseover', () => {
+			Html.show(subMenu)
+		})
+		Html.hide(subMenu)
 		menu.appendChild(subMenu)
 		return menu
 	}
