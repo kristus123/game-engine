@@ -37,6 +37,7 @@ export class Palette {
 		canvas.width = Palette.width
 		canvas.height = Palette.height
 		const ctx = canvas.getContext('2d')
+		ctx.imageSmoothingEnabled = false
 
 		return {
 			canvas,
@@ -47,6 +48,8 @@ export class Palette {
 	static offscreen(onResize=() => {}) {
 		const canvas = new OffscreenCanvas(Palette.width, Palette.height)
 		const ctx = canvas.getContext('2d')
+		ctx.imageSmoothingEnabled = false
+
 		Palette.createdCanvases.push(canvas)
 
 		this.onResize.push(onResize)
@@ -62,7 +65,7 @@ export class Palette {
 	static fixedOffscreen(width, height) {
 		const canvas = new OffscreenCanvas(width, height)
 		const ctx = canvas.getContext('2d')
-
+		ctx.imageSmoothingEnabled = false
 
 		return {
 			canvas,
