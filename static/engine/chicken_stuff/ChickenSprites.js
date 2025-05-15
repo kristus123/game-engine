@@ -1,7 +1,7 @@
 export class ChickenSprites {
 
-	constructor() {
-		this.idleSprite = new Sprite(this, '/static/assets/sprites/chicken_sprite_32x32.png', [
+	constructor(chicken) {
+		this.idleSprite = new Sprite(chicken, '/static/assets/sprites/chicken_sprite_32x32.png', [
 			{ x: 1, y: 0 },
 			{ x: 2, y: 1 },
 			{ x: 2, y: 2 },
@@ -9,7 +9,7 @@ export class ChickenSprites {
 			{ x: 3, y: 3 },
 		])
 
-		this.eatingSprite = new TriggerSprite(this, '/static/assets/sprites/chicken_eating_38x32.png', [
+		this.eatingSprite = new TriggerSprite(chicken, '/static/assets/sprites/chicken_eating_38x32.png', [
 			{ x: 1, y: 0 },
 			{ x: 2, y: 0 },
 			{ x: 3, y: 0 },
@@ -26,7 +26,7 @@ export class ChickenSprites {
 	}
 
 	kill() {
-		this.killedSprite = new Killed(this)
+		this.killedSprite = new Killed(this.chicken)
 	}
 
 	update() {
@@ -37,7 +37,7 @@ export class ChickenSprites {
 			this.killedSprite.draw(draw, guiDraw)
 
 			draw.pink(this.position)
-			this.velocity.reset()
+			this.chicken.velocity.reset()
 		}
 		else {
 			if (this.eatingSprite.playing) {

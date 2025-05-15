@@ -37,12 +37,16 @@ export class Chicken extends DynamicGameObject {
 				draw.orange(this.randomPositionInsideZone)
 			}),
 		])
+
+		setTimeout(() => {
+			this.kill()
+		}, 1000);
 	}
 
 	kill() {
-		this.chickenSprites.kill()
-		this.position.size(20, 20)
 		Audio.poop()
+		this.handledBy.add(new DeadChicken(this.position))
+		this.removeFromLoop()
 	}
 
 	update() {

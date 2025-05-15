@@ -1,7 +1,7 @@
 export class World {
 	constructor() {
 
-		const player = new Player(new Position(0, 10))
+		const player = new Player(new Position(400, 400))
 		this.player = player
 		Controller.control(player)
 		G.player = player
@@ -17,21 +17,7 @@ export class World {
 			}),
 			new KillingMachine(new Position(100, 100, 20, 20)),
 			player,
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
-			new Chicken(new Position(200, 0)),
+			...Iterate(10, () => new Chicken(new Position(200, 0))),
 		])
 	}
 

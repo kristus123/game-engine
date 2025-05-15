@@ -7,6 +7,7 @@ export class AllObjects { // not a good name
 			o.removeFromLoop = () => {
 				this.remove(o)
 			}
+			o.loop = this
 
 			o.handledBy = this
 			Registry.add(o)
@@ -27,6 +28,7 @@ export class AllObjects { // not a good name
 		o.removeFromLoop = () => {
 			this.remove(o)
 		}
+		o.loop = this
 
 		o.handledBy = this
 
