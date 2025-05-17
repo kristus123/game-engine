@@ -123,6 +123,10 @@ export class Draw {
 		this.rectangle(position, 'green')
 	}
 
+	red(position) {
+		this.rectangle(position, 'red')
+	}
+
 	brown(position) {
 		this.rectangle(position, 'brown')
 	}

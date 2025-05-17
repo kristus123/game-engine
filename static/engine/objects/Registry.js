@@ -2,6 +2,7 @@ export class Registry {
 	static {
 		this.Chicken = []
 		this.ChickenBox = []
+		this.DeadChicken = []
 	}
 
 	static add(o) {

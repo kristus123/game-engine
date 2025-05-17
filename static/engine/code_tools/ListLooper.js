@@ -10,9 +10,9 @@ export class ListLooper {
 	update() {
 		if (!this.finished) {
 			this.callback(
-				this.list[this.index],
-				() => this.index += 1,
-				this.finished)
+				this.list[this.index], // element
+				() => this.index += 1, // next()
+				this.finished) // finished
 		}
 	}
 

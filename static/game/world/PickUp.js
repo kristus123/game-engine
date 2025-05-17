@@ -1,5 +1,5 @@
 export class PickUp {
-	constructor(items) {
+	constructor(items, onPickUp=(e) => {}) {
 
 		KeyDown('e', () => {
 			if (this.holding) {
@@ -9,9 +9,14 @@ export class PickUp {
 				const closestItem = G.player.touchesAny(this.items())
 				if (closestItem && !this.holding && Keyboard.e) {
 					this.holding = closestItem
+					this.onPickUp(this.holding)
 				}
 			}
 		})
+	}
+
+	drop() {
+		this.holding = null
 	}
 
 	update() {

@@ -8,17 +8,20 @@ export class Player extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				playerSprites: new PlayerSprites(this),
-				pickUp: new PickUp(() => [...Registry.Chicken, ...Registry.ChickenBox]),
-				chickenFood: new Throw(() => new ChickenFood(this.position.copy())),
-			}),
-			OnTrue(() => this.pickUp.holding, h => {
-				if (h instanceof Chicken) {
-					this.chicken = h
+
+				pickUpChicken: new PickUp(() => Registry.Chicken, () => {
 					BottomText.show('Bring the chicken to the KillingMachine', 2_000)
-				}
-				if (h instanceof ChickenBox) {
+				}),
+
+				pickUpBox: new PickUp(() => Registry.ChickenBox, () => {
 					BottomText.show('Bring the box to the supermarket', 2_000)
-				}
+				}),
+
+				pickUpDeadChicken: new PickUp(() => Registry.DeadChicken, () => {
+					BottomText.show('dead chicken', 2_000)
+				}),
+
+				chickenFood: new Throw(() => new ChickenFood(this.position.copy())),
 			}),
 		])
 

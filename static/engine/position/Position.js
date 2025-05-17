@@ -12,6 +12,11 @@ export class Position {
 		return this.offset(this.width, this.height, 20, 20)
 	}
 
+	xy(p) {
+		this.x = p.x
+		this.y = p.y
+	}
+
 	set(x=this.x, y=this.y, w=this.width, h=this.height) {
 		this.x = x
 		this.y = y

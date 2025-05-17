@@ -78,7 +78,7 @@ export class PlayerSprites {
 		if (this.jumping.playing) {
 			this.jumping.draw(draw, guiDraw)
 		}
-		else if (this.player.pickUp.holding) {
+		else if (this.player.holding) {
 			this.carrying.draw(draw, guiDraw)
 		}
 		// else if (super.movingUp) {
