@@ -5,7 +5,7 @@ export class Npc extends DynamicGameObject {
 
 		this.button = Html.floating(Html.button('hei', () => {
 			Html.hide(this.button)
-			
+
 		}), this.position.over(0))
 
 		setInterval(() => {

@@ -40,7 +40,7 @@ export class Chicken extends DynamicGameObject {
 
 		setTimeout(() => {
 			this.kill()
-		}, 1000);
+		}, 1000)
 	}
 
 	kill() {

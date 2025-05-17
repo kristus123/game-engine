@@ -11,7 +11,7 @@ export class World {
 
 		G.zones = new PicturePositions(G.Pictures.chickenZone, new Position(-200, 0))
 
-		const storeWorker = new Npc(new Position(0,0, 13,22), '/static/assets/girl_13x22.png')
+		const storeWorker = new Npc(new Position(0, 0, 13, 22), '/static/assets/girl_13x22.png')
 		G.storeWorker = storeWorker
 
 		this.localObjects = new LocalObjects([
