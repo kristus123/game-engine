@@ -6,7 +6,7 @@ export class PickUp {
 				this.holding = null
 			}
 			else {
-				const closestItem = G.player.touchesAny(this.items())
+				const closestItem = G.player.touchesAny(this.items)
 				if (closestItem && !this.holding && Keyboard.e) {
 					this.holding = closestItem
 					this.onPickUp(this.holding)
@@ -27,7 +27,7 @@ export class PickUp {
 	}
 
 	draw(draw, guiDraw) {
-		const item = G.player.touchesAny(this.items())
+		const item = G.player.touchesAny(this.items)
 
 		if (item && !this.holding) {
 			draw.text(item, 'e to pick up')
