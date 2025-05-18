@@ -3,18 +3,19 @@ export class MultiTextTyper {
 		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
 		this.index = 0
 
-		this.finished = false // rename to completed?  or use finished for everything else?
+		this.finished = false // rename to completed
 	}
 
 	update() {
 		if (List.validIndex(this.texts, this.index)) {
 			const t = this.texts[this.index]
 
-			if (t.finished) {
-				this.index += 1
+			if (!t.finished) {
+				console.log("hei")
+				t.update()
 			}
 			else {
-				t.update()
+				this.index += 1
 			}
 		}
 		else {

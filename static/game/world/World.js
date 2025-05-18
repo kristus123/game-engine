@@ -23,6 +23,13 @@ export class World {
 			player,
 			...Iterate(10, () => new Chicken(new Position(200, 0))),
 			new DeliverBoxQuest(),
+
+			new Dialogue([
+				new TextTyper(G.player, 'hei'),
+				new TextTyper(G.storeWorker, 'hei'),
+				new TextTyper(G.storeWorker, 'knulla mig?'),
+				new TextTyper(G.player, 'ja kjerring'),
+			]),
 		])
 	}
 

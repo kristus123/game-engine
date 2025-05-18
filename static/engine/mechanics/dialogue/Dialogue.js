@@ -1,23 +1,23 @@
 export class Dialogue {
-	constructor(multiTextTypers) {
 
-		this.multiTextTypers = new ListLooper(multiTextTypers)
-	}
+	constructor(textTypers) {
 
-	update() {
-		if (this.multiTextTypers.finished) {
-			this.removeFromLoop()
-		}
-	}
-
-	draw(draw, guiDraw) {
-		this.multiTextTypers.goThrough(textTyper => {
+		this.listLooper = new ListLooper(textTypers, (textTyper, next, finished, draw, guiDraw) => {
 			textTyper.update()
 			textTyper.draw(draw, guiDraw)
 
-			if (textTyper.finished) {
-				this.multiTextTypers.next()
+			if (textTyper.completed) {
+				console.log("completed")
+				next()
 			}
 		})
+	}
+
+	update() {
+		this.listLooper.update()
+	}
+
+	draw(draw, guiDraw) {
+		this.listLooper.draw(draw, guiDraw)
 	}
 }

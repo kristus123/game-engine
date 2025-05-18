@@ -2,6 +2,7 @@
 
 export class OnChange {
 	constructor(condition, action) {
+		// todo verify condition is a lambda
 		this.lastCondition = condition()
 	}
 

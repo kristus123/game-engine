@@ -28,7 +28,6 @@ export class KillingMachine extends StaticGameObject {
 				if (finished) {
 					const box = new ChickenBox(this.position.copy().set(350))
 					this.localObjects.add(box)
-					Camera.follow(box)
 				}
 			}),
 		])

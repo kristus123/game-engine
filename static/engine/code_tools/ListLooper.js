@@ -8,14 +8,16 @@ export class ListLooper {
 	}
 
 	update() {
+	}
+
+	draw(draw, guiDraw) {
 		if (!this.finished) {
 			this.callback(
 				this.list[this.index], // element
 				() => this.index += 1, // next()
-				this.finished) // finished
+				this.finished,
+				draw,
+				guiDraw) 
 		}
-	}
-
-	draw(draw, guiDraw) {
 	}
 }

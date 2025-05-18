@@ -11,6 +11,16 @@ export class Controller {
 		this.velocity.object = o
 	}
 
+
+	static disable(amountInMs) {
+		this.disabled = true
+
+		setTimeout(() => {
+			this.disabled = false
+		}, amountInMs);
+		
+	}
+
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
 	static update() {

@@ -364,10 +364,10 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(position, text, color='white', fontSize = 40) {
+	text(position, text, color='black', fontSize = 40) {
 		// this.rectangle(position)
 
-		this.ctx.fillStyle = 'black'
+		this.ctx.fillStyle = 'white'
 
 		this.ctx.font = `${fontSize / Camera.zoom}px VT323`
 

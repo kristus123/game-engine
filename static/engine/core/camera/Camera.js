@@ -33,7 +33,7 @@ export class Camera {
 		}
 
 		this.anchoredPositions = new LocalObjects([
-			new Anchor(Mouse.position, 1_000, 0.1),
+			// new Anchor(Mouse.position, 1_000, 0.1),
 		])
 	}
 
