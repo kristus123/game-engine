@@ -17,7 +17,7 @@ export class ListLooper {
 				() => this.index += 1, // next()
 				this.finished,
 				draw,
-				guiDraw) 
+				guiDraw)
 		}
 	}
 }

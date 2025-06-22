@@ -17,8 +17,8 @@ export class Controller {
 
 		setTimeout(() => {
 			this.disabled = false
-		}, amountInMs);
-		
+		}, amountInMs)
+
 	}
 
 	// todo fix deltatime bug here

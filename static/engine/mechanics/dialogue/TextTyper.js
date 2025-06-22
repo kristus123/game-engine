@@ -10,7 +10,7 @@ export class TextTyper {
 			OnTrue(() => this.text == this.textToType, () => {
 				setTimeout(() => {
 					this.completed = true
-				}, 1_000);
+				}, 1_000)
 			})
 		])
 	}

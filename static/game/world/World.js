@@ -11,6 +11,15 @@ export class World {
 
 		G.zones = new PicturePositions(G.Pictures.chickenZone, new Position(-200, 0))
 
+
+		Html.addToScreen(Html.div('ui left', [
+			Html.button('hei'),
+			Html.button('hei'),
+			Html.button('hei'),
+			Html.button('hei'),
+		]))
+
+
 		const storeWorker = new Npc(new Position(0, 0, 13, 22), '/static/assets/girl_13x22.png')
 		G.storeWorker = storeWorker
 

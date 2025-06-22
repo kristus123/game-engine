@@ -10,10 +10,6 @@ body {
 
 canvas {
 	display: block; /* Remove any default spacing */
-	/* cursor: none; hide cursor, currently disabled*/
-	/* filter: hue-rotate(180deg) contrast(3.5); */
- /* filter: drop-shadow(0px 0px 55px cyan); */
-
 }
 
 #errorOverlay {

@@ -7,7 +7,7 @@ export class Dialogue {
 			textTyper.draw(draw, guiDraw)
 
 			if (textTyper.completed) {
-				console.log("completed")
+				console.log('completed')
 				next()
 			}
 		})

@@ -5,12 +5,7 @@ export class Npc extends DynamicGameObject {
 
 		this.button = Html.floating(Html.button('hei', () => {
 			Html.hide(this.button)
-
 		}), this.position.over(0))
-
-		setInterval(() => {
-			Html.changeText(this.button, this.button.textContent += '.')
-		}, 1000)
 
 		const text = new Text(this.position.offset(-200), 'kyss meg ragnar')
 		text.hide()
@@ -25,7 +20,6 @@ export class Npc extends DynamicGameObject {
 	update() {
 		this.localObjects.update()
 		this.picture.update()
-		// Html.floatingPosition(this.button, this.position.offset(0, 0))
 	}
 
 	draw(draw, guiDraw) {
