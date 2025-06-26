@@ -9,8 +9,15 @@ export class World {
 		this.followPlayerNoise = new Noise(new Position(-100, 0, 2000, 2000))
 		Camera.follow(this.player)
 
+<<<<<<< HEAD
 		G.zones = new PicturePositions(G.Pictures.chickenZone, new Position(-200, 0))
 
+||||||| parent of 4e5fcbf (x)
+		G.zones = new PicturePositions(G.Pictures.chickenZone, new Position(-200, 0))
+
+
+=======
+>>>>>>> 4e5fcbf (x)
 		Html.addToScreen(Html.div('ui left', [
 			Html.button('hei'),
 		]))
@@ -20,10 +27,6 @@ export class World {
 		G.storeWorker = storeWorker
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				x: new Picture(new Position(-200, 0, 512*4, 320*4), '/static/assets/farm_512x320.png'),
-				y: new Picture(new Position(-200, 0, 512*4, 320*4), '/static/assets/bookshelf.png'),
-			}),
 			storeWorker,
 			new KillingMachine(new Position(100, 100, 20, 20)),
 			player,
