@@ -10,6 +10,7 @@ export class World {
 		Camera.follow(this.player)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		G.zones = new PicturePositions(G.Pictures.chickenZone, new Position(-200, 0))
 
 ||||||| parent of 4e5fcbf (x)
@@ -18,6 +19,10 @@ export class World {
 
 =======
 >>>>>>> 4e5fcbf (x)
+||||||| parent of 79dbb5c (:notworking)
+=======
+		G.zones = new Position(0,0,10,10)
+>>>>>>> 79dbb5c (:notworking)
 		Html.addToScreen(Html.div('ui left', [
 			Html.button('hei'),
 		]))
