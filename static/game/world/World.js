@@ -23,6 +23,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				x: new Picture(new Position(-200, 0, 512*4, 320*4), '/static/assets/farm_512x320.png'),
+				y: new Picture(new Position(-200, 0, 512*4, 320*4), '/static/assets/bookshelf.png'),
 			}),
 			storeWorker,
 			new KillingMachine(new Position(100, 100, 20, 20)),
