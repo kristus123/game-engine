@@ -9,6 +9,7 @@ export class World {
 		this.followPlayerNoise = new Noise(new Position(-100, 0, 2000, 2000))
 		Camera.follow(this.player)
 
+		G.zones = new Position(0,0,10,10)
 		Html.addToScreen(Html.div('ui left', [
 			Html.button('hei'),
 		]))

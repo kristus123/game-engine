@@ -4,24 +4,6 @@ const Imports = require('./Imports')
 const Parameters = require('./Parameters')
 const Files = require('./Files')
 
-function countOccurrences(wordToCount, string) { // semantic error with parameter order
-	let count = 0
-	let index = wordToCount.indexOf(string)
-
-	while (index !== -1) {
-		count++
-		index = wordToCount.indexOf(string, index + 1)
-	}
-
-	return count
-}
-
-let u = 0
-function uuid() {
-	u += 1
-	return u
-}
-
 const jsFiles = require('./get_js_files')
 
 const distFiles = Files.getJsFiles('dist/static/').map(f => f.replace('dist/', ''))
@@ -30,6 +12,26 @@ const staticFiles = Files.getJsFiles('static/')
 const filesToDeleteFromDist = Files.getUniqueElements(distFiles, staticFiles)
 for (const f of filesToDeleteFromDist) {
 	// Files.remove(f)
+}
+
+
+function getAllFilesSync(dirPath) {
+  let results = [];
+
+  const entries = fs.readdirSync(dirPath);
+
+  for (const entry of entries) {
+    const fullPath = path.join(dirPath, entry);
+    const stat = fs.statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      results = results.concat(getAllFilesSync(fullPath));
+    } else {
+      results.push(fullPath);
+    }
+  }
+
+  return results;
 }
 
 
@@ -90,6 +92,18 @@ const cssImports = fs.readdirSync('static/ui/css')
 	.map(f => path.join('static/ui/css', f).replaceAll('\\', '/'))
 	.map(f => `<link rel="stylesheet" href="/${f}">`)
 	.join('\n')
+
+
+const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
+	.map(f => f.replace("/aseprite", ""))
+	.map(f => f.replace(".aseprite", ""))
+	.map(f => `/${f}`)
+	.map(f => `"${f}"`)
+
+
+const indexJs = fs.readFileSync('dist/static/engine/core/index.js', 'utf-8')
+	.replace('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
+fs.writeFileSync('dist/static/engine/core/index.js', indexJs)
 
 const overlay = fs.readFileSync('static/ui/overlay.html', 'utf-8')
 
