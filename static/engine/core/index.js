@@ -14,9 +14,7 @@ function loadImage(pngPath) {
   });
 }
 
-
 G.pictures = {}
-
 
 Promise.all(ASEPRITE_FILES.map(path => {
 	const fileName = path.split("/").pop()

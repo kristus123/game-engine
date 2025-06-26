@@ -1,24 +1,25 @@
 export class Picture extends StaticGameObject {
-	constructor(position, imagePath) {
+	constructor(position, image) {
 		super(position)
 
-		// this.image = new Image()
-		// this.image.src = imagePath
 	}
 
 	draw(draw, guiDraw) {
-		draw.rectangle(this.position) // TODO FIX
-		// if (this.image.complete) {
-		// 	const newWidth = this.position.width
-		// 	const newHeight = this.position.height
+		if (typeof this.image === 'string') {
+		}
+		else {
 
-		// 	draw.ctx.imageSmoothingEnabled = false
+		const newWidth = this.position.width
+		const newHeight = this.position.height
 
-		// 	draw.ctx.save()
-		// 	draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
-		// 	draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
-		// 	draw.ctx.restore()
-		// }
+		draw.ctx.imageSmoothingEnabled = false
+
+		draw.ctx.save()
+		draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
+		draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
+		draw.ctx.restore()
+			
+		}
 	}
 
 	mapToJson() {

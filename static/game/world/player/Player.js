@@ -35,6 +35,7 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		new Picture(new Position(0,0, 100, 100), G.pictures.bed.img).draw(draw, guiDraw)
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
