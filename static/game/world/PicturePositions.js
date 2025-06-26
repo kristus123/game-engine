@@ -1,7 +1,7 @@
 const scale = 4
 
 // this can be used to extract areas of a picture
-// it expects simple rectangles
+// it can only extract rectangles (i think)
 
 export class PicturePositions {
 	constructor(image, position) {
@@ -123,7 +123,7 @@ export class PicturePositions {
 
 	draw(draw, guiDraw) {
 		if (this.ib) {
-			// draw.imageBitmap(new Position(-2, -2), this.ib)
+			draw.imageBitmap(new Position(-2, -2), this.ib)
 		}
 
 		for (const r of this.regions) {

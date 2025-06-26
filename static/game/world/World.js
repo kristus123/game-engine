@@ -14,9 +14,6 @@ export class World {
 
 		Html.addToScreen(Html.div('ui left', [
 			Html.button('hei'),
-			Html.button('hei'),
-			Html.button('hei'),
-			Html.button('hei'),
 		]))
 
 
