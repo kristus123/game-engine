@@ -27,9 +27,6 @@ function preload(images) {
 
 // Usage
 preload([
-	{ name: 'test', path: '/static/assets/test.png' },
-	{ name: 'farm', path: '/static/assets/farm_512x320.png' },
-	{ name: 'chickenZone', path: '/static/assets/chicken_zone_farm_512x320.png' },
 ])
 	.then(() => {
 		ErrorHandler.run(() => {
