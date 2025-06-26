@@ -1,8 +1,6 @@
-export class Http {
-
-	static get(endpoint) {
+function _get(port, endpoint) {
 		const xhr = new XMLHttpRequest()
-		xhr.open('GET', 'http://localhost:3000' + endpoint, false) // Synchronous request
+		xhr.open('GET', 'http://localhost:' + port + endpoint, false) // Synchronous request
 		xhr.send()
 
 		if (xhr.status === 200) {
@@ -15,6 +13,16 @@ export class Http {
 		}
 		else {
 			throw new Error('Request failed with status: ' + xhr.status)
+		}
+	
+}
+export class Http {
+
+	static get(endpoint) {
+		try {
+			return _get(3000, endpoint)
+		} catch (error) {
+			return _get(5000, endpoint)
 		}
 	}
 

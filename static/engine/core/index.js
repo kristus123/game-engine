@@ -1,94 +1,91 @@
 export const index = ''
 
-G.Pictures = {}
+function loadImage(pngPath) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = pngPath;
+    img.onerror = reject;
 
-function preload(images) {
-	const promises = images.map(o => {
-		return new Promise((resolve, reject) => {
-			const img = new Image()
-			img.src = o.path
-			img.onerror = reject
-			if (img.complete) {
-				G.Pictures[o.name] = img
-				resolve()
-			}
-			else {
-				img.onload = () => {
-					G.Pictures[o.name] = img
-					resolve()
-				}
-			}
-		})
-	})
-
-	return Promise.all(promises)
+    if (img.complete) {
+      resolve(img);
+    } else {
+      img.onload = () => resolve(img);
+    }
+  });
 }
 
 
-// Usage
-preload([
-])
-	.then(() => {
-		ErrorHandler.run(() => {
-			const mainPalette = Palette.main()
-			const guiPalette = Palette.offscreen()
-			const backgroundPalette = Palette.offscreen()
-			// const showLogs = new ShowLogs(guiPalette)
-
-			Mouse.initialize()
-			Camera.initialize()
-			Mouse.initializeAfterCameraIsInitialized()
-
-			const draw = new Draw(Camera.palette.ctx)
-			const guiDraw = new Draw(guiPalette.ctx)
-
-			const rightClickMenu = new RightClickMenu()
+G.pictures = {}
 
 
-	 Level.change(new World())
-	 // Level.change(new WorldEditor())
+Promise.all(ASEPRITE_FILES.map(path => {
+	const fileName = path.split("/").pop()
+	const pngPath = path + ".png"
+	const json = Http.get(path + ".json")
 
-			//new VideoCall()
+	return loadImage(pngPath).then(img => G.pictures[fileName] = new AsepritePicture(img, json))
+}))
+.then(() => {
+	ErrorHandler.run(() => {
+		const mainPalette = Palette.main()
+		const guiPalette = Palette.offscreen()
+		const backgroundPalette = Palette.offscreen()
+		// const showLogs = new ShowLogs(guiPalette)
 
-			Loop.everyFrame((deltaTime) => {
-				ErrorHandler.run(() => {
+		Mouse.initialize()
+		Camera.initialize()
+		Mouse.initializeAfterCameraIsInitialized()
 
-					Palette.clear([Camera.palette, guiPalette])
+		const draw = new Draw(Camera.palette.ctx)
+		const guiDraw = new Draw(guiPalette.ctx)
 
-					Physics.global.update(deltaTime)
+		const rightClickMenu = new RightClickMenu()
 
-					Camera.context(() => {
 
-						Mouse.update()
+ Level.change(new World())
+ // Level.change(new WorldEditor())
 
-						Controller.update()
-						Controller.draw(draw, guiDraw)
+		//new VideoCall()
 
-						Level.update()
-						Level.draw(draw, guiDraw)
+		Loop.everyFrame((deltaTime) => {
+			ErrorHandler.run(() => {
 
-						rightClickMenu.update()
-						rightClickMenu.draw(draw, guiDraw)
+				Palette.clear([Camera.palette, guiPalette])
 
-						Text.updateAll()
+				Physics.global.update(deltaTime)
 
-						Mouse.draw(draw, guiDraw)
+				Camera.context(() => {
 
-						if (MouseEditor.active) {
-							MouseEditor.active.update()
-							MouseEditor.active.draw(draw, guiDraw)
-						}
-					})
+					Mouse.update()
 
-					// showLogs.draw()
+					Controller.update()
+					Controller.draw(draw, guiDraw)
 
-					Palette.fill(backgroundPalette, '#6AB767')
-					Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
+					Level.update()
+					Level.draw(draw, guiDraw)
+
+					rightClickMenu.update()
+					rightClickMenu.draw(draw, guiDraw)
+
+					Text.updateAll()
+
+					Mouse.draw(draw, guiDraw)
+
+					if (MouseEditor.active) {
+						MouseEditor.active.update()
+						MouseEditor.active.draw(draw, guiDraw)
+					}
 				})
+
+				// showLogs.draw()
+
+				Palette.fill(backgroundPalette, '#6AB767')
+				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
 			})
 		})
 	})
-	.catch(err => {
-		console.error('Image failed to load', err)
-		throw err
-	})
+})
+.catch(err => {
+	console.error('Image failed to load', err)
+	throw err
+})
