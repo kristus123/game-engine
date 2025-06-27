@@ -16,8 +16,6 @@ export class AsepriteJson {
 				})
 			}
 		}
-
-		console.log(JSON.stringify(this.tags))
 	}
 
 	tagPresent(tag) {

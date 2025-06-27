@@ -9,12 +9,15 @@ export class StopWatch {
 	start() {
 		this.startTime = Date.now() - this._elapsedTime
 		this.running = true
+		
+		return this
 	}
 
 	stop() {
 		this.endTime = Date.now()
 		this._elapsedTime = this.endTime - this.startTime
 		this.running = false
+		return this
 	}
 
 	reset() {
@@ -22,12 +25,13 @@ export class StopWatch {
 		this.endTime = 0
 		this.running = false
 		this._elapsedTime = 0
+		return this
 	}
 
 	restart() {
-		this.stop()
 		this.reset()
 		this.start()
+		return this
 	}
 
 	get time() {

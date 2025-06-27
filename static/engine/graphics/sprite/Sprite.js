@@ -2,26 +2,31 @@ export class Sprite {
 	constructor(position, image, asepriteJson) {
 		this.currentFrame = 0
 
+
 		if (this.asepriteJson.tagPresent("idle")) {
-			this.tag = "idle"
-			this.activeFrames = this.asepriteJson.tags["idle"]
+			this.loop("idle")
 		}
 		else if (this.asepriteJson.tagPresent("")) {
-			this.tag = ""
-			this.activeFrames = this.asepriteJson.tags[""]
+			this.loop("")
 		}
 		else {
 			throw new Error("invalid default tag for .aseprite")
 		}
 
+		this.type = "loop"
 
-		const stopWatch = new StopWatch()
-		stopWatch.start()
+		const stopWatch = new StopWatch().start()
 
 		this.localObjects = new LocalObjects([
-			OnChange(() => stopWatch.time >= 300, () => {
-				if (this.asepriteJson.totalFrames(this.tag) >= this.currentFrame + 1) {
+			OnTrue(() => stopWatch.time >= 100, () => {
+
+				if (this.currentFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
 					this.currentFrame = 0
+
+					if (this.type == "play") {
+						this.activeTag = this.defaultTag
+						this.type = "loop"
+					}
 				}
 				else {
 					this.currentFrame += 1
@@ -34,7 +39,15 @@ export class Sprite {
 
 	play(tag) {
 		this.currentFrame = 0
-		this.activeFrames = this.asepriteJson.tags[tag]
+		this.activeTag = tag
+		this.type = "play"
+	}
+
+	loop(tag) {
+		this.currentFrame = 0
+		this.activeTag = tag
+		this.defaultTag = tag
+		this.type = "loop"
 	}
 
 	update() {
@@ -42,9 +55,10 @@ export class Sprite {
 	}
 
 	draw(draw, guiDraw) {
+		draw.text(this.position, this.currentFrame)
 		this.localObjects.draw(draw, guiDraw)
 
-		const frame = this.activeFrames[this.currentFrame]
+		const frame = this.asepriteJson.tags[this.activeTag][this.currentFrame]
 
 		draw.ctx.imageSmoothingEnabled = false
 		draw.ctx.drawImage(

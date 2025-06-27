@@ -14,9 +14,9 @@ export class Chicken extends DynamicGameObject {
 		this.randomPositionInsideZone = Random.direction(zone.center, 200)
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				chickenSprites: new ChickenSprites(this),
-			}),
+			// Init(this, {
+			// 	chickenSprites: new ChickenSprites(this),
+			// }),
 			Update(() => {
 				const nearbyChicken = this.touchesAny(Registry.Chicken)
 				if (nearbyChicken) {
@@ -30,7 +30,7 @@ export class Chicken extends DynamicGameObject {
 				this.randomPositionInsideZone = Random.positionWithin(zone.center)
 			}),
 			OnTrue(() => this.touchesAny(Registry.ChickenFood), food => {
-				this.chickenSprites.eat()
+				// this.chickenSprites.eat()
 				food.removeFromLoop()
 			}),
 			D((draw, guiDraw) => {
@@ -44,9 +44,9 @@ export class Chicken extends DynamicGameObject {
 	}
 
 	kill() {
-		Audio.poop()
-		this.handledBy.add(new DeadChicken(this.position))
-		this.removeFromLoop()
+		// Audio.poop()
+		// this.handledBy.add(new DeadChicken(this.position))
+		// this.removeFromLoop()
 	}
 
 	update() {
