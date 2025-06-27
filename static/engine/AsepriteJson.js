@@ -33,12 +33,12 @@ export class AsepriteJson {
 		return this.json.meta.size.h
 	}
 
-	get frameAmount() {
-		return this.json.frames.length
+	totalFrames(tag) {
+		return this.tags[tag].length
 	}
 
 	get singleFrame() {
-		return this.frameAmount == 1
+		return this.json.frames.length == 1
 	}
 
 

@@ -24,7 +24,13 @@ export class StopWatch {
 		this._elapsedTime = 0
 	}
 
-	get elapsedTime() {
+	restart() {
+		this.stop()
+		this.reset()
+		this.start()
+	}
+
+	get time() {
 		if (this.running) {
 			return Date.now() - this.startTime
 		}
