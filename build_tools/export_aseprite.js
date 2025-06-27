@@ -50,7 +50,6 @@ function exportAseprite(srcFile, destBase) {
 	], { stdio: 'inherit' })
 }
 
-// Run for all .aseprite files
 walk(SRC_DIR, srcFile => {
 	const destBase = getRelativeDestPath(srcFile)
 	exportAseprite(srcFile, destBase)
