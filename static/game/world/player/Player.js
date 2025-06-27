@@ -6,11 +6,8 @@ export class Player extends DynamicGameObject {
 		this.position.height = 150
 
 		this.localObjects = new LocalObjects([
-			// G.sprites.viking(new Position(0, 0, 100, 100)),
-			// G.sprites.player(this.position),
+			G.sprites.player(this.position),
 			Init(this, {
-				// playerSprites: new PlayerSprites(this),
-
 				pickUpChicken: new PickUp(Registry.Chicken, () => {
 					BottomText.show('Bring the chicken to the KillingMachine', 2_000)
 				}),

@@ -15,10 +15,11 @@ export class World {
 		]))
 
 
-		const storeWorker = new Npc(new Position(0, 0, 13, 22), '/static/assets/girl_13x22.png')
+		const storeWorker = new Npc(new Position(0, 0, 13, 22))
 		G.storeWorker = storeWorker
 
 		this.localObjects = new LocalObjects([
+			...Random.positions(0, 1000, 0, 2000, 100).map(p => G.pictures.flower(p)),
 			storeWorker,
 			new KillingMachine(new Position(100, 100, 20, 20)),
 			player,
