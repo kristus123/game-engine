@@ -1,13 +1,17 @@
 export class Sprite {
-	constructor(position, image, asepriteJson, currentAnimation = "") {
 	constructor(position, image, asepriteJson) {
 		this.currentFrame = 0
 
 		if (this.asepriteJson.tagPresent("idle")) {
+			this.tag = "idle"
 			this.activeFrames = this.asepriteJson.tags["idle"]
 		}
 		else if (this.asepriteJson.tagPresent("")) {
+			this.tag = ""
 			this.activeFrames = this.asepriteJson.tags[""]
+		}
+		else {
+			throw new Error("invalid default tag for .aseprite")
 		}
 
 
@@ -15,11 +19,12 @@ export class Sprite {
 		stopWatch.start()
 
 		this.localObjects = new LocalObjects([
-			OnChange(() => stopWatch.time >= 100, () => {
-				console.log("hei")
-				this.currentFrame = (this.currentFrame + 1) % this.activeFrames.length
-				if (this.asepriteJson.totalFrames) {
-					
+			OnChange(() => stopWatch.time >= 300, () => {
+				if (this.asepriteJson.totalFrames(this.tag) >= this.currentFrame + 1) {
+					this.currentFrame = 0
+				}
+				else {
+					this.currentFrame += 1
 				}
 				
 				stopWatch.restart()

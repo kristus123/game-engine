@@ -10,8 +10,7 @@ export class KillingMachine extends StaticGameObject {
 
 		this.localObjects = new LocalObjects([
 			G.sprites.blob(this.position),
-			G.sprites.blob(this.position),
-			G.sprites.killingMachine(this.position),
+			// G.sprites.killingMachine(this.position),
 			Init(this, {
 				// sprites: new KillingMachineSprites(this.position),
 				house: new Picture(new Position(0, -800, 20*16, 20*16), '/static/assets/small_house.png'),
