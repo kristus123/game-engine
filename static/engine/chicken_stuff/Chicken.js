@@ -5,7 +5,7 @@ export class Chicken extends DynamicGameObject {
 		this.position.width = 60
 		this.position.height = 60
 
-		const zone = new Position(0,0,100,100)
+		const zone = new Position(0, 0, 100, 100)
 		if (!this.touches(zone)) {
 			this.x = zone.center.x
 			this.y = zone.center.y

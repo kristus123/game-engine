@@ -34,14 +34,19 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destImage} & ${destJson}`);
 
-	execFileSync('aseprite', [
-		'-b',
-		srcFile,
-		'--sheet', destImage,
-		'--data', destJson,
-		'--format', 'json-array'
-	], { stdio: 'inherit' });
-}
+execFileSync('aseprite', [
+  '-b',
+  srcFile,
+  '--split-tags',
+  '--sheet',
+  destImage,
+  '--data',
+  destJson,
+  '--format',
+  'json-array',
+  '--filename-format',
+  '{tag}',
+], { stdio: 'inherit' });}
 
 // Run for all .aseprite files
 walk(SRC_DIR, srcFile => {

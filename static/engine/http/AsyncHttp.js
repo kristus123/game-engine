@@ -2,18 +2,19 @@ export class AsyncHttp {
 	constructor() {
 	}
 
-		async getData() {
+	async getData() {
 		  try {
-			const response = await fetch('https://example.com/data');
-			
+			const response = await fetch('https://example.com/data')
+
 			if (!response.ok) {
-			  throw new Error(`HTTP error! status: ${response.status}`);
+			  throw new Error(`HTTP error! status: ${response.status}`)
 			}
 
-			const data = await response.json(); // or .text() for plain text
-			console.log(data);
-		  } catch (error) {
-			console.error('Fetch error:', error);
+			const data = await response.json() // or .text() for plain text
+			console.log(data)
 		  }
-		}
+		catch (error) {
+			console.error('Fetch error:', error)
+		  }
+	}
 }

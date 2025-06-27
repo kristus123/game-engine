@@ -1,37 +1,10 @@
-/*
-It expects files to be named in this format:
-'/static/assets/sprites/stars_16x16.png'
-
-*/
-function dimensionsFrom(imagePath) {
-	const pattern = /(\d+)x(\d+)/
-	const match = imagePath.match(pattern)
-
-	if (match) {
-		return {
-			width: parseInt(match[1], 10),
-			height: parseInt(match[2], 10)
-		}
-	}
-	else {
-		throw new Error('xx')
-	}
-}
-
 export class Sprite {
-	constructor(position, imagePath, frameSequence, speed=100) {
-		this.image = new Image()
-		this.image.src = imagePath
-
-		const d = dimensionsFrom(imagePath)
-		this.width = d.width
-		this.height = d.height
-
+	constructor(position, image, asepriteJson, frameSequence={}) {
 		this.currentFrame = 0
 
 		setInterval(() => {
 			this.currentFrame = (this.currentFrame + 1) % this.frameSequence.length
-		}, speed)
+		}, 100)
 	}
 
 	reset() {
@@ -39,17 +12,19 @@ export class Sprite {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.image.complete) {
+		if (typeof this.image === 'string') {
+		}
+		else {
 
 			const frame = this.frameSequence[this.currentFrame]
 
 			draw.ctx.imageSmoothingEnabled = false
 			draw.ctx.drawImage(
 				this.image,
-				frame.x * this.width,
-				frame.y * this.height,
-				this.width,
-				this.height,
+				frame.x * this.asepriteJson.width,
+				frame.y * this.asepriteJson.height,
+				this.asepriteJson.width,
+				this.asepriteJson.height,
 				this.position.x,
 				this.position.y,
 				this.position.width,
@@ -59,7 +34,9 @@ export class Sprite {
 	}
 
 	mirrorDraw(draw, guiDraw, mirrorX = true, mirrorY = false) {
-		if (this.image.complete) {
+		if (typeof this.image === 'string') {
+		}
+		else {
 			const frame = this.frameSequence[this.currentFrame]
 			const { x, y, width, height } = this.position
 			const ctx = draw.ctx
@@ -80,10 +57,10 @@ export class Sprite {
 
 			ctx.drawImage(
 				this.image,
-				frame.x * this.width,
-				frame.y * this.height,
-				this.width,
-				this.height,
+				frame.x * this.asepriteJson.width,
+				frame.y * this.asepriteJson.height,
+				this.asepriteJson.width,
+				this.asepriteJson.height,
 				0, 0, width, height
 			)
 

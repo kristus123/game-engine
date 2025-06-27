@@ -16,22 +16,23 @@ for (const f of filesToDeleteFromDist) {
 
 
 function getAllFilesSync(dirPath) {
-  let results = [];
+	let results = []
 
-  const entries = fs.readdirSync(dirPath);
+	const entries = fs.readdirSync(dirPath)
 
-  for (const entry of entries) {
-    const fullPath = path.join(dirPath, entry);
-    const stat = fs.statSync(fullPath);
+	for (const entry of entries) {
+		const fullPath = path.join(dirPath, entry)
+		const stat = fs.statSync(fullPath)
 
-    if (stat.isDirectory()) {
-      results = results.concat(getAllFilesSync(fullPath));
-    } else {
-      results.push(fullPath);
-    }
-  }
+		if (stat.isDirectory()) {
+			results = results.concat(getAllFilesSync(fullPath))
+		}
+		else {
+			results.push(fullPath)
+		}
+	}
 
-  return results;
+	return results
 }
 
 
@@ -95,8 +96,8 @@ const cssImports = fs.readdirSync('static/ui/css')
 
 
 const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
-	.map(f => f.replace("/aseprite", ""))
-	.map(f => f.replace(".aseprite", ""))
+	.map(f => f.replace('/aseprite', ''))
+	.map(f => f.replace('.aseprite', ''))
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 

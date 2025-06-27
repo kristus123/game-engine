@@ -6,6 +6,7 @@ export class Player extends DynamicGameObject {
 		this.position.height = 150
 
 		this.localObjects = new LocalObjects([
+			G.pictures.bed(new Position(0, 0, 100, 100)),
 			Init(this, {
 				playerSprites: new PlayerSprites(this),
 
@@ -35,7 +36,9 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		new Picture(new Position(0,0, 100, 100), G.pictures.bed.img).draw(draw, guiDraw)
+		G.sprites.viking(new Position(0, 0, 100, 100)).draw(draw, guiDraw)
+
+
 		this.localObjects.draw(draw, guiDraw)
 	}
 }

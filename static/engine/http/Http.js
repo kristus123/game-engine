@@ -1,27 +1,28 @@
 function _get(port, endpoint) {
-		const xhr = new XMLHttpRequest()
-		xhr.open('GET', 'http://localhost:' + port + endpoint, false) // Synchronous request
-		xhr.send()
+	const xhr = new XMLHttpRequest()
+	xhr.open('GET', 'http://localhost:' + port + endpoint, false) // Synchronous request
+	xhr.send()
 
-		if (xhr.status === 200) {
-			try {
-				return JSON.parse(xhr.responseText)
-			}
-			catch (e) {
-				throw new Error('Error while mapping ' + xhr.responseText)
-			}
+	if (xhr.status === 200) {
+		try {
+			return JSON.parse(xhr.responseText)
 		}
-		else {
-			throw new Error('Request failed with status: ' + xhr.status)
+		catch (e) {
+			throw new Error('Error while mapping ' + xhr.responseText)
 		}
-	
+	}
+	else {
+		throw new Error('Request failed with status: ' + xhr.status)
+	}
+
 }
 export class Http {
 
 	static get(endpoint) {
 		try {
 			return _get(3000, endpoint)
-		} catch (error) {
+		}
+		catch (error) {
 			return _get(5000, endpoint)
 		}
 	}
