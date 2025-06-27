@@ -2,22 +2,26 @@ export class AsepriteJson {
 	constructor(json) {
 		this.tags = {}
 
+		for (const tag of [...new Set(Object.values(json.frames).map(frame => frame.filename))]) {
+			this.tags[tag] = []
+		}
 
-		console.log(json.meta.image)
-		console.log(json)
-		if (json.meta.frameTags) {
-			for (const t of json.meta.frameTags) {
-				tags[t.name] = {
-					start: this['from'],
-					end: this['to'],
-				}
-
+		if (json.frames) {
+			for (const f of json.frames) {
+				this.tags[f.filename].push({
+					x: f.frame.x,
+					y: f.frame.y,
+					width: f.frame.w,
+					height: f.frame.h,
+				})
 			}
 		}
 
+		console.log(JSON.stringify(this.tags))
+	}
 
-		console.log(this.tags)
-
+	tagPresent(tag) {
+		return tag in this.tags
 	}
 
 	get width() {

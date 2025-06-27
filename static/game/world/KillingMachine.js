@@ -9,9 +9,9 @@ export class KillingMachine extends StaticGameObject {
 		this.kvernerPosition = this.position.offset(0, 40, 50, 40)
 
 		this.localObjects = new LocalObjects([
-
+				G.sprites.blob(this.position),
 			Init(this, {
-				sprites: new KillingMachineSprites(this.position),
+				// sprites: new KillingMachineSprites(this.position),
 				house: new Picture(new Position(0, -800, 20*16, 20*16), '/static/assets/small_house.png'),
 			}),
 
@@ -20,16 +20,16 @@ export class KillingMachine extends StaticGameObject {
 					G.player.pickUpDeadChicken.holding.removeFromLoop()
 					G.player.pickUpDeadChicken.drop()
 
-					this.sprites.kill.play()
+					// this.sprites.kill.play()
 				}
 			}),
 
-			OnChange(() => this.sprites.kill.finished, finished => {
-				if (finished) {
-					const box = new ChickenBox(this.position.copy().set(350))
-					this.localObjects.add(box)
-				}
-			}),
+			// OnChange(() => this.sprites.kill.finished, finished => {
+			// 	if (finished) {
+			// 		const box = new ChickenBox(this.position.copy().set(350))
+			// 		this.localObjects.add(box)
+			// 	}
+			// }),
 		])
 
 		G.store = this.house

@@ -6,9 +6,9 @@ export class Player extends DynamicGameObject {
 		this.position.height = 150
 
 		this.localObjects = new LocalObjects([
-			G.pictures.bed(new Position(0, 0, 100, 100)),
+			G.sprites.player(this.position),
 			Init(this, {
-				playerSprites: new PlayerSprites(this),
+				// playerSprites: new PlayerSprites(this),
 
 				pickUpChicken: new PickUp(Registry.Chicken, () => {
 					BottomText.show('Bring the chicken to the KillingMachine', 2_000)
@@ -26,9 +26,9 @@ export class Player extends DynamicGameObject {
 			}),
 		])
 
-		KeyDown(' ', () => { // space
-			this.playerSprites.jump()
-		})
+		// KeyDown(' ', () => { // space
+		// 	this.playerSprites.jump()
+		// })
 	}
 
 	update() {

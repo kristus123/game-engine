@@ -1,9 +1,16 @@
 export class Sprite {
-	constructor(position, image, asepriteJson, frameSequence={}) {
+	constructor(position, image, asepriteJson, currentAnimation = "") {
 		this.currentFrame = 0
 
+		if (this.asepriteJson.tagPresent("idle")) {
+			this.activeFrames = this.asepriteJson.tags["idle"]
+		}
+		else if (this.asepriteJson.tagPresent("")) {
+			this.activeFrames = this.asepriteJson.tags[""]
+		}
+
 		setInterval(() => {
-			this.currentFrame = (this.currentFrame + 1) % this.frameSequence.length
+			this.currentFrame = (this.currentFrame + 1) % this.activeFrames.length
 		}, 100)
 	}
 
@@ -12,63 +19,15 @@ export class Sprite {
 	}
 
 	draw(draw, guiDraw) {
-		if (typeof this.image === 'string') {
-		}
-		else {
+		const frame = this.activeFrames[this.currentFrame]
 
-			const frame = this.frameSequence[this.currentFrame]
-
-			draw.ctx.imageSmoothingEnabled = false
-			draw.ctx.drawImage(
-				this.image,
-				frame.x * this.asepriteJson.width,
-				frame.y * this.asepriteJson.height,
-				this.asepriteJson.width,
-				this.asepriteJson.height,
-				this.position.x,
-				this.position.y,
-				this.position.width,
-				this.position.height,
-			)
-		}
+		draw.ctx.imageSmoothingEnabled = false
+		draw.ctx.drawImage(
+			this.image,
+			frame.x, frame.y,
+			frame.width, frame.height,
+			this.position.x, this.position.y,
+			this.position.width, this.position.height
+		)
 	}
-
-	mirrorDraw(draw, guiDraw, mirrorX = true, mirrorY = false) {
-		if (typeof this.image === 'string') {
-		}
-		else {
-			const frame = this.frameSequence[this.currentFrame]
-			const { x, y, width, height } = this.position
-			const ctx = draw.ctx
-
-			ctx.save()
-			ctx.imageSmoothingEnabled = false
-
-			// Set up the origin correctly for mirroring
-			ctx.translate(
-				mirrorX ? x + width : x,
-				mirrorY ? y + height : y
-			)
-
-			ctx.scale(
-				mirrorX ? -1 : 1,
-				mirrorY ? -1 : 1
-			)
-
-			ctx.drawImage(
-				this.image,
-				frame.x * this.asepriteJson.width,
-				frame.y * this.asepriteJson.height,
-				this.asepriteJson.width,
-				this.asepriteJson.height,
-				0, 0, width, height
-			)
-
-			ctx.restore()
-		}
-	}
-
-
-
-
 }
