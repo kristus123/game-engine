@@ -5,21 +5,12 @@ export class World {
 		this.player = player
 		Controller.control(player)
 		G.player = player
-
-		this.followPlayerNoise = new Noise(new Position(-100, 0, 2000, 2000))
 		Camera.follow(this.player)
-
-		G.zones = new Position(0, 0, 10, 10)
-		Html.addToScreen(Html.div('ui left', [
-			Html.button('hei'),
-		]))
-
 
 		const storeWorker = new Npc(new Position(0, 0, 13, 22))
 		G.storeWorker = storeWorker
 
 		this.localObjects = new LocalObjects([
-			...Random.positions(0, 1000, 0, 2000, 100).map(p => G.pictures.flower(p)),
 			storeWorker,
 			new KillingMachine(new Position(100, 100, 20, 20)),
 			player,
@@ -34,7 +25,6 @@ export class World {
 			]),
 		])
 	}
-
 
 	update() {
 		this.localObjects.update()

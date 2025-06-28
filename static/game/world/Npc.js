@@ -1,7 +1,6 @@
 export class Npc extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 3)
-		this.picture = G.pictures.bed(this.position)
 
 		this.button = Html.floating(Html.button('hei', () => {
 			Html.hide(this.button)
@@ -19,11 +18,9 @@ export class Npc extends DynamicGameObject {
 
 	update() {
 		this.localObjects.update()
-		this.picture.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.picture.draw(draw, guiDraw)
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
