@@ -87,7 +87,7 @@ Promise.all(ASEPRITE_FILES.map(path => {
 
 					// showLogs.draw()
 
-					Palette.fill(backgroundPalette, '#6AB767')
+					Palette.fill(backgroundPalette, 'black')
 					Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
 				})
 			})
