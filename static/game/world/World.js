@@ -11,7 +11,7 @@ export class World {
 		G.storeWorker = storeWorker
 
 		const palette = Palette.fixedOffscreen(1080, 720)
-		palette.drawImage(G.pictures.world(new Position(0,0, 1080*5, 720*5)).image)
+		palette.drawImage(G.pictures.world(new Position(0, 0, 1080*5, 720*5)).image)
 		palette.tintBlue()
 		palette.toImageBitmap(ib => {
 			this.ib = ib

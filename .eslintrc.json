@@ -347,6 +347,7 @@
         "World": "readonly",
         "WorldEditor": "readonly",
         "_GameObject": "readonly",
+        "a": "readonly",
         "index": "readonly"
     }
 }

@@ -3,9 +3,10 @@ export class AsepriteJson {
 		this.tags = {}
 
 		for (const tag of [...new Set(Object.values(json.frames).map(frame => frame.filename))]) {
-			if (tag == "") {
+			if (tag == '') {
 				throw new Error(`${json.meta.image} must have a tag set`)
-			} else {
+			}
+			else {
 				this.tags[tag] = []
 			}
 		}

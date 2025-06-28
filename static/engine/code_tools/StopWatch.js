@@ -9,7 +9,7 @@ export class StopWatch {
 	start() {
 		this.startTime = Date.now() - this._elapsedTime
 		this.running = true
-		
+
 		return this
 	}
 

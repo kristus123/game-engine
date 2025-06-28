@@ -2,27 +2,27 @@ export class Sprite {
 	constructor(position, image, asepriteJson) {
 		this.currentFrame = 0
 
-		this.type = "loop"
+		this.type = 'loop'
 
 		for (let [tag, value] of Object.entries(asepriteJson.tags)) {
 			this[tag] = {
 				play: () => {
 					this.currentFrame = 0
 					this.activeTag = tag
-					this.type = "play"
+					this.type = 'play'
 				},
 				loop: () => {
 					this.currentFrame = 0
 					this.activeTag = tag
 					this.defaultTag = tag
-					this.type = "loop"
+					this.type = 'loop'
 				},
 
 				show: (frame) => {
 					this.currentFrame = frame
 					this.activeTag = tag
 					this.defaultTag = tag
-					this.type = "show"
+					this.type = 'show'
 				},
 			}
 		}
@@ -31,7 +31,7 @@ export class Sprite {
 			this.idle.loop()
 		}
 		else {
-			throw new Error("invalid default tag for .aseprite")
+			throw new Error('invalid default tag for .aseprite')
 		}
 
 		const stopWatch = new StopWatch().start()
@@ -44,15 +44,15 @@ export class Sprite {
 				else if (this.currentFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
 					this.currentFrame = 0
 
-					if (this.type == "play") {
+					if (this.type == 'play') {
 						this.activeTag = this.defaultTag
-						this.type = "loop"
+						this.type = 'loop'
 					}
 				}
 				else {
 					this.currentFrame += 1
 				}
-				
+
 				stopWatch.restart()
 			}),
 		])
