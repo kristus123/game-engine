@@ -30,8 +30,12 @@ export class Position {
 		return new Position(this.x, this.y, this.width, this.height)
 	}
 
-	offset(x=0, y=0, width=this.width, height=this.height) {
-		return new OffsetPosition(this, x, y, width, height)
+	offset(offset_x=0, offset_y=0, width=this.width, height=this.height) {
+		return new OffsetPosition(this, offset_x, offset_y, width, height)
+	}
+
+	link(mainPosition) {
+		return this.offset(this.x - mainPosition.x, this.y - mainPosition.y)
 	}
 
 	over(y=100) {

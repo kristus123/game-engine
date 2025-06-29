@@ -92,6 +92,17 @@ export class Draw {
 		this.ctx.shadowOffsetY = 0
 	}
 
+	sprite(position, frame, image) {
+		this.ctx.imageSmoothingEnabled = false
+		this.ctx.drawImage(
+			image,
+			frame.x, frame.y,
+			frame.width, frame.height,
+			position.x, position.y,
+			position.width, position.height
+		)
+	}
+
 	imageBitmap(position, imageBitmap) {
 		this.ctx.drawImage(imageBitmap, position.x, position.y)
 	}

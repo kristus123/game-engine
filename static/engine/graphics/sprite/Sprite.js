@@ -1,5 +1,6 @@
 export class Sprite {
 	constructor(position, image, asepriteJson) {
+
 		this.currentFrame = 0
 
 		this.type = 'loop'
@@ -58,23 +59,19 @@ export class Sprite {
 		])
 	}
 
+	slices() {
+		return this.asepriteJson.tags[this.activeTag][this.currentFrame].slices
+	}
+
 	update() {
 		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		draw.text(this.position, this.currentFrame)
 		this.localObjects.draw(draw, guiDraw)
 
 		const frame = this.asepriteJson.tags[this.activeTag][this.currentFrame]
 
-		draw.ctx.imageSmoothingEnabled = false
-		draw.ctx.drawImage(
-			this.image,
-			frame.x, frame.y,
-			frame.width, frame.height,
-			this.position.x, this.position.y,
-			this.position.width, this.position.height
-		)
+		draw.sprite(this.position, frame, this.image)
 	}
 }

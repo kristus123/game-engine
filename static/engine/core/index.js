@@ -18,20 +18,9 @@ function loadImage(pngPath) {
 Promise.all(ASEPRITE_FILES.map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
-	const asepriteJson = new AsepriteJson(Http.get(path + '.json'))
 
-
-	if (asepriteJson.singleFrame) {
-		return loadImage(pngPath)
-			.then(img => G.pictures[fileName] = (pos) => new Picture(pos, img, asepriteJson))
-	}
-	else {
-		console.log()
-		return loadImage(pngPath)
-			.then(img => G.sprites[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
-	}
-
-
+	return loadImage(pngPath)
+		.then(img => G.sprites[fileName] = (pos) => new Sprite(pos, img, new AsepriteJson(pos, Http.get(path + '.json'))))
 }))
 	.then(() => {
 		ErrorHandler.run(() => {
