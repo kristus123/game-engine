@@ -1,12 +1,11 @@
 export class World {
 	constructor() {
 
-		const player = new Player(new Position(400, 1800))
+		const player = new Player(new Position(0, 0))
 		this.player = player
 		Controller.control(player)
 		G.player = player
-		Camera.follow(this.player)
-		Camera.followInstantly(this.player)
+		Camera.followInstantly(G.player)
 
 		G.storeWorker = new Npc(new Position(0, 0))
 

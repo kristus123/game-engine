@@ -21,13 +21,13 @@ export class Camera {
 		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
 
 		Mouse.scrollIn = () => {
-			this.smoothZoom.targetValue += 0.1
+			this.smoothZoom.targetValue += 1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
 
 		Mouse.scrollOut = () => {
-			this.smoothZoom.targetValue -= 0.1
+			this.smoothZoom.targetValue -= 1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
@@ -56,8 +56,6 @@ export class Camera {
 		// maybe ?
 		// this.position.x = Math.round(this.position.x)
 		// this.position.y = Math.round(this.position.y)
-
-
 
 		this.anchoredPositions.update()
 		// this.anchoredPositions.objects.forEach(a => {
