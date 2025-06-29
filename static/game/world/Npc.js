@@ -10,6 +10,7 @@ export class Npc extends DynamicGameObject {
 		text.hide()
 
 		this.localObjects = new LocalObjects([
+			G.Sprite.player(position),
 			OnChange(() => this.within(200, G.player), within => {
 				within ? text.show() : text.hide()
 			}),

@@ -15,74 +15,77 @@ function loadImage(pngPath) {
 	})
 }
 
-Promise.all(ASEPRITE_FILES.map(path => {
+const images = Promise.all(ASEPRITE_FILES.map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
+	const asepriteJson = new AsepriteJson(Http.get(path + '.json'))
 
 	return loadImage(pngPath)
-		.then(img => G.sprites[fileName] = (pos) => new Sprite(pos, img, new AsepriteJson(pos, Http.get(path + '.json'))))
+		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
 }))
-	.then(() => {
-		ErrorHandler.run(() => {
-			const mainPalette = Palette.main()
-			const guiPalette = Palette.offscreen()
-			const backgroundPalette = Palette.offscreen()
-			// const showLogs = new ShowLogs(guiPalette)
-
-			Mouse.initialize()
-			Camera.initialize()
-			Mouse.initializeAfterCameraIsInitialized()
-
-			const draw = new Draw(Camera.palette.ctx)
-			const guiDraw = new Draw(guiPalette.ctx)
-
-			const rightClickMenu = new RightClickMenu()
 
 
-			Level.change(new World())
-			// Level.change(new WorldEditor())
+images.then(() => {
+	ErrorHandler.run(() => {
+		const mainPalette = Palette.main()
+		const guiPalette = Palette.offscreen()
+		const backgroundPalette = Palette.offscreen()
+		// const showLogs = new ShowLogs(guiPalette)
 
-			//new VideoCall()
+		Mouse.initialize()
+		Camera.initialize()
+		Mouse.initializeAfterCameraIsInitialized()
 
-			Loop.everyFrame((deltaTime) => {
-				ErrorHandler.run(() => {
+		const draw = new Draw(Camera.palette.ctx)
+		const guiDraw = new Draw(guiPalette.ctx)
 
-					Palette.clear([Camera.palette, guiPalette])
+		const rightClickMenu = new RightClickMenu()
 
-					Physics.global.update(deltaTime)
 
-					Camera.context(() => {
+		Level.change(new World())
+		// Level.change(new WorldEditor())
 
-						Mouse.update()
+		//new VideoCall()
 
-						Controller.update()
-						Controller.draw(draw, guiDraw)
+		Loop.everyFrame((deltaTime) => {
+			ErrorHandler.run(() => {
 
-						Level.update()
-						Level.draw(draw, guiDraw)
+				Palette.clear([Camera.palette, guiPalette])
 
-						rightClickMenu.update()
-						rightClickMenu.draw(draw, guiDraw)
+				Physics.global.update(deltaTime)
 
-						Text.updateAll()
+				Camera.context(() => {
 
-						Mouse.draw(draw, guiDraw)
+					Mouse.update()
 
-						if (MouseEditor.active) {
-							MouseEditor.active.update()
-							MouseEditor.active.draw(draw, guiDraw)
-						}
-					})
+					Controller.update()
+					Controller.draw(draw, guiDraw)
 
-					// showLogs.draw()
+					Level.update()
+					Level.draw(draw, guiDraw)
 
-					Palette.fill(backgroundPalette, 'black')
-					Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
+					rightClickMenu.update()
+					rightClickMenu.draw(draw, guiDraw)
+
+					Text.updateAll()
+
+					Mouse.draw(draw, guiDraw)
+
+					if (MouseEditor.active) {
+						MouseEditor.active.update()
+						MouseEditor.active.draw(draw, guiDraw)
+					}
 				})
+
+				// showLogs.draw()
+
+				Palette.fill(backgroundPalette, 'black')
+				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
 			})
 		})
 	})
-	.catch(err => {
-		console.error('Image failed to load', err)
-		throw err
-	})
+})
+.catch(err => {
+	console.error('Image failed to load', err)
+	throw err
+})

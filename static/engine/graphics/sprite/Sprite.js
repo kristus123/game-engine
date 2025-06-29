@@ -1,5 +1,9 @@
+const scale = 8
+
 export class Sprite {
 	constructor(position, image, asepriteJson) {
+		this.position.width = asepriteJson.width * scale
+		this.position.height = asepriteJson.height * scale
 
 		this.currentFrame = 0
 
@@ -57,11 +61,20 @@ export class Sprite {
 				stopWatch.restart()
 			}),
 		])
+
+		this.slices = this.asepriteJson.tags[this.activeTag][this.currentFrame].slices.map(s => {
+			const p = s.position
+
+			p.x = (p.x * scale) + this.position.x
+			p.y = (p.y * scale) + this.position.y
+
+			p.width *= scale
+			p.height *= scale
+
+			return s
+		})
 	}
 
-	slices() {
-		return this.asepriteJson.tags[this.activeTag][this.currentFrame].slices
-	}
 
 	update() {
 		this.localObjects.update()

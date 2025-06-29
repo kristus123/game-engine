@@ -1,5 +1,5 @@
 export class AsepriteJson {
-	constructor(position, json) {
+	constructor(json) {
 		this.tags = {}
 
 		for (const tag of [...new Set(Object.values(json.frames).map(frame => frame.filename))]) {
@@ -24,13 +24,16 @@ export class AsepriteJson {
 					slices: [],
 				}
 
+				this.width = f.frame.w
+				this.height = f.frame.h
+
 				if (json.meta.slices) {
 					for (const s of json.meta.slices) {
 
 						const b = s.keys[frame].bounds
 						sprite.slices.push({
 							name: s.name,
-							position: position.offset(b.x, b.y, b.w, b.h),
+							position: new Position(b.x, b.y, b.w, b.h),
 						})
 					}
 				}
@@ -39,20 +42,10 @@ export class AsepriteJson {
 			}
 		}
 
-		console.log(this.tags)
 	}
 
 	tagPresent(tag) {
 		return tag in this.tags
-	}
-
-	get width() {
-		return this.json.meta.size.w
-
-	}
-
-	get height() {
-		return this.json.meta.size.h
 	}
 
 	totalFrames(tag) {

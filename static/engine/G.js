@@ -10,5 +10,5 @@ export const G = {
 	money: 0,
 	barn: new Barn(new Position(-200, 0)),
 	pictures: {},
-	sprites: {},
+	Sprite: {},
 }
