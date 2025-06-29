@@ -1,5 +1,13 @@
 export const index = ''
 
+
+// window.onload = () => { // not working todo fix
+// 	document.body.style.transform = "scale(1)";
+// 	document.body.style.zoom = "100%";
+// 	document.body.style.transformOrigin = "0 0";
+// }
+
+
 function loadImage(pngPath) {
 	return new Promise((resolve, reject) => {
 		const img = new Image()
@@ -15,7 +23,7 @@ function loadImage(pngPath) {
 	})
 }
 
-const images = Promise.all(ASEPRITE_FILES.map(path => {
+const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(Http.get(path + '.json'))
@@ -25,7 +33,7 @@ const images = Promise.all(ASEPRITE_FILES.map(path => {
 }))
 
 
-images.then(() => {
+whenLoaded.then(() => {
 	ErrorHandler.run(() => {
 		const mainPalette = Palette.main()
 		const guiPalette = Palette.offscreen()
