@@ -325,6 +325,7 @@
         "StartMenu": "readonly",
         "State": "readonly",
         "StaticGameObject": "readonly",
+        "StaticHttp": "readonly",
         "Steps": "readonly",
         "StopWatch": "readonly",
         "Store": "readonly",
@@ -347,6 +348,7 @@
         "World": "readonly",
         "WorldEditor": "readonly",
         "_GameObject": "readonly",
+        "_HttpClient": "readonly",
         "a": "readonly",
         "index": "readonly"
     }

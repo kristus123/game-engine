@@ -93,7 +93,7 @@ whenLoaded.then(() => {
 		})
 	})
 })
-.catch(err => {
-	console.error('Image failed to load', err)
-	throw err
-})
+	.catch(err => {
+		console.error('Image failed to load', err)
+		throw err
+	})

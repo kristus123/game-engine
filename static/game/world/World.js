@@ -18,7 +18,7 @@ export class World {
 			}))
 
 
-		this.world = G.Sprite.world(new Position(-1000,-1000))
+		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
 			this.world,
@@ -26,15 +26,15 @@ export class World {
 				() => new class {
 					constructor() {
 						G.storeWorker.sprite.prepareSleep.play(() => {
-						G.storeWorker.sprite.sleep.loop()
-						this.completed = () => true
+							G.storeWorker.sprite.sleep.loop()
+							this.completed = () => true
 						})
 					}
 
 					completed() {
 						return false
 					}
-					
+
 				},
 
 
@@ -70,7 +70,7 @@ export class World {
 					completed() {
 						return true
 					}
-					
+
 				},
 
 
@@ -124,7 +124,7 @@ export class World {
 						HtmlProgressBar.remove()
 						return true
 					}
-					
+
 				},
 
 
@@ -140,7 +140,7 @@ export class World {
 
 						this.localObjects = new LocalObjects([
 							OnChange(() => G.poops.length, poops => {
-								
+
 							}),
 						])
 					}

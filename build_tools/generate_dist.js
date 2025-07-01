@@ -90,20 +90,21 @@ const scriptImports = orderedFiles
 
 
 function getAllFiles(dir) {
-	const entries = fs.readdirSync(dir, { withFileTypes: true });
+	const entries = fs.readdirSync(dir, { withFileTypes: true })
 
-	let files = [];
+	let files = []
 
 	for (const entry of entries) {
-		const fullPath = path.join(dir, entry.name);
+		const fullPath = path.join(dir, entry.name)
 		if (entry.isDirectory()) {
-			files = files.concat(getAllFiles(fullPath));
-		} else {
-			files.push(fullPath);
+			files = files.concat(getAllFiles(fullPath))
+		}
+		else {
+			files.push(fullPath)
 		}
 	}
 
-	return files;
+	return files
 }
 
 const cssImports = getAllFiles('static/ui/css')

@@ -64,7 +64,7 @@ export class Player extends DynamicGameObject {
 				const p = this.touchesAny(G.poops)
 				if (p) {
 					this.holding = p
-					console.log("hei")
+					console.log('hei')
 				}
 			}
 		})
@@ -105,7 +105,7 @@ export class Player extends DynamicGameObject {
 			if (p) {
 				draw.text(p.position.offset(0), '"E" to pick up')
 			}
-			
+
 		}
 	}
 }
