@@ -1,11 +1,15 @@
-document.addEventListener('keydown', function(event) {
-	if (event.key === 'Tab' || event.keyCode === 9) {
-		event.preventDefault()
+document.addEventListener('keydown', e => {
+	if (e.key === 'Tab' || e.keyCode === 9) {
+		e.preventDefault()
 	}
 })
 
 
 export class Keyboard {
+	static noButtonsPressed() {
+		return !this.up && !this.down && !this.left && !this.right
+	}
+
 	static {
 		document.addEventListener('keydown', (e) => {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {

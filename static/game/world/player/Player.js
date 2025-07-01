@@ -18,6 +18,42 @@ export class Player extends DynamicGameObject {
 					this.sprite.idle.loop()
 				}
 			}),
+
+			OnTrue(() => Keyboard.up, () => {
+				if (this.sprite.activeTag == 'poop') {
+					return
+				}
+
+				this.sprite.up.loop()
+			}),
+
+			OnTrue(() => Keyboard.down, () => {
+				if (this.sprite.activeTag == 'poop') {
+					return
+				}
+				this.sprite.idle.loop()
+			}),
+
+			OnTrue(() => Keyboard.left, () => {
+				if (this.sprite.activeTag == 'poop') {
+					return
+				}
+				this.sprite.left.loop()
+			}),
+
+			OnTrue(() => Keyboard.right, () => {
+				if (this.sprite.activeTag == 'poop') {
+					return
+				}
+				this.sprite.right.loop()
+			}),
+
+			OnTrue(() => Keyboard.noButtonsPressed(), () => {
+				if (this.sprite.activeTag == 'poop') {
+					return
+				}
+				this.sprite.idle.loop()
+			}),
 		])
 
 		KeyDown('e', () => {
@@ -37,13 +73,14 @@ export class Player extends DynamicGameObject {
 			Controller.disabled = true
 			this.velocity.reset()
 			this.sprite.poop.play(() => {
+				Controller.disabled = false
+
 				const poop = new Square(this.position.copy(40, 80), 20)
 				poop.color = 'brown'
 
 				G.poops.add(poop)
 				G.splash.random(poop, 'brown')
 				Html.fadeaway('poop', this.position.copy().up(200).left(400))
-				Controller.disabled = false
 			})
 		})
 

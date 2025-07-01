@@ -146,6 +146,7 @@ export class World {
 				() => new Dialogue([
 					new TextTyper(G.storeWorker, 'good job!'),
 					new TextTyper(G.storeWorker, 'now we have a bunch of poop!'),
+					new TextTyper(G.storeWorker, 'try to poop on the flowers to make them grow strong!'),
 				]),
 			]),
 
