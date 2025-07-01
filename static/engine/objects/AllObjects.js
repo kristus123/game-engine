@@ -22,6 +22,10 @@ export class AllObjects { // not a good name
 		return this.objects.forEach(callback)
 	}
 
+	get length() {
+		return this.objects.length
+	}
+
 	add(o) {
 		this.objects.push(o)
 

@@ -3,8 +3,6 @@
 	top: 0; 
 	left: 0;
 
-	/* color: #fff; */ 
-
 	border: none; 
 	cursor: auto;
 }
@@ -38,48 +36,5 @@
 .shoulder-to-shoulder {
 	display: flex;
 	justify-content: center;
-	gap: 10px; /* Adds space between the buttons */
-}
-
- .pokemon-text {
-	width: 50%;
-	background-color: white;
-	color: black;
-	text-align: center;
-	padding: 20px;
-	font-size: 60px; /* Adjust font size as needed */
-	border: 2px solid black; /* Optional border for the text area */
-	margin:10px;
-}
-
-.crossed {
-	color: grey;
-	text-decoration: line-through;
-}
-
-.right-click-menu {
-	background-color: black;
-	min-width: 200px;
-	min-height: 400px;
-}
-.sub-menu {
-	background-color: black;
-	min-width: 200px;
-	min-height: fit-content;
-	position: absolute;
-	transform: translateX(100%);
-	margin-left: -20px																																																																																																		;
-	top:0;
-	
-}
-.right-click-element {
-	min-width: 200px;
-	min-height: 20px;
-
-	padding: 20px;
-	background-color: gray;
-}
-
-.right-click-element:hover {
-	background-color: green;
+	gap: 10px;
 }

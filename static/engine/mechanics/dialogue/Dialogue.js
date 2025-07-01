@@ -2,15 +2,18 @@ export class Dialogue {
 
 	constructor(textTypers) {
 
-		this.listLooper = new ListLooper(textTypers, (textTyper, next, finished, draw, guiDraw) => {
+		this.listLooper = new ListLooper(textTypers, (textTyper, next, completed, draw, guiDraw) => {
 			textTyper.update()
 			textTyper.draw(draw, guiDraw)
 
-			if (textTyper.completed) {
-				console.log('completed')
+			if (textTyper.completed()) {
 				next()
 			}
 		})
+	}
+
+	completed() {
+		return this.listLooper.completed()
 	}
 
 	update() {

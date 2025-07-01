@@ -1,11 +1,12 @@
+const bar = Html.div('lower-center-ui progress-container', [
+	Html.div('progress-bar'),
+])
 export class HtmlProgressBar {
 
 	static progress = 0
 
 	static create() {
-		return Html.div('progress-container', [
-			Html.div('progress-bar')
-		])
+		Html.show(bar)
 	}
 
 	static change(increase) {
@@ -16,6 +17,9 @@ export class HtmlProgressBar {
 		progressBar.textContent = this.progress + '%'
 	}
 
+	static remove() {
+		Html.hide(bar)
+	}
 }
 
 

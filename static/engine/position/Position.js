@@ -26,16 +26,12 @@ export class Position {
 		return this
 	}
 
-	copy() {
-		return new Position(this.x, this.y, this.width, this.height)
+	copy(offset_x=0, offset_y=0) {
+		return new Position(this.x + offset_x, this.y+offset_y, this.width, this.height)
 	}
 
 	offset(offset_x=0, offset_y=0, width=this.width, height=this.height) {
 		return new OffsetPosition(this, offset_x, offset_y, width, height)
-	}
-
-	link(mainPosition) {
-		return this.offset(this.x - mainPosition.x, this.y - mainPosition.y)
 	}
 
 	over(y=100) {
@@ -44,7 +40,16 @@ export class Position {
 
 	right(x=100) {
 		return this.offset(this.width + x, 0)
+	}
 
+	up(amount) {
+		this.y + amount
+		return this
+	}
+
+	left(amount) {
+		this.x - amount
+		return this
 	}
 
 	get width() {
@@ -71,6 +76,13 @@ export class Position {
 	size(width, height) {
 		this.width = width
 		this.height = height
+
+		return this
+	}
+
+	scale(amount) {
+		this.width *= amount
+		this.height *= amount
 
 		return this
 	}

@@ -89,8 +89,25 @@ const scriptImports = orderedFiles
 	.join('\n')
 
 
-const cssImports = fs.readdirSync('static/ui/css')
-	.map(f => path.join('static/ui/css', f).replaceAll('\\', '/'))
+function getAllFiles(dir) {
+	const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+	let files = [];
+
+	for (const entry of entries) {
+		const fullPath = path.join(dir, entry.name);
+		if (entry.isDirectory()) {
+			files = files.concat(getAllFiles(fullPath));
+		} else {
+			files.push(fullPath);
+		}
+	}
+
+	return files;
+}
+
+const cssImports = getAllFiles('static/ui/css')
+	.map(f => f.replaceAll('\\', '/')) // for windows compability
 	.map(f => `<link rel="stylesheet" href="/${f}">`)
 	.join('\n')
 

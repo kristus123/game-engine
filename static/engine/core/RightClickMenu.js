@@ -1,4 +1,3 @@
-
 const menu = Html.addToScreen(Html.div('right-click-menu', []))
 Html.hide(menu)
 

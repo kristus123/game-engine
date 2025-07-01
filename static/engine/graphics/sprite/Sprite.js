@@ -1,7 +1,9 @@
 const scale = 8
 
-export class Sprite {
+export class Sprite extends StaticGameObject {
 	constructor(position, image, asepriteJson) {
+		super(position)
+
 		this.position.width = asepriteJson.width * scale
 		this.position.height = asepriteJson.height * scale
 
@@ -9,18 +11,22 @@ export class Sprite {
 
 		this.type = 'loop'
 
+		this.onFinish = () => {}
+
 		for (let [tag, value] of Object.entries(asepriteJson.tags)) {
 			this[tag] = {
-				play: () => {
+				play: (onFinish=() => {}) => {
 					this.currentFrame = 0
 					this.activeTag = tag
 					this.type = 'play'
+					this.onFinish = onFinish
 				},
-				loop: () => {
+				loop: (onFinish=() => {}) => {
 					this.currentFrame = 0
 					this.activeTag = tag
 					this.defaultTag = tag
 					this.type = 'loop'
+					this.onFinish = onFinish
 				},
 
 				show: (frame) => {
@@ -52,6 +58,7 @@ export class Sprite {
 					if (this.type == 'play') {
 						this.activeTag = this.defaultTag
 						this.type = 'loop'
+						this.onFinish()
 					}
 				}
 				else {
@@ -73,6 +80,7 @@ export class Sprite {
 
 			return s
 		})
+
 	}
 
 

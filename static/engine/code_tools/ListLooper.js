@@ -3,7 +3,7 @@ export class ListLooper {
 		this.index = 0
 	}
 
-	get finished() {
+	completed() {
 		return !(this.index < this.list.length)
 	}
 
@@ -11,11 +11,11 @@ export class ListLooper {
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.finished) {
+		if (!this.completed()) {
 			this.callback(
 				this.list[this.index], // element
 				() => this.index += 1, // next()
-				this.finished,
+				this.completed(),
 				draw,
 				guiDraw)
 		}

@@ -4,12 +4,16 @@ export class TextTyper {
 		this.isTyping = true
 		this.ready = false
 		this.frameCount = 0
-		this.completed = false
+		this.completed = () => false
+
+
+		this.textToType = this.textToType.toString()
+
 
 		this.localObjects = new LocalObjects([
 			OnTrue(() => this.text == this.textToType, () => {
 				setTimeout(() => {
-					this.completed = true
+					this.completed = () => true
 				}, 1_000)
 			})
 		])

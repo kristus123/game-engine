@@ -21,47 +21,49 @@ function element(type, clazz) {
 }
 
 export class Html {
-	static modal(children) {
+	static modal(children=[]) {
 		return this.dialog(children)
 	}
 
-	static dialog(children) {
-		const div = element('div')
-		const dialog = element('dialog')
+	static dialog(children=[]) {
 
-		for (const x of children) {
-			div.appendChild(x)
+		const div = element('div')
+		for (const c of children) {
+			div.appendChild(c)
 		}
 
-		dialog.appendChild(div)
+		const d = element('dialog')
+		d.appendChild(div)
 
-		dialog.addEventListener('click', e => {
-			if (e.target === dialog) {
-			  dialog.close() // close modal if clicking outside of it
+		d.addEventListener('click', e => {
+			if (e.target === d) {
+			  d.close() // close modal if clicking outside of it
 			}
 		  })
 
-		return dialog
+		d.showModal()
+
+		return d
 	}
 
 	static slider(min=1, max=100) {
-		const x = element('input')
+		const s = element('input')
 
-		x.type = 'range'
-		x.min = min
-		x.max = max
-		x.value = 0
-		x.step=1
+		s.type = 'range'
+		s.min = min
+		s.max = max
+		s.value = 0
+		s.step=1
 
-		x.addEventListener('mouseover', () => {
+		s.addEventListener('mouseover', () => {
 			Mouse.hoveringHtmlElement = true
 		})
 
-		x.addEventListener('mouseout', () => {
+		s.addEventListener('mouseout', () => {
 			Mouse.hoveringHtmlElement = false
 		})
 
-		return x
+		return s
 	}
 
 	static p(text, className='na') {
