@@ -26,7 +26,7 @@ function loadImage(pngPath) {
 const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
-	const asepriteJson = new AsepriteJson(Http.get(path + '.json'))
+	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
 
 	return loadImage(pngPath)
 		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
