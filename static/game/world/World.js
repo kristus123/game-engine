@@ -23,6 +23,20 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.world,
 			new Quest([
+				() => new class {
+					constructor() {
+						G.storeWorker.sprite.prepareSleep.play(() => {
+						G.storeWorker.sprite.sleep.loop()
+						this.completed = () => true
+						})
+					}
+
+					completed() {
+						return false
+					}
+					
+				},
+
 
 
 
@@ -48,7 +62,9 @@ export class World {
 
 				() => new class {
 					constructor() {
-						G.storeWorker.sprite.happy.play()
+						G.storeWorker.sprite.happy.play(() => {
+							G.storeWorker.sprite.idle.loop()
+						})
 					}
 
 					completed() {
@@ -69,6 +85,9 @@ export class World {
 				() => new class {
 
 					constructor() {
+
+						G.storeWorker.sprite.sleep.loop()
+
 						HtmlProgressBar.create()
 						this.d = new Dialogue([
 							new TextTyper(G.storeWorker, G.poops.length.toString()),

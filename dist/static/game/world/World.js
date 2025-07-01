@@ -4,6 +4,7 @@ import { a } from '/static/engine/code_tools/a.js';
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
+import { Sleep } from '/static/engine/core/Sleep.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { HtmlProgressBar } from '/static/engine/graphics/ui/html/HtmlProgressBar.js'; 
@@ -45,6 +46,20 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.world,
 			new Quest([
+				() => new class {
+					constructor() {
+						G.storeWorker.sprite.prepareSleep.play(() => {
+						G.storeWorker.sprite.sleep.loop()
+						this.completed = () => true
+						})
+					}
+
+					completed() {
+						return false
+					}
+					
+				},
+
 
 
 
@@ -70,7 +85,9 @@ export class World {
 
 				() => new class {
 					constructor() {
-						G.storeWorker.sprite.happy.play()
+						G.storeWorker.sprite.happy.play(() => {
+							G.storeWorker.sprite.idle.loop()
+						})
 					}
 
 					completed() {
@@ -91,6 +108,9 @@ export class World {
 				() => new class {
 
 					constructor() {
+
+						G.storeWorker.sprite.sleep.loop()
+
 						HtmlProgressBar.create()
 						this.d = new Dialogue([
 							new TextTyper(G.storeWorker, G.poops.length.toString()),
