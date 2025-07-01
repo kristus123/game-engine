@@ -1,0 +1,27 @@
+{ "frames": [
+   {
+    "filename": "idle",
+    "frame": { "x": 0, "y": 0, "w": 1080, "h": 720 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1080, "h": 720 },
+    "sourceSize": { "w": 1080, "h": 720 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.14.2-dev",
+  "image": "world.png",
+  "format": "RGBA8888",
+  "size": { "w": 1080, "h": 720 },
+  "scale": "1",
+  "slices": [
+   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 207, "y": 353, "w": 18, "h": 16 } }] },
+   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 161, "y": 359, "w": 20, "h": 17 } }] },
+   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 119, "y": 375, "w": 18, "h": 17 } }] },
+   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 66, "y": 390, "w": 18, "h": 16 } }] },
+   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 159, "y": 417, "w": 18, "h": 18 } }] }
+  ]
+ }
+}

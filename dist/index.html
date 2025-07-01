@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="/static/ui/css/animations/fade_away.css">
+<link rel="stylesheet" href="/static/ui/css/button.css">
+<link rel="stylesheet" href="/static/ui/css/dialog.css">
+<link rel="stylesheet" href="/static/ui/css/loading_screen.css">
+<link rel="stylesheet" href="/static/ui/css/main.css">
+<link rel="stylesheet" href="/static/ui/css/overlay.css">
+<link rel="stylesheet" href="/static/ui/css/progress_bar.css">
+<link rel="stylesheet" href="/static/ui/css/right_click_menu.css">
+<link rel="stylesheet" href="/static/ui/css/slider.css">
+<link rel="stylesheet" href="/static/ui/css/text.css">
+<link rel="stylesheet" href="/static/ui/css/ui.css">
+<link rel="stylesheet" href="/static/ui/css/videocall.css">
+	</head>
+	<body>
+
+		<div id="all_script_imports">
+			<script type="module" src="static/engine/controller/Mouse.js"></script>
+<script type="module" src="static/engine/socket/online/OnlineMouse.js"></script>
+<script type="module" src="static/engine/core/camera/Camera.js"></script>
+<script type="module" src="static/engine/core/camera/LowLevelCamera.js"></script>
+<script type="module" src="static/FindChickenQuest.js"></script>
+<script type="module" src="static/Kid.js"></script>
+<script type="module" src="static/Person.js"></script>
+<script type="module" src="static/engine/AsepriteJson.js"></script>
+<script type="module" src="static/engine/G.js"></script>
+<script type="module" src="static/engine/Pictures.js"></script>
+<script type="module" src="static/engine/Pixel.js"></script>
+<script type="module" src="static/engine/assertions/AnArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertNoNullInArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertNotNull.js"></script>
+<script type="module" src="static/engine/assertions/NotArray.js"></script>
+<script type="module" src="static/engine/chicken_stuff/BodyPart.js"></script>
+<script type="module" src="static/engine/chicken_stuff/Chicken.js"></script>
+<script type="module" src="static/engine/chicken_stuff/ChickenSprites.js"></script>
+<script type="module" src="static/engine/chicken_stuff/DeadChicken.js"></script>
+<script type="module" src="static/engine/chicken_stuff/Feather.js"></script>
+<script type="module" src="static/engine/chicken_stuff/Killed.js"></script>
+<script type="module" src="static/engine/code_tools/InfiniteListLooper.js"></script>
+<script type="module" src="static/engine/code_tools/Iterate.js"></script>
+<script type="module" src="static/engine/code_tools/ListLooper.js"></script>
+<script type="module" src="static/engine/code_tools/NumberThreshold.js"></script>
+<script type="module" src="static/engine/code_tools/ObjectClass.js"></script>
+<script type="module" src="static/engine/code_tools/OnChange.js"></script>
+<script type="module" src="static/engine/code_tools/OnTrue.js"></script>
+<script type="module" src="static/engine/code_tools/RunOnce.js"></script>
+<script type="module" src="static/engine/code_tools/RunUntil.js"></script>
+<script type="module" src="static/engine/code_tools/SpinningAroundPosition.js"></script>
+<script type="module" src="static/engine/code_tools/State.js"></script>
+<script type="module" src="static/engine/code_tools/Steps.js"></script>
+<script type="module" src="static/engine/code_tools/StopWatch.js"></script>
+<script type="module" src="static/engine/code_tools/TemporaryChange.js"></script>
+<script type="module" src="static/engine/code_tools/Thread.js"></script>
+<script type="module" src="static/engine/code_tools/a.js"></script>
+<script type="module" src="static/engine/code_tools/misc/Calculate.js"></script>
+<script type="module" src="static/engine/code_tools/misc/Clipboard.js"></script>
+<script type="module" src="static/engine/code_tools/misc/Distance.js"></script>
+<script type="module" src="static/engine/code_tools/misc/List.js"></script>
+<script type="module" src="static/engine/code_tools/misc/NormalMapPicture.js"></script>
+<script type="module" src="static/engine/code_tools/misc/Picture.js"></script>
+<script type="module" src="static/engine/code_tools/misc/PictureInPicture.js"></script>
+<script type="module" src="static/engine/code_tools/misc/Random.js"></script>
+<script type="module" src="static/engine/code_tools/misc/RotatingPicture.js"></script>
+<script type="module" src="static/engine/code_tools/smooth/SmoothPosition.js"></script>
+<script type="module" src="static/engine/code_tools/smooth/SmoothValue.js"></script>
+<script type="module" src="static/engine/code_tools/tools/Call.js"></script>
+<script type="module" src="static/engine/controller/Controller.js"></script>
+<script type="module" src="static/engine/controller/keyboard/Key.js"></script>
+<script type="module" src="static/engine/controller/keyboard/KeyDown.js"></script>
+<script type="module" src="static/engine/controller/keyboard/Keyboard.js"></script>
+<script type="module" src="static/engine/controller/keyboard/KeyboardEvent.js"></script>
+<script type="module" src="static/engine/controller/keyboard/KeypressEvent.js"></script>
+<script type="module" src="static/engine/controller/mouse/ClickEvents.js"></script>
+<script type="module" src="static/engine/controller/mouse/MouseEditor.js"></script>
+<script type="module" src="static/engine/controller/mouse/MouseResize.js"></script>
+<script type="module" src="static/engine/core/Draw.js"></script>
+<script type="module" src="static/engine/core/Level.js"></script>
+<script type="module" src="static/engine/core/Loop.js"></script>
+<script type="module" src="static/engine/core/Palette.js"></script>
+<script type="module" src="static/engine/core/RightClickMenu.js"></script>
+<script type="module" src="static/engine/core/Sleep.js"></script>
+<script type="module" src="static/engine/core/camera/Anchor.js"></script>
+<script type="module" src="static/engine/core/index.js"></script>
+<script type="module" src="static/engine/core/logging/ErrorHandler.js"></script>
+<script type="module" src="static/engine/core/logging/ShowLogs.js"></script>
+<script type="module" src="static/engine/core/physics/Collision.js"></script>
+<script type="module" src="static/engine/core/physics/ForcePush.js"></script>
+<script type="module" src="static/engine/core/physics/Move.js"></script>
+<script type="module" src="static/engine/core/physics/Physics.js"></script>
+<script type="module" src="static/engine/core/physics/Push.js"></script>
+<script type="module" src="static/engine/editor/PersistedObjectsEditor.js"></script>
+<script type="module" src="static/engine/editor/PersistedStaticPictureEditor.js"></script>
+<script type="module" src="static/engine/editor/WorldEditor.js"></script>
+<script type="module" src="static/engine/graphics/Grid.js"></script>
+<script type="module" src="static/engine/graphics/HeightMap.js"></script>
+<script type="module" src="static/engine/graphics/Noise.js"></script>
+<script type="module" src="static/engine/graphics/Parallax.js"></script>
+<script type="module" src="static/engine/graphics/Particle.js"></script>
+<script type="module" src="static/engine/graphics/PicturesLoop.js"></script>
+<script type="module" src="static/engine/graphics/SimplexNoise.js"></script>
+<script type="module" src="static/engine/graphics/SpinningPicture.js"></script>
+<script type="module" src="static/engine/graphics/SpinningSpriteFrame.js"></script>
+<script type="module" src="static/engine/graphics/Square.js"></script>
+<script type="module" src="static/engine/graphics/particles/SplashParticles.js"></script>
+<script type="module" src="static/engine/graphics/particles/Water.js"></script>
+<script type="module" src="static/engine/graphics/sprite/HorizontalSprite.js"></script>
+<script type="module" src="static/engine/graphics/sprite/Sprite.js"></script>
+<script type="module" src="static/engine/graphics/sprite/TriggerSprite.js"></script>
+<script type="module" src="static/engine/graphics/ui/BottomText.js"></script>
+<script type="module" src="static/engine/graphics/ui/Button.js"></script>
+<script type="module" src="static/engine/graphics/ui/Overlay.js"></script>
+<script type="module" src="static/engine/graphics/ui/html/Html.js"></script>
+<script type="module" src="static/engine/graphics/ui/html/HtmlProgressBar.js"></script>
+<script type="module" src="static/engine/graphics/ui/html/HtmlVideo.js"></script>
+<script type="module" src="static/engine/graphics/ui/html/MovableElement.js"></script>
+<script type="module" src="static/engine/hp/Hp.js"></script>
+<script type="module" src="static/engine/http/AsepritePicture.js"></script>
+<script type="module" src="static/engine/http/AsyncHttp.js"></script>
+<script type="module" src="static/engine/http/Http.js"></script>
+<script type="module" src="static/engine/http/StaticHttp.js"></script>
+<script type="module" src="static/engine/http/_HttpClient.js"></script>
+<script type="module" src="static/engine/mechanics/Blur.js"></script>
+<script type="module" src="static/engine/mechanics/Charge.js"></script>
+<script type="module" src="static/engine/mechanics/DeliveryZone.js"></script>
+<script type="module" src="static/engine/mechanics/FishingRod.js"></script>
+<script type="module" src="static/engine/mechanics/Fleet.js"></script>
+<script type="module" src="static/engine/mechanics/FollowPlayerNoise.js"></script>
+<script type="module" src="static/engine/mechanics/LoadingScreen.js"></script>
+<script type="module" src="static/engine/mechanics/MovableObjects.js"></script>
+<script type="module" src="static/engine/mechanics/Rain.js"></script>
+<script type="module" src="static/engine/mechanics/SimplePathFinder.js"></script>
+<script type="module" src="static/engine/mechanics/Sine.js"></script>
+<script type="module" src="static/engine/mechanics/SpriteFrame.js"></script>
+<script type="module" src="static/engine/mechanics/StraightPath.js"></script>
+<script type="module" src="static/engine/mechanics/audio/Audio.js"></script>
+<script type="module" src="static/engine/mechanics/audio/SineWave.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/BackspaceEffect.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/Dialogue.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/MultiTextTyper.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/Text.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/TextTyper.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js"></script>
+<script type="module" src="static/engine/mechanics/gun/Bullet.js"></script>
+<script type="module" src="static/engine/mechanics/gun/Gun.js"></script>
+<script type="module" src="static/engine/mechanics/inventory/Inventory.js"></script>
+<script type="module" src="static/engine/mechanics/inventory/InventoryItem.js"></script>
+<script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWall.js"></script>
+<script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWalls.js"></script>
+<script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWallsEditor.js"></script>
+<script type="module" src="static/engine/mechanics/path_finder/PathDrawer.js"></script>
+<script type="module" src="static/engine/mechanics/path_finder/PathFinder.js"></script>
+<script type="module" src="static/engine/mechanics/quest/Quest.js"></script>
+<script type="module" src="static/engine/mechanics/quest/QuestList.js"></script>
+<script type="module" src="static/engine/mechanics/vehicle/Cargo.js"></script>
+<script type="module" src="static/engine/mechanics/vehicle/EnterVehicle.js"></script>
+<script type="module" src="static/engine/objects/AllObjects.js"></script>
+<script type="module" src="static/engine/objects/DynamicGameObject.js"></script>
+<script type="module" src="static/engine/objects/HelperThing.js"></script>
+<script type="module" src="static/engine/objects/LocalObjects.js"></script>
+<script type="module" src="static/engine/objects/Registry.js"></script>
+<script type="module" src="static/engine/objects/StaticGameObject.js"></script>
+<script type="module" src="static/engine/objects/Velocity.js"></script>
+<script type="module" src="static/engine/objects/_GameObject.js"></script>
+<script type="module" src="static/engine/persistence/ImageEditor.js"></script>
+<script type="module" src="static/engine/persistence/Note.js"></script>
+<script type="module" src="static/engine/persistence/NoteEditor.js"></script>
+<script type="module" src="static/engine/persistence/PersistedObjects.js"></script>
+<script type="module" src="static/engine/persistence/PlayerEditor.js"></script>
+<script type="module" src="static/engine/position/AnalShit.js"></script>
+<script type="module" src="static/engine/position/CenterPosition.js"></script>
+<script type="module" src="static/engine/position/GuiPosition.js"></script>
+<script type="module" src="static/engine/position/OffsetPosition.js"></script>
+<script type="module" src="static/engine/position/Position.js"></script>
+<script type="module" src="static/engine/position/Positions.js"></script>
+<script type="module" src="static/engine/position/ScreenPosition.js"></script>
+<script type="module" src="static/engine/socket/OnlineObjects.js"></script>
+<script type="module" src="static/engine/socket/OnlinePlayers.js"></script>
+<script type="module" src="static/engine/socket/SocketClient.js"></script>
+<script type="module" src="static/engine/socket/VideoCall.js"></script>
+<script type="module" src="static/game/ChickenFood.js"></script>
+<script type="module" src="static/game/House.js"></script>
+<script type="module" src="static/game/SmokeBomb.js"></script>
+<script type="module" src="static/game/delivery_drone/Compass.js"></script>
+<script type="module" src="static/game/delivery_drone/DeliveryDrone.js"></script>
+<script type="module" src="static/game/enemies/BlobMonster.js"></script>
+<script type="module" src="static/game/enemies/SimpleMonster.js"></script>
+<script type="module" src="static/game/enemies/Worker.js"></script>
+<script type="module" src="static/game/extensions/SlingshotExtension.js"></script>
+<script type="module" src="static/game/extensions/fetch_container/Crate.js"></script>
+<script type="module" src="static/game/extensions/fetch_container/FetchContainerExtension.js"></script>
+<script type="module" src="static/game/legacy/BeaconShit.js"></script>
+<script type="module" src="static/game/legacy/Boat.js"></script>
+<script type="module" src="static/game/legacy/Chat.js"></script>
+<script type="module" src="static/game/legacy/DatingSimLevel.js"></script>
+<script type="module" src="static/game/legacy/Fire.js"></script>
+<script type="module" src="static/game/legacy/MushroomFarm.js"></script>
+<script type="module" src="static/game/legacy/Projectile.js"></script>
+<script type="module" src="static/game/legacy/SexyChat.js"></script>
+<script type="module" src="static/game/levels/cinematic_intro_level/CinematicIntroLevel.js"></script>
+<script type="module" src="static/game/levels/cinematic_intro_level/Monologue.js"></script>
+<script type="module" src="static/game/levels/deliver_piss_level/DeliverPissLevel.js"></script>
+<script type="module" src="static/game/levels/deliver_piss_level/SecondChat.js"></script>
+<script type="module" src="static/game/levels/inside_level/InsideLevel.js"></script>
+<script type="module" src="static/game/levels/inside_level/VoidDialogue.js"></script>
+<script type="module" src="static/game/levels/main_level/AiChat.js"></script>
+<script type="module" src="static/game/levels/main_level/FirstChat.js"></script>
+<script type="module" src="static/game/levels/main_level/MainLevel.js"></script>
+<script type="module" src="static/game/levels/main_level/Piss.js"></script>
+<script type="module" src="static/game/levels/main_level/PissQuest.js"></script>
+<script type="module" src="static/game/levels/start_menu/StartMenu.js"></script>
+<script type="module" src="static/game/world/Barn.js"></script>
+<script type="module" src="static/game/world/Bil.js"></script>
+<script type="module" src="static/game/world/CanvasRenderer.js"></script>
+<script type="module" src="static/game/world/ChickenBox.js"></script>
+<script type="module" src="static/game/world/CloudParallax.js"></script>
+<script type="module" src="static/game/world/D.js"></script>
+<script type="module" src="static/game/world/DeliverBoxQuest.js"></script>
+<script type="module" src="static/game/world/DragonRoom.js"></script>
+<script type="module" src="static/game/world/Enemy.js"></script>
+<script type="module" src="static/game/world/FirstQuest.js"></script>
+<script type="module" src="static/game/world/Init.js"></script>
+<script type="module" src="static/game/world/KillingMachine.js"></script>
+<script type="module" src="static/game/world/KillingMachineSprites.js"></script>
+<script type="module" src="static/game/world/Microphone.js"></script>
+<script type="module" src="static/game/world/Npc.js"></script>
+<script type="module" src="static/game/world/PickUp.js"></script>
+<script type="module" src="static/game/world/PicturePositions.js"></script>
+<script type="module" src="static/game/world/PlaceItems.js"></script>
+<script type="module" src="static/game/world/Planet.js"></script>
+<script type="module" src="static/game/world/Poop.js"></script>
+<script type="module" src="static/game/world/Ranch.js"></script>
+<script type="module" src="static/game/world/Ref.js"></script>
+<script type="module" src="static/game/world/Rices.js"></script>
+<script type="module" src="static/game/world/StarBackground.js"></script>
+<script type="module" src="static/game/world/Stars.js"></script>
+<script type="module" src="static/game/world/Store.js"></script>
+<script type="module" src="static/game/world/TalkToShopKeeper.js"></script>
+<script type="module" src="static/game/world/Throw.js"></script>
+<script type="module" src="static/game/world/Tree.js"></script>
+<script type="module" src="static/game/world/Update.js"></script>
+<script type="module" src="static/game/world/World.js"></script>
+<script type="module" src="static/game/world/player/Player.js"></script>
+<script type="module" src="static/game/world/player/PlayerSprites.js"></script>
+		</div>
+
+		<div id="loading_screen">
+		</div>
+
+		<div id="quest_list">
+		</div>
+
+		<div id="canvases">
+		</div>
+
+		<div id="pokemon-text">
+		</div>
+
+		<div id="videocallrtc"></div>
+
+		<div id="overlay"><div tabindex="-1" style="
+    user-select: none; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 100%; 
+	display: flex; 
+	justify-content: center; 
+	align-items: center;
+">
+
+  <div class="container">
+    <div class="top" id="top">
+      <!-- <div class="item"></div> -->
+    </div>
+
+    <div class="left" id="left">
+      <!-- <div class="item"></div> -->
+    </div>
+
+    <div class="right" id="right">
+      <!-- <div class="item"></div> -->
+    </div>
+
+    <div class="bottom" id="bottom">
+      <!-- <div class="item"></div> -->
+    </div>
+  </div>
+</div>
+</div>
+
+		<div id="ui_elements">
+		</div>
+
+		<div id="errorOverlay">
+			<div id="errorMessage"></div>
+			<div id="stackMessage"></div>
+		</div>
+	</body>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</html>

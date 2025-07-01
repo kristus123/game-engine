@@ -1,0 +1,23 @@
+#loading_screen {
+	position: absolute;
+	z-index: 4;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	color: white;
+	align-items: center;
+	justify-content: center;
+    pointer-events: none; /* Allow clicks to pass through */
+    user-select: none; /* Prevent text selection */
+}
+
+#loading_screen > p {
+	width: 100%; 
+	text-align: center; 
+	color: white;
+	font-size: 30px;
+	background-color: black; 
+	padding: 10px 0; 
+}
