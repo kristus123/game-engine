@@ -42,7 +42,7 @@ export class Sprite extends StaticGameObject {
 			this.idle.loop()
 		}
 		else {
-			throw new Error('invalid default tag for .aseprite')
+			throw new Error('invalid default tag for .aseprite. idle must be present')
 		}
 
 		const stopWatch = new StopWatch().start()
@@ -80,7 +80,12 @@ export class Sprite extends StaticGameObject {
 
 			return s
 		})
+	}
 
+
+	randomStartFrame() {
+		this.currentFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
+		return this
 	}
 
 
