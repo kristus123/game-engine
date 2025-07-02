@@ -36,7 +36,7 @@ export class Grid {
 		}
 
 		Mouse.onClick = p => {
-			
+
 		}
 	}
 

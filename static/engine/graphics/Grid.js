@@ -1,43 +1,46 @@
+const scale = 8
+
 export class Grid {
-  constructor(offsetX = 0, offsetY = 0, width = 1000, height = 1000, cellsX = 8, cellsY = 8) {
-    this.width = width
-    this.height = height
+	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*scale, cellHeight = 16*scale) {
+		this.positions = []
+		this.cellWidth = cellWidth
+		this.cellHeight = cellHeight
 
-    // Calculate cell size based on grid size and number of cells
-    this.cellSizeX = this.width / cellsX
-    this.cellSizeY = this.height / cellsY
+		for (let y = 0; y < gridHeight; y++) {
+			for (let x = 0; x < gridWidth; x++) {
+				this.positions.push(new Position(
+					x * cellWidth,
+					y * cellHeight,
+					cellWidth,
+					cellHeight,
+				))
+			}
+		}
 
-    // If you want square cells, take the smaller of the two
-    this.cellSize = Math.min(this.cellSizeX, this.cellSizeY)
+		Mouse.onClick = p => {
 
-    this.positions = []
+		}
+	}
 
-    for (let x = offsetX; x < this.width; x += this.cellSize) {
-      for (let y = offsetY; y < this.height; y += this.cellSize) {
-        this.positions.push(new Position(x,y, this.cellSize, this.cellSize))
-      }
-    }
-  }
+	snappedPosition(position) {
+		const cellX = Math.floor(position.x / this.cellWidth)
+		const cellY = Math.floor(position.y / this.cellHeight)
 
-  snappedPosition(position) {
-    const cellX = Math.floor(position.x / this.cellSize)
-    const cellY = Math.floor(position.y / this.cellSize)
+		const x = cellX * this.cellWidth
+		const y = cellY * this.cellHeight
 
-    const x = cellX * this.cellSize
-    const y = cellY * this.cellSize
+		return new Position(x, y, this.cellWidth, this.cellHeight)
+	}
 
-    return new Position(x, y, this.cellSize, this.cellSize)
-  }
+	draw(draw, guiDraw) {
+		draw.rectangle(this.snappedPosition(Mouse.position))
 
-  draw(draw, guiDraw) {
-    draw.rectangle(this.snappedPosition(Mouse.position))
+		draw.ctx.strokeStyle = 'white'
+		draw.ctx.lineWidth = 3
 
-    draw.ctx.strokeStyle = 'white'
-    draw.ctx.lineWidth = 3
-
-    for (const pos of this.positions) {
-      draw.ctx.strokeRect(pos.x, pos.y, this.cellSize, this.cellSize)
-    }
-  }
+		for (const pos of this.positions) {
+			draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
+		}
+	}
 }
 
