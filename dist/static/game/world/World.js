@@ -47,9 +47,10 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.world,
 
-			...new Grid(-1000, -1000).positions.map(p => {
+			...new Grid().positions.map(p => {
 				return G.Sprite.grass(p).randomStartFrame()
 			}),
+			new Grid(),
 
 			new Quest([
 				() => new class {
@@ -196,7 +197,7 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-			
+
 		])
 	}
 

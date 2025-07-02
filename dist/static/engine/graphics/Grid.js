@@ -2,66 +2,63 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
+const scale = 8
+
 export class Grid {
-  constructor(offsetX = 0, offsetY = 0, width = 1000, height = 1000, cellsX = 8, cellsY = 8) {
+	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*scale, cellHeight = 16*scale) {
 
-				AssertNotNull(offsetX, "argument offsetX in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(gridWidth, "argument gridWidth in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(offsetY, "argument offsetY in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(gridHeight, "argument gridHeight in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(width, "argument width in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(cellWidth, "argument cellWidth in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(height, "argument height in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(cellHeight, "argument cellHeight in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(cellsX, "argument cellsX in " + this.constructor.name + ".js should not be null")
+		this.gridWidth = gridWidth; 
+		this.gridHeight = gridHeight; 
+		this.cellWidth = cellWidth; 
+		this.cellHeight = cellHeight; 
+
+		this.positions = []
+		this.cellWidth = cellWidth
+		this.cellHeight = cellHeight
+
+		for (let y = 0; y < gridHeight; y++) {
+			for (let x = 0; x < gridWidth; x++) {
+				this.positions.push(new Position(
+					x * cellWidth,
+					y * cellHeight,
+					cellWidth,
+					cellHeight,
+				))
+			}
+		}
+
+		Mouse.onClick = p => {
 			
-				AssertNotNull(cellsY, "argument cellsY in " + this.constructor.name + ".js should not be null")
-			
-		this.offsetX = offsetX; 
-		this.offsetY = offsetY; 
-		this.width = width; 
-		this.height = height; 
-		this.cellsX = cellsX; 
-		this.cellsY = cellsY; 
+		}
+	}
 
-    this.width = width
-    this.height = height
+	snappedPosition(position) {
+		const cellX = Math.floor(position.x / this.cellWidth)
+		const cellY = Math.floor(position.y / this.cellHeight)
 
-    // Calculate cell size based on grid size and number of cells
-    this.cellSizeX = this.width / cellsX
-    this.cellSizeY = this.height / cellsY
+		const x = cellX * this.cellWidth
+		const y = cellY * this.cellHeight
 
-    // If you want square cells, take the smaller of the two
-    this.cellSize = Math.min(this.cellSizeX, this.cellSizeY)
+		return new Position(x, y, this.cellWidth, this.cellHeight)
+	}
 
-    this.positions = []
+	draw(draw, guiDraw) {
+		draw.rectangle(this.snappedPosition(Mouse.position))
 
-    for (let x = offsetX; x < this.width; x += this.cellSize) {
-      for (let y = offsetY; y < this.height; y += this.cellSize) {
-        this.positions.push(new Position(x,y, this.cellSize, this.cellSize))
-      }
-    }
-  }
+		draw.ctx.strokeStyle = 'white'
+		draw.ctx.lineWidth = 3
 
-  snappedPosition(position) {
-    const cellX = Math.floor(position.x / this.cellSize)
-    const cellY = Math.floor(position.y / this.cellSize)
-
-    const x = cellX * this.cellSize
-    const y = cellY * this.cellSize
-
-    return new Position(x, y, this.cellSize, this.cellSize)
-  }
-
-  draw(draw, guiDraw) {
-    draw.rectangle(this.snappedPosition(Mouse.position))
-
-    draw.ctx.strokeStyle = 'white'
-    draw.ctx.lineWidth = 3
-
-    for (const pos of this.positions) {
-      draw.ctx.strokeRect(pos.x, pos.y, this.cellSize, this.cellSize)
-    }
-  }
+		for (const pos of this.positions) {
+			draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
+		}
+	}
 }
 

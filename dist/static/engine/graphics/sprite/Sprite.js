@@ -38,6 +38,7 @@ export class Sprite extends StaticGameObject {
 					this.activeTag = tag
 					this.type = 'play'
 					this.onFinish = onFinish
+					return this
 				},
 				loop: (onFinish=() => {}) => {
 					this.currentFrame = 0
@@ -45,6 +46,7 @@ export class Sprite extends StaticGameObject {
 					this.defaultTag = tag
 					this.type = 'loop'
 					this.onFinish = onFinish
+					return this
 				},
 
 				show: (frame) => {
@@ -52,6 +54,7 @@ export class Sprite extends StaticGameObject {
 					this.activeTag = tag
 					this.defaultTag = tag
 					this.type = 'show'
+					return this
 				},
 			}
 		}
