@@ -1,6 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { OnTrue } from '/static/engine/code_tools/OnTrue.js'; 
 import { StopWatch } from '/static/engine/code_tools/StopWatch.js'; 
+import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
 
@@ -59,7 +60,7 @@ export class Sprite extends StaticGameObject {
 			this.idle.loop()
 		}
 		else {
-			throw new Error('invalid default tag for .aseprite')
+			throw new Error('invalid default tag for .aseprite. idle must be present')
 		}
 
 		const stopWatch = new StopWatch().start()
@@ -97,7 +98,12 @@ export class Sprite extends StaticGameObject {
 
 			return s
 		})
+	}
 
+
+	randomStartFrame() {
+		this.currentFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
+		return this
 	}
 
 

@@ -48,7 +48,7 @@ function loadImage(pngPath) {
 	})
 }
 
-const whenLoaded = Promise.all(["/static/assets/flower","/static/assets/player/player","/static/assets/player/viking","/static/assets/world"].map(path => {
+const whenLoaded = Promise.all(["/static/assets/flower","/static/assets/grass","/static/assets/player/player","/static/assets/player/viking","/static/assets/world"].map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))

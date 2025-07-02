@@ -6,6 +6,7 @@ import { Controller } from '/static/engine/controller/Controller.js';
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
 import { Sleep } from '/static/engine/core/Sleep.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
+import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { HtmlProgressBar } from '/static/engine/graphics/ui/html/HtmlProgressBar.js'; 
 import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 
@@ -45,6 +46,11 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			this.world,
+
+			...new Grid(-1000, -1000).positions.map(p => {
+				return G.Sprite.grass(p).randomStartFrame()
+			}),
+
 			new Quest([
 				() => new class {
 					constructor() {
@@ -85,9 +91,7 @@ export class World {
 
 				() => new class {
 					constructor() {
-						G.storeWorker.sprite.happy.play(() => {
-							G.storeWorker.sprite.idle.loop()
-						})
+						G.storeWorker.sprite.talk.loop()
 					}
 
 					completed() {
@@ -101,7 +105,6 @@ export class World {
 					new TextTyper(G.storeWorker, 'hi there!'),
 					new TextTyper(G.player, 'what should i do?'),
 					new TextTyper(G.storeWorker, 'try to poop by pressing "p"'),
-					new TextTyper(G.storeWorker, '   '),
 					new TextTyper(G.storeWorker, 'poop 4 times!'),
 				]),
 
@@ -109,7 +112,9 @@ export class World {
 
 					constructor() {
 
-						G.storeWorker.sprite.sleep.loop()
+						G.storeWorker.sprite.prepareSleep.play(() => {
+							G.storeWorker.sprite.sleep.loop()
+						})
 
 						HtmlProgressBar.create()
 						this.d = new Dialogue([
@@ -160,12 +165,6 @@ export class World {
 				() => new class {
 					constructor() {
 						this.deliveryZone = new Position(400, 200, 100, 100)
-
-						this.localObjects = new LocalObjects([
-							new OnChange(() => G.poops.length, poops => {
-
-							}),
-						])
 					}
 
 					completed() {
@@ -197,8 +196,7 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-
-
+			
 		])
 	}
 
