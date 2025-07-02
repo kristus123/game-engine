@@ -45,7 +45,7 @@ export class World {
 		const grid = new Grid()
 		Mouse.onClick = p => {
 			const snapped = grid.snappedPosition(p)
-			const g =  G.Sprite.grass(snapped).randomStartFrame()
+			const g =  G.Sprite.wheat(snapped).grow.show(9)
 			this.grass.add(g)
 		}
 
