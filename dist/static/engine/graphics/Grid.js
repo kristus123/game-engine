@@ -1,8 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Mouse } from '/static/engine/controller/Mouse.js'; 
+import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
-const scale = 8
+const scale = 8 // same as in Sprite.js
 
 export class Grid {
 	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*scale, cellHeight = 16*scale) {
@@ -34,10 +34,6 @@ export class Grid {
 				))
 			}
 		}
-
-		Mouse.onClick = p => {
-
-		}
 	}
 
 	snappedPosition(position) {
@@ -51,8 +47,6 @@ export class Grid {
 	}
 
 	draw(draw, guiDraw) {
-		draw.rectangle(this.snappedPosition(Mouse.position))
-
 		draw.ctx.strokeStyle = 'white'
 		draw.ctx.lineWidth = 3
 

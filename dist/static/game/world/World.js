@@ -3,6 +3,7 @@ import { OnChange } from '/static/engine/code_tools/OnChange.js';
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
+import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
 import { Sleep } from '/static/engine/core/Sleep.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
@@ -24,7 +25,6 @@ export class World {
 	constructor() {
 
 
-		const main = this
 
 		G.player = new Player(new Position(150, 0))
 		Controller.control(G.player)
@@ -41,16 +41,19 @@ export class World {
 				return s
 			}))
 
+		this.grass = new LocalObjects()
+		const grid = new Grid()
+		Mouse.onClick = p => {
+			const snapped = grid.snappedPosition(p)
+			const g =  G.Sprite.grass(snapped).randomStartFrame()
+			this.grass.add(g)
+		}
 
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
 			this.world,
-
-			...new Grid().positions.map(p => {
-				return G.Sprite.grass(p).randomStartFrame()
-			}),
-			new Grid(),
+			this.grass,
 
 			new Quest([
 				() => new class {
@@ -66,8 +69,6 @@ export class World {
 					}
 
 				},
-
-
 
 
 				() => new Dialogue([

@@ -80,7 +80,7 @@ export class Mouse {
 			console.log(e.button)
 
 			if (e.button == 0) { // Left click
-				this.onClick(this.screenPosition)
+				this.onClick(this.position)
 			}
 		})
 
