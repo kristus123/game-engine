@@ -1,6 +1,5 @@
 export class World {
 	constructor() {
-		const main = this
 
 		G.player = new Player(new Position(150, 0))
 		Controller.control(G.player)
@@ -17,16 +16,19 @@ export class World {
 				return s
 			}))
 
+		this.grass = new LocalObjects()
+		const grid = new Grid()
+		Mouse.onClick = p => {
+			const snapped = grid.snappedPosition(p)
+			const g =  G.Sprite.grass(snapped).randomStartFrame()
+			this.grass.add(g)
+		}
 
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
 			this.world,
-
-			...new Grid().positions.map(p => {
-				return G.Sprite.grass(p).randomStartFrame()
-			}),
-			new Grid(),
+			this.grass,
 
 			new Quest([
 				() => new class {
@@ -42,8 +44,6 @@ export class World {
 					}
 
 				},
-
-
 
 
 				() => new Dialogue([
