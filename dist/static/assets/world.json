@@ -17,11 +17,7 @@
   "size": { "w": 1080, "h": 720 },
   "scale": "1",
   "slices": [
-   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 207, "y": 353, "w": 18, "h": 16 } }] },
-   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 161, "y": 359, "w": 20, "h": 17 } }] },
-   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 119, "y": 375, "w": 18, "h": 17 } }] },
-   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 66, "y": 390, "w": 18, "h": 16 } }] },
-   { "name": "shadow", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 159, "y": 417, "w": 18, "h": 18 } }] }
+   { "name": "water", "color": "#0000ffff", "data": "{deep: false}", "keys": [{ "frame": 0, "bounds": {"x": 240, "y": 372, "w": 128, "h": 77 } }] }
   ]
  }
 }
