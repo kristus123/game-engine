@@ -1,7 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { RunOnce } from '/static/engine/code_tools/RunOnce.js'; 
 import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { RunOnce } from '/static/engine/code_tools/on/RunOnce.js'; 
 import { Call } from '/static/engine/code_tools/tools/Call.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 

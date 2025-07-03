@@ -1,9 +1,9 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { ChickenSprites } from '/static/engine/chicken_stuff/ChickenSprites.js'; 
 import { DeadChicken } from '/static/engine/chicken_stuff/DeadChicken.js'; 
-import { OnTrue } from '/static/engine/code_tools/OnTrue.js'; 
 import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { Loop } from '/static/engine/core/Loop.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 

@@ -1,8 +1,8 @@
 import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Chicken } from '/static/engine/chicken_stuff/Chicken.js'; 
-import { OnChange } from '/static/engine/code_tools/OnChange.js'; 
-import { OnTrue } from '/static/engine/code_tools/OnTrue.js'; 
+import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
+import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 

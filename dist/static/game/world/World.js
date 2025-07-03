@@ -1,7 +1,7 @@
 import { G } from '/static/engine/G.js'; 
-import { OnChange } from '/static/engine/code_tools/OnChange.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 

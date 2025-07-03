@@ -1,6 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { RunOnce } from '/static/engine/code_tools/RunOnce.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { RunOnce } from '/static/engine/code_tools/on/RunOnce.js'; 
 import { Call } from '/static/engine/code_tools/tools/Call.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Piss } from '/static/game/levels/main_level/Piss.js'; 

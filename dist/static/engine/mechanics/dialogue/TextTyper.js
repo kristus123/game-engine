@@ -1,5 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { OnTrue } from '/static/engine/code_tools/OnTrue.js'; 
+import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 
 export class TextTyper {
