@@ -5,7 +5,6 @@ import { Palette } from '/static/engine/core/Palette.js';
 import { Position } from '/static/engine/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
 
-
 // const renderer = new CanvasRenderer()
 // const pos = new Position(0, 0, 10, 10)
 // renderer.draw.rectangle(new Position(50, 0, 1000, 1000))

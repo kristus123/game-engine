@@ -1,8 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Draw } from '/static/engine/core/Draw.js'; 
-import { HorizontalSprite } from '/static/engine/graphics/sprite/HorizontalSprite.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { TriggerSprite } from '/static/engine/graphics/sprite/TriggerSprite.js'; 
 
 export class PlayerSprites {
 	constructor(player) {

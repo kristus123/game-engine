@@ -1,75 +1,30 @@
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { ListLooper } from '/static/engine/code_tools/ListLooper.js'; 
 import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { Loop } from '/static/engine/core/Loop.js'; 
 
 export class Steps {
-	constructor() {
+	constructor(steps) {
 
+				AssertNotNull(steps, "argument steps in " + this.constructor.name + ".js should not be null")
+			
+		this.steps = steps; 
 
-		this.steps = []
 		this.index = 0
-		this.lock = false
 
-		this._loop = false
-	}
+		this.x = new ListLooper(steps, (s, next, completed, draw, guiDraw) => {
 
-	once(run) {
-		if (!this.lock) {
-			this.steps.push(() => {
-				run()
-				return true
-			})
-		}
-
-		return this
-	}
-
-	wait(milliseconds) {
-		if (!this.lock) {
-
-			let c = false
-			setTimeout(() => {
-				c = true
-			}, milliseconds)
-
-			this.steps.push(() => {
-				return c
-			})
-		}
-
-		return this
-	}
-
-	until(run) {
-		if (!this.lock) {
-			this.steps.push(run)
-		}
-
-		return this
-	}
-
-	loop() {
-		this._loop = true
-
-		return this
-	}
-
-	update() {
-		if (this.steps.length != 0) {
-			this.lock = true
-		}
-
-		if (List.validIndex(this.steps, this.index)) {
-			const f = this.steps[this.index]
-
-			if (f()) {
-				this.index += 1
+			if (s.completed()) {
+				next()
 			}
-		}
-		else if (this._loop) {
-			this.steps = []
-			this.index = 0
-			this.lock = false
-		}
-
-		return this
+			else if (completed) {
+				this.removeFromLoop()
+			}
+		})
 	}
+
+	draw(draw, guiDraw) {
+
+	}
+
 }

@@ -1,4 +1,6 @@
 import { G } from '/static/engine/G.js'; 
+import { Once } from '/static/engine/code_tools/Once.js'; 
+import { Wait } from '/static/engine/code_tools/Wait.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
@@ -54,6 +56,16 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.world,
 			this.grass,
+
+			new Quest([
+				() => new Once(() => {
+					console.log("hei")
+				}),
+				() => new Wait(5000),
+				() => new Once(() => {
+					console.log("hei")
+				}),
+			]),
 
 			new Quest([
 				() => new class {

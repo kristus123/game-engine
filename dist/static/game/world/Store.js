@@ -1,6 +1,5 @@
 import { G } from '/static/engine/G.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { HorizontalSprite } from '/static/engine/graphics/sprite/HorizontalSprite.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 

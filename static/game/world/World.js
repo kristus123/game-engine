@@ -31,6 +31,16 @@ export class World {
 			this.grass,
 
 			new Quest([
+				() => new Once(() => {
+					console.log("hei")
+				}),
+				() => new Wait(5000),
+				() => new Once(() => {
+					console.log("hei")
+				}),
+			]),
+
+			new Quest([
 				() => new class {
 					constructor() {
 						G.storeWorker.sprite.prepareSleep.play(() => {

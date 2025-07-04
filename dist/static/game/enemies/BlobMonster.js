@@ -1,7 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
-import { HorizontalSprite } from '/static/engine/graphics/sprite/HorizontalSprite.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SimplePathFinder } from '/static/engine/mechanics/SimplePathFinder.js'; 
 import { PathFinder } from '/static/engine/mechanics/path_finder/PathFinder.js'; 

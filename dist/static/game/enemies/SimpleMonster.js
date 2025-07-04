@@ -6,7 +6,6 @@ import { Loop } from '/static/engine/core/Loop.js';
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Move } from '/static/engine/core/physics/Move.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
-import { HorizontalSprite } from '/static/engine/graphics/sprite/HorizontalSprite.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 

@@ -1,7 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Move } from '/static/engine/core/physics/Move.js'; 
-import { HorizontalSprite } from '/static/engine/graphics/sprite/HorizontalSprite.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 

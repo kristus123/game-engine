@@ -1,4 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Once } from '/static/engine/code_tools/Once.js'; 
 import { RunOnce } from '/static/engine/code_tools/on/RunOnce.js'; 
 import { Call } from '/static/engine/code_tools/tools/Call.js'; 
 import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 

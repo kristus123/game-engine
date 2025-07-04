@@ -1,6 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { TriggerSprite } from '/static/engine/graphics/sprite/TriggerSprite.js'; 
 
 export class KillingMachineSprites {
 	constructor(position) {
