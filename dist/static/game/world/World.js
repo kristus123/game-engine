@@ -1,6 +1,4 @@
 import { G } from '/static/engine/G.js'; 
-import { Once } from '/static/engine/code_tools/Once.js'; 
-import { Wait } from '/static/engine/code_tools/Wait.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
@@ -18,7 +16,6 @@ import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js';
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { Worker } from '/static/game/enemies/Worker.js'; 
 import { D } from '/static/game/world/D.js'; 
 import { Npc } from '/static/game/world/Npc.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 
@@ -32,7 +29,7 @@ export class World {
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
 
-		G.storeWorker = new Npc(new Position(0, -400))
+		G.friend = new Npc(new Position(0, -400))
 
 		G.poops = new LocalObjects()
 
@@ -58,20 +55,10 @@ export class World {
 			this.grass,
 
 			new Quest([
-				() => new Once(() => {
-					console.log("hei")
-				}),
-				() => new Wait(5000),
-				() => new Once(() => {
-					console.log("hei")
-				}),
-			]),
-
-			new Quest([
 				() => new class {
 					constructor() {
-						G.storeWorker.sprite.prepareSleep.play(() => {
-							G.storeWorker.sprite.sleep.loop()
+						G.friend.sprite.prepareSleep.play(() => {
+							G.friend.sprite.sleep.loop()
 							this.completed = () => true
 						})
 					}
@@ -90,22 +77,22 @@ export class World {
 
 				() => new class {
 					completed() {
-						return G.player.touches(G.storeWorker) && Keyboard.e
+						return G.player.touches(G.friend) && Keyboard.e
 					}
 
 					update() {
 					}
 
 					draw(draw, guiDraw) {
-						if (G.player.touches(G.storeWorker)) {
-							draw.text(G.storeWorker, 'press "e" to talk')
+						if (G.player.touches(G.friend)) {
+							draw.text(G.friend, 'press "e" to talk')
 						}
 					}
 				},
 
 				() => new class {
 					constructor() {
-						G.storeWorker.sprite.talk.loop()
+						G.friend.sprite.talk.loop()
 					}
 
 					completed() {
@@ -116,30 +103,30 @@ export class World {
 
 
 				() => new Dialogue([
-					new TextTyper(G.storeWorker, 'hi there!'),
+					new TextTyper(G.friend, 'hi there!'),
 					new TextTyper(G.player, 'what should i do?'),
-					new TextTyper(G.storeWorker, 'try to poop by pressing "p"'),
-					new TextTyper(G.storeWorker, 'poop 4 times!'),
+					new TextTyper(G.friend, 'try to poop by pressing "p"'),
+					new TextTyper(G.friend, 'poop 4 times!'),
 				]),
 
 				() => new class {
 
 					constructor() {
 
-						G.storeWorker.sprite.prepareSleep.play(() => {
-							G.storeWorker.sprite.sleep.loop()
+						G.friend.sprite.prepareSleep.play(() => {
+							G.friend.sprite.sleep.loop()
 						})
 
 						HtmlProgressBar.create()
 						this.d = new Dialogue([
-							new TextTyper(G.storeWorker, G.poops.length.toString()),
+							new TextTyper(G.friend, G.poops.length.toString()),
 						])
 
 						this.localObjects = new LocalObjects([
 							new OnChange(() => G.poops.length, () => {
 								HtmlProgressBar.change(25)
 								this.d = new Dialogue([
-									new TextTyper(G.storeWorker, G.poops.length.toString()),
+									new TextTyper(G.friend, G.poops.length.toString()),
 								])
 							})
 						])
@@ -171,8 +158,8 @@ export class World {
 
 
 				() => new Dialogue([
-					new TextTyper(G.storeWorker, 'good job!'),
-					new TextTyper(G.storeWorker, 'now place the poop in the poop area'),
+					new TextTyper(G.friend, 'good job!'),
+					new TextTyper(G.friend, 'now place the poop in the poop area'),
 				]),
 
 
@@ -199,14 +186,14 @@ export class World {
 				},
 
 				() => new Dialogue([
-					new TextTyper(G.storeWorker, 'good job!'),
-					new TextTyper(G.storeWorker, 'now we have a bunch of poop!'),
-					new TextTyper(G.storeWorker, 'try to poop on the flowers to make them grow strong!'),
+					new TextTyper(G.friend, 'good job!'),
+					new TextTyper(G.friend, 'now we have a bunch of poop!'),
+					new TextTyper(G.friend, 'try to poop on the flowers to make them grow strong!'),
 				]),
 			]),
 
 
-			G.storeWorker,
+			G.friend,
 			G.poops,
 			G.flowers,
 			G.player,
