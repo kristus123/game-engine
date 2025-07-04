@@ -66,6 +66,5 @@ export class Steps {
 			this.lock = false
 		}
 
-		return this
 	}
 }
