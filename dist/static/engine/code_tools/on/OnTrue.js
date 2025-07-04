@@ -1,6 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
 
+// 'new' is prefixed in transpiler, just write new OnChange(...)
+
 export class OnTrue {
 	constructor(condition, action) {
 

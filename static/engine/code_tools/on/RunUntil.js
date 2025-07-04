@@ -1,17 +1,14 @@
-const id = {}
-
-export const RunUntil = (uuid, object, condition, run) => {
-	if (!(object in id)) {
-		id[object] = []
+export class RunUntil {
+	constructor(run) {
 	}
 
-	if (id[object].includes(uuid)) {
-		return // finished
+	update() {
+		const r = this.run()
+		if (r) {
+			this.removeFromLoop()
+		}
 	}
-	else if (condition) {
-		id[object].push(uuid)
-	}
-	else {
-		run()
+
+	draw(draw, guiDraw) {
 	}
 }

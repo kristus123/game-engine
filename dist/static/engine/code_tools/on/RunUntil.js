@@ -1,18 +1,22 @@
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Loop } from '/static/engine/core/Loop.js'; 
 
-const id = {}
+export class RunUntil {
+	constructor(run) {
 
-export const RunUntil = (uuid, object, condition, run) => {
-	if (!(object in id)) {
-		id[object] = []
+				AssertNotNull(run, "argument run in " + this.constructor.name + ".js should not be null")
+			
+		this.run = run; 
+
 	}
 
-	if (id[object].includes(uuid)) {
-		return // finished
+	update() {
+		const r = this.run()
+		if (r) {
+			this.removeFromLoop()
+		}
 	}
-	else if (condition) {
-		id[object].push(uuid)
-	}
-	else {
-		run()
+
+	draw(draw, guiDraw) {
 	}
 }

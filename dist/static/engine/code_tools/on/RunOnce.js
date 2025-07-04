@@ -1,21 +1,14 @@
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Loop } from '/static/engine/core/Loop.js'; 
 
-const id = {}
+export class RunOnce {
+	constructor(run) {
 
-// generate_dist.js adds uuid and object, you should only add condition and run
-
-export const RunOnce = (uuid, object, condition, run) => {
-
-	if (!(object in id)) {
-		id[object] = []
-		return false
-	}
-
-	const x = !id[object].includes(uuid)
-
-	if (x && condition) {
-		id[object].push(uuid)
+				AssertNotNull(run, "argument run in " + this.constructor.name + ".js should not be null")
+			
+		this.run = run; 
 
 		run()
+		this.removeFromLoop()
 	}
 }
-

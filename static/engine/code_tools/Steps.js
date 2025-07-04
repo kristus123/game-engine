@@ -1,5 +1,3 @@
-// not implemented in transpiler yet
-
 export class Steps {
 	constructor() {
 		this.steps = []

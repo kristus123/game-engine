@@ -1,3 +1,5 @@
+// 'new' is prefixed in transpiler, just write OnChange(...)
+
 export class OnTrue {
 	constructor(condition, action) {
 		// todo verify condition is a lambda

@@ -1,7 +1,5 @@
 import { List } from '/static/engine/code_tools/misc/List.js'; 
 
-// not implemented in transpiler yet
-
 export class Steps {
 	constructor() {
 
