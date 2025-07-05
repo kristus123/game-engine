@@ -31,7 +31,7 @@ export class Player extends DynamicGameObject {
 				if (this.sprite.activeTag == 'poop') {
 					return
 				}
-				this.sprite.idle.loop()
+				this.sprite.down.loop()
 			}),
 
 			OnTrue(() => Keyboard.left, () => {

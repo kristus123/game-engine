@@ -30,6 +30,8 @@ export class World {
 			this.world,
 			this.grass,
 
+			...new Grid().positions.map(p => new Grass(p)),
+
 			new Quest([
 				() => new class {
 					constructor() {

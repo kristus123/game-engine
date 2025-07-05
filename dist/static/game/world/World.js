@@ -17,6 +17,7 @@ import { Quest } from '/static/engine/mechanics/quest/Quest.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
+import { Grass } from '/static/game/world/Grass.js'; 
 import { Npc } from '/static/game/world/Npc.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 
 
@@ -53,6 +54,8 @@ export class World {
 		this.localObjects = new LocalObjects([
 			this.world,
 			this.grass,
+
+			...new Grid().positions.map(p => new Grass(p)),
 
 			new Quest([
 				() => new class {

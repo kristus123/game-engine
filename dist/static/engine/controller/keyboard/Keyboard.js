@@ -7,6 +7,7 @@ document.addEventListener('keydown', e => {
 
 
 export class Keyboard {
+
 	static noButtonsPressed() {
 		return !this.up && !this.down && !this.left && !this.right
 	}
