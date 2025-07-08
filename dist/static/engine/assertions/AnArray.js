@@ -1,4 +1,1 @@
-
-export function AnArray(x) {
-	return Array.isArray(x)
-}
+export function AnArray(r){return Array.isArray(r)}

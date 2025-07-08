@@ -1,13 +1,1 @@
-
-export class NumberThreshold {
-
-	static update(number, threshold) {
-		if (Math.abs(number) < threshold) {
-			return 0
-		}
-		else {
-			return number
-		}
-	}
-}
-
+export class NumberThreshold{static update(t,a){return Math.abs(t)<a?0:t}}

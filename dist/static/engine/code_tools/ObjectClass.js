@@ -1,17 +1,1 @@
-
-export function ObjectClass(params, methods) {
-	const instance = {}
-
-	// Define methods dynamically based on the provided methods
-	Object.entries(methods).forEach(([methodName, method]) => {
-		instance[methodName] = () => method(params)
-	})
-
-	// Prepare the draw method to be called later
-	instance.draw = (draw, guiDraw) => {
-		methods.draw(draw, guiDraw, params)
-	}
-
-	return instance
-}
-
+export function ObjectClass(r,t){const e={};return Object.entries(t).forEach(([t,c])=>{e[t]=()=>c(r)}),e.draw=(e,c)=>{t.draw(e,c,r)},e}

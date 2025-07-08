@@ -1,8 +1,1 @@
-
-export function D(d) {
-	const object = {}
-
-	object.draw = (draw, guiDraw) => d(draw, guiDraw, object)
-
-	return object
-}
+export function D(n){const r={draw:(t,o)=>n(t,o,r)};return r}

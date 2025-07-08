@@ -1,8 +1,1 @@
-import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
-
-export class LoadingScreen {
-	static show(text = 'Loading...') {
-		const p = Html.p(text, 'center-ui')
-		Html.addToScreen(p)
-	}
-}
+import{Html}from"/static/engine/graphics/ui/html/Html.js";export class LoadingScreen{static show(t="Loading..."){const e=Html.p(t,"center-ui");Html.addToScreen(e)}}

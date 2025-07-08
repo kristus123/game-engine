@@ -1,18 +1,1 @@
-
-const id = {}
-
-export const RunUntil = (uuid, object, condition, run) => {
-	if (!(object in id)) {
-		id[object] = []
-	}
-
-	if (id[object].includes(uuid)) {
-		return // finished
-	}
-	else if (condition) {
-		id[object].push(uuid)
-	}
-	else {
-		run()
-	}
-}
+const id={};export const RunUntil=(i,d,n,s)=>{d in id||(id[d]=[]),id[d].includes(i)||(n?id[d].push(i):s())};

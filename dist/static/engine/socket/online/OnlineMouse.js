@@ -1,7 +1,1 @@
-
-export class OnlineMouse {
-	constructor() {
-
-
-	}
-}
+export class OnlineMouse{constructor(){}}

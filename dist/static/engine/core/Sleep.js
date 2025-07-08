@@ -1,10 +1,1 @@
-
-export function Sleep(milliseconds) {
-	const date = Date.now()
-	let currentDate = null
-	do {
-		currentDate = Date.now()
-	} while (currentDate - date < milliseconds)
-}
-
-
+export function Sleep(e){const n=Date.now();let o=null;do{o=Date.now()}while(o-n<e)}

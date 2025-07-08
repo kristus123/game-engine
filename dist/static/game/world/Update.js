@@ -1,9 +1,1 @@
-
-export function Update(u) {
-	const object = {}
-
-	object.update = () => u(object)
-
-	return object
-}
-
+export function Update(t){const e={update:()=>t(e)};return e}
