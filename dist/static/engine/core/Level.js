@@ -1,1 +1,19 @@
-export class Level{static{this.active=null}static change(t){this.active=t}static update(){this.active.update()}static draw(t,a){this.active.draw(t,a)}}
+
+export class Level {
+	static {
+		this.active = null
+	}
+
+	static change(level) {
+		this.active = level
+	}
+
+	static update() {
+		this.active.update()
+	}
+
+	static draw(draw, guiDraw) {
+		this.active.draw(draw, guiDraw)
+	}
+
+}

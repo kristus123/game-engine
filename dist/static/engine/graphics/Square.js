@@ -1,1 +1,32 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{DynamicGameObject}from"/static/engine/objects/DynamicGameObject.js";import{D}from"/static/game/world/D.js";export class Square extends DynamicGameObject{constructor(t,s,i=()=>{}){super(t,10,10),AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),AssertNotNull(s,"argument size in "+this.constructor.name+".js should not be null"),AssertNotNull(i,"argument run in "+this.constructor.name+".js should not be null"),this.position=t,this.size=s,this.run=i,this.position.width=s,this.position.height=s,i(this)}update(){}draw(t,s){t.rectangle(this.position,this.color||"white")}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
+import { D } from '/static/game/world/D.js'; 
+
+export class Square extends DynamicGameObject {
+	constructor(position, size, run=() => {}) {
+		super(position, 10, 10)
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(size, "argument size in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(run, "argument run in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+		this.size = size; 
+		this.run = run; 
+
+		this.position.width = size
+		this.position.height = size
+
+		run(this)
+	}
+
+	update() {
+
+	}
+
+	draw(draw, guiDraw) {
+		draw.rectangle(this.position, this.color || 'white')
+	}
+}

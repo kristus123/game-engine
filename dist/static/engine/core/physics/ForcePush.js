@@ -1,1 +1,45 @@
-import{Random}from"/static/engine/code_tools/misc/Random.js";import{Push}from"/static/engine/core/physics/Push.js";export const ForcePush=t=>({awayFrom:(o,a=1)=>{const e=Math.atan2(t.y-o.y,t.x-o.x);t.velocity.x=Math.cos(e)*t.velocityFactor*a,t.velocity.y=Math.sin(e)*t.velocityFactor*a},towards:(o,a=1)=>{const e=Math.atan2(o.y-t.y,o.x-t.x);t.velocity.x=Math.cos(e)*t.velocityFactor*a,t.velocity.y=Math.sin(e)*t.velocityFactor*a},randomly:(o=1)=>{const a=t.x+Random.integerBetween(-10,10),e=t.y+Random.integerBetween(-10,10),c=Math.atan2(e-t.y,a-t.x);t.velocity.x=Math.cos(c)*t.velocityFactor*o,t.velocity.y=Math.sin(c)*t.velocityFactor*o},roughlyTowards:(o,a=1)=>{const e=o.x-t.x,c=o.y-t.y,n=Math.atan2(c,e)+Random.floatBetween(-.45,.45),s={x:Math.cos(n)*Random.floatBetween(1,5),y:Math.sin(n)*Random.floatBetween(1,5)};ForcePush(t).towards(s,a)}});
+import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { Push } from '/static/engine/core/physics/Push.js'; 
+
+export const ForcePush = (o) => ({
+	awayFrom: (position, multiplier=1) => {
+		const dir = Math.atan2(o.y - position.y, o.x - position.x)
+
+		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
+		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+	},
+	towards: (position, multiplier=1) => {
+		const dir = Math.atan2(position.y - o.y, position.x - o.x)
+
+		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
+		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+	},
+
+	randomly: (multiplier=1) => {
+		const position = {
+			x: o.x + Random.integerBetween(-10, 10),
+			y: o.y + Random.integerBetween(-10, 10),
+		}
+		const dir = Math.atan2(position.y - o.y, position.x - o.x)
+
+		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
+		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+	},
+	roughlyTowards: (position, multiplier=1) => {
+		const angleSpread = 0.9
+
+		const direction_x = position.x - o.x
+		const direction_y = position.y - o.y
+
+		const initialAngle = Math.atan2(direction_y, direction_x)
+		const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)
+		const angle = initialAngle + spread
+
+		const p = {
+			x: Math.cos(angle) * Random.floatBetween(1, 5),
+			y: Math.sin(angle) * Random.floatBetween(1, 5),
+		}
+
+		ForcePush(o).towards(p, multiplier)
+	},
+})

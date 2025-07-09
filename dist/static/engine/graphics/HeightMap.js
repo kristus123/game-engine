@@ -1,1 +1,31 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{Noise}from"/static/engine/graphics/Noise.js";import{SimplexNoise}from"/static/engine/graphics/SimplexNoise.js";import{Positions}from"/static/engine/position/Positions.js";export class HeightMap{constructor(s,i){AssertNotNull(s,"argument position in "+this.constructor.name+".js should not be null"),AssertNotNull(i,"argument scale in "+this.constructor.name+".js should not be null"),this.position=s,this.scale=i,this.scale=i,this.simplex=new SimplexNoise(.001),this.positions=Positions.grid(this.position,this.scale).map(s=>({position:s,value:Math.floor(128*(this.simplex.noise(s)+1))}))}draw(s,i){for(const{position:i,value:o}of this.positions)s.color(i,`rgb(${o}, ${o}, ${o})`)}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Noise } from '/static/engine/graphics/Noise.js'; 
+import { SimplexNoise } from '/static/engine/graphics/SimplexNoise.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
+
+export class HeightMap {
+	constructor(position, scale) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(scale, "argument scale in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+		this.scale = scale; 
+
+		this.scale = scale
+		this.simplex = new SimplexNoise(0.001)
+
+		this.positions = Positions.grid(this.position, this.scale).map(position => ({
+			position: position,
+			value: Math.floor((this.simplex.noise(position)+ 1) * 128),
+		}))
+	}
+
+	draw(draw, guiDraw) {
+		for (const { position, value } of this.positions) {
+			draw.color(position, `rgb(${value}, ${value}, ${value})`)
+		}
+	}
+}
+

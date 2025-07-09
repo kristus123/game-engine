@@ -1,1 +1,26 @@
-export class ErrorHandler{static run(t){try{t()}catch(t){console.error(t),document.getElementById("stackMessage").innerHTML=t.stack.replaceAll(/\n/g,"<br>").replaceAll("http://localhost:5000","").replaceAll("at ",""),document.getElementById("errorMessage").innerHTML=`\n\t\t\t\t${t.message}\n\t\t\t\t<br><br>\n\t\t\t\t<br>\n\t\t\t`,document.getElementById("errorOverlay").style.display="flex"}}}
+
+export class ErrorHandler {
+
+	static run(logic) {
+		try {
+			logic()
+		}
+		catch (error) {
+			console.error(error)
+
+			document.getElementById('stackMessage').innerHTML = error.stack
+				.replaceAll(/\n/g, '<br>')
+				.replaceAll('http://localhost:5000', '')
+				.replaceAll('at ', '')
+
+			document.getElementById('errorMessage').innerHTML = `
+				${error.message}
+				<br><br>
+				<br>
+			`
+			document.getElementById('errorOverlay').style.display = 'flex'
+		}
+
+	}
+
+}

@@ -1,1 +1,39 @@
-import{List}from"/static/engine/code_tools/misc/List.js";export class Inventory{constructor(){this.inventory=[],this.pickableItems=[],this.splash=new Splash}addPickable(s){this.pickableItems.push(s)}pickUp(s){this.inventory.push(s),List.remove(this.pickableItems,s);const t=s.position.copy();t.y-=100,this.splash.splash(s,t,10,"yellow")}get size(){return this.inventory.length}draw(s,t){this.pickableItems.forEach(i=>{i.draw(s,t)}),this.splash.draw(s,t)}}
+import { List } from '/static/engine/code_tools/misc/List.js'; 
+
+export class Inventory {
+	constructor() {
+
+
+		this.inventory = []
+		this.pickableItems = []
+
+		this.splash = new Splash()
+	}
+
+	addPickable(o) {
+		this.pickableItems.push(o)
+	}
+
+	pickUp(o) {
+		this.inventory.push(o)
+		List.remove(this.pickableItems, o)
+
+		const p = o.position.copy()
+		p.y -= 100
+
+		this.splash.splash(o, p, 10, 'yellow')
+	}
+
+	get size() {
+		return this.inventory.length
+	}
+
+	draw(draw, guiDraw) {
+		this.pickableItems.forEach(i => {
+			i.draw(draw, guiDraw)
+		})
+
+		this.splash.draw(draw, guiDraw)
+	}
+
+}

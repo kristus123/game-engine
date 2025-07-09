@@ -175,7 +175,7 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-
+			G.Sprite.goat(new Position(-310,10)).happy.loop(),
 		])
 	}
 

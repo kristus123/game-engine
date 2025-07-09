@@ -1,1 +1,12 @@
-export class a{constructor(){}static string(t){return"string"==typeof t||t instanceof String}}
+
+export class a {
+	constructor() {
+
+
+	}
+
+	static string(arg) {
+		return typeof arg === 'string' || arg instanceof String
+	}
+
+}

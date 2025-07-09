@@ -1,1 +1,16 @@
-import{Position}from"/static/engine/position/Position.js";export class Positions{static grid(i,t){const o=[];for(let s=i.y;s<i.y+i.height;s=s+1+t)for(let n=i.x;n<i.x+i.width;n=n+1+t)o.push(new Position(n,s,t,t));return o}}
+import { Position } from '/static/engine/position/Position.js'; 
+
+export class Positions {
+	static grid(position, size) {
+		const positions = []
+
+		for (let y = position.y; y < position.y + position.height; y = y+1 + size) {
+			for (let x = position.x; x < position.x + position.width; x = x+1 + size) {
+				positions.push(new Position(x, y, size, size))
+			}
+		}
+
+		return positions
+	}
+
+}

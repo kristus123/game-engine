@@ -1,1 +1,37 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";export class SpinningPicture{constructor(t,i,s=.01){AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),AssertNotNull(i,"argument imagePath in "+this.constructor.name+".js should not be null"),AssertNotNull(s,"argument rotationIncrement in "+this.constructor.name+".js should not be null"),this.position=t,this.imagePath=i,this.rotationIncrement=s,this.image=new Image,this.image.src=i,this.currentRotation=0}draw(t){const i=this.position.width,s=this.position.height;t.ctx.save(),t.ctx.translate(this.position.position.center.x,this.position.position.center.y),this.currentRotation+=this.rotationIncrement,t.ctx.rotate(this.currentRotation),t.ctx.imageSmoothingEnabled=!1,t.ctx.drawImage(this.image,-i/2,-s/2,i,s),t.ctx.restore()}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+
+export class SpinningPicture {
+	constructor(position, imagePath, rotationIncrement = 0.01) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(imagePath, "argument imagePath in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(rotationIncrement, "argument rotationIncrement in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+		this.imagePath = imagePath; 
+		this.rotationIncrement = rotationIncrement; 
+
+		this.image = new Image()
+		this.image.src = imagePath
+		this.currentRotation = 0
+	}
+
+	draw(draw) {
+		const newWidth = this.position.width
+		const newHeight = this.position.height
+
+		draw.ctx.save()
+
+		draw.ctx.translate(this.position.position.center.x, this.position.position.center.y)
+		this.currentRotation += this.rotationIncrement // Increment the rotation
+		draw.ctx.rotate(this.currentRotation) // Apply the current rotation
+
+		draw.ctx.imageSmoothingEnabled = false
+		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+
+		draw.ctx.restore()
+	}
+}
+

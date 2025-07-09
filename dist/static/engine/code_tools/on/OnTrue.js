@@ -1,1 +1,31 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{OnChange}from"/static/engine/code_tools/on/OnChange.js";export class OnTrue{constructor(t,n){AssertNotNull(t,"argument condition in "+this.constructor.name+".js should not be null"),AssertNotNull(n,"argument action in "+this.constructor.name+".js should not be null"),this.condition=t,this.action=n,this.onChange=new OnChange(t,t=>{t&&n(t)})}update(){this.onChange.update()}draw(t,n){this.onChange.draw(t,n)}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
+
+// 'new' is prefixed in transpiler, just write new OnTrue(...)
+
+export class OnTrue {
+	constructor(condition, action) {
+
+				AssertNotNull(condition, "argument condition in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(action, "argument action in " + this.constructor.name + ".js should not be null")
+			
+		this.condition = condition; 
+		this.action = action; 
+
+		// todo verify condition is a lambda
+		this.onChange = new OnChange(condition, b => {
+			if (b) {
+				action(b)
+			}
+		})
+	}
+
+	update() {
+		this.onChange.update()
+	}
+
+	draw(draw, guiDraw) {
+		this.onChange.draw(draw, guiDraw)
+	}
+}

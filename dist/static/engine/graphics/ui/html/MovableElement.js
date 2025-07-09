@@ -1,1 +1,64 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{Move}from"/static/engine/core/physics/Move.js";export class MovableElement{constructor(e){AssertNotNull(e,"argument element in "+this.constructor.name+".js should not be null"),this.element=e,this.element=e,this.offsetX=0,this.offsetY=0,this.isDragging=!1,this.isClick=!1,this.init()}init(){this.element.style.position="relative",this.element.addEventListener("mousedown",this.onMouseDown.bind(this)),document.addEventListener("mousemove",this.onMouseMove.bind(this)),document.addEventListener("mouseup",this.onMouseUp.bind(this))}onMouseDown(e){this.isDragging=!0,this.isClick=!0,this.offsetX=e.clientX-this.element.offsetLeft,this.offsetY=e.clientY-this.element.offsetTop,this.element.style.position="absolute",this.element.style.width=`${this.element.offsetWidth}px`,this.element.style.transform="none",this.element.style.cursor="grabbing"}onMouseMove(e){if(this.isDragging){const t=e.clientX-this.offsetX,s=e.clientY-this.offsetY;this.element.style.left=`${t}px`,this.element.style.top=`${s}px`,this.isClick=!1}}onMouseUp(){this.isDragging&&(this.isDragging=!1,this.element.style.cursor="grab",this.isClick&&this.handleClick())}handleClick(){alert("Paragraph clicked!")}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Move } from '/static/engine/core/physics/Move.js'; 
+
+export class MovableElement {
+	constructor(element) {
+
+				AssertNotNull(element, "argument element in " + this.constructor.name + ".js should not be null")
+			
+		this.element = element; 
+
+		this.element = element
+		this.offsetX = 0
+		this.offsetY = 0
+		this.isDragging = false
+		this.isClick = false
+
+		this.init()
+	}
+
+	init() {
+		this.element.style.position = 'relative' // Set initial position to relative
+		this.element.addEventListener('mousedown', this.onMouseDown.bind(this))
+		document.addEventListener('mousemove', this.onMouseMove.bind(this))
+		document.addEventListener('mouseup', this.onMouseUp.bind(this))
+	}
+
+	onMouseDown(e) {
+		this.isDragging = true
+		this.isClick = true
+		this.offsetX = e.clientX - this.element.offsetLeft
+		this.offsetY = e.clientY - this.element.offsetTop
+
+		// Switch to absolute positioning when dragging starts
+		this.element.style.position = 'absolute'
+		this.element.style.width = `${this.element.offsetWidth}px` // Fix width to prevent resizing
+		this.element.style.transform = 'none' // Remove centering transform
+		this.element.style.cursor = 'grabbing'
+	}
+
+	onMouseMove(e) {
+		if (this.isDragging) {
+			const moveX = e.clientX - this.offsetX
+			const moveY = e.clientY - this.offsetY
+			this.element.style.left = `${moveX}px`
+			this.element.style.top = `${moveY}px`
+			this.isClick = false
+		}
+	}
+
+	onMouseUp() {
+		if (this.isDragging) {
+			this.isDragging = false
+			this.element.style.cursor = 'grab'
+
+			if (this.isClick) {
+				this.handleClick()
+			}
+		}
+	}
+
+	handleClick() {
+		alert('Paragraph clicked!')
+	}
+}

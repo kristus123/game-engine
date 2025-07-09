@@ -1,1 +1,17 @@
-export class SineWave{static audioCtx=new(window.AudioContext||window.webkitAudioContext);static play(t=890,e="sine",i=500){const n=SineWave.audioCtx.createOscillator();n.type=e,n.frequency.setValueAtTime(t,SineWave.audioCtx.currentTime),n.connect(SineWave.audioCtx.destination),n.start(),setTimeout(()=>{n.stop(),n.disconnect()},i)}}
+
+export class SineWave {
+	static audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+
+	static play(frequency = 890, type = 'sine', duration = 500) {
+		const oscillator = SineWave.audioCtx.createOscillator()
+		oscillator.type = type
+		oscillator.frequency.setValueAtTime(frequency, SineWave.audioCtx.currentTime)
+		oscillator.connect(SineWave.audioCtx.destination)
+		oscillator.start()
+		setTimeout(() => {
+			oscillator.stop()
+			oscillator.disconnect()
+		}, duration)
+	}
+
+}

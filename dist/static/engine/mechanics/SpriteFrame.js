@@ -1,1 +1,27 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{Sprite}from"/static/engine/graphics/sprite/Sprite.js";export class SpriteFrame{constructor(t,s,r){AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),AssertNotNull(s,"argument imagePath in "+this.constructor.name+".js should not be null"),AssertNotNull(r,"argument frame in "+this.constructor.name+".js should not be null"),this.position=t,this.imagePath=s,this.frame=r,this.frame=new Sprite(t,s,[r])}update(){}draw(t,s){this.frame.draw(t,s)}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+
+export class SpriteFrame {
+	constructor(position, imagePath, frame) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(imagePath, "argument imagePath in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(frame, "argument frame in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+		this.imagePath = imagePath; 
+		this.frame = frame; 
+
+		this.frame = new Sprite(position, imagePath, [frame])
+	}
+
+	update() {
+
+	}
+
+	draw(draw, guiDraw) {
+		this.frame.draw(draw, guiDraw)
+	}
+}

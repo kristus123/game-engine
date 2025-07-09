@@ -1,1 +1,66 @@
-import{Iterate}from"/static/engine/code_tools/Iterate.js";import{Random}from"/static/engine/code_tools/misc/Random.js";import{Push}from"/static/engine/core/physics/Push.js";import{DynamicGameObject}from"/static/engine/objects/DynamicGameObject.js";import{Position}from"/static/engine/position/Position.js";import{D}from"/static/game/world/D.js";export class SplashParticles{constructor(){this.particles=[]}towards(t){const e=Random.floatBetween(.1,10);Iterate(20,()=>{const o=new DynamicGameObject(new Position(t.x,t.y,e,e),20,100);Push(o).towards(t,15),o.life=200,o.color=Random.color(),this.particles.push(o)})}random(t,e="white"){Iterate(20,()=>{const o=Random.floatBetween(.1,10),i=new DynamicGameObject(new Position(t.x,t.y,o,o),20,100);i.draw=(t,o)=>{t.rectangle(i,e)},Push(i).towards(Random.direction(t),Random.integerBetween(1,5)),i.life=10,i.color=Random.color(),this.particles.push(i)})}update(){}draw(t,e){this.particles.forEach((o,i)=>{o.life--,o.life<=0?this.particles.splice(i,1):o.draw(t,e)})}}
+import { Iterate } from '/static/engine/code_tools/Iterate.js'; 
+import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { Push } from '/static/engine/core/physics/Push.js'; 
+import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
+import { D } from '/static/game/world/D.js'; 
+
+export class SplashParticles {
+	constructor() {
+
+
+		this.particles = []
+	}
+
+	towards(object) {
+		const size = Random.floatBetween(0.1, 10)
+
+		Iterate(20, () => {
+			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			Push(p).towards(object, 15)
+
+			p.life = 200
+			p.color = Random.color()
+			this.particles.push(p)
+		})
+
+	}
+
+	random(object, color='white') {
+
+		Iterate(20, () => {
+			const size = Random.floatBetween(0.1, 10)
+
+			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			p.draw = (draw, guiDraw) => {
+				draw.rectangle(p, color)
+			}
+
+			Push(p).towards(Random.direction(object), Random.integerBetween(1, 5))
+
+			p.life = 10
+			p.color = Random.color()
+			this.particles.push(p)
+		})
+	}
+
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+		this.particles.forEach((p, index) => {
+			// p.x += p.velocity.x
+			// p.y += p.velocity.y
+
+			p.life--
+
+			if (p.life <= 0) {
+				this.particles.splice(index, 1)
+			}
+			else {
+				p.draw(draw, guiDraw)
+			}
+		})
+
+	}
+}

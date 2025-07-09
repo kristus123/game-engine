@@ -1,1 +1,154 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{Distance}from"/static/engine/code_tools/misc/Distance.js";import{List}from"/static/engine/code_tools/misc/List.js";import{Random}from"/static/engine/code_tools/misc/Random.js";import{Collision}from"/static/engine/core/physics/Collision.js";export class _GameObject{constructor(t){AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),this.position=t,this.position=t.copy(),this._objectId=Random.uuid()}touches(t){return Collision.between(this.position,t)}touchesAny(t,i=t=>!0){for(const s of t)if(Collision.between(this.position,s)&&this!=s&&i(s))return s;return null}enforceDistance(t){const i=this.x+this.width/2,s=this.y+this.height/2,e=t.x+t.width/2-i,o=t.y+t.height/2-s,n=(this.width+t.width)/2-Math.abs(e)+1,h=(this.height+t.height)/2-Math.abs(o)+1;n>0&&h>0&&(n<h?t.x+=e>0?n:-n:t.y+=o>0?h:-h)}distance(t){return Distance.between(this,t)}closest(t){if(List.empty(t))return null;{let i=t[0];for(const s of t)this.distance(i)>this.distance(s)&&(this.closestObject=s)}return closestObject}closestWithin(t,i){let s=this.closest(i);return this.within(t,s)?s:null}within(t,i){return Distance.within(t,this,i)}notWithin(t,i){return Distance.notWithin(t,this,i)}get objectId(){return this._objectId}set objectId(t){this._objectId=t}get x(){return this.position.x}get y(){return this.position.y}set x(t){this.position.x=t}set y(t){this.position.y=t}get width(){return this.position.width}get height(){return this.position.height}set width(t){this.position.width=t}set height(t){this.position.height=t}update(){}draw(t,i){t.rectangle(this)}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
+import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { Collision } from '/static/engine/core/physics/Collision.js'; 
+
+export class _GameObject { // _ means it is only meant to be extended, not used directly
+	constructor(position) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+
+
+		this.position = position.copy()
+
+		this._objectId = Random.uuid()
+	}
+
+	touches(o) {
+		return Collision.between(this.position, o)
+	}
+
+	touchesAny(list, condition= (o) => true) {
+		for (const o of list) {
+			if (Collision.between(this.position, o) && this != o && condition(o)) {
+				return o
+			}
+		}
+
+		return null
+	}
+
+	enforceDistance(o) {
+		// centers
+		const cx1 = this.x + this.width / 2
+		const cy1 = this.y + this.height / 2
+		const cx2 = o.x + o.width / 2
+		const cy2 = o.y + o.height / 2
+
+		// distance between centers
+		const dx = cx2 - cx1
+		const dy = cy2 - cy1
+
+		// overlap on each axis
+		const overlapX = ((this.width + o.width) / 2 - Math.abs(dx)) +1
+		const overlapY = ((this.height + o.height) / 2 - Math.abs(dy)) +1
+
+		if (overlapX > 0 && overlapY > 0) {
+			// resolve in the shortest direction
+			if (overlapX < overlapY) {
+				o.x += dx > 0 ? overlapX : -overlapX
+			}
+			else {
+				o.y += dy > 0 ? overlapY : -overlapY
+			}
+		}
+	}
+
+	distance(o) {
+		return Distance.between(this, o)
+	}
+
+	closest(objects) {
+		if (List.empty(objects)) {
+			return null
+		}
+		else {
+			let closestObject = objects[0]
+
+			for (const o of objects) {
+				if (this.distance(closestObject) > this.distance(o)) {
+					this.closestObject = o
+				}
+			}
+		}
+
+
+		return closestObject
+	}
+
+	closestWithin(distance, objects) {
+		let closestObject = this.closest(objects)
+
+		if (this.within(distance, closestObject)) {
+			return closestObject
+		}
+		else {
+			return null
+		}
+
+	}
+
+	within(distance, o) {
+		return Distance.within(distance, this, o)
+	}
+
+	notWithin(distance, o) {
+		return Distance.notWithin(distance, this, o)
+	}
+
+	get objectId() {
+		//if (this._objectId) {
+		return this._objectId
+		//}
+		//else {
+		//	throw new Error('objectId is not set, make sure you have set it')
+		//}
+	}
+
+	set objectId(x) {
+		this._objectId = x
+	}
+
+	get x() {
+		return this.position.x
+	}
+
+	get y() {
+		return this.position.y
+	}
+
+	set x(x) {
+		this.position.x = x
+	}
+
+	set y(y) {
+		this.position.y = y
+	}
+
+	get width() {
+		return this.position.width
+	}
+
+	get height() {
+		return this.position.height
+	}
+
+	set width(w) {
+		this.position.width = w
+	}
+
+	set height(h) {
+		this.position.height = h
+	}
+
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+		draw.rectangle(this)
+	}
+
+}

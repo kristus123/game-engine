@@ -1,1 +1,19 @@
-import{D}from"/static/game/world/D.js";export function AssertNotNull(r,o="add own message!"){if(null===r)throw new Error(o+" NULL IS CONSIDERED BAD. BITCH");if(void 0===r)throw new Error(o+" UNDEFINED IS CONSIDERED BAD. BITCH");if("number"==typeof r&&isNaN(r))throw new Error(o+" NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH")}
+import { D } from '/static/game/world/D.js'; 
+
+export function AssertNotNull(x, errorMessage='add own message!') {
+	if (x === null) {
+		throw new Error(errorMessage + ' NULL IS CONSIDERED BAD. BITCH')
+	}
+
+	if (x === undefined) {
+		throw new Error(errorMessage + ' UNDEFINED IS CONSIDERED BAD. BITCH')
+	}
+
+	// if (typeof x === 'string' && x.trim() === '') {
+	// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. BITCH")
+	// }
+
+	if (typeof x === 'number' && isNaN(x)) {
+		throw new Error(errorMessage + ' NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH')
+	}
+}

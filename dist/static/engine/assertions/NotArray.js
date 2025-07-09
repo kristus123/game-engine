@@ -1,1 +1,4 @@
-export function NotArray(r){return!Array.isArray(r)}
+
+export function NotArray(x) {
+	return !Array.isArray(x)
+}

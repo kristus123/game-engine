@@ -1,1 +1,10 @@
-export function Iterate(t,e){const r=[];for(let n=0;n<=t;n++)r.push(e(n));return r}
+
+export function Iterate(amount, run) {
+	const list = []
+
+	for (let i = 0; i <= amount; i++) {
+		list.push(run(i))
+	}
+
+	return list
+}

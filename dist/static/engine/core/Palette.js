@@ -1,1 +1,128 @@
-import{a}from"/static/engine/code_tools/a.js";export class Palette{static width=window.innerWidth;static height=window.innerHeight;static createdCanvases=[];static onResize=[];static{let t;window.addEventListener("resize",()=>{clearTimeout(t),t=setTimeout(function(){console.log(`Window resized to: ${window.innerWidth} x ${window.innerHeight}`),Palette.width=window.innerWidth,Palette.height=window.innerHeight,Palette.createdCanvases.forEach(t=>{t.width=Palette.width,t.height=Palette.height}),Palette.onResize.forEach(t=>{t()})},50)})}static main(){const t=document.getElementById("canvases"),e=document.createElement("canvas");t.appendChild(e),Palette.createdCanvases.push(e),e.width=Palette.width,e.height=Palette.height;const a=e.getContext("2d");return a.imageSmoothingEnabled=!1,{canvas:e,ctx:a}}static offscreen(t=()=>{}){const e=new OffscreenCanvas(Palette.width,Palette.height),a=e.getContext("2d");return a.imageSmoothingEnabled=!1,Palette.createdCanvases.push(e),this.onResize.push(t),{canvas:e,ctx:a,width:Palette.width,height:Palette.height}}static fixedOffscreen(t,e){const a=new OffscreenCanvas(t,e),i=a.getContext("2d");return i.imageSmoothingEnabled=!1,{canvas:a,ctx:i,width:Palette.width,height:Palette.height,toImageBitmap:t=>{a.convertToBlob().then(t=>createImageBitmap(t)).then(e=>{t(e)})},drawImage:t=>{i.drawImage(t,0,0)},tintBlue:()=>{const t=i.getImageData(0,0,a.width,a.height),e=t.data;for(let t=0;t<e.length;t+=4){0!==e[t+3]&&(e[t]*=.1,e[t+1]*=.7,e[t+2]=Math.min(e[t+2]+50,255))}i.putImageData(t,0,0)}}}static clear(t){t.forEach(t=>{t.ctx.clearRect(0,0,Palette.width,Palette.height)})}static apply(t,e){e.forEach(e=>{t.ctx.drawImage(e.canvas,0,0)})}static fill(t,e){t.ctx.fillStyle=e,t.ctx.fillRect(0,0,Palette.width,Palette.height)}}
+import { a } from '/static/engine/code_tools/a.js'; 
+
+export class Palette {
+	static width = window.innerWidth
+	static height = window.innerHeight
+
+	static createdCanvases = []
+	static onResize = []
+
+	static {
+		let debounceTimeout
+		window.addEventListener('resize', () => {
+			clearTimeout(debounceTimeout)
+
+			debounceTimeout = setTimeout(function() {
+				console.log(`Window resized to: ${window.innerWidth} x ${window.innerHeight}`)
+				Palette.width = window.innerWidth
+				Palette.height = window.innerHeight
+
+				Palette.createdCanvases.forEach(c => {
+					c.width = Palette.width
+					c.height = Palette.height
+				})
+
+				Palette.onResize.forEach(o => {
+					o()
+				})
+			}, 50)
+		})
+	}
+
+	static main() {
+		const canvases = document.getElementById('canvases')
+
+		const canvas = document.createElement('canvas')
+		canvases.appendChild(canvas)
+		Palette.createdCanvases.push(canvas)
+
+		canvas.width = Palette.width
+		canvas.height = Palette.height
+		const ctx = canvas.getContext('2d')
+		ctx.imageSmoothingEnabled = false
+
+		return {
+			canvas,
+			ctx,
+		}
+	}
+
+	static offscreen(onResize=() => {}) {
+		const canvas = new OffscreenCanvas(Palette.width, Palette.height)
+		const ctx = canvas.getContext('2d')
+		ctx.imageSmoothingEnabled = false
+
+		Palette.createdCanvases.push(canvas)
+
+		this.onResize.push(onResize)
+
+		return {
+			canvas,
+			ctx,
+			width: Palette.width,
+			height: Palette.height,
+		}
+	}
+
+	static fixedOffscreen(width, height) {
+		const canvas = new OffscreenCanvas(width, height)
+		const ctx = canvas.getContext('2d')
+		ctx.imageSmoothingEnabled = false
+
+		return {
+			canvas,
+			ctx,
+			width: Palette.width,
+			height: Palette.height,
+
+			toImageBitmap: (run) => {
+				canvas.convertToBlob()
+					.then(blob => createImageBitmap(blob))
+					.then(imageBitmap => {
+						run(imageBitmap)
+					})
+			},
+
+			drawImage: image => {
+				ctx.drawImage(image, 0, 0)
+			},
+
+			tintBlue: () => {
+				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+				const data = imageData.data
+
+				for (let i = 0; i < data.length; i += 4) {
+					const alpha = data[i + 3]
+					if (alpha === 0) {
+						continue
+					} // Skip fully transparent pixels
+
+					// Apply blue tint (adjust values as needed)
+					data[i] *= 0.1 // Red
+					data[i + 1] *= 0.7 // Green
+					data[i + 2] = Math.min(data[i + 2] + 50, 255) // Boost blue
+				}
+
+				ctx.putImageData(imageData, 0, 0)
+
+			},
+		}
+	}
+
+	static clear(canvases) {
+		canvases.forEach(c => {
+			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
+		})
+	}
+
+	static apply(mainPalette, palettes) {
+		palettes.forEach(p => {
+			mainPalette.ctx.drawImage(p.canvas, 0, 0)
+		})
+	}
+
+	static fill(palette, color) {
+		palette.ctx.fillStyle = color
+		palette.ctx.fillRect(0, 0, Palette.width, Palette.height)
+	}
+}

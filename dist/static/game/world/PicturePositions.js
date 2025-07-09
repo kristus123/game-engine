@@ -1,1 +1,151 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{a}from"/static/engine/code_tools/a.js";import{Mouse}from"/static/engine/controller/Mouse.js";import{Palette}from"/static/engine/core/Palette.js";import{Position}from"/static/engine/position/Position.js";const scale=4;export class PicturePositions{constructor(t,o){AssertNotNull(t,"argument image in "+this.constructor.name+".js should not be null"),AssertNotNull(o,"argument position in "+this.constructor.name+".js should not be null"),this.image=t,this.position=o,this.regions=[];const i=Palette.fixedOffscreen(4*t.width,4*t.height);i.ctx.imageSmoothingEnabled=!1,i.drawImage(t);const s=new Map,e=i.ctx.getImageData(0,0,i.width,i.height).data;for(let t=0;t<e.length;t+=4){const[o,i,n,r]=[e[t],e[t+1],e[t+2],e[t+3]];if(0===r)continue;const a=`${o},${i},${n}`;s.has(a)||s.set(a,[]),s.get(a).push(t/4)}const n=Array.from({length:i.height},()=>Array(i.width).fill(!1)),r=[[0,1],[1,0],[0,-1],[-1,0],[-1,-1],[-1,1],[1,-1],[1,1]];for(const[e,a]of s){let s=[];for(const t of a){const h=t%i.width,c=Math.floor(t/i.width);if(n[c][h])continue;const l=[[h,c]];let g=h,m=c,u=h,f=c;for(;l.length>0;){const[t,o]=l.shift();if(!n[o][t]){n[o][t]=!0,g=Math.min(g,t),m=Math.min(m,o),u=Math.max(u,t),f=Math.max(f,o);for(const[s,e]of r){const r=t+s,h=o+e;if(r>=0&&r<i.width&&h>=0&&h<i.height){const t=h*i.width+r;!n[h][r]&&a.includes(t)&&l.push([r,h])}}}}const d=Math.round(4*g)+o.x,p=Math.round(4*m)+o.y,w=Math.round(4*(u-g+1)),M=Math.round(4*(f-m+1)),x=new Position(d,p,w,M);x.color=e,s.push(x)}this.regions.push(...s),i.ctx.imageSmoothingEnabled=!1,i.ctx.drawImage(t,0,0,4*t.width,4*t.height)}i.toImageBitmap(t=>{this.ib=t})}update(){}draw(t,o){this.ib&&t.imageBitmap(new Position(-2,-2),this.ib);for(const o of this.regions)Mouse.hovering(o)&&(console.log(o),t.rectangle(o,o.color))}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { a } from '/static/engine/code_tools/a.js'; 
+import { Mouse } from '/static/engine/controller/Mouse.js'; 
+import { Palette } from '/static/engine/core/Palette.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
+
+const scale = 4
+
+// this can be used to extract areas of a picture
+// it can only extract rectangles (i think)
+
+export class PicturePositions {
+	constructor(image, position) {
+
+				AssertNotNull(image, "argument image in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+		this.image = image; 
+		this.position = position; 
+
+		this.regions = []
+
+		const palette = Palette.fixedOffscreen(image.width*scale, image.height*scale)
+		palette.ctx.imageSmoothingEnabled = false
+		palette.drawImage(image)
+
+		const colorMap = new Map()
+
+		const pixels = palette.ctx.getImageData(0, 0, palette.width, palette.height).data
+		for (let i = 0; i < pixels.length; i += 4) {
+			const [r,
+				g,
+				b,
+				a] = [
+				pixels[i],
+				pixels[i + 1],
+				pixels[i + 2],
+				pixels[i + 3]
+			]
+
+			if (a === 0) { // Ignore transparent pixels
+				continue
+			}
+
+			const key = `${r},${g},${b}`
+			if (!colorMap.has(key)) {
+				colorMap.set(key, [])
+			}
+
+			colorMap.get(key).push(i / 4) // Store pixel index
+		}
+
+		const visited = Array.from({ length: palette.height }, () => Array(palette.width).fill(false))
+
+		const directions = [
+			[0, 1],
+			[1, 0],
+			[0, -1],
+			[-1, 0], // Left, Right, Up, Down
+			[-1, -1],
+			[-1, 1],
+			[1, -1],
+			[1, 1] // Diagonal moves
+		]
+
+		// Loop through each color group
+		for (const [color, pixelIndices] of colorMap) {
+			let regionsForColor = []
+
+			// We process each pixel in the list of pixels for this color
+			for (const index of pixelIndices) {
+				const x = index % palette.width
+				const y = Math.floor(index / palette.width)
+
+				// If the pixel has already been visited, skip it
+				if (visited[y][x]) {
+					continue
+				}
+
+				// Perform flood fill using BFS to find connected region of the same color
+				const queue = [[x, y]]
+				let minX = x, minY = y, maxX = x, maxY = y
+
+				while (queue.length > 0) {
+					const [cx, cy] = queue.shift()
+					if (visited[cy][cx]) {
+						continue
+					}
+
+					visited[cy][cx] = true
+
+					// Expand bounding box
+					minX = Math.min(minX, cx)
+					minY = Math.min(minY, cy)
+					maxX = Math.max(maxX, cx)
+					maxY = Math.max(maxY, cy)
+
+					// Check all 8 possible directions for connectivity
+					for (const [dx, dy] of directions) {
+						const nx = cx + dx, ny = cy + dy
+						if (nx >= 0 && nx < palette.width && ny >= 0 && ny < palette.height) {
+							const neighborIndex = ny * palette.width + nx
+							// Ensure the neighbor has the same color and has not been visited yet
+							if (!visited[ny][nx] && pixelIndices.includes(neighborIndex)) {
+								queue.push([nx, ny])
+							}
+						}
+					}
+				}
+
+				const xx = Math.round(minX * scale) + position.x
+				const yy = Math.round(minY * scale) + position.y
+				const width = Math.round((maxX - minX + 1) * scale)
+				const height = Math.round((maxY - minY + 1) * scale)
+				const pp = new Position(xx, yy, width, height)
+				pp.color = color
+				regionsForColor.push(pp)
+			}
+
+			this.regions.push(...regionsForColor)
+
+			palette.ctx.imageSmoothingEnabled = false
+			palette.ctx.drawImage(image, 0, 0, image.width*scale, image.height*scale)
+		}
+
+		// placement of execution is important
+		// canvasRenderer.tintBlue()
+
+		palette.toImageBitmap(ib => {
+			this.ib = ib
+		})
+	}
+
+	update() {
+	}
+
+	draw(draw, guiDraw) {
+		if (this.ib) {
+			draw.imageBitmap(new Position(-2, -2), this.ib)
+		}
+
+		for (const r of this.regions) {
+			if (Mouse.hovering(r)) {
+				console.log(r)
+				draw.rectangle(r, r.color)
+			}
+		}
+	}
+
+}

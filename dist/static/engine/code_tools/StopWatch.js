@@ -1,1 +1,50 @@
-export class StopWatch{constructor(){this.startTime=0,this.endTime=0,this.running=!1,this._elapsedTime=0}start(){return this.startTime=Date.now()-this._elapsedTime,this.running=!0,this}stop(){return this.endTime=Date.now(),this._elapsedTime=this.endTime-this.startTime,this.running=!1,this}reset(){return this.startTime=0,this.endTime=0,this.running=!1,this._elapsedTime=0,this}restart(){return this.reset(),this.start(),this}get time(){return this.running?Date.now()-this.startTime:this._elapsedTime}}
+
+export class StopWatch {
+	constructor() {
+
+
+		this.startTime = 0
+		this.endTime = 0
+		this.running = false
+		this._elapsedTime = 0
+	}
+
+	start() {
+		this.startTime = Date.now() - this._elapsedTime
+		this.running = true
+
+		return this
+	}
+
+	stop() {
+		this.endTime = Date.now()
+		this._elapsedTime = this.endTime - this.startTime
+		this.running = false
+		return this
+	}
+
+	reset() {
+		this.startTime = 0
+		this.endTime = 0
+		this.running = false
+		this._elapsedTime = 0
+		return this
+	}
+
+	restart() {
+		this.reset()
+		this.start()
+		return this
+	}
+
+	get time() {
+		if (this.running) {
+			return Date.now() - this.startTime
+		}
+		else {
+			return this._elapsedTime
+		}
+	}
+
+}
+

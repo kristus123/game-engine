@@ -1,1 +1,25 @@
-import{List}from"/static/engine/code_tools/misc/List.js";export class Registry{static{this.Chicken=[],this.ChickenBox=[],this.DeadChicken=[]}static add(t){null==this[t.constructor.name]?this[t.constructor.name]=[t]:this[t.constructor.name].push(t)}static remove(t){const s=this[t.constructor.name];List.remove(s,t)}}
+import { List } from '/static/engine/code_tools/misc/List.js'; 
+
+export class Registry {
+	static {
+		this.Chicken = []
+		this.ChickenBox = []
+		this.DeadChicken = []
+	}
+
+	static add(o) {
+		const list = this[o.constructor.name]
+		if (list == null) {
+			this[o.constructor.name] = [o]
+		}
+		else {
+			this[o.constructor.name].push(o)
+		}
+	}
+
+	static remove(o) {
+		const list = this[o.constructor.name]
+		List.remove(list, o)
+	}
+
+}

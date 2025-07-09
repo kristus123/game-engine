@@ -1,1 +1,18 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";export class ScreenPosition{constructor(t){AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),this.position=t}get x(){}get y(){}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+
+export class ScreenPosition {
+	constructor(position) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+
+	}
+
+	get x() {
+	}
+
+	get y() {
+	}
+
+}

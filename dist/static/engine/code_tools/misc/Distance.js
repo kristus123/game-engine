@@ -1,1 +1,22 @@
-export class Distance{static between(t,e){const i=e.x-t.x,n=e.y-t.y;return Math.sqrt(i*i+n*n)}static within(t,e,i){return Distance.between(e,i)<=t}static notWithin(t,e,i){return!this.within(t,e,i)}static withinRadius(t,e,i){return Distance.between(t,e)<=i}}
+
+export class Distance {
+	static between(o1, o2) {
+
+		const dx = o2.x - o1.x
+		const dy = o2.y - o1.y
+
+		return Math.sqrt(dx * dx + dy * dy)
+	}
+
+	static within(radius, o1, o2) {
+		return Distance.between(o1, o2) <= radius
+	}
+
+	static notWithin(radius, o1, o2) {
+		return !this.within(radius, o1, o2)
+	}
+
+	static withinRadius(o1, o2, radius) {
+		return Distance.between(o1, o2) <= radius
+	}
+}

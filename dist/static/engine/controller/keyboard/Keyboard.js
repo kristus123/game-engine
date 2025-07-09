@@ -1,1 +1,64 @@
-document.addEventListener("keydown",e=>{"Tab"!==e.key&&9!==e.keyCode||e.preventDefault()});export class Keyboard{static noButtonsPressed(){return!(this.up||this.down||this.left||this.right)}static{document.addEventListener("keydown",e=>{"ArrowUp"!==e.code&&"KeyW"!==e.code||(this.up=!0),"ArrowDown"!==e.code&&"KeyS"!==e.code||(this.down=!0),"ArrowLeft"!==e.code&&"KeyA"!==e.code||(this.left=!0),"ArrowRight"!==e.code&&"KeyD"!==e.code||(this.right=!0),"Space"===e.code&&(this.space=!0),"KeyE"===e.code&&(this.e=!0),"KeyF"===e.code&&(this.f=!0)}),document.addEventListener("keyup",e=>{"ArrowUp"!==e.code&&"KeyW"!==e.code||(this.up=!1),"ArrowDown"!==e.code&&"KeyS"!==e.code||(this.down=!1),"ArrowLeft"!==e.code&&"KeyA"!==e.code||(this.left=!1),"ArrowRight"!==e.code&&"KeyD"!==e.code||(this.right=!1),"Space"===e.code&&(this.space=!1),"KeyE"===e.code&&(this.e=!1),"KeyF"===e.code&&(this.f=!1)})}}
+
+document.addEventListener('keydown', e => {
+	if (e.key === 'Tab' || e.keyCode === 9) {
+		e.preventDefault()
+	}
+})
+
+
+export class Keyboard {
+
+	static noButtonsPressed() {
+		return !this.up && !this.down && !this.left && !this.right
+	}
+
+	static {
+		document.addEventListener('keydown', (e) => {
+			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+				this.up = true
+			}
+			if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+				this.down = true
+			}
+			if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+				this.left = true
+			}
+			if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+				this.right = true
+			}
+			if (e.code === 'Space') {
+				this.space = true
+			}
+			if (e.code === 'KeyE') {
+				this.e = true
+			}
+			if (e.code === 'KeyF') {
+				this.f = true
+			}
+		})
+
+		document.addEventListener('keyup', (e) => {
+			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+				this.up = false
+			}
+			if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+				this.down = false
+			}
+			if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+				this.left = false
+			}
+			if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+				this.right = false
+			}
+			if (e.code === 'Space') {
+				this.space = false
+			}
+			if (e.code === 'KeyE') {
+				this.e = false
+			}
+			if (e.code === 'KeyF') {
+				this.f = false
+			}
+		})
+	}
+}

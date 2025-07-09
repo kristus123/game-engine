@@ -1,1 +1,59 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{List}from"/static/engine/code_tools/misc/List.js";import{BackspaceEffect}from"/static/engine/mechanics/dialogue/BackspaceEffect.js";import{Text}from"/static/engine/mechanics/dialogue/Text.js";import{TextTyper}from"/static/engine/mechanics/dialogue/TextTyper.js";import{TextTyperWithBackspaceEffect}from"/static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js";export class MultiTextTyper{constructor(t,s,e=()=>{}){AssertNotNull(t,"argument position in "+this.constructor.name+".js should not be null"),AssertNotNull(s,"argument texts in "+this.constructor.name+".js should not be null"),AssertNotNull(e,"argument onFinish in "+this.constructor.name+".js should not be null"),this.position=t,this.texts=s,this.onFinish=e,this.texts=s.map(t=>new TextTyperWithBackspaceEffect(t)),this.index=0,this.finished=!1}update(){if(List.validIndex(this.texts,this.index)){const t=this.texts[this.index];t.finished?this.index+=1:(console.log("hei"),t.update())}else this.finished=!0,this.onFinish(),this.update=()=>{},this.draw=()=>{}}get text(){return List.validIndex(this.texts,this.index)?this.texts[this.index].text:""}draw(t,s){t.text(this.position,this.text)}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { BackspaceEffect } from '/static/engine/mechanics/dialogue/BackspaceEffect.js'; 
+import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
+import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
+import { TextTyperWithBackspaceEffect } from '/static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js'; 
+
+export class MultiTextTyper {
+	constructor(position, texts, onFinish=() => {}) {
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(texts, "argument texts in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(onFinish, "argument onFinish in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+		this.texts = texts; 
+		this.onFinish = onFinish; 
+
+		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
+		this.index = 0
+
+		this.finished = false // rename to completed
+	}
+
+	update() {
+		if (List.validIndex(this.texts, this.index)) {
+			const t = this.texts[this.index]
+
+			if (!t.finished) {
+				console.log('hei')
+				t.update()
+			}
+			else {
+				this.index += 1
+			}
+		}
+		else {
+			this.finished = true
+			this.onFinish()
+			this.update = () => {}
+			this.draw = () => {}
+		}
+	}
+
+	get text() {
+		if (List.validIndex(this.texts, this.index)) {
+			return this.texts[this.index].text
+		}
+		else {
+			return ''
+		}
+	}
+
+	draw(draw, guiDraw) {
+		draw.text(this.position, this.text)
+	}
+}

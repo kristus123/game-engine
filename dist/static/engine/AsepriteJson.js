@@ -1,1 +1,69 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";import{a}from"/static/engine/code_tools/a.js";import{Position}from"/static/engine/position/Position.js";export class AsepriteJson{constructor(s){AssertNotNull(s,"argument json in "+this.constructor.name+".js should not be null"),this.json=s,this.tags={};for(const t of[...new Set(Object.values(s.frames).map(s=>s.filename))]){if(""==t)throw new Error(`${s.meta.image} must have a tag set`);this.tags[t]=[]}if(s.frames){let t=-1;for(const e of s.frames){t+=1;const o={x:e.frame.x,y:e.frame.y,width:e.frame.w,height:e.frame.h,slices:[]};if(this.width=e.frame.w,this.height=e.frame.h,s.meta.slices)for(const e of s.meta.slices){const s=e.keys[t].bounds;o.slices.push({name:e.name,position:new Position(s.x,s.y,s.w,s.h)})}this.tags[e.filename].push(o)}}}tagPresent(s){return s in this.tags}totalFrames(s){return this.tags[s].length}get singleFrame(){return 1==this.json.frames.length}}
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { a } from '/static/engine/code_tools/a.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
+
+export class AsepriteJson {
+	constructor(json) {
+
+				AssertNotNull(json, "argument json in " + this.constructor.name + ".js should not be null")
+			
+		this.json = json; 
+
+		this.tags = {}
+
+		for (const tag of [...new Set(Object.values(json.frames).map(frame => frame.filename))]) {
+			if (tag == '') {
+				throw new Error(`${json.meta.image} must have a tag set`)
+			}
+			else {
+				this.tags[tag] = []
+			}
+		}
+
+		if (json.frames) {
+			let frame = -1
+			for (const f of json.frames) {
+				frame += 1
+
+				const sprite = {
+					x: f.frame.x,
+					y: f.frame.y,
+					width: f.frame.w,
+					height: f.frame.h,
+					slices: [],
+				}
+
+				this.width = f.frame.w
+				this.height = f.frame.h
+
+				if (json.meta.slices) {
+					for (const s of json.meta.slices) {
+
+						const b = s.keys[frame].bounds
+						sprite.slices.push({
+							name: s.name,
+							position: new Position(b.x, b.y, b.w, b.h),
+						})
+					}
+				}
+
+				this.tags[f.filename].push(sprite)
+			}
+		}
+
+	}
+
+	tagPresent(tag) {
+		return tag in this.tags
+	}
+
+	totalFrames(tag) {
+		return this.tags[tag].length
+	}
+
+	get singleFrame() {
+		return this.json.frames.length == 1
+	}
+
+
+}
