@@ -204,6 +204,10 @@ export class Html {
 		}
 	}
 
+	static appendBody(childrenElements=[]) {
+		this.append(document.body, childrenElements)
+	}
+
 	static fadeaway(text, position=Mouse.position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 

@@ -9,22 +9,22 @@ body {
 }
 
 canvas {
-	display: block; /* Remove any default spacing */
+	display: block; /* Remove default spacing */
 }
 
-#errorOverlay {
+.error-overlay {
+	display: flex;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background: rgba(255, 0, 0, 0.7);
-	display: none;
 	align-items: center;
 	justify-content: center;
 }
 
-#errorMessage {
+.error-message {
 	text-align: left;
 	color: white;
 	font-size: 40px;
@@ -34,7 +34,7 @@ canvas {
 	padding: 20px;
 }
 
-#stackMessage {
+.stack-message {
 	text-align: left;
 	color: white;
 	font-size: 22px;

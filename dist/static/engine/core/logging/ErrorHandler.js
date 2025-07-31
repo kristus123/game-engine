@@ -1,3 +1,4 @@
+import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 
 export class ErrorHandler {
 
@@ -8,17 +9,22 @@ export class ErrorHandler {
 		catch (error) {
 			console.error(error)
 
-			document.getElementById('stackMessage').innerHTML = error.stack
+			const stackMessage = error.stack
 				.replaceAll(/\n/g, '<br>')
 				.replaceAll('http://localhost:5000', '')
 				.replaceAll('at ', '')
 
-			document.getElementById('errorMessage').innerHTML = `
+			const errorMessage = `
 				${error.message}
 				<br><br>
 				<br>
 			`
-			document.getElementById('errorOverlay').style.display = 'flex'
+
+			
+			Html.appendBody(Html.div("error-overlay", [
+				Html.div("error-message", errorMessage),
+				Html.div("stack-message", stackMessage),
+			]))
 		}
 
 	}

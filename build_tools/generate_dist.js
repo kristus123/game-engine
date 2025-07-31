@@ -124,11 +124,8 @@ const indexJs = fs.readFileSync('dist/static/engine/core/index.js', 'utf-8')
 	.replace('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
 fs.writeFileSync('dist/static/engine/core/index.js', indexJs)
 
-const overlay = fs.readFileSync('static/ui/overlay.html', 'utf-8')
-
 const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
 	.replace('SCRIPT_IMPORTS', scriptImports)
 	.replace('CSS_IMPORTS', cssImports)
-	.replace('OVERLAY', overlay)
 
 fs.writeFileSync('dist/index.html', indexHtml)

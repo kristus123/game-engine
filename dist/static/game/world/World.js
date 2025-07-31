@@ -32,7 +32,7 @@ export class World {
 
 		G.friend = new Npc(new Position(0, -400))
 
-		G.poops = new LocalObjects()
+		G.poops = new LocalObjects(null)
 
 		G.flowers = new LocalObjects(Random.positions(0, 800, 0, 800, 20)
 			.map(p => {

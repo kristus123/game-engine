@@ -25,7 +25,9 @@ export class HtmlVideo {
 		local_video.muted = true
 		local_video.srcObject = srcObject
 
-		document.getElementById('videocallrtc').appendChild(div)
+		// todo add element in another way
+		// document.getElementById('x').appendChild(div)
+
 		div.appendChild(local_video)
 		div.appendChild(h3)
 		return local_video

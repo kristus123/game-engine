@@ -16,6 +16,6 @@ export class QuestList {
 	}
 
 	static clear() {
-		Html.removeChildElementsInId('quest_list')
+		// todo fix
 	}
 }
