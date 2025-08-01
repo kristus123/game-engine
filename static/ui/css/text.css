@@ -23,9 +23,15 @@ h1, h2, h3, h4, p {
 	font-family: 'VT323', monospace;
 }
 
+
+h1 {
+	font-size: 80px;
+}
+
 p {
 	color: white;
-	background-color: black;
+	font-size: 30px;
+	color:black;
 }
 
 

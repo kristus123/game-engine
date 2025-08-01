@@ -33,6 +33,7 @@ export class World {
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
+			new ReadSign(new Position(-310, 10)),
 			new Store(),
 			this.world,
 			this.grass,

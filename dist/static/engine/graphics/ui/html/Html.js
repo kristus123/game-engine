@@ -1,5 +1,6 @@
 import { a } from '/static/engine/code_tools/a.js'; 
 import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
@@ -55,6 +56,17 @@ export class Html {
 			]))
 	}
 
+	static lowerCenter(elements) {
+		Html.addToScreen(
+			Html.div('lower-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+	static clearCenter() {
+		document.querySelector('.center-ui').remove()
+	}
+
 	static dialog(children=[]) {
 
 		const div = element('div')
@@ -96,8 +108,60 @@ export class Html {
 		return s
 	}
 
+
+	static input(placeholder='placehodlert', onEnter=(value) => {}) {
+		const i = element('input')
+		 i.type = 'text'
+		i.placeholder = placeholder
+
+
+		  i.addEventListener('focus', () => {
+			// console.log('Input is highlighted!');
+			Controller.disabled = true
+			i.style.borderColor = '#6c63ff' // change border color on highlight
+		  })
+
+		  i.addEventListener('blur', () => {
+			Controller.disabled = false
+			// console.log('Input is no longer highlighted.');
+			i.style.borderColor = '#ccc' // revert border color
+		  })
+
+
+		i.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
+				console.log('hei')
+				onEnter(i.value)
+			}
+		})
+
+
+		return i
+	}
+
+
+	static focus(element) {
+	  if (element) {
+		element.focus();
+	  }
+	}
+
+
+	static focusInput() {
+		const input = document.querySelector('input[type="text"]');
+		if (input) input.focus();
+	}
+
+
+	static h1(text, className='na') {
+		const h1 = element('h1', className)
+		h1.innerHTML = text
+
+		return h1
+	}
+
 	static p(text, className='na') {
-		var p = element('p', className)
+		const p = element('p', className)
 		p.innerHTML = text
 
 		return p
