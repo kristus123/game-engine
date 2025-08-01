@@ -1,5 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+
+
+/* make text not "markable" */
+html, body, * {
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;         /* Standard */
+  -webkit-user-drag: none;
+}
+
+
+
+
+
 body {
 	font-family: 'VT323', monospace;
 }

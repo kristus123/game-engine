@@ -20,9 +20,32 @@ function element(type, clazz) {
 	return e
 }
 
+
 export class Html {
 	static modal(children=[]) {
 		return this.dialog(children)
+	}
+
+	static upper(elements) {
+		Html.addToScreen(
+			Html.div('upper-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+	static lower(elements) {
+		Html.addToScreen(
+			Html.div('lower-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+
+	static center(elements) {
+		Html.addToScreen(
+			Html.div('center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
 	}
 
 	static dialog(children=[]) {
@@ -74,6 +97,7 @@ export class Html {
 	}
 
 	static addToScreen(element) {
+		element.classList.add('ui')
 		document.getElementById('ui_elements').appendChild(element)
 		return element
 	}
@@ -142,12 +166,14 @@ export class Html {
 	}
 
 	static text(text, position) {
+
 		const p = element('p', '')
 		p.textContent = text
 		p.style.fontSize = '2vw'
 
-		p.style.left = `${100}px`
-		p.style.top = `${100}px`
+		position = Camera.p(position) // todo imrpoveo ofc
+		p.style.left = `${position.x}px`
+		p.style.top = `${position.y}px`
 
 		return p
 		// return {
@@ -220,17 +246,17 @@ export class Html {
 		}, 1000)
 	}
 
-	static floating(htmlElement, position) {
+	static floating(e, position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 
-		htmlElement.classList.add('ui')
+		e.classList.add('ui')
 
-		htmlElement.style.left = `${position.x}px`
-		htmlElement.style.top = `${position.y - 50}px`
+		e.style.left = `${position.x}px`
+		e.style.top = `${position.y - 50}px`
 
-		Html.addToScreen(htmlElement)
+		Html.addToScreen(e)
 
-		return htmlElement
+		return e
 	}
 
 	static floatingPosition(e, position) {

@@ -19,6 +19,7 @@ import { Position } from '/static/engine/position/Position.js';
 import { D } from '/static/game/world/D.js'; 
 import { Grass } from '/static/game/world/Grass.js'; 
 import { Npc } from '/static/game/world/Npc.js'; 
+import { Store } from '/static/game/world/Store.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 
 
 export class World {
@@ -30,9 +31,11 @@ export class World {
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
 
+
+
 		G.friend = new Npc(new Position(0, -400))
 
-		G.poops = new LocalObjects(null)
+		G.poops = new LocalObjects()
 
 		G.flowers = new LocalObjects(Random.positions(0, 800, 0, 800, 20)
 			.map(p => {
@@ -46,12 +49,17 @@ export class World {
 		Mouse.onClick = p => {
 			const snapped = grid.snappedPosition(p)
 			const g =  G.Sprite.wheat(snapped).grow.show(9)
-			this.grass.add(g)
+
+			if (!Mouse.hoveringHtmlElement) {
+				this.grass.add(g)
+				
+			}
 		}
 
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
+			new Store(),
 			this.world,
 			this.grass,
 

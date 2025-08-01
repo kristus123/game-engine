@@ -1,6 +1,9 @@
 const bar = Html.div('lower-center-ui progress-container', [
 	Html.div('progress-bar'),
 ])
+
+Html.hide(bar)
+
 export class HtmlProgressBar {
 
 	static progress = 0

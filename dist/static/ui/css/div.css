@@ -1,0 +1,17 @@
+div {
+}
+
+
+div.big {
+	width:500px;
+	height:500px;
+	background-color: grey;
+	border-radius: 20px;
+
+
+  background: rgba(255, 255, 255, 0.6); /* White with 80% opacity */
+  border-radius: 12px;                  /* Rounded corners */
+  padding: 20px;                        /* Inner spacing */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  backdrop-filter: blur(2px);          /* Glass-like blur (optional) */
+}
