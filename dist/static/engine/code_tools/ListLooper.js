@@ -18,7 +18,7 @@ export class ListLooper {
 	}
 
 	update() {
-		console.log("don't call update while using ListLooper!")
+		console.log('don\'t call update while using ListLooper!')
 	}
 
 	draw(draw, guiDraw) {

@@ -24,7 +24,8 @@ export class Shake {
 			this.time -= 16 // assume ~60 FPS
 			this.offset.x = (Math.random() - 0.5) * this.intensity * 2
 			this.offset.y = (Math.random() - 0.5) * this.intensity * 2
-		} else {
+		}
+		else {
 			this.offset.x = 0
 			this.offset.y = 0
 		}

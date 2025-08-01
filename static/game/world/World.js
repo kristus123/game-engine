@@ -22,11 +22,11 @@ export class World {
 		const grid = new Grid()
 		Mouse.onClick = p => {
 			const snapped = grid.snappedPosition(p)
-			const g =  G.Sprite.wheat(snapped).grow.show(9)
+			const g = G.Sprite.wheat(snapped).grow.show(9)
 
 			if (!Mouse.hoveringHtmlElement) {
 				this.grass.add(g)
-				
+
 			}
 		}
 
@@ -182,7 +182,7 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-			G.Sprite.goat(new Position(-310,10)).happy.loop(),
+			G.Sprite.goat(new Position(-310, 10)).happy.loop(),
 		])
 	}
 
