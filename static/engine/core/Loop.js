@@ -8,14 +8,15 @@ export class Loop {
 		function loop(currentTimestamp) {
 			// Sleep(Random.integerBetween(0, 500))
 
+			// deltaTime is in seconds
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
+
 			lastTimestamp = currentTimestamp
 
 			run(deltaTime)
 
-
 			if (Loop.lastUpdated > 10) {
-				Loop.fps = Math.floor(Math.floor(1000 / deltaTime) / 1000)
+				Loop.fps = Math.floor(Math.floor(1 / deltaTime))
 				Loop.lastUpdated = 0
 			}
 			else {

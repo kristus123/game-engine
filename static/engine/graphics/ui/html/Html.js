@@ -1,26 +1,3 @@
-function element(type, clazz) {
-	const e = document.createElement(type)
-	e.setAttribute('class', clazz)
-	e.setAttribute('tabindex', -1)
-
-	// e.addEventListener('mousedown', e => {
-	// 	e.preventDefault()
-	// })
-
-	e.addEventListener('mouseover', () => {
-		Mouse.hoveringHtmlElement = true
-	})
-
-	e.addEventListener('mouseout', () => {
-		Mouse.hoveringHtmlElement = false
-	})
-
-	document.getElementById('ui_elements').appendChild(e)
-
-	return e
-}
-
-
 export class Html {
 	static modal(children=[]) {
 		return this.dialog(children)
@@ -61,12 +38,12 @@ export class Html {
 
 	static dialog(children=[]) {
 
-		const div = element('div')
+		const div = HtmlElement('div')
 		for (const c of children) {
 			div.appendChild(c)
 		}
 
-		const d = element('dialog')
+		const d = HtmlElement('dialog')
 		d.appendChild(div)
 
 		d.addEventListener('click', e => {
@@ -81,7 +58,7 @@ export class Html {
 	}
 
 	static slider(min=1, max=100) {
-		const s = element('input')
+		const s = HtmlElement('input')
 
 		s.type = 'range'
 		s.min = min
@@ -102,7 +79,7 @@ export class Html {
 
 
 	static input(placeholder='placehodlert', onEnter=(value) => {}) {
-		const i = element('input')
+		const i = HtmlElement('input')
 		 i.type = 'text'
 		i.placeholder = placeholder
 
@@ -146,14 +123,14 @@ export class Html {
 
 
 	static h1(text, className='na') {
-		const h1 = element('h1', className)
+		const h1 = HtmlElement('h1', className)
 		h1.innerHTML = text
 
 		return h1
 	}
 
 	static p(text, className='na') {
-		const p = element('p', className)
+		const p = HtmlElement('p', className)
 		p.innerHTML = text
 
 		return p
@@ -166,7 +143,7 @@ export class Html {
 	}
 
 	static button(text, onClick= b => {}) {
-		const button = element('button', 'button')
+		const button = HtmlElement('button', 'button')
 		button.textContent = text
 
 		button.addEventListener('click', () => {
@@ -205,7 +182,7 @@ export class Html {
 	}
 
 	static ui(elements) {
-		const div = element('div', 'ui')
+		const div = HtmlElement('div', 'ui')
 		for (const e of elements) {
 			// e.setAttribute('class', 'button')
 			div.appendChild(e)
@@ -230,7 +207,7 @@ export class Html {
 
 	static text(text, position) {
 
-		const p = element('p', '')
+		const p = HtmlElement('p', '')
 		p.textContent = text
 		p.style.fontSize = '2vw'
 
@@ -271,7 +248,7 @@ export class Html {
 	}
 
 	static div(className, childrenElements=[]) {
-		const d = element('div', className)
+		const d = HtmlElement('div', className)
 
 		for (const e of childrenElements) {
 			d.appendChild(e)
@@ -293,7 +270,7 @@ export class Html {
 	static fadeaway(text, position=Mouse.position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 
-		var textElement = element('p')
+		var textElement = HtmlElement('p')
 		textElement.innerHTML = text
 
 

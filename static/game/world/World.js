@@ -26,7 +26,6 @@ export class World {
 
 			if (!Mouse.hoveringHtmlElement) {
 				this.grass.add(g)
-
 			}
 		}
 
