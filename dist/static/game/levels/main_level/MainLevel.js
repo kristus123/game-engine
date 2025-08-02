@@ -4,7 +4,6 @@ import { Level } from '/static/engine/core/Level.js';
 import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Chat } from '/static/game/legacy/Chat.js'; 
 import { DeliverPissLevel } from '/static/game/levels/deliver_piss_level/DeliverPissLevel.js'; 
 import { AiChat } from '/static/game/levels/main_level/AiChat.js'; 
 import { FirstChat } from '/static/game/levels/main_level/FirstChat.js'; 

@@ -1,6 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Chat } from '/static/game/legacy/Chat.js'; 
 import { SecondChat } from '/static/game/levels/deliver_piss_level/SecondChat.js'; 
 
 export class DeliverPissLevel {

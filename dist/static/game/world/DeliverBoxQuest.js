@@ -8,7 +8,6 @@ import { Push } from '/static/engine/core/physics/Push.js';
 import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Registry } from '/static/engine/objects/Registry.js'; 
-import { Worker } from '/static/game/enemies/Worker.js'; 
 
 export class DeliverBoxQuest {
 	constructor() {

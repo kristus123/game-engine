@@ -20,7 +20,6 @@ import { PersistedObjects } from '/static/engine/persistence/PersistedObjects.js
 import { PlayerEditor } from '/static/engine/persistence/PlayerEditor.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { Positions } from '/static/engine/position/Positions.js'; 
-import { BlobMonster } from '/static/game/enemies/BlobMonster.js'; 
 import { D } from '/static/game/world/D.js'; 
 import { Init } from '/static/game/world/Init.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 

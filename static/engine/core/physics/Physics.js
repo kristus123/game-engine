@@ -16,22 +16,19 @@ export class Physics {
 
 	update(deltaTime) {
 		for (let o of this.objects) {
-			o.previousPosition = { x: o.x, y: o.y }
+			o.previousPosition = { x: o.x, y: o.y };
 
-			const frictionFactor = 1 - o.weight / 5_000 // Adjust this factor as needed
+			const frictionPerSecond = 0.9; // lose 10% per second
+			const decay = Math.pow(frictionPerSecond, deltaTime);
 
-			o.velocity.x *= Math.pow(frictionFactor, deltaTime)
-			o.velocity.y *= Math.pow(frictionFactor, deltaTime)
+			o.velocity.x *= decay;
+			o.velocity.y *= decay;
 
-			o.x += o.velocity.x * deltaTime
-			o.y += o.velocity.y * deltaTime
+			o.x += o.velocity.x * deltaTime;
+			o.y += o.velocity.y * deltaTime;
 
-			if (Math.abs(o.velocity.x) < 1) {
-				o.velocity.x = 0
-			}
-			if (Math.abs(o.velocity.y) < 1) {
-				o.velocity.y = 0
-			}
+			if (Math.abs(o.velocity.x) < 0.01) o.velocity.x = 0;
+			if (Math.abs(o.velocity.y) < 0.01) o.velocity.y = 0;
 		}
 	}
 

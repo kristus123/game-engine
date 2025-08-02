@@ -1,6 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Worker } from '/static/game/enemies/Worker.js'; 
 
 export class Thread {
 	constructor(logic) {

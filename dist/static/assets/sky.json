@@ -1,0 +1,31 @@
+{ "frames": [
+   {
+    "filename": "idle",
+    "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   {
+    "filename": "idle",
+    "frame": { "x": 234, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.14.2-dev",
+  "image": "sky.png",
+  "format": "RGBA8888",
+  "size": { "w": 468, "h": 129 },
+  "scale": "1",
+  "slices": [
+  ]
+ }
+}
