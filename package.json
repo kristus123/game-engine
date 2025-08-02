@@ -10,6 +10,7 @@
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
     "concurrently": "^8.2.2",
+    "dependency-cruiser": "^17.0.0",
     "eslint": "^8.56.0",
     "nodemon": "^3.0.2",
     "reload": "^3.2.1"

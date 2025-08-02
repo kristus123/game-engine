@@ -8,7 +8,6 @@ import { QuestList } from '/static/engine/mechanics/quest/QuestList.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { Compass } from '/static/game/delivery_drone/Compass.js'; 
 
 export class House extends StaticGameObject {
 	constructor(player) {

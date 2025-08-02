@@ -1,4 +1,3 @@
-import { FindChickenQuest } from '/static/FindChickenQuest.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Picture } from '/static/engine/code_tools/misc/Picture.js'; 
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 

@@ -16,7 +16,6 @@ import { QuestList } from '/static/engine/mechanics/quest/QuestList.js';
 import { Cargo } from '/static/engine/mechanics/vehicle/Cargo.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { DeliveryDrone } from '/static/game/delivery_drone/DeliveryDrone.js'; 
 import { D } from '/static/game/world/D.js'; 
 import { Npc } from '/static/game/world/Npc.js'; 
 
