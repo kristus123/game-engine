@@ -1,0 +1,107 @@
+{ "frames": {
+   "redSky_0": {
+    "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "redSky_1": {
+    "frame": { "x": 234, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "sun_0": {
+    "frame": { "x": 0, "y": 129, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "sun_1": {
+    "frame": { "x": 234, "y": 129, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "skySmoke_0": {
+    "frame": { "x": 0, "y": 258, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "skySmoke_1": {
+    "frame": { "x": 234, "y": 258, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "backgroundTrees_0": {
+    "frame": { "x": 0, "y": 387, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "backgroundTrees_1": {
+    "frame": { "x": 234, "y": 387, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "darkMountains_0": {
+    "frame": { "x": 0, "y": 516, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "darkMountains_1": {
+    "frame": { "x": 234, "y": 516, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "clouds_0": {
+    "frame": { "x": 0, "y": 645, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "clouds_1": {
+    "frame": { "x": 234, "y": 645, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.14.2-dev",
+  "image": "sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 468, "h": 774 },
+  "scale": "1"
+ }
+}
