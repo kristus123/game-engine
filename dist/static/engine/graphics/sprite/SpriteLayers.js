@@ -72,7 +72,7 @@ export class SpriteLayers extends StaticGameObject {
 				Html.lowerCenter([
 					Html.div('big fade-in', [
 						Html.p('I hope you are doing ok'),
-						Html.p('remember to have fun and drink water'),
+						Html.p('Have fun climbing, remember to drink water'),
 						Html.button('thank you', () => {
 							Html.clear()
 							Html.lowerCenter([
