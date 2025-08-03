@@ -1,5 +1,5 @@
 { "frames": {
-   "background Copy0": {
+   "background Copy_0_idle": {
     "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy1": {
+   "background Copy_1_idle": {
     "frame": { "x": 64, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy2": {
+   "background Copy_2_idle": {
     "frame": { "x": 128, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy3": {
+   "background Copy_3_idle": {
     "frame": { "x": 192, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy4": {
+   "background Copy_4_idle": {
     "frame": { "x": 256, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy5": {
+   "background Copy_5_sleep": {
     "frame": { "x": 320, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy6": {
+   "background Copy_6_sleep": {
     "frame": { "x": 384, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy7": {
+   "background Copy_7_sleep": {
     "frame": { "x": 448, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "background Copy8": {
+   "background Copy_8_sleep": {
     "frame": { "x": 512, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body0": {
+   "body_0_idle": {
     "frame": { "x": 0, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body1": {
+   "body_1_idle": {
     "frame": { "x": 64, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body2": {
+   "body_2_idle": {
     "frame": { "x": 128, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body3": {
+   "body_3_idle": {
     "frame": { "x": 192, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -103,7 +103,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body4": {
+   "body_4_idle": {
     "frame": { "x": 256, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -111,7 +111,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body5": {
+   "body_5_sleep": {
     "frame": { "x": 320, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -119,7 +119,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body6": {
+   "body_6_sleep": {
     "frame": { "x": 384, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -127,7 +127,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body7": {
+   "body_7_sleep": {
     "frame": { "x": 448, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -135,7 +135,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "body8": {
+   "body_8_sleep": {
     "frame": { "x": 512, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -143,7 +143,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt0": {
+   "belt_0_idle": {
     "frame": { "x": 0, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -151,7 +151,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt1": {
+   "belt_1_idle": {
     "frame": { "x": 64, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -159,7 +159,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt2": {
+   "belt_2_idle": {
     "frame": { "x": 128, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -167,7 +167,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt3": {
+   "belt_3_idle": {
     "frame": { "x": 192, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -175,7 +175,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt4": {
+   "belt_4_idle": {
     "frame": { "x": 256, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -183,7 +183,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt5": {
+   "belt_5_sleep": {
     "frame": { "x": 320, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -191,7 +191,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt6": {
+   "belt_6_sleep": {
     "frame": { "x": 384, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -199,7 +199,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt7": {
+   "belt_7_sleep": {
     "frame": { "x": 448, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -207,7 +207,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "belt8": {
+   "belt_8_sleep": {
     "frame": { "x": 512, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -215,7 +215,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk0": {
+   "bardisk_0_idle": {
     "frame": { "x": 0, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -223,7 +223,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk1": {
+   "bardisk_1_idle": {
     "frame": { "x": 64, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -231,7 +231,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk2": {
+   "bardisk_2_idle": {
     "frame": { "x": 128, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -239,7 +239,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk3": {
+   "bardisk_3_idle": {
     "frame": { "x": 192, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -247,7 +247,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk4": {
+   "bardisk_4_idle": {
     "frame": { "x": 256, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -255,7 +255,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk5": {
+   "bardisk_5_sleep": {
     "frame": { "x": 320, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -263,7 +263,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk6": {
+   "bardisk_6_sleep": {
     "frame": { "x": 384, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -271,7 +271,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk7": {
+   "bardisk_7_sleep": {
     "frame": { "x": 448, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -279,7 +279,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "bardisk8": {
+   "bardisk_8_sleep": {
     "frame": { "x": 512, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -287,7 +287,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head0": {
+   "head_0_idle": {
     "frame": { "x": 0, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -295,7 +295,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head1": {
+   "head_1_idle": {
     "frame": { "x": 64, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -303,7 +303,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head2": {
+   "head_2_idle": {
     "frame": { "x": 128, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -311,7 +311,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head3": {
+   "head_3_idle": {
     "frame": { "x": 192, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -319,7 +319,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head4": {
+   "head_4_idle": {
     "frame": { "x": 256, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -327,7 +327,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head5": {
+   "head_5_sleep": {
     "frame": { "x": 320, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -335,7 +335,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head6": {
+   "head_6_sleep": {
     "frame": { "x": 384, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -343,7 +343,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head7": {
+   "head_7_sleep": {
     "frame": { "x": 448, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -351,7 +351,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "head8": {
+   "head_8_sleep": {
     "frame": { "x": 512, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -359,7 +359,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard0": {
+   "beard_0_idle": {
     "frame": { "x": 0, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -367,7 +367,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard1": {
+   "beard_1_idle": {
     "frame": { "x": 64, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -375,7 +375,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard2": {
+   "beard_2_idle": {
     "frame": { "x": 128, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -383,7 +383,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard3": {
+   "beard_3_idle": {
     "frame": { "x": 192, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -391,7 +391,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard4": {
+   "beard_4_idle": {
     "frame": { "x": 256, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -399,7 +399,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard5": {
+   "beard_5_sleep": {
     "frame": { "x": 320, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -407,7 +407,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard6": {
+   "beard_6_sleep": {
     "frame": { "x": 384, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -415,7 +415,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard7": {
+   "beard_7_sleep": {
     "frame": { "x": 448, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -423,7 +423,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "beard8": {
+   "beard_8_sleep": {
     "frame": { "x": 512, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,

@@ -1,15 +1,13 @@
 .fade-away {
-	animation: moveUpFadeOut 1s forwards;
-	font-family: Arial, sans-serif;
+  animation: fadeOutOpacity 0.2s forwards;
 }
 
-@keyframes moveUpFadeOut {
-	0% {
-		opacity: 1;
-		transform: translateY(0);
-	}
-	100% {
-		opacity: 0;
-		transform: translateY(-50px);
-	}
+@keyframes fadeOutOpacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
+

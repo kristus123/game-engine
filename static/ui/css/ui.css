@@ -7,6 +7,16 @@
 	cursor: auto;
 }
 
+.fill-ui {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 8s ease;
+}
+
+
 .center-ui {
   position: absolute;
   top: 50%;
@@ -17,7 +27,7 @@
 
 .lower-center-ui {
 	position: absolute;
-	top: 90%;
+	top: 80%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;

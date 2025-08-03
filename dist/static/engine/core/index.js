@@ -55,9 +55,9 @@ const whenLoaded = Promise.all(["/static/assets/flower","/static/assets/goat","/
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
 
-	const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + "Layers" + '.json'))
+	const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + 'Layers' + '.json'))
 
-	const spriteLayers = loadImage(path + "Layers.png")
+	const spriteLayers = loadImage(path + 'Layers.png')
 		.then(img => G.SpriteLayers[fileName] = (pos) => new SpriteLayers(pos, img, asepriteLayerJson))
 
 	const sprite = loadImage(pngPath)

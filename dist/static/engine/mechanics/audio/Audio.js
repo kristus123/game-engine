@@ -14,6 +14,16 @@ export class Audio {
 		sound.play()
 	}
 
+	static click() {
+		const sound = new Howl({
+			src: ['/static/audio/click.mp3'],
+		})
+
+		sound.volume(0.5)
+
+		sound.play()
+	}
+
 	static breathing() {
 		const sound = new Howl({
 			src: ['/static/audio/astronaut_breathing.wav'],

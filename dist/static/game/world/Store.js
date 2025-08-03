@@ -7,14 +7,14 @@ export class Store {
 
 		this.localObjects = new LocalObjects()
 
-		Html.upper([
-			Html.button('hey', () => {
-			}),
-			Html.button('hey', () => {
-			}),
-			Html.button('hey', () => {
-			}),
-		])
+		// Html.upper([
+		// 	Html.button('hey', () => {
+		// 	}),
+		// 	Html.button('hey', () => {
+		// 	}),
+		// 	Html.button('hey', () => {
+		// 	}),
+		// ])
 	}
 
 	update() {

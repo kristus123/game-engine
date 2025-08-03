@@ -1,5 +1,5 @@
 { "frames": {
-   "grass0": {
+   "grass_0_idle": {
     "frame": { "x": 0, "y": 0, "w": 1080, "h": 720 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 1080, "h": 720 },
     "duration": 100
    },
-   "Layer 10": {
+   "Layer 1_0_idle": {
     "frame": { "x": 0, "y": 720, "w": 1080, "h": 720 },
     "rotated": false,
     "trimmed": false,

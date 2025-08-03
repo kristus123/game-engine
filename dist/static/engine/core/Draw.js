@@ -107,14 +107,25 @@ export class Draw {
 
 	sprite(position, frame, image) {
 		this.ctx.imageSmoothingEnabled = false
+
 		this.ctx.drawImage(
 			image,
-			frame.x, frame.y,
-			frame.width, frame.height,
-			position.x, position.y,
-			position.width, position.height
+			frame.x,
+			frame.y,
+			frame.width,
+			frame.height,
+			position.x,
+			position.y,
+			position.width,
+			position.height,
 		)
 	}
+
+	picture(position, image) {
+		this.ctx.imageSmoothingEnabled = false
+		this.ctx.drawImage(image, 0, 0)
+	}
+
 
 	imageBitmap(position, imageBitmap) {
 		this.ctx.drawImage(imageBitmap, position.x, position.y)

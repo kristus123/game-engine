@@ -1,5 +1,5 @@
 { "frames": {
-   "Layer 20": {
+   "Layer 2_0_idle": {
     "frame": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "Layer 10": {
+   "Layer 1_0_idle": {
     "frame": { "x": 0, "y": 16, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,

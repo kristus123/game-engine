@@ -10,6 +10,7 @@ function createElement(element, parent, className) {
 }
 
 function button(text, position, onClick) {
+
 	const div = createElement('div', position, '')
 	const b = createElement('button', div, '')
 

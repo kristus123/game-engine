@@ -1,21 +1,16 @@
 div {
+ box-sizing: border-box;
 }
 
 
 div.big {
-	width:500px;
-	height:500px;
+	min-width:500px;
+	/* min-height:500px; */
+	padding:20px;
 	background-color: #F2F2F2;
 	border-radius: 20px;
 
-
-  display: grid;
   place-items: center; /* shorthand for justify-content and align-items */
-
-  border-radius: 12px;                  /* Rounded corners */
-  padding: 20px;                        /* Inner spacing */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  backdrop-filter: blur(2px);          /* Glass-like blur (optional) */
 }
 
 

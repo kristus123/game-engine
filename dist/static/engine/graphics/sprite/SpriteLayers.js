@@ -1,125 +1,128 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { StopWatch } from '/static/engine/code_tools/StopWatch.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
-import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { Mouse } from '/static/engine/controller/Mouse.js'; 
+import { Camera } from '/static/engine/core/camera/Camera.js'; 
+import { ParallaxTest } from '/static/engine/graphics/ParallaxTest.js'; 
+import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
+import { Audio } from '/static/engine/mechanics/audio/Audio.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 const scale = 8
 
 export class SpriteLayers extends StaticGameObject {
-  constructor(position, image, asepriteJson) {
-    super(position)
+	constructor(position, image, asepriteLayerJson) {
+		super(position)
 
 				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(image, "argument image in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(asepriteJson, "argument asepriteJson in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(asepriteLayerJson, "argument asepriteLayerJson in " + this.constructor.name + ".js should not be null")
 			
 		this.position = position; 
 		this.image = image; 
-		this.asepriteJson = asepriteJson; 
+		this.asepriteLayerJson = asepriteLayerJson; 
+
+		Camera.followInstantly(this.position.center)
+		Html.fill([
+			Html.p('Good morning'),
+		])
+
+		this.tags = {}
+		this.layers = {}
+		this.frames = {}
+
+		this.width = null
+		this.height = null
+
+		asepriteLayerJson.forEachFrame((layer, frame, x, y, width, height, tag) => {
+			this.tags[tag] = []
+
+			this.width = width
+			this.height = height
+
+			if (!(layer in this.layers)) {
+				this.layers[layer] = []
+			}
+
+			const sprite = {
+				position: new Position(0, 0, width*scale, height*scale),
+				x: x,
+				y: y,
+				width: width,
+				height: height,
+			}
+
+			this.layers[layer].push(sprite)
+
+			this.frames[frame] = sprite
 
 
-    // --- derive width/height from meta.size (raw frame sizes are uniform per-sheet) ---
-    this.position.width  = asepriteJson.meta.size.w * scale
-    this.position.height = asepriteJson.meta.size.h * scale
+			this.position.width = this.width * scale
+			this.position.height = this.height * scale
+		})
 
-    // --- build a { tagName: [ frameObj0, frameObj1, ... ] } map from the flat frames hash ---
-    this.tags = {}
-    for (let [key, frameData] of Object.entries(asepriteJson.frames)) {
-      // split off the trailing digits as the frame index
-      let m = key.match(/(.+?)(\d+)$/)
-      if (!m) continue
-      let tag   = m[1]
-      let idx   = parseInt(m[2], 10)
-      if (!this.tags[tag]) this.tags[tag] = []
-      this.tags[tag][idx] = frameData.frame
-    }
 
-    // quick lookup for total frames per tag
-    this.totalFrames = tag => (this.tags[tag] || []).length
+		Camera.coverObject(this.position)
+		Audio.play()
+		Html.center([Html.button('Start', () => {
+			Html.clear()
+			setTimeout(() => {
+				Html.lowerCenter([
+					Html.div('big fade-in', [
+						Html.p('I hope you are doing ok'),
+						Html.p('remember to have fun and drink water'),
+						Html.button('thank you', () => {
+							Html.clear()
+							Html.lowerCenter([
+								Html.div('big fade-in', [
+									Html.p('Now, just relax for a minute'),
+									Html.button('I will', () => {
+										Html.clear()
+									}),
+								]),
+							])
+						})
+					]),
+				])
+			}, 1_000)
+		})])
+	}
 
-    // animation state
-    this.currentFrame = 0
-    this.type         = 'loop'
-    this.onFinish     = () => {}
+	update() {
+	}
 
-    // --- re-create your .play/.loop/.show per-tag API ---
-    for (let tag of Object.keys(this.tags)) {
-      this[tag] = {
-        play: (onFinish = () => {}) => {
-          this.currentFrame = 0
-          this.activeTag    = tag
-          this.type         = 'play'
-          this.onFinish     = onFinish
-          return this
-        },
-        loop: (onFinish = () => {}) => {
-          this.currentFrame = 0
-          this.activeTag    = tag
-          this.defaultTag   = tag
-          this.type         = 'loop'
-          this.onFinish     = onFinish
-          return this
-        },
-        show: frame => {
-          this.currentFrame = frame
-          this.activeTag    = tag
-          this.defaultTag   = tag
-          this.type         = 'show'
-          return this
-        },
-      }
-    }
+	draw(draw, guiDraw) {
 
-    // require an 'idle' tag for default
-    if (this.idle) {
-      this.idle.loop()
-    } else {
-      throw new Error("SpriteLayers: missing an 'idle' tag in your JSON")
-    }
+		for (const [layer, spriteFrame] of Object.entries(this.layers)) {
+			const p = spriteFrame[0].position
+			if (layer == 'skySmoke') {
+				p.x += 0.02
+				// p.xy(ParallaxTest(Mouse.position, 0.05))
+			}
+			else if (layer == 'clouds') {
+				p.x += 0.4
+				// p.xy(ParallaxTest(Mouse.position, 0.1))
+			}
 
-    // --- frame‐advance logic via your StopWatch + LocalObjects ---
-    const stopWatch = new StopWatch().start()
-    this.localObjects = new LocalObjects([
-      new OnTrue(() => stopWatch.time >= 100, () => {
-        const tagFrames = this.tags[this.activeTag]
-        if (this.type === 'show') {
-          // static; do nothing
-        }
-        else if (this.currentFrame + 1 >= tagFrames.length) {
-          this.currentFrame = 0
-          if (this.type === 'play') {
-            this.activeTag = this.defaultTag
-            this.type      = 'loop'
-            this.onFinish()
-          }
-        }
-        else {
-          this.currentFrame += 1
-        }
-        stopWatch.restart()
-      }),
-    ])
-  }
+			else if (layer == 'backgroundTrees') {
+				p.x += 0.1
+				// p.xy(ParallaxTest(Mouse.position, 0.01))
+			}
 
-  randomStartFrame() {
-    const len = this.totalFrames(this.activeTag)
-    this.currentFrame = Random.integerBetween(0, len - 1)
-    return this
-  }
+			else if (layer == 'sun') {
+				p.x += 0.1
+				// p.xy(ParallaxTest(Mouse.position, 0.001))
+			}
 
-  update() {
-    this.localObjects.update()
-  }
+			else if (layer == 'darkMountains') {
+				p.x += 0.1
+				// p.xy(ParallaxTest(Mouse.position, 0.001))
+			}
 
-  draw(draw, guiDraw) {
-    // pull the { x,y,w,h } for the current frame
-    const rect = this.tags[this.activeTag][this.currentFrame]
-    draw.sprite(this.position, rect, this.image)
-  }
+			draw.sprite(p, spriteFrame[0], this.image)
+		}
+
+	}
 }
-

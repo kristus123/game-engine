@@ -210,8 +210,8 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-			// G.Sprite.goat(new Position(-310, 10)).happy.loop(),
-			G.SpriteLayers.goat(new Position(-310, 10)).happy.loop(),
+			// G.Sprite.goat(new Position(0, 0)).happy.loop(),
+			G.SpriteLayers.sky(new Position(0, 0)),
 		])
 	}
 

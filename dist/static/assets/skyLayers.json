@@ -1,98 +1,50 @@
 { "frames": {
-   "redSky0": {
-    "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
+   "redSky_0_idle": {
+    "frame": { "x": 0, "y": 0, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    },
-   "redSky1": {
-    "frame": { "x": 234, "y": 0, "w": 234, "h": 129 },
+   "sun_0_idle": {
+    "frame": { "x": 0, "y": 131, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    },
-   "sun0": {
-    "frame": { "x": 0, "y": 129, "w": 234, "h": 129 },
+   "skySmoke_0_idle": {
+    "frame": { "x": 0, "y": 262, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    },
-   "sun1": {
-    "frame": { "x": 234, "y": 129, "w": 234, "h": 129 },
+   "backgroundTrees_0_idle": {
+    "frame": { "x": 0, "y": 393, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    },
-   "skySmoke0": {
-    "frame": { "x": 0, "y": 258, "w": 234, "h": 129 },
+   "darkMountains_0_idle": {
+    "frame": { "x": 0, "y": 524, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    },
-   "skySmoke1": {
-    "frame": { "x": 234, "y": 258, "w": 234, "h": 129 },
+   "clouds_0_idle": {
+    "frame": { "x": 0, "y": 655, "w": 236, "h": 131 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "backgroundTrees0": {
-    "frame": { "x": 0, "y": 387, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "backgroundTrees1": {
-    "frame": { "x": 234, "y": 387, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "darkMountains0": {
-    "frame": { "x": 0, "y": 516, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "darkMountains1": {
-    "frame": { "x": 234, "y": 516, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "clouds0": {
-    "frame": { "x": 0, "y": 645, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
-    "duration": 100
-   },
-   "clouds1": {
-    "frame": { "x": 234, "y": 645, "w": 234, "h": 129 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
-    "sourceSize": { "w": 234, "h": 129 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
    }
  },
@@ -101,7 +53,7 @@
   "version": "1.3.14.2-dev",
   "image": "skyLayers.png",
   "format": "RGBA8888",
-  "size": { "w": 468, "h": 774 },
+  "size": { "w": 236, "h": 786 },
   "scale": "1"
  }
 }

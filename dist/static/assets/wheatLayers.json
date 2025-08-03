@@ -1,5 +1,5 @@
 { "frames": {
-   "Layer 10": {
+   "Layer 1_0_idle": {
     "frame": { "x": 0, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 11": {
+   "Layer 1_1_grow": {
     "frame": { "x": 32, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 12": {
+   "Layer 1_2_grow": {
     "frame": { "x": 64, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 13": {
+   "Layer 1_3_grow": {
     "frame": { "x": 96, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 14": {
+   "Layer 1_4_grow": {
     "frame": { "x": 128, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 15": {
+   "Layer 1_5_grow": {
     "frame": { "x": 160, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 16": {
+   "Layer 1_6_grow": {
     "frame": { "x": 192, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 17": {
+   "Layer 1_7_grow": {
     "frame": { "x": 224, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 18": {
+   "Layer 1_8_grow": {
     "frame": { "x": 256, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 19": {
+   "Layer 1_9_grow": {
     "frame": { "x": 288, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "Layer 110": {
+   "Layer 1_10_grow": {
     "frame": { "x": 320, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,

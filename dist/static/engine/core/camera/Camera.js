@@ -34,13 +34,13 @@ export class Camera {
 		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
 
 		Mouse.scrollIn = () => {
-			this.smoothZoom.targetValue += 1
+			this.smoothZoom.targetValue += 0.1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
 
 		Mouse.scrollOut = () => {
-			this.smoothZoom.targetValue -= 1
+			this.smoothZoom.targetValue -= 0.1
 			if (this.zoom.currentValue > 10) {
 			}
 		}
@@ -100,5 +100,27 @@ export class Camera {
 			p.y - this.position.y + p.height + (Palette.height/2),
 		)
 	}
+
+	static coverObject(position) {
+		const objRatio = position.width / position.height
+		const viewRatio = Palette.width/ Palette.height
+
+		if (objRatio > viewRatio) {
+			this.zoom = Palette.height / position.height // fit height
+		}
+		else {
+			this.zoom = Palette.width / position.width // fit width
+		}
+
+		this.zoom += 1.2
+
+
+		const centerX = position.x + position.width / 2
+		const centerY = position.y + position.height / 2
+
+		this.follow(new Position(centerX, centerY))
+
+	}
+
 }
 

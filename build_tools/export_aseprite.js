@@ -40,9 +40,9 @@ function exportAseprite(srcFile, destBase) {
 		'--split-tags',
 	    '--list-slices',
 		'--sheet',
-		destBase + ".png",
+		destBase + '.png',
 		'--data',
-		destBase + ".json",
+		destBase + '.json',
 		'--format',
 		'json-array',
 		'--filename-format',
@@ -50,16 +50,16 @@ function exportAseprite(srcFile, destBase) {
 	], { stdio: 'inherit' })
 
 
-	execFileSync("aseprite", [
-		"-b",
-		"--split-layers",
+	execFileSync('aseprite', [
+		'-b',
+		'--split-layers',
 		srcFile,
-		"--sheet",
-		destBase + "Layers.png",
-		"--data",
-		destBase + "Layers.json",
-		"--filename-format",
-		`{layer}{frame}`,
+		'--sheet',
+		destBase + 'Layers.png',
+		'--data',
+		destBase + 'Layers.json',
+		'--filename-format',
+		'{layer}_{frame}_{tag}',
 	])
 }
 

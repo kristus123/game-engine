@@ -25,6 +25,13 @@ export class Html {
 			]))
 	}
 
+	static fill(elements) {
+		Html.addToScreen(
+			Html.div('fill-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
 	static lowerCenter(elements) {
 		Html.addToScreen(
 			Html.div('lower-center-ui', [
@@ -34,6 +41,33 @@ export class Html {
 
 	static clearCenter() {
 		document.querySelector('.center-ui').remove()
+	}
+
+	static clear() {
+		const elements = document.getElementById('ui_elements').querySelectorAll('*') // all nested elements
+		console.log(elements)
+
+		for (const el of elements) {
+			if (el.classList.contains('fill-ui')) {
+
+			  setTimeout(() => {
+					el.style.opacity = '0'
+			  }, 2_000)
+
+			  el.addEventListener('transitionend', () => {
+					el.remove()
+			  })
+
+			}
+			else {
+				 el.classList.add('fade-away')
+				  el.addEventListener('animationend', () => {
+					el.remove();
+				  }, { once: true })
+
+			}
+		}
+
 	}
 
 	static dialog(children=[]) {
@@ -111,14 +145,16 @@ export class Html {
 
 	static focus(element) {
 	  if (element) {
-		element.focus();
+			element.focus()
 	  }
 	}
 
 
 	static focusInput() {
-		const input = document.querySelector('input[type="text"]');
-		if (input) input.focus();
+		const input = document.querySelector('input[type="text"]')
+		if (input) {
+			input.focus()
+		}
 	}
 
 
@@ -147,6 +183,7 @@ export class Html {
 		button.textContent = text
 
 		button.addEventListener('click', () => {
+			Audio.click()
 			onClick(button)
 		})
 
