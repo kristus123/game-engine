@@ -62,7 +62,7 @@ export class Html {
 			else {
 				 el.classList.add('fade-away')
 				  el.addEventListener('animationend', () => {
-					el.remove();
+					el.remove()
 				  }, { once: true })
 
 			}
