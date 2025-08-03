@@ -1,5 +1,5 @@
 { "frames": {
-   "redSky_0": {
+   "redSky0": {
     "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "redSky_1": {
+   "redSky1": {
     "frame": { "x": 234, "y": 0, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "sun_0": {
+   "sun0": {
     "frame": { "x": 0, "y": 129, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "sun_1": {
+   "sun1": {
     "frame": { "x": 234, "y": 129, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "skySmoke_0": {
+   "skySmoke0": {
     "frame": { "x": 0, "y": 258, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "skySmoke_1": {
+   "skySmoke1": {
     "frame": { "x": 234, "y": 258, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "backgroundTrees_0": {
+   "backgroundTrees0": {
     "frame": { "x": 0, "y": 387, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "backgroundTrees_1": {
+   "backgroundTrees1": {
     "frame": { "x": 234, "y": 387, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "darkMountains_0": {
+   "darkMountains0": {
     "frame": { "x": 0, "y": 516, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "darkMountains_1": {
+   "darkMountains1": {
     "frame": { "x": 234, "y": 516, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "clouds_0": {
+   "clouds0": {
     "frame": { "x": 0, "y": 645, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 234, "h": 129 },
     "duration": 100
    },
-   "clouds_1": {
+   "clouds1": {
     "frame": { "x": 234, "y": 645, "w": 234, "h": 129 },
     "rotated": false,
     "trimmed": false,
@@ -99,7 +99,7 @@
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.3.14.2-dev",
-  "image": "sheet.png",
+  "image": "skyLayers.png",
   "format": "RGBA8888",
   "size": { "w": 468, "h": 774 },
   "scale": "1"

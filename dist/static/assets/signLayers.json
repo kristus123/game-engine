@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/signLayer 20": {
+   "Layer 20": {
     "frame": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/signLayer 10": {
+   "Layer 10": {
     "frame": { "x": 0, "y": 16, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,

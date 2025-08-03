@@ -17,6 +17,7 @@ import { ShowLogs } from '/static/engine/core/logging/ShowLogs.js';
 import { Physics } from '/static/engine/core/physics/Physics.js'; 
 import { WorldEditor } from '/static/engine/editor/WorldEditor.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
@@ -54,10 +55,15 @@ const whenLoaded = Promise.all(["/static/assets/flower","/static/assets/goat","/
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
 
-	// const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + "Layers" + '.json'))
+	const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + "Layers" + '.json'))
 
-	return loadImage(pngPath)
+	const spriteLayers = loadImage(path + "Layers.png")
+		.then(img => G.SpriteLayers[fileName] = (pos) => new SpriteLayers(pos, img, asepriteLayerJson))
+
+	const sprite = loadImage(pngPath)
 		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
+
+	return Promise.all([spriteLayers, sprite])
 }))
 
 

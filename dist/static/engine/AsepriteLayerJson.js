@@ -7,7 +7,7 @@ export class AsepriteLayerJson {
 			
 		this.json = json; 
 
-		console.log(json)
+		console.log(JSON.stringify(json))
 	}
 
 

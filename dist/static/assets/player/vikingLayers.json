@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy0": {
+   "background Copy0": {
     "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy1": {
+   "background Copy1": {
     "frame": { "x": 64, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy2": {
+   "background Copy2": {
     "frame": { "x": 128, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy3": {
+   "background Copy3": {
     "frame": { "x": 192, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy4": {
+   "background Copy4": {
     "frame": { "x": 256, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy5": {
+   "background Copy5": {
     "frame": { "x": 320, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy6": {
+   "background Copy6": {
     "frame": { "x": 384, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy7": {
+   "background Copy7": {
     "frame": { "x": 448, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbackground Copy8": {
+   "background Copy8": {
     "frame": { "x": 512, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody0": {
+   "body0": {
     "frame": { "x": 0, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody1": {
+   "body1": {
     "frame": { "x": 64, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody2": {
+   "body2": {
     "frame": { "x": 128, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody3": {
+   "body3": {
     "frame": { "x": 192, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -103,7 +103,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody4": {
+   "body4": {
     "frame": { "x": 256, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -111,7 +111,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody5": {
+   "body5": {
     "frame": { "x": 320, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -119,7 +119,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody6": {
+   "body6": {
     "frame": { "x": 384, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -127,7 +127,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody7": {
+   "body7": {
     "frame": { "x": 448, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -135,7 +135,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbody8": {
+   "body8": {
     "frame": { "x": 512, "y": 64, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -143,7 +143,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt0": {
+   "belt0": {
     "frame": { "x": 0, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -151,7 +151,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt1": {
+   "belt1": {
     "frame": { "x": 64, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -159,7 +159,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt2": {
+   "belt2": {
     "frame": { "x": 128, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -167,7 +167,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt3": {
+   "belt3": {
     "frame": { "x": 192, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -175,7 +175,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt4": {
+   "belt4": {
     "frame": { "x": 256, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -183,7 +183,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt5": {
+   "belt5": {
     "frame": { "x": 320, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -191,7 +191,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt6": {
+   "belt6": {
     "frame": { "x": 384, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -199,7 +199,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt7": {
+   "belt7": {
     "frame": { "x": 448, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -207,7 +207,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbelt8": {
+   "belt8": {
     "frame": { "x": 512, "y": 128, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -215,7 +215,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk0": {
+   "bardisk0": {
     "frame": { "x": 0, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -223,7 +223,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk1": {
+   "bardisk1": {
     "frame": { "x": 64, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -231,7 +231,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk2": {
+   "bardisk2": {
     "frame": { "x": 128, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -239,7 +239,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk3": {
+   "bardisk3": {
     "frame": { "x": 192, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -247,7 +247,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk4": {
+   "bardisk4": {
     "frame": { "x": 256, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -255,7 +255,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk5": {
+   "bardisk5": {
     "frame": { "x": 320, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -263,7 +263,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk6": {
+   "bardisk6": {
     "frame": { "x": 384, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -271,7 +271,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk7": {
+   "bardisk7": {
     "frame": { "x": 448, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -279,7 +279,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbardisk8": {
+   "bardisk8": {
     "frame": { "x": 512, "y": 192, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -287,7 +287,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead0": {
+   "head0": {
     "frame": { "x": 0, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -295,7 +295,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead1": {
+   "head1": {
     "frame": { "x": 64, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -303,7 +303,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead2": {
+   "head2": {
     "frame": { "x": 128, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -311,7 +311,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead3": {
+   "head3": {
     "frame": { "x": 192, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -319,7 +319,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead4": {
+   "head4": {
     "frame": { "x": 256, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -327,7 +327,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead5": {
+   "head5": {
     "frame": { "x": 320, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -335,7 +335,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead6": {
+   "head6": {
     "frame": { "x": 384, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -343,7 +343,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead7": {
+   "head7": {
     "frame": { "x": 448, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -351,7 +351,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikinghead8": {
+   "head8": {
     "frame": { "x": 512, "y": 256, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -359,7 +359,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard0": {
+   "beard0": {
     "frame": { "x": 0, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -367,7 +367,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard1": {
+   "beard1": {
     "frame": { "x": 64, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -375,7 +375,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard2": {
+   "beard2": {
     "frame": { "x": 128, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -383,7 +383,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard3": {
+   "beard3": {
     "frame": { "x": 192, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -391,7 +391,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard4": {
+   "beard4": {
     "frame": { "x": 256, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -399,7 +399,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard5": {
+   "beard5": {
     "frame": { "x": 320, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -407,7 +407,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard6": {
+   "beard6": {
     "frame": { "x": 384, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -415,7 +415,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard7": {
+   "beard7": {
     "frame": { "x": 448, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -423,7 +423,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/player/vikingbeard8": {
+   "beard8": {
     "frame": { "x": 512, "y": 320, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,

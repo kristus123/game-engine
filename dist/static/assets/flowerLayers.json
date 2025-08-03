@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/flowerLayer 10": {
+   "Layer 10": {
     "frame": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/flowerLayer 11": {
+   "Layer 11": {
     "frame": { "x": 16, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/flowerLayer 12": {
+   "Layer 12": {
     "frame": { "x": 32, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,

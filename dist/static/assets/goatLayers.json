@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail0": {
+   "tail0": {
     "frame": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail1": {
+   "tail1": {
     "frame": { "x": 32, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail2": {
+   "tail2": {
     "frame": { "x": 64, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail3": {
+   "tail3": {
     "frame": { "x": 96, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail4": {
+   "tail4": {
     "frame": { "x": 128, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail5": {
+   "tail5": {
     "frame": { "x": 160, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail6": {
+   "tail6": {
     "frame": { "x": 192, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail7": {
+   "tail7": {
     "frame": { "x": 224, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail8": {
+   "tail8": {
     "frame": { "x": 256, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail9": {
+   "tail9": {
     "frame": { "x": 288, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail10": {
+   "tail10": {
     "frame": { "x": 320, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail11": {
+   "tail11": {
     "frame": { "x": 352, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail12": {
+   "tail12": {
     "frame": { "x": 384, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -103,7 +103,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail13": {
+   "tail13": {
     "frame": { "x": 416, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -111,7 +111,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail14": {
+   "tail14": {
     "frame": { "x": 448, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -119,7 +119,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail15": {
+   "tail15": {
     "frame": { "x": 480, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -127,7 +127,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail16": {
+   "tail16": {
     "frame": { "x": 512, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -135,7 +135,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail17": {
+   "tail17": {
     "frame": { "x": 544, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -143,7 +143,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail18": {
+   "tail18": {
     "frame": { "x": 576, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -151,7 +151,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail19": {
+   "tail19": {
     "frame": { "x": 608, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -159,7 +159,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail20": {
+   "tail20": {
     "frame": { "x": 640, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -167,7 +167,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail21": {
+   "tail21": {
     "frame": { "x": 672, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -175,7 +175,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail22": {
+   "tail22": {
     "frame": { "x": 704, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -183,7 +183,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail23": {
+   "tail23": {
     "frame": { "x": 736, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
@@ -191,7 +191,7 @@
     "sourceSize": { "w": 32, "h": 32 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/goattail24": {
+   "tail24": {
     "frame": { "x": 768, "y": 0, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,

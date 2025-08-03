@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/worldgrass0": {
+   "grass0": {
     "frame": { "x": 0, "y": 0, "w": 1080, "h": 720 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 1080, "h": 720 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/worldLayer 10": {
+   "Layer 10": {
     "frame": { "x": 0, "y": 720, "w": 1080, "h": 720 },
     "rotated": false,
     "trimmed": false,

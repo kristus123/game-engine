@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet0": {
+   "Sprite Sheet0": {
     "frame": { "x": 0, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet1": {
+   "Sprite Sheet1": {
     "frame": { "x": 16, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet2": {
+   "Sprite Sheet2": {
     "frame": { "x": 32, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet3": {
+   "Sprite Sheet3": {
     "frame": { "x": 48, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet4": {
+   "Sprite Sheet4": {
     "frame": { "x": 64, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet5": {
+   "Sprite Sheet5": {
     "frame": { "x": 80, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet6": {
+   "Sprite Sheet6": {
     "frame": { "x": 96, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet7": {
+   "Sprite Sheet7": {
     "frame": { "x": 112, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet8": {
+   "Sprite Sheet8": {
     "frame": { "x": 128, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet9": {
+   "Sprite Sheet9": {
     "frame": { "x": 144, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet10": {
+   "Sprite Sheet10": {
     "frame": { "x": 160, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet11": {
+   "Sprite Sheet11": {
     "frame": { "x": 176, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet12": {
+   "Sprite Sheet12": {
     "frame": { "x": 192, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -103,7 +103,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet13": {
+   "Sprite Sheet13": {
     "frame": { "x": 208, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -111,7 +111,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet14": {
+   "Sprite Sheet14": {
     "frame": { "x": 224, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -119,7 +119,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet15": {
+   "Sprite Sheet15": {
     "frame": { "x": 240, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,
@@ -127,7 +127,7 @@
     "sourceSize": { "w": 16, "h": 16 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/grassSprite Sheet16": {
+   "Sprite Sheet16": {
     "frame": { "x": 256, "y": 0, "w": 16, "h": 16 },
     "rotated": false,
     "trimmed": false,

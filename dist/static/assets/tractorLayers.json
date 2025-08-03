@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/tractorLayer 10": {
+   "Layer 10": {
     "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,

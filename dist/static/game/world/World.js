@@ -9,6 +9,7 @@ import { Sleep } from '/static/engine/core/Sleep.js';
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
 import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
 import { HtmlProgressBar } from '/static/engine/graphics/ui/html/HtmlProgressBar.js'; 
 import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
@@ -209,7 +210,8 @@ export class World {
 			G.poops,
 			G.flowers,
 			G.player,
-			G.Sprite.goat(new Position(-310, 10)).happy.loop(),
+			// G.Sprite.goat(new Position(-310, 10)).happy.loop(),
+			G.SpriteLayers.goat(new Position(-310, 10)).happy.loop(),
 		])
 	}
 

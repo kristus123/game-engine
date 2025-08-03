@@ -1,5 +1,5 @@
 { "frames": {
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 10": {
+   "Layer 10": {
     "frame": { "x": 0, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 11": {
+   "Layer 11": {
     "frame": { "x": 32, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 12": {
+   "Layer 12": {
     "frame": { "x": 64, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 13": {
+   "Layer 13": {
     "frame": { "x": 96, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 14": {
+   "Layer 14": {
     "frame": { "x": 128, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 15": {
+   "Layer 15": {
     "frame": { "x": 160, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 16": {
+   "Layer 16": {
     "frame": { "x": 192, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 17": {
+   "Layer 17": {
     "frame": { "x": 224, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 18": {
+   "Layer 18": {
     "frame": { "x": 256, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 19": {
+   "Layer 19": {
     "frame": { "x": 288, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 32, "h": 24 },
     "duration": 100
    },
-   "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/wheatLayer 110": {
+   "Layer 110": {
     "frame": { "x": 320, "y": 0, "w": 32, "h": 24 },
     "rotated": false,
     "trimmed": false,
