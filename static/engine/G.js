@@ -11,4 +11,5 @@ export const G = {
 	barn: new Barn(new Position(-200, 0)),
 	pictures: {},
 	Sprite: {},
+	SpriteLayers: {},
 }

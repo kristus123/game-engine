@@ -1,6 +1,6 @@
 export class AsepriteLayerJson {
 	constructor(json) {
-		console.log(json)
+		console.log(JSON.stringify(json))
 	}
 
 
