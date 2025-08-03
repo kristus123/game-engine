@@ -1,1 +1,0 @@
-const id={};export const RunOnce=(i,n,d,c)=>{if(!(n in id))return id[n]=[],!1;!id[n].includes(i)&&d&&(id[n].push(i),c())};

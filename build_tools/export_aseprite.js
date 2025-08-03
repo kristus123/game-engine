@@ -25,15 +25,15 @@ function getRelativeDestPath(srcFile) {
 }
 
 function exportAseprite(srcFile, destBase) {
-	const destImage = destBase + '.png'
-	const destJson = destBase + '.json'
-	const destDir = path.dirname(destBase)
+	const title = srcFile.replace(".aseprite", "")
 
+	const destDir = path.dirname(destBase)
 	if (!fs.existsSync(destDir)) {
 		fs.mkdirSync(destDir, { recursive: true })
 	}
 
-	console.log(`Exporting: ${srcFile} -> ${destImage} & ${destJson}`)
+	console.log(`Exporting: ${srcFile} -> ${destBase}`)
+	console.log(title)
 
 	execFileSync('aseprite', [
 		'-b',
@@ -41,14 +41,27 @@ function exportAseprite(srcFile, destBase) {
 		'--split-tags',
 	    '--list-slices',
 		'--sheet',
-		destImage,
+		destBase + ".png",
 		'--data',
-		destJson,
+		destBase + ".json",
 		'--format',
 		'json-array',
 		'--filename-format',
 		'{tag}',
 	], { stdio: 'inherit' })
+
+
+	// execFileSync("aseprite", [
+	// 	"-b",
+	// 	"--split-layers",
+	// 	srcFile,
+	// 	"--sheet",
+	// 	destBase + "Layers.png",
+	// 	"--data",
+	// 	destBase + "Layers.json",
+	// 	"--filename-format",
+	// 	`${title}{layer}{frame}`,
+	// ])
 }
 
 walk(SRC_DIR, srcFile => {

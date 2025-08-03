@@ -1,4 +1,5 @@
 import { AsepriteJson } from '/static/engine/AsepriteJson.js'; 
+import { AsepriteLayerJson } from '/static/engine/AsepriteLayerJson.js'; 
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Call } from '/static/engine/code_tools/tools/Call.js'; 
@@ -52,6 +53,8 @@ const whenLoaded = Promise.all(["/static/assets/flower","/static/assets/goat","/
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
+
+	// const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + "Layers" + '.json'))
 
 	return loadImage(pngPath)
 		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))

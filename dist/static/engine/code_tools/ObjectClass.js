@@ -1,1 +1,0 @@
-export function ObjectClass(r,t){const e={};return Object.entries(t).forEach(([t,c])=>{e[t]=()=>c(r)}),e.draw=(e,c)=>{t.draw(e,c,r)},e}

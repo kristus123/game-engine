@@ -1,1 +1,0 @@
-import{AssertNotNull}from"/static/engine/assertions/AssertNotNull.js";export class State{constructor(s){AssertNotNull(s,"argument scenarios in "+this.constructor.name+".js should not be null"),this.scenarios=s,this.active=null}update(){}draw(s,t){for(const o of this.scenarios)if(o.condition()){o.update(),o.draw(s,t);break}}}

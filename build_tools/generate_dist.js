@@ -82,8 +82,6 @@ const others = jsFiles.filter(f => !priority.some(key => f.includes(key)))
 
 const orderedFiles = [...prioritized, ...others]
 
-console.log(orderedFiles)
-
 const scriptImports = orderedFiles
 	.map(f => `<script type="module" src="${f}"></script>`)
 	.join('\n')
@@ -121,7 +119,7 @@ const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
 
 
 const indexJs = fs.readFileSync('dist/static/engine/core/index.js', 'utf-8')
-	.replace('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
+	.replaceAll('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
 fs.writeFileSync('dist/static/engine/core/index.js', indexJs)
 
 const indexHtml = fs.readFileSync('static/index.html', 'utf-8')

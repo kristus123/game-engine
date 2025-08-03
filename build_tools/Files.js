@@ -45,7 +45,6 @@ module.exports = class {
 			return jsFiles
 		}
 		catch (error) {
-			console.log(folderPath + ' not found')
 			return []
 		}
 	}
