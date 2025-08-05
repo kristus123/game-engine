@@ -71,9 +71,21 @@ for (const classFile of allFiles) {
   });
 }
 
+// ✅ Sort: Files with NO dependencies first
+const sortedEntries = Array.from(usageMap.entries()).sort((a, b) => {
+  const aNoUsage = a[1].usedIn.length === 0;
+  const bNoUsage = b[1].usedIn.length === 0;
+
+  if (aNoUsage && !bNoUsage) return -1;
+  if (!aNoUsage && bNoUsage) return 1;
+
+  // If both have usage or both don't, sort alphabetically by class name
+  return a[0].localeCompare(b[0]);
+});
+
 let mdOutput = `# Class Usage Report\n\nGenerated on: ${new Date().toLocaleString()}\n\n`;
 
-for (const [className, info] of usageMap.entries()) {
+for (const [className, info] of sortedEntries) {
   mdOutput += `## ${className}\n\n`;
   mdOutput += `**Defined in:** \`${info.definedIn}\`\n\n`;
   if (info.usedIn.length > 0) {
