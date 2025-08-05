@@ -183,7 +183,7 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
-			// G.SpriteLayers.sky(new Position(0, 0)),
+			G.SpriteLayers.sky(new Position(0, 0)),
 		])
 	}
 
