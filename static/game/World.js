@@ -5,7 +5,6 @@ export class World {
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
 
-
 		G.friend = new Npc(new Position(0, -400))
 
 		G.poops = new LocalObjects()
