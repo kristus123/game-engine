@@ -1,4 +1,4 @@
-import { Position } from '/static/engine/position/Position.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
 
 export class Random {

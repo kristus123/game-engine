@@ -1,8 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Collision } from '/static/engine/core/physics/Collision.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { Registry } from '/static/engine/objects/Registry.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 export class InvisibleWall extends StaticGameObject {
 	constructor(position) {

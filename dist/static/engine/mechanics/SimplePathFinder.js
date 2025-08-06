@@ -1,9 +1,9 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
 import { Move } from '/static/engine/core/physics/Move.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 export class SimplePathFinder {
 	constructor(startPosition, target, invisibleWalls) {

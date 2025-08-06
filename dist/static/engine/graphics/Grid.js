@@ -1,6 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 const scale = 8 // same as in Sprite.js
 

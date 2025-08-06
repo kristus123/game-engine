@@ -3,8 +3,8 @@ import { a } from '/static/engine/code_tools/a.js';
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 export class Draw {
 

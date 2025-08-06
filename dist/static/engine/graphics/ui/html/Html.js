@@ -1,12 +1,12 @@
+import { Audio } from '/static/engine/audio/Audio.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { List } from '/static/engine/code_tools/misc/List.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { HtmlElement } from '/static/engine/graphics/ui/html/HtmlElement.js'; 
-import { Audio } from '/static/engine/mechanics/audio/Audio.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 export class Html {
 	static modal(children=[]) {

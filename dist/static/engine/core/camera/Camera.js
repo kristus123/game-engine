@@ -1,14 +1,14 @@
 import { a } from '/static/engine/code_tools/a.js'; 
-import { SmoothPosition } from '/static/engine/code_tools/smooth/SmoothPosition.js'; 
-import { SmoothValue } from '/static/engine/code_tools/smooth/SmoothValue.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Anchor } from '/static/engine/core/camera/Anchor.js'; 
 import { LowLevelCamera } from '/static/engine/core/camera/LowLevelCamera.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
+import { Positions } from '/static/engine/core/position/Positions.js'; 
+import { SmoothPosition } from '/static/engine/core/position/smooth/SmoothPosition.js'; 
+import { SmoothValue } from '/static/engine/core/position/smooth/SmoothValue.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
-import { Positions } from '/static/engine/position/Positions.js'; 
 import { D } from '/static/game/world/D.js'; 
 
 export class Camera {

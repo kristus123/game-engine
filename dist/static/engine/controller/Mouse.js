@@ -5,7 +5,7 @@ import { ClickEvents } from '/static/engine/controller/mouse/ClickEvents.js';
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
 import { Collision } from '/static/engine/core/physics/Collision.js'; 
 import { Move } from '/static/engine/core/physics/Move.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 
 export class Mouse {
 	static position = new Position(0, 0)

@@ -15,13 +15,12 @@ import { Camera } from '/static/engine/core/camera/Camera.js';
 import { ErrorHandler } from '/static/engine/core/logging/ErrorHandler.js'; 
 import { ShowLogs } from '/static/engine/core/logging/ShowLogs.js'; 
 import { Physics } from '/static/engine/core/physics/Physics.js'; 
-import { WorldEditor } from '/static/engine/editor/WorldEditor.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
-import { VideoCall } from '/static/engine/socket/VideoCall.js'; 
+import { VideoCall } from '/static/engine/multiplayer/socket/VideoCall.js'; 
 import { D } from '/static/game/world/D.js'; 
 import { World } from '/static/game/world/World.js'; 
 

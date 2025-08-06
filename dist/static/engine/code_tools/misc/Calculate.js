@@ -1,4 +1,4 @@
-import { Position } from '/static/engine/position/Position.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 
 export class Calculate {
 

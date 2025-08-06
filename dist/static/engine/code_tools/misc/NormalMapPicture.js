@@ -5,7 +5,7 @@ import { Picture } from '/static/engine/code_tools/misc/Picture.js';
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 
 export class NormalMapPicture {
 	constructor(position, normalMapPath) {

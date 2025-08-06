@@ -1,8 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
-import { SmoothPosition } from '/static/engine/code_tools/smooth/SmoothPosition.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
+import { SmoothPosition } from '/static/engine/core/position/smooth/SmoothPosition.js'; 
 
 function limitNumber(number, min, max) { // not the best method name
 	const MIN = min ?? 1

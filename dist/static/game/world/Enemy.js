@@ -7,13 +7,13 @@ import { Picture } from '/static/engine/code_tools/misc/Picture.js';
 import { Loop } from '/static/engine/core/Loop.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Hp } from '/static/engine/hp/Hp.js'; 
 import { StraightPath } from '/static/engine/mechanics/StraightPath.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Registry } from '/static/engine/objects/Registry.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
 
 export class Enemy extends DynamicGameObject {

@@ -1,4 +1,3 @@
-import { PersistedObjectsEditor } from '/static/engine/editor/PersistedObjectsEditor.js'; 
 import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
 
 export class InvisibleWallsEditor {
