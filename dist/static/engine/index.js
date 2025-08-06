@@ -10,7 +10,6 @@ import { AsepriteLayerJson } from '/static/engine/aseprite/AsepriteLayerJson.js'
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { MouseEditor } from '/static/engine/controller/mouse/MouseEditor.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
@@ -111,10 +110,6 @@ whenLoaded.then(() => {
 
 					Mouse.draw(draw, guiDraw)
 
-					if (MouseEditor.active) {
-						MouseEditor.active.update()
-						MouseEditor.active.draw(draw, guiDraw)
-					}
 				})
 
 				// showLogs.draw()

@@ -86,10 +86,6 @@ whenLoaded.then(() => {
 
 					Mouse.draw(draw, guiDraw)
 
-					if (MouseEditor.active) {
-						MouseEditor.active.update()
-						MouseEditor.active.draw(draw, guiDraw)
-					}
 				})
 
 				// showLogs.draw()

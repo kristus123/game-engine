@@ -9,6 +9,7 @@ import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js';
 import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
+import { HtmlProgressBar } from '/static/engine/html/HtmlProgressBar.js'; 
 import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
@@ -19,7 +20,6 @@ import { Position } from '/static/engine/position/Position.js';
 import { Grass } from '/static/game/Grass.js'; 
 import { Npc } from '/static/game/Npc.js'; 
 import { Player } from '/static/game/Player.js'; 
-import { HtmlProgressBar } from '/static/ui/html/HtmlProgressBar.js'; 
 
 export class World {
 	constructor() {
