@@ -16,10 +16,10 @@ import { Quest } from '/static/engine/mechanics/quest/Quest.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { HtmlProgressBar } from '/static/engine/ui/x/html/HtmlProgressBar.js'; 
 import { Grass } from '/static/game/Grass.js'; 
 import { Npc } from '/static/game/Npc.js'; 
 import { Player } from '/static/game/Player.js'; 
+import { HtmlProgressBar } from '/static/ui/html/HtmlProgressBar.js'; 
 
 export class World {
 	constructor() {

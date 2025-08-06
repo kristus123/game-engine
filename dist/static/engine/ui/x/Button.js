@@ -2,7 +2,7 @@ import { Palette } from '/static/engine/Palette.js';
 import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
-import { Html } from '/static/engine/ui/x/html/Html.js'; 
+import { Html } from '/static/ui/html/Html.js'; 
 
 export class Button {
 	constructor(position, text, onClick= (b) => {}) {

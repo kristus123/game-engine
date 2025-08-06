@@ -1,5 +1,5 @@
 import { List } from '/static/engine/List.js'; 
-import { Html } from '/static/engine/ui/x/html/Html.js'; 
+import { Html } from '/static/ui/html/Html.js'; 
 
 export class QuestList {
 

@@ -10,8 +10,8 @@ import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { OnTrue } from '/static/engine/on/OnTrue.js'; 
-import { Html } from '/static/engine/ui/x/html/Html.js'; 
 import { Throw } from '/static/game/Throw.js'; 
+import { Html } from '/static/ui/html/Html.js'; 
 
 export class Player extends DynamicGameObject {
 	constructor(position) {

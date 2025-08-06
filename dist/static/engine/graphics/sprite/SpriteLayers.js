@@ -6,7 +6,7 @@ import { Mouse } from '/static/engine/controller/Mouse.js';
 import { ParallaxTest } from '/static/engine/graphics/ParallaxTest.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { Html } from '/static/engine/ui/x/html/Html.js'; 
+import { Html } from '/static/ui/html/Html.js'; 
 
 const scale = 8
 
