@@ -1,6 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { Html } from '/static/engine/ui/x/html/Html.js'; 
 
 const texts = []
 

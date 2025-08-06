@@ -1,7 +1,7 @@
 import { a } from '/static/engine/a.js'; 
-import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { SocketClient } from '/static/engine/multiplayer/socket/SocketClient.js'; 
 import { Call } from '/static/engine/tools/Call.js'; 
+import { Html } from '/static/engine/ui/x/html/Html.js'; 
 
 export class VideoCall {
 	constructor() {

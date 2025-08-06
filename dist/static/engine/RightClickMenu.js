@@ -1,5 +1,5 @@
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
+import { Html } from '/static/engine/ui/x/html/Html.js'; 
 
 const menu = Html.addToScreen(Html.div('right-click-menu', []))
 Html.hide(menu)

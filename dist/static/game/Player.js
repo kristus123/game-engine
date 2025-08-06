@@ -6,11 +6,11 @@ import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js';
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { OnTrue } from '/static/engine/on/OnTrue.js'; 
+import { Html } from '/static/engine/ui/x/html/Html.js'; 
 import { Throw } from '/static/game/Throw.js'; 
 
 export class Player extends DynamicGameObject {
