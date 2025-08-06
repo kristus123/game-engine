@@ -208,8 +208,14 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
+<<<<<<< HEAD:dist/static/game/World.js
 			// G.SpriteLayers.sky(new Position(0, 0)),
 			// new PicturePositions(G.image.test, new Position(0, 0)),
+||||||| parent of 1ec53c0 (x):dist/static/game/world/World.js
+			// G.SpriteLayers.sky(new Position(0, 0)),
+=======
+			G.SpriteLayers.sky(new Position(0, 0)),
+>>>>>>> 1ec53c0 (x):dist/static/game/world/World.js
 		])
 	}
 
