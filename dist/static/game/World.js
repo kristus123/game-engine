@@ -14,6 +14,7 @@ import { HtmlProgressBar } from '/static/engine/html/HtmlProgressBar.js';
 import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
+import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
@@ -32,7 +33,6 @@ export class World {
 		G.player = new Player(new Position(150, 0))
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
-
 
 		G.friend = new Npc(new Position(0, -400))
 
@@ -208,14 +208,9 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
-<<<<<<< HEAD:dist/static/game/World.js
+			new InvisibleWall(new Position(0,0, 100, 100)),
 			// G.SpriteLayers.sky(new Position(0, 0)),
 			// new PicturePositions(G.image.test, new Position(0, 0)),
-||||||| parent of 1ec53c0 (x):dist/static/game/world/World.js
-			// G.SpriteLayers.sky(new Position(0, 0)),
-=======
-			G.SpriteLayers.sky(new Position(0, 0)),
->>>>>>> 1ec53c0 (x):dist/static/game/world/World.js
 		])
 	}
 

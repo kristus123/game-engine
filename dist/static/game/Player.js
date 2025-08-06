@@ -115,7 +115,9 @@ export class Player extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		draw.rectangle(this.position)
 		this.localObjects.draw(draw, guiDraw)
+
 
 		if (this.holding) {
 			draw.text(this.holding.position.offset(100), '"E" to drop')

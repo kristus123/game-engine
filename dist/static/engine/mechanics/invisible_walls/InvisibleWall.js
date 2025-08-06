@@ -1,5 +1,5 @@
+import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Registry } from '/static/engine/objects/Registry.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
 import { Collision } from '/static/engine/physics/Collision.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
@@ -21,7 +21,7 @@ export class InvisibleWall extends StaticGameObject {
 
 	update() {
 		for (const o of [
-			Registry.player,
+			G.player,
 		]) {
 			if (Collision.between(this, o)) {
 				const currentPosition = { x: o.position.x, y: o.position.y }
