@@ -57,7 +57,7 @@ export class SpriteLayers extends StaticGameObject {
 		for (const [layer, spriteFrames] of Object.entries(this.layers)) {
 			run(layer, spriteFrames)
 		}
-		
+
 	}
 
 	update() {
@@ -87,7 +87,7 @@ export class SpriteLayers extends StaticGameObject {
 			}
 
 			draw.sprite(p, spriteFrames[1], this.image)
-			
+
 		})
 	}
 }
