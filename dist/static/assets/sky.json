@@ -7,6 +7,15 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
     "sourceSize": { "w": 236, "h": 131 },
     "duration": 100
+   },
+   {
+    "filename": "idle",
+    "frame": { "x": 236, "y": 0, "w": 236, "h": 131 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 236, "h": 131 },
+    "sourceSize": { "w": 236, "h": 131 },
+    "duration": 100
    }
  ],
  "meta": {
@@ -14,7 +23,7 @@
   "version": "1.3.14.2-dev",
   "image": "sky.png",
   "format": "RGBA8888",
-  "size": { "w": 236, "h": 131 },
+  "size": { "w": 472, "h": 131 },
   "scale": "1",
   "slices": [
   ]

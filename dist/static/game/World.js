@@ -1,4 +1,5 @@
 import { G } from '/static/engine/G.js'; 
+import { Picture } from '/static/engine/Picture.js'; 
 import { Random } from '/static/engine/Random.js'; 
 import { Sleep } from '/static/engine/Sleep.js'; 
 import { a } from '/static/engine/a.js'; 
@@ -17,8 +18,10 @@ import { Quest } from '/static/engine/mechanics/quest/Quest.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
 import { Grass } from '/static/game/Grass.js'; 
 import { Npc } from '/static/game/Npc.js'; 
+import { PicturePositions } from '/static/game/PicturePositions.js'; 
 import { Player } from '/static/game/Player.js'; 
 
 export class World {
@@ -206,6 +209,7 @@ export class World {
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
 			G.SpriteLayers.sky(new Position(0, 0)),
+			new PicturePositions(G.image.test, new Position(0,0)),
 		])
 	}
 

@@ -36,7 +36,10 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const sprite = loadImage(pngPath)
 		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
 
-	return Promise.all([spriteLayers, sprite])
+	const image = loadImage(pngPath)
+		.then(img => G.image[fileName] = img)
+
+	return Promise.all([spriteLayers, sprite, image])
 }))
 
 

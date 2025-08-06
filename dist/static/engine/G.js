@@ -13,5 +13,6 @@ export const G = {
 	money: 0,
 	pictures: {},
 	Sprite: {},
+	image: {},
 	SpriteLayers: {},
 }
