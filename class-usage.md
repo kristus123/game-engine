@@ -1,6 +1,6 @@
 # Class Usage Report
 
-Generated on: 8/6/2025, 10:27:12 AM
+Generated on: 8/6/2025, 10:34:46 AM
 
 ## all_classes
 
@@ -14,21 +14,9 @@ _No usage found_
 
 _No usage found_
 
-## AsyncHttp
-
-**Defined in:** `static/engine/http/AsyncHttp.js`
-
-_No usage found_
-
-## Bil
-
-**Defined in:** `static/game/world/Bil.js`
-
-_No usage found_
-
 ## CanvasRenderer
 
-**Defined in:** `static/game/world/CanvasRenderer.js`
+**Defined in:** `static/engine/canvas/CanvasRenderer.js`
 
 _No usage found_
 
@@ -50,21 +38,15 @@ _No usage found_
 
 _No usage found_
 
-## DeliverBoxQuest
-
-**Defined in:** `static/game/world/DeliverBoxQuest.js`
-
-_No usage found_
-
 ## dependency_graph
 
 **Defined in:** `dependency_graph.js`
 
 _No usage found_
 
-## DragonRoom
+## EnterVehicle
 
-**Defined in:** `static/game/world/DragonRoom.js`
+**Defined in:** `static/engine/mechanics/vehicle/EnterVehicle.js`
 
 _No usage found_
 
@@ -134,12 +116,6 @@ _No usage found_
 
 _No usage found_
 
-## ImageEditor
-
-**Defined in:** `static/engine/persistence/ImageEditor.js`
-
-_No usage found_
-
 ## InventoryItem
 
 **Defined in:** `static/engine/mechanics/inventory/InventoryItem.js`
@@ -152,15 +128,9 @@ _No usage found_
 
 _No usage found_
 
-## KillingMachineSprites
+## KillingMachine
 
-**Defined in:** `static/game/world/KillingMachineSprites.js`
-
-_No usage found_
-
-## LoadingScreen
-
-**Defined in:** `static/engine/mechanics/LoadingScreen.js`
+**Defined in:** `static/game/world/KillingMachine.js`
 
 _No usage found_
 
@@ -182,9 +152,21 @@ _No usage found_
 
 _No usage found_
 
+## NoteEditor
+
+**Defined in:** `static/engine/persistence/NoteEditor.js`
+
+_No usage found_
+
 ## NumberThreshold
 
 **Defined in:** `static/engine/code_tools/NumberThreshold.js`
+
+_No usage found_
+
+## Once
+
+**Defined in:** `static/engine/code_tools/Once.js`
 
 _No usage found_
 
@@ -260,12 +242,6 @@ _No usage found_
 
 _No usage found_
 
-## Ranch
-
-**Defined in:** `static/game/world/Ranch.js`
-
-_No usage found_
-
 ## Ref
 
 **Defined in:** `static/game/world/Ref.js`
@@ -281,18 +257,6 @@ _No usage found_
 ## RotatingPicture
 
 **Defined in:** `static/engine/code_tools/misc/RotatingPicture.js`
-
-_No usage found_
-
-## RunOnce
-
-**Defined in:** `static/engine/code_tools/on/RunOnce.js`
-
-_No usage found_
-
-## RunUntil
-
-**Defined in:** `static/engine/code_tools/on/RunUntil.js`
 
 _No usage found_
 
@@ -413,6 +377,7 @@ Used in:
 - `static/engine/assertions/AssertNoNullInArray.js`
 - `static/engine/assertions/AssertNotNull.js`
 - `static/engine/assertions/NotArray.js`
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/chicken_stuff/BodyPart.js`
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/chicken_stuff/ChickenSprites.js`
@@ -440,8 +405,6 @@ Used in:
 - `static/engine/code_tools/misc/RotatingPicture.js`
 - `static/engine/code_tools/on/OnChange.js`
 - `static/engine/code_tools/on/OnTrue.js`
-- `static/engine/code_tools/on/RunOnce.js`
-- `static/engine/code_tools/on/RunUntil.js`
 - `static/engine/code_tools/smooth/SmoothPosition.js`
 - `static/engine/code_tools/smooth/SmoothValue.js`
 - `static/engine/code_tools/tools/Call.js`
@@ -500,7 +463,6 @@ Used in:
 - `static/engine/graphics/ui/html/MovableElement.js`
 - `static/engine/hp/Hp.js`
 - `static/engine/http/AsepritePicture.js`
-- `static/engine/http/AsyncHttp.js`
 - `static/engine/http/Http.js`
 - `static/engine/http/StaticHttp.js`
 - `static/engine/http/_HttpClient.js`
@@ -510,7 +472,6 @@ Used in:
 - `static/engine/mechanics/FishingRod.js`
 - `static/engine/mechanics/Fleet.js`
 - `static/engine/mechanics/FollowPlayerNoise.js`
-- `static/engine/mechanics/LoadingScreen.js`
 - `static/engine/mechanics/MovableObjects.js`
 - `static/engine/mechanics/Rain.js`
 - `static/engine/mechanics/SimplePathFinder.js`
@@ -546,7 +507,6 @@ Used in:
 - `static/engine/objects/StaticGameObject.js`
 - `static/engine/objects/Velocity.js`
 - `static/engine/objects/_GameObject.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/Note.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PersistedObjects.js`
@@ -565,19 +525,14 @@ Used in:
 - `static/engine/socket/online/OnlineMouse.js`
 - `static/game/ChickenFood.js`
 - `static/game/world/Barn.js`
-- `static/game/world/Bil.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/ChickenBox.js`
 - `static/game/world/CloudParallax.js`
 - `static/game/world/D.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/Grass.js`
 - `static/game/world/Init.js`
 - `static/game/world/KillingMachine.js`
-- `static/game/world/KillingMachineSprites.js`
 - `static/game/world/Microphone.js`
 - `static/game/world/Npc.js`
 - `static/game/world/PickUp.js`
@@ -585,7 +540,6 @@ Used in:
 - `static/game/world/PlaceItems.js`
 - `static/game/world/Planet.js`
 - `static/game/world/Poop.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/Ref.js`
 - `static/game/world/Rices.js`
 - `static/game/world/Shake.js`
@@ -736,7 +690,6 @@ Used in:
 - `static/engine/editor/PersistedObjectsEditor.js`
 - `static/engine/editor/WorldEditor.js`
 - `static/engine/graphics/ui/Overlay.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 - `static/game/world/player/Player.js`
@@ -759,7 +712,6 @@ Used in:
 - `static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js`
 - `static/engine/mechanics/vehicle/EnterVehicle.js`
 - `static/engine/socket/VideoCall.js`
-- `static/game/world/Bil.js`
 
 ## Camera
 
@@ -782,11 +734,9 @@ Used in:
 - `static/engine/graphics/ui/html/Html.js`
 - `static/engine/mechanics/Blur.js`
 - `static/engine/mechanics/vehicle/EnterVehicle.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 - `static/game/world/CloudParallax.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/StarBackground.js`
 - `static/game/world/World.js`
@@ -817,7 +767,6 @@ Used in:
 - `static/engine/socket/OnlineObjects.js`
 - `static/game/ChickenFood.js`
 - `static/game/world/ChickenBox.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/KillingMachine.js`
 - `static/game/world/player/Player.js`
@@ -828,7 +777,6 @@ Used in:
 
 Used in:
 - `static/engine/objects/Registry.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/KillingMachine.js`
 
 ## ChickenFood
@@ -882,7 +830,6 @@ Used in:
 - `static/engine/graphics/ui/html/Html.js`
 - `static/engine/mechanics/vehicle/EnterVehicle.js`
 - `static/engine/persistence/PlayerEditor.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/World.js`
 - `static/game/world/player/Player.js`
@@ -915,6 +862,7 @@ Used in:
 - `socket_server/rtc_video_call.js`
 - `static/engine/Pixel.js`
 - `static/engine/assertions/AssertNotNull.js`
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/chicken_stuff/BodyPart.js`
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/chicken_stuff/ChickenSprites.js`
@@ -931,7 +879,6 @@ Used in:
 - `static/engine/code_tools/misc/Random.js`
 - `static/engine/code_tools/on/OnChange.js`
 - `static/engine/code_tools/on/OnTrue.js`
-- `static/engine/code_tools/on/RunUntil.js`
 - `static/engine/code_tools/smooth/SmoothPosition.js`
 - `static/engine/controller/Controller.js`
 - `static/engine/controller/Mouse.js`
@@ -971,7 +918,6 @@ Used in:
 - `static/engine/graphics/ui/html/HtmlVideo.js`
 - `static/engine/graphics/ui/html/MovableElement.js`
 - `static/engine/hp/Hp.js`
-- `static/engine/http/AsyncHttp.js`
 - `static/engine/mechanics/Blur.js`
 - `static/engine/mechanics/Charge.js`
 - `static/engine/mechanics/DeliveryZone.js`
@@ -1006,7 +952,6 @@ Used in:
 - `static/engine/objects/Registry.js`
 - `static/engine/objects/Velocity.js`
 - `static/engine/objects/_GameObject.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/Note.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
@@ -1016,17 +961,12 @@ Used in:
 - `static/engine/socket/VideoCall.js`
 - `static/game/ChickenFood.js`
 - `static/game/world/Barn.js`
-- `static/game/world/Bil.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/ChickenBox.js`
 - `static/game/world/CloudParallax.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/Grass.js`
 - `static/game/world/KillingMachine.js`
-- `static/game/world/KillingMachineSprites.js`
 - `static/game/world/Microphone.js`
 - `static/game/world/Npc.js`
 - `static/game/world/PickUp.js`
@@ -1034,7 +974,6 @@ Used in:
 - `static/game/world/PlaceItems.js`
 - `static/game/world/Planet.js`
 - `static/game/world/Poop.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/Rices.js`
 - `static/game/world/StarBackground.js`
 - `static/game/world/Store.js`
@@ -1066,7 +1005,6 @@ Used in:
 **Defined in:** `static/engine/mechanics/dialogue/Dialogue.js`
 
 Used in:
-- `static/game/world/DragonRoom.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/World.js`
 
@@ -1089,6 +1027,7 @@ Used in:
 **Defined in:** `static/engine/core/Draw.js`
 
 Used in:
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/chicken_stuff/BodyPart.js`
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/chicken_stuff/ChickenSprites.js`
@@ -1102,7 +1041,6 @@ Used in:
 - `static/engine/code_tools/misc/PictureInPicture.js`
 - `static/engine/code_tools/on/OnChange.js`
 - `static/engine/code_tools/on/OnTrue.js`
-- `static/engine/code_tools/on/RunUntil.js`
 - `static/engine/code_tools/smooth/SmoothPosition.js`
 - `static/engine/controller/Controller.js`
 - `static/engine/controller/Mouse.js`
@@ -1158,7 +1096,6 @@ Used in:
 - `static/engine/objects/HelperThing.js`
 - `static/engine/objects/Velocity.js`
 - `static/engine/objects/_GameObject.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/Note.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
@@ -1167,18 +1104,13 @@ Used in:
 - `static/engine/socket/OnlinePlayers.js`
 - `static/game/ChickenFood.js`
 - `static/game/world/Barn.js`
-- `static/game/world/Bil.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/ChickenBox.js`
 - `static/game/world/CloudParallax.js`
 - `static/game/world/D.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/Grass.js`
 - `static/game/world/KillingMachine.js`
-- `static/game/world/KillingMachineSprites.js`
 - `static/game/world/Microphone.js`
 - `static/game/world/Npc.js`
 - `static/game/world/PickUp.js`
@@ -1186,7 +1118,6 @@ Used in:
 - `static/game/world/PlaceItems.js`
 - `static/game/world/Planet.js`
 - `static/game/world/Poop.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/Rices.js`
 - `static/game/world/StarBackground.js`
 - `static/game/world/Store.js`
@@ -1217,8 +1148,6 @@ Used in:
 - `static/engine/mechanics/inventory/InventoryItem.js`
 - `static/engine/mechanics/vehicle/Cargo.js`
 - `static/game/ChickenFood.js`
-- `static/game/world/Bil.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/Npc.js`
 - `static/game/world/Planet.js`
@@ -1232,13 +1161,6 @@ Used in:
 
 Used in:
 - `static/game/world/TalkToShopKeeper.js`
-
-## EnterVehicle
-
-**Defined in:** `static/engine/mechanics/vehicle/EnterVehicle.js`
-
-Used in:
-- `static/game/world/Bil.js`
 
 ## ErrorHandler
 
@@ -1274,7 +1196,6 @@ Used in:
 - `static/engine/mechanics/StraightPath.js`
 - `static/engine/mechanics/gun/Bullet.js`
 - `static/engine/mechanics/vehicle/Cargo.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/Grass.js`
 - `static/game/world/TalkToShopKeeper.js`
@@ -1298,6 +1219,7 @@ Used in:
 - `socket_server/game_objects_socket_server.js`
 - `socket_server/rtc_video_call.js`
 - `static/engine/assertions/AssertNotNull.js`
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/chicken_stuff/BodyPart.js`
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/chicken_stuff/DeadChicken.js`
@@ -1337,11 +1259,7 @@ Used in:
 - `static/engine/socket/OnlineObjects.js`
 - `static/game/ChickenFood.js`
 - `static/game/world/Barn.js`
-- `static/game/world/Bil.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/ChickenBox.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/Grass.js`
 - `static/game/world/KillingMachine.js`
@@ -1350,7 +1268,6 @@ Used in:
 - `static/game/world/PlaceItems.js`
 - `static/game/world/Planet.js`
 - `static/game/world/Poop.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/Tree.js`
 - `static/game/world/World.js`
@@ -1426,11 +1343,9 @@ Used in:
 - `static/engine/graphics/ui/html/HtmlElement.js`
 - `static/engine/graphics/ui/html/HtmlProgressBar.js`
 - `static/engine/graphics/ui/html/HtmlVideo.js`
-- `static/engine/mechanics/LoadingScreen.js`
 - `static/engine/mechanics/dialogue/Text.js`
 - `static/engine/mechanics/quest/QuestList.js`
 - `static/engine/socket/VideoCall.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Store.js`
 - `static/game/world/World.js`
 - `static/game/world/player/Player.js`
@@ -1460,10 +1375,8 @@ Used in:
 
 Used in:
 - `static/engine/core/index.js`
-- `static/engine/http/AsyncHttp.js`
 - `static/engine/http/StaticHttp.js`
 - `static/engine/http/_HttpClient.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PersistedObjects.js`
 - `static/engine/persistence/PlayerEditor.js`
@@ -1623,13 +1536,6 @@ Used in:
 - `static/engine/chicken_stuff/ChickenSprites.js`
 - `static/engine/chicken_stuff/DeadChicken.js`
 
-## KillingMachine
-
-**Defined in:** `static/game/world/KillingMachine.js`
-
-Used in:
-- `static/game/world/KillingMachineSprites.js`
-
 ## Level
 
 **Defined in:** `static/engine/core/Level.js`
@@ -1681,11 +1587,9 @@ Used in:
 - `static/engine/objects/_GameObject.js`
 - `static/engine/persistence/PersistedObjects.js`
 - `static/engine/socket/OnlinePlayers.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/PlaceItems.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/Rices.js`
 - `static/game/world/TalkToShopKeeper.js`
 
@@ -1696,7 +1600,6 @@ Used in:
 Used in:
 - `static/engine/code_tools/InfiniteListLooper.js`
 - `static/engine/mechanics/dialogue/Dialogue.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/PlaceItems.js`
 
@@ -1719,14 +1622,11 @@ Used in:
 - `static/engine/mechanics/dialogue/TextTyper.js`
 - `static/engine/mechanics/path_finder/PathDrawer.js`
 - `static/engine/mechanics/path_finder/PathFinder.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/Note.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 - `static/game/world/Barn.js`
 - `static/game/world/ChickenBox.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/Grass.js`
@@ -1750,15 +1650,12 @@ Used in:
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/code_tools/InfiniteListLooper.js`
 - `static/engine/code_tools/ListLooper.js`
-- `static/engine/code_tools/on/RunOnce.js`
-- `static/engine/code_tools/on/RunUntil.js`
 - `static/engine/core/index.js`
 - `static/engine/graphics/PicturesLoop.js`
 - `static/engine/hp/Hp.js`
 - `static/engine/mechanics/dialogue/Dialogue.js`
 - `static/engine/objects/AllObjects.js`
 - `static/engine/socket/OnlineObjects.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/PicturePositions.js`
 - `static/game/world/PlaceItems.js`
@@ -1810,7 +1707,6 @@ Used in:
 - `static/engine/graphics/ui/html/MovableElement.js`
 - `static/engine/mechanics/FishingRod.js`
 - `static/engine/mechanics/MovableObjects.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 - `static/engine/socket/online/OnlineMouse.js`
@@ -1828,7 +1724,6 @@ Used in:
 Used in:
 - `static/engine/core/index.js`
 - `static/engine/editor/PersistedObjectsEditor.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 
@@ -1849,8 +1744,6 @@ Used in:
 - `static/engine/graphics/ui/html/MovableElement.js`
 - `static/engine/mechanics/SimplePathFinder.js`
 - `static/engine/mechanics/path_finder/PathFinder.js`
-- `static/game/world/DeliverBoxQuest.js`
-- `static/game/world/Ranch.js`
 
 ## MultiTextTyper
 
@@ -1858,7 +1751,6 @@ Used in:
 
 Used in:
 - `static/engine/persistence/Note.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/TalkToShopKeeper.js`
 
@@ -1891,22 +1783,13 @@ Used in:
 **Defined in:** `static/engine/persistence/Note.js`
 
 Used in:
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
-
-## NoteEditor
-
-**Defined in:** `static/engine/persistence/NoteEditor.js`
-
-Used in:
-- `static/engine/persistence/ImageEditor.js`
 
 ## Npc
 
 **Defined in:** `static/game/world/Npc.js`
 
 Used in:
-- `static/game/world/DragonRoom.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/World.js`
 
@@ -1916,13 +1799,6 @@ Used in:
 
 Used in:
 - `static/engine/position/Position.js`
-
-## Once
-
-**Defined in:** `static/engine/code_tools/Once.js`
-
-Used in:
-- `static/engine/code_tools/on/RunOnce.js`
 
 ## OnChange
 
@@ -1954,7 +1830,6 @@ Used in:
 - `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/editor/PersistedObjectsEditor.js`
 - `static/engine/editor/WorldEditor.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 
@@ -1963,6 +1838,7 @@ Used in:
 **Defined in:** `static/engine/core/Palette.js`
 
 Used in:
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/code_tools/misc/NormalMapPicture.js`
 - `static/engine/code_tools/misc/PictureInPicture.js`
 - `static/engine/core/Draw.js`
@@ -1971,7 +1847,6 @@ Used in:
 - `static/engine/core/logging/ShowLogs.js`
 - `static/engine/graphics/ui/Button.js`
 - `static/engine/position/GuiPosition.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/PicturePositions.js`
 
 ## Parallax
@@ -2059,11 +1934,8 @@ Used in:
 - `static/engine/graphics/PicturesLoop.js`
 - `static/engine/graphics/SpinningPicture.js`
 - `static/engine/http/AsepritePicture.js`
-- `static/engine/persistence/ImageEditor.js`
-- `static/game/world/Bil.js`
 - `static/game/world/ChickenBox.js`
 - `static/game/world/CloudParallax.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/KillingMachine.js`
@@ -2126,6 +1998,7 @@ Used in:
 Used in:
 - `static/engine/AsepriteJson.js`
 - `static/engine/G.js`
+- `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/chicken_stuff/Chicken.js`
 - `static/engine/code_tools/SpinningAroundPosition.js`
 - `static/engine/code_tools/misc/Calculate.js`
@@ -2163,7 +2036,6 @@ Used in:
 - `static/engine/mechanics/path_finder/PathFinder.js`
 - `static/engine/mechanics/vehicle/Cargo.js`
 - `static/engine/objects/Velocity.js`
-- `static/engine/persistence/ImageEditor.js`
 - `static/engine/persistence/NoteEditor.js`
 - `static/engine/persistence/PlayerEditor.js`
 - `static/engine/position/AnalShit.js`
@@ -2172,9 +2044,7 @@ Used in:
 - `static/engine/position/OffsetPosition.js`
 - `static/engine/position/Positions.js`
 - `static/engine/position/ScreenPosition.js`
-- `static/game/world/CanvasRenderer.js`
 - `static/game/world/CloudParallax.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/KillingMachine.js`
@@ -2216,7 +2086,6 @@ Used in:
 - `static/engine/mechanics/gun/Bullet.js`
 - `static/engine/mechanics/vehicle/Cargo.js`
 - `static/engine/socket/OnlineObjects.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/Grass.js`
 - `static/game/world/TalkToShopKeeper.js`
@@ -2229,7 +2098,6 @@ Used in:
 Used in:
 - `static/engine/mechanics/path_finder/PathDrawer.js`
 - `static/engine/mechanics/quest/QuestList.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/World.js`
@@ -2286,7 +2154,6 @@ Used in:
 - `static/engine/mechanics/StraightPath.js`
 - `static/engine/mechanics/invisible_walls/InvisibleWall.js`
 - `static/engine/objects/AllObjects.js`
-- `static/game/world/DeliverBoxQuest.js`
 - `static/game/world/Enemy.js`
 
 ## RightClickMenu
@@ -2414,7 +2281,6 @@ Used in:
 - `static/engine/mechanics/SpriteFrame.js`
 - `static/game/world/Enemy.js`
 - `static/game/world/Grass.js`
-- `static/game/world/KillingMachineSprites.js`
 - `static/game/world/Npc.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/World.js`
@@ -2465,7 +2331,6 @@ Used in:
 - `static/game/world/ChickenBox.js`
 - `static/game/world/Grass.js`
 - `static/game/world/KillingMachine.js`
-- `static/game/world/Ranch.js`
 - `static/game/world/Tree.js`
 
 ## StaticHttp
@@ -2524,7 +2389,6 @@ Used in:
 - `static/engine/mechanics/dialogue/TextTyper.js`
 - `static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js`
 - `static/engine/persistence/Note.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/World.js`
@@ -2537,7 +2401,6 @@ Used in:
 - `static/engine/mechanics/dialogue/MultiTextTyper.js`
 - `static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js`
 - `static/engine/persistence/Note.js`
-- `static/game/world/DragonRoom.js`
 - `static/game/world/FirstQuest.js`
 - `static/game/world/TalkToShopKeeper.js`
 - `static/game/world/World.js`
