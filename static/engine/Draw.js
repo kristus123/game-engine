@@ -32,28 +32,10 @@ export class Draw {
 		this.angleFrom(position, Mouse, radius, angleRange, color)
 	}
 
-	test(position) { // Can be used for making a light source on a flat wall
-		const gradientWidth = 800 // Width of the gradient area
-		const gradientHeight = 400 // Height of the gradient area
-
-		const gradient = this.ctx.createLinearGradient(
-			position.x - gradientWidth / 2, position.y - gradientHeight / 2, // Starting point of the gradient
-			position.x + gradientWidth / 2, position.y + gradientHeight / 2 // Ending point of the gradient
-		)
-
-		// Add transparent colors with alpha channel
-		gradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)') // Starting color (brighter center)
-		gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)') // Middle color (fades outwards)
-		gradient.addColorStop(1, 'rgba(255, 255, 255, 0)') // End color (fully transparent)
-
-		this.ctx.fillStyle = gradient
-		this.ctx.fillRect(position.x - gradientWidth / 2, position.y - gradientHeight / 2, gradientWidth, gradientHeight)
-	}
 
 
-
-	lightSource(lightSource, radius) {
-		const gradient = this.ctx.createRadialGradient(lightSource.x, lightSource.y, 0, lightSource.x, lightSource.y, radius)
+	lightSource(p, radius) {
+		const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius)
 		gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
 		gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
@@ -74,12 +56,26 @@ export class Draw {
 		// this.new_circle(endPosition);
 	}
 
-	shadow(gameObject) {
-		const { x, y, width, height } = gameObject
+	test(p) {
+		const radius = 250; // torch radius
+		const gradient = this.ctx.createRadialGradient(p.x, p.y, 10, p.x, p.y, radius);
+		gradient.addColorStop(0, "rgba(255, 255, 200, 0.5)"); // bright center
+		gradient.addColorStop(0.4, "rgba(255, 255, 150, 0.5)"); // soft glow
+		gradient.addColorStop(1, "rgba(0, 1, 1, 0)");           // fade to dark
+
+		this.ctx.fillStyle = gradient;
+		this.ctx.beginPath();
+		this.ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+		this.ctx.fill();
+	}
+
+
+	shadow(position) {
+		const { x, y, width, height } = position
 		const lightX = 0
 		const lightY = 0
 
-		this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'
+		this.ctx.shadowColor = 'rgba(0, 0, 0, 0.1)'
 		this.ctx.shadowBlur = 200
 		this.ctx.shadowOffsetX = (x - lightX) / 10
 		this.ctx.shadowOffsetY = (y - lightY) / 10

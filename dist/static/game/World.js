@@ -208,8 +208,8 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
-			G.SpriteLayers.sky(new Position(0, 0)),
-			new PicturePositions(G.image.test, new Position(0, 0)),
+			// G.SpriteLayers.sky(new Position(0, 0)),
+			// new PicturePositions(G.image.test, new Position(0, 0)),
 		])
 	}
 
@@ -235,6 +235,8 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+		draw.test(G.player.position)
 
 		// for (const s of this.world.slices) {
 		// 		draw.rectangle(s.position)
