@@ -3,7 +3,6 @@ import { a } from '/static/engine/code_tools/a.js';
 import { Draw } from '/static/engine/core/Draw.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Position } from '/static/engine/core/position/Position.js'; 
-import { D } from '/static/game/world/D.js'; 
 
 // const renderer = new CanvasRenderer()
 // const pos = new Position(0, 0, 10, 10)

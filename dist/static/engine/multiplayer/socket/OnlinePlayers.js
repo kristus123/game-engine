@@ -2,7 +2,7 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { a } from '/static/engine/code_tools/a.js'; 
 import { List } from '/static/engine/code_tools/misc/List.js'; 
 import { SocketClient } from '/static/engine/multiplayer/socket/SocketClient.js'; 
-import { Player } from '/static/game/world/player/Player.js'; 
+import { Player } from '/static/game/Player.js'; 
 
 export class OnlinePlayers {
 	constructor(player) {

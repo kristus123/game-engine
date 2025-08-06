@@ -9,7 +9,6 @@ import { SmoothPosition } from '/static/engine/core/position/smooth/SmoothPositi
 import { SmoothValue } from '/static/engine/core/position/smooth/SmoothValue.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { D } from '/static/game/world/D.js'; 
 
 export class Camera {
 	static initialize() { // initialize() Mouse first

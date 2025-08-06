@@ -1,6 +1,28 @@
+import { Init } from '/static/engine/Init.js'; 
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { InfiniteListLooper } from '/static/engine/code_tools/InfiniteListLooper.js'; 
+import { ListLooper } from '/static/engine/code_tools/ListLooper.js'; 
+import { a } from '/static/engine/code_tools/a.js'; 
+import { Picture } from '/static/engine/code_tools/misc/Picture.js'; 
+import { Loop } from '/static/engine/core/Loop.js'; 
+import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
+import { Push } from '/static/engine/core/physics/Push.js'; 
+import { Position } from '/static/engine/core/position/Position.js'; 
+import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { Hp } from '/static/engine/hp/Hp.js'; 
+import { StraightPath } from '/static/engine/mechanics/StraightPath.js'; 
+import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
+import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { Registry } from '/static/engine/objects/Registry.js'; 
+
 export class Enemy extends DynamicGameObject {
 	constructor(position) {
 		super(position, 1000, 10)
+
+				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
+			
+		this.position = position; 
+
 
 		this.position.width = 100
 		this.position.height = 100

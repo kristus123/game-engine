@@ -1,4 +1,3 @@
-import { D } from '/static/game/world/D.js'; 
 
 export function AssertNotNull(x, errorMessage='add own message!') {
 	if (x === null) {

@@ -2,7 +2,6 @@ import { Random } from '/static/engine/code_tools/misc/Random.js';
 import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Position } from '/static/engine/core/position/Position.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
-import { D } from '/static/game/world/D.js'; 
 
 export class Particle {
 

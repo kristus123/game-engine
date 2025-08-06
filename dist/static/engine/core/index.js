@@ -21,8 +21,7 @@ import { Http } from '/static/engine/http/Http.js';
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { VideoCall } from '/static/engine/multiplayer/socket/VideoCall.js'; 
-import { D } from '/static/game/world/D.js'; 
-import { World } from '/static/game/world/World.js'; 
+import { World } from '/static/game/World.js'; 
 
 export const index = ''
 

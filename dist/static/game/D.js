@@ -1,3 +1,4 @@
+
 export function D(d) {
 	const object = {}
 
