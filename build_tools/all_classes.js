@@ -1,5 +1,3 @@
-/* eslint-disable */ // do this until you actually start using this file
-
 const fs = require('fs')
 const path = require('path')
 
@@ -10,7 +8,6 @@ function extractClassesAndMethods(content) {
 
 	let classes = []
 
-	// Extract exported class names
 	let match
 	while ((match = exportClassRegex.exec(content)) !== null) {
 		const className = match[1]
@@ -77,17 +74,9 @@ function processFilesInFolder(folderPath) {
 	}
 }
 
-const folderPath = 'static/'
-const classInfo = processFilesInFolder(folderPath)
-
-// console.log('\nList of classes and methods:');
-// console.log(JSON.stringify(classInfo, null, 2));
-
-// Additional formatted output for better human readability
-console.log('\nFormatted Output:')
-classInfo.forEach(({ className, methods }) => {
-	methods.forEach(({ methodName, methodParameters }) => {
-		console.log(`  ${methodName}(${methodParameters.join(', ')})`)
+processFilesInFolder('static/')
+	.forEach(({ className, methods }) => {
+		methods.forEach(({ methodName, methodParameters }) => {
+			console.log(`  ${methodName}(${methodParameters.join(', ')})`)
+		})
 	})
-})
-
