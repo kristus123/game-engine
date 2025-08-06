@@ -1,9 +1,9 @@
+import { List } from '/static/engine/List.js'; 
 import { AssertArray } from '/static/engine/assertions/AssertArray.js'; 
 import { AssertNoNullInArray } from '/static/engine/assertions/AssertNoNullInArray.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
 
 export class DeliveryZone extends StaticGameObject {
 	constructor(position, objectsToDeliver=[]) {

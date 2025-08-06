@@ -1,8 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
-import { Physics } from '/static/engine/core/physics/Physics.js'; 
 import { Velocity } from '/static/engine/objects/Velocity.js'; 
 import { _GameObject } from '/static/engine/objects/_GameObject.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
+import { Physics } from '/static/engine/physics/Physics.js'; 
 
 export class DynamicGameObject extends _GameObject {
 	constructor(position, weight, velocityFactor) {

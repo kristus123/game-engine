@@ -1,4 +1,4 @@
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { Random } from '/static/engine/Random.js'; 
 import { Sleep } from '/static/engine/core/Sleep.js'; 
 
 export class Loop {

@@ -1,6 +1,6 @@
+import { Random } from '/static/engine/Random.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class Velocity {
 	constructor(object, _x=0, _y=0) {

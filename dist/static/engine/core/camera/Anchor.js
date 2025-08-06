@@ -1,5 +1,5 @@
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 
 import { Position } from '/static/engine/core/position/Position.js'; 
 import { SmoothPosition } from '/static/engine/core/position/smooth/SmoothPosition.js'; 

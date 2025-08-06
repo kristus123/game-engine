@@ -1,5 +1,5 @@
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Camera } from '/static/engine/core/camera/Camera.js'; 

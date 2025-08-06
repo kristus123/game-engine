@@ -1,7 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
 import { Noise } from '/static/engine/graphics/Noise.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class FishingRod {
 	constructor(player) {

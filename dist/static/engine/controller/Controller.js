@@ -1,7 +1,7 @@
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
-import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
-import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Velocity } from '/static/engine/objects/Velocity.js'; 
+import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
+import { Push } from '/static/engine/physics/Push.js'; 
 
 export class Controller {
 

@@ -1,8 +1,8 @@
+import { Random } from '/static/engine/Random.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { Push } from '/static/engine/physics/Push.js'; 
 
 export class Rain {
 	constructor(position) {

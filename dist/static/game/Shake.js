@@ -1,5 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class Shake {
 	constructor(sprite) {

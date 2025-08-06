@@ -1,6 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Positions } from '/static/engine/core/position/Positions.js'; 
 import { SimplexNoise } from '/static/engine/graphics/SimplexNoise.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
 
 export class Noise {
 	constructor(position, size=10) {

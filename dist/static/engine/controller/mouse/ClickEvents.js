@@ -1,6 +1,6 @@
-import { a } from '/static/engine/code_tools/a.js'; 
+import { a } from '/static/engine/a.js'; 
+import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Camera } from '/static/engine/core/camera/Camera.js'; 
 
 export class ClickEvents {
 	constructor() {

@@ -118,9 +118,9 @@ const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
 	.map(f => `"${f}"`)
 
 
-const indexJs = fs.readFileSync('dist/static/engine/core/index.js', 'utf-8')
+const indexJs = fs.readFileSync('dist/static/engine/index.js', 'utf-8')
 	.replaceAll('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
-fs.writeFileSync('dist/static/engine/core/index.js', indexJs)
+fs.writeFileSync('dist/static/engine/index.js', indexJs)
 
 const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
 	.replace('SCRIPT_IMPORTS', scriptImports)

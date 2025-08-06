@@ -1,4 +1,4 @@
-import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { List } from '/static/engine/List.js'; 
 
 export class Registry {
 	static {

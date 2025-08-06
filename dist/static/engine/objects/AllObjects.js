@@ -1,8 +1,8 @@
+import { Distance } from '/static/engine/Distance.js'; 
+import { List } from '/static/engine/List.js'; 
 import { AssertArray } from '/static/engine/assertions/AssertArray.js'; 
 import { AssertNoNullInArray } from '/static/engine/assertions/AssertNoNullInArray.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
 import { HelperThing } from '/static/engine/objects/HelperThing.js'; 
 import { Registry } from '/static/engine/objects/Registry.js'; 
 

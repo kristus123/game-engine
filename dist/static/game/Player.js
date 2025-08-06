@@ -1,8 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
-import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
@@ -11,6 +9,8 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { OnChange } from '/static/engine/on/OnChange.js'; 
+import { OnTrue } from '/static/engine/on/OnTrue.js'; 
 import { Throw } from '/static/game/Throw.js'; 
 
 export class Player extends DynamicGameObject {

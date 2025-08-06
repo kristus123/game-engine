@@ -1,13 +1,11 @@
 import { G } from '/static/engine/G.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
+import { Random } from '/static/engine/Random.js'; 
+import { Sleep } from '/static/engine/Sleep.js'; 
+import { a } from '/static/engine/a.js'; 
+import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
-import { Sleep } from '/static/engine/core/Sleep.js'; 
-import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
 import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
@@ -17,10 +15,11 @@ import { Text } from '/static/engine/mechanics/dialogue/Text.js';
 import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { OnChange } from '/static/engine/on/OnChange.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 import { Grass } from '/static/game/Grass.js'; 
 import { Npc } from '/static/game/Npc.js'; 
 import { Player } from '/static/game/Player.js'; 
-import { Store } from '/static/game/Store.js'; 
 
 export class World {
 	constructor() {
@@ -58,7 +57,6 @@ export class World {
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
-			new Store(),
 			this.world,
 			this.grass,
 

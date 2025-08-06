@@ -1,4 +1,4 @@
-import { a } from '/static/engine/code_tools/a.js'; 
+import { a } from '/static/engine/a.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Palette } from '/static/engine/core/Palette.js'; 
 import { Anchor } from '/static/engine/core/camera/Anchor.js'; 

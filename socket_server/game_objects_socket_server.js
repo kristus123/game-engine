@@ -1,6 +1,4 @@
-const fs = require('fs')
-
-const gameObjects = JSON.parse(fs.readFileSync('persisted-objects/chickens.json', 'utf8'))
+const gameObjects = []
 const SocketServer = require('./SocketServer')
 
 const List = require('./List')

@@ -1,8 +1,8 @@
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
-import { Positions } from '/static/engine/core/position/Positions.js'; 
+import { Random } from '/static/engine/Random.js'; 
+import { a } from '/static/engine/a.js'; 
+import { Camera } from '/static/engine/camera/Camera.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
 
 export class Blur {
 	constructor() {

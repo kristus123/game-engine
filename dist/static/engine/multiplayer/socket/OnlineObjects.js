@@ -1,9 +1,9 @@
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
-import { Push } from '/static/engine/core/physics/Push.js'; 
 import { SocketClient } from '/static/engine/multiplayer/socket/SocketClient.js'; 
 import { AllObjects } from '/static/engine/objects/AllObjects.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
+import { Push } from '/static/engine/physics/Push.js'; 
 
 export class OnlineObjects extends AllObjects {
 	constructor(player) {

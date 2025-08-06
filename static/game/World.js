@@ -32,7 +32,6 @@ export class World {
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
-			new Store(),
 			this.world,
 			this.grass,
 

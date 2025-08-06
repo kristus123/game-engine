@@ -1,5 +1,5 @@
+import { Picture } from '/static/engine/Picture.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Picture } from '/static/engine/code_tools/misc/Picture.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
 

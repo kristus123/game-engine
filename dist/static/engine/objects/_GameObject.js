@@ -1,8 +1,8 @@
+import { Distance } from '/static/engine/Distance.js'; 
+import { List } from '/static/engine/List.js'; 
+import { Random } from '/static/engine/Random.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
 
 export class _GameObject { // _ means it is only meant to be extended, not used directly
 	constructor(position) {

@@ -1,5 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Move } from '/static/engine/core/physics/Move.js'; 
+import { Move } from '/static/engine/physics/Move.js'; 
 
 export class MovableElement {
 	constructor(element) {

@@ -1,11 +1,11 @@
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Distance } from '/static/engine/code_tools/misc/Distance.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
+import { Distance } from '/static/engine/Distance.js'; 
+import { List } from '/static/engine/List.js'; 
+import { a } from '/static/engine/a.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
 import { Button } from '/static/engine/graphics/ui/Button.js'; 
 import { Overlay } from '/static/engine/graphics/ui/Overlay.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class MouseEditor {
 

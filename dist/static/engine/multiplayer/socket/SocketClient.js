@@ -1,6 +1,6 @@
+import { Random } from '/static/engine/Random.js'; 
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 
 const clientId = Random.uuid()
 

@@ -1,10 +1,10 @@
+import { List } from '/static/engine/List.js'; 
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
-import { Move } from '/static/engine/core/physics/Move.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
+import { Move } from '/static/engine/physics/Move.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 class PriorityQueue {
 	constructor(compare) {

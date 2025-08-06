@@ -1,5 +1,5 @@
+import { List } from '/static/engine/List.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { List } from '/static/engine/code_tools/misc/List.js'; 
 
 export class HelperThing {
 	constructor(classes=[]) {

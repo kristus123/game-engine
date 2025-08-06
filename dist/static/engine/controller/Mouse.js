@@ -1,11 +1,11 @@
-import { StopWatch } from '/static/engine/code_tools/StopWatch.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Call } from '/static/engine/code_tools/tools/Call.js'; 
+import { StopWatch } from '/static/engine/StopWatch.js'; 
+import { a } from '/static/engine/a.js'; 
+import { Camera } from '/static/engine/camera/Camera.js'; 
 import { ClickEvents } from '/static/engine/controller/mouse/ClickEvents.js'; 
-import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Collision } from '/static/engine/core/physics/Collision.js'; 
-import { Move } from '/static/engine/core/physics/Move.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Collision } from '/static/engine/physics/Collision.js'; 
+import { Move } from '/static/engine/physics/Move.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
+import { Call } from '/static/engine/tools/Call.js'; 
 
 export class Mouse {
 	static position = new Position(0, 0)

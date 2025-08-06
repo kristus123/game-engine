@@ -1,8 +1,8 @@
+import { Draw } from '/static/engine/Draw.js'; 
+import { Palette } from '/static/engine/Palette.js'; 
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
-import { Draw } from '/static/engine/core/Draw.js'; 
-import { Palette } from '/static/engine/core/Palette.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 // const renderer = new CanvasRenderer()
 // const pos = new Position(0, 0, 10, 10)

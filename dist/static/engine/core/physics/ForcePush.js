@@ -1,4 +1,4 @@
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
+import { Random } from '/static/engine/Random.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
 
 export const ForcePush = (o) => ({

@@ -1,8 +1,8 @@
+import { Palette } from '/static/engine/Palette.js'; 
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Palette } from '/static/engine/core/Palette.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 const scale = 4
 

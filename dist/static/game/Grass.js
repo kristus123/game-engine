@@ -2,11 +2,11 @@ import { G } from '/static/engine/G.js';
 import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
-import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
-import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
+import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
+import { Push } from '/static/engine/physics/Push.js'; 
 
 export class Grass extends StaticGameObject {
 	constructor(position) {

@@ -1,5 +1,5 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Call } from '/static/engine/code_tools/tools/Call.js'; 
+import { Call } from '/static/engine/tools/Call.js'; 
 
 export class BackspaceEffect {
 	constructor(textToBackspace, framesPerLetter=1) {

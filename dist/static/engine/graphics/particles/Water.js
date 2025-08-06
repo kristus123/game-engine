@@ -1,6 +1,6 @@
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Random } from '/static/engine/Random.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class Water {
 	constructor() {

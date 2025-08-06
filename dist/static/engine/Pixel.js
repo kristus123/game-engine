@@ -1,5 +1,5 @@
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
 
 export class Pixel {
 	constructor(r, g, b, a = 255) {

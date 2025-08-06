@@ -1,7 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Positions } from '/static/engine/core/position/Positions.js'; 
 import { Noise } from '/static/engine/graphics/Noise.js'; 
 import { SimplexNoise } from '/static/engine/graphics/SimplexNoise.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
 
 export class FollowPlayerNoise {
 	constructor(player, viewable=4000, size=30) {

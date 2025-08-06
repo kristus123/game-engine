@@ -1,12 +1,12 @@
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
-import { a } from '/static/engine/code_tools/a.js'; 
+import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Camera } from '/static/engine/core/camera/Camera.js'; 
-import { Position } from '/static/engine/core/position/Position.js'; 
 import { ParallaxTest } from '/static/engine/graphics/ParallaxTest.js'; 
 import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 const scale = 8
 

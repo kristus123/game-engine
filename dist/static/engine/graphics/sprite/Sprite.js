@@ -1,9 +1,9 @@
+import { Random } from '/static/engine/Random.js'; 
+import { StopWatch } from '/static/engine/StopWatch.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { StopWatch } from '/static/engine/code_tools/StopWatch.js'; 
-import { Random } from '/static/engine/code_tools/misc/Random.js'; 
-import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
+import { OnTrue } from '/static/engine/on/OnTrue.js'; 
 
 const scale = 8
 

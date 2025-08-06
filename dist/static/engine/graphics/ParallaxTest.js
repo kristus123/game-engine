@@ -1,4 +1,4 @@
-import { Position } from '/static/engine/core/position/Position.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export function ParallaxTest(position, parallaxFactor=0.99) {
 	const x = position.x * parallaxFactor
