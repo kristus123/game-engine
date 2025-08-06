@@ -1,6 +1,6 @@
 # Class Usage Report
 
-Generated on: 8/6/2025, 11:12:12 AM
+Generated on: 8/6/2025, 11:25:33 AM
 
 ## all_classes
 
@@ -11,18 +11,6 @@ _No usage found_
 ## AnArray
 
 **Defined in:** `static/engine/assertions/AnArray.js`
-
-_No usage found_
-
-## AsepritePicture
-
-**Defined in:** `static/engine/aseprite/AsepritePicture.js`
-
-_No usage found_
-
-## BottomText
-
-**Defined in:** `static/engine/graphics/ui/BottomText.js`
 
 _No usage found_
 
@@ -88,7 +76,7 @@ _No usage found_
 
 ## HtmlVideo
 
-**Defined in:** `static/engine/graphics/ui/html/HtmlVideo.js`
+**Defined in:** `static/engine/html/HtmlVideo.js`
 
 _No usage found_
 
@@ -118,7 +106,7 @@ _No usage found_
 
 ## MovableElement
 
-**Defined in:** `static/engine/graphics/ui/html/MovableElement.js`
+**Defined in:** `static/engine/html/MovableElement.js`
 
 _No usage found_
 
@@ -355,7 +343,6 @@ Used in:
 - `static/engine/Wait.js`
 - `static/engine/aseprite/AsepriteJson.js`
 - `static/engine/aseprite/AsepriteLayerJson.js`
-- `static/engine/aseprite/AsepritePicture.js`
 - `static/engine/assertions/AnArray.js`
 - `static/engine/assertions/AssertArray.js`
 - `static/engine/assertions/AssertNoNullInArray.js`
@@ -375,7 +362,6 @@ Used in:
 - `static/engine/controller/keyboard/KeyboardEvent.js`
 - `static/engine/controller/keyboard/KeypressEvent.js`
 - `static/engine/controller/mouse/ClickEvents.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/graphics/Grid.js`
 - `static/engine/graphics/HeightMap.js`
 - `static/engine/graphics/Noise.js`
@@ -390,14 +376,11 @@ Used in:
 - `static/engine/graphics/sprite/SpinningSpriteFrame.js`
 - `static/engine/graphics/sprite/Sprite.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/BottomText.js`
-- `static/engine/graphics/ui/Button.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
-- `static/engine/graphics/ui/html/HtmlElement.js`
-- `static/engine/graphics/ui/html/HtmlProgressBar.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
-- `static/engine/graphics/ui/html/MovableElement.js`
+- `static/engine/html/Html.js`
+- `static/engine/html/HtmlElement.js`
+- `static/engine/html/HtmlProgressBar.js`
+- `static/engine/html/HtmlVideo.js`
+- `static/engine/html/MovableElement.js`
 - `static/engine/http/Http.js`
 - `static/engine/http/StaticHttp.js`
 - `static/engine/http/_HttpClient.js`
@@ -537,7 +520,7 @@ Used in:
 Used in:
 - `static/engine/audio/SineWave.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/html/Html.js`
+- `static/engine/html/Html.js`
 
 ## BackspaceEffect
 
@@ -553,16 +536,6 @@ Used in:
 
 Used in:
 - `static/engine/Draw.js`
-
-## Button
-
-**Defined in:** `static/engine/graphics/ui/Button.js`
-
-Used in:
-- `static/engine/controller/keyboard/Keyboard.js`
-- `static/engine/controller/mouse/MouseEditor.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/game/Player.js`
 
 ## Calculate
 
@@ -597,8 +570,7 @@ Used in:
 - `static/engine/controller/mouse/ClickEvents.js`
 - `static/engine/graphics/Parallax.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/Button.js`
-- `static/engine/graphics/ui/html/Html.js`
+- `static/engine/html/Html.js`
 - `static/engine/index.js`
 - `static/engine/mechanics/Blur.js`
 - `static/game/World.js`
@@ -623,7 +595,6 @@ Used in:
 
 Used in:
 - `static/engine/controller/Mouse.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/mechanics/DeliveryZone.js`
 - `static/engine/mechanics/SimplePathFinder.js`
 - `static/engine/mechanics/invisible_walls/InvisibleWall.js`
@@ -637,8 +608,7 @@ Used in:
 **Defined in:** `static/engine/controller/Controller.js`
 
 Used in:
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
+- `static/engine/html/Html.js`
 - `static/engine/index.js`
 - `static/game/Player.js`
 - `static/game/World.js`
@@ -663,7 +633,6 @@ Used in:
 
 Used in:
 - `static/engine/Draw.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/mechanics/SimplePathFinder.js`
 - `static/engine/objects/AllObjects.js`
 - `static/engine/objects/_GameObject.js`
@@ -684,7 +653,6 @@ Used in:
 - `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/controller/Controller.js`
 - `static/engine/controller/Mouse.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/graphics/Grid.js`
 - `static/engine/graphics/HeightMap.js`
 - `static/engine/graphics/Noise.js`
@@ -694,7 +662,6 @@ Used in:
 - `static/engine/graphics/sprite/SpinningSpriteFrame.js`
 - `static/engine/graphics/sprite/Sprite.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/Button.js`
 - `static/engine/index.js`
 - `static/engine/mechanics/Blur.js`
 - `static/engine/mechanics/Charge.js`
@@ -805,7 +772,6 @@ Used in:
 - `static/engine/assertions/AssertNotNull.js`
 - `static/engine/camera/Camera.js`
 - `static/engine/canvas/CanvasRenderer.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/graphics/Grid.js`
 - `static/engine/graphics/Particle.js`
 - `static/engine/graphics/SimplexNoise.js`
@@ -814,7 +780,7 @@ Used in:
 - `static/engine/graphics/particles/Water.js`
 - `static/engine/graphics/sprite/Sprite.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
+- `static/engine/html/HtmlVideo.js`
 - `static/engine/http/_HttpClient.js`
 - `static/engine/index.js`
 - `static/engine/mechanics/DeliveryZone.js`
@@ -887,7 +853,7 @@ Used in:
 
 ## Html
 
-**Defined in:** `static/engine/graphics/ui/html/Html.js`
+**Defined in:** `static/engine/html/Html.js`
 
 Used in:
 - `build_tools/generate_dist.js`
@@ -895,12 +861,9 @@ Used in:
 - `static/engine/controller/Mouse.js`
 - `static/engine/controller/mouse/ClickEvents.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/BottomText.js`
-- `static/engine/graphics/ui/Button.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/HtmlElement.js`
-- `static/engine/graphics/ui/html/HtmlProgressBar.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
+- `static/engine/html/HtmlElement.js`
+- `static/engine/html/HtmlProgressBar.js`
+- `static/engine/html/HtmlVideo.js`
 - `static/engine/mechanics/dialogue/Text.js`
 - `static/engine/mechanics/quest/QuestList.js`
 - `static/engine/multiplayer/socket/VideoCall.js`
@@ -909,18 +872,17 @@ Used in:
 
 ## HtmlElement
 
-**Defined in:** `static/engine/graphics/ui/html/HtmlElement.js`
+**Defined in:** `static/engine/html/HtmlElement.js`
 
 Used in:
 - `static/engine/controller/Mouse.js`
 - `static/engine/controller/mouse/ClickEvents.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
+- `static/engine/html/Html.js`
 - `static/game/World.js`
 
 ## HtmlProgressBar
 
-**Defined in:** `static/engine/graphics/ui/html/HtmlProgressBar.js`
+**Defined in:** `static/engine/html/HtmlProgressBar.js`
 
 Used in:
 - `static/game/World.js`
@@ -954,8 +916,8 @@ Used in:
 - `static/engine/Pixel.js`
 - `static/engine/controller/mouse/ClickEvents.js`
 - `static/engine/graphics/particles/SplashParticles.js`
-- `static/engine/graphics/ui/html/HtmlElement.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
+- `static/engine/html/HtmlElement.js`
+- `static/engine/html/HtmlVideo.js`
 - `static/engine/mechanics/dialogue/MultiTextTyper.js`
 - `static/engine/mechanics/path_finder/PathFinder.js`
 - `static/engine/mechanics/quest/Quest.js`
@@ -1059,12 +1021,10 @@ Used in:
 - `static/engine/controller/keyboard/KeyboardEvent.js`
 - `static/engine/controller/keyboard/KeypressEvent.js`
 - `static/engine/controller/mouse/ClickEvents.js`
-- `static/engine/controller/mouse/MouseEditor.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
-- `static/engine/graphics/ui/html/HtmlElement.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
-- `static/engine/graphics/ui/html/MovableElement.js`
+- `static/engine/html/Html.js`
+- `static/engine/html/HtmlElement.js`
+- `static/engine/html/HtmlVideo.js`
+- `static/engine/html/MovableElement.js`
 - `static/engine/mechanics/DeliveryZone.js`
 - `static/engine/mechanics/dialogue/Dialogue.js`
 - `static/engine/mechanics/dialogue/MultiTextTyper.js`
@@ -1159,25 +1119,16 @@ Used in:
 - `static/engine/camera/Anchor.js`
 - `static/engine/camera/Camera.js`
 - `static/engine/controller/mouse/ClickEvents.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
-- `static/engine/graphics/ui/html/HtmlElement.js`
-- `static/engine/graphics/ui/html/MovableElement.js`
+- `static/engine/html/Html.js`
+- `static/engine/html/HtmlElement.js`
+- `static/engine/html/MovableElement.js`
 - `static/engine/index.js`
 - `static/engine/mechanics/FishingRod.js`
 - `static/game/PicturePositions.js`
 - `static/game/Poop.js`
 - `static/game/Throw.js`
 - `static/game/World.js`
-
-## MouseEditor
-
-**Defined in:** `static/engine/controller/mouse/MouseEditor.js`
-
-Used in:
-- `static/engine/index.js`
 
 ## Move
 
@@ -1186,7 +1137,7 @@ Used in:
 Used in:
 - `static/engine/camera/Anchor.js`
 - `static/engine/controller/Mouse.js`
-- `static/engine/graphics/ui/html/MovableElement.js`
+- `static/engine/html/MovableElement.js`
 - `static/engine/mechanics/SimplePathFinder.js`
 - `static/engine/mechanics/path_finder/PathFinder.js`
 
@@ -1241,13 +1192,6 @@ Used in:
 - `static/engine/mechanics/dialogue/TextTyper.js`
 - `static/game/Player.js`
 
-## Overlay
-
-**Defined in:** `static/engine/graphics/ui/Overlay.js`
-
-Used in:
-- `static/engine/controller/mouse/MouseEditor.js`
-
 ## Palette
 
 **Defined in:** `static/engine/Palette.js`
@@ -1258,7 +1202,6 @@ Used in:
 - `static/engine/PictureInPicture.js`
 - `static/engine/camera/Camera.js`
 - `static/engine/canvas/CanvasRenderer.js`
-- `static/engine/graphics/ui/Button.js`
 - `static/engine/index.js`
 - `static/engine/logging/ShowLogs.js`
 - `static/engine/position/GuiPosition.js`
@@ -1321,7 +1264,6 @@ Used in:
 - `static/engine/PictureInPicture.js`
 - `static/engine/Pictures.js`
 - `static/engine/RotatingPicture.js`
-- `static/engine/aseprite/AsepritePicture.js`
 - `static/engine/graphics/SpinningPicture.js`
 - `static/game/PicturePositions.js`
 - `static/game/Tree.js`
@@ -1367,7 +1309,6 @@ Used in:
 - `static/engine/canvas/CanvasRenderer.js`
 - `static/engine/controller/Mouse.js`
 - `static/engine/controller/mouse/ClickEvents.js`
-- `static/engine/controller/mouse/MouseEditor.js`
 - `static/engine/graphics/Grid.js`
 - `static/engine/graphics/HeightMap.js`
 - `static/engine/graphics/Noise.js`
@@ -1377,7 +1318,7 @@ Used in:
 - `static/engine/graphics/particles/SplashParticles.js`
 - `static/engine/graphics/particles/Water.js`
 - `static/engine/graphics/sprite/SpriteLayers.js`
-- `static/engine/graphics/ui/html/Html.js`
+- `static/engine/html/Html.js`
 - `static/engine/mechanics/Blur.js`
 - `static/engine/mechanics/FishingRod.js`
 - `static/engine/mechanics/FollowPlayerNoise.js`
@@ -1627,10 +1568,8 @@ Used in:
 
 Used in:
 - `static/engine/Draw.js`
-- `static/engine/graphics/ui/BottomText.js`
-- `static/engine/graphics/ui/Overlay.js`
-- `static/engine/graphics/ui/html/Html.js`
-- `static/engine/graphics/ui/html/HtmlVideo.js`
+- `static/engine/html/Html.js`
+- `static/engine/html/HtmlVideo.js`
 - `static/engine/http/_HttpClient.js`
 - `static/engine/index.js`
 - `static/engine/logging/ShowLogs.js`
