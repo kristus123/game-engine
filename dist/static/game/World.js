@@ -31,7 +31,6 @@ export class World {
 		Camera.followInstantly(G.player)
 
 
-
 		G.friend = new Npc(new Position(0, -400))
 
 		G.poops = new LocalObjects()

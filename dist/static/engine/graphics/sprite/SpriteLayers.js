@@ -86,7 +86,7 @@ export class SpriteLayers extends StaticGameObject {
 						})
 					]),
 				])
-			}, 1_000)
+			})
 		})])
 	}
 
