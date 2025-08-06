@@ -1,8 +1,8 @@
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { SmoothValue } from '/static/engine/code_tools/smooth/SmoothValue.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 
 export class SmoothPosition {
 	constructor(targetPosition, smoothness=0.01, threshold=0.0001) {

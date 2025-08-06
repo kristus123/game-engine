@@ -1,4 +1,4 @@
-import { Chicken } from '/static/engine/chicken_stuff/Chicken.js'; 
+import { Init } from '/static/engine/Init.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { NormalMapPicture } from '/static/engine/code_tools/misc/NormalMapPicture.js'; 
 import { Picture } from '/static/engine/code_tools/misc/Picture.js'; 
@@ -16,12 +16,9 @@ import { InvisibleWallsEditor } from '/static/engine/mechanics/invisible_walls/I
 import { PathFinder } from '/static/engine/mechanics/path_finder/PathFinder.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { PersistedObjects } from '/static/engine/persistence/PersistedObjects.js'; 
-import { PlayerEditor } from '/static/engine/persistence/PlayerEditor.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { Positions } from '/static/engine/position/Positions.js'; 
 import { D } from '/static/game/world/D.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 
 
 export class WorldEditor {

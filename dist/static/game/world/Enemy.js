@@ -1,3 +1,4 @@
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { InfiniteListLooper } from '/static/engine/code_tools/InfiniteListLooper.js'; 
 import { ListLooper } from '/static/engine/code_tools/ListLooper.js'; 
@@ -14,7 +15,6 @@ import { LocalObjects } from '/static/engine/objects/LocalObjects.js';
 import { Registry } from '/static/engine/objects/Registry.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 
 export class Enemy extends DynamicGameObject {
 	constructor(position) {

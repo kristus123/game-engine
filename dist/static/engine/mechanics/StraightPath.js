@@ -1,10 +1,10 @@
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Registry } from '/static/engine/objects/Registry.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 
 export class StraightPath {
 	constructor(start, end) {

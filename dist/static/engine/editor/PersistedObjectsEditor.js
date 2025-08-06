@@ -3,7 +3,6 @@ import { Mouse } from '/static/engine/controller/Mouse.js';
 import { MouseEditor } from '/static/engine/controller/mouse/MouseEditor.js'; 
 import { Button } from '/static/engine/graphics/ui/Button.js'; 
 import { Overlay } from '/static/engine/graphics/ui/Overlay.js'; 
-import { PersistedObjects } from '/static/engine/persistence/PersistedObjects.js'; 
 
 export class PersistedObjectsEditor {
 

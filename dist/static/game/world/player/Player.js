@@ -1,6 +1,6 @@
 import { G } from '/static/engine/G.js'; 
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Chicken } from '/static/engine/chicken_stuff/Chicken.js'; 
 import { OnChange } from '/static/engine/code_tools/on/OnChange.js'; 
 import { OnTrue } from '/static/engine/code_tools/on/OnTrue.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
@@ -11,9 +11,7 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Html } from '/static/engine/graphics/ui/html/Html.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { ChickenFood } from '/static/game/ChickenFood.js'; 
 import { D } from '/static/game/world/D.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 import { Throw } from '/static/game/world/Throw.js'; 
 
 export class Player extends DynamicGameObject {

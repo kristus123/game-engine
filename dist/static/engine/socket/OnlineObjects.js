@@ -1,5 +1,4 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Chicken } from '/static/engine/chicken_stuff/Chicken.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Collision } from '/static/engine/core/physics/Collision.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 

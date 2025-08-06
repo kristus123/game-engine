@@ -1,10 +1,10 @@
 import { G } from '/static/engine/G.js'; 
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { D } from '/static/game/world/D.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 
 export class Npc extends DynamicGameObject {
 	constructor(position) {

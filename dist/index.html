@@ -25,27 +25,22 @@
 <script type="module" src="static/engine/socket/online/OnlineMouse.js"></script>
 <script type="module" src="static/engine/core/camera/Camera.js"></script>
 <script type="module" src="static/engine/core/camera/LowLevelCamera.js"></script>
-<script type="module" src="static/engine/AsepriteJson.js"></script>
-<script type="module" src="static/engine/AsepriteLayerJson.js"></script>
 <script type="module" src="static/engine/G.js"></script>
+<script type="module" src="static/engine/Init.js"></script>
 <script type="module" src="static/engine/Pictures.js"></script>
 <script type="module" src="static/engine/Pixel.js"></script>
+<script type="module" src="static/engine/aseprite/AsepriteJson.js"></script>
+<script type="module" src="static/engine/aseprite/AsepriteLayerJson.js"></script>
 <script type="module" src="static/engine/assertions/AnArray.js"></script>
 <script type="module" src="static/engine/assertions/AssertArray.js"></script>
 <script type="module" src="static/engine/assertions/AssertNoNullInArray.js"></script>
 <script type="module" src="static/engine/assertions/AssertNotNull.js"></script>
 <script type="module" src="static/engine/assertions/NotArray.js"></script>
-<script type="module" src="static/engine/chicken_stuff/BodyPart.js"></script>
-<script type="module" src="static/engine/chicken_stuff/Chicken.js"></script>
-<script type="module" src="static/engine/chicken_stuff/ChickenSprites.js"></script>
-<script type="module" src="static/engine/chicken_stuff/DeadChicken.js"></script>
-<script type="module" src="static/engine/chicken_stuff/Feather.js"></script>
-<script type="module" src="static/engine/chicken_stuff/Killed.js"></script>
+<script type="module" src="static/engine/canvas/CanvasRenderer.js"></script>
 <script type="module" src="static/engine/code_tools/InfiniteListLooper.js"></script>
 <script type="module" src="static/engine/code_tools/Iterate.js"></script>
 <script type="module" src="static/engine/code_tools/ListLooper.js"></script>
 <script type="module" src="static/engine/code_tools/NumberThreshold.js"></script>
-<script type="module" src="static/engine/code_tools/Once.js"></script>
 <script type="module" src="static/engine/code_tools/SpinningAroundPosition.js"></script>
 <script type="module" src="static/engine/code_tools/StopWatch.js"></script>
 <script type="module" src="static/engine/code_tools/TemporaryChange.js"></script>
@@ -53,7 +48,6 @@
 <script type="module" src="static/engine/code_tools/Wait.js"></script>
 <script type="module" src="static/engine/code_tools/a.js"></script>
 <script type="module" src="static/engine/code_tools/misc/Calculate.js"></script>
-<script type="module" src="static/engine/code_tools/misc/Clipboard.js"></script>
 <script type="module" src="static/engine/code_tools/misc/Distance.js"></script>
 <script type="module" src="static/engine/code_tools/misc/List.js"></script>
 <script type="module" src="static/engine/code_tools/misc/NormalMapPicture.js"></script>
@@ -63,8 +57,6 @@
 <script type="module" src="static/engine/code_tools/misc/RotatingPicture.js"></script>
 <script type="module" src="static/engine/code_tools/on/OnChange.js"></script>
 <script type="module" src="static/engine/code_tools/on/OnTrue.js"></script>
-<script type="module" src="static/engine/code_tools/on/RunOnce.js"></script>
-<script type="module" src="static/engine/code_tools/on/RunUntil.js"></script>
 <script type="module" src="static/engine/code_tools/smooth/SmoothPosition.js"></script>
 <script type="module" src="static/engine/code_tools/smooth/SmoothValue.js"></script>
 <script type="module" src="static/engine/code_tools/tools/Call.js"></script>
@@ -76,7 +68,6 @@
 <script type="module" src="static/engine/controller/keyboard/KeypressEvent.js"></script>
 <script type="module" src="static/engine/controller/mouse/ClickEvents.js"></script>
 <script type="module" src="static/engine/controller/mouse/MouseEditor.js"></script>
-<script type="module" src="static/engine/controller/mouse/MouseResize.js"></script>
 <script type="module" src="static/engine/core/Draw.js"></script>
 <script type="module" src="static/engine/core/Level.js"></script>
 <script type="module" src="static/engine/core/Loop.js"></script>
@@ -93,7 +84,6 @@
 <script type="module" src="static/engine/core/physics/Physics.js"></script>
 <script type="module" src="static/engine/core/physics/Push.js"></script>
 <script type="module" src="static/engine/editor/PersistedObjectsEditor.js"></script>
-<script type="module" src="static/engine/editor/PersistedStaticPictureEditor.js"></script>
 <script type="module" src="static/engine/editor/WorldEditor.js"></script>
 <script type="module" src="static/engine/graphics/Grid.js"></script>
 <script type="module" src="static/engine/graphics/HeightMap.js"></script>
@@ -101,13 +91,12 @@
 <script type="module" src="static/engine/graphics/Parallax.js"></script>
 <script type="module" src="static/engine/graphics/ParallaxTest.js"></script>
 <script type="module" src="static/engine/graphics/Particle.js"></script>
-<script type="module" src="static/engine/graphics/PicturesLoop.js"></script>
 <script type="module" src="static/engine/graphics/SimplexNoise.js"></script>
 <script type="module" src="static/engine/graphics/SpinningPicture.js"></script>
-<script type="module" src="static/engine/graphics/SpinningSpriteFrame.js"></script>
 <script type="module" src="static/engine/graphics/Square.js"></script>
 <script type="module" src="static/engine/graphics/particles/SplashParticles.js"></script>
 <script type="module" src="static/engine/graphics/particles/Water.js"></script>
+<script type="module" src="static/engine/graphics/sprite/SpinningSpriteFrame.js"></script>
 <script type="module" src="static/engine/graphics/sprite/Sprite.js"></script>
 <script type="module" src="static/engine/graphics/sprite/SpriteLayers.js"></script>
 <script type="module" src="static/engine/graphics/ui/BottomText.js"></script>
@@ -120,7 +109,6 @@
 <script type="module" src="static/engine/graphics/ui/html/MovableElement.js"></script>
 <script type="module" src="static/engine/hp/Hp.js"></script>
 <script type="module" src="static/engine/http/AsepritePicture.js"></script>
-<script type="module" src="static/engine/http/AsyncHttp.js"></script>
 <script type="module" src="static/engine/http/Http.js"></script>
 <script type="module" src="static/engine/http/StaticHttp.js"></script>
 <script type="module" src="static/engine/http/_HttpClient.js"></script>
@@ -130,7 +118,6 @@
 <script type="module" src="static/engine/mechanics/FishingRod.js"></script>
 <script type="module" src="static/engine/mechanics/Fleet.js"></script>
 <script type="module" src="static/engine/mechanics/FollowPlayerNoise.js"></script>
-<script type="module" src="static/engine/mechanics/LoadingScreen.js"></script>
 <script type="module" src="static/engine/mechanics/MovableObjects.js"></script>
 <script type="module" src="static/engine/mechanics/Rain.js"></script>
 <script type="module" src="static/engine/mechanics/SimplePathFinder.js"></script>
@@ -145,10 +132,6 @@
 <script type="module" src="static/engine/mechanics/dialogue/Text.js"></script>
 <script type="module" src="static/engine/mechanics/dialogue/TextTyper.js"></script>
 <script type="module" src="static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js"></script>
-<script type="module" src="static/engine/mechanics/gun/Bullet.js"></script>
-<script type="module" src="static/engine/mechanics/gun/Gun.js"></script>
-<script type="module" src="static/engine/mechanics/inventory/Inventory.js"></script>
-<script type="module" src="static/engine/mechanics/inventory/InventoryItem.js"></script>
 <script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWall.js"></script>
 <script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWalls.js"></script>
 <script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWallsEditor.js"></script>
@@ -156,8 +139,6 @@
 <script type="module" src="static/engine/mechanics/path_finder/PathFinder.js"></script>
 <script type="module" src="static/engine/mechanics/quest/Quest.js"></script>
 <script type="module" src="static/engine/mechanics/quest/QuestList.js"></script>
-<script type="module" src="static/engine/mechanics/vehicle/Cargo.js"></script>
-<script type="module" src="static/engine/mechanics/vehicle/EnterVehicle.js"></script>
 <script type="module" src="static/engine/objects/AllObjects.js"></script>
 <script type="module" src="static/engine/objects/DynamicGameObject.js"></script>
 <script type="module" src="static/engine/objects/HelperThing.js"></script>
@@ -166,11 +147,7 @@
 <script type="module" src="static/engine/objects/StaticGameObject.js"></script>
 <script type="module" src="static/engine/objects/Velocity.js"></script>
 <script type="module" src="static/engine/objects/_GameObject.js"></script>
-<script type="module" src="static/engine/persistence/ImageEditor.js"></script>
-<script type="module" src="static/engine/persistence/Note.js"></script>
-<script type="module" src="static/engine/persistence/NoteEditor.js"></script>
-<script type="module" src="static/engine/persistence/PersistedObjects.js"></script>
-<script type="module" src="static/engine/persistence/PlayerEditor.js"></script>
+<script type="module" src="static/engine/os/Microphone.js"></script>
 <script type="module" src="static/engine/position/AnalShit.js"></script>
 <script type="module" src="static/engine/position/CenterPosition.js"></script>
 <script type="module" src="static/engine/position/GuiPosition.js"></script>
@@ -182,30 +159,14 @@
 <script type="module" src="static/engine/socket/OnlinePlayers.js"></script>
 <script type="module" src="static/engine/socket/SocketClient.js"></script>
 <script type="module" src="static/engine/socket/VideoCall.js"></script>
-<script type="module" src="static/game/ChickenFood.js"></script>
-<script type="module" src="static/game/world/Barn.js"></script>
-<script type="module" src="static/game/world/Bil.js"></script>
-<script type="module" src="static/game/world/CanvasRenderer.js"></script>
 <script type="module" src="static/game/world/ChickenBox.js"></script>
-<script type="module" src="static/game/world/CloudParallax.js"></script>
 <script type="module" src="static/game/world/D.js"></script>
-<script type="module" src="static/game/world/DeliverBoxQuest.js"></script>
-<script type="module" src="static/game/world/DragonRoom.js"></script>
 <script type="module" src="static/game/world/Enemy.js"></script>
-<script type="module" src="static/game/world/FirstQuest.js"></script>
 <script type="module" src="static/game/world/Grass.js"></script>
-<script type="module" src="static/game/world/Init.js"></script>
-<script type="module" src="static/game/world/KillingMachine.js"></script>
-<script type="module" src="static/game/world/KillingMachineSprites.js"></script>
-<script type="module" src="static/game/world/Microphone.js"></script>
 <script type="module" src="static/game/world/Npc.js"></script>
 <script type="module" src="static/game/world/PickUp.js"></script>
 <script type="module" src="static/game/world/PicturePositions.js"></script>
-<script type="module" src="static/game/world/PlaceItems.js"></script>
-<script type="module" src="static/game/world/Planet.js"></script>
 <script type="module" src="static/game/world/Poop.js"></script>
-<script type="module" src="static/game/world/Ranch.js"></script>
-<script type="module" src="static/game/world/Ref.js"></script>
 <script type="module" src="static/game/world/Rices.js"></script>
 <script type="module" src="static/game/world/Shake.js"></script>
 <script type="module" src="static/game/world/StarBackground.js"></script>
@@ -216,7 +177,6 @@
 <script type="module" src="static/game/world/Update.js"></script>
 <script type="module" src="static/game/world/World.js"></script>
 <script type="module" src="static/game/world/player/Player.js"></script>
-<script type="module" src="static/mechanics/ReadSign.js"></script>
 		</div>
 
 		<div id="canvases">

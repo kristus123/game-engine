@@ -1,3 +1,4 @@
+import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { List } from '/static/engine/code_tools/misc/List.js'; 
 import { Picture } from '/static/engine/code_tools/misc/Picture.js'; 
@@ -18,7 +19,6 @@ import { LocalObjects } from '/static/engine/objects/LocalObjects.js';
 import { Position } from '/static/engine/position/Position.js'; 
 import { D } from '/static/game/world/D.js'; 
 import { Enemy } from '/static/game/world/Enemy.js'; 
-import { Init } from '/static/game/world/Init.js'; 
 import { Update } from '/static/game/world/Update.js'; 
 
 export class TalkToShopKeeper {

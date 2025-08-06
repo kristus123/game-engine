@@ -1,6 +1,6 @@
-import { AsepriteJson } from '/static/engine/AsepriteJson.js'; 
-import { AsepriteLayerJson } from '/static/engine/AsepriteLayerJson.js'; 
 import { G } from '/static/engine/G.js'; 
+import { AsepriteJson } from '/static/engine/aseprite/AsepriteJson.js'; 
+import { AsepriteLayerJson } from '/static/engine/aseprite/AsepriteLayerJson.js'; 
 import { a } from '/static/engine/code_tools/a.js'; 
 import { Call } from '/static/engine/code_tools/tools/Call.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 

@@ -22,7 +22,6 @@ import { Grass } from '/static/game/world/Grass.js';
 import { Npc } from '/static/game/world/Npc.js'; 
 import { Store } from '/static/game/world/Store.js'; 
 import { Player } from '/static/game/world/player/Player.js'; 
-import { ReadSign } from '/static/mechanics/ReadSign.js'; 
 
 export class World {
 	constructor() {
@@ -60,7 +59,6 @@ export class World {
 		this.world = G.Sprite.world(new Position(-1000, -1000))
 
 		this.localObjects = new LocalObjects([
-			new ReadSign(new Position(-310, 10)),
 			new Store(),
 			this.world,
 			this.grass,

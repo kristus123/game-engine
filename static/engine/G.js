@@ -8,7 +8,6 @@ export const G = {
 	splash: new SplashParticles(),
 	chickenFood: new LocalObjects([]),
 	money: 0,
-	barn: new Barn(new Position(-200, 0)),
 	pictures: {},
 	Sprite: {},
 	SpriteLayers: {},

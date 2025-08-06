@@ -1,6 +1,5 @@
 import { PersistedObjectsEditor } from '/static/engine/editor/PersistedObjectsEditor.js'; 
 import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
-import { PersistedObjects } from '/static/engine/persistence/PersistedObjects.js'; 
 
 export class InvisibleWallsEditor {
 	constructor() {

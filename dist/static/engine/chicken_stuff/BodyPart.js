@@ -2,7 +2,7 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Random } from '/static/engine/code_tools/misc/Random.js'; 
 import { ForcePush } from '/static/engine/core/physics/ForcePush.js'; 
 import { Push } from '/static/engine/core/physics/Push.js'; 
-import { SpinningSpriteFrame } from '/static/engine/graphics/SpinningSpriteFrame.js'; 
+import { SpinningSpriteFrame } from '/static/engine/graphics/sprite/SpinningSpriteFrame.js'; 
 import { SpriteFrame } from '/static/engine/mechanics/SpriteFrame.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { D } from '/static/game/world/D.js'; 
