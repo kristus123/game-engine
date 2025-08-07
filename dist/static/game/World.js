@@ -3,6 +3,7 @@ import { Picture } from '/static/engine/Picture.js';
 import { Random } from '/static/engine/Random.js'; 
 import { Sleep } from '/static/engine/Sleep.js'; 
 import { a } from '/static/engine/a.js'; 
+import { Easing } from '/static/engine/animation/Easing.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
@@ -34,6 +35,15 @@ export class World {
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
 
+<<<<<<< HEAD
+||||||| parent of 983dcfa (x)
+
+=======
+
+		this.lightPosition = new Position(0,0)
+		this.size = 100
+
+>>>>>>> 983dcfa (x)
 		G.friend = new Npc(new Position(0, -400))
 
 		G.poops = new LocalObjects()
@@ -208,7 +218,14 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
+<<<<<<< HEAD
 			new InvisibleWall(new Position(0,0, 100, 100)),
+||||||| parent of 983dcfa (x)
+=======
+			new Easing(v => {
+				this.size = v
+			}),
+>>>>>>> 983dcfa (x)
 			// G.SpriteLayers.sky(new Position(0, 0)),
 			// new PicturePositions(G.image.test, new Position(0, 0)),
 		])
@@ -237,7 +254,7 @@ export class World {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		draw.test(G.player.position)
+		draw.test(this.lightPosition, this.size)
 
 		// for (const s of this.world.slices) {
 		// 		draw.rectangle(s.position)

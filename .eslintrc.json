@@ -150,6 +150,7 @@
         "Distance": "readonly",
         "Draw": "readonly",
         "DynamicGameObject": "readonly",
+        "Easing": "readonly",
         "ErrorHandler": "readonly",
         "FishingRod": "readonly",
         "FollowPlayerNoise": "readonly",
