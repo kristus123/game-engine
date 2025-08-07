@@ -4,6 +4,7 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
+import { Path } from '/static/engine/npc/Path.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class Draw {

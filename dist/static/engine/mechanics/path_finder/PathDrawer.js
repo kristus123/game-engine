@@ -1,6 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { PathFinder } from '/static/engine/mechanics/path_finder/PathFinder.js'; 
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
+import { Path } from '/static/engine/npc/Path.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 
 export class PathDrawer {

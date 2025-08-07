@@ -183,14 +183,11 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
-<<<<<<< HEAD
 			new InvisibleWall(new Position(0,0, 100, 100)),
-||||||| parent of 983dcfa (x)
-=======
 			new Easing(v => {
 				this.size = v
 			}),
->>>>>>> 983dcfa (x)
+			new Path([new Position(0,0), new Position(100, 100)])
 			// G.SpriteLayers.sky(new Position(0, 0)),
 			// new PicturePositions(G.image.test, new Position(0, 0)),
 		])
