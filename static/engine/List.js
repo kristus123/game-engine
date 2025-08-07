@@ -12,6 +12,13 @@ export class List {
 		}
 	}
 
+static next(list, current) {
+    const i = list.indexOf(current);  
+    if (i === -1 || i === list.length - 1) return undefined;  
+    return list[i + 1];
+}
+
+
 	static retainMax(list, maxEntries) {
 		if (list.length > maxEntries) {
 			list.splice(0, list.length - maxEntries)

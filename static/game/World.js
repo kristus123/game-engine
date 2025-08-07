@@ -183,11 +183,13 @@ export class World {
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
-			new InvisibleWall(new Position(0,0, 100, 100)),
+			// new InvisibleWall(new Position(0,0, 100, 100)),
 			new Easing(v => {
 				this.size = v
 			}),
-			new Path([new Position(0,0), new Position(100, 100)])
+			new Monster(),
+			// new Path(G.player, [new Position(0,0), new Position(700, 100)])
+
 			// G.SpriteLayers.sky(new Position(0, 0)),
 			// new PicturePositions(G.image.test, new Position(0, 0)),
 		])

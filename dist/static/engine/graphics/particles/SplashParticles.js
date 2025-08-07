@@ -37,7 +37,7 @@ export class SplashParticles {
 
 			Push(p).towards(Random.direction(object), Random.integerBetween(1, 5))
 
-			p.life = 10
+			p.life = 20
 			p.color = Random.color()
 			this.particles.push(p)
 		})

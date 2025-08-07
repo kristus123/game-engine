@@ -283,7 +283,7 @@ export class Draw {
 		const color = 'red'
 
 		this.ctx.beginPath()
-		this.ctx.arc(position.x, position.y, radius, 0, Math.PI * 2, false)
+		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
 		this.ctx.fillStyle = color
 		this.ctx.fill()
 	}

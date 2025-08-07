@@ -1,20 +1,57 @@
+import { Sine } from '/static/engine/animation/Sine.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 
 export class Path {
-	constructor(points) {
+	constructor(npc, points) {
 
+				AssertNotNull(npc, "argument npc in " + this.constructor.name + ".js should not be null")
+			
 				AssertNotNull(points, "argument points in " + this.constructor.name + ".js should not be null")
 			
+		this.npc = npc; 
 		this.points = points; 
 
+		this.index = 0
+
+		this.sine = new Sine(50, 0.1)
+	}
+
+	get position() {
+		return this.points[this.index]
 	}
 
 	update() {
+		this.sine.update()
+
+		const currentTarget = this.points[this.index]
+		this.currentTarget = currentTarget
+
+		if (this.npc.touches(currentTarget)) {
+			if (this.index < this.points.length - 1) {
+				this.index++
+			}
+		}
+	}
+
+	get completed() {
+		return this.index >= this.points.length - 1 &&
+		       this.npc.touches(this.points[this.points.length - 1])
 	}
 
 	draw(draw, guiDraw) {
-		for (const p of this.points) {
+		if (!this.completed) {
+			draw.circle(this.currentTarget, this.sine.value)
+		}
+
+		for (let i = 0; i < this.points.length; i++) {
+			const p = this.points[i]
 			draw.rectangle(p)
+
+			if (i < this.points.length - 1) {
+				const next = this.points[i + 1]
+				draw.line(p, next)
+			}
 		}
 	}
 }
+
