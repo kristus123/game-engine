@@ -35,15 +35,10 @@ export class World {
 		Controller.control(G.player)
 		Camera.followInstantly(G.player)
 
-<<<<<<< HEAD
-||||||| parent of 983dcfa (x)
-
-=======
 
 		this.lightPosition = new Position(0,0)
 		this.size = 100
 
->>>>>>> 983dcfa (x)
 		G.friend = new Npc(new Position(0, -400))
 
 		G.poops = new LocalObjects()
