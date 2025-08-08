@@ -1,17 +1,20 @@
 export class Monster extends DynamicGameObject {
 	constructor() {
-		super(new Position(0,0, 100, 100), 10, 10)
+		super(new Position(677, -644, 100, 100), 10, 10)
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
 				sine: new Sine(100, 0.1),
+				hp: new Hp(this, () => {
+					this.removeFromLoop()
+				}),
 				path: new Path(this, [
-					new Position(0,0),
+					new Position(677,-653),
 					new Position(800, 80),
-					new Position(2, 3),
+					new Position(140, 618),
 					new Position(-800, 2),
 				]),
-				splashParticles: new SplashParticles(),
+				// splashParticles: new SplashParticles(),
 				sprite: G.Sprite.enemy(this.position),
 			}),
 		])
@@ -29,7 +32,7 @@ export class Monster extends DynamicGameObject {
 		else {
 		}
 
-		this.splashParticles.random(this.position.center, "black")
+		// this.splashParticles.random(this.position.center, "black")
 	}
 
 	draw(draw, guiDraw) {

@@ -8,7 +8,7 @@ export class Turret extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			Init(this, {
-				charge: new Charge(1, 10),
+				charge: new Charge(5, 10),
 			}),
 		])
 	}
@@ -17,15 +17,16 @@ export class Turret extends DynamicGameObject {
 		this.localObjects.update()
 
 
-		const m = this.withinAny(400, G.monsters)
+		const m = this.withinAny(800, G.monsters)
 		if (m && this.charge.ready) {
 			this.charge.exhaust()
 
 			const s = new Square(this.position.copy(), 10)
-			ForcePush(s).towards(m, 200)
+			ForcePush(s).towards(m, 400)
 			s.update = () => {
 				if (s.touches(m)) {
 					console.log("hit")
+					m.hp.damage(10)
 					s.removeFromLoop()
 				}
 			}
@@ -39,6 +40,6 @@ export class Turret extends DynamicGameObject {
 
 
 		draw.rectangle(this.position)
-		draw.radius(this.position, 400)
+		draw.radius(this.position, 800)
 	}
 }

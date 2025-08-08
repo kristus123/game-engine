@@ -1,15 +1,22 @@
 export class Hp {
-	constructor(object, currentHp=100, maxHp=100, killed=() => {}) {
+	constructor(object, killed=() => {}) {
+		this.currentHp = 100
+		this.maxHp = 100
 	}
 
 	get dead() {
 		return this.currentHp <= 0
 	}
 
+	damage(amount) {
+		this.currentHp -= amount
+	}
+
 	update() {
 		if (this.dead) {
 			this.killed()
 			this.removeFromLoop()
+			this.object.removeFromLoop()
 		}
 	}
 

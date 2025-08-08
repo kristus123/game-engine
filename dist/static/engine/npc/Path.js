@@ -1,5 +1,6 @@
 import { Sine } from '/static/engine/animation/Sine.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class Path {
 	constructor(npc, points) {
@@ -17,7 +18,12 @@ export class Path {
 	}
 
 	get position() {
-		return this.points[this.index]
+		if (!this.completed) {
+			return this.points[this.index]
+		}
+		else {
+			return new Position(0,0)
+		}
 	}
 
 	update() {
