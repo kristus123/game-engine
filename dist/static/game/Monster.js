@@ -28,6 +28,8 @@ export class Monster extends DynamicGameObject {
 				sprite: G.Sprite.enemy(this.position),
 			}),
 		])
+
+		G.monsters.add(this)
 	}
 
 	update() {
@@ -40,7 +42,7 @@ export class Monster extends DynamicGameObject {
 		else {
 		}
 
-		this.splashParticles.random(this.position.center)
+		this.splashParticles.random(this.position.center, "black")
 	}
 
 	draw(draw, guiDraw) {

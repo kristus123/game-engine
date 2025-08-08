@@ -84,6 +84,14 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 		return Distance.within(distance, this, o)
 	}
 
+	withinAny(distance, objects) {
+		for (const o of objects) {
+			if (this.within(distance, o)) {
+				return o
+			}
+		}
+	}
+
 	notWithin(distance, o) {
 		return Distance.notWithin(distance, this, o)
 	}

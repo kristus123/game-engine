@@ -56,7 +56,7 @@ export class Draw {
 		// this.new_circle(endPosition);
 	}
 
-	test(p, radius=250) {
+	light(p, radius=250) {
 		const gradient = this.ctx.createRadialGradient(p.x, p.y, 10, p.x, p.y, radius)
 		gradient.addColorStop(0, 'rgba(255, 255, 200, 0.5)') // bright center
 		gradient.addColorStop(0.4, 'rgba(255, 255, 150, 0.5)') // soft glow

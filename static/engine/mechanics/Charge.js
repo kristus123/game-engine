@@ -9,7 +9,7 @@ export class Charge {
 		this.onReadyTriggered = false
 	}
 
-	ready() {
+	get ready() {
 		return this.charge >= this.maxCharge
 	}
 
@@ -24,7 +24,7 @@ export class Charge {
 	update() {
 		this.charge += this.chargePerUpdate
 
-		if (this.ready() && !this.onReadyTriggered) {
+		if (this.ready && !this.onReadyTriggered) {
 			this.onReady()
 			this.onReadyTriggered = true
 			console.log('triggered on ready')

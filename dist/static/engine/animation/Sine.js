@@ -19,7 +19,6 @@ export class Sine {
 	update() {
 		this.value = Math.sin(this.angle) * this.amplitude
 		this.angle += this.speed
-		console.log(this.value)
 		return this.value
 	}
 }

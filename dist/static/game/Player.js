@@ -122,12 +122,5 @@ export class Player extends DynamicGameObject {
 		if (this.holding) {
 			draw.text(this.holding.position.offset(100), '"E" to drop')
 		}
-		else {
-			const p = this.touchesAny(G.poops)
-			if (p) {
-				draw.text(p.position.offset(0), '"E" to pick up')
-			}
-
-		}
 	}
 }
