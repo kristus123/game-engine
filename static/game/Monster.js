@@ -12,6 +12,7 @@ export class Monster extends DynamicGameObject {
 					new Position(-800, 2),
 				]),
 				splashParticles: new SplashParticles(),
+				sprite: G.Sprite.enemy(this.position),
 			}),
 		])
 	}
@@ -31,8 +32,5 @@ export class Monster extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-
-
-		draw.rectangle(this.position)
 	}
 }

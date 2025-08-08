@@ -1,6 +1,8 @@
+import { G } from '/static/engine/G.js'; 
 import { Init } from '/static/engine/Init.js'; 
 import { Sine } from '/static/engine/animation/Sine.js'; 
 import { SplashParticles } from '/static/engine/graphics/particles/SplashParticles.js'; 
+import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Path } from '/static/engine/npc/Path.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
@@ -23,6 +25,7 @@ export class Monster extends DynamicGameObject {
 					new Position(-800, 2),
 				]),
 				splashParticles: new SplashParticles(),
+				sprite: G.Sprite.enemy(this.position),
 			}),
 		])
 	}
@@ -42,8 +45,5 @@ export class Monster extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-
-
-		draw.rectangle(this.position)
 	}
 }

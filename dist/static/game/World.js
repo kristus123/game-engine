@@ -1,29 +1,19 @@
 import { G } from '/static/engine/G.js'; 
 import { Picture } from '/static/engine/Picture.js'; 
 import { Random } from '/static/engine/Random.js'; 
-import { Sleep } from '/static/engine/Sleep.js'; 
 import { a } from '/static/engine/a.js'; 
-import { Easing } from '/static/engine/animation/Easing.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
 import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { SpriteLayers } from '/static/engine/graphics/sprite/SpriteLayers.js'; 
-import { HtmlProgressBar } from '/static/engine/html/HtmlProgressBar.js'; 
-import { Dialogue } from '/static/engine/mechanics/dialogue/Dialogue.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
-import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
 import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
-import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { Path } from '/static/engine/npc/Path.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { Positions } from '/static/engine/position/Positions.js'; 
 import { Grass } from '/static/game/Grass.js'; 
-import { Monster } from '/static/game/Monster.js'; 
 import { Npc } from '/static/game/Npc.js'; 
 import { PicturePositions } from '/static/game/PicturePositions.js'; 
 import { Player } from '/static/game/Player.js'; 
@@ -71,155 +61,12 @@ export class World {
 
 			...new Grid().positions.map(p => new Grass(p)),
 
-			new Quest([
-				() => new class {
-					constructor() {
-						G.friend.sprite.prepareSleep.play(() => {
-							G.friend.sprite.sleep.loop()
-							this.completed = () => true
-						})
-					}
-
-					completed() {
-						return false
-					}
-
-				},
-
-
-				() => new Dialogue([
-					new TextTyper(G.player, 'i must go talk to my friend'),
-				]),
-
-
-				() => new class {
-					completed() {
-						return G.player.touches(G.friend) && Keyboard.e
-					}
-
-					update() {
-					}
-
-					draw(draw, guiDraw) {
-						if (G.player.touches(G.friend)) {
-							draw.text(G.friend, 'press "e" to talk')
-						}
-					}
-				},
-
-				() => new class {
-					constructor() {
-						G.friend.sprite.talk.loop()
-					}
-
-					completed() {
-						return true
-					}
-
-				},
-
-
-				() => new Dialogue([
-					new TextTyper(G.friend, 'hi there!'),
-					new TextTyper(G.player, 'what should i do?'),
-					new TextTyper(G.friend, 'try to poop by pressing "p"'),
-					new TextTyper(G.friend, 'poop 4 times!'),
-				]),
-
-				() => new class {
-
-					constructor() {
-
-						G.friend.sprite.prepareSleep.play(() => {
-							G.friend.sprite.sleep.loop()
-						})
-
-						HtmlProgressBar.create()
-						this.d = new Dialogue([
-							new TextTyper(G.friend, G.poops.length.toString()),
-						])
-
-						this.localObjects = new LocalObjects([
-							new OnChange(() => G.poops.length, () => {
-								HtmlProgressBar.change(25)
-								this.d = new Dialogue([
-									new TextTyper(G.friend, G.poops.length.toString()),
-								])
-							})
-						])
-					}
-
-					completed() {
-						return G.poops.length >= 4
-					}
-
-					update() {
-						this.d.update()
-						this.localObjects.update()
-					}
-
-					draw(draw, guiDraw) {
-						this.d.draw(draw, guiDraw)
-						this.localObjects.draw(draw, guiDraw)
-					}
-				},
-
-
-				() => new class {
-					completed() {
-						HtmlProgressBar.remove()
-						return true
-					}
-
-				},
-
-
-				() => new Dialogue([
-					new TextTyper(G.friend, 'good job!'),
-					new TextTyper(G.friend, 'now place the poop in the poop area'),
-				]),
-
-
-				() => new class {
-					constructor() {
-						this.deliveryZone = new Position(400, 200, 100, 100)
-					}
-
-					completed() {
-						this.count = 0
-						for (const p of G.poops) {
-							if (p.touches(this.deliveryZone)) {
-								this.count += 1
-							}
-						}
-
-						return this.count == 4
-					}
-
-					draw(draw, guiDraw) {
-						draw.text(this.deliveryZone.over(200), `${this.count}/4`)
-						draw.orange(this.deliveryZone)
-					}
-				},
-
-				() => new Dialogue([
-					new TextTyper(G.friend, 'good job!'),
-					new TextTyper(G.friend, 'now we have a bunch of poop!'),
-					new TextTyper(G.friend, 'try to poop on the flowers to make them grow strong!'),
-				]),
-			]),
-
-
 			G.friend,
 			G.poops,
 			G.flowers,
 			G.player,
 			G.Sprite.goat(new Position(-200, 0)).happy.loop(),
 			// new InvisibleWall(new Position(0,0, 100, 100)),
-			new Easing(v => {
-				this.size = v
-			}),
-			new Monster(),
 			// new Path(G.player, [new Position(0,0), new Position(700, 100)])
 
 			// G.SpriteLayers.sky(new Position(0, 0)),

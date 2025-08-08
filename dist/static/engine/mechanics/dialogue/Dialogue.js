@@ -1,6 +1,19 @@
+import { G } from '/static/engine/G.js'; 
 import { List } from '/static/engine/List.js'; 
 import { ListLooper } from '/static/engine/ListLooper.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
+import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
+
+// example
+
+// () => new Dialogue([
+// 	new TextTyper(G.friend, 'hi there!'),
+// 	new TextTyper(G.player, 'what should i do?'),
+// 	new TextTyper(G.friend, 'try to poop by pressing "p"'),
+// 	new TextTyper(G.friend, 'poop 4 times!'),
+// ]),
+
 
 export class Dialogue {
 
