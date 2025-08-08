@@ -39,5 +39,6 @@ export class Turret extends DynamicGameObject {
 
 
 		draw.rectangle(this.position)
+		draw.radius(this.position, 400)
 	}
 }
