@@ -16,7 +16,12 @@ export class World {
 
 		Html.lower([
 			Html.div('big', [
-				Html.p('hei and nadsdjfkajlsdf sjkli ficking love you'),
+				Html.button('next'),
+			]),
+			Html.div('big', [
+				Html.button('next'),
+			]),
+			Html.div('big', [
 				Html.button('next'),
 			]),
 		])

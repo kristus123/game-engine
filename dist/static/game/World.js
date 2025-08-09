@@ -31,6 +31,8 @@ export class World {
 				Html.p('hei and nadsdjfkajlsdf sjkli ficking love you'),
 				Html.button('next'),
 			]),
+				Html.button('next'),
+				Html.button('next'),
 		])
 	}
 
