@@ -18,7 +18,7 @@ export class Camera {
 		this.position = new Position(0, 0)
 		this.smoothPosition = new SmoothPosition(this.position, 0.01)
 
-		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
+		this.smoothZoom = new SmoothValue(0.5, 0.5, 0.5, 5)
 
 		Mouse.scrollIn = () => {
 			this.smoothZoom.targetValue += 0.1
