@@ -1,5 +1,9 @@
 # game-engine
 
+install newest version of node
+
+- [INSTALL](https://nodejs.org/en/download/current)
+
 ## Coding conventions
 
 - Imports are added automatically so you don't need to import stuff, also it will crash if you include imports within `static/`
@@ -29,12 +33,6 @@ then open [http://localhost:5000]()
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
-
-## Work with the GUI
-
-You can open the gui here
-
-http://localhost:5000/static/ui/test.html
 
 
 ## visual bug
