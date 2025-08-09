@@ -1,8 +1,19 @@
 # game-engine
 
+# Install node
+
 install newest version of node
 
 - [INSTALL](https://nodejs.org/en/download/current)
+
+
+# Install Aseprite
+
+if linux use:
+
+    - ~/meta-repo/projects/aseprite 
+
+if windows use:
 
 ## Coding conventions
 
