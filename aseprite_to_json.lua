@@ -117,7 +117,7 @@ for _,layer in ipairs(sprite.layers) do
         if type(frameNum) == "table" and frameNum.number then frameNum = frameNum.number end
         frameNum = tonumber(frameNum) or 1
 
-        local baseName = string.format("%s/%s_frame%02d_tilemap", outBase, layerNameSafe, frameNum)
+        local baseName = string.format("%s/%s_%02d_tilemap", outBase, layerNameSafe, frameNum)
 
         local json_parts = {}
         table.insert(json_parts, "{")
