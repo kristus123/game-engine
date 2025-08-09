@@ -47,7 +47,7 @@ function loadImage(pngPath) {
 	})
 }
 
-const whenLoaded = Promise.all(["/static/assets/enemy.","/static/assets/flower.","/static/assets/goat.","/static/assets/grass.","/static/assets/new_farmer.","/static/assets/player/player.","/static/assets/player/viking.","/static/assets/pokemonCity.","/static/assets/sign.","/static/assets/sky.","/static/assets/test.","/static/assets/tractor.","/static/assets/wheat.","/static/assets/world/grass_frame01_tilemap.json","/static/assets/world/grass_frame02_tilemap.json","/static/assets/world."].map(path => {
+const whenLoaded = Promise.all(["/static/assets/enemy.","/static/assets/flower.","/static/assets/goat.","/static/assets/grass.","/static/assets/new_farmer.","/static/assets/player/player.","/static/assets/player/viking.","/static/assets/pokemonCity.","/static/assets/sign.","/static/assets/sky.","/static/assets/test.","/static/assets/tractor.","/static/assets/wheat.","/static/assets/world/grass_frame01_tilemap.json","/static/assets/world/grass_frame02_tilemap.json","/static/assets/world.","/static/assets/world_tilemaps.json"].map(path => {
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
