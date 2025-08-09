@@ -38,10 +38,10 @@ export class World {
 				const offsetY = Mouse.position.y
 
 				draw.transparentGreenRectangle(new Position(
-					e.x*scale*this.width + offsetX,
-					e.y*scale*this.height + offsetY,
-					this.width*scale,
-					this.height*scale
+					e.x * scale* this.width + offsetX,
+					e.y * scale * this.height + offsetY,
+					this.width * scale,
+					this.height * scale
 				))
 			}
 		}
