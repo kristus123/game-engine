@@ -24,6 +24,11 @@ function loadImage(pngPath) {
 }
 
 const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
+	if (path.includes(".json")) {
+		return Promise.resolve("ok")
+	}
+
+
 	const fileName = path.split('/').pop()
 	const pngPath = path + '.png'
 	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
@@ -39,7 +44,8 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
-	return Promise.all([spriteLayers, sprite, image])
+		
+		return Promise.all([spriteLayers, sprite, image])
 }))
 
 

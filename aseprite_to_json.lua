@@ -23,26 +23,21 @@ local function json_escape(s)
   return s
 end
 
-local function table_to_json_rows_with_xy(tiles)
+-- Flattened JSON output for tiles: a single array of tile objects with x,y,i,f
+local function table_to_json_flat_with_xy(tiles)
   local parts = {}
   table.insert(parts, "[")
+  local tileParts = {}
   for y = 1, #tiles do
     local row = tiles[y]
-    table.insert(parts, "  [")
-    local rowparts = {}
     for x = 1, #row do
       local cell = row[x]
-      table.insert(rowparts,
+      table.insert(tileParts,
         string.format('{"x":%d,"y":%d,"i":%d,"f":%d}', x - 1, y - 1, cell.i, cell.f)
       )
     end
-    table.insert(parts, "    "..table.concat(rowparts, ","))
-    if y < #tiles then
-      table.insert(parts, "  ],")
-    else
-      table.insert(parts, "  ]")
-    end
   end
+  table.insert(parts, "  " .. table.concat(tileParts, ","))
   table.insert(parts, "]")
   return table.concat(parts, "\n")
 end
@@ -146,7 +141,7 @@ for i, tilemap in ipairs(all_tilemaps) do
   table.insert(json_parts, string.format('      "frame": %d,', tilemap.frame))
   table.insert(json_parts, string.format('      "width": %d,', tilemap.width))
   table.insert(json_parts, string.format('      "height": %d,', tilemap.height))
-  table.insert(json_parts, '      "tiles": ' .. table_to_json_rows_with_xy(tilemap.tiles))
+  table.insert(json_parts, '      "tiles": ' .. table_to_json_flat_with_xy(tilemap.tiles))
   if i < #all_tilemaps then
     table.insert(json_parts, "    },")
   else
@@ -159,5 +154,5 @@ table.insert(json_parts, "}")
 
 write_file(outBase .. "_tilemaps.json", table.concat(json_parts, "\n"))
 
-app.alert("Tilemap JSON export completed.\nFile written: " .. outBase .. "_all_tilemaps.json")
+app.alert("Tilemap JSON export completed.\nFile written: " .. outBase .. "_tilemaps.json")
 

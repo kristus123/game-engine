@@ -113,7 +113,7 @@ const cssImports = getAllFiles('static/ui/css')
 
 const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
 	.map(f => f.replace('/aseprite', ''))
-	.map(f => f.replace('\aseprite', ''))
+	.map(f => f.replace('\\aseprite', ''))
 	.map(f => f.replace('.aseprite', ''))
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
