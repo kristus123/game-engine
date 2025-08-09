@@ -20,14 +20,16 @@ export class World {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		for (const e of this.jsonFile.tilemaps[0].tiles) {
-			if (e.i == 3) {
-				const offsetX = Mouse.position.x
-				const offsetY = Mouse.position.y
 
+		let ox = 0
+		let oy = 0
+
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+
+			if (e.i == 3) {
 				draw.transparentGreenRectangle(new Position(
-					e.x * scale* this.width + offsetX,
-					e.y * scale * this.height + offsetY,
+					e.x * scale * this.width + ox,
+					e.y * scale * this.height + oy,
 					this.width * scale,
 					this.height * scale
 				))

@@ -1,7 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/a.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
-import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
@@ -32,14 +31,16 @@ export class World {
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		for (const e of this.jsonFile.tilemaps[0].tiles) {
-			if (e.i == 3) {
-				const offsetX = Mouse.position.x
-				const offsetY = Mouse.position.y
 
+		let ox = 0
+		let oy = 0
+
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+
+			if (e.i == 3) {
 				draw.transparentGreenRectangle(new Position(
-					e.x * scale* this.width + offsetX,
-					e.y * scale * this.height + offsetY,
+					e.x * scale * this.width + ox,
+					e.y * scale * this.height + oy,
 					this.width * scale,
 					this.height * scale
 				))
