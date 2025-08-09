@@ -64,6 +64,7 @@ function exportAseprite(srcFile, destBase) {
 
 	execFileSync('aseprite', [
 		'-b',
+		srcFile,
 		'--script',
 		'aseprite_to_json.lua',
 	])

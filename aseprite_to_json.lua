@@ -52,18 +52,39 @@ if not sprite then
   return
 end
 
-local outBase = nil
+local outBase
 if sprite.filename and sprite.filename ~= "" then
   outBase = sprite.filename:gsub("%.%w+$", "")
 else
   outBase = "aseprite_export"
 end
 
+-- Step 1: Check if there is any tilemap info
+local hasTilemap = false
+for _,layer in ipairs(sprite.layers) do
+  if layer.isTilemap then
+    for _,cel in ipairs(sprite.cels) do
+      if cel.layer == layer and cel.image then
+        hasTilemap = true
+        break
+      end
+    end
+    if hasTilemap then break end
+  end
+end
+
+if not hasTilemap then
+  app.alert("No tilemap data found. Nothing exported.")
+  return
+end
+
+-- Step 2: Create folder only if needed
 local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
 if not ok1 then
   pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
 end
 
+-- Step 3: Export JSON
 for _,layer in ipairs(sprite.layers) do
   if layer.isTilemap then
     local layerCels = {}
@@ -78,9 +99,7 @@ for _,layer in ipairs(sprite.layers) do
         local img = cel.image
         if not img then goto continue_cel end
 
-        local w = img.width
-        local h = img.height
-
+        local w, h = img.width, img.height
         local tiles = {}
         for y = 0, h-1 do
           local row = {}
@@ -109,9 +128,8 @@ for _,layer in ipairs(sprite.layers) do
         table.insert(json_parts, string.format('  "height": %d,', h))
         table.insert(json_parts, '  "tiles": ' .. table_to_json_rows(tiles))
         table.insert(json_parts, "}")
-        local json_text = table.concat(json_parts, "\n")
-        write_file(baseName .. ".json", json_text)
 
+        write_file(baseName .. ".json", table.concat(json_parts, "\n"))
         ::continue_cel::
       end
     end
@@ -119,3 +137,4 @@ for _,layer in ipairs(sprite.layers) do
 end
 
 app.alert("Tilemap JSON export completed.\nFiles written into: " .. outBase)
+
