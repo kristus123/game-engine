@@ -1,5 +1,3 @@
--- export_tilemap.lua (JSON-only version)
-
 local function sanitize_filename(s)
   s = s:gsub("[<>:\\/%%\"%|%?%*]", "_")
   s = s:gsub("%s+", "_")
@@ -61,10 +59,10 @@ else
   outBase = "aseprite_export"
 end
 
-local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
-if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
-end
+-- Collect all tilemap layers + frames into one table
+local exportData = {}
+exportData.sprite = sprite.filename or ""
+exportData.tilemaps = {}
 
 for _,layer in ipairs(sprite.layers) do
   if layer.isTilemap then
@@ -95,24 +93,17 @@ for _,layer in ipairs(sprite.layers) do
           table.insert(tiles, row)
         end
 
-        local layerNameSafe = sanitize_filename(layer.name or "layer")
         local frameNum = cel.frame.frameNumber or cel.frame
         if type(frameNum) == "table" and frameNum.number then frameNum = frameNum.number end
         frameNum = tonumber(frameNum) or 1
 
-        local baseName = string.format("%s/%s_frame%02d_tilemap", outBase, layerNameSafe, frameNum)
-
-        local json_parts = {}
-        table.insert(json_parts, "{")
-        table.insert(json_parts, string.format('  "sprite": "%s",', json_escape(sprite.filename or "")))
-        table.insert(json_parts, string.format('  "layer": "%s",', json_escape(layer.name or "")))
-        table.insert(json_parts, string.format('  "frame": %d,', frameNum))
-        table.insert(json_parts, string.format('  "width": %d,', w))
-        table.insert(json_parts, string.format('  "height": %d,', h))
-        table.insert(json_parts, '  "tiles": ' .. table_to_json_rows(tiles))
-        table.insert(json_parts, "}")
-        local json_text = table.concat(json_parts, "\n")
-        write_file(baseName .. ".json", json_text)
+        table.insert(exportData.tilemaps, {
+          layer = layer.name or "",
+          frame = frameNum,
+          width = w,
+          height = h,
+          tiles = tiles,
+        })
 
         ::continue_cel::
       end
@@ -120,5 +111,32 @@ for _,layer in ipairs(sprite.layers) do
   end
 end
 
-app.alert("Tilemap JSON export completed.\nFiles written into: " .. outBase)
+-- Convert exportData to JSON string manually
+local parts = {}
+table.insert(parts, "{")
+table.insert(parts, string.format('  "sprite": "%s",', json_escape(exportData.sprite)))
+table.insert(parts, '  "tilemaps": [')
+
+for i, tilemap in ipairs(exportData.tilemaps) do
+  table.insert(parts, "    {")
+  table.insert(parts, string.format('      "layer": "%s",', json_escape(tilemap.layer)))
+  table.insert(parts, string.format('      "frame": %d,', tilemap.frame))
+  table.insert(parts, string.format('      "width": %d,', tilemap.width))
+  table.insert(parts, string.format('      "height": %d,', tilemap.height))
+  table.insert(parts, "      \"tiles\": " .. table_to_json_rows(tilemap.tiles))
+  if i < #exportData.tilemaps then
+    table.insert(parts, "    },")
+  else
+    table.insert(parts, "    }")
+  end
+end
+
+table.insert(parts, "  ]")
+table.insert(parts, "}")
+
+local json_text = table.concat(parts, "\n")
+
+write_file(outBase .. "_tilemaps.json", json_text)
+
+app.alert("Tilemap JSON export completed.\nFile written: " .. outBase .. "_tilemaps.json")
 

@@ -61,6 +61,12 @@ function exportAseprite(srcFile, destBase) {
 		'--filename-format',
 		'{layer}_{frame}_{tag}',
 	])
+
+	execFileSync('aseprite', [
+		'-b',
+		'--script',
+		'aseprite_to_json.lua',
+	])
 }
 
 walk(SRC_DIR, srcFile => {
