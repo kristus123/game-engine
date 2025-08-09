@@ -24,8 +24,8 @@ function loadImage(pngPath) {
 }
 
 const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
-	if (path.includes(".json")) {
-		return Promise.resolve("ok")
+	if (path.includes('.json')) {
+		return Promise.resolve('ok')
 	}
 
 
@@ -44,8 +44,8 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
-		
-		return Promise.all([spriteLayers, sprite, image])
+
+	return Promise.all([spriteLayers, sprite, image])
 }))
 
 

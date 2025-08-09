@@ -22,7 +22,7 @@ export class Path {
 			return this.points[this.index]
 		}
 		else {
-			return new Position(0,0)
+			return new Position(0, 0)
 		}
 	}
 

@@ -11,7 +11,7 @@ import { Push } from '/static/engine/physics/Push.js';
 
 export class Turret extends DynamicGameObject {
 	constructor(position) {
-		super(position, 1,1)
+		super(position, 1, 1)
 
 				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
 			
@@ -28,7 +28,7 @@ export class Turret extends DynamicGameObject {
 			}),
 		])
 	}
-	
+
 	update() {
 		this.localObjects.update()
 
@@ -41,7 +41,7 @@ export class Turret extends DynamicGameObject {
 			ForcePush(s).towards(m, 400)
 			s.update = () => {
 				if (s.touchesAny(G.monsters)) {
-					console.log("hit")
+					console.log('hit')
 					m.hp.damage(10)
 					s.removeFromLoop()
 				}

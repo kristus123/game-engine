@@ -24,7 +24,7 @@ export class Monster extends DynamicGameObject {
 					this.removeFromLoop()
 				}),
 				path: new Path(this, [
-					new Position(677,-653),
+					new Position(677, -653),
 					new Position(800, 80),
 					new Position(140, 618),
 					new Position(-800, 2),

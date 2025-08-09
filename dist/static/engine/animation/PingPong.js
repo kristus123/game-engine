@@ -8,51 +8,53 @@ export class PingPong {
 			
 		this.run = run; 
 
-		this.start = 100;
-		this.end = 1000;
-		this.duration = 1000;
-		this.easing = Easings.easeInOutQuad;
+		this.start = 100
+		this.end = 1000
+		this.duration = 1000
+		this.easing = Easings.easeInOutQuad
 
-		this.bounceAtStart = true;
-		this.bounceAtEnd = true;
+		this.bounceAtStart = true
+		this.bounceAtEnd = true
 
-		this.run = run;
+		this.run = run
 
-		this.startTime = performance.now();
-		this.running = true;
-		this.direction = 1;
-		this.phase = 0;
+		this.startTime = performance.now()
+		this.running = true
+		this.direction = 1
+		this.phase = 0
 	}
 
 	update() {
-		const now = performance.now();
-		const elapsed = now - this.startTime;
-		const progress = Math.min(elapsed / this.duration, 1);
+		const now = performance.now()
+		const elapsed = now - this.startTime
+		const progress = Math.min(elapsed / this.duration, 1)
 
-		let easedProgress;
+		let easedProgress
 		if (this.direction === 1) {
 			easedProgress = this.bounceAtEnd
 				? Easings.overshootOut(progress)
-				: this.easing(progress);
-		} else {
+				: this.easing(progress)
+		}
+		else {
 			easedProgress = this.bounceAtStart
 				? Easings.overshootOut(progress)
-				: this.easing(progress);
+				: this.easing(progress)
 		}
 
 		const value = this.direction === 1
 			? this.start + (this.end - this.start) * easedProgress
-			: this.end - (this.end - this.start) * easedProgress;
+			: this.end - (this.end - this.start) * easedProgress
 
-		this.run(value);
+		this.run(value)
 
 		if (progress >= 1) {
 			if (this.phase === 0) {
-				this.phase = 1;
-				this.direction = -1;
-				this.startTime = now;
-			} else {
-				this.running = false;
+				this.phase = 1
+				this.direction = -1
+				this.startTime = now
+			}
+			else {
+				this.running = false
 			}
 		}
 	}

@@ -14,14 +14,14 @@ export class World {
 	constructor() {
 
 
-		Camera.follow(new Position(0,0))
+		Camera.follow(new Position(0, 0))
 
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
 		this.width = this.jsonFile.tilemaps[0].width
 		this.height = this.jsonFile.tilemaps[0].height
 
 		this.localObjects = new LocalObjects([
-			G.Sprite.world(new Position(0,0)).idle.show(0),
+			G.Sprite.world(new Position(0, 0)).idle.show(0),
 		])
 	}
 
@@ -38,9 +38,9 @@ export class World {
 				const offsetY = Mouse.position.y
 
 				draw.transparentGreenRectangle(new Position(
-					e.x*scale*this.width + offsetX, 
-					e.y*scale*this.height + offsetY, 
-					this.width*scale, 
+					e.x*scale*this.width + offsetX,
+					e.y*scale*this.height + offsetY,
+					this.width*scale,
 					this.height*scale
 				))
 			}
