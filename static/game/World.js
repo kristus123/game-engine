@@ -17,7 +17,7 @@ export class World {
 			if (G.monsters.length < 10) {
 				G.monsters.add(new Monster())
 			}
-		}, 600);
+		}, 100);
 	}
 
 	update() {
