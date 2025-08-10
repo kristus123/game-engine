@@ -1,6 +1,14 @@
 { "frames": {
-   "Tilemap 1_0_idle": {
+   "grass_0_idle": {
     "frame": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
+    "sourceSize": { "w": 256, "h": 256 },
+    "duration": 100
+   },
+   "Layer 1_0_idle": {
+    "frame": { "x": 0, "y": 256, "w": 256, "h": 256 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 256, "h": 256 },
@@ -13,7 +21,7 @@
   "version": "1.3.14.2-dev",
   "image": "worldLayers.png",
   "format": "RGBA8888",
-  "size": { "w": 256, "h": 256 },
+  "size": { "w": 256, "h": 512 },
   "scale": "1"
  }
 }

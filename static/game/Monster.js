@@ -22,7 +22,7 @@ export class Monster extends DynamicGameObject {
 
 
 		if (!this.path.completed) {
-			Move(this).towards(this.path.position, 0.5)
+			Move(this).towards(this.path.position.center, 0.5)
 		}
 		else {
 		}

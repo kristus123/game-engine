@@ -22,7 +22,7 @@ export class Turret extends DynamicGameObject {
 			this.charge.exhaust()
 
 			const s = new Square(this.position.copy(), 10)
-			ForcePush(s).towards(m, 400)
+			ForcePush(s).towards(m.position.center, 400)
 			s.update = () => {
 				if (s.touchesAny(G.monsters)) {
 					console.log('hit')

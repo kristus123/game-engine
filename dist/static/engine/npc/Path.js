@@ -46,16 +46,16 @@ export class Path {
 
 	draw(draw, guiDraw) {
 		if (!this.completed) {
-			draw.circle(this.currentTarget, this.sine.value)
+			// draw.circle(this.currentTarget, this.sine.value)
 		}
 
 		for (let i = 0; i < this.points.length; i++) {
 			const p = this.points[i]
-			draw.rectangle(p)
+			// draw.rectangle(p)
 
 			if (i < this.points.length - 1) {
 				const next = this.points[i + 1]
-				draw.line(p, next)
+				// draw.line(p, next)
 			}
 		}
 	}

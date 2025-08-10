@@ -26,8 +26,12 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 
-			new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),
+			new Turret(new Position(400, 800)),
 		])
+
+		setInterval(() => {
+			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
+		}, 800);
 	}
 
 	update() {
@@ -40,7 +44,7 @@ export class World {
 		for (const p of this.walkableTiles) {
 
 			if (p.i == 2) {
-				draw.transparentRedRectangle(p.position)
+				// draw.transparentRedRectangle(p.position)
 			}
 		}
 	}
