@@ -1,4 +1,5 @@
 import { G } from '/static/engine/G.js'; 
+import { Random } from '/static/engine/Random.js'; 
 import { a } from '/static/engine/a.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
@@ -7,6 +8,7 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Html } from '/static/engine/html/Html.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
+import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { Monster } from '/static/game/Monster.js'; 
@@ -48,18 +50,35 @@ export class World {
 		setInterval(() => {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
 		}, 200);
+
+
+		const chat = (texts) => {
+			this.localObjects.add(new Quest(texts.map(t => () =>  new class {
+					constructor() {
+						Html.lower([
+							Html.img(),
+							Html.div('big', [
+								Html.p(t),
+								Html.button('next', () => {
+									Html.clearLower()
+									this.completed = () => true
+								})
+							]),
+						])
+					}
+				})))
+		}
 		
-		Html.lower([
-			Html.div('big', [
-				Html.p('hei fucker bitch'),
-			]),
-		])
 
 		Html.upperLeft([
 			Html.button('buy turret', () => {
 
 				Mouse.onClick = p => {
 					console.log("hei")
+					chat(Random.choice([
+						['wow you bought a turret', 'you are really good'],
+						['i am an edgy boy'],
+					]))
 					this.localObjects.add(new Turret(p.copy()))
 					Audio.click()
 					Mouse.onClick = null

@@ -57,6 +57,12 @@ export class Html {
 		document.querySelector('.center-ui').remove()
 	}
 
+
+	static clearLower() {
+		document.querySelector('.lower-center-ui').remove()
+	}
+
+
 	static clear() {
 		const elements = document.getElementById('ui_elements').querySelectorAll('*') // all nested elements
 		console.log(elements)
@@ -184,6 +190,15 @@ export class Html {
 		p.innerHTML = text
 
 		return p
+	}
+
+	static img() {
+		const img = HtmlElement('img', '')
+		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ';
+
+		return img
+
+		
 	}
 
 	static addToScreen(element) {
