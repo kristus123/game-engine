@@ -28,6 +28,7 @@ export class Turret extends DynamicGameObject {
 					console.log('hit')
 					m.hp.damage(10)
 					s.removeFromLoop()
+					G.monsters.remove(m)
 				}
 			}
 
