@@ -5,7 +5,6 @@ import { Camera } from '/static/engine/camera/Camera.js';
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { HtmlElement } from '/static/engine/html/HtmlElement.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class Html {

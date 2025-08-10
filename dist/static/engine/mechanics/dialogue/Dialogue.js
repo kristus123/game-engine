@@ -2,7 +2,6 @@ import { G } from '/static/engine/G.js';
 import { List } from '/static/engine/List.js'; 
 import { ListLooper } from '/static/engine/ListLooper.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
 
 // example

@@ -1,6 +1,5 @@
 import { Palette } from '/static/engine/Palette.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 
 export class ShowLogs {
 	constructor(guiPalette, maxMessages = 10, consoleHeight = 200) {

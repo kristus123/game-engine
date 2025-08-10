@@ -78,8 +78,6 @@ export class World {
 
 
 		if (Mouse.onClick) {
-			console.log("hei")
-			console.log(Mouse.onClick)
 			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
 		}
 

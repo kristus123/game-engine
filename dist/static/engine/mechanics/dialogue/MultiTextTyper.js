@@ -1,7 +1,6 @@
 import { List } from '/static/engine/List.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { BackspaceEffect } from '/static/engine/mechanics/dialogue/BackspaceEffect.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { TextTyper } from '/static/engine/mechanics/dialogue/TextTyper.js'; 
 import { TextTyperWithBackspaceEffect } from '/static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js'; 
 

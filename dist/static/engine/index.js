@@ -15,7 +15,6 @@ import { Http } from '/static/engine/http/Http.js';
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { ErrorHandler } from '/static/engine/logging/ErrorHandler.js'; 
 import { ShowLogs } from '/static/engine/logging/ShowLogs.js'; 
-import { Text } from '/static/engine/mechanics/dialogue/Text.js'; 
 import { VideoCall } from '/static/engine/multiplayer/socket/VideoCall.js'; 
 import { Physics } from '/static/engine/physics/Physics.js'; 
 import { Call } from '/static/engine/tools/Call.js'; 
@@ -77,7 +76,7 @@ whenLoaded.then(() => {
 		const mainPalette = Palette.main()
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
-		// const showLogs = new ShowLogs(guiPalette)
+		const showLogs = new ShowLogs(guiPalette)
 
 		Mouse.initialize()
 		Camera.initialize()
@@ -108,13 +107,10 @@ whenLoaded.then(() => {
 					Level.update()
 					Level.draw(draw, guiDraw)
 
-					Text.updateAll()
-
 					Mouse.draw(draw, guiDraw)
-
 				})
 
-				// showLogs.draw()
+				showLogs.draw()
 
 				Palette.fill(backgroundPalette, 'black')
 				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
