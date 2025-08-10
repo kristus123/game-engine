@@ -1,7 +1,10 @@
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/a.js'; 
+import { Audio } from '/static/engine/audio/Audio.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
+import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { Html } from '/static/engine/html/Html.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
@@ -44,7 +47,26 @@ export class World {
 
 		setInterval(() => {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
-		}, 800);
+		}, 200);
+		
+		Html.lower([
+			Html.div('big', [
+				Html.p('hei fucker bitch'),
+			]),
+		])
+
+		Html.upperLeft([
+			Html.button('buy turret', () => {
+
+				Mouse.onClick = p => {
+					console.log("hei")
+					this.localObjects.add(new Turret(p.copy()))
+					Audio.click()
+					Mouse.onClick = null
+				}
+
+			}),
+		])
 	}
 
 	update() {
@@ -53,6 +75,13 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+
+		if (Mouse.onClick) {
+			console.log("hei")
+			console.log(Mouse.onClick)
+			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
+		}
 
 		for (const p of this.walkableTiles) {
 

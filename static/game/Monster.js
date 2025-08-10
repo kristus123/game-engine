@@ -6,7 +6,8 @@ export class Monster extends DynamicGameObject {
 			Init(this, {
 				sine: new Sine(100, 0.1),
 				hp: new Hp(this, () => {
-					this.removeFromLoop()
+					// this.removeFromLoop()
+					// G.monsters.remove(m)
 				}),
 				path: new Path(this, paths),
 				// splashParticles: new SplashParticles(),
@@ -18,6 +19,12 @@ export class Monster extends DynamicGameObject {
 	}
 
 	update() {
+		if (this.hp.dead) {
+			this.removeFromLoop()
+			G.monsters.remove(this)
+			G.money += 1
+		}
+
 		this.localObjects.update()
 
 

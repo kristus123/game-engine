@@ -3,6 +3,11 @@ export class Html {
 		return this.dialog(children)
 	}
 
+
+	static upperLeft(elements) {
+		Html.addToScreen(
+			Html.div('upper-left-ui', elements))
+	}
 	static upper(elements) {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
@@ -176,6 +181,14 @@ export class Html {
 		element.classList.add('ui')
 		document.getElementById('ui_elements').appendChild(element)
 		return element
+	}
+
+	static onClick(e, run) {
+		e.addEventListener('click', () => {
+			run()
+		})
+
+		return e
 	}
 
 	static button(text, onClick= b => {}) {

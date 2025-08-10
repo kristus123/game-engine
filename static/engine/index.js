@@ -63,9 +63,6 @@ whenLoaded.then(() => {
 		const draw = new Draw(Camera.palette.ctx)
 		const guiDraw = new Draw(guiPalette.ctx)
 
-		const rightClickMenu = new RightClickMenu()
-
-
 		Level.change(new World())
 		// Level.change(new WorldEditor())
 
@@ -87,9 +84,6 @@ whenLoaded.then(() => {
 
 					Level.update()
 					Level.draw(draw, guiDraw)
-
-					rightClickMenu.update()
-					rightClickMenu.draw(draw, guiDraw)
 
 					Text.updateAll()
 

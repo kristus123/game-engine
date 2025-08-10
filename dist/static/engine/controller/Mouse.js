@@ -19,8 +19,8 @@ export class Mouse {
 		this.down = false
 		this.downStopWatch = new StopWatch()
 
-		this.onClick = () => {}
-		this.onRightClick = () => {}
+		this.onClick = null // can be set to a (p) => {}
+		this.onRightClick = null // can be set to a (p) => {}
 
 		this.rightUp = true
 		this.rightDown = false
@@ -80,7 +80,9 @@ export class Mouse {
 			console.log(e.button)
 
 			if (e.button == 0) { // Left click
-				this.onClick(this.position)
+				if (!this.hoveringHtmlElement && this.onClick) {
+					this.onClick(this.position)
+				}
 			}
 		})
 
@@ -91,8 +93,10 @@ export class Mouse {
 				return
 			}
 			else { // Right click
-				this.onRightClick(this.screenPosition)
-				console.log('user right lcicked')
+				if (this.onRightClick) {
+					this.onRightClick(this.screenPosition)
+					console.log('user right lcicked')
+				}
 			}
 
 		})

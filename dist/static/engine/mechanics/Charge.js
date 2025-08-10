@@ -26,7 +26,6 @@ export class Charge {
 	exhaust() {
 		this.charge = 0
 		this.onExhaust()
-		console.log('triggered on exhaust')
 
 		this.onReadyTriggered = false
 	}
@@ -37,7 +36,6 @@ export class Charge {
 		if (this.ready && !this.onReadyTriggered) {
 			this.onReady()
 			this.onReadyTriggered = true
-			console.log('triggered on ready')
 		}
 	}
 

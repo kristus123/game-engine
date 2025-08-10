@@ -3,7 +3,6 @@ import { G } from '/static/engine/G.js';
 import { Level } from '/static/engine/Level.js'; 
 import { Loop } from '/static/engine/Loop.js'; 
 import { Palette } from '/static/engine/Palette.js'; 
-import { RightClickMenu } from '/static/engine/RightClickMenu.js'; 
 import { a } from '/static/engine/a.js'; 
 import { AsepriteJson } from '/static/engine/aseprite/AsepriteJson.js'; 
 import { AsepriteLayerJson } from '/static/engine/aseprite/AsepriteLayerJson.js'; 
@@ -87,9 +86,6 @@ whenLoaded.then(() => {
 		const draw = new Draw(Camera.palette.ctx)
 		const guiDraw = new Draw(guiPalette.ctx)
 
-		const rightClickMenu = new RightClickMenu()
-
-
 		Level.change(new World())
 		// Level.change(new WorldEditor())
 
@@ -111,9 +107,6 @@ whenLoaded.then(() => {
 
 					Level.update()
 					Level.draw(draw, guiDraw)
-
-					rightClickMenu.update()
-					rightClickMenu.draw(draw, guiDraw)
 
 					Text.updateAll()
 

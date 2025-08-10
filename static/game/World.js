@@ -31,7 +31,26 @@ export class World {
 
 		setInterval(() => {
 			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
-		}, 800);
+		}, 200);
+		
+		Html.lower([
+			Html.div('big', [
+				Html.p('hei fucker bitch'),
+			]),
+		])
+
+		Html.upperLeft([
+			Html.button('buy turret', () => {
+
+				Mouse.onClick = p => {
+					console.log("hei")
+					tla(new Turret(p.copy()))
+					Audio.click()
+					Mouse.onClick = null
+				}
+
+			}),
+		])
 	}
 
 	update() {
@@ -40,6 +59,13 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+
+		if (Mouse.onClick) {
+			console.log("hei")
+			console.log(Mouse.onClick)
+			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
+		}
 
 		for (const p of this.walkableTiles) {
 
