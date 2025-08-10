@@ -1,5 +1,5 @@
 export class Monster extends DynamicGameObject {
-	constructor() {
+	constructor(paths) {
 		super(new Position(677, -644, 100, 100), 10, 10)
 
 		this.localObjects = new LocalObjects([
@@ -8,12 +8,7 @@ export class Monster extends DynamicGameObject {
 				hp: new Hp(this, () => {
 					this.removeFromLoop()
 				}),
-				path: new Path(this, [
-					new Position(677, -653),
-					new Position(800, 80),
-					new Position(140, 618),
-					new Position(-800, 2),
-				]),
+				path: new Path(this, paths),
 				// splashParticles: new SplashParticles(),
 				sprite: G.Sprite.enemy(this.position),
 			}),

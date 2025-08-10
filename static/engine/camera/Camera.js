@@ -77,8 +77,8 @@ export class Camera {
 	static followInstantly(o) {
 		this.objectToFollow = o
 
-		this.position.x = o.position.x
-		this.position.y = o.position.y
+		this.position.x = o.x
+		this.position.y = o.y
 	}
 
 	static p(p) { // screenPosition //todo improve ofc.

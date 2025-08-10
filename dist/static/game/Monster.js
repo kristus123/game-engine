@@ -3,6 +3,7 @@ import { Hp } from '/static/engine/Hp.js';
 import { Init } from '/static/engine/Init.js'; 
 import { Loop } from '/static/engine/Loop.js'; 
 import { Sine } from '/static/engine/animation/Sine.js'; 
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { SplashParticles } from '/static/engine/graphics/particles/SplashParticles.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Path } from '/static/engine/npc/Path.js'; 
@@ -12,9 +13,12 @@ import { Move } from '/static/engine/physics/Move.js';
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class Monster extends DynamicGameObject {
-	constructor() {
+	constructor(paths) {
 		super(new Position(677, -644, 100, 100), 10, 10)
 
+				AssertNotNull(paths, "argument paths in " + this.constructor.name + ".js should not be null")
+			
+		this.paths = paths; 
 
 
 		this.localObjects = new LocalObjects([
@@ -23,12 +27,7 @@ export class Monster extends DynamicGameObject {
 				hp: new Hp(this, () => {
 					this.removeFromLoop()
 				}),
-				path: new Path(this, [
-					new Position(677, -653),
-					new Position(800, 80),
-					new Position(140, 618),
-					new Position(-800, 2),
-				]),
+				path: new Path(this, paths),
 				// splashParticles: new SplashParticles(),
 				sprite: G.Sprite.enemy(this.position),
 			}),
