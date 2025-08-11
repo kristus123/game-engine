@@ -61,3 +61,12 @@
   border-radius: 8px;
   font-size: 20px;
 }
+
+
+
+
+.my-picture {
+  display: block;
+  max-width: 80px;
+  margin: 20px auto;
+}

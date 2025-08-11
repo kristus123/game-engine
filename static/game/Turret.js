@@ -1,3 +1,5 @@
+
+
 export class Turret extends DynamicGameObject {
 	constructor(position) {
 		super(position, 1, 1)
@@ -5,15 +7,17 @@ export class Turret extends DynamicGameObject {
 		this.position.width = 100
 		this.position.height = 100
 
+		this.a = new TestAudio(G.Audio.sheet)
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				charge: new Charge(5, 10),
-			}),
+			this.charge = new Charge(1, 10),
+			this.sine = new Sine(5, 0.1),
 		])
+
 	}
 
 	update() {
+		this.position.resize(this.sine.value)
 		this.localObjects.update()
 
 
@@ -23,6 +27,7 @@ export class Turret extends DynamicGameObject {
 
 			const s = new Square(this.position.copy(), 10)
 			ForcePush(s).towards(m.position.center, 400)
+			this.a.play(1)
 			s.update = () => {
 				if (s.touchesAny(G.monsters)) {
 					console.log('hit')
@@ -40,6 +45,7 @@ export class Turret extends DynamicGameObject {
 
 
 		draw.rectangle(this.position)
-		draw.radius(this.position, 800)
+		draw.radius(this.position.center, 800)
+		draw.circle(this.position.center)
 	}
 }

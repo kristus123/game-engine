@@ -6,8 +6,11 @@ export class Html {
 
 	static upperLeft(elements) {
 		Html.addToScreen(
-			Html.div('upper-left-ui', elements))
+			Html.div('upper-left-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
 	}
+
 	static upper(elements) {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
@@ -185,11 +188,9 @@ export class Html {
 
 	static img() {
 		const img = HtmlElement('img', '')
-		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ';
+		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ'
 
 		return img
-
-		
 	}
 
 	static addToScreen(element) {
@@ -387,5 +388,6 @@ export class Html {
 		menu.appendChild(subMenu)
 		return menu
 	}
+
 
 }

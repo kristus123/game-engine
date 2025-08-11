@@ -10,9 +10,10 @@ export const G = {
 	fire: new LocalObjects([]),
 	splash: new SplashParticles(),
 	chickenFood: new LocalObjects([]),
-	money: 0,
+	money: 20,
 	pictures: {},
 	Sprite: {},
+	Audio: {},
 	image: {},
 	SpriteLayers: {},
 }
