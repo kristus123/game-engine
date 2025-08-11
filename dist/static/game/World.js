@@ -1,5 +1,4 @@
 import { G } from '/static/engine/G.js'; 
-import { Random } from '/static/engine/Random.js'; 
 import { a } from '/static/engine/a.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
@@ -11,7 +10,6 @@ import { Http } from '/static/engine/http/Http.js';
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { BottomText } from '/static/game/BottomText.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 
@@ -24,7 +22,6 @@ export class World {
 		Camera.followInstantly(new Position(500, 500))
 
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
-		console.log(this.jsonFile)
 		this.width = this.jsonFile.tilemaps[0].width
 		this.height = this.jsonFile.tilemaps[0].height
 
@@ -44,26 +41,15 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-
-			new Turret(new Position(400, 800)),
 		])
 
 		setInterval(() => {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-
-		setInterval(() => {
-			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
-		}, 200)
-
-		Html.upperLeft([
+		Html.upperRight([
 			Html.button('buy turret', () => {
 				Mouse.onClick = p => {
-					this.localObjects.add(new BottomText(Random.choice([
-						['wow you bought a turret', 'you are quite good'],
-					])))
-					
 					this.localObjects.add(new Turret(p.copy()))
 					Audio.click()
 
@@ -75,6 +61,10 @@ export class World {
 				}
 			}),
 		])
+
+		Html.upperLeft([
+			this.money = Html.p(G.money),
+		])
 	}
 
 	update() {
@@ -82,8 +72,9 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
+		Html.changeText(this.money, G.money)
+		
 		this.localObjects.draw(draw, guiDraw)
-
 
 		if (Mouse.onClick) {
 			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))

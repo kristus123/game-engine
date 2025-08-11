@@ -5,7 +5,6 @@ export class World {
 		Camera.followInstantly(new Position(500, 500))
 
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
-		console.log(this.jsonFile)
 		this.width = this.jsonFile.tilemaps[0].width
 		this.height = this.jsonFile.tilemaps[0].height
 
@@ -25,26 +24,15 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-
-			new Turret(new Position(400, 800)),
 		])
 
 		setInterval(() => {
 			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-
-		setInterval(() => {
-			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
-		}, 200)
-
-		Html.upperLeft([
+		Html.upperRight([
 			Html.button('buy turret', () => {
 				Mouse.onClick = p => {
-					tla(new BottomText(Random.choice([
-						['wow you bought a turret', 'you are quite good'],
-					])))
-					
 					tla(new Turret(p.copy()))
 					Audio.click()
 
@@ -56,6 +44,10 @@ export class World {
 				}
 			}),
 		])
+
+		Html.upperLeft([
+			this.money = Html.p(G.money),
+		])
 	}
 
 	update() {
@@ -63,8 +55,9 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
+		Html.changeText(this.money, G.money)
+		
 		this.localObjects.draw(draw, guiDraw)
-
 
 		if (Mouse.onClick) {
 			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))

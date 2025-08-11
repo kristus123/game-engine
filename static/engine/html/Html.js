@@ -6,7 +6,16 @@ export class Html {
 
 	static upperLeft(elements) {
 		Html.addToScreen(
-			Html.div('upper-left-ui', elements))
+			Html.div('upper-left-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+	static upperRight(elements) {
+		Html.addToScreen(
+			Html.div('upper-right-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
 	}
 
 	static upper(elements) {
