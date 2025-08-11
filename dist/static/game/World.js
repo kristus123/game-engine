@@ -47,6 +47,8 @@ export class World {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
+
+
 		Html.upper([
 			this.buyTurret = Html.button('buy turret', () => {
 				Mouse.onClick = p => {
@@ -79,7 +81,7 @@ export class World {
 		else {
 			Html.disable(this.buyTurret)
 		}
-		
+
 		this.localObjects.draw(draw, guiDraw)
 
 		if (Mouse.onClick) {

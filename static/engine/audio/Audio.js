@@ -1,8 +1,6 @@
 /* eslint-disable no-undef, */ // Ignore Howl import warning
 
 
-
-
 export class Audio {
 
 	static play() {

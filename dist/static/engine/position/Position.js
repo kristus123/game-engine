@@ -88,16 +88,16 @@ export class Position {
 		this._height = h
 	}
 
-resize(scale) {
-    const cx = this.center.x
-    const cy = this.center.y
+	resize(scale) {
+		const cx = this.center.x
+		const cy = this.center.y
 
-    this.width += scale;
-    this.height += scale;
+		this.width += scale
+		this.height += scale
 
-    this.x = cx - this.width / 2;
-    this.y = cy - this.height / 2;
-}
+		this.x = cx - this.width / 2
+		this.y = cy - this.height / 2
+	}
 
 	size(width, height) {
 		this.width = width

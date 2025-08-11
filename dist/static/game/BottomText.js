@@ -29,7 +29,7 @@ export class BottomText {
 	update() {
 		this.quest.update()
 	}
-	
+
 	draw(draw, guiDraw) {
 		this.quest.draw(draw, guiDraw)
 	}

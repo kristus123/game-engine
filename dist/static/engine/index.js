@@ -6,6 +6,8 @@ import { Palette } from '/static/engine/Palette.js';
 import { a } from '/static/engine/a.js'; 
 import { AsepriteJson } from '/static/engine/aseprite/AsepriteJson.js'; 
 import { AsepriteLayerJson } from '/static/engine/aseprite/AsepriteLayerJson.js'; 
+import { Audio } from '/static/engine/audio/Audio.js'; 
+import { AudioContext } from '/static/engine/audio/AudioContext.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
@@ -45,6 +47,21 @@ function loadImage(pngPath) {
 	})
 }
 
+
+async function loadAudio(url) {
+	try {
+		const r = await fetch(url)
+		const arrayBuffer = await r.arrayBuffer()
+		return await AudioContext.decodeAudioData(arrayBuffer)
+	}
+	catch (err) {
+		console.error('Error loading audio:', err)
+		return null
+	}
+}
+
+
+
 const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/new_farmer","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(path => {
 	if (path.includes('.json')) {
 		return Promise.resolve('ok')
@@ -66,8 +83,11 @@ const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
+	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+		G.Audio[a.split('/').pop().replace(".mp3", "")] = xxx
+	}))
 
-	return Promise.all([spriteLayers, sprite, image])
+	return Promise.all([spriteLayers, sprite, image, ...audios])
 }))
 
 
@@ -76,7 +96,7 @@ whenLoaded.then(() => {
 		const mainPalette = Palette.main()
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
-		const showLogs = new ShowLogs(guiPalette)
+		// const showLogs = new ShowLogs(guiPalette)
 
 		Mouse.initialize()
 		Camera.initialize()
@@ -110,7 +130,7 @@ whenLoaded.then(() => {
 					Mouse.draw(draw, guiDraw)
 				})
 
-				showLogs.draw()
+				// showLogs.draw()
 
 				Palette.fill(backgroundPalette, 'black')
 				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])

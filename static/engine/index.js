@@ -23,6 +23,21 @@ function loadImage(pngPath) {
 	})
 }
 
+
+async function loadAudio(url) {
+	try {
+		const r = await fetch(url)
+		const arrayBuffer = await r.arrayBuffer()
+		return await AudioContext.decodeAudioData(arrayBuffer)
+	}
+	catch (err) {
+		console.error('Error loading audio:', err)
+		return null
+	}
+}
+
+
+
 const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	if (path.includes('.json')) {
 		return Promise.resolve('ok')
@@ -44,8 +59,11 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
+	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+		G.Audio[a.split('/').pop().replace(".mp3", "")] = xxx
+	}))
 
-	return Promise.all([spriteLayers, sprite, image])
+	return Promise.all([spriteLayers, sprite, image, ...audios])
 }))
 
 
@@ -54,7 +72,7 @@ whenLoaded.then(() => {
 		const mainPalette = Palette.main()
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
-		const showLogs = new ShowLogs(guiPalette)
+		// const showLogs = new ShowLogs(guiPalette)
 
 		Mouse.initialize()
 		Camera.initialize()
@@ -88,7 +106,7 @@ whenLoaded.then(() => {
 					Mouse.draw(draw, guiDraw)
 				})
 
-				showLogs.draw()
+				// showLogs.draw()
 
 				Palette.fill(backgroundPalette, 'black')
 				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
