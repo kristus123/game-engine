@@ -17,6 +17,7 @@ export class Html {
 		Html.addToScreen(
 			Html.div('upper-left-ui', elements))
 	}
+
 	static upper(elements) {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
@@ -396,5 +397,16 @@ export class Html {
 		menu.appendChild(subMenu)
 		return menu
 	}
+
+
+	static picture() {
+		const img = HtmlElement('img', 'my-picture')
+
+		img.src = 'https://wallpapers.com/images/high/anime-profile-picture-jioug7q8n43yhlwn.jpg'
+		img.alt = 'Anime profile picture'
+
+		return img
+	}
+
 
 }

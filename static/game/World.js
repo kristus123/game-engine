@@ -51,6 +51,16 @@ export class World {
 				})))
 		}
 		
+		setInterval(() => {
+			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+		}, 200)
+
+		Html.lower([
+			Html.div('big', [
+				Html.picture(),
+				Html.p('fight with honor!'),
+			]),
+		])
 
 		Html.upperLeft([
 			Html.button('buy turret', () => {
@@ -64,6 +74,12 @@ export class World {
 					tla(new Turret(p.copy()))
 					Audio.click()
 					Mouse.onClick = null
+					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+						console.log('hei')
+						tla(new Turret(p.copy()))
+						Audio.click()
+						Mouse.onClick = null
+					}
 				}
 
 			}),
@@ -80,13 +96,23 @@ export class World {
 
 		if (Mouse.onClick) {
 			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
+
+			if (!new Square(Mouse.position, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+				draw.color(new Position(Mouse.position.x, Mouse.position.y, 100, 100), 'red')
+			}
+			else {
+				draw.color(new Position(Mouse.position.x, Mouse.position.y, 100, 100), 'green')
+			}
 		}
 
 		for (const p of this.walkableTiles) {
+			// if (p.i == 1) {
+			// 	draw.transparentRedRectangle(p.position)
+			// }
 
-			if (p.i == 2) {
-				// draw.transparentRedRectangle(p.position)
-			}
+			// if (p.i == 2) {
+			// 	draw.transparentRedRectangle(p.position)
+			// }
 		}
 	}
 }
