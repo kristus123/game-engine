@@ -136,6 +136,7 @@
         "Audio": "readonly",
         "BackspaceEffect": "readonly",
         "Blur": "readonly",
+        "BottomText": "readonly",
         "Calculate": "readonly",
         "Call": "readonly",
         "Camera": "readonly",

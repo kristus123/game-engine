@@ -1,6 +1,6 @@
 import { G } from '/static/engine/G.js'; 
-import { Init } from '/static/engine/Init.js'; 
 import { Loop } from '/static/engine/Loop.js'; 
+import { Sine } from '/static/engine/animation/Sine.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { Charge } from '/static/engine/mechanics/Charge.js'; 
@@ -23,13 +23,13 @@ export class Turret extends DynamicGameObject {
 
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				charge: new Charge(5, 10),
-			}),
+			this.charge = new Charge(5, 10),
+			this.sine = new Sine(5, 0.1),
 		])
 	}
 
 	update() {
+		this.position.resize(this.sine.value)
 		this.localObjects.update()
 
 
@@ -56,6 +56,7 @@ export class Turret extends DynamicGameObject {
 
 
 		draw.rectangle(this.position)
-		draw.radius(this.position, 800)
+		draw.radius(this.position.center, 800)
+		draw.circle(this.position.center)
 	}
 }

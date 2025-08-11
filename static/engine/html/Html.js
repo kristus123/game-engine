@@ -186,11 +186,9 @@ export class Html {
 
 	static img() {
 		const img = HtmlElement('img', '')
-		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ';
+		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ'
 
 		return img
-
-		
 	}
 
 	static addToScreen(element) {
@@ -387,16 +385,6 @@ export class Html {
 		Html.hide(subMenu)
 		menu.appendChild(subMenu)
 		return menu
-	}
-
-
-	static picture() {
-		const img = HtmlElement('img', 'my-picture')
-
-		img.src = 'https://wallpapers.com/images/high/anime-profile-picture-jioug7q8n43yhlwn.jpg'
-		img.alt = 'Anime profile picture'
-
-		return img
 	}
 
 

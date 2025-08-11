@@ -30,58 +30,30 @@ export class World {
 		])
 
 		setInterval(() => {
-			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
-		}, 200);
+			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+		}, 200)
 
 
-		const chat = (texts) => {
-			this.localObjects.add(new Quest(texts.map(t => () =>  new class {
-					constructor() {
-						Html.lower([
-							Html.img(),
-							Html.div('big', [
-								Html.p(t),
-								Html.button('next', () => {
-									Html.clearLower()
-									this.completed = () => true
-								})
-							]),
-						])
-					}
-				})))
-		}
-		
 		setInterval(() => {
 			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-		Html.lower([
-			Html.div('big', [
-				Html.picture(),
-				Html.p('fight with honor!'),
-			]),
-		])
-
 		Html.upperLeft([
 			Html.button('buy turret', () => {
-
 				Mouse.onClick = p => {
-					console.log("hei")
-					chat(Random.choice([
-						['wow you bought a turret', 'you are really good'],
-						['i am an edgy boy'],
-					]))
+					tla(new BottomText(Random.choice([
+						['wow you bought a turret', 'you are quite good'],
+					])))
+					
 					tla(new Turret(p.copy()))
 					Audio.click()
-					Mouse.onClick = null
+
 					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
-						console.log('hei')
 						tla(new Turret(p.copy()))
 						Audio.click()
 						Mouse.onClick = null
 					}
 				}
-
 			}),
 		])
 	}

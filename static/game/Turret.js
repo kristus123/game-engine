@@ -7,13 +7,13 @@ export class Turret extends DynamicGameObject {
 
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				charge: new Charge(5, 10),
-			}),
+			this.charge = new Charge(5, 10),
+			this.sine = new Sine(5, 0.1),
 		])
 	}
 
 	update() {
+		this.position.resize(this.sine.value)
 		this.localObjects.update()
 
 
@@ -40,6 +40,7 @@ export class Turret extends DynamicGameObject {
 
 
 		draw.rectangle(this.position)
-		draw.radius(this.position, 800)
+		draw.radius(this.position.center, 800)
+		draw.circle(this.position.center)
 	}
 }

@@ -9,9 +9,9 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Html } from '/static/engine/html/Html.js'; 
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
-import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { BottomText } from '/static/game/BottomText.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 
@@ -49,77 +49,30 @@ export class World {
 		])
 
 		setInterval(() => {
-<<<<<<< HEAD
-			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
-		}, 200);
-
-
-		const chat = (texts) => {
-			this.localObjects.add(new Quest(texts.map(t => () =>  new class {
-					constructor() {
-						Html.lower([
-							Html.img(),
-							Html.div('big', [
-								Html.p(t),
-								Html.button('next', () => {
-									Html.clearLower()
-									this.completed = () => true
-								})
-							]),
-						])
-					}
-				})))
-		}
-		
-||||||| parent of 2bcab68 (x)
-			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)),)
-		}, 200);
-		
-		Html.lower([
-			Html.div('big', [
-				Html.p('hei fucker bitch'),
-			]),
-		])
-=======
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-		Html.lower([
-			Html.div('big', [
-				Html.picture(),
-				Html.p('fight with honor!'),
-			]),
-		])
->>>>>>> 2bcab68 (x)
+
+		setInterval(() => {
+			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+		}, 200)
 
 		Html.upperLeft([
 			Html.button('buy turret', () => {
-
 				Mouse.onClick = p => {
-<<<<<<< HEAD
-					console.log("hei")
-					chat(Random.choice([
-						['wow you bought a turret', 'you are really good'],
-						['i am an edgy boy'],
-					]))
+					this.localObjects.add(new BottomText(Random.choice([
+						['wow you bought a turret', 'you are quite good'],
+					])))
+					
 					this.localObjects.add(new Turret(p.copy()))
 					Audio.click()
-					Mouse.onClick = null
-||||||| parent of 2bcab68 (x)
-					console.log("hei")
-					this.localObjects.add(new Turret(p.copy()))
-					Audio.click()
-					Mouse.onClick = null
-=======
+
 					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
-						console.log('hei')
 						this.localObjects.add(new Turret(p.copy()))
 						Audio.click()
 						Mouse.onClick = null
 					}
->>>>>>> 2bcab68 (x)
 				}
-
 			}),
 		])
 	}
