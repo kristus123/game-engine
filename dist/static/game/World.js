@@ -47,8 +47,8 @@ export class World {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-		Html.upperRight([
-			Html.button('buy turret', () => {
+		Html.upper([
+			this.buyTurret = Html.button('buy turret', () => {
 				Mouse.onClick = p => {
 					this.localObjects.add(new Turret(p.copy()))
 					Audio.click()
@@ -73,6 +73,12 @@ export class World {
 
 	draw(draw, guiDraw) {
 		Html.changeText(this.money, G.money)
+		if (G.money > 10) {
+			Html.enable(this.buyTurret)
+		}
+		else {
+			Html.disable(this.buyTurret)
+		}
 		
 		this.localObjects.draw(draw, guiDraw)
 

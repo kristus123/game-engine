@@ -20,13 +20,6 @@ export class Html {
 			]))
 	}
 
-	static upperRight(elements) {
-		Html.addToScreen(
-			Html.div('upper-right-ui', [
-				Html.div('shoulder-to-shoulder', elements)
-			]))
-	}
-
 	static upper(elements) {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
