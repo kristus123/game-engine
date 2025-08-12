@@ -1,49 +1,37 @@
-
-/* eslint-disable no-undef, */ // Ignore Howl import warning
-
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { AudioEngine } from '/static/engine/audio/AudioEngine.js'; 
 
 export class Audio {
+	constructor(audioBuffer, bpm = 100) {
 
-	static play() {
-		const sound = new Howl({
-			src: ['/static/audio/intro.wav'],
-		})
+				AssertNotNull(audioBuffer, "argument audioBuffer in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(bpm, "argument bpm in " + this.constructor.name + ".js should not be null")
+			
+		this.audioBuffer = audioBuffer; 
+		this.bpm = bpm; 
 
-		sound.play()
+		const beatsPerBar = 4 // todo try playing around with this number
+		this.barDuration = (60 / bpm) * beatsPerBar
+
+		this.audioEngine = new AudioEngine(audioBuffer)
 	}
 
-
-	static breathing() {
-		const sound = new Howl({
-			src: ['/static/audio/astronaut_breathing.wav'],
-		})
-
-		sound.play()
+	stop() {
+		this.audioEngine.stop()
 	}
 
+	play(barNumber) {
+		const startTime = (barNumber - 1) * this.barDuration
 
-	static eat() {
-		const sound = new Howl({
-			src: ['/static/audio/eat.m4a'],
-		})
-
-		sound.play()
-	}
-
-	static poop() {
-		const sound = new Howl({
-			src: ['/static/audio/poop.wav'],
-		})
-
-		sound.play()
-	}
-
-	static music() {
-		//const sound = new Howl({
-		//	src: ['/static/audio/kristian_space_music.mp3'],
-		//})
-		//
-		//sound.play()
+		if (barNumber < 1) {
+			throw new Error('Bar number must be >= 1')
+		}
+		else if (startTime >= this.audioBuffer.duration) {
+			throw new Error('Bar number exceeds audio duration')
+		}
+		else {
+			this.audioEngine.play(startTime, this.barDuration)
+		}
 	}
 }
-

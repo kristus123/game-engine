@@ -1,48 +1,26 @@
-/* eslint-disable no-undef, */ // Ignore Howl import warning
-
-
 export class Audio {
+	constructor(audioBuffer, bpm = 100) {
+		const beatsPerBar = 4 // todo try playing around with this number
+		this.barDuration = (60 / bpm) * beatsPerBar
 
-	static play() {
-		const sound = new Howl({
-			src: ['/static/audio/intro.wav'],
-		})
-
-		sound.play()
+		this.audioEngine = new AudioEngine(audioBuffer)
 	}
 
-
-	static breathing() {
-		const sound = new Howl({
-			src: ['/static/audio/astronaut_breathing.wav'],
-		})
-
-		sound.play()
+	stop() {
+		this.audioEngine.stop()
 	}
 
+	play(barNumber) {
+		const startTime = (barNumber - 1) * this.barDuration
 
-	static eat() {
-		const sound = new Howl({
-			src: ['/static/audio/eat.m4a'],
-		})
-
-		sound.play()
-	}
-
-	static poop() {
-		const sound = new Howl({
-			src: ['/static/audio/poop.wav'],
-		})
-
-		sound.play()
-	}
-
-	static music() {
-		//const sound = new Howl({
-		//	src: ['/static/audio/kristian_space_music.mp3'],
-		//})
-		//
-		//sound.play()
+		if (barNumber < 1) {
+			throw new Error('Bar number must be >= 1')
+		}
+		else if (startTime >= this.audioBuffer.duration) {
+			throw new Error('Bar number exceeds audio duration')
+		}
+		else {
+			this.audioEngine.play(startTime, this.barDuration)
+		}
 	}
 }
-

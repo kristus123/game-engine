@@ -5,7 +5,7 @@ export class Turret extends DynamicGameObject {
 		this.position.width = 100
 		this.position.height = 100
 
-		this.a = new TestAudio(G.Audio.sheet)
+		this.a = new Audio(G.Audio.sheet)
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
