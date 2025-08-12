@@ -7,9 +7,6 @@ import { Turret } from '/static/game/Turret.js';
 import { MonsterSpawner } from '/static/game/components/populateWorld/MonsterSpawner.js'; 
 import { TurretPurchaserController } from '/static/game/components/populateWorld/TurretPurchaserController.js'; 
 
-/**
- * Handles adding monsters to the world and creating HTML control buttons.
- */
 export class PopulateWorld {
 
   constructor(tileService, localObjects) {

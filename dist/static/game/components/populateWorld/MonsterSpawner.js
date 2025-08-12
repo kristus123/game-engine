@@ -1,10 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 
-
-/**
- * Handles periodic spawning of monsters based on available tile positions.
- */
 export class MonsterSpawner {
 
   constructor(tileService, localObjects, interval = 200) {

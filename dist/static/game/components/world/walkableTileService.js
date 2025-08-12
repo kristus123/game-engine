@@ -1,8 +1,8 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
-
 export class WalkableTileService {
+  
   constructor(width, height, scale) {
 
 				AssertNotNull(width, "argument width in " + this.constructor.name + ".js should not be null")
@@ -21,6 +21,7 @@ export class WalkableTileService {
     this.walkableTiles = [];
   }
 
+  
   setTiles(tiles) {
     this.walkableTiles = tiles.map(e => ({
       i: e.i,
@@ -33,7 +34,10 @@ export class WalkableTileService {
     }));
   }
 
+
   getTilesByType(type) {
-    return this.walkableTiles.filter(t => t.i === type).map(t => t.position);
+    return this.walkableTiles
+      .filter(t => t.i === type)
+      .map(t => t.position);
   }
 }
