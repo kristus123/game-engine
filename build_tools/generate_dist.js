@@ -1,6 +1,5 @@
 const Files = require('./Files')
 
-
 require('./transpiler')
 require('./copy_asset_folder_to_dist')
 require('./generate_helper_classes')
