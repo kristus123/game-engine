@@ -1,5 +1,11 @@
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/a.js'; 
+<<<<<<< HEAD
+||||||| parent of 238d9b4 (x)
+import { Audio } from '/static/engine/audio/Audio.js'; 
+=======
+import { Sound } from '/static/engine/audio/Sound.js'; 
+>>>>>>> 238d9b4 (x)
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
@@ -29,7 +35,40 @@ export class World {
     this.tileService = new WalkableTileService(width, height, scale);
     this.tileService.setTiles(tiles);
 
+<<<<<<< HEAD
     this.localObjects = new LocalObjects([
+||||||| parent of 238d9b4 (x)
+
+		this.walkableTiles = []
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+			this.walkableTiles.push({
+				i: e.i,
+				position: new Position(
+					(e.x * scale * this.width),
+					(e.y * scale * this.height),
+					this.width * scale,
+					this.height * scale,
+				)
+			})
+		}
+
+		this.localObjects = new LocalObjects([
+=======
+		this.walkableTiles = []
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+			this.walkableTiles.push({
+				i: e.i,
+				position: new Position(
+					(e.x * scale * this.width),
+					(e.y * scale * this.height),
+					this.width * scale,
+					this.height * scale,
+				)
+			})
+		}
+
+		this.localObjects = new LocalObjects([
+>>>>>>> 238d9b4 (x)
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
       new BottomText([
 				"when life is hard, just remember",
@@ -43,6 +82,7 @@ export class World {
     
   }
 
+<<<<<<< HEAD
   update() {
     this.localObjects.update();
   }
@@ -56,6 +96,36 @@ export class World {
   }
 
   draw(draw, guiDraw) {
+||||||| parent of 238d9b4 (x)
+
+
+		Html.upper([
+			this.buyTurret = Html.button('buy turret', () => {
+				Mouse.onClick = p => {
+					this.localObjects.add(new Turret(p.copy()))
+					Audio.click()
+
+					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+						this.localObjects.add(new Turret(p.copy()))
+						Audio.click()
+						Mouse.onClick = null
+					}
+				}
+			}),
+		])
+=======
+		Html.upper([
+			this.buyTurret = Html.button('buy turret', () => {
+				Mouse.onClick = p => {
+					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+						this.localObjects.add(new Turret(p.copy()))
+						Sound.click()
+						Mouse.onClick = null
+					}
+				}
+			}),
+		])
+>>>>>>> 238d9b4 (x)
 
     this.localObjects.draw(draw, guiDraw);
 

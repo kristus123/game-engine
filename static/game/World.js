@@ -11,7 +11,40 @@ export class World {
     this.tileService = new WalkableTileService(width, height, scale);
     this.tileService.setTiles(tiles);
 
+<<<<<<< HEAD
     this.localObjects = new LocalObjects([
+||||||| parent of 238d9b4 (x)
+
+		this.walkableTiles = []
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+			this.walkableTiles.push({
+				i: e.i,
+				position: new Position(
+					(e.x * scale * this.width),
+					(e.y * scale * this.height),
+					this.width * scale,
+					this.height * scale,
+				)
+			})
+		}
+
+		this.localObjects = new LocalObjects([
+=======
+		this.walkableTiles = []
+		for (const e of this.jsonFile.tilemaps[0].tiles) {
+			this.walkableTiles.push({
+				i: e.i,
+				position: new Position(
+					(e.x * scale * this.width),
+					(e.y * scale * this.height),
+					this.width * scale,
+					this.height * scale,
+				)
+			})
+		}
+
+		this.localObjects = new LocalObjects([
+>>>>>>> 238d9b4 (x)
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
       new BottomText([
 				"when life is hard, just remember",
@@ -25,6 +58,7 @@ export class World {
     
   }
 
+<<<<<<< HEAD
 
   update() {
     this.localObjects.update();
@@ -37,6 +71,36 @@ export class World {
   getTilesService(){
     return this.tileService
   }
+||||||| parent of 238d9b4 (x)
+
+
+		Html.upper([
+			this.buyTurret = Html.button('buy turret', () => {
+				Mouse.onClick = p => {
+					tla(new Turret(p.copy()))
+					Audio.click()
+
+					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+						tla(new Turret(p.copy()))
+						Audio.click()
+						Mouse.onClick = null
+					}
+				}
+			}),
+		])
+=======
+		Html.upper([
+			this.buyTurret = Html.button('buy turret', () => {
+				Mouse.onClick = p => {
+					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
+						tla(new Turret(p.copy()))
+						Sound.click()
+						Mouse.onClick = null
+					}
+				}
+			}),
+		])
+>>>>>>> 238d9b4 (x)
 
   draw(draw, guiDraw) {
 

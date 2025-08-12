@@ -61,6 +61,7 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 		.then(img => G.image[fileName] = img)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	const audios = ['/static/audio/sheet.mp3', '/static/audio/click.mp3'].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 ||||||| parent of d52ba36 (x)
@@ -68,6 +69,11 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 		G.Audio[a.split('/').pop().replace(".mp3", "")] = xxx
 =======
 	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+||||||| parent of 238d9b4 (x)
+	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+=======
+	const audios = ['/static/audio/sheet.mp3', '/static/audio/click.mp3'].map(a => loadAudio(a).then(xxx => {
+>>>>>>> 238d9b4 (x)
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 >>>>>>> d52ba36 (x)
 	}))

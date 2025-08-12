@@ -17,9 +17,22 @@ export class Audio {
 		this.audioEngine = new AudioEngine(audioBuffer)
 	}
 
+<<<<<<< HEAD
 	stop() {
 		this.audioEngine.stop()
 	}
+||||||| parent of 238d9b4 (x)
+	static click() {
+		const sound = new Howl({
+			src: ['/static/audio/click.mp3'],
+		})
+
+		sound.volume(0.5)
+
+		sound.play()
+	}
+=======
+>>>>>>> 238d9b4 (x)
 
 	play(barNumber) {
 		const startTime = (barNumber - 1) * this.barDuration
