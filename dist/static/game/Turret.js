@@ -12,8 +12,6 @@ import { LocalObjects } from '/static/engine/objects/LocalObjects.js';
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
 
-
-
 export class Turret extends DynamicGameObject {
 	constructor(position) {
 		super(position, 1, 1)
@@ -45,8 +43,8 @@ export class Turret extends DynamicGameObject {
 			this.charge.exhaust()
 
 			const s = new Square(this.position.copy(), 10)
+			this.a.play(3)
 			ForcePush(s).towards(m.position.center, 400)
-			this.a.play(1)
 			s.update = () => {
 				if (s.touchesAny(G.monsters)) {
 					console.log('hit')
