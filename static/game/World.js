@@ -19,6 +19,7 @@ export class World {
     
   }
 
+
   update() {
     this.localObjects.update();
   }
