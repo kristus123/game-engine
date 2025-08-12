@@ -12,11 +12,16 @@ import { Square } from '/static/engine/graphics/Square.js';
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+<<<<<<< HEAD
 import { BottomText } from '/static/game/BottomText.js'; 
 import { TileMapLoader } from '/static/game/components/world/TileMapLoader.js'; 
 import { WalkableTileService } from '/static/game/components/world/WalkableTileService.js'; 
 
 import { BottomText } from '/static/game/BottomText.js'; 
+||||||| parent of 321787c (x)
+=======
+import { BottomText } from '/static/game/BottomText.js'; 
+>>>>>>> 321787c (x)
 import { Monster } from '/static/game/Monster.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 
@@ -70,6 +75,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 >>>>>>> 238d9b4 (x)
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
+<<<<<<< HEAD
       new BottomText([
 				"when life is hard, just remember",
 				"It will get harder",
@@ -112,6 +118,16 @@ export class World {
 					}
 				}
 			}),
+||||||| parent of 321787c (x)
+=======
+			new BottomText([
+				"when life is hard, just remember",
+				"It will get harder",
+				"It will get so hard that you will cry",
+				"That is a small step towards your next part in life",
+				"So when you are about to cry....",
+			]),
+>>>>>>> 321787c (x)
 		])
 =======
 		Html.upper([

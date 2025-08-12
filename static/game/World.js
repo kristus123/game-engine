@@ -46,6 +46,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 >>>>>>> 238d9b4 (x)
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
+<<<<<<< HEAD
       new BottomText([
 				"when life is hard, just remember",
 				"It will get harder",
@@ -87,6 +88,16 @@ export class World {
 					}
 				}
 			}),
+||||||| parent of 321787c (x)
+=======
+			new BottomText([
+				"when life is hard, just remember",
+				"It will get harder",
+				"It will get so hard that you will cry",
+				"That is a small step towards your next part in life",
+				"So when you are about to cry....",
+			]),
+>>>>>>> 321787c (x)
 		])
 =======
 		Html.upper([
