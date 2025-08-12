@@ -4,7 +4,6 @@ import { a } from '/static/engine/a.js';
 import { Sine } from '/static/engine/animation/Sine.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
-import { TestAudio } from '/static/engine/audio/TestAudio.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { Charge } from '/static/engine/mechanics/Charge.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
@@ -24,7 +23,7 @@ export class Turret extends DynamicGameObject {
 		this.position.width = 100
 		this.position.height = 100
 
-		this.a = new TestAudio(G.Audio.sheet)
+		this.a = new Audio(G.Audio.sheet)
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),

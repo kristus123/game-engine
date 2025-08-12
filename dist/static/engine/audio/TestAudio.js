@@ -1,8 +1,7 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Audio } from '/static/engine/audio/Audio.js'; 
 import { AudioEngine } from '/static/engine/audio/AudioEngine.js'; 
 
-export class TestAudio {
+export class Audio {
 	constructor(audioBuffer, bpm = 100) {
 
 				AssertNotNull(audioBuffer, "argument audioBuffer in " + this.constructor.name + ".js should not be null")
