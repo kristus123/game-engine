@@ -1,4 +1,3 @@
-
 const scale = 8;
 
 export class World {
