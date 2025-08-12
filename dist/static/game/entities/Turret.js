@@ -30,7 +30,6 @@ export class Turret extends DynamicGameObject {
 			this.charge = new Charge(1, 10),
 			this.sine = new Sine(5, 0.1),
 		])
-
 	}
 
 	update() {

@@ -59,7 +59,7 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
-	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+	const audios = ['/static/audio/sheet.mp3', '/static/audio/click.mp3'].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 	}))
 
@@ -73,7 +73,9 @@ whenLoaded.then(() => {
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
 		// const showLogs = new ShowLogs(guiPalette)
+		//
 
+		Sound.init()
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()

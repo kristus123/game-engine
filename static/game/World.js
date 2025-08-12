@@ -1,24 +1,7 @@
-import { G } from '/static/engine/G.js'; 
-import { a } from '/static/engine/a.js'; 
-import { Sound } from '/static/engine/audio/Sound.js'; 
-import { Camera } from '/static/engine/camera/Camera.js'; 
-import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { Square } from '/static/engine/graphics/Square.js'; 
-import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { Html } from '/static/engine/html/Html.js'; 
-import { Http } from '/static/engine/http/Http.js'; 
-import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
-import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
-import { Monster } from '/static/game/entities/Monster.js'; 
-import { Turret } from '/static/game/entities/Turret.js'; 
-
 const scale = 8
 
 export class World {
 	constructor() {
-
-
 		Camera.followInstantly(new Position(500, 500))
 
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
@@ -43,14 +26,14 @@ export class World {
 		])
 
 		setInterval(() => {
-			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
 		Html.upper([
 			this.buyTurret = Html.button('buy turret', () => {
 				Mouse.onClick = p => {
 					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
-						this.localObjects.add(new Turret(p.copy()))
+						tla(new Turret(p.copy()))
 						Sound.click()
 						Mouse.onClick = null
 					}
