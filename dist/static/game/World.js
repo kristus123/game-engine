@@ -9,6 +9,9 @@ import { Position } from '/static/engine/position/Position.js';
 import { TileMapLoader } from '/static/game/components/world/TileMapLoader.js'; 
 import { WalkableTileService } from '/static/game/components/world/WalkableTileService.js'; 
 
+import { BottomText } from '/static/game/BottomText.js'; 
+import { Monster } from '/static/game/Monster.js'; 
+import { Turret } from '/static/game/Turret.js'; 
 
 const scale = 8;
 
@@ -59,4 +62,4 @@ export class World {
         }
     }
   }
-}
+
