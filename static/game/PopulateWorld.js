@@ -1,6 +1,3 @@
-/**
- * Handles adding monsters to the world and creating HTML control buttons.
- */
 export class PopulateWorld {
 
   constructor(tileService, localObjects) {
