@@ -60,8 +60,16 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
+<<<<<<< HEAD
 	const audios = ['/static/audio/sheet.mp3', '/static/audio/click.mp3'].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
+||||||| parent of d52ba36 (x)
+	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+		G.Audio[a.split('/').pop().replace(".mp3", "")] = xxx
+=======
+	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
+>>>>>>> d52ba36 (x)
 	}))
 
 	return Promise.all([spriteLayers, sprite, image, ...audios])
