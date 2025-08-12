@@ -90,4 +90,10 @@ module.exports = class {
 		fs.writeFileSync(path, content)
 	}
 
+	static replace(path, x, y) {
+		const content = this.read(path)
+			.replaceAll(x, y)
+		this.write(path, content)
+	}
+
 }

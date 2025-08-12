@@ -1,4 +1,4 @@
-const jsFiles = require('./get_js_files')
+const jsFiles = require('./js_files')
 const Files = require('./Files')
 const Path = require('path')
 

@@ -1,5 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+const Files = require('./Files')
+
 
 const jsFiles = []
 

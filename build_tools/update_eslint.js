@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const jsFiles = require('./get_js_files')
+const jsFiles = require('./js_files')
 
 const eslintGlobalsConfig = {}
 jsFiles.forEach(jsFile => {
