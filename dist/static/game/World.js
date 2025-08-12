@@ -58,7 +58,7 @@ export class World {
 			}),
 		])
 
-		Html.upperLeft([
+		Html.upperRight([
 			this.money = Html.p(G.money),
 		])
 	}

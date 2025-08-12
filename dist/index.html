@@ -3,31 +3,495 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="/static/ui/css/animations/fade_away.css">
-<link rel="stylesheet" href="/static/ui/css/animations/fade_in.css">
-<link rel="stylesheet" href="/static/ui/css/animations/typing_effect.css">
-<link rel="stylesheet" href="/static/ui/css/styling/button.css">
-<link rel="stylesheet" href="/static/ui/css/styling/dialog.css">
-<link rel="stylesheet" href="/static/ui/css/styling/div.css">
-<link rel="stylesheet" href="/static/ui/css/styling/img.css">
-<link rel="stylesheet" href="/static/ui/css/styling/input.css">
-<link rel="stylesheet" href="/static/ui/css/styling/main.css">
-<link rel="stylesheet" href="/static/ui/css/styling/overlay.css">
-<link rel="stylesheet" href="/static/ui/css/styling/progress_bar.css">
-<link rel="stylesheet" href="/static/ui/css/styling/right_click_menu.css">
-<link rel="stylesheet" href="/static/ui/css/styling/slider.css">
-<link rel="stylesheet" href="/static/ui/css/styling/text.css">
-<link rel="stylesheet" href="/static/ui/css/styling/ui.css">
-<link rel="stylesheet" href="/static/ui/css/styling/video.css">
-<link rel="stylesheet" href="/static/ui/css/styling/videocall.css">
+		<style>
+			.fade-away {
+  animation: fadeOutOpacity 0.2s forwards;
+}
+
+@keyframes fadeOutOpacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 2s ease-in forwards;
+}
+
+p {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 24px;
+  animation: typing 1s steps(22);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 80% }
+}
+
+button {
+	font-size: 20px;
+	padding: 30px 50px; 
+	border-radius: 50px;
+	background-color: #007bff; 
+	color: #fff; 
+}
+
+button:hover {
+	background-color: green;
+}
+
+button:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.6;
+  cursor: default; /* Change to whatever you prefer */
+}
+
+button:disabled:hover {
+  background-color: darkgray; /* Slight change on hover */
+}
+
+dialog {
+  background: transparent;
+border: none;
+  box-shadow: none;
+	/* border-radius: 8px; */
+	/* padding: 20px; */
+	/* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+	/* background: transparent; */
+
+	/* width:90%; */
+	/* height:50%; */
+	max-width:80%;
+	min-width:50%;
+}
+
+
+dialog > div {
+	padding:100px;
+    border: none;
+  background-color: white;
+}
+
+
+.close {
+	cursor: pointer;
+	font-size: 20px;
+	float: right;
+}
+
+dialog::backdrop {
+  opacity: 0.95;
+  background-color: transparent;
+  box-shadow: none;
+    border: none;
+backdrop-filter: blur(20px);
+}
+
+div {
+ box-sizing: border-box;
+}
+
+
+div.big {
+	min-width:800px;
+	/* min-height:500px; */
+	padding:20px;
+	background-color: #F2F2F2;
+	border-radius: 20px;
+
+  place-items: center; /* shorthand for justify-content and align-items */
+}
+
+
+.big button {
+	background-color: orange; 
+}
+
+img {
+	width:180px;
+}
+
+  input[type="text"] {
+    width: 280px;
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  input[type="text"]:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+  }
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	height: 100vh;
+	overflow: hidden; /* Prevent scrollbars */
+}
+
+canvas {
+	display: block; /* Remove default spacing */
+}
+
+.container {
+	width: 90vw;
+	height: 90vh;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.top,
+.bottom {
+	white-space: nowrap;
+	/*width: 100%;*/
+	/*height: 150px;*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	overflow-x: auto;
+	gap: 10px;
+}
+
+.right,
+.left {
+	display: block;
+	/* display: flex; */
+	margin: 10px 0;
+	overflow-y: auto;
+	min-width: 120px;
+	/* height: 100%; */
+	/* height: calc(100% - 200px); */
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+  flex-direction: row; /* Stack divs vertically */
+	flex-wrap: wrap;
+}
+
+.right {
+    right: 20px;
+}
+
+.left {
+    left: 20px;
+}
+
+.item {
+    min-width: 100px;
+    min-height: 100px;
+    /* background: indianred; */
+    margin: 10px 0;
+}
+
+.progress-container {
+	background-color: white;
+	border-radius: 10px;
+	overflow: hidden;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.progress-bar {
+	width: 0%; /* Initially 0% */
+	height: 100%;
+	background-color: #4caf50;
+	text-align: center;
+	line-height: 20px;
+	color: white;
+	font-weight: bold;
+	transition: width 0.5s ease-in-out;
+}
+
+.right-click-menu {
+	background-color: black;
+	min-width: 200px;
+	min-height: 400px;
+}
+.sub-menu {
+	background-color: black;
+	min-width: 200px;
+	min-height: fit-content;
+	position: absolute;
+	transform: translateX(100%);
+	margin-left: -20px																																																																																																		;
+	top:0;
+	
+}
+.right-click-element {
+	min-width: 200px;
+	min-height: 20px;
+
+	padding: 20px;
+	background-color: gray;
+}
+
+.right-click-element:hover {
+	background-color: green;
+}
+
+input[type="range"] {
+  width: 700px; /* Adjust width */
+  height: 20px; /* Adjust track height */
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  background: #ddd; /* Track color */
+  border-radius: 5px;
+  margin:20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px; /* Thumb size */
+  height: 50px;
+  background: #007bff; /* Thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+
+
+/* make text not "markable" */
+html, body, * {
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;         /* Standard */
+  -webkit-user-drag: none;
+}
+
+
+
+
+
+body {
+	font-family: 'VT323', monospace;
+}
+
+h1, h2, h3, h4, p {
+	font-family: 'VT323', monospace;
+}
+
+
+h1 {
+	font-size: 80px;
+}
+
+p {
+	color: white;
+	font-size: 30px;
+	color:black;
+}
+
+
+.pokemon-text {
+	width: 50%;
+	background-color: white;
+	color: black;
+	text-align: center;
+	padding: 20px;
+	font-size: 60px;
+	border: 2px solid black;
+	margin:10px;
+}
+
+.crossed {
+	color: grey;
+	text-decoration: line-through;
+}
+
+.ui {
+	position: absolute;
+	top: 0; 
+	left: 0;
+
+	border: none; 
+	cursor: auto;
+}
+
+.fill-ui {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 8s ease;
+}
+
+
+.center-ui {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.lower-center-ui {
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width:90%;
+}
+
+.upper-center-ui {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width:90%;
+}
+
+.shoulder-to-shoulder {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+
+
+.upper-left-ui {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.upper-right-ui {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: auto; /* override .ui left: 0 */
+  width: auto; /* prevent full width */
+  
+  background-color: white;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+.my-picture {
+  display: block;
+  max-width: 80px;
+  margin: 20px auto;
+}
+
+video {
+
+	width:80%;
+
+}
+
+#videocallrtc{
+	position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+#videocallrtc > div{
+    width: 100px;
+    border-radius: 10px;
+    overflow:hidden;
+}
+#videocallrtc > div > video{
+    width: 100px;
+    border-radius: 10px;
+}
+
+#videocallrtc > div> h3{
+    position: absolute;
+    top: 0;
+    float: right;
+    color: transparent;
+    text-align: center;
+    width: 100px;
+    min-height: 100%;
+    margin: 0;
+}
+#videocallrtc > div> h3:hover{
+    color: white;
+    background-color: #111111dd;
+}
+.GuestVideo{
+}
+
+
+
+/* #videocallrtc{ */
+/* 	position: absolute; */
+/* 	width: 100px; */
+/* 	height: 100px; */
+/* 	display: flex; */
+/* 	flex-direction: row; */
+/* } */
+
+		</style>
 	</head>
 	<body>
 
 		<div id="all_script_imports">
-			<script type="module" src="static/engine/controller/Mouse.js"></script>
-<script type="module" src="static/engine/camera/Camera.js"></script>
-<script type="module" src="static/engine/camera/LowLevelCamera.js"></script>
-<script type="module" src="static/engine/Calculate.js"></script>
+			<script type="module" src="static/engine/Calculate.js"></script>
 <script type="module" src="static/engine/Distance.js"></script>
 <script type="module" src="static/engine/Draw.js"></script>
 <script type="module" src="static/engine/G.js"></script>
@@ -71,8 +535,11 @@
 <script type="module" src="static/engine/audio/AudioEngine.js"></script>
 <script type="module" src="static/engine/audio/Sound.js"></script>
 <script type="module" src="static/engine/camera/Anchor.js"></script>
+<script type="module" src="static/engine/camera/Camera.js"></script>
+<script type="module" src="static/engine/camera/LowLevelCamera.js"></script>
 <script type="module" src="static/engine/canvas/CanvasRenderer.js"></script>
 <script type="module" src="static/engine/controller/Controller.js"></script>
+<script type="module" src="static/engine/controller/Mouse.js"></script>
 <script type="module" src="static/engine/controller/keyboard/Key.js"></script>
 <script type="module" src="static/engine/controller/keyboard/KeyDown.js"></script>
 <script type="module" src="static/engine/controller/keyboard/Keyboard.js"></script>

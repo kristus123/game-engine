@@ -1,43 +1,12 @@
-const fs = require('fs')
-const path = require('path')
 const Imports = require('./Imports')
 const Parameters = require('./Parameters')
 const Files = require('./Files')
 
 const jsFiles = require('./get_js_files')
 
-const distFiles = Files.getJsFiles('dist/static/').map(f => f.replace('dist/', ''))
-const staticFiles = Files.getJsFiles('static/')
-
-const filesToDeleteFromDist = Files.getUniqueElements(distFiles, staticFiles)
-for (const f of filesToDeleteFromDist) {
-	// Files.remove(f)
-}
-
-
-function getAllFilesSync(dirPath) {
-	let results = []
-
-	const entries = fs.readdirSync(dirPath)
-
-	for (const entry of entries) {
-		const fullPath = path.join(dirPath, entry)
-		const stat = fs.statSync(fullPath)
-
-		if (stat.isDirectory()) {
-			results = results.concat(getAllFilesSync(fullPath))
-		}
-		else {
-			results.push(fullPath)
-		}
-	}
-
-	return results
-}
-
 
 for (const jsFilePath of jsFiles) {
-	let fileContent = fs.readFileSync(jsFilePath, 'utf-8')
+	let fileContent = Files.read(jsFilePath)
 
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
 
@@ -75,57 +44,31 @@ require('./copy_asset_folder_to_dist')
 require('./generate_helper_classes')
 
 
-const priority = ['Mouse.js', 'Camera.js']
-
-const prioritized = priority.flatMap(key => jsFiles.filter(f => f.includes(key)))
-const others = jsFiles.filter(f => !priority.some(key => f.includes(key)))
-
-const orderedFiles = [...prioritized, ...others]
-
-const scriptImports = orderedFiles
+const scriptImports = jsFiles
 	.map(f => `<script type="module" src="${f}"></script>`)
 	.join('\n')
 
 
-function getAllFiles(dir) {
-	const entries = fs.readdirSync(dir, { withFileTypes: true })
-
-	let files = []
-
-	for (const entry of entries) {
-		const fullPath = path.join(dir, entry.name)
-		if (entry.isDirectory()) {
-			files = files.concat(getAllFiles(fullPath))
-		}
-		else {
-			files.push(fullPath)
-		}
-	}
-
-	return files
-}
-
-const cssImports = getAllFiles('static/ui/css')
+const cssImports = Files.at('static/ui/css')
 	.map(f => f.replaceAll('\\', '/')) // for windows compability
-	.map(f => `<link rel="stylesheet" href="/${f}">`)
+	.map(f => Files.read(f))
 	.join('\n')
 
 
-const allAsepriteFiles = getAllFilesSync('static/assets/aseprite')
+const allAsepritePaths = Files.at('static/assets/aseprite')
 	.map(f => f.replace('/aseprite', ''))
-	.map(f => f.replace('\\aseprite', ''))
+	.map(f => f.replace('\\aseprite', '')) // for windows compability (i assume)
 	.map(f => f.replace('.aseprite', ''))
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
 
 
-const indexJs = fs.readFileSync('dist/static/engine/index.js', 'utf-8')
-	.replaceAll('ASEPRITE_FILES', `[${allAsepriteFiles}]`)
-fs.writeFileSync('dist/static/engine/index.js', indexJs)
+const indexJs = Files.read('dist/static/engine/index.js')
+	.replaceAll('ASEPRITE_FILES', `[${allAsepritePaths}]`)
+Files.write('dist/static/engine/index.js', indexJs)
 
-const indexHtml = fs.readFileSync('static/index.html', 'utf-8')
+const indexHtml = Files.read('static/index.html')
 	.replace('SCRIPT_IMPORTS', scriptImports)
 	.replace('CSS_IMPORTS', cssImports)
-
-fs.writeFileSync('dist/index.html', indexHtml)
+Files.write('dist/index.html', indexHtml)
