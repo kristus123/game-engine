@@ -1,17 +1,17 @@
+import { AudioContext } from '/static/engine/audio/AudioContext.js'; 
 
 export class SineWave {
-	static audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
-	static play(frequency = 890, type = 'sine', duration = 500) {
-		const oscillator = SineWave.audioCtx.createOscillator()
-		oscillator.type = type
-		oscillator.frequency.setValueAtTime(frequency, SineWave.audioCtx.currentTime)
-		oscillator.connect(SineWave.audioCtx.destination)
-		oscillator.start()
+	static play(frequency = 890, type = 'sine', duration = 200) {
+		const o = AudioContext.createOscillator()
+		o.type = type
+		o.frequency.setValueAtTime(frequency, AudioContext.currentTime)
+		o.connect(AudioContext.destination)
+		o.start()
+
 		setTimeout(() => {
-			oscillator.stop()
-			oscillator.disconnect()
+			o.stop()
+			o.disconnect()
 		}, duration)
 	}
-
 }

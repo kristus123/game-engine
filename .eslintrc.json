@@ -251,7 +251,7 @@
         "StopWatch": "readonly",
         "StraightPath": "readonly",
         "TemporaryChange": "readonly",
-        "TestAudio": "readonly",
+        "Audio": "readonly",
         "TextTyper": "readonly",
         "TextTyperWithBackspaceEffect": "readonly",
         "Thread": "readonly",
