@@ -1,3 +1,6 @@
+/**
+ * This adds buy turret button to game user interface
+ */
 export class TurretPurchaserController {
   constructor(localObject) {
     this.localObject = localObject

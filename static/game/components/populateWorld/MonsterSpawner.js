@@ -1,6 +1,6 @@
 
 /**
- * Handles periodic spawning of monsters based on available tile positions.
+ * Handles periodic spawning of monsters based on available tile positions. with default timing interval of 200ms
  */
 export class MonsterSpawner {
 
