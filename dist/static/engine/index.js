@@ -84,7 +84,7 @@ const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","
 		.then(img => G.image[fileName] = img)
 
 	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
-		G.Audio[a.split('/').pop().replace(".mp3", "")] = xxx
+		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 	}))
 
 	return Promise.all([spriteLayers, sprite, image, ...audios])
