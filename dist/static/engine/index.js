@@ -18,9 +18,13 @@ import { StaticHttp } from '/static/engine/http/StaticHttp.js';
 import { ErrorHandler } from '/static/engine/logging/ErrorHandler.js'; 
 import { ShowLogs } from '/static/engine/logging/ShowLogs.js'; 
 import { VideoCall } from '/static/engine/multiplayer/socket/VideoCall.js'; 
+import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Physics } from '/static/engine/physics/Physics.js'; 
 import { Call } from '/static/engine/tools/Call.js'; 
+import { PopulateWorld } from '/static/game/PopulateWorld.js'; 
+import { Turret } from '/static/game/Turret.js'; 
 import { World } from '/static/game/World.js'; 
+
 
 export const index = ''
 
@@ -104,8 +108,17 @@ whenLoaded.then(() => {
 
 		const draw = new Draw(Camera.palette.ctx)
 		const guiDraw = new Draw(guiPalette.ctx)
+        const world = new World()
+		Level.change(world)
+		const localObjectsInstance = world.getLocalObjects()
+	    const tileServiceInstance = world.getTilesService()
 
-		Level.change(new World())
+		// Add monsters and turret.
+		const actionAdderToWorld = new PopulateWorld(tileServiceInstance,localObjectsInstance)
+		actionAdderToWorld.addMonsters(2)
+		actionAdderToWorld.addTurret("buy turret")
+
+
 		// Level.change(new WorldEditor())
 
 		//new VideoCall()

@@ -1,3 +1,4 @@
+
 export const index = ''
 
 
@@ -80,8 +81,17 @@ whenLoaded.then(() => {
 
 		const draw = new Draw(Camera.palette.ctx)
 		const guiDraw = new Draw(guiPalette.ctx)
+        const world = new World()
+		Level.change(world)
+		const localObjectsInstance = world.getLocalObjects()
+	    const tileServiceInstance = world.getTilesService()
 
-		Level.change(new World())
+		// Add monsters and turret.
+		const actionAdderToWorld = new PopulateWorld(tileServiceInstance,localObjectsInstance)
+		actionAdderToWorld.addMonsters(2)
+		actionAdderToWorld.addTurret("buy turret")
+
+
 		// Level.change(new WorldEditor())
 
 		//new VideoCall()
