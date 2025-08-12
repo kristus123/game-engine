@@ -1,6 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/a.js'; 
-import { Audio } from '/static/engine/audio/Audio.js'; 
+import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
@@ -25,7 +25,6 @@ export class World {
 		this.width = this.jsonFile.tilemaps[0].width
 		this.height = this.jsonFile.tilemaps[0].height
 
-
 		this.walkableTiles = []
 		for (const e of this.jsonFile.tilemaps[0].tiles) {
 			this.walkableTiles.push({
@@ -47,17 +46,12 @@ export class World {
 			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
 		}, 200)
 
-
-
 		Html.upper([
 			this.buyTurret = Html.button('buy turret', () => {
 				Mouse.onClick = p => {
-					this.localObjects.add(new Turret(p.copy()))
-					Audio.click()
-
 					if (new Square(p, 10).touchesAny(this.walkableTiles.filter(t => t.i == 1).map(t => t.position))) {
 						this.localObjects.add(new Turret(p.copy()))
-						Audio.click()
+						Sound.click()
 						Mouse.onClick = null
 					}
 				}

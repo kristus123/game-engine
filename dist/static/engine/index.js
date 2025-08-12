@@ -8,6 +8,7 @@ import { AsepriteJson } from '/static/engine/aseprite/AsepriteJson.js';
 import { AsepriteLayerJson } from '/static/engine/aseprite/AsepriteLayerJson.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
 import { AudioContext } from '/static/engine/audio/AudioContext.js'; 
+import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
@@ -83,7 +84,7 @@ const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","
 	const image = loadImage(pngPath)
 		.then(img => G.image[fileName] = img)
 
-	const audios = ['/static/audio/sheet.mp3'].map(a => loadAudio(a).then(xxx => {
+	const audios = ['/static/audio/sheet.mp3', '/static/audio/click.mp3'].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 	}))
 
@@ -97,7 +98,9 @@ whenLoaded.then(() => {
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
 		// const showLogs = new ShowLogs(guiPalette)
+		//
 
+		Sound.init()
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()

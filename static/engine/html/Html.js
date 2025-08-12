@@ -212,7 +212,7 @@ export class Html {
 		button.textContent = text
 
 		button.addEventListener('click', () => {
-			Audio.click()
+			Sound.click()
 			onClick(button)
 		})
 
