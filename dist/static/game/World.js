@@ -127,7 +127,19 @@ export class World {
 		])
 >>>>>>> 238d9b4 (x)
 
+<<<<<<< HEAD
     this.localObjects.draw(draw, guiDraw);
+||||||| parent of eb55a75 (x)
+		Html.upperLeft([
+			this.money = Html.p(G.money),
+		])
+	}
+=======
+		Html.upperRight([
+			this.money = Html.p(G.money),
+		])
+	}
+>>>>>>> eb55a75 (x)
 
     if (Mouse.onClick) {
         draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))

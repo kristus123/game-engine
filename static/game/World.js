@@ -102,7 +102,19 @@ export class World {
 		])
 >>>>>>> 238d9b4 (x)
 
+<<<<<<< HEAD
   draw(draw, guiDraw) {
+||||||| parent of eb55a75 (x)
+		Html.upperLeft([
+			this.money = Html.p(G.money),
+		])
+	}
+=======
+		Html.upperRight([
+			this.money = Html.p(G.money),
+		])
+	}
+>>>>>>> eb55a75 (x)
 
     this.localObjects.draw(draw, guiDraw);
 

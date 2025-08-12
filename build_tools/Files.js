@@ -60,6 +60,7 @@ module.exports = class {
 		return uniqueElements
 	}
 
+<<<<<<< HEAD
 	static at(directory) {
 		let results = []
 
@@ -96,4 +97,37 @@ module.exports = class {
 		this.write(path, content)
 	}
 
+||||||| parent of eb55a75 (x)
+=======
+	static at(directory) {
+		let results = []
+
+		const entries = fs.readdirSync(directory)
+
+		for (const entry of entries) {
+			const fullPath = Path.join(directory, entry)
+			const stat = fs.statSync(fullPath)
+
+			if (stat.isDirectory()) {
+				results = results.concat(this.at(fullPath))
+			}
+			else {
+				results.push(fullPath)
+			}
+		}
+
+		return results
+	}
+
+
+
+	static read(path) {
+		return fs.readFileSync(path, 'utf-8')
+	}
+
+	static write(path, content) {
+		fs.writeFileSync(path, content)
+	}
+
+>>>>>>> eb55a75 (x)
 }
