@@ -1,8 +1,10 @@
 import { SplashParticles } from '/static/engine/graphics/particles/SplashParticles.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { EventBus } from '/static/game/utils/EventBus.js'; 
 
 export const G = {
 	ranches: new LocalObjects([]),
+	events: new EventBus(),
 	poop: new LocalObjects([]),
 	trees: new LocalObjects([]),
 	monsters: new LocalObjects([]),

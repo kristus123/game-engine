@@ -1,24 +1,28 @@
 import { G } from '/static/engine/G.js'; 
 import { a } from '/static/engine/a.js'; 
-import { Audio } from '/static/engine/audio/Audio.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
-import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
-import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { MapLoader } from '/static/game/MapLoader.js'; 
+import { GUI } from '/static/game/components/GUI.js'; 
 import { EconomyManager } from '/static/game/core/EconomyManager.js'; 
+import { EconomyToGlobal } from '/static/game/core/EconomyToGlobal.js'; 
 import { ShopManager } from '/static/game/core/ShopManager.js'; 
 import { Spawner } from '/static/game/core/Spawner.js'; 
 import { Monster } from '/static/game/entities/Monster.js'; 
 import { Turret } from '/static/game/entities/Turret.js'; 
+
 
 const SCALE = 8;
 const SPAWN_INTERVAL_MS = 2000;
 const PREVIEW_SIZE = 100;
 const PLACE_RADIUS = 10;
 
+const PRICEBOOK_BASE = {
+  turret: 20,
+  upgrade1: 15,
+};
 
 export class World {
   constructor() {
@@ -29,11 +33,20 @@ export class World {
     this.map = new MapLoader('/static/assets/aseprite/world_tilemaps.json', SCALE).load();
 
     this.localObjects = new LocalObjects([this.map.background]);
-  	this.spawner = new Spawner(	() => new Monster(this.map.pathTiles), SPAWN_INTERVAL_MS, (e) => this.localObjects.add(e));
-	  this.spawner.start();
 
     this.economy = new EconomyManager(20);
-    this.shop = new ShopManager(this.economy, PRICEBOOK_BASE);
+    EconomyToGlobal(this.economy);
+    this.shop = new ShopManager(this.economy, PRICEBOOK_BASE, {
+      canPlaceAt: (p) => new Square(p, PLACE_RADIUS).touchesAny(this.map.buildTiles),
+      placeTurret: (p) => this.localObjects.add(new Turret(p)),
+      mount: 'upper',
+      previewSize: PREVIEW_SIZE,
+    });
+    
+    this.gui = new GUI(this.economy);
+    
+    this.spawner = new Spawner(	() => new Monster(this.map.pathTiles), SPAWN_INTERVAL_MS, (e) => this.localObjects.add(e));
+	  this.spawner.start();
 
   }
 
@@ -47,26 +60,6 @@ export class World {
     }));
   }
 
-  enterPlacementMode() {
-    Mouse.onClick = p => {
-      const canPlace = new Square(p, PLACE_RADIUS).touchesAny(this.map.buildTiles);
-      if (!canPlace) {
-        Audio.click(); 
-        return;
-      }
-
-      this.localObjects.add(new Turret(p.copy()));
-      Audio.click();
-      Mouse.onClick = null;      
-    };
-  }
-
-  updateMoneyUI() {
-    Html.changeText(this.moneyLabel, G.money); 
-    (G.money >= MIN_MONEY_TO_BUY)
-      ? Html.enable(this.buyTurretBtn)
-      : Html.disable(this.buyTurretBtn);
-  }
 
   destroy() {
     if (this.spawnTimer) {
@@ -80,15 +73,7 @@ export class World {
   }
 
   draw(draw, guiDraw) {
-    this.gui.update();                
     this.localObjects.draw(draw, guiDraw);
-
-    if (Mouse.onClick) {
-      const previewRect = new Position(Mouse.position.x, Mouse.position.y, PREVIEW_SIZE, PREVIEW_SIZE);
-      draw.rectangle(previewRect);
-
-      const canPlace = new Square(Mouse.position, PLACE_RADIUS).touchesAny(this.map.buildTiles);
-      draw.color(previewRect, canPlace ? 'green' : 'red');
-    }
+    this.shop.drawPreview(draw);
   }
 }

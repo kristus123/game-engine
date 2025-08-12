@@ -1,5 +1,6 @@
 export const G = {
 	ranches: new LocalObjects([]),
+	events: new EventBus(),
 	poop: new LocalObjects([]),
 	trees: new LocalObjects([]),
 	monsters: new LocalObjects([]),

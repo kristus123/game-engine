@@ -20,7 +20,7 @@ import { ShowLogs } from '/static/engine/logging/ShowLogs.js';
 import { VideoCall } from '/static/engine/multiplayer/socket/VideoCall.js'; 
 import { Physics } from '/static/engine/physics/Physics.js'; 
 import { Call } from '/static/engine/tools/Call.js'; 
-import { World } from '/static/game/World.js'; 
+import { World } from '/static/game/core/World.js'; 
 
 export const index = ''
 
