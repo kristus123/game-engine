@@ -31,7 +31,7 @@ export class Money {
 	static update() {
 		this.localObjects.update()
 	}
-	
+
 	static draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 

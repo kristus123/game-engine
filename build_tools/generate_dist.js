@@ -12,7 +12,7 @@ const allAsepritePaths = Files.at('static/assets/aseprite')
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/static/engine/index.js','ASEPRITE_FILES', `[${allAsepritePaths}]`)
+Files.replace('dist/static/engine/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
 
 
 const jsImports = require('./js_files')
