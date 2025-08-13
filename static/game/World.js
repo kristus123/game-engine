@@ -30,11 +30,11 @@ export class World {
 				"That is a small step towards your next part in life",
 				"So when you are about to cry....",
 			]),
+			new After(500, () => {
+				console.log("hei")
+				tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+			}),
 		])
-
-		setInterval(() => {
-			tla(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
-		}, 200)
 
 		Html.upper([
 			this.buyTurret = Html.button('buy turret', () => {

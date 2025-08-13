@@ -9,6 +9,7 @@ import { Html } from '/static/engine/html/Html.js';
 import { Http } from '/static/engine/http/Http.js'; 
 import { StaticHttp } from '/static/engine/http/StaticHttp.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { After } from '/static/engine/on/After.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { BottomText } from '/static/game/BottomText.js'; 
 import { Monster } from '/static/game/entities/Monster.js'; 
@@ -48,11 +49,11 @@ export class World {
 				"That is a small step towards your next part in life",
 				"So when you are about to cry....",
 			]),
+			new After(500, () => {
+				console.log("hei")
+				this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
+			}),
 		])
-
-		setInterval(() => {
-			this.localObjects.add(new Monster(this.walkableTiles.filter(t => t.i == 2).map(t => t.position)))
-		}, 200)
 
 		Html.upper([
 			this.buyTurret = Html.button('buy turret', () => {

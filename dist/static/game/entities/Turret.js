@@ -8,6 +8,7 @@ import { Square } from '/static/engine/graphics/Square.js';
 import { Charge } from '/static/engine/mechanics/Charge.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { After } from '/static/engine/on/After.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
 
@@ -28,30 +29,35 @@ export class Turret extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
 			this.sine = new Sine(5, 0.1),
+			new After(500, () => {
+			}),
 		])
+	}
+
+	get target() {
+		return this.withinAny(800, G.monsters)
 	}
 
 	update() {
 		this.position.resize(this.sine.value)
 		this.localObjects.update()
 
-
-		const m = this.withinAny(800, G.monsters)
-		if (m && this.charge.ready) {
+		if (this.charge.ready && this.target) {
 			this.charge.exhaust()
+				
+			const b = new Square(this.position.copy(), 10)
+			this.a.play(1)
 
-			const s = new Square(this.position.copy(), 10)
-			this.a.play(3)
-			ForcePush(s).towards(m.position.center, 400)
-			s.update = () => {
-				if (s.touchesAny(G.monsters)) {
-					console.log('hit')
-					m.hp.damage(10)
-					s.removeFromLoop()
+			ForcePush(b).towards(this.target.position.center, 40)
+
+			b.update = () => {
+				if (b.touchesAny(G.monsters)) {
+					this.target.hp.damage(10)
+					b.removeFromLoop()
 				}
 			}
 
-			this.localObjects.add(s)
+			this.localObjects.add(b)
 		}
 	}
 
