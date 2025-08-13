@@ -11,6 +11,7 @@ import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Move } from '/static/engine/physics/Move.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { Money } from '/static/game/Money.js'; 
 
 export class Monster extends DynamicGameObject {
 	constructor(paths) {
@@ -41,7 +42,7 @@ export class Monster extends DynamicGameObject {
 		if (this.hp.dead) {
 			this.removeFromLoop()
 			G.monsters.remove(this)
-			G.money += 1
+			Money.increase(1)
 		}
 
 		this.localObjects.update()
