@@ -44,7 +44,7 @@ export class Turret extends DynamicGameObject {
 
 		if (this.charge.ready && this.target) {
 			this.charge.exhaust()
-				
+
 			const b = new Square(this.position.copy(), 10)
 			this.a.play(1)
 
