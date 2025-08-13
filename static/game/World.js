@@ -6,7 +6,7 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-			new Money(),
+			Money.init(),
 			new BottomText([
 				"when life is hard, just remember",
 				"It will get harder",
@@ -18,8 +18,6 @@ export class World {
 				tla(new Monster(this.tilemaps.enemyWalkTiles))
 			}),
 		])
-
-		// if (this.tilemaps.touchesTurretTiles(p)) {
 	}
 
 	update() {
@@ -28,14 +26,5 @@ export class World {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-
-		if (Mouse.onClick) {
-			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
-
-			
-			const valid = this.tilemaps.touchesTurretTiles(Mouse.position)
-			const p = new Position(Mouse.position.x, Mouse.position.y, 100, 100)
-			draw.color(p, valid ? 'green': 'red')
-		}
 	}
 }
