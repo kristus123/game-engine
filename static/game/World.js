@@ -6,6 +6,7 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
+			new Money(),
 			new BottomText([
 				"when life is hard, just remember",
 				"It will get harder",
@@ -18,21 +19,7 @@ export class World {
 			}),
 		])
 
-		Html.upper([
-			this.buyTurret = Html.button('buy turret', () => {
-				Mouse.onClick = p => {
-					if (this.tilemaps.touchesTurretTiles(p)) {
-						tla(new Turret(p.copy()))
-						Sound.click()
-						Mouse.onClick = null
-					}
-				}
-			}),
-		])
-
-		Html.upperRight([
-			this.money = Html.p(G.money),
-		])
+		// if (this.tilemaps.touchesTurretTiles(p)) {
 	}
 
 	update() {
@@ -40,14 +27,6 @@ export class World {
 	}
 
 	draw(draw, guiDraw) {
-		Html.changeText(this.money, G.money)
-		if (G.money > 10) {
-			Html.enable(this.buyTurret)
-		}
-		else {
-			Html.disable(this.buyTurret)
-		}
-
 		this.localObjects.draw(draw, guiDraw)
 
 		if (Mouse.onClick) {
