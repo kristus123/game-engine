@@ -1,24 +1,31 @@
 export class EconomyManager {
-  constructor(initial = 0){
-    this._money = initial|0;
-    this.events = new EventBus();
-  }
-  get money(){ return this._money; }
+	constructor(initial = 0) {
+		this._money = initial|0
+		this.events = new EventBus()
+	}
 
-  setMoney(value){
-    this._money = (value|0);
-    this.events.emit('change', this._money);
-  }
+	get money() {
+		return this._money
+	}
 
-  add(amount){
-    this.setMoney(this._money + (amount|0));
-  }
+	setMoney(value) {
+		this._money = (value|0)
+		this.events.emit('change', this._money)
+	}
 
-  canSpend(amount){ return this._money >= amount; }
+	add(amount) {
+		this.setMoney(this._money + (amount|0))
+	}
 
-  trySpend(amount){
-    if (!this.canSpend(amount)) return false;
-    this.setMoney(this._money - (amount|0));
-    return true;
-  }
+	canSpend(amount) {
+		return this._money >= amount
+	}
+
+	trySpend(amount) {
+		if (!this.canSpend(amount)) {
+			return false
+		}
+		this.setMoney(this._money - (amount|0))
+		return true
+	}
 }

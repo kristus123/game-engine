@@ -7,7 +7,7 @@ export class Waves {
 		new Quest([
 			() => new class {
 				constructor() {
-					
+
 				}
 			},
 		])
