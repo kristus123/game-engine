@@ -2,8 +2,22 @@ export class Player extends DynamicGameObject {
 	constructor(position) {
 		super(position, 4000, 400)
 
+		const jumpPosition = new Position(1300, 200)
+		this.jumpPosition = jumpPosition
+		const player = this
+
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
+
+			this.motion = new Motion(() => new class {
+			constructor() {
+			}
+
+			get value() {
+				return Distance.between(player, jumpPosition)
+			}
+			
+		}),
 
 			OnChange(() => this.movingUp, up => {
 				if (up) {
@@ -17,14 +31,7 @@ export class Player extends DynamicGameObject {
 			OnChange(() => this.direction, d => {
 				this.sprite.tags[d].loop()
 			}),
-
-			this.motion = new Motion(),
 		])
-
-		KeyDown('q', () => {
-			this.targetPosition = Mouse.position.copy().offset(-200, -400)
-			this.motion.start()
-		})
 
 		this.motion.start()
 	}
@@ -41,10 +48,10 @@ export class Player extends DynamicGameObject {
 				this.targetPosition = null
 			}
 		}
-
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		draw.circle(this.jumpPosition)
 	}
 }

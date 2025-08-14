@@ -47,7 +47,7 @@ export class StopWatch {
 	}
 
 	get value() {
-		return this.time
+		return this.time // used in motion
 	}
 
 }

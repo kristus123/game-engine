@@ -1,14 +1,14 @@
+import { Distance } from '/static/engine/Distance.js'; 
 import { G } from '/static/engine/G.js'; 
 import { Motion } from '/static/engine/animation/Motion.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
+import { Position } from '/static/engine/position/Position.js'; 
 
 export class Player extends DynamicGameObject {
 	constructor(position) {
@@ -19,8 +19,22 @@ export class Player extends DynamicGameObject {
 		this.position = position; 
 
 
+		const jumpPosition = new Position(1300, 200)
+		this.jumpPosition = jumpPosition
+		const player = this
+
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
+
+			this.motion = new Motion(() => new class {
+			constructor() {
+			}
+
+			get value() {
+				return Distance.between(player, jumpPosition)
+			}
+			
+		}),
 
 			new OnChange(() => this.movingUp, up => {
 				if (up) {
@@ -34,14 +48,7 @@ export class Player extends DynamicGameObject {
 			new OnChange(() => this.direction, d => {
 				this.sprite.tags[d].loop()
 			}),
-
-			this.motion = new Motion(),
 		])
-
-		KeyDown('q', () => {
-			this.targetPosition = Mouse.position.copy().offset(-200, -400)
-			this.motion.start()
-		})
 
 		this.motion.start()
 	}
@@ -58,10 +65,10 @@ export class Player extends DynamicGameObject {
 				this.targetPosition = null
 			}
 		}
-
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		draw.circle(this.jumpPosition)
 	}
 }
