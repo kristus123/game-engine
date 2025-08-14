@@ -110,7 +110,7 @@ whenLoaded.then(() => {
 
 				// showLogs.draw()
 
-				Palette.fill(backgroundPalette, 'black')
+				Palette.fill(backgroundPalette, '#10204f')
 				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
 			})
 		})

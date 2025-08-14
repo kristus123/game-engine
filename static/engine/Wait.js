@@ -1,7 +1,11 @@
+// used for Quest.js
+//
 export class Wait {
 
-	constructor(ms) {
+	constructor(ms, onStart=() => {}) {
 		this.s = new StopWatch().start()
+
+		onStart()
 	}
 
 	completed() {

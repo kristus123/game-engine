@@ -1,13 +1,15 @@
 import { G } from '/static/engine/G.js'; 
+import { Wait } from '/static/engine/Wait.js'; 
 import { a } from '/static/engine/a.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { After } from '/static/engine/on/After.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { BottomText } from '/static/game/BottomText.js'; 
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
+import { MonsterWave } from '/static/game/MonsterWave.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
 
 export class World {
@@ -20,17 +22,15 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-			Money.init(),
-			new BottomText([
-				'when life is hard, just remember',
-				'It will get harder',
-				'It will get so hard that you will cry',
-				'That is a small step towards your next part in life',
-				'So when you are about to cry....',
+			
+			new Quest([
+				() => new MonsterWave(this.tilemaps, 5),
+				() => new Wait(5_000, () => {
+					new BottomText(['you did it, fucking bastard!'])
+				}),
+				() => new MonsterWave(this.tilemaps, 10),
 			]),
-			new After(500, () => {
-				this.localObjects.add(new Monster(this.tilemaps.enemyWalkTiles))
-			}),
+			Money.init(),
 		])
 	}
 

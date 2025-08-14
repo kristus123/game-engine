@@ -1,5 +1,5 @@
 export class Monster extends DynamicGameObject {
-	constructor(paths) {
+	constructor(paths, onKill=() => {}) {
 		super(new Position(677, -644, 100, 100), 10, 10)
 
 		this.localObjects = new LocalObjects([
@@ -20,6 +20,7 @@ export class Monster extends DynamicGameObject {
 
 	update() {
 		if (this.hp.dead) {
+			this.onKill()
 			this.removeFromLoop()
 			G.monsters.remove(this)
 			Money.increase(1)

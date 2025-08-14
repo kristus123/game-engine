@@ -29,7 +29,7 @@ export class Tilemaps {
 	}
 
 	get turretTiles() {
-		return this.tiles.filter(t => t.i == 1).map(t => t.position)
+		return this.tiles.filter(t => t.i == 3).map(t => t.position)
 	}
 
 	touchesTurretTiles(position) {
@@ -37,6 +37,6 @@ export class Tilemaps {
 	}
 
 	get enemyWalkTiles() {
-		return this.tiles.filter(t => t.i == 2).map(t => t.position)
+		return this.tiles.filter(t => t.i == 1).map(t => t.position)
 	}
 }

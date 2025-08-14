@@ -6,17 +6,15 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-			Money.init(),
-			new BottomText([
-				'when life is hard, just remember',
-				'It will get harder',
-				'It will get so hard that you will cry',
-				'That is a small step towards your next part in life',
-				'So when you are about to cry....',
+			
+			new Quest([
+				() => new MonsterWave(this.tilemaps, 5),
+				() => new Wait(5_000, () => {
+					new BottomText(['you did it, fucking bastard!'])
+				}),
+				() => new MonsterWave(this.tilemaps, 10),
 			]),
-			new After(500, () => {
-				tla(new Monster(this.tilemaps.enemyWalkTiles))
-			}),
+			Money.init(),
 		])
 	}
 

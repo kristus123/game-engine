@@ -2,7 +2,6 @@ import { Sound } from '/static/engine/audio/Sound.js';
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 
@@ -16,13 +15,20 @@ export class Money {
 
 		this.tilemaps = new Tilemaps()
 
+		this.localObjects = new LocalObjects([
+		])
+
+		this.turret = null
+
 		Html.upper([
-			this.buyTurret = Html.button('buy turret', () => {
+			this.buyTurret = Html.button('default turret', () => {
+				this.turret = new Turret(Mouse.position.copy()) 
 				Mouse.onClick = p => {
 				    if (this.tilemaps.touchesTurretTiles(p)) {
-						this.localObjects.add(new Turret(p.copy()))
+						this.localObjects.add(this.turret)
 						Sound.click()
 						Mouse.onClick = null
+						this.turret = null
 						Html.changeText(this.money, this.amount)
 						this.subtract(20)
 					}
@@ -30,8 +36,6 @@ export class Money {
 			}),
 		])
 
-		this.localObjects = new LocalObjects([
-		])
 
 		return this
 	}
@@ -45,11 +49,13 @@ export class Money {
 
 
 		if (Mouse.onClick) {
-			draw.rectangle(new Position(Mouse.position.x, Mouse.position.y, 100, 100))
+			draw.rectangle(this.turret)
+
+			this.turret.position.xy(Mouse.position)
+			this.turret.draw(draw, guiDraw)
 
 			const valid = this.tilemaps.touchesTurretTiles(Mouse.position)
-			const p = new Position(Mouse.position.x, Mouse.position.y, 100, 100)
-			draw.color(p, valid ? 'green': 'red')
+			draw.color(this.turret, valid ? 'green': 'red')
 		}
 	}
 
