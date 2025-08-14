@@ -11,15 +11,15 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
 
-
 			new Quest([
 				() => new MonsterWave(this.tilemaps, 5),
 				() => new Wait(5_000, () => {
-					new BottomText(['you did it, fucking bastard!'])
+					new DeathText('good job!').show()
 				}),
 				() => new MonsterWave(this.tilemaps, 10),
 			]),
 			Money.init(),
+			G.monsters,
 		])
 	}
 

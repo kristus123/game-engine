@@ -7,7 +7,7 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
-import { BottomText } from '/static/game/BottomText.js'; 
+import { DeathText } from '/static/game/DeathText.js'; 
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
@@ -29,15 +29,15 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
 
-
 			new Quest([
 				() => new MonsterWave(this.tilemaps, 5),
 				() => new Wait(5_000, () => {
-					new BottomText(['you did it, fucking bastard!'])
+					new DeathText('good job!').show()
 				}),
 				() => new MonsterWave(this.tilemaps, 10),
 			]),
 			Money.init(),
+			G.monsters,
 		])
 	}
 

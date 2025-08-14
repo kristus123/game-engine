@@ -46,6 +46,12 @@ export class AllObjects { // not a good name
 		Registry.remove(o)
 	}
 
+	removeAll() {
+		for (const o of this.objects) {
+			this.remove(o)
+		}
+	}
+
 	removeByObjectId(objectId) {
 		for (const o of this.objects) {
 			if (o.objectId == objectId) {

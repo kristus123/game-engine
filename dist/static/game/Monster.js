@@ -44,8 +44,6 @@ export class Monster extends DynamicGameObject {
 	update() {
 		if (this.hp.dead) {
 			this.onKill()
-			this.removeFromLoop()
-			G.monsters.remove(this)
 			Money.increase(1)
 		}
 

@@ -1,5 +1,4 @@
 import { G } from '/static/engine/G.js'; 
-import { Loop } from '/static/engine/Loop.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
@@ -20,10 +19,10 @@ export class MonsterWave {
 
 		this.localObjects = new LocalObjects([
 			this.after = new After(500, () => {
-				this.localObjects.add(new Monster(tilemaps.enemyWalkTiles, () => {
+				new Monster(tilemaps.enemyWalkTiles, () => {
 					this.killed += 1
 					Html.changeText(this.p, this.killed)
-				}))
+				})
 			}),
 		])
 
@@ -36,13 +35,14 @@ export class MonsterWave {
 	}
 
 	completed() {
-		const c = this.killed >= this.killGoal
-		if (c) {
-			for (const o of this.localObjects) {
-				o.removeFromLoop()
-				G.monsters.remove(o)
-			}
+		const ok = this.killed >= this.killGoal
+		if (ok) {
+			G.monsters.removeAll()
+			console.log("remoremo AllObjects")
 			return true
+		}
+		else {
+			return false
 		}
 	}
 
