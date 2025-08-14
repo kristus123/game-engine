@@ -46,5 +46,9 @@ export class StopWatch {
 		}
 	}
 
+	get value() {
+		return this.time
+	}
+
 }
 
