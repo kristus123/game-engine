@@ -13,6 +13,22 @@ export class Money {
 
 		this.turret = null
 
+
+		KeyDown('e', () => {
+				this.turret = new Turret(Mouse.position.copy())
+				Mouse.onClick = p => {
+				    if (this.tilemaps.touchesTurretTiles(p)) {
+						tla(this.turret)
+						Sound.click()
+						Mouse.onClick = null
+						this.turret = null
+						Html.changeText(this.money, this.amount)
+						this.subtract(20)
+					}
+				}
+			
+		})
+
 		Html.upper([
 			this.buyTurret = Html.button('default turret', () => {
 				this.turret = new Turret(Mouse.position.copy())

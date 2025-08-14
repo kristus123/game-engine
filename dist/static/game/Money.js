@@ -1,5 +1,6 @@
 import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
+import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
@@ -19,6 +20,22 @@ export class Money {
 		])
 
 		this.turret = null
+
+
+		KeyDown('e', () => {
+				this.turret = new Turret(Mouse.position.copy())
+				Mouse.onClick = p => {
+				    if (this.tilemaps.touchesTurretTiles(p)) {
+						this.localObjects.add(this.turret)
+						Sound.click()
+						Mouse.onClick = null
+						this.turret = null
+						Html.changeText(this.money, this.amount)
+						this.subtract(20)
+					}
+				}
+			
+		})
 
 		Html.upper([
 			this.buyTurret = Html.button('default turret', () => {

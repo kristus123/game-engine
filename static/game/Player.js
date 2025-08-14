@@ -21,14 +21,25 @@ export class Player extends DynamicGameObject {
 			new PingPong(v => {
 				this.position.resize(v)
 			})
-
 		])
 
 
+		KeyDown('q', () => {
+			this.targetPosition = Mouse.position.copy().offset(-100, -100)
+		})
 	}
 
 	update() {
 		this.localObjects.update()
+
+
+		if (this.targetPosition) {
+			ForcePush(this).towards(this.targetPosition, 14)
+
+			if (this.within(100, this.targetPosition)) {
+				this.targetPosition = null
+			}
+		}
 
 	}
 
