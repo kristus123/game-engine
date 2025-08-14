@@ -20,7 +20,7 @@ export class AllObjects { // not a good name
 			o.removeFromLoop = () => {
 				this.remove(o)
 			}
-			o.loop = this
+			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!!
 
 			o.handledBy = this
 			Registry.add(o)

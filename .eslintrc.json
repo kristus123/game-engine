@@ -124,7 +124,6 @@
         ]
     },
     "globals": {
-        "After": "readonly",
         "AllObjects": "readonly",
         "AnArray": "readonly",
         "AnalShit": "readonly",
@@ -159,6 +158,7 @@
         "Easing": "readonly",
         "Easings": "readonly",
         "ErrorHandler": "readonly",
+        "Every": "readonly",
         "FishingRod": "readonly",
         "FollowPlayerNoise": "readonly",
         "ForcePush": "readonly",
@@ -193,6 +193,7 @@
         "Money": "readonly",
         "Monster": "readonly",
         "MonsterWave": "readonly",
+        "Motion": "readonly",
         "Mouse": "readonly",
         "MovableElement": "readonly",
         "Move": "readonly",

@@ -32,11 +32,11 @@ export class World {
 			this.player,
 
 			new Quest([
-				() => new MonsterWave(this.tilemaps, 1),
+				() => new MonsterWave(this.tilemaps, 10),
 				() => new Wait(5_000, () => {
 					new DeathText('good job!').show()
 				}),
-				() => new MonsterWave(this.tilemaps, 10),
+				() => new MonsterWave(this.tilemaps, 20),
 				() => new Wait(5_000, () => {
 					new DeathText('you nailed it').show()
 				}),

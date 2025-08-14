@@ -23,7 +23,7 @@ export class MonsterWave {
 						this.killed += 1
 						Html.changeText(this.p, this.killed)
 					})
-				}, killGoal)
+			}, killGoal)
 		])
 
 		Html.upperLeft([

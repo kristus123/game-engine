@@ -1,6 +1,7 @@
 import { G } from '/static/engine/G.js'; 
 import { Loop } from '/static/engine/Loop.js'; 
 import { a } from '/static/engine/a.js'; 
+import { Motion } from '/static/engine/animation/Motion.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
@@ -28,7 +29,10 @@ export class Turret extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
 			G.Sprite.turret(this.position),
+			this.motion = new Motion(),
 		])
+
+		this.motion.start()
 	}
 
 	get target() {
@@ -36,6 +40,7 @@ export class Turret extends DynamicGameObject {
 	}
 
 	update() {
+		this.position.scale(this.motion.value)
 		this.localObjects.update()
 
 		if (this.charge.ready && this.target) {
