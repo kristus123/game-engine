@@ -8,12 +8,12 @@ export class PingPong {
 			
 		this.run = run; 
 
-		this.start = 100
-		this.end = 1000
-		this.duration = 1000
+		this.start = 0
+		this.end = 10
+		this.duration = 100
 		this.easing = Easings.easeInOutQuad
 
-		this.bounceAtStart = true
+		this.bounceAtStart = false
 		this.bounceAtEnd = true
 
 		this.run = run

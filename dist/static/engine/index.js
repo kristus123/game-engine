@@ -63,7 +63,7 @@ async function loadAudio(url) {
 
 
 
-const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/hamtaro","/static/assets/new_farmer","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(path => {
+const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/hamtaro","/static/assets/new_farmer","/static/assets/p2","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(path => {
 	if (path.includes('.json')) {
 		return Promise.resolve('ok')
 	}

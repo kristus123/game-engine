@@ -22,7 +22,7 @@ export class Money {
 
 		Html.upper([
 			this.buyTurret = Html.button('default turret', () => {
-				this.turret = new Turret(Mouse.position.copy()) 
+				this.turret = new Turret(Mouse.position.copy())
 				Mouse.onClick = p => {
 				    if (this.tilemaps.touchesTurretTiles(p)) {
 						this.localObjects.add(this.turret)

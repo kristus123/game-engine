@@ -53,6 +53,24 @@ export class DynamicGameObject extends _GameObject {
 		return this.movingUp || this.movingDown
 	}
 
+	get direction() {
+		if (this.movingLeft) {
+			return 'left'
+		}
+		else if (this.movingRight) {
+			return 'right'
+		}
+		else if (this.movingUp) {
+			return 'up'
+		}
+		else if (this.movingDown) {
+			return 'down'
+		}
+		else {
+			return 'idle'
+		}
+	}
+
 	// eslint-disable-next-line no-unused-vars
 	onCollision(o) {
 	}

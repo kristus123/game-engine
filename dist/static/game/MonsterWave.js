@@ -36,12 +36,12 @@ export class MonsterWave {
 	}
 
 	completed() {
-		const c =  this.killed >= this.killGoal
+		const c = this.killed >= this.killGoal
 		if (c) {
-		for (const o of this.localObjects) {
-			o.removeFromLoop()
-			G.monsters.remove(o)
-		}
+			for (const o of this.localObjects) {
+				o.removeFromLoop()
+				G.monsters.remove(o)
+			}
 			return true
 		}
 	}

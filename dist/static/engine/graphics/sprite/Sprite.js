@@ -26,6 +26,7 @@ export class Sprite extends StaticGameObject {
 		this.position.height = asepriteJson.height * scale
 
 		this.currentFrame = 0
+		this.tags = {}
 
 		this.type = 'loop'
 
@@ -57,6 +58,8 @@ export class Sprite extends StaticGameObject {
 					return this
 				},
 			}
+
+			this.tags[tag] = this[tag]
 		}
 
 		if (this.idle) {
