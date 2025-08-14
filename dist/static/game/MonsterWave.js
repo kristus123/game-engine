@@ -1,8 +1,7 @@
-import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { After } from '/static/engine/on/After.js'; 
+import { Every } from '/static/engine/on/Every.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 
 export class MonsterWave {
@@ -18,12 +17,13 @@ export class MonsterWave {
 		this.killed = 0
 
 		this.localObjects = new LocalObjects([
-			this.after = new After(500, () => {
-				new Monster(tilemaps.enemyWalkTiles, () => {
-					this.killed += 1
-					Html.changeText(this.p, this.killed)
-				})
-			}),
+			new Every(500, () => {
+				new Monster(tilemaps.enemyWalkTiles,
+					() => {
+						this.killed += 1
+						Html.changeText(this.p, this.killed)
+					})
+				}, killGoal)
 		])
 
 		Html.upperLeft([
@@ -35,15 +35,7 @@ export class MonsterWave {
 	}
 
 	completed() {
-		const ok = this.killed >= this.killGoal
-		if (ok) {
-			G.monsters.removeAll()
-			console.log("remoremo AllObjects")
-			return true
-		}
-		else {
-			return false
-		}
+		return this.killed >= this.killGoal
 	}
 
 	update() {

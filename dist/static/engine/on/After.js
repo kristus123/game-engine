@@ -1,6 +1,6 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 
-export class After {
+export class Every {
 	constructor(intervalMs, action) {
 
 				AssertNotNull(intervalMs, "argument intervalMs in " + this.constructor.name + ".js should not be null")

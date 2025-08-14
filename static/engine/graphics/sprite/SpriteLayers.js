@@ -50,28 +50,13 @@ export class SpriteLayers extends StaticGameObject {
 
 	draw(draw, guiDraw) {
 		this.forEachLayer((layer, spriteFrames) => {
-			const p = spriteFrames[1].position
+			const p = spriteFrames[0].position
 
-			if (layer == 'skySmoke') {
-				p.x += 0.02
-			}
-			else if (layer == 'clouds') {
-				p.x += 0.4
+			if (layer == 'clouds') {
+				p.x -= 1
 			}
 
-			else if (layer == 'backgroundTrees') {
-				p.x += 0.1
-			}
-
-			else if (layer == 'sun') {
-				p.x += 0.1
-			}
-
-			else if (layer == 'darkMountains') {
-				p.x += 0.1
-			}
-
-			draw.sprite(p, spriteFrames[1], this.image)
+			draw.sprite(p, spriteFrames[0], this.image)
 
 		})
 	}

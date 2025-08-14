@@ -1,4 +1,3 @@
-import { Loop } from '/static/engine/Loop.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 
 export class Hp {
@@ -26,8 +25,6 @@ export class Hp {
 	update() {
 		if (this.dead) {
 			this.killed()
-			this.removeFromLoop()
-			this.object.removeFromLoop()
 		}
 	}
 

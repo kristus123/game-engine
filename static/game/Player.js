@@ -4,6 +4,7 @@ export class Player extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
+
 			OnChange(() => this.movingUp, up => {
 				if (up) {
 					this.sprite.up.loop()
@@ -18,7 +19,6 @@ export class Player extends DynamicGameObject {
 			}),
 
 			new PingPong(v => {
-				console.log(v)
 				this.position.resize(v)
 			})
 

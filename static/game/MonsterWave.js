@@ -3,12 +3,13 @@ export class MonsterWave {
 		this.killed = 0
 
 		this.localObjects = new LocalObjects([
-			this.after = new After(500, () => {
-				new Monster(tilemaps.enemyWalkTiles, () => {
-					this.killed += 1
-					Html.changeText(this.p, this.killed)
-				})
-			}),
+			new Every(500, () => {
+				new Monster(tilemaps.enemyWalkTiles,
+					() => {
+						this.killed += 1
+						Html.changeText(this.p, this.killed)
+					})
+				}, killGoal)
 		])
 
 		Html.upperLeft([
@@ -20,15 +21,7 @@ export class MonsterWave {
 	}
 
 	completed() {
-		const ok = this.killed >= this.killGoal
-		if (ok) {
-			G.monsters.removeAll()
-			console.log("remoremo AllObjects")
-			return true
-		}
-		else {
-			return false
-		}
+		return this.killed >= this.killGoal
 	}
 
 	update() {

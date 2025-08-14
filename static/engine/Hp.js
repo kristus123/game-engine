@@ -15,8 +15,6 @@ export class Hp {
 	update() {
 		if (this.dead) {
 			this.killed()
-			this.removeFromLoop()
-			this.object.removeFromLoop()
 		}
 	}
 
