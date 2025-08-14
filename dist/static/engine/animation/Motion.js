@@ -3,10 +3,8 @@ import { Easings } from '/static/engine/animation/Easings.js';
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 
 export class Motion {
-	constructor(elapsedType = () => new StopWatch().start(), startValue = 1, end = 10, duration = 1000, easing = Easings.linear) {
+	constructor(startValue = 4, end = 1, duration = 400, easing = Easings.bounce) {
 
-				AssertNotNull(elapsedType, "argument elapsedType in " + this.constructor.name + ".js should not be null")
-			
 				AssertNotNull(startValue, "argument startValue in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(end, "argument end in " + this.constructor.name + ".js should not be null")
@@ -15,7 +13,6 @@ export class Motion {
 			
 				AssertNotNull(easing, "argument easing in " + this.constructor.name + ".js should not be null")
 			
-		this.elapsedType = elapsedType; 
 		this.startValue = startValue; 
 		this.end = end; 
 		this.duration = duration; 
@@ -27,7 +24,7 @@ export class Motion {
 	}
 
 	start() {
-		this.elapsed = this.elapsedType()
+		this.elapsed = new StopWatch().start()
 		this.playing = true;
 	}
 

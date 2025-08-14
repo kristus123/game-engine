@@ -2,22 +2,10 @@ export class Player extends DynamicGameObject {
 	constructor(position) {
 		super(position, 4000, 400)
 
-		const jumpPosition = new Position(1300, 200)
-		this.jumpPosition = jumpPosition
-		const player = this
-
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
+			new Turret(this.position),
 
-			this.motion = new Motion(() => new class {
-			constructor() {
-			}
-
-			get value() {
-				return Distance.between(player, jumpPosition)
-			}
-			
-		}),
 
 			OnChange(() => this.movingUp, up => {
 				if (up) {
@@ -33,13 +21,33 @@ export class Player extends DynamicGameObject {
 			}),
 		])
 
-		this.motion.start()
+
+		KeyDown('q', () => {
+			const jumpPosition = Mouse.position
+			this.jumpPosition = jumpPosition
+			this.maxDistance = Distance.between(this, this.jumpPosition)
+			this.finished = false
+		})
 	}
 
 	update() {
-		this.position.scale(this.motion.value)
-		this.localObjects.update()
+		if (this.jumpPosition) {
+			const x = Normalize(Distance.between(this, this.jumpPosition), this.maxDistance)
 
+			if (this.touches(this.jumpPosition) && x < 2) {
+				this.finished = true
+			}
+
+			if (!this.finished) {
+				ForcePush(this).towards(this.jumpPosition, 10)
+				this.position.scale(x)
+			}
+			else {
+				this.position.scale(1)
+			}
+		}
+
+		this.localObjects.update()
 
 		if (this.targetPosition) {
 			ForcePush(this).towards(this.targetPosition, 7)
@@ -52,6 +60,5 @@ export class Player extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
-		draw.circle(this.jumpPosition)
 	}
 }

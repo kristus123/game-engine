@@ -10,10 +10,9 @@ export class Turret extends DynamicGameObject {
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
 			G.Sprite.turret(this.position),
-			// this.motion = new Motion(),
+			this.motion = new Motion(),
 		])
-
-		// this.motion.start()
+		this.motion.start()
 	}
 
 	get target() {
@@ -21,7 +20,7 @@ export class Turret extends DynamicGameObject {
 	}
 
 	update() {
-		// this.position.scale(this.motion.value)
+		this.position.scale(this.motion.value)
 		this.localObjects.update()
 
 		if (this.charge.ready && this.target) {

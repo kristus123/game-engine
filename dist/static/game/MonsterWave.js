@@ -17,7 +17,7 @@ export class MonsterWave {
 		this.killed = 0
 
 		this.localObjects = new LocalObjects([
-			new Every(500, () => {
+			new Every(50, () => {
 				new Monster(tilemaps.enemyWalkTiles,
 					() => {
 						this.killed += 1

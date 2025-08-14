@@ -1,12 +1,12 @@
 export class Motion {
-	constructor(elapsedType = () => new StopWatch().start(), startValue = 1, end = 10, duration = 1000, easing = Easings.linear) {
+	constructor(startValue = 4, end = 1, duration = 400, easing = Easings.bounce) {
 		this.value = this.startValue;
 		this.duration = Math.max(1, duration);
 		this.playing = false;
 	}
 
 	start() {
-		this.elapsed = this.elapsedType()
+		this.elapsed = new StopWatch().start()
 		this.playing = true;
 	}
 
