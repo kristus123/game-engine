@@ -1,29 +1,45 @@
 export class Easing {
-	constructor(run) {
+	constructor(easing = Easings.easeOutQuad, run = () => {}) {
+		this.easing = easing;
+		this.run = run;
 
-		this.start = 1000
-		this.end = 0
-		this.duration = 1000
-		this.easing = Easings.easeInQuad
+		this.startValue = 8
+		this.value = this.startValue;
+		this.end = 1;
+		this.duration = 500;
 
-		this.startTime = null
+		this.running = false;
+		this.startTime = null;
+	}
 
-		this.running = true
-		this.startTime = performance.now()
+	start() {
+		this.reset()
+
+		this.startTime = performance.now();
+		this.running = true;
+	}
+
+	reset() {
+		this.value = this.startValue;
+		this.running = false;
+		this.startTime = null;
 	}
 
 	update() {
-		const elapsed = performance.now() - this.startTime
-		const progress = Math.min(elapsed / this.duration, 1)
-		const eased = this.easing(progress)
-		const value = this.start + (this.end - this.start) * eased
+		if (!this.running) return;
+
+		const elapsed = performance.now() - this.startTime;
+		const progress = Math.min(elapsed / this.duration, 1);
+		const eased = this.easing(progress);
+		this.value = this.startValue + (this.end - this.startValue) * eased;
 
 		if (this.running) {
-			this.run(value)
+			this.run(this.value);
 		}
 
 		if (progress >= 1) {
-			this.running = false
+			this.running = false;
+			this.end = this.end
 		}
 	}
 }

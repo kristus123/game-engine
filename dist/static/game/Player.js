@@ -1,5 +1,6 @@
 import { G } from '/static/engine/G.js'; 
-import { PingPong } from '/static/engine/animation/PingPong.js'; 
+import { Easing } from '/static/engine/animation/Easing.js'; 
+import { Easings } from '/static/engine/animation/Easings.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
@@ -19,6 +20,7 @@ export class Player extends DynamicGameObject {
 		this.position = position; 
 
 
+
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
 
@@ -35,23 +37,33 @@ export class Player extends DynamicGameObject {
 				this.sprite.tags[d].loop()
 			}),
 
-			new PingPong(v => {
-				this.position.resize(v)
-			})
+			this.easing = new Easing(Easings.overshootIn),
+
 		])
 
-
 		KeyDown('q', () => {
-			this.targetPosition = Mouse.position.copy().offset(-100, -100)
+			this.targetPosition = Mouse.position.copy().offset(-200, -400)
+			this.easing.start()
 		})
+
+
+		KeyDown(' ', () => {
+			console.log("hei")
+			this.easing.start()
+		})
+
 	}
 
 	update() {
+		if (this.easing.running) {
+			this.position.scale(this.easing.value)
+		}
+
 		this.localObjects.update()
 
 
 		if (this.targetPosition) {
-			ForcePush(this).towards(this.targetPosition, 14)
+			ForcePush(this).towards(this.targetPosition, 7)
 
 			if (this.within(100, this.targetPosition)) {
 				this.targetPosition = null

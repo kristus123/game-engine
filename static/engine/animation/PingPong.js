@@ -1,7 +1,7 @@
 export class PingPong {
 	constructor(run) {
-		this.start = 0
-		this.end = 10
+		this.start = -20
+		this.end = 20
 		this.duration = 100
 		this.easing = Easings.easeInOutQuad
 
@@ -37,7 +37,9 @@ export class PingPong {
 			? this.start + (this.end - this.start) * easedProgress
 			: this.end - (this.end - this.start) * easedProgress
 
-		this.run(value)
+		if (this.running) {
+			this.run(value)
+		}
 
 		if (progress >= 1) {
 			if (this.phase === 0) {
