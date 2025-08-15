@@ -3,6 +3,7 @@ import { Iterate } from '/static/engine/Iterate.js';
 import { a } from '/static/engine/a.js'; 
 import { ExponentialNumber } from '/static/engine/animation/ExponentialNumber.js'; 
 import { InverseExponentialNumber } from '/static/engine/animation/InverseExponentialNumber.js'; 
+import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
@@ -13,14 +14,16 @@ import { DeathText } from '/static/game/DeathText.js';
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
-import { Player } from '/static/game/Player.js'; 
 import { Turret } from '/static/game/Turret.js'; 
+import { Player } from '/static/game/player/Player.js'; 
 
 export class World {
 	constructor() {
 
 
 		Camera.followInstantly(new Position(500, 500))
+
+		Sound.theme()
 
 		this.player = new Player(new Position(0, 0))
 		Controller.control(this.player)
