@@ -42,7 +42,7 @@ export class Player extends DynamicGameObject {
 
 
 		KeyDown('q', () => {
-			const jumpPosition = Mouse.position
+			const jumpPosition = Mouse.position.copy()
 			this.jumpPosition = jumpPosition
 			this.maxDistance = Distance.between(this, this.jumpPosition)
 			this.finished = false

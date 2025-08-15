@@ -16,12 +16,12 @@ export class Wait {
 		this.onStart = onStart; 
 
 		this.s = new StopWatch().start()
-
-		onStart()
 	}
 
 	completed() {
-		return this.s.time > this.ms
+		if (this.s.time > this.ms) {
+			onStart()
+		}
 	}
 
 }

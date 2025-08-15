@@ -1,27 +1,31 @@
 export class MonsterWave {
-	constructor(tilemaps, killGoal) {
+	constructor(maxEnemies, onCompeted = () => {}) {
 		this.killed = 0
 
 		this.localObjects = new LocalObjects([
-			new Every(50, () => {
-				new Monster(tilemaps.enemyWalkTiles,
+			OnTrue(() => this.completed(), () => {
+				console.log("onCompeted triggered")
+				onCompeted()
+			}),
+			new Every(120, () => {
+				new Monster(new Tilemaps().enemyWalkTiles,
 					() => {
 						this.killed += 1
-						Html.changeText(this.p, this.killed)
+						Html.changeText(this.p, this.killed + "/" + this.maxEnemies)
 					})
-			}, killGoal)
+			}, maxEnemies)
 		])
 
 		Html.upperLeft([
 			Html.div('', [
 				Html.p('kill count'),
-				this.p = Html.p(this.killed),
+				this.p = Html.p(""),
 			])
 		])
 	}
 
 	completed() {
-		return this.killed >= this.killGoal
+		return this.killed >= this.maxEnemies
 	}
 
 	update() {

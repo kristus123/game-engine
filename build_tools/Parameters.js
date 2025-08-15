@@ -15,7 +15,7 @@ function arraysAreEqual(arr1, arr2) {
 class Parameters {
 
 	static inConstructor(content) {
-		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/);
+		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
 
 		if (match) {
 			const parameters = match[1].split(',')

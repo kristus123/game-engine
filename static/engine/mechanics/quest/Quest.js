@@ -18,6 +18,9 @@ export class Quest {
 			if (this.currentTask.update) {
 				this.currentTask.update()
 			}
+			else {
+				console.log(this.currentTask)
+			}
 
 			if (this.currentTask.completed && this.currentTask.completed()) {
 				this.index += 1

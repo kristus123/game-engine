@@ -2,40 +2,46 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Every } from '/static/engine/on/Every.js'; 
+import { OnTrue } from '/static/engine/on/OnTrue.js'; 
 import { Monster } from '/static/game/Monster.js'; 
+import { Tilemaps } from '/static/game/Tilemaps.js'; 
 
 export class MonsterWave {
-	constructor(tilemaps, killGoal) {
+	constructor(maxEnemies, onCompeted = () => {}) {
 
-				AssertNotNull(tilemaps, "argument tilemaps in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(maxEnemies, "argument maxEnemies in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(killGoal, "argument killGoal in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(onCompeted, "argument onCompeted in " + this.constructor.name + ".js should not be null")
 			
-		this.tilemaps = tilemaps; 
-		this.killGoal = killGoal; 
+		this.maxEnemies = maxEnemies; 
+		this.onCompeted = onCompeted; 
 
 		this.killed = 0
 
 		this.localObjects = new LocalObjects([
-			new Every(50, () => {
-				new Monster(tilemaps.enemyWalkTiles,
+			new OnTrue(() => this.completed(), () => {
+				console.log("onCompeted triggered")
+				onCompeted()
+			}),
+			new Every(120, () => {
+				new Monster(new Tilemaps().enemyWalkTiles,
 					() => {
 						this.killed += 1
-						Html.changeText(this.p, this.killed)
+						Html.changeText(this.p, this.killed + "/" + this.maxEnemies)
 					})
-			}, killGoal)
+			}, maxEnemies)
 		])
 
 		Html.upperLeft([
 			Html.div('', [
 				Html.p('kill count'),
-				this.p = Html.p(this.killed),
+				this.p = Html.p(""),
 			])
 		])
 	}
 
 	completed() {
-		return this.killed >= this.killGoal
+		return this.killed >= this.maxEnemies
 	}
 
 	update() {

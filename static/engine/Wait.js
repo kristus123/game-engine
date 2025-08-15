@@ -4,12 +4,12 @@ export class Wait {
 
 	constructor(ms, onStart=() => {}) {
 		this.s = new StopWatch().start()
-
-		onStart()
 	}
 
 	completed() {
-		return this.s.time > this.ms
+		if (this.s.time > this.ms) {
+			onStart()
+		}
 	}
 
 }
