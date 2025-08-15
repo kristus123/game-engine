@@ -1,8 +1,9 @@
 import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
-import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
+import { Keyboard } from '/static/engine/controller/keyboard/Keyboard.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { OnTrue } from '/static/engine/on/OnTrue.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 
@@ -17,26 +18,25 @@ export class Money {
 		this.tilemaps = new Tilemaps()
 
 		this.localObjects = new LocalObjects([
+			new OnTrue(() => Keyboard.e, () => {
+				this.turret = new Turret(Mouse.position.copy())
+				Mouse.onClick = p => {
+					if (this.tilemaps.touchesTurretTiles(p)) {
+						this.localObjects.add(this.turret)
+						Sound.click()
+						Mouse.onClick = null
+						this.turret.motion.start()
+						this.turret = null
+						Html.changeText(this.money, this.amount)
+						this.subtract(20)
+					}
+				}
+
+				
+			}),
 		])
 
 		this.turret = null
-
-
-		KeyDown('e', () => {
-			this.turret = new Turret(Mouse.position.copy())
-			Mouse.onClick = p => {
-				if (this.tilemaps.touchesTurretTiles(p)) {
-					this.localObjects.add(this.turret)
-					Sound.click()
-					Mouse.onClick = null
-					this.turret.motion.start()
-					this.turret = null
-					Html.changeText(this.money, this.amount)
-					this.subtract(20)
-				}
-			}
-
-		})
 
 		Html.upper([
 			this.buyTurret = Html.button('default turret', () => {

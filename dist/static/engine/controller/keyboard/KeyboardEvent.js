@@ -1,4 +1,3 @@
-import { KeyDown } from '/static/engine/controller/keyboard/KeyDown.js'; 
 
 export class KeyboardEvent {
 	constructor() {

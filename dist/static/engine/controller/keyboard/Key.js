@@ -1,5 +1,4 @@
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { KeypressEvent } from '/static/engine/controller/keyboard/KeypressEvent.js'; 
 
 export class Key {
 	constructor(key) {

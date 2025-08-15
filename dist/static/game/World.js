@@ -9,6 +9,7 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { BottomText } from '/static/game/BottomText.js'; 
 import { DeathText } from '/static/game/DeathText.js'; 
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
@@ -32,7 +33,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
-
+			new BottomText(['hei']),
 
 
 			new Quest(Iterate(100, i => () =>

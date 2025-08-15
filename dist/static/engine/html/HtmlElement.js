@@ -1,9 +1,9 @@
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 
-export function HtmlElement(type, clazz) {
+export function HtmlElement(type, className) {
 	const e = document.createElement(type)
-	e.setAttribute('class', clazz)
-	e.setAttribute('tabindex', -1)
+	e.setAttribute('class', className)
+	// e.setAttribute('tabindex', -1) // can be commented out it seems like
 
 	// e.addEventListener('mousedown', e => {
 	// 	e.preventDefault()

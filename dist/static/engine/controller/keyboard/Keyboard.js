@@ -1,6 +1,6 @@
 
 document.addEventListener('keydown', e => {
-	if (e.key === 'Tab' || e.keyCode === 9) {
+	if (e.key === 'Tab' || e.keyCode === 9) { // what is 9 ?
 		e.preventDefault()
 	}
 })
@@ -8,34 +8,39 @@ document.addEventListener('keydown', e => {
 
 export class Keyboard {
 
+	static disabled = false
+
 	static noButtonsPressed() {
 		return !this.up && !this.down && !this.left && !this.right
 	}
 
 	static {
 		document.addEventListener('keydown', (e) => {
-			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+			if (this.disabled) {
+				
+			}
+			else if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = true
 			}
-			if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+			else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
 				this.down = true
 			}
-			if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+			else if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
 				this.left = true
 			}
-			if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+			else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
 				this.right = true
 			}
-			if (e.code === 'Space') {
+			else if (e.code === 'Space') {
 				this.space = true
 			}
-			if (e.code === 'KeyE') {
+			else if (e.code === 'KeyE') {
 				this.e = true
 			}
-			if (e.code === 'KeyF') {
+			else if (e.code === 'KeyF') {
 				this.f = true
 			}
-			if (e.code === 'KeyQ') {
+			else if (e.code === 'KeyQ') {
 				this.q = true
 			}
 		})
@@ -44,25 +49,25 @@ export class Keyboard {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = false
 			}
-			if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+			else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
 				this.down = false
 			}
-			if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+			else if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
 				this.left = false
 			}
-			if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+			else if (e.code === 'ArrowRight' || e.code === 'KeyD') {
 				this.right = false
 			}
-			if (e.code === 'Space') {
+			else if (e.code === 'Space') {
 				this.space = false
 			}
-			if (e.code === 'KeyE') {
+			else if (e.code === 'KeyE') {
 				this.e = false
 			}
-			if (e.code === 'KeyF') {
+			else if (e.code === 'KeyF') {
 				this.f = false
 			}
-			if (e.code === 'KeyQ') {
+			else if (e.code === 'KeyQ') {
 				this.q = false
 			}
 		})

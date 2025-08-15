@@ -14,6 +14,15 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
+
+
+		Html.center([
+			Html.input("name of tower", name => {
+				console.log("sex")
+				this.name = name
+				Html.clear()
+			})
+		])
 	}
 
 	get target() {
@@ -44,6 +53,10 @@ export class Turret extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		if (this.name) {
+			draw.text(this.position, this.name)
+			
+		}
 		this.localObjects.draw(draw, guiDraw)
 		if (Mouse.touches(this)) {
 			draw.radius(this.position.center, 400)

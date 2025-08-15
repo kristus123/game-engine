@@ -4,6 +4,12 @@ export class Html {
 	}
 
 
+	static _ui_elements = document.getElementById('ui_elements')
+	static addToScreen(element) {
+		this._ui_elements.appendChild(element)
+		return element
+	}
+
 	static upperLeft(elements) {
 		Html.addToScreen(
 			Html.div('upper-left-ui', [
@@ -140,17 +146,14 @@ export class Html {
 
 
 		  i.addEventListener('focus', () => {
-			// console.log('Input is highlighted!');
 			Controller.disabled = true
-			i.style.borderColor = '#6c63ff' // change border color on highlight
+			Keyboard.disabled = true
 		  })
 
 		  i.addEventListener('blur', () => {
 			Controller.disabled = false
-			// console.log('Input is no longer highlighted.');
-			i.style.borderColor = '#ccc' // revert border color
+			Keyboard.disabled = false
 		  })
-
 
 		i.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter') {
@@ -165,11 +168,8 @@ export class Html {
 
 
 	static focus(element) {
-	  if (element) {
-			element.focus()
-	  }
+		element.focus()
 	}
-
 
 	static focusInput() {
 		const input = document.querySelector('input[type="text"]')
@@ -194,17 +194,12 @@ export class Html {
 	}
 
 	static img() {
-		const img = HtmlElement('img', '')
+		const img = HtmlElement('img', 'ui')
 		img.src = 'https://play-lh.googleusercontent.com/7oW_TFaC5yllHJK8nhxHLQRCvGDE8jYIAc2SWljYpR6hQlFTkbA6lNvER1ZK-doQnQ'
 
 		return img
 	}
 
-	static addToScreen(element) {
-		element.classList.add('ui')
-		document.getElementById('ui_elements').appendChild(element)
-		return element
-	}
 
 	static onClick(e, run) {
 		e.addEventListener('click', () => {
@@ -254,24 +249,12 @@ export class Html {
 		}, ms)
 	}
 
-	static ui(elements) {
-		const div = HtmlElement('div', 'ui')
-		for (const e of elements) {
-			// e.setAttribute('class', 'button')
-			div.appendChild(e)
-		}
-
-		this.addToScreen(div)
-
-		return div
-	}
-
 	static show(e) {
-		e.style.display = 'block' // Show
+		e.style.display = 'block'
 	}
 
 	static hide(e) {
-		e.style.display = 'none' // Hide
+		e.style.display = 'none'
 	}
 
 	static changeText(element, text) {
@@ -289,18 +272,6 @@ export class Html {
 		p.style.top = `${position.y}px`
 
 		return p
-		// return {
-		// 	style: p.style,
-		// 	text: text => {
-		// 		p.textContent = text
-		// 		return this
-		// 	},
-		// 	position: position => {
-		// 		p.style.left = `${position.x}px`
-		// 		p.style.top = `${position.y}px`
-		// 		return this
-		// 	}
-		// }
 	}
 
 	static remove(e) {
@@ -367,34 +338,6 @@ export class Html {
 		e.style.left = `${position.x}px`
 		e.style.top = `${position.y - 50}px`
 
-		Html.addToScreen(e)
-
 		return e
 	}
-
-	static floatingPosition(e, position) {
-		position = Camera.p(position) // todo imrpoveo ofc
-		e.style.left = `${position.x}px`
-		e.style.top = `${position.y - 50}px`
-	}
-
-	static dropDown(menu, sub_menus) {
-		const subMenu = Html.div(menu.className, sub_menus)
-		subMenu.className = 'sub-menu'
-		subMenu.addEventListener('mouseover', () => {
-			Html.show(subMenu)
-		})
-		menu.style.position = 'relative'
-		menu.addEventListener('mouseout', () => {
-			Html.hide(subMenu)
-		})
-		menu.addEventListener('mouseover', () => {
-			Html.show(subMenu)
-		})
-		Html.hide(subMenu)
-		menu.appendChild(subMenu)
-		return menu
-	}
-
-
 }
