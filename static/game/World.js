@@ -12,8 +12,6 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
-			new BottomText(['hei']),
-
 
 			new Quest(Iterate(100, i => () =>
 				new class {
@@ -45,8 +43,6 @@ export class World {
 				}
 			)),
 			Money.init(),
-			new Turret(new Position(800, 0)),
-			new Turret(new Position(800, 0)),
 			new Turret(new Position(800, 0)),
 			G.monsters,
 		])
