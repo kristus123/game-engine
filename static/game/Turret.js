@@ -14,15 +14,6 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
-
-
-		Html.center([
-			Html.input("name of tower", name => {
-				console.log("sex")
-				this.name = name
-				Html.clear()
-			})
-		])
 	}
 
 	get target() {

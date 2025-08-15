@@ -7,7 +7,6 @@ import { Audio } from '/static/engine/audio/Audio.js';
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { Html } from '/static/engine/html/Html.js'; 
 import { Charge } from '/static/engine/mechanics/Charge.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
@@ -36,15 +35,6 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
-
-
-		Html.center([
-			Html.input("name of tower", name => {
-				console.log("sex")
-				this.name = name
-				Html.clear()
-			})
-		])
 	}
 
 	get target() {
