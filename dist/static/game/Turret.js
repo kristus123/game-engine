@@ -4,6 +4,7 @@ import { a } from '/static/engine/a.js';
 import { Motion } from '/static/engine/animation/Motion.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Audio } from '/static/engine/audio/Audio.js'; 
+import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Square } from '/static/engine/graphics/Square.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
 import { Charge } from '/static/engine/mechanics/Charge.js'; 
@@ -11,6 +12,7 @@ import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
+import { TurretNeeds } from '/static/game/TurretNeeds.js'; 
 
 export class Turret extends DynamicGameObject {
 	constructor(position) {
@@ -28,6 +30,7 @@ export class Turret extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
+			this.turretNeeds =  new TurretNeeds(this),
 			G.Sprite.turret(this.position),
 			this.motion = new Motion(),
 		])
@@ -42,7 +45,7 @@ export class Turret extends DynamicGameObject {
 		this.position.scale(this.motion.value)
 		this.localObjects.update()
 
-		if (this.charge.ready && this.target) {
+		if (this.charge.ready && this.target && !this.turretNeeds.needsSomething) {
 			this.charge.exhaust()
 
 			const b = new Square(this.position.copy(), 10)
@@ -63,8 +66,10 @@ export class Turret extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		if (Mouse.touches(this)) {
+			draw.radius(this.position.center, 400)
+		}
 		// draw.rectangle(this.position)
-		// draw.radius(this.position.center, 800)
 		// draw.circle(this.position.center)
 	}
 }

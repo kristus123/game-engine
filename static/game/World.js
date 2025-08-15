@@ -3,8 +3,10 @@ export class World {
 		Camera.followInstantly(new Position(500, 500))
 
 		this.player = new Player(new Position(0, 0))
+		G.player = this.player
+
 		Controller.control(this.player)
-		Camera.followInstantly(this.player)
+		// Camera.followInstantly(this.player)
 
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
@@ -13,7 +15,7 @@ export class World {
 
 
 
-			new Quest(Iterate(10, i => () =>
+			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
 						new DeathText('round ' + i).show()
@@ -43,28 +45,6 @@ export class World {
 				}
 			)),
 			Money.init(),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
-			new Turret(new Position(300, 0)),
 			new Turret(new Position(800, 0)),
 			new Turret(new Position(800, 0)),
 			new Turret(new Position(800, 0)),

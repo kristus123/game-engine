@@ -4,7 +4,6 @@ export class Player extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
-			new Turret(this.position),
 			this.jump = new Jump(this),
 
 			OnChange(() => this.movingUp, up => {

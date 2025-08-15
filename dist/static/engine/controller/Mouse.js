@@ -155,6 +155,10 @@ export class Mouse {
 		})
 	}
 
+	static touches(x) {
+		return Collision.between(this.position, x)
+	}
+
 	static positionRelativeToCamera(xx, yy) {
 		this.screenPosition.x = xx
 		this.screenPosition.y = yy

@@ -2,7 +2,7 @@ import { Loop } from '/static/engine/Loop.js';
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 
 export class Every {
-	constructor(intervalMs, action, maxRuns=null, onFinish=() => {}) {
+	constructor(intervalMs, action, maxRuns="infinite", onFinish=() => {}) {
 
 				AssertNotNull(intervalMs, "argument intervalMs in " + this.constructor.name + ".js should not be null")
 			
@@ -25,7 +25,7 @@ export class Every {
 	}
 
 	update() {
-		if (this.maxRuns && this.runs >= this.maxRuns) {
+		if (this.maxRuns != "infinite" && this.runs >= this.maxRuns) {
 			this.onFinish()
 			this.removeFromLoop()
 		}

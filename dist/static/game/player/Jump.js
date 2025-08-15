@@ -27,7 +27,6 @@ export class Jump {
 	}
 
 	get scale() {
-		console.log(this.maxDistance)
 		if (this.destination && this.maxDistance) {
 			const x =  Normalize(Distance.between(this.player, this.destination), this.maxDistance)
 			return Math.min(x, 5)
@@ -41,7 +40,7 @@ export class Jump {
 		if (this.destination && !this.arrived) {
 			ForcePush(this.player).towards(this.destination, 10)
 
-			if (this.player.within(70, this.destination) && this.scale < 2) {
+			if (this.player.within(150, this.destination) && this.scale < 2) {
 				this.onArrival(this.destination)
 
 				this.destination = null

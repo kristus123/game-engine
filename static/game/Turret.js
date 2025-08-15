@@ -9,6 +9,7 @@ export class Turret extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
+			this.turretNeeds =  new TurretNeeds(this),
 			G.Sprite.turret(this.position),
 			this.motion = new Motion(),
 		])
@@ -23,7 +24,7 @@ export class Turret extends DynamicGameObject {
 		this.position.scale(this.motion.value)
 		this.localObjects.update()
 
-		if (this.charge.ready && this.target) {
+		if (this.charge.ready && this.target && !this.turretNeeds.needsSomething) {
 			this.charge.exhaust()
 
 			const b = new Square(this.position.copy(), 10)
@@ -44,8 +45,10 @@ export class Turret extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+		if (Mouse.touches(this)) {
+			draw.radius(this.position.center, 400)
+		}
 		// draw.rectangle(this.position)
-		// draw.radius(this.position.center, 800)
 		// draw.circle(this.position.center)
 	}
 }

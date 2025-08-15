@@ -4,7 +4,6 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
-import { Turret } from '/static/game/Turret.js'; 
 import { Jump } from '/static/game/player/Jump.js'; 
 
 export class Player extends DynamicGameObject {
@@ -18,7 +17,6 @@ export class Player extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
-			new Turret(this.position),
 			this.jump = new Jump(this),
 
 			new OnChange(() => this.movingUp, up => {

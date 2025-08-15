@@ -277,7 +277,7 @@ export class Draw {
 	radius(position, radius) {
 		this.ctx.beginPath()
 		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
-		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.1)' // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.1)' // rgba(red, green, blue, alpha)
 		this.ctx.fill()
 
 	}

@@ -92,7 +92,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	}
 
 	within(distance, o) {
-		return Distance.within(distance, this, o)
+		return Distance.within(distance, this, o) || this.touches(o)
 	}
 
 	withinAny(distance, objects) {
