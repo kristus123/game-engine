@@ -2,8 +2,6 @@ export class World {
 	constructor() {
 		Camera.followInstantly(new Position(500, 500))
 
-		Sound.theme()
-
 		this.player = new Player(new Position(0, 0))
 		Controller.control(this.player)
 		Camera.followInstantly(this.player)

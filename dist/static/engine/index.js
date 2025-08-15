@@ -87,7 +87,6 @@ const whenLoaded = Promise.all(["/static/assets/enemy","/static/assets/flower","
 	const audios = [
 		'/static/audio/sheet.mp3', 
 		'/static/audio/click.mp3',
-		'/static/audio/theme.mp3',
 		].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 	}))
