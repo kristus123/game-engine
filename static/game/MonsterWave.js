@@ -4,7 +4,6 @@ export class MonsterWave {
 
 		this.localObjects = new LocalObjects([
 			OnTrue(() => this.completed(), () => {
-				console.log("onCompeted triggered")
 				onCompeted()
 			}),
 			new Every(120, () => {

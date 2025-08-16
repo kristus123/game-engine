@@ -3,10 +3,8 @@ export class SmoothPosition {
 		this.position = new Position(0, 0)
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				smooth_x: new SmoothValue(this.position.x, targetPosition.x, smoothness, threshold),
-				smooth_y: new SmoothValue(this.position.y, targetPosition.y, smoothness, threshold),
-			})
+			this.smooth_x = new SmoothValue(this.position.x, targetPosition.x, smoothness, threshold),
+			this.smooth_y = new SmoothValue(this.position.y, targetPosition.y, smoothness, threshold),
 		])
 	}
 

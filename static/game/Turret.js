@@ -30,7 +30,6 @@ export class Turret extends DynamicGameObject {
 			const b = new Square(this.position.copy(), 10)
 			this.a.play(1)
 
-			ForcePush(b).towards(this.target.position.center, 400)
 
 			b.update = () => {
 				if (b.touchesAny(G.monsters)) {
@@ -40,6 +39,8 @@ export class Turret extends DynamicGameObject {
 			}
 
 			tla(b)
+
+			ForcePush(b).towards(this.target.position.center, 400)
 		}
 	}
 

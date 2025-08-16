@@ -1,4 +1,3 @@
-import { Init } from '/static/engine/Init.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
@@ -20,10 +19,8 @@ export class SmoothPosition {
 		this.position = new Position(0, 0)
 
 		this.localObjects = new LocalObjects([
-			Init(this, {
-				smooth_x: new SmoothValue(this.position.x, targetPosition.x, smoothness, threshold),
-				smooth_y: new SmoothValue(this.position.y, targetPosition.y, smoothness, threshold),
-			})
+			this.smooth_x = new SmoothValue(this.position.x, targetPosition.x, smoothness, threshold),
+			this.smooth_y = new SmoothValue(this.position.y, targetPosition.y, smoothness, threshold),
 		])
 	}
 
