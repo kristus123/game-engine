@@ -16,13 +16,13 @@ export class World {
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
-						new DeathText('round ' + i + "/" + 100).show()
+						new DeathText('round ' + i + '/' + 100).show()
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(e.value, () => {
 								setTimeout(() => {
 									e.next()
 									this.completed = () => true
-								}, 1000);
+								}, 1000)
 							}),
 						])
 					}

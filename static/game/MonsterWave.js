@@ -10,7 +10,7 @@ export class MonsterWave {
 				new Monster(new Tilemaps().enemyWalkTiles,
 					() => {
 						this.killed += 1
-						Html.changeText(this.p, this.killed + "/" + this.maxEnemies)
+						Html.changeText(this.p, this.killed + '/' + this.maxEnemies)
 					})
 			}, maxEnemies)
 		])
@@ -18,7 +18,7 @@ export class MonsterWave {
 		Html.upperLeft([
 			Html.div('', [
 				Html.p('kill count'),
-				this.p = Html.p(""),
+				this.p = Html.p(''),
 			])
 		])
 	}

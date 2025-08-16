@@ -36,11 +36,11 @@ export class TurretNeeds {
 
 		if (this.chokolate) {
 			if (G.player.within(100, this.turret)) {
-				Html.fadeaway("thanks!", this.turret.position.offset(-200))
+				Html.fadeaway('thanks!', this.turret.position.offset(-200))
 				this.chokolate = false
 			}
 			else {
-				draw.text(this.turret.position.over(20), "cooka!!!!!")
+				draw.text(this.turret.position.over(20), 'cooka!!!!!')
 			}
 		}
 	}

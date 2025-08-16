@@ -10,7 +10,7 @@ export class Jump {
 
 	get scale() {
 		if (this.destination && this.maxDistance) {
-			const x =  Normalize(Distance.between(this.player, this.destination), this.maxDistance)
+			const x = Normalize(Distance.between(this.player, this.destination), this.maxDistance)
 			return Math.min(x, 5)
 		}
 		else {

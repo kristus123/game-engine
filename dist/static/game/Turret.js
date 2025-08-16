@@ -30,7 +30,7 @@ export class Turret extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
-			this.turretNeeds =  new TurretNeeds(this),
+			this.turretNeeds = new TurretNeeds(this),
 			G.Sprite.turret(this.position),
 			this.motion = new Motion(),
 		])
@@ -68,7 +68,7 @@ export class Turret extends DynamicGameObject {
 	draw(draw, guiDraw) {
 		if (this.name) {
 			draw.text(this.position, this.name)
-			
+
 		}
 		this.localObjects.draw(draw, guiDraw)
 		if (Mouse.touches(this)) {

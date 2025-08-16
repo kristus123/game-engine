@@ -60,9 +60,9 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 		.then(img => G.image[fileName] = img)
 
 	const audios = [
-		'/static/audio/sheet.mp3', 
+		'/static/audio/sheet.mp3',
 		'/static/audio/click.mp3',
-		].map(a => loadAudio(a).then(xxx => {
+	].map(a => loadAudio(a).then(xxx => {
 		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
 	}))
 

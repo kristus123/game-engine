@@ -13,7 +13,7 @@ export class DeathText {
 			e.addEventListener('transitionend', () => {
 				Html.remove(e)
 			})
-			
+
 		}, this.duration)
 	}
 }

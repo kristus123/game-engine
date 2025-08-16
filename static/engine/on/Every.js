@@ -1,5 +1,5 @@
 export class Every {
-	constructor(intervalMs, action, maxRuns="infinite", onFinish=() => {}) {
+	constructor(intervalMs, action, maxRuns='infinite', onFinish=() => {}) {
 		this.intervalMs = intervalMs
 		this.action = action
 		this.lastTrigger = performance.now()
@@ -8,7 +8,7 @@ export class Every {
 	}
 
 	update() {
-		if (this.maxRuns != "infinite" && this.runs >= this.maxRuns) {
+		if (this.maxRuns != 'infinite' && this.runs >= this.maxRuns) {
 			this.onFinish()
 			this.removeFromLoop()
 		}

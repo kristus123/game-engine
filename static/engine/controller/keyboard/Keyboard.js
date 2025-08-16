@@ -16,7 +16,7 @@ export class Keyboard {
 	static {
 		document.addEventListener('keydown', (e) => {
 			if (this.disabled) {
-				
+
 			}
 			else if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = true
