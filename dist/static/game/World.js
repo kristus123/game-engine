@@ -13,6 +13,7 @@ import { DeathText } from '/static/game/DeathText.js';
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
+import { Tilemaps } from '/static/game/Tilemaps.js'; 
 import { Turret } from '/static/game/Turret.js'; 
 import { Player } from '/static/game/player/Player.js'; 
 
@@ -64,7 +65,9 @@ export class World {
 			Money.init(),
 			new Turret(new Position(800, 0)),
 			G.monsters,
+			this.tilemaps = new Tilemaps()
 		])
+
 	}
 
 	update() {
