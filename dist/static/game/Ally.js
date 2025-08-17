@@ -1,6 +1,7 @@
 import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
+import { PathFinder } from '/static/engine/mechanics/PathFinder.js'; 
 import { SimplePathFinder } from '/static/engine/mechanics/SimplePathFinder.js'; 
 import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
@@ -32,13 +33,7 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		const a = this.touchesAny(G.allies.objects)
-		if (a) {
-			// ForcePush(this).awayFrom(a, 6)
-			// ForcePush(a).awayFrom(this, 6)
-		}
-
-		Push(this).towards(this.path.current, 5)
+		ForcePush(this).towards(this.path.current, 5)
 
 		this.localObjects.update()
 	}

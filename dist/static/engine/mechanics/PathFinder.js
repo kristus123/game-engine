@@ -1,28 +1,25 @@
+import { G } from '/static/engine/G.js'; 
 import { List } from '/static/engine/List.js'; 
 import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
-export class SimplePathFinder {
-	constructor(start, target, invisibleWalls, gridSize = 100) {
+export class PathFinder {
+	constructor(start, target, gridSize = 100) {
 
 				AssertNotNull(start, "argument start in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(target, "argument target in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(invisibleWalls, "argument invisibleWalls in " + this.constructor.name + ".js should not be null")
-			
 				AssertNotNull(gridSize, "argument gridSize in " + this.constructor.name + ".js should not be null")
 			
 		this.start = start; 
 		this.target = target; 
-		this.invisibleWalls = invisibleWalls; 
 		this.gridSize = gridSize; 
 
 		this.current = { x: start.x, y: start.y }
 		this.target = target
 		this.gridSize = gridSize
-		this.invisibleWalls = invisibleWalls.map(w => ({ x: w.x, y: w.y, w: w.width, h: w.height }))
 		this.path = []
 		this.success = false
 		this.speed = 2
@@ -31,7 +28,7 @@ export class SimplePathFinder {
 		this.cameFrom = new Map()
 		this.closedSet = new Set()
 		this.searching = false
-		this.nodesPerFrame = 2
+		this.nodesPerFrame = 50
 		this.lastTargetKey = this._gridKey(target)
 	}
 
@@ -40,10 +37,7 @@ export class SimplePathFinder {
 	}
 
 	_isBlocked(pos) {
-		return this.invisibleWalls.some(w =>
-			pos.x < w.x + w.w && pos.x + this.gridSize > w.x &&
-			pos.y < w.y + w.h && pos.y + this.gridSize > w.y
-		)
+		return this.target.touchesAny(G.invisibleWalls.objects.map(w => w.position))
 	}
 
 	_neighbors(pos) {
@@ -138,9 +132,8 @@ export class SimplePathFinder {
 	}
 
 	draw(draw) {
-		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
+		draw.circle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 5)
 		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
-		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.w, w.h), 'red'))
 		draw.line(this.current, this.target)
 	}
 }

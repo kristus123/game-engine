@@ -12,7 +12,7 @@ export class SimplePathFinder {
 		this.cameFrom = new Map()
 		this.closedSet = new Set()
 		this.searching = false
-		this.nodesPerFrame = 50
+		this.nodesPerFrame = 2
 		this.lastTargetKey = this._gridKey(target)
 	}
 
@@ -119,10 +119,10 @@ export class SimplePathFinder {
 	}
 
 	draw(draw) {
-		// draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
-		// this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
+		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
+		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
 		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.w, w.h), 'red'))
-		// draw.line(this.current, this.target)
+		draw.line(this.current, this.target)
 	}
 }
 

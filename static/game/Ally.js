@@ -16,13 +16,7 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		const a = this.touchesAny(G.allies.objects)
-		if (a) {
-			// ForcePush(this).awayFrom(a, 6)
-			// ForcePush(a).awayFrom(this, 6)
-		}
-
-		Push(this).towards(this.path.current, 5)
+		ForcePush(this).towards(this.path.current, 5)
 
 		this.localObjects.update()
 	}
