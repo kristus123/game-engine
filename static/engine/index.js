@@ -76,7 +76,6 @@ whenLoaded.then(() => {
 		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
 		// const showLogs = new ShowLogs(guiPalette)
-		//
 
 		Sound.init()
 		Mouse.initialize()
@@ -87,11 +86,10 @@ whenLoaded.then(() => {
 		const guiDraw = new Draw(guiPalette.ctx)
 
 		Level.change(new World())
-		// Level.change(new WorldEditor())
 
 		//new VideoCall()
 
-		Loop.everyFrame((deltaTime) => {
+		Loop.everyFrame(deltaTime => {
 			ErrorHandler.run(() => {
 
 				Palette.clear([Camera.palette, guiPalette])
