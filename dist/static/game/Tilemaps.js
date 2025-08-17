@@ -43,9 +43,9 @@ export class Tilemaps {
 
 
 	draw(draw, guiDraw) {
-		for (const p of this.tiles.filter(t => t.i == 4)) {
-			draw.rectangle(p.position)
-		}
+		// for (const p of this.tiles.filter(t => t.i == 4)) {
+		// 	draw.rectangle(p.position)
+		// }
 	}
 
 }

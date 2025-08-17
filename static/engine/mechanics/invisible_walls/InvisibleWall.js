@@ -1,5 +1,5 @@
 export class InvisibleWall extends StaticGameObject {
-	constructor(position) {
+	constructor(position, affected) {
 		super(position)
 
 		if (this.position.width == 1) {
@@ -9,9 +9,7 @@ export class InvisibleWall extends StaticGameObject {
 	}
 
 	update() {
-		for (const o of [
-			G.player,
-		]) {
+		for (const o of [this.affected]) {
 			if (Collision.between(this, o)) {
 				const currentPosition = { x: o.position.x, y: o.position.y }
 

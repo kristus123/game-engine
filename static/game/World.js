@@ -1,8 +1,8 @@
 export class World {
 	constructor() {
-		Camera.followInstantly(new Position(500, 500))
+		// Camera.followInstantly(new Position(500, 500))
 
-		this.player = new Player(new Position(0, 0))
+		this.player = new Player(new Position(700, 200))
 		G.player = this.player
 
 		Controller.control(this.player)
@@ -13,10 +13,12 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
 
+			...Iterate(10, () => new Ally(new Position(0,0, 10, 10))),
+
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
-						new DeathText('round ' + i + '/' + 100).show()
+						// new DeathText('round ' + i + '/' + 100).show()
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(e.value, () => {
 								setTimeout(() => {

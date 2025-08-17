@@ -1,97 +1,147 @@
-import { Distance } from '/static/engine/Distance.js'; 
+import { List } from '/static/engine/List.js'; 
+import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Square } from '/static/engine/graphics/Square.js'; 
-import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Move } from '/static/engine/physics/Move.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class SimplePathFinder {
-	constructor(startPosition, target, invisibleWalls) {
+	constructor(start, target, invisibleWalls, gridSize = 100) {
 
-				AssertNotNull(startPosition, "argument startPosition in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(start, "argument start in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(target, "argument target in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(invisibleWalls, "argument invisibleWalls in " + this.constructor.name + ".js should not be null")
 			
-		this.startPosition = startPosition; 
+				AssertNotNull(gridSize, "argument gridSize in " + this.constructor.name + ".js should not be null")
+			
+		this.start = start; 
 		this.target = target; 
 		this.invisibleWalls = invisibleWalls; 
+		this.gridSize = gridSize; 
 
-
-		this.c1 = new Square(startPosition.position.copy(), 20)
-
-		this.c2 = new Square(startPosition.position.copy(), 20)
-		this.c2.draw = (draw, guiDraw) => {
-			draw.rectangle(this.c2.position, 'orange')
-		}
-
-		this.localObjects = new LocalObjects([
-			this.c1,
-			this.c2,
-		])
-
-		this.rotationAmount = 0
-
-		this.speed = 10
-
-		this.angle1 = this.c1.position.copy()
-
-		this.c1Active = true
-
+		this.current = { x: start.x, y: start.y }
+		this.target = target
+		this.gridSize = gridSize
+		this.invisibleWalls = invisibleWalls.map(w => ({ x: w.x, y: w.y, w: w.width, h: w.height }))
+		this.path = []
 		this.success = false
-		this.touchedC1 = false
+		this.speed = 2
+
+		this.openList = []
+		this.cameFrom = new Map()
+		this.closedSet = new Set()
+		this.searching = false
+		this.nodesPerFrame = 50
+		this.lastTargetKey = this._gridKey(target)
+	}
+
+	_gridKey(pos) {
+		return `${Math.floor(pos.x / this.gridSize)},${Math.floor(pos.y / this.gridSize)}`
+	}
+
+	_isBlocked(pos) {
+		return this.invisibleWalls.some(w =>
+			pos.x < w.x + w.w && pos.x + this.gridSize > w.x &&
+			pos.y < w.y + w.h && pos.y + this.gridSize > w.y
+		)
+	}
+
+	_neighbors(pos) {
+		const dirs = [
+			{ x: 1, y: 0 }, { x: -1, y: 0 },
+			{ x: 0, y: 1 }, { x: 0, y: -1 }
+		]
+		return dirs
+			.map(d => ({ x: pos.x + d.x * this.gridSize, y: pos.y + d.y * this.gridSize }))
+			.filter(p => {
+				if (p.x === this.target.x && p.y === this.target.y) return true
+				return !this._isBlocked(p)
+			})
+	}
+
+	_heuristic(a, b) {
+		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
+	}
+
+	_startSearch() {
+		this.openList = [{ pos: { ...this.current }, g: 0, f: this._heuristic(this.current, this.target) }]
+		this.cameFrom = new Map()
+		this.cameFrom.set(this._gridKey(this.current), null)
+		this.closedSet = new Set()
+		this.searching = true
+	}
+
+	_continueSearch() {
+		for (let i = 0; i < this.nodesPerFrame && this.openList.length; i++) {
+			this.openList.sort((a, b) => a.f - b.f)
+			const currentNode = this.openList.shift()
+			const currentKey = this._gridKey(currentNode.pos)
+			if (this.closedSet.has(currentKey)) continue
+			this.closedSet.add(currentKey)
+
+			if (Math.abs(currentNode.pos.x - this.target.x) < this.gridSize &&
+				Math.abs(currentNode.pos.y - this.target.y) < this.gridSize) {
+				let path = [{ x: this.target.x, y: this.target.y }]
+				let key = currentKey
+				while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
+					const prev = this.cameFrom.get(key)
+					path.unshift({ ...prev })
+					key = this._gridKey(prev)
+				}
+				this.path = path
+				this.searching = false
+				return
+			}
+
+			for (const neighbor of this._neighbors(currentNode.pos)) {
+				const key = this._gridKey(neighbor)
+				if (this.closedSet.has(key)) continue
+				const g = currentNode.g + this.gridSize
+				const f = g + this._heuristic(neighbor, this.target)
+				const existing = this.openList.find(n => this._gridKey(n.pos) === key)
+				if (!existing || g < existing.g) {
+					this.cameFrom.set(key, { ...currentNode.pos })
+					if (!existing) this.openList.push({ pos: neighbor, g, f })
+				}
+			}
+		}
+		if (!this.openList.length) this.searching = false
 	}
 
 	update() {
-
-		this.localObjects.update()
-
-		let closestWall = new Position(9000, 9000, 100, 100)
-		if (this.c1Active) {
-			Move(this.c1).to(this.target, this.rotationAmount, this.speed)
-
-			for (const wall of this.invisibleWalls) {
-				if (Distance.between(this.c1, wall) < Distance.between(this.c1, closestWall)) {
-					closestWall = wall
-				}
-
-				if (this.c1.touches(wall)) {
-					this.c1.position = this.startPosition.position.copy()
-					this.rotationAmount += 100
-				}
-			}
-
-			if (Distance.between(this.c1, closestWall) > 300) {
-				Move(this.c1).to(this.target, 0, this.speed)
-			}
-
-			this.c1Active = false
+		const targetKey = this._gridKey(this.target)
+		if (targetKey !== this.lastTargetKey || (!this.path.length && !this.searching)) {
+			this._startSearch()
+			this.lastTargetKey = targetKey
 		}
-		else {
-			Move(this.c2).to(this.target, 0, this.speed)
-			let c2Collision = false
-			for (const wall of this.invisibleWalls) {
-				if (this.c2.touches(wall)) {
-					c2Collision = true
-					break
-				}
+
+		if (this.searching) this._continueSearch()
+
+		if (this.path.length) {
+			const next = this.path[0]
+			const dx = next.x - this.current.x
+			const dy = next.y - this.current.y
+			const dist = Math.hypot(dx, dy)
+			if (dist <= this.speed) {
+				this.current.x = next.x
+				this.current.y = next.y
+				this.path.shift()
+			} else {
+				this.current.x += (dx / dist) * this.speed
+				this.current.y += (dy / dist) * this.speed
 			}
 
-			if (c2Collision) {
-				this.c2.position = this.c1.position.copy()
-				this.c1Active = true
-			}
-
-			if (this.c2.within(100, this.target)) {
+			if (Math.hypot(this.current.x - this.target.x, this.current.y - this.target.y) < this.gridSize) {
 				this.success = true
 			}
 		}
 	}
 
-	draw(draw, guiDraw) {
-		// this.localObjects.draw(draw, guiDraw)
-
-		// draw.line(this.c1, this.target)
+	draw(draw) {
+		// draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
+		// this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
+		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.w, w.h), 'red'))
+		// draw.line(this.current, this.target)
 	}
 }
+
