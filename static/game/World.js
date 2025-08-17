@@ -44,7 +44,9 @@ export class World {
 			Money.init(),
 			new Turret(new Position(800, 0)),
 			G.monsters,
+			this.tilemaps = new Tilemaps()
 		])
+
 	}
 
 	update() {

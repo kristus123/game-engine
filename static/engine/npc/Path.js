@@ -37,6 +37,10 @@ export class Path {
 			// draw.circle(this.currentTarget, this.sine.value)
 		}
 
+		for (const p of this.points) {
+			draw.box(p)
+		}
+
 		for (let i = 0; i < this.points.length; i++) {
 			const p = this.points[i]
 			// draw.rectangle(p)

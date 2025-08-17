@@ -127,6 +127,10 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
+	box(p) {
+		this.rectangle(p)
+	}
+
 	pink(position) {
 		this.rectangle(position, 'pink')
 	}

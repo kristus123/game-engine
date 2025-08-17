@@ -4,8 +4,11 @@ export class Tilemaps {
 	constructor() {
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
 
-		this.width = this.jsonFile.tilemaps[0].width
-		this.height = this.jsonFile.tilemaps[0].height
+		this.width = 16
+		this.height = 16
+
+		// this.width = this.jsonFile.tilemaps[0].width
+		// this.height = this.jsonFile.tilemaps[0].height
 
 		this.tiles = []
 		for (const e of this.jsonFile.tilemaps[0].tiles) {
@@ -22,7 +25,7 @@ export class Tilemaps {
 	}
 
 	get turretTiles() {
-		return this.tiles.filter(t => t.i == 3).map(t => t.position)
+		return this.tiles.filter(t => t.i == 4).map(t => t.position)
 	}
 
 	touchesTurretTiles(position) {
@@ -32,4 +35,12 @@ export class Tilemaps {
 	get enemyWalkTiles() {
 		return this.tiles.filter(t => t.i == 1).map(t => t.position)
 	}
+
+
+	draw(draw, guiDraw) {
+		for (const p of this.tiles.filter(t => t.i == 4)) {
+			draw.rectangle(p.position)
+		}
+	}
+
 }
