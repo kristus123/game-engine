@@ -35,7 +35,7 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			this.player,
 
-			...Iterate(10, () => new Ally(new Position(0,0, 10, 10))),
+			new Ally(new Position(0,0, 10, 10)),
 
 			new Quest(Iterate(100, i => () =>
 				new class {
