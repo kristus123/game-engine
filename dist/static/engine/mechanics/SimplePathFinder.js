@@ -25,7 +25,7 @@ export class SimplePathFinder {
 		this.invisibleWalls = invisibleWalls.map(w => ({ x: w.x, y: w.y, w: w.width, h: w.height }))
 		this.path = []
 		this.success = false
-		this.speed = 2
+		this.speed = 1
 
 		this.openList = []
 		this.cameFrom = new Map()
