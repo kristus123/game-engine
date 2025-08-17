@@ -12,10 +12,8 @@ export class Tilemaps {
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
 
 
-		this.width = this.jsonFile.tilemaps[0].width
-		this.height = this.jsonFile.tilemaps[0].height
-		this.width = 16
-		this.height = 16
+		this.width = this.jsonFile.tilemaps[0].tileWidth
+		this.height = this.jsonFile.tilemaps[0].tileHeight
 
 		this.tiles = []
 		for (const e of this.jsonFile.tilemaps[0].tiles) {

@@ -23,7 +23,6 @@ local function json_escape(s)
   return s
 end
 
--- Flattened JSON output for tiles: a single array of tile objects with x,y,i,f
 local function table_to_json_flat_with_xy(tiles)
   local parts = {}
   table.insert(parts, "[")
@@ -42,7 +41,6 @@ local function table_to_json_flat_with_xy(tiles)
   return table.concat(parts, "\n")
 end
 
--- main
 local sprite = app.activeSprite
 if not sprite then
   app.alert("No active sprite open.")
@@ -56,7 +54,6 @@ else
   outBase = "aseprite_export"
 end
 
--- Step 1: Check if there is any tilemap info
 local hasTilemap = false
 for _,layer in ipairs(sprite.layers) do
   if layer.isTilemap then
@@ -75,13 +72,11 @@ if not hasTilemap then
   return
 end
 
--- Step 2: Create folder only if needed
 local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
 if not ok1 then
   pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
 end
 
--- Step 3: Export JSON (all tilemaps in one file)
 local all_tilemaps = {}
 
 for _,layer in ipairs(sprite.layers) do
@@ -115,11 +110,16 @@ for _,layer in ipairs(sprite.layers) do
         if type(frameNum) == "table" and frameNum.number then frameNum = frameNum.number end
         frameNum = tonumber(frameNum) or 1
 
+        local tileW = layer.tileset and layer.tileset.grid.tileSize.width or 0
+        local tileH = layer.tileset and layer.tileset.grid.tileSize.height or 0
+
         table.insert(all_tilemaps, {
           layer = layer.name or "",
           frame = frameNum,
           width = w,
           height = h,
+          tileWidth = tileW,
+          tileHeight = tileH,
           tiles = tiles
         })
 
@@ -129,7 +129,6 @@ for _,layer in ipairs(sprite.layers) do
   end
 end
 
--- Compose JSON output
 local json_parts = {}
 table.insert(json_parts, "{")
 table.insert(json_parts, string.format('  "sprite": "%s",', json_escape(sprite.filename or "")))
@@ -141,6 +140,8 @@ for i, tilemap in ipairs(all_tilemaps) do
   table.insert(json_parts, string.format('      "frame": %d,', tilemap.frame))
   table.insert(json_parts, string.format('      "width": %d,', tilemap.width))
   table.insert(json_parts, string.format('      "height": %d,', tilemap.height))
+  table.insert(json_parts, string.format('      "tileWidth": %d,', tilemap.tileWidth))
+  table.insert(json_parts, string.format('      "tileHeight": %d,', tilemap.tileHeight))
   table.insert(json_parts, '      "tiles": ' .. table_to_json_flat_with_xy(tilemap.tiles))
   if i < #all_tilemaps then
     table.insert(json_parts, "    },")
@@ -153,6 +154,4 @@ table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
 write_file(outBase .. "_tilemaps.json", table.concat(json_parts, "\n"))
-
-app.alert("Tilemap JSON export completed.\nFile written: " .. outBase .. "_tilemaps.json")
 
