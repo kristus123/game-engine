@@ -80,8 +80,8 @@ export class Camera {
 		this.position.x = o.x
 		this.position.y = o.y
 
-		this.smoothPosition.position.x = o.x
-		this.smoothPosition.position.y = o.y
+		this.smoothPosition.smooth_x.currentValue = o.x
+		this.smoothPosition.smooth_y.currentValue = o.y
 	}
 
 	static p(p) { // screenPosition //todo improve ofc.
