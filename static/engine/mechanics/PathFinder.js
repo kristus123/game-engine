@@ -1,6 +1,6 @@
 export class PathFinder {
-	constructor(ally, player, gridSize = 50) {
-		this.current = ally.position.copy()
+	constructor(source, target, gridSize = 50) {
+		this.current = source.position.copy()
 		this.gridSize = gridSize
 		this.path = []
 		this.success = false
@@ -11,7 +11,7 @@ export class PathFinder {
 		this.closedSet = new Set()
 		this.searching = false
 		this.nodesPerFrame = 20
-		this.lastTargetKey = this._gridKey(player)
+		this.lastTargetKey = this._gridKey(target)
 	}
 
 	_gridKey(position) {
@@ -19,7 +19,7 @@ export class PathFinder {
 	}
 
 	_isWalkable(position) {
-		if (position.x === this.player.x && position.y === this.player.y) {
+		if (position.x === this.target.x && position.y === this.target.y) {
 			return true
 		}
 
@@ -67,7 +67,7 @@ export class PathFinder {
 		this.openList = [{
 			position: this.current.copy(),
 			g: 0,
-			f: this._heuristic(this.current, this.player)
+			f: this._heuristic(this.current, this.target)
 		}]
 		this.cameFrom = new Map([[this._gridKey(this.current), null]])
 		this.closedSet = new Set()
@@ -84,8 +84,8 @@ export class PathFinder {
 			}
 			this.closedSet.add(key)
 
-			if (Math.abs(node.position.x - this.player.x) < this.gridSize &&
-				Math.abs(node.position.y - this.player.y) < this.gridSize) {
+			if (Math.abs(node.position.x - this.target.x) < this.gridSize &&
+				Math.abs(node.position.y - this.target.y) < this.gridSize) {
 				this._reconstructPath(key)
 				this.searching = false
 				return
@@ -98,7 +98,7 @@ export class PathFinder {
 				}
 
 				const g = node.g + this.gridSize
-				const f = g + this._heuristic(neighbor, this.player)
+				const f = g + this._heuristic(neighbor, this.target)
 				const existing = this.openList.find(n => this._gridKey(n.position) === nKey)
 				if (!existing || g < existing.g) {
 					this.cameFrom.set(nKey, node.position.copy())
@@ -114,7 +114,7 @@ export class PathFinder {
 	}
 
 	_reconstructPath(endKey) {
-		const path = [{ x: this.player.x, y: this.player.y }]
+		const path = [{ x: this.target.x, y: this.target.y }]
 		let key = endKey
 		while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
 			const prev = this.cameFrom.get(key)
@@ -125,7 +125,7 @@ export class PathFinder {
 	}
 
 	update() {
-		const targetKey = this._gridKey(this.player)
+		const targetKey = this._gridKey(this.target)
 
 		if (targetKey !== this.lastTargetKey || (!this.path.length && !this.searching)) {
 			this._startSearch()
@@ -152,7 +152,7 @@ export class PathFinder {
 				this.current.y += (dy / dist) * this.speed
 			}
 
-			if (Math.hypot(this.current.x - this.player.x, this.current.y - this.player.y) < this.gridSize) {
+			if (Math.hypot(this.current.x - this.target.x, this.current.y - this.target.y) < this.gridSize) {
 				this.success = true
 			}
 		}
@@ -161,7 +161,7 @@ export class PathFinder {
 	draw(draw) {
 		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
 		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
-		draw.line(this.current, this.player)
+		draw.line(this.current, this.target)
 	}
 }
 

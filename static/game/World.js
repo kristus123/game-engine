@@ -12,6 +12,7 @@ export class World {
 			G.player,
 
 			new Ally(new Position(700, 2800, 10, 10)),
+			new Ally(new Position(2000, 2800, 10, 10)),
 
 
 			new Quest(Iterate(100, i => () =>

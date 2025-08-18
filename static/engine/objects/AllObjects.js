@@ -52,6 +52,14 @@ export class AllObjects { // not a good name
 		}
 	}
 
+	anyExcept(itself) {
+		for (const o of this.objects) {
+			if (o !== itself) {
+				return o
+			}
+		}
+	}
+
 	removeByObjectId(objectId) {
 		for (const o of this.objects) {
 			if (o.objectId == objectId) {
