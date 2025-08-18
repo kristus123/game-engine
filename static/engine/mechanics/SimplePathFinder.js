@@ -1,53 +1,61 @@
 export class SimplePathFinder {
-	constructor(start, target, invisibleWalls, gridSize = 100) {
-		this.current = { x: start.x, y: start.y }
-		this.target = target
+	constructor(ally, player, invisibleWalls, gridSize = 100) {
+		this.current = ally.position.copy()
 		this.gridSize = gridSize
-		this.invisibleWalls = invisibleWalls.map(w => ({ x: w.x, y: w.y, w: w.width, h: w.height }))
 		this.path = []
 		this.success = false
-		this.speed = 1
+		this.speed = 5
 
+		this.invisibleWalls = invisibleWalls
 		this.openList = []
 		this.cameFrom = new Map()
 		this.closedSet = new Set()
 		this.searching = false
-		this.nodesPerFrame = 2
-		this.lastTargetKey = this._gridKey(target)
+		this.nodesPerFrame = 20
+		this.lastTargetKey = this._gridKey(player)
 	}
 
-	_gridKey(pos) {
-		return `${Math.floor(pos.x / this.gridSize)},${Math.floor(pos.y / this.gridSize)}`
+	_gridKey(position) {
+		return `${Math.floor(position.x / this.gridSize)},${Math.floor(position.y / this.gridSize)}`
 	}
 
-	_isBlocked(pos) {
-		return this.invisibleWalls.some(w =>
-			pos.x < w.x + w.w && pos.x + this.gridSize > w.x &&
-			pos.y < w.y + w.h && pos.y + this.gridSize > w.y
-		)
+	_isWalkable(position) {
+		if (position.x === this.player.x && position.y === this.player.y) {
+			return true
+		}
+		else {
+			return !this.invisibleWalls.some(w =>
+				position.x < w.x + w.width &&
+				position.x + this.gridSize > w.x &&
+				position.y < w.y + w.height &&
+				position.y + this.gridSize > w.y)
+		}
 	}
 
-	_neighbors(pos) {
+	_neighbors(position) {
 		const dirs = [
-			{ x: 1, y: 0 }, { x: -1, y: 0 },
-			{ x: 0, y: 1 }, { x: 0, y: -1 }
+			{ x: 1, y: 0 },
+			{ x: -1, y: 0 },
+			{ x: 0, y: 1 },
+			{ x: 0, y: -1 }
 		]
 		return dirs
-			.map(d => ({ x: pos.x + d.x * this.gridSize, y: pos.y + d.y * this.gridSize }))
-			.filter(p => {
-				if (p.x === this.target.x && p.y === this.target.y) return true
-				return !this._isBlocked(p)
-			})
+			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
+			.filter(p => this._isWalkable(p))
 	}
+
 
 	_heuristic(a, b) {
 		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
 	}
 
 	_startSearch() {
-		this.openList = [{ pos: { ...this.current }, g: 0, f: this._heuristic(this.current, this.target) }]
-		this.cameFrom = new Map()
-		this.cameFrom.set(this._gridKey(this.current), null)
+		this.openList = [{
+			position: this.current.copy(),
+			g: 0,
+			f: this._heuristic(this.current, this.player)
+		}]
+		this.cameFrom = new Map([[this._gridKey(this.current), null]])
 		this.closedSet = new Set()
 		this.searching = true
 	}
@@ -55,42 +63,47 @@ export class SimplePathFinder {
 	_continueSearch() {
 		for (let i = 0; i < this.nodesPerFrame && this.openList.length; i++) {
 			this.openList.sort((a, b) => a.f - b.f)
-			const currentNode = this.openList.shift()
-			const currentKey = this._gridKey(currentNode.pos)
-			if (this.closedSet.has(currentKey)) continue
-			this.closedSet.add(currentKey)
+			const node = this.openList.shift()
+			const key = this._gridKey(node.position)
+			if (this.closedSet.has(key)) continue
+			this.closedSet.add(key)
 
-			if (Math.abs(currentNode.pos.x - this.target.x) < this.gridSize &&
-				Math.abs(currentNode.pos.y - this.target.y) < this.gridSize) {
-				let path = [{ x: this.target.x, y: this.target.y }]
-				let key = currentKey
-				while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
-					const prev = this.cameFrom.get(key)
-					path.unshift({ ...prev })
-					key = this._gridKey(prev)
-				}
-				this.path = path
+			if (Math.abs(node.position.x - this.player.x) < this.gridSize &&
+				Math.abs(node.position.y - this.player.y) < this.gridSize) {
+				this._reconstructPath(key)
 				this.searching = false
 				return
 			}
 
-			for (const neighbor of this._neighbors(currentNode.pos)) {
-				const key = this._gridKey(neighbor)
-				if (this.closedSet.has(key)) continue
-				const g = currentNode.g + this.gridSize
-				const f = g + this._heuristic(neighbor, this.target)
-				const existing = this.openList.find(n => this._gridKey(n.pos) === key)
+			for (const neighbor of this._neighbors(node.position)) {
+				const nKey = this._gridKey(neighbor)
+				if (this.closedSet.has(nKey)) continue
+
+				const g = node.g + this.gridSize
+				const f = g + this._heuristic(neighbor, this.player)
+				const existing = this.openList.find(n => this._gridKey(n.position) === nKey)
 				if (!existing || g < existing.g) {
-					this.cameFrom.set(key, { ...currentNode.pos })
-					if (!existing) this.openList.push({ pos: neighbor, g, f })
+					this.cameFrom.set(nKey, node.position.copy())
+					if (!existing) this.openList.push({ position: neighbor, g, f })
 				}
 			}
 		}
 		if (!this.openList.length) this.searching = false
 	}
 
+	_reconstructPath(endKey) {
+		const path = [{ x: this.player.x, y: this.player.y }]
+		let key = endKey
+		while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
+			const prev = this.cameFrom.get(key)
+			path.unshift(prev.copy())
+			key = this._gridKey(prev)
+		}
+		this.path = path
+	}
+
 	update() {
-		const targetKey = this._gridKey(this.target)
+		const targetKey = this._gridKey(this.player)
 		if (targetKey !== this.lastTargetKey || (!this.path.length && !this.searching)) {
 			this._startSearch()
 			this.lastTargetKey = targetKey
@@ -111,8 +124,7 @@ export class SimplePathFinder {
 				this.current.x += (dx / dist) * this.speed
 				this.current.y += (dy / dist) * this.speed
 			}
-
-			if (Math.hypot(this.current.x - this.target.x, this.current.y - this.target.y) < this.gridSize) {
+			if (Math.hypot(this.current.x - this.player.x, this.current.y - this.player.y) < this.gridSize) {
 				this.success = true
 			}
 		}
@@ -121,8 +133,8 @@ export class SimplePathFinder {
 	draw(draw) {
 		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
 		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
-		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.w, w.h), 'red'))
-		draw.line(this.current, this.target)
+		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.width, w.height), 'red'))
+		draw.line(this.current, this.player)
 	}
 }
 

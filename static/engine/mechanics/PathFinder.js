@@ -25,13 +25,17 @@ export class PathFinder {
 
 	_neighbors(pos) {
 		const dirs = [
-			{ x: 1, y: 0 }, { x: -1, y: 0 },
-			{ x: 0, y: 1 }, { x: 0, y: -1 }
+			{ x: 1, y: 0 },
+			{ x: -1, y: 0 },
+			{ x: 0, y: 1 },
+			{ x: 0, y: -1 }
 		]
 		return dirs
 			.map(d => ({ x: pos.x + d.x * this.gridSize, y: pos.y + d.y * this.gridSize }))
 			.filter(p => {
-				if (p.x === this.target.x && p.y === this.target.y) return true
+				if (p.x === this.target.x && p.y === this.target.y) {
+					return true
+				}
 				return !this._isBlocked(p)
 			})
 	}
@@ -53,7 +57,9 @@ export class PathFinder {
 			this.openList.sort((a, b) => a.f - b.f)
 			const currentNode = this.openList.shift()
 			const currentKey = this._gridKey(currentNode.pos)
-			if (this.closedSet.has(currentKey)) continue
+			if (this.closedSet.has(currentKey)) {
+				continue
+			}
 			this.closedSet.add(currentKey)
 
 			if (Math.abs(currentNode.pos.x - this.target.x) < this.gridSize &&
@@ -72,17 +78,23 @@ export class PathFinder {
 
 			for (const neighbor of this._neighbors(currentNode.pos)) {
 				const key = this._gridKey(neighbor)
-				if (this.closedSet.has(key)) continue
+				if (this.closedSet.has(key)) {
+					continue
+				}
 				const g = currentNode.g + this.gridSize
 				const f = g + this._heuristic(neighbor, this.target)
 				const existing = this.openList.find(n => this._gridKey(n.pos) === key)
 				if (!existing || g < existing.g) {
 					this.cameFrom.set(key, { ...currentNode.pos })
-					if (!existing) this.openList.push({ pos: neighbor, g, f })
+					if (!existing) {
+						this.openList.push({ pos: neighbor, g, f })
+					}
 				}
 			}
 		}
-		if (!this.openList.length) this.searching = false
+		if (!this.openList.length) {
+			this.searching = false
+		}
 	}
 
 	update() {
@@ -92,7 +104,9 @@ export class PathFinder {
 			this.lastTargetKey = targetKey
 		}
 
-		if (this.searching) this._continueSearch()
+		if (this.searching) {
+			this._continueSearch()
+		}
 
 		if (this.path.length) {
 			const next = this.path[0]
@@ -103,7 +117,8 @@ export class PathFinder {
 				this.current.x = next.x
 				this.current.y = next.y
 				this.path.shift()
-			} else {
+			}
+			else {
 				this.current.x += (dx / dist) * this.speed
 				this.current.y += (dy / dist) * this.speed
 			}

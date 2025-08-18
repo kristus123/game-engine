@@ -125,6 +125,7 @@
     },
     "globals": {
         "AllObjects": "readonly",
+        "Ally": "readonly",
         "AnArray": "readonly",
         "AnalShit": "readonly",
         "Anchor": "readonly",
@@ -214,7 +215,6 @@
         "ParallaxTest": "readonly",
         "Particle": "readonly",
         "Path": "readonly",
-        "PathDrawer": "readonly",
         "PathFinder": "readonly",
         "Physics": "readonly",
         "Picture": "readonly",
