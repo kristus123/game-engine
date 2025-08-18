@@ -1,10 +1,12 @@
 import { G } from '/static/engine/G.js'; 
-import { List } from '/static/engine/List.js'; 
-import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Grid } from '/static/engine/graphics/Grid.js'; 
+import { GridPathFinder } from '/static/engine/mechanics/GridPathFinder.js'; 
+import { LinePathFinder } from '/static/engine/mechanics/LinePathFinder.js'; 
 import { Path } from '/static/engine/npc/Path.js'; 
-import { Collision } from '/static/engine/physics/Collision.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
+import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
+import { Push } from '/static/engine/physics/Push.js'; 
 
 export class PathFinder {
 	constructor(source, target, gridSize = 50) {
@@ -19,148 +21,30 @@ export class PathFinder {
 		this.target = target; 
 		this.gridSize = gridSize; 
 
-		this.current = source.position.copy()
-		this.gridSize = gridSize
-		this.path = []
-		this.success = false
-		this.speed = 5
 
-		this.openList = []
-		this.cameFrom = new Map()
-		this.closedSet = new Set()
-		this.searching = false
-		this.nodesPerFrame = 20
-		this.lastTargetKey = this._gridKey(target)
+		this.localObjects = new LocalObjects([
+			this.gridPathFinder = new GridPathFinder(source, target, gridSize),
+			this.linePathFinder = new LinePathFinder(source, target),
+			this.path = new Path(source, this.gridPathFinder.path),
+		])
 	}
 
-	_gridKey(position) {
-		return `${Math.floor(position.x / this.gridSize)},${Math.floor(position.y / this.gridSize)}`
-	}
-
-	_walkable_neighbors(position) {
-		const directions = [
-			{ x: 1, y: 0 },
-			{ x: -1, y: 0 },
-			{ x: 0, y: 1 },
-			{ x: 0, y: -1 }
-		]
-
-		return directions
-			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
-			.filter(position => {
-				if (G.invisibleWalls.objects.some(w => Collision.between(w, position))) {
-					return false
-				}
-				else {
-					return G.walkableAreas.positions.some(w => Collision.between(w, position))
-				}
-			})
-	}
-
-
-	_heuristic(a, b) {
-		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
-	}
-
-	_startSearch() {
-		this.openList = [{
-			position: this.current.copy(),
-			g: 0,
-			f: this._heuristic(this.current, this.target)
-		}]
-		this.cameFrom = new Map([[this._gridKey(this.current), null]])
-		this.closedSet = new Set()
-		this.searching = true
-	}
-
-	_continueSearch() {
-		for (let i = 0; i < this.nodesPerFrame && this.openList.length; i++) {
-			this.openList.sort((a, b) => a.f - b.f)
-			const node = this.openList.shift()
-			const key = this._gridKey(node.position)
-			if (this.closedSet.has(key)) {
-				continue
-			}
-			this.closedSet.add(key)
-
-			if (Math.abs(node.position.x - this.target.x) < this.gridSize &&
-				Math.abs(node.position.y - this.target.y) < this.gridSize) {
-				this._reconstructPath(key)
-				this.searching = false
-				return
-			}
-
-			for (const neighbor of this._walkable_neighbors(node.position)) {
-				const nKey = this._gridKey(neighbor)
-				if (this.closedSet.has(nKey)) {
-					continue
-				}
-
-				const g = node.g + this.gridSize
-				const f = g + this._heuristic(neighbor, this.target)
-				const existing = this.openList.find(n => this._gridKey(n.position) === nKey)
-				if (!existing || g < existing.g) {
-					this.cameFrom.set(nKey, node.position.copy())
-					if (!existing) {
-						this.openList.push({ position: neighbor, g, f })
-					}
-				}
-			}
-		}
-		if (!this.openList.length) {
-			this.searching = false
-		}
-	}
-
-	_reconstructPath(endKey) {
-		const path = [{ x: this.target.x, y: this.target.y }]
-		let key = endKey
-		while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
-			const prev = this.cameFrom.get(key)
-			path.unshift(prev.copy())
-			key = this._gridKey(prev)
-		}
-		this.path = path
-	}
 
 	update() {
-		const targetKey = this._gridKey(this.target)
-
-		if (targetKey !== this.lastTargetKey || (!this.path.length && !this.searching)) {
-			this._startSearch()
-			this.lastTargetKey = targetKey
+		if (this.linePathFinder.clearPath) {
+			ForcePush(this.source).towards(this.target)
+		}
+		else {
+			this.path.update()
+			this.source.velocity.reset()
 		}
 
-		if (this.searching) {
-			this._continueSearch()
-		}
-
-		if (this.path.length) {
-			const next = this.path[0]
-			const dx = next.x - this.current.x
-			const dy = next.y - this.current.y
-			const dist = Math.hypot(dx, dy)
-
-			if (dist <= this.speed) {
-				this.current.x = next.x
-				this.current.y = next.y
-				this.path.shift()
-			}
-			else {
-				this.current.x += (dx / dist) * this.speed
-				this.current.y += (dy / dist) * this.speed
-			}
-
-			if (Math.hypot(this.current.x - this.target.x, this.current.y - this.target.y) < this.gridSize) {
-				this.success = true
-			}
-		}
+		this.localObjects.update()
 	}
 
-	draw(draw) {
-		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
-		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
-		draw.line(this.current, this.target)
+	draw(draw, guiDraw) {
+		this.localObjects.draw(draw, guiDraw)
 	}
+
 }
 

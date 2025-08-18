@@ -4,22 +4,23 @@ export class Ally extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.path = new PathFinder(this, new Position(0,0)),
+			this.path = new PathFinder(this, G.player),
 			G.invisibleWalls,
 			OnChange(() => this.friend && this.within(100, this.friend), dance => {
 				this.dance = dance
 			}),
 			this.sine = new Sine(2, 0.5),
+
 		])
 
-		const otherAlly = G.allies.anyExcept(this)
-		if (otherAlly) {
-			this.friend = otherAlly
-			otherAlly.friend = this
+		// const otherAlly = G.allies.anyExcept(this)
+		// if (otherAlly) {
+		// 	this.friend = otherAlly
+		// 	otherAlly.friend = this
 
-			this.path.target = this.friend
-			otherAlly.path.target = this
-		}
+		// 	this.path.target = this.friend
+		// 	otherAlly.path.target = this
+		// }
 
 		G.allies.add(this)
 	}
@@ -29,15 +30,15 @@ export class Ally extends DynamicGameObject {
 			console.log('heihei')
 		}
 
-		if (!this.within(10, this.path.current)) {
-			Move(this).towards(this.path.current, 1)
-		}
-		else {
-			const m = this.withinAny(10000, G.monsters)
-			if (m) {
-				this.path.target = G.player
-			}
-		}
+		// if (!this.within(10, this.path.current)) {
+		// 	Move(this).towards(this.path.current, 1)
+		// }
+		// else {
+		// 	const m = this.withinAny(10000, G.monsters)
+		// 	if (m) {
+		// 		this.path.target = G.player
+		// 	}
+		// }
 
 		this.localObjects.update()
 	}

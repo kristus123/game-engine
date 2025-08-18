@@ -1,8 +1,6 @@
 export class Path {
 	constructor(npc, points) {
 		this.index = 0
-
-		this.sine = new Sine(50, 0.1)
 	}
 
 	get position() {
@@ -15,7 +13,6 @@ export class Path {
 	}
 
 	update() {
-		this.sine.update()
 
 		const currentTarget = this.points[this.index]
 		this.currentTarget = currentTarget
@@ -33,10 +30,6 @@ export class Path {
 	}
 
 	draw(draw, guiDraw) {
-		if (!this.completed) {
-			// draw.circle(this.currentTarget, this.sine.value)
-		}
-
 		for (const p of this.points) {
 			draw.box(p)
 		}
