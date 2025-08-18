@@ -4,6 +4,7 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
+import { Tilemaps } from '/static/game/Tilemaps.js'; 
 import { Jump } from '/static/game/player/Jump.js'; 
 
 export class Player extends DynamicGameObject {
@@ -32,15 +33,28 @@ export class Player extends DynamicGameObject {
 				this.sprite.tags[d].loop()
 			}),
 		])
+
+
+		for (const p of new Tilemaps().turretTiles) {
+			G.walkableAreas.add(p)
+			
+		}
 	}
 
 	update() {
 		this.localObjects.update()
 
 		this.position.scale(this.jump.scale)
+
+		for (const w of G.invisibleWalls) {
+			w.enforce(G.player)
+		}
+
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+		G.walkableAreas.enforce(G.player)
 	}
 }

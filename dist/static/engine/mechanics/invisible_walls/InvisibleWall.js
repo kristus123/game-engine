@@ -4,15 +4,12 @@ import { Collision } from '/static/engine/physics/Collision.js';
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class InvisibleWall extends StaticGameObject {
-	constructor(position, affected) {
+	constructor(position) {
 		super(position)
 
 				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(affected, "argument affected in " + this.constructor.name + ".js should not be null")
-			
 		this.position = position; 
-		this.affected = affected; 
 
 
 		if (this.position.width == 1) {
@@ -21,53 +18,36 @@ export class InvisibleWall extends StaticGameObject {
 		}
 	}
 
-	update() {
-		for (const o of [this.affected]) {
-			if (Collision.between(this, o)) {
-				const currentPosition = { x: o.position.x, y: o.position.y }
+	enforce(object) {
+		if (Collision.between(this, object)) {
+			const currentPosition = { x: object.position.x, y: object.position.y }
 
-				o.position.x = o.previousPosition.x
-				if (!Collision.between(this, o)) {
+			object.position.x = object.previousPosition.x
+			if (!Collision.between(this, object)) {
 
-					o.velocity.x = 0
-					o.position.x = o.previousPosition.x
-					return
-				}
-				else {
-					o.position.x = currentPosition.x
-				}
+				object.velocity.x = 0
+				object.position.x = object.previousPosition.x
+				return
+			}
+			else {
+				object.position.x = currentPosition.x
+			}
 
-				o.position.y = o.previousPosition.y
-				if (!Collision.between(this, o)) {
+			object.position.y = object.previousPosition.y
+			if (!Collision.between(this, object)) {
 
-					o.velocity.y = 0
-					o.position.y = o.previousPosition.y
-					return
-				}
-				else {
-					o.position.y = currentPosition.y
-				}
+				object.velocity.y = 0
+				object.position.y = object.previousPosition.y
+				return
+			}
+			else {
+				object.position.y = currentPosition.y
 			}
 		}
 	}
 
 	draw(draw, guiDraw) {
 		draw.transparentRedRectangle(this.position)
-	}
-
-	static mapFromJsonObject(json) {
-		const o = new this(Position.from(json.position))
-
-		o.objectId = json.objectId
-
-		return o
-	}
-
-	mapToJson() {
-		return {
-			objectId: this.objectId,
-			position: this.position.toJson(),
-		}
 	}
 
 }

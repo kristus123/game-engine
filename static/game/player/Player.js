@@ -19,15 +19,28 @@ export class Player extends DynamicGameObject {
 				this.sprite.tags[d].loop()
 			}),
 		])
+
+
+		for (const p of new Tilemaps().turretTiles) {
+			G.walkableAreas.add(p)
+			
+		}
 	}
 
 	update() {
 		this.localObjects.update()
 
 		this.position.scale(this.jump.scale)
+
+		for (const w of G.invisibleWalls) {
+			w.enforce(G.player)
+		}
+
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
+
+		G.walkableAreas.enforce(G.player)
 	}
 }

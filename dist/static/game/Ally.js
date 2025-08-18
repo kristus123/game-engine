@@ -5,9 +5,8 @@ import { PathFinder } from '/static/engine/mechanics/PathFinder.js';
 import { Path } from '/static/engine/npc/Path.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
-import { Push } from '/static/engine/physics/Push.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
+import { Move } from '/static/engine/physics/Move.js'; 
+import { Turret } from '/static/game/Turret.js'; 
 
 export class Ally extends DynamicGameObject {
 	constructor(position) {
@@ -18,20 +17,24 @@ export class Ally extends DynamicGameObject {
 		this.position = position; 
 
 
-		const invisibleWalls = [
-			new Position(100, 100, 1000, 100),
-			new Position(100, 400, 1000, 1000),
-		]
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.path = new PathFinder(this, G.player, invisibleWalls),
+			this.path = new PathFinder(this, G.player),
+			G.invisibleWalls,
+			new Turret(this.position),
 		])
 
 		G.allies.add(this)
 	}
 
 	update() {
-		ForcePush(this).towards(this.path.current, 5)
+		if (this.path.success) {
+			console.log('heihei')
+		}
+
+		if (!this.within(100, this.path.current)) {
+			Move(this).towards(this.path.current, 1)
+		}
 
 		this.localObjects.update()
 	}

@@ -8,6 +8,11 @@ export const G = {
 	splash: new SplashParticles(),
 	chickenFood: new LocalObjects([]),
 	allies: new LocalObjects([]),
+	invisibleWalls: new LocalObjects([
+		new InvisibleWall(new Position(100, 3000, 1000, 100)),
+		new InvisibleWall(new Position(100, 3000, 1000, 1000)),
+	]),
+	walkableAreas: new WalkableAreas(),
 	money: 20,
 	pictures: {},
 	Sprite: {},

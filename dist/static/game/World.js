@@ -22,20 +22,19 @@ export class World {
 	constructor() {
 
 
-		// Camera.followInstantly(new Position(500, 500))
 
-		this.player = new Player(new Position(700, 200))
-		G.player = this.player
+		G.player = new Player(new Position(700, 2800))
+		Camera.followInstantly(G.player)
+		Controller.control(G.player)
 
-		Controller.control(this.player)
-		// Camera.followInstantly(this.player)
 
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
-			this.player,
+			G.player,
 
-			new Ally(new Position(0, 0, 10, 10)),
+			new Ally(new Position(700, 2800, 10, 10)),
+
 
 			new Quest(Iterate(100, i => () =>
 				new class {
