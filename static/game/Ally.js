@@ -8,7 +8,7 @@ export class Ally extends DynamicGameObject {
 		]
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.path = new SimplePathFinder(this, G.player, invisibleWalls),
+			this.path = new PathFinder(this, G.player, invisibleWalls),
 		])
 
 		G.allies.add(this)

@@ -1,7 +1,8 @@
 import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { SimplePathFinder } from '/static/engine/mechanics/SimplePathFinder.js'; 
+import { PathFinder } from '/static/engine/mechanics/PathFinder.js'; 
+import { Path } from '/static/engine/npc/Path.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
@@ -23,7 +24,7 @@ export class Ally extends DynamicGameObject {
 		]
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.path = new SimplePathFinder(this, G.player, invisibleWalls),
+			this.path = new PathFinder(this, G.player, invisibleWalls),
 		])
 
 		G.allies.add(this)

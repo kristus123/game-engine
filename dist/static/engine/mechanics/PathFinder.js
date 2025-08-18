@@ -1,46 +1,58 @@
-import { G } from '/static/engine/G.js'; 
 import { List } from '/static/engine/List.js'; 
 import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { Path } from '/static/engine/npc/Path.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class PathFinder {
-	constructor(start, target, gridSize = 100) {
+	constructor(ally, player, invisibleWalls, gridSize = 100) {
 
-				AssertNotNull(start, "argument start in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(ally, "argument ally in " + this.constructor.name + ".js should not be null")
 			
-				AssertNotNull(target, "argument target in " + this.constructor.name + ".js should not be null")
+				AssertNotNull(player, "argument player in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(invisibleWalls, "argument invisibleWalls in " + this.constructor.name + ".js should not be null")
 			
 				AssertNotNull(gridSize, "argument gridSize in " + this.constructor.name + ".js should not be null")
 			
-		this.start = start; 
-		this.target = target; 
+		this.ally = ally; 
+		this.player = player; 
+		this.invisibleWalls = invisibleWalls; 
 		this.gridSize = gridSize; 
 
-		this.current = { x: start.x, y: start.y }
-		this.target = target
+		this.current = ally.position.copy()
 		this.gridSize = gridSize
 		this.path = []
 		this.success = false
-		this.speed = 2
+		this.speed = 5
 
+		this.invisibleWalls = invisibleWalls
 		this.openList = []
 		this.cameFrom = new Map()
 		this.closedSet = new Set()
 		this.searching = false
-		this.nodesPerFrame = 50
-		this.lastTargetKey = this._gridKey(target)
+		this.nodesPerFrame = 20
+		this.lastTargetKey = this._gridKey(player)
 	}
 
-	_gridKey(pos) {
-		return `${Math.floor(pos.x / this.gridSize)},${Math.floor(pos.y / this.gridSize)}`
+	_gridKey(position) {
+		return `${Math.floor(position.x / this.gridSize)},${Math.floor(position.y / this.gridSize)}`
 	}
 
-	_isBlocked(pos) {
-		return this.target.touchesAny(G.invisibleWalls.objects.map(w => w.position))
+	_isWalkable(position) {
+		if (position.x === this.player.x && position.y === this.player.y) {
+			return true
+		}
+		else {
+			return !this.invisibleWalls.some(w =>
+				position.x < w.x + w.width &&
+				position.x + this.gridSize > w.x &&
+				position.y < w.y + w.height &&
+				position.y + this.gridSize > w.y)
+		}
 	}
 
-	_neighbors(pos) {
+	_neighbors(position) {
 		const dirs = [
 			{ x: 1, y: 0 },
 			{ x: -1, y: 0 },
@@ -48,23 +60,22 @@ export class PathFinder {
 			{ x: 0, y: -1 }
 		]
 		return dirs
-			.map(d => ({ x: pos.x + d.x * this.gridSize, y: pos.y + d.y * this.gridSize }))
-			.filter(p => {
-				if (p.x === this.target.x && p.y === this.target.y) {
-					return true
-				}
-				return !this._isBlocked(p)
-			})
+			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
+			.filter(p => this._isWalkable(p))
 	}
+
 
 	_heuristic(a, b) {
 		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
 	}
 
 	_startSearch() {
-		this.openList = [{ pos: { ...this.current }, g: 0, f: this._heuristic(this.current, this.target) }]
-		this.cameFrom = new Map()
-		this.cameFrom.set(this._gridKey(this.current), null)
+		this.openList = [{
+			position: this.current.copy(),
+			g: 0,
+			f: this._heuristic(this.current, this.player)
+		}]
+		this.cameFrom = new Map([[this._gridKey(this.current), null]])
 		this.closedSet = new Set()
 		this.searching = true
 	}
@@ -72,58 +83,53 @@ export class PathFinder {
 	_continueSearch() {
 		for (let i = 0; i < this.nodesPerFrame && this.openList.length; i++) {
 			this.openList.sort((a, b) => a.f - b.f)
-			const currentNode = this.openList.shift()
-			const currentKey = this._gridKey(currentNode.pos)
-			if (this.closedSet.has(currentKey)) {
-				continue
-			}
-			this.closedSet.add(currentKey)
+			const node = this.openList.shift()
+			const key = this._gridKey(node.position)
+			if (this.closedSet.has(key)) continue
+			this.closedSet.add(key)
 
-			if (Math.abs(currentNode.pos.x - this.target.x) < this.gridSize &&
-				Math.abs(currentNode.pos.y - this.target.y) < this.gridSize) {
-				let path = [{ x: this.target.x, y: this.target.y }]
-				let key = currentKey
-				while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
-					const prev = this.cameFrom.get(key)
-					path.unshift({ ...prev })
-					key = this._gridKey(prev)
-				}
-				this.path = path
+			if (Math.abs(node.position.x - this.player.x) < this.gridSize &&
+				Math.abs(node.position.y - this.player.y) < this.gridSize) {
+				this._reconstructPath(key)
 				this.searching = false
 				return
 			}
 
-			for (const neighbor of this._neighbors(currentNode.pos)) {
-				const key = this._gridKey(neighbor)
-				if (this.closedSet.has(key)) {
-					continue
-				}
-				const g = currentNode.g + this.gridSize
-				const f = g + this._heuristic(neighbor, this.target)
-				const existing = this.openList.find(n => this._gridKey(n.pos) === key)
+			for (const neighbor of this._neighbors(node.position)) {
+				const nKey = this._gridKey(neighbor)
+				if (this.closedSet.has(nKey)) continue
+
+				const g = node.g + this.gridSize
+				const f = g + this._heuristic(neighbor, this.player)
+				const existing = this.openList.find(n => this._gridKey(n.position) === nKey)
 				if (!existing || g < existing.g) {
-					this.cameFrom.set(key, { ...currentNode.pos })
-					if (!existing) {
-						this.openList.push({ pos: neighbor, g, f })
-					}
+					this.cameFrom.set(nKey, node.position.copy())
+					if (!existing) this.openList.push({ position: neighbor, g, f })
 				}
 			}
 		}
-		if (!this.openList.length) {
-			this.searching = false
+		if (!this.openList.length) this.searching = false
+	}
+
+	_reconstructPath(endKey) {
+		const path = [{ x: this.player.x, y: this.player.y }]
+		let key = endKey
+		while (this.cameFrom.has(key) && this.cameFrom.get(key)) {
+			const prev = this.cameFrom.get(key)
+			path.unshift(prev.copy())
+			key = this._gridKey(prev)
 		}
+		this.path = path
 	}
 
 	update() {
-		const targetKey = this._gridKey(this.target)
+		const targetKey = this._gridKey(this.player)
 		if (targetKey !== this.lastTargetKey || (!this.path.length && !this.searching)) {
 			this._startSearch()
 			this.lastTargetKey = targetKey
 		}
 
-		if (this.searching) {
-			this._continueSearch()
-		}
+		if (this.searching) this._continueSearch()
 
 		if (this.path.length) {
 			const next = this.path[0]
@@ -134,22 +140,21 @@ export class PathFinder {
 				this.current.x = next.x
 				this.current.y = next.y
 				this.path.shift()
-			}
-			else {
+			} else {
 				this.current.x += (dx / dist) * this.speed
 				this.current.y += (dy / dist) * this.speed
 			}
-
-			if (Math.hypot(this.current.x - this.target.x, this.current.y - this.target.y) < this.gridSize) {
+			if (Math.hypot(this.current.x - this.player.x, this.current.y - this.player.y) < this.gridSize) {
 				this.success = true
 			}
 		}
 	}
 
 	draw(draw) {
-		draw.circle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 5)
+		draw.rectangle(new Position(this.current.x, this.current.y, this.gridSize, this.gridSize), 'blue')
 		this.path.forEach(p => draw.rectangle(new Position(p.x, p.y, this.gridSize, this.gridSize), 'lightblue'))
-		draw.line(this.current, this.target)
+		this.invisibleWalls.forEach(w => draw.rectangle(new Position(w.x, w.y, w.width, w.height), 'red'))
+		draw.line(this.current, this.player)
 	}
 }
 

@@ -1,4 +1,4 @@
-export class SimplePathFinder {
+export class PathFinder {
 	constructor(ally, player, invisibleWalls, gridSize = 100) {
 		this.current = ally.position.copy()
 		this.gridSize = gridSize
