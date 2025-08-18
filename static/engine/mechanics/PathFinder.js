@@ -18,44 +18,24 @@ export class PathFinder {
 		return `${Math.floor(position.x / this.gridSize)},${Math.floor(position.y / this.gridSize)}`
 	}
 
-	_isWalkable(position) {
-		if (position.x === this.target.x && position.y === this.target.y) {
-			return true
-		}
-
-		const blocked = G.invisibleWalls.objects.some(w =>
-			position.x < w.position.x + w.position.width &&
-		position.x + this.gridSize > w.position.x &&
-		position.y < w.position.y + w.position.height &&
-		position.y + this.gridSize > w.position.y
-		)
-
-		if (blocked) {
-			return false
-		}
-
-		if (G.walkableAreas.positions) {
-			return G.walkableAreas.positions.some(w =>
-				position.x + this.gridSize > w.x &&
-			position.x < w.x + w.width &&
-			position.y + this.gridSize > w.y &&
-			position.y < w.y + w.height
-			)
-		}
-
-		return true
-	}
-
-	_neighbors(position) {
-		const dirs = [
+	_walkable_neighbors(position) {
+		const directions = [
 			{ x: 1, y: 0 },
 			{ x: -1, y: 0 },
 			{ x: 0, y: 1 },
 			{ x: 0, y: -1 }
 		]
-		return dirs
+
+		return directions
 			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
-			.filter(p => this._isWalkable(p))
+			.filter(position => {
+				if (G.invisibleWalls.objects.some(w => Collision.between(w, position))) {
+					return false
+				}
+				else {
+					return G.walkableAreas.positions.some(w => Collision.between(w, position))
+				}
+			})
 	}
 
 
@@ -91,7 +71,7 @@ export class PathFinder {
 				return
 			}
 
-			for (const neighbor of this._neighbors(node.position)) {
+			for (const neighbor of this._walkable_neighbors(node.position)) {
 				const nKey = this._gridKey(neighbor)
 				if (this.closedSet.has(nKey)) {
 					continue
