@@ -1,7 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Sprite } from '/static/engine/graphics/sprite/Sprite.js'; 
-import { PathFinder } from '/static/engine/mechanics/PathFinder.js'; 
 import { SimplePathFinder } from '/static/engine/mechanics/SimplePathFinder.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
