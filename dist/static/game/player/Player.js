@@ -37,8 +37,8 @@ export class Player extends DynamicGameObject {
 
 		for (const p of new Tilemaps().turretTiles) {
 			G.walkableAreas.add(p)
-			
 		}
+		G.walkableAreas.compress()
 	}
 
 	update() {
@@ -56,5 +56,6 @@ export class Player extends DynamicGameObject {
 		this.localObjects.draw(draw, guiDraw)
 
 		G.walkableAreas.enforce(G.player)
+		G.walkableAreas.draw(draw, guiDraw)
 	}
 }

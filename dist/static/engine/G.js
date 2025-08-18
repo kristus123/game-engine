@@ -1,8 +1,6 @@
 import { SplashParticles } from '/static/engine/graphics/particles/SplashParticles.js'; 
-import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
 import { WalkableAreas } from '/static/engine/mechanics/invisible_walls/WalkableAreas.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
 
 export const G = {
 	ranches: new LocalObjects([]),
@@ -15,8 +13,6 @@ export const G = {
 	chickenFood: new LocalObjects([]),
 	allies: new LocalObjects([]),
 	invisibleWalls: new LocalObjects([
-		new InvisibleWall(new Position(100, 3000, 1000, 100)),
-		new InvisibleWall(new Position(100, 3000, 1000, 1000)),
 	]),
 	walkableAreas: new WalkableAreas(),
 	money: 20,
