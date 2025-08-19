@@ -5,7 +5,7 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class GridPathFinder {
-	constructor(gridSize = 50) {
+	constructor(gridSize = 100) {
 
 				AssertNotNull(gridSize, "argument gridSize in " + this.constructor.name + ".js should not be null")
 			
@@ -42,59 +42,78 @@ export class GridPathFinder {
 		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y)
 	}
 
-	update(source, target) {
-		this.path = []
+update(source, target) {
+    this.path = []
 
-		const start = source.position.copy()
-		let targetPosition = target.position.copy()
+    const start = source.position.copy()
+    let targetPosition = target.position.copy()
 
-		if (G.walkableAreas.outside(targetPosition)) {
-			const containing = G.walkableAreas.closestRect(targetPosition)
-			if (containing) {
-				targetPosition.x = Math.min(Math.max(targetPosition.x, containing.x), containing.x + containing.width)
-				targetPosition.y = Math.min(Math.max(targetPosition.y, containing.y), containing.y + containing.height)
-			}
-		}
+    if (G.walkableAreas.outside(targetPosition)) {
+        const containing = G.walkableAreas.closestRect(targetPosition)
+        if (containing) {
+            targetPosition.x = Math.min(Math.max(targetPosition.x, containing.x), containing.x + containing.width)
+            targetPosition.y = Math.min(Math.max(targetPosition.y, containing.y), containing.y + containing.height)
+        } else {
+            return
+        }
+    }
 
-		const openList = [{ position: start, g: 0, f: this._heuristic(start, targetPosition) }]
-		const cameFrom = new Map([[this._gridKey(start), null]])
-		const closedSet = new Set()
+    const openList = [{ position: start, g: 0, f: this._heuristic(start, targetPosition) }]
+    const cameFrom = new Map([[this._gridKey(start), null]])
+    const closedSet = new Set()
+    let closestNode = { position: start, g: 0, f: this._heuristic(start, targetPosition) }
+    let closestDist = this._heuristic(start, targetPosition)
 
-		while (openList.length) {
-			openList.sort((a, b) => a.f - b.f)
-			const node = openList.shift()
-			const key = this._gridKey(node.position)
-			if (closedSet.has(key)) continue
-			closedSet.add(key)
+    while (openList.length) {
+        openList.sort((a, b) => a.f - b.f)
+        const node = openList.shift()
+        const key = this._gridKey(node.position)
+        if (closedSet.has(key)) continue
+        closedSet.add(key)
 
-			if (Math.abs(node.position.x - targetPosition.x) < this.gridSize &&
-				Math.abs(node.position.y - targetPosition.y) < this.gridSize) {
+        const dist = this._heuristic(node.position, targetPosition)
+        if (dist < closestDist) {
+            closestDist = dist
+            closestNode = node
+        }
 
-				const path = [{ x: targetPosition.x, y: targetPosition.y }]
-				let k = key
-				while (cameFrom.has(k) && cameFrom.get(k)) {
-					const prev = cameFrom.get(k)
-					path.unshift(prev.copy())
-					k = this._gridKey(prev)
-				}
-				this.path = path
-			} else {
-				for (const neighbor of this._walkable_neighbors(node.position)) {
-					const nKey = this._gridKey(neighbor)
-					if (closedSet.has(nKey)) continue
+        if (dist < this.gridSize) {
+            let path = [targetPosition.copy()]
+            let k = key
+            while (cameFrom.has(k) && cameFrom.get(k)) {
+                const prev = cameFrom.get(k)
+                path.unshift(prev.copy())
+                k = this._gridKey(prev)
+            }
+            this.path = path
+            return
+        }
 
-					const g = node.g + this.gridSize
-					const f = g + this._heuristic(neighbor, targetPosition)
-					const existing = openList.find(n => this._gridKey(n.position) === nKey)
+        for (const neighbor of this._walkable_neighbors(node.position)) {
+            const nKey = this._gridKey(neighbor)
+            if (closedSet.has(nKey)) continue
 
-					if (!existing || g < existing.g) {
-						cameFrom.set(nKey, node.position.copy())
-						if (!existing) openList.push({ position: neighbor, g, f })
-					}
-				}
-			}
-		}
-	}
+            const g = node.g + this.gridSize
+            const f = g + this._heuristic(neighbor, targetPosition)
+            const existing = openList.find(n => this._gridKey(n.position) === nKey)
+
+            if (!existing || g < existing.g) {
+                cameFrom.set(nKey, node.position.copy())
+                if (!existing) openList.push({ position: neighbor, g, f })
+            }
+        }
+    }
+
+    // If no path reached target, return path to closest reachable node
+    let path = [closestNode.position.copy()]
+    let k = this._gridKey(closestNode.position)
+    while (cameFrom.has(k) && cameFrom.get(k)) {
+        const prev = cameFrom.get(k)
+        path.unshift(prev.copy())
+        k = this._gridKey(prev)
+    }
+    this.path = path
+}
 
 	draw(draw) {
 		this.path.forEach(p => draw.rectangle(p))
