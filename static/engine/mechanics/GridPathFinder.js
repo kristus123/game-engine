@@ -10,12 +10,8 @@ export class GridPathFinder {
 
 	get nextPosition() {
 		const n = this.path[1]
-		if (n) {
-			return n
-		}
-		else {
-			return null
-		}
+		if (n) return n
+		return null
 	}
 
 	_walkable_neighbors(position) {
@@ -28,14 +24,7 @@ export class GridPathFinder {
 
 		return directions
 			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
-			.filter(pos => {
-				if (G.invisibleWalls.collides(pos)) {
-					return false
-				}
-				else {
-					return G.walkableAreas.inside(pos)
-				}
-			})
+			.filter(pos => !G.invisibleWalls.collides(pos) && G.walkableAreas.inside(pos))
 	}
 
 	_heuristic(a, b) {
@@ -46,34 +35,39 @@ export class GridPathFinder {
 		this.path = []
 
 		const start = source.position.copy()
-		const targetPosition = target.position.copy()
+		let targetPosition = target.position.copy()
+
+		if (G.walkableAreas.outside(targetPosition)) {
+			const containing = G.walkableAreas.closestRect(targetPosition)
+			if (containing) {
+				targetPosition.x = Math.min(Math.max(targetPosition.x, containing.x), containing.x + containing.width)
+				targetPosition.y = Math.min(Math.max(targetPosition.y, containing.y), containing.y + containing.height)
+			}
+		}
+
 		const openList = [{ position: start, g: 0, f: this._heuristic(start, targetPosition) }]
-
 		const cameFrom = new Map([[this._gridKey(start), null]])
-
 		const closedSet = new Set()
 
 		while (openList.length) {
 			openList.sort((a, b) => a.f - b.f)
 			const node = openList.shift()
-			const endKey = this._gridKey(node.position)
-			if (closedSet.has(endKey)) continue
-			closedSet.add(endKey)
+			const key = this._gridKey(node.position)
+			if (closedSet.has(key)) continue
+			closedSet.add(key)
 
 			if (Math.abs(node.position.x - targetPosition.x) < this.gridSize &&
 				Math.abs(node.position.y - targetPosition.y) < this.gridSize) {
 
 				const path = [{ x: targetPosition.x, y: targetPosition.y }]
-				let key = endKey
-				while (cameFrom.has(key) && cameFrom.get(key)) {
-					const prev = cameFrom.get(key)
+				let k = key
+				while (cameFrom.has(k) && cameFrom.get(k)) {
+					const prev = cameFrom.get(k)
 					path.unshift(prev.copy())
-					key = this._gridKey(prev)
+					k = this._gridKey(prev)
 				}
-
 				this.path = path
-			}
-			else {
+			} else {
 				for (const neighbor of this._walkable_neighbors(node.position)) {
 					const nKey = this._gridKey(neighbor)
 					if (closedSet.has(nKey)) continue

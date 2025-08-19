@@ -20,7 +20,7 @@ export class Ally extends DynamicGameObject {
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.path = new PathFinder(this, G.player),
+			this.pathFinder = new PathFinder(this, G.player),
 			G.invisibleWalls,
 			new OnChange(() => this.friend && this.within(100, this.friend), dance => {
 				this.dance = dance
@@ -42,13 +42,13 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		const m = this.withinAny(10000, G.monsters)
-		// if (m) {
-		// 	this.path.target = m
-		// }
-		// else {
-		// 	this.path.target = G.player
-		// }
+		const m = this.withinAny(1000, G.monsters)
+		if (m) {
+			this.pathFinder.target = m
+		}
+		else {
+			this.pathFinder.target = G.player
+		}
 
 		this.localObjects.update()
 	}
