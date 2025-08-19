@@ -11,17 +11,20 @@ export class PathFinder {
 		G.invisibleWalls.enforce(this.source)
 		G.walkableAreas.enforce(this.source)
 
+	}
+
+	draw(draw, guiDraw) {
 		if (this.linePathFinder.clearPath) {
+			this.linePathFinder.draw(draw, guiDraw)
 			ForcePush(this.source).towards(this.target)
 		}
 		else if (this.gridPathFinder.nextPosition) {
 			ForcePush(this.source).towards(this.gridPathFinder.nextPosition)
+			this.gridPathFinder.draw(draw, guiDraw)
 		}
-	}
-
-	draw(draw, guiDraw) {
-		this.gridPathFinder.draw(draw, guiDraw)
-		this.linePathFinder.draw(draw, guiDraw)
+		else {
+			console.log("???")
+		}
 	}
 }
 

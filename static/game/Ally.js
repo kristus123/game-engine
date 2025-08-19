@@ -26,14 +26,6 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		const m = this.withinAny(1000, G.monsters)
-		if (m) {
-			this.pathFinder.target = m
-		}
-		else {
-			this.pathFinder.target = G.player
-		}
-
 		this.localObjects.update()
 	}
 
