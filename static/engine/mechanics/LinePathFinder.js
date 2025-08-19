@@ -8,7 +8,7 @@ export class LinePathFinder {
 
 		ForcePush(this.square).towards(target, 100)
 
-		for (const w of G.invisibleWalls) {
+		for (const w of G.invisibleWalls.positions) {
 			if (this.square.touches(w)) {
 				this.square = new Square(new Position(source.x, source.y), 10)
 				this.clearPath = false

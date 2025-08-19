@@ -46,6 +46,9 @@ export class Ally extends DynamicGameObject {
 		if (m) {
 			this.path.target = m
 		}
+		else {
+			this.path.target = G.player
+		}
 
 		this.localObjects.update()
 	}

@@ -8,19 +8,18 @@ export class WalkableAreas {
 		this.positions.push(p)
 	}
 
-	enforce(o) {
-		const insideAny = this.positions.some(r =>
+	inside(o) {
+		return this.positions.some(r =>
 			o.position.x + o.width > r.x &&
 			o.position.x < r.x + r.width &&
 			o.position.y + o.height > r.y &&
-			o.position.y < r.y + r.height
-		)
+			o.position.y < r.y + r.height)
+	}
 
-		if (!insideAny) {
+	enforce(o) {
+		if (!this.inside(o)) {
 			o.position.x = o.previousPosition.x
 			o.position.y = o.previousPosition.y
-			o.velocity.x = 0
-			o.velocity.y = 0
 		}
 	}
 

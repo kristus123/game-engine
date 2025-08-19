@@ -30,10 +30,7 @@ export class Player extends DynamicGameObject {
 
 		this.position.scale(this.jump.scale)
 
-		for (const w of G.invisibleWalls) {
-			w.enforce(G.player)
-		}
-
+		G.invisibleWalls.enforce(this)
 	}
 
 	draw(draw, guiDraw) {

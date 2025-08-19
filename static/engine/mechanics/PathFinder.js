@@ -7,15 +7,11 @@ export class PathFinder {
 	update() {
 		this.gridPathFinder.update(this.source, this.target)
 		this.linePathFinder.update(this.source, this.target)
-
 		
-		for (const w of G.invisibleWalls) {
-			w.enforce(this.source)
-		}
+		G.invisibleWalls.enforce(this.source)
 		G.walkableAreas.enforce(this.source)
 
 		if (this.linePathFinder.clearPath) {
-			console.log("hey")
 			ForcePush(this.source).towards(this.target)
 		}
 		else if (this.gridPathFinder.nextPosition) {

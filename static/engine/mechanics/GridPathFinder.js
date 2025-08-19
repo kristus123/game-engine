@@ -29,7 +29,7 @@ export class GridPathFinder {
 		return directions
 			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
 			.filter(pos => {
-				if (G.invisibleWalls.objects.some(w => Collision.between(w, pos))) {
+				if (G.invisibleWalls.positions.some(w => Collision.between(w, pos))) {
 					return false
 				}
 				else {
