@@ -45,7 +45,9 @@ export class WalkableAreas {
 	}
 
 	closestRect(o) {
-		if (!this.positions.length) return null
+		if (!this.positions.length) {
+			return null
+		}
 
 		let closest = this.positions[0]
 		let minDist = this._distanceToRect(o, closest)

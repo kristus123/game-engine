@@ -55,7 +55,7 @@ export class InvisibleWalls {
 					object.position.y = currentPosition.y
 				}
 			}
-			
+
 		}
 	}
 

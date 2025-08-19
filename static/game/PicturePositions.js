@@ -8,33 +8,20 @@ export class PicturePositions {
 		this.regions = []
 
 		const palette = Palette.fixedOffscreen(image.width*scale, image.height*scale)
-		palette.ctx.imageSmoothingEnabled = false
 		palette.drawImage(image)
 
 		const colorMap = new Map()
-
-		const pixels = palette.ctx.getImageData(0, 0, palette.width, palette.height).data
-		for (let i = 0; i < pixels.length; i += 4) {
-			const [r,
-				g,
-				b,
-				a] = [
-				pixels[i],
-				pixels[i + 1],
-				pixels[i + 2],
-				pixels[i + 3]
-			]
-
-			if (a === 0) { // Ignore transparent pixels
+		
+		for (const rgba of palette.rgba()) {
+			if (rgba.a === 0) {
 				continue
 			}
 
-			const key = `${r},${g},${b}`
-			if (!colorMap.has(key)) {
-				colorMap.set(key, [])
+			if (!colorMap.has(rgba.rgba)) {
+				colorMap.set(rgba.rgba, [])
 			}
 
-			colorMap.get(key).push(i / 4) // Store pixel index
+			colorMap.get(rgba.rgba).push(rgba.i / 4) // Store pixel index
 		}
 
 		const visited = Array.from({ length: palette.height }, () => Array(palette.width).fill(false))
@@ -54,7 +41,6 @@ export class PicturePositions {
 		for (const [color, pixelIndices] of colorMap) {
 			let regionsForColor = []
 
-			// We process each pixel in the list of pixels for this color
 			for (const index of pixelIndices) {
 				const x = index % palette.width
 				const y = Math.floor(index / palette.width)

@@ -74,7 +74,7 @@ export class Turret extends DynamicGameObject {
 
 	draw(draw, guiDraw) {
 		if (this.ally) {
-			draw.text(this.position, ":)")
+			draw.text(this.position, ':)')
 		}
 
 		if (this.name) {

@@ -1,4 +1,3 @@
-import { a } from '/static/engine/a.js'; 
 
 export class Palette {
 	static width = window.innerWidth
@@ -81,6 +80,30 @@ export class Palette {
 					.then(imageBitmap => {
 						run(imageBitmap)
 					})
+			},
+
+			rgba: () => {
+				const result = []
+
+				const pixels = ctx.getImageData(0, 0, Palette.width, Palette.height).data
+
+				for (let i = 0; i < pixels.length; i += 4) {
+					const r = pixels[i]
+					const g = pixels[i + 1]
+					const b = pixels[i + 2]
+					const a = pixels[i + 3]
+
+					result.push({
+						i: i,
+						r: r,
+						g: g,
+						b: b,
+						a: a,
+						rgba: `${r},${g},${b}`,
+					})
+				}
+
+				return result
 			},
 
 			drawImage: image => {

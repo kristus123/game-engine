@@ -63,8 +63,8 @@ export class Ally extends DynamicGameObject {
 			this.stun = true
 			setTimeout(() => {
 				this.stun = false
-			}, 400);
-			
+			}, 400)
+
 		}
 	}
 

@@ -1,5 +1,6 @@
 import { G } from '/static/engine/G.js'; 
 import { Iterate } from '/static/engine/Iterate.js'; 
+import { Picture } from '/static/engine/Picture.js'; 
 import { a } from '/static/engine/a.js'; 
 import { ExponentialNumber } from '/static/engine/animation/ExponentialNumber.js'; 
 import { InverseExponentialNumber } from '/static/engine/animation/InverseExponentialNumber.js'; 
@@ -9,10 +10,12 @@ import { Sprite } from '/static/engine/graphics/sprite/Sprite.js';
 import { Quest } from '/static/engine/mechanics/quest/Quest.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
+import { Positions } from '/static/engine/position/Positions.js'; 
 import { Ally } from '/static/game/Ally.js'; 
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
+import { PicturePositions } from '/static/game/PicturePositions.js'; 
 import { Store } from '/static/game/Store.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
 import { Player } from '/static/game/player/Player.js'; 
@@ -23,7 +26,7 @@ export class World {
 
 
 		G.player = new Player(new Position(700, 2800))
-		Camera.followInstantly(G.player)
+		// Camera.followInstantly(G.player)
 		Controller.control(G.player)
 
 		new Ally(new Position(700, 2800, 10, 10))
@@ -36,6 +39,8 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
+
+			new PicturePositions(G.image.test, new Position(0, 0)),
 
 			new Quest(Iterate(100, i => () =>
 				new class {

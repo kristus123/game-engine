@@ -10,7 +10,7 @@ export class PathFinder {
 	update() {
 		this.gridPathFinder.update(this.source, this.target)
 		this.linePathFinder.update(this.source, this.target)
-		
+
 		G.invisibleWalls.enforce(this.source)
 		G.walkableAreas.enforce(this.source)
 
