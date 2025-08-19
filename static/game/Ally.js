@@ -26,19 +26,10 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		if (this.path.success) {
-			console.log('heihei')
+		const m = this.withinAny(10000, G.monsters)
+		if (m) {
+			this.path.target = m
 		}
-
-		// if (!this.within(10, this.path.current)) {
-		// 	Move(this).towards(this.path.current, 1)
-		// }
-		// else {
-		// 	const m = this.withinAny(10000, G.monsters)
-		// 	if (m) {
-		// 		this.path.target = G.player
-		// 	}
-		// }
 
 		this.localObjects.update()
 	}

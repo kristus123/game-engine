@@ -8,7 +8,6 @@ import { Path } from '/static/engine/npc/Path.js';
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
-import { Move } from '/static/engine/physics/Move.js'; 
 
 export class Ally extends DynamicGameObject {
 	constructor(position) {
@@ -43,19 +42,10 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		if (this.path.success) {
-			console.log('heihei')
+		const m = this.withinAny(10000, G.monsters)
+		if (m) {
+			this.path.target = m
 		}
-
-		// if (!this.within(10, this.path.current)) {
-		// 	Move(this).towards(this.path.current, 1)
-		// }
-		// else {
-		// 	const m = this.withinAny(10000, G.monsters)
-		// 	if (m) {
-		// 		this.path.target = G.player
-		// 	}
-		// }
 
 		this.localObjects.update()
 	}

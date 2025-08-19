@@ -3,8 +3,6 @@ import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js';
 import { Grid } from '/static/engine/graphics/Grid.js'; 
 import { GridPathFinder } from '/static/engine/mechanics/GridPathFinder.js'; 
 import { LinePathFinder } from '/static/engine/mechanics/LinePathFinder.js'; 
-import { Path } from '/static/engine/npc/Path.js'; 
-import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
 
@@ -21,30 +19,32 @@ export class PathFinder {
 		this.target = target; 
 		this.gridSize = gridSize; 
 
-
-		this.localObjects = new LocalObjects([
-			this.gridPathFinder = new GridPathFinder(source, target, gridSize),
-			this.linePathFinder = new LinePathFinder(source, target),
-			this.path = new Path(source, this.gridPathFinder.path),
-		])
+		this.gridPathFinder = new GridPathFinder(gridSize)
+		this.linePathFinder = new LinePathFinder()
 	}
 
-
 	update() {
+		this.gridPathFinder.update(this.source, this.target)
+		this.linePathFinder.update(this.source, this.target)
+
+		
+		for (const w of G.invisibleWalls) {
+			w.enforce(this.source)
+		}
+		G.walkableAreas.enforce(this.source)
+
 		if (this.linePathFinder.clearPath) {
+			console.log("hey")
 			ForcePush(this.source).towards(this.target)
 		}
-		else {
-			this.path.update()
-			this.source.velocity.reset()
+		else if (this.gridPathFinder.nextPosition) {
+			ForcePush(this.source).towards(this.gridPathFinder.nextPosition)
 		}
-
-		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+		this.gridPathFinder.draw(draw, guiDraw)
+		this.linePathFinder.draw(draw, guiDraw)
 	}
-
 }
 

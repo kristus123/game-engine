@@ -10,7 +10,6 @@ import { Quest } from '/static/engine/mechanics/quest/Quest.js';
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { Ally } from '/static/game/Ally.js'; 
-import { DeathText } from '/static/game/DeathText.js'; 
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
@@ -33,14 +32,12 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
 
-			new Ally(new Position(700, 2800, 10, 10)),
+			// new Ally(new Position(700, 2800, 10, 10)),
 			new Ally(new Position(2000, 2800, 10, 10)),
-
 
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
-						// new DeathText('round ' + i + '/' + 100).show()
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(e.value, () => {
 								setTimeout(() => {
