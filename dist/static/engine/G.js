@@ -1,5 +1,4 @@
 import { SplashParticles } from '/static/engine/graphics/particles/SplashParticles.js'; 
-import { InvisibleWall } from '/static/engine/mechanics/invisible_walls/InvisibleWall.js'; 
 import { WalkableAreas } from '/static/engine/mechanics/invisible_walls/WalkableAreas.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
 import { Position } from '/static/engine/position/Position.js'; 

@@ -1,16 +1,6 @@
-import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { StaticGameObject } from '/static/engine/objects/StaticGameObject.js'; 
-import { Collision } from '/static/engine/physics/Collision.js'; 
-import { Position } from '/static/engine/position/Position.js'; 
-
 export class InvisibleWalls extends StaticGameObject {
 	constructor(position) {
 		super(position)
-
-				AssertNotNull(position, "argument position in " + this.constructor.name + ".js should not be null")
-			
-		this.position = position; 
-
 
 		if (this.position.width == 1) {
 			this.position.width = 100
