@@ -43,12 +43,12 @@ export class Ally extends DynamicGameObject {
 
 	update() {
 		const m = this.withinAny(10000, G.monsters)
-		if (m) {
-			this.path.target = m
-		}
-		else {
-			this.path.target = G.player
-		}
+		// if (m) {
+		// 	this.path.target = m
+		// }
+		// else {
+		// 	this.path.target = G.player
+		// }
 
 		this.localObjects.update()
 	}

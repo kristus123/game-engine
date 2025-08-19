@@ -2,7 +2,6 @@ import { G } from '/static/engine/G.js';
 import { List } from '/static/engine/List.js'; 
 import { a } from '/static/engine/a.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
-import { Collision } from '/static/engine/physics/Collision.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 
 export class GridPathFinder {
@@ -41,11 +40,11 @@ export class GridPathFinder {
 		return directions
 			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
 			.filter(pos => {
-				if (G.invisibleWalls.positions.some(w => Collision.between(w, pos))) {
+				if (G.invisibleWalls.collides(pos)) {
 					return false
 				}
 				else {
-					return G.walkableAreas.positions.some(w => Collision.between(w, pos))
+					return G.walkableAreas.inside(pos)
 				}
 			})
 	}

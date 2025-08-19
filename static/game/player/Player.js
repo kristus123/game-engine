@@ -30,12 +30,12 @@ export class Player extends DynamicGameObject {
 
 		this.position.scale(this.jump.scale)
 
-		G.invisibleWalls.enforce(this)
+		// G.invisibleWalls.enforce(this)
+		// G.walkableAreas.enforce(G.player)
 	}
 
 	draw(draw, guiDraw) {
 		this.localObjects.draw(draw, guiDraw)
 
-		G.walkableAreas.enforce(G.player)
 	}
 }

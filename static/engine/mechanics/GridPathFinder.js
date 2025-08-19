@@ -29,11 +29,11 @@ export class GridPathFinder {
 		return directions
 			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
 			.filter(pos => {
-				if (G.invisibleWalls.positions.some(w => Collision.between(w, pos))) {
+				if (G.invisibleWalls.collides(pos)) {
 					return false
 				}
 				else {
-					return G.walkableAreas.positions.some(w => Collision.between(w, pos))
+					return G.walkableAreas.inside(pos)
 				}
 			})
 	}

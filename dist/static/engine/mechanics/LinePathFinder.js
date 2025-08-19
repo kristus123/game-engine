@@ -16,19 +16,24 @@ export class LinePathFinder {
 
 		ForcePush(this.square).towards(target, 100)
 
-		for (const w of G.invisibleWalls.positions) {
-			if (this.square.touches(w)) {
-				this.square = new Square(new Position(source.x, source.y), 10)
-				this.clearPath = false
-			}
-		}
 
 		if (this.square.touches(target)) {
-			this.square = new Square(new Position(source.x, source.y), 10)
+			this.square = null
 			this.clearPath = true
+		}
+		else if (G.invisibleWalls.collides(this.square)) {
+			this.square = null
+			this.clearPath = false
+		}
+		else if (G.walkableAreas.outside(this.square)) {
+			this.square = null
+			this.clearPath = false
 		}
 	}
 
 	draw(draw, guiDraw) {
+		if (this.square) {
+			this.square.draw(draw, guiDraw)
+		}
 	}
 }

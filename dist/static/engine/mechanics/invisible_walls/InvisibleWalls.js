@@ -18,6 +18,16 @@ export class InvisibleWalls {
 		}
 	}
 
+	collides(o) {
+		for (const p of this.positions) {
+			if (Collision.between(o, p)) {
+				return true
+			}
+		}
+
+		return false
+	}
+
 	enforce(object) {
 		for (const p of this.positions) {
 			if (Collision.between(p, object)) {
