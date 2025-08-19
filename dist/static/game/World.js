@@ -13,8 +13,8 @@ import { Ally } from '/static/game/Ally.js';
 import { Money } from '/static/game/Money.js'; 
 import { Monster } from '/static/game/Monster.js'; 
 import { MonsterWave } from '/static/game/MonsterWave.js'; 
+import { Store } from '/static/game/Store.js'; 
 import { Tilemaps } from '/static/game/Tilemaps.js'; 
-import { Turret } from '/static/game/Turret.js'; 
 import { Player } from '/static/game/player/Player.js'; 
 
 export class World {
@@ -27,13 +27,14 @@ export class World {
 		Controller.control(G.player)
 
 
+		new Ally(new Position(700, 2800, 10, 10))
+		new Ally(new Position(2000, 2800, 10, 10))
+
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
 
-			// new Ally(new Position(700, 2800, 10, 10)),
-			new Ally(new Position(2000, 2800, 10, 10)),
 
 			new Quest(Iterate(100, i => () =>
 				new class {
@@ -63,8 +64,9 @@ export class World {
 				}
 			)),
 			Money.init(),
-			new Turret(new Position(800, 0)),
+			Store.init(),
 			G.monsters,
+			G.allies,
 			this.tilemaps = new Tilemaps()
 		])
 

@@ -14,6 +14,13 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
+
+
+		this.ally = G.allies.anyUnless(a => a.turret)
+		if (this.ally) {
+			this.ally.turret = this
+		}
+
 	}
 
 	get target() {
@@ -45,6 +52,10 @@ export class Turret extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
+		if (this.ally) {
+			draw.text(this.position, ":)")
+		}
+
 		if (this.name) {
 			draw.text(this.position, this.name)
 

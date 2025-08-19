@@ -1,5 +1,4 @@
 import { G } from '/static/engine/G.js'; 
-import { Random } from '/static/engine/Random.js'; 
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { Html } from '/static/engine/html/Html.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
@@ -15,9 +14,6 @@ export class TurretNeeds {
 		this.chokolate = false
 		this.localObjects = new LocalObjects([
 			new Every(1_000, () => {
-				if (Random.chance()) {
-					this.chokolate = true
-				}
 			})
 		])
 	}

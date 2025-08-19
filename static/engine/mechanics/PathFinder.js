@@ -2,6 +2,9 @@ export class PathFinder {
 	constructor(source, target, gridSize = 50) {
 		this.gridPathFinder = new GridPathFinder(gridSize)
 		this.linePathFinder = new LinePathFinder()
+
+
+		this.position = target
 	}
 
 	update() {
@@ -15,15 +18,12 @@ export class PathFinder {
 
 	draw(draw, guiDraw) {
 		if (this.linePathFinder.clearPath) {
+			this.position = this.target
 			this.linePathFinder.draw(draw, guiDraw)
-			ForcePush(this.source).towards(this.target)
 		}
 		else if (this.gridPathFinder.nextPosition) {
-			ForcePush(this.source).towards(this.gridPathFinder.nextPosition)
+			this.position = this.gridPathFinder.nextPosition
 			this.gridPathFinder.draw(draw, guiDraw)
-		}
-		else {
-			console.log("???")
 		}
 	}
 }

@@ -65,6 +65,14 @@ export class AllObjects { // not a good name
 		}
 	}
 
+	anyUnless(thisTrue) {
+		for (const o of this.objects) {
+			if (!thisTrue(o)) {
+				return o
+			}
+		}
+	}
+
 	anyExcept(itself) {
 		for (const o of this.objects) {
 			if (o !== itself) {

@@ -43,6 +43,9 @@ export class Keyboard {
 			else if (e.code === 'KeyQ') {
 				this.q = true
 			}
+			else if (e.code === 'KeyR') {
+				this.r = true
+			}
 		})
 
 		document.addEventListener('keyup', (e) => {
@@ -69,6 +72,9 @@ export class Keyboard {
 			}
 			else if (e.code === 'KeyQ') {
 				this.q = false
+			}
+			else if (e.code === 'KeyR') {
+				this.r = false
 			}
 		})
 	}

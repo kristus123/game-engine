@@ -3,9 +3,6 @@ export class TurretNeeds {
 		this.chokolate = false
 		this.localObjects = new LocalObjects([
 			new Every(1_000, () => {
-				if (Random.chance()) {
-					this.chokolate = true
-				}
 			})
 		])
 	}
