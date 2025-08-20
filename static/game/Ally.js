@@ -43,10 +43,10 @@ export class Ally extends DynamicGameObject {
 			ForcePush(this).awayFrom(a, 3)
 			ForcePush(a).awayFrom(this, 3)
 			this.stun = true
-			setTimeout(() => {
+			tla(new After(800, () => {
+				console.log("hey")
 				this.stun = false
-			}, 400)
-
+			}))
 		}
 	}
 

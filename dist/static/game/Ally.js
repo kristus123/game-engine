@@ -7,6 +7,7 @@ import { PathFinder } from '/static/engine/mechanics/PathFinder.js';
 import { Path } from '/static/engine/npc/Path.js'; 
 import { DynamicGameObject } from '/static/engine/objects/DynamicGameObject.js'; 
 import { LocalObjects } from '/static/engine/objects/LocalObjects.js'; 
+import { After } from '/static/engine/on/After.js'; 
 import { OnChange } from '/static/engine/on/OnChange.js'; 
 import { ForcePush } from '/static/engine/physics/ForcePush.js'; 
 import { Push } from '/static/engine/physics/Push.js'; 
@@ -61,10 +62,10 @@ export class Ally extends DynamicGameObject {
 			ForcePush(this).awayFrom(a, 3)
 			ForcePush(a).awayFrom(this, 3)
 			this.stun = true
-			setTimeout(() => {
+			this.localObjects.add(new After(800, () => {
+				console.log("hey")
 				this.stun = false
-			}, 400)
-
+			}))
 		}
 	}
 
