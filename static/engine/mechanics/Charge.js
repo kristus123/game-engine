@@ -7,6 +7,9 @@ export class Charge {
 
 		this.onReady = () => {}
 		this.onReadyTriggered = false
+
+
+		this.position = null
 	}
 
 	get ready() {
@@ -21,7 +24,12 @@ export class Charge {
 	}
 
 	update() {
-		this.charge += this.chargePerUpdate
+		if (this.ready) {
+			this.charge = this.maxCharge
+		}
+		else {
+			this.charge += this.chargePerUpdate
+		}
 
 		if (this.ready && !this.onReadyTriggered) {
 			this.onReady()
@@ -30,5 +38,8 @@ export class Charge {
 	}
 
 	draw(draw, guiDraw) {
+		if (this.position) {
+			draw.hpBar(this.position, this.charge, this.maxCharge, 'orange')
+		}
 	}
 }

@@ -248,7 +248,7 @@ export class Draw {
 
 			const displayValue = percentage / 100
 
-			return displayValue
+			return displayValue + 0.1
 		}
 
 		const width = 200
