@@ -1,20 +1,17 @@
 export class Physics {
-	constructor() {
-		this.objects = []
-	}
 
-	static global = new Physics()
+	static objects = []
 
-	applyPhysics(o) {
+	static apply(o) {
 		this.objects.push(o)
 		return o
 	}
 
-	removePhysics(o) {
+	static removePhysics(o) {
 		List.remove(this.objects, o)
 	}
 
-	update(deltaTime) {
+	static update(deltaTime) {
 		for (let o of this.objects) {
 			o.previousPosition = { x: o.x, y: o.y }
 

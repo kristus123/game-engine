@@ -2,14 +2,14 @@ export const ForcePush = (o) => ({
 	awayFrom: (position, multiplier=1) => {
 		const dir = Math.atan2(o.y - position.y, o.x - position.x)
 
-		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
-		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+		o.velocity.x = Math.cos(dir) * 10 * multiplier
+		o.velocity.y = Math.sin(dir) * 10 * multiplier
 	},
 	towards: (position, multiplier=1) => {
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 
-		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
-		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+		o.velocity.x = Math.cos(dir) * 10 * multiplier
+		o.velocity.y = Math.sin(dir) * 10 * multiplier
 	},
 
 	randomly: (multiplier=1) => {
@@ -19,8 +19,8 @@ export const ForcePush = (o) => ({
 		}
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 
-		o.velocity.x = Math.cos(dir) * o.velocityFactor * multiplier
-		o.velocity.y = Math.sin(dir) * o.velocityFactor * multiplier
+		o.velocity.x = Math.cos(dir) * 10 * multiplier
+		o.velocity.y = Math.sin(dir) * 10 * multiplier
 	},
 	roughlyTowards: (position, multiplier=1) => {
 		const angleSpread = 0.9

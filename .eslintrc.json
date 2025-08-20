@@ -124,6 +124,7 @@
         ]
     },
     "globals": {
+        "After": "readonly",
         "AllObjects": "readonly",
         "Ally": "readonly",
         "AnArray": "readonly",
@@ -161,6 +162,7 @@
         "Easings": "readonly",
         "ErrorHandler": "readonly",
         "Every": "readonly",
+        "EveryFrame": "readonly",
         "ExponentialNumber": "readonly",
         "FishingRod": "readonly",
         "FollowPlayerNoise": "readonly",

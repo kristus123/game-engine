@@ -94,7 +94,7 @@ whenLoaded.then(() => {
 
 				Palette.clear([Camera.palette, guiPalette])
 
-				Physics.global.update(deltaTime)
+				Physics.update(deltaTime)
 
 				Camera.context(() => {
 

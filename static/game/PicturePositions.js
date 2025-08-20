@@ -11,7 +11,7 @@ export class PicturePositions {
 		palette.drawImage(image)
 
 		const colorMap = new Map()
-		
+
 		for (const rgba of palette.rgba()) {
 			if (rgba.a === 0) {
 				continue

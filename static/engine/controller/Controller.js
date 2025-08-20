@@ -29,28 +29,28 @@ export class Controller {
 		}
 
 		if (Keyboard.up) {
-			this.objectToControl.velocity.y = -this.objectToControl.velocityFactor
+			this.objectToControl.velocity.y = -600
 		}
 		else if (!Keyboard.down) {
 			this.objectToControl.velocity.y = 0
 		}
 
 		if (Keyboard.down) {
-			this.objectToControl.velocity.y = this.objectToControl.velocityFactor
+			this.objectToControl.velocity.y = 600
 		}
 		else if (!Keyboard.up) {
 			this.objectToControl.velocity.y = 0
 		}
 
 		if (Keyboard.left) {
-			this.objectToControl.velocity.x = -this.objectToControl.velocityFactor
+			this.objectToControl.velocity.x = -600
 		}
 		else if (!Keyboard.right) {
 			this.objectToControl.velocity.x = 0
 		}
 
 		if (Keyboard.right) {
-			this.objectToControl.velocity.x = this.objectToControl.velocityFactor
+			this.objectToControl.velocity.x = 600
 			// ForcePush(this.objectToControl).towards(this.objectToControl.position.offset(1000, 0), 10)
 		}
 		else if (!Keyboard.left) {

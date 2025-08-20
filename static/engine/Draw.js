@@ -270,21 +270,21 @@ export class Draw {
 	}
 
 
-fire(position, radius = 50, color = 'orange', alpha = 0.5) {
-    const grad = this.ctx.createRadialGradient(
-        position.x, position.y, 0,
-        position.x, position.y, Math.abs(radius)
-    )
-    grad.addColorStop(0, color)
-    grad.addColorStop(1, 'rgba(255,165,0,0)') // orange fully transparent
+	fire(position, radius = 50, color = 'orange', alpha = 0.5) {
+		const grad = this.ctx.createRadialGradient(
+			position.x, position.y, 0,
+			position.x, position.y, Math.abs(radius)
+		)
+		grad.addColorStop(0, color)
+		grad.addColorStop(1, 'rgba(255,165,0,0)') // orange fully transparent
 
-    this.ctx.beginPath()
-    this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
-    this.ctx.fillStyle = grad
-    this.ctx.globalAlpha = alpha
-    this.ctx.fill()
-    this.ctx.globalAlpha = 1
-}
+		this.ctx.beginPath()
+		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
+		this.ctx.fillStyle = grad
+		this.ctx.globalAlpha = alpha
+		this.ctx.fill()
+		this.ctx.globalAlpha = 1
+	}
 
 
 	circle(position, radius = 10) {
