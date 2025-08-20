@@ -6,8 +6,8 @@ export class Ally extends DynamicGameObject {
 			G.Sprite.ally(this.position),
 			this.pathFinder = new PathFinder(this, G.player),
 			this.sine = new Sine(1, 2, 0.05),
-
 		])
+
 
 		G.allies.add(this)
 	}
