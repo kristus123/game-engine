@@ -2,6 +2,8 @@ export const index = ''
 
 const loadAsepriteAssets = (path) => {
 	if (path.includes('_tilemaps.json')) {
+		path = path.replace("/static/assets/", "/static/assets/aseprite/")
+
 		console.log(path)
 		return LoadJson(`${path}`).then(json => {
 			console.log(json)
