@@ -4,7 +4,6 @@ const Files = require('./Files')
 
 const jsFiles = require('./js_files')
 
-
 for (const jsFilePath of jsFiles) {
 	let fileContent = Files.read(jsFilePath)
 

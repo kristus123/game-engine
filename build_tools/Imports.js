@@ -1,7 +1,7 @@
 const Path = require('path')
 
 
-function contains(type, className, str) {
+function containsExport(type, className, str) {
 	const regex = new RegExp(`(export\\s+)?${type}\\s+${className}\\b`, 'm')
 	return regex.test(str)
 }
@@ -24,14 +24,15 @@ class Imports {
 
 	static include(content, className) {
 		if (
-			contains('class', className, content) ||
-			contains('function', className, content) ||
-			contains('const', className, content)
+			containsExport('class', className, content) ||
+			containsExport('function', className, content) ||
+			containsExport('const', className, content)
 		) {
 			return false
 		}
 		else if (
 			content.includes(`new ${className}`) ||
+			// content.includes(`${className}`) || // causes bug
 			content.includes(`${className}.`) ||
 			content.includes(`${className}(`) ||
 			content.includes(`instanceof ${className}`) ||
