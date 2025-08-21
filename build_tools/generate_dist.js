@@ -12,7 +12,7 @@ const allAsepritePaths = Files.at('static/assets/aseprite')
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/static/engine/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
+Files.replace('dist/static/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
 
 
 const jsImports = require('./js_files')
@@ -24,7 +24,7 @@ const cssImports = Files.at('static/ui/css')
 	.map(f => Files.read(f))
 	.join('\n')
 
-const indexHtml = Files.read('static/index.html')
+const indexHtml = Files.read('static/start/index.html')
 	.replace('SCRIPT_IMPORTS', jsImports)
 	.replace('CSS_IMPORTS', cssImports)
-Files.write('dist/index.html', indexHtml)
+Files.write('dist/start/index.html', indexHtml)
