@@ -1,5 +1,6 @@
 div {
  box-sizing: border-box;
+	overflow-y: auto; /* enable vertical scroll */
 }
 
 

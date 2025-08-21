@@ -183,6 +183,7 @@
         "Init": "readonly",
         "InverseExponentialNumber": "readonly",
         "InvisibleWalls": "readonly",
+        "IsFrame": "readonly",
         "Iterate": "readonly",
         "Jump": "readonly",
         "Keyboard": "readonly",

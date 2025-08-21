@@ -1,16 +1,18 @@
-const counters = new Map();
+const counters = new Map()
 
 
 export function EveryFrame(interval, callback) {
-    if (!counters.has(interval)) counters.set(interval, 0);
+	if (!counters.has(interval)) {
+		counters.set(interval, 0)
+	}
 
-    let count = counters.get(interval) + 1;
+	let count = counters.get(interval) + 1
 
-    if (count >= interval) {
-        count = 0;
-        callback();
-    }
+	if (count >= interval) {
+		count = 0
+		callback()
+	}
 
-    counters.set(interval, count);
+	counters.set(interval, count)
 }
 

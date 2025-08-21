@@ -68,7 +68,6 @@ export class Mouse {
 				return
 			}
 
-			console.log(e.button)
 
 			if (e.button == 0) { // Left click
 				if (!this.hoveringHtmlElement && this.onClick) {

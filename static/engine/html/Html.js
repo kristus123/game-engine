@@ -24,6 +24,20 @@ export class Html {
 			]))
 	}
 
+	static left(elements) {
+		Html.addToScreen(
+			Html.div('left-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+	static right(elements) {
+		Html.addToScreen(
+			Html.div('right-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
 	static upper(elements) {
 		Html.addToScreen(
 			Html.div('upper-center-ui', [
@@ -62,40 +76,26 @@ export class Html {
 
 	static clearCenter() {
 		document.querySelector('.center-ui').remove()
+	  Mouse.hoveringHtmlElement = false
 	}
 
 
 	static clearLower() {
 		document.querySelector('.lower-center-ui').remove()
+	  Mouse.hoveringHtmlElement = false
 	}
 
 
 	static clear() {
-		const elements = document.getElementById('ui_elements').querySelectorAll('*') // all nested elements
-		console.log(elements)
+		const elements = document.getElementById('ui_elements').querySelectorAll('*') 
 
 		for (const el of elements) {
-			if (el.classList.contains('fill-ui')) {
-
-			  setTimeout(() => {
-					el.style.opacity = '0'
-			  }, 2_000)
-
-			  el.addEventListener('transitionend', () => {
-					el.remove()
-			  })
-
-			}
-			else {
-				 el.classList.add('fade-away')
-				  el.addEventListener('animationend', () => {
-					el.remove()
-				  }, { once: true })
-
-			}
+			el.remove()
 		}
 
+	  Mouse.hoveringHtmlElement = false
 	}
+
 
 	static dialog(children=[]) {
 
@@ -276,12 +276,14 @@ export class Html {
 
 	static remove(e) {
 		e.parentNode.removeChild(e)
+	  Mouse.hoveringHtmlElement = false
 	}
 
 	static removeChildElements(div) {
 		while (div.firstChild) {
 			div.removeChild(div.firstChild)
 		}
+	  Mouse.hoveringHtmlElement = false
 	}
 
 	static removeChildElementsInId(id) {
@@ -289,6 +291,7 @@ export class Html {
 		while (div.firstChild) {
 			div.removeChild(div.firstChild)
 		}
+	  Mouse.hoveringHtmlElement = false
 	}
 
 	static div(className, childrenElements=[]) {
