@@ -49,9 +49,8 @@ export class World {
 		])
 
 		Html.right([
-			Html.div('big', [
+			Html.div('big movable', [
 				Html.h1('wake up'),
-				Html.p('it is time to wake up'),
 				Html.p('it is time to wake up'),
 			]),
 		])
