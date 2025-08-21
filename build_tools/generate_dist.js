@@ -20,11 +20,11 @@ const jsImports = require('./js_files')
 	.join('\n')
 
 const cssImports = Files.at('static/ui/css')
-	.map(f => f.replaceAll('\\', '/')) // for windows compability
+	.map(f => f.replaceAll('\\', '/')) // for windows compability ( i assume)
 	.map(f => Files.read(f))
 	.join('\n')
 
-const indexHtml = Files.read('static/start/index.html')
+const indexHtml = Files.read('static/index.html')
 	.replace('SCRIPT_IMPORTS', jsImports)
 	.replace('CSS_IMPORTS', cssImports)
-Files.write('dist/start/index.html', indexHtml)
+Files.write('dist/index.html', indexHtml)

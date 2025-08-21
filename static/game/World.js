@@ -8,6 +8,8 @@ export class World {
 		new Ally(new Position(700, 2800, 10, 10))
 		new Ally(new Position(2000, 2800, 10, 10))
 
+		this.tilemaps = new Tilemaps()
+
 
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
@@ -46,7 +48,7 @@ export class World {
 			Store.init(),
 			G.monsters,
 			G.allies,
-			this.tilemaps = new Tilemaps()
+			new Tile(this.tilemaps),
 		])
 
 		Html.right([

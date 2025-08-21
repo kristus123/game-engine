@@ -52,11 +52,6 @@ export class Tilemaps {
 		for (const p of this.tiles.filter(t => t.i == 4)) {
 			// draw.rectangle(p.position)
 		}
-
-		this.extract(this.tileTypes[4], new Position(1*16*Scale.value, 1*16*Scale.value))
-		this.extract(this.tileTypes[4], new Position(2*16*Scale.value, 2*16*Scale.value))
-		this.extract(this.tileTypes[4], new Position(3*16*Scale.value, 2*16*Scale.value))
-		this.extract(this.tileTypes[2], new Position(4*16*Scale.value, 2*16*Scale.value))
 	}
 
 	extract(tile, position) {

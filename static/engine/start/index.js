@@ -63,53 +63,50 @@ const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
 
 
 whenLoaded.then(() => {
-	ErrorHandler.run(() => {
-		const mainPalette = Palette.main()
-		const guiPalette = Palette.offscreen()
-		const backgroundPalette = Palette.offscreen()
-		// const showLogs = new ShowLogs(guiPalette)
+	const mainPalette = Palette.main()
+	const guiPalette = Palette.offscreen()
+	const backgroundPalette = Palette.offscreen()
+	// const showLogs = new ShowLogs(guiPalette)
 
-		Sound.init()
-		Mouse.initialize()
-		Camera.initialize()
-		Mouse.initializeAfterCameraIsInitialized()
+	Sound.init()
+	Mouse.initialize()
+	Camera.initialize()
+	Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = new Draw(Camera.palette.ctx)
-		const guiDraw = new Draw(guiPalette.ctx)
+	const draw = new Draw(Camera.palette.ctx)
+	const guiDraw = new Draw(guiPalette.ctx)
 
-		Level.change(new World())
+	Level.change(new World())
 
-		//new VideoCall()
+	//new VideoCall()
 
-		Loop.everyFrame(deltaTime => {
-			ErrorHandler.run(() => {
+	Loop.everyFrame(deltaTime => {
+		ErrorHandler.run(() => {
 
-				Camera.palette.clear()
-				guiPalette.clear()
+			Camera.palette.clear()
+			guiPalette.clear()
 
-				Physics.update(deltaTime)
+			Physics.update(deltaTime)
 
-				Camera.context(() => {
+			Camera.context(() => {
 
-					Mouse.update()
+				Controller.update()
+				Controller.draw(draw, guiDraw)
 
-					Controller.update()
-					Controller.draw(draw, guiDraw)
+				Level.update()
+				Level.draw(draw, guiDraw)
 
-					Level.update()
-					Level.draw(draw, guiDraw)
-
-					Mouse.draw(draw, guiDraw)
-				})
-
-				// showLogs.draw()
-
-				backgroundPalette.fill('#10204f')
-
-				mainPalette.apply(backgroundPalette)
-				mainPalette.apply(Camera.palette)
-				mainPalette.apply(guiPalette)
+				Mouse.update()
+				Mouse.draw(draw, guiDraw)
 			})
+
+			// showLogs.draw()
+
+			backgroundPalette.fill('#10204f')
+
+			mainPalette.apply(backgroundPalette)
+			mainPalette.apply(Camera.palette)
+			mainPalette.apply(guiPalette)
 		})
 	})
 })
