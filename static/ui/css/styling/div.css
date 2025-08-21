@@ -4,15 +4,24 @@ div {
 }
 
 
+#ui_elements > div.right-center-ui > div > div {
+    max-height: 800px;
+    max-width: 50px;
+}
+
+
 div.big {
 	min-width:800px;
-	/* min-height:500px; */
 	padding:20px;
 	background-color: #F2F2F2;
-	border-radius: 20px;
+	border-radius: 70px;
 
   place-items: center; /* shorthand for justify-content and align-items */
+
+    background-color: #fefcf6; /* off-white like paper */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* subtle depth */
 }
+
 
 
 .big button {

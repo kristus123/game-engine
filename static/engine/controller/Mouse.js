@@ -24,12 +24,16 @@ export class Mouse {
 			let delta = Math.sign(e.deltaY)
 
 			if (delta > 0) {
-				console.log('Scrolling out (down)')
-				Call(this.scrollOut)
+				if (!this.hoveringHtmlElement) {
+					console.log('Scrolling out (down)')
+					Call(this.scrollOut)
+				}
 			}
 			else {
-				console.log('Scrolling in (up)')
-				Call(this.scrollIn)
+				if (!this.hoveringHtmlElement) {
+					console.log('Scrolling in (up)')
+					Call(this.scrollIn)
+				}
 			}
 		})
 

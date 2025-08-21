@@ -48,57 +48,11 @@ export class World {
 			this.tilemaps = new Tilemaps()
 		])
 
-		Html.fill([
+		Html.right([
 			Html.div('big', [
+				Html.h1('wake up'),
 				Html.p('it is time to wake up'),
 				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.p('it is time to wake up'),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
-				Html.button('ok', () => {
-					Html.clear()
-				}),
 			]),
 		])
 	}
