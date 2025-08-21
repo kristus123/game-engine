@@ -8,6 +8,36 @@ export class World {
 		new Ally(new Position(700, 2800, 10, 10))
 		new Ally(new Position(2000, 2800, 10, 10))
 
+
+		Html.left([
+			Html.div('big', [
+				Html.p('hey. it is time to wake up'),
+				Html.p('hey. it is time to wake up'),
+			]),
+		])
+
+		Html.right([
+			Html.div('big', [
+				Html.p('hey. it is time to wake up'),
+				Html.input('hey. it is time to wake up'),
+			]),
+		])
+
+		Html.lower([
+			Html.div('big', [
+				Html.p('hey. it is time to wake up'),
+			]),
+		])
+
+		Html.center([
+			this.xxx = Html.div('big', [
+				Html.p('hey. it is time to wake up'),
+				Html.button("why?", () => {
+					Html.clear()
+				})
+			]),
+		])
+
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),

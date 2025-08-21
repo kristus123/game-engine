@@ -38,6 +38,20 @@ export class Html {
 			]))
 	}
 
+	static left(elements) {
+		Html.addToScreen(
+			Html.div('left-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
+	static right(elements) {
+		Html.addToScreen(
+			Html.div('right-center-ui', [
+				Html.div('shoulder-to-shoulder', elements)
+			]))
+	}
+
 
 	static center(elements) {
 		Html.addToScreen(
@@ -72,27 +86,9 @@ export class Html {
 
 	static clear() {
 		const elements = document.getElementById('ui_elements').querySelectorAll('*') // all nested elements
-		console.log(elements)
 
 		for (const el of elements) {
-			if (el.classList.contains('fill-ui')) {
-
-			  setTimeout(() => {
-					el.style.opacity = '0'
-			  }, 2_000)
-
-			  el.addEventListener('transitionend', () => {
-					el.remove()
-			  })
-
-			}
-			else {
-				 el.classList.add('fade-away')
-				  el.addEventListener('animationend', () => {
-					el.remove()
-				  }, { once: true })
-
-			}
+			el.remove()
 		}
 
 	}
@@ -113,6 +109,7 @@ export class Html {
 			}
 		  })
 
+		Html.addToScreen(d)
 		d.showModal()
 
 		return d
