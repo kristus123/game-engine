@@ -92,7 +92,8 @@ whenLoaded.then(() => {
 		Loop.everyFrame(deltaTime => {
 			ErrorHandler.run(() => {
 
-				Palette.clear([Camera.palette, guiPalette])
+				Camera.palette.clear()
+				guiPalette.clear()
 
 				Physics.update(deltaTime)
 
@@ -111,8 +112,11 @@ whenLoaded.then(() => {
 
 				// showLogs.draw()
 
-				Palette.fill(backgroundPalette, '#10204f')
-				Palette.apply(mainPalette, [backgroundPalette, Camera.palette, guiPalette])
+				backgroundPalette.fill('#10204f')
+
+				mainPalette.apply(backgroundPalette)
+				mainPalette.apply(Camera.palette)
+				mainPalette.apply(guiPalette)
 			})
 		})
 	})

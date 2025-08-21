@@ -43,6 +43,16 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			clear: () => {
+				ctx.clearRect(0, 0, Palette.width, Palette.height)
+			},
+			apply: (p) => {
+				ctx.drawImage(p.canvas, 0, 0)
+			},
+			fill: (color) => {
+				ctx.fillStyle = color
+				ctx.fillRect(0, 0, Palette.width, Palette.height)
+			},
 		}
 	}
 
@@ -60,6 +70,16 @@ export class Palette {
 			ctx,
 			width: Palette.width,
 			height: Palette.height,
+			clear: () => {
+				ctx.clearRect(0, 0, Palette.width, Palette.height)
+			},
+			apply: (p) => {
+				ctx.drawImage(p.canvas, 0, 0)
+			},
+			fill: (color) => {
+				ctx.fillStyle = color
+				ctx.fillRect(0, 0, Palette.width, Palette.height)
+			},
 		}
 	}
 
@@ -106,6 +126,17 @@ export class Palette {
 				return result
 			},
 
+			clear: () => {
+				ctx.clearRect(0, 0, Palette.width, Palette.height)
+			},
+			apply: (p) => {
+				ctx.drawImage(p.canvas, 0, 0)
+			},
+			fill: (color) => {
+				ctx.fillStyle = color
+				ctx.fillRect(0, 0, Palette.width, Palette.height)
+			},
+
 			drawImage: image => {
 				ctx.drawImage(image, 0, 0)
 			},
@@ -132,20 +163,4 @@ export class Palette {
 		}
 	}
 
-	static clear(canvases) {
-		canvases.forEach(c => {
-			c.ctx.clearRect(0, 0, Palette.width, Palette.height)
-		})
-	}
-
-	static apply(mainPalette, palettes) {
-		palettes.forEach(p => {
-			mainPalette.ctx.drawImage(p.canvas, 0, 0)
-		})
-	}
-
-	static fill(palette, color) {
-		palette.ctx.fillStyle = color
-		palette.ctx.fillRect(0, 0, Palette.width, Palette.height)
-	}
 }
