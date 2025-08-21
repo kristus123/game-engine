@@ -20,7 +20,7 @@ export class Jump {
 
 	update() {
 		if (this.destination && !this.arrived) {
-			ForcePush(this.player).towards(this.destination, 10)
+			ForcePush(this.player).towards(this.destination, 150)
 
 			if (this.player.within(150, this.destination) && this.scale < 2) {
 				this.onArrival(this.destination)
