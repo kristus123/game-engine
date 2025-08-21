@@ -229,50 +229,50 @@ let offsetX, offsetY
 let currentDiv = null
 const gridSize = 800
 
-document.addEventListener('mousedown', e => {
-	const div = e.target.closest('.movable')
-	if (!div) {
-		return
-	}
+// document.addEventListener('mousedown', e => {
+// 	const div = e.target.closest('.movable')
+// 	if (!div) {
+// 		return
+// 	}
 
-	const rect = div.getBoundingClientRect()
-	div.style.position = 'absolute'
-	div.style.left = rect.left + window.scrollX + 'px'
-	div.style.top = rect.top + window.scrollY + 'px'
-	document.body.appendChild(div)
+// 	const rect = div.getBoundingClientRect()
+// 	div.style.position = 'absolute'
+// 	div.style.left = rect.left + window.scrollX + 'px'
+// 	div.style.top = rect.top + window.scrollY + 'px'
+// 	document.body.appendChild(div)
 
-	isDragging = true
-	currentDiv = div
-	offsetX = e.clientX - div.offsetLeft
-	offsetY = e.clientY - div.offsetTop
+// 	isDragging = true
+// 	currentDiv = div
+// 	offsetX = e.clientX - div.offsetLeft
+// 	offsetY = e.clientY - div.offsetTop
 
-	div.classList.add('movable')
-	div.classList.add('dragging')
-})
+// 	div.classList.add('movable')
+// 	div.classList.add('dragging')
+// })
 
-document.addEventListener('mousemove', e => {
-	if (!isDragging || !currentDiv) {
-		return
-	}
+// document.addEventListener('mousemove', e => {
+// 	if (!isDragging || !currentDiv) {
+// 		return
+// 	}
 
-	let x = e.clientX - offsetX
-	let y = e.clientY - offsetY
+// 	let x = e.clientX - offsetX
+// 	let y = e.clientY - offsetY
 
 
-	// Keep inside viewport
-	x = Math.max(0, Math.min(x, window.innerWidth - currentDiv.offsetWidth))
-	y = Math.max(0, Math.min(y, window.innerHeight - currentDiv.offsetHeight))
+// 	// Keep inside viewport
+// 	x = Math.max(0, Math.min(x, window.innerWidth - currentDiv.offsetWidth))
+// 	y = Math.max(0, Math.min(y, window.innerHeight - currentDiv.offsetHeight))
 
-	currentDiv.style.left = x + 'px'
-	currentDiv.style.top = y + 'px'
-})
+// 	currentDiv.style.left = x + 'px'
+// 	currentDiv.style.top = y + 'px'
+// })
 
-document.addEventListener('mouseup', () => {
-	if (!currentDiv) {
-		return
-	}
-	currentDiv.classList.remove('dragging')
-	isDragging = false
-	currentDiv = null
-})
+// document.addEventListener('mouseup', () => {
+// 	if (!currentDiv) {
+// 		return
+// 	}
+// 	currentDiv.classList.remove('dragging')
+// 	isDragging = false
+// 	currentDiv = null
+// })
 

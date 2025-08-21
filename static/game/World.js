@@ -52,7 +52,7 @@ export class World {
 		Html.right([
 			Html.div('big movable', [
 				Html.h1('wake up'),
-				Html.p('it is time to wake up'),
+				Html.button('it is time to wake up'),
 			]),
 		])
 	}

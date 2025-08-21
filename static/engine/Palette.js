@@ -7,10 +7,11 @@ export class Palette {
 
 	static {
 		let debounceTimeout
+
 		window.addEventListener('resize', () => {
 			clearTimeout(debounceTimeout)
 
-			debounceTimeout = setTimeout(function() {
+			debounceTimeout = setTimeout(() => {
 				console.log(`Window resized to: ${window.innerWidth} x ${window.innerHeight}`)
 				Palette.width = window.innerWidth
 				Palette.height = window.innerHeight
@@ -23,7 +24,7 @@ export class Palette {
 				Palette.onResize.forEach(o => {
 					o()
 				})
-			}, 50)
+			}, 100)
 		})
 	}
 

@@ -2,7 +2,6 @@ export class Tilemaps {
 	constructor() {
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
 
-
 		this.width = this.jsonFile.tilemaps[0].tileWidth
 		this.height = this.jsonFile.tilemaps[0].tileHeight
 
@@ -55,6 +54,9 @@ export class Tilemaps {
 		}
 
 		this.extract(this.tileTypes[4], new Position(1*16*Scale.value, 1*16*Scale.value))
+		this.extract(this.tileTypes[4], new Position(2*16*Scale.value, 2*16*Scale.value))
+		this.extract(this.tileTypes[4], new Position(3*16*Scale.value, 2*16*Scale.value))
+		this.extract(this.tileTypes[2], new Position(4*16*Scale.value, 2*16*Scale.value))
 	}
 
 	extract(tile, position) {
