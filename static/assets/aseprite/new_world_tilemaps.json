@@ -1,5 +1,5 @@
 {
-  "sprite": "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/new world tileset.aseprite",
+  "sprite": "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/new_world.aseprite",
   "tilemaps": [
     {
       "layer": "new tiles",

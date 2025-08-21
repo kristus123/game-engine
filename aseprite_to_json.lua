@@ -154,4 +154,3 @@ table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
 write_file(outBase .. "_tilemaps.json", table.concat(json_parts, "\n"))
-

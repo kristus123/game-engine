@@ -1,68 +1,45 @@
 export const index = ''
 
-function loadImage(pngPath) {
-	return new Promise((resolve, reject) => {
-		const img = new Image()
-		img.src = pngPath
-		img.onerror = reject
-
-		if (img.complete) {
-			resolve(img)
-		}
-		else {
-			img.onload = () => resolve(img)
-		}
-	})
-}
-
-
-async function loadAudio(url) {
-	try {
-		const r = await fetch(url)
-		const arrayBuffer = await r.arrayBuffer()
-		return await AudioContext.decodeAudioData(arrayBuffer)
+const loadAsepriteAssets = (path) => {
+	if (path.includes('_tilemaps.json')) {
+		console.log(path)
+		return LoadJson(`${path}`).then(json => {
+			console.log(json)
+			if (json) {
+				console.log(json)
+			}
+		})
 	}
-	catch (err) {
-		console.error('Error loading audio:', err)
-		return null
+	else {
+		const fileName = path.split('/').pop()
+
+		const p1 = LoadImage(`${path}Layers.png`).then(img => {
+			const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(`${path}Layers.json`))
+			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, asepriteLayerJson)
+		})
+
+		const p2 = LoadImage(`${path}.png`).then(img => LoadJson(`${path}.json`).then(json => {
+			G.image[fileName] = img
+			G.Sprite[fileName] = pos => new Sprite(pos, img, new AsepriteJson(json))
+		}))
+		return Promise.all([p1, p2])
 	}
 }
 
+const loadAllAudio = () => {
+	const audioFiles = ['/static/audio/sheet.mp3', '/static/audio/click.mp3']
+	return Promise.all(audioFiles.map(a =>
+		LoadAudio(a).then(audio => {
+			const key = a.split('/').pop().replace('.mp3', '')
+			G.Audio[key] = audio
+		})
+	))
+}
 
-
-const whenLoaded = Promise.all(ASEPRITE_FILES.map(path => {
-	if (path.includes('.json')) {
-		return Promise.resolve('ok')
-	}
-
-
-	const fileName = path.split('/').pop()
-	const pngPath = path + '.png'
-	const asepriteJson = new AsepriteJson(StaticHttp.get(path + '.json'))
-
-	const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(path + 'Layers' + '.json'))
-
-	const spriteLayers = loadImage(path + 'Layers.png')
-		.then(img => G.SpriteLayers[fileName] = (pos) => new SpriteLayers(pos, img, asepriteLayerJson))
-
-	const sprite = loadImage(pngPath)
-		.then(img => G.Sprite[fileName] = (pos) => new Sprite(pos, img, asepriteJson))
-
-	const image = loadImage(pngPath)
-		.then(img => G.image[fileName] = img)
-
-	const audios = [
-		'/static/audio/sheet.mp3',
-		'/static/audio/click.mp3',
-	].map(a => loadAudio(a).then(xxx => {
-		G.Audio[a.split('/').pop().replace('.mp3', '')] = xxx
-	}))
-
-	return Promise.all([spriteLayers, sprite, image, ...audios])
-}))
-
-
-whenLoaded.then(() => {
+Promise.all([
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
+	loadAllAudio(),
+]).then(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()

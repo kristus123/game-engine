@@ -63,11 +63,14 @@ function exportAseprite(srcFile, destBase) {
 	])
 
 	execFileSync('aseprite', [
-		'-b',
-		srcFile,
-		'--script',
-		'aseprite_to_json.lua',
+	  '-b',
+	  srcFile,
+	  '--script',
+	  'aseprite_to_json.lua',
+	  '--',
+	  destBase + "Tilemaps.json",
 	])
+
 }
 
 walk(SRC_DIR, srcFile => {

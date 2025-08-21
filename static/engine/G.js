@@ -17,4 +17,5 @@ export const G = {
 	Audio: {},
 	image: {},
 	SpriteLayers: {},
+	tilemaps: {},
 }

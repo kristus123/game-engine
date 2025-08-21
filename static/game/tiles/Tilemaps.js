@@ -45,8 +45,6 @@ export class Tilemaps {
 
 
 	draw(draw, guiDraw) {
-		console.log(this.tileTypes)
-
 		// draw.drawPart(this.test, new Position(0,0))
 
 		for (const p of this.tiles.filter(t => t.i == 4)) {
