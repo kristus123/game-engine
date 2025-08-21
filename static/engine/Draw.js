@@ -33,6 +33,13 @@ export class Draw {
 	}
 
 
+	drawPart(img, position) {
+		this.ctx.drawImage(
+		  img,
+		  position.x, position.y, 16, 16,  // source rect inside img
+		  100, 100, 32, 32   // destination rect on canvas
+		)
+	}
 
 	lightSource(p, radius) {
 		const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius)
