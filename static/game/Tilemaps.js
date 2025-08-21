@@ -1,5 +1,3 @@
-const scale = 8
-
 export class Tilemaps {
 	constructor() {
 		this.jsonFile = StaticHttp.get('/static/assets/aseprite/world_tilemaps.json')
@@ -13,10 +11,10 @@ export class Tilemaps {
 			this.tiles.push({
 				i: e.i,
 				position: new Position(
-					(e.x * scale * this.width),
-					(e.y * scale * this.height),
-					this.width * scale,
-					this.height * scale,
+					(e.x * Scale.value * this.width),
+					(e.y * Scale.value * this.height),
+					this.width * Scale.value,
+					this.height * Scale.value,
 				)
 			})
 		}

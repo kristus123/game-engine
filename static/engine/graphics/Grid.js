@@ -1,7 +1,5 @@
-const scale = 8 // same as in Sprite.js
-
 export class Grid {
-	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*scale, cellHeight = 16*scale) {
+	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
 		this.positions = []
 		this.cellWidth = cellWidth
 		this.cellHeight = cellHeight

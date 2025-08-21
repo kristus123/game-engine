@@ -1,5 +1,3 @@
-const scale = 8
-
 export class SpriteLayers extends StaticGameObject {
 	constructor(position, image, asepriteLayerJson) {
 		super(position)
@@ -14,8 +12,8 @@ export class SpriteLayers extends StaticGameObject {
 		asepriteLayerJson.forEachFrame((layer, frame, x, y, width, height, tag) => {
 			this.tags[tag] ??= []
 
-			this.position.width ??= this.width * scale
-			this.position.height ??= this.height * scale
+			this.position.width ??= this.width * Scale.vaue
+			this.position.height ??= this.height * Scale.vaue
 
 			this.width = width
 			this.height = height
@@ -25,7 +23,7 @@ export class SpriteLayers extends StaticGameObject {
 			}
 
 			const sprite = {
-				position: new Position(0, 0, width*scale, height*scale),
+				position: new Position(0, 0, width*Scale.vaue, height*Scale.vaue),
 				x: x,
 				y: y,
 				width: width,

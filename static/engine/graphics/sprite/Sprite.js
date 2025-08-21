@@ -1,11 +1,9 @@
-const scale = 8
-
 export class Sprite extends StaticGameObject {
 	constructor(position, image, asepriteJson) {
 		super(position)
 
-		this.position.width = asepriteJson.width * scale
-		this.position.height = asepriteJson.height * scale
+		this.position.width = asepriteJson.width * Scale.value
+		this.position.height = asepriteJson.height * Scale.value
 
 		this.currentFrame = 0
 		this.tags = {}
@@ -78,11 +76,11 @@ export class Sprite extends StaticGameObject {
 		this.slices = this.asepriteJson.tags[this.activeTag][this.currentFrame].slices.map(s => {
 			const p = s.position
 
-			p.x = (p.x * scale) + this.position.x
-			p.y = (p.y * scale) + this.position.y
+			p.x = (p.x * Scale.value) + this.position.x
+			p.y = (p.y * Scale.value) + this.position.y
 
-			p.width *= scale
-			p.height *= scale
+			p.width *= Scale.value
+			p.height *= Scale.value
 
 			return s
 		})
