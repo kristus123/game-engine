@@ -1,13 +1,5 @@
 export const index = ''
 
-
-// window.onload = () => { // not working todo fix
-// 	document.body.style.transform = "scale(1)";
-// 	document.body.style.zoom = "100%";
-// 	document.body.style.transformOrigin = "0 0";
-// }
-
-
 function loadImage(pngPath) {
 	return new Promise((resolve, reject) => {
 		const img = new Image()
