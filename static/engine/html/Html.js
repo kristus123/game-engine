@@ -87,7 +87,7 @@ export class Html {
 
 
 	static clear() {
-		const elements = document.getElementById('ui_elements').querySelectorAll('*') 
+		const elements = document.getElementById('ui_elements').querySelectorAll('*')
 
 		for (const el of elements) {
 			el.remove()

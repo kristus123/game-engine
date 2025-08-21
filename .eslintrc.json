@@ -240,6 +240,7 @@
         "Random": "readonly",
         "Registry": "readonly",
         "RotatingPicture": "readonly",
+        "Scale": "readonly",
         "ScreenPosition": "readonly",
         "Shake": "readonly",
         "ShowLogs": "readonly",

@@ -6,13 +6,14 @@ export class Tilemaps {
 		this.width = this.jsonFile.tilemaps[0].tileWidth
 		this.height = this.jsonFile.tilemaps[0].tileHeight
 
-		this.test = G.Sprite.world(new Position(0,0)).image
+		this.test = G.Sprite.world(new Position(0, 0)).image
 
 		this.tiles = []
 		this.tileTypes = {}
 		for (const e of this.jsonFile.tilemaps[0].tiles) {
 			if (this.tileTypes[e.i]) {
-			} else {
+			}
+			else {
 				this.tileTypes[e.i] = {
 					x: e.x,
 					y: e.y,
@@ -22,10 +23,10 @@ export class Tilemaps {
 			this.tiles.push({
 				i: e.i,
 				position: new Position(
-				(e.x * Scale.value * this.width),
-				(e.y * Scale.value * this.height),
-				this.width * Scale.value,
-				this.height * Scale.value)
+					(e.x * Scale.value * this.width),
+					(e.y * Scale.value * this.height),
+					this.width * Scale.value,
+					this.height * Scale.value)
 			})
 		}
 
@@ -53,26 +54,26 @@ export class Tilemaps {
 			// draw.rectangle(p.position)
 		}
 
-		this.extract(this.tileTypes[4])
+		this.extract(this.tileTypes[4], new Position(1*16*Scale.value, 1*16*Scale.value))
 	}
 
-extract(tile) {
-  const scaledWidth = this.width * Scale.value
-  const scaledHeight = this.height * Scale.value
+	extract(tile, position) {
+		const scaledWidth = this.width * Scale.value
+		const scaledHeight = this.height * Scale.value
 
-  const palette = Palette.fixedOffscreen(scaledWidth, scaledHeight)
+		const palette = Palette.fixedOffscreen(scaledWidth, scaledHeight)
 
-  palette.ctx.drawImage(
-    this.test,
-    tile.x * this.width, tile.y * this.height, this.width, this.height,
-    0, 0, scaledWidth, scaledHeight
-  )
+		palette.ctx.drawImage(
+			this.test,
+			tile.x * this.width, tile.y * this.height, this.width, this.height,
+			0, 0, scaledWidth, scaledHeight
+		)
 
-	Camera.palette.ctx.drawImage(palette.canvas, 0, 2000)
+		Camera.palette.ctx.drawImage(palette.canvas, position.x, position.y)
 
-  // Palette.apply(Camera.palette, [palette])
-  // return palette
-}
+		// Palette.apply(Camera.palette, [palette])
+		// return palette
+	}
 
 
 }

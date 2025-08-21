@@ -36,8 +36,8 @@ export class Draw {
 	drawPart(img, position) {
 		this.ctx.drawImage(
 		  img,
-		  position.x, position.y, 16, 16,  // source rect inside img
-		  100, 100, 32, 32   // destination rect on canvas
+		  position.x, position.y, 16, 16, // source rect inside img
+		  100, 100, 32, 32 // destination rect on canvas
 		)
 	}
 
