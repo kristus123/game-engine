@@ -38,7 +38,6 @@ export class World {
 					draw(draw, guiDraw) {
 						this.localObjects.draw(draw, guiDraw)
 					}
-
 				}
 			)),
 			Money.init(),
