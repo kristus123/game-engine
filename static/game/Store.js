@@ -2,8 +2,8 @@ export class Store {
 	static init() {
 		this.turret = null
 
+		this.tileSheet = G.TileSheet.world,
 		this.localObjects = new LocalObjects([
-			this.tileSheet = G.TileSheet.world,
 
 
 			OnTrue(() => Keyboard.e, () => {

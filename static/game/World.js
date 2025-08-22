@@ -12,9 +12,6 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
-			new Grid(),
-			G.TileSheet.world,
-
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
@@ -48,13 +45,6 @@ export class World {
 			Store.init(),
 			G.monsters,
 			G.allies,
-		])
-
-		Html.right([
-			Html.div('big movable', [
-				Html.h1('wake up'),
-				Html.button('it is time to wake up'),
-			]),
 		])
 	}
 

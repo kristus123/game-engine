@@ -41,7 +41,6 @@ export class TileSheet {
 		}
 	}
 
-
 	get turretTiles() {
 		return this.tiles.filter(t => t.i == 4).map(t => t.position)
 	}
