@@ -14,6 +14,14 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
+
+
+		this.ally = G.allies.anyUnless(a => a.turret)
+		if (this.ally) {
+			this.ally.turret = this
+		}
+
+		G.turrets.add(this)
 	}
 
 	get target() {
@@ -24,7 +32,8 @@ export class Turret extends DynamicGameObject {
 		this.position.scale(this.motion.value)
 		this.localObjects.update()
 
-		if (this.charge.ready && this.target && !this.turretNeeds.needsSomething) {
+
+		if (this.charge.ready && this.target && !this.turretNeeds.needsSomething && this.ally && this.touches(this.ally)) {
 			this.charge.exhaust()
 
 			const b = new Square(this.position.copy(), 10)
@@ -45,10 +54,10 @@ export class Turret extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.name) {
-			draw.text(this.position, this.name)
-
+		if (this.ally) {
+			draw.text(this.position, "!")
 		}
+
 		this.localObjects.draw(draw, guiDraw)
 		if (Mouse.touches(this)) {
 			draw.radius(this.position.center, 400)

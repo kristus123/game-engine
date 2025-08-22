@@ -22,10 +22,12 @@ export class World {
 					constructor() {
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(e.value, () => {
+								G.pause = true
 								setTimeout(() => {
 									e.next()
+									G.pause = false
 									this.completed = () => true
-								}, 1000)
+								}, 8000)
 							}),
 						])
 					}

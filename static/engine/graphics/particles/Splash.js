@@ -1,4 +1,4 @@
-export class SplashParticles {
+export class Splash {
 	constructor() {
 		this.particles = []
 	}
@@ -19,7 +19,7 @@ export class SplashParticles {
 
 	random(object, color='white') {
 
-		Iterate(20, () => {
+		Iterate(60, () => {
 			const size = Random.floatBetween(0.1, 10)
 
 			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)

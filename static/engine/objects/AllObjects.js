@@ -58,6 +58,8 @@ export class AllObjects { // not a good name
 				return o
 			}
 		}
+
+		return null
 	}
 
 	anyExcept(itself) {
@@ -66,6 +68,8 @@ export class AllObjects { // not a good name
 				return o
 			}
 		}
+
+		return null
 	}
 
 	removeByObjectId(objectId) {
