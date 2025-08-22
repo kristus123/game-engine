@@ -1,19 +1,21 @@
 export const index = ''
 
 const loadAsepriteAssets = (path) => {
+
+	const fileName = path.split('/').pop()
+
 	if (path.includes('_tilemaps.json')) {
 		path = path.replace("/static/assets/", "/static/assets/aseprite/")
 
 		console.log(path)
 		return LoadJson(`${path}`).then(json => {
-			console.log(json)
-			if (json) {
-				console.log(json)
-			}
+			// console.log(json)
+			// if (json) {
+			// 	G.TileSheet[fileName.replace("._tilemaps.json", "")] = new TileSheet(json)
+			// }
 		})
 	}
 	else {
-		const fileName = path.split('/').pop()
 
 		const p1 = LoadImage(`${path}Layers.png`).then(img => {
 			const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(`${path}Layers.json`))

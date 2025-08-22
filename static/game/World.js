@@ -8,9 +8,6 @@ export class World {
 		new Ally(new Position(700, 2800, 10, 10))
 		new Ally(new Position(2000, 2800, 10, 10))
 
-		this.tilemaps = new Tilemaps()
-
-
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
@@ -50,7 +47,6 @@ export class World {
 			Store.init(),
 			G.monsters,
 			G.allies,
-			new Tile(this.tilemaps),
 		])
 
 		Html.right([

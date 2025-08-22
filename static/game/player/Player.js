@@ -20,9 +20,9 @@ export class Player extends DynamicGameObject {
 			}),
 		])
 
-		for (const p of new Tilemaps().turretTiles) {
-			G.walkableAreas.add(p)
-		}
+		// for (const p of new Tilemaps().turretTiles) {
+		// 	G.walkableAreas.add(p)
+		// }
 	}
 
 	update() {

@@ -7,7 +7,7 @@ export class MonsterWave {
 				onCompeted()
 			}),
 			new Every(120, () => {
-				new Monster(new Tilemaps().enemyWalkTiles,
+				new Monster([new Position(0,0), new Position(1000, 1000)],
 					() => {
 						this.killed += 1
 						Html.changeText(this.p, this.killed + '/' + this.maxEnemies)

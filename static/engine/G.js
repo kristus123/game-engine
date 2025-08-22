@@ -15,6 +15,7 @@ export const G = {
 	pause: false,
 	pictures: {},
 	Sprite: {},
+	TileSheet: {},
 	Audio: {},
 	image: {},
 	SpriteLayers: {},
