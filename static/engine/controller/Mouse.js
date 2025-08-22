@@ -225,9 +225,9 @@ export class Mouse {
 
 
 let isDragging = false
-let offsetX, offsetY
+let offsetX = 0
+let offsetY = 0
 let currentDiv = null
-const gridSize = 800
 
 // document.addEventListener('mousedown', e => {
 // 	const div = e.target.closest('.movable')
