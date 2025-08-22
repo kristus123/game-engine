@@ -1,42 +1,33 @@
 export class SingleTile {
-	constructor(json, image) {
+	constructor(tileSheet, tile, position) {
+		this.tileSheet = tileSheet
+		this.tile = tile
+		this.position = position
 
-		this.width = this.json.tilemaps[0].tileWidth
-		this.height = this.json.tilemaps[0].tileHeight
+		this.palette = Palette.fixedOffscreen(
+			this.position.width,
+			this.position.height
+		)
 
-		this.scaledWidth = this.width * Scale.value
-		this.scaledHeight = this.height * Scale.value
-
-		this.tileTypes = {}
-
-		for (const tile of this.json.tilemaps[0].tiles) {
-			if (this.tileTypes[tile.i]) {
-			}
-			else {
-				const palette = Palette.fixedOffscreen(this.scaledWidth, this.scaledHeight)
-
-				palette.ctx.drawImage(
-					this.image,
-					tile.x * this.width,
-					tile.y * this.height,
-					this.width,
-					this.height,
-					0,
-					0,
-					this.scaledWidth,
-					this.scaledHeight)
-
-				this.tileTypes[tile.i] = {
-					palette, palette,
-				}
-			}
-		}
+		this.palette.ctx.drawImage(
+			tileSheet.image,
+			tile.x * tileSheet.width,
+			tile.y * tileSheet.height,
+			tileSheet.width,
+			tileSheet.height,
+			0,
+			0,
+			this.position.width,
+			this.position.height
+		)
 	}
 
 	draw(draw, guiDraw) {
-		const position = new Position(1*Scale.value*16,2*Scale.value*16)
-		
-		Camera.palette.ctx.drawImage(this.tileTypes[3].palette.canvas, position.x, position.y)
+		draw.ctx.drawImage(
+			this.palette.canvas,
+			this.position.x,
+			this.position.y
+		)
 	}
-
 }
+

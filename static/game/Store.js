@@ -3,14 +3,14 @@ export class Store {
 		this.turret = null
 
 		this.localObjects = new LocalObjects([
-			this.tilemaps = new Tilemaps(),
+			this.tileSheet = G.TileSheet.world,
 
 
 			OnTrue(() => Keyboard.e, () => {
 				this.turret = new Turret(Mouse.position.copy())
 				Sound.click()
 				Mouse.onClick = p => {
-					if (this.tilemaps.touchesTurretTiles(p)) {
+					if (this.tileSheet.touchesTurretTiles(p)) {
 						tla(this.turret)
 						Sound.click()
 						Mouse.onClick = null
@@ -51,7 +51,7 @@ export class Store {
 			this.turret.position.xy(Mouse.position)
 			this.turret.draw(draw, guiDraw)
 
-			const valid = this.tilemaps.touchesTurretTiles(Mouse.position)
+			const valid = this.tileSheet.touchesTurretTiles(Mouse.position)
 			draw.color(this.turret, valid ? 'green': 'red')
 		}
 	}

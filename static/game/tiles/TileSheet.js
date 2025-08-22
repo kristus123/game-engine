@@ -10,32 +10,48 @@ export class TileSheet {
 		this.tiles = []
 		this.tileTypes = {}
 
-		for (const e of this.json.tilemaps[0].tiles) {
-			if (!(this.tileTypes[e.i])) {
-				this.tileTypes[e.i] = {
-					x: e.x,
-					y: e.y,
-					singleTile: new SingleTile(json, image, new Position(e.x, e.y)),
+		for (const tileInfo of this.json.tilemaps[0].tiles) {
+
+			const position = new Position(
+				(tileInfo.x * Scale.value * this.width),
+				(tileInfo.y * Scale.value * this.height),
+				this.width * Scale.value,
+				this.height * Scale.value)
+
+			const singleTile = new SingleTile(this, tileInfo, position)
+
+			if (!(this.tileTypes[tileInfo.i])) {
+				this.tileTypes[tileInfo.i] = {
+					x: tileInfo.x,
+					y: tileInfo.y,
+					singleTile: singleTile,
 				}
 			}
 
 			this.tiles.push({
-				i: e.i,
-				singleTile: new SingleTile(json, image),
-				position: new Position(
-					(e.x * Scale.value * this.width),
-					(e.y * Scale.value * this.height),
-					this.width * Scale.value,
-					this.height * Scale.value)
+				i: tileInfo.i,
+				singleTile: singleTile,
 			})
 		}
 	}
 
 	draw(draw, guiDraw) {
-		for (const tile of this.tiles) {
-			draw.rectangle(tile.position)
-			// tile.singleTile.draw(draw, guiDraw)
+		for (const t of this.tiles) {
+			t.singleTile.draw(draw, guiDraw)
 		}
+	}
+
+
+	get turretTiles() {
+		return this.tiles.filter(t => t.i == 4).map(t => t.position)
+	}
+
+	touchesTurretTiles(position) {
+		return new Square(position, 10).touchesAny(this.turretTiles)
+	}
+
+	get enemyWalkTiles() {
+		return this.tiles.filter(t => t.i == 1).map(t => t.position)
 	}
 
 }
