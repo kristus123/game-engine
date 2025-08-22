@@ -39,7 +39,7 @@ function loadAsepriteTilemaps(path) {
 
 		return LoadJson(path).then(json => {
 			if (json) {
-				G.TileSheet[fileName] = new TileSheet(json, G.image[fileName])
+				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
 			}
 		})
 	}

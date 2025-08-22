@@ -1,38 +1,43 @@
 export class TileSheet {
-	constructor(json, image) {
+	constructor(asepriteTilesJson, image) {
 
-		this.width = this.json.tilemaps[0].tileWidth
-		this.height = this.json.tilemaps[0].tileHeight
-
-		this.scaledWidth = this.width * Scale.value
-		this.scaledHeight = this.height * Scale.value
+		this.scaledWidth = this.asepriteTilesJson.width * Scale.value
+		this.scaledHeight = this.asepriteTilesJson.height * Scale.value
 
 		this.tiles = []
 		this.tileTypes = {}
 
-		for (const tileInfo of this.json.tilemaps[0].tiles) {
+		this.extras = []
 
-			const position = new Position(
-				(tileInfo.x * Scale.value * this.width),
-				(tileInfo.y * Scale.value * this.height),
-				this.width * Scale.value,
-				this.height * Scale.value)
-
-			const singleTile = new SingleTile(this, tileInfo, position)
-
-			if (!(this.tileTypes[tileInfo.i])) {
-				this.tileTypes[tileInfo.i] = {
-					x: tileInfo.x,
-					y: tileInfo.y,
-					singleTile: singleTile,
-				}
+		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
+			this.tileTypes[tileInfo.i] ??= {
+				x: tileInfo.x,
+				y: tileInfo.y,
+				singleTile: p => new SingleTile(image, asepriteTilesJson, tileInfo, this.gridPosition(p)),
 			}
-
-			this.tiles.push({
-				i: tileInfo.i,
-				singleTile: singleTile,
-			})
 		}
+
+		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
+			if (this.tileTypes[tileInfo.i]) {
+				this.tiles.push({
+					i: tileInfo.i,
+					position: this.gridPosition(tileInfo),
+					singleTile: this.singleTile(tileInfo.i, tileInfo),
+				})
+			}
+		}
+	}
+
+	singleTile(index, position) {
+		return this.tileTypes[index].singleTile(position)
+	}
+
+	gridPosition(position) {
+		return new Position(
+			(position.x * Scale.value * this.asepriteTilesJson.width),
+			(position.y * Scale.value * this.asepriteTilesJson.height),
+			this.asepriteTilesJson.width * Scale.value,
+			this.asepriteTilesJson.height * Scale.value)
 	}
 
 	draw(draw, guiDraw) {

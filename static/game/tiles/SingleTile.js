@@ -1,8 +1,5 @@
 export class SingleTile {
-	constructor(tileSheet, tile, position) {
-		this.tileSheet = tileSheet
-		this.tile = tile
-		this.position = position
+	constructor(image, asepriteTilesJson, tile, position) {
 
 		this.palette = Palette.fixedOffscreen(
 			this.position.width,
@@ -10,11 +7,11 @@ export class SingleTile {
 		)
 
 		this.palette.ctx.drawImage(
-			tileSheet.image,
-			tile.x * tileSheet.width,
-			tile.y * tileSheet.height,
-			tileSheet.width,
-			tileSheet.height,
+			image,
+			tile.x * asepriteTilesJson.width,
+			tile.y * asepriteTilesJson.height,
+			asepriteTilesJson.width,
+			asepriteTilesJson.height,
 			0,
 			0,
 			this.position.width,
