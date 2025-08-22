@@ -1,22 +1,11 @@
 export const index = ''
 
-const loadAsepriteAssets = (path) => {
+
+function loadAsepriteAssets(path) {
 
 	const fileName = path.split('/').pop()
 
-	if (path.includes('_tilemaps.json')) {
-		path = path.replace("/static/assets/", "/static/assets/aseprite/")
-
-		console.log(path)
-		return LoadJson(`${path}`).then(json => {
-			// console.log(json)
-			// if (json) {
-			// 	G.TileSheet[fileName.replace("._tilemaps.json", "")] = new TileSheet(json)
-			// }
-		})
-	}
-	else {
-
+	if (!path.includes('_tilemaps.json')) {
 		const p1 = LoadImage(`${path}Layers.png`).then(img => {
 			const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(`${path}Layers.json`))
 			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, asepriteLayerJson)
@@ -26,13 +15,14 @@ const loadAsepriteAssets = (path) => {
 			G.image[fileName] = img
 			G.Sprite[fileName] = pos => new Sprite(pos, img, new AsepriteJson(json))
 		}))
+
 		return Promise.all([p1, p2])
 	}
 }
 
-const loadAllAudio = () => {
-	const audioFiles = ['/static/audio/sheet.mp3', '/static/audio/click.mp3']
-	return Promise.all(audioFiles.map(a =>
+function loadAllAudio() {
+	const files = ['/static/audio/sheet.mp3', '/static/audio/click.mp3']
+	return Promise.all(files.map(a =>
 		LoadAudio(a).then(audio => {
 			const key = a.split('/').pop().replace('.mp3', '')
 			G.Audio[key] = audio
@@ -40,10 +30,30 @@ const loadAllAudio = () => {
 	))
 }
 
+function loadAsepriteTilemaps(path) {
+
+	const fileName = path.split('/').pop().replace("_tilemaps.json", "")
+
+	if (path.includes('_tilemaps.json')) {
+		path = path.replace("/static/assets/", "/static/assets/aseprite/")
+
+		return LoadJson(path).then(json => {
+			if (json) {
+				G.TileSheet[fileName] = new TileSheet(json, G.image[fileName])
+			}
+		})
+	}
+}
+
+
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
 	loadAllAudio(),
-]).then(() => {
+])
+.then(() => Promise.all([
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps)),
+]))
+.then(() => {
 	const mainPalette = Palette.main()
 	const guiPalette = Palette.offscreen()
 	const backgroundPalette = Palette.offscreen()

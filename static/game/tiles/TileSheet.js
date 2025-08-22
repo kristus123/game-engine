@@ -15,6 +15,7 @@ export class TileSheet {
 				this.tileTypes[e.i] = {
 					x: e.x,
 					y: e.y,
+					singleTile: new SingleTile(json, image, new Position(e.x, e.y)),
 				}
 			}
 
@@ -31,7 +32,10 @@ export class TileSheet {
 	}
 
 	draw(draw, guiDraw) {
-		// new SingleTile(this.json, this.image).draw(draw, guiDraw)
+		for (const tile of this.tiles) {
+			draw.rectangle(tile.position)
+			// tile.singleTile.draw(draw, guiDraw)
+		}
 	}
 
 }

@@ -13,6 +13,7 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
 			new Grid(),
+			G.TileSheet.world,
 
 			new Quest(Iterate(100, i => () =>
 				new class {
