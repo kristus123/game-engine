@@ -8,5 +8,13 @@ export class Sound {
 		this._click.play()
 	}
 
+	static get nya() {
+		return new AudioSheet(G.Audio.nyaSheet)
+	}
+
+	static get sheet() {
+		return new AudioSheet(G.Audio.sheet)
+	}
+
 }
 

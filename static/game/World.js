@@ -15,6 +15,10 @@ export class World {
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {
+						i = i + 1
+
+						new DeathText("Round " + i).show()
+						G.wave = i
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(e.value, () => {
 								G.pause = true

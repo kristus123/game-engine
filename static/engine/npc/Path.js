@@ -30,19 +30,19 @@ export class Path {
 	}
 
 	draw(draw, guiDraw) {
-		for (const p of this.points) {
-			draw.box(p)
-		}
+		// for (const p of this.points) {
+		// 	draw.box(p)
+		// }
 
-		for (let i = 0; i < this.points.length; i++) {
-			const p = this.points[i]
-			draw.rectangle(p)
+		// for (let i = 0; i < this.points.length; i++) {
+		// 	const p = this.points[i]
+		// 	draw.rectangle(p)
 
-			if (i < this.points.length - 1) {
-				const next = this.points[i + 1]
-				draw.line(p, next)
-			}
-		}
+		// 	if (i < this.points.length - 1) {
+		// 		const next = this.points[i + 1]
+		// 		draw.line(p, next)
+		// 	}
+		// }
 	}
 }
 

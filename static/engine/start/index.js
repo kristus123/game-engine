@@ -21,7 +21,12 @@ function loadAsepriteAssets(path) {
 }
 
 function loadAllAudio() {
-	const files = ['/static/audio/sheet.mp3', '/static/audio/click.mp3']
+	const files = [
+		'/static/audio/sheet.mp3',
+		'/static/audio/click.mp3',
+		'/static/audio/nyaSheet.mp3',
+	]
+
 	return Promise.all(files.map(a =>
 		LoadAudio(a).then(audio => {
 			const key = a.split('/').pop().replace('.mp3', '')

@@ -1,48 +1,49 @@
 export class Ally extends DynamicGameObject {
 	constructor(position) {
-		super(position, 100, 100)
+		super(position, 100, 1000)
 
 		this.localObjects = new LocalObjects([
 			G.Sprite.ally(this.position),
-			this.pathFinder = new PathFinder(this, G.player),
 			this.sine = new Sine(1, 2, 0.05),
 			this.charge = new Charge(1, 100),
-			this.splash = new Splash()
+			this.splash = new Splash(),
+			this.walkableAreas = new WalkableAreas(),
+			this.bounce = new Bounce(this),
 		])
+
 
 		this.charge.position = this.position.offset(0, -100)
 
 
-		this.turret = G.turrets.anyUnless(t => t.ally)
-		if (this.turret) {
-			this.turret.ally = this
-		}
 
 		G.allies.add(this)
 	}
 
 	update() {
-		this.localObjects.update()
-
-		if (G.pause) {
-			this.pathFinder.target = G.player
-		}
-		else {
-			if (this.turret) {
-				this.pathFinder.target = this.turret
+		EveryFrame(10, () => {
+			for (const a of G.allies) {
+				const otherAlly = a.touchesAny(G.allies)
+				if (otherAlly) {
+					ForcePush(a).awayFrom(otherAlly, 10)
+					
+				}
 			}
-		}
+		})
 
-		ForcePush(this).towards(this.pathFinder.position, 80)
+
+		this.walkableAreas.enforce(this)
+
+		this.localObjects.update()
 	}
 
 	draw(draw, guiDraw) {
 		if (G.player.within(100, this) && this.charge.ready) {
-			draw.text(this.position, 'E')
-			if (Keyboard.e) {
-				this.charge.exhaust()
-				this.splash.random(this, 'orange')
-			}
+			this.charge.exhaust()
+			this.splash.random(this, 'orange')
+			Money.increase(1)
+			Html.fadeaway("+1", this.position.offset(-100))
+			Sound.nya.playRandom()
+			this.bounce.start()
 		}
 
 		if (this.turret == null || G.pause || !this.touches(this.turret)) {

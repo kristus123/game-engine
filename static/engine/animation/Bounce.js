@@ -7,13 +7,12 @@ export class Bounce {
 		this.motion.start()
 	}
 
-	update() {
-		console.log(this.motion.value)
-		this.object.position.scale(this.motion.value)
+	start() {
+		this.motion.start()
+	}
 
-		// if (!this.motion.playing) {
-		// 	this.removeFromLoop()
-		// }
+	update() {
+		this.object.position.scale(this.motion.value)
 	}
 
 	draw(draw, guiDraw) {

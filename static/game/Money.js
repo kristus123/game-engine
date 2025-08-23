@@ -25,6 +25,14 @@ export class Money {
 		this.updateUi()
 	}
 
+	static moreThan(amount) {
+		return this.amount >= amount
+	}
+
+	static lessThan(amount) {
+		return this.amount <= amount
+	}
+
 	static updateUi() {
 		Html.changeText(this.money, this.amount)
 	}

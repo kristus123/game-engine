@@ -9,15 +9,24 @@ export class Monster extends DynamicGameObject {
 					this.onKill()
 					Money.increase(1)
 					this.removeFromLoop()
-					// G.monsters.remove(m)
 				}),
 				path: new Path(this, paths),
-				// splashParticles: new SplashParticles(),
 				sprite: G.Sprite.enemy(this.position),
+			}),
+
+			OnTrue(() => this.touches(paths.at(-1)), () => {
+				new DeathText("You lose", 9000).show()
 			}),
 		])
 
 		G.monsters.add(this)
+
+
+		this.hp.currentHp += G.wave * 2
+		this.hp.maxHp += G.wave * 2
+
+		this.hp.currentHp *= 0.6
+		this.hp.maxHp *= 0.6
 	}
 
 	update() {
@@ -25,7 +34,7 @@ export class Monster extends DynamicGameObject {
 
 
 		if (!this.path.completed) {
-			Move(this).towards(this.path.position.center, 0.5)
+			Move(this).towards(this.path.position.center, 0.8 + (G.wave/10))
 		}
 	}
 

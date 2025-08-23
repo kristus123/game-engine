@@ -1,6 +1,6 @@
-export class Audio {
+export class AudioSheet {
 	constructor(audioBuffer, bpm = 100) {
-		const beatsPerBar = 4 // todo try playing around with this number
+		const beatsPerBar = 4 // todo try playing around with this number for fun
 		this.barDuration = (60 / bpm) * beatsPerBar
 
 		this.audioEngine = new AudioEngine(audioBuffer)
@@ -23,4 +23,12 @@ export class Audio {
 			this.audioEngine.play(startTime, this.barDuration)
 		}
 	}
+
+	playRandom() {
+		const totalBars = Math.floor(this.audioEngine.audioBuffer.duration / this.barDuration)
+		if (totalBars < 1) return
+		const randomBar = Math.floor(Math.random() * totalBars) + 1
+		this.play(randomBar)
+	}
+
 }

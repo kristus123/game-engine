@@ -10,8 +10,8 @@ export const G = {
 	turrets: new LocalObjects([]),
 	invisibleWalls: new InvisibleWalls([
 	]),
-	walkableAreas: new WalkableAreas(),
 	money: 20,
+	wave: 1,
 	pause: false,
 	pictures: {},
 	Sprite: {},

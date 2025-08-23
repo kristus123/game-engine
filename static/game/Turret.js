@@ -5,7 +5,6 @@ export class Turret extends DynamicGameObject {
 		this.position.width = 100
 		this.position.height = 100
 
-		this.a = new Audio(G.Audio.sheet)
 
 		this.localObjects = new LocalObjects([
 			this.charge = new Charge(1, 10),
@@ -14,12 +13,6 @@ export class Turret extends DynamicGameObject {
 			this.motion = new Motion(),
 		])
 		this.motion.start()
-
-
-		this.ally = G.allies.anyUnless(a => a.turret)
-		if (this.ally) {
-			this.ally.turret = this
-		}
 
 		G.turrets.add(this)
 	}
@@ -38,8 +31,8 @@ export class Turret extends DynamicGameObject {
 			this.charge.exhaust()
 
 			const b = new Square(this.position.copy(), 10)
-			this.a.play(1)
 
+			Sound.sheet.play(1)
 
 			b.update = () => {
 				if (b.touchesAny(G.monsters)) {
@@ -55,10 +48,6 @@ export class Turret extends DynamicGameObject {
 	}
 
 	draw(draw, guiDraw) {
-		if (this.ally) {
-			draw.text(this.position, "!")
-		}
-
 		this.localObjects.draw(draw, guiDraw)
 		if (Mouse.touches(this)) {
 			draw.radius(this.position.center, 400)

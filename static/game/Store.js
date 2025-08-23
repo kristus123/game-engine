@@ -7,32 +7,53 @@ export class Store {
 
 
 			OnTrue(() => Keyboard.e, () => {
-				this.turret = new Turret(Mouse.position.copy())
-				Sound.click()
-				Mouse.onClick = p => {
-					if (this.tileSheet.touchesTurretTiles(p)) {
-						tla(this.turret)
-						Sound.click()
-						Mouse.onClick = null
-						this.turret.motion.start()
-						this.turret = null
-						Money.subtract(20)
+				if (Money.moreThan(20)) {
+					Sound.click()
+
+					this.turret = new Turret(Mouse.position.copy())
+					Mouse.onClick = p => {
+						if (this.tileSheet.touchesTurretTiles(p)) {
+							Sound.click()
+
+							Money.subtract(20)
+							tla(this.turret)
+
+							this.turret.motion.start()
+							this.turret = null
+
+							Mouse.onClick = null
+						}
+
+
 					}
 				}
 			}),
 
 			OnTrue(() => Keyboard.r, () => {
-				Sound.click()
-				G.allies.add(new Ally(G.player.position.copy()))
+				if (Money.moreThan(10)) {
+					Sound.click()
+					Money.subtract(10)
+
+					new Ally(G.player.position.copy())
+				}
 			}),
 
-
+			OnChange(() => Money.amount, () => {
+				if (Money.lessThan(20)) {
+					Html.changeText(this.buyTurretText, "need more money")
+				}
+				else {
+					Html.changeText(this.buyTurretText, "buy turret (press E)'")
+				}
+			}),
 		])
 
-
 		Html.upper([
-			this.buyTurret = Html.button('buy turret (press E)', () => {}),
-			this.buyAlly = Html.button('buy ally (press R)', () => {}),
+			this.buyTurretText = Html.p('buy turret (press E)'),
+		])
+
+		Html.right([
+			this.buyAllyText = Html.p('buy ally (press r)'),
 		])
 
 		return this

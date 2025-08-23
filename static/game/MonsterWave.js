@@ -7,7 +7,7 @@ export class MonsterWave {
 				onCompleted()
 			}),
 			new Every(120, () => {
-				new Monster([new Position(0,0), new Position(1000, 8000)],
+				new Monster(G.TileSheet.world.enemyWalkTiles,
 					() => {
 						this.killed += 1
 						Html.changeText(this.p, this.killed + '/' + this.maxEnemies)

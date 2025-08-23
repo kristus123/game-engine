@@ -1,9 +1,15 @@
 export class Jump {
 	constructor(player, onArrival = (p) => {}) {
 		this.localObjects = new LocalObjects([
-			OnTrue(() => Keyboard.q && !this.destination && !this.maxDistance, () => {
-				this.destination = Mouse.position.copy()
-				this.maxDistance = Distance.between(player, this.destination)
+			OnTrue(() => Keyboard.q && !this.destination && !this.maxDistance , () => {
+
+				const destination = Mouse.position.copy()
+				const distance = Distance.between(this.player, destination)
+
+				if (distance > 800) {
+					this.maxDistance = distance
+					this.destination = destination
+				}
 			}),
 		])
 	}
@@ -20,9 +26,9 @@ export class Jump {
 
 	update() {
 		if (this.destination && !this.arrived) {
-			ForcePush(this.player).towards(this.destination, 150)
+			ForcePush(this.player).towards(this.destination, 400)
 
-			if (this.player.within(150, this.destination) && this.scale < 2) {
+			if (this.player.touches(this.destination) && this.scale < 2) {
 				this.onArrival(this.destination)
 
 				this.destination = null

@@ -39,7 +39,12 @@ export class Charge {
 
 	draw(draw, guiDraw) {
 		if (this.position) {
-			draw.hpBar(this.position, this.charge, this.maxCharge, 'orange')
+			if (this.ready) {
+				draw.hpBar(this.position, this.charge, this.maxCharge, 'green')
+			}
+			else {
+				draw.hpBar(this.position, this.charge, this.maxCharge, 'orange')
+			}
 		}
 	}
 }

@@ -1,7 +1,8 @@
 export class WalkableAreas {
 	constructor(buffer = 0) {
 		this.buffer = buffer
-		this.positions = []
+
+		this.positions = G.TileSheet.world.turretTiles
 	}
 
 	add(p) {
@@ -22,6 +23,7 @@ export class WalkableAreas {
 
 	enforce(o) {
 		if (this.outside(o)) {
+			console.log("enforcing!")
 			o.position.x = o.previousPosition.x
 			o.position.y = o.previousPosition.y
 		}
@@ -61,7 +63,7 @@ export class WalkableAreas {
 	}
 
 	draw(draw) {
-		this.positions.forEach(r => draw.rectangle(r, Random.color()))
+		// this.positions.forEach(r => draw.rectangle(r, Random.color()))
 	}
 }
 
