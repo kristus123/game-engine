@@ -1,13 +1,8 @@
 export class TileSheet {
 	constructor(asepriteTilesJson, image) {
 
-		this.scaledWidth = this.asepriteTilesJson.width * Scale.value
-		this.scaledHeight = this.asepriteTilesJson.height * Scale.value
-
 		this.tiles = []
 		this.tileTypes = {}
-
-		this.extras = []
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
 			this.tileTypes[tileInfo.i] ??= {
