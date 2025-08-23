@@ -56,6 +56,11 @@ export class Store {
 			this.buyAllyText = Html.p('buy ally (press r)'),
 		])
 
+		Html.lower([
+			Html.p('Q to jump'),
+		])
+
+
 		return this
 	}
 
