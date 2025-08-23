@@ -23,9 +23,11 @@ export class WalkableAreas {
 
 	enforce(o) {
 		if (this.outside(o)) {
-			console.log("enforcing!")
-			o.position.x = o.previousPosition.x
-			o.position.y = o.previousPosition.y
+			const r = this.closestRect(o)
+			console.log("haha")
+
+			o.position.x = r.x
+			o.position.y = r.y
 		}
 	}
 

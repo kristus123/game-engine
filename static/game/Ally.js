@@ -9,6 +9,7 @@ export class Ally extends DynamicGameObject {
 			this.splash = new Splash(),
 			this.walkableAreas = new WalkableAreas(),
 			this.bounce = new Bounce(this),
+			this.linePathFinder = new LinePathFinder(this, G.player, this.walkableAreas)
 		])
 
 
@@ -20,17 +21,6 @@ export class Ally extends DynamicGameObject {
 	}
 
 	update() {
-		EveryFrame(10, () => {
-			for (const a of G.allies) {
-				const otherAlly = a.touchesAny(G.allies)
-				if (otherAlly) {
-					ForcePush(a).awayFrom(otherAlly, 10)
-					
-				}
-			}
-		})
-
-
 		this.walkableAreas.enforce(this)
 
 		this.localObjects.update()

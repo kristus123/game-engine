@@ -5,13 +5,11 @@ export class World {
 		Camera.followInstantly(G.player)
 		Controller.control(G.player)
 
-		new Ally(new Position(700, 2800, 10, 10))
-		new Ally(new Position(2000, 2800, 10, 10))
-
 		const e = new InverseExponentialNumber(10, 100)
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
+			new Grid(G.player),
 			new Quest(Iterate(100, i => () =>
 				new class {
 					constructor() {

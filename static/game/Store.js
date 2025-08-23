@@ -74,7 +74,7 @@ export class Store {
 		if (Mouse.onClick) {
 			draw.rectangle(this.turret)
 
-			this.turret.position.xy(Mouse.position)
+			this.turret.position.xy(new Grid(G.player).snappedPosition(Mouse.position))
 			this.turret.draw(draw, guiDraw)
 
 			const valid = this.tileSheet.touchesTurretTiles(Mouse.position)
