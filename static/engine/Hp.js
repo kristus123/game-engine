@@ -1,5 +1,5 @@
 export class Hp {
-	constructor(object, killed=() => {}) {
+	constructor(object, onKill=() => {}) {
 		this.currentHp = 100
 		this.maxHp = 100
 	}
@@ -14,7 +14,7 @@ export class Hp {
 
 	update() {
 		if (this.dead) {
-			this.killed()
+			this.onKill()
 		}
 	}
 

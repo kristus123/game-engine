@@ -8,9 +8,19 @@ export class Quest {
 	constructor(tasks=[], onQuestCompleted=() => {}) {
 
 		this.index = 0
-		this.currentTask = tasks[this.index]()
+		this._setNewCurrentTask(tasks[this.index])
 
 		this.questCompleted = false
+	}
+
+	_setNewCurrentTask(task) {
+		task = task()
+
+		task.markTaskComplete = () => {
+			task.completed = () => true
+		} 
+
+		this.currentTask = task
 	}
 
 	update() {
@@ -22,7 +32,7 @@ export class Quest {
 			if (this.currentTask.completed && this.currentTask.completed()) {
 				this.index += 1
 				if (List.validIndex(this.tasks, this.index)) {
-					this.currentTask = this.tasks[this.index]()
+					this._setNewCurrentTask(this.tasks[this.index])
 				}
 				else {
 					this.questCompleted = true

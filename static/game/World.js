@@ -21,14 +21,10 @@ export class World {
 								setTimeout(() => {
 									e.next()
 									G.pause = false
-									this.completed = () => true
-								}, 8000)
+									this.markTaskComplete()
+								}, 2000)
 							}),
 						])
-					}
-
-					completed() {
-						return false
 					}
 
 					update() {
@@ -44,7 +40,7 @@ export class World {
 			Store.init(),
 			G.monsters,
 			G.allies,
-			G.TileSheet.world,
+			// G.TileSheet.world,
 		])
 	}
 

@@ -33,7 +33,8 @@ export class Turret extends DynamicGameObject {
 		this.localObjects.update()
 
 
-		if (this.charge.ready && this.target && !this.turretNeeds.needsSomething && this.ally && this.touches(this.ally)) {
+		// if (this.charge.ready && this.target && !this.turretNeeds.needsSomething && this.ally && this.touches(this.ally)) {
+		if (this.charge.ready && this.target) {
 			this.charge.exhaust()
 
 			const b = new Square(this.position.copy(), 10)
