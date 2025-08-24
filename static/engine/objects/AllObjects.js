@@ -7,7 +7,7 @@ export class AllObjects { // not a good name
 			o.removeFromLoop = () => {
 				this.remove(o)
 			}
-			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!!
+			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!! loop was overriden once, and it caused a head scratch
 
 			o.handledBy = this
 			Registry.add(o)

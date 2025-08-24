@@ -15,7 +15,7 @@ export class Physics {
 		for (let o of this.objects) {
 			o.previousPosition = { x: o.x, y: o.y }
 
-			const frictionPerSecond = 0.9 // lose 10% per second
+			const frictionPerSecond = 0.9 // loses 10% per second
 			const decay = Math.pow(frictionPerSecond, deltaTime)
 
 			o.velocity.x *= decay
