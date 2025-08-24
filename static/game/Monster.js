@@ -15,7 +15,7 @@ export class Monster extends DynamicGameObject {
 			}),
 
 			OnTrue(() => this.touches(paths.at(-1)), () => {
-				new DeathText("You lose", 9000).show()
+				new DeathText('You lose', 9000).show()
 			}),
 		])
 

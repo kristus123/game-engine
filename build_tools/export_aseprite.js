@@ -26,7 +26,6 @@ function getRelativeDestPath(srcFile) {
 
 function exportAseprite(srcFile, destBase) {
 
-
 	const destDir = path.dirname(destBase)
 	if (!fs.existsSync(destDir)) {
 		fs.mkdirSync(destDir, { recursive: true })
@@ -68,7 +67,7 @@ function exportAseprite(srcFile, destBase) {
 	  '--script',
 	  'aseprite_to_json.lua',
 	  '--',
-	  destBase + "Tilemaps.json",
+	  destBase + 'Tilemaps.json',
 	])
 
 }

@@ -40,10 +40,10 @@ export class Store {
 
 			OnChange(() => Money.amount, () => {
 				if (Money.lessThan(20)) {
-					Html.changeText(this.buyTurretText, "need more money")
+					Html.changeText(this.buyTurretText, 'need more money')
 				}
 				else {
-					Html.changeText(this.buyTurretText, "buy turret (press E)'")
+					Html.changeText(this.buyTurretText, 'buy turret (press E)\'')
 				}
 			}),
 		])

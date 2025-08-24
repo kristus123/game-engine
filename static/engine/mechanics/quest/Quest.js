@@ -18,7 +18,7 @@ export class Quest {
 
 		task.markTaskComplete = () => {
 			task.completed = () => true
-		} 
+		}
 
 		this.currentTask = task
 	}

@@ -37,10 +37,10 @@ function loadAllAudio() {
 
 function loadAsepriteTilemaps(path) {
 
-	const fileName = path.split('/').pop().replace("_tilemaps.json", "")
+	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
 
 	if (path.includes('_tilemaps.json')) {
-		path = path.replace("/static/assets/", "/static/assets/aseprite/")
+		path = path.replace('/static/assets/', '/static/assets/aseprite/')
 
 		return LoadJson(path).then(json => {
 			if (json) {
@@ -55,57 +55,57 @@ Promise.all([
 	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
 	loadAllAudio(),
 ])
-.then(() => Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps)),
-]))
-.then(() => {
-	const mainPalette = Palette.main()
-	const guiPalette = Palette.offscreen()
-	const backgroundPalette = Palette.offscreen()
-	// const showLogs = new ShowLogs(guiPalette)
+	.then(() => Promise.all([
+		Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps)),
+	]))
+	.then(() => {
+		const mainPalette = Palette.main()
+		const guiPalette = Palette.offscreen()
+		const backgroundPalette = Palette.offscreen()
+		// const showLogs = new ShowLogs(guiPalette)
 
-	Sound.init()
-	Mouse.initialize()
-	Camera.initialize()
-	Mouse.initializeAfterCameraIsInitialized()
+		Sound.init()
+		Mouse.initialize()
+		Camera.initialize()
+		Mouse.initializeAfterCameraIsInitialized()
 
-	const draw = new Draw(Camera.palette.ctx)
-	const guiDraw = new Draw(guiPalette.ctx)
+		const draw = new Draw(Camera.palette.ctx)
+		const guiDraw = new Draw(guiPalette.ctx)
 
-	Level.change(new World())
+		Level.change(new World())
 
-	//new VideoCall()
+		//new VideoCall()
 
-	Loop.everyFrame(deltaTime => {
-		ErrorHandler.run(() => {
+		Loop.everyFrame(deltaTime => {
+			ErrorHandler.run(() => {
 
-			Camera.palette.clear()
-			guiPalette.clear()
+				Camera.palette.clear()
+				guiPalette.clear()
 
-			Physics.update(deltaTime)
+				Physics.update(deltaTime)
 
-			Camera.context(() => {
+				Camera.context(() => {
 
-				Controller.update()
-				Controller.draw(draw, guiDraw)
+					Controller.update()
+					Controller.draw(draw, guiDraw)
 
-				Level.update()
-				Level.draw(draw, guiDraw)
+					Level.update()
+					Level.draw(draw, guiDraw)
 
-				Mouse.update()
-				Mouse.draw(draw, guiDraw)
+					Mouse.update()
+					Mouse.draw(draw, guiDraw)
+				})
+
+				// showLogs.draw()
+
+				backgroundPalette.fill('#10204f')
+
+				mainPalette.apply(backgroundPalette)
+				mainPalette.apply(Camera.palette)
+				mainPalette.apply(guiPalette)
 			})
-
-			// showLogs.draw()
-
-			backgroundPalette.fill('#10204f')
-
-			mainPalette.apply(backgroundPalette)
-			mainPalette.apply(Camera.palette)
-			mainPalette.apply(guiPalette)
 		})
 	})
-})
 	.catch(err => {
 		console.error('Image failed to load', err)
 		throw err

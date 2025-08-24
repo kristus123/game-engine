@@ -26,7 +26,9 @@ export class AudioSheet {
 
 	playRandom() {
 		const totalBars = Math.floor(this.audioEngine.audioBuffer.duration / this.barDuration)
-		if (totalBars < 1) return
+		if (totalBars < 1) {
+			return
+		}
 		const randomBar = Math.floor(Math.random() * totalBars) + 1
 		this.play(randomBar)
 	}

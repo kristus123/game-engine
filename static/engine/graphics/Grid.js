@@ -24,7 +24,7 @@ export class Grid {
 
 		this.localObjects = new LocalObjects([
 			OnChange(() => position.x + position.y, () => {
-				
+
 			}),
 		])
 	}
