@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run start",
-    "start": "concurrently \"reload -d dist/ -p 5000\" \"nodemon build_tools/export_aseprite.js -e aseprite --ignore dist/\" \"nodemon build_tools/generate_dist.js -e html,css,js,png,jpeg,jpg,aseprite,gif --ignore dist/\" \"nodemon socket_server/start_socket_servers.js --ignore dist\" \"nodemon http_server/main.js --ignore dist\""
+    "start": "node watch.js"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
