@@ -55,3 +55,5 @@ export class World {
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
+
+
