@@ -43,7 +43,7 @@ export class Store {
 					Html.changeText(this.buyTurretText, 'need more money')
 				}
 				else {
-					Html.changeText(this.buyTurretText, 'buy turret (press E)\'')
+					Html.changeText(this.buyTurretText, 'buy turret x (press E)\'')
 				}
 			}),
 		])

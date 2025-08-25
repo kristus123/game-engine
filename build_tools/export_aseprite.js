@@ -69,11 +69,19 @@ function exportAseprite(srcFile, destBase) {
 	  '--',
 	  destBase + 'Tilemaps.json',
 	])
-
 }
 
-walk(SRC_DIR, srcFile => {
-	const destBase = getRelativeDestPath(srcFile)
-	exportAseprite(srcFile, destBase)
-})
 
+
+const editedFile = process.argv[2] || false
+if (editedFile) {
+	const destBase = getRelativeDestPath(editedFile)
+	exportAseprite(editedFile, destBase)
+	
+}
+else {
+	walk(SRC_DIR, srcFile => {
+		const destBase = getRelativeDestPath(srcFile)
+		exportAseprite(srcFile, destBase)
+	})
+}

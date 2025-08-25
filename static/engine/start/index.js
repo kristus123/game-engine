@@ -1,5 +1,21 @@
 export const index = ''
 
+let clientId = localStorage.getItem('clientId')
+if (!clientId) {
+  const res = await fetch('/id')
+  const data = await res.json()
+  clientId = data.id
+  localStorage.setItem('clientId', clientId)
+}
+
+setInterval(async () => {
+  const res = await fetch('/id')
+  const data = await res.json()
+  if (data.id !== clientId) {
+    localStorage.setItem('clientId', data.id)
+	location.reload()
+  }
+}, 500)
 
 function loadAsepriteAssets(path) {
 
