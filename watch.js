@@ -2,18 +2,9 @@ const chokidar = require('chokidar')
 const { execSync } = require('child_process');
 const Process = require('./Process');
 const KillPort = require('./KillPort');
+const RandomId = require('./RandomId');
 
 const express = require('express')
-
-
-function randomId(length = 32) {
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  let id = ''
-  for (let i = 0; i < length; i++) {
-    id += chars[Math.floor(Math.random() * chars.length)]
-  }
-  return id
-}
 
 
 
@@ -22,15 +13,13 @@ KillPort(8082)
 
 
 
-let currentId = randomId()
+let currentId = RandomId()
 
 const app = express()
 app.use(express.static('dist'))
-
 app.get('/id', (req, res) => {
-  res.json({ id: currentId })
+  res.json({ currentId: currentId })
 })
-
 app.listen(5000, () => console.log('Serving dist on port 5000'))
 
 const watcher = chokidar.watch(['static'], {
@@ -53,6 +42,11 @@ function runCommand(command) {
 const socketServers = new Process('node socket_server/start_socket_servers.js')
 
 
+runCommand('node build_tools/export_aseprite.js')
+runCommand('node build_tools/generate_dist.js')
+socketServers.start()
+
+
 let idTimeout = null
 watcher.on('all', (e, path) => {
   console.log("changed", path)
@@ -67,12 +61,7 @@ watcher.on('all', (e, path) => {
 
   if (idTimeout) clearTimeout(idTimeout)
   idTimeout = setTimeout(() => {
-    currentId = randomId()
+    currentId = RandomId()
     idTimeout = null
   }, 500)
 })
-
-
-runCommand('node build_tools/export_aseprite.js')
-runCommand('node build_tools/generate_dist.js')
-socketServers.start()

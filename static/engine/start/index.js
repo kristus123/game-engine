@@ -11,7 +11,7 @@ if (!clientId) {
 setInterval(async () => {
   const res = await fetch('/id')
   const data = await res.json()
-  if (data.id !== clientId) {
+  if (data.currentId !== clientId) {
     localStorage.setItem('clientId', data.id)
 	location.reload()
   }
