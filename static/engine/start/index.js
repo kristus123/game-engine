@@ -1,21 +1,24 @@
 export const index = ''
 
-let clientId = localStorage.getItem('clientId')
-if (!clientId) {
-  const res = await fetch('/id')
-  const data = await res.json()
-  clientId = data.id
-  localStorage.setItem('clientId', clientId)
+
+
+let currentId = localStorage.getItem('currentId')
+if (!currentId) {
+	const response = await fetch('/currentId')
+	const data = await response.json()
+	localStorage.setItem('currentId', data.currentId)
 }
 
 setInterval(async () => {
-  const res = await fetch('/id')
-  const data = await res.json()
-  if (data.currentId !== clientId) {
-    localStorage.setItem('clientId', data.id)
-	location.reload()
-  }
+	const response = await fetch('/currentId')
+	const data = await response.json()
+	if (data.currentId !== currentId) {
+		localStorage.setItem('currentId', data.currentId)
+		location.reload()
+	}
 }, 500)
+
+
 
 function loadAsepriteAssets(path) {
 

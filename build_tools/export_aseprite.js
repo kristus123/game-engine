@@ -77,7 +77,7 @@ const editedFile = process.argv[2] || false
 if (editedFile) {
 	const destBase = getRelativeDestPath(editedFile)
 	exportAseprite(editedFile, destBase)
-	
+
 }
 else {
 	walk(SRC_DIR, srcFile => {
