@@ -1,8 +1,7 @@
 {
   "name": "game-engine",
-  "version": "1.0.0",
-  "description": "Space game",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "epic game engine",
   "scripts": {
     "dev": "npm run start",
     "start": "node watch.js"
