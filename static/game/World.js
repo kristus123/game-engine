@@ -5,7 +5,8 @@ export class World {
 		Camera.followInstantly(G.player)
 		Controller.control(G.player)
 
-		const e = new InverseExponentialNumber(10, 100)
+		const inverseExponentialNumber = new InverseExponentialNumber(10, 100)
+
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
@@ -18,10 +19,10 @@ export class World {
 						new DeathText('Round ' + i).show()
 						G.wave = i
 						this.localObjects = new LocalObjects([
-							this.m = new MonsterWave(e.value, () => {
+							this.m = new MonsterWave(inverseExponentialNumber.value, () => {
 								G.pause = true
 								setTimeout(() => {
-									e.next()
+									inverseExponentialNumber.next()
 									G.pause = false
 									this.markTaskComplete()
 								}, 2000)

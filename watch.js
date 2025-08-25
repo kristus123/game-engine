@@ -22,8 +22,12 @@ function runCommand(command) {
 	})
 }
 
-watcher.on('all', (event, path) => {
+watcher.on('all', (e, path) => {
+	console.log(path)
+	if (path.includes(".aseprite")) {
+		runCommand('node build_tools/export_aseprite.js')
+	}
+
 	runCommand('node build_tools/generate_dist.js')
-	runCommand('node build_tools/export_aseprite.js')
 })
 
