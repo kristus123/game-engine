@@ -11,8 +11,11 @@ function randomId(length = 32) {
   return id
 }
 
+
+
+
+
 let currentId = randomId()
-let idTimeout = null
 
 const app = express()
 app.use(express.static('dist'))
@@ -37,6 +40,8 @@ function runCommand(command) {
   })
 }
 
+
+let idTimeout = null
 watcher.on('all', (e, path) => {
   console.log("changed", path)
 
