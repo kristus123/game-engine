@@ -130,11 +130,11 @@ export class VideoCall {
 		peerConnection.ontrack = e => {
 			console.warn(this.clientId +' '+ this.fromClientId)
 
-			let remoteVideo = document.getElementById(this.fromClientId)
 			if (!remoteVideo) {
-				remoteVideo = Html.guestVideo(e.streams[0], this.fromClientId)
+				Html.left([
+					HtmlVideo.guest(e.streams[0], this.fromClientId),
+				])
 			}
-			remoteVideo.srcObject = e.streams[0]
 		}
 
 		peerConnection.onicecandidate = e => {
@@ -153,7 +153,9 @@ export class VideoCall {
 	startCall() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
-				const localVideo = Html.localVideo(stream)
+				Html.right([
+					HtmlVideo.local(stream),
+				])
 				this.localStream = stream
 			})
 			.catch((error) => {
