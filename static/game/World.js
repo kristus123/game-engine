@@ -16,7 +16,7 @@ export class World {
 					constructor() {
 						i = i + 1
 
-						new DeathText('Round ' + i).show()
+						// new DeathText('Round ' + i).show()
 						G.wave = i
 						this.localObjects = new LocalObjects([
 							this.m = new MonsterWave(inverseExponentialNumber.value, () => {
