@@ -5,48 +5,49 @@ export class Html {
 
 
 	static _ui_elements = document.getElementById('ui_elements')
+
 	static addToScreen(element) {
 		this._ui_elements.appendChild(element)
 		return element
 	}
 
 	static upperLeft(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('upper-left-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static upperRight(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('upper-right-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static left(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('left-center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static right(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('right-center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static upper(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('upper-center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static lower(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('lower-center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
@@ -54,21 +55,21 @@ export class Html {
 
 
 	static center(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static fill(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('fill-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))
 	}
 
 	static lowerCenter(elements) {
-		Html.addToScreen(
+		return Html.addToScreen(
 			Html.div('lower-center-ui', [
 				Html.div('shoulder-to-shoulder', elements)
 			]))

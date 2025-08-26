@@ -6,6 +6,10 @@ export class VideoCall {
 		this.peerConnection = {}
 		this.startCall()
 		this.connectedClientId = []
+
+		this.div = Html.right([
+		])
+
 		this.socketClient = new SocketClient(8082, c => {
 
 			c.on('RTC_CLIENT_INFO', data => {
@@ -130,8 +134,8 @@ export class VideoCall {
 		peerConnection.ontrack = e => {
 			console.warn(this.clientId +' '+ this.fromClientId)
 
-			Html.left([
-				HtmlVideo.guest(e.streams[0], this.fromClientId),
+			Html.append(this.div, [
+				HtmlVideo.guest(e.streams[0]),
 			])
 		}
 
@@ -151,7 +155,7 @@ export class VideoCall {
 	startCall() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
-				Html.right([
+				Html.left([
 					HtmlVideo.local(stream),
 				])
 				this.localStream = stream
