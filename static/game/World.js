@@ -42,7 +42,6 @@ export class World {
 			Store.init(),
 			G.monsters,
 			G.allies,
-			// G.TileSheet.world,
 		])
 	}
 
