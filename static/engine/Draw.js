@@ -1,7 +1,7 @@
 export class Draw {
 
 	constructor(ctx) {
-		this.angle = 0 // temporary hack
+		this.angle = 0 // hack
 	}
 
 	angleFrom(p1, p2, radius, angleRange, color) {
