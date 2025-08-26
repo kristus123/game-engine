@@ -1,43 +1,40 @@
+/*
+ * i don't like this code, it should be easy to do tile stuff, so there is room for improvement here
+*/
+
 export class TileSheet {
 	constructor(asepriteTilesJson, image) {
-
 		this.tiles = []
 		this.tileTypes = {}
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
+			const position = new Position(
+				(tileInfo.x) * Scale.value * asepriteTilesJson.width,
+				(tileInfo.y+2) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
+				asepriteTilesJson.width * Scale.value,
+				asepriteTilesJson.height * Scale.value
+			)
+
 			this.tileTypes[tileInfo.i] ??= {
 				x: tileInfo.x,
 				y: tileInfo.y,
-				singleTile: p => new SingleTile(image, asepriteTilesJson, tileInfo, this.gridPosition(p)),
+				singleTile: p => new SingleTile(image, asepriteTilesJson, tileInfo, p)
 			}
+
+			this.tiles.push({
+				i: tileInfo.i,
+				position,
+				singleTile: this.tileTypes[tileInfo.i].singleTile(position)
+			})
 		}
-
-		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
-			if (this.tileTypes[tileInfo.i]) {
-				this.tiles.push({
-					i: tileInfo.i,
-					position: this.gridPosition(tileInfo),
-					singleTile: this.singleTile(tileInfo.i, tileInfo),
-				})
-			}
-		}
-	}
-
-	singleTile(index, position) {
-		return this.tileTypes[index].singleTile(position)
-	}
-
-	gridPosition(position) {
-		return new Position(
-			(position.x * Scale.value * this.asepriteTilesJson.width),
-			(position.y * Scale.value * this.asepriteTilesJson.height),
-			this.asepriteTilesJson.width * Scale.value,
-			this.asepriteTilesJson.height * Scale.value)
 	}
 
 	draw(draw, guiDraw) {
 		for (const t of this.tiles) {
-			t.singleTile.draw(draw, guiDraw)
+			if (t.i == 4) {
+				// t.singleTile.draw(draw, guiDraw)
+				// draw.rectangle(t.position)
+			}
 		}
 	}
 
@@ -52,5 +49,5 @@ export class TileSheet {
 	get enemyWalkTiles() {
 		return this.tiles.filter(t => t.i == 1).map(t => t.position)
 	}
-
 }
+

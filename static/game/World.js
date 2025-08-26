@@ -1,6 +1,5 @@
 export class World {
 	constructor() {
-
 		G.player = new Player(new Position(700, 2800))
 		Camera.followInstantly(G.player)
 		Controller.control(G.player)
@@ -55,4 +54,3 @@ export class World {
 		this.localObjects.draw(draw, guiDraw)
 	}
 }
-

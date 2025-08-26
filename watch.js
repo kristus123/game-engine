@@ -1,9 +1,7 @@
 const chokidar = require('chokidar')
-const { execSync } = require('child_process')
 const RandomId = require('./RandomId')
-
+const RunCommand = require('./RunCommand')
 const express = require('express')
-
 
 let currentId = RandomId()
 
@@ -21,31 +19,9 @@ const watcher = chokidar.watch(['static'], {
 })
 
 
-function runCommand(command) {
-	try {
-		const output = execSync(command, { stdio: 'pipe' }).toString()
-		console.log(`stdout: ${output}`)
-	}
-	catch (error) {
-		console.log(`error: ${error}`)
-		if (error.stderr) {
-			console.log(`stderr: ${error.stderr.toString()}`)
-		}
-	}
-}
-
-
-
-runCommand('node build_tools/export_aseprite.js')
-runCommand('node build_tools/generate_dist.js')
-
-
-
 let idTimeout = null
 watcher.on('all', (e, path) => {
 	console.log('changed', path)
-
-
 
 	if (idTimeout) {
 		clearTimeout(idTimeout)
@@ -53,14 +29,15 @@ watcher.on('all', (e, path) => {
 
 	idTimeout = setTimeout(() => {
 		if (path.includes('.aseprite')) {
-			runCommand('node build_tools/export_aseprite.js ' + path)
+			RunCommand('node build_tools/export_aseprite.js ' + path)
 		}
 
-		runCommand('node build_tools/generate_dist.js')
-		runCommand('node socket_server/start_socket_servers.js')
+		RunCommand('node build_tools/generate_dist.js')
 
 		currentId = RandomId()
 		idTimeout = null
-
 	}, 500)
 })
+
+RunCommand('node build_tools/export_aseprite.js')
+RunCommand('node build_tools/generate_dist.js')
