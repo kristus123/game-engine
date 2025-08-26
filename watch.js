@@ -7,7 +7,7 @@ let currentId = RandomId()
 
 const app = express()
 app.use(express.static('dist'))
-app.get('/currentId', (req, res) => {
+app.get('/currentId', (req, res) => { // this is used for hot-reloading. Check index.js
 	res.json({ currentId: currentId })
 })
 app.listen(5000, () => console.log('Serving dist on port 5000'))
