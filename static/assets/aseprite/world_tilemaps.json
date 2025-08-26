@@ -1,5 +1,5 @@
 {
-  "sprite": "static/assets/aseprite/world.aseprite",
+  "sprite": "/home/kristian/meta-repo/repos/game-engine/static/assets/aseprite/world.aseprite",
   "tilemaps": [
     {
       "layer": "grass",
