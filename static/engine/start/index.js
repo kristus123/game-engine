@@ -93,7 +93,7 @@ Promise.all([
 
 		Level.change(new World())
 
-		//new VideoCall()
+		new VideoCall()
 
 		Loop.everyFrame(deltaTime => {
 			ErrorHandler.run(() => {
