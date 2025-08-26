@@ -23,15 +23,16 @@ function loadAsepriteAssets(path) {
 	const fileName = path.split('/').pop()
 
 	if (!path.includes('_tilemaps.json')) {
-		const p1 = LoadImage(`${path}Layers.png`).then(img => {
-			const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(`${path}Layers.json`))
-			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, asepriteLayerJson)
-		})
 
 		const p2 = LoadImage(`${path}.png`).then(img => LoadJson(`${path}.json`).then(json => {
 			G.image[fileName] = img
 			G.Sprite[fileName] = pos => new Sprite(pos, img, new AsepriteJson(json))
 		}))
+
+		const p1 = LoadImage(`${path}Layers.png`).then(img => {
+			const asepriteLayerJson = new AsepriteLayerJson(StaticHttp.get(`${path}Layers.json`)) // todo use LoadJson instead, then delete StaticHttp
+			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, asepriteLayerJson)
+		})
 
 		return Promise.all([p1, p2])
 	}
