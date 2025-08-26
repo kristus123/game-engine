@@ -6,7 +6,7 @@ export class Loop {
 		let lastTimestamp = performance.now()
 
 		function loop(currentTimestamp) {
-			// Sleep(Random.integerBetween(0, 500))
+			// Sleep(Random.integerBetween(0, 500)) // to simulate lag
 
 			// deltaTime is in seconds
 			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
