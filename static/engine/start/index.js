@@ -111,8 +111,6 @@ Promise.all([
 					Mouse.draw(draw)
 				})
 
-				// showLogs.draw()
-
 				backgroundPalette.fill('#10204f')
 
 				mainPalette.apply(backgroundPalette)
