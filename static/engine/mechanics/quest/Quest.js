@@ -1,6 +1,7 @@
 /*
  *
  * a task is anything that has a lambda that returns something that has a completed() method
+ * it will append a .markTaskComplete() method to be able to mark tasks as completed
  *
 */
 
