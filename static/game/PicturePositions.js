@@ -2,6 +2,9 @@ const scale = 4
 
 // this can be used to extract areas of a picture
 // it can only extract rectangles (i think)
+// i made this to test out extracting areas inside a picture
+// however aseprite has splices, which is even better than this
+// but this code can still be kept and used for something else, not sure what though
 
 export class PicturePositions {
 	constructor(image, position) {
