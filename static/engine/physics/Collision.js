@@ -14,11 +14,11 @@ export class Collision {
 		}
 
 		const overlapX =
-      (Math.min(red.x + red.width, blue.x + blue.width) -
-      Math.max(red.x, blue.x)) * 5
+  	(Math.min(red.x + red.width, blue.x + blue.width) -
+  	Math.max(red.x, blue.x)) * 5
 		const overlapY =
-      (Math.min(red.y + red.height, blue.y + blue.height) -
-      Math.max(red.y, blue.y)) * 5
+  	(Math.min(red.y + red.height, blue.y + blue.height) -
+  	Math.max(red.y, blue.y)) * 5
 
 		// Push out in the smaller overlap direction
 		if (overlapX < overlapY) {

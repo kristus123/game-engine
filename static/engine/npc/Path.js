@@ -26,7 +26,7 @@ export class Path {
 
 	get completed() {
 		return this.index >= this.points.length - 1 &&
-		       this.npc.touches(this.points[this.points.length - 1])
+		   	this.npc.touches(this.points[this.points.length - 1])
 	}
 
 	draw(draw, guiDraw) {

@@ -37,7 +37,7 @@ function exportAseprite(srcFile, destBase) {
 		'-b',
 		srcFile,
 		'--split-tags',
-	    '--list-slices',
+		'--list-slices',
 		'--sheet',
 		destBase + '.png',
 		'--data',
