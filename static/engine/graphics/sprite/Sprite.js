@@ -97,8 +97,8 @@ export class Sprite extends StaticGameObject {
 		this.localObjects.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 
 		const frame = this.asepriteJson.tags[this.activeTag][this.currentFrame]
 

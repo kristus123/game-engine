@@ -27,9 +27,9 @@ export class LinePathFinder {
 		}
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		if (this.square) {
-			this.square.draw(draw, guiDraw)
+			this.square.draw(draw)
 		}
 	}
 }

@@ -68,20 +68,20 @@ export class Store {
 		this.localObjects.update()
 	}
 
-	static draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	static draw(draw) {
+		this.localObjects.draw(draw)
 
 		if (Mouse.onClick) {
 			draw.rectangle(this.turret)
 
 			this.turret.position.xy(Mouse.position)
-			this.turret.draw(draw, guiDraw)
+			this.turret.draw(draw)
 
 			const valid = this.tileSheet.touchesTurretTiles(Mouse.position)
 			draw.color(this.turret, valid ? 'green': 'red')
 		}
 
-		this.tileSheet.draw(draw, guiDraw)
+		this.tileSheet.draw(draw)
 	}
 
 }

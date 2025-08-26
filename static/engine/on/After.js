@@ -10,6 +10,6 @@ export class After {
 		}
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 	}
 }

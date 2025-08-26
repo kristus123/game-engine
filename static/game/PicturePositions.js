@@ -107,7 +107,7 @@ export class PicturePositions {
 	update() {
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		if (this.ib) {
 			draw.imageBitmap(new Position(-2, -2), this.ib)
 		}

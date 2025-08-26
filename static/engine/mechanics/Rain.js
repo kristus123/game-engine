@@ -19,7 +19,7 @@ export class Rain {
 		this.localObjects.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 	}
 }

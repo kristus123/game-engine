@@ -29,10 +29,10 @@ export class TileSheet {
 		}
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		for (const t of this.tiles) {
 			if (t.i == 4) {
-				// t.singleTile.draw(draw, guiDraw)
+				// t.singleTile.draw(draw)
 				// draw.rectangle(t.position)
 			}
 		}

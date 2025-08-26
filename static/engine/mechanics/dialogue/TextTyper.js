@@ -38,7 +38,7 @@ export class TextTyper {
 	}
 
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.text(this.position, this.text)
 	}
 

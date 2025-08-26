@@ -17,7 +17,7 @@ export class TextTyperWithBackspaceEffect {
 		this.t.update()
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 	}
 
 	get text() {

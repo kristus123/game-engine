@@ -15,6 +15,6 @@ export class Bounce {
 		this.object.position.scale(this.motion.value)
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 	}
 }

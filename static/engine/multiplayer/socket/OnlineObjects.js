@@ -71,7 +71,7 @@ export class OnlineObjects extends AllObjects {
 		})
 	}
 
-	draw(draw, guiDraw) {
-		super.draw(draw, guiDraw)
+	draw(draw) {
+		super.draw(draw)
 	}
 }

@@ -16,8 +16,8 @@ export class TurretNeeds {
 		this.localObjects.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 
 		if (this.chokolate) {
 			if (G.player.within(100, this.turret)) {

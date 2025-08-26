@@ -104,8 +104,8 @@ export class AllObjects { // not a good name
 		HelperThing.updateAnd(this.objects, run)
 	}
 
-	draw(draw, guiDraw) {
-		HelperThing.draw(this.objects, draw, guiDraw)
+	draw(draw) {
+		HelperThing.draw(this.objects, draw)
 	}
 
 	empty() {

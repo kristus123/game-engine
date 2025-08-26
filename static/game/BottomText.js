@@ -21,7 +21,7 @@ export class BottomText {
 		this.quest.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.quest.draw(draw, guiDraw)
+	draw(draw) {
+		this.quest.draw(draw)
 	}
 }

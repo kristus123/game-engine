@@ -120,7 +120,7 @@ export class Position {
 		return this
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.rectangle(this)
 	}
 

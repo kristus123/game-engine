@@ -7,7 +7,7 @@ export class Velocity {
 		return new Velocity(this.object, -this._x, -this._y)
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.circle(this.object.x + this._x, this.object.y + this._y, 10, 'orange')
 	}
 

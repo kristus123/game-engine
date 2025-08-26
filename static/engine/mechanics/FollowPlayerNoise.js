@@ -9,7 +9,7 @@ export class FollowPlayerNoise {
 		this.blue = p => {}
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 
 		for (const position of Positions.grid(this.gridArea, this.size)) {
 			// this.t += 0.0001

@@ -26,15 +26,15 @@ export class HelperThing {
 		}
 	}
 
-	static draw(objects, draw, guiDraw) {
-		if (draw == null || guiDraw == null) {
+	static draw(objects, draw) {
+		if (draw == null) {
 			throw new Error('null value passed to draw')
 		}
 
 		objects.forEach(e => {
 			try {
 				if (e.draw) {
-					e.draw(draw, guiDraw)
+					e.draw(draw)
 				}
 			}
 			catch (error) {

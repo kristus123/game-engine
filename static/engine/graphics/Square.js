@@ -11,7 +11,7 @@ export class Square extends DynamicGameObject {
 
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.rectangle(this.position, this.color || 'white')
 	}
 }

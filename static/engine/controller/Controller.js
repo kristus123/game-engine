@@ -61,7 +61,7 @@ export class Controller {
 		this.velocity.y = Keyboard.down ? 1 : Keyboard.up ? -1 : 0
 	}
 
-	static draw(draw, guiDraw) {
+	static draw(draw) {
 	}
 
 }

@@ -29,7 +29,7 @@ export class Path {
 		   	this.npc.touches(this.points[this.points.length - 1])
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		// for (const p of this.points) {
 		// 	draw.box(p)
 		// }

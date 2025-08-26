@@ -19,7 +19,7 @@ export class SingleTile {
 		)
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.ctx.drawImage(
 			this.palette.canvas,
 			this.position.x,

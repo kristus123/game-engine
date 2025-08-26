@@ -15,7 +15,7 @@ export class SpinningAroundPosition {
 		this.position = Random.direction(this.cleanPosition, 200)
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 
 		draw.circle(this.position.x, this.position.y, 10, 'red')
 

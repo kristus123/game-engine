@@ -1,4 +1,4 @@
-	mirrorDraw(draw, guiDraw, mirrorX = true, mirrorY = false) {
+	mirrorDraw(draw, mirrorX = true, mirrorY = false) {
 		if (typeof this.image === 'string') return
 
 		const frames = this.getCurrentAnimationFrames()

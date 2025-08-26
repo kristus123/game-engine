@@ -9,7 +9,7 @@ export class HeightMap {
 		}))
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		for (const { position, value } of this.positions) {
 			draw.color(position, `rgb(${value}, ${value}, ${value})`)
 		}

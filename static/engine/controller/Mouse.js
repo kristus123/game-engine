@@ -213,7 +213,7 @@ export class Mouse {
 		}
 	}
 
-	static draw(draw, guiDraw) {
+	static draw(draw) {
 
 		// console.log(this.moving)
 

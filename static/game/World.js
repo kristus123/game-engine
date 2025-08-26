@@ -33,8 +33,8 @@ export class World {
 						this.localObjects.update()
 					}
 
-					draw(draw, guiDraw) {
-						this.localObjects.draw(draw, guiDraw)
+					draw(draw) {
+						this.localObjects.draw(draw)
 					}
 				}
 			)),
@@ -49,7 +49,7 @@ export class World {
 		this.localObjects.update()
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 	}
 }

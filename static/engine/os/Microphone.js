@@ -29,7 +29,7 @@ export class Microphone {
 	update() {
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.text(new Position(0, 0), this.transcript)
 	}
 }

@@ -47,8 +47,8 @@ export class Turret extends DynamicGameObject {
 		}
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 		if (Mouse.touches(this)) {
 			draw.radius(this.position.center, 400)
 		}

@@ -35,9 +35,9 @@ export class OnlinePlayers {
 		})
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		for (const p of this.connectedPlayers) {
-			p.draw(draw, guiDraw)
+			p.draw(draw)
 		}
 	}
 }

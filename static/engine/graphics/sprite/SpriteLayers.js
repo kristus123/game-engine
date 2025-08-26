@@ -46,7 +46,7 @@ export class SpriteLayers extends StaticGameObject {
 	update() {
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.forEachLayer((layer, spriteFrames) => {
 			const p = spriteFrames[0].position
 

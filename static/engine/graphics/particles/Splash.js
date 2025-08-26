@@ -23,7 +23,7 @@ export class Splash {
 			const size = Random.floatBetween(0.1, 10)
 
 			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
-			p.draw = (draw, guiDraw) => {
+			p.draw = (draw) => {
 				draw.rectangle(p, color)
 			}
 
@@ -38,7 +38,7 @@ export class Splash {
 	update() {
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.particles.forEach((p, index) => {
 			// p.x += p.velocity.x
 			// p.y += p.velocity.y
@@ -49,7 +49,7 @@ export class Splash {
 				this.particles.splice(index, 1)
 			}
 			else {
-				p.draw(draw, guiDraw)
+				p.draw(draw)
 			}
 		})
 

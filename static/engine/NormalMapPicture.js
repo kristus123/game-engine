@@ -17,13 +17,13 @@ export class NormalMapPicture {
 		this.picture = new Picture(this.position, '/static/assets/box.png')
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.lightPosition.x = Mouse.position.x
 		this.lightPosition.y = Mouse.position.y
 		draw.circle(this.lightPosition)
 
 
-		this.picture.draw(draw, guiDraw)
+		this.picture.draw(draw)
 
 		if (this.normalMap.complete) {
 

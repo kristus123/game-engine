@@ -79,9 +79,7 @@ Promise.all([
 	]))
 	.then(() => {
 		const mainPalette = Palette.main()
-		const guiPalette = Palette.offscreen()
 		const backgroundPalette = Palette.offscreen()
-		// const showLogs = new ShowLogs(guiPalette)
 
 		Sound.init()
 		Mouse.initialize()
@@ -89,7 +87,6 @@ Promise.all([
 		Mouse.initializeAfterCameraIsInitialized()
 
 		const draw = new Draw(Camera.palette.ctx)
-		const guiDraw = new Draw(guiPalette.ctx)
 
 		Level.change(new World())
 
@@ -99,20 +96,19 @@ Promise.all([
 			ErrorHandler.run(() => {
 
 				Camera.palette.clear()
-				guiPalette.clear()
 
 				Physics.update(deltaTime)
 
 				Camera.context(() => {
 
 					Controller.update()
-					Controller.draw(draw, guiDraw)
+					Controller.draw(draw)
 
 					Level.update()
-					Level.draw(draw, guiDraw)
+					Level.draw(draw)
 
 					Mouse.update()
-					Mouse.draw(draw, guiDraw)
+					Mouse.draw(draw)
 				})
 
 				// showLogs.draw()
@@ -121,7 +117,6 @@ Promise.all([
 
 				mainPalette.apply(backgroundPalette)
 				mainPalette.apply(Camera.palette)
-				mainPalette.apply(guiPalette)
 			})
 		})
 	})

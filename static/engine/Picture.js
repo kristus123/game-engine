@@ -4,7 +4,7 @@ export class Picture extends StaticGameObject {
 
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		if (typeof this.image === 'string') {
 		}
 		else {

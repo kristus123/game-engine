@@ -39,7 +39,7 @@ export class Grid {
 		return new Position(x, y, this.cellWidth, this.cellHeight)
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.ctx.strokeStyle = 'white'
 		draw.ctx.lineWidth = 3
 

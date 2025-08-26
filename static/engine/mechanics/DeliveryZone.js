@@ -34,7 +34,7 @@ export class DeliveryZone extends StaticGameObject {
 		}
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		draw.transparentGreenRectangle(this.position)
 	}
 

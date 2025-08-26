@@ -34,8 +34,8 @@ export class Player extends DynamicGameObject {
 		// G.walkableAreas.enforce(G.player)
 	}
 
-	draw(draw, guiDraw) {
-		this.localObjects.draw(draw, guiDraw)
+	draw(draw) {
+		this.localObjects.draw(draw)
 
 	}
 }

@@ -8,7 +8,7 @@ export class SpinningSpriteFrame {
 
 	}
 
-	draw(draw, guiDraw) {
+	draw(draw) {
 		this.rotate+=Math.floor(Math.random()*20+1)/100
 
 		if (this.frame.image.complete) {

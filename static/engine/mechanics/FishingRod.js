@@ -13,8 +13,8 @@ export class FishingRod {
 		this.amount = 0
 	}
 
-	draw(draw, guiDraw) {
-		this.noise.draw(draw, guiDraw)
+	draw(draw) {
+		this.noise.draw(draw)
 
 		draw.text(this.player.position.offset(-180, -20), this.amount + ' fishes caught')
 
