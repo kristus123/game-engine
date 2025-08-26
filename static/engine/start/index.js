@@ -1,7 +1,6 @@
 export const index = ''
 
 
-
 let currentId = localStorage.getItem('currentId')
 if (!currentId) {
 	const response = await fetch('/currentId')
@@ -17,7 +16,6 @@ setInterval(async () => {
 		location.reload()
 	}
 }, 500)
-
 
 
 function loadAsepriteAssets(path) {
