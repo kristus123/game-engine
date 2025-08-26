@@ -130,11 +130,9 @@ export class VideoCall {
 		peerConnection.ontrack = e => {
 			console.warn(this.clientId +' '+ this.fromClientId)
 
-			if (!remoteVideo) {
-				Html.left([
-					HtmlVideo.guest(e.streams[0], this.fromClientId),
-				])
-			}
+			Html.left([
+				HtmlVideo.guest(e.streams[0], this.fromClientId),
+			])
 		}
 
 		peerConnection.onicecandidate = e => {

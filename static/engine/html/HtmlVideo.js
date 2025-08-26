@@ -1,6 +1,6 @@
 export class HtmlVideo {
 
-	static localVideo(srcObject) {
+	static local(srcObject) {
 		const video = HtmlElement('video')
 		video.autoplay = true
 		video.muted = true
@@ -9,7 +9,7 @@ export class HtmlVideo {
 		return video
 	}
 
-	static guestVideo(srcObject) {
+	static guest(srcObject) {
 		const video = HtmlElement('video')
 		video.autoplay = true
 		video.srcObject = srcObject
