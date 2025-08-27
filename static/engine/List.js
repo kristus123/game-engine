@@ -63,9 +63,9 @@ export class List {
 		return index >= 0 && index < list.length
 	}
 
-	static includes(list, o) {
-		return list.includes(o)
-	}
+	// static includes(list, o) {
+	// 	return list.includes(o)
+	// }
 
 	static contains(list, o) {
 		return list.includes(o)

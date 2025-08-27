@@ -32,7 +32,7 @@ export class Quest {
 
 			if (this.currentTask.completed && this.currentTask.completed()) {
 				this.index += 1
-				if (List.validIndex(this.tasks, this.index)) {
+				if (this.tasks.validIndex(this.index)) {
 					this._setNewCurrentTask(this.tasks[this.index])
 				}
 				else {

@@ -17,7 +17,7 @@ export class Registry {
 
 	static remove(o) {
 		const list = this[o.constructor.name]
-		List.remove(list, o)
+		list.remove(o)
 	}
 
 }

@@ -8,7 +8,7 @@ export class Physics {
 	}
 
 	static removePhysics(o) {
-		List.remove(this.objects, o)
+		this.objects.remove(o)
 	}
 
 	static update(deltaTime) {

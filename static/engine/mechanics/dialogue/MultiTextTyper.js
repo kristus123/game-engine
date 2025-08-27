@@ -7,7 +7,7 @@ export class MultiTextTyper {
 	}
 
 	update() {
-		if (List.validIndex(this.texts, this.index)) {
+		if (this.texts.validIndex(this.index)) {
 			const t = this.texts[this.index]
 
 			if (!t.finished) {
@@ -27,7 +27,7 @@ export class MultiTextTyper {
 	}
 
 	get text() {
-		if (List.validIndex(this.texts, this.index)) {
+		if (this.texts.validIndex(this.index)) {
 			return this.texts[this.index].text
 		}
 		else {

@@ -1,5 +1,7 @@
 export const index = ''
 
+Enhance_js_Array()
+
 
 let currentId = localStorage.getItem('currentId')
 if (!currentId) {

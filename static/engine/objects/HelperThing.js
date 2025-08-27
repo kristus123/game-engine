@@ -51,6 +51,6 @@ export class HelperThing {
 	}
 
 	remove(c) {
-		List.remove(this.classes, c)
+		this.classes.remove(c)
 	}
 }

@@ -12,7 +12,7 @@ export class OnlinePlayers {
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
-				List.removeIf(this.connectedPlayers, p => p.clientId == data.clientId)
+				this.connectedPlayers.removeIf(p => p.clientId == data.clientId)
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {

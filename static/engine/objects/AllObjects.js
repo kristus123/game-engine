@@ -42,7 +42,7 @@ export class AllObjects { // not a good name
 	}
 
 	remove(o) {
-		List.remove(this.objects, o)
+		this.objects.remove(o)
 		Registry.remove(o)
 	}
 
@@ -75,7 +75,7 @@ export class AllObjects { // not a good name
 	removeByObjectId(objectId) {
 		for (const o of this.objects) {
 			if (o.objectId == objectId) {
-				List.remove(this.objects, o)
+				this.objects.remove(o)
 
 				break
 			}
@@ -109,7 +109,7 @@ export class AllObjects { // not a good name
 	}
 
 	empty() {
-		return List.empty(this.objects)
+		return this.objects.empty()
 	}
 
 	first() {
@@ -117,7 +117,7 @@ export class AllObjects { // not a good name
 	}
 
 	closestTo(object, run= c => {}) {
-		if (List.empty(this.objects)) {
+		if (this.objects.empty()) {
 			return null
 		}
 

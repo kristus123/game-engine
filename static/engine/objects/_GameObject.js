@@ -51,7 +51,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	}
 
 	closest(objects) {
-		if (List.empty(objects)) {
+		if (objects.empty()) {
 			return null
 		}
 		else {
