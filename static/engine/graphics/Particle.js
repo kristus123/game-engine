@@ -1,4 +1,4 @@
-export class Particle extends DynamicGameObject {
+export class Particle {
 
 	static towards(spawnPosition, targetPosition) {
 
