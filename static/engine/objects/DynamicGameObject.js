@@ -84,6 +84,34 @@ export class DynamicGameObject extends _GameObject {
 		this.applyMovement(offsetDir, multiplier)
 	}
 
+	moveRandomly(multiplier=1) {
+		const position = {
+			x: this.x + Random.integerBetween(-10, 10),
+			y: this.y + Random.integerBetween(-10, 10),
+		}
+		const dir = Math.atan2(position.y - this.y, position.x - this.x)
+
+		this.applyMovement(dir, multiplier)
+	}
+
+	moveRoughlyTowards(position, multiplier=1) {
+		const angleSpread = 0.9
+
+		const direction_x = position.x - this.x
+		const direction_y = position.y - this.y
+
+		const initialAngle = Math.atan2(direction_y, direction_x)
+		const spread = Random.floatBetween(-angleSpread / 2, angleSpread / 2)
+		const angle = initialAngle + spread
+
+		const p = {
+			x: Math.cos(angle) * Random.floatBetween(1, 5),
+			y: Math.sin(angle) * Random.floatBetween(1, 5),
+		}
+
+		this.moveTowards(p, multiplier)
+	}
+
 	applyMovement(direction, multiplier = 1) {
 		this.x += Math.cos(direction) * this.speed * multiplier
 		this.y += Math.sin(direction) * this.speed * multiplier
