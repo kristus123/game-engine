@@ -2,24 +2,6 @@ export const index = ''
 
 Enhance_js_Array()
 
-
-let currentId = localStorage.getItem('currentId')
-if (!currentId) {
-	const response = await fetch('/currentId')
-	const data = await response.json()
-	localStorage.setItem('currentId', data.currentId)
-}
-
-setInterval(async () => {
-	const response = await fetch('/currentId')
-	const data = await response.json()
-	if (data.currentId !== currentId) {
-		localStorage.setItem('currentId', data.currentId)
-		location.reload()
-	}
-}, 500)
-
-
 function loadAsepriteAssets(path) {
 
 	const fileName = path.split('/').pop()
@@ -86,6 +68,7 @@ Promise.all([
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
+		HotReload()
 
 		const draw = new Draw(Camera.palette.ctx)
 

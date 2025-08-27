@@ -14,7 +14,7 @@ export class Keyboard {
 	}
 
 	static {
-		document.addEventListener('keydown', (e) => {
+		document.addEventListener('keydown', e => {
 			if (this.disabled) {
 
 			}
@@ -47,7 +47,7 @@ export class Keyboard {
 			}
 		})
 
-		document.addEventListener('keyup', (e) => {
+		document.addEventListener('keyup', e => {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = false
 			}
