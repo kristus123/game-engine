@@ -1,33 +1,57 @@
 export class DynamicGameObject extends _GameObject {
-	constructor(position, options = {}) {
+	constructor(position) {
 		super(position)
 
 		this.velocity = new Velocity(this, 0, 0)
-		this.speed = options.speed || 10
-		this.movementThreshold = options.movementThreshold || 10
-		this.deceleration = options.deceleration || 0.5
 
 		Physics.apply(this)
 	}
 
-	get movingLeft() { return this.velocity.x < -10 }
+	resetVelocity() {
+		this.velocity.x = 0
+		this.velocity.y = 0
+	}
 
-	get movingRight() { return this.velocity.x > 10 }
+	get movingLeft() {
+		return this.velocity.x < -10
+	}
 
-	get movingUp() { return this.velocity.y < -10 }
+	get movingRight() {
+		return this.velocity.x > 10
+	}
 
-	get movingDown() { return this.velocity.y > 10 }
+	get movingUp() {
+		return this.velocity.y < -10
+	}
 
-	get movingHorizontally() { return this.movingLeft || this.movingRight }
+	get movingDown() {
+		return this.velocity.y > 10
+	}
 
-	get movingVertically() { return this.movingUp || this.movingDown }
+	get movingHorizontally() {
+		return this.movingLeft || this.movingRight
+	}
+
+	get movingVertically() {
+		return this.movingUp || this.movingDown
+	}
 
 	get direction() {
-		if (this.movingLeft) return 'left'
-		else if (this.movingRight) return 'right'
-		else if (this.movingUp) return 'up'
-		else if (this.movingDown) return 'down'
-		else return 'idle'
+		if (this.movingLeft) {
+			return 'left'
+		}
+		else if (this.movingRight) {
+			return 'right'
+		}
+		else if (this.movingUp) {
+			return 'up'
+		}
+		else if (this.movingDown) {
+			return 'down'
+		}
+		else {
+			return 'idle'
+		}
 	}
 
 	// eslint-disable-next-line no-unused-vars
@@ -37,6 +61,7 @@ export class DynamicGameObject extends _GameObject {
 	update() {
 	}
 
+<<<<<<< HEAD
 	resetVelocity() {
 		this.velocity.x = 0
 		this.velocity.y = 0
@@ -65,7 +90,15 @@ export class DynamicGameObject extends _GameObject {
 	}
 
 	decreaseVelocity(multiplier = this.deceleration) {
+=======
+	decreaseVelocity(multiplier = 0.5) {
+>>>>>>> parent of 031da1f4 (integrating Move in DynamicGameObject)
 		this.velocity.x *= multiplier
 		this.velocity.y *= multiplier
 	}
+
+	moveTowards(x, speedMultiplier=1) {
+		Move(this).towards(x, speedMultiplier)
+	}
+
 }
