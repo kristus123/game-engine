@@ -1,11 +1,14 @@
 export class DynamicGameObject extends _GameObject {
-	constructor(position) {
-		super(position)
+	constructor(position, options = {}) {
+        super(position)
 
-		this.velocity = new Velocity(this, 0, 0)
+        this.velocity = new Velocity(this, 0, 0)
+        this.speed = options.speed || 10
+        this.movementThreshold = options.movementThreshold || 10
+        this.deceleration = options.deceleration || 0.5
 
-		Physics.apply(this)
-	}
+        Physics.apply(this)
+    }
 
 	resetVelocity() {
 		this.velocity.x = 0
@@ -61,7 +64,6 @@ export class DynamicGameObject extends _GameObject {
 	update() {
 	}
 
-<<<<<<< HEAD
 	resetVelocity() {
 		this.velocity.x = 0
 		this.velocity.y = 0
@@ -90,15 +92,7 @@ export class DynamicGameObject extends _GameObject {
 	}
 
 	decreaseVelocity(multiplier = this.deceleration) {
-=======
-	decreaseVelocity(multiplier = 0.5) {
->>>>>>> parent of 031da1f4 (integrating Move in DynamicGameObject)
 		this.velocity.x *= multiplier
 		this.velocity.y *= multiplier
 	}
-
-	moveTowards(x, speedMultiplier=1) {
-		Move(this).towards(x, speedMultiplier)
-	}
-
 }
