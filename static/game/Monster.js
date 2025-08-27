@@ -32,9 +32,8 @@ export class Monster extends DynamicGameObject {
 	update() {
 		this.localObjects.update()
 
-
 		if (!this.path.completed) {
-			Move(this).towards(this.path.position.center, 0.8 + (G.wave/10))
+			this.moveTowards(this.path.position.center)
 		}
 	}
 

@@ -66,4 +66,8 @@ export class DynamicGameObject extends _GameObject {
 		this.velocity.y *= multiplier
 	}
 
+	moveTowards(x, speedMultiplier=1) {
+		Move(this).towards(x, speedMultiplier)
+	}
+
 }
