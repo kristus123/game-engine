@@ -87,11 +87,11 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = new Draw(Camera.palette.ctx)
 
 		Level.change(new World())
 
 		new VideoCall()
+		Draw.init(Camera.palette.ctx)
 
 		Loop.everyFrame(deltaTime => {
 			ErrorHandler.run(() => {
@@ -103,18 +103,18 @@ Promise.all([
 				Camera.context(() => {
 
 					Controller.update()
-					Controller.draw(draw)
+					Controller.draw(Draw)
 
 					Level.update()
-					Level.draw(draw)
+					Level.draw(Draw)
 
 					Mouse.update()
-					Mouse.draw(draw)
+					Mouse.draw(Draw)
 				})
 
 				backgroundPalette.fill('#10204f')
 
-				mainPalette.apply(backgroundPalette)
+				// mainPalette.apply(backgroundPalette)
 				mainPalette.apply(Camera.palette)
 			})
 		})

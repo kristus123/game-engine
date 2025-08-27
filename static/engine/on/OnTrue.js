@@ -14,7 +14,7 @@ export class OnTrue {
 		this.onChange.update()
 	}
 
-	draw(draw) {
-		this.onChange.draw(draw)
+	draw() {
+		this.onChange.draw()
 	}
 }

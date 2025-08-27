@@ -144,8 +144,8 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	update() {
 	}
 
-	draw(draw) {
-		draw.rectangle(this)
+	draw() {
+		Draw.rectangle(this)
 	}
 
 }

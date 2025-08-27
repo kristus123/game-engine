@@ -4,7 +4,7 @@ export class Picture extends StaticGameObject {
 
 	}
 
-	draw(draw) {
+	draw() {
 		if (typeof this.image === 'string') {
 		}
 		else {
@@ -12,12 +12,12 @@ export class Picture extends StaticGameObject {
 			const newWidth = this.position.width
 			const newHeight = this.position.height
 
-			draw.ctx.imageSmoothingEnabled = false
+			Draw.ctx.imageSmoothingEnabled = false
 
-			draw.ctx.save()
-			draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
-			draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
-			draw.ctx.restore()
+			Draw.ctx.save()
+			Draw.ctx.translate(this.position.x + this.position.width, this.position.y + this.position.height)
+			Draw.ctx.drawImage(this.image, -newWidth, -newHeight, newWidth, newHeight)
+			Draw.ctx.restore()
 
 		}
 	}

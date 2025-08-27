@@ -12,7 +12,7 @@ export class Money {
 	static update() {
 	}
 
-	static draw(draw) {
+	static draw() {
 	}
 
 	static increase(amount) {

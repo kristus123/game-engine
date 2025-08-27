@@ -113,8 +113,8 @@ export class GridPathFinder {
 		this.path = path
 	}
 
-	draw(draw) {
-		this.path.forEach(p => draw.rectangle(p))
+	draw() {
+		this.path.forEach(p => Draw.rectangle(p))
 	}
 }
 

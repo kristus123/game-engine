@@ -18,7 +18,7 @@ export class Hp {
 		}
 	}
 
-	draw(draw) {
-		draw.hpBar(this.object.position.offset(100, -100), this.currentHp, this.maxHp)
+	draw() {
+		Draw.hpBar(this.object.position.offset(100, -100), this.currentHp, this.maxHp)
 	}
 }

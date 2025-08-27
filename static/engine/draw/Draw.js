@@ -1,10 +1,15 @@
 export class Draw {
 
-	constructor(ctx) {
+	static init(ctx) {
+		this.ctx = ctx
 		this.angle = 0 // hack
 	}
 
-	angleFrom(p1, p2, radius, angleRange, color) {
+	static get() {// temp hacjk
+		return this
+	}
+
+	static angleFrom(p1, p2, radius, angleRange, color) {
 
 		const mouseAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
 
@@ -28,12 +33,12 @@ export class Draw {
 		this.ctx.fill()
 	}
 
-	angleFromMouse(position, radius, angleRange, color) {
+	static angleFromMouse(position, radius, angleRange, color) {
 		this.angleFrom(position, Mouse, radius, angleRange, color)
 	}
 
 
-	drawPart(img, position) {
+	static art(img, position) {
 		this.ctx.drawImage(
 		  img,
 		  position.x, position.y, 16, 16, // source rect inside img
@@ -41,7 +46,7 @@ export class Draw {
 		)
 	}
 
-	lightSource(p, radius) {
+	static lightSource(p, radius) {
 		const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius)
 		gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
 		gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
@@ -50,7 +55,7 @@ export class Draw {
 		this.ctx.fillRect(0, 0, Palette.width, Palette.height)
 	}
 
-	curve(startPosition, controlPosition1, controlPosition2, endPosition) {
+	static curve(startPosition, controlPosition1, controlPosition2, endPosition) {
 		this.ctx.beginPath()
 		this.ctx.moveTo(startPosition.x, startPosition.y) // Starting point
 		this.ctx.bezierCurveTo(controlPosition1.x, controlPosition1.y, controlPosition2.x, controlPosition2.y, endPosition.x, endPosition.y) // Control points and endpoint
@@ -63,7 +68,7 @@ export class Draw {
 		// this.new_circle(endPosition);
 	}
 
-	light(p, radius=250) {
+	static light(p, radius=250) {
 		const gradient = this.ctx.createRadialGradient(p.x, p.y, 10, p.x, p.y, radius)
 		gradient.addColorStop(0, 'rgba(255, 255, 200, 0.5)') // bright center
 		gradient.addColorStop(0.4, 'rgba(255, 255, 150, 0.5)') // soft glow
@@ -75,7 +80,7 @@ export class Draw {
 	}
 
 
-	shadow(position) {
+	static shadow(position) {
 		const { x, y, width, height } = position
 		const lightX = 0
 		const lightY = 0
@@ -93,7 +98,7 @@ export class Draw {
 		this.ctx.shadowOffsetY = 0
 	}
 
-	sprite(position, frame, image) {
+	static sprite(position, frame, image) {
 		this.ctx.imageSmoothingEnabled = false
 
 		this.ctx.drawImage(
@@ -109,17 +114,17 @@ export class Draw {
 		)
 	}
 
-	picture(position, image) {
+	static picture(position, image) {
 		this.ctx.imageSmoothingEnabled = false
 		this.ctx.drawImage(image, 0, 0)
 	}
 
 
-	imageBitmap(position, imageBitmap) {
+	static imageBitmap(position, imageBitmap) {
 		this.ctx.drawImage(imageBitmap, position.x, position.y)
 	}
 
-	rectangle(position, color='yellow') {
+	static rectangle(position, color='yellow') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
@@ -134,67 +139,67 @@ export class Draw {
 		this.ctx.font = '25px Arial'
 	}
 
-	box(p) {
+	static box(p) {
 		this.rectangle(p)
 	}
 
-	pink(position) {
+	static pink(position) {
 		this.rectangle(position, 'pink')
 	}
 
-	purple(position) {
+	static purple(position) {
 		this.rectangle(position, 'purple')
 	}
 
-	green(position) {
+	static green(position) {
 		this.rectangle(position, 'green')
 	}
 
-	red(position) {
+	static red(position) {
 		this.rectangle(position, 'red')
 	}
 
-	brown(position) {
+	static brown(position) {
 		this.rectangle(position, 'brown')
 	}
 
-	orange(position) {
+	static orange(position) {
 		this.rectangle(position, 'orange')
 	}
 
-	blue(position) {
+	static blue(position) {
 		this.rectangle(position, 'blue')
 	}
 
-	color(position, color) {
+	static color(position, color) {
 		this.rectangle(position, color)
 	}
 
-	grey(position) {
+	static grey(position) {
 		this.rectangle(position, 'grey')
 	}
 
-	transparentGreenRectangle(position) {
+	static transparentGreenRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.5)' // RGBA color (green with 50% opacity)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	transparentRedRectangle(position) {
+	static transparentRedRectangle(position) {
 		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)' // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	transparentBlueRectangle(position) {
+	static transparentBlueRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)' // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	blueRectangle(position) {
+	static blueRectangle(position) {
 		this.ctx.fillStyle = 'rgba(0, 0, 255, 1)' // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
-	gradient(position) { // can be used for making a light source
+	static gradient(position) { // can be used for making a light source
 		const radius = 300
 
 		const gradient = this.ctx.createRadialGradient(position.x, position.y, 200, position.x, position.y, 50)
@@ -209,14 +214,14 @@ export class Draw {
 		this.ctx.fill()
 	}
 
-	star(position, color='white') {
+	static star(position, color='white') {
 		this.ctx.lineWidth = 0
 		this.ctx.fillStyle = color
 		this.ctx.strokeStyle = color
 		this.rectangle(position, color)
 	}
 
-	splash(spawnPosition, targetLocation, angleWidth, length = 500) {
+	static splash(spawnPosition, targetLocation, angleWidth, length = 500) {
 		this.ctx.beginPath()
 
 		// Calculate angle towards targetLocation
@@ -246,7 +251,7 @@ export class Draw {
 		// Stroke the lines this.ctx.stroke() this.ctx.closePath()
 	}
 
-	hpBar(position, currentHp, maxHp, color='red') {
+	static hpBar(position, currentHp, maxHp, color='red') {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
 			const numerator = currentHp
 			const denominator = maxHp
@@ -277,7 +282,7 @@ export class Draw {
 	}
 
 
-	fire(position, radius = 50, color = 'orange', alpha = 0.5) {
+	static fire(position, radius = 50, color = 'orange', alpha = 0.5) {
 		const grad = this.ctx.createRadialGradient(
 			position.x, position.y, 0,
 			position.x, position.y, Math.abs(radius)
@@ -294,7 +299,7 @@ export class Draw {
 	}
 
 
-	circle(position, radius = 10) {
+	static circle(position, radius = 10) {
 		const color = 'red'
 
 		this.ctx.beginPath()
@@ -303,7 +308,7 @@ export class Draw {
 		this.ctx.fill()
 	}
 
-	radius(position, radius) {
+	static radius(position, radius) {
 		this.ctx.beginPath()
 		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
 		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.1)' // rgba(red, green, blue, alpha)
@@ -311,7 +316,7 @@ export class Draw {
 
 	}
 
-	hollowCircle(position, color, radius) {
+	static hollowCircle(position, color, radius) {
 		this.ctx.strokeStyle = color
 		this.ctx.lineWidth = 6
 
@@ -321,7 +326,7 @@ export class Draw {
 	}
 
 	// todo must be updated somehow iwthin game lloop
-	circleSpinning(objectToFollow, radius) {
+	static circleSpinning(objectToFollow, radius) {
 		const x =
 			objectToFollow.x +
 			objectToFollow.width / 2 +
@@ -354,7 +359,7 @@ export class Draw {
 		player.angle = Math.atan2(mousePosition.y - player.position.center.y, mousePosition.x - player.position.center.x)
 	}
 
-	objectThatIsMovingInRectangularPathAroundObject(target, color='red') {
+	static objectThatIsMovingInRectangularPathAroundObject(target, color='red') {
 		this.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
@@ -387,7 +392,7 @@ export class Draw {
 		return { x: circleX, y: circleY }
 	}
 
-	objectThatIsCirclingAroundObjectBasedOnMousePosition(player) {
+	static objectThatIsCirclingAroundObjectBasedOnMousePosition(player) {
 		player = {
 			x: player.position.center.x,
 			y: player.position.center.y,
@@ -408,7 +413,7 @@ export class Draw {
 		this.circle(new Position(x, y), 10, 'red')
 	}
 
-	line(start, end) {
+	static line(start, end) {
 		this.ctx.beginPath()
 		this.ctx.moveTo(start.x, start.y)
 		this.ctx.lineTo(end.x, end.y)
@@ -417,7 +422,7 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(position, text, color='black', fontSize = 40) {
+	static text(position, text, color='black', fontSize = 40) {
 		// this.rectangle(position)
 
 		this.ctx.fillStyle = 'white'
@@ -432,11 +437,11 @@ export class Draw {
 		this.ctx.fillText(text, position.x, position.y)
 	}
 
-	position(p) {
+	static position(p) {
 		this.text(p, `${Math.floor(p.x)} _ ${Math.floor(p.y)}`)
 	}
 
-	grid() {
+	static grid() {
 		this.ctx.strokeStyle = '#ccc' // Grid color
 		this.ctx.lineWidth = 2
 

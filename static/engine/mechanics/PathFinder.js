@@ -16,14 +16,14 @@ export class PathFinder {
 
 	}
 
-	draw(draw) {
+	draw() {
 		if (this.linePathFinder.clearPath) {
 			this.position = this.target
-			this.linePathFinder.draw(draw)
+			this.linePathFinder.draw()
 		}
 		else if (this.gridPathFinder.nextPosition) {
 			this.position = this.gridPathFinder.nextPosition
-			this.gridPathFinder.draw(draw)
+			this.gridPathFinder.draw()
 		}
 	}
 }

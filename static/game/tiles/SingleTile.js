@@ -19,8 +19,8 @@ export class SingleTile {
 		)
 	}
 
-	draw(draw) {
-		draw.ctx.drawImage(
+	draw() {
+		Draw.ctx.drawImage(
 			this.palette.canvas,
 			this.position.x,
 			this.position.y

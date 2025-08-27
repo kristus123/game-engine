@@ -13,13 +13,13 @@ export class Noise {
 			}))
 	}
 
-	draw(draw) {
+	draw() {
 		for (const { position, noise } of this.positionAndNoiseValue) {
 			if (noise >= 0.5) {
-				draw.blueRectangle(position)
+				Draw.blueRectangle(position)
 			}
 			else {
-				draw.green(position)
+				Draw.green(position)
 			}
 		}
 	}

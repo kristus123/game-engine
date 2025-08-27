@@ -50,9 +50,9 @@ export class InvisibleWalls {
 		}
 	}
 
-	draw(draw) {
+	draw() {
 		for (const p of this.positions) {
-			draw.transparentRedRectangle(p)
+			Draw.transparentRedRectangle(p)
 		}
 	}
 

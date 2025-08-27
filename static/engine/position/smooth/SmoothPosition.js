@@ -18,9 +18,9 @@ export class SmoothPosition {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		this.localObjects.draw()
 
-		draw.circle(this.position)
+		Draw.circle(this.position)
 	}
 }

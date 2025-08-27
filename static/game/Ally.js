@@ -26,7 +26,7 @@ export class Ally extends DynamicGameObject {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
+	draw() {
 		if (G.player.within(100, this) && this.charge.ready) {
 			this.charge.exhaust()
 			this.splash.random(this, 'orange')
@@ -37,7 +37,7 @@ export class Ally extends DynamicGameObject {
 		}
 
 		if (this.turret == null || G.pause || !this.touches(this.turret)) {
-			this.localObjects.draw(draw)
+			this.localObjects.draw()
 		}
 
 		this.position.scale(this.sine.value)

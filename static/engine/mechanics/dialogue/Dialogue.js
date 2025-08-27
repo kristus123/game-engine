@@ -14,7 +14,7 @@ export class Dialogue {
 
 		this.listLooper = new ListLooper(textTypers, (textTyper, next, completed, draw) => {
 			textTyper.update()
-			textTyper.draw(draw)
+			textTyper.draw()
 
 			if (textTyper.completed()) {
 				next()
@@ -30,7 +30,7 @@ export class Dialogue {
 		this.listLooper.update()
 	}
 
-	draw(draw) {
-		this.listLooper.draw(draw)
+	draw() {
+		this.listLooper.draw()
 	}
 }

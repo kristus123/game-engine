@@ -15,6 +15,6 @@ export class OnChange {
 		}
 	}
 
-	draw(draw) {
+	draw() {
 	}
 }

@@ -38,7 +38,7 @@ export class Monster extends DynamicGameObject {
 		}
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		this.localObjects.draw()
 	}
 }

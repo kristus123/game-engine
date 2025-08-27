@@ -13,9 +13,9 @@ export class Water {
 		})
 	}
 
-	draw(draw) {
+	draw() {
 		this.droplets.forEach(d => {
-			draw.blue(d)
+			Draw.blue(d)
 		})
 	}
 }

@@ -110,15 +110,15 @@ export class PicturePositions {
 	update() {
 	}
 
-	draw(draw) {
+	draw() {
 		if (this.ib) {
-			draw.imageBitmap(new Position(-2, -2), this.ib)
+			Draw.imageBitmap(new Position(-2, -2), this.ib)
 		}
 
 		for (const r of this.regions) {
 			if (Mouse.hovering(r)) {
 				console.log(r)
-				draw.rectangle(r, r.color)
+				Draw.rectangle(r, r.color)
 			}
 		}
 	}

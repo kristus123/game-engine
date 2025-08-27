@@ -5,20 +5,20 @@ export class SpinningPicture {
 		this.currentRotation = 0
 	}
 
-	draw(draw) {
+	draw() {
 		const newWidth = this.position.width
 		const newHeight = this.position.height
 
-		draw.ctx.save()
+		Draw.ctx.save()
 
-		draw.ctx.translate(this.position.position.center.x, this.position.position.center.y)
+		Draw.ctx.translate(this.position.position.center.x, this.position.position.center.y)
 		this.currentRotation += this.rotationIncrement // Increment the rotation
-		draw.ctx.rotate(this.currentRotation) // Apply the current rotation
+		Draw.ctx.rotate(this.currentRotation) // Apply the current rotation
 
-		draw.ctx.imageSmoothingEnabled = false
-		draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
+		Draw.ctx.imageSmoothingEnabled = false
+		Draw.ctx.drawImage(this.image, -newWidth / 2, -newHeight / 2, newWidth, newHeight)
 
-		draw.ctx.restore()
+		Draw.ctx.restore()
 	}
 }
 

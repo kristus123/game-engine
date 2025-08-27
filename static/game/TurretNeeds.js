@@ -16,8 +16,8 @@ export class TurretNeeds {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		this.localObjects.draw()
 
 		if (this.chokolate) {
 			if (G.player.within(100, this.turret)) {
@@ -25,7 +25,7 @@ export class TurretNeeds {
 				this.chokolate = false
 			}
 			else {
-				draw.text(this.turret.position.over(20), 'cooka!!!!!')
+				Draw.text(this.turret.position.over(20), 'cooka!!!!!')
 			}
 		}
 	}

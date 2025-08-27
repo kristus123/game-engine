@@ -37,13 +37,13 @@ export class Charge {
 		}
 	}
 
-	draw(draw) {
+	draw() {
 		if (this.position) {
 			if (this.ready) {
-				draw.hpBar(this.position, this.charge, this.maxCharge, 'green')
+				Draw.hpBar(this.position, this.charge, this.maxCharge, 'green')
 			}
 			else {
-				draw.hpBar(this.position, this.charge, this.maxCharge, 'orange')
+				Draw.hpBar(this.position, this.charge, this.maxCharge, 'orange')
 			}
 		}
 	}

@@ -46,7 +46,7 @@ export class SpriteLayers extends StaticGameObject {
 	update() {
 	}
 
-	draw(draw) {
+	draw() {
 		this.forEachLayer((layer, spriteFrames) => {
 			const p = spriteFrames[0].position
 
@@ -54,7 +54,7 @@ export class SpriteLayers extends StaticGameObject {
 				p.x -= 1
 			}
 
-			draw.sprite(p, spriteFrames[0], this.image)
+			Draw.sprite(p, spriteFrames[0], this.image)
 
 		})
 	}

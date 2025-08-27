@@ -39,12 +39,12 @@ export class Grid {
 		return new Position(x, y, this.cellWidth, this.cellHeight)
 	}
 
-	draw(draw) {
-		draw.ctx.strokeStyle = 'white'
-		draw.ctx.lineWidth = 3
+	draw() {
+		Draw.ctx.strokeStyle = 'white'
+		Draw.ctx.lineWidth = 3
 
 		for (const pos of this.positions) {
-			draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
+			Draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
 		}
 	}
 }

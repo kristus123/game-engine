@@ -13,9 +13,9 @@ export class Poop extends DynamicGameObject {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
-		draw.brown(this)
+	draw() {
+		this.localObjects.draw()
+		Draw.brown(this)
 
 		if (Mouse.hovering(this)) {
 			this.remove()

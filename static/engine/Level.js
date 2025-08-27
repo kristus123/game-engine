@@ -11,8 +11,8 @@ export class Level {
 		this.active.update()
 	}
 
-	static draw(draw) {
-		this.active.draw(draw)
+	static draw() {
+		this.active.draw()
 	}
 
 }

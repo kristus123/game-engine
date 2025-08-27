@@ -9,9 +9,9 @@ export class Blur {
 		}))
 	}
 
-	draw(draw) {
+	draw() {
 		for (const { position, color } of this.positions) {
-			draw.rectangle(position, color)
+			Draw.rectangle(position, color)
 		}
 
 	}

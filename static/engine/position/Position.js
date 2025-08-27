@@ -120,8 +120,8 @@ export class Position {
 		return this
 	}
 
-	draw(draw) {
-		draw.rectangle(this)
+	draw() {
+		Draw.rectangle(this)
 	}
 
 	toJson() {

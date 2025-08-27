@@ -47,12 +47,12 @@ export class Turret extends DynamicGameObject {
 		}
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		this.localObjects.draw()
 		if (Mouse.touches(this)) {
-			draw.radius(this.position.center, 400)
+			Draw.radius(this.position.center, 400)
 		}
-		// draw.rectangle(this.position)
-		// draw.circle(this.position.center)
+		// Draw.rectangle(this.position)
+		// Draw.circle(this.position.center)
 	}
 }

@@ -26,15 +26,11 @@ export class HelperThing {
 		}
 	}
 
-	static draw(objects, draw) {
-		if (draw == null) {
-			throw new Error('null value passed to draw')
-		}
-
+	static draw(objects) {
 		objects.forEach(e => {
 			try {
-				if (e.draw) {
-					e.draw(draw)
+				if (e.Draw) {
+					e.draw()
 				}
 			}
 			catch (error) {

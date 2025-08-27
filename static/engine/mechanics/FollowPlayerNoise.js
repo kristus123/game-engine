@@ -9,17 +9,17 @@ export class FollowPlayerNoise {
 		this.blue = p => {}
 	}
 
-	draw(draw) {
+	draw() {
 
 		for (const position of Positions.grid(this.gridArea, this.size)) {
 			// this.t += 0.0001
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 
 			if (noiseValue >= 0.8) {
-				draw.color(position, '#2AB1C6')
+				Draw.color(position, '#2AB1C6')
 			}
 			else {
-				draw.color(position, '#4F9182')
+				Draw.color(position, '#4F9182')
 			}
 		}
 	}

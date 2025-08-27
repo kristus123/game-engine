@@ -11,13 +11,13 @@ export class ListLooper {
 		console.log('don\'t call update while using ListLooper!')
 	}
 
-	draw(draw) {
+	draw() {
 		if (!this.completed()) {
 			this.callback(
 				this.list[this.index], // element
 				() => this.index += 1, // next()
 				this.completed(),
-				draw)
+				Draw)
 		}
 	}
 }

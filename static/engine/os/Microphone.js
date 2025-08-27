@@ -29,8 +29,8 @@ export class Microphone {
 	update() {
 	}
 
-	draw(draw) {
-		draw.text(new Position(0, 0), this.transcript)
+	draw() {
+		Draw.text(new Position(0, 0), this.transcript)
 	}
 }
 

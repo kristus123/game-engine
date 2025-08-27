@@ -29,18 +29,18 @@ export class Path {
 		   	this.npc.touches(this.points[this.points.length - 1])
 	}
 
-	draw(draw) {
+	draw() {
 		// for (const p of this.points) {
-		// 	draw.box(p)
+		// 	Draw.box(p)
 		// }
 
 		// for (let i = 0; i < this.points.length; i++) {
 		// 	const p = this.points[i]
-		// 	draw.rectangle(p)
+		// 	Draw.rectangle(p)
 
 		// 	if (i < this.points.length - 1) {
 		// 		const next = this.points[i + 1]
-		// 		draw.line(p, next)
+		// 		Draw.line(p, next)
 		// 	}
 		// }
 	}

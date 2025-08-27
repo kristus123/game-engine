@@ -13,7 +13,7 @@ export class Npc extends DynamicGameObject {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		this.localObjects.draw()
 	}
 }

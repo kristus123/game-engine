@@ -1,8 +1,12 @@
 export class Mouse {
-	static position = new Position(0, 0)
-	static screenPosition = new Position(0, 0)
+
+	static position = {x:0, y:0, width:0, height:0}
+	static screenPosition = {x:0, y:0, width:0, height:0}
 
 	static initialize() {
+
+		this.position = new Position(0, 0)
+		this.screenPosition = new Position(0, 0)
 
 		this.disabled = false
 
@@ -213,12 +217,12 @@ export class Mouse {
 		}
 	}
 
-	static draw(draw) {
+	static draw() {
 
 		// console.log(this.moving)
 
-		draw.circle(this.position)
-		// draw.new_circle(this.position)
+		Draw.circle(this.position)
+		// Draw.new_circle(this.position)
 	}
 
 }

@@ -17,25 +17,25 @@ export class NormalMapPicture {
 		this.picture = new Picture(this.position, '/static/assets/box.png')
 	}
 
-	draw(draw) {
+	draw() {
 		this.lightPosition.x = Mouse.position.x
 		this.lightPosition.y = Mouse.position.y
-		draw.circle(this.lightPosition)
+		Draw.circle(this.lightPosition)
 
 
-		this.picture.draw(draw)
+		this.picture.draw()
 
 		if (this.normalMap.complete) {
 
 			const ox = (-Camera.position.x + (Palette.width/2))
 			const oy = (-Camera.position.y + (Palette.height/2))
 
-			const normalData = draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
+			const normalData = Draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
 
-			const imageData = draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
+			const imageData = Draw.ctx.getImageData(this.position.x + ox, this.position.y + oy, this.position.width, this.position.height)
 			this.applyLighting(imageData, normalData)
 
-			draw.ctx.putImageData(imageData, this.position.x + ox, this.position.y + oy)
+			Draw.ctx.putImageData(imageData, this.position.x + ox, this.position.y + oy)
 		}
 	}
 

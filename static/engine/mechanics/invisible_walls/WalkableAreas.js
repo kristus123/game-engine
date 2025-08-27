@@ -64,8 +64,8 @@ export class WalkableAreas {
 		return Math.sqrt(dx * dx + dy * dy)
 	}
 
-	draw(draw) {
-		// this.positions.forEach(r => draw.rectangle(r, Random.color()))
+	draw() {
+		// this.positions.forEach(r => Draw.rectangle(r, Random.color()))
 	}
 }
 

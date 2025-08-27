@@ -38,8 +38,8 @@ export class TextTyper {
 	}
 
 
-	draw(draw) {
-		draw.text(this.position, this.text)
+	draw() {
+		Draw.text(this.position, this.text)
 	}
 
 

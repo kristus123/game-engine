@@ -36,8 +36,8 @@ export class StraightPath {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
-		draw.line(this.line, this.end)
+	draw() {
+		this.localObjects.draw()
+		Draw.line(this.line, this.end)
 	}
 }

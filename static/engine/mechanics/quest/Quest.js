@@ -43,9 +43,9 @@ export class Quest {
 		}
 	}
 
-	draw(draw) {
+	draw() {
 		if (!this.questCompleted && this.currentTask.draw) {
-			this.currentTask.draw(draw)
+			this.currentTask.draw()
 		}
 	}
 }

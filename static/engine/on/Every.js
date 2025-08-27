@@ -22,7 +22,7 @@ export class Every {
 		}
 	}
 
-	draw(draw) {
+	draw() {
 		// optional rendering stuff
 	}
 }

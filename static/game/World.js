@@ -34,8 +34,8 @@ export class World {
 						this.localObjects.update()
 					}
 
-					draw(draw) {
-						this.localObjects.draw(draw)
+					draw() {
+						this.localObjects.draw()
 					}
 				}
 			)),
@@ -50,7 +50,8 @@ export class World {
 		this.localObjects.update()
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
+	draw() {
+		console.log(Draw.get().rectangle(new Position(100,100, 200 , 200)))
+		this.localObjects.draw(Draw.get())
 	}
 }
