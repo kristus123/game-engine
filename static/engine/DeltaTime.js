@@ -9,6 +9,7 @@ export class DeltaTime {
 		const currentTime = this.stopwatch.time
 		this.delta = (currentTime - this.lastTime) / 1000
 		this.lastTime = currentTime
+
 		return this.delta
 	}
 
@@ -28,6 +29,10 @@ export class DeltaTime {
 
 	static get value() {
 		return this.delta
+	}
+
+	static get fps() {
+		return this.delta > 0 ? 1 / this.delta : 0
 	}
 }
 
