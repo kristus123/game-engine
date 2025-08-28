@@ -53,12 +53,9 @@ function loadAsepriteTilemaps(path) {
 
 
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)).then(() => Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps))),
 	loadAllAudio(),
 ])
-	.then(() => Promise.all([
-		Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps)),
-	]))
 	.then(() => {
 		const mainPalette = Palette.main()
 		const backgroundPalette = Palette.offscreen()
