@@ -1,11 +1,9 @@
 export class DeathText {
-	constructor(text = 'Good job!', duration = 2000) {
-	}
 
-	show() {
+	static show(text = 'Good job!', duration = 2000) {
 		const e = Html.addToScreen(HtmlElement('div', 'death show'))
 
-		e.textContent = this.text
+		e.textContent = text
 
 		setTimeout(() => {
 			e.classList.remove('show')
@@ -14,6 +12,6 @@ export class DeathText {
 				Html.remove(e)
 			})
 
-		}, this.duration)
+		}, duration)
 	}
 }

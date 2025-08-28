@@ -10,34 +10,21 @@ export class World {
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
 			new Grid(G.player),
-			new Quest(Iterate(100, i => () =>
-				new class {
-					constructor() {
-						i = i + 1
 
-						// new DeathText('Round ' + i).show()
-						G.wave = i
-						this.localObjects = new LocalObjects([
-							this.m = new MonsterWave(inverseExponentialNumber.value, () => {
-								G.pause = true
-								setTimeout(() => {
-									inverseExponentialNumber.next()
-									G.pause = false
-									this.markTaskComplete()
-								}, 2000)
-							}),
-						])
-					}
 
-					update() {
-						this.localObjects.update()
-					}
-
-					draw(draw) {
-						this.localObjects.draw(draw)
-					}
-				}
+			new Quest(Iterate(100, i => 
+					() => new MonsterWave(inverseExponentialNumber.value, () => {
+						G.pause = true
+						setTimeout(() => {
+							G.wave = i + 1
+							DeathText.show(G.wave)
+							inverseExponentialNumber.next()
+							G.pause = false
+						}, 2000)
+					}),
 			)),
+
+
 			Money.init(),
 			Store.init(),
 			G.monsters,
