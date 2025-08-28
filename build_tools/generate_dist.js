@@ -16,7 +16,7 @@ Files.replace('dist/static/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsep
 
 
 const audioFiles = Files.at('static/audio')
-	.filter(f => f.toLowerCase().endsWith(".mp3"))
+	.filter(f => f.toLowerCase().endsWith('.mp3'))
 	.map(f => f.replace('/aseprite', ''))
 	.map(f => f.replace('\\aseprite', '')) // windows compability
 	.map(f => f.replace('.aseprite', ''))

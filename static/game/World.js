@@ -13,16 +13,16 @@ export class World {
 			new Grid(G.player),
 
 
-			new Quest(Iterate(100, i => 
-					() => new MonsterWave(inverseExponentialNumber.value, () => {
-						G.pause = true
-						setTimeout(() => {
-							G.wave = i + 1
-							DeathText.show(G.wave)
-							inverseExponentialNumber.next()
-							G.pause = false
-						}, 2000)
-					}),
+			new Quest(Iterate(100, i =>
+				() => new MonsterWave(inverseExponentialNumber.value, () => {
+					G.pause = true
+					setTimeout(() => {
+						G.wave = i + 1
+						DeathText.show(G.wave)
+						inverseExponentialNumber.next()
+						G.pause = false
+					}, 2000)
+				}),
 			)),
 
 
