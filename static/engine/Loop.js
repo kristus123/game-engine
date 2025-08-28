@@ -1,27 +1,14 @@
 export class Loop {
-	static fps = 0
 	static lastUpdated = 0
 
 	static everyFrame(run) {
-		let lastTimestamp = performance.now()
 
 		function loop(currentTimestamp) {
-			// Sleep(Random.integerBetween(0, 500)) // to simulate lag
+			// Sleep(Random.integerBetween(0, 50)) // to simulate lag
 
-			// deltaTime is in seconds
-			const deltaTime = (currentTimestamp - lastTimestamp) / 1000
+			DeltaTime.update()
 
-			lastTimestamp = currentTimestamp
-
-			run(deltaTime)
-
-			if (Loop.lastUpdated > 10) {
-				Loop.fps = Math.floor(Math.floor(1 / deltaTime))
-				Loop.lastUpdated = 0
-			}
-			else {
-				Loop.lastUpdated += 1
-			}
+			run(DeltaTime.value)
 
 			requestAnimationFrame(loop)
 		}
