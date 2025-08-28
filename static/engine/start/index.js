@@ -23,13 +23,7 @@ function loadAsepriteAssets(path) {
 }
 
 function loadAllAudio() {
-	const files = [
-		'/static/audio/sheet.mp3',
-		'/static/audio/click.mp3',
-		'/static/audio/nyaSheet.mp3',
-	]
-
-	return Promise.all(files.map(a =>
+	return Promise.all(AUDIO_FILES.map(a =>
 		LoadAudio(a).then(audio => {
 			const key = a.split('/').pop().replace('.mp3', '')
 			G.Audio[key] = audio
@@ -80,29 +74,26 @@ Promise.all([
 		new VideoCall()
 
 		Loop.everyFrame(deltaTime => {
-			ErrorHandler.run(() => {
+			Camera.palette.clear()
 
-				Camera.palette.clear()
+			Physics.update(deltaTime)
 
-				Physics.update(deltaTime)
+			Camera.context(() => {
 
-				Camera.context(() => {
+				Controller.update()
+				Controller.draw(draw)
 
-					Controller.update()
-					Controller.draw(draw)
+				Level.update()
+				Level.draw(draw)
 
-					Level.update()
-					Level.draw(draw)
-
-					Mouse.update()
-					Mouse.draw(draw)
-				})
-
-				backgroundPalette.fill('#10204f')
-
-				mainPalette.apply(backgroundPalette)
-				mainPalette.apply(Camera.palette)
+				Mouse.update()
+				Mouse.draw(draw)
 			})
+
+			backgroundPalette.fill('#10204f')
+
+			mainPalette.apply(backgroundPalette)
+			mainPalette.apply(Camera.palette)
 		})
 	})
 	.catch(err => {
