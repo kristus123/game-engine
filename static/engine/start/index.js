@@ -72,6 +72,9 @@ Promise.all([
 
 		const draw = new Draw(Camera.palette.ctx)
 
+		//D1( // to trigger import
+		D1.ctx = Camera.palette.ctx
+
 		Level.change(new World())
 
 		new VideoCall()

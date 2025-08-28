@@ -26,7 +26,8 @@ class Imports {
 		if (
 			containsExport('class', className, content) ||
 			containsExport('function', className, content) ||
-			containsExport('const', className, content)
+			containsExport('const', className, content) ||
+			containsExport('let', className, content)
 		) {
 			return false
 		}
