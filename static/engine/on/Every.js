@@ -1,29 +1,23 @@
-export class Every {
-	constructor(intervalMs, action, maxRuns='infinite', onFinish=() => {}) {
-		this.intervalMs = intervalMs
-		this.action = action
-		this.lastTrigger = performance.now()
+export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {}) {
 
-		this.runs = 0
-	}
+	const stopWatch = new StopWatch()
 
-	update() {
-		if (this.maxRuns != 'infinite' && this.runs >= this.maxRuns) {
-			this.onFinish()
-			this.removeFromLoop()
-		}
-		else {
-			const now = performance.now()
-			if (now - this.lastTrigger >= this.intervalMs) {
-				this.action()
-				this.runs += 1
-				this.lastTrigger = now
+	let totalRuns = 0
+
+	return new class {
+		update() {
+			if (maxRuns != 'infinite' && totalRuns >= maxRuns) {
+				onFinish()
+				this.removeFromLoop()
+			}
+			else if (stopWatch.moreThan(intervalMs)) {
+				action()
+				totalRuns += 1
+				stopWatch.restart()
 			}
 		}
-	}
 
-	draw(draw) {
-		// optional rendering stuff
+		draw(draw) {
+		}
 	}
 }
-

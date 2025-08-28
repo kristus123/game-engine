@@ -6,7 +6,7 @@ export class MonsterWave {
 			OnTrue(() => this.completed(), () => {
 				onCompleted()
 			}),
-			new Every(120, () => {
+			Every(120, () => {
 				new Monster(G.TileSheet.world.enemyWalkTiles,
 					() => {
 						this.killed += 1

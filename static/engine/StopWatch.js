@@ -4,6 +4,8 @@ export class StopWatch {
 		this.endTime = 0
 		this.running = false
 		this._elapsedTime = 0
+
+		this.start()
 	}
 
 	start() {
@@ -34,7 +36,7 @@ export class StopWatch {
 		return this
 	}
 
-	get time() {
+	get time() { // returns ms
 		if (this.running) {
 			return Date.now() - this.startTime
 		}
@@ -43,7 +45,15 @@ export class StopWatch {
 		}
 	}
 
-	get value() {
+	get ms() {
+		return this.time
+	}
+
+	moreThan(ms) {
+		return this.running && this.ms >= ms
+	}
+
+	get value() { // returns ms
 		return this.time // used in motion
 	}
 
