@@ -7,6 +7,12 @@
 
 export class Quest {
 	constructor(tasks=[], onQuestCompleted=() => {}) {
+		AssertArray(tasks)
+		for (const task of tasks) {
+			if (not.method(task)) {
+				throw new Error("Quest.js expects a list of arrow functions")
+			}
+		}
 
 		this.index = 0
 		this._setNewCurrentTask(tasks[this.index])

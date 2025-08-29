@@ -12,10 +12,17 @@ export class a {
 		}
 		else {
 			return false
-	  console.log('variable is NOT a number')
 		}
-
-
 	}
 
+	static method(arg) {
+		return typeof arg === 'function';
+	}
+
+	static list(arg) {
+		return Array.isArray(arg)
+	}
+
+
 }
+
