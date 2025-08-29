@@ -3,11 +3,8 @@ export class Html {
 		return this.dialog(children)
 	}
 
-
-	static _ui_elements = document.getElementById('ui_elements')
-
 	static addToScreen(element) {
-		this._ui_elements.appendChild(element)
+		document.getElementById('ui_elements').appendChild(element)
 		return element
 	}
 

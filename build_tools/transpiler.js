@@ -8,7 +8,6 @@ for (const jsFilePath of jsFiles) {
 	let fileContent = Files.read(jsFilePath)
 
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
-
 	fileContent = fileContent.replaceAll('OnChange(', 'new OnChange(')
 	fileContent = fileContent.replaceAll('OnTrue(', 'new OnTrue(')
 

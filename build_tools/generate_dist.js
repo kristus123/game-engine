@@ -3,6 +3,7 @@ const Files = require('./Files')
 require('./transpiler')
 require('./copy_asset_folder_to_dist')
 require('./generate_helper_classes')
+require('./verify_no_reserved_clashes')
 
 
 const allAsepritePaths = Files.at('static/assets/aseprite')
