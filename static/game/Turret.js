@@ -43,7 +43,7 @@ export class Turret extends DynamicGameObject {
 
 			tla(b)
 
-				Forces.push(b , this.target.position.center, { additive: false, magnitude: 10, multiplier: 400})
+			ForcePush(b).towards(this.target.position.center, 400)
 		}
 	}
 

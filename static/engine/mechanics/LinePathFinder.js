@@ -9,7 +9,7 @@ export class LinePathFinder {
 
 		EveryFrame(10, () => {
 			console.log('hey')
-			Forces.push(this.square, this.target, { additive: false, magnitude: 10, multiplier: 50})
+			ForcePush(this.square).towards(this.target, 100)
 		})
 
 

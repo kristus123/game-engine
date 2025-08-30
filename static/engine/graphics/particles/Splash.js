@@ -8,7 +8,7 @@ export class Splash {
 
 		Iterate(20, () => {
 			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
-			Forces.push(p, object, { multiplier: 15})
+			Push(p).towards(object, 15)
 
 			p.life = 200
 			p.color = Random.color()
@@ -27,7 +27,7 @@ export class Splash {
 				draw.rectangle(p, color)
 			}
 
-			Forces.push(p, Random.direction(object), {additive: false, multiplier: Random.integerBetween(1, 5)})
+			Push(p).towards(Random.direction(object), Random.integerBetween(1, 5))
 
 			p.life = 20
 			p.color = Random.color()
