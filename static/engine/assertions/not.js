@@ -1,5 +1,6 @@
 export class not {
-	method(arg) {
+
+	static method(arg) {
 		return !a.method(arg)
 	}
 }

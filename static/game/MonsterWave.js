@@ -10,7 +10,7 @@ export class MonsterWave {
 				new Monster(G.TileSheet.world.enemyWalkTiles,
 					() => {
 						this.killed += 1
-						Html.changeText(this.p, this.killed + '/' + this.maxEnemies)
+						this.p.changeText(this.killed + '/' + this.maxEnemies)
 					})
 			}, maxEnemies)
 		])

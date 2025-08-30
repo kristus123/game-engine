@@ -10,6 +10,9 @@ export class Jump {
 					this.maxDistance = distance
 					this.destination = destination
 				}
+				else {
+					Html.fadeaway("You need to jump further away", player)
+				}
 			}),
 		])
 	}

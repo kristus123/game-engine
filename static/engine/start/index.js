@@ -1,6 +1,7 @@
 export const index = ''
 
 Enhance_js_Array()
+Enhance_html()
 
 function loadAsepriteAssets(path) {
 

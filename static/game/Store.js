@@ -5,7 +5,6 @@ export class Store {
 		this.tileSheet = G.TileSheet.world,
 		this.localObjects = new LocalObjects([
 
-
 			OnTrue(() => Keyboard.e, () => {
 				if (Money.moreThan(20)) {
 					Sound.click()
@@ -23,8 +22,6 @@ export class Store {
 
 							Mouse.onClick = null
 						}
-
-
 					}
 				}
 			}),
@@ -40,10 +37,10 @@ export class Store {
 
 			OnChange(() => Money.amount, () => {
 				if (Money.lessThan(20)) {
-					Html.changeText(this.buyTurretText, 'need more money')
+					this.buyTurretText.changeText('need more money')
 				}
 				else {
-					Html.changeText(this.buyTurretText, 'buy turret x (press E)\'')
+					this.buyTurretText.changeText('buy turret x (press E)\'')
 				}
 			}),
 		])

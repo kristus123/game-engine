@@ -11,6 +11,11 @@ export class Position {
 		this._original = null // will be set on first scale()
 	}
 
+	// todo implement instead of using Camera.p
+	// ScreenPosition() {
+		
+	// }
+
 	get topLeft() {
 		return this.offset(-(this.width / 2), -(this.height / 2), 20, 20)
 	}
