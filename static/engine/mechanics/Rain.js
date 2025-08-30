@@ -6,7 +6,7 @@ export class Rain {
 			const rainDrop = new Square(Random.positionWithin(position), 1)
 
 			rainDrop.update = () => {
-				Push(rainDrop).towards(rainDrop.position.offset(0, 100), 0.1)
+				Forces.push(rainDrop, rainDrop.position.offset(0, 100), { additive: true, multiplier:  0.1})
 				setTimeout(() => {
 					this.localObjects.remove(rainDrop)
 				}, 8_000)

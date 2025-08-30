@@ -26,7 +26,7 @@ export class Jump {
 
 	update() {
 		if (this.destination && !this.arrived) {
-			ForcePush(this.player).towards(this.destination, 400)
+			Forces.push(this.player, this.destination, { additive: false, magnitude: 10, multiplier: 400})
 
 			if (this.player.touches(this.destination) && this.scale < 2) {
 				this.onArrival(this.destination)
