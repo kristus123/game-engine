@@ -1,6 +1,5 @@
 export function Enhance_js_Array() {
 
-
 	Enhance(Array, 'remove', function (object) {
 		const index = this.indexOf(object)
 		if (index !== -1) {
@@ -89,6 +88,5 @@ export function Enhance_js_Array() {
 			}
 		}
 	})
-
 
 }
