@@ -66,8 +66,42 @@ export class DynamicGameObject extends _GameObject {
 		this.velocity.y *= multiplier
 	}
 
-	moveTowards(x, speedMultiplier=1) {
-		Move(this).towards(x, speedMultiplier)
+    // Move class refactor functions
+    moveAwayFrom(o, speedMultiplier=1) {
+		Move(this).awayFrom(o, speedMultiplier)
 	}
 
+	moveTowards(o, speedMultiplier=1) {
+		Move(this).towards(o, speedMultiplier)
+	}
+
+    moveTo(o, speedMultiplier=1) {
+        Move(this).towards(o, speedMultiplier)
+    }
+
+    // Push class refactor functions
+    pushAwayFrom(o, speedMultiplier=1) {
+        Push(this).awayFrom(o, speedMultiplier)
+    }
+
+    pushTowards(o, speedMultiplier=1) {
+		Push(this).towards(o, speedMultiplier)
+	}
+    
+    // ForcePush class refactor functions
+    forcePushAwayFrom(o, speedMultiplier=1) {
+        ForcePush(this).awayFrom(o, speedMultiplier)
+    }
+    
+    forcePushTowards(o, speedMultiplier=1) {
+        ForcePush(this).towards(o, speedMultiplier)
+    }
+
+    forcePushRandomly(o, speedMultiplier=1) {
+        ForcePush(this).randomly(o, speedMultiplier)
+    }
+
+    forcePushRoughlyTowards(o, speedMultiplier=1) {
+        ForcePush(this).roughlyTowards(o, speedMultiplier)
+    }
 }
