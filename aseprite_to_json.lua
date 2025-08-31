@@ -131,7 +131,6 @@ end
 
 local json_parts = {}
 table.insert(json_parts, "{")
-table.insert(json_parts, string.format('  "sprite": "%s",', json_escape(sprite.filename or "")))
 table.insert(json_parts, '  "tilemaps": [')
 
 for i, tilemap in ipairs(all_tilemaps) do
