@@ -44,9 +44,3 @@ then open [http://localhost:5000]()
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
-
-
-## visual bug
-
-the strange line which looks unpleasent is all ebcaseu stuff are moved at not 'pixel perfect' aka positions are 1.23812837 and not 1
-so just make påositions not move in decimals
