@@ -16,7 +16,7 @@ export class a {
 	}
 
 	static method(arg) {
-		return typeof arg === 'function';
+		return typeof arg === 'function'
 	}
 
 	static list(arg) {

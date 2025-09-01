@@ -13,7 +13,7 @@ export class Position {
 
 	// todo implement instead of using Camera.p
 	// ScreenPosition() {
-		
+
 	// }
 
 	get topLeft() {

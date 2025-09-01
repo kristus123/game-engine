@@ -84,12 +84,12 @@ export class Camera {
 		this.smoothPosition.smooth_y.currentValue = o.y
 	}
 
-static p(p) {
-	return new Position(
-		(p.x - this.position.x) * this.zoom + this.offset.x,
-		(p.y - this.position.y) * this.zoom + this.offset.y
-	);
-}
+	static p(p) {
+		return new Position(
+			(p.x - this.position.x) * this.zoom + this.offset.x,
+			(p.y - this.position.y) * this.zoom + this.offset.y
+		)
+	}
 
 	static coverObject(position) {
 		const objRatio = position.width / position.height
