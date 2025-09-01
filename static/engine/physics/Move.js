@@ -12,7 +12,7 @@ export const Move = (o) => ({
 		o.y += Math.sin(dir) * 10 * multiplier
 	},
 
-	 to: (position, degreesOffset, multiplier = 1) => {
+	to: (position, degreesOffset, multiplier = 1) => {
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 		const offsetDir = dir + (degreesOffset * Math.PI / 180) // Apply the offset in radians
 		o.x += Math.cos(offsetDir) * 10 * multiplier
