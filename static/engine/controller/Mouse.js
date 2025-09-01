@@ -1,8 +1,9 @@
 export class Mouse {
-	static position = new Position(0, 0)
-	static screenPosition = new Position(0, 0)
 
 	static initialize() {
+
+		this.position = new Position(0, 0)
+		this.screenPosition = new Position(0, 0)
 
 		this.disabled = false
 
