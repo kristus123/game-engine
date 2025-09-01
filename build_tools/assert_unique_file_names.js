@@ -17,7 +17,7 @@ function extractDuplicates(arr) {
 
 const duplicates = extractDuplicates(exportedNames)
 
-if (duplicates) {
+if (duplicates.length != 0) {
 	throw new Error(`${duplicates}: we do not allow duplicate naming`)
 	// maybe we change this in the future. it is a little strict
 	// but currently this is what the engine expects
