@@ -49,7 +49,7 @@ export function Enhance_js_Array() {
 
 
 	Enhance(Array, 'empty', function () {
-		return this == null || this.length == 0
+		return this.length == 0
 	})
 
 
