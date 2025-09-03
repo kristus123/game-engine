@@ -22,11 +22,7 @@ export class Grid {
 			}
 		}
 
-		this.localObjects = new LocalObjects([
-			OnChange(() => position.x + position.y, () => {
-
-			}),
-		])
+		this.placedShapes = []
 	}
 
 	snappedPosition(position) {
@@ -46,6 +42,24 @@ export class Grid {
 		for (const pos of this.positions) {
 			draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
 		}
+
+
+		for (const s of this.placedShapes) {
+			draw.rectangle(s)
+		}
+
+		if (Mouse.down) {
+			const shape = this.snappedPosition(Mouse.position)
+
+			for (const s of this.placedShapes) {
+				if (Collision.between(s, shape)) {
+					return false
+				}
+			}
+
+			this.placedShapes.push(shape)
+		}
+
 	}
 }
 
