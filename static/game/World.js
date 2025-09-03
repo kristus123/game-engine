@@ -10,7 +10,8 @@ export class World {
 		this.localObjects = new LocalObjects([
 			G.Sprite.world(new Position(0, 0)).idle.show(0),
 			G.player,
-			new Grid(G.player),
+			new DisplayGrid(G.player),
+			new Grid(),
 
 
 			new Quest(Iterate(100, i =>
