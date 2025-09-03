@@ -1,5 +1,5 @@
 // used for Quest.js
-//
+
 export class Wait {
 
 	constructor(ms, onStart=() => {}) {
