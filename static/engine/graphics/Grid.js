@@ -22,7 +22,7 @@ export class Grid {
 			}
 		}
 
-		this.placedShapes = []
+		this.placedPositions = []
 	}
 
 	snappedPosition(position) {
@@ -43,21 +43,20 @@ export class Grid {
 			draw.ctx.strokeRect(pos.x, pos.y, this.cellWidth, this.cellHeight)
 		}
 
-
-		for (const s of this.placedShapes) {
+		for (const s of this.placedPositions) {
 			draw.rectangle(s)
 		}
 
 		if (Mouse.down) {
 			const shape = this.snappedPosition(Mouse.position)
 
-			for (const s of this.placedShapes) {
+			for (const s of this.placedPositions) {
 				if (Collision.between(s, shape)) {
 					return false
 				}
 			}
 
-			this.placedShapes.push(shape)
+			this.placedPositions.push(shape)
 		}
 
 	}
