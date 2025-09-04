@@ -20,6 +20,7 @@ export class Keyboard {
 			}
 			else if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = true
+				this.w = true
 			}
 			else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
 				this.down = true
@@ -50,6 +51,7 @@ export class Keyboard {
 		document.addEventListener('keyup', e => {
 			if (e.code === 'ArrowUp' || e.code === 'KeyW') {
 				this.up = false
+				this.w = false
 			}
 			else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
 				this.down = false

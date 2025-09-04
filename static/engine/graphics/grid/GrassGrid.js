@@ -24,9 +24,16 @@ export class GrassGrid {
 				D1.text(snappedPosition, 'full')
 			}
 			else {
-				this.grid.add(Mouse.position)
-				this.grassPalette.draw.picture(snappedPosition, G.image.grassTile)
-				Sound.placeDirt()
+				if (G.tile) {
+					this.grid.add(Mouse.position)
+					Sound.placeDirt()
+					if (G.tile == 'water') {
+						this.grassPalette.draw.picture(snappedPosition, G.image.waterTile)
+					}
+					else {
+						this.grassPalette.draw.picture(snappedPosition, G.image.grassTile)
+					}
+				}
 			}
 		}
 		else if (Mouse.rightDown) {

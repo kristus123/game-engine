@@ -3,13 +3,20 @@ export class World {
 		this.localObjects = new LocalObjects([
 			// G.Sprite.world(new Position(0, 0)).idle.show(0),
 			new GrassGrid(),
+
+			OnTrue(() => Keyboard.q, () => {
+				this.p.changeText('dirt')
+				G.tile = 'dirt'
+			}),
+			OnTrue(() => Keyboard.w, () => {
+				this.p.changeText('water')
+				G.tile = 'water'
+			}),
 		])
 
-
 		Html.lower([
-				Html.button('hei'),
 				Html.div('big', [
-					Html.p('hei'),
+					this.p = Html.p('hei'),
 				]),
 		])
 	}
