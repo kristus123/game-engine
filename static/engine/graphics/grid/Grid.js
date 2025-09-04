@@ -1,9 +1,9 @@
 export class Grid {
-	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
-		this.tiles = new Set()
+	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 8*Scale.value, cellHeight = 16*Scale.value) {
+		this.gridPositions = new GridPositions()
 	}
 
-	gridPosition(position) {
+	toGridPosition(position) {
 		return {
 			x: Math.floor(position.x / this.cellWidth),
 			y: Math.floor(position.y / this.cellHeight),
@@ -11,48 +11,49 @@ export class Grid {
 	}
 
 	snappedPosition(position) {
-		const gp = this.gridPosition(position)
+		const gp = this.toGridPosition(position)
+		return this.scaled(gp)
+	}
+
+	add(position) {
+		const gp = this.toGridPosition(position)
+		this.gridPositions.set(gp)
+	}
+
+	has(gridPosition) {
+		return this.gridPositions.has(gridPosition)
+	}
+
+	scaled(gridPosition) {
 		return new Position(
-			gp.x * this.cellWidth,
-			gp.y * this.cellHeight,
-			this.cellWidth,
-			this.cellHeight
-		)
-	}
-
-	addTileAt(position) {
-		const gp = this.gridPosition(position)
-		this.tiles.add(`${gp.x},${gp.y}`)
-	}
-
-	hasTileAt(gp) {
-		return this.tiles.has(`${gp.x},${gp.y}`)
+			gridPosition.x * this.cellWidth, 
+			gridPosition.y * this.cellHeight, 
+			this.cellWidth, 
+			this.cellHeight)
 	}
 
 	scaledTiles() {
 		const result = []
-		for (const key of this.tiles) {
-			const [x, y] = key.split(',').map(Number)
-			result.push(new Position(x * this.cellWidth, y * this.cellHeight, this.cellWidth, this.cellHeight))
-		}
+
+		this.gridPositions.forEach(gp => {
+			result.push(this.scaled(gp))
+		})
+
 		return result
+
 	}
 
 	draw(draw) {
-		const gp = this.gridPosition(Mouse.position)
-		const p = this.snappedPosition(Mouse.position)
+		const gridPosition = this.toGridPosition(Mouse.position)
 
-		draw.transparentGreenRectangle(p)
+		const snappedPosition = this.snappedPosition(Mouse.position)
 
-		if (this.hasTileAt(gp)) {
-			draw.text(p, 'full')
+		draw.transparentGreenRectangle(snappedPosition)
 
-			if (Mouse.down) {
-				draw.text(p, 'cant place here')
-			}
-
+		if (this.has(gridPosition)) {
+			draw.text(snappedPosition, 'full')
 		} else if (Mouse.down) {
-			this.addTileAt(Mouse.position)
+			this.add(Mouse.position)
 		}
 
 		for (const tile of this.scaledTiles()) {
