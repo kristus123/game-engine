@@ -1,5 +1,5 @@
 export class Grid {
-	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 8*Scale.value, cellHeight = 16*Scale.value) {
+	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
 		this.gridPositions = new GridPositions()
 	}
 
