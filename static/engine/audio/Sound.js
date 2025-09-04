@@ -2,10 +2,15 @@ export class Sound {
 
 	static init() {
 		this._click = new AudioEngine(G.Audio.click)
+		this._placeDirt = new AudioEngine(G.Audio.placeDirt)
 	}
 
 	static click() {
 		this._click.play()
+	}
+
+	static placeDirt() {
+		this._placeDirt.play()
 	}
 
 	static get nya() {

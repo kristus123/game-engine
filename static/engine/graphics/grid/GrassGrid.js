@@ -26,6 +26,7 @@ export class GrassGrid {
 			else {
 				this.grid.add(Mouse.position)
 				this.grassPalette.draw.picture(snappedPosition, G.image.grassTile)
+				Sound.placeDirt()
 			}
 		}
 		else if (Mouse.rightDown) {
