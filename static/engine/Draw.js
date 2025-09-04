@@ -123,13 +123,6 @@ export class Draw {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 
-		this.ctx.strokeStyle = color
-		this.ctx.lineWidth = 4
-		this.ctx.strokeRect(position.x, position.y, position.width, position.height)
-
-		// this.ctx.shadowColor = "red"; // Glow color
-		// this.ctx.shadowBlur = 200; // Blur amount
-
 		this.ctx.fillStyle = 'white'
 		this.ctx.font = '25px Arial'
 	}
