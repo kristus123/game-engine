@@ -18,7 +18,6 @@ export class Mouse {
 		this.rightDown = false
 
 		this.moving = false
-		this.lastPositionBeforeMoving = new Position(0, 0)
 		this.timeSinceLastClick = 0
 
 		// Prevent right click to open menu
@@ -60,9 +59,9 @@ export class Mouse {
 			}
 			else {
 				if (e.button == 0) { // Left click
-						this.down = true
-						this.up = false
-						this.downStopWatch.start()
+					this.down = true
+					this.up = false
+					this.downStopWatch.start()
 				}
 				else if (e.button == 2) { // Right click
 					this.rightDown = true
@@ -127,11 +126,13 @@ export class Mouse {
 	}
 
 	static initializeAfterCameraIsInitialized() {
-		document.addEventListener('mousemove', (e) => {
-			Mouse.positionRelativeToCamera(e.clientX, e.clientY)
+
+		document.addEventListener('pointermove', e => {
+			for (const ev of e.getCoalescedEvents()) {
+				Mouse.positionRelativeToCamera(ev.clientX, ev.clientY)
+			}
+
 			this.moving = true
-			this.lastPositionBeforeMoving.x = this.position.x
-			this.lastPositionBeforeMoving.y = this.position.y
 
 			setTimeout(() => {
 				this.moving = false
