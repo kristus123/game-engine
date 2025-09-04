@@ -1,5 +1,7 @@
 export const index = ''
 
+HotReload()
+
 Enhance_js_Array()
 Enhance_html()
 
@@ -52,7 +54,6 @@ function loadAsepriteTilemaps(path) {
 	}
 }
 
-
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)).then(() => Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps))),
 	loadAllAudio(),
@@ -65,7 +66,6 @@ Promise.all([
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
-		HotReload()
 
 		const draw = new Draw(Camera.palette.ctx)
 
