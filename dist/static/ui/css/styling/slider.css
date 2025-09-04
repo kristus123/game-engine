@@ -1,0 +1,27 @@
+input[type="range"] {
+  width: 700px; /* Adjust width */
+  height: 20px; /* Adjust track height */
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  background: #ddd; /* Track color */
+  border-radius: 5px;
+  margin:20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px; /* Thumb size */
+  height: 50px;
+  background: #007bff; /* Thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}

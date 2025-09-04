@@ -1,0 +1,19 @@
+{ "frames": {
+   "Layer_0_idle": {
+    "frame": { "x": 0, "y": 0, "w": 1245, "h": 990 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1245, "h": 990 },
+    "sourceSize": { "w": 1245, "h": 990 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.14.2-dev",
+  "image": "pokemonCityLayers.png",
+  "format": "RGBA8888",
+  "size": { "w": 1245, "h": 990 },
+  "scale": "1"
+ }
+}

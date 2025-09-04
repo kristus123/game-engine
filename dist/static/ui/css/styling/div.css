@@ -1,0 +1,49 @@
+div {
+ box-sizing: border-box;
+}
+
+
+#ui_elements > div.right-center-ui > div > div {
+    max-height: 800px;
+}
+
+
+div.movable {
+	overflow: visible;
+}
+
+
+div.big {
+	overflow-y: auto; 
+
+	min-width:100px;
+	padding:20px;
+	background-color: #F2F2F2;
+	border-radius: 70px;
+
+	  place-items: center; /* shorthand for justify-content and align-items */
+
+    background-color: #fefcf6; /* off-white like paper */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* subtle depth */
+
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+
+.big button {
+	background-color: orange; 
+}
+
+
+.big.movable:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.big.movable.dragging {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+

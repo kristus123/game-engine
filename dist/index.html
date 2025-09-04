@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<style>
+			.fade-away {
+  animation: fadeOutOpacity 1.0s forwards;
+}
+
+@keyframes fadeOutOpacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 2s ease-in forwards;
+}
+
+p {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 24px;
+  animation: typing 1s steps(22);
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 80% }
+}
+
+button {
+	font-size: 20px;
+	padding: 30px 50px; 
+	border-radius: 50px;
+	background-color: #007bff; 
+	color: #fff; 
+}
+
+button:hover {
+	background-color: green;
+}
+
+button:disabled {
+  background-color: gray;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.6;
+  cursor: default; /* Change to whatever you prefer */
+}
+
+button:disabled:hover {
+  background-color: darkgray; /* Slight change on hover */
+}
+
+.death {
+	position:fixed;
+	top:50%; left:0; transform:translateY(-50%);
+	width:100%; height:120px;
+	background:rgba(0,0,0,0.9);
+	color:#a00;
+	font-size:5rem;
+	pointer-events: none; /* click through */
+	display:flex; 
+	justify-content:center;
+	align-items:center;
+	opacity:0;
+	transition:opacity 0.3s;
+}
+
+.death.show {
+	opacity:1;
+}
+
+dialog {
+  background: transparent;
+border: none;
+  box-shadow: none;
+	/* border-radius: 8px; */
+	/* padding: 20px; */
+	/* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+	/* background: transparent; */
+
+	/* width:90%; */
+	/* height:50%; */
+	max-width:80%;
+	min-width:50%;
+}
+
+
+dialog > div {
+	padding:100px;
+    border: none;
+  background-color: white;
+}
+
+
+.close {
+	cursor: pointer;
+	font-size: 20px;
+	float: right;
+}
+
+dialog::backdrop {
+  opacity: 0.95;
+  background-color: transparent;
+  box-shadow: none;
+    border: none;
+backdrop-filter: blur(20px);
+}
+
+div {
+ box-sizing: border-box;
+}
+
+
+#ui_elements > div.right-center-ui > div > div {
+    max-height: 800px;
+}
+
+
+div.movable {
+	overflow: visible;
+}
+
+
+div.big {
+	overflow-y: auto; 
+
+	min-width:100px;
+	padding:20px;
+	background-color: #F2F2F2;
+	border-radius: 70px;
+
+	  place-items: center; /* shorthand for justify-content and align-items */
+
+    background-color: #fefcf6; /* off-white like paper */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* subtle depth */
+
+
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+
+.big button {
+	background-color: orange; 
+}
+
+
+.big.movable:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.big.movable.dragging {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+
+img {
+	width:180px;
+}
+
+  input[type="text"] {
+    width: 280px;
+    padding: 14px 18px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  input[type="text"]:focus {
+    border-color: #6c63ff;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+  }
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	height: 100vh;
+	overflow: hidden; /* Prevent scrollbars */
+}
+
+canvas {
+	display: block; /* Remove default spacing */
+}
+
+.container {
+	width: 90vw;
+	height: 90vh;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.top,
+.bottom {
+	white-space: nowrap;
+	/*width: 100%;*/
+	/*height: 150px;*/
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	overflow-x: auto;
+	gap: 10px;
+}
+
+.right,
+.left {
+	display: block;
+	/* display: flex; */
+	margin: 10px 0;
+	overflow-y: auto;
+	min-width: 120px;
+	/* height: 100%; */
+	/* height: calc(100% - 200px); */
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+  flex-direction: row; /* Stack divs vertically */
+	flex-wrap: wrap;
+}
+
+.right {
+    right: 20px;
+}
+
+.left {
+    left: 20px;
+}
+
+.item {
+    min-width: 100px;
+    min-height: 100px;
+    /* background: indianred; */
+    margin: 10px 0;
+}
+
+.progress-container {
+	background-color: white;
+	border-radius: 10px;
+	overflow: hidden;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.progress-bar {
+	width: 0%; /* Initially 0% */
+	height: 100%;
+	background-color: #4caf50;
+	text-align: center;
+	line-height: 20px;
+	color: white;
+	font-weight: bold;
+	transition: width 0.5s ease-in-out;
+}
+
+.right-click-menu {
+	background-color: black;
+	min-width: 200px;
+	min-height: 400px;
+}
+.sub-menu {
+	background-color: black;
+	min-width: 200px;
+	min-height: fit-content;
+	position: absolute;
+	transform: translateX(100%);
+	margin-left: -20px																																																																																																		;
+	top:0;
+	
+}
+.right-click-element {
+	min-width: 200px;
+	min-height: 20px;
+
+	padding: 20px;
+	background-color: gray;
+}
+
+.right-click-element:hover {
+	background-color: green;
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+    width: 40px;   /* vertical scrollbar */
+    height: 40px;  /* horizontal scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background: #f2f2f2;
+    border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: orange;
+    border-radius: 20px;
+    border: 4px solid #f2f2f2;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: darkorange;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: auto; /* "thin" or "auto" */
+    scrollbar-color: orange #f2f2f2;
+}
+
+input[type="range"] {
+  width: 700px; /* Adjust width */
+  height: 20px; /* Adjust track height */
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  background: #ddd; /* Track color */
+  border-radius: 5px;
+  margin:20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px; /* Thumb size */
+  height: 50px;
+  background: #007bff; /* Thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  background: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+
+
+/* make text not "markable" */
+html, body, * {
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;         /* Standard */
+  -webkit-user-drag: none;
+}
+
+
+
+
+
+body {
+	font-family: 'VT323', monospace;
+}
+
+h1, h2, h3, h4, p {
+	font-family: 'VT323', monospace;
+}
+
+
+h1 {
+	font-size: 80px;
+	font-family: 'VT323', monospace;
+}
+
+p {
+	color: white;
+	font-size: 30px;
+	color:black;
+}
+
+
+.pokemon-text {
+	width: 50%;
+	background-color: white;
+	color: black;
+	text-align: center;
+	padding: 20px;
+	font-size: 60px;
+	border: 2px solid black;
+	margin:10px;
+}
+
+.crossed {
+	color: grey;
+	text-decoration: line-through;
+}
+
+
+.ui {
+	position: absolute;
+	top: 0; 
+	left: 0;
+
+	border: none; 
+	cursor: auto;
+}
+
+.fill-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  flex-direction: column;  /* stack children vertically */
+  text-align: center;      /* optional for text */
+}
+
+.center-ui {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.lower-center-ui {
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width:90%;
+}
+
+.upper-center-ui {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	width:90%;
+}
+
+.shoulder-to-shoulder {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+
+
+.upper-left-ui {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: white;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.upper-right-ui {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: auto; /* override .ui left: 0 */
+  width: auto; /* prevent full width */
+  
+  background-color: white;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+
+
+.left-center-ui {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+.right-center-ui {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+video {
+	max-width:100px;
+	max-height:100px;
+}
+
+#videocallrtc{
+	position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+#videocallrtc > div{
+    width: 100px;
+    border-radius: 10px;
+    overflow:hidden;
+}
+#videocallrtc > div > video{
+    width: 100px;
+    border-radius: 10px;
+}
+
+#videocallrtc > div> h3{
+    position: absolute;
+    top: 0;
+    float: right;
+    color: transparent;
+    text-align: center;
+    width: 100px;
+    min-height: 100%;
+    margin: 0;
+}
+#videocallrtc > div> h3:hover{
+    color: white;
+    background-color: #111111dd;
+}
+.GuestVideo{
+}
+
+		</style>
+	</head>
+	<body>
+		<div id="all_script_imports">
+			<script type="module" src="static/engine/Calculate.js"></script>
+<script type="module" src="static/engine/DeltaTime.js"></script>
+<script type="module" src="static/engine/Distance.js"></script>
+<script type="module" src="static/engine/Draw.js"></script>
+<script type="module" src="static/engine/G.js"></script>
+<script type="module" src="static/engine/Hp.js"></script>
+<script type="module" src="static/engine/InfiniteListLooper.js"></script>
+<script type="module" src="static/engine/Init.js"></script>
+<script type="module" src="static/engine/Iterate.js"></script>
+<script type="module" src="static/engine/Level.js"></script>
+<script type="module" src="static/engine/ListLooper.js"></script>
+<script type="module" src="static/engine/Loop.js"></script>
+<script type="module" src="static/engine/MinCap.js"></script>
+<script type="module" src="static/engine/PictureInPicture.js"></script>
+<script type="module" src="static/engine/Random.js"></script>
+<script type="module" src="static/engine/Sleep.js"></script>
+<script type="module" src="static/engine/SpinningAroundPosition.js"></script>
+<script type="module" src="static/engine/StopWatch.js"></script>
+<script type="module" src="static/engine/Thread.js"></script>
+<script type="module" src="static/engine/Wait.js"></script>
+<script type="module" src="static/engine/animation/Bounce.js"></script>
+<script type="module" src="static/engine/animation/Curve.js"></script>
+<script type="module" src="static/engine/animation/Easing.js"></script>
+<script type="module" src="static/engine/animation/Easings.js"></script>
+<script type="module" src="static/engine/animation/ExponentialNumber.js"></script>
+<script type="module" src="static/engine/animation/InverseExponentialNumber.js"></script>
+<script type="module" src="static/engine/animation/Motion.js"></script>
+<script type="module" src="static/engine/animation/Normalize.js"></script>
+<script type="module" src="static/engine/animation/PingPong.js"></script>
+<script type="module" src="static/engine/animation/Sine.js"></script>
+<script type="module" src="static/engine/animation/XMotion.js"></script>
+<script type="module" src="static/engine/aseprite/AsepriteJson.js"></script>
+<script type="module" src="static/engine/aseprite/AsepriteLayerJson.js"></script>
+<script type="module" src="static/engine/assertions/AnArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertNoNullInArray.js"></script>
+<script type="module" src="static/engine/assertions/AssertNotNull.js"></script>
+<script type="module" src="static/engine/assertions/NotArray.js"></script>
+<script type="module" src="static/engine/assertions/a.js"></script>
+<script type="module" src="static/engine/assertions/not.js"></script>
+<script type="module" src="static/engine/audio/AudioContext.js"></script>
+<script type="module" src="static/engine/audio/AudioEngine.js"></script>
+<script type="module" src="static/engine/audio/AudioSheet.js"></script>
+<script type="module" src="static/engine/audio/Sound.js"></script>
+<script type="module" src="static/engine/camera/Anchor.js"></script>
+<script type="module" src="static/engine/camera/Camera.js"></script>
+<script type="module" src="static/engine/camera/LowLevelCamera.js"></script>
+<script type="module" src="static/engine/canvas/CanvasRenderer.js"></script>
+<script type="module" src="static/engine/controller/Controller.js"></script>
+<script type="module" src="static/engine/controller/Mouse.js"></script>
+<script type="module" src="static/engine/controller/keyboard/Keyboard.js"></script>
+<script type="module" src="static/engine/controller/mouse/ClickEvents.js"></script>
+<script type="module" src="static/engine/enhance/Enhance.js"></script>
+<script type="module" src="static/engine/enhance/Enhance_html.js"></script>
+<script type="module" src="static/engine/enhance/Enhance_js_Array.js"></script>
+<script type="module" src="static/engine/graphics/HeightMap.js"></script>
+<script type="module" src="static/engine/graphics/Noise.js"></script>
+<script type="module" src="static/engine/graphics/Parallax.js"></script>
+<script type="module" src="static/engine/graphics/ParallaxTest.js"></script>
+<script type="module" src="static/engine/graphics/Particle.js"></script>
+<script type="module" src="static/engine/graphics/SimplexNoise.js"></script>
+<script type="module" src="static/engine/graphics/SpinningPicture.js"></script>
+<script type="module" src="static/engine/graphics/Square.js"></script>
+<script type="module" src="static/engine/graphics/grid/GrassGrid.js"></script>
+<script type="module" src="static/engine/graphics/grid/Grid.js"></script>
+<script type="module" src="static/engine/graphics/grid/GridPositions.js"></script>
+<script type="module" src="static/engine/graphics/particles/Splash.js"></script>
+<script type="module" src="static/engine/graphics/particles/Water.js"></script>
+<script type="module" src="static/engine/graphics/sprite/Sprite.js"></script>
+<script type="module" src="static/engine/graphics/sprite/SpriteLayers.js"></script>
+<script type="module" src="static/engine/html/Html.js"></script>
+<script type="module" src="static/engine/html/HtmlElement.js"></script>
+<script type="module" src="static/engine/html/HtmlProgressBar.js"></script>
+<script type="module" src="static/engine/html/HtmlVideo.js"></script>
+<script type="module" src="static/engine/html/MovableElement.js"></script>
+<script type="module" src="static/engine/local_objects/Update.js"></script>
+<script type="module" src="static/engine/logging/ShowLogs.js"></script>
+<script type="module" src="static/engine/mechanics/Blur.js"></script>
+<script type="module" src="static/engine/mechanics/Charge.js"></script>
+<script type="module" src="static/engine/mechanics/FollowPlayerNoise.js"></script>
+<script type="module" src="static/engine/mechanics/GridPathFinder.js"></script>
+<script type="module" src="static/engine/mechanics/LinePathFinder.js"></script>
+<script type="module" src="static/engine/mechanics/PathFinder.js"></script>
+<script type="module" src="static/engine/mechanics/Rain.js"></script>
+<script type="module" src="static/engine/mechanics/StraightPath.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/BackspaceEffect.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/Dialogue.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/MultiTextTyper.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/TextTyper.js"></script>
+<script type="module" src="static/engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js"></script>
+<script type="module" src="static/engine/mechanics/invisible_walls/InvisibleWalls.js"></script>
+<script type="module" src="static/engine/mechanics/invisible_walls/WalkableAreas.js"></script>
+<script type="module" src="static/engine/mechanics/quest/Quest.js"></script>
+<script type="module" src="static/engine/mechanics/quest/QuestList.js"></script>
+<script type="module" src="static/engine/mechanics/quest/Task.js"></script>
+<script type="module" src="static/engine/multiplayer/socket/OnlineObjects.js"></script>
+<script type="module" src="static/engine/multiplayer/socket/OnlinePlayers.js"></script>
+<script type="module" src="static/engine/multiplayer/socket/SocketClient.js"></script>
+<script type="module" src="static/engine/multiplayer/socket/VideoCall.js"></script>
+<script type="module" src="static/engine/npc/Path.js"></script>
+<script type="module" src="static/engine/objects/AllObjects.js"></script>
+<script type="module" src="static/engine/objects/DynamicGameObject.js"></script>
+<script type="module" src="static/engine/objects/HelperThing.js"></script>
+<script type="module" src="static/engine/objects/LocalObjects.js"></script>
+<script type="module" src="static/engine/objects/Registry.js"></script>
+<script type="module" src="static/engine/objects/StaticGameObject.js"></script>
+<script type="module" src="static/engine/objects/Velocity.js"></script>
+<script type="module" src="static/engine/objects/_GameObject.js"></script>
+<script type="module" src="static/engine/on/After.js"></script>
+<script type="module" src="static/engine/on/DoWhile.js"></script>
+<script type="module" src="static/engine/on/Every.js"></script>
+<script type="module" src="static/engine/on/EveryFrame.js"></script>
+<script type="module" src="static/engine/on/IsFrame.js"></script>
+<script type="module" src="static/engine/on/OnChange.js"></script>
+<script type="module" src="static/engine/on/OnTrue.js"></script>
+<script type="module" src="static/engine/os/Microphone.js"></script>
+<script type="module" src="static/engine/palette/Palette.js"></script>
+<script type="module" src="static/engine/physics/Collision.js"></script>
+<script type="module" src="static/engine/physics/ForcePush.js"></script>
+<script type="module" src="static/engine/physics/Move.js"></script>
+<script type="module" src="static/engine/physics/Physics.js"></script>
+<script type="module" src="static/engine/physics/Push.js"></script>
+<script type="module" src="static/engine/position/AnalShit.js"></script>
+<script type="module" src="static/engine/position/CenterPosition.js"></script>
+<script type="module" src="static/engine/position/GuiPosition.js"></script>
+<script type="module" src="static/engine/position/OffsetPosition.js"></script>
+<script type="module" src="static/engine/position/Position.js"></script>
+<script type="module" src="static/engine/position/Positions.js"></script>
+<script type="module" src="static/engine/position/ScreenPosition.js"></script>
+<script type="module" src="static/engine/position/smooth/SmoothPosition.js"></script>
+<script type="module" src="static/engine/position/smooth/SmoothValue.js"></script>
+<script type="module" src="static/engine/start/AsepriteTilesJson.js"></script>
+<script type="module" src="static/engine/start/D1.js"></script>
+<script type="module" src="static/engine/start/HotReload.js"></script>
+<script type="module" src="static/engine/start/LoadAudio.js"></script>
+<script type="module" src="static/engine/start/LoadImage.js"></script>
+<script type="module" src="static/engine/start/LoadJson.js"></script>
+<script type="module" src="static/engine/start/index.js"></script>
+<script type="module" src="static/engine/tools/Call.js"></script>
+<script type="module" src="static/game/Ally.js"></script>
+<script type="module" src="static/game/BottomText.js"></script>
+<script type="module" src="static/game/DeathText.js"></script>
+<script type="module" src="static/game/Link.js"></script>
+<script type="module" src="static/game/Money.js"></script>
+<script type="module" src="static/game/Monster.js"></script>
+<script type="module" src="static/game/MonsterWave.js"></script>
+<script type="module" src="static/game/Npc.js"></script>
+<script type="module" src="static/game/PicturePositions.js"></script>
+<script type="module" src="static/game/Poop.js"></script>
+<script type="module" src="static/game/Scale.js"></script>
+<script type="module" src="static/game/Shake.js"></script>
+<script type="module" src="static/game/Store.js"></script>
+<script type="module" src="static/game/Turret.js"></script>
+<script type="module" src="static/game/TurretNeeds.js"></script>
+<script type="module" src="static/game/Waves.js"></script>
+<script type="module" src="static/game/World.js"></script>
+<script type="module" src="static/game/player/Jump.js"></script>
+<script type="module" src="static/game/player/Player.js"></script>
+<script type="module" src="static/game/tiles/SingleTile.js"></script>
+<script type="module" src="static/game/tiles/TileSheet.js"></script>
+		</div>
+
+		<div id="canvases">
+		</div>
+
+		<div id="ui_elements">
+		</div>
+	</body>
+</html>
