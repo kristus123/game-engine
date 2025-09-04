@@ -21,6 +21,14 @@ export class Mouse {
 		this.lastPositionBeforeMoving = new Position(0, 0)
 		this.timeSinceLastClick = 0
 
+		// Prevent right click to open menu
+		// document.addEventListener('contextmenu', event => event.preventDefault())
+
+		this.clickEvents = new ClickEvents()
+
+		this.holding = null
+		this.hoveringHtmlElement = false
+
 		document.addEventListener('wheel', e => {
 			let delta = Math.sign(e.deltaY)
 
@@ -43,14 +51,23 @@ export class Mouse {
 				return
 			}
 
-			if (e.button == 0) { // Left click
-				this.down = true
-				this.up = false
-				this.downStopWatch.start()
+			if (this.hoveringHtmlElement) {
+				this.down = false
+				this.up = true
+
+				this.rightDown = false
+				this.rightUp = true
 			}
-			else if (e.button == 2) { // Right click
-				this.rightDown = true
-				this.rightUp = false
+			else {
+				if (e.button == 0) { // Left click
+						this.down = true
+						this.up = false
+						this.downStopWatch.start()
+				}
+				else if (e.button == 2) { // Right click
+					this.rightDown = true
+					this.rightUp = false
+				}
 			}
 		})
 
@@ -95,14 +112,6 @@ export class Mouse {
 			}
 
 		})
-
-		// Prevent right click to open menu
-		// document.addEventListener('contextmenu', event => event.preventDefault())
-
-		this.clickEvents = new ClickEvents()
-
-		this.holding = null
-		this.hoveringHtmlElement = false
 	}
 
 	static downForLongerThan(ms) {

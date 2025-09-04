@@ -1,5 +1,7 @@
 div {
  box-sizing: border-box;
+ pointer-events: none; /* allow clicks to pass through */
+ 
 }
 
 
@@ -14,6 +16,7 @@ div.movable {
 
 
 div.big {
+ pointer-events: auto; /* deny clicks to pass through */
 	overflow-y: auto; 
 
 	min-width:100px;

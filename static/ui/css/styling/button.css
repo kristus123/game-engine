@@ -4,6 +4,7 @@ button {
 	border-radius: 50px;
 	background-color: #007bff; 
 	color: #fff; 
+	 pointer-events: auto; /* deny clicks to pass through */
 }
 
 button:hover {
