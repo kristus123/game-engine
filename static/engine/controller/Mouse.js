@@ -199,6 +199,7 @@ export class Mouse {
 
 	static update() {
 		this.timeSinceLastClick += 1
+		D1.circle(this.position)
 	}
 
 	static holdAndMove(object) {
@@ -215,11 +216,6 @@ export class Mouse {
 	}
 
 	static draw(draw) {
-
-		// console.log(this.moving)
-
-		draw.circle(this.position)
-		// draw.new_circle(this.position)
 	}
 
 }

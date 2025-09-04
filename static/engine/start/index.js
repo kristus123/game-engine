@@ -64,11 +64,11 @@ Promise.all([
 
 		Sound.init()
 		Mouse.initialize()
+		Controller.init()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
 		const draw = new Draw(Camera.palette.ctx)
-
 		D1.ctx = Camera.palette.ctx
 
 		Level.change(new World())
@@ -83,13 +83,11 @@ Promise.all([
 			Camera.context(() => {
 
 				Controller.update()
-				Controller.draw(draw)
 
 				Level.update()
 				Level.draw(draw)
 
 				Mouse.update()
-				Mouse.draw(draw)
 			})
 
 			backgroundPalette.fill('#10204f')

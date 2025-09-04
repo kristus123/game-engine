@@ -1,10 +1,11 @@
 export class Controller {
 
-	static velocity = new Velocity(this)
+	static init() {
+		this.velocity = new Velocity(this)
+		this.disabled = false
+		this.objectToControl = null
+	}
 
-	static disabled = false
-
-	static objectToControl = null
 
 	static control(o) {
 		this.objectToControl = o
@@ -59,9 +60,6 @@ export class Controller {
 
 		this.velocity.x = Keyboard.right ? 1 : Keyboard.left ? -1 : 0
 		this.velocity.y = Keyboard.down ? 1 : Keyboard.up ? -1 : 0
-	}
-
-	static draw(draw) {
 	}
 
 }

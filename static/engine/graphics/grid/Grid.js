@@ -1,6 +1,8 @@
 export class Grid {
 	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
 		this.gridPositions = new GridPositions()
+
+		this.grassTiles = new LocalObjects([])
 	}
 
 	toGridPosition(position) {
@@ -45,19 +47,18 @@ export class Grid {
 		})
 
 		return result
-
 	}
 
-	draw(draw) {
+	update() {
 		const gridPosition = this.toGridPosition(Mouse.position)
 
 		const snappedPosition = this.snappedPosition(Mouse.position)
 
-		draw.transparentGreenRectangle(snappedPosition)
+		D1.transparentGreenRectangle(snappedPosition)
 
 		if (Mouse.down) {
 			if (this.has(gridPosition)) {
-				draw.text(snappedPosition, 'full')
+				D1.text(snappedPosition, 'full')
 			}
 			else {
 				this.add(Mouse.position)
@@ -69,13 +70,14 @@ export class Grid {
 
 		for (const tile of this.scaledTiles()) {
 			if (Mouse.hovering(tile)) {
-				draw.transparentRedRectangle(tile)
+				D1.transparentRedRectangle(tile)
 			}
 			else {
-				// draw.rectangle(tile)
-				G.Sprite.grassTile(tile).draw(draw)
+				this.grassTiles.add(G.Sprite.grassTile(tile))
 			}
 		}
+
+		this.grassTiles.update()
 	}
 }
 
