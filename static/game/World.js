@@ -5,6 +5,7 @@ export class World {
 		this.localObjects = new LocalObjects([
 			// G.Sprite.world(new Position(0, 0)).idle.show(0),
 			new GrassGrid(),
+			new HouseGrid(),
 
 			OnTrue(() => Keyboard.q, () => {
 				this.p.changeText('dirt')
