@@ -1,0 +1,70 @@
+import { AssertArray } from '/static/engine/assertions/AssertArray.js'; 
+import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
+import { not } from '/static/engine/assertions/not.js'; 
+import { Task } from '/static/engine/mechanics/quest/Task.js'; 
+
+/*
+ *
+ * a task is anything that has a lambda that returns something that has a completed() method
+ * it will append a .markTaskComplete() method to be able to mark tasks as completed
+ *
+*/
+
+export class Quest {
+	constructor(tasks=[], onQuestCompleted=() => {}) {
+
+				AssertNotNull(tasks, "argument tasks in " + this.constructor.name + ".js should not be null")
+			
+				AssertNotNull(onQuestCompleted, "argument onQuestCompleted in " + this.constructor.name + ".js should not be null")
+			
+		this.tasks = tasks; 
+		this.onQuestCompleted = onQuestCompleted; 
+
+		AssertArray(tasks)
+		for (const task of tasks) {
+			if (not.method(task)) {
+				throw new Error('Quest.js expects a list of arrow functions')
+			}
+		}
+
+		this.index = 0
+		this._setNewCurrentTask(tasks[this.index])
+
+		this.questCompleted = false
+	}
+
+	_setNewCurrentTask(task) {
+		task = task()
+
+		task.markTaskComplete = () => {
+			task.completed = () => true
+		}
+
+		this.currentTask = task
+	}
+
+	update() {
+		if (!this.questCompleted) {
+			if (this.currentTask.update) {
+				this.currentTask.update()
+			}
+
+			if (this.currentTask.completed && this.currentTask.completed()) {
+				this.index += 1
+				if (this.tasks.validIndex(this.index)) {
+					this._setNewCurrentTask(this.tasks[this.index])
+				}
+				else {
+					this.questCompleted = true
+					this.onQuestCompleted()
+				}
+			}
+		}
+	}
+
+	draw(draw) {
+		if (!this.questCompleted && this.currentTask.draw) {
+			this.currentTask.draw(draw)
+		}
+	}
+}
