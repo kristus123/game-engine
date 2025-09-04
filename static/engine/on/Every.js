@@ -16,8 +16,5 @@ export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {})
 				stopWatch.restart()
 			}
 		}
-
-		draw(draw) {
-		}
 	}
 }
