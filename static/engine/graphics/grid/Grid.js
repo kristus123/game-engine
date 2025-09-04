@@ -56,6 +56,21 @@ export class Grid {
 
 		D1.transparentGreenRectangle(snappedPosition)
 
+		for (const tile of this.scaledTiles()) {
+			if (Mouse.hovering(tile)) {
+				D1.transparentRedRectangle(tile)
+			}
+			else {
+				this.grassTiles.add(new class {
+					update() {
+						D1.picture(tile, G.image.grassTile)
+					}
+				})
+			}
+		}
+
+		this.grassTiles.update()
+
 		if (Mouse.down) {
 			if (this.has(gridPosition)) {
 				D1.text(snappedPosition, 'full')
@@ -68,16 +83,6 @@ export class Grid {
 			this.remove(Mouse.position)
 		}
 
-		for (const tile of this.scaledTiles()) {
-			if (Mouse.hovering(tile)) {
-				D1.transparentRedRectangle(tile)
-			}
-			else {
-				this.grassTiles.add(G.Sprite.grassTile(tile))
-			}
-		}
-
-		this.grassTiles.update()
 	}
 }
 

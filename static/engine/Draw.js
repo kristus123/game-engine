@@ -110,8 +110,7 @@ export class Draw {
 	}
 
 	picture(position, image) {
-		this.ctx.imageSmoothingEnabled = false
-		this.ctx.drawImage(image, 0, 0)
+	  this.ctx.drawImage(image, position.x, position.y, position.width, position.height)
 	}
 
 
