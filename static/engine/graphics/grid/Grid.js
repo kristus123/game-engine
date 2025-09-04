@@ -20,6 +20,11 @@ export class Grid {
 		this.gridPositions.set(gp)
 	}
 
+	remove(position) {
+		const gp = this.toGridPosition(position)
+		this.gridPositions.remove(gp)
+	}
+
 	has(gridPosition) {
 		return this.gridPositions.has(gridPosition)
 	}
@@ -50,14 +55,26 @@ export class Grid {
 
 		draw.transparentGreenRectangle(snappedPosition)
 
-		if (this.has(gridPosition)) {
-			draw.text(snappedPosition, 'full')
-		} else if (Mouse.down) {
-			this.add(Mouse.position)
+		if (Mouse.down) {
+			if (this.has(gridPosition)) {
+				draw.text(snappedPosition, 'full')
+			}
+			else {
+				this.add(Mouse.position)
+			}
+		}
+		else if (Mouse.rightDown) {
+			this.remove(Mouse.position)
 		}
 
 		for (const tile of this.scaledTiles()) {
-			draw.rectangle(tile)
+			if (Mouse.hovering(tile)) {
+				draw.transparentRedRectangle(tile)
+			}
+			else {
+				// draw.rectangle(tile)
+				G.Sprite.grassTile(tile).draw(draw)
+			}
 		}
 	}
 }

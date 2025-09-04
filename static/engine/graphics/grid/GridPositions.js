@@ -18,9 +18,15 @@ export class GridPositions {
 
   remove({x, y}) {
     const col = this.grid.get(x);
-    if (!col) return;
-    col.delete(y);
-    if (col.size === 0) this.grid.delete(x);
+    if (col) {
+		col.delete(y);
+		if (col.size === 0) {
+			this.grid.delete(x);
+		}
+    }
+	  else {
+	  	console.log("nothing to delete")
+	  }
   }
 
 	
