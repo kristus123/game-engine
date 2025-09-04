@@ -17,35 +17,35 @@ export class Grid {
 
 
 
-area(position, size = 96) {
+	area(position, size = 96) {
 
-	const topLeft = this.toGridPosition(position)
+		const topLeft = this.toGridPosition(position)
 
-	const cells = size / 16
+		const cells = size / 16
 
-	const positions = []
+		const positions = []
 
-	for (let gx = 0; gx < cells; gx++) {
-		for (let gy = 0; gy < cells; gy++) {
-			const gp = { x: topLeft.x + gx, y: topLeft.y + gy }
-			positions.push(this.scaled(gp))
+		for (let gx = 0; gx < cells; gx++) {
+			for (let gy = 0; gy < cells; gy++) {
+				const gp = { x: topLeft.x + gx, y: topLeft.y + gy }
+				positions.push(this.scaled(gp))
+			}
+		}
+
+		return positions
+	}
+
+
+	availableArea(areas, size=96) {
+		return !areas.some(a => this.has(this.toGridPosition(a)))
+	}
+
+
+	placeArea(areas) {
+		for (const a of areas) {
+			this.add(a)
 		}
 	}
-
-	return positions
-}
-
-
-availableArea(areas, size=96) {
-	return !areas.some(a => this.has(this.toGridPosition(a)))
-}
-
-
-placeArea(areas) {
-	for (const a of areas) {
-		this.add(a)
-	}
-}
 
 
 	snappedPosition(position) {
@@ -69,9 +69,9 @@ placeArea(areas) {
 
 	scaled(gridPosition) {
 		return new Position(
-			gridPosition.x * this.cellWidth, 
-			gridPosition.y * this.cellHeight, 
-			this.cellWidth, 
+			gridPosition.x * this.cellWidth,
+			gridPosition.y * this.cellHeight,
+			this.cellWidth,
 			this.cellHeight)
 	}
 

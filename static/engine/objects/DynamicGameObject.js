@@ -77,12 +77,12 @@ export class DynamicGameObject extends _GameObject {
 
 
 	moveTo(o, speedMultiplier=1) {
-    	Move(this).towards(o, speedMultiplier)
+		Move(this).towards(o, speedMultiplier)
 	}
 
 	// Push class refactor functions
 	pushAwayFrom(o, speedMultiplier=1) {
-    	Push(this).awayFrom(o, speedMultiplier)
+		Push(this).awayFrom(o, speedMultiplier)
 	}
 
 	pushTowards(o, speedMultiplier=1) {
@@ -91,18 +91,18 @@ export class DynamicGameObject extends _GameObject {
 
 	// ForcePush class refactor functions
 	forcePushAwayFrom(o, speedMultiplier=1) {
-    	ForcePush(this).awayFrom(o, speedMultiplier)
+		ForcePush(this).awayFrom(o, speedMultiplier)
 	}
 
 	forcePushTowards(o, speedMultiplier=1) {
-    	ForcePush(this).towards(o, speedMultiplier)
+		ForcePush(this).towards(o, speedMultiplier)
 	}
 
 	forcePushRandomly(o, speedMultiplier=1) {
-    	ForcePush(this).randomly(o, speedMultiplier)
+		ForcePush(this).randomly(o, speedMultiplier)
 	}
 
 	forcePushRoughlyTowards(o, speedMultiplier=1) {
-    	ForcePush(this).roughlyTowards(o, speedMultiplier)
+		ForcePush(this).roughlyTowards(o, speedMultiplier)
 	}
 }

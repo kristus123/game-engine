@@ -20,21 +20,21 @@ export class World {
 		])
 
 		Html.upper([
-				Html.div('big', [
-					Html.p('Q to select dirt'),
-				]),
-				Html.div('big', [
-					Html.p('W to select water'),
-				]),
-				Html.div('big', [
-					Html.p('right click to erase'),
-				]),
+			Html.div('big', [
+				Html.p('Q to select dirt'),
+			]),
+			Html.div('big', [
+				Html.p('W to select water'),
+			]),
+			Html.div('big', [
+				Html.p('right click to erase'),
+			]),
 		])
 
 		Html.lower([
-				Html.div('big', [
-					this.p = Html.p('hei'),
-				]),
+			Html.div('big', [
+				this.p = Html.p('hei'),
+			]),
 		])
 	}
 
