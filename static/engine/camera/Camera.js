@@ -1,6 +1,8 @@
 export class Camera {
 	static initialize() { // initialize() Mouse first
 
+		const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
 		this.offset = {
 			x: Palette.width / 2,
 			y: Palette.height / 2,
@@ -21,15 +23,11 @@ export class Camera {
 		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
 
 		Mouse.scrollIn = () => {
-			this.smoothZoom.targetValue += 0.1
-			if (this.zoom.currentValue > 10) {
-			}
+			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue + 0.1, 0.2, 2);
 		}
 
 		Mouse.scrollOut = () => {
-			this.smoothZoom.targetValue -= 0.1
-			if (this.zoom.currentValue > 10) {
-			}
+			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue - 0.1, 0.2, 2);
 		}
 
 		this.anchoredPositions = new LocalObjects([
@@ -113,4 +111,3 @@ export class Camera {
 	}
 
 }
-
