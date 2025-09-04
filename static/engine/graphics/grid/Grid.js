@@ -1,8 +1,8 @@
 export class Grid {
-	constructor(gridWidth = 16, gridHeight = 10, cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
+	constructor(cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
 		this.gridPositions = new GridPositions()
 
-		this.grassTiles = new LocalObjects([])
+		this.grassPalette = Palette.fixedOffscreen(4000, 4000)
 	}
 
 	toGridPosition(position) {
@@ -61,15 +61,11 @@ export class Grid {
 				D1.transparentRedRectangle(tile)
 			}
 			else {
-				this.grassTiles.add(new class {
-					update() {
-						D1.picture(tile, G.image.grassTile)
-					}
-				})
+				this.grassPalette.draw.picture(tile, G.image.grassTile)
 			}
 		}
 
-		this.grassTiles.update()
+		Camera.palette.apply(this.grassPalette)
 
 		if (Mouse.down) {
 			if (this.has(gridPosition)) {

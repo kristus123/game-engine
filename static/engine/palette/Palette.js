@@ -1,4 +1,5 @@
 export class Palette {
+
 	static width = window.innerWidth
 	static height = window.innerHeight
 
@@ -43,10 +44,11 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			draw: new Draw(ctx),
 			clear: () => {
 				ctx.clearRect(0, 0, Palette.width, Palette.height)
 			},
-			apply: (p) => {
+			apply: p => {
 				ctx.drawImage(p.canvas, 0, 0)
 			},
 			fill: (color) => {
@@ -68,6 +70,7 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			draw: new Draw(ctx),
 			width: Palette.width,
 			height: Palette.height,
 			clear: () => {
@@ -91,6 +94,7 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
+			draw: new Draw(ctx),
 			width: Palette.width,
 			height: Palette.height,
 
