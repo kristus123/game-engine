@@ -84,7 +84,7 @@ export class Camera {
 		this.smoothPosition.smooth_y.currentValue = o.y
 	}
 
-	static p(p) {
+	static p(p) { // Html.js hack
 		return new Position(
 			(p.x - this.position.x) * this.zoom + this.offset.x,
 			(p.y - this.position.y) * this.zoom + this.offset.y

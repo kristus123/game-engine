@@ -1,8 +1,6 @@
 export class Grid {
 	constructor(cellWidth = 16*Scale.value, cellHeight = 16*Scale.value) {
 		this.gridPositions = new GridPositions()
-
-		this.grassPalette = Palette.fixedOffscreen(4000, 4000)
 	}
 
 	toGridPosition(position) {
@@ -50,35 +48,6 @@ export class Grid {
 	}
 
 	update() {
-		const gridPosition = this.toGridPosition(Mouse.position)
-
-		const snappedPosition = this.snappedPosition(Mouse.position)
-
-		D1.transparentGreenRectangle(snappedPosition)
-
-		for (const tile of this.scaledTiles()) {
-			if (Mouse.hovering(tile)) {
-				D1.transparentRedRectangle(tile)
-			}
-			else {
-				this.grassPalette.draw.picture(tile, G.image.grassTile)
-			}
-		}
-
-		Camera.palette.apply(this.grassPalette)
-
-		if (Mouse.down) {
-			if (this.has(gridPosition)) {
-				D1.text(snappedPosition, 'full')
-			}
-			else {
-				this.add(Mouse.position)
-			}
-		}
-		else if (Mouse.rightDown) {
-			this.remove(Mouse.position)
-		}
-
 	}
 }
 

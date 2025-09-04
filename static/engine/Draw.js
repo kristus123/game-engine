@@ -4,6 +4,18 @@ export class Draw {
 		this.angle = 0 // hack
 	}
 
+	palette(palette) {
+		this.ctx.drawImage(palette.canvas, 0, 0)
+	}
+
+	apply(palette) {
+		this.palette(palette)
+	}
+
+	erase(p) { // or delete - remove
+		this.ctx.clearRect(p.x, p.y, p.width, p.height)
+	}
+
 	angleFrom(p1, p2, radius, angleRange, color) {
 
 		const mouseAngle = Math.atan2(p2.y - p1.y, p2.x - p1.x)
