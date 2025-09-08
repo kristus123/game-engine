@@ -3,50 +3,47 @@ export class World {
 		Camera.follow(new Position(800, 800))
 
 		this.stopButton = Html.button('stop', () => {
+				console.log("got blob")
 			Microphone.stop(blob => {
 				Html.clear()
 
-				const x = Html.input('name of file', title => {
-				  AudioDb.save(title, blob)
-					const sound = Sound.playBlob(blob)
-					reload()
+				const x = Html.input('word', title => {
+					Base64.encode(blob, sound => {
+						AudioDb.save({
+							title: title,
+							sound: sound,
+						})
 
-					CardDb.save({
-						title: title,
-						sound: sound,
-
+						initAllSounds()
 					})
+
 				})
 
-				Html.upper([
+				Html.center([
 					x,
 				])
 
 				x.focus()
 			})
-
-			Html.clear()
-			Html.upper([
-				this.recordButton,
-			])
 		})
 
 		this.recordButton = Html.button('record', () => {
 			Microphone.start()
 
-			Html.upper([
+			Html.clear()
+			Html.center([
 				this.stopButton,
 			])
 		})
 
-		const reload = () => {
+		const initAllSounds = () => {
 			AudioDb.all(entries => {
+				console.log(entries)
 				const x = entries.map(e =>
 					Html.div('big', [
-						Html.p(e.key),
-						Html.button(e.key, () => {
-							console.log(e)
-							Sound.playBlob(e.value)
+						Html.p(e.title),
+						Html.button('play', () => {
+							Sound.playBlob(e.sound)
 						}),
 					]),
 				)
@@ -60,7 +57,7 @@ export class World {
 				])
 			})
 		}
-		reload()
+		initAllSounds()
 
 		Html.upper([
 			this.recordButton,

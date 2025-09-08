@@ -16,41 +16,47 @@ export class Microphone {
 		})
 	}
 
-	static start(callback) {
+	static start() {
 		const wait = () => {
-  	if (!this.ready) {
+			if (!this.ready) {
 				return setTimeout(wait, 10)
 			}
-  	if (this.state === 'recording') {
+			else if (this.state === 'recording') {
 				throw new Error('Microphone already recording')
 			}
-  	this.chunks = []
-  	this.recorder.start()
-  	this.state = 'recording'
-  	if (callback) {
-				callback()
-			}
+
+			this.chunks = []
+			this.recorder.start()
+			this.state = 'recording'
+
 		}
+
 		wait()
 	}
 
 	static stop(callback) {
 		const wait = () => {
-  	if (!this.ready) {
+			if (!this.ready) {
 				return setTimeout(wait, 10)
 			}
-  	if (this.state !== 'recording') {
+			else if (this.state !== 'recording') {
 				throw new Error('Microphone not recording')
 			}
-  	this.recorder.onstop = () => {
+			else {
+				
+			}
+
+			this.recorder.onstop = () => {
 				const blob = new Blob(this.chunks, { type: 'audio/webm' })
 				this.chunks = []
 				this.state = 'stopped'
+
 				if (callback) {
 					callback(blob)
 				}
-  	}
-  	this.recorder.stop()
+			}
+
+			this.recorder.stop()
 		}
 		wait()
 	}

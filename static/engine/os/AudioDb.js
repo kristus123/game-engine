@@ -20,7 +20,7 @@ export class AudioDb {
 	}
 
 	static all(callback) {
-		this.db.all(callback)
+		this.db.all(entries => callback(entries.map(e => e.value)))
 	}
 
 }
