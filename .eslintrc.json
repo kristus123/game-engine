@@ -137,6 +137,7 @@
         "AssertNoNullInArray": "readonly",
         "AssertNotNull": "readonly",
         "AudioContext": "readonly",
+        "AudioDb": "readonly",
         "AudioEngine": "readonly",
         "AudioSheet": "readonly",
         "BackspaceEffect": "readonly",
