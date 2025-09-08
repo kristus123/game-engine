@@ -4,6 +4,8 @@ export class AudioDb {
 	}
 
 	static save(uuid, blob) {
+		AssertNotNull(uuid)
+		AssertNotNull(blob)
 
 		this.db.save(uuid, blob)
 
@@ -11,6 +13,7 @@ export class AudioDb {
 	}
 
 	static get(uuid, callback) {
+
 		this.db.get(uuid, callback)
 	}
 
