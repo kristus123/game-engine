@@ -1,36 +1,47 @@
 // doesn't behave same on phone and pc
 
 export class Microphone {
-	constructor() {
-		if ('webkitSpeechRecognition' in window) {
-			const recognition = new webkitSpeechRecognition()
-			recognition.lang = 'en-US'
-			recognition.continuous = true // Keep listening even after speech pauses
-			recognition.interimResults = true // Show partial results while speaking
-			recognition.start()
+	static {
+		this.recorder = null
+		this.chunks = []
+		this.ready = false
 
-			recognition.onresult = (e) => {
-				let transcript = ''
-				for (let i = e.resultIndex; i < e.results.length; i++) {
-					transcript += e.results[i][0].transcript
+		navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+  	this.recorder = new MediaRecorder(stream)
+  	this.recorder.ondataavailable = e => this.chunks.push(e.data)
+  	this.ready = true
+		})
+	}
+
+	static start(callback) {
+		const wait = () => {
+  	if (!this.ready) {
+				return setTimeout(wait, 10)
+			}
+  	this.chunks = []
+  	this.recorder.start()
+  	if (callback) {
+				callback()
+			}
+		}
+		wait()
+	}
+
+	static stop(callback) {
+		const wait = () => {
+  	if (!this.ready) {
+				return setTimeout(wait, 10)
+			}
+  	this.recorder.onstop = () => {
+				const blob = new Blob(this.chunks, { type: 'audio/webm' })
+				this.chunks = []
+				if (callback) {
+					callback(blob)
 				}
-				this.transcript = transcript
-			}
-
-			recognition.onerror = function(e) {
-				console.error('Speech recognition error', e.error)
-			}
+  	}
+  	this.recorder.stop()
 		}
-		else {
-			alert('Speech recognition is not supported in your browser.')
-		}
-	}
-
-	update() {
-	}
-
-	draw(draw) {
-		draw.text(new Position(0, 0), this.transcript)
+		wait()
 	}
 }
 
