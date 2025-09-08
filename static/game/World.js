@@ -2,25 +2,21 @@ export class World {
 	constructor() {
 		Camera.follow(new Position(800, 800))
 
-		this.localObjects = new LocalObjects([
-			// G.Sprite.world(new Position(0, 0)).idle.show(0),
-			// new GrassGrid(),
-			// new HouseGrid(),
-		])
-
 		this.stopButton = Html.button('stop', () => {
 			Microphone.stop(blob => {
 				Html.clear()
+
+				const x = Html.input('name of file', fileName => {
+				  AudioDb.save(fileName, blob)
+					Sound.playBlob(blob)
+					reload()
+				})
+
 				Html.upper([
-					Html.input('name of file', fileName => {
-					  AudioDb.save(fileName, blob)
-						Sound.playBlob(blob)
-						Html.clear()
-						Html.upper([
-							this.recordButton,
-						])
-					}),
+					x,
 				])
+
+				x.focus()
 			})
 
 			Html.clear()
@@ -35,9 +31,9 @@ export class World {
 			Html.upper([
 				this.stopButton,
 			])
-
 		})
 
+		const reload = () => {
 			AudioDb.all(entries => {
 				const x = entries.map(e => 
 					Html.div('big', [
@@ -49,10 +45,16 @@ export class World {
 					]),
 					)
 
-				Html.fill([
-					Html.div('scroll', x),
+				Html.clear()
+				Html.fillList([
+					this.recordButton,
+					Html.div('big', [
+						Html.div('scroll', x),
+					]),
 				])
 			})
+		}
+		reload()
 
 		Html.upper([
 			this.recordButton,
@@ -60,10 +62,8 @@ export class World {
 	}
 
 	update() {
-		this.localObjects.update()
 	}
 
 	draw(draw) {
-		this.localObjects.draw(draw)
 	}
 }

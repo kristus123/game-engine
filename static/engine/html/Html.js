@@ -72,6 +72,13 @@ export class Html {
 			]))
 	}
 
+	static fillList(elements) {
+		return Html.addToScreen(
+			Html.div('fill-ui', [
+				Html.div('', elements)
+			]))
+	}
+
 	static lowerCenter(elements) {
 		return Html.addToScreen(
 			Html.div('lower-center-ui', [

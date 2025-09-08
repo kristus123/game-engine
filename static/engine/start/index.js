@@ -73,8 +73,6 @@ Promise.all([
 
 		Level.change(new World())
 
-		new VideoCall()
-
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
 

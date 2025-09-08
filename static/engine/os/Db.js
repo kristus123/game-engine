@@ -66,7 +66,6 @@ export class Db {
 					cursor.continue()
 				}
 				else {
-					console.log(result)
 					callback(result)
 				}
 			}
