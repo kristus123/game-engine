@@ -6,23 +6,22 @@ export class World {
 			Microphone.stop(blob => {
 				Html.clear()
 
-				const x = Html.input('word', title => {
-					Base64.encode(blob, sound => {
-						AudioDb.save({
-							title: title,
-							sound: sound,
-						})
-
-						initAllSounds()
-					})
-
-				})
-
 				Html.center([
-					x,
+					this.xx = Html.input('word', title => {
+						Base64.encode(blob, sound => {
+							const uuid = Random.uuid()
+							AudioDb.save(uuid, {
+								title: title,
+								sound: sound,
+								uuid: uuid,
+							})
+
+							initAllSounds()
+						})
+					})
 				])
 
-				x.focus()
+				this.xx.focus()
 			})
 		})
 
@@ -47,7 +46,27 @@ export class World {
 				)
 
 				Html.clear()
+
 				Html.fillList([
+					Html.button('practice', () => {
+						Html.clear()
+
+						const r = Random.choice(entries)
+						Sound.playBlob(Base64.decode(r.sound))
+						Html.fillList([
+							Html.div('big', [
+								Html.p('playing audio'),
+								Html.div('big', [
+									Html.button('hard', () => {
+									}),
+									Html.button('ok', () => {
+									}),
+									Html.button('easy', () => {
+									}),
+								])
+							]),
+						])
+					}),
 					this.recordButton,
 					Html.div('big', [
 						Html.div('scroll', x),
@@ -55,11 +74,8 @@ export class World {
 				])
 			})
 		}
-		initAllSounds()
 
-		Html.upper([
-			this.recordButton,
-		])
+		initAllSounds()
 	}
 
 	update() {

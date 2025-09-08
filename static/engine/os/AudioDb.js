@@ -3,8 +3,7 @@ export class AudioDb {
 		this.db = new Db('audioDB', 'clips')
 	}
 
-	static save(blob) {
-		const uuid = Random.uuid()
+	static save(uuid, blob) {
 
 		this.db.save(uuid, blob)
 
