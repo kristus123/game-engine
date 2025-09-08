@@ -71,7 +71,7 @@ Promise.all([
 		const draw = new Draw(Camera.palette.ctx)
 		D1.ctx = Camera.palette.ctx
 
-		Level.change(new World())
+		Level.change(new PlacingStuff())
 
 		new VideoCall()
 

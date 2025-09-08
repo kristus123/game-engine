@@ -1,4 +1,4 @@
-export class World {
+export class PlacingStuff {
 	constructor() {
 		Camera.follow(new Position(800, 800))
 
