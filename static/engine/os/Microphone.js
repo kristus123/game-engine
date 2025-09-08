@@ -6,9 +6,13 @@ export class Microphone {
 
 	static {
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-  	this.recorder = new MediaRecorder(stream)
-  	this.recorder.ondataavailable = e => this.chunks.push(e.data)
-  	this.ready = true
+			this.recorder = new MediaRecorder(stream, {
+				mimeType: 'audio/webm;codecs=opus',
+				audioBitsPerSecond: 64_000 // x kbps // Chrome / Edge (WebM/Opus): typically 128–192 kbps
+			})
+
+			this.recorder.ondataavailable = e => this.chunks.push(e.data)
+			this.ready = true
 		})
 	}
 

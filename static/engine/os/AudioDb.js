@@ -3,16 +3,20 @@ export class AudioDb {
 		this.db = new Db('audioDB', 'clips')
 	}
 
-	static save(key, blob) {
-		this.db.save(key, blob)
+	static save(blob) {
+		const uuid = Random.uuid()
+
+		this.db.save(uuid, blob)
+
+		return uuid
 	}
 
-	static get(key, callback) {
-		this.db.get(key, callback)
+	static get(uuid, callback) {
+		this.db.get(uuid, callback)
 	}
 
-	static delete(key) {
-		this.db.delete(key)
+	static delete(uuid) {
+		this.db.delete(uuid)
 	}
 
 	static all(callback) {

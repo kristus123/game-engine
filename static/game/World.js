@@ -6,10 +6,16 @@ export class World {
 			Microphone.stop(blob => {
 				Html.clear()
 
-				const x = Html.input('name of file', fileName => {
-				  AudioDb.save(fileName, blob)
-					Sound.playBlob(blob)
+				const x = Html.input('name of file', title => {
+				  AudioDb.save(title, blob)
+					const sound = Sound.playBlob(blob)
 					reload()
+
+					CardDb.save({
+						title: title,
+						sound: sound,
+
+					})
 				})
 
 				Html.upper([
@@ -35,7 +41,7 @@ export class World {
 
 		const reload = () => {
 			AudioDb.all(entries => {
-				const x = entries.map(e => 
+				const x = entries.map(e =>
 					Html.div('big', [
 						Html.p(e.key),
 						Html.button(e.key, () => {
@@ -43,7 +49,7 @@ export class World {
 							Sound.playBlob(e.value)
 						}),
 					]),
-					)
+				)
 
 				Html.clear()
 				Html.fillList([
