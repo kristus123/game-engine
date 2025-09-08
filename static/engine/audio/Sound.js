@@ -21,5 +21,15 @@ export class Sound {
 		return new AudioSheet(G.Audio.sheet)
 	}
 
+	static playBlob(blob) {
+	  if (!blob) {
+		  throw new Error('no blob present')
+		}
+
+	  const url = URL.createObjectURL(blob)
+	  const audio = new Audio(url)
+	  audio.play()
+	}
+
 }
 

@@ -1,4 +1,14 @@
 # Install Aseprite
+
+# Linux 
+read meta-repo/projects/aseprite for debian
+
+# Windows
+
+
+todo this needs to be improved drastically
+
+
 [check the newest version](https://github.com/aseprite/aseprite/releases)
 
 

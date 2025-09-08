@@ -39,10 +39,10 @@ export class Microphone {
 				throw new Error('Microphone not recording')
 			}
   	this.recorder.onstop = () => {
-    	const blob = new Blob(this.chunks, { type: 'audio/webm' })
-    	this.chunks = []
-    	this.state = 'stopped'
-    	if (callback) {
+				const blob = new Blob(this.chunks, { type: 'audio/webm' })
+				this.chunks = []
+				this.state = 'stopped'
+				if (callback) {
 					callback(blob)
 				}
   	}

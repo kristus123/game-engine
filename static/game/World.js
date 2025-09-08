@@ -36,6 +36,19 @@ export class World {
 				this.p = Html.p('hei'),
 			]),
 		])
+
+		Microphone.start(() => {
+		  setTimeout(() => {
+				Microphone.stop(blob => {
+			  AudioDB.save('myRecording', blob)
+				})
+		  }, 3000)
+		})
+
+		AudioDB.load('myRecording', blob => {
+			Sound.playBlob(blob)
+		})
+
 	}
 
 	update() {

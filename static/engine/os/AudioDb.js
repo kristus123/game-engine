@@ -1,4 +1,4 @@
-class AudioDB {
+class AudioDb {
 	static dbName = 'audioDB'
 	static storeName = 'clips'
 	static db = null
