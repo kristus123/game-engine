@@ -3,7 +3,6 @@ export class World {
 		Camera.follow(new Position(800, 800))
 
 		this.stopButton = Html.button('stop', () => {
-				console.log("got blob")
 			Microphone.stop(blob => {
 				Html.clear()
 
@@ -38,12 +37,11 @@ export class World {
 
 		const initAllSounds = () => {
 			AudioDb.all(entries => {
-				console.log(entries)
 				const x = entries.map(e =>
 					Html.div('big', [
 						Html.p(e.title),
 						Html.button('play', () => {
-							Sound.playBlob(e.sound)
+							Sound.playBlob(Base64.decode(e.sound))
 						}),
 					]),
 				)

@@ -43,7 +43,7 @@ export class Microphone {
 				throw new Error('Microphone not recording')
 			}
 			else {
-				
+
 			}
 
 			this.recorder.onstop = () => {
