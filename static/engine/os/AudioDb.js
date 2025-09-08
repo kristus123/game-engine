@@ -1,4 +1,4 @@
-class AudioDb {
+export class AudioDb {
 	static dbName = 'audioDB'
 	static storeName = 'clips'
 	static db = null

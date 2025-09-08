@@ -19,36 +19,36 @@ export class World {
 			}),
 		])
 
+		this.stopButton = Html.button('stop', () => {
+			Microphone.stop(blob => {
+				  AudioDb.save('myRecording', blob)
+				Sound.playBlob(blob)
+			})
+
+			Html.clear()
+			Html.upper([
+				this.recordButton,
+			])
+		})
+
+		this.recordButton = Html.button('record', () => {
+			Microphone.start()
+
+			Html.clear()
+			Html.upper([
+				this.stopButton,
+			])
+		})
+
 		Html.upper([
-			Html.div('big', [
-				Html.p('Q to select dirt'),
-			]),
-			Html.div('big', [
-				Html.p('W to select water'),
-			]),
-			Html.div('big', [
-				Html.p('right click to erase'),
-			]),
+			this.recordButton,
 		])
 
-		Html.lower([
+		Html.center([
 			Html.div('big', [
-				this.p = Html.p('hei'),
-			]),
+				Html.p('hei'),
+			])
 		])
-
-		Microphone.start(() => {
-		  setTimeout(() => {
-				Microphone.stop(blob => {
-			  AudioDB.save('myRecording', blob)
-				})
-		  }, 3000)
-		})
-
-		AudioDB.load('myRecording', blob => {
-			Sound.playBlob(blob)
-		})
-
 	}
 
 	update() {
