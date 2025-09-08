@@ -4,25 +4,23 @@ export class World {
 
 		this.localObjects = new LocalObjects([
 			// G.Sprite.world(new Position(0, 0)).idle.show(0),
-			new GrassGrid(),
-			new HouseGrid(),
-
-			OnTrue(() => Keyboard.q, () => {
-				this.p.changeText('dirt')
-				G.tile = 'dirt'
-				Sound.click()
-			}),
-			OnTrue(() => Keyboard.w, () => {
-				this.p.changeText('water')
-				G.tile = 'water'
-				Sound.click()
-			}),
+			// new GrassGrid(),
+			// new HouseGrid(),
 		])
 
 		this.stopButton = Html.button('stop', () => {
 			Microphone.stop(blob => {
-				  AudioDb.save('myRecording', blob)
-				Sound.playBlob(blob)
+				Html.clear()
+				Html.upper([
+					Html.input('name of file', fileName => {
+					  AudioDb.save(fileName, blob)
+						Sound.playBlob(blob)
+						Html.clear()
+						Html.upper([
+							this.recordButton,
+						])
+					}),
+				])
 			})
 
 			Html.clear()
@@ -34,20 +32,30 @@ export class World {
 		this.recordButton = Html.button('record', () => {
 			Microphone.start()
 
-			Html.clear()
 			Html.upper([
 				this.stopButton,
 			])
+
 		})
+
+			AudioDb.all(entries => {
+				const x = entries.map(e => 
+					Html.div('big', [
+						Html.p(e.key),
+						Html.button(e.key, () => {
+							console.log(e)
+							Sound.playBlob(e.value)
+						}),
+					]),
+					)
+
+				Html.fill([
+					Html.div('scroll', x),
+				])
+			})
 
 		Html.upper([
 			this.recordButton,
-		])
-
-		Html.center([
-			Html.div('big', [
-				Html.p('hei'),
-			])
 		])
 	}
 

@@ -155,6 +155,7 @@
         "Controller": "readonly",
         "Curve": "readonly",
         "D1": "readonly",
+        "Db": "readonly",
         "DeathText": "readonly",
         "DeltaTime": "readonly",
         "Dialogue": "readonly",

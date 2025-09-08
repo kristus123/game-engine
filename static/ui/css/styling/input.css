@@ -1,3 +1,9 @@
+  input {
+  pointer-events: auto;
+}
+
+
+
   input[type="text"] {
     width: 280px;
     padding: 14px 18px;

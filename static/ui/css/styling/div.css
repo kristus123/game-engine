@@ -14,6 +14,13 @@ div.movable {
 	overflow: visible;
 }
 
+div.scroll {
+  max-height: 80vh; /* or whatever fits your screen */
+  min-width: 80vw; /* or whatever fits your screen */
+  overflow-y: scroll;
+  flex-direction: column;
+  pointer-events: auto; /* allow scrollbar interaction */
+}
 
 div.big {
  pointer-events: auto; /* deny clicks to pass through */

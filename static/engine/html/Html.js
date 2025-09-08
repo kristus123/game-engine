@@ -58,6 +58,13 @@ export class Html {
 			]))
 	}
 
+	static centerList(elements) {
+		return Html.addToScreen(
+			Html.div('center-ui', [
+				Html.div('', elements)
+			]))
+	}
+
 	static fill(elements) {
 		return Html.addToScreen(
 			Html.div('fill-ui', [
@@ -137,7 +144,7 @@ export class Html {
 	}
 
 
-	static input(placeholder='placehodlert', onEnter=(value) => {}) {
+	static input(placeholder='placeholder', onEnter=(value) => {}) {
 		const i = HtmlElement('input')
 		 i.type = 'text'
 		i.placeholder = placeholder
