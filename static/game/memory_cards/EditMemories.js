@@ -4,20 +4,22 @@ export class EditMemories {
 
 		AudioDb.all(entries => {
 			Html.fillList([
-				...entries.map(e => {
-					const div = Html.div('big', [
-						Html.p(e.title),
-						Html.button('play', () => {
-							Sound.playBlob(Base64.decode(e.sound))
-						}),
-						Html.button('delete', () => {
-							AudioDb.delete(e.uuid)
-							div.remove()
-						}),
-					])
+				Html.div('scroll', [
+					...entries.map(e => {
+						const div = Html.div('big', [
+							Html.p(e.title),
+							Html.button('play', () => {
+								Sound.playBlob(Base64.decode(e.sound))
+							}),
+							Html.button('delete', () => {
+								AudioDb.delete(e.uuid)
+								div.remove()
+							}),
+						])
 
-					return div
-				}),
+						return div
+					}),
+				]),
 				Html.button('go back', () => {
 					new Menu()
 				}),
