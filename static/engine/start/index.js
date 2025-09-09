@@ -1,17 +1,21 @@
 export const index = ''
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
+	navigator.serviceWorker.register('/sw.js')
 }
 
 document.body.addEventListener('touchmove', e => {
-  let el = e.target;
-  while (el && el !== document.body) {
-    if (el.classList && el.classList.contains('scroll')) return; // allow scroll
-    el = el.parentNode;
-  }
-  e.preventDefault();
-}, { passive: false });
+	while (e.target && e.target !== document.body) {
+		if (e.target.classList && e.target.classList.contains('scroll')) {
+			// allow scroll
+		}
+		else {
+			e.target = e.target.parentNode
+		}
+	}
+
+	e.preventDefault()
+}, { passive: false })
 
 
 HotReload()
