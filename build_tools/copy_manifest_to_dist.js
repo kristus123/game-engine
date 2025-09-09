@@ -1,25 +1,18 @@
 const fs = require('fs')
-const path = require('path')
+const Files = require('./Files')
 
 
 
 
-const dirPath = './'
-
-console.log('sex________________________________________________________')
-fs.readdir(dirPath, (err, files) => {
-	if (err) {
-		throw err
-	}
-	files.forEach(file => {
-		const fullPath = path.join(dirPath, file)
-		if (fs.statSync(fullPath).isFile()) {
-  	console.log(file)
-		}
-	})
-})
-console.log('sex________________________________________________________')
 
 
 fs.copyFileSync('manifest.json', 'dist/manifest.json')
+
+
+
 fs.copyFileSync('sw.js', 'dist/sw.js')
+
+const sw = Files.read('sw.js')
+	.replace('ALL_FILES', '[' + Files.at('static').map(f => '"/' + f + '"') + ']')
+
+Files.write('dist/sw.js', sw)

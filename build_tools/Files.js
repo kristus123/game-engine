@@ -78,6 +78,7 @@ module.exports = class {
 		}
 
 		return results
+			.map(f => f.replaceAll('\\', '/'))
 	}
 
 
