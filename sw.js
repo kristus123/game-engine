@@ -16,7 +16,7 @@ self.addEventListener('install', event => {
 					await cache.add('https://romskip.netlify.app' + url)
 				}
 				catch (e) {
-					console.error('Failed to cache', url, e)
+					console.error('Failed to cache ROMSKIP.NETLIFY.APP', url, e)
 				}
 			}
 		})

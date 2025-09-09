@@ -1,4 +1,4 @@
-const CACHE_NAME = "60f5826c-1651-46f3-862e-660a3b1316cb"
+const CACHE_NAME = "574ab62c-beea-4135-8e04-9ac73eab26c4"
 
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -16,7 +16,7 @@ self.addEventListener('install', event => {
 					await cache.add('https://romskip.netlify.app' + url)
 				}
 				catch (e) {
-					console.error('Failed to cache', url, e)
+					console.error('Failed to cache ROMSKIP.NETLIFY.APP', url, e)
 				}
 			}
 		})
