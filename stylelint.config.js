@@ -1,8 +1,8 @@
 module.exports = {
-  extends: "stylelint-config-standard",
-  rules: {
-    "indentation": 4,
-    "string-quotes": "double"
-  }
-};
+	extends: 'stylelint-config-standard',
+	rules: {
+		'indentation': 4,
+		'string-quotes': 'double'
+	}
+}
 
