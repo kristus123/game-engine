@@ -5,6 +5,8 @@ self.addEventListener('install', event => {
 		caches.open(CACHE_NAME).then(async cache => {
 			for (const url of ['/', ...ALL_FILES]) {
 
+				console.log("caching " + url)
+
 				try {
 					await cache.add(url)
 				}
@@ -32,7 +34,7 @@ self.addEventListener('fetch', e => {
         caches.match(e.request)
             .then(response => response || fetch(e.request))
             .catch(err => {
-                console.error('Fetch handler error:', err);
+                console.error('Fetch handler error for URL:', e.request.url, err);
                 return fetch(e.request);
             })
     );
