@@ -1,7 +1,5 @@
 const CACHE_NAME = RANDOM_UUID
 
-const CACHE_NAME = 'app-cache-v2'
-
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
