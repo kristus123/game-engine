@@ -1,4 +1,4 @@
-const CACHE_NAME = "04dfb648-9228-43e8-a9e9-82d6214557c5"
+const CACHE_NAME = "da2d8545-8981-4826-80ea-c554226aeacf"
 
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -7,19 +7,12 @@ self.addEventListener('install', event => {
 
 				console.log("caching " + url)
 
-				try {
-					await cache.add(url)
-				}
-				catch (e) {
-					console.error('Failed to cache', url, e)
-				}
-
-				try {
-					await cache.add('https://romskip.netlify.app' + url)
-				}
-				catch (e) {
-					console.error('Failed to cache ROMSKIP.NETLIFY.APP', url, e)
-				}
+				await Promise.all([
+					cache.add(url)
+						.catch(e => console.error('Failed to cache', url, e)),
+					cache.add('https://romskip.netlify.app' + url)
+						.catch(e => console.error('Failed to cache ROMSKIP.NETLIFY.APP', url, e)),
+				])
 			}
 		})
 	)
@@ -29,14 +22,18 @@ self.addEventListener('activate', e => {
 	e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))))
 })
 
+
 self.addEventListener('fetch', e => {
+    const url = new URL(e.request.url)
+    const relativeRequest = new Request(url.pathname, e.request)
+    
     e.respondWith(
-        caches.match(e.request)
-            .then(response => response || fetch(e.request))
+        caches.match(relativeRequest)
+            .then(response => response || fetch(relativeRequest))
             .catch(err => {
-                console.error('Fetch handler error for URL:', e.request.url, err);
-                return fetch(e.request);
+                console.error('Fetch handler error for URL:', relativeRequest.url, err);
+                return fetch(relativeRequest);
             })
-    );
-});
+    )
+})
 
