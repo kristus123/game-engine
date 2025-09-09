@@ -33,7 +33,7 @@ if ('serviceWorker' in navigator) {
 
 
 
-//test
+//test disable the scroll up to reload on phone
 let startY = 0;
 
 window.addEventListener('touchstart', e => {
@@ -48,6 +48,24 @@ window.addEventListener('touchmove', e => {
 }, { passive: false });
 
 //test
+
+
+// test always have volume be the default choice when using volume buttons on phone
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const buffer = audioCtx.createBuffer(1, 1, 22050); // 1 sample, silent
+const source = audioCtx.createBufferSource();
+source.buffer = buffer;
+source.loop = true;
+source.connect(audioCtx.destination);
+
+function activateMediaVolume() {
+    source.start();
+    document.removeEventListener("touchstart", activateMediaVolume);
+}
+
+document.addEventListener("touchstart", activateMediaVolume, { once: true });
+
+// test always have volume be the default choice when using volume buttons on phone
 
 
 HotReload()
