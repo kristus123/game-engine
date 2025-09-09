@@ -31,6 +31,25 @@ if ('serviceWorker' in navigator) {
 }
 
 
+
+
+//test
+let startY = 0;
+
+window.addEventListener('touchstart', e => {
+  if (window.scrollY === 0) startY = e.touches[0].clientY;
+});
+
+window.addEventListener('touchmove', e => {
+  const touchY = e.touches[0].clientY;
+  if (window.scrollY === 0 && touchY > startY) {
+    e.preventDefault(); // stop pull-to-refresh
+  }
+}, { passive: false });
+
+//test
+
+
 HotReload()
 
 Enhance_js_Array()
