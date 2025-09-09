@@ -1,4 +1,4 @@
-const CACHE_NAME = "cae210d5-45fd-4e6f-b940-5790516c4800"
+const CACHE_NAME = "c929f684-ebb5-4f8f-b1ee-c251b45d5463"
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -37,7 +37,9 @@ self.addEventListener('fetch', e => {
         caches.match(e.request)
         .then(r => r || caches.match(pathnameReq) || caches.match(url.pathname)  || caches.match(e.request.url))
         .then(r => r || fetch(e.request))
-        .catch(() => fetch(e.request))
+        .catch(() => {
+        	console.error("error while fetching " + e.request.url)
+        })
     )
 })
 

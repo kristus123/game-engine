@@ -37,7 +37,9 @@ self.addEventListener('fetch', e => {
         caches.match(e.request)
         .then(r => r || caches.match(pathnameReq) || caches.match(url.pathname)  || caches.match(e.request.url))
         .then(r => r || fetch(e.request))
-        .catch(() => fetch(e.request))
+        .catch(() => {
+        	console.error("error while fetching " + e.request.url)
+        })
     )
 })
 
