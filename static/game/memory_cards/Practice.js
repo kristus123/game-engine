@@ -26,7 +26,7 @@ export class Practice {
 				])
 			}
 			else {
-    			Html.fill([Html.div('big', [
+				Html.fill([Html.div('big', [
 					Html.p('No cards to review'),
 					Html.button('go back', () => {
 						new Menu()
