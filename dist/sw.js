@@ -3,7 +3,7 @@ const CACHE_NAME = 'app-cache-v2';
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open('v1').then(cache => cache.addAll(['/']))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(['/']))
   );
 });
 
