@@ -1,8 +1,18 @@
 const CACHE_NAME = RANDOM_UUID
 
+const CACHE_NAME = 'app-cache-v2'
+
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(["/", ...ALL_FILES]))
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of ALL_FILES.concat(['/'])) {
+        try {
+          await cache.add(url)
+        } catch (e) {
+          console.error('Failed to cache', url, e)
+        }
+      }
+    })
   )
 })
 
