@@ -1,45 +1,45 @@
-const CACHE_NAME = RANDOM_UUID
+const CACHE_NAME = "v1ss"
 
-self.addEventListener('install', event => {
+const FILES_TO_CACHE = [
+  "/",
+  "/manifest.json",
+  ...ALL_FILES.filter(f => !f.endsWith(".md"))
+]
+
+self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
-      for (const url of ['/', '/manifest.json', ...ALL_FILES]) {
-        for (const base of ['', 'https://romskip.netlify.app']) {
-          const fullUrl = base + url
-          try {
-            console.log('Trying to cache', fullUrl)
-            const resp = await fetch(fullUrl)
-            if (!resp.ok) throw new Error('HTTP ' + resp.status)
-            const cloned = resp.clone()
-            await cache.put(fullUrl, cloned)
-            const text = await resp.text().catch(() => '[body not text]')
-            console.log('Cached successfully:', fullUrl, 'Status:', resp.status, 'Body preview:', text.slice(0,100))
-          } catch (e) {
-            console.error('Failed to cache', fullUrl, e)
-          }
+      for (const url of FILES_TO_CACHE) {
+        try {
+          const resp = await fetch(url)
+          if (!resp.ok) throw new Error("HTTP " + resp.status)
+          await cache.put(url, resp.clone())
+          console.log("Cached:", url)
+        } catch (e) {
+          console.error("Failed to cache", url, e)
         }
       }
     })
   )
 })
 
-
-self.addEventListener('activate', e => {
-	e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))))
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    )
+  )
 })
 
-
-self.addEventListener('fetch', e => {
-    const url = new URL(e.request.url)
-    const pathnameReq = url.pathname + url.search
-
-    e.respondWith(
-        caches.match(e.request)
-        .then(r => r || caches.match(pathnameReq) || caches.match(url.pathname)  || caches.match(e.request.url))
-        .then(r => r || fetch(e.request))
-        .catch(() => {
-        	console.error("error while fetching " + e.request.url)
-        })
-    )
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    caches.match(event.request).then(r => {
+      if (r) return r
+      return fetch(event.request).catch(() => {
+        console.error("Not cached:", event.request.url)
+        throw new Error("Not cached: " + event.request.url)
+      })
+    })
+  )
 })
 
