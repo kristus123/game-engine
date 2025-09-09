@@ -1,0 +1,10 @@
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;        /* allows wrapping */
+  gap: 10px;              /* space between buttons */
+}
+
+.flex-item {
+  flex: 1 1 100px;        /* grow/shrink, start at 100px */
+  min-width: 100px;       /* never shrink below 100px */
+}
