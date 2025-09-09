@@ -4,8 +4,15 @@ self.addEventListener('install', event => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async cache => {
 			for (const url of ['/', ...ALL_FILES]) {
+
 				try {
 					await cache.add(url)
+				}
+				catch (e) {
+					console.error('Failed to cache', url, e)
+				}
+
+				try {
 					await cache.add('https://romskip.netlify.app' + url)
 				}
 				catch (e) {
