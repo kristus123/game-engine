@@ -4,6 +4,16 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
 
+document.body.addEventListener('touchmove', e => {
+  let el = e.target;
+  while (el && el !== document.body) {
+    if (el.classList && el.classList.contains('scrollable')) return; // allow scroll
+    el = el.parentNode;
+  }
+  e.preventDefault();
+}, { passive: false });
+
+
 HotReload()
 
 Enhance_js_Array()
