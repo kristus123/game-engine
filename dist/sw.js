@@ -1,4 +1,4 @@
-const CACHE_NAME = ecc03dfb-6305-4f97-8ccc-3ac71ffc3544
+const CACHE_NAME = "c72ae714-5975-4d42-bc89-19df84cbe51f"
 
 self.addEventListener('install', event => {
   event.waitUntil(
