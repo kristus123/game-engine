@@ -1,0 +1,32 @@
+import { Enhance } from '/static/engine/enhance/Enhance.js'; 
+import { Html } from '/static/engine/html/Html.js'; 
+
+export function Enhance_html() {
+	Enhance(HTMLElement, 'changeText', function (text) {
+		this.textContent = text
+	})
+
+	Enhance(HTMLElement, 'remove', function () {
+		Html.remove(this)
+	})
+
+	Enhance(HTMLElement, 'show', function () {
+		Html.show(this)
+	})
+
+	Enhance(HTMLElement, 'hide', function () {
+		Html.hide(this)
+	})
+
+	Enhance(HTMLElement, 'enable', function () {
+		Html.enable(this)
+	})
+
+	Enhance(HTMLElement, 'disable', function () {
+		Html.disable(this)
+	})
+
+	Enhance(HTMLElement, 'onClick', function (run) {
+		Html.onClick(this, run)
+	})
+}
