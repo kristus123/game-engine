@@ -1,6 +1,7 @@
-/* html { */
-/*   overflow: hidden; */
-/* } */
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 
 body {
   overscroll-behavior: none;

@@ -30,32 +30,6 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
 
-
-
-
-//test disable the scroll up to reload on phone
-let startY = 0;
-
-window.addEventListener('touchstart', e => {
-  if (window.scrollY === 0) startY = e.touches[0].clientY;
-});
-
-window.addEventListener('touchmove', e => {
-  const touchY = e.touches[0].clientY;
-  if (window.scrollY === 0 && touchY > startY) {
-    e.preventDefault(); // stop pull-to-refresh
-  }
-}, { passive: false });
-
-//test
-
-
-// test always have volume be the default choice when using volume buttons on phone
-{
-}
-// test always have volume be the default choice when using volume buttons on phone
-
-
 HotReload()
 
 Enhance_js_Array()
