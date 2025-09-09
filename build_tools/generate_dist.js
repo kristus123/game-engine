@@ -2,6 +2,7 @@ const Files = require('./Files')
 
 require('./transpiler')
 require('./copy_asset_folder_to_dist')
+require('./copy_manifest_to_dist')
 require('./generate_helper_classes')
 require('./verify_no_reserved_clashes')
 require('./assert_unique_file_names')
@@ -42,3 +43,5 @@ const indexHtml = Files.read('static/index.html')
 	.replace('SCRIPT_IMPORTS', jsImports)
 	.replace('CSS_IMPORTS', cssImports)
 Files.write('dist/index.html', indexHtml)
+
+

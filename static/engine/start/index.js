@@ -1,5 +1,10 @@
 export const index = ''
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
+
 HotReload()
 
 Enhance_js_Array()

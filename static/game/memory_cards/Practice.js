@@ -9,25 +9,30 @@ export class Practice {
     	AudioDb.all(entries => {
         	Html.clear()
         	const important = this.important(entries)
-        	if (!important.length) {
-            	Html.fill([Html.div('big', [Html.p('No cards to review')])])
-            	return
+        	if (important.length) {
+				const e = Random.choice(important)
+				Sound.playBlob(Base64.decode(e.sound))
+				Html.fill([
+					Html.div('big', [
+						Html.p('playing audio'),
+						Html.button('replay', () => {
+							Sound.playBlob(Base64.decode(e.sound))
+						}),
+						Html.div('big', [
+							Html.button('hard', () => this.review(e, 'hard')),
+							Html.button('ok', () => this.review(e, 'ok')),
+						])
+					]),
+				])
         	}
-
-        	const e = Random.choice(important)
-        	Sound.playBlob(Base64.decode(e.sound))
-        	Html.fill([
-            	Html.div('big', [
-                	Html.p('playing audio'),
-                	Html.button('replay', () => {
-                    	Sound.playBlob(Base64.decode(e.sound))
-                	}),
-                	Html.div('big', [
-                    	Html.button('hard', () => this.review(e, 'hard')),
-                    	Html.button('ok', () => this.review(e, 'ok')),
-                	])
-            	]),
-        	])
+			else {
+            	Html.fill([Html.div('big', [
+					Html.p('No cards to review'),
+					Html.button('go back', () => {
+						new Menu()
+					}),
+				])])
+			}
     	})
 	}
 
@@ -37,8 +42,8 @@ export class Practice {
 	}
 
 	review(e, grade) {
-    	e.repetitions = e.repetitions || 0
-    	e.interval = e.interval || 0
+    	e.repetitions ??= 0
+    	e.interval ??= 0
 
     	if (grade === 'hard') {
         	e.repetitions = 0
@@ -51,7 +56,16 @@ export class Practice {
 
     	e.nextReview = nowPlus(e.interval)
     	AudioDb.save(e.uuid, e)
-    	new Practice()
+
+		Html.clear()
+		Html.fillList([
+			Html.div('big', [
+				Html.p(e.title),
+			]),
+			Html.button('next', () => {
+				new Practice()
+			})
+		])
 	}
 }
 

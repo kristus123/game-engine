@@ -2,10 +2,7 @@ export class EditMemories {
 	constructor() {
 		Html.clear()
 
-
 		AudioDb.all(entries => {
-
-
 			Html.fillList([
 				...entries.map(e => {
 					const div = Html.div('big', [
@@ -20,7 +17,10 @@ export class EditMemories {
 					])
 
 					return div
-				})
+				}),
+				Html.button('go back', () => {
+					new Menu()
+				}),
 			])
 		})
 	}

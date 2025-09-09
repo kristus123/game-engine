@@ -21,7 +21,10 @@ export class RecordButton {
 
 							Html.clear()
 							Html.fill([
-								this.recordButton
+								this.recordButton,
+								Html.button('go back', () => {
+									new Menu()
+								}),
 							])
 
 						})
@@ -42,7 +45,10 @@ export class RecordButton {
 		})
 
 		Html.fill([
-			this.recordButton
+			this.recordButton,
+			Html.button('go back', () => {
+				new Menu()
+			}),
 		])
 	}
 }
