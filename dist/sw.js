@@ -1,4 +1,4 @@
-const CACHE_NAME = "b75832d5-89ee-4649-9d8d-9fc1cc1d2dfc"
+const CACHE_NAME = "71427581-383f-4255-bfae-d48ca073ed87"
 
 const CACHE_NAME = 'app-cache-v2'
 
