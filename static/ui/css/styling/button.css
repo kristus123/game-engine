@@ -14,7 +14,6 @@ button:hover {
 button:disabled {
   background-color: gray;
   color: white;
-  cursor: not-allowed;
   opacity: 0.6;
   cursor: default; /* Change to whatever you prefer */
 }

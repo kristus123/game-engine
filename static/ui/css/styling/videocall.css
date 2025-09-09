@@ -9,11 +9,13 @@
     justify-content: center;
     gap: 10px;
 }
+
 #videocallrtc > div{
     width: 100px;
     border-radius: 10px;
     overflow:hidden;
 }
+
 #videocallrtc > div > video{
     width: 100px;
     border-radius: 10px;
@@ -29,9 +31,11 @@
     min-height: 100%;
     margin: 0;
 }
+
 #videocallrtc > div> h3:hover{
     color: white;
-    background-color: #111111dd;
+    background-color: #111d;
 }
+
 .GuestVideo{
 }

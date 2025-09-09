@@ -4,9 +4,9 @@
 
 /* make text not "markable" */
 html, body, * {
-  -webkit-user-select: none; /* Chrome, Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE/Edge */
+  user-select: none; /* Chrome, Safari */
+  user-select: none;    /* Firefox */
+  user-select: none;     /* IE/Edge */
   user-select: none;         /* Standard */
   -webkit-user-drag: none;
 }
@@ -30,7 +30,6 @@ h1 {
 }
 
 p {
-	color: white;
 	font-size: 30px;
 	color:black;
 }

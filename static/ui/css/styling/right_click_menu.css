@@ -3,6 +3,7 @@
 	min-width: 200px;
 	min-height: 400px;
 }
+
 .sub-menu {
 	background-color: black;
 	min-width: 200px;
@@ -13,10 +14,10 @@
 	top:0;
 	
 }
+
 .right-click-element {
 	min-width: 200px;
 	min-height: 20px;
-
 	padding: 20px;
 	background-color: gray;
 }

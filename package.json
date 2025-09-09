@@ -14,6 +14,8 @@
     "chokidar": "^4.0.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^39.0.0",
     "ws": "^8.18.3"
   }
 }

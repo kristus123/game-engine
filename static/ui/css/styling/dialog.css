@@ -2,12 +2,17 @@ dialog {
   background: transparent;
 border: none;
   box-shadow: none;
+
 	/* border-radius: 8px; */
+
 	/* padding: 20px; */
+
 	/* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+
 	/* background: transparent; */
 
 	/* width:90%; */
+
 	/* height:50%; */
 	max-width:80%;
 	min-width:50%;

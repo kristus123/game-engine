@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 940px) {
+@media (width <= 940px) {
   .flex-item {
     flex: 0 0 100%;
   }

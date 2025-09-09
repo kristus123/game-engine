@@ -13,10 +13,10 @@
     outline: none;
     transition: all 0.3s ease;
     background: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
   }
 
   input[type="text"]:focus {
     border-color: #6c63ff;
-    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+    box-shadow: 0 4px 12px rgb(108 99 255 / 20%);
   }

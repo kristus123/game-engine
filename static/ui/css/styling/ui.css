@@ -3,7 +3,6 @@
 	position: absolute;
 	top: 0; 
 	left: 0;
-
 	border: none; 
 	cursor: auto;
 }
@@ -15,7 +14,6 @@
   width: 100%;
   height: 100%;
   background-color: black;
-
   display: flex;
   justify-content: center; /* horizontal center */
   align-items: center;     /* vertical center */
@@ -74,7 +72,6 @@
   right: 10px;
   left: auto; /* override .ui left: 0 */
   width: auto; /* prevent full width */
-  
   background-color: white;
   padding: 10px;
   border: 2px solid black;
