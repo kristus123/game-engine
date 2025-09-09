@@ -2,7 +2,7 @@ export class RecordButton {
 	constructor() {
 		Html.clear()
 
-		
+
 		this.stopButton = Html.button('stop', () => {
 			Microphone.stop(blob => {
 				Html.clear()
