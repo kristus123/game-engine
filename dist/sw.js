@@ -1,4 +1,4 @@
-const CACHE_NAME = "ce4738be-322b-4dad-936f-12a19fd6e58f"
+const CACHE_NAME = "b944bd82-e879-4e91-84f3-744c287ba89f"
 
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -16,11 +16,18 @@ self.addEventListener('install', event => {
 	)
 })
 
-self.addEventListener('activate', event => {
-	event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))))
+self.addEventListener('activate', e => {
+	e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))))
 })
 
-self.addEventListener('fetch', event => {
-	event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)))
-})
+self.addEventListener('fetch', e => {
+    e.respondWith(
+        caches.match(e.request)
+            .then(response => response || fetch(e.request))
+            .catch(err => {
+                console.error('Fetch handler error:', err);
+                return fetch(e.request);
+            })
+    );
+});
 
