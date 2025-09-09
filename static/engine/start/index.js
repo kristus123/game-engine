@@ -18,7 +18,7 @@ document.body.addEventListener('touchmove', e => {
 }, { passive: false })
 
 
-HotReload()
+// HotReload()
 
 Enhance_js_Array()
 Enhance_html()
