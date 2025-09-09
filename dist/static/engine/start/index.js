@@ -44,102 +44,101 @@ document.body.addEventListener('touchmove', e => {
 }, { passive: false })
 
 
-// HotReload()
+HotReload()
 
 Enhance_js_Array()
 Enhance_html()
-new World()
 
-// function loadAsepriteAssets(path) {
+function loadAsepriteAssets(path) {
 
-// 	const fileName = path.split('/').pop()
+	const fileName = path.split('/').pop()
 
-// 	if (!path.includes('_tilemaps.json')) {
+	if (!path.includes('_tilemaps.json')) {
 
-// 		const p1 = Promise.all([
-// 			LoadImage(`${path}Layers.png`),
-// 			LoadJson(`${path}Layers.json`),
-// 		]).then(([img, json]) => {
-// 			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, new AsepriteLayerJson(json))
-// 		})
+		const p1 = Promise.all([
+			LoadImage(`${path}Layers.png`),
+			LoadJson(`${path}Layers.json`),
+		]).then(([img, json]) => {
+			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, new AsepriteLayerJson(json))
+		})
 
-// 		const p2 = Promise.all([
-// 			LoadImage(`${path}.png`),
-// 			LoadJson(`${path}.json`),
-// 		]).then(([img, json]) => {
-// 			G.image[fileName] = img
-// 			G.Sprite[fileName] = pos => new Sprite(pos, img, new AsepriteJson(json))
-// 		})
+		const p2 = Promise.all([
+			LoadImage(`${path}.png`),
+			LoadJson(`${path}.json`),
+		]).then(([img, json]) => {
+			G.image[fileName] = img
+			G.Sprite[fileName] = pos => new Sprite(pos, img, new AsepriteJson(json))
+		})
 
-// 		return Promise.all([p1, p2])
-// 	}
-// }
+		return Promise.all([p1, p2])
+	}
+}
 
-// function loadAllAudio() {
-// 	return Promise.all(["/static/audio/click.mp3","/static/audio/nyaSheet.mp3","/static/audio/placeDirt.mp3","/static/audio/sheet.mp3"].map(a =>
-// 		LoadAudio(a).then(audio => {
-// 			const key = a.split('/').pop().replace('.mp3', '')
-// 			G.Audio[key] = audio
-// 		})
-// 	))
-// }
+function loadAllAudio() {
+	return Promise.all(["/static/audio/click.mp3","/static/audio/nyaSheet.mp3","/static/audio/placeDirt.mp3","/static/audio/sheet.mp3"].map(a =>
+		LoadAudio(a).then(audio => {
+			const key = a.split('/').pop().replace('.mp3', '')
+			G.Audio[key] = audio
+		})
+	))
+}
 
-// function loadAsepriteTilemaps(path) {
+function loadAsepriteTilemaps(path) {
 
-// 	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
+	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
 
-// 	if (path.includes('_tilemaps.json')) {
-// 		path = path.replace('/static/assets/', '/static/assets/aseprite/')
+	if (path.includes('_tilemaps.json')) {
+		path = path.replace('/static/assets/', '/static/assets/aseprite/')
 
-// 		return LoadJson(path).then(json => {
-// 			if (json) {
-// 				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
-// 			}
-// 		})
-// 	}
-// }
+		return LoadJson(path).then(json => {
+			if (json) {
+				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
+			}
+		})
+	}
+}
 
-// Promise.all([
-// 	Promise.all(["/static/assets/ally","/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/grassTile","/static/assets/hamtaro","/static/assets/house","/static/assets/icon","/static/assets/new_farmer","/static/assets/new_world","/static/assets/new_world_tilemaps.json","/static/assets/p2","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/waterTile","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(loadAsepriteAssets)).then(() => Promise.all(["/static/assets/ally","/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/grassTile","/static/assets/hamtaro","/static/assets/house","/static/assets/icon","/static/assets/new_farmer","/static/assets/new_world","/static/assets/new_world_tilemaps.json","/static/assets/p2","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/waterTile","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(loadAsepriteTilemaps))),
-// 	loadAllAudio(),
-// ])
-// 	.then(() => {
-// 		const mainPalette = Palette.main()
-// 		const backgroundPalette = Palette.offscreen()
+Promise.all([
+	Promise.all(["/static/assets/ally","/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/grassTile","/static/assets/hamtaro","/static/assets/house","/static/assets/icon","/static/assets/new_farmer","/static/assets/new_world","/static/assets/new_world_tilemaps.json","/static/assets/p2","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/waterTile","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(loadAsepriteAssets)).then(() => Promise.all(["/static/assets/ally","/static/assets/enemy","/static/assets/flower","/static/assets/goat","/static/assets/grass","/static/assets/grassTile","/static/assets/hamtaro","/static/assets/house","/static/assets/icon","/static/assets/new_farmer","/static/assets/new_world","/static/assets/new_world_tilemaps.json","/static/assets/p2","/static/assets/player/player","/static/assets/player/viking","/static/assets/pokemonCity","/static/assets/sign","/static/assets/sky","/static/assets/test","/static/assets/tractor","/static/assets/turret","/static/assets/waterTile","/static/assets/wheat","/static/assets/world","/static/assets/world_tilemaps.json"].map(loadAsepriteTilemaps))),
+	loadAllAudio(),
+])
+	.then(() => {
+		const mainPalette = Palette.main()
+		const backgroundPalette = Palette.offscreen()
 
-// 		Sound.init()
-// 		Mouse.initialize()
-// 		Controller.init()
-// 		Camera.initialize()
-// 		Mouse.initializeAfterCameraIsInitialized()
+		Sound.init()
+		Mouse.initialize()
+		Controller.init()
+		Camera.initialize()
+		Mouse.initializeAfterCameraIsInitialized()
 
-// 		const draw = new Draw(Camera.palette.ctx)
-// 		D1.ctx = Camera.palette.ctx
+		const draw = new Draw(Camera.palette.ctx)
+		D1.ctx = Camera.palette.ctx
 
-// 		Level.change(new World())
+		Level.change(new World())
 
-// 		Loop.everyFrame(deltaTime => {
-// 			Camera.palette.clear()
+		Loop.everyFrame(deltaTime => {
+			Camera.palette.clear()
 
-// 			Physics.update(deltaTime)
+			Physics.update(deltaTime)
 
-// 			Camera.context(() => {
+			Camera.context(() => {
 
-// 				Controller.update()
+				Controller.update()
 
-// 				Level.update()
-// 				Level.draw(draw)
+				Level.update()
+				Level.draw(draw)
 
-// 				Mouse.update()
-// 			})
+				Mouse.update()
+			})
 
-// 			backgroundPalette.fill('#10204f')
+			backgroundPalette.fill('#10204f')
 
-// 			mainPalette.apply(backgroundPalette)
-// 			mainPalette.apply(Camera.palette)
-// 		})
-// 	})
-// 	.catch(err => {
-// 		console.error('Image failed to load', err)
-// 		throw err
-// 	})
+			mainPalette.apply(backgroundPalette)
+			mainPalette.apply(Camera.palette)
+		})
+	})
+	.catch(err => {
+		console.error('Image failed to load', err)
+		throw err
+	})
