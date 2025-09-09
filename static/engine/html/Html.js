@@ -228,6 +228,11 @@ export class Html {
 		button.addEventListener('click', () => {
 			Sound.click()
 			onClick(button)
+
+			  if (navigator.vibrate) {
+				navigator.vibrate(50)
+			  }
+
 		})
 
 		button.addEventListener('mouseover', () => {
