@@ -1,0 +1,51 @@
+{ "frames": {
+   "Layer 1_0_idle": {
+    "frame": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "sourceSize": { "w": 8, "h": 13 },
+    "duration": 100
+   },
+   "Layer 1_1_up": {
+    "frame": { "x": 8, "y": 0, "w": 8, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "sourceSize": { "w": 8, "h": 13 },
+    "duration": 100
+   },
+   "Layer 1_2_down": {
+    "frame": { "x": 16, "y": 0, "w": 8, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "sourceSize": { "w": 8, "h": 13 },
+    "duration": 100
+   },
+   "Layer 1_3_left": {
+    "frame": { "x": 24, "y": 0, "w": 8, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "sourceSize": { "w": 8, "h": 13 },
+    "duration": 100
+   },
+   "Layer 1_4_right": {
+    "frame": { "x": 32, "y": 0, "w": 8, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 8, "h": 13 },
+    "sourceSize": { "w": 8, "h": 13 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.14.2-dev",
+  "image": "p2Layers.png",
+  "format": "RGBA8888",
+  "size": { "w": 40, "h": 13 },
+  "scale": "1"
+ }
+}
