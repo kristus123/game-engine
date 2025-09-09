@@ -51,20 +51,24 @@ window.addEventListener('touchmove', e => {
 
 
 // test always have volume be the default choice when using volume buttons on phone
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const buffer = audioCtx.createBuffer(1, 1, 22050); // 1 sample, silent
-const source = audioCtx.createBufferSource();
-source.buffer = buffer;
-source.loop = true;
-source.connect(audioCtx.destination);
+{
+	const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 1, audioCtx.sampleRate);
+	const src = audioCtx.createBufferSource();
+	src.buffer = buffer;
+	src.loop = true;
+	const dest = audioCtx.createMediaStreamDestination();
+	src.connect(dest);
+	const audioEl = new Audio();
+	audioEl.srcObject = dest.stream;
+	audioEl.loop = true;
+	function activate() {
+	audioCtx.resume().then(() => { src.start(); audioEl.play().catch(() => {}); });
+	document.removeEventListener("touchstart", activate);
+	}
+	document.addEventListener("touchstart", activate, { once: true });
 
-function activateMediaVolume() {
-    source.start();
-    document.removeEventListener("touchstart", activateMediaVolume);
 }
-
-document.addEventListener("touchstart", activateMediaVolume, { once: true });
-
 // test always have volume be the default choice when using volume buttons on phone
 
 
