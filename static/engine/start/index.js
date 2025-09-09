@@ -7,7 +7,7 @@ if ('serviceWorker' in navigator) {
 document.body.addEventListener('touchmove', e => {
   let el = e.target;
   while (el && el !== document.body) {
-    if (el.classList && el.classList.contains('scrollable')) return; // allow scroll
+    if (el.classList && el.classList.contains('scroll')) return; // allow scroll
     el = el.parentNode;
   }
   e.preventDefault();
