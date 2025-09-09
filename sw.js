@@ -3,14 +3,14 @@ const CACHE_NAME = RANDOM_UUID
 self.addEventListener('install', event => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async cache => {
-  	for (const url of ALL_FILES.concat(['/'])) {
-    	try {
-      	await cache.add(url)
-    	}
+			for (const url of ALL_FILES.concat(['/'])) {
+				try {
+					await cache.add(url)
+				}
 				catch (e) {
-      	console.error('Failed to cache', url, e)
-    	}
-  	}
+					console.error('Failed to cache', url, e)
+				}
+			}
 		})
 	)
 })
