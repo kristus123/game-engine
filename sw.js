@@ -4,21 +4,19 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async cache => {
       for (const url of ['/', '/manifest.json', ...ALL_FILES]) {
-        try {
-          console.log('Trying to cache', url)
-          const resp = await cache.add(url)
-          console.log('Cached successfully:', url)
-        } catch (e) {
-          console.error('Failed to cache', url, e)
-        }
-
-        try {
-          const fullUrl = 'https://romskip.netlify.app' + url
-          console.log('Trying to cache', fullUrl)
-          const resp = await cache.add(fullUrl)
-          console.log('Cached successfully:', fullUrl)
-        } catch (e) {
-          console.error('Failed to cache', fullUrl, e)
+        for (const base of ['', 'https://romskip.netlify.app']) {
+          const fullUrl = base + url
+          try {
+            console.log('Trying to cache', fullUrl)
+            const resp = await fetch(fullUrl)
+            if (!resp.ok) throw new Error('HTTP ' + resp.status)
+            const cloned = resp.clone()
+            await cache.put(fullUrl, cloned)
+            const text = await resp.text().catch(() => '[body not text]')
+            console.log('Cached successfully:', fullUrl, 'Status:', resp.status, 'Body preview:', text.slice(0,100))
+          } catch (e) {
+            console.error('Failed to cache', fullUrl, e)
+          }
         }
       }
     })
