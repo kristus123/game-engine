@@ -235,6 +235,13 @@ img {
     box-shadow: 0 4px 12px rgb(108 99 255 / 20%);
   }
 
+html, body {
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
+  overscroll-behavior-y: contain;
+}
+
+
+
 html {
   overflow: hidden;
   overscroll-behavior: none;
