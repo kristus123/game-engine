@@ -30,14 +30,14 @@ self.addEventListener('activate', e => {
 
 
 self.addEventListener('fetch', e => {
-  const url = new URL(e.request.url)
-  const pathnameReq = new Request(url.pathname + url.search, e.request)
+    const url = new URL(e.request.url)
+    const pathnameReq = url.pathname + url.search
 
-  e.respondWith(
-    caches.match(e.request)
-      .then(r => r || caches.match(pathnameReq))
-      .then(r => r || fetch(e.request))
-      .catch(() => fetch(e.request))
-  )
+    e.respondWith(
+        caches.match(e.request)
+        .then(r => r || caches.match(pathnameReq) || caches.match(url.pathname)  || caches.match(e.request.url))
+        .then(r => r || fetch(e.request))
+        .catch(() => fetch(e.request))
+    )
 })
 
