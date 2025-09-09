@@ -26,11 +26,34 @@ window.addEventListener('touchmove', e => {
 
 // test always have volume be the default choice when using volume buttons on phone
 {
-	const audio = new Audio("data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQIAAAAAAA==");
-	audio.loop = true;
-	audio.volume = 0.01;
-	function activate(){ audio.play().catch(()=>{}); document.removeEventListener("touchstart", activate); }
-	document.addEventListener("touchstart", activate, { once: true });
+
+	let startY = 0;
+	let scrollEl = null;
+
+	function getScrollableParent(el) {
+	  while (el && el !== document.body) {
+		const style = getComputedStyle(el);
+		if (/(auto|scroll)/.test(style.overflowY)) return el;
+		el = el.parentElement;
+	  }
+	  return window;
+	}
+
+	window.addEventListener('touchstart', e => {
+	  scrollEl = getScrollableParent(e.target);
+	  if ((scrollEl === window && window.scrollY === 0) ||
+		  (scrollEl !== window && scrollEl.scrollTop === 0)) {
+		startY = e.touches[0].clientY;
+	  } else {
+		startY = null;
+	  }
+	});
+
+	window.addEventListener('touchmove', e => {
+	  if (startY === null) return;
+	  const touchY = e.touches[0].clientY;
+	  if (touchY > startY) e.preventDefault();
+	}, { passive: false });
 }
 // test always have volume be the default choice when using volume buttons on phone
 
