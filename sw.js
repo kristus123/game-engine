@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-cache-v3'
+const CACHE_NAME = RANDOM_UUID
 
 self.addEventListener('install', event => {
   event.waitUntil(
