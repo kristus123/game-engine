@@ -3,7 +3,7 @@ const CACHE_NAME = RANDOM_UUID
 self.addEventListener('install', event => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async cache => {
-			for (const url of ['/', ...ALL_FILES]) {
+			for (const url of ['/', '/manifest.json', ...ALL_FILES]) {
 
 				console.log("caching " + url)
 

@@ -6,8 +6,6 @@ const crypto = require('crypto')
 
 
 fs.copyFileSync('manifest.json', 'dist/manifest.json')
-
-
 fs.copyFileSync('sw.js', 'dist/sw.js')
 
 const sw = Files.read('sw.js')
