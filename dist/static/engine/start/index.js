@@ -52,22 +52,11 @@ window.addEventListener('touchmove', e => {
 
 // test always have volume be the default choice when using volume buttons on phone
 {
-	const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-	const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 1, audioCtx.sampleRate);
-	const src = audioCtx.createBufferSource();
-	src.buffer = buffer;
-	src.loop = true;
-	const dest = audioCtx.createMediaStreamDestination();
-	src.connect(dest);
-	const audioEl = new Audio();
-	audioEl.srcObject = dest.stream;
-	audioEl.loop = true;
-	function activate() {
-	audioCtx.resume().then(() => { src.start(); audioEl.play().catch(() => {}); });
-	document.removeEventListener("touchstart", activate);
-	}
+	const audio = new Audio("data:audio/wav;base64,UklGRpgiAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YXQiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	audio.loop = true;
+	audio.volume = 0.01;
+	function activate(){ audio.play().catch(()=>{}); document.removeEventListener("touchstart", activate); }
 	document.addEventListener("touchstart", activate, { once: true });
-
 }
 // test always have volume be the default choice when using volume buttons on phone
 
