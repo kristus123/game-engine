@@ -6,6 +6,7 @@ self.addEventListener('install', event => {
 			for (const url of ALL_FILES.concat(['/'])) {
 				try {
 					await cache.add(url)
+					await cache.add("https://romskip.netlify.app" + url)
 				}
 				catch (e) {
 					console.error('Failed to cache', url, e)
