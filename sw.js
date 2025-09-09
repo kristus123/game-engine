@@ -2,7 +2,7 @@ const CACHE_NAME = RANDOM_UUID
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(["/"].push(ALL_FILES)))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(["/", ...ALL_FILES]))
   )
 })
 
