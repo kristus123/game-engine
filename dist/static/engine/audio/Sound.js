@@ -11,7 +11,7 @@ export class Sound {
 	}
 
 	static click() {
-		this._click.play()
+		// this._click.play()
 	}
 
 	static placeDirt() {
