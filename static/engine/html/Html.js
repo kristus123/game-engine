@@ -226,7 +226,6 @@ export class Html {
 		button.textContent = text
 
 		button.addEventListener('click', () => {
-			// Sound.click()
 			onClick(button)
 
 			  if (navigator.vibrate) {

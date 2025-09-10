@@ -1,5 +1,4 @@
 import { a } from '/static/engine/assertions/a.js'; 
-import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Camera } from '/static/engine/camera/Camera.js'; 
 import { Controller } from '/static/engine/controller/Controller.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
@@ -234,7 +233,6 @@ export class Html {
 		button.textContent = text
 
 		button.addEventListener('click', () => {
-			// Sound.click()
 			onClick(button)
 
 			  if (navigator.vibrate) {
