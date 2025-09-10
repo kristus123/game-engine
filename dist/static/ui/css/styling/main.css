@@ -1,0 +1,26 @@
+html, body {
+  /* Disables pull-to-refresh but allows overscroll glow effects. */
+  overscroll-behavior-y: none;
+}
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	height: 100vh;
+	overflow: hidden; /* Prevent scrollbars */
+}
+
+canvas {
+	display: block; /* Remove default spacing */
+}
