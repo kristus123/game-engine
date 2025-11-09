@@ -1,7 +1,7 @@
 import { G } from '/static/engine/G.js'; 
 import { Grid } from '/static/engine/graphics/grid/Grid.js'; 
-import { GridMap } from '/static/engine/graphics/grid/GridMap.js'; 
-import { TileList } from '/static/engine/graphics/grid/TileList.js'; 
+import { GridTile } from '/static/engine/graphics/grid/GridTile.js'; 
+import { Palette } from '/static/engine/palette/Palette.js'; 
 import { Menu } from '/static/game/memory_cards/Menu.js'; 
 
 export class World {
@@ -9,12 +9,11 @@ export class World {
 
 
 	//	new Menu()
-		this.map = new GridMap()
-		this.map.set_current_tile(TileList.GRASS_TILE);
+		this.grassTile = new GridTile(Palette.fixedOffscreen(4000, 4000), G.image.grassTile)
 	}
 
 	update() {
-		this.map.update()
+		this.grassTile.update()
 		console.log("A")
 	}
 

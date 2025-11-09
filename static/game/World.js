@@ -1,12 +1,11 @@
 export class World {
 	constructor() {
 	//	new Menu()
-		this.map = new GridMap()
-		this.map.set_current_tile(TileList.GRASS_TILE);
+		this.grassTile = new GridTile(Palette.fixedOffscreen(4000, 4000), G.image.grassTile)
 	}
 
 	update() {
-		this.map.update()
+		this.grassTile.update()
 		console.log("A")
 	}
 
