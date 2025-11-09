@@ -1,3 +1,4 @@
+// TODO: Remove This Class After "GridMap.js" and "TileList.js" is fully implemented!
 export class GrassGrid {
 	constructor() {
 		this.grid = new Grid()
