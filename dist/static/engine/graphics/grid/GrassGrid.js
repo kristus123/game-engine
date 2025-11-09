@@ -2,10 +2,13 @@ import { G } from '/static/engine/G.js';
 import { Sound } from '/static/engine/audio/Sound.js'; 
 import { Mouse } from '/static/engine/controller/Mouse.js'; 
 import { Grid } from '/static/engine/graphics/grid/Grid.js'; 
+import { GridMap } from '/static/engine/graphics/grid/GridMap.js'; 
+import { TileList } from '/static/engine/graphics/grid/TileList.js'; 
 import { Palette } from '/static/engine/palette/Palette.js'; 
 import { Position } from '/static/engine/position/Position.js'; 
 import { D1 } from '/static/engine/start/D1.js'; 
 
+// TODO: Remove This Class After "GridMap.js" and "TileList.js" is fully implemented!
 export class GrassGrid {
 	constructor() {
 
