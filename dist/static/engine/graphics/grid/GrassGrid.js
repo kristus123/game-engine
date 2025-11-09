@@ -6,6 +6,7 @@ import { Palette } from '/static/engine/palette/Palette.js';
 import { Position } from '/static/engine/position/Position.js'; 
 import { D1 } from '/static/engine/start/D1.js'; 
 
+// TODO: Remove This Class After "GridMap.js" and "TileList.js" is fully implemented!
 export class GrassGrid {
 	constructor() {
 

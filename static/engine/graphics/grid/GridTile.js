@@ -1,18 +1,15 @@
-// TODO: Remove This Class After "GridMap.js" and "TileList.js" is fully implemented!
-export class GrassGrid {
-	constructor() {
+export class GridTile {
+	constructor(pal, spr) {
 		this.grid = new Grid()
-
-		this.grassPalette = Palette.fixedOffscreen(4000, 4000)
+		this.palette = pal
+		this.sprite = spr
 	}
-
 	update() {
-		D1.palette(this.grassPalette)
+		D1.palette(this.palette)
 
 		const gridPosition = this.grid.toGridPosition(Mouse.position)
 		const snappedPosition = this.grid.snappedPosition(Mouse.position)
-
-		D1.transparentGreenRectangle(snappedPosition)
+		D1.grey(snappedPosition)
 
 		for (const tile of this.grid.scaledTiles()) {
 			if (Mouse.hovering(tile)) {
@@ -27,19 +24,13 @@ export class GrassGrid {
 			else {
 				if (G.tile) {
 					this.grid.add(Mouse.position)
-					Sound.placeDirt()
-					if (G.tile == 'water') {
-						this.grassPalette.draw.picture(snappedPosition, G.image.waterTile)
-					}
-					else {
-						this.grassPalette.draw.picture(snappedPosition, G.image.grassTile)
-					}
+					this.palette.draw.picture(snappedPosition, this.sprite)
 				}
 			}
 		}
 		else if (Mouse.rightDown) {
 			this.grid.remove(Mouse.position)
-			this.grassPalette.draw.erase(snappedPosition)
+			this.palette.draw.erase(snappedPosition)
 		}
 	}
 }
