@@ -6,7 +6,7 @@ export class World {
 
 	update() {
 		this.grassTile.update()
-		console.log("A")
+
 	}
 
 	draw(draw) {

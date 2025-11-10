@@ -18,6 +18,7 @@ export class GridTile {
 		}
 
 		if (Mouse.down) {
+			console.log("down!")
 			if (this.grid.has(gridPosition)) {
 				D1.text(snappedPosition, 'full')
 			}
