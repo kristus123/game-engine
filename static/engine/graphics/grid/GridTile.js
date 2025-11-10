@@ -1,8 +1,8 @@
 export class GridTile {
-	constructor(pal, spr) {
+	constructor(palette, sprite) {
 		this.grid = new Grid()
-		this.palette = pal
-		this.sprite = spr
+		this.palette = palette
+		this.sprite = sprite
 	}
 	update() {
 		D1.palette(this.palette)

@@ -34,6 +34,7 @@ export class Sprite extends StaticGameObject {
 
 		this.onFinish = () => {}
 
+		// Get data from "asepriteJson" and use for this Sprite
 		for (let [tag, value] of Object.entries(asepriteJson.tags)) {
 			this[tag] = {
 				play: (onFinish=() => {}) => {
@@ -73,6 +74,7 @@ export class Sprite extends StaticGameObject {
 
 		const stopWatch = new StopWatch().start()
 
+		// Animate Sprite every 100ms
 		this.localObjects = new LocalObjects([
 			new OnTrue(() => stopWatch.time >= 100, () => {
 				if (this.type == 'show') {
@@ -95,6 +97,7 @@ export class Sprite extends StaticGameObject {
 			}),
 		])
 
+		// Slice SpriteSheet
 		this.slices = this.asepriteJson.tags[this.activeTag][this.currentFrame].slices.map(s => {
 			const p = s.position
 
@@ -108,7 +111,7 @@ export class Sprite extends StaticGameObject {
 		})
 	}
 
-
+	// Sets a random frame for animation
 	randomStartFrame() {
 		this.currentFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
 		return this

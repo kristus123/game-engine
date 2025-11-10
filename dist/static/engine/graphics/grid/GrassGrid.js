@@ -31,6 +31,7 @@ export class GrassGrid {
 		}
 
 		if (Mouse.down) {
+			console.log("down! grass")
 			if (this.grid.has(gridPosition)) {
 				D1.text(snappedPosition, 'full')
 			}
