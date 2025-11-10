@@ -1,8 +1,8 @@
 export class GridTile {
-	constructor(pal, spr) {
+	constructor(palette, sprite) {
 		this.grid = new Grid()
-		this.palette = pal
-		this.sprite = spr
+		this.palette = palette
+		this.sprite = sprite
 	}
 	update() {
 		D1.palette(this.palette)
@@ -18,7 +18,6 @@ export class GridTile {
 		}
 
 		if (Mouse.down) {
-			console.log("down!")
 			if (this.grid.has(gridPosition)) {
 				D1.text(snappedPosition, 'full')
 			}

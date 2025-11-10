@@ -6,7 +6,6 @@ export class World {
 
 	update() {
 		this.grassTile.update()
-
 	}
 
 	draw(draw) {
