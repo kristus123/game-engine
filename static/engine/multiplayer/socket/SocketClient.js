@@ -6,7 +6,7 @@ export class SocketClient {
 
 
 		this.clientId = clientId
-		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
+		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.originClientId}`)
 
 		this.webSocket.onopen = () => {
 		}

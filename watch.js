@@ -30,12 +30,12 @@ watcher.on('all', (e, path) => {
 	idTimeout = setTimeout(() => {
 		if (path.includes('.aseprite')) {
 			const task1 = new Runner('build_tools/export_aseprite.js' + path)
-			task1.start()
+			task1.restart()
 		}
 		const task2 = new Runner('build_tools/generate_dist.js')
 		const task3 = new Runner("socket_server/start_socket_servers.js")
-		task2.start()
-		task3.start()
+		task2.restart()
+		task3.restart()
 
 		currentId = RandomId()
 		idTimeout = null
@@ -44,5 +44,5 @@ watcher.on('all', (e, path) => {
 
 const task4 = new Runner('build_tools/export_aseprite.js')
 const task5 = new Runner('build_tools/generate_dist.js')
-task4.start()
-task5.start()
+task4.restart()
+task5.restart()

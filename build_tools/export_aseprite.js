@@ -69,6 +69,24 @@ function exportAseprite(srcFile, destBase) {
 	  '--',
 	  destBase + 'Tilemaps.json',
 	], { shell: true })
+
+	const file1 = `${destBase}.json`
+	const file2 = `${destBase}Layers.json`
+	const json1 = JSON.parse(fs.readFileSync(file1, 'utf8'))
+	const json2 = JSON.parse(fs.readFileSync(file2, 'utf8'))
+
+	const clean = obj => {
+	  for (const key in obj) {
+	    if (key === 'version') delete obj[key]
+	    else if (typeof obj[key] === 'object') clean(obj[key])
+	  }
+	}
+
+	clean(json1)
+	clean(json2)
+
+	fs.writeFileSync(file1, JSON.stringify(json1, null, 2))
+	fs.writeFileSync(file2, JSON.stringify(json2, null, 2))
 }
 
 
