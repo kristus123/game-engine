@@ -29,7 +29,7 @@ watcher.on('all', (e, path) => {
 
 	idTimeout = setTimeout(() => {
 		if (path.includes('.aseprite')) {
-		//	RunCommand('node build_tools/export_aseprite.js ' + path)
+			RunCommand('node build_tools/export_aseprite.js ' + path)
 		}
 
 		RunCommand('node build_tools/generate_dist.js')
@@ -39,5 +39,5 @@ watcher.on('all', (e, path) => {
 	}, 500)
 })
 
-//RunCommand('node build_tools/export_aseprite.js')
+RunCommand('node build_tools/export_aseprite.js')
 RunCommand('node build_tools/generate_dist.js')

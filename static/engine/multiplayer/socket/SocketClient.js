@@ -1,11 +1,11 @@
-const clientId = Random.uuid()
+const generatedClientId = Random.uuid()
 
 export class SocketClient {
 	constructor(port, run) {
 		this.listeners = {}
 
 
-		this.clientId = clientId
+		this.originClientId = generatedClientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
 		this.webSocket.onopen = () => {

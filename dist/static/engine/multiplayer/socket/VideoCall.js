@@ -9,8 +9,8 @@ export class VideoCall {
 
 
 		this.localStream
-		this.clientId
-		this.fromClientId
+		this.targetClientId
+		this.originClientId
 		this.peerConnection = {}
 		this.startCall()
 		this.connectedClientId = []
@@ -21,30 +21,30 @@ export class VideoCall {
 		this.socketClient = new SocketClient(8082, c => {
 
 			c.on('RTC_CLIENT_INFO', data => {
-				this.clientId = data.clientId
+				this.targetClientId = data.originClientId
 			})
 
 			c.on('RTC_CLIENT_CONNECTED', data => {
 				for (let i = 0; i < this.connectedClientId.length; i++) {
 					const id = this.connectedClientId[i]
-					if (id == data.clientId) {
+					if (id == data.targetClientId) {
 						console.warn('found')
 						return
 					}
 				}
 
-				if (this.clientId == data.clientId) {
+				if (this.targetClientId == data.targetClientId) {
 					return
 				}
 
-				this.connectedClientId.push(data.clientId)
+				this.connectedClientId.push(data.targetClientId)
 				const checkForConnection = setInterval(() => {
 					if (this.localStream != undefined) {
 						clearInterval(checkForConnection)
 					}
 
-					const peerConnection = this.createPeerConnection(data.clientId)
-					this.peerConnection[data.clientId] = peerConnection
+					const peerConnection = this.createPeerConnection(data.targetClientId)
+					this.peerConnection[data.targetClientId] = peerConnection
 
 					this.localStream.getTracks().forEach(track => {
 						peerConnection.addTrack(track, this.localStream)
@@ -53,39 +53,39 @@ export class VideoCall {
 					peerConnection.createOffer()
 						.then(offer => peerConnection.setLocalDescription(offer))
 						.then(() => {
-							console.warn(data.clientId + ' offer send')
+							console.warn(data.targetClientId + ' offer send')
 							this.socketClient.send({
 								action: 'RTC_OFFER',
 								offer: peerConnection.localDescription,
-								clientId: data.clientId
+								targetClientId: data.targetClientId
 							})
 						})
 				}, 100)
 			})
 
 			c.on('RTC_OFFER', data => {
-				console.warn(data.clientId + ' offer recived')
-				this.fromClientId = data.fromClientId
+				console.warn(data.targetClientId + ' offer recived')
+				this.originClientId = data.originClientId
 
-				console.warn('from '+this.fromClientId)
-				const peerConnection = this.createPeerConnection(data.clientId)
+				console.warn('from '+this.originClientId)
+				const peerConnection = this.createPeerConnection(data.targetClientId)
 				if (!peerConnection) {
 					startCall()
 					console.warn('Star')
 				}
 
-				this.peerConnection[data.clientId] = peerConnection
+				this.peerConnection[data.targetClientId] = peerConnection
 				peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer))
 					.then(() => peerConnection.createAnswer())
 					.then(answer => peerConnection.setLocalDescription(answer))
 					.then(() => {
-						console.warn(data.clientId+' answer send')
+						console.warn(data.targetClientId+' answer send')
 
 						this.socketClient.send({
 							action: 'RTC_ANSWER',
 							answer: peerConnection.localDescription,
-							clientId: data.clientId,
-							fromClientId: this.fromClientId
+							targetClientId: data.targetClientId,
+							originClientId: this.originClientId
 						})
 					})
 					.catch(error => {
@@ -94,14 +94,14 @@ export class VideoCall {
 			})
 
 			c.on('RTC_ANSWER', data => {
-				console.warn(data.clientId+' answer recived from '+data.fromClientId)
+				console.warn(data.targetClientId+' answer recived from '+data.originClientId)
 				console.warn(data.answer)
 				this.socketClient.send({
 					action: 'RTC_CLIENT_CONNECTED',
-					clientId: data.clientId,
+					targetClientId: data.targetClientId,
 					connectedClientId: this.connectedClientId
 				})
-				const peerConnection = this.peerConnection[data.clientId]
+				const peerConnection = this.peerConnection[data.targetClientId]
 				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
 					.catch((error) => {
 						console.error('Error setting remote description from answer', error)
@@ -109,8 +109,8 @@ export class VideoCall {
 			})
 
 			c.on('RTC_ICE_CANDIDATE', data => {
-				console.warn(data.clientId+' recives icecandinate')
-				const peerConnection = this.peerConnection[data.clientId]
+				console.warn(data.targetClientId+' recives icecandinate')
+				const peerConnection = this.peerConnection[data.targetClientId]
 				if (peerConnection) {
 					peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
 					  .catch(error => {
@@ -120,15 +120,15 @@ export class VideoCall {
 			})
 
 			c.on('RTC_CLIENT_DISCONNECTED', data => {
-				console.warn(data.clientId+' disconnected')
-				const videoElement = document.getElementById(data.clientId)
+				console.warn(data.targetClientId+' disconnected')
+				const videoElement = document.getElementById(data.targetClientId)
 				if (videoElement) {
 				  videoElement.remove()
 				}
-				const peerConnection = this.peerConnection[data.clientId]
+				const peerConnection = this.peerConnection[data.targetClientId]
 				if (peerConnection) {
 				  peerConnection.close()
-				  delete this.peerConnection[data.clientId]
+				  delete this.peerConnection[data.targetClientId]
 				}
 			})
 		})
@@ -140,7 +140,7 @@ export class VideoCall {
 		})
 
 		peerConnection.ontrack = e => {
-			console.warn(this.clientId +' '+ this.fromClientId)
+			console.warn(this.targetClientId +' '+ this.originClientId)
 
 			Html.append(this.div, [
 				HtmlVideo.guest(e.streams[0]),
@@ -152,7 +152,7 @@ export class VideoCall {
 				this.socketClient.send({
 					action: 'RTC_ICE_CANDIDATE',
 					candidate: e.candidate,
-					clientId: peerId
+					targetClientId: peerId
 				})
 			}
 		}
@@ -173,3 +173,4 @@ export class VideoCall {
 			})
 	}
 }
+

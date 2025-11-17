@@ -2,7 +2,7 @@ import { Random } from '/static/engine/Random.js';
 import { AssertNotNull } from '/static/engine/assertions/AssertNotNull.js'; 
 import { a } from '/static/engine/assertions/a.js'; 
 
-const clientId = Random.uuid()
+const generatedClientId = Random.uuid()
 
 export class SocketClient {
 	constructor(port, run) {
@@ -17,7 +17,7 @@ export class SocketClient {
 		this.listeners = {}
 
 
-		this.clientId = clientId
+		this.originClientId = generatedClientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
 		this.webSocket.onopen = () => {

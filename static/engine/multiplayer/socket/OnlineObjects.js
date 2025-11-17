@@ -35,7 +35,7 @@ export class OnlineObjects extends AllObjects {
 			})
 
 			c.on('OBJECT_HANDLED_BY', data => {
-				super.setHandledBy(data.objectId, data.clientid)
+				super.setHandledBy(data.objectId, data.originClientid)
 			})
 
 			c.on('UPDATE_OBJECT_POSITION', data => {
@@ -55,12 +55,12 @@ export class OnlineObjects extends AllObjects {
 
 				this.socketClient.send({
 					action: 'OBJECT_HANDLED_BY',
-					clientid: this.player.clientId,
+					originClientid: this.player.originClientId,
 					objectId: o.objectId
 				})
 			}
 
-			if (o.handledByClientId == this.player.clientId) {
+			if (o.handledByClientId == this.player.originClientId) {
 				this.socketClient.send({
 					action: 'UPDATE_OBJECT_POSITION',
 					x: o.x,

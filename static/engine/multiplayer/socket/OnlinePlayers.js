@@ -3,21 +3,21 @@ export class OnlinePlayers {
 		this.connectedPlayers = []
 
 		this.socketClient = new SocketClient(8080, c => {
-			player.clientId = c.clientId
+			player.clientId = c.originClientId
 
 			c.on('CONNECT_PLAYER', data => {
 				const p = new Player('x')
-				p.clientId = data.clientId
+				p.clientId = data.originClientId
 				this.connectedPlayers.push(p)
 			})
 
 			c.on('PLAYER_DISCONNECTED', data => {
-				this.connectedPlayers.removeIf(p => p.clientId == data.clientId)
+				this.connectedPlayers.removeIf(p => p.clientId == data.originClientId)
 			})
 
 			c.on('UPDATE_PLAYER_POSITION', data => {
 				for (const p of this.connectedPlayers) {
-					if (data.clientId == p.clientId) {
+					if (data.originClientId == p.clientId) {
 						p.x = data.x
 						p.y = data.y
 						break

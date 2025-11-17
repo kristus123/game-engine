@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const { execFileSync } = require('child_process')
 
+// execFileSync("aseprite")
+
 const SRC_DIR = path.join(__dirname, '../static/assets/aseprite')
 const DEST_BASE = path.join(__dirname, '../dist/static/assets')
 
@@ -33,7 +35,7 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destBase}`)
 
-	execFileSync('aseprite', [
+	execFileSync('../../aseprite/build/bin/aseprite', [
 		'-b',
 		srcFile,
 		'--split-tags',
@@ -49,7 +51,7 @@ function exportAseprite(srcFile, destBase) {
 	], { stdio: 'inherit' })
 
 
-	execFileSync('aseprite', [
+	execFileSync('../../aseprite/build/bin/aseprite', [
 		'-b',
 		'--split-layers',
 		srcFile,
@@ -61,7 +63,7 @@ function exportAseprite(srcFile, destBase) {
 		'{layer}_{frame}_{tag}',
 	])
 
-	execFileSync('aseprite', [
+	execFileSync('../../aseprite/build/bin/aseprite', [
 	  '-b',
 	  srcFile,
 	  '--script',
