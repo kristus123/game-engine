@@ -33,7 +33,7 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destBase}`)
 
-	execFileSync('aseprite', [
+	execFileSync('$HOME/aseprite/build/bin/aseprite', [
 		'-b',
 		srcFile,
 		'--split-tags',
@@ -46,10 +46,10 @@ function exportAseprite(srcFile, destBase) {
 		'json-array',
 		'--filename-format',
 		'{tag}',
-	], { stdio: 'inherit' })
+	], { stdio: 'inherit', shell: true })
 
 
-	execFileSync('aseprite', [
+	execFileSync('$HOME/aseprite/build/bin/aseprite', [
 		'-b',
 		'--split-layers',
 		srcFile,
@@ -59,16 +59,16 @@ function exportAseprite(srcFile, destBase) {
 		destBase + 'Layers.json',
 		'--filename-format',
 		'{layer}_{frame}_{tag}',
-	])
+	], { shell: true })
 
-	execFileSync('aseprite', [
+	execFileSync('$HOME/aseprite/build/bin/aseprite', [
 	  '-b',
 	  srcFile,
 	  '--script',
 	  'aseprite_to_json.lua',
 	  '--',
 	  destBase + 'Tilemaps.json',
-	])
+	], { shell: true })
 }
 
 
