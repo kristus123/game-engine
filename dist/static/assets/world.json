@@ -1,22 +1,37 @@
-{ "frames": [
-   {
-    "filename": "idle",
-    "frame": { "x": 0, "y": 0, "w": 640, "h": 800 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 800 },
-    "sourceSize": { "w": 640, "h": 800 },
-    "duration": 100
-   }
- ],
- "meta": {
-  "app": "http://www.aseprite.org/",
-  "version": "1.3.15.5-dev",
-  "image": "world.png",
-  "format": "RGBA8888",
-  "size": { "w": 640, "h": 800 },
-  "scale": "1",
-  "slices": [
-  ]
- }
+{
+  "frames": [
+    {
+      "filename": "idle",
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 800
+      },
+      "sourceSize": {
+        "w": 640,
+        "h": 800
+      },
+      "duration": 100
+    }
+  ],
+  "meta": {
+    "app": "http://www.aseprite.org/",
+    "image": "world.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 640,
+      "h": 800
+    },
+    "scale": "1",
+    "slices": []
+  }
 }

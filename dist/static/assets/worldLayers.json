@@ -1,27 +1,56 @@
-{ "frames": {
-   "Layer 1_0_idle": {
-    "frame": { "x": 0, "y": 0, "w": 640, "h": 800 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 800 },
-    "sourceSize": { "w": 640, "h": 800 },
-    "duration": 100
-   },
-   "grass_0_idle": {
-    "frame": { "x": 0, "y": 800, "w": 640, "h": 800 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 640, "h": 800 },
-    "sourceSize": { "w": 640, "h": 800 },
-    "duration": 100
-   }
- },
- "meta": {
-  "app": "http://www.aseprite.org/",
-  "version": "1.3.15.5-dev",
-  "image": "worldLayers.png",
-  "format": "RGBA8888",
-  "size": { "w": 640, "h": 1600 },
-  "scale": "1"
- }
+{
+  "frames": {
+    "Layer 1_0_idle": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 800
+      },
+      "sourceSize": {
+        "w": 640,
+        "h": 800
+      },
+      "duration": 100
+    },
+    "grass_0_idle": {
+      "frame": {
+        "x": 0,
+        "y": 800,
+        "w": 640,
+        "h": 800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 640,
+        "h": 800
+      },
+      "sourceSize": {
+        "w": 640,
+        "h": 800
+      },
+      "duration": 100
+    }
+  },
+  "meta": {
+    "app": "http://www.aseprite.org/",
+    "image": "worldLayers.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 640,
+      "h": 1600
+    },
+    "scale": "1"
+  }
 }
