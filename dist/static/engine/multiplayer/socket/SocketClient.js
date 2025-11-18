@@ -16,17 +16,23 @@ export class SocketClient {
 
 		this.listeners = {}
 
+		// List of all connected clients
+		this.connectedClients = {}
 
 		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
-		this.webSocket.onopen = () => {
-		}
+		this.webSocket.onopen = () => {}
 
 		run(this)
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
+
+			// Test Code
+			this.appendClient(data.clientId)
+			console.log(data)
+			console.log(this.connectedClients)
 
 			if (this.listeners[data.action]) {
 				try {
@@ -52,6 +58,29 @@ export class SocketClient {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
 		}
+	}
+
+	appendClient(clientId){
+		if (this.connectedClients[clientId] != null)
+		{
+			return;
+		}
+
+		this.connectedClients[clientId] = {
+			clientStatus: true,
+		}
+	}
+
+	removeClient(clientId){
+		if (this.connectedClients[clientId] === null)
+		{
+			return;
+		}
+		this.connectedClients[clientId].clientStatus = false
+	}
+
+	getClientList(){
+		return this.connectedClients
 	}
 
 	close() {}
