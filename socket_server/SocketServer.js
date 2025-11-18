@@ -22,9 +22,9 @@ module.exports = class {
 
 			this.onConnection(client, clientId)
 
-			this.sendToClient(clientId, {
-				action: "INIT_CLIENT_LIST",
-				data: JSON.stringify(this.allClientIds)
+			this.sendToEveryone({
+				action: "UPDATE_CLIENTS_LIST",
+				clientIds: this.allClientIds
 			})
 		}
 

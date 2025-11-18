@@ -5,7 +5,7 @@ export class SocketClient {
 		this.listeners = {}
 
 		// List of all connected clients
-		this.connectedClients = {}
+		this.connectedClientIds = []
 
 		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
@@ -17,13 +17,20 @@ export class SocketClient {
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
 
-			if (data.action === "INIT_CLIENT_LIST")
+			if (data.action === "UPDATE_CLIENTS_LIST")
 			{
-				this.connectedClients.concat(JSON.parse(data.data))
+				for (const clientId of data.clientIds) {
+					if (!this.connectedClientIds.includes(clientId)) {
+						this.connectedClientIds.push(clientId);
+					}
+				}
+				console.log(this.connectedClientIds)
 			}
 			if (data.action === "REMOVE_CLIENT")
 			{
-				this.removeClient(data.clientId)
+				const index = this.connectedClientIds.indexOf(data.clientId)
+				this.connectedClientIds.splice(index, 1)
+				console.log(this.connectedClientIds)
 			}
 
 			if (this.listeners[data.action]) {
@@ -52,27 +59,6 @@ export class SocketClient {
 		}
 	}
 
-	appendClient(clientId){
-		if (this.connectedClients[clientId] === null)
-		{
-			this.connectedClients[clientId] = {}
-		}
-		else
-		{
-			throw "SocketClient: Can't Append Client. Client Is Already Present!"
-		}
-	}
-
-	removeClient(clientId){
-		if (this.connectedClients[clientId] != null)
-		{
-			delete this.connectedClients[clientId]
-		}
-		else
-		{
-			throw "SocketClient: Can't Remove Client. Client Is Not Present!"
-		}
-	}
 	close()
 	{}
 
