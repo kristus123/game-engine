@@ -62,7 +62,7 @@ export class SocketClient {
 	removeClient(clientId){
 		if (this.connectedClients[clientId] != null)
 		{
-			this.connectedClients[clientId] = null;
+			delete this.connectedClients[clientId]
 		}
 		else
 		{
