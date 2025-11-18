@@ -49,26 +49,25 @@ export class SocketClient {
 	}
 
 	appendClient(clientId){
-		if (this.connectedClients[clientId] != null)
+		if (this.connectedClients[clientId] === null)
 		{
-			return;
+			this.connectedClients[clientId] = {}
 		}
-
-		this.connectedClients[clientId] = {
-			clientStatus: true,
+		else
+		{
+			throw "SocketClient: Can't Append Client. Client Is Already Present!"
 		}
 	}
 
 	removeClient(clientId){
-		if (this.connectedClients[clientId] === null)
+		if (this.connectedClients[clientId] != null)
 		{
-			return;
+			this.connectedClients[clientId] = null;
 		}
-		this.connectedClients[clientId].clientStatus = false
-	}
-
-	getClientList(){
-		return this.connectedClients
+		else
+		{
+			throw "SocketClient: Can't Remove Client. Client Is Not Present!"
+		}
 	}
 
 	close() {}
