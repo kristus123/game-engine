@@ -21,6 +21,11 @@ module.exports = class {
 			this.clientIdFrom[client] = clientId
 
 			this.onConnection(client, clientId)
+
+			this.sendToEveryone({
+				action: "UPDATE_CLIENTS_LIST",
+				clientIds: this.allClientIds
+			})
 		}
 
 		this.lowLevelSocketServer.onClose = (client, clientId) => {
@@ -32,6 +37,11 @@ module.exports = class {
 			delete this.clientIdFrom[client]
 
 			this.onClose(client, clientId)
+
+			this.sendToEveryone({
+				action: "REMOVE_CLIENT",
+				clientId: clientId
+			})
 		}
 	}
 
