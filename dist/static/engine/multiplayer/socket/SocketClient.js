@@ -22,17 +22,25 @@ export class SocketClient {
 		this.clientId = clientId
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
-		this.webSocket.onopen = () => {}
+		this.webSocket.onopen = () => {
+			this.send({action: "NEW_CONNECTION", clientId: this.clientId})
+		}
 
 		run(this)
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
 
-			// Test Code
-			this.appendClient(data.clientId)
-			console.log(data)
-			console.log(this.connectedClients)
+			if (data.action === "NEW_CONNECTION")
+			{
+				this.appendClient(data.clientId)
+				this.sendSyncReq()
+			}
+			if (data.action === "SYNC_CLIENTS")
+			{
+				const clients = JSON.parse(data.data)
+				this.connectedClients.concat(clients)
+			}
 
 			if (this.listeners[data.action]) {
 				try {
@@ -81,8 +89,18 @@ export class SocketClient {
 			throw "SocketClient: Can't Remove Client. Client Is Not Present!"
 		}
 	}
-
-	close() {}
+	sendSyncReq()
+	{
+		send({
+			action: "SYNC_CLIENTS",
+			data: JSON.stringify(this.connectedClients)
+		})
+	}
+	close()
+	{
+		this.removeClient(clientId)
+		this.sendSyncReq()
+	}
 
 	on(event, callback) {
 		this.listeners[event] = callback
