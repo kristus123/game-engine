@@ -28,6 +28,11 @@ module.exports = class {
 			})
 		}
 
+		this.lowLevelSocketServer.on("MESSAGE", (client, clientId, data) => {
+			console.log(`Server Passing Message: ${JSON.stringify(data)}`)
+			this.sendToEveryone(data);
+		})
+
 		this.lowLevelSocketServer.onClose = (client, clientId) => {
 			List.remove(this.allClients, client)
 			List.remove(this.allClientIds, clientId)

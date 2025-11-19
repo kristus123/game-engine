@@ -23,6 +23,7 @@ export class World {
 			if (originClientId === targetClientId)
 			{
 				this.msgSent = true
+				console.log("I am receiving only!")
 				return
 			}
 

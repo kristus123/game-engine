@@ -11,10 +11,10 @@ export class BasicSocketClient {
 				if (data.targetClientId != this.clientId)
 				{
 					console.log(`Hey You Are ${this.clientId}.`)
-					throw "No Message For You!"
+					console.log("No Message For You!")
 					return
 				}
-				console.log(`message from: ${data.originClientId} -> ${data.json}`)
+				console.log(`message from: ${data.originClientId} -> ${JSON.stringify(data.json)}`)
 			})
 		})
 
