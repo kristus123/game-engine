@@ -20,6 +20,7 @@ module.exports = class {
 			this.clientFrom[clientId] = client
 			this.clientIdFrom[client] = clientId
 
+//			This Line Causes Undefined Errors
 //			this.onConnection(client, clientId)
 
 			this.sendToEveryone({
@@ -36,6 +37,7 @@ module.exports = class {
 			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]
 
+//			This Line Causes Undefined Errors
 //			this.onClose(client, clientId)
 
 			this.sendToEveryone({
