@@ -2,12 +2,15 @@ export class World {
 	constructor() {
 	//	new Menu()
 		this.grassTile = new GridTile(Palette.fixedOffscreen(4000, 4000), G.image.grassTile)
-		this.client = new BasicSocketClient()
+		this.client = new ClientToClient_SocketClient()
 		this.msgSent = false
 	}
 
 	update() {
 		this.grassTile.update()
+
+		// This is not supposed to happen it is just me hardcoding communication between 1st and 2nd client
+		// Remove this code when the code is final!
 		if (this.client.socket.connectedClientIds.length > 1)
 		{
 			if (this.msgSent)
@@ -32,6 +35,11 @@ export class World {
 
 			this.msgSent = true
 		}
+
+		// real usage
+		this.client.on(json => {
+			console.log(json)
+		})
 	}
 
 	draw(draw) {

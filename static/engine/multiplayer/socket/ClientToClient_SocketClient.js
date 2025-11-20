@@ -1,12 +1,12 @@
-export class BasicSocketClient {
+export class ClientToClient_SocketClient {
 	constructor(){
 		this.clientId
+		this.callbacks = {}
+
 		this.socket = new SocketClient(8082, c => {
 			this.clientId = c.clientId
 
-			console.log(c)
-
-			c.on("MESSAGE", data => {
+			c.on("CLIENT_TO_CLIENT", data => {
 				console.log(`${data.originClientId} is talking to ${data.targetClientId}.`)
 				if (data.targetClientId != this.clientId)
 				{
@@ -14,6 +14,13 @@ export class BasicSocketClient {
 					console.log("No Message For You!")
 					return
 				}
+
+				const callback = this.callbacks["CLIENT_TO_CLIENT"]
+				
+				if (callback) {
+					callback(data.json)
+				}
+				
 				console.log(`message from: ${data.originClientId} -> ${JSON.stringify(data.json)}`)
 			})
 		})
@@ -22,10 +29,14 @@ export class BasicSocketClient {
 	send(targetClientId, data)
 	{
 		this.socket.send({
-			action: "MESSAGE",
+			action: "CLIENT_TO_CLIENT",
 			targetClientId: targetClientId,
 			originClientId: this.clientId,
 			json: data
 		})
+	}
+	on(callback)
+	{
+		this.callbacks["CLIENT_TO_CLIENT"] = callback
 	}
 }

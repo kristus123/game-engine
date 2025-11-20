@@ -20,18 +20,13 @@ module.exports = class {
 			this.clientFrom[clientId] = client
 			this.clientIdFrom[client] = clientId
 
-			this.onConnection(client, clientId)
+//			this.onConnection(client, clientId)
 
 			this.sendToEveryone({
 				action: "UPDATE_CLIENTS_LIST",
 				clientIds: this.allClientIds
 			})
 		}
-
-		this.lowLevelSocketServer.on("MESSAGE", (client, clientId, data) => {
-			console.log(`Server Passing Message: ${JSON.stringify(data)}`)
-			this.sendToEveryone(data);
-		})
 
 		this.lowLevelSocketServer.onClose = (client, clientId) => {
 			List.remove(this.allClients, client)
@@ -41,7 +36,7 @@ module.exports = class {
 			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]
 
-			this.onClose(client, clientId)
+//			this.onClose(client, clientId)
 
 			this.sendToEveryone({
 				action: "REMOVE_CLIENT",
