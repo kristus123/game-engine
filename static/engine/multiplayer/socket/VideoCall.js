@@ -152,16 +152,4 @@ export class VideoCall {
 		return peerConnection
 	}
 
-	startCall() {
-		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-			.then(stream => {
-				Html.left([
-					HtmlVideo.local(stream),
-				])
-				this.localStream = stream
-			})
-			.catch((error) => {
-				console.error('Error starting call', error)
-			})
-	}
 }

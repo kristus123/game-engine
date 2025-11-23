@@ -33,7 +33,7 @@ watcher.on('all', (e, path) => {
 			task1.start()
 		}
 		const task2 = new Runner('build_tools/generate_dist.js')
-		const task3 = new Runner("socket_server/start_socket_servers.js")
+		const task3 = new Runner('socket_server/start_socket_servers.js')
 		task2.start()
 		task3.start()
 

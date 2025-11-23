@@ -4,6 +4,7 @@ export class GridTile {
 		this.palette = pal
 		this.sprite = spr
 	}
+
 	update() {
 		D1.palette(this.palette)
 

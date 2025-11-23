@@ -1,45 +1,16 @@
 export class World {
 	constructor() {
-	//	new Menu()
-		this.grassTile = new GridTile(Palette.fixedOffscreen(4000, 4000), G.image.grassTile)
-		this.client = new ClientToClient_SocketClient()
-		this.msgSent = false
+		this.rtcClient = new RtcClient()
+		this.rtcClient.startLocalStream().then(localStream => {
+			const video = document.createElement('video')
+			video.srcObject = localStream
+			video.autoplay = true
+			video.style.width = '200px'
+			document.body.appendChild(video)
+		})
 	}
 
 	update() {
-		this.grassTile.update()
-
-		// This is not supposed to happen it is just me hardcoding communication between 1st and 2nd client
-		// Remove this code when the code is final!
-		if (this.client.socket.connectedClientIds.length > 1)
-		{
-			if (this.msgSent)
-			{
-				return
-			}
-
-			const originClientId = this.client.clientId
-			const targetClientId = this.client.socket.connectedClientIds[1]
-
-			console.log(`I am ${originClientId}`)
-
-			if (originClientId === targetClientId)
-			{
-				this.msgSent = true
-				console.log("I am receiving only!")
-				return
-			}
-
-			console.log(`client message sent to ${this.client.socket.connectedClientIds[1]}!`)
-			this.client.send(targetClientId, { text: "Hello, Client!" })
-
-			this.msgSent = true
-		}
-
-		// real usage
-		this.client.on(json => {
-			console.log(json)
-		})
 	}
 
 	draw(draw) {

@@ -18,17 +18,15 @@ export class SocketClient {
 			const data = JSON.parse(e.data)
 			console.log(data)
 
-			if (data.action === "UPDATE_CLIENTS_LIST")
-			{
+			if (data.action === 'UPDATE_CLIENTS_LIST') {
 				for (const clientId of data.clientIds) {
 					if (!this.connectedClientIds.includes(clientId)) {
-						this.connectedClientIds.push(clientId);
+						this.connectedClientIds.push(clientId)
 					}
 				}
 				console.log(this.connectedClientIds)
 			}
-			if (data.action === "REMOVE_CLIENT")
-			{
+			if (data.action === 'REMOVE_CLIENT') {
 				const index = this.connectedClientIds.indexOf(data.clientId)
 				this.connectedClientIds.splice(index, 1)
 				console.log(this.connectedClientIds)
@@ -60,8 +58,7 @@ export class SocketClient {
 		}
 	}
 
-	close()
-	{}
+	close() {}
 
 	on(event, callback) {
 		this.listeners[event] = callback
