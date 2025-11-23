@@ -6,31 +6,50 @@ export class RtcClient {
 		this.onData = null
 
 		this.client.on(json => {
-			const data = json.data
-			const peer = null
+            const data = json.data
+            let peerConn = null
+            const storedPeer = this.peers && data && this.peers[data.fromClientId]
 
-			switch (json.rtc_action) {
-			case 'CALL':
-				console.log(`Incoming call from ${data.fromClientId}`)
-				break
-			case 'OFFER':
-				this.acceptCall(data.fromClientId, data.offer)
-				break
-			case 'ANSWER':
-				peer = this.peers[data.fromClientId]
-				if (peerConnection) {
-					peer.setRemoteDescription(new RTCSessionDescription(data.answer))
-				}
-				break
-			case 'ICE_CANDIDATE':
-				peer = this.peers[data.fromClientId]
-				if (peer) {
-					peer.addIceCandidate(new RTCIceCandidate(data.candidate))
-				}
-				break
+            // Resolve the actual RTCPeerConnection instance from possible wrappers
+            if (storedPeer instanceof RTCPeerConnection) {
+                peerConn = storedPeer
+            } else if (storedPeer && typeof storedPeer.getPeerConnection === 'function') {
+                peerConn = storedPeer.getPeerConnection()
+            } else if (storedPeer && storedPeer.peerConnection instanceof RTCPeerConnection) {
+                peerConn = storedPeer.peerConnection
+            } else if (storedPeer && storedPeer.pc instanceof RTCPeerConnection) {
+                peerConn = storedPeer.pc
+            } else if (storedPeer && storedPeer.connection instanceof RTCPeerConnection) {
+                peerConn = storedPeer.connection
+            }
 
-			}
-		})
+            switch (json.rtc_action) {
+            case 'CALL':
+                console.log(`Incoming call from ${data.fromClientId}`)
+                break
+            case 'OFFER':
+                this.acceptCall(data.fromClientId, data.offer)
+                break
+            case 'ANSWER':
+                if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
+                    peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
+                        console.warn('setRemoteDescription failed:', err)
+                    })
+                } else {
+                    console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
+                }
+                break
+            case 'ICE_CANDIDATE':
+                if (peerConn && typeof peerConn.addIceCandidate === 'function') {
+                    peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
+                        console.warn('addIceCandidate failed:', err)
+                    })
+                } else {
+                    console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
+                }
+                break
+            }
+        })
 	}
 
 	call(targetClientId) {
