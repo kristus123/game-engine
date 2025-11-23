@@ -28,17 +28,14 @@ export class RtcClient {
 					peer.addIceCandidate(new RTCIceCandidate(data.candidate))
 				}
 				break
-			default:
-				if (this.onData) {
-					this.onData(json)
-				}
+
 			}
 		})
 	}
 
 	call(targetClientId) {
-		const peerConnection = this.createPeer(targetClientId)
-		this.peers[targetClientId] = peerConnection
+		const { peerConnection, dataChannel } = this.createPeer(targetClientId)
+		this.peers[targetClientId] = { peerConnection, dataChannel }
 
 		this.localStream.getTracks().forEach(track => {
 			peerConnection.addTrack(track, this.localStream)
@@ -58,8 +55,8 @@ export class RtcClient {
 	}
 
 	acceptCall(fromClientId, offer) {
-		const peerConnection = this.createPeer(fromClientId)
-		this.peers[fromClientId] = peerConnection
+		const { peerConnection, dataChannel } = this.createPeer(fromClientId)
+		this.peers[fromClientId] = { peerConnection, dataChannel }
 
 		peerConnection.setRemoteDescription(new RTCSessionDescription(offer))
 			.then(() => this.localStream.getTracks().forEach(track => {
@@ -79,7 +76,7 @@ export class RtcClient {
 	}
 
 	send(targetClientId, data) {
-		this.client.send(targetClientId, data)
+		this.peers[targetClientId].dataChannel.send(JSON.stringify(data))
 	}
 
 	createPeer(peerId) {
@@ -103,6 +100,8 @@ export class RtcClient {
 			}
 		}
 
+
+
 		const dataChannel = peerConnection.createDataChannel('data')
 		dataChannel.onopen = () => console.log('Data channel opened')
 		dataChannel.onmessage = (event) => {
@@ -120,7 +119,7 @@ export class RtcClient {
 			}
 		}
 
-		return peerConnection
+		return { peerConnection, dataChannel }
 	}
 
 	startLocalStream() {
