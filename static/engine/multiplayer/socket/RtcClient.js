@@ -6,22 +6,8 @@ export class RtcClient {
 		this.onData = null
 
 		this.client.on(json => {
-            const data = json.data
-            let peerConn = null
-            const storedPeer = this.peers && data && this.peers[data.fromClientId]
-
-            // Resolve the actual RTCPeerConnection instance from possible wrappers
-            if (storedPeer instanceof RTCPeerConnection) {
-                peerConn = storedPeer
-            } else if (storedPeer && typeof storedPeer.getPeerConnection === 'function') {
-                peerConn = storedPeer.getPeerConnection()
-            } else if (storedPeer && storedPeer.peerConnection instanceof RTCPeerConnection) {
-                peerConn = storedPeer.peerConnection
-            } else if (storedPeer && storedPeer.pc instanceof RTCPeerConnection) {
-                peerConn = storedPeer.pc
-            } else if (storedPeer && storedPeer.connection instanceof RTCPeerConnection) {
-                peerConn = storedPeer.connection
-            }
+			const data = json.data
+			let peerConn = this.peers[data.fromClientId]
 
             switch (json.rtc_action) {
             case 'CALL':
