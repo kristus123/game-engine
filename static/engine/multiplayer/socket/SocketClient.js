@@ -16,6 +16,7 @@ export class SocketClient {
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
+			console.log(data)
 
 			if (data.action === "UPDATE_CLIENTS_LIST")
 			{
