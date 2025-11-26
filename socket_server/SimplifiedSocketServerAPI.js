@@ -3,16 +3,15 @@ const List = require('./List')
 
 module.exports = class {
 	constructor(port) {
-
 		this.allClients = []
 		this.allClientIds = []
 
 		this.clientFrom = {}
 		this.clientIdFrom = {}
 
-		this.lowLevelSocketServer = new LowLevelSocketServer(port)
+		this.socket = new LowLevelSocketServer(port)
 
-		this.lowLevelSocketServer.onConnection = (client, clientId) => {
+		this.socket.onConnection = (client, clientId) => {
 			this.allClients.push(client)
 			this.allClientIds.push(clientId)
 			console.log(this.allClientIds)
@@ -20,16 +19,13 @@ module.exports = class {
 			this.clientFrom[clientId] = client
 			this.clientIdFrom[client] = clientId
 
-//			This Line Causes Undefined Errors
-//			this.onConnection(client, clientId)
-
 			this.sendToEveryone({
 				action: "UPDATE_CLIENTS_LIST",
 				clientIds: this.allClientIds
 			})
 		}
 
-		this.lowLevelSocketServer.onClose = (client, clientId) => {
+		this.socket.onClose = (client, clientId) => {
 			List.remove(this.allClients, client)
 			List.remove(this.allClientIds, clientId)
 			console.log(this.allClientIds)
@@ -37,17 +33,22 @@ module.exports = class {
 			delete this.clientFrom[clientId]
 			delete this.clientIdFrom[client]
 
-//			This Line Causes Undefined Errors
-//			this.onClose(client, clientId)
-
 			this.sendToEveryone({
 				action: "REMOVE_CLIENT",
 				clientId: clientId
 			})
 		}
-	}
 
-	sendToOthers(from, data) {
+		this.socket.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
+			console.log(`Server Passing Message: ${JSON.stringify(data)}`)
+
+			this.index = this.socket.allClientIds.indexOf(data.targetClientId)
+			this.targetClient = this.socket.allClients[this.index]
+		
+			this.socket.sendToClient(this.targetClient, data);
+		})
+	}
+		sendToOthers(from, data) {
 		for (const client of this.allClients) {
 			if (client !== from) {
 				client.send(JSON.stringify(data))
@@ -55,7 +56,7 @@ module.exports = class {
 		}
 	}
 
-	sendToEveryone(data) { // todo maybe pass client first just to keep it consistent
+	sendToEveryone(data) {
 		for (const client of this.allClients) {
 			client.send(JSON.stringify(data))
 		}
@@ -66,10 +67,10 @@ module.exports = class {
 	}
 
 	on(action, callback) {
-		this.lowLevelSocketServer.on(action, callback)
+		this.socket.on(action, callback)
 	}
 
 	start() {
-		this.lowLevelSocketServer.start()
+		this.socket.start()
 	}
 }

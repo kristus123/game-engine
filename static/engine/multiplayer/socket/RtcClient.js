@@ -1,41 +1,41 @@
 export class RtcClient {
 	constructor() {
-		this.client = new ClientToClient_SocketClient()
 		this.peers = {}
 		this.localStream = null
 		this.onData = null
+		this.client = new SimplifiedSocketClientAPI(8082, c => {
+			c.onEvent(json => {
+				const data = json.data
+				let peerConn = this.peers[data.fromClientId]
 
-		this.client.on(json => {
-			const data = json.data
-			let peerConn = this.peers[data.fromClientId]
-
-            switch (json.rtc_action) {
-            case 'CALL':
-                console.log(`Incoming call from ${data.fromClientId}`)
-                break
-            case 'OFFER':
-                this.acceptCall(data.fromClientId, data.offer)
-                break
-            case 'ANSWER':
-                if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
-                    peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
-                        console.warn('setRemoteDescription failed:', err)
-                    })
-                } else {
-                    console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
-                }
-                break
-            case 'ICE_CANDIDATE':
-                if (peerConn && typeof peerConn.addIceCandidate === 'function') {
-                    peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-                        console.warn('addIceCandidate failed:', err)
-                    })
-                } else {
-                    console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
-                }
-                break
-            }
-        })
+            	switch (json.rtc_action) {
+            	case 'CALL':
+                	console.log(`Incoming call from ${data.fromClientId}`)
+                	break
+            	case 'OFFER':
+                	this.acceptCall(data.fromClientId, data.offer)
+                	break
+            	case 'ANSWER':
+                	if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
+                    	peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
+                        	console.warn('setRemoteDescription failed:', err)
+                    	})
+                	} else {
+                    	console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
+                	}
+                	break
+            	case 'ICE_CANDIDATE':
+                	if (peerConn && typeof peerConn.addIceCandidate === 'function') {
+	                    peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
+                        	console.warn('addIceCandidate failed:', err)
+                    	})
+                	} else {
+                    	console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
+                	}
+                	break
+            	}
+        	})
+		})
 	}
 
 	call(targetClientId) {
@@ -49,7 +49,7 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				this.client.send(targetClientId, {
+				this.client.sendToClient(targetClientId, {
 					rtc_action: 'OFFER',
 					data: {
 						fromClientId: this.client.clientId,
@@ -70,7 +70,7 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				this.client.send(fromClientId, {
+				this.client.sendToClient(fromClientId, {
 					rtc_action: 'ANSWER',
 					data: {
 						fromClientId: this.client.clientId,
@@ -95,7 +95,7 @@ export class RtcClient {
 
 		peerConnection.onicecandidate = e => {
 			if (e.candidate) {
-				this.client.send(peerId, {
+				this.client.sendToClient(peerId, {
 					rtc_action: 'ICE_CANDIDATE',
 					data: {
 						fromClientId: this.client.clientId,

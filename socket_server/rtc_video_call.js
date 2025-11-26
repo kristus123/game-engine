@@ -1,4 +1,4 @@
-const SocketServer = require('./SocketServer')
+const SocketServer = require('./SimplifiedSocketServerAPI')
 const server = new SocketServer(8082)
 
 server.onConnection = (client, clientId) => {
