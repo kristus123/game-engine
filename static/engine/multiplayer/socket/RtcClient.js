@@ -1,6 +1,6 @@
 export class RtcClient {
 	constructor() {
-		this.client = new ClientToClient_SocketClient()
+		this.client = new SimplifiedSocketClientAPI()
 		this.peers = {}
 		this.localStream = null
 		this.onData = null
