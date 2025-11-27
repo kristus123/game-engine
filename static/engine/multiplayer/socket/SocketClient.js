@@ -1,7 +1,7 @@
 const clientId = Random.uuid()
 
 export class SocketClient {
-	constructor(port, run) {
+	constructor(port) {
 		this.listeners = {}
 
 		// List of all connected clients
@@ -11,8 +11,6 @@ export class SocketClient {
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
 
 		this.webSocket.onopen = () => {}
-
-		run(this)
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
@@ -27,6 +25,19 @@ export class SocketClient {
 				}
 				console.log(this.connectedClientIds)
 			}
+
+			if (data.action === "CLIENT_TO_CLIENT") {
+				console.log(`${data.originClientId} is talking to ${data.targetClientId}.`)
+				if (data.targetClientId != this.clientId)
+				{
+					console.log(`Hey You Are ${this.clientId}.`)
+					console.log("No Message For You!")
+					return
+				}
+				
+				console.log(`message from: ${data.originClientId} -> ${JSON.stringify(data.json)}`)
+			}
+
 			if (data.action === "REMOVE_CLIENT")
 			{
 				const index = this.connectedClientIds.indexOf(data.clientId)
