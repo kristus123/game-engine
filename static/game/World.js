@@ -1,45 +1,45 @@
 export class World {
 	constructor() {
+	//	new Menu()
 		this.grassTile = new GridTile(Palette.fixedOffscreen(4000, 4000), G.image.grassTile)
+		this.client = new SocketClient()
+		this.msgSent = false
 
-		this.rtcClient = new RtcClient()
-		this.rtcClient.onData = (data) => {
-			console.log('Received data:', data)
-		}
-
-		this.rtcClient.startLocalStream().then(() => {
-			console.log('Local stream started')
-		})
-
-		this.calledPeer = null
-
-		document.addEventListener('keydown', (e) => {
-			if (e.key === 'c') {
-				const myId = this.rtcClient.client.clientId
-				const otherClients = this.rtcClient.client.socket.connectedClientIds.filter(id => id !== myId)
-				if (otherClients.length > 0) {
-					const targetClientId = otherClients[0]
-					console.log(`Calling ${targetClientId}`)
-					this.rtcClient.call(targetClientId)
-					this.calledPeer = targetClientId
-				} else {
-					console.log('No other clients to call')
-				}
-			}
-
-			if (e.key === 'd') {
-				if (this.calledPeer) {
-					console.log(`Sending data to ${this.calledPeer}`)
-					this.rtcClient.send(this.calledPeer, { message: 'Hello from the other side!' })
-				} else {
-					console.log('You need to call a peer first! Press "c" to call.')
-				}
-			}
+		// real usage
+		this.client.on("CLIENT_TO_CLIENT", json => {
+			console.log(json)
 		})
 	}
 
 	update() {
 		this.grassTile.update()
+
+		// This is not supposed to happen it is just me hardcoding communication between 1st and 2nd client
+		// Remove this code when the code is final!
+		if (this.client.socket.connectedClientIds.length > 1)
+		{
+			if (this.msgSent)
+			{
+				return
+			}
+
+			const originClientId = this.client.socket.clientId
+			const targetClientId = this.client.socket.connectedClientIds[1]
+
+			console.log(`I am ${originClientId}`)
+
+			if (originClientId === targetClientId)
+			{
+				this.msgSent = true
+				console.log("I am receiving only!")
+				return
+			}
+
+			console.log(`client message sent to ${this.client.socket.connectedClientIds[1]}!`)
+			this.client.sendToClient(targetClientId, { text: "Hello, Client!" })
+
+			this.msgSent = true
+		}
 	}
 
 	draw(draw) {
