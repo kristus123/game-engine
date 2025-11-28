@@ -1,5 +1,5 @@
-const clientToClientServer = require('./ClientToClient_SocketServer')
+const Server = require('./SocketServer')
 
-const server = new clientToClientServer(8082)
+const server = new SocketServer(8082)
 
 server.start()

@@ -1,75 +1,32 @@
-const LowLevelSocketServer = require('./LowLevelSocketServer')
-const List = require('./List')
+const SocketServer = require('./SimplifiedSocketServerAPI')
 
-module.exports = class {
-	constructor(port) {
+const socket = new SocketServer(8082)
 
-		this.allClients = []
-		this.allClientIds = []
+socket.onConnection = (client, clientId) => {
+	console.log(`${clientId} has connected`)
 
-		this.clientFrom = {}
-		this.clientIdFrom = {}
-
-		this.lowLevelSocketServer = new LowLevelSocketServer(port)
-
-		this.lowLevelSocketServer.onConnection = (client, clientId) => {
-			this.allClients.push(client)
-			this.allClientIds.push(clientId)
-			console.log(this.allClientIds)
-
-			this.clientFrom[clientId] = client
-			this.clientIdFrom[client] = clientId
-
-//			This Line Causes Undefined Errors
-//			this.onConnection(client, clientId)
-
-			this.sendToEveryone({
-				action: "UPDATE_CLIENTS_LIST",
-				clientIds: this.allClientIds
-			})
-		}
-
-		this.lowLevelSocketServer.onClose = (client, clientId) => {
-			List.remove(this.allClients, client)
-			List.remove(this.allClientIds, clientId)
-			console.log(this.allClientIds)
-
-			delete this.clientFrom[clientId]
-			delete this.clientIdFrom[client]
-
-//			This Line Causes Undefined Errors
-//			this.onClose(client, clientId)
-
-			this.sendToEveryone({
-				action: "REMOVE_CLIENT",
-				clientId: clientId
-			})
-		}
-	}
-
-	sendToOthers(from, data) {
-		for (const client of this.allClients) {
-			if (client !== from) {
-				client.send(JSON.stringify(data))
-			}
-		}
-	}
-
-	sendToEveryone(data) { // todo maybe pass client first just to keep it consistent
-		for (const client of this.allClients) {
-			client.send(JSON.stringify(data))
-		}
-	}
-
-	sendToClient(client, data) {
-		client.send(JSON.stringify(data))
-	}
-
-	on(action, callback) {
-		this.lowLevelSocketServer.on(action, callback)
-	}
-
-	start() {
-		this.lowLevelSocketServer.start()
-	}
+	socket.sendToEveryone({
+		action: "UPDATE_CLIENTS_LIST",
+		clientIds: socket.allClientIds
+	})
 }
+
+socket.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
+	console.log(`Server Passing Message: ${JSON.stringify(data)}`)
+
+	const index = socket.allClientIds.indexOf(data.targetClientId)
+	const targetClient = socket.allClients[index]
+		
+	socket.sendToClient(targetClient, data);
+})
+
+socket.onClose = (client, clientId) => {
+	console.log(`${clientId} has disconnected`)
+
+	socket.sendToEveryone({
+		action: "REMOVE_CLIENT",
+		clientId: socket.clientId
+	})
+}
+
+socket.start()
