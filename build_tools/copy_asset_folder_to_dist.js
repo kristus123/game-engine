@@ -28,6 +28,6 @@ function copyFolderRecursive(source, destination) {
 }
 
 
-copyFolderRecursive('static/assets/', 'dist/static/assets/')
-copyFolderRecursive('static/audio/', 'dist/static/audio/')
-copyFolderRecursive('static/ui/', 'dist/static/ui/')
+copyFolderRecursive('game/assets/', 'dist/game/assets/')
+copyFolderRecursive('game/audio/', 'dist/game/audio/')
+copyFolderRecursive('game/ui/', 'dist/game/ui/')

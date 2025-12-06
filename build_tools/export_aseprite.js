@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const { execFileSync } = require('child_process')
 
-const SRC_DIR = path.join(__dirname, '../static/assets/aseprite')
-const DEST_BASE = path.join(__dirname, '../dist/static/assets')
+const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
+const DEST_BASE = path.join(__dirname, '../dist/game/assets')
 
 function walk(dir, callback) {
 	fs.readdirSync(dir, { withFileTypes: true }).forEach(entry => {

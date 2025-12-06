@@ -3,7 +3,7 @@ const fs = require('fs')
 
 module.exports = class {
 	static writeFileToDist(srcPath, content) {
-		const destPath = Path.join('dist/static', Path.relative('static', srcPath))
+		const destPath = Path.join('dist/static', Path.relative(Path.dirname(require.main.filename), srcPath))
 
 		const folderPath = Path.dirname(destPath)
 
@@ -20,7 +20,7 @@ module.exports = class {
 
 	static contentMatchingIn(path, fileContent) {
 		try {
-			const distPath = Path.join('dist/static', Path.relative('static', path))
+			const distPath = Path.join('dist/static', Path.relative(Path.dirname(require.main.filename), path))
 			const distFile = fs.readFileSync(distPath, 'utf8')
 
 			return distFile == fileContent
@@ -39,7 +39,7 @@ module.exports = class {
 					this.getJsFiles(filePath, jsFiles)
 				}
 				else if (file.endsWith('.js')) {
-					jsFiles.push(filePath.replaceAll('\\', '/'))
+					jsFiles.push(filePath.replaceAll('\\', Path.dirname(require.main.filename)))
 				}
 			}
 			return jsFiles
@@ -78,7 +78,7 @@ module.exports = class {
 		}
 
 		return results
-			.map(f => f.replaceAll('\\', '/'))
+			.map(f => f.replaceAll('\\', Path.dirname(require.main.filename)))
 	}
 
 

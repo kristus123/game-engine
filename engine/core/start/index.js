@@ -38,6 +38,7 @@ function loadAsepriteAssets(path) {
 
 		const p2 = Promise.all([
 			LoadImage(`${path}.png`),
+			console.log(path),
 			LoadJson(`${path}.json`),
 		]).then(([img, json]) => {
 			G.image[fileName] = img
@@ -62,8 +63,9 @@ function loadAsepriteTilemaps(path) {
 	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
 
 	if (path.includes('_tilemaps.json')) {
-		path = path.replace('/static/assets/', '/static/assets/aseprite/')
-
+		console.log("Before Replace: "+path.toString())
+		path = path.replace('/game/assets/', '/game/assets/aseprite/')
+		console.log("After Replace: "+path.toString())
 		return LoadJson(path).then(json => {
 			if (json) {
 				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
