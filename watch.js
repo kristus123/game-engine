@@ -33,7 +33,7 @@ watcher.on('all', (e, path) => {
 			task_export_aseprite.start()
 		}
 		const task_generate_dist = new Runner('build_tools/generate_dist.js')
-		const task_start_server = new Runner("engine/server/start_socket_servers.js")
+		const task_start_server = new Runner("server/start_socket_servers.js")
 		task_generate_dist.start()
 		task_start_server.start()
 
