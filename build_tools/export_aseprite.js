@@ -65,7 +65,7 @@ function exportAseprite(srcFile, destBase) {
 	  '-b',
 	  srcFile,
 	  '--script',
-	  'aseprite_to_json.lua',
+	  'build_tools/aseprite_to_json.lua',
 	  '--',
 	  destBase + 'Tilemaps.json',
 	], { shell: true })
