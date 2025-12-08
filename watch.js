@@ -1,6 +1,6 @@
 const chokidar = require('chokidar')
-const RandomId = require('./RandomId')
-const { Runner } = require('./Runner')
+const RandomId = require('./build_tools/RandomId')
+const { Runner } = require('./build_tools/Runner')
 const express = require('express')
 
 let currentId = RandomId()
