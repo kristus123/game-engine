@@ -74,7 +74,7 @@ function processFilesInFolder(folderPath) {
 	}
 }
 
-processFilesInFolder('static/')
+processFilesInFolder('/')
 	.forEach(({ className, methods }) => {
 		methods.forEach(({ methodName, methodParameters }) => {
 			console.log(`  ${methodName}(${methodParameters.join(', ')})`)
