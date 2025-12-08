@@ -15,7 +15,7 @@ const allAsepritePaths = Files.at('game/assets/aseprite')
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/engine/core/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
+Files.replace('dist/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
 
 
 const audioFiles = Files.at('game/audio')
@@ -26,7 +26,7 @@ const audioFiles = Files.at('game/audio')
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/engine/core/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
+Files.replace('dist/engine/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
 
 
 
