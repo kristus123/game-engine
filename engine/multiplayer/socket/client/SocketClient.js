@@ -1,6 +1,8 @@
 export class SocketClient {
 	constructor(){
+		this.clientId
 		this.socket = new SimplifiedSocketClientAPI(8082, c => {
+			this.clientId = c.clientId
 			c.on("UPDATE_CLIENTS_LIST", data =>{
 				for (const clientId of data.clientIds) {
 					if (!c.connectedClientIds.includes(clientId)) {
@@ -26,6 +28,10 @@ export class SocketClient {
 			})
 		})
 
+	}
+
+	sendRaw(data) {
+		this.socket.send(data)
 	}
 
 	send(data) {

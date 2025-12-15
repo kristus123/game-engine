@@ -42,6 +42,9 @@ export class SimplifiedSocketClientAPI {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
 		}
+		else{
+			console.log("still connecting")
+		}
 	}
 
 	close()
