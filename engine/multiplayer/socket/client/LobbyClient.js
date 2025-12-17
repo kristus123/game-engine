@@ -26,9 +26,6 @@ export class LobbyClient {
 				console.log(`Disconnected From Lobby ${this.connectedLobbyId}`)
 			}
 		})
-
-		// FIXME: Does Not Work!
-		this.socket.on("close", data => { this.leave() })
 	}
 	
 	create() {
