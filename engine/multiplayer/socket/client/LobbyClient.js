@@ -13,24 +13,29 @@ export class LobbyClient {
 		})
 
 		this.socket.on("UPDATE_LOBBY_CLIENT_LIST", data => {
-			if (data.originLobbyId === this.connectedLobbyId) {
+			if (data.originLobbyId === this.connectedLobbyId && data.targetClientId === this.socket.clientId) {
 				this.clientList = data.json
 				console.log(`Updated Client List: [${this.clientList}]`)
 			}
 		})
 
 		this.socket.on("LOBBY_CLOSED", data => {
-			if (data.originLobbyId === this.connectedLobbyId) {
+			if (data.originLobbyId === this.connectedLobbyId && data.targetClientId === this.socket.clientId) {
+				this.connectedLobbyId = ''
 				this.clientList = []
 				console.log(`Disconnected From Lobby ${this.connectedLobbyId}`)
 			}
 		})
 
-
+		// FIXME: Does Not Work!
 		this.socket.on("close", data => { this.leave() })
 	}
 	
 	create() {
+		if(!(this.connectedLobbyId === '')) {
+			console.log("LobbyClientAPI ERROR: You are already in a Lobby!")
+			return
+		}
 		this.socket.sendRaw({
 			action: "CREATE_LOBBY",
 			json: {}
@@ -38,6 +43,10 @@ export class LobbyClient {
 	}
 
 	join(id){
+		if(!(this.connectedLobbyId === '')) {
+			console.log("LobbyClientAPI ERROR: You are already in a Lobby!")
+			return
+		}
 		this.connectedLobbyId = id
 		this.socket.sendRaw({
 			action: "JOIN_LOBBY",

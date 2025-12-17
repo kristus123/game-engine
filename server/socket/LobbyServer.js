@@ -31,42 +31,65 @@ module.exports = class {
 			console.log(`> ${clientId} Is Joining Lobby ${data.json['lobbyId']}`)
 			
 			const lobbyId = data.json['lobbyId']
+			
+			if(!this.lobbyList[lobbyId]){
+				console.log(`> Could Not Join Lobby ${lobbyId} It Does Not Exist!`)
+				return
+			}
+			
 			const clientList = this.lobbyList[lobbyId].clientList
+
 			clientList.push(clientId)
 	
-			console.log(`> New Client Appended To Lobby ${lobbyId}: ${this.lobbyList[lobbyId].clientList}`)
+			console.log(`> New Client Appended To Lobby ${lobbyId}: [${this.lobbyList[lobbyId].clientList}]`)
 			
-			this.socket.sendToClient(client, {
-				action: "UPDATE_LOBBY_CLIENT_LIST",
-				originLobbyId: lobbyId,
-				json: this.lobbyList[lobbyId].clientList
-			})	
+			clientList.forEach((clientId, index) => {
+				this.socket.sendToEveryone({
+					action: "UPDATE_LOBBY_CLIENT_LIST",
+					originLobbyId: lobbyId,
+					targetClientId: clientId,
+					json: this.lobbyList[lobbyId].clientList
+				})
+			})
 		})
 
 		this.socket.on("LEAVE_LOBBY", (client, clientId, data) => {
 			console.log(`> ${clientId} Is Leaving Lobby ${data.json['lobbyId']}`)
 			
 			const lobbyId = data.json['lobbyId']
+			
+			if(!this.lobbyList[lobbyId]){
+				console.log(`> Could Not Leave Lobby ${lobbyId} It Does Not Exist!`)
+				return
+			}
+			
 			const clientList = this.lobbyList[lobbyId].clientList
-	
+
 			const clientIndex = clientList.indexOf(clientId)
-			const new_client_list = clientList.splice(clientIndex, 1)
+			clientList.splice(clientIndex, 1)
+			
+			if(clientList.length < 1) {
+				console.log(`> Lobby ${lobbyId} Was Removed Due To No Connected Players`)
+				delete this.lobbyList[lobbyId]
+				return
+			}
 
 			// If The Admin Is Leaving Then Transfer Lobby Ownership
 			if(clientId === this.lobbyList[lobbyId].adminClientId){
-				const randomIndex = Math.floor(Math.random() * new_client_list.length)
-				this.lobbyList[lobbyId].adminClientId = new_client_list[randomIndex]
+				const randomIndex = Math.floor(Math.random() * clientList.length)
+				this.lobbyList[lobbyId].adminClientId = clientList[randomIndex]
 				console.log(`> Ownership of Lobby ${lobbyId} was transfered to Client ${this.lobbyList[lobbyId].adminClientId}`)
 			}
 			
-			this.lobbyList[lobbyId].clientList = new_client_list
+			this.lobbyList[lobbyId].clientList = clientList
 
-			console.log(`> Client Removed From Lobby ${lobbyId}: ${this.lobbyList[lobbyId].clientList}`)
-			
-			new_client_list.forEach((clientId, index) => {
-				this.socket.sendToClient(client, {
+			console.log(`> Client ${clientId} Was Removed From Lobby ${lobbyId}: [${this.lobbyList[lobbyId].clientList}]`)
+
+			clientList.forEach((clientId, index) => {
+				this.socket.sendToEveryone({
 					action: "UPDATE_LOBBY_CLIENT_LIST",
 					originLobbyId: lobbyId,
+					targetClientId: clientId,
 					json: this.lobbyList[lobbyId].clientList
 				})
 			})
@@ -76,15 +99,21 @@ module.exports = class {
 			console.log(`> Closing Lobby ${data.json['lobbyId']}`)
 			
 			const lobbyId = data.json['lobbyId']
+			
+			if(!this.lobbyList[lobbyId]){
+				console.log(`> Could Not Close Lobby ${lobbyId} It Does Not Exist!`)
+				return
+			}
 
 			// Close Only If The Requesting Client Is The Admin
 			if(clientId === this.lobbyList[lobbyId].adminClientId){
 				const clientList = this.lobbyList[lobbyId].clientList
 	
 				clientList.forEach((clientId, index) => {
-					this.socket.sendToClient(client, {
+					this.socket.sendToEveryone({
 						action: "LOBBY_CLOSED",
 						originLobbyId: lobbyId,
+						targetClientId: clientId,
 						json: {}
 					})
 				})
