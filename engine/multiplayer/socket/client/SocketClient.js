@@ -1,6 +1,5 @@
 export class SocketClient {
 	constructor(){
-		this.clientId
 		this.socket = new SimplifiedSocketClientAPI(8082, c => {
 			this.clientId = c.clientId
 			c.on("UPDATE_CLIENTS_LIST", data =>{
@@ -30,16 +29,13 @@ export class SocketClient {
 
 	}
 
-	sendRaw(data) {
-		this.socket.send(data)
-	}
-
-	send(data) {
+	send(data) { // todo: rename to sendToServer
 		this.socket.send({
 			originClientId: this.clientId,
 			json: data
 		})
 	}
+
 	
 	sendToClient(targetClientId, data)
 	{

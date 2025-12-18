@@ -1,38 +1,34 @@
-const SocketServer = require('./SimplifiedSocketServerAPI')
+const SimplifiedSocketServerAPI = require('./SimplifiedSocketServerAPI')
 
-const socket = new SocketServer(8082)
+const socketServer = new SimplifiedSocketServerAPI(8082)
 
-socket.start()
+socketServer.start()
 
-socket.onConnection = (client, clientId) => {
+socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
 
-	socket.sendToEveryone({
+	socketServer.sendToEveryone({
 		action: "UPDATE_CLIENTS_LIST",
-		clientIds: socket.allClientIds
+		clientIds: socketServer.allClientIds
 	})
 }
 
-socket.on("CREATE_LOBBY", (client, clientId, data) => {
-	console.log("Creating Lobby...")
-})
-
-socket.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
+socketServer.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
 	console.log(`Server Passing Message: ${JSON.stringify(data)}`)
 
-	const index = socket.allClientIds.indexOf(data.targetClientId)
-	const targetClient = socket.allClients[index]
+	const index = socketServer.allClientIds.indexOf(data.targetClientId)
+	const targetClient = socketServer.allClients[index]
 		
-	socket.sendToClient(targetClient, data);
+	socketServer.sendToClient(targetClient, data);
 })
 
-socket.onClose = (client, clientId) => {
+socketServer.onClose = (client, clientId) => {
 	console.log(`${clientId} has disconnected`)
 
-	socket.sendToEveryone({
+	socketServer.sendToEveryone({
 		action: "REMOVE_CLIENT",
-		clientId: socket.clientId
+		clientId: socketServer.clientId
 	})
 }
 
-module.exports = socket
+module.exports = socketServer

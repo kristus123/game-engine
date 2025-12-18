@@ -1,80 +1,78 @@
 export class LobbyClient {
-	constructor(socket_client) {
-		this.socket = socket_client
-		this.connectedLobbyId = ''
-		this.clientList = []
+	constructor(socketClient) {
 
-		this.socket.on("NEW_LOBBY", data => {
-			if (this.socket.clientId === data.json['admin']) {
-				this.connectedLobbyId = data.json['lobbyId']
-				this.clientList = data.json['clientList']
-				console.log(`Connected To Lobby ${this.connectedLobbyId}`)
-			}
+		this.lobbyId = ''
+		this.clients = []
+
+		this.socketClient.on("CLIENT_JOINS_LOBBY", data => {
+			this.clients.push(data.clientId)
 		})
 
-		this.socket.on("UPDATE_LOBBY_CLIENT_LIST", data => {
-			if (data.originLobbyId === this.connectedLobbyId && data.targetClientId === this.socket.clientId) {
-				this.clientList = data.json
-				console.log(`Updated Client List: [${this.clientList}]`)
-			}
+		this.socketClient.on("CLIENT_LEAVES_LOBBY", data => {
+			this.clients.remove(data.clientId)
 		})
 
-		this.socket.on("LOBBY_CLOSED", data => {
-			if (data.originLobbyId === this.connectedLobbyId && data.targetClientId === this.socket.clientId) {
-				this.connectedLobbyId = ''
-				this.clientList = []
-				console.log(`Disconnected From Lobby ${this.connectedLobbyId}`)
+		this.socketClient.on("LOBBY_CLOSED", data => {
+			if (data.originLobbyId === this.lobbyId && data.targetClientId === this.socketClient.clientId) {
+				this.lobbyId = ''
+				this.clients = []
+				console.log(`Disconnected From Lobby ${this.lobbyId}`)
 			}
 		})
 	}
 	
 	create() {
-		if(!(this.connectedLobbyId === '')) {
-			console.log("LobbyClientAPI ERROR: You are already in a Lobby!")
-			return
+		if (this.lobbyId === '') {
+			this.lobbyId = Random.uuid()
+			this.clients = []
+
+			this.socketClient.sendToServer("CREATE_LOBBY", {
+				lobbyId: this.lobbyId,
+			})
 		}
-		this.socket.sendRaw({
-			action: "CREATE_LOBBY",
-			json: {}
-		})
+		else {
+			throw new Error("LobbyClientAPI ERROR: You are already in a Lobby!")
+		}
 	}
 
-	join(id){
-		if(!(this.connectedLobbyId === '')) {
-			console.log("LobbyClientAPI ERROR: You are already in a Lobby!")
-			return
+	join(lobbyId) {
+		if (this.lobbyId === '') {
+			this.lobbyId = lobbyId
+			this.socketClient.send({
+				action: "JOIN_LOBBY",
+				json: {
+					lobbyId: lobbyId
+				}
+			})
 		}
-		this.connectedLobbyId = id
-		this.socket.sendRaw({
-			action: "JOIN_LOBBY",
-			json: {
-				lobbyId: id
-			}
-		})
+		else {
+			throw new Error("LobbyClientAPI ERROR: You are already in a Lobby!")
+		}
 	}
 	
-	leave(){
-		if(this.connectedLobbyId === '') {
+	leave() {
+		if(this.lobbyId === '') {
 			console.log("LobbyClientAPI ERROR: You need to be connected to a lobby before calling the .leave() function!")
-			return
 		}
-		this.socket.sendRaw({
-			action: "LEAVE_LOBBY",
-			json: {
-				lobbyId: this.connectedLobbyId
-			}
-		})
+		else {
+			this.socketClient.send({
+				action: "LEAVE_LOBBY",
+				lobbyId: this.lobbyId,
+			})
+
+			this.lobbyId = ''
+		}
 	}
 
-	close(){
-		if(this.connectedLobbyId === '') {
+	close() {
+		if(this.lobbyId === '') {
 			console.log("LobbyClientAPI ERROR: You need to be connected to a lobby before calling the .close() function!")
 			return
 		}
-		this.socket.sendRaw({
+		this.socketClient.send({
 			action: "CLOSE_LOBBY",
 			json: {
-				lobbyId: this.connectedLobbyId
+				lobbyId: this.lobbyId
 			}
 		})
 	}
