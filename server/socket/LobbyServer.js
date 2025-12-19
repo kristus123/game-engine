@@ -6,10 +6,8 @@ module.exports = class {
 		
 		this.socket.on("CREATE_LOBBY", (client, clientId, data) => {
 			console.log(`> ${clientId} Is Creating A Lobby...`)
-			
-			const lobbyId = crypto.randomUUID()
 	
-			this.lobbyList[lobbyId] = {
+			this.lobbyList[data.lobbyId] = {
 				adminClientId: clientId,
 				clientList: [
 					clientId,
@@ -20,18 +18,14 @@ module.exports = class {
 
 			this.socket.sendToClient(client, {
 				action: "NEW_LOBBY",
-				json: {
-					admin: clientId,
-					lobbyId: lobbyId,
-					clientList: this.lobbyList[lobbyId].clientList
-				}
+				clients: this.lobbyList[data.lobbyId].clientList
 			})
 		})
 
 		this.socket.on("JOIN_LOBBY", (client, clientId, data) => {
-			console.log(`> ${clientId} Is Joining Lobby ${data.json['lobbyId']}`)
+			console.log(`> ${clientId} Is Joining Lobby ${data.lobbyId}`)
 			
-			const lobbyId = data.json['lobbyId']
+			const lobbyId = data.lobbyId
 			
 			if(!this.lobbyList[lobbyId]){
 				console.log(`> Could Not Join Lobby ${lobbyId} It Does Not Exist!`)
@@ -40,30 +34,35 @@ module.exports = class {
 			
 			const clientList = this.lobbyList[lobbyId].clientList
 
-			clientList.push(clientId)
-	
 			console.log(`> New Client Appended To Lobby ${lobbyId}: [${this.lobbyList[lobbyId].clientList}]`)
 			
-			clientList.forEach((clientId, index) => {
+			clientList.forEach((targetClientId, index) => {
 				this.socket.sendToEveryone({
-					action: "UPDATE_LOBBY_CLIENT_LIST",
+					action: "CLIENT_JOINS_LOBBY",
 					originLobbyId: lobbyId,
-					targetClientId: clientId,
-					json: this.lobbyList[lobbyId].clientList
+					targetClientId: targetClientId,
+					clientId: clientId
 				})
+			})
+			
+			clientList.push(clientId)
+			
+			this.socket.sendToClient(client, {
+				action: "NEW_LOBBY",
+				clients: this.lobbyList[data.lobbyId].clientList
 			})
 		})
 
 		this.socket.on("LEAVE_LOBBY", (client, clientId, data) => {
-			const lobbyId = data.json['lobbyId']
+			const lobbyId = data.lobbyId
 			console.log(`> ${clientId} Is Leaving Lobby ${lobbyId}`)
 			this.handle_disconnect(lobbyId, clientId)
 		})
 
 		this.socket.on("CLOSE_LOBBY", (client, clientId, data) => {
-			console.log(`> Closing Lobby ${data.json['lobbyId']}`)
+			console.log(`> Closing Lobby ${data.lobbyId}`)
 			
-			const lobbyId = data.json['lobbyId']
+			const lobbyId = data.lobbyId
 			
 			if(!this.lobbyList[lobbyId]){
 				console.log(`> Could Not Close Lobby ${lobbyId} It Does Not Exist!`)
@@ -79,7 +78,6 @@ module.exports = class {
 						action: "LOBBY_CLOSED",
 						originLobbyId: lobbyId,
 						targetClientId: clientId,
-						json: {}
 					})
 				})
 	
@@ -133,12 +131,12 @@ module.exports = class {
 
 		console.log(`> Client ${clientId} Was Removed From Lobby ${lobbyId}: [${this.lobbyList[lobbyId].clientList}]`)
 
-		clientList.forEach((clientId, index) => {
+		clientList.forEach((targetClientId, index) => {
 			this.socket.sendToEveryone({
-				action: "UPDATE_LOBBY_CLIENT_LIST",
+				action: "CLIENT_LEFT_LOBBY",
 				originLobbyId: lobbyId,
-				targetClientId: clientId,
-				json: this.lobbyList[lobbyId].clientList
+				targetClientId: targetClientId,
+				clientId: clientId
 			})
 		})
 

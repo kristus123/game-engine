@@ -34,7 +34,7 @@ export class SocketClient {
 		this.socket.send(data)
 	}
 
-	send(data) {
+	sendToServer(data) {
 		this.socket.send({
 			originClientId: this.clientId,
 			json: data
