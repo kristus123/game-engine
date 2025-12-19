@@ -1,7 +1,7 @@
 import * as ort from "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.js";
 import * as vad from "https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.29/dist/bundle.min.js";
 
-class vadd {
+export class vadd {
   static myvad;
 
   static init() {
@@ -19,8 +19,8 @@ class vadd {
       baseAssetPath:
         "https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.29/dist/",
     }).then((myvad) => {
-      VADExample.myvad = myvad;
-      VADExample.myvad.start();
+      vadd.myvad = myvad;
+      vadd.myvad.start();
     });
   }
 }
