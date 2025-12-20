@@ -159,6 +159,7 @@
         "CenterPosition": "readonly",
         "Charge": "readonly",
         "ClickEvents": "readonly",
+        "ClientId": "readonly",
         "Collision": "readonly",
         "Controller": "readonly",
         "Curve": "readonly",

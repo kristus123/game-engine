@@ -8,15 +8,15 @@ export class RtcClient {
 		this.startLocalStream()
 		this.onData = null
 
-		this.socketClient.on("CALL", () => {
+		this.socketClient.on('CALL', () => {
 			console.log(`Incoming call from ${data.fromClientId}`)
 		})
 
-		this.socketClient.on("OFFER", () => {
+		this.socketClient.on('OFFER', () => {
 			this.acceptCall(data.fromClientId, data.offer)
 		})
 
-		this.socketClient.on("ANSWER", () => {
+		this.socketClient.on('ANSWER', () => {
 			if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
 				peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
 					console.warn('setRemoteDescription failed:', err)
@@ -27,7 +27,7 @@ export class RtcClient {
 			}
 		})
 
-		this.socketClient.on("ICE_CANDIDATE", () => {
+		this.socketClient.on('ICE_CANDIDATE', () => {
 			if (peerConn && typeof peerConn.addIceCandidate === 'function') {
 				peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
 					console.warn('addIceCandidate failed:', err)
@@ -126,7 +126,7 @@ export class RtcClient {
 		return navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
-				console.log("localStream has been set!")
+				console.log('localStream has been set!')
 				return stream
 			})
 	}
