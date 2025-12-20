@@ -1,11 +1,11 @@
 export class RtcClient {
 	constructor() {
-		this.client = new SocketClient()
+		this.socketClient = new SocketClient()
 		this.peers = {}
 		this.localStream = null
 		this.onData = null
 
-		this.client.on(json => {
+		this.socketClient.on(json => {
 			const data = json.data
 			let peerConn = this.peers[data.fromClientId]
 
@@ -51,10 +51,10 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				this.client.send(targetClientId, {
+				this.socketClient.send(targetClientId, {
 					rtc_action: 'OFFER',
 					data: {
-						fromClientId: this.client.clientId,
+						fromClientId: this.socketClient.clientId,
 						offer: peerConnection.localDescription
 					}
 				})
@@ -72,10 +72,10 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				this.client.send(fromClientId, {
+				this.socketClient.send(fromClientId, {
 					rtc_action: 'ANSWER',
 					data: {
-						fromClientId: this.client.clientId,
+						fromClientId: this.socketClient.clientId,
 						answer: peerConnection.localDescription
 					}
 				})
@@ -97,10 +97,10 @@ export class RtcClient {
 
 		peerConnection.onicecandidate = e => {
 			if (e.candidate) {
-				this.client.send(peerId, {
+				this.socketClient.send(peerId, {
 					rtc_action: 'ICE_CANDIDATE',
 					data: {
-						fromClientId: this.client.clientId,
+						fromClientId: this.socketClient.clientId,
 						candidate: e.candidate
 					}
 				})
