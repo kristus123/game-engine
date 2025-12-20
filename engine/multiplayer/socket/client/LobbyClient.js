@@ -1,22 +1,18 @@
 export class LobbyClient {
 	constructor(socketClient) {
-		this.socketClient = socketClient
 		this.lobbyId = ''
 		this.clients = []
 
-		this.socketClient.on("NEW_LOBBY", data => {
-			this.clients = data.clients
+		this.socketClient.on("NEW_LOBBY", data => { // what does this do? whats the difference between this and CREATE_LOBBY
+			this.clients = data.clients // instead of this, just call CLIENT_JOINS_LOBBY
 			console.log(`Connected To Lobby ${this.lobbyId}: [${this.clients}]`)
 		})
 		
 		this.socketClient.on("CLIENT_JOINS_LOBBY", data => {
-			if (data.originLobbyId === this.lobbyId && data.targetClientId === this.socketClient.clientId) {
-				this.clients.push(data.clientId)
-				console.log(`Client "${data.clientId}" Has Joined The Lobby: [${this.clients}]`)
-			}
+			this.clients.push(data.clientId)
 		})
 		
-		this.socketClient.on("CLIENT_LEFT_LOBBY", data => {
+		this.socketClient.on("CLIENT_LEAVES_LOBBY", data => { // we need to find a good name for this. JOINS/LEAVES. they must match
 			if (data.originLobbyId === this.lobbyId && data.targetClientId === this.socketClient.clientId) {
 				const clientIndex = this.clients.indexOf(data.clientId)
 				this.clients.splice(clientIndex, 1)
@@ -36,7 +32,7 @@ export class LobbyClient {
 	create() {
 		if(this.lobbyId === '') {
 			this.lobbyId = Random.uuid()
-			this.socketClient.sendRaw({
+			this.socketClient.sendToServer({
 				action: "CREATE_LOBBY",
 				lobbyId: this.lobbyId,
 			})
@@ -48,7 +44,7 @@ export class LobbyClient {
 	join(id){
 		if(this.lobbyId === '') {
 			this.lobbyId = id
-			this.socketClient.sendRaw({
+			this.socketClient.sendToServer({
 				action: "JOIN_LOBBY",
 				lobbyId: id
 			})
@@ -59,7 +55,7 @@ export class LobbyClient {
 	
 	leave(){
 		if(!(this.lobbyId === '')) {
-			this.socketClient.sendRaw({
+			this.socketClient.sendToServer({
 				action: "LEAVE_LOBBY",
 				lobbyId: this.lobbyId
 			})
@@ -70,10 +66,11 @@ export class LobbyClient {
 
 	close(){
 		if(!(this.lobbyId === '')) {
-			this.socketClient.sendRaw({
+			this.socketClient.sendToServer({
 				action: "CLOSE_LOBBY",
 				lobbyId: this.lobbyId
 			})
+			// when closing a lobby, other clients should be notified as well
 		} else {
 			throw new Error("LobbyClientAPI ERROR: You need to be connected to a lobby before calling the .close() function!")
 		}

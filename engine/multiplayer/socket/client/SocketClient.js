@@ -1,8 +1,6 @@
 export class SocketClient {
 	constructor(){
-		this.clientId
 		this.socket = new SimplifiedSocketClientAPI(8082, c => {
-			this.clientId = c.clientId
 			c.on("UPDATE_CLIENTS_LIST", data =>{
 				for (const clientId of data.clientIds) {
 					if (!c.connectedClientIds.includes(clientId)) {
@@ -31,12 +29,14 @@ export class SocketClient {
 	}
 
 	sendRaw(data) {
+		// why do you have this method? why not just use .send() ? they are the exact same
+		// and give it a better name. the purpose of this method seemd to be *sendToServer*
 		this.socket.send(data)
 	}
 
 	sendToServer(data) {
 		this.socket.send({
-			originClientId: this.clientId,
+			originClientId: ClientId,
 			json: data
 		})
 	}
@@ -46,7 +46,7 @@ export class SocketClient {
 		this.socket.send({
 			action: "CLIENT_TO_CLIENT",
 			targetClientId: targetClientId,
-			originClientId: this.clientId,
+			originClientId: ClientId,
 			json: data
 		})
 	}
