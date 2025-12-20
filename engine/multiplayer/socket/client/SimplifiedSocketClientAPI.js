@@ -44,8 +44,7 @@ export class SimplifiedSocketClientAPI {
 		}
 	}
 
-	close()
-	{}
+	close() {}
 
 	on(event, callback) {
 		this.listeners[event] = callback

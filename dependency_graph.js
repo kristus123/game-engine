@@ -121,7 +121,8 @@ for (const [className, info] of usageMap.entries()) {
 		try {
 			// fs.unlinkSync(fileToDelete)
 			// console.log(`🗑️ Deleted unused file: ${info.definedIn}`)
-		} catch (err) {
+		}
+		catch (err) {
 			console.error(`❌ Failed to delete ${info.definedIn}:`, err.message)
 		}
 	}

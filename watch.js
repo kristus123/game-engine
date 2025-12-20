@@ -44,4 +44,4 @@ new Runner('build_tools/export_aseprite.js').start()
 new Runner('build_tools/generate_dist.js').start
 
 // for now run it once
-new Runner("server/socket/SocketServer.js").start()
+new Runner('server/socket/SocketServer.js').start()
