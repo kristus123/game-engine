@@ -1,6 +1,6 @@
 export class SocketClient {
 	constructor() {
-		this.socket = new SimplifiedSocketClientAPI(8082, c => {
+		this.socketClient = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
 					if (!c.connectedClientIds.includes(clientId)) {
@@ -28,14 +28,14 @@ export class SocketClient {
 	}
 
 	send(data) {
-		this.socket.send({
+		this.socketClient.send({
 			originClientId: this.clientId,
 			json: data
 		})
 	}
 
 	sendToClient(targetClientId, data) {
-		this.socket.send({
+		this.socketClient.send({
 			action: 'CLIENT_TO_CLIENT',
 			targetClientId: targetClientId,
 			originClientId: this.clientId,
@@ -44,6 +44,6 @@ export class SocketClient {
 	}
 
 	on(action, callback) {
-		this.socket.on(action, callback)
+		this.socketClient.on(action, callback)
 	}
 }
