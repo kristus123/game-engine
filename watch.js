@@ -32,17 +32,16 @@ watcher.on('all', (e, path) => {
 			const task_export_aseprite = new Runner('build_tools/export_aseprite.js' + path)
 			task_export_aseprite.start()
 		}
-		const task_generate_dist = new Runner('build_tools/generate_dist.js')
-		const task_start_server = new Runner("server/socket/start_socket_servers.js")
-		task_generate_dist.start()
-		task_start_server.start()
+
+		new Runner('build_tools/generate_dist.js').start()
 
 		currentId = RandomId()
 		idTimeout = null
 	}, 500)
 })
 
-const task_export_aseprite2 = new Runner('build_tools/export_aseprite.js')
-const task_generate_dist2 = new Runner('build_tools/generate_dist.js')
-task_export_aseprite2.start()
-task_generate_dist2.start()
+new Runner('build_tools/export_aseprite.js').start()
+new Runner('build_tools/generate_dist.js').start
+
+// for now run it once
+new Runner("server/socket/SocketServer.js").start()

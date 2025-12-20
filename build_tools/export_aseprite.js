@@ -33,7 +33,7 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destBase}`)
 
-	execFileSync('$HOME/aseprite/build/bin/aseprite', [
+	execFileSync('aseprite', [
 		'-b',
 		srcFile,
 		'--split-tags',
@@ -49,7 +49,7 @@ function exportAseprite(srcFile, destBase) {
 	], { stdio: 'inherit', shell: true })
 
 
-	execFileSync('$HOME/aseprite/build/bin/aseprite', [
+	execFileSync('aseprite', [
 		'-b',
 		'--split-layers',
 		srcFile,
@@ -61,7 +61,7 @@ function exportAseprite(srcFile, destBase) {
 		'{layer}_{frame}_{tag}',
 	], { shell: true })
 
-	execFileSync('$HOME/aseprite/build/bin/aseprite', [
+	execFileSync('aseprite', [
 	  '-b',
 	  srcFile,
 	  '--script',
