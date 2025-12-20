@@ -10,17 +10,17 @@ self.addEventListener('install', event => {
 	event.waitUntil(
 		caches.open(CACHE_NAME).then(async cache => {
   	for (const url of FILES_TO_CACHE) {
-    	try {
-      	const resp = await fetch(url)
-      	if (!resp.ok) {
+				try {
+  		const resp = await fetch(url)
+  		if (!resp.ok) {
 						throw new Error('HTTP ' + resp.status)
 					}
-      	await cache.put(url, resp.clone())
-      	console.log('Cached:', url)
-    	}
+  		await cache.put(url, resp.clone())
+  		console.log('Cached:', url)
+				}
 				catch (e) {
-      	console.error('Failed to cache', url, e)
-    	}
+  		console.error('Failed to cache', url, e)
+				}
   	}
 		})
 	)
@@ -41,8 +41,8 @@ self.addEventListener('fetch', event => {
 				return r
 			}
   	return fetch(event.request).catch(() => {
-    	console.error('Not cached:', event.request.url)
-    	throw new Error('Not cached: ' + event.request.url)
+				console.error('Not cached:', event.request.url)
+				throw new Error('Not cached: ' + event.request.url)
   	})
 		})
 	)

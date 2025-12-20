@@ -26,7 +26,13 @@
         "sourceType": "module"
     },
     "rules": {
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+        "indent": [
+            "error",
+            "tab",
+            {
+                "SwitchCase": 1
+            }
+        ],
         "space-in-parens": [
             "error",
             "never"
@@ -229,8 +235,6 @@
         "OffsetPosition": "readonly",
         "OnChange": "readonly",
         "OnTrue": "readonly",
-        "OnlineObjects": "readonly",
-        "OnlinePlayers": "readonly",
         "Palette": "readonly",
         "Parallax": "readonly",
         "ParallaxTest": "readonly",
@@ -286,7 +290,6 @@
         "TurretNeeds": "readonly",
         "Update": "readonly",
         "Velocity": "readonly",
-        "VideoCall": "readonly",
         "Wait": "readonly",
         "WalkableAreas": "readonly",
         "Water": "readonly",
