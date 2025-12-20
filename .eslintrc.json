@@ -26,6 +26,7 @@
         "sourceType": "module"
     },
     "rules": {
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
         "space-in-parens": [
             "error",
             "never"
