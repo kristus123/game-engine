@@ -114,3 +114,15 @@ for (const [className, info] of sortedEntries) {
 fs.writeFileSync(outputFile, mdOutput, 'utf-8')
 console.log(`✅ New class usage report generated: ${outputFile}`)
 
+
+for (const [className, info] of usageMap.entries()) {
+	if (info.usedIn.length === 0) {
+		const fileToDelete = path.join(rootDir, info.definedIn)
+		try {
+			// fs.unlinkSync(fileToDelete)
+			// console.log(`🗑️ Deleted unused file: ${info.definedIn}`)
+		} catch (err) {
+			console.error(`❌ Failed to delete ${info.definedIn}:`, err.message)
+		}
+	}
+}
