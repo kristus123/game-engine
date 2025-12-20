@@ -1,14 +1,13 @@
-const clientId = Random.uuid()
 
 export class SimplifiedSocketClientAPI {
 	constructor(port, run) {
+		// ClientId( // hack
 		this.listeners = {}
 
 		// List of all connected clients
 		this.connectedClientIds = []
 
-		this.clientId = clientId
-		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${this.clientId}`)
+		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${ClientId}`)
 
 		this.webSocket.onopen = () => {}
 

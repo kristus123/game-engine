@@ -1,45 +1,40 @@
+// ClientId(
+
 export class RtcClient {
 	constructor() {
 		this.socketClient = new SocketClient()
 		this.peers = {}
 		this.localStream = null
+		this.startLocalStream()
 		this.onData = null
 
-		this.socketClient.on(json => {
-			const data = json.data
-			let peerConn = this.peers[data.fromClientId]
+		this.socketClient.on("CALL", () => {
+			console.log(`Incoming call from ${data.fromClientId}`)
+		})
 
-			switch (json.rtc_action) {
-				case 'CALL': {
-					console.log(`Incoming call from ${data.fromClientId}`)
-					break
-				}
-				case 'OFFER': {
-					this.acceptCall(data.fromClientId, data.offer)
-					break
-				}
-				case 'ANSWER': {
-					if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
-						peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
-							console.warn('setRemoteDescription failed:', err)
-						})
-					}
-					else {
-						console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
-					}
-					break
-				}
-				case 'ICE_CANDIDATE': {
-					if (peerConn && typeof peerConn.addIceCandidate === 'function') {
-						peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-							console.warn('addIceCandidate failed:', err)
-						})
-					}
-					else {
-						console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
-					}
-					break
-				}
+		this.socketClient.on("OFFER", () => {
+			this.acceptCall(data.fromClientId, data.offer)
+		})
+
+		this.socketClient.on("ANSWER", () => {
+			if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
+				peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
+					console.warn('setRemoteDescription failed:', err)
+				})
+			}
+			else {
+				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
+			}
+		})
+
+		this.socketClient.on("ICE_CANDIDATE", () => {
+			if (peerConn && typeof peerConn.addIceCandidate === 'function') {
+				peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
+					console.warn('addIceCandidate failed:', err)
+				})
+			}
+			else {
+				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
 			}
 		})
 	}
@@ -55,12 +50,10 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				this.socketClient.send(targetClientId, {
-					rtc_action: 'OFFER',
-					data: {
-						fromClientId: this.socketClient.clientId,
-						offer: peerConnection.localDescription
-					}
+				this.socketClient.sendToClient(targetClientId, {
+					action: 'OFFER',
+					fromClientId: ClientId,
+					offer: peerConnection.localDescription
 				})
 			})
 	}
@@ -77,11 +70,9 @@ export class RtcClient {
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
 				this.socketClient.send(fromClientId, {
-					rtc_action: 'ANSWER',
-					data: {
-						fromClientId: this.socketClient.clientId,
-						answer: peerConnection.localDescription
-					}
+					action: 'ANSWER',
+					fromClientId: ClientId,
+					answer: peerConnection.localDescription
 				})
 			})
 	}
@@ -102,16 +93,15 @@ export class RtcClient {
 		peerConnection.onicecandidate = e => {
 			if (e.candidate) {
 				this.socketClient.send(peerId, {
-					rtc_action: 'ICE_CANDIDATE',
-					data: {
-						fromClientId: this.socketClient.clientId,
-						candidate: e.candidate
-					}
+					action: 'ICE_CANDIDATE',
+					fromClientId: ClientId,
+					candidate: e.candidate,
 				})
 			}
 		}
 
 		const dataChannel = peerConnection.createDataChannel('data')
+
 		dataChannel.onopen = () => console.log('Data channel opened')
 		dataChannel.onmessage = (e) => {
 			if (this.onData) {
@@ -136,6 +126,7 @@ export class RtcClient {
 		return navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
+				console.log("localStream has been set!")
 				return stream
 			})
 	}
