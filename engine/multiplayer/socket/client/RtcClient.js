@@ -19,7 +19,7 @@ export class RtcClient {
 			case 'ANSWER':
 				if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
 					peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
-    					console.warn('setRemoteDescription failed:', err)
+						console.warn('setRemoteDescription failed:', err)
 					})
 				}
 				else {
@@ -29,7 +29,7 @@ export class RtcClient {
 			case 'ICE_CANDIDATE':
 				if (peerConn && typeof peerConn.addIceCandidate === 'function') {
 					peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-    					console.warn('addIceCandidate failed:', err)
+						console.warn('addIceCandidate failed:', err)
 					})
 				}
 				else {
