@@ -18,22 +18,22 @@ export class RtcClient {
 				break
 			case 'ANSWER':
 				if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
-    				peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
-        				console.warn('setRemoteDescription failed:', err)
-    				})
+					peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
+    					console.warn('setRemoteDescription failed:', err)
+					})
 				}
 				else {
-    				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
+					console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
 				}
 				break
 			case 'ICE_CANDIDATE':
 				if (peerConn && typeof peerConn.addIceCandidate === 'function') {
-    				peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-        				console.warn('addIceCandidate failed:', err)
-    				})
+					peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
+    					console.warn('addIceCandidate failed:', err)
+					})
 				}
 				else {
-    				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
+					console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
 				}
 				break
 			}
