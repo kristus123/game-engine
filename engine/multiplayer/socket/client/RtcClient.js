@@ -111,17 +111,17 @@ export class RtcClient {
 
 		const dataChannel = peerConnection.createDataChannel('data')
 		dataChannel.onopen = () => console.log('Data channel opened')
-		dataChannel.onmessage = (event) => {
+		dataChannel.onmessage = (e) => {
 			if (this.onData) {
-				this.onData(JSON.parse(event.data))
+				this.onData(JSON.parse(e.data))
 			}
 		}
-		peerConnection.ondatachannel = (event) => {
-			const channel = event.channel
+		peerConnection.ondatachannel = (e) => {
+			const channel = e.channel
 			channel.onopen = () => console.log('Data channel opened')
-			channel.onmessage = (event) => {
+			channel.onmessage = (e) => {
 				if (this.onData) {
-					this.onData(JSON.parse(event.data))
+					this.onData(JSON.parse(e.data))
 				}
 			}
 		}
