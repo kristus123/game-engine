@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { execFileSync } = require('child_process')
+const { Aseprite } = require('./Aseprite')
 
 const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
 const DEST_BASE = path.join(__dirname, '../dist/game/assets')
@@ -33,42 +33,9 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destBase}`)
 
-	execFileSync('aseprite', [
-		'-b',
-		srcFile,
-		'--split-tags',
-		'--list-slices',
-		'--sheet',
-		destBase + '.png',
-		'--data',
-		destBase + '.json',
-		'--format',
-		'json-array',
-		'--filename-format',
-		'{tag}',
-	], { stdio: 'inherit', shell: true })
-
-
-	execFileSync('aseprite', [
-		'-b',
-		'--split-layers',
-		srcFile,
-		'--sheet',
-		destBase + 'Layers.png',
-		'--data',
-		destBase + 'Layers.json',
-		'--filename-format',
-		'{layer}_{frame}_{tag}',
-	], { shell: true })
-
-	execFileSync('aseprite', [
-	  '-b',
-	  srcFile,
-	  '--script',
-	  'build_tools/aseprite_to_json.lua',
-	  '--',
-	  destBase + 'Tilemaps.json',
-	], { shell: true })
+	Aseprite.tags(srcFile, destBase)
+	Aseprite.layers(srcFile, destBase)
+	Aseprite.tilemaps(srcFile, destBase)
 }
 
 
