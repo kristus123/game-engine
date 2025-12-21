@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const { Aseprite } = require('./Aseprite')
 
-const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
+const SRC_DIR = path.join(__dirname, '../client/game/assets/aseprite')
 const DEST_BASE = path.join(__dirname, '../dist/game/assets')
 
 function walk(dir, callback) {
