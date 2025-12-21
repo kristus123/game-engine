@@ -1,5 +1,5 @@
 
-export class SimplifiedSocketClientApi {
+export class SimplifiedSocketClientAPI {
 	constructor(port, run) {
 		// ClientId( // hack
 		this.listeners = {}
