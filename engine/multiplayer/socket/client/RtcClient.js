@@ -43,9 +43,9 @@ export class RtcClient {
 		const { peerConnection, dataChannel } = this.createPeer(targetClientId)
 		this.peers[targetClientId] = { peerConnection, dataChannel }
 
-		this.localStream.getTracks().forEach(track => {
-			peerConnection.addTrack(track, this.localStream)
-		})
+		// this.localStream.getTracks().forEach(track => {
+		// 	peerConnection.addTrack(track, this.localStream)
+		// })
 
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
@@ -123,11 +123,10 @@ export class RtcClient {
 	}
 
 	startLocalStream() {
-		return navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
 				console.log('localStream has been set!')
-				return stream
 			})
 	}
 
