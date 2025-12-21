@@ -5,6 +5,9 @@ const { execFileSync } = require('child_process')
 const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
 const DEST_BASE = path.join(__dirname, '../dist/game/assets')
 
+// Change This To Your Aseprite Bin Path
+const binPath = '$HOME/aseprite/build/bin/aseprite'
+
 function walk(dir, callback) {
 	fs.readdirSync(dir, { withFileTypes: true }).forEach(entry => {
 		const fullPath = path.join(dir, entry.name)
@@ -33,7 +36,7 @@ function exportAseprite(srcFile, destBase) {
 
 	console.log(`Exporting: ${srcFile} -> ${destBase}`)
 
-	execFileSync('aseprite', [
+	execFileSync(binPath, [
 		'-b',
 		srcFile,
 		'--split-tags',
@@ -49,7 +52,7 @@ function exportAseprite(srcFile, destBase) {
 	], { stdio: 'inherit', shell: true })
 
 
-	execFileSync('aseprite', [
+	execFileSync(binPath, [
 		'-b',
 		'--split-layers',
 		srcFile,
@@ -61,7 +64,7 @@ function exportAseprite(srcFile, destBase) {
 		'{layer}_{frame}_{tag}',
 	], { shell: true })
 
-	execFileSync('aseprite', [
+	execFileSync(binPath, [
 	  '-b',
 	  srcFile,
 	  '--script',

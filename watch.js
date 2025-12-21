@@ -12,7 +12,7 @@ app.get('/currentId', (req, res) => { // this is used for hot-reloading. Check i
 })
 app.listen(5000, () => console.log('Serving dist on port 5000'))
 
-const watcher = chokidar.watch(['game'], {
+const watcher = chokidar.watch(['engine', 'game'], {
 	ignoreInitial: true,
 	persistent: true,
 	usePolling: false,

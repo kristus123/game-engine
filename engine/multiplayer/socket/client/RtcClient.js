@@ -2,6 +2,7 @@
 
 export class RtcClient {
 	constructor() {
+		console.log('Hot Reload Check Engine')
 		this.socketClient = new SocketClient()
 		this.peers = {}
 		this.localStream = null
