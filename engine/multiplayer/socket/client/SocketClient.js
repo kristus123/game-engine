@@ -24,7 +24,6 @@ export class SocketClient {
 				console.log(`Message: ${data.json}`)
 			})
 		})
-
 	}
 
 	send(data) {
