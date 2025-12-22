@@ -69,8 +69,7 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				this.socketClient.send(fromClientId, {
-					action: 'ANSWER',
+				this.socketClient.sendToClient("ANSWER", fromClientId, {
 					fromClientId: ClientId,
 					answer: peerConnection.localDescription
 				})

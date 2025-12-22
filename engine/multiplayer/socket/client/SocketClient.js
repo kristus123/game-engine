@@ -1,3 +1,5 @@
+// ClientId(
+
 export class SocketClient {
 	constructor() {
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
@@ -26,18 +28,11 @@ export class SocketClient {
 		})
 	}
 
-	send(data) {
-		this.simplifiedSocketClientAPI.send({
-			originClientId: this.clientId,
-			json: data
-		})
-	}
-
 	sendToClient(targetClientId, data) {
 		this.simplifiedSocketClientAPI.send({
 			action: 'CLIENT_TO_CLIENT',
 			targetClientId: targetClientId,
-			originClientId: this.clientId,
+			originClientId: ClientId,
 			json: data
 		})
 	}
