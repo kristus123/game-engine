@@ -31,14 +31,10 @@ function exportAseprite(srcFile, destBase) {
 		fs.mkdirSync(destDir, { recursive: true })
 	}
 
-	console.log(`Exporting: ${srcFile} -> ${destBase}`)
-
 	Aseprite.tags(srcFile, destBase)
 	Aseprite.layers(srcFile, destBase)
 	Aseprite.tilemaps(srcFile, destBase)
 }
-
-
 
 const editedFile = process.argv[2] || false
 if (editedFile) {
