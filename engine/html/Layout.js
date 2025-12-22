@@ -1,6 +1,6 @@
 export class Layout {
 	static test() {
-		return Html.addToScreen(
+		Html.addToScreen(
 			Html.div('overlay', [
 				Html.div('default-grid', [
 					Html.div('grid-left', [

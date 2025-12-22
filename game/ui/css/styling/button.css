@@ -2,7 +2,7 @@ button {
 	font-size: 20px;
 	padding: 30px 50px; 
 	border-radius: 50px;
-	background-color: #007bff; 
+	background-color: red; 
 	color: #fff; 
 	 pointer-events: auto; /* deny clicks to pass through */
 }
@@ -23,13 +23,6 @@ button:disabled:hover {
 }
 
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 
 
@@ -68,4 +61,3 @@ button:disabled:hover {
   grid-area: bottom;
   background-color: #a142f4;
 }
-
