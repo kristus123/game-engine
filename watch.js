@@ -31,8 +31,7 @@ watcher.on('all', (e, path) => {
 
 	idTimeout = setTimeout(() => {
 		if (path.includes('.aseprite')) {
-			const task_export_aseprite = new Runner('build_tools/export_aseprite.js' + path)
-			task_export_aseprite.start()
+			new Runner('build_tools/export_aseprite.js' + path).start()
 		}
 
 		new Runner('build_tools/generate_dist.js').start()

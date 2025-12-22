@@ -1,35 +1,10 @@
-button {
-	font-size: 20px;
-	padding: 30px 50px; 
-	border-radius: 50px;
-	background-color: red; 
-	color: #fff; 
-	 pointer-events: auto; /* deny clicks to pass through */
-}
-
-button:hover {
-	background-color: green;
-}
-
-button:disabled {
-  background-color: gray;
-  color: white;
-  opacity: 0.6;
-  cursor: default; /* Change to whatever you prefer */
-}
-
-button:disabled:hover {
-  background-color: darkgray; /* Slight change on hover */
-}
-
-
-
-
-
 .default-grid {
+  width:100%;
+  height:100%;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: 80px auto auto;
   gap: 10px;
   grid-template-areas:
     "top top top"
@@ -61,3 +36,4 @@ button:disabled:hover {
   grid-area: bottom;
   background-color: #a142f4;
 }
+
