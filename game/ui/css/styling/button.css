@@ -21,3 +21,51 @@ button:disabled {
 button:disabled:hover {
   background-color: darkgray; /* Slight change on hover */
 }
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.default-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px;
+  grid-template-areas:
+    "top top top"
+    "left mid right"
+    "bottom bottom bottom";
+}
+
+.default-grid .grid-top {
+  grid-area: top;
+  background-color: #f28b82;
+}
+
+.default-grid .grid-left {
+  grid-area: left;
+  background-color: #fbbc04;
+}
+
+.default-grid .grid-mid {
+  grid-area: mid;
+  background-color: #34a853;
+}
+
+.default-grid .grid-right {
+  grid-area: right;
+  background-color: #4285f4;
+}
+
+.default-grid .grid-bottom {
+  grid-area: bottom;
+  background-color: #a142f4;
+}
+
