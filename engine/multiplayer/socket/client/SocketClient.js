@@ -22,10 +22,6 @@ export class SocketClient {
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
-				if (data.targetClientId != ClientId) {
-					return
-				}
-
 				console.log(`Message: ${JSON.stringify(data)}`)
 
 				if (this.clientListeners[data.subAction]) {
