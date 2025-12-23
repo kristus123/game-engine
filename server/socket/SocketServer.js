@@ -17,9 +17,9 @@ socket.onConnection = (client, clientId) => {
 socket.on('CLIENT_TO_CLIENT', (client, clientId, data) => {
 	console.log(`Server Passing Message: ${JSON.stringify(data)}`)
 
-	const msg_data = data.json
+	const msgData = data.json
 
-	const index = socket.allClientIds.indexOf(msg_data.targetClientId)
+	const index = socket.allClientIds.indexOf(msgData.targetClientId)
 	const targetClient = socket.allClients[index]
 
 	socket.sendToClient(targetClient, data)

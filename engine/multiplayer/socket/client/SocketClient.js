@@ -1,6 +1,6 @@
 export class SocketClient {
 	constructor() {
-		this.client_listeners = {}
+		this.clientListeners = {}
 
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
@@ -28,8 +28,8 @@ export class SocketClient {
 
 				console.log(`Message: ${JSON.stringify(message)}`)
 
-				if (this.client_listeners[message.action]) {
-					this.client_listeners[message.action](message)
+				if (this.clientListeners[message.action]) {
+					this.clientListeners[message.action](message)
 				} else {
 					throw new Error(`Listener For Action "${message.action}" Is Not Defined!`)
 				}
@@ -55,6 +55,6 @@ export class SocketClient {
 	}
 	
 	onClientMessage(action, callback) {
-		this.client_listeners[action] = callback
+		this.clientListeners[action] = callback
 	}
 }
