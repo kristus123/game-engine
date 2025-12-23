@@ -1,4 +1,4 @@
-export class Layout {
+export class UiGrid {
 	static test() {
 		Ui.overlay([
 			Html.div('default-grid', [

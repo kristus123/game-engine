@@ -1,10 +1,5 @@
 export class Ui {
 
-	static add(element) {
-		document.getElementById('ui_elements').appendChild(element)
-		return element
-	}
-
 	static overlay(elements) {
 		elements = Always.list(elements)
 
