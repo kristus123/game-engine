@@ -204,10 +204,12 @@ export class Html {
 	  Mouse.hoveringHtmlElement = false
 	}
 
-	static div(className, childrenElements=[]) {
+	static div(className, childElements=[]) {
+		childElements = Always.list(childElements)
+
 		const d = HtmlElement('div', className)
 
-		for (const e of childrenElements) {
+		for (const e of childElements) {
 			d.appendChild(e)
 		}
 

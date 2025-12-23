@@ -11,10 +11,6 @@ div {
   flex-direction:column; /* can also be row */
 }
 
-#ui_elements > div.right-center-ui > div > div {
-    max-height: 800px;
-}
-
 div.movable {
 	overflow: visible;
 }
