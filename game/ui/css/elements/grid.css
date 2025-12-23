@@ -1,4 +1,4 @@
-.default-grid {
+.grid {
   width:100%;
   height:100%;
 
@@ -12,27 +12,27 @@
     "left bottom bottom";
 }
 
-.default-grid .grid-top {
+.grid .grid-top {
   grid-area: top;
   background-color: #f28b82;
 }
 
-.default-grid .grid-left {
+.grid .grid-left {
   grid-area: left;
   background-color: #fbbc04;
 }
 
-.default-grid .grid-mid {
+.grid .grid-mid {
   grid-area: mid;
   background-color: #34a853;
 }
 
-.default-grid .grid-right {
+.grid .grid-right {
   grid-area: right;
   background-color: #4285f4;
 }
 
-.default-grid .grid-bottom {
+.grid .grid-bottom {
   grid-area: bottom;
   background-color: #a142f4;
 }
