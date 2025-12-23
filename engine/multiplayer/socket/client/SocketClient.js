@@ -4,25 +4,21 @@ export class SocketClient {
 	static {
 		this.clientListeners = {}
 
+		this.connectedClientIds = []
+
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
-					if (!c.connectedClientIds.includes(clientId)) {
-						c.connectedClientIds.push(clientId)
-					}
+					this.connectedClientIds.addIfMissing(clientId)
 				}
-				console.log(c.connectedClientIds)
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				const index = c.connectedClientIds.indexOf(data.clientId)
-				c.connectedClientIds.splice(index, 1)
-				console.log(c.connectedClientIds)
-
+				t.connectedClientIds.removeIfPresent(data.clientId)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
-				if (data.targetClientId != ClientId) {
+				if (data.targetClientId != ClientId) { // todo fix this. it should never send a message to someone else other, so this if-statement is redundant and should be removed. if there is a bug find out why
 					return
 				}
 
@@ -39,13 +35,12 @@ export class SocketClient {
 
 
 	static sendToClient(subAction, targetClientId, data) {
-		this.simplifiedSocketClientAPI.send({
+		this.simplifiedSocketClientAPI.send(data.merge({
 			action: 'CLIENT_TO_CLIENT',
 			subAction: subAction,
 			originClientId: ClientId,
 			targetClientId: targetClientId,
-			data: data
-		})
+		}))
 	}
 
 	static onServerMessage(action, callback) {

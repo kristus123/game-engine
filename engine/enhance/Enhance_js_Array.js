@@ -39,6 +39,11 @@ export function Enhance_js_Array() {
 		return false
 	})
 
+	Enhance(Array, 'removeIfPresent', function (e) {
+		const index = this.indexOf(e)
+		if (index !== -1) this.splice(index, 1)
+	})
+
 
 	Enhance(Array, 'removeOneOrThrowException', function (predicate) {
 		const removed = this.removeIf(predicate)
@@ -70,11 +75,20 @@ export function Enhance_js_Array() {
 
 	// array.includes already exists
 	Enhance(Array, 'contains', function (e) {
-		return list.includes(e)
+		return this.includes(e)
 	})
 
+	Enhance(Array, 'missing', function (e) {
+		return !this.includes(e)
+	})
 
 	Enhance(Array, 'addIfNotPresent', function (o) {
+		if (!this.includes(o)) {
+			this.push(o)
+		}
+	})
+
+	Enhance(Array, 'addIfMissing', function (o) {
 		if (!this.includes(o)) {
 			this.push(o)
 		}

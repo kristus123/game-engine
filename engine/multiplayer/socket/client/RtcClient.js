@@ -8,12 +8,12 @@ export class RtcClient {
 		this.startLocalStream()
 		this.onData = null
 
-		this.socketClient.onClientMessage('CALL', () => {
-			console.log(`Incoming call from ${data.fromClientId}`)
+		this.socketClient.onClientMessage('CALL', data => {
+			console.log(`Incoming call from ${data.originClientId}`)
 		})
 
-		this.socketClient.onClientMessage('OFFER', () => {
-			this.acceptCall(data.fromClientId, data.offer)
+		this.socketClient.onClientMessage('OFFER', data => {
+			this.acceptCall(data.originClientId, data.offer)
 		})
 
 		this.socketClient.onClientMessage('ANSWER', () => {
@@ -23,7 +23,7 @@ export class RtcClient {
 				})
 			}
 			else {
-				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.fromClientId)
+				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.originClientId)
 			}
 		})
 
@@ -34,7 +34,7 @@ export class RtcClient {
 				})
 			}
 			else {
-				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.fromClientId)
+				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.originClientId)
 			}
 		})
 	}
@@ -45,21 +45,21 @@ export class RtcClient {
 
 		// this.localStream.getTracks().forEach(track => {
 		// 	peerConnection.addTrack(track, this.localStream)
-		// })
+		// }) // my pc does not have a webcam
 
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
 				this.socketClient.sendToClient("OFFER", targetClientId, {
-					fromClientId: ClientId,
+					originClientId: ClientId,
 					offer: peerConnection.localDescription
 				})
 			})
 	}
 
-	acceptCall(fromClientId, offer) {
-		const { peerConnection, dataChannel } = this.createPeer(fromClientId)
-		this.peers[fromClientId] = { peerConnection, dataChannel }
+	acceptCall(clientIdWhoCalled, offer) {
+		const { peerConnection, dataChannel } = this.createPeer(clientIdWhoCalled)
+		this.peers[clientIdWhoCalled] = { peerConnection, dataChannel }
 
 		peerConnection.setRemoteDescription(new RTCSessionDescription(offer))
 			.then(() => this.localStream.getTracks().forEach(track => {
@@ -68,8 +68,7 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				this.socketClient.sendToClient('ANSWER', fromClientId, {
-					fromClientId: ClientId,
+				this.socketClient.sendToClient('ANSWER', clientIdWhoCalled, {
 					answer: peerConnection.localDescription
 				})
 			})
@@ -92,7 +91,7 @@ export class RtcClient {
 			if (e.candidate) {
 				this.socketClient.send(peerId, { // who is this supposed to be sent to?
 					action: 'ICE_CANDIDATE',
-					fromClientId: ClientId,
+					originClientId: ClientId,
 					candidate: e.candidate,
 				})
 			}

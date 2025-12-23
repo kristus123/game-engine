@@ -3,9 +3,6 @@ export class SimplifiedSocketClientAPI {
 		// ClientId( // hack
 		this.listeners = {}
 
-		// List of all connected clients
-		this.connectedClientIds = []
-
 		this.webSocket = new WebSocket(`ws://localhost:${port}?clientId=${ClientId}`)
 
 		this.webSocket.onopen = () => {}
