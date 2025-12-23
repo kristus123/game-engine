@@ -20,18 +20,16 @@ export class SocketClient {
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
-				if (data.targetClientId != c.clientId) {
+				if (data.targetClientId != ClientId) {
 					return
 				}
 
-				const message = data.json
+				console.log(`Message: ${JSON.stringify(data)}`)
 
-				console.log(`Message: ${JSON.stringify(message)}`)
-
-				if (this.clientListeners[message.action]) {
-					this.clientListeners[message.action](message)
+				if (this.clientListeners[data.subAction]) {
+					this.clientListeners[data.subAction](data)
 				} else {
-					throw new Error(`Listener For Action "${message.action}" Is Not Defined!`)
+					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
 				}
 			})
 		})
@@ -41,12 +39,10 @@ export class SocketClient {
 	sendToClient(action, targetClientId, data) {
 		this.simplifiedSocketClientAPI.send({
 			action: 'CLIENT_TO_CLIENT',
-			json: {
-				action: action,
-				originClientId: ClientId,
-				targetClientId: targetClientId,
-				data: data
-			}
+			subAction: action,
+			originClientId: ClientId,
+			targetClientId: targetClientId,
+			data: data
 		})
 	}
 

@@ -6,9 +6,9 @@ export class World {
 		this.targetId = null
 		this.text = null
 
-		this.socket_client = new SocketClient()
-		this.socket_client.onClientMessage('TEST', message => {
-			console.log(`message "${JSON.stringify(message.data)}" from ${message.originClientId}`)
+		this.socketClient = new SocketClient()
+		this.socketClient.onClientMessage('TEST', message => {
+			console.log(`Message "${JSON.stringify(message.data)}" came from ${message.originClientId}.`)
 		})
 	}
 
@@ -19,7 +19,7 @@ export class World {
 		}
 
 		if (this.targetId && this.text && !this.hasSentMessage) {
-			this.socket_client.sendToClient("TEST", this.targetId, {msg: this.text})
+			this.socketClient.sendToClient("TEST", this.targetId, {msg: this.text})
 			this.hasSentMessage = true
 		}
 		
