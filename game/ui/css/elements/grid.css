@@ -3,13 +3,13 @@
   height:100%;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 200px 1fr 1fr;
   grid-template-rows: 200px auto auto;
   gap: 3px;
   grid-template-areas:
-    "top top top"
+    "left top top"
     "left mid right"
-    "bottom bottom bottom";
+    "left bottom bottom";
 }
 
 .default-grid .grid-top {
