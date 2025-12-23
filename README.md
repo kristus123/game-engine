@@ -1,5 +1,19 @@
 # game-engine
 
+# set up github cli tool
+
+it's used for running `./pr.sh`:
+
+```bash
+sudo apt update -y
+sudo apt install gh -y
+```
+when installed do:
+
+```bash
+gh auth login
+```
+
 # Install node
 
 install newest version of node
