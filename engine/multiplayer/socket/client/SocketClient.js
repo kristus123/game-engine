@@ -2,6 +2,8 @@
 
 export class SocketClient {
 	constructor() {
+		this.clientListeners = {}
+
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
@@ -20,24 +22,37 @@ export class SocketClient {
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
-				if (data.targetClientId != c.clientId) {
+				if (data.targetClientId != ClientId) {
 					return
 				}
-				console.log(`Message: ${data.json}`)
+
+				console.log(`Message: ${JSON.stringify(data)}`)
+
+				if (this.clientListeners[data.subAction]) {
+					this.clientListeners[data.subAction](data)
+				} else {
+					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
+				}
 			})
 		})
 	}
 
-	sendToClient(targetClientId, data) {
+
+	sendToClient(subAction, targetClientId, data) {
 		this.simplifiedSocketClientAPI.send({
 			action: 'CLIENT_TO_CLIENT',
-			targetClientId: targetClientId,
+			subAction: subAction,
 			originClientId: ClientId,
-			json: data
+			targetClientId: targetClientId,
+			data: data
 		})
 	}
 
-	on(action, callback) {
+	onServerMessage(action, callback) {
 		this.simplifiedSocketClientAPI.on(action, callback)
+	}
+	
+	onClientMessage(action, callback) {
+		this.clientListeners[action] = callback
 	}
 }
