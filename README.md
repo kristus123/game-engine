@@ -8,8 +8,11 @@ it's used for running `./pr.sh`:
 sudo apt update -y
 sudo apt install gh -y
 ```
+when installed do:
 
-
+```bash
+gh auth login
+```
 
 # Install node
 
