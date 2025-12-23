@@ -1,5 +1,6 @@
 export class SocketClient {
 	constructor() {
+		// ClientId(
 		this.clientListeners = {}
 
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {

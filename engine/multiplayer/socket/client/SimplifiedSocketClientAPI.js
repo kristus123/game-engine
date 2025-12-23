@@ -1,6 +1,7 @@
 
 export class SimplifiedSocketClientAPI {
 	constructor(port, run) {
+		// ClientId( // hack
 		this.listeners = {}
 
 		// List of all connected clients
