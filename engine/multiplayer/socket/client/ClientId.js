@@ -1,3 +1,9 @@
-export const ClientId = Random.uuid()
+let clientId = localStorage.getItem("clientId")
 
-window.ClientId = ClientId
+if (clientId === null) {
+  clientId = Random.uuid()
+  localStorage.setItem("clientId", clientId)
+}
+
+export const ClientId = clientId
+console.log(ClientId)

@@ -1,6 +1,7 @@
 // ClientId(
 
 export class RtcClient {
+
 	static {
 		this.peers = {}
 		this.offers = {}
@@ -29,7 +30,7 @@ export class RtcClient {
 			const peerConnection = this.peers[data.originClientId]?.peerConnection
 			if (peerConnection && typeof peerConnection.addIceCandidate === 'function') {
 				peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-					console.warn('addIceCandidate failed:', err)
+					console.log('addIceCandidate failed:', err)
 				})
 			}
 			else {
@@ -39,7 +40,7 @@ export class RtcClient {
 	}
 
 	static call(targetClientId) {
-		const { peerConnection, dataChannel } = this.createPeer(targetClientId)
+		const { peerConnection, dataChannel } = this.createPeerConnectionWith(targetClientId)
 		this.peers[targetClientId] = { peerConnection, dataChannel }
 
 		// this.localStream.getTracks().forEach(track => {
@@ -56,13 +57,13 @@ export class RtcClient {
 	}
 
 	static acceptCall(clientIdWhoCalled) {
-		const { peerConnection, dataChannel } = this.createPeer(clientIdWhoCalled)
+		const { peerConnection, dataChannel } = this.createPeerConnectionWith(clientIdWhoCalled)
 		this.peers[clientIdWhoCalled] = { peerConnection, dataChannel }
 
 		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[clientIdWhoCalled]))
-			.then(() => this.localStream.getTracks().forEach(track => {
-				peerConnection.addTrack(track, this.localStream)
-			}))
+			// .then(() => this.localStream.getTracks().forEach(track => {
+			// 	peerConnection.addTrack(track, this.localStream)
+			// }))
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
@@ -76,7 +77,7 @@ export class RtcClient {
 		this.peers[targetClientId].dataChannel.send(JSON.stringify(data))
 	}
 
-	static createPeer(peerId) {
+	static createPeerConnectionWith(targetClientId) {
 		const peerConnection = new RTCPeerConnection({
 			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 		})
@@ -87,7 +88,7 @@ export class RtcClient {
 
 		peerConnection.onicecandidate = e => {
 			if (e.candidate) {
-				SocketClient.sendToClient('ICE_CANDIDATE', peerId, { // who is this supposed to be sent to?: The other client.
+				SocketClient.sendToClient('ICE_CANDIDATE', targetClientId, {
 					candidate: e.candidate,
 				})
 			}
@@ -97,6 +98,7 @@ export class RtcClient {
 
 		dataChannel.onopen = () => console.log('Data channel opened')
 		dataChannel.onmessage = (e) => {
+			console.log(e)
 			if (this.onData) {
 				this.onData(JSON.parse(e.data))
 			}
@@ -124,9 +126,12 @@ export class RtcClient {
 	}
 
 	static stopCall() {
-		for (const peerId in this.peers) {
-			this.peers[peerId].close()
+		for (const clientId in this.peers) {
+			this.peers[clientId].close()
 		}
 		this.peers = {}
 	}
 }
+
+
+window.RtcClient = RtcClient
