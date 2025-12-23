@@ -18,10 +18,6 @@ export class SocketClient {
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
-				if (data.targetClientId != ClientId) { // todo fix this. it should never send a message to someone else other, so this if-statement is redundant and should be removed. if there is a bug find out why
-					return
-				}
-
 				console.log(`Message: ${JSON.stringify(data)}`)
 
 				if (this.clientListeners[data.subAction]) {
