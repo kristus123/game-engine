@@ -14,17 +14,17 @@
 
 .default-grid .grid-top {
   grid-area: top;
-  /* background-color: #f28b82; */
+  background-color: #f28b82;
 }
 
 .default-grid .grid-left {
   grid-area: left;
-  /* background-color: #fbbc04; */
+  background-color: #fbbc04;
 }
 
 .default-grid .grid-mid {
   grid-area: mid;
-  /* background-color: #34a853; */
+  background-color: #34a853;
 }
 
 .default-grid .grid-right {
