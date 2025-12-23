@@ -8,15 +8,15 @@ export class RtcClient {
 		this.startLocalStream()
 		this.onData = null
 
-		this.socketClient.on('CALL', () => {
+		this.socketClient.onClientMessage('CALL', () => {
 			console.log(`Incoming call from ${data.fromClientId}`)
 		})
 
-		this.socketClient.on('OFFER', () => {
+		this.socketClient.onClientMessage('OFFER', () => {
 			this.acceptCall(data.fromClientId, data.offer)
 		})
 
-		this.socketClient.on('ANSWER', () => {
+		this.socketClient.onClientMessage('ANSWER', () => {
 			if (peerConn && typeof peerConn.setRemoteDescription === 'function') {
 				peerConn.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
 					console.warn('setRemoteDescription failed:', err)
@@ -27,7 +27,7 @@ export class RtcClient {
 			}
 		})
 
-		this.socketClient.on('ICE_CANDIDATE', () => {
+		this.socketClient.onClientMessage('ICE_CANDIDATE', () => {
 			if (peerConn && typeof peerConn.addIceCandidate === 'function') {
 				peerConn.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
 					console.warn('addIceCandidate failed:', err)
@@ -50,8 +50,7 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				this.socketClient.sendToClient(targetClientId, {
-					action: 'OFFER',
+				this.socketClient.sendToClient("OFFER", targetClientId, {
 					fromClientId: ClientId,
 					offer: peerConnection.localDescription
 				})
@@ -91,7 +90,7 @@ export class RtcClient {
 
 		peerConnection.onicecandidate = e => {
 			if (e.candidate) {
-				this.socketClient.send(peerId, {
+				this.socketClient.send(peerId, { // who is this supposed to be sent to?
 					action: 'ICE_CANDIDATE',
 					fromClientId: ClientId,
 					candidate: e.candidate,

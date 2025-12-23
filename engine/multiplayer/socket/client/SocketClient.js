@@ -1,7 +1,7 @@
 // ClientId(
 
 export class SocketClient {
-	constructor() {
+	static {
 		this.clientListeners = {}
 
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
@@ -38,7 +38,7 @@ export class SocketClient {
 	}
 
 
-	sendToClient(subAction, targetClientId, data) {
+	static sendToClient(subAction, targetClientId, data) {
 		this.simplifiedSocketClientAPI.send({
 			action: 'CLIENT_TO_CLIENT',
 			subAction: subAction,
@@ -48,11 +48,11 @@ export class SocketClient {
 		})
 	}
 
-	onServerMessage(action, callback) {
+	static onServerMessage(action, callback) {
 		this.simplifiedSocketClientAPI.on(action, callback)
 	}
 	
-	onClientMessage(action, callback) {
+	static onClientMessage(action, callback) {
 		this.clientListeners[action] = callback
 	}
 }

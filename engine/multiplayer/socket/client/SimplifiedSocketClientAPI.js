@@ -1,4 +1,3 @@
-
 export class SimplifiedSocketClientAPI {
 	constructor(port, run) {
 		// ClientId( // hack
