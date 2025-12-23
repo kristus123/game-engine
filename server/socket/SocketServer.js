@@ -1,6 +1,9 @@
 const SocketServer = require('./SimplifiedSocketServerAPI')
 
-const socket = new SocketServer(8082)
+const port = 8082
+const socket = new SocketServer(port)
+
+console.log(`Socket Server Listening On Port ${port}`)
 
 socket.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
@@ -14,7 +17,9 @@ socket.onConnection = (client, clientId) => {
 socket.on('CLIENT_TO_CLIENT', (client, clientId, data) => {
 	console.log(`Server Passing Message: ${JSON.stringify(data)}`)
 
-	const index = socket.allClientIds.indexOf(data.targetClientId)
+	const msg_data = data.json
+
+	const index = socket.allClientIds.indexOf(msg_data.targetClientId)
 	const targetClient = socket.allClients[index]
 
 	socket.sendToClient(targetClient, data)
