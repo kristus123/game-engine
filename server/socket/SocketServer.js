@@ -2,8 +2,6 @@ const SocketServer = require('./SimplifiedSocketServerAPI')
 
 const socket = new SocketServer(8082)
 
-console.log(`Socket Server Listening On Port 8082`)
-
 socket.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
 

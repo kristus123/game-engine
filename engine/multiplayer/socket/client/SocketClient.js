@@ -36,17 +36,17 @@ export class SocketClient {
 	}
 
 
-	sendToClient(action, targetClientId, data) {
+	sendToClient(subAction, targetClientId, data) {
 		this.simplifiedSocketClientAPI.send({
 			action: 'CLIENT_TO_CLIENT',
-			subAction: action,
+			subAction: subAction,
 			originClientId: ClientId,
 			targetClientId: targetClientId,
 			data: data
 		})
 	}
 
-	on(action, callback) {
+	onServerMessage(action, callback) {
 		this.simplifiedSocketClientAPI.on(action, callback)
 	}
 	
