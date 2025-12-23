@@ -1,6 +1,6 @@
 export class World {
 	constructor() {
-		Layout.test()
+		UiGrid.test()
 	}
 
 	update() {
