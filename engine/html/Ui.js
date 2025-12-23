@@ -7,24 +7,20 @@ export class Ui {
 		return elements
 	}
 
-	static grid(e) {
+	static grid(object) {
 		Ui.overlay([
 			Html.div('grid', [
 				Html.div('grid-top', [
-					...Always.list(e),
+					...object.top,
 				]),
 				Html.div('grid-left', [
-					Html.button('left'),
-					Html.p('wow not me'),
 				]),
 				Html.div('grid-right', [
-					Html.button('right'),
 				]),
 				Html.div('grid-mid', [
-					Html.button('mid'),
+					...object.mid,
 				]),
 				Html.div('grid-bottom', [
-					Html.button('bottom'),
 				]),
 			])
 		])

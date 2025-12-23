@@ -14,7 +14,7 @@ export class SocketClient {
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				t.connectedClientIds.removeIfPresent(data.clientId)
+				this.connectedClientIds.removeIfPresent(data.clientId)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
