@@ -4,8 +4,8 @@
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 80px auto auto;
-  gap: 10px;
+  grid-template-rows: 200px auto auto;
+  gap: 3px;
   grid-template-areas:
     "top top top"
     "left mid right"

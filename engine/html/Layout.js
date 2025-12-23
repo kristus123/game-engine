@@ -1,10 +1,11 @@
 export class Layout {
 	static test() {
-		Html.addToScreen(
+		Ui.add(
 			Html.div('overlay', [
 				Html.div('default-grid', [
 					Html.div('grid-left', [
 						Html.button('left'),
+						Html.p('wow not me'),
 					]),
 					Html.div('grid-right', [
 						Html.button('right'),
