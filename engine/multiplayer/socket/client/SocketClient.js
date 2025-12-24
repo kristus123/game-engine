@@ -28,7 +28,8 @@ export class SocketClient {
 
 				if (this.clientListeners[data.subAction]) {
 					this.clientListeners[data.subAction](data)
-				} else {
+				}
+				else {
 					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
 				}
 			})
@@ -37,12 +38,12 @@ export class SocketClient {
 
 	static onClientConnect(clientId) {
 		// not the best solution, but an ok solution for now
-		console.log("this can be overrideen by someone else")
+		console.log('this can be overrideen by someone else')
 	}
 
 	static onClientDisconnect(clientId) {
 		// not the best solution, but an ok solution for now
-		console.log("this can be overrideen by someone else")
+		console.log('this can be overrideen by someone else')
 	}
 
 
@@ -58,7 +59,7 @@ export class SocketClient {
 	static onServerMessage(action, callback) {
 		this.simplifiedSocketClientAPI.on(action, callback)
 	}
-	
+
 	static onClientMessage(action, callback) {
 		this.clientListeners[action] = callback
 	}

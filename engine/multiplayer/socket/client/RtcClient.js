@@ -50,7 +50,7 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				SocketClient.sendToClient("CALL", targetClientId, {
+				SocketClient.sendToClient('CALL', targetClientId, {
 					offer: peerConnection.localDescription
 				})
 			})
