@@ -1,25 +1,21 @@
 export class World {
 	constructor() {
-		this.hasCalled = false
-		this.hasReceived = false
-		this.targetId = null
-		this.callerId = null
+		this.list = []
 
-		Ui.grid({
-			top: [
-				Html.button('call', () => {
-					RtcClient.call('81557be1-87ba-4f7b-97aa-c5bb8d34436e') // this id is normal
-				})
-			],
-			mid: [
-				Html.button('answer', () => {
-					RtcClient.acceptCall('c5b5087d-c223-4cc9-a63c-ee6601203de4') //this is incognito
-				})
-			],
-		})
+		/*SocketClient.onServerMessage('UPDATE_CLIENTS_LIST', data => {
+			this.list = SocketClient.connectedClientIds
+		})*/
 	}
 
 	update() {
+		this.list = SocketClient.connectedClientIds
+		Ui.grid({	
+			top: [
+				Html.p(`[${this.list}]`, 'noClass')
+			],
+			mid: [],
+		})
+
 	}
 
 	draw(draw) {
