@@ -17,6 +17,14 @@ export class World {
 				})
 			],
 		})
+
+		SocketClient.onClientConnect = connectingClientId => {
+			// here you have access to client
+		}
+
+		SocketClient.onClientDisconnect = disconnectingClientId => {
+			// here you have access to client
+		}
 	}
 
 	update() {

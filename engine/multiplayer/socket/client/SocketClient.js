@@ -9,12 +9,18 @@ export class SocketClient {
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
-					this.connectedClientIds.addIfMissing(clientId)
+					if (this.connectedClientIds.missing(clientId)) {
+						this.connectedClientIds.add(clientId)
+						this.onClientConnection(clientId)
+					}
 				}
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				this.connectedClientIds.removeIfPresent(data.clientId)
+				if (this.connectedClientIds.present(data.clientId)) {
+					this.connectedClientIds.remove(data.clientId)
+					this.onClientDisconnect(clientId)
+				}
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
@@ -27,6 +33,16 @@ export class SocketClient {
 				}
 			})
 		})
+	}
+
+	static onClientConnect(clientId) {
+		// not the best solution, but an ok solution for now
+		console.log("this can be overrideen by someone else")
+	}
+
+	static onClientDisconnect(clientId) {
+		// not the best solution, but an ok solution for now
+		console.log("this can be overrideen by someone else")
 	}
 
 
