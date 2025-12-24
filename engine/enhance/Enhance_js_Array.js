@@ -41,7 +41,9 @@ export function Enhance_js_Array() {
 
 	Enhance(Array, 'removeIfPresent', function (e) {
 		const index = this.indexOf(e)
-		if (index !== -1) this.splice(index, 1)
+		if (index !== -1) {
+			this.splice(index, 1)
+		}
 	})
 
 

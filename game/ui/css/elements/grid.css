@@ -1,15 +1,9 @@
 .grid {
   width:100%;
   height:100%;
-
   display: grid;
-  grid-template-columns: 200px 1fr 1fr;
-  grid-template-rows: 200px auto auto;
+  grid-template: "left top top" 200px "left mid right" auto "left bottom bottom" auto / 200px 1fr 1fr;
   gap: 3px;
-  grid-template-areas:
-    "left top top"
-    "left mid right"
-    "left bottom bottom";
 }
 
 .grid .grid-top {

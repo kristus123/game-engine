@@ -22,7 +22,8 @@ export class SocketClient {
 
 				if (this.clientListeners[data.subAction]) {
 					this.clientListeners[data.subAction](data)
-				} else {
+				}
+				else {
 					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
 				}
 			})
@@ -42,7 +43,7 @@ export class SocketClient {
 	static onServerMessage(action, callback) {
 		this.simplifiedSocketClientAPI.on(action, callback)
 	}
-	
+
 	static onClientMessage(action, callback) {
 		this.clientListeners[action] = callback
 	}

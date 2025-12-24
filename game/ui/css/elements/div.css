@@ -1,10 +1,8 @@
 div {
  box-sizing: border-box;
  pointer-events: none; /* allow clicks to pass through */
-
  width:100%;
  height:100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
