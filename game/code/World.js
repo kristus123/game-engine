@@ -5,18 +5,24 @@ export class World {
 		this.targetId = null
 		this.callerId = null
 
+		const topDiv = Html.div('', [])
+
 		Ui.grid({
 			top: [
-				Html.button('call', () => {
-					RtcClient.call('81557be1-87ba-4f7b-97aa-c5bb8d34436e') // this id is normal
-				})
+				topDiv,
 			],
 			mid: [
-				Html.button('answer', () => {
-					RtcClient.acceptCall('c5b5087d-c223-4cc9-a63c-ee6601203de4') //this is incognito
-				})
 			],
 		})
+
+		setInterval(() => {
+			const connectedClientId = Random.uuid()
+
+			topDiv.add(Html.button(connectedClientId, () => {
+				console.log('calling client')
+			}))
+			
+		}, 200);
 	}
 
 	update() {

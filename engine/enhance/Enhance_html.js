@@ -3,6 +3,14 @@ export function Enhance_html() {
 		this.textContent = text
 	})
 
+	Enhance(HTMLElement, 'add', function (e) {
+		Html.add(e)
+	})
+
+	Enhance(HTMLElement, 'append', function (e) {
+		Html.append(e)
+	})
+
 	Enhance(HTMLElement, 'remove', function () {
 		Html.remove(this)
 	})

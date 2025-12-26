@@ -133,5 +133,4 @@ export class RtcClient {
 	}
 }
 
-
 window.RtcClient = RtcClient

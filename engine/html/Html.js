@@ -217,9 +217,14 @@ export class Html {
 	}
 
 	static append(element, childrenElements=[]) {
-		for (const e of childrenElements) {
+		for (const e of Always.list(childrenElements)) {
 			element.appendChild(e)
 		}
+	}
+
+	static add(element, childrenElements=[]) {
+		this.append(element, childrenElements)
+		
 	}
 
 	static appendBody(childrenElements=[]) {
