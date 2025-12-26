@@ -7,15 +7,16 @@ export class ConnectedSocketClients {
 	}
 
 	static add(clientId) {
-		if (this.ids.missing(clientId)) {
+		if (!this.ids.includes(clientId)) {
 			this.ids.push(clientId)
 			this.onConnect(clientId)
 		}
 	}
 
 	static remove(clientId) {
-		if (this.ids.present(clientId)) {
-			this.ids.remove(clientId)
+		if (this.ids.includes(clientId)) {
+			const index = this.ids.indexOf(clientId)
+			this.ids.splice(index, 1)
 			this.onDisconnect(clientId)
 		}
 	}
