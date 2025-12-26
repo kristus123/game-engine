@@ -5,9 +5,11 @@ export class RtcClient {
 	static {
 		this.peers = {}
 		this.offers = {}
+
 		this.localStream = null
 		this.startLocalStream()
-		this.onData = null
+
+		this.onData = () => {}
 
 		SocketClient.onClientMessage('CALL', data => {
 			console.log(`Incoming call from ${data.originClientId}`)
@@ -17,9 +19,10 @@ export class RtcClient {
 		SocketClient.onClientMessage('ANSWER', data => {
 			const peerConnection = this.peers[data.originClientId]?.peerConnection
 			if (peerConnection && typeof peerConnection.setRemoteDescription === 'function') {
-				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer)).catch(err => {
-					console.warn('setRemoteDescription failed:', err)
-				})
+				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
+					.catch(err => {
+						console.warn('setRemoteDescription failed:', err)
+					})
 			}
 			else {
 				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.originClientId)
@@ -29,9 +32,10 @@ export class RtcClient {
 		SocketClient.onClientMessage('ICE_CANDIDATE', data => {
 			const peerConnection = this.peers[data.originClientId]?.peerConnection
 			if (peerConnection && typeof peerConnection.addIceCandidate === 'function') {
-				peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate)).catch(err => {
-					console.log('addIceCandidate failed:', err)
-				})
+				peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
+					.catch(err => {
+						console.warn('addIceCandidate failed:', err)
+					})
 			}
 			else {
 				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.originClientId)
@@ -99,18 +103,14 @@ export class RtcClient {
 		dataChannel.onopen = () => console.log('Data channel opened')
 		dataChannel.onmessage = (e) => {
 			console.log(e)
-			if (this.onData) {
-				this.onData(JSON.parse(e.data))
-			}
+			this.onData(JSON.parse(e.data))
 		}
 
 		peerConnection.ondatachannel = (e) => {
 			const channel = e.channel
 			channel.onopen = () => console.log('Data channel opened')
 			channel.onmessage = (e) => {
-				if (this.onData) {
-					this.onData(JSON.parse(e.data))
-				}
+				this.onData(JSON.parse(e.data))
 			}
 		}
 
