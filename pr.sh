@@ -2,7 +2,7 @@
 
 git pull --rebase && git pull --rebase origin master
 
-#./lint.sh
+./lint.sh
 
 git add .
 git commit -m "lint"
