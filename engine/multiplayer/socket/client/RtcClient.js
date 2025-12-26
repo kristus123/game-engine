@@ -6,11 +6,24 @@ export class RtcClient {
 		this.peers = {}
 		this.offers = {}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ||||||| parent of 220eda73 (fix)
 =======
+||||||| parent of 765fa0e0 (x)
+=======
+<<<<<<< HEAD
+>>>>>>> 765fa0e0 (x)
 		this.lastCallerId = null
+<<<<<<< HEAD
 >>>>>>> 220eda73 (fix)
+||||||| parent of 765fa0e0 (x)
+=======
+||||||| parent of 6e2073ba (x)
+=======
+
+>>>>>>> 6e2073ba (x)
+>>>>>>> 765fa0e0 (x)
 		this.localStream = null
 		this.startLocalStream()
 
