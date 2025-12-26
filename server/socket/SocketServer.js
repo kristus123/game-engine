@@ -25,7 +25,7 @@ socketServer.onClose = (client, clientId) => {
 
 	socketServer.sendToEveryone({
 		action: 'REMOVE_CLIENT',
-		clientId: socketServer.clientId
+		clientId: clientId
 	})
 }
 

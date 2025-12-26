@@ -4,17 +4,15 @@ export class SocketClient {
 	static {
 		this.clientListeners = {}
 
-		this.connectedClientIds = []
-
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
-					this.connectedClientIds.addIfMissing(clientId)
+					ConnectedSocketClients.add(clientId)
 				}
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				this.connectedClientIds.removeIfPresent(data.clientId)
+				ConnectedSocketClients.remove(data.clientId)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
