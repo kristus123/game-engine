@@ -53,7 +53,7 @@ export class Html {
 
 		  i.addEventListener('focus', () => {
 			Controller.disabled = true
-//			Keyboard.disabled = true
+			Keyboard.disabled = true
 		  })
 
 		  i.addEventListener('blur', () => {
