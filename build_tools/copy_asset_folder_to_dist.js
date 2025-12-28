@@ -1,8 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-// Function to recursively copy a folder
-function copyFolderRecursive(source, destination) {
+function copyFolder(source, destination) {
 	if (!fs.existsSync(source)) {
 		console.error('Source folder does not exist.')
 		process.exit(1)
@@ -19,7 +18,7 @@ function copyFolderRecursive(source, destination) {
 		const destinationPath = path.join(destination, file)
 
 		if (fs.statSync(sourcePath).isDirectory()) {
-			copyFolderRecursive(sourcePath, destinationPath)
+			copyFolder(sourcePath, destinationPath)
 		}
 		else {
 			fs.copyFileSync(sourcePath, destinationPath)
@@ -28,6 +27,6 @@ function copyFolderRecursive(source, destination) {
 }
 
 
-copyFolderRecursive('game/assets/', 'dist/game/assets/')
-copyFolderRecursive('game/audio/', 'dist/game/audio/')
-copyFolderRecursive('game/ui/', 'dist/game/ui/')
+copyFolder('game/assets/', 'dist/game/assets/')
+copyFolder('game/audio/', 'dist/game/audio/')
+copyFolder('game/ui/', 'dist/game/ui/')
