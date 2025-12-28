@@ -58,3 +58,16 @@ then open [http://localhost:5000]()
 ## Play anywhere
 
 [Play game](https://romskip.netlify.app/)
+
+
+## setup netlify deploy thing
+
+```js
+npm install -g netlify-cli
+netlify login
+
+# then you can run
+./deploy_dist_to_netlify.sh
+
+# todo remove old netlify build file and remove it from netlify in the ui
+```
