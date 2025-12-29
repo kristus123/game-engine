@@ -1,31 +1,37 @@
 export class World {
-	constructor() {
-		this.clientId = null
-		
-		Ui.gridAppend('mid', [
-			Html.button('Call', () => {
-				this.clientId = prompt('Enter Client Id')
-				RtcClient.call(this.clientId)
-				console.log('calling...')
-			})
+    constructor() {
+	SocketClient.onConnect(() => {
+		GridUi.mid.add([
+                    Html.button('Call', () => {
+			const clientId = prompt('Enter Client Id')
+			RtcClient.call(clientId)
+			console.log('calling...')
+                    })
 		])
 
-		Ui.gridAppend('right', [
-			Html.button('Answer', () => {
-				this.clientId = prompt('Enter Client Id')
-				RtcClient.acceptCall(this.clientId)
-				console.log('answering...')
-			})
+	    GridUi.top.add([
+		Html.p(`[${ConnectedSocketClients.ids}]`, 'noClass')
+	    ])
+	})
+
+        SocketClient.onDisconnect(() => {
+	    console.log(ConnectedSocketClients.ids)
+	        GridUi.mid.add([])
+	    	GridUi.top.add([
+		    Html.p(`[${ConnectedSocketClients.ids}]`, 'noClass')
 		])
 
-	}
+        })
 
-	update() {
-		Ui.gridReplace('top', [
-			Html.p(`[${ConnectedSocketClients.ids}]`, 'noClass')
-		])
-	}
+	GridUi.right.add([
+		Html.button('Answer', () => {
+			const clientId = prompt('Enter Client Id')
+			RtcClient.acceptCall(clientId)
+			console.log('answering...')
+		})
+	])
+    }
 
-	draw(draw) {
-	}
+    update() {}
+    draw(draw) {}
 }

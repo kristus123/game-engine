@@ -45,4 +45,12 @@ export class SocketClient {
 	static onClientMessage(action, callback) {
 		this.clientListeners[action] = callback
 	}
+
+    static onConnect(callback) {
+	SocketClient.onServerMessage('UPDATE_CLIENTS_LIST', callback)
+    }
+
+    static onDisconnect(callback) {
+	SocketClient.onServerMessage('REMOVE_CLIENT', callback)
+    }
 }
