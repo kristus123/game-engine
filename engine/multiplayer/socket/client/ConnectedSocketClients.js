@@ -11,6 +11,7 @@ export class ConnectedSocketClients {
 			this.ids.push(clientId)
 			this.onConnect(clientId)
 		}
+		console.log(this.ids)
 	}
 
 	static remove(clientId) {
@@ -19,6 +20,7 @@ export class ConnectedSocketClients {
 			this.ids.splice(index, 1)
 			this.onDisconnect(clientId)
 		}
+		console.log(this.ids)
 	}
 
 	static [Symbol.iterator]() {
