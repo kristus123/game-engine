@@ -4,22 +4,20 @@ export class SocketClient {
 	static {
 		this.clientListeners = {}
 
-		this.connectedClientIds = []
-
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
+				console.log('updating clislisslist')
 				for (const clientId of data.clientIds) {
-					this.connectedClientIds.addIfMissing(clientId)
+					ConnectedSocketClients.add(clientId)
 				}
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				this.connectedClientIds.removeIfPresent(data.clientId)
+				ConnectedSocketClients.remove(data.clientId)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
 				console.log(`Message: ${JSON.stringify(data)}`)
-
 				if (this.clientListeners[data.subAction]) {
 					this.clientListeners[data.subAction](data)
 				}
@@ -47,4 +45,5 @@ export class SocketClient {
 	static onClientMessage(action, callback) {
 		this.clientListeners[action] = callback
 	}
+
 }
