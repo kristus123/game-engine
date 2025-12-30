@@ -6,7 +6,7 @@ export class SocketClient {
 
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
-					console.log("updating clislisslist")
+				console.log('updating clislisslist')
 				for (const clientId of data.clientIds) {
 					ConnectedSocketClients.add(clientId)
 				}
