@@ -14,7 +14,7 @@ export class RtcClient {
 
 		SocketClient.onClientMessage('INCOMING_CALL', data => {
 			this.offers[data.originClientId] = data.offer
-			this.onIncomingCall(data.originClientId) // manage it somehow
+			this.onIncomingCall(data.originClientId)
 		})
 
 		SocketClient.onClientMessage('ANSWER', data => {
