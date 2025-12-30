@@ -40,10 +40,10 @@ export class World {
 	    ]
 =======
 		this.callButton = [
-                	Html.button('call', () => {
+        			Html.button('call', () => {
 				RtcClient.call(this.callerId)
 				console.log('calling...')
-                	})
+        			})
 		]
 >>>>>>> e5597f20 (fix)
 
@@ -73,10 +73,10 @@ export class World {
 		    }
 =======
 		this.answerButton = [
-                	Html.button('answer', () => {
+        			Html.button('answer', () => {
 				RtcClient.acceptCall()
 				console.log('answering...')
-                	})
+        			})
 		]
 
 		SocketClient.onConnect((d) => {
@@ -85,10 +85,10 @@ export class World {
 			])
 
 			GridUi.left.push([
-                		Html.button(d.originClientId, () => {
+        				Html.button(d.originClientId, () => {
 					this.callerId = d.originClientId
 					console.log('callerId set')
-                		})
+        				})
 			])
 
 			if (ConnectedSocketClients.ids.length > 1) {
@@ -98,7 +98,7 @@ export class World {
 		})
 
 		SocketClient.onDisconnect(() => {
-	    	GridUi.mid.add([])
+			GridUi.mid.add([])
 			GridUi.top.add([
 				Html.p(`[${ConnectedSocketClients.ids}]`, 'noClass')
 			])

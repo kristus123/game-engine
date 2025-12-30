@@ -16,8 +16,7 @@ export class ConnectedSocketClients {
 
 	static remove(clientId) {
 		if (this.ids.includes(clientId)) {
-			const index = this.ids.indexOf(clientId)
-			this.ids.splice(index, 1)
+			this.ids.remove(clientId)
 			this.onDisconnect(clientId)
 		}
 		console.log(this.ids)

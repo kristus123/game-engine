@@ -10,17 +10,17 @@ export class SocketClient {
 				for (const clientId of data.clientIds) {
 					ConnectedSocketClients.add(clientId)
 				}
-				SocketClient.handleCustomListener(this.serverListener, data.action, data)
+				this.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('REMOVE_CLIENT', data => {
 				ConnectedSocketClients.remove(data.clientId)
-				SocketClient.handleCustomListener(this.serverListener, data.action, data)
+				this.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
 				console.log(`Message: ${JSON.stringify(data)}`)
-				SocketClient.handleCustomListener(this.clientListener, data.subAction, data)
+				this.handleCustomListener(this.clientListener, data.subAction, data)
 			})
 		})
 	}

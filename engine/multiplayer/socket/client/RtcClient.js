@@ -8,6 +8,7 @@ export class RtcClient {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ||||||| parent of 220eda73 (fix)
 =======
@@ -19,6 +20,10 @@ export class RtcClient {
 =======
 <<<<<<< HEAD
 >>>>>>> 2128fa3f (fix)
+||||||| parent of 10f8474a (x)
+=======
+<<<<<<< HEAD
+>>>>>>> 10f8474a (x)
 		this.lastCallerId = null
 <<<<<<< HEAD
 >>>>>>> 220eda73 (fix)
@@ -37,7 +42,16 @@ export class RtcClient {
 =======
 		this.lastCallerId = null
 >>>>>>> e5597f20 (fix)
+<<<<<<< HEAD
 >>>>>>> 2128fa3f (fix)
+||||||| parent of 10f8474a (x)
+=======
+||||||| parent of 3e9814a3 (x)
+		this.lastCallerId = null
+=======
+		this.clientIdOfThePersonCalling = null
+>>>>>>> 3e9814a3 (x)
+>>>>>>> 10f8474a (x)
 		this.localStream = null
 		this.startLocalStream()
 
@@ -45,8 +59,8 @@ export class RtcClient {
 
 		SocketClient.onClientMessage('CALL', data => {
 			console.log(`Incoming call from ${data.originClientId}`)
-			this.lastCallerId = data.originClientId
-			console.log(this.lastCallerId)
+			this.clientIdOfThePersonCalling = data.originClientId
+			console.log(this.clientIdOfThePersonCalling)
 			this.offers[data.originClientId] = data.offer
 		})
 
@@ -95,17 +109,17 @@ export class RtcClient {
 	}
 
 	static acceptCall() {
-		const { peerConnection, dataChannel } = this.createPeerConnectionWith(this.lastCallerId)
-		this.peers[this.lastCallerId] = { peerConnection, dataChannel }
+		const { peerConnection, dataChannel } = this.createPeerConnectionWith(this.clientIdOfThePersonCalling)
+		this.peers[this.clientIdOfThePersonCalling] = { peerConnection, dataChannel }
 
-		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[this.lastCallerId]))
+		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[this.clientIdOfThePersonCalling]))
 			// .then(() => this.localStream.getTracks().forEach(track => {
 			// 	peerConnection.addTrack(track, this.localStream)
 			// }))
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				SocketClient.sendToClient('ANSWER', this.lastCallerId, {
+				SocketClient.sendToClient('ANSWER', this.clientIdOfThePersonCalling, {
 					answer: peerConnection.localDescription
 				})
 			})
