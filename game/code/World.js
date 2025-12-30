@@ -2,24 +2,34 @@
 
 export class World {
     constructor() {
+	    this.callerId = null
+	    
 	    this.callButton = [
                     Html.button('call', () => {
-			RtcClient.call("15527fcb-1c65-4237-bb1a-2854e5053342") // Id In Private Window
+			RtcClient.call(this.callerId)
 			console.log('calling...')
                     })
 	    ]
 
 	    this.answerButton = [
                     Html.button('answer', () => {
-			RtcClient.acceptCall("ce0656cc-850d-4b10-9f90-a7f81be3e34b") // Id In Normal Window
+			RtcClient.acceptCall()
 			console.log('answering...')
                     })
 	    ]
 
-	    SocketClient.onConnect(() => {
+	    SocketClient.onConnect((d) => {
 		    GridUi.top.add([
 			    Html.p(`[${ConnectedSocketClients.ids}]`, 'noClass')
 		    ])
+
+		    GridUi.left.push([
+                    	Html.button(d.originClientId, () => {
+				this.callerId = d.originClientId
+				console.log('callerId set')
+                    	})
+		    ])
+
 		    if (ConnectedSocketClients.ids.length > 1) {
 		    	GridUi.mid.add(this.callButton)
 		    }

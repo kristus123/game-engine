@@ -5,7 +5,12 @@ export class RtcClient {
 	static {
 		this.peers = {}
 		this.offers = {}
+<<<<<<< HEAD
 
+||||||| parent of 220eda73 (fix)
+=======
+		this.lastCallerId = null
+>>>>>>> 220eda73 (fix)
 		this.localStream = null
 		this.startLocalStream()
 
@@ -13,6 +18,8 @@ export class RtcClient {
 
 		SocketClient.onClientMessage('CALL', data => {
 			console.log(`Incoming call from ${data.originClientId}`)
+			this.lastCallerId = data.originClientId
+			console.log(this.lastCallerId)
 			this.offers[data.originClientId] = data.offer
 		})
 
@@ -60,18 +67,18 @@ export class RtcClient {
 			})
 	}
 
-	static acceptCall(clientIdWhoCalled) {
-		const { peerConnection, dataChannel } = this.createPeerConnectionWith(clientIdWhoCalled)
-		this.peers[clientIdWhoCalled] = { peerConnection, dataChannel }
+	static acceptCall() {
+		const { peerConnection, dataChannel } = this.createPeerConnectionWith(this.lastCallerId)
+		this.peers[this.lastCallerId] = { peerConnection, dataChannel }
 
-		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[clientIdWhoCalled]))
+		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[this.lastCallerId]))
 			// .then(() => this.localStream.getTracks().forEach(track => {
 			// 	peerConnection.addTrack(track, this.localStream)
 			// }))
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				SocketClient.sendToClient('ANSWER', clientIdWhoCalled, {
+				SocketClient.sendToClient('ANSWER', this.lastCallerId, {
 					answer: peerConnection.localDescription
 				})
 			})

@@ -7,7 +7,8 @@ socketServer.onConnection = (client, clientId) => {
 
 	socketServer.sendToEveryone({
 		action: 'UPDATE_CLIENTS_LIST',
-		clientIds: socketServer.allClientIds
+		clientIds: socketServer.allClientIds,
+		originClientId: clientId
 	})
 }
 

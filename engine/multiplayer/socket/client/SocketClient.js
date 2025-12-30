@@ -52,8 +52,8 @@ export class SocketClient {
 	}
 	
 	static handleCustomListener(listener, action, data) {
-		if (this.serverListener[action]) {
-			this.serverListener[action](data)
+		if (listener[action]) {
+			listener[action](data)
 		}
 		else {
 			throw new Error(`Listener For Action "${action}" Is Not Defined!`)
