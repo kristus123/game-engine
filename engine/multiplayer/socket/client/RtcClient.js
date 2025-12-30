@@ -10,6 +10,8 @@ export class RtcClient {
 
 		this.onData = () => {}
 
+		this.onIncomingCall = (callerClientId) => {}
+
 		SocketClient.onClientMessage('INCOMING_CALL', data => {
 			this.offers[data.originClientId] = data.offer
 			this.onIncomingCall(data.originClientId) // manage it somehow
