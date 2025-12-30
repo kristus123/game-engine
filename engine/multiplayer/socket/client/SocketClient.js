@@ -7,30 +7,20 @@ export class SocketClient {
 	
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
-				console.log("add")
 				for (const clientId of data.clientIds) {
 					ConnectedSocketClients.add(clientId)
 				}
-
 				SocketClient.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('REMOVE_CLIENT', data => {
-				console.log("add")
 				ConnectedSocketClients.remove(data.clientId)
-
 				SocketClient.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
 				console.log(`Message: ${JSON.stringify(data)}`)
-				
-				if (this.clientListener[data.subAction]) {
-					this.clientListener[data.subAction](data)
-				}
-				else {
-					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
-				}
+				SocketClient.handleCustomListener(this.clientListener, data.subAction, data)
 			})
 		})
 	}

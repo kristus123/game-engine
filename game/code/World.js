@@ -4,16 +4,14 @@ export class World {
     constructor() {
 	    this.callButton = [
                     Html.button('call', () => {
-			const clientId = prompt('enter client id')
-			RtcClient.call(clientId)
+			RtcClient.call("15527fcb-1c65-4237-bb1a-2854e5053342") // Id In Private Window
 			console.log('calling...')
                     })
 	    ]
 
 	    this.answerButton = [
                     Html.button('answer', () => {
-			const clientId = prompt('enter client id')
-			RtcClient.acceptCall(clientId)
+			RtcClient.acceptCall("ce0656cc-850d-4b10-9f90-a7f81be3e34b") // Id In Normal Window
 			console.log('answering...')
                     })
 	    ]
