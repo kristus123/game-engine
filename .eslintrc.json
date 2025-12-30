@@ -253,6 +253,7 @@
         "Position": "readonly",
         "Positions": "readonly",
         "Practice": "readonly",
+        "ProxyObject": "readonly",
         "Push": "readonly",
         "Quest": "readonly",
         "QuestList": "readonly",
