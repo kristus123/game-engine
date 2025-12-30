@@ -46,3 +46,5 @@ new Runner('build_tools/generate_dist.js').start()
 
 // for now only run it once
 new Runner('server/socket/SocketServer.js').start()
+
+test
