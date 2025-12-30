@@ -2,9 +2,11 @@
 
 export class World {
 	constructor() {
-		ConnectedSocketClients.onConnect = clientId => {
-			const button = Html.button(clientId, () => {
-				RtcClient.call(clientId)
+		ConnectedSocketClients.onConnect = connectingClientId => {
+			console.log(connectingClientId)
+			console.log("sex")
+			const button = Html.button(connectingClientId, () => {
+				RtcClient.call(connectingClientId)
 			})
 
 			GridUi.left.push(button)

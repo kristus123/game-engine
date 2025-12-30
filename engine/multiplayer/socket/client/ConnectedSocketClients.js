@@ -1,3 +1,5 @@
+// ClientId(
+
 export class ConnectedSocketClients {
 	static {
 		this.ids = []
@@ -7,7 +9,7 @@ export class ConnectedSocketClients {
 	}
 
 	static add(clientId) {
-		if (!this.ids.includes(clientId)) {
+		if (this.ids.missing(clientId) && clientId != ClientId) {
 			this.ids.push(clientId)
 			this.onConnect(clientId)
 		}
