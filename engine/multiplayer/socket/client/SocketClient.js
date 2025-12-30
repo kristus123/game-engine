@@ -2,25 +2,27 @@
 
 export class SocketClient {
 	static {
-		this.serverListener = {}
-		this.clientListener = {}
+		this.clientListeners = {}
 
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
 					ConnectedSocketClients.add(clientId)
 				}
-				this.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('REMOVE_CLIENT', data => {
 				ConnectedSocketClients.remove(data.clientId)
-				this.handleCustomListener(this.serverListener, data.action, data)
 			})
 
 			c.on('CLIENT_TO_CLIENT', data => {
 				console.log(`Message: ${JSON.stringify(data)}`)
-				this.handleCustomListener(this.clientListener, data.subAction, data)
+				if (this.clientListeners[data.subAction]) {
+					this.clientListeners[data.subAction](data)
+				}
+				else {
+					throw new Error(`Listener For Sub-Action "${data.subAction}" Is Not Defined!`)
+				}
 			})
 		})
 	}
@@ -36,27 +38,11 @@ export class SocketClient {
 	}
 
 	static onServerMessage(action, callback) {
-		this.serverListener[action] = callback
+		this.simplifiedSocketClientAPI.on(action, callback)
 	}
 
 	static onClientMessage(action, callback) {
-		this.clientListener[action] = callback
+		this.clientListeners[action] = callback
 	}
 
-	static onConnect(callback) {
-		this.serverListener['UPDATE_CLIENTS_LIST'] = callback
-	}
-
-	static onDisconnect(callback) {
-		this.serverListener['REMOVE_CLIENT'] = callback
-	}
-
-	static handleCustomListener(listener, action, data) {
-		if (listener[action]) {
-			listener[action](data)
-		}
-		else {
-			throw new Error(`Listener For Action "${action}" Is Not Defined!`)
-		}
-	}
 }
