@@ -8,28 +8,14 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
-<<<<<<< HEAD
     "eslint": "^8.56.0",
     "chokidar": "^4.0.3",
     "stylelint": "^16.24.0",
     "stylelint-config-standard": "^39.0.1"
-||||||| parent of 10f8474a (x)
-    "eslint": "^8.56.0"
-=======
-    "eslint": "^8.56.0",
-    "stylelint-config-standard": "^39.0.1"
->>>>>>> 10f8474a (x)
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-<<<<<<< HEAD
-||||||| parent of 10f8474a (x)
-    "stylelint": "^16.24.0",
-    "stylelint-config-standard": "^39.0.0",
-=======
-    "stylelint": "^16.24.0",
->>>>>>> 10f8474a (x)
     "ws": "^8.18.3"
   }
 }
