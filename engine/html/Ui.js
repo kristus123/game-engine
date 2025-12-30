@@ -1,6 +1,6 @@
 export class Ui {
 	static {}
-	
+
 	static overlay(elements) {
 		elements = Always.list(elements)
 

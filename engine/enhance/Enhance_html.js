@@ -27,7 +27,7 @@ export function Enhance_html() {
 		Html.onClick(this, run)
 	})
 
-	Enhance(HTMLElement, 'add',  function (elements) {
+	Enhance(HTMLElement, 'add', function (elements) {
 		Html.removeChildElements(this)
 		Html.append(this, elements)
 	})

@@ -193,6 +193,7 @@
         "GridPathFinder": "readonly",
         "GridPositions": "readonly",
         "GridTile": "readonly",
+        "GridUi": "readonly",
         "GuiPosition": "readonly",
         "HeightMap": "readonly",
         "HelperThing": "readonly",

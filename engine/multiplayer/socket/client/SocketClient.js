@@ -4,7 +4,7 @@ export class SocketClient {
 	static {
 		this.serverListener = {}
 		this.clientListener = {}
-	
+
 		this.simplifiedSocketClientAPI = new SimplifiedSocketClientAPI(8082, c => {
 			c.on('UPDATE_CLIENTS_LIST', data => {
 				for (const clientId of data.clientIds) {
@@ -50,7 +50,7 @@ export class SocketClient {
 	static onDisconnect(callback) {
 		this.serverListener['REMOVE_CLIENT'] = callback
 	}
-	
+
 	static handleCustomListener(listener, action, data) {
 		if (listener[action]) {
 			listener[action](data)
