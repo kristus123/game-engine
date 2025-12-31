@@ -25,7 +25,7 @@ export class World {
 		}
 
 
-		const player = new DynamicGameObject(new Position(3000,4000))
+		const player = new DynamicGameObject(new Position(8000,6000))
 
 		Controller.control(player)
 		Camera.followInstantly(player)
