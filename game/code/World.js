@@ -25,7 +25,9 @@ export class World {
 		}
 	}
 
-	update() {}
+	update() {
+		Sprite.village(new Position(0,0)).update()
+	}
 
 	draw(draw) {}
 }

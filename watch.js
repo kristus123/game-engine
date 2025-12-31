@@ -31,7 +31,8 @@ watcher.on('all', (e, path) => {
 
 	idTimeout = setTimeout(() => {
 		if (path.includes('.aseprite')) {
-			new Runner('build_tools/export_aseprite.js' + path).start()
+			console.log("sex")
+			new Runner('build_tools/export_aseprite.js', [path]).start()
 		}
 
 		new Runner('build_tools/generate_dist.js').start()

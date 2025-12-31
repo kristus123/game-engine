@@ -1,6 +1,6 @@
 // todo: this needs some comments for documentation because the api is so complex
 
-export class Sprite extends StaticGameObject {
+export class SpriteController extends StaticGameObject {
 	constructor(position, image, asepriteJson) {
 		super(position)
 

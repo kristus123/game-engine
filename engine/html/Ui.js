@@ -1,9 +1,10 @@
 export class Ui {
 
 	static overlay(elements) {
-		elements = Always.list(elements)
+		const div = Html.div('overlay', Always.list(elements))
 
-		document.getElementById('ui_elements').appendChild(Html.div('overlay', elements))
-		return elements
+		document.getElementById('ui_elements').appendChild(div)
+
+		return div
 	}
 }
