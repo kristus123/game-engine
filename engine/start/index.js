@@ -43,7 +43,7 @@ function loadAsepriteAssets(path) {
 			LoadJson(`${path}.json`),
 		]).then(([img, json]) => {
 			G.image[fileName] = img
-			Sprite[fileName] = pos => new SpriteController(pos, img, new AsepriteJson(json))
+			Sprite[fileName] = (pos, scale) => new SpriteController(pos, img, new AsepriteJson(json), scale)
 		})
 
 		return Promise.all([p1, p2])

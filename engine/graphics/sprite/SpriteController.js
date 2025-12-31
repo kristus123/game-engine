@@ -1,11 +1,11 @@
 // todo: this needs some comments for documentation because the api is so complex
 
 export class SpriteController extends StaticGameObject {
-	constructor(position, image, asepriteJson) {
+	constructor(position, image, asepriteJson, scale=1) {
 		super(position)
 
-		this.position.width = asepriteJson.width * Scale.value
-		this.position.height = asepriteJson.height * Scale.value
+		this.position.width = asepriteJson.width * Scale.value * scale
+		this.position.height = asepriteJson.height * Scale.value * scale
 
 		this.currentFrame = 0
 		this.tags = {}

@@ -18,7 +18,7 @@ export class Camera {
 		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
 
 		this.position = new Position(0, 0)
-		this.smoothPosition = new SmoothPosition(this.position, 0.001)
+		this.smoothPosition = new SmoothPosition(this.position, 0.01)
 
 		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
 

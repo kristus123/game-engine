@@ -23,10 +23,22 @@ export class World {
 				}),
 			])
 		}
+
+
+		const player = new DynamicGameObject(new Position(3000,4000))
+
+		Controller.control(player)
+		Camera.followInstantly(player)
+
+		this.localObjects = new LocalObjects([
+			Sprite.snow(new Position(0,0), 20),
+			Sprite.samurai(player.position),
+		])
 	}
 
+
 	update() {
-		Sprite.village(new Position(0,0)).update()
+		this.localObjects.update()
 	}
 
 	draw(draw) {}
