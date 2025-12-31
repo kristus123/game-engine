@@ -31,8 +31,8 @@ export class World {
 		Camera.followInstantly(player)
 
 		this.localObjects = new LocalObjects([
-			Sprite.snow(new Position(0,0), 20),
-			Sprite.samurai(player.position),
+			Sprite.snow(new Position(0,0), 6),
+			Sprite.samurai(player.position, 0.5),
 		])
 	}
 
