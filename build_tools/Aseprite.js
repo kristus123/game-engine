@@ -5,6 +5,7 @@ const bin = (() => {
 	const potentialPaths = [
 		'aseprite',
 		'$HOME/aseprite/build/bin/aseprite',
+		'$HOME/aseprite/bin/aseprite',
 	]
 	for (const p of potentialPaths) {
 		try {

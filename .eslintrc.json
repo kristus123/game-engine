@@ -131,6 +131,7 @@
         ]
     },
     "globals": {
+        "ActionListener": "readonly",
         "After": "readonly",
         "AllObjects": "readonly",
         "Ally": "readonly",
@@ -281,6 +282,7 @@
         "SpinningPicture": "readonly",
         "Splash": "readonly",
         "Sprite": "readonly",
+        "SpriteController": "readonly",
         "SpriteLayers": "readonly",
         "Square": "readonly",
         "StaticGameObject": "readonly",
