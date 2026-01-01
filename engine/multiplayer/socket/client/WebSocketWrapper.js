@@ -1,18 +1,15 @@
 // ClientId( // hack
 
 export class WebSocketWrapper {
-	constructor(run) {
+	static {
 		this.webSocket = new WebSocket(`ws://localhost:8082?clientId=${ClientId}`)
 
 		this.webSocket.onopen = () => {
 			this.onOpen()
 		}
 
-		run(this)
-
 		this.webSocket.onmessage = e => {
-			const data = JSON.parse(e.data)
-			this.onMessage(data)
+			this.onMessage(JSON.parse(e.data))
 		}
 
 		this.webSocket.onclose = () => {
@@ -26,7 +23,7 @@ export class WebSocketWrapper {
 		}
 	}
 
-	onOpen() {}
-	onMessage() {}
-	onClose() {}
+	static onOpen() {}
+	static onMessage(data) {}
+	static onClose() {}
 }

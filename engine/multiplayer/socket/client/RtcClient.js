@@ -17,7 +17,7 @@ export class RtcClient {
 			this.onIncomingCall(data.originClientId)
 		})
 
-		SocketClient.onClientMessage('ANSWER', data => {
+		SocketClient.onClientMessage('ACCEPT_INCOMING_CALL', data => {
 			const peerConnection = this.peers[data.originClientId]?.peerConnection
 			if (peerConnection && typeof peerConnection.setRemoteDescription === 'function') {
 				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
@@ -26,7 +26,7 @@ export class RtcClient {
 					})
 			}
 			else {
-				console.warn('ANSWER received but no valid RTCPeerConnection found for', data.originClientId)
+				console.warn('ACCEPT_INCOMING_CALL received but no valid RTCPeerConnection found for', data.originClientId)
 			}
 		})
 
@@ -72,7 +72,7 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				SocketClient.sendToClient('ANSWER', callerClientId, {
+				SocketClient.sendToClient('ACCEPT_INCOMING_CALL', callerClientId, {
 					answer: peerConnection.localDescription
 				})
 			})

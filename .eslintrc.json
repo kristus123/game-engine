@@ -163,7 +163,7 @@
         "ClickEvents": "readonly",
         "ClientId": "readonly",
         "Collision": "readonly",
-        "ConnectedSocketClients": "readonly",
+        "OtherConnectedSocketClients": "readonly",
         "Controller": "readonly",
         "Curve": "readonly",
         "D1": "readonly",

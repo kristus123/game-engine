@@ -1,6 +1,6 @@
 // ClientId(
 
-export class ConnectedSocketClients {
+export class OtherConnectedSocketClients {
 	static {
 		this.ids = []
 
