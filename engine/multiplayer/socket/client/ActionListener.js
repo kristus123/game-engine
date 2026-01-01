@@ -11,6 +11,11 @@ export class ActionListener {
 	}
 
 	register(action, callback) {
-		this.listener[action] = callback
+		if (this.listener[action]) {
+			throw new Error(`Failed To Register Listener For Action "${action}" It Already Exists!`)
+		}
+		else {
+			this.listener[action] = callback
+		}
 	}
 }
