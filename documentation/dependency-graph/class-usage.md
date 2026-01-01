@@ -1,6 +1,6 @@
 # Class Usage Report
 
-Generated on: 12/20/2025, 6:57:24 PM
+Generated on: 1/1/2026, 11:47:10 AM
 
 ## all_classes
 
@@ -28,7 +28,7 @@ _No usage found_
 
 ## dependency_graph
 
-**Defined in:** `dependency_graph.js`
+**Defined in:** `documentation/dependency-graph/dependency_graph.js`
 
 _No usage found_
 
@@ -86,6 +86,12 @@ _No usage found_
 
 _No usage found_
 
+## HtmlVideo
+
+**Defined in:** `engine/html/HtmlVideo.js`
+
+_No usage found_
+
 ## InfiniteListLooper
 
 **Defined in:** `engine/InfiniteListLooper.js`
@@ -140,18 +146,6 @@ _No usage found_
 
 _No usage found_
 
-## OnlineObjects
-
-**Defined in:** `engine/multiplayer/socket/OnlineObjects.js`
-
-_No usage found_
-
-## OnlinePlayers
-
-**Defined in:** `engine/multiplayer/socket/OnlinePlayers.js`
-
-_No usage found_
-
 ## ParallaxTest
 
 **Defined in:** `engine/graphics/ParallaxTest.js`
@@ -188,6 +182,12 @@ _No usage found_
 
 _No usage found_
 
+## ProxyObject
+
+**Defined in:** `engine/ProxyObject.js`
+
+_No usage found_
+
 ## QuestList
 
 **Defined in:** `engine/mechanics/quest/QuestList.js`
@@ -197,12 +197,6 @@ _No usage found_
 ## Rain
 
 **Defined in:** `engine/mechanics/Rain.js`
-
-_No usage found_
-
-## RtcClient
-
-**Defined in:** `engine/multiplayer/socket/client/RtcClient.js`
 
 _No usage found_
 
@@ -260,12 +254,6 @@ _No usage found_
 
 _No usage found_
 
-## VideoCall
-
-**Defined in:** `engine/multiplayer/socket/VideoCall.js`
-
-_No usage found_
-
 ## Wait
 
 **Defined in:** `engine/Wait.js`
@@ -303,6 +291,7 @@ Used in:
 **Defined in:** `engine/assertions/a.js`
 
 Used in:
+- `build_tools/Aseprite.js`
 - `build_tools/Files.js`
 - `build_tools/Imports.js`
 - `build_tools/Parameters.js`
@@ -322,7 +311,8 @@ Used in:
 - `build_tools/transpiler.js`
 - `build_tools/update_eslint.js`
 - `build_tools/verify_no_reserved_clashes.js`
-- `dependency_graph.js`
+- `documentation/dependency-graph/dependency_graph.js`
+- `engine/Always.js`
 - `engine/Calculate.js`
 - `engine/DeltaTime.js`
 - `engine/Distance.js`
@@ -337,6 +327,7 @@ Used in:
 - `engine/Loop.js`
 - `engine/MinCap.js`
 - `engine/PictureInPicture.js`
+- `engine/ProxyObject.js`
 - `engine/Random.js`
 - `engine/Sleep.js`
 - `engine/SpinningAroundPosition.js`
@@ -376,6 +367,7 @@ Used in:
 - `engine/enhance/Enhance.js`
 - `engine/enhance/Enhance_html.js`
 - `engine/enhance/Enhance_js_Array.js`
+- `engine/enhance/Enhance_js_Object.js`
 - `engine/graphics/HeightMap.js`
 - `engine/graphics/Noise.js`
 - `engine/graphics/Parallax.js`
@@ -391,14 +383,16 @@ Used in:
 - `engine/graphics/grid/HouseGrid.js`
 - `engine/graphics/particles/Splash.js`
 - `engine/graphics/particles/Water.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/graphics/sprite/SpriteLayers.js`
 - `engine/html/Flex.js`
+- `engine/html/GridUi.js`
 - `engine/html/Html.js`
 - `engine/html/HtmlElement.js`
 - `engine/html/HtmlProgressBar.js`
 - `engine/html/HtmlVideo.js`
 - `engine/html/MovableElement.js`
+- `engine/html/Ui.js`
 - `engine/local_objects/Update.js`
 - `engine/logging/ShowLogs.js`
 - `engine/mechanics/Blur.js`
@@ -419,9 +413,8 @@ Used in:
 - `engine/mechanics/quest/Quest.js`
 - `engine/mechanics/quest/QuestList.js`
 - `engine/mechanics/quest/Task.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
-- `engine/multiplayer/socket/OnlinePlayers.js`
-- `engine/multiplayer/socket/VideoCall.js`
+- `engine/multiplayer/socket/client/ClientId.js`
+- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `engine/multiplayer/socket/client/SocketClient.js`
@@ -480,6 +473,7 @@ Used in:
 - `game/code/Poop.js`
 - `game/code/Scale.js`
 - `game/code/Shake.js`
+- `game/code/Sprite.js`
 - `game/code/Store.js`
 - `game/code/Turret.js`
 - `game/code/TurretNeeds.js`
@@ -519,7 +513,6 @@ Used in:
 
 Used in:
 - `build_tools/Parameters.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
 - `engine/objects/LocalObjects.js`
 
 ## Ally
@@ -528,6 +521,15 @@ Used in:
 
 Used in:
 - `game/code/Store.js`
+
+## Always
+
+**Defined in:** `engine/Always.js`
+
+Used in:
+- `engine/html/Html.js`
+- `engine/html/Ui.js`
+- `engine/position/Position.js`
 
 ## AnalShit
 
@@ -544,6 +546,18 @@ Used in:
 
 Used in:
 - `engine/camera/Camera.js`
+
+## Aseprite
+
+**Defined in:** `build_tools/Aseprite.js`
+
+Used in:
+- `build_tools/export_aseprite.js`
+- `build_tools/generate_dist.js`
+- `engine/aseprite/AsepriteJson.js`
+- `engine/aseprite/AsepriteLayerJson.js`
+- `engine/start/AsepriteTilesJson.js`
+- `engine/start/index.js`
 
 ## AsepriteJson
 
@@ -676,8 +690,8 @@ Used in:
 - `engine/controller/Mouse.js`
 - `engine/mechanics/dialogue/BackspaceEffect.js`
 - `engine/mechanics/dialogue/TextTyperWithBackspaceEffect.js`
-- `engine/multiplayer/socket/VideoCall.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
+- `game/code/World.js`
 
 ## Camera
 
@@ -695,6 +709,7 @@ Used in:
 - `engine/mechanics/Blur.js`
 - `engine/position/Position.js`
 - `engine/start/index.js`
+- `game/code/World.js`
 
 ## CenterPosition
 
@@ -718,6 +733,20 @@ Used in:
 Used in:
 - `engine/controller/Mouse.js`
 
+## ClientId
+
+**Defined in:** `engine/multiplayer/socket/client/ClientId.js`
+
+Used in:
+- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+- `engine/multiplayer/socket/client/RtcClient.js`
+- `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
+- `engine/multiplayer/socket/client/SocketClient.js`
+- `engine/objects/AllObjects.js`
+- `game/code/World.js`
+- `server/socket/SimplifiedSocketServerAPI.js`
+- `server/socket/SocketServer.js`
+
 ## Collision
 
 **Defined in:** `engine/physics/Collision.js`
@@ -725,17 +754,27 @@ Used in:
 Used in:
 - `engine/controller/Mouse.js`
 - `engine/mechanics/invisible_walls/InvisibleWalls.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
 - `engine/objects/DynamicGameObject.js`
 - `engine/objects/_GameObject.js`
+
+## ConnectedSocketClients
+
+**Defined in:** `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+
+Used in:
+- `engine/multiplayer/socket/client/SocketClient.js`
+- `game/code/World.js`
 
 ## Controller
 
 **Defined in:** `engine/controller/Controller.js`
 
 Used in:
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/html/Html.js`
 - `engine/start/index.js`
+- `game/code/Sprite.js`
+- `game/code/World.js`
 
 ## copy_asset_folder_to_dist
 
@@ -767,7 +806,7 @@ Used in:
 - `engine/graphics/grid/GrassGrid.js`
 - `engine/graphics/grid/GridTile.js`
 - `engine/graphics/grid/HouseGrid.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/start/index.js`
 
 ## Db
@@ -831,6 +870,7 @@ Used in:
 - `game/code/Npc.js`
 - `game/code/Poop.js`
 - `game/code/Turret.js`
+- `game/code/World.js`
 - `game/code/player/Player.js`
 
 ## Easing
@@ -865,6 +905,7 @@ Used in:
 Used in:
 - `engine/enhance/Enhance_html.js`
 - `engine/enhance/Enhance_js_Array.js`
+- `engine/enhance/Enhance_js_Object.js`
 - `engine/start/index.js`
 
 ## Enhance_html
@@ -877,6 +918,13 @@ Used in:
 ## Enhance_js_Array
 
 **Defined in:** `engine/enhance/Enhance_js_Array.js`
+
+Used in:
+- `engine/start/index.js`
+
+## Enhance_js_Object
+
+**Defined in:** `engine/enhance/Enhance_js_Object.js`
 
 Used in:
 - `engine/start/index.js`
@@ -928,7 +976,7 @@ Used in:
 - `build_tools/transpiler.js`
 - `build_tools/update_eslint.js`
 - `build_tools/verify_no_reserved_clashes.js`
-- `dependency_graph.js`
+- `documentation/dependency-graph/dependency_graph.js`
 - `server/http/main.js`
 
 ## Flex
@@ -965,7 +1013,7 @@ Used in:
 - `build_tools/RandomId.js`
 - `build_tools/reservedJsKeywords.js`
 - `build_tools/update_eslint.js`
-- `dependency_graph.js`
+- `documentation/dependency-graph/dependency_graph.js`
 - `engine/Draw.js`
 - `engine/SpinningAroundPosition.js`
 - `engine/assertions/AssertNotNull.js`
@@ -982,15 +1030,16 @@ Used in:
 - `engine/graphics/grid/HouseGrid.js`
 - `engine/graphics/particles/Splash.js`
 - `engine/graphics/particles/Water.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/graphics/sprite/SpriteLayers.js`
+- `engine/html/GridUi.js`
 - `engine/html/Html.js`
 - `engine/mechanics/GridPathFinder.js`
 - `engine/mechanics/LinePathFinder.js`
 - `engine/mechanics/PathFinder.js`
 - `engine/mechanics/dialogue/Dialogue.js`
 - `engine/mechanics/invisible_walls/WalkableAreas.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
+- `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/objects/DynamicGameObject.js`
 - `engine/objects/StaticGameObject.js`
 - `engine/objects/_GameObject.js`
@@ -1006,6 +1055,7 @@ Used in:
 - `game/code/Store.js`
 - `game/code/Turret.js`
 - `game/code/TurretNeeds.js`
+- `game/code/World.js`
 - `game/code/player/Player.js`
 
 ## generate_dist
@@ -1032,8 +1082,10 @@ Used in:
 - `engine/graphics/grid/GridPositions.js`
 - `engine/graphics/grid/GridTile.js`
 - `engine/graphics/grid/HouseGrid.js`
+- `engine/html/GridUi.js`
 - `engine/mechanics/GridPathFinder.js`
 - `engine/mechanics/PathFinder.js`
+- `game/code/World.js`
 
 ## GridPathFinder
 
@@ -1048,6 +1100,13 @@ Used in:
 
 Used in:
 - `engine/graphics/grid/Grid.js`
+
+## GridUi
+
+**Defined in:** `engine/html/GridUi.js`
+
+Used in:
+- `game/code/World.js`
 
 ## HelperThing
 
@@ -1082,11 +1141,12 @@ Used in:
 - `engine/controller/mouse/ClickEvents.js`
 - `engine/enhance/Enhance_html.js`
 - `engine/html/Flex.js`
+- `engine/html/GridUi.js`
 - `engine/html/HtmlElement.js`
 - `engine/html/HtmlProgressBar.js`
 - `engine/html/HtmlVideo.js`
+- `engine/html/Ui.js`
 - `engine/mechanics/quest/QuestList.js`
-- `engine/multiplayer/socket/VideoCall.js`
 - `game/code/Ally.js`
 - `game/code/BottomText.js`
 - `game/code/DeathText.js`
@@ -1094,6 +1154,7 @@ Used in:
 - `game/code/MonsterWave.js`
 - `game/code/Store.js`
 - `game/code/TurretNeeds.js`
+- `game/code/World.js`
 - `game/code/memory_cards/EditMemories.js`
 - `game/code/memory_cards/Menu.js`
 - `game/code/memory_cards/Practice.js`
@@ -1110,13 +1171,6 @@ Used in:
 - `engine/html/Html.js`
 - `engine/html/HtmlVideo.js`
 - `game/code/DeathText.js`
-
-## HtmlVideo
-
-**Defined in:** `engine/html/HtmlVideo.js`
-
-Used in:
-- `engine/multiplayer/socket/VideoCall.js`
 
 ## Imports
 
@@ -1141,11 +1195,11 @@ Used in:
 - `engine/html/HtmlElement.js`
 - `engine/mechanics/dialogue/MultiTextTyper.js`
 - `engine/mechanics/quest/Quest.js`
-- `engine/multiplayer/socket/client/SocketClient.js`
 - `engine/npc/Path.js`
 - `engine/os/Db.js`
 - `engine/start/D1.js`
 - `game/code/PicturePositions.js`
+- `game/code/Sprite.js`
 - `server/socket/SocketServer.js`
 - `watch.js`
 
@@ -1241,7 +1295,7 @@ Used in:
 - `engine/mechanics/GridPathFinder.js`
 - `engine/mechanics/dialogue/Dialogue.js`
 - `engine/mechanics/quest/QuestList.js`
-- `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
+- `engine/multiplayer/socket/client/SocketClient.js`
 - `engine/palette/Palette.js`
 - `engine/start/index.js`
 - `game/code/DeathText.js`
@@ -1289,7 +1343,7 @@ Used in:
 - `engine/Init.js`
 - `engine/animation/Bounce.js`
 - `engine/camera/Camera.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/mechanics/Rain.js`
 - `engine/mechanics/StraightPath.js`
 - `engine/mechanics/dialogue/TextTyper.js`
@@ -1303,6 +1357,7 @@ Used in:
 - `game/code/Store.js`
 - `game/code/Turret.js`
 - `game/code/TurretNeeds.js`
+- `game/code/World.js`
 - `game/code/player/Jump.js`
 - `game/code/player/Player.js`
 
@@ -1314,7 +1369,6 @@ Used in:
 - `engine/InfiniteListLooper.js`
 - `engine/ListLooper.js`
 - `engine/mechanics/dialogue/Dialogue.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
 - `engine/objects/AllObjects.js`
 - `engine/on/After.js`
 - `engine/on/Every.js`
@@ -1442,17 +1496,20 @@ Used in:
 **Defined in:** `engine/assertions/not.js`
 
 Used in:
+- `build_tools/Aseprite.js`
 - `build_tools/Parameters.js`
 - `build_tools/assert_unique_file_names.js`
 - `build_tools/copy_asset_folder_to_dist.js`
 - `build_tools/verify_no_reserved_clashes.js`
 - `engine/Distance.js`
+- `engine/ProxyObject.js`
 - `engine/camera/Anchor.js`
 - `engine/enhance/Enhance.js`
 - `engine/enhance/Enhance_js_Array.js`
 - `engine/graphics/grid/GridPositions.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/mechanics/quest/Quest.js`
+- `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `engine/objects/AllObjects.js`
 - `engine/objects/_GameObject.js`
@@ -1495,7 +1552,7 @@ Used in:
 
 Used in:
 - `build_tools/transpiler.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/mechanics/dialogue/TextTyper.js`
 - `game/code/Monster.js`
 - `game/code/MonsterWave.js`
@@ -1539,6 +1596,7 @@ Used in:
 **Defined in:** `engine/npc/Path.js`
 
 Used in:
+- `build_tools/Aseprite.js`
 - `build_tools/Files.js`
 - `build_tools/Imports.js`
 - `build_tools/all_classes.js`
@@ -1549,7 +1607,7 @@ Used in:
 - `build_tools/generate_helper_classes.js`
 - `build_tools/transpiler.js`
 - `build_tools/update_eslint.js`
-- `dependency_graph.js`
+- `documentation/dependency-graph/dependency_graph.js`
 - `engine/Draw.js`
 - `engine/graphics/SpinningPicture.js`
 - `engine/mechanics/GridPathFinder.js`
@@ -1584,7 +1642,6 @@ Used in:
 
 Used in:
 - `engine/mechanics/FollowPlayerNoise.js`
-- `engine/multiplayer/socket/OnlinePlayers.js`
 
 ## Position
 
@@ -1634,6 +1691,7 @@ Used in:
 - `game/code/Monster.js`
 - `game/code/PicturePositions.js`
 - `game/code/Shake.js`
+- `game/code/World.js`
 - `game/code/tiles/TileSheet.js`
 
 ## Positions
@@ -1673,7 +1731,6 @@ Used in:
 - `engine/graphics/Particle.js`
 - `engine/mechanics/LinePathFinder.js`
 - `engine/mechanics/StraightPath.js`
-- `engine/multiplayer/socket/OnlineObjects.js`
 - `engine/objects/DynamicGameObject.js`
 - `engine/physics/Collision.js`
 - `engine/physics/ForcePush.js`
@@ -1702,11 +1759,11 @@ Used in:
 - `engine/graphics/Particle.js`
 - `engine/graphics/particles/Splash.js`
 - `engine/graphics/particles/Water.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/mechanics/Blur.js`
 - `engine/mechanics/Rain.js`
 - `engine/mechanics/invisible_walls/WalkableAreas.js`
-- `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
+- `engine/multiplayer/socket/client/ClientId.js`
 - `engine/objects/DynamicGameObject.js`
 - `engine/objects/Velocity.js`
 - `engine/objects/_GameObject.js`
@@ -1745,6 +1802,13 @@ Used in:
 Used in:
 - `build_tools/verify_no_reserved_clashes.js`
 
+## RtcClient
+
+**Defined in:** `engine/multiplayer/socket/client/RtcClient.js`
+
+Used in:
+- `game/code/World.js`
+
 ## Runner
 
 **Defined in:** `build_tools/Runner.js`
@@ -1760,7 +1824,7 @@ Used in:
 - `engine/graphics/SimplexNoise.js`
 - `engine/graphics/grid/Grid.js`
 - `engine/graphics/grid/HouseGrid.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/graphics/sprite/SpriteLayers.js`
 - `game/code/tiles/TileSheet.js`
 
@@ -1837,9 +1901,7 @@ Used in:
 **Defined in:** `engine/multiplayer/socket/client/SocketClient.js`
 
 Used in:
-- `engine/multiplayer/socket/OnlineObjects.js`
-- `engine/multiplayer/socket/OnlinePlayers.js`
-- `engine/multiplayer/socket/VideoCall.js`
+- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `game/code/World.js`
@@ -1876,17 +1938,27 @@ Used in:
 
 ## Sprite
 
-**Defined in:** `engine/graphics/sprite/Sprite.js`
+**Defined in:** `game/code/Sprite.js`
 
 Used in:
 - `engine/G.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/graphics/sprite/SpriteLayers.js`
 - `engine/start/index.js`
 - `game/code/Ally.js`
 - `game/code/Monster.js`
 - `game/code/Npc.js`
 - `game/code/Turret.js`
+- `game/code/World.js`
 - `game/code/player/Player.js`
+
+## SpriteController
+
+**Defined in:** `engine/graphics/sprite/SpriteController.js`
+
+Used in:
+- `engine/start/index.js`
+- `game/code/Sprite.js`
 
 ## SpriteLayers
 
@@ -1912,7 +1984,7 @@ Used in:
 **Defined in:** `engine/objects/StaticGameObject.js`
 
 Used in:
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/graphics/sprite/SpriteLayers.js`
 
 ## StopWatch
@@ -1924,7 +1996,7 @@ Used in:
 - `engine/Wait.js`
 - `engine/animation/Motion.js`
 - `engine/controller/Mouse.js`
-- `engine/graphics/sprite/Sprite.js`
+- `engine/graphics/sprite/SpriteController.js`
 - `engine/on/After.js`
 - `engine/on/Every.js`
 
@@ -1944,7 +2016,6 @@ Used in:
 - `build_tools/copy_manifest_to_dist.js`
 - `build_tools/reservedJsKeywords.js`
 - `engine/animation/Curve.js`
-- `engine/multiplayer/socket/VideoCall.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/start/index.js`
 
@@ -2007,6 +2078,17 @@ Used in:
 
 Used in:
 - `game/code/Turret.js`
+
+## Ui
+
+**Defined in:** `engine/html/Ui.js`
+
+Used in:
+- `build_tools/reservedJsKeywords.js`
+- `engine/html/GridUi.js`
+- `engine/os/Base64.js`
+- `game/code/Money.js`
+- `game/code/World.js`
 
 ## Update
 

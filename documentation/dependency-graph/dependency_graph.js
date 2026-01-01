@@ -3,7 +3,7 @@ const path = require('path')
 
 const rootDir = process.cwd()
 const excludeDirs = ['node_modules', '.git', 'dist', 'build']
-const outputFile = path.join(rootDir, 'class-usage.md')
+const outputFile = path.join(rootDir, '/documentation/dependency-graph/class-usage.md')
 
 // ✅ Delete old report if exists
 if (fs.existsSync(outputFile)) {
