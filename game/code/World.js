@@ -4,7 +4,7 @@ export class World {
 	constructor() {
 		ConnectedSocketClients.onConnect = connectingClientId => {
 			console.log(connectingClientId)
-			console.log("sex")
+			console.log('sex')
 			const button = Html.button(connectingClientId, () => {
 				RtcClient.call(connectingClientId)
 			})
@@ -25,15 +25,19 @@ export class World {
 		}
 
 
-		const player = new DynamicGameObject(new Position(8000,6000))
+		const player = new DynamicGameObject(new Position(8000, 6000))
 
 		Controller.control(player)
 		Camera.followInstantly(player)
 
 		this.localObjects = new LocalObjects([
-			Sprite.snow(new Position(0,0), 6),
+			Sprite.snow(new Position(0, 0), 6),
 			Sprite.samurai(player.position, 0.5),
 		])
+
+		SocketClient.onServerMessage('UPDATE_CLIENTS_LIST', data => {
+			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
+		})
 	}
 
 
