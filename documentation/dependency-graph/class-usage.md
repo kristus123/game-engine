@@ -414,7 +414,7 @@ Used in:
 - `engine/mechanics/quest/QuestList.js`
 - `engine/mechanics/quest/Task.js`
 - `engine/multiplayer/socket/client/ClientId.js`
-- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+- `engine/multiplayer/socket/client/OtherConnectedSocketClients.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `engine/multiplayer/socket/client/SocketClient.js`
@@ -738,7 +738,7 @@ Used in:
 **Defined in:** `engine/multiplayer/socket/client/ClientId.js`
 
 Used in:
-- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+- `engine/multiplayer/socket/client/OtherConnectedSocketClients.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `engine/multiplayer/socket/client/SocketClient.js`
@@ -757,9 +757,9 @@ Used in:
 - `engine/objects/DynamicGameObject.js`
 - `engine/objects/_GameObject.js`
 
-## ConnectedSocketClients
+## OtherConnectedSocketClients
 
-**Defined in:** `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+**Defined in:** `engine/multiplayer/socket/client/OtherConnectedSocketClients.js`
 
 Used in:
 - `engine/multiplayer/socket/client/SocketClient.js`
@@ -1901,7 +1901,7 @@ Used in:
 **Defined in:** `engine/multiplayer/socket/client/SocketClient.js`
 
 Used in:
-- `engine/multiplayer/socket/client/ConnectedSocketClients.js`
+- `engine/multiplayer/socket/client/OtherConnectedSocketClients.js`
 - `engine/multiplayer/socket/client/RtcClient.js`
 - `engine/multiplayer/socket/client/SimplifiedSocketClientAPI.js`
 - `game/code/World.js`

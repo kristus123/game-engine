@@ -2,16 +2,15 @@
 
 export class World {
 	constructor() {
-		ConnectedSocketClients.onConnect = connectingClientId => {
+		OtherConnectedSocketClients.onConnect = connectingClientId => {
 			console.log(connectingClientId)
-			console.log('sex')
 			const button = Html.button(connectingClientId, () => {
 				RtcClient.call(connectingClientId)
 			})
 
 			GridUi.left.push(button)
 
-			ConnectedSocketClients.onDisconnect = clientId => {
+			OtherConnectedSocketClients.onDisconnect = clientId => {
 				button.remove()
 			}
 		}
