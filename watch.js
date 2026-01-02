@@ -5,7 +5,7 @@ import RandomId from './build_tools/RandomId.js'
 import { Runner } from './build_tools/Runner.js'
 import Files from './build_tools/Files.js'
 
-Files.deleteFolder("dist")
+Files.deleteFolder('dist')
 
 let currentId = RandomId()
 let idTimeout = null
@@ -34,7 +34,7 @@ watcher.on('all', (e, path) => {
 
 	idTimeout = setTimeout(() => {
 		if (e == 'unlink' || e == 'unlinkDir') {
-			console.log("rebuilding dist")
+			console.log('rebuilding dist')
 			Files.deleteFolder('dist')
 
 			new Runner('build_tools/export_aseprite.js').start()

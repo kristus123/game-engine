@@ -1,20 +1,20 @@
 export default class Format {
+	static json(data) {
+		let jsonArray
 
-	static json(jsonData) {
-	  if (Array.isArray(jsonData)) {
-			const prettifiedJsonArray = jsonData.map(jsonString => {
-		  const jsonObject = JSON.parse(jsonString)
-		  return JSON.stringify(jsonObject, null, 2)
-			})
-
-			const prettifiedJsonString = prettifiedJsonArray.join(',\n')
-
-			return `[\n${prettifiedJsonString}\n]`
-	  }
+		if (Array.isArray(data)) {
+			jsonArray = data
+		}
 		else {
-			const jsonObject = JSON.parse(jsonData)
-			return JSON.stringify(jsonObject, null, 2)
-	  }
-	}
+			jsonArray = [data]
+		}
 
+		const prettified = jsonArray.map(item => {
+			const obj = JSON.parse(item)
+			return JSON.stringify(obj, null, 2)
+		})
+
+		return '[\n' + prettified.join(',\n') + '\n]'
+	}
 }
+
