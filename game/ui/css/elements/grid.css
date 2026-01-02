@@ -3,7 +3,7 @@
   height:100%;
   display: grid;
   grid-template: "left top top" 200px "left mid right" auto "left bottom bottom" auto / 200px 1fr 1fr;
-  gap: 3px;
+  gap: 20px;
 }
 
 .grid .grid-top {
