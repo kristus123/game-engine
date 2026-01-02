@@ -1,8 +1,9 @@
 import chokidar from 'chokidar'
+import express from 'express'
+
 import RandomId from './build_tools/RandomId.js'
 import { Runner } from './build_tools/Runner.js'
 import Files from './build_tools/Files.js'
-import express from 'express'
 
 Files.deleteFolder("dist")
 
@@ -23,7 +24,6 @@ const watcher = chokidar.watch(['game', 'engine'], {
 	persistent: true,
 	usePolling: true,
 })
-
 
 watcher.on('all', (e, path) => {
 	console.log('changed', path)
@@ -49,6 +49,8 @@ watcher.on('all', (e, path) => {
 	}, 500)
 })
 
+
+// initial build
 new Runner('build_tools/export_aseprite.js').start()
 new Runner('build_tools/generate_dist.js').start()
 
