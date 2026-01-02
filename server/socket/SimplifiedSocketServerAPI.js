@@ -1,7 +1,7 @@
-const LowLevelSocketServer = require('./LowLevelSocketServer')
-const List = require('./List')
+import LowLevelSocketServer from './LowLevelSocketServer.js'
+import List from './List.js'
 
-module.exports = class {
+export default class {
 	constructor(port) {
 		this.allClients = []
 		this.allClientIds = []
