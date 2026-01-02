@@ -18,8 +18,8 @@ export class RtcClient {
 		})
 
 		SocketClient.onClientMessage('ACCEPT_INCOMING_CALL', data => {
-			const peerConnection = this.peers[data.originClientId]?.peerConnection
-			if (peerConnection && typeof peerConnection.setRemoteDescription === 'function') {
+			const peerConnection = this.peers[data.originClientId].peerConnection
+			if (peerConnection) {
 				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
 					.catch(err => {
 						console.warn('setRemoteDescription failed:', err)
@@ -31,8 +31,8 @@ export class RtcClient {
 		})
 
 		SocketClient.onClientMessage('ICE_CANDIDATE', data => {
-			const peerConnection = this.peers[data.originClientId]?.peerConnection
-			if (peerConnection && typeof peerConnection.addIceCandidate === 'function') {
+			const peerConnection = this.peers[data.originClientId].peerConnection
+			if (peerConnection) {
 				peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
 					.catch(err => {
 						console.warn('addIceCandidate failed:', err)

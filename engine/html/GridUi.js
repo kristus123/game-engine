@@ -9,8 +9,6 @@ export class GridUi {
 				this.bottom = Html.div('grid-bottom')
 			])
 		])
-
-		this.hide()
 	}
 
 	static show() {

@@ -17,7 +17,7 @@ export class WebSocketWrapper {
 		}
 	}
 
-	send(data) {
+	static send(data) {
 		if (this.webSocket.readyState === WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify(data))
 		}
