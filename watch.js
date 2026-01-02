@@ -36,6 +36,8 @@ watcher.on('all', (e, path) => {
 		if (e == 'unlink' || e == 'unlinkDir') {
 			console.log("rebuilding dist")
 			Files.deleteFolder('dist')
+
+			new Runner('build_tools/export_aseprite.js').start()
 		}
 
 		if (path.includes('.aseprite')) {
