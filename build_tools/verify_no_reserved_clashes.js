@@ -1,7 +1,8 @@
-const jsFiles = require('./js_files')
+import jsFiles from './js_files.js'
 
 // better safe and strict than sorry and loosey goosey
-const reservedJsKeywords = require('./reservedJsKeywords')
+import reservedJsKeywords from './reservedJsKeywords.js'
+const keywords = reservedJsKeywords
 	.map(w => w.toLowerCase())
 
 for (const file of jsFiles) {
@@ -9,7 +10,7 @@ for (const file of jsFiles) {
 
 	name = name.toLowerCase() // strict !
 
-	if (reservedJsKeywords.includes(name)) {
+	if (keywords.includes(name)) {
 		throw new Error(`${file} can not be named as such, because it clashes with a reserved js keywords`)
 	}
 }

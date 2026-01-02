@@ -1,4 +1,4 @@
-module.exports = class {
+export default class {
 
 	static remove(list, o) {
 		for (let i = list.length - 1; i >= 0; i--) {

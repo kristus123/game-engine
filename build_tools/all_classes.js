@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
 function extractClassesAndMethods(content) {
 	// Regular expressions to match exported class and method definitions

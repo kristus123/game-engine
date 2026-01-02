@@ -22,4 +22,4 @@ class Format {
 	}
 }
 
-module.exports = Format
+export default Format

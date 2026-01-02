@@ -1,7 +1,7 @@
-const { spawn } = require('child_process')
+import { spawn } from 'child_process'
 
 
-module.exports = class {
+export default class {
 	constructor(command) {
 		this.command = command
 		this.process = null

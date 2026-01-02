@@ -1,9 +1,15 @@
-const Path = require('path')
-const fs = require('fs')
+import Path from 'path'
+import fs from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
-module.exports = class {
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const mainFilename = process.argv[1]
+
+export default class {
 	static writeFileToDist(srcPath, content) {
-		const destPath = Path.join('dist/static', Path.relative(Path.dirname(require.main.filename), srcPath))
+		const destPath = Path.join('dist/static', Path.relative(Path.dirname(mainFilename), srcPath))
 
 		const folderPath = Path.dirname(destPath)
 
@@ -20,7 +26,7 @@ module.exports = class {
 
 	static contentMatchingIn(path, fileContent) {
 		try {
-			const distPath = Path.join('dist/static', Path.relative(Path.dirname(require.main.filename), path))
+			const distPath = Path.join('dist/static', Path.relative(Path.dirname(mainFilename), path))
 			const distFile = fs.readFileSync(distPath, 'utf8')
 
 			return distFile == fileContent
@@ -39,7 +45,7 @@ module.exports = class {
 					this.getJsFiles(filePath, jsFiles)
 				}
 				else if (file.endsWith('.js')) {
-					jsFiles.push(filePath.replaceAll('\\', Path.dirname(require.main.filename)))
+					jsFiles.push(filePath.replaceAll('\\', Path.dirname(mainFilename)))
 				}
 			}
 			return jsFiles
@@ -78,7 +84,7 @@ module.exports = class {
 		}
 
 		return results
-			.map(f => f.replaceAll('\\', Path.dirname(require.main.filename)))
+			.map(f => f.replaceAll('\\', Path.dirname(mainFilename)))
 	}
 
 

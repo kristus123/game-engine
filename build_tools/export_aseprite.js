@@ -1,6 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const { Aseprite } = require('./Aseprite')
+import fs from 'fs'
+import path from 'path'
+import { Aseprite } from './Aseprite.js'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
 const DEST_BASE = path.join(__dirname, '../dist/game/assets')

@@ -1,7 +1,7 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
-const jsFiles = require('./js_files')
+import jsFiles from './js_files.js'
 
 const eslintGlobalsConfig = {}
 jsFiles.forEach(jsFile => {

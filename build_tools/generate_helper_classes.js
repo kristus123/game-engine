@@ -1,6 +1,6 @@
-const jsFiles = require('./js_files')
-const Files = require('./Files')
-const Path = require('path')
+import jsFiles from './js_files.js'
+import Files from './Files.js'
+import Path from 'path'
 
 const pathFor = {}
 

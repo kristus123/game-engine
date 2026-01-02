@@ -1,13 +1,13 @@
-const WebSocket = require('ws')
+import { WebSocketServer } from 'ws'
 
-module.exports = class {
+export default class {
 	constructor(port) {
 		this.port = port
 		this.actions = {}
 	}
 
 	start() {
-		new WebSocket.Server({ port: this.port }).on('connection', (client, request) => {
+		new WebSocketServer({ port: this.port }).on('connection', (client, request) => {
 
 			const urlParameters = new URLSearchParams(request.url.split('?')[1])
 			const clientId = urlParameters.get('clientId')

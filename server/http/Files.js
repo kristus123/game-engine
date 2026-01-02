@@ -1,5 +1,5 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'fs'
+import path from 'path'
 
 
 class Files {
@@ -27,4 +27,4 @@ class Files {
 	}
 }
 
-module.exports = Files
+export default Files

@@ -1,8 +1,8 @@
-const Imports = require('./Imports')
-const Parameters = require('./Parameters')
-const Files = require('./Files')
+import Imports from './Imports.js'
+import Parameters from './Parameters.js'
+import Files from './Files.js'
 
-const jsFiles = require('./js_files')
+import jsFiles from './js_files.js'
 
 for (const jsFilePath of jsFiles) {
 	let fileContent = Files.read(jsFilePath)

@@ -1,5 +1,5 @@
-const Files = require('./Files')
+import Files from './Files.js'
 
-module.exports = [...Files.at('engine'), ...Files.at('game')]
+export default [...Files.at('engine'), ...Files.at('game')]
 	.filter(f => f.endsWith('.js'))
 	.map(f => f.replaceAll('\\', '/'))

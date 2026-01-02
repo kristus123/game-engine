@@ -1,4 +1,4 @@
-const SocketServer = require('./SimplifiedSocketServerAPI')
+import SocketServer from './SimplifiedSocketServerAPI.js'
 
 const socketServer = new SocketServer(8082)
 
