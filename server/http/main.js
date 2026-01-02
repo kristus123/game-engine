@@ -3,6 +3,7 @@ import cors from 'cors'
 import fs from 'fs'
 
 import Files from './Files.js'
+import Format from './Format.js'
 
 const app = express()
 app.use(express.json()) // Automatically parses JSON bodies
