@@ -1,4 +1,4 @@
-module.exports = (length = 32) => {
+export default (length = 32) => {
 	const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 	let id = ''
 	for (let i = 0; i < length; i++) {

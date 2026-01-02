@@ -1,6 +1,6 @@
-const { execSync } = require('child_process')
+import { execSync } from 'child_process'
 
-module.exports = command => {
+export default command => {
 	try {
 		const output = execSync(command, { stdio: 'pipe' }).toString()
 		console.log(`stdout: ${output}`)
