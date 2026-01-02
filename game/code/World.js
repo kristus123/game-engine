@@ -23,6 +23,8 @@ export class World {
 			])
 		}
 
+		RtcClient.init()
+
 
 		const player = new DynamicGameObject(new Position(8000, 6000))
 
