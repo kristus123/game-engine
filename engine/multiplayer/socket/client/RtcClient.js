@@ -1,6 +1,6 @@
 // ClientId(
 //
-import * as mediasoupClient from 'mediasoup-client'
+import * as mediasoupClient from 'https://cdn.jsdelivr.net/npm/mediasoup-client@3.11.2/lib/index.min.js';
 
 export class RtcClient {
 
