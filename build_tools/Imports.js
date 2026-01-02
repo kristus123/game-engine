@@ -1,4 +1,4 @@
-const Path = require('path')
+import Path from 'path'
 
 
 function containsExport(type, className, str) {
@@ -44,4 +44,4 @@ class Imports {
 	}
 }
 
-module.exports = Imports
+export default Imports
