@@ -103,4 +103,9 @@ export default class {
 		this.write(path, content)
 	}
 
+	static deleteFolder(folder) {
+		console.log("deleting " + folder)
+		fs.rmSync(folder, { recursive: true, force: true })
+	}
+
 }
