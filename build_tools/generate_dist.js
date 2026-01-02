@@ -1,11 +1,11 @@
-const Files = require('./Files')
+import Files from './Files.js'
 
-require('./transpiler')
-require('./copy_asset_folder_to_dist')
-require('./copy_manifest_to_dist')
-require('./generate_helper_classes')
-require('./verify_no_reserved_clashes')
-require('./assert_unique_file_names')
+import './transpiler.js'
+import './copy_asset_folder_to_dist.js'
+import './copy_manifest_to_dist.js'
+import './generate_helper_classes.js'
+import './verify_no_reserved_clashes.js'
+import './assert_unique_file_names.js'
 
 
 const allAsepritePaths = Files.at('game/assets/aseprite')
@@ -30,7 +30,8 @@ Files.replace('dist/engine/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
 
 
 
-const jsImports = require('./js_files')
+import jsImportsArray from './js_files.js'
+const jsImports = jsImportsArray
 	.map(f => `<script type="module" src="${f}"></script>`)
 	.join('\n')
 
