@@ -1,7 +1,7 @@
-const chokidar = require('chokidar')
-const RandomId = require('./build_tools/RandomId')
-const { Runner } = require('./build_tools/Runner')
-const express = require('express')
+import chokidar from 'chokidar'
+import RandomId from './build_tools/RandomId.js'
+import { Runner } from './build_tools/Runner.js'
+import express from 'express'
 
 let currentId = RandomId()
 let idTimeout = null
