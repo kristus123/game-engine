@@ -2,6 +2,9 @@
 
 export class World {
 	constructor() {
+
+		GridUi.top.set(Html.p(`You Are: ${ClientId}`))
+
 		OtherConnectedSocketClients.onConnect = connectingClientId => {
 			console.log(connectingClientId)
 			const button = Html.button(connectingClientId, () => {
@@ -19,10 +22,18 @@ export class World {
 			GridUi.mid.push([
 				Html.button('accept call', () => {
 					RtcClient.acceptCall(callerClientId)
-				}),
+				})
 			])
 		}
 
+		RtcClient.onCallAccept = otherClientId => {
+			GridUi.right.push([
+				Html.button('send', () => {
+					console.log(`sending data to ${otherClientId}`)
+					RtcClient.send(otherClientId, { 'text': 'hello' })
+				}),
+			])
+		}
 
 		const player = new DynamicGameObject(new Position(8000, 6000))
 

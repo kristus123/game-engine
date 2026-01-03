@@ -1,117 +1,166 @@
 // ClientId(
 
 export class RtcClient {
-
 	static {
-		this.peers = {}
-		this.offers = {}
+		this.connections = {}
+		this.pendingOffers = {}
 		this.localStream = null
-		this.startLocalStream()
+		this.remoteStreamIds = new Set()
 
 		this.onData = () => {}
+		this.onIncomingCall = () => {}
+		this.onCallAccept = () => {}
 
-		this.onIncomingCall = (callerClientId) => {}
+		this.startLocalStream()
 
 		SocketClient.onClientMessage('INCOMING_CALL', data => {
-			this.offers[data.originClientId] = data.offer
+			this.pendingOffers[data.originClientId] = data.offer
 			this.onIncomingCall(data.originClientId)
 		})
 
 		SocketClient.onClientMessage('ACCEPT_INCOMING_CALL', data => {
-			const peerConnection = this.peers[data.originClientId].peerConnection
-			if (peerConnection) {
-				peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer))
-					.catch(err => {
-						console.warn('setRemoteDescription failed:', err)
-					})
+			const connection = this.connections[data.originClientId]
+			if (!connection) {
+				return
 			}
-			else {
-				console.warn('ACCEPT_INCOMING_CALL received but no valid RTCPeerConnection found for', data.originClientId)
-			}
+
+			connection.peerConnection
+				.setRemoteDescription(
+					new RTCSessionDescription(data.answer)
+				)
+				.catch(console.warn)
+			this.onCallAccept(data.originClientId)
 		})
 
 		SocketClient.onClientMessage('ICE_CANDIDATE', data => {
-			const peerConnection = this.peers[data.originClientId].peerConnection
-			if (peerConnection) {
-				peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
-					.catch(err => {
-						console.warn('addIceCandidate failed:', err)
-					})
+			const connection = this.connections[data.originClientId]
+			if (!connection) {
+				return
 			}
-			else {
-				console.warn('ICE_CANDIDATE received but no valid RTCPeerConnection found for', data.originClientId)
-			}
+
+			connection.peerConnection
+				.addIceCandidate(
+					new RTCIceCandidate(data.candidate)
+				)
+				.catch(console.warn)
 		})
 	}
 
 	static call(targetClientId) {
-		const { peerConnection, dataChannel } = this.createPeerConnectionWith(targetClientId)
-		this.peers[targetClientId] = { peerConnection, dataChannel }
+		if (this.connections[targetClientId]) {
+			return
+		}
 
-		// this.localStream.getTracks().forEach(track => {
-		// 	peerConnection.addTrack(track, this.localStream)
-		// }) // my pc does not have a webcam
+		const { peerConnection, dataChannel } =
+			this.createPeerConnection(targetClientId, true)
+
+		this.connections[targetClientId] = {
+			peerConnection,
+			dataChannel
+		}
+
+		this.localStream.getTracks().forEach(track =>
+			peerConnection.addTrack(track, this.localStream)
+		)
 
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				SocketClient.sendToClient('INCOMING_CALL', targetClientId, {
-					offer: peerConnection.localDescription
-				})
+				SocketClient.sendToClient(
+					'INCOMING_CALL',
+					targetClientId,
+					{ offer: peerConnection.localDescription }
+				)
 			})
 	}
 
 	static acceptCall(callerClientId) {
-		const { peerConnection, dataChannel } = this.createPeerConnectionWith(callerClientId)
-		this.peers[callerClientId] = { peerConnection, dataChannel }
+		if (this.connections[callerClientId]) {
+			return
+		}
 
-		peerConnection.setRemoteDescription(new RTCSessionDescription(this.offers[callerClientId]))
-			// .then(() => this.localStream.getTracks().forEach(track => {
-			// 	peerConnection.addTrack(track, this.localStream)
-			// }))
+		const { peerConnection, dataChannel } = this.createPeerConnection(callerClientId, false)
+
+		this.connections[callerClientId] = {
+			peerConnection,
+			dataChannel
+		}
+
+		peerConnection
+			.setRemoteDescription(
+				new RTCSessionDescription(
+					this.pendingOffers[callerClientId]
+				)
+			)
+			.then(() => {
+				this.localStream.getTracks().forEach(track =>
+					peerConnection.addTrack(track, this.localStream)
+				)
+			})
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				SocketClient.sendToClient('ACCEPT_INCOMING_CALL', callerClientId, {
-					answer: peerConnection.localDescription
-				})
+				SocketClient.sendToClient(
+					'ACCEPT_INCOMING_CALL',
+					callerClientId,
+					{ answer: peerConnection.localDescription }
+				)
+			})
+			.then(() => {
+				this.onCallAccept(callerClientId)
 			})
 	}
 
 	static send(targetClientId, data) {
-		this.peers[targetClientId].dataChannel.send(JSON.stringify(data))
+		const connection = this.connections[targetClientId]
+		if (!connection.dataChannel) {
+			throw new Error(`Data Channel Not Found For ${targetClientId}`)
+		}
+
+		connection.dataChannel.send(JSON.stringify(data))
 	}
 
-	static createPeerConnectionWith(targetClientId) {
+	static createPeerConnection(targetClientId, isCaller) {
 		const peerConnection = new RTCPeerConnection({
 			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 		})
 
-		peerConnection.ontrack = () => {
-			// Handle remote stream
-		}
-
-		peerConnection.onicecandidate = e => {
-			if (e.candidate) {
-				SocketClient.sendToClient('ICE_CANDIDATE', targetClientId, {
-					candidate: e.candidate,
-				})
+		peerConnection.ontrack = event => {
+			const stream = event.streams[0]
+			if (this.remoteStreamIds.has(stream.id)) {
+				return
 			}
+
+			this.remoteStreamIds.add(stream.id)
+			GridUi.left.push(HtmlVideo.guest(stream))
 		}
 
-		const dataChannel = peerConnection.createDataChannel('data')
+		peerConnection.onicecandidate = event => {
+			if (!event.candidate) {
+				return
+			}
 
-		dataChannel.onopen = () => console.log('Data channel opened')
-		dataChannel.onmessage = (e) => {
-			console.log(e)
-			this.onData(JSON.parse(e.data))
+			SocketClient.sendToClient(
+				'ICE_CANDIDATE',
+				targetClientId,
+				{ candidate: event.candidate }
+			)
 		}
 
-		peerConnection.ondatachannel = (e) => {
-			const channel = e.channel
-			channel.onopen = () => console.log('Data channel opened')
-			channel.onmessage = (e) => {
-				this.onData(JSON.parse(e.data))
+		let dataChannel = null
+
+		if (isCaller) {
+			dataChannel = peerConnection.createDataChannel('data')
+			this.setupDataChannel(dataChannel)
+		}
+
+		peerConnection.ondatachannel = event => {
+			dataChannel = event.channel
+
+			this.setupDataChannel(dataChannel)
+
+			if (this.connections[targetClientId]) {
+				this.connections[targetClientId].dataChannel = dataChannel
 			}
 		}
 
@@ -119,20 +168,38 @@ export class RtcClient {
 	}
 
 	static startLocalStream() {
-		navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+		navigator.mediaDevices
+			.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
-				console.log('localStream has been set!')
+				GridUi.left.set([ HtmlVideo.local(stream) ])
 			})
 	}
 
-	static stopCall() {
-		for (const clientId in this.peers) {
-			this.peers[clientId].close()
+	static setupDataChannel(dataChannel) {
+		dataChannel.onmessage = e => {
+			console.log('Received message:', e.data)
+			this.onData(JSON.parse(e.data))
 		}
-		this.peers = {}
+
+		dataChannel.onopen = () => {
+			console.log('Data channel opened')
+		}
+
+		dataChannel.onerror = (error) => {
+
+			console.error('Data channel error:', error)
+		}
+	}
+
+	static stopCall() {
+		for (const clientId in this.connections) {
+			this.connections[clientId].peerConnection.close()
+		}
+
+		this.connections = {}
+		this.remoteStreamIds.clear()
 	}
 }
-
 
 window.RtcClient = RtcClient
