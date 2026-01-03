@@ -2,11 +2,11 @@
   "name": "game-engine",
   "version": "0.0.1",
   "description": "epic game engine",
-  "type": "module",
   "scripts": {
     "dev": "npm run start",
     "start": "node watch.js"
   },
+  "type": "module",
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
     "eslint": "^8.56.0",
@@ -17,6 +17,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "ws": "^8.18.3"
+    "ws": "^8.18.3",
+    "web-push": "^3.6.7"
   }
 }
