@@ -50,9 +50,6 @@ export class RtcClient {
 						throw new Error(e)
 					})
 			}
-			else {
-				throw new Error('could not find incoming connection')
-			}
 		})
 	}
 
@@ -61,8 +58,7 @@ export class RtcClient {
 			throw new Error('you can\'t call someone you already have a connection with')
 		}
 
-		const { peerConnection, dataChannel } =
-			this.createPeerConnection(targetClientId, true)
+		const { peerConnection, dataChannel } = this.makeOffer(targetClientId)
 
 		this.connectedClientIds[targetClientId] = {
 			peerConnection,
@@ -89,11 +85,11 @@ export class RtcClient {
 			return
 		}
 
-		const { peerConnection, dataChannel } = this.createPeerConnection(callerClientId, false)
+		const peerConnection = this.createPeerConnection(callerClientId)
 
 		this.connectedClientIds[callerClientId] = {
 			peerConnection,
-			dataChannel
+			dataChannel: null
 		}
 
 		peerConnection
@@ -110,6 +106,15 @@ export class RtcClient {
 					'CALL_ACCEPTED',
 					callerClientId,
 					{ answer: peerConnection.localDescription })
+			}).then(() => {
+				peerConnection.ondatachannel = e => {
+					if (this.connectedClientIds[callerClientId]) {
+						this.connectedClientIds[callerClientId].dataChannel = e.channel
+						this.setupDataChannel(e.channel)
+					} else {
+						throw new Error(`${callerClientId} Is Not Connected`)
+					}
+				}
 			})
 			.then(() => {
 				this.onCallAccepted(callerClientId)
@@ -125,7 +130,7 @@ export class RtcClient {
 		connection.dataChannel.send(JSON.stringify(data))
 	}
 
-	static createPeerConnection(targetClientId, isCaller) { // using booleans in a method is really bad. refactor!
+	static createPeerConnection(targetClientId) {
 		const peerConnection = new RTCPeerConnection({
 			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 		})
@@ -142,7 +147,7 @@ export class RtcClient {
 
 		peerConnection.onicecandidate = e => {
 			if (!e.candidate) {
-				return // should it throw error here? why is it only returning?
+				return
 			}
 
 			SocketClient.sendToClient(
@@ -152,25 +157,14 @@ export class RtcClient {
 			)
 		}
 
-		let dataChannel = null // this code looks scary.
-		// if isCaller is true, should it return #1 or #2 ?
-		// right now it seems like if isCaller is false it might return null
-		// does peerConnection.ondatachannel execute immediately?
+		return peerConnection
+	}
 
-		if (isCaller) {
-			dataChannel = peerConnection.createDataChannel('data') // #1
-			this.setupDataChannel(dataChannel)
-		}
+	static makeOffer(targetClientId) {
+		const peerConnection = this.createPeerConnection(targetClientId)
+		const dataChannel = peerConnection.createDataChannel('data')
 
-		peerConnection.ondatachannel = e => {
-			dataChannel = e.channel // #2
-
-			this.setupDataChannel(dataChannel)
-
-			if (this.connectedClientIds[targetClientId]) {
-				this.connectedClientIds[targetClientId].dataChannel = dataChannel
-			}
-		}
+		this.setupDataChannel(dataChannel)
 
 		return { peerConnection, dataChannel }
 	}
