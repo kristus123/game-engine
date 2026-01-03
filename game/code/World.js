@@ -37,6 +37,11 @@ export class World {
 		SocketClient.onServerMessage('UPDATE_CLIENTS_LIST', data => {
 			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
 		})
+
+		HttpClient.testPoop({}, body => {
+			console.log("sex")
+			console.log(body)
+		})
 	}
 
 

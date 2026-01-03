@@ -1,5 +1,11 @@
 export function ProxyObject(object, onChange = () => {}) {
 	return new Proxy(object, {
+		get: (obj, prop) => {
+			if (!(prop in obj)) {
+				return (body) => onChange(prop, body)
+			}
+			return obj[prop]
+		},
 		set: (obj, prop, value) => {
 			obj[prop] = value
 			onChange(prop, value)
@@ -10,3 +16,4 @@ export function ProxyObject(object, onChange = () => {}) {
 		}
 	})
 }
+
