@@ -38,9 +38,10 @@ export class World {
 			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
 		})
 
-		HttpClient.testPoop({}, body => {
-			console.log("sex")
+		HttpClient.testCall({}, body => {
+			console.log("___")
 			console.log(body)
+			console.log("___")
 		})
 	}
 
