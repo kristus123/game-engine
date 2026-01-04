@@ -5,6 +5,7 @@ export default class WebPushService {
 	constructor() {
 		this.store = new PushSubscriptionStore()
 		this.configured = false
+		this.vapidKeys = null
 	}
 
 	configure(vapidKeys) {
@@ -18,8 +19,16 @@ export default class WebPushService {
 			vapidKeys.privateKey
 		)
 
+		this.vapidKeys = vapidKeys
 		this.configured = true
 		console.log('Web Push Service configured successfully')
+	}
+
+	getPublicKey() {
+		if (!this.configured || !this.vapidKeys) {
+			throw new Error('Web Push Service not configured. Please configure VAPID keys first.')
+		}
+		return this.vapidKeys.publicKey
 	}
 
 	generateVAPIDKeys() {
@@ -31,13 +40,7 @@ export default class WebPushService {
 			throw new Error('Invalid subscription object')
 		}
 
-		const added = this.store.add(subscription)
-
-		if (added) {
-			console.log(`New subscription added. Total: ${this.store.count}`)
-		}
-
-		return added
+		return this.store.add(subscription)
 	}
 
 	unsubscribe(endpoint) {
@@ -45,13 +48,7 @@ export default class WebPushService {
 			throw new Error('Endpoint required for unsubscribe')
 		}
 
-		const removed = this.store.remove(endpoint)
-
-		if (removed) {
-			console.log(`Subscription removed. Total: ${this.store.count}`)
-		}
-
-		return removed
+		return this.store.remove(endpoint)
 	}
 
 	async sendNotification(subscription, payload) {
@@ -102,9 +99,28 @@ export default class WebPushService {
 			}
 		}
 
-		console.log(`Notifications sent: ${results.sent}/${subscriptions.length}`)
-
 		return results
+	}
+
+	async sendToOne(endpoint, payload) {
+		if (!this.configured) {
+			throw new Error('WebPushService not configured. Call configure() first.')
+		}
+
+		const subscription = this.store.getAll().find(sub => sub.endpoint === endpoint)
+		
+		if (!subscription) {
+			throw new Error('Subscription not found')
+		}
+
+		return await this.sendNotification(subscription, payload)
+	}
+
+	hasSubscription(endpoint) {
+		if (!endpoint) {
+			return false
+		}
+		return this.store.getAll().some(sub => sub.endpoint === endpoint)
 	}
 
 	getSubscriptionCount() {

@@ -5,10 +5,12 @@ pushServer.start()
 
 // Configure with VAPID keys
 // Generate keys once: npx web-push generate-vapid-keys
+// Then uncomment and add your keys below:
+
 pushServer.pushService.configure({
-	publicKey: 'YOUR_VAPID_PUBLIC_KEY_HERE',
-	privateKey: 'YOUR_VAPID_PRIVATE_KEY_HERE',
-	subject: 'mailto:your-email@example.com'
+	publicKey: 'BPmfBE9RuToE9GUVFgA1kR0UCHqFiw015uDXDql7NuYrWqyrzq80OdJUz1zndQIqbeuZIVGXXQ6dFbnRe7ftwl4',
+	privateKey: '6CjkwpnbPylcUMZ4BXoPu6kq1povH5bSZNJu11LSWtQ',
+	subject: 'mailto:ojogunemmy@gmail.com'
 })
 
 export default pushServer
