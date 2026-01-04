@@ -2,6 +2,46 @@
 
 export class World {
 	constructor() {
+		// Check if already subscribed by looking for saved endpoint
+		let savedEndpoint = null
+		try {
+			savedEndpoint = localStorage.getItem('pushSubscriptionEndpoint')
+		} catch (e) {
+			// Safari private mode throws error on localStorage access
+			console.warn('LocalStorage not available:', e.message)
+		}
+		
+		if (savedEndpoint) {
+			// Verify endpoint still exists in database
+			fetch('http://localhost:3001/push/verify', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ endpoint: savedEndpoint })
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (!data.exists) {
+					try {
+						localStorage.removeItem('pushSubscriptionEndpoint')
+					} catch (e) {}
+					location.reload()
+				}
+			})
+			.catch(error => {
+				console.error('Error verifying endpoint:', error)
+			})
+		} else if ('Notification' in window && Notification.permission === 'granted') {
+			// Permission already granted, auto-subscribe
+			this.setupPushNotifications()
+		} else {
+			// Need user interaction to request permission
+			const notificationButton = Html.button('🔔 Enable Notifications', () => {
+				this.setupPushNotifications()
+				notificationButton.remove()
+			})
+			GridUi.left.push(notificationButton)
+		}
+
 		OtherConnectedSocketClients.onConnect = connectingClientId => {
 			console.log(connectingClientId)
 			const button = Html.button(connectingClientId, () => {
@@ -39,6 +79,15 @@ export class World {
 		})
 	}
 
+	async setupPushNotifications() {
+		const pushClient = new PushNotificationClient('http://localhost:3001')
+		
+		pushClient.getPublicKey()
+			.then(publicKey => pushClient.subscribe(publicKey))
+			.catch(error => {
+				console.error('Failed to subscribe to push notifications:', error.message)
+			})
+	}
 
 	update() {
 		this.localObjects.update()
