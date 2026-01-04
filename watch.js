@@ -1,7 +1,11 @@
 import chokidar from 'chokidar'
+import express from 'express'
+
 import RandomId from './build_tools/RandomId.js'
 import { Runner } from './build_tools/Runner.js'
-import express from 'express'
+import Files from './build_tools/Files.js'
+
+Files.deleteFolder('dist')
 
 let currentId = RandomId()
 let idTimeout = null
@@ -54,4 +58,3 @@ new Runner('build_tools/generate_dist.js').start()
 
 // for now only run it once
 new Runner('server/socket/SocketServer.js').start()
-new Runner('server/push/main.js').start()
