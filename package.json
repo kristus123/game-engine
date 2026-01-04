@@ -2,6 +2,7 @@
   "name": "game-engine",
   "version": "0.0.1",
   "description": "epic game engine",
+  "type": "module",
   "scripts": {
     "dev": "npm run start",
     "start": "node watch.js"
