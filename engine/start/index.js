@@ -2,6 +2,9 @@ export const index = ''
 
 if ('serviceWorker' in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
+	navigator.serviceWorker.register('/sw-push.js')
+		.then(registration => console.log('Push service worker registered:', registration.scope))
+		.catch(error => console.error('Service worker registration failed:', error))
 }
 
 document.body.addEventListener('touchmove', e => {

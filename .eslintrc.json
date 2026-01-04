@@ -258,6 +258,7 @@
         "Practice": "readonly",
         "ProxyObject": "readonly",
         "Push": "readonly",
+        "PushNotificationClient": "readonly",
         "Quest": "readonly",
         "QuestList": "readonly",
         "Rain": "readonly",
