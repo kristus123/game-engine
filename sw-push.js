@@ -1,8 +1,15 @@
 // Service Worker for Push Notifications
-self.addEventListener('push', event => {
-	console.log('Push notification received')
 
-	let data = {
+self.addEventListener('install', event => {
+	self.skipWaiting()
+})
+
+self.addEventListener('activate', event => {
+	event.waitUntil(clients.claim())
+})
+
+self.addEventListener('push', event => {
+	let notificationData = {
 		title: 'Notification',
 		body: 'You have a new notification',
 		icon: '/icon.png',
@@ -11,55 +18,119 @@ self.addEventListener('push', event => {
 	}
 
 	try {
-		data = event.data ? event.data.json() : data
+		if (event.data) {
+			notificationData = event.data.json()
+		}
 	}
 	catch (error) {
 		console.error('Error parsing push data:', error)
 	}
 
 	const options = {
-		body: data.body,
-		icon: data.icon || '/icon.png',
-		badge: data.badge || '/badge.png',
-		data: data.data,
-		vibrate: [200, 100, 200],
-		tag: 'game-notification',
-		requireInteraction: false,
-		actions: data.actions || [],
+		body: notificationData.body || 'You have a new notification',
+		icon: notificationData.icon || '/icon.png',
+		badge: notificationData.badge || '/badge.png',
+		data: notificationData.data || {},
+		vibrate: notificationData.vibrate || [200, 100, 200],
+		tag: notificationData.tag || 'game-notification',
+		requireInteraction: notificationData.requireInteraction || false,
+		actions: notificationData.actions || [],
 	}
 
 	event.waitUntil(
-		self.registration.showNotification(data.title, options)
+		self.registration.showNotification(notificationData.title || 'Notification', options)
+			.catch(error => {
+				console.error('Error displaying notification:', error)
+				// Fallback: try with minimal options
+				return self.registration.showNotification(
+					notificationData.title || 'Notification',
+					{ body: notificationData.body || '' }
+				)
+			})
 	)
 })
 
 self.addEventListener('notificationclick', event => {
-	console.log('Notification clicked:', event.notification.tag)
 	event.notification.close()
 
 	// Handle custom actions
 	if (event.action) {
-		console.log('Action clicked:', event.action)
+		const actionHandlers = {
+			'accept': () => {
+				return clients.openWindow('/?action=accept&data=' + encodeURIComponent(JSON.stringify(event.notification.data)))
+			},
+			'decline': () => {
+				return Promise.resolve()
+			},
+			'restart': () => {
+				return clients.openWindow('/?action=restart')
+			},
+			'share': () => {
+				if (self.navigator && self.navigator.share) {
+					return self.navigator.share({
+						title: event.notification.title,
+						text: event.notification.body,
+						url: self.location.origin
+					}).catch(err => console.error('Share failed:', err))
+				}
+				// Fallback: just open the app
+				return clients.openWindow('/')
+			},
+			'view': () => {
+				const viewData = event.notification.data
+				return clients.openWindow('/?action=view&type=' + (viewData.type || 'default'))
+			},
+			'close': () => {
+				return Promise.resolve()
+			}
+		}
+
+		const handler = actionHandlers[event.action]
+		if (handler) {
+			event.waitUntil(handler())
+			return
+		}
 	}
 
 	// Open or focus the app
 	event.waitUntil(
-		clients.matchAll({ type: 'window' }).then(clientList => {
-			// If a window is already open, focus it
+		clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
 			for (const client of clientList) {
-				if (client.url === '/' && 'focus' in client) {
+				if (client.url.includes(self.location.origin)) {
 					return client.focus()
 				}
 			}
 
-			// Otherwise, open a new window
 			if (clients.openWindow) {
 				return clients.openWindow('/')
 			}
+		}).catch(error => {
+			console.error('Error handling notification click:', error)
 		})
 	)
 })
 
 self.addEventListener('notificationclose', event => {
-	console.log('Notification closed:', event.notification.tag)
+	// Silent close
+})
+
+self.addEventListener('pushsubscriptionchange', event => {
+	event.waitUntil(
+		self.registration.pushManager.subscribe({
+			userVisibleOnly: true,
+			applicationServerKey: event.oldSubscription ? event.oldSubscription.options.applicationServerKey : null
+		})
+			.then(newSubscription => {
+				return fetch('http://localhost:3001/push/subscribe', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(newSubscription),
+				})
+			})
+			.catch(error => {
+				console.error('Error re-subscribing:', error)
+			})
+	)
 })
