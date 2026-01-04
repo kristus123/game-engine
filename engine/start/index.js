@@ -1,10 +1,21 @@
 export const index = ''
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && 'PushManager' in window) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 	navigator.serviceWorker.register('/sw-push.js')
-		.then(registration => console.log('Push service worker registered:', registration.scope))
+		.then(registration => {
+			if (registration.active) {
+				console.log('✅ Push service worker active')
+			}
+		})
 		.catch(error => console.error('Service worker registration failed:', error))
+} else {
+	if (!('serviceWorker' in navigator)) {
+		console.warn('Service Workers not supported in this browser')
+	}
+	if (!('PushManager' in window)) {
+		console.warn('Push notifications not supported in this browser')
+	}
 }
 
 document.body.addEventListener('touchmove', e => {

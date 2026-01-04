@@ -4,77 +4,98 @@ export class PushNotificationClient {
 		this.subscription = null
 	}
 
-	async requestPermission() {
+	requestPermission() {
 		if (!('Notification' in window)) {
-			throw new Error('This browser does not support notifications')
+			return Promise.reject(new Error('Notifications not supported'))
 		}
-
-		const permission = await Notification.requestPermission()
-
-		if (permission !== 'granted') {
-			throw new Error('Notification permission denied')
-		}
-
-		return permission
-	}
-
-	async subscribe(publicKey) {
-		await this.requestPermission()
 
 		if (!('serviceWorker' in navigator)) {
-			throw new Error('Service Worker not supported')
+			return Promise.reject(new Error('Service Workers not supported'))
 		}
 
-		const registration = await navigator.serviceWorker.ready
+		if (!('PushManager' in window)) {
+			return Promise.reject(new Error('Push messaging not supported'))
+		}
 
-		const subscription = await registration.pushManager.subscribe({
-			userVisibleOnly: true,
-			applicationServerKey: this.urlBase64ToUint8Array(publicKey),
+		return Notification.requestPermission().then(permission => {
+			if (permission !== 'granted') {
+				throw new Error('Notification permission denied')
+			}
+			return permission
 		})
-
-		await this.sendSubscriptionToServer(subscription)
-
-		this.subscription = subscription
-
-		return subscription
 	}
 
-	async unsubscribe() {
+	subscribe(publicKey) {
+		return this.requestPermission().then(() => {
+			if (!('serviceWorker' in navigator)) {
+				throw new Error('Service Worker not supported')
+			}
+			return navigator.serviceWorker.ready
+		}).then(registration => {
+			// Check for existing subscription and clear it first
+			return registration.pushManager.getSubscription().then(existingSubscription => {
+				if (existingSubscription) {
+					return existingSubscription.unsubscribe().then(() => registration)
+				}
+				return registration
+			})
+		}).then(registration => {
+			return registration.pushManager.subscribe({
+				userVisibleOnly: true,
+				applicationServerKey: this.urlBase64ToUint8Array(publicKey),
+			})
+		}).then(subscription => {
+			return this.sendSubscriptionToServer(subscription).then(() => {
+				this.subscription = subscription
+				try {
+					localStorage.setItem('pushSubscriptionEndpoint', subscription.endpoint)
+				} catch (e) {
+					// Safari private mode throws error on localStorage
+					console.warn('Cannot save to localStorage:', e.message)
+				}
+				console.log('✅ Push notifications enabled')
+				return subscription
+			})
+		})
+	}
+
+	unsubscribe() {
 		if (!this.subscription) {
-			return false
+			return Promise.resolve(false)
 		}
 
-		await this.subscription.unsubscribe()
-
-		await fetch(`${this.serverUrl}/push/unsubscribe`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				endpoint: this.subscription.endpoint,
-			}),
+		return this.subscription.unsubscribe().then(() => {
+			return fetch(`${this.serverUrl}/push/unsubscribe`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					endpoint: this.subscription.endpoint,
+				}),
+			})
+		}).then(() => {
+			this.subscription = null
+			try {
+				localStorage.removeItem('pushSubscriptionEndpoint')
+			} catch (e) {}
+			return true
 		})
-
-		this.subscription = null
-
-		return true
 	}
 
-	async sendSubscriptionToServer(subscription) {
-		const response = await fetch(`${this.serverUrl}/push/subscribe`, {
+	sendSubscriptionToServer(subscription) {
+		return fetch(`${this.serverUrl}/push/subscribe`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(subscription),
+		}).then(response => {
+			if (!response.ok) {
+				throw new Error('Failed to send subscription to server')
+			}
+			return response.json()
 		})
-
-		if (!response.ok) {
-			throw new Error('Failed to send subscription to server')
-		}
-
-		return response.json()
 	}
 
 	urlBase64ToUint8Array(base64String) {
@@ -93,14 +114,14 @@ export class PushNotificationClient {
 		return outputArray
 	}
 
-	async getPublicKey() {
-		const response = await fetch(`${this.serverUrl}/push/vapid-public-key`, {
+	getPublicKey() {
+		return fetch(`${this.serverUrl}/push/vapid-public-key`, {
 			method: 'POST',
+		}).then(response => {
+			return response.json()
+		}).then(data => {
+			return data.publicKey
 		})
-
-		const data = await response.json()
-
-		return data.publicKey
 	}
 
 	get isSubscribed() {
