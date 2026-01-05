@@ -1,25 +1,19 @@
-class Format {
+export default class Format {
+	static json(data) {
+		let jsonArray
 
-	static json(jsonData) {
-	  if (Array.isArray(jsonData)) {
-		// Parse and pretty-print each JSON string if the data is an array
-			const prettifiedJsonArray = jsonData.map(jsonString => {
-		  const jsonObject = JSON.parse(jsonString)
-		  return JSON.stringify(jsonObject, null, 2)
-			})
-
-			// Join the prettified JSON strings into a single string with proper formatting
-			const prettifiedJsonString = prettifiedJsonArray.join(',\n')
-
-			// Wrap the joined string in array brackets to make it a valid JSON array
-			return `[\n${prettifiedJsonString}\n]`
-	  }
+		if (Array.isArray(data)) {
+			jsonArray = data
+		}
 		else {
-		// Parse and pretty-print the JSON string if the data is not an array
-			const jsonObject = JSON.parse(jsonData)
-			return JSON.stringify(jsonObject, null, 2)
-	  }
+			jsonArray = [data]
+		}
+
+		const prettified = jsonArray.map(item => {
+			const obj = JSON.parse(item)
+			return JSON.stringify(obj, null, 2)
+		})
+
+		return '[\n' + prettified.join(',\n') + '\n]'
 	}
 }
-
-export default Format
