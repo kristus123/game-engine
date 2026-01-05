@@ -55,14 +55,22 @@ export class World {
 			}
 		}
 
-		RtcClient.onIncomingCall = callerClientId => {
+		RtcClient.onIncomingCall = (callerClientId, offer) => {
 			GridUi.mid.push([
 				Html.button('accept call', () => {
-					RtcClient.acceptCall(callerClientId)
-				}),
+					RtcClient.acceptIncomingCall(callerClientId, offer)
+				})
 			])
 		}
 
+		RtcClient.onCallAccepted = targetClientId => {
+			GridUi.right.push([
+				Html.button('send', () => {
+					console.log(`sending data to ${targetClientId}`)
+					RtcClient.send(targetClientId, { 'text': 'hello' })
+				}),
+			])
+		}
 
 		const player = new DynamicGameObject(new Position(8000, 6000))
 
