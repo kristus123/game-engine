@@ -12,8 +12,6 @@ self.addEventListener('push', event => {
 	let notificationData = {
 		title: 'Notification',
 		body: 'You have a new notification',
-		icon: '/icon.png',
-		badge: '/badge.png',
 		data: {},
 	}
 
@@ -28,13 +26,21 @@ self.addEventListener('push', event => {
 
 	const options = {
 		body: notificationData.body || 'You have a new notification',
-		icon: notificationData.icon || '/icon.png',
-		badge: notificationData.badge || '/badge.png',
 		data: notificationData.data || {},
 		vibrate: notificationData.vibrate || [200, 100, 200],
 		tag: notificationData.tag || 'game-notification',
 		requireInteraction: notificationData.requireInteraction || false,
-		actions: notificationData.actions || [],
+	}
+
+	// Add icon/badge only if provided (avoid missing file errors)
+	if (notificationData.icon) {
+		options.icon = notificationData.icon
+	}
+	if (notificationData.badge) {
+		options.badge = notificationData.badge
+	}
+	if (notificationData.actions && notificationData.actions.length > 0) {
+		options.actions = notificationData.actions
 	}
 
 	event.waitUntil(

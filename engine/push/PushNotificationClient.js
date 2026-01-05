@@ -17,9 +17,19 @@ export class PushNotificationClient {
 			return Promise.reject(new Error('Push messaging not supported'))
 		}
 
+		// Check if using HTTPS or localhost (required for push notifications)
+		if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+			console.error('Push notifications require HTTPS or localhost. Current:', location.protocol + '//' + location.hostname)
+			return Promise.reject(new Error('Push notifications require HTTPS or localhost'))
+		}
+
 		return Notification.requestPermission().then(permission => {
 			if (permission !== 'granted') {
-				throw new Error('Notification permission denied')
+				const reason = permission === 'denied' 
+					? 'Notification permission was denied. Please enable it in browser settings.'
+					: 'Notification permission was not granted.'
+				console.error(reason)
+				throw new Error(reason)
 			}
 			return permission
 		})
@@ -35,16 +45,19 @@ export class PushNotificationClient {
 			// Check for existing subscription and clear it first
 			return registration.pushManager.getSubscription().then(existingSubscription => {
 				if (existingSubscription) {
+					console.log('Unsubscribing from existing subscription')
 					return existingSubscription.unsubscribe().then(() => registration)
 				}
 				return registration
 			})
 		}).then(registration => {
+			console.log('Subscribing to push notifications...')
 			return registration.pushManager.subscribe({
 				userVisibleOnly: true,
 				applicationServerKey: this.urlBase64ToUint8Array(publicKey),
 			})
 		}).then(subscription => {
+			console.log('Push subscription created:', subscription.endpoint)
 			return this.sendSubscriptionToServer(subscription).then(() => {
 				this.subscription = subscription
 				try {
@@ -53,9 +66,12 @@ export class PushNotificationClient {
 					// Safari private mode throws error on localStorage
 					console.warn('Cannot save to localStorage:', e.message)
 				}
-				console.log('✅ Push notifications enabled')
+				console.log('✅ Push notifications enabled successfully')
 				return subscription
 			})
+		}).catch(error => {
+			console.error('Push subscription failed:', error)
+			throw error
 		})
 	}
 
