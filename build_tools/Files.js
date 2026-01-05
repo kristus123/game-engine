@@ -1,4 +1,5 @@
 import Path from 'path'
+
 import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
@@ -101,6 +102,37 @@ export default class {
 		const content = this.read(path)
 			.replaceAll(x, y)
 		this.write(path, content)
+	}
+
+	static deleteFolder(folder) {
+		console.log('deleting ' + folder)
+		fs.rmSync(folder, { recursive: true, force: true })
+	}
+
+
+	static copyFolder(source, destination) {
+		if (!fs.existsSync(source)) {
+			console.error('Source folder does not exist.')
+			process.exit(1)
+		}
+
+		if (!fs.existsSync(destination)) {
+			fs.mkdirSync(destination)
+		}
+
+		const files = fs.readdirSync(source)
+
+		files.forEach((file) => {
+			const sourcePath = Path.join(source, file)
+			const destinationPath = Path.join(destination, file)
+
+			if (fs.statSync(sourcePath).isDirectory()) {
+				this.copyFolder(sourcePath, destinationPath)
+			}
+			else {
+				fs.copyFileSync(sourcePath, destinationPath)
+			}
+		})
 	}
 
 }

@@ -1,12 +1,13 @@
 import Files from './Files.js'
 
 import './transpiler.js'
-import './copy_asset_folder_to_dist.js'
+
+Files.copyFolder('game/assets/', 'dist/game/assets/')
+Files.copyFolder('game/audio/', 'dist/game/audio/')
+
 import './copy_manifest_to_dist.js'
-import './generate_helper_classes.js'
 import './verify_no_reserved_clashes.js'
 import './assert_unique_file_names.js'
-
 
 const allAsepritePaths = Files.at('game/assets/aseprite')
 	.map(f => f.replace('/aseprite', ''))
@@ -44,5 +45,3 @@ const indexHtml = Files.read('game/index.html')
 	.replace('SCRIPT_IMPORTS', jsImports)
 	.replace('CSS_IMPORTS', cssImports)
 Files.write('dist/index.html', indexHtml)
-
-

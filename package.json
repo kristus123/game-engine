@@ -7,7 +7,6 @@
     "dev": "npm run start",
     "start": "node watch.js"
   },
-  "type": "module",
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
     "eslint": "^8.56.0",
