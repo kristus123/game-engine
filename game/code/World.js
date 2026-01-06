@@ -42,23 +42,12 @@ export class World {
 			GridUi.left.push(notificationButton)
 		}
 
-		const clientButtons = new Map()
-
 		OtherConnectedSocketClients.onConnect = connectingClientId => {
 			const button = Html.button("call " + connectingClientId, () => {
 				RtcClient.call(connectingClientId)
 			})
-
-			clientButtons.set(connectingClientId, button)
+			OtherConnectedSocketClients.registerButton(connectingClientId, button)
 			GridUi.left.push(button)
-		}
-
-		OtherConnectedSocketClients.onDisconnect = clientId => {
-			const button = clientButtons.get(clientId)
-			if (button) {
-				button.remove()
-				clientButtons.delete(clientId)
-			}
 		}
 
 		// Create buttons for clients that connected before this handler was set
