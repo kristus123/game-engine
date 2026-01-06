@@ -2,39 +2,6 @@
 
 export class World {
 	constructor() {
-
-		GridUi.top.set(Html.p(`You Are: ${ClientId}`))
-
-		OtherConnectedSocketClients.onConnect = connectingClientId => {
-			console.log(connectingClientId)
-			const button = Html.button(connectingClientId, () => {
-				RtcClient.call(connectingClientId)
-			})
-
-			GridUi.left.push(button)
-
-			OtherConnectedSocketClients.onDisconnect = clientId => {
-				button.remove()
-			}
-		}
-
-		RtcClient.onIncomingCall = (callerClientId, offer) => {
-			GridUi.mid.push([
-				Html.button('accept call', () => {
-					RtcClient.acceptIncomingCall(callerClientId, offer)
-				})
-			])
-		}
-
-		RtcClient.onCallAccepted = targetClientId => {
-			GridUi.right.push([
-				Html.button('send', () => {
-					console.log(`sending data to ${targetClientId}`)
-					RtcClient.send(targetClientId, { 'text': 'hello' })
-				}),
-			])
-		}
-
 		const player = new DynamicGameObject(new Position(8000, 6000))
 
 		Controller.control(player)
@@ -48,6 +15,25 @@ export class World {
 		SocketClient.onServerMessage('UPDATE_CLIENTS_LIST', data => {
 			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
 		})
+
+		GridUi.top.set(Html.input('json goes here', (value) => {
+			GridUi.mid.push([
+				Html.button('write json', (json) => {
+					HttpClient.uploadFile({ 'test': value }, body => {
+						console.log('___')
+						console.log(body)
+						console.log('___')
+					})
+				}),
+				Html.button('get json', (json) => {
+					HttpClient.readFile({ 'filename': 'test' }, body => {
+						console.log('___')
+						console.log(body)
+						console.log('___')
+					})
+				})
+			])
+		}))
 	}
 
 
