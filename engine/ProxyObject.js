@@ -3,7 +3,7 @@ export function ProxyObject(object, onChange = () => {}) {
 		get: (obj, prop) => {
 			if (!(prop in obj)) {
 				return (...args) => {
-    						return onChange(prop, ...args)
+					return onChange(prop, ...args)
 				}
 			}
 			return obj[prop]
