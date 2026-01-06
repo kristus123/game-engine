@@ -1,0 +1,68 @@
+div.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+div.container {
+	width: 90vw;
+	height: 90vh;
+	padding: 20px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+div.top,
+div.bottom {
+	white-space: nowrap;
+
+	/* width: 100%; */
+
+	/* height: 150px; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column wrap;
+	overflow-x: auto;
+	gap: 10px;
+}
+
+div.right,
+div.left {
+	display: block;
+
+	/* display: flex; */
+	margin: 10px 0;
+	overflow-y: auto;
+	min-width: 120px;
+
+	/* height: 100%; */
+
+	/* height: calc(100% - 200px); */
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+  flex-flow: row wrap; /* Stack divs vertically */
+}
+
+div.right {
+    right: 20px;
+}
+
+div.left {
+    left: 20px;
+}
+
+div.item {
+    min-width: 100px;
+    min-height: 100px;
+
+    /* background: indianred; */
+    margin: 10px 0;
+}
