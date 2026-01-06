@@ -45,5 +45,3 @@ const indexHtml = Files.read('game/index.html')
 	.replace('SCRIPT_IMPORTS', jsImports)
 	.replace('CSS_IMPORTS', cssImports)
 Files.write('dist/index.html', indexHtml)
-
-
