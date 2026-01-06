@@ -15,7 +15,7 @@ app.post('/api/:method', (req, res) => {
 		FileDb.save('test', req.body)
 
 		res.send({
-			test: method,
+			method: method,
 			body: req.body,
 		})
 
@@ -24,7 +24,7 @@ app.post('/api/:method', (req, res) => {
 		const data = FileDb.get(req.body.filename)
 
 		res.send({
-			test: method,
+			method: method,
 			body: data,
 		})
 
