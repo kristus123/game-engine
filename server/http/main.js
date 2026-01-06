@@ -1,14 +1,13 @@
-import express from 'express'
-import cors from 'cors'
-
 import Path from 'path'
 import { FileDb } from './FileDb.js'
+import { Fetch } from './Fetch.js'
 
-const app = express()
-app.use(express.json()) // Automatically parses JSON bodies
-app.use(cors())
+const app = new Fetch()
 
-app.post('/uploadFile', (req, res) => {
+//app.use(express.json()) // Automatically parses JSON bodies
+//app.use(cors())
+
+app.route('/uploadFile', (req, res) => {
 	const type = req.headers['content-type'] || ''
 
 	if (type.includes('application/json')) {
@@ -25,7 +24,7 @@ app.post('/uploadFile', (req, res) => {
 	}
 })
 
-app.post('/readFile', (req, res) => {
+app.route('/readFile', (req, res) => {
 	const data = FileDb.get(req.body.filename)
 
 	res.send({
@@ -33,7 +32,7 @@ app.post('/readFile', (req, res) => {
 	})
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = 5000
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })
