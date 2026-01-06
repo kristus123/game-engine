@@ -24,7 +24,7 @@ export class World {
 					try {
 						localStorage.removeItem('pushSubscriptionEndpoint')
 					} catch (e) {}
-					location.reload()
+					
 				}
 			})
 			.catch(error => {
@@ -42,17 +42,28 @@ export class World {
 			GridUi.left.push(notificationButton)
 		}
 
+		const clientButtons = new Map()
+
 		OtherConnectedSocketClients.onConnect = connectingClientId => {
-			console.log(connectingClientId)
-			const button = Html.button(connectingClientId, () => {
+			const button = Html.button("call " + connectingClientId, () => {
 				RtcClient.call(connectingClientId)
 			})
 
+			clientButtons.set(connectingClientId, button)
 			GridUi.left.push(button)
+		}
 
-			OtherConnectedSocketClients.onDisconnect = clientId => {
+		OtherConnectedSocketClients.onDisconnect = clientId => {
+			const button = clientButtons.get(clientId)
+			if (button) {
 				button.remove()
+				clientButtons.delete(clientId)
 			}
+		}
+
+		// Create buttons for clients that connected before this handler was set
+		for (const clientId of OtherConnectedSocketClients.ids) {
+			OtherConnectedSocketClients.onConnect(clientId)
 		}
 
 		RtcClient.onIncomingCall = (callerClientId, offer) => {
