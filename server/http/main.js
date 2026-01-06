@@ -11,7 +11,7 @@ app.use(cors())
 app.post('/api/:method', (req, res) => {
 	const method = req.params.method
 
-	if (method === "write") {
+	if (method === 'write') {
 		FileDb.save('test', req.body)
 
 		res.send({
@@ -20,7 +20,7 @@ app.post('/api/:method', (req, res) => {
 		})
 
 	}
-	else if(method === "read") {
+	else if (method === 'read') {
 		const data = FileDb.get(req.body.filename)
 
 		res.send({

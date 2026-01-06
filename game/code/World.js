@@ -16,17 +16,17 @@ export class World {
 			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
 		})
 
-		GridUi.top.set(Html.input("json goes here", (value) => {
+		GridUi.top.set(Html.input('json goes here', (value) => {
 			GridUi.mid.push([
-				Html.button("write json", (json) => {
-					HttpClient.write({ "test": value }, body => {
+				Html.button('write json', (json) => {
+					HttpClient.write({ 'test': value }, body => {
 						console.log('___')
 						console.log(body)
 						console.log('___')
 					})
 				}),
-				Html.button("get json", (json) => {
-					HttpClient.read({ "filename": "test" }, body => {
+				Html.button('get json', (json) => {
+					HttpClient.read({ 'filename': 'test' }, body => {
 						console.log('___')
 						console.log(body)
 						console.log('___')
