@@ -111,7 +111,8 @@ export class RtcClient {
 					if (this.connectedClientIds[callerClientId]) {
 						this.connectedClientIds[callerClientId].dataChannel = e.channel
 						this.setupDataChannel(e.channel)
-					} else {
+					}
+					else {
 						throw new Error(`${callerClientId} Is Not Connected`)
 					}
 				}

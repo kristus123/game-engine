@@ -1,53 +1,36 @@
 import express from 'express'
 import cors from 'cors'
-import fs from 'fs'
 
-import Files from './Files.js'
+import Path from 'path'
+import { FileDb } from './FileDb.js'
 
 const app = express()
 app.use(express.json()) // Automatically parses JSON bodies
 app.use(cors())
 
-app.post('/*', (req, res) => {
-	const filePath = req.params[0] // This captures everything after /path/
+app.post('/uploadFile', (req, res) => {
+	const type = req.headers['content-type'] || ''
 
-	fs.writeFile(filePath, JSON.stringify(req.body), error => {
-		if (!error) {
+	if (type.includes('application/json')) {
+		FileDb.save('test', req.body)
+		res.sendStatus(200)
+		return
+	}
 
-			console.log('JSON data saved successfully')
-			res.status(200).send('JSON data saved successfully')
-		}
-		else {
-			console.error('Error saving JSON data:', error)
-			res.status(500).send('Error saving JSON data')
-			return
-		}
-	})
+	if (type.startsWith('audio/')) {
+		const file = fs.createWriteStream('audio.webm')
+		req.pipe(file)
+		req.on('end', () => res.sendStatus(200))
+		return
+	}
 })
 
-app.get('/*', (req, res) => {
-	const filePath = req.params[0] // This captures everything after /path/
+app.post('/readFile', (req, res) => {
+	const data = FileDb.get(req.body.filename)
 
-	fs.readFile(filePath, 'utf8', (err, data) => {
-		if (!err) {
-			res.setHeader('Content-Type', 'application/json')
-			res.send(data)
-		}
-		else {
-			res.status(500).send('Error reading JSON data')
-			return
-		}
+	res.send({
+		body: data,
 	})
-})
-
-app.get('/picture-library', (req, res) => {
-	const media = Files.inFolder('static/assets')
-	if (media) {
-		res.status(200).send(media)
-	}
-	else {
-		res.status(404).send('no-media')
-	}
 })
 
 const PORT = process.env.PORT || 3000
