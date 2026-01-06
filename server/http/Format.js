@@ -17,4 +17,3 @@ export default class Format {
 		return '[\n' + prettified.join(',\n') + '\n]'
 	}
 }
-
