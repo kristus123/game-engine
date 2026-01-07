@@ -8,7 +8,7 @@ export class Config {
 				return 'https://myproductionurl.com'
 			}
 			default: {
-				throw new Error("unexpected environment given")
+				throw new Error('unexpected environment given')
 			}
 		}
 	}
