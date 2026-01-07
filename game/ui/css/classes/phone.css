@@ -1,0 +1,26 @@
+.phone {
+  height:100%;
+  display: grid;
+  grid-template: 
+	"top" 120px
+	"mid" auto
+	"bottom" 100px
+	/1fr;
+  gap: 10px;
+}
+
+.phone .phone-top {
+  grid-area: top;
+  background-color: #f28b82;
+}
+
+.phone .phone-mid {
+  grid-area: mid;
+  background-color: #34a853;
+}
+
+.phone .phone-bottom {
+  grid-area: bottom;
+  background-color: #a142f4;
+}
+

@@ -4,8 +4,11 @@ export class World {
 	constructor() {
 		const player = new DynamicGameObject(new Position(8000, 6000))
 
+
 		Controller.control(player)
 		Camera.followInstantly(player)
+
+		GridUi.hide()
 
 		this.localObjects = new LocalObjects([
 			Sprite.snow(new Position(0, 0), 6),
