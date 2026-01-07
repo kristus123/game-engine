@@ -4,7 +4,6 @@ import { Fetch } from './Fetch.js'
 
 const app = new Fetch()
 
-//app.use(express.json()) // Automatically parses JSON bodies
 //app.use(cors())
 
 app.route('/uploadFile', (req, res) => {
