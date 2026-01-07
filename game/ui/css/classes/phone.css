@@ -1,35 +1,27 @@
 .phone {
-  width:100%;
+
   height:100%;
   display: grid;
   grid-template: 
-	"left top top" 200px
-	"left mid right" auto
-	"left bottom bottom" auto / 200px 1fr 1fr;
-  gap: 40px;
+	"top" 120px
+	"mid" auto
+	"bottom" 100px
+	/1fr;
+  gap: 10px;
 }
 
-.phone .grid-top {
+.phone .phone-top {
+  background-color: blue;
   grid-area: top;
   background-color: #f28b82;
 }
 
-.grid .grid-left {
-  grid-area: left;
-  background-color: #fbbc04;
-}
-
-.grid .grid-mid {
+.phone .phone-mid {
   grid-area: mid;
   background-color: #34a853;
 }
 
-.grid .grid-right {
-  grid-area: right;
-  background-color: #4285f4;
-}
-
-.grid .grid-bottom {
+.phone .phone-bottom {
   grid-area: bottom;
   background-color: #a142f4;
 }
