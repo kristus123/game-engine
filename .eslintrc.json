@@ -249,6 +249,7 @@
         "Particle": "readonly",
         "Path": "readonly",
         "PathFinder": "readonly",
+        "PhoneUi": "readonly",
         "Physics": "readonly",
         "PictureInPicture": "readonly",
         "PicturePositions": "readonly",

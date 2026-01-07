@@ -1,5 +1,4 @@
 .phone {
-
   height:100%;
   display: grid;
   grid-template: 
@@ -11,7 +10,6 @@
 }
 
 .phone .phone-top {
-  background-color: blue;
   grid-area: top;
   background-color: #f28b82;
 }
