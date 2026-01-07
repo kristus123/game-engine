@@ -1,10 +1,15 @@
 export class Config {
-	static get baseURL() {
-		switch (activeEnv) {
-  	case 'DEV':
-    	return 'http://localhost:3000'
-  	case 'PROD':
-    	return 'https://myproductionurl.com'
+	static get baseUrl() {
+		switch (ENVIRONMENT) {
+			case 'DEVELOPMENT': {
+				return 'http://localhost:3000'
+			}
+			case 'PRODUCTION': {
+				return 'https://myproductionurl.com'
+			}
+			default: {
+				throw new Error("unexpected environment given")
+			}
 		}
 	}
 }
