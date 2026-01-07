@@ -164,6 +164,7 @@
         "ClickEvents": "readonly",
         "ClientId": "readonly",
         "Collision": "readonly",
+        "Config": "readonly",
         "Controller": "readonly",
         "Curve": "readonly",
         "D1": "readonly",

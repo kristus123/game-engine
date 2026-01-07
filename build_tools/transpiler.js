@@ -1,3 +1,10 @@
+const ENVIRONMENT = process.argv[2] || false
+
+if (!ENVIRONMENT) {
+	throw new Error('you need to include ENVIRONMENT when calling generate_dist.js')
+}
+
+
 import Imports from './Imports.js'
 import Parameters from './Parameters.js'
 import Files from './Files.js'
@@ -10,6 +17,7 @@ for (const jsFilePath of jsFiles) {
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
 	fileContent = fileContent.replaceAll('OnChange(', 'new OnChange(')
 	fileContent = fileContent.replaceAll('OnTrue(', 'new OnTrue(')
+	fileContent = fileContent.replaceAll('ENVIRONMENT', ENVIRONMENT)
 
 	if (fileContent.includes('export class')) {
 		let lines = fileContent.split('\n')
