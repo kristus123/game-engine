@@ -16,6 +16,5 @@ export class Base64 {
 		const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))
 
 		return new Blob([bytes], { type: mime })
-
 	}
 }
