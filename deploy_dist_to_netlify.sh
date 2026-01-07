@@ -2,6 +2,10 @@
 
 set -e
 
+node build_tools/export_aseprite.js
+node build_tools/generate_dist.js PRODUCTION
+
+
 # Minify JavaScript files in place
 find dist -type f -name '*.js' -exec npx terser {} --compress --mangle -o {} \;
 
