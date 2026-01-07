@@ -71,3 +71,9 @@ netlify login
 
 # todo remove old netlify build file and remove it from netlify in the ui
 ```
+
+# netlify
+
+npm install -g netlify-cli
+
+netlify login
