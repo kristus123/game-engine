@@ -15,13 +15,13 @@ export class Db {
 		}
 	}
 
-	_onReady(callback) {
+	execute(callback) {
 		const check = () => {
 			if (this.ready) {
 				callback(this.db)
 			}
 			else {
-				setTimeout(check, 10)
+				setTimeout(check, 50)
 			}
 		}
 
@@ -29,7 +29,7 @@ export class Db {
 	}
 
 	save(key, blob) {
-		this._onReady(db => {
+		this.execute(db => {
 			const tx = db.transaction(this.storeName, 'readwrite')
 			const store = tx.objectStore(this.storeName)
 			const req = store.put(blob, key)
@@ -40,7 +40,7 @@ export class Db {
 	}
 
 	get(key, callback) {
-		this._onReady(db => {
+		this.execute(db => {
 			const tx = db.transaction(this.storeName, 'readonly')
 			const req = tx.objectStore(this.storeName).get(key)
 			req.onsuccess = () => callback(req.result)
@@ -48,14 +48,14 @@ export class Db {
 	}
 
 	delete(key) {
-		this._onReady(db => {
+		this.execute(db => {
 			const tx = db.transaction(this.storeName, 'readwrite')
 			tx.objectStore(this.storeName).delete(key)
 		})
 	}
 
 	all(callback) {
-		this._onReady(db => {
+		this.execute(db => {
 			const tx = db.transaction(this.storeName, 'readonly')
 			const store = tx.objectStore(this.storeName)
 			const result = []
