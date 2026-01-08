@@ -4,10 +4,8 @@ import { Fetch } from './Fetch.js'
 
 const app = new Fetch()
 
-//app.use(cors())
-
 app.route('/uploadFile', (req, res) => {
-	const type = req.headers['content-type'] || ''
+	const type = req.headers['Content-Type'] || ''
 
 	if (type.includes('application/json')) {
 		FileDb.save('test', req.body)
@@ -31,7 +29,7 @@ app.route('/readFile', (req, res) => {
 	})
 })
 
-const PORT = 5000
+const PORT = 3000
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })
