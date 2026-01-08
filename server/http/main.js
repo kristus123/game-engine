@@ -1,39 +1,25 @@
-import express from 'express'
-import cors from 'cors'
-
 import Path from 'path'
 import { FileDb } from './FileDb.js'
+import { Flask } from './Flask.js'
 
-const app = express()
-app.use(express.json()) // Automatically parses JSON bodies
-app.use(cors())
-
-app.post('/uploadFile', (req, res) => {
+Flask.route('uploadFile', (body, req) => {
 	const type = req.headers['content-type'] || ''
 
 	if (type.includes('application/json')) {
-		FileDb.save('test', req.body)
-		res.sendStatus(200)
-		return
+		FileDb.save('test', body)
+		return { status: 'server success' }
 	}
 
-	if (type.startsWith('audio/')) {
-		const file = fs.createWriteStream('audio.webm')
-		req.pipe(file)
-		req.on('end', () => res.sendStatus(200))
-		return
-	}
+	return { status: 'server failure' }
 })
 
-app.post('/readFile', (req, res) => {
-	const data = FileDb.get(req.body.filename)
+Flask.route('readFile', (body, req) => {
+	const data = FileDb.get(body.filename)
 
-	res.send({
-		body: data,
-	})
+	return { body: data }
 })
 
 const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
+Flask.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })
