@@ -14,12 +14,10 @@ Flask.route('uploadFile', (body, req) => {
 })
 
 Flask.route('readFile', (body, req) => {
-	const data = FileDb.get(body.filename)
-
-	return { body: data }
+	return FileDb.get(body.filename)
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = 3000
 Flask.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })
