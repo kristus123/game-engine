@@ -1,4 +1,5 @@
 export const index = ''
+import { initD1 } from '/engine/start/D1.js';
 
 if ('serviceWorker' in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
@@ -23,7 +24,6 @@ HotReload()
 Enhance_js_Array()
 Enhance_js_Object()
 Enhance_html()
-
 
 function loadAsepriteAssets(path) {
 
@@ -88,7 +88,8 @@ Promise.all([
 		Mouse.initializeAfterCameraIsInitialized()
 
 		const draw = new Draw(Camera.palette.ctx)
-		D1.ctx = Camera.palette.ctx
+
+		initD1(draw)
 
 		Level.change(new World())
 
@@ -102,7 +103,7 @@ Promise.all([
 				Controller.update()
 
 				Level.update()
-				Level.draw(draw)
+				Level.draw(draw) // deprecated
 
 				Mouse.update()
 			})

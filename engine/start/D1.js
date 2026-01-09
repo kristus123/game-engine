@@ -1,1 +1,5 @@
-export const D1 = new Draw('null') //inits in index.js
+export let D1 = null
+
+export function initD1(draw) {
+	D1 = draw
+}
