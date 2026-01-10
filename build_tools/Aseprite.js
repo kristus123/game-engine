@@ -43,7 +43,7 @@ export class Aseprite {
 		], { stdio: 'inherit', shell: true })
 	}
 
-	static groups(srcFile, destBase) {  // use this to extract groups from aseprite file. todo
+	static groups(srcFile, destBase) { // use this to extract groups from aseprite file. todo
 		execFileSync(bin, [
 			'-b',
 			srcFile,
