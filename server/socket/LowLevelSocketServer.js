@@ -1,13 +1,17 @@
 import { WebSocketServer } from 'ws'
+import { Flask } from '../http/Flask.js'
 
 export default class {
-	constructor(port) {
-		this.port = port
+	constructor() {
 		this.actions = {}
 	}
 
 	start() {
-		new WebSocketServer({ port: this.port }).on('connection', (client, request) => {
+		const server = Flask.server
+
+		const webSocketServer = new WebSocketServer({ server })
+
+		webSocketServer.on('connection', (client, request) => {
 
 			const urlParameters = new URLSearchParams(request.url.split('?')[1])
 			const clientId = urlParameters.get('clientId')
