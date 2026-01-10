@@ -1,6 +1,6 @@
 import SocketServer from './SimplifiedSocketServerAPI.js'
 
-const socketServer = new SocketServer(8082)
+export const socketServer = new SocketServer()
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
@@ -29,5 +29,3 @@ socketServer.onClose = (client, clientId) => {
 		clientId: clientId
 	})
 }
-
-socketServer.start()

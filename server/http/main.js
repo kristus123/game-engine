@@ -21,7 +21,6 @@ Flask.route('deleteFile', (body) => {
 	return FileDb.deleteFile(body.filename)
 })
 
-
 const PORT = 3000
 Flask.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)

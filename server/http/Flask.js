@@ -1,8 +1,11 @@
 import express from 'express'
+import http from 'http'
 import cors from 'cors'
+import { socketServer } from '../socket/SocketServer.js'
 
 export class Flask {
 	static routes = []
+	static server = null
 
 	static route(path, callback) {
 		this.routes.push({ path, callback })
@@ -10,6 +13,10 @@ export class Flask {
 
 	static listen(port) {
 		const app = express()
+
+		Flask.server = http.createServer(app)
+		socketServer.start()
+
 		app.use(express.json())
 		app.use(cors())
 
@@ -26,6 +33,6 @@ export class Flask {
 			res.status(400).json({ error: 'Route not found' })
 		})
 
-		app.listen(port)
+		Flask.server.listen(port)
 	}
 }

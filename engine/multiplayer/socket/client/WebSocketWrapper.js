@@ -2,7 +2,7 @@
 
 export class WebSocketWrapper {
 	static {
-		this.webSocket = new WebSocket(`ws://localhost:8082?clientId=${ClientId}`)
+		this.webSocket = new WebSocket(`ws://${Config.baseUrl}?clientId=${ClientId}`)
 
 		this.webSocket.onopen = () => {
 			this.onOpen()
