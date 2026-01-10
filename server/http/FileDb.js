@@ -10,8 +10,9 @@ export class FileDb {
 		}
 	}
 
-	static get(filePath) {
+	static getFile(filePath) {
 		FileDb.ensureFolderExists()
+
 		const fullPath = path.join(FileDb.prefix, filePath)
 		if (!fs.existsSync(fullPath)) {
 			return null
@@ -27,8 +28,9 @@ export class FileDb {
 		}
 	}
 
-	static save(filePath, data) {
+	static saveFile(filePath, data) {
 		FileDb.ensureFolderExists()
+
 		const fullPath = path.join(FileDb.prefix, filePath)
 		const tempPath = fullPath + '.tmp'
 
@@ -43,5 +45,15 @@ export class FileDb {
 
 		fs.renameSync(tempPath, fullPath)
 	}
+
+	static deleteFile(filePath) {
+		FileDb.ensureFolderExists()
+
+		const fullPath = path.join(FileDb.prefix, filePath)
+		if (fs.existsSync(fullPath)) {
+			fs.unlinkSync(fullPath)
+		}
+	}
+
 }
 
