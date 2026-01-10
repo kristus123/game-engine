@@ -15,11 +15,10 @@ export class Flask {
 
 		app.post('/:path', (req, res) => {
 			const path = req.params.path
-			const json = req.body
 
 			for (const r of this.routes) {
 				if (r.path === path) {
-					res.json(r.callback(json.body, req))
+					res.json(r.callback(req.body, req))
 					return
 				}
 			}
