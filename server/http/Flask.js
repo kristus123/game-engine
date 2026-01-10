@@ -13,8 +13,9 @@ export class Flask {
 		app.use(express.json())
 		app.use(cors())
 
-		app.post('/', (req, res) => {
-			const { path, ...json } = req.body
+		app.post('/:path', (req, res) => {
+			const path = req.params.path
+			const json = req.body
 
 			for (const r of this.routes) {
 				if (r.path === path) {
