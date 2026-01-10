@@ -1,5 +1,5 @@
 export const index = ''
-import { initD1 } from '/engine/start/D1.js';
+import { initD1 } from '/engine/start/D1.js'
 
 if ('serviceWorker' in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
