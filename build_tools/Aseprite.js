@@ -68,8 +68,20 @@ export class Aseprite {
 			'--filename-format',
 			'{layer}_{frame}_{tag}',
 		], { shell: true })
-
 	}
+
+	static groups(srcFile, destBase) {
+		execFileSync(bin, [
+			'-b',
+			srcFile,
+			'--list-layers',
+			'--data',
+			destBase + 'Groups.json',
+			'--format',
+			'json-array',
+		], { shell: true })
+	}
+
 
 	static tilemaps(srcFile, destBase) {
 		execFileSync(bin, [
