@@ -37,6 +37,7 @@ function exportAseprite(srcFile, destBase) {
 	}
 
 	Aseprite.tags(srcFile, destBase)
+	Aseprite.groups(srcFile, destBase)
 	Aseprite.layers(srcFile, destBase)
 	Aseprite.tilemaps(srcFile, destBase)
 }
