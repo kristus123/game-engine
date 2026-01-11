@@ -1,4 +1,5 @@
 /* Chrome, Edge, Safari */
+
 *::-webkit-scrollbar {
     width: 40px;   /* vertical scrollbar */
     height: 40px;  /* horizontal scrollbar */
@@ -20,6 +21,7 @@
 }
 
 /* Firefox */
+
 * {
     scrollbar-width: auto; /* "thin" or "auto" */
     scrollbar-color: orange #f2f2f2;

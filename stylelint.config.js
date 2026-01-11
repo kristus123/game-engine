@@ -1,8 +1,12 @@
 export default {
-	extends: 'stylelint-config-standard',
+	extends: ['stylelint-config-standard'],
 	rules: {
-		'indentation': 4,
-		'string-quotes': 'double'
-	}
+		'indentation': 'tab',
+		'string-quotes': 'double',
+		'color-hex-case': 'lower',
+		'color-hex-length': 'short',
+		'max-empty-lines': 2,
+		'no-descending-specificity': null
+	},
 }
 
