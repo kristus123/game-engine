@@ -7,5 +7,6 @@ export class Assert {
 
 	static value(v) {
 		AssertNotNull(v)
+		return v
 	}
 }
