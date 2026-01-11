@@ -25,7 +25,7 @@ export class Controller {
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
 	static update() {
-		const xxx = 200
+		const xxx = 105
 		if (!this.objectToControl || this.disabled) {
 			return
 		}
