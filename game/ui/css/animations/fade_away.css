@@ -1,5 +1,5 @@
 .fade-away {
-  animation: fadeOutOpacity 1.0s forwards;
+	animation: fadeOutOpacity 1.0s forwards;
 }
 
 @keyframes fadeOutOpacity {
