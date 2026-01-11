@@ -290,6 +290,7 @@
         "StaticGameObject": "readonly",
         "StopWatch": "readonly",
         "Store": "readonly",
+        "Story": "readonly",
         "StraightPath": "readonly",
         "Task": "readonly",
         "TextTyper": "readonly",

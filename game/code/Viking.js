@@ -1,6 +1,13 @@
 const allianse = {
 	text: 'Handelen går godt, og tillit bygges mellom dem.',
-	choices: []
+	choices: [
+		{
+			text: "God natt",
+			onSelect: () => {
+				Story.hide()
+			}
+		}
+	]
 }
 
 const kamp = {
@@ -15,21 +22,14 @@ const samarbeid = {
 
 export const Viking = {
 	text: 'En viking fra Norge går i land på Island og møter en islandsk viking ved kysten.',
+	image: "https://www.denofgeek.com/wp-content/uploads/2022/04/Alexander-Skarsgard-shirtless-as-The-Northman.jpeg?fit=1200%2C720",
 	choices: [
 		{
-  	text: 'Hilser fredelig og tilbyr handel',
-  	onSelect: () => console.log('De handler og blir allierte.'),
-  	next: allianse
+			text: 'Hilser fredelig og tilbyr handel',
+			onSelect: () => {
+				console.log('De handler og blir allierte.')
+				Story.show(allianse)
+			} ,
 		},
-		{
-  	text: 'Utfordrer islendingen til holmgang',
-  	onSelect: () => console.log('En brutal kamp bryter ut.'),
-  	next: kamp
-		},
-		{
-  	text: 'Spør om veien og søker samarbeid',
-  	onSelect: () => console.log('De deler kunnskap og planer.'),
-  	next: samarbeid
-		}
 	]
 }
