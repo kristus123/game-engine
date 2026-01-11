@@ -1,6 +1,6 @@
 export const HttpClient = ProxyObject(
 	{}, (method, body = {}, callback = (body) => {}) => {
-		const promise = fetch(`http://${Config.baseUrl}/${method}`, {
+		const promise = fetch(`${Config.baseUrl.DEVELOPMENT_HTTP}/${method}`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(body)
