@@ -73,8 +73,8 @@ export class Aseprite {
 	static groups(srcFile, destBase) {
 		execFileSync(bin, [
 			'-b',
-			srcFile,
 			'--list-layers',
+			srcFile,
 			'--data',
 			destBase + 'Groups.json',
 			'--format',
