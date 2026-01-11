@@ -40,7 +40,7 @@ function exportAseprite(srcFile, destBase) {
 	Aseprite.groups(srcFile, destBase)
 	Aseprite.layers(srcFile, destBase)
 	Aseprite.tilemaps(srcFile, destBase)
-	console.log("finished exporting aseprite")
+	console.log('finished exporting aseprite')
 }
 
 const editedFile = process.argv[2] || false
