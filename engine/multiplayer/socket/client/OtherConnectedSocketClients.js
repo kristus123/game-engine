@@ -20,26 +20,21 @@ export class OtherConnectedSocketClients {
 	static add(clientId) {
 		if (this.ids.missing(clientId) && clientId != ClientId) {
 			this.ids.push(clientId)
-		}
 
-		if (this.onConnect) {
-			this.onConnect(clientId)
+			if (this.onConnect) {
+				this.onConnect(clientId)
+			}
 		}
-
-		console.log(this.ids)
 	}
 
 	static remove(clientId) {
 		if (this.ids.includes(clientId)) {
 			this.ids.remove(clientId)
-			this.onDisconnect(clientId)
-		}
 
-		if (this.onDisconnect) {
-			this.onDisconnect(clientId)
+			if (this.onDisconnect) {
+				this.onDisconnect(clientId)
+			}
 		}
-
-		console.log(this.ids)
 	}
 
 	static [Symbol.iterator]() {
