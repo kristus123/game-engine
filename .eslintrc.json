@@ -291,6 +291,7 @@
         "StopWatch": "readonly",
         "Store": "readonly",
         "StraightPath": "readonly",
+        "SyncedObject": "readonly",
         "Task": "readonly",
         "TextTyper": "readonly",
         "TextTyperWithBackspaceEffect": "readonly",
