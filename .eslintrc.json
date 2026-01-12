@@ -166,6 +166,7 @@
         "Collision": "readonly",
         "Config": "readonly",
         "Controller": "readonly",
+        "Css": "readonly",
         "Curve": "readonly",
         "D1": "readonly",
         "Db": "readonly",
