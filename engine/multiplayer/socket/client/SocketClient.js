@@ -3,7 +3,6 @@
 export class SocketClient {
 	static {
 		this.clientActionListener = new ActionListener()
-
 		const serverActionListener = new ActionListener()
 
 		serverActionListener.register('UPDATE_CLIENTS_LIST', data => {
