@@ -45,4 +45,3 @@ for (const jsFilePath of jsFiles) {
 	}
 }
 
-
