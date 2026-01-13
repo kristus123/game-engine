@@ -1,5 +1,5 @@
 
-	// --- Outcomes ---
+// --- Outcomes ---
 
 const giveToEnemies = {
 	text: 'Have him bound in ropes, and give him to his enemies. [increases relationship with the neighboring clan]',
@@ -89,7 +89,8 @@ const neighborClanDemand = {
 				const success = Math.random() > 0.5
 				if (success) {
 					Story.show(lieSuccess)
-				} else {
+				}
+				else {
 					Story.show(lieFailure)
 				}
 			}
@@ -128,7 +129,7 @@ const lieSuccess = {
 
 export const Viking = {
 	text: 'Event - Wounded Man Found A man is found wounded just a few minutes walk outside of your stead, he has been shot by arrows, some of them still in him. He is brought before you, wheezing. He claims to be a thane from [neighboring clan name] who was outlawed on account of a blood feud, he says that he fell off his horse on account of his wounds, during the escape into your lands. He now begs you to let him have hospitality as he has nowhere else to go.',
-	image: "https://www.denofgeek.com/wp-content/uploads/2022/04/Alexander-Skarsgard-shirtless-as-The-Northman.jpeg?fit=1200%2C720",
+	image: 'https://www.denofgeek.com/wp-content/uploads/2022/04/Alexander-Skarsgard-shirtless-as-The-Northman.jpeg?fit=1200%2C720',
 	choices: [
 		{
 			text: 'Have him bound in ropes, and give him to his enemies.',

@@ -3,47 +3,8 @@ div {
  pointer-events: none; /* allow clicks to pass through */
  width:100%;
  height:100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction:column; /* can also be row */
-}
-
-div.movable {
-	overflow: visible;
-}
-
-div.scroll {
-  width: 80vw;
-  height: 80vh;
-  overflow-y: scroll;
-  border: 1px solid black;
-}
-
-div.big {
- pointer-events: auto; /* deny clicks to pass through */
-	overflow-y: auto; 
-	min-width:100px;
-	padding:20px;
-	border-radius: 70px;
-	  place-items: center; /* shorthand for justify-content and align-items */
-    background-color: #fefcf6; /* off-white like paper */
-    box-shadow: 0 4px 10px rgb(0 0 0 / 10%); /* subtle depth */
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.big button {
-	background-color: orange; 
-}
-
-.big.movable:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgb(0 0 0 / 20%);
-}
-
-.big.movable.dragging {
-  transform: scale(1.05);
-  box-shadow: 0 15px 30px rgb(0 0 0 / 30%);
+ text-align: center;
+ align-content: center;
 }
 
 div.red{

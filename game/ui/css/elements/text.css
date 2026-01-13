@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+<<<<<<< head
 /* make text not "markable" */
 
 html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
@@ -7,9 +8,9 @@ html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
   -webkit-user-drag: none;
 }
 
-body {
-	font-family: 'VT323', monospace;
-}
+=======
+>>>>>>> 04833cb6 (x)
+
 
 h1, h2, h3, h4, p {
 	font-family: 'VT323', monospace;
@@ -23,21 +24,4 @@ h1 {
 p {
 	font-size: 30px;
 	color:black;
-}
-
-
-.pokemon-text {
-	width: 50%;
-	background-color: white;
-	color: black;
-	text-align: center;
-	padding: 20px;
-	font-size: 60px;
-	border: 2px solid black;
-	margin:10px;
-}
-
-.crossed {
-	color: grey;
-	text-decoration: line-through;
 }

@@ -5,7 +5,10 @@
 export class World {
 	constructor() {
 
-		Story.show(Viking)
+		Ui.overlay(Flex.container([
+			Html.p('Hei'),
+			Html.p('Hei'),
+		]))
 	}
 
 

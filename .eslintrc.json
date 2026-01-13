@@ -292,6 +292,7 @@
         "StopWatch": "readonly",
         "Store": "readonly",
         "Story": "readonly",
+        "StoryUi": "readonly",
         "StraightPath": "readonly",
         "Task": "readonly",
         "TextTyper": "readonly",
