@@ -5,7 +5,6 @@ export class World {
 		const player = new DynamicGameObject(new Position(8000, 6000))
 
 		this.PLAYER = null
-		this.allObjects = {}
 
 		Controller.control(player)
 		Camera.followInstantly(player)
@@ -16,17 +15,13 @@ export class World {
 		])
 
 		GridUi.mid.set(Html.button('new obj', () => {
-			for (const index in OtherConnectedSocketClients.ids) {
-				const clientId = OtherConnectedSocketClients.ids[index]
-				console.log(`linking object to client ${clientId}`)
-				const PLAYER = SyncedObject.link(clientId, 'PLAYER', { HP: 100 })
-				this.allObjects[ClientId] = PLAYER
-			}
-			console.log(`New Object Loaded ${JSON.stringify(this.allObjects)}`)
+			this.PLAYER = SyncedObject.link(ClientId, { HP: 100 })
+			console.log("New Object Created!")
 		}))
 
 		GridUi.bottom.set(Html.button('update obj', () => {
-			this.allObjects[ClientId].HP -= 1
+			this.PLAYER.HP -= 1
+			console.log(`My Player HP: ${this.PLAYER.HP}`)
 		}))
 
 		SocketClient.onClientMessage('UPDATE_CLIENTS_LIST', data => {
