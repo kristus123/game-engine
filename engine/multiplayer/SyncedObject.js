@@ -1,28 +1,17 @@
 export class SyncedObject {
-	static link(objectId, obj) {
-		let suppressSync = false
+    static link(targetClientId, objectId, obj) {
+        const proxy = ProxyObject(obj, (key, value) => {
+            SocketClient.sendToClient(objectId, targetClientId, {
+                fields: { [key]: value }
+            })
+        })
 
-		const proxy = ProxyObject(obj, (key, value) => {
-			if (suppressSync) return
+        SocketClient.onClientMessage(objectId, data => {
+            for (const key in data) {
+                proxy[key] = data[key]
+            }
+        })
 
-			for (const id of OtherConnectedSocketClients.ids) {
-				SocketClient.sendToClient('SYNC_OBJECT', id, {
-					objectId,
-					fields: { [key]: value }
-				})
-			}
-		})
-
-		SocketClient.onClientMessage('SYNC_OBJECT', data => {
-			if (!data.fields || data.objectId !== objectId) return
-
-			suppressSync = true
-			for (const key in data.fields) {
-				proxy[key] = data.fields[key]
-			}
-			suppressSync = false
-		})
-
-		return proxy
-	}
+        return proxy
+    }
 }

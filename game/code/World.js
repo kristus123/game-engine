@@ -15,7 +15,7 @@ export class World {
 		])
 
 		GridUi.mid.set(Html.button('new obj', () => {
-			this.PLAYER = SyncedObject.link(ClientId, { HP: 100 })
+			this.PLAYER = SyncedObject.link(OtherConnectedSocketClients.ids[0], ClientId, { HP: 100 })
 			console.log("New Object Created!")
 		}))
 
