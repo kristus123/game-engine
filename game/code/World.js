@@ -3,17 +3,10 @@
 
 export class World {
 	constructor() {
-		Dom.overlay([
-			Flex.column([
-				Html.p('hei'),
-				Html.div('white', [Html.p('hei')]),
-				Html.div('white', [Html.p('hei')]),
-			]),
-			Flex.row([
-				Html.div('white', [Html.p('hei')]),
-				Html.div('white', [Html.p('hei')]),
-			]),
-		])
+		GridUi.show()
+		console.log(Args.list("x", [1,2,3], `${1 + 1}`))
+		console.log(Args.string("x", [1,2,3]))
+		console.log(Args.number("x", [1,2,3], 6))
 	}
 
 

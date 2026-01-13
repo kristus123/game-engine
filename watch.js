@@ -48,7 +48,7 @@ watcher.on('all', (e, path) => {
 
 		currentId = RandomId()
 		idTimeout = null
-	}, 500)
+	}, 1000)
 })
 
 

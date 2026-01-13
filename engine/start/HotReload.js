@@ -16,7 +16,7 @@ export async function HotReload() {
 			Dom.swap(Html.p('Reloading'))
 			location.reload()
 		}
-	}, 500)
+	}, 1000)
 }
 
 
