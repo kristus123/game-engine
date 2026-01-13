@@ -45,3 +45,15 @@ div.big {
   transform: scale(1.05);
   box-shadow: 0 15px 30px rgb(0 0 0 / 30%);
 }
+
+div.red{
+  background-color: rgb(228 90 90 / 28.2%);
+}
+
+div.white{
+  background-color: rgb(159 188 232);
+  margin: 10px;
+  max-width: 100px;
+  max-height: 100px;
+  
+}
