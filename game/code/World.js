@@ -34,19 +34,6 @@ export class World {
 				})
 			])
 		}))
-		Ui.swap(Html.div('red', [
-			Html.p('test'),
-
-			Flex.container([
-				Html.p('Hei'),
-				Html.p('Hei'),
-				Html.p('Hei'),
-			])
-
-
-
-
-		]))
 	}
 
 
