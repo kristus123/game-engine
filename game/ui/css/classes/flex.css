@@ -1,19 +1,42 @@
-.flex-container {
+.flex-row {
   display: flex;
+  padding:20px;
   flex-flow: row wrap; /* row or column */       
   justify-content: center;     
   align-items: center;         
-  gap: 10px;
-  width: 100%;
-  height: 100vh;
+  gap: 40px;
+
+  /* width: 100%;
+  height: 100vh; */
   box-sizing: border-box;
 }
 
+.flex-column {
+  display: flex;
+  padding:20px;
+  flex-flow: column; /* row or column */       
+  justify-content: center;     
+  align-items: center;         
+  gap: 40px;
+
+  /* width: 100%;
+  height: 100vh; */
+  box-sizing: border-box;
+}
 
 .flex-item {
+    display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1 1 clamp(200px, 30%, 400px);
   box-sizing: border-box;
-  padding: 10px;
   background-color: #f0f0f0;
   text-align: center;
+}
+
+.flex-column {
+  align-items: stretch; /* stretch items horizontally */
+}
+
+.flex-item {
 }

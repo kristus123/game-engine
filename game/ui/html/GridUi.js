@@ -1,6 +1,6 @@
 export class GridUi {
 	static {
-		this.ui = Ui.overlay([
+		this.ui = Dom.overlay([
 			Html.div('grid', [
 				this.top = Html.div('grid-top'),
 				this.left = Html.div('grid-left'),

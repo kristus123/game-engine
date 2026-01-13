@@ -1,4 +1,4 @@
-export class Ui {
+export class Dom {
 
 	static swap(e) {
 		const newBody = document.createElement('body')
@@ -11,7 +11,7 @@ export class Ui {
 	static overlay(elements) {
 		const div = Html.div('overlay', Always.list(elements))
 
-		document.getElementById('ui_elements').appendChild(div)
+		document.body.appendChild(div)
 
 		return div
 	}
@@ -25,7 +25,7 @@ export class Ui {
 		e.style.top = `${position.y - 50}px`
 
 
-		document.getElementById('ui_elements').appendChild(e)
+		document.body.appendChild(e)
 
 		setTimeout(() => {
   			e.remove()
