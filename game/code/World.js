@@ -39,11 +39,6 @@ export class World {
 
 	update() {
 		this.localObjects.update()
-<<<<<<< Updated upstream
-=======
-		const x = Ui.floating(Html.p('Hei'), this.player.position)
-		Css.fadeIn(x)
->>>>>>> Stashed changes
 	}
 
 	draw(draw) {}
