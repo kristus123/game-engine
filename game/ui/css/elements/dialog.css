@@ -1,13 +1,9 @@
 dialog {
   background: transparent;
-<<<<<<< HEAD
-	border: none;HEADborder
-=======
-  border: none;borderborder
-  box-shadow: none;box-shadow
-  max-width:80%;
-  min-width:50%;
->>>>>>> 04833cb6 (x)
+	border: none;
+  box-shadow: none;
+	max-width:80%;
+	min-width:50%;
 }
 
 

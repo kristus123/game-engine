@@ -2,7 +2,4 @@
 
 join
 
-
-hey og hoo
-
 https://discord.gg/uPUGWsUt

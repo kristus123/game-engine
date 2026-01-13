@@ -1,15 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-<<<<<<< head
 /* make text not "markable" */
 
 html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
   user-select: none;         /* Standard */
   -webkit-user-drag: none;
 }
-
-=======
->>>>>>> 04833cb6 (x)
 
 
 h1, h2, h3, h4, p {
