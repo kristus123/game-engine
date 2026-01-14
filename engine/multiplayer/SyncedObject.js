@@ -1,6 +1,8 @@
 export class SyncedObject {
-    static link(targetClientId, objectId, obj) {
-        const proxy = ProxyObject(obj, (key, value) => {
+    static link(targetClientId, objectId, jsObject) {
+		objectId = "SYNCED_OBJECT" + objectId
+
+        const proxy = ProxyObject(jsObject, (key, value) => {
             SocketClient.sendToClient(objectId, targetClientId, {
                 fields: { [key]: value }
             })
