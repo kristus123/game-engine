@@ -296,6 +296,7 @@
         "Story": "readonly",
         "StoryUi": "readonly",
         "StraightPath": "readonly",
+        "SyncedObject": "readonly",
         "Task": "readonly",
         "TextTyper": "readonly",
         "TextTyperWithBackspaceEffect": "readonly",
