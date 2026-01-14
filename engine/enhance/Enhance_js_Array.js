@@ -107,7 +107,7 @@ export function Enhance_js_Array() {
 
 	Enhance(Array, 'assertLength', function (n) {
 		if (this.length != n) {
-			throw new Error("length mismash")
+			throw new Error('length mismash')
 		}
 		return this
 	})

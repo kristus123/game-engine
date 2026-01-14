@@ -47,7 +47,7 @@ export function Enhance_html() {
 		Html.append(this, elements)
 	})
 	Enhance(HTMLElement, 'addClass', function (className) {
-		this.classList.add(className);
+		this.classList.add(className)
 		return this
 
 	})

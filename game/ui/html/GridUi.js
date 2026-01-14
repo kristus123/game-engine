@@ -17,14 +17,15 @@ export class GridUi {
 	static hide() {
 		Html.hide(this.ui)
 	}
+
 	static x() {
 		this.grid.style.setProperty('--areas', `
 			"top top top"
 			"left mid right"
 			"bottom bottom bottom"
-		`);
+		`)
 
-		this.grid.style.setProperty('--rows', 'auto 1fr auto');
-		this.grid.style.setProperty('--cols', '1fr 1fr 1fr');
+		this.grid.style.setProperty('--rows', 'auto 1fr auto')
+		this.grid.style.setProperty('--cols', '1fr 1fr 1fr')
 	}
 }

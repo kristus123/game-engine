@@ -9,9 +9,10 @@ export class Assert {
 		AssertNotNull(v)
 		return v
 	}
+
 	static length(amount, list) {
 		if (list.length !== amount) {
-			throw new Error("xXx");
+			throw new Error('xXx')
   		}
 	}
 }

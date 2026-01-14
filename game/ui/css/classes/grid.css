@@ -5,7 +5,6 @@
   grid-template-areas: var(--areas);
   grid-template-rows: var(--rows);
   grid-template-columns: var(--cols);
-
   gap: 20px;
 }
 
