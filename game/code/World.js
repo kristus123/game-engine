@@ -1,0 +1,50 @@
+// ClientId(
+
+export class World {
+	constructor() {
+		const player = new DynamicGameObject(new Position(8000, 6000))
+
+		Controller.control(player)
+		Camera.followInstantly(player)
+
+		this.localObjects = new LocalObjects([
+			Sprite.snow(new Position(0, 0), 6),
+			Sprite.samurai(player.position, 0.5),
+		])
+
+		OtherConnectedSocketClients.onConnect = connectingClientId => {
+			console.log('client connected')
+			const player = SyncedObject.link(connectingClientId, 'PLAYER', { hp: 100 })
+
+			Dom.add(Html.button('damage person', () => {
+				player.hp -= 1
+				console.log(player.hp)
+			}))
+			console.log('all done')
+
+			setInterval(() => {
+				Dom.add(Html.p(player.hp))
+			}, 200)
+		}
+
+    	// WARNING! Hacky Code Ahead... PROCEED WITH CAUTION!!
+    	Dom.overlay([
+        	Html.div('audioRecordDiv', [
+            	Html.button('Record Audio', () => {
+                	AudioRecorder.startRecording(blob => {
+                    	Chat.sendAudioBlob('test123thisissupposedtobeclientId', blob)
+                	})
+            	}),
+            	Html.button('Stop Recording', () => {
+                	AudioRecorder.stopRecording()
+            	})
+        	])
+    	])
+	}
+
+
+	update() {
+	}
+
+	draw(draw) {}
+}
