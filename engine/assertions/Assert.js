@@ -7,6 +7,7 @@ export class Assert {
 
 	static value(v) {
 		AssertNotNull(v)
+		return v
 	}
 	static length(amount, list) {
 		if (list.length !== amount) {
