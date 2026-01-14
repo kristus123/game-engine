@@ -28,27 +28,28 @@ const watcher = chokidar.watch(['game', 'engine'], {
 watcher.on('all', (e, path) => {
 	console.log('changed', path)
 
+	if (e == 'unlink' || e == 'unlinkDir') {
+		console.log('rebuilding dist')
+		Files.deleteFolder('dist')
+
+		new Runner('build_tools/export_aseprite.js').start()
+	}
+
+	if (path.includes('.aseprite')) {
+		new Runner('build_tools/export_aseprite.js', [path]).start()
+	}
+
+	new Runner('build_tools/generate_dist.js', ['DEVELOPMENT']).start()
+
+
 	if (idTimeout) {
 		clearTimeout(idTimeout)
 	}
 
 	idTimeout = setTimeout(() => {
-		if (e == 'unlink' || e == 'unlinkDir') {
-			console.log('rebuilding dist')
-			Files.deleteFolder('dist')
-
-			new Runner('build_tools/export_aseprite.js').start()
-		}
-
-		if (path.includes('.aseprite')) {
-			new Runner('build_tools/export_aseprite.js', [path]).start()
-		}
-
-		new Runner('build_tools/generate_dist.js', ['DEVELOPMENT']).start()
-
 		currentId = RandomId()
 		idTimeout = null
-	}, 1000)
+	}, 500)
 })
 
 

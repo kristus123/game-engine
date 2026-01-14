@@ -1,5 +1,7 @@
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
+
+navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
 if ('serviceWorker' in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 }
@@ -17,8 +19,6 @@ document.body.addEventListener('touchmove', e => {
 	e.preventDefault()
 }, { passive: false })
 
-
-HotReload()
 
 Enhance_js_Array()
 Enhance_js_Object()
