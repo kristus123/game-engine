@@ -1,7 +1,11 @@
 export class Flex {
 
-	static container(elements) {
-		return Html.div('flex-container', elements.map(e => this.item([e])))
+	static row(elements) {
+		return Html.div('flex-row', elements.map(e => this.item([e])))
+	}
+
+	static column(elements) {
+		return Html.div('flex-column', elements.map(e => this.item([e])))
 	}
 
 	static item(elements) {

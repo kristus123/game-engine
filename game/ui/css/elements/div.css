@@ -1,8 +1,6 @@
 div {
  box-sizing: border-box;
  pointer-events: none; /* allow clicks to pass through */
- width:100%;
- height:100%;
  text-align: center;
  align-content: center;
 }
@@ -14,7 +12,4 @@ div.red{
 div.white{
   background-color: rgb(159 188 232);
   margin: 10px;
-  max-width: 100px;
-  max-height: 100px;
-  
 }

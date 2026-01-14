@@ -1,8 +1,11 @@
 .grid {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template: "left top top" 200px "left mid right" auto "left bottom bottom" auto / 200px 1fr 1fr;
+  grid-template-areas: var(--areas);
+  grid-template-rows: var(--rows);
+  grid-template-columns: var(--cols);
+
   gap: 20px;
 }
 
