@@ -1,5 +1,6 @@
 // ClientId(
 
+
 export class World {
 	constructor() {
 		const player = new DynamicGameObject(new Position(8000, 6000))
@@ -31,7 +32,6 @@ export class World {
 
 
 	update() {
-		this.localObjects.update()
 	}
 
 	draw(draw) {}

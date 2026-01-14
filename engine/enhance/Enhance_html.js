@@ -7,6 +7,13 @@ export function Enhance_html() {
 		Html.remove(this)
 	})
 
+	Enhance(HTMLElement, 'clear', function () {
+		while (this.firstChild) {
+			this.removeChild(this.firstChild)
+		}
+	})
+
+
 	Enhance(HTMLElement, 'show', function () {
 		Html.show(this)
 	})
@@ -35,4 +42,15 @@ export function Enhance_html() {
 	Enhance(HTMLElement, 'push', function (elements) {
 		Html.append(this, elements)
 	})
+
+	Enhance(HTMLElement, 'add', function (elements) {
+		Html.append(this, elements)
+	})
+	Enhance(HTMLElement, 'addClass', function (className) {
+		this.classList.add(className);
+		return this
+
+	})
 }
+
+

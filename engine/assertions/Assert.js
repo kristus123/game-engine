@@ -8,4 +8,9 @@ export class Assert {
 	static value(v) {
 		AssertNotNull(v)
 	}
+	static length(amount, list) {
+		if (list.length !== amount) {
+			throw new Error("xXx");
+  		}
+	}
 }

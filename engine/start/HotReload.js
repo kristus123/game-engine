@@ -13,7 +13,12 @@ export async function HotReload() {
 		const data = await response.json()
 		if (data.currentId !== currentId) {
 			localStorage.setItem('currentId', data.currentId)
+			Dom.swap(Html.p('Reloading'))
 			location.reload()
 		}
-	}, 500)
+	}, 1000)
 }
+
+
+
+
