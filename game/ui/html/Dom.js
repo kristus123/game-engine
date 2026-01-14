@@ -7,7 +7,7 @@ export class Dom {
 		document.body.parentNode.replaceChild(newBody, document.body)
 	}
 
-	static overlay(elements) {
+	static overlay(elements=[]) {
 		const div = Html.div('overlay', Always.list(elements))
 
 		document.body.appendChild(div)

@@ -2,42 +2,43 @@
 
 export class OtherConnectedSocketClients {
 	static {
-		this.ids = [] // todo rename to clientIds
+		this.clientIds = []
 
-		this.onConnect = null
-		this.onDisconnect = null
+		this.onConnectListener = new Listener()
+		this.onDisconnectListener = new Listener()
 	}
 
-	static listen(o) {
-		this.onConnect = Assert.value(o.onConnect)
-		this.onDisconnect = Assert.value(o.onDisconnect)
+	static register(callback) {
+		callback(this.onConnectListener.register, this.onDisconnectListener.register)
+	}
 
-		for (const id of this.ids) {
-			this.onConnect.onConnect(id)
+	static add(connectingClientId) {
+		if (this.clientIds.includes(clientId)) {
+			throw new Error('it should never be able to ADD itself twice')
+		}
+		else if (connectingClientId == ClientId) {
+			console.log('itself will never be added')
+		}
+		else {
+			this.clientIds.push(connectingClientId)
+			this.onConnectListener.run(connectingClientId)
 		}
 	}
 
-	static add(clientId) {
-		if (this.ids.missing(clientId) && clientId != ClientId) {
-			this.ids.push(clientId)
-
-			if (this.onConnect) {
-				this.onConnect(clientId)
-			}
+	static remove(disconnectingClientId) {
+		if (this.clientIds.missing(disconnectingClientId)) {
+			throw new Error('it should never be able to REMOVE itself twice')
 		}
-	}
-
-	static remove(clientId) {
-		if (this.ids.includes(clientId)) {
-			this.ids.remove(clientId)
-
-			if (this.onDisconnect) {
-				this.onDisconnect(clientId)
-			}
+		else if (disconnectingClientId == ClientId) {
+			console.log('itself will never be added')
+		}
+		else {
+			this.clientIds.remove(disconnectingClientId)
+			this.onDisconnectListener.run(disconnectingClientId)
 		}
 	}
 
 	static [Symbol.iterator]() {
-		return this.ids[Symbol.iterator]()
+		return this.clientIds[Symbol.iterator]()
 	}
 }
