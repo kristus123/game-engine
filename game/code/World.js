@@ -1,11 +1,8 @@
 // ClientId(
 
-
 export class World {
 	constructor() {
 		const player = new DynamicGameObject(new Position(8000, 6000))
-
-		this.PLAYER = null
 
 		Controller.control(player)
 		Camera.followInstantly(player)
@@ -15,19 +12,20 @@ export class World {
 			Sprite.samurai(player.position, 0.5),
 		])
 
-		GridUi.mid.set(Html.button('new obj', () => {
-			this.PLAYER = SyncedObject.link(OtherConnectedSocketClients.ids[0], ClientId, { HP: 100 })
-			console.log("New Object Created!")
-		}))
+		OtherConnectedSocketClients.onConnect = connectingClientId => {
+			console.log("client connected")
+			const player = SyncedObject.link(connectingClientId, "PLAYER", { hp: 100 })
 
-		GridUi.bottom.set(Html.button('update obj', () => {
-			this.PLAYER.HP -= 1
-			console.log(`My Player HP: ${this.PLAYER.HP}`)
-		}))
+			Dom.add(Html.button('damage person', () => {
+				player.hp -= 1
+				console.log(player.hp)
+			}))
+			console.log("all done")
 
-		SocketClient.onClientMessage('UPDATE_CLIENTS_LIST', data => {
-			console.log(`Logging From Game: ${JSON.stringify(data)}.`)
-		})
+			setInterval(() => {
+				Dom.add(Html.p(player.hp))
+			}, 200);
+		}
 	}
 
 

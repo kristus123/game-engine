@@ -5,7 +5,6 @@ export class Dom {
 
 		newBody.append(e)
 		document.body.parentNode.replaceChild(newBody, document.body)
-
 	}
 
 	static overlay(elements) {
@@ -14,6 +13,12 @@ export class Dom {
 		document.body.appendChild(div)
 
 		return div
+	}
+
+	static add(elements) {
+		for (const e of Always.list(elements)) {
+			document.body.appendChild(Html.div('overlay', e))
+		}
 	}
 
 	static floating(e, position) {
