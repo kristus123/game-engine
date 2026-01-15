@@ -1,30 +1,30 @@
 *, *::before, *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
-  user-select: none;         /* Standard */
-  -webkit-user-drag: none;
+	user-select: none;         /* Standard */
+	-webkit-user-drag: none;
 }
 
 body {
-	font-family: 'VT323', monospace;
+	font-family: "VT323", monospace;
 }
 
 
 html, body {
-  /* Disables pull-to-refresh but allows overscroll glow effects. */
-  overscroll-behavior-y: none;
+	/* Disables pull-to-refresh but allows overscroll glow effects. */
+	overscroll-behavior-y: none;
 }
 
 html {
-  overflow: hidden;
-  overscroll-behavior: none;
+	overflow: hidden;
+	overscroll-behavior: none;
 }
 
 body {
-  overscroll-behavior: none;
-  touch-action: pan-x pan-y;
+	overscroll-behavior: none;
+	touch-action: pan-x pan-y;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

@@ -3,12 +3,12 @@
 }
 
 @keyframes fadeOutOpacity {
-  from {
-    opacity: 1;
-  }
+	from {
+		opacity: 1;
+	}
 
-  to {
-    opacity: 0;
-  }
+	to {
+		opacity: 0;
+	}
 }
 

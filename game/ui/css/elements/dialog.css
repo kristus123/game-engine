@@ -1,7 +1,7 @@
 dialog {
-  background: transparent;
+	background: transparent;
 	border: none;
-  box-shadow: none;
+	box-shadow: none;
 	max-width:80%;
 	min-width:50%;
 }
@@ -9,8 +9,8 @@ dialog {
 
 dialog > div {
 	padding:100px;
-    border: none;
-  background-color: white;
+	border: none;
+	background-color: white;
 }
 
 
@@ -21,9 +21,9 @@ dialog > div {
 }
 
 dialog::backdrop {
-  opacity: 0.95;
-  background-color: transparent;
-  box-shadow: none;
-    border: none;
-backdrop-filter: blur(20px);
+	opacity: 0.95;
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+	backdrop-filter: blur(20px);
 }

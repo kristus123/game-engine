@@ -13,18 +13,18 @@ export class World {
 		])
 
 		OtherConnectedSocketClients.onConnect = connectingClientId => {
-			console.log("client connected")
-			const player = SyncedObject.link(connectingClientId, "PLAYER", { hp: 100 })
+			console.log('client connected')
+			const player = SyncedObject.link(connectingClientId, 'PLAYER', { hp: 100 })
 
 			Dom.add(Html.button('damage person', () => {
 				player.hp -= 1
 				console.log(player.hp)
 			}))
-			console.log("all done")
+			console.log('all done')
 
 			setInterval(() => {
 				Dom.add(Html.p(player.hp))
-			}, 200);
+			}, 200)
 		}
 	}
 
