@@ -1,7 +1,7 @@
 dialog {
-  background: transparent;
-border: none;
-  box-shadow: none;
+	background: transparent;
+	border: none;
+	box-shadow: none;
 
 	/* border-radius: 8px; */
 
@@ -21,8 +21,8 @@ border: none;
 
 dialog > div {
 	padding:100px;
-    border: none;
-  background-color: white;
+	border: none;
+	background-color: white;
 }
 
 
@@ -33,9 +33,9 @@ dialog > div {
 }
 
 dialog::backdrop {
-  opacity: 0.95;
-  background-color: transparent;
-  box-shadow: none;
-    border: none;
-backdrop-filter: blur(20px);
+	opacity: 0.95;
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+	backdrop-filter: blur(20px);
 }

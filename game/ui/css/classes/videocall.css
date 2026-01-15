@@ -1,40 +1,40 @@
 #videocallrtc{
 	position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+	top: 10px;
+	left: 50%;
+	transform: translateX(-50%);
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-    justify-content: center;
-    gap: 10px;
+	justify-content: center;
+	gap: 10px;
 }
 
 #videocallrtc > div{
-    width: 100px;
-    border-radius: 10px;
-    overflow:hidden;
+	width: 100px;
+	border-radius: 10px;
+	overflow:hidden;
 }
 
 #videocallrtc > div > video{
-    width: 100px;
-    border-radius: 10px;
+	width: 100px;
+	border-radius: 10px;
 }
 
 #videocallrtc > div> h3{
-    position: absolute;
-    top: 0;
-    float: right;
-    color: transparent;
-    text-align: center;
-    width: 100px;
-    min-height: 100%;
-    margin: 0;
+	position: absolute;
+	top: 0;
+	float: right;
+	color: transparent;
+	text-align: center;
+	width: 100px;
+	min-height: 100%;
+	margin: 0;
 }
 
 #videocallrtc > div> h3:hover{
-    color: white;
-    background-color: #111d;
+	color: white;
+	background-color: #111d;
 }
 
 .GuestVideo{

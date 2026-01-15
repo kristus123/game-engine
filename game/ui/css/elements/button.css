@@ -4,7 +4,7 @@ button {
 	border-radius: 50px;
 	background-color: red; 
 	color: #fff; 
-	 pointer-events: auto; /* deny clicks to pass through */
+	pointer-events: auto; /* deny clicks to pass through */
 }
 
 button:hover {
@@ -12,12 +12,12 @@ button:hover {
 }
 
 button:disabled {
-  background-color: gray;
-  color: white;
-  opacity: 0.6;
-  cursor: default; /* Change to whatever you prefer */
+	background-color: gray;
+	color: white;
+	opacity: 0.6;
+	cursor: default; /* Change to whatever you prefer */
 }
 
 button:disabled:hover {
-  background-color: darkgray; /* Slight change on hover */
+	background-color: darkgray; /* Slight change on hover */
 }
