@@ -26,6 +26,20 @@ export class World {
 				Dom.add(Html.p(player.hp))
 			}, 200)
 		}
+
+		Dom.overlay([
+    		Html.div('audioRecordDiv', [
+        		Html.button('Record Audio', () => {
+            		Microphone.start()
+					console.log('recording...')
+        		}),
+        		Html.button('Stop Recording', () => {
+            		Microphone.stop(blob => {
+                		Chat.sendAudioBlob('test123thisissupposedtobeclientId', blob)
+            		})
+        		})
+    		])
+		])
 	}
 
 

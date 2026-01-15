@@ -15,7 +15,7 @@ export class ActionListener {
 			for (const c of this.oneTimeListeners[action]) {
 				c(data)
 				if (a.list(this.oneTimeListeners[action])) {
-					console.log("sex")
+					console.log('sex')
 				}
 			}
 		}
@@ -45,7 +45,7 @@ const x = new ActionListener()
 
 x.listenOnce('swag', v => {
 	console.log(v)
-	
+
 })
 
 x.trigger('swag', 1)

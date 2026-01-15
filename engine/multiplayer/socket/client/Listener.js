@@ -5,9 +5,9 @@ export class Listener {
 	}
 
 	trigger(...args) {
-		this.listeners.forEach(l => l(args));
+		this.listeners.forEach(l => l(args))
 
-		this.oneTimeListeners.forEach(l => l(args));
+		this.oneTimeListeners.forEach(l => l(args))
 		this.oneTimeListeners.clear()
 	}
 
