@@ -96,6 +96,10 @@ export function Enhance_js_Array() {
 		}
 	})
 
+	Enhance(Array, 'add', function (o) {
+		this.push(o)
+	})
+
 
 	Enhance(Array, 'assertNoNullElements', function () {
 		for (const c of this) {
@@ -110,6 +114,10 @@ export function Enhance_js_Array() {
 			throw new Error('length mismash')
 		}
 		return this
+	})
+
+	Enhance(Array, 'clear', function () {
+		this.length = 0
 	})
 
 }
