@@ -4,13 +4,13 @@ export class SyncedObject {
 
 		const proxy = ProxyObject(jsObject, (key, value) => {
 			SocketClient.sendToClient(objectId, targetClientId, {
-    			fields: { [key]: value }
+				fields: { [key]: value }
 			})
 		})
 
 		SocketClient.onClientMessage(objectId, data => {
 			for (const key in data) {
-    			proxy[key] = data[key]
+				proxy[key] = data[key]
 			}
 		})
 
