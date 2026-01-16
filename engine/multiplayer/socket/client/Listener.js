@@ -15,12 +15,12 @@ export class Listener {
 	}
 
 	listen(callback) {
+		Assert.method(callback)
 		this.listeners.push(callback)
 	}
 
 	listenOnce(callback) {
-		console.log('asdasdasdasdasdasdadsad')
-		console.log(this.oneTimeListeners)
+		Assert.method(callback)
 		this.oneTimeListeners.push(callback)
 	}
 }
