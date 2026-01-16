@@ -12,7 +12,7 @@ Flask.route('uploadFile', (body, req) => {
 	
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
-		const filename = `audio_${Date.now()}.${ext}`
+		const filename = `test.${ext}`
 
 		FileDb.saveFile(filename, body)
 
