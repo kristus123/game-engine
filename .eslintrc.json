@@ -222,6 +222,7 @@
         "LinePathFinder": "readonly",
         "Link": "readonly",
         "ListLooper": "readonly",
+        "Listener": "readonly",
         "LoadAudio": "readonly",
         "LoadImage": "readonly",
         "LoadJson": "readonly",
