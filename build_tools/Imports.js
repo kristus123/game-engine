@@ -33,6 +33,7 @@ class Imports {
 		}
 		else if (
 			content.includes(`new ${className}`) ||
+			content.includes(`(${className})`) ||
 			// content.includes(`${className}`) || // causes bug
 			content.includes(`${className}.`) ||
 			content.includes(`${className}(`) ||

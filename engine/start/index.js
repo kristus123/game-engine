@@ -1,6 +1,4 @@
-Enhance_js_Array()
-Enhance_js_Object()
-Enhance_html()
+
 
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
