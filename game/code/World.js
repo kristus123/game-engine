@@ -36,7 +36,11 @@ export class World {
         		}),
         		Html.button('Stop Recording', () => {
             		Microphone.stop(blob => {
-                		Chat.sendAudioBlob('test123thisissupposedtobeclientId', blob)
+                		Chat.sendAudioBlob(blob)
+						Chat.getAudioBlob('test', blob => {
+							const url = URL.createObjectURL(blob)
+							console.log(url)
+						})
             		})
         		})
     		])

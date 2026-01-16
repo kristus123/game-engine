@@ -1,23 +1,22 @@
 export class Chat {
-	static {
-		this.db = new Db('audioDB', 'clips')
+	static sendAudioBlob(blob) {
+    	Base64.encode(blob, encodedBlob => {
+        	console.log(encodedBlob)
+
+			console.log(`Sending Audio To Server...`)
+			HttpClient.uploadFile({ data: encodedBlob }, res => {
+				console.log(`Server Response: ${JSON.stringify(res)}`)
+				console.log('sent!')
+			})
+    	})
 	}
 
-	static async sendAudioBlob(clientId, blob) {
-    	Base64.encode(blob, dataUrl => {
-        	console.log(dataUrl)
-    		this.db.save(clientId, dataUrl)
-    	})
-
-    	// Test Code Below -> Remove This In Production Please!
-    	this.db.get(clientId, dataUrlFromDb => {
-        	console.log(dataUrlFromDb)
-        	const blobFromDb = Base64.decode(dataUrlFromDb)
-        	const url = URL.createObjectURL(blobFromDb)
-        	console.log(blobFromDb)
-        	console.log(url)
-    	})
-
-    	console.log('sent!')
+	static getAudioBlob(key, callback) {
+		console.log(`Getting Audio From Server...`)
+		
+		HttpClient.readFile({ filename: key }, res => {
+			console.log(`Server Response: ${JSON.stringify(res)}`)
+			callback(Base64.decode(res.data))
+		})
 	}
 }
