@@ -4,10 +4,15 @@ export class Listener {
 		this.oneTimeListeners = []
 	}
 
-	trigger(...args) {
+
+	trigger(args) {
 		this.listeners.forEach(l => l(args))
 
-		this.oneTimeListeners.forEach(l => l(args))
+		this.oneTimeListeners.forEach(l => {
+			console.log(l)
+			l(args)
+		})
+
 		this.oneTimeListeners.clear()
 	}
 
@@ -16,6 +21,9 @@ export class Listener {
 	}
 
 	listenOnce(callback) {
+		console.log('asdasdasdasdasdasdadsad')
+		console.log(this.oneTimeListeners)
 		this.oneTimeListeners.push(callback)
 	}
 }
+
