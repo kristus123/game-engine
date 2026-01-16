@@ -1,5 +1,11 @@
 export class SyncedObject {
 
+	static create(objectId, jsObject) {
+		return ProxyObject(jsObject, (key, value) => {
+			SocketClient.sendToAll(objectId, {[key]: value})
+		})
+	}
+
 	static link(targetClientId, objectId, onFirstTimeSync) {
 		const proxyObject = ProxyObject({})
 		function sync(data) { // temp method
