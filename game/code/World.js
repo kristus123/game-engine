@@ -2,7 +2,7 @@
 
 export class World {
 	constructor() {
-		Page.go(LandingPage)
+		SyncedObject.link('clientId_2', 'PLAYER')
 	}
 
 

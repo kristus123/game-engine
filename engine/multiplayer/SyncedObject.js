@@ -1,19 +1,26 @@
 export class SyncedObject {
-	static link(targetClientId, objectId, jsObject) {
-		objectId = 'SYNCED_OBJECT' + objectId + Random.uuid()
 
-		const proxy = ProxyObject(jsObject, (key, value) => {
-			SocketClient.sendToClient(objectId, targetClientId, {
-				fields: { [key]: value }
+	static link(targetClientId, objectId, onFirstTimeSync) {
+		const proxyObject = ProxyObject({})
+		function sync(data) { // temp method
+			data.forEach((key, value) => {
+				proxyObject[key] = value
 			})
+		}
+
+		SocketClient.onClientMessageFrom(targetClientId, objectId, data => {
+			sync(data)
 		})
 
-		SocketClient.onClientMessage(objectId, data => {
-			for (const key in data) {
-				proxy[key] = data[key]
-			}
+		SocketClient.onClientMessageFrom(targetClientId, objectId + '_FIRST_TIME_SYNC', data => {
+			sync(data)
+			onFirstTimeSync(proxyObject)
 		})
 
-		return proxy
+		SocketClient.sendToClient(targetClientId, 'REQUEST_FIRST_TIME_SYNC', {
+			objectId: objectId
+		})
+
 	}
+
 }
