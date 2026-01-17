@@ -46,4 +46,8 @@ export class SocketClient {
 	static onClientMessage(action, callback) {
 		this.clientActionListener.listen(action, callback)
 	}
+
+	static listen(action, callback) {
+		this.clientActionListener.listen(action, callback)
+	}
 }
