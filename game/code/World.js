@@ -5,8 +5,6 @@ export class World {
 		Page.go(LandingPage)
 	}
 
-
-
 	update() {
 	}
 
