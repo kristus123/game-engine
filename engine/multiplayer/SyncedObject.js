@@ -1,19 +1,22 @@
 export class SyncedObject {
-	static link(targetClientId, objectId, jsObject) {
-		objectId = 'SYNCED_OBJECT' + objectId + Random.uuid()
+	static me = {}
+	static others = {}
 
-		const proxy = ProxyObject(jsObject, (key, value) => {
-			SocketClient.sendToClient(objectId, targetClientId, {
-				fields: { [key]: value }
-			})
+	static create(key, obj) {
+		this.me[key] = ProxyObject(obj, (key, value) => {
+			
 		})
 
-		SocketClient.onClientMessage(objectId, data => {
-			for (const key in data) {
-				proxy[key] = data[key]
-			}
+		OtherConnectedSocketClients.onJoin(connectingClientId => {
+			SocketClient.sendToClient(connectingClientId, 'SYNCED_OBJECT' + key, obj)
 		})
 
-		return proxy
+		return this.me[key]
+	}
+
+	static link(key, jsObject) {
+		this.others[key] ??= []
+
+		this.others[key].add(jsObject)
 	}
 }
