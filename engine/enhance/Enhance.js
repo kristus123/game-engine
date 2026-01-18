@@ -14,5 +14,3 @@ export function Enhance(target, name, fn) {
 		})
 	}
 }
-
-
