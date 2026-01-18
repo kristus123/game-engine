@@ -11,7 +11,7 @@ function buildRequest(body) {
 		return {
 			method: 'POST',
 			headers: {
-				'Content-Type': body.type || 'application/octet-stream'
+				'Content-Type': 'application/octet-stream'
 			},
 			body
 		}
