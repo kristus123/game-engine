@@ -28,6 +28,13 @@ export class World {
 			}, 200)
 		}
 
+		SocketClient.onClientMessage('NEW_MESSAGE', (data) => {
+			Chat.getAudioBlob(`${data.key}`, blob => {
+				const url = URL.createObjectURL(blob)
+				console.log(url)
+			})
+		})
+
 		Dom.overlay([
     		Html.div('audioRecordDiv', [
         		Html.button('Record Audio', () => {
@@ -36,11 +43,7 @@ export class World {
         		}),
         		Html.button('Stop Recording', () => {
             		Microphone.stop(blob => {
-                		Chat.sendAudioBlob(blob)
-						Chat.getAudioBlob('test.webm', blob => {
-							const url = URL.createObjectURL(blob)
-							console.log(url)
-						})
+                		Chat.sendAudioBlob(OtherConnectedSocketClients.ids[0], blob)
             		})
         		})
     		])

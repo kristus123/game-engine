@@ -1,9 +1,14 @@
 export class Chat {
-	static sendAudioBlob(blob) {
+	static sendAudioBlob(clientId, blob) {
 		console.log(`Sending Audio To Server...`)
+
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
+
+			const filename = res.filename
+			console.log(`sending key: ${filename} to client: ${clientId}...`)
+			SocketClient.sendToClient('NEW_MESSAGE', clientId, {key: filename});
 		})
 	}
 

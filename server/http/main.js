@@ -5,14 +5,16 @@ Flask.route('uploadFile', (body, req) => {
 
 	const type = req.headers['content-type'] || ''
 
+	const key = crypto.randomUUID()
+
 	if (type.includes('application/json')) {
-		FileDb.saveFile('test', body) // TODO: Make Filename Random In Production.
-		return { status: 'server success' }
+		FileDb.saveFile(key, body)
+		return { status: 'server success', data: key }
 	}
 	
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
-		const filename = `test.${ext}`
+		const filename = `${key}.${ext}`
 
 		FileDb.saveFile(filename, body)
 
