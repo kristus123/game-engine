@@ -3,12 +3,14 @@ export class SyncedObject {
 	static others = {}
 
 	static create(key, obj) {
+		objectId = Random.uuid()
+
 		this.me[key] = ProxyObject(obj, (key, value) => {
 			
 		})
 
 		OtherConnectedSocketClients.onJoin(connectingClientId => {
-			SocketClient.sendToClient(connectingClientId, 'SYNCED_OBJECT' + key, obj)
+			SocketClient.sendToClient(connectingClientId, objectId, obj)
 		})
 
 		return this.me[key]
