@@ -1,9 +1,12 @@
 div {
 	box-sizing: border-box;
-	pointer-events: none; /* allow clicks to pass through */
+	pointer-events: auto; /* allow clicks to pass through */
 	text-align: center;
 	align-content: center;
+	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
 }
+
 
 div.red{
 	background-color: rgb(228 90 90 / 28.2%);

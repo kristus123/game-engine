@@ -21,11 +21,11 @@ export class GridUi {
 	static x() {
 		this.grid.style.setProperty('--areas', `
 			"top top top"
-			"left mid right"
+			"mid mid mid"
 			"bottom bottom bottom"
 		`)
 
-		this.grid.style.setProperty('--rows', 'auto 1fr auto')
+		this.grid.style.setProperty('--rows', '100px clamp(50px 300px 9000px) 100px')
 		this.grid.style.setProperty('--cols', '1fr 1fr 1fr')
 	}
 }

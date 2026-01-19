@@ -8,7 +8,7 @@
 }
 
 
-.overlay {
+.overlay { /* pass through clicks */
 	position: fixed;
 	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
 	pointer-events: none;

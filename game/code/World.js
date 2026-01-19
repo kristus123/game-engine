@@ -2,10 +2,11 @@
 
 export class World {
 	constructor() {
-		Page.go(LandingPage)
+		// LandingPage(
 	}
 
 	update() {
+		console.log(Mouse.hoveringHtmlElement)
 	}
 
 	draw(draw) {}
