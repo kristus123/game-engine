@@ -34,17 +34,28 @@ export class World {
 				console.log(url)
 			})
 		})
-
+		
+		ChatDb.listen_sync()
+		
 		Dom.overlay([
     		Html.div('audioRecordDiv', [
         		Html.button('Record Audio', () => {
             		Microphone.start()
 					console.log('recording...')
         		}),
-        		Html.button('Stop Recording', () => {
+        		
+				Html.button('Stop Recording', () => {
             		Microphone.stop(blob => {
-                		Chat.sendAudioBlob(OtherConnectedSocketClients.ids[0], blob)
+                		Chat.sendAudioBlob(blob)
             		})
+        		}),
+        		
+				Html.button('SyncDb', () => {
+					ChatDb.sync_with(OtherConnectedSocketClients.ids[0])
+        		}),
+
+				Html.button('CheckChatDb', () => {
+					console.log(ChatDb.all())
         		})
     		])
 		])

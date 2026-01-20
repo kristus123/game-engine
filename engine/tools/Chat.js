@@ -1,5 +1,19 @@
 export class Chat {
-	static sendAudioBlob(clientId, blob) {
+	static sendAudioBlob (blob) {
+		console.log(`Sending Audio To Server...`)
+
+		HttpClient.uploadFile(blob, res => {
+			console.log(`Server Response: ${JSON.stringify(res)}`)
+			console.log('sent!')
+
+			const filename = res.filename
+			console.log(`saving key: ${filename}.`)
+			ChatDb.saveKey(filename)
+			console.log(ChatDb.all())
+		})
+	}
+
+	static sendAudioBlobToClient(clientId, blob) {
 		console.log(`Sending Audio To Server...`)
 
 		HttpClient.uploadFile(blob, res => {
