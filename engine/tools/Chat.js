@@ -1,3 +1,5 @@
+// ClientId(
+
 export class Chat {
 	static sendAudioBlob (blob) {
 		console.log(`Sending Audio To Server...`)
@@ -5,11 +7,7 @@ export class Chat {
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
-
-			const filename = res.filename
-			console.log(`saving key: ${filename}.`)
-			ChatDb.saveKey(filename)
-			console.log(ChatDb.all())
+			ChatDb.save(crypto.randomUUID, ClientId, "server", blob)
 		})
 	}
 
@@ -19,21 +17,22 @@ export class Chat {
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
-
-			const filename = res.filename
-			console.log(`sending key: ${filename} to client: ${clientId}...`)
-			SocketClient.sendToClient('NEW_MESSAGE', clientId, {key: filename});
+			SocketClient.sendToClient('NEW_MESSAGE', clientId, {key: clientId});
+			ChatDb.save(crypto.randomUUID, ClientId, clientId, blob)
 		})
 	}
 
 	static getAudioBlob(key, callback) {
 		console.log(`Getting Audio From Server...`)
 
-		HttpClient.readFile({ filename: key }, res => {
+		HttpClient.readFiles({ folder: key }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
-			const byteArray = new Uint8Array(res.data)
-			const blob = new Blob([byteArray], { type: 'audio/webm' })
-			callback(blob)
+			
+			for (const index in res) { 
+				const byteArray = new Uint8Array(res[index].data)
+				const blob = new Blob([byteArray], { type: 'audio/webm' })
+				callback(blob)
+			}
 		})
 	}
 }

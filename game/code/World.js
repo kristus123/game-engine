@@ -35,8 +35,6 @@ export class World {
 			})
 		})
 		
-		ChatDb.listen_sync()
-		
 		Dom.overlay([
     		Html.div('audioRecordDiv', [
         		Html.button('Record Audio', () => {
@@ -51,12 +49,11 @@ export class World {
         		}),
         		
 				Html.button('SyncDb', () => {
-					ChatDb.sync_with(OtherConnectedSocketClients.ids[0])
+					Chat.getAudioBlob(OtherConnectedSocketClients.ids[0], blob => {
+						const url = URL.createObjectURL(blob)
+						console.log(url)
+					})
         		}),
-
-				Html.button('CheckChatDb', () => {
-					console.log(ChatDb.all())
-        		})
     		])
 		])
 	}

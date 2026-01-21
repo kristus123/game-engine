@@ -1,3 +1,5 @@
+// ClientId(
+
 export const HttpClient = ProxyObject(
 	{}, (method, body = {}, callback = (body) => {}) => {
 		const request = buildRequest(body)
@@ -11,7 +13,8 @@ function buildRequest(body) {
 		return {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/octet-stream'
+				'Content-Type': 'application/octet-stream',
+				'X-Client-Id': ClientId
 			},
 			body
 		}
@@ -20,7 +23,8 @@ function buildRequest(body) {
 	return {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'X-Client-Id': ClientId
 		},
 		body: JSON.stringify(body ?? {})
 	}

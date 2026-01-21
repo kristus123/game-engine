@@ -1,40 +1,30 @@
-// ClientId(
-
 export class ChatDb {
 	static {
-		this.localChatKeys = []
+		this.hisotry = {}
 	}
 
-	static saveKey(uuid) {
+	static save(uuid, from, to, blob) {
 		AssertNotNull(uuid)
+		AssertNotNull(blob)
 
-		this.localChatKeys.push(uuid)
+		this.hisotry[uuid] = {
+			originClientId: from,
+			targetClientId: to,
+			audio: blob
+		}
+
+		return uuid
 	}
 
-	static all() {
-		return this.localChatKeys
+	static get(uuid, callback) {
+		callback(this.hisotry[uuid])
 	}
 
 	static delete(uuid) {
-		const index = this.localChatKeys.indexOf(uuid)
-		this.localChatKeys.splice(index)
+		delete this.hisotry[uuid]
 	}
 
-    static listen_sync() {
-        SocketClient.onClientMessage('SYNC_CHATDB', data => {
-            SocketClient.sendToClient('SYNC_RESPONSE', data.clientId, { keys: this.localChatKeys });
-        });
-    }
-
-    static sync_with(clientId) {
-        if (!clientId) return;
-
-        SocketClient.sendToClient('SYNC_CHATDB', clientId, { clientId: ClientId });
-
-        SocketClient.onClientMessage('SYNC_RESPONSE', data => {
-            console.log(`Sync Data: ${JSON.stringify(data)}`)
-			this.localChatKeys = data.keys
-            console.log("Sync complete.");
-        });
-    }
+	static all(callback) {
+		callback(this.hisotry)
+	}
 }

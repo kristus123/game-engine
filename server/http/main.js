@@ -4,17 +4,18 @@ import { Flask } from './Flask.js'
 Flask.route('uploadFile', (body, req) => {
 
 	const type = req.headers['content-type'] || ''
+	const clientId = req.headers['x-client-id']
 
 	const key = crypto.randomUUID()
 
 	if (type.includes('application/json')) {
-		FileDb.saveFile(key, body)
-		return { status: 'server success', data: key }
+		FileDb.saveFile(`${clientId}/${key}`, body)
+		return { status: 'server success' }
 	}
 	
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
-		const filename = `${key}.${ext}`
+		const filename = `${clientId}/${key}.${ext}`
 
 		FileDb.saveFile(filename, body)
 
@@ -29,6 +30,10 @@ Flask.route('uploadFile', (body, req) => {
 
 Flask.route('readFile', (body) => {
 	return FileDb.getFile(body.filename)
+})
+
+Flask.route('readFiles', (body) => {
+	return FileDb.getFilesInFolder(body.folder)
 })
 
 Flask.route('deleteFile', (body) => {

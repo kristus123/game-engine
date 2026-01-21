@@ -4,14 +4,14 @@ import path from 'path'
 export class FileDb {
 	static prefix = path.resolve('./fileDb')
 
-	static ensureFolderExists() {
-		if (!fs.existsSync(FileDb.prefix)) {
-			fs.mkdirSync(FileDb.prefix, { recursive: true })
+	static ensureFolderExists(folderName) {
+		if (!fs.existsSync(folderName)) {
+			fs.mkdirSync(folderName, { recursive: true })
 		}
 	}
 
 	static getFile(filePath) {
-		FileDb.ensureFolderExists()
+		FileDb.ensureFolderExists(FileDb.prefix)
 
 		const fullPath = path.join(FileDb.prefix, filePath)
 		if (!fs.existsSync(fullPath)) {
@@ -28,8 +28,36 @@ export class FileDb {
 		}
 	}
 
+	static getFilesInFolder(folderPath) {
+		FileDb.ensureFolderExists(FileDb.prefix)
+		
+		try {
+			const fullPath = path.join(FileDb.prefix, folderPath)
+ 			const files = fs.readdirSync(fullPath);
+			const fileArray = []
+
+  			console.log(`\nFiles in directory: ${folderPath}`);
+  			files.forEach(filename => {
+    			console.log(filename);
+				const file = FileDb.getFile(path.join(folderPath, filename))
+				fileArray.push(file)
+  			});
+
+			return fileArray
+		} catch (err) {
+  			console.error('Error reading directory synchronously:', err);
+			return []
+		}
+	}
+
 	static saveFile(filePath, data) {
-		FileDb.ensureFolderExists()
+		console.log("folder mode")
+		console.log(filePath)
+		const folderPath = filePath.split('/')
+		folderPath.pop()
+		console.log(folderPath)
+
+		FileDb.ensureFolderExists(path.join(FileDb.prefix, ...folderPath))
 
 		const fullPath = path.join(FileDb.prefix, filePath)
 		const tempPath = fullPath + '.tmp'
@@ -47,7 +75,7 @@ export class FileDb {
 	}
 
 	static deleteFile(filePath) {
-		FileDb.ensureFolderExists()
+		FileDb.ensureFolderExists(FileDb.prefix)
 
 		const fullPath = path.join(FileDb.prefix, filePath)
 		if (fs.existsSync(fullPath)) {
