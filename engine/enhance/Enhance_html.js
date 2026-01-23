@@ -46,11 +46,32 @@ export function Enhance_html() {
 	Enhance(HTMLElement, 'add', function (elements) {
 		Html.append(this, elements)
 	})
+
 	Enhance(HTMLElement, 'addClass', function (className) {
 		this.classList.add(className)
 		return this
-
 	})
+	Enhance(HTMLElement, 'removeClass', function (className) {
+		this.classList.remove(className)
+		return this
+	})
+
+	Enhance(HTMLElement, 'animate', function (className, onEnd) {
+		this.addClass(className)
+
+		this.addEventListener('animationstart', () => {
+		})
+
+		this.addEventListener('animationend', () => {
+			this.removeClass(className)
+
+			onEnd()
+		})
+
+		return this
+	})
+
+
 }
 
 
