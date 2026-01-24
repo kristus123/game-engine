@@ -83,7 +83,7 @@ export class Aseprite {
 	}
 
 
-	static tilemaps(srcFile, destBase) {
+	static tilemaps(srcFile) {
 		console.log("-----" + srcFile)
 		execFileSync(bin, [
 			'-b',

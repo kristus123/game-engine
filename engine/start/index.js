@@ -1,5 +1,3 @@
-
-
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
 
@@ -27,7 +25,7 @@ function loadAsepriteAssets(path) {
 
 	const fileName = path.split('/').pop()
 
-	if (!path.includes('_tilemaps.json')) {
+	if (!path.includes('Tilemaps.json')) {
 
 		const p1 = Promise.all([
 			LoadImage(`${path}Layers.png`),
@@ -46,8 +44,8 @@ function loadAsepriteAssets(path) {
 
 		return Promise.all([p1, p2])
 	}
-	else if (path.includes('_tilemaps.json')) {
-		const x = path.split('/').pop().replace('_tilemaps.json', '')
+	else if (path.includes('Tilemaps.json')) {
+		const x = path.split('/').pop().replace('Tilemaps.json', '')
 		console.log(path)
 		return LoadJson(path).then(json => {
 			if (json) {
