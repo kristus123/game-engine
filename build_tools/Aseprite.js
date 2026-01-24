@@ -84,13 +84,12 @@ export class Aseprite {
 
 
 	static tilemaps(srcFile, destBase) {
+		console.log("-----" + srcFile)
 		execFileSync(bin, [
 			'-b',
 			srcFile,
 			'--script',
 			'build_tools/aseprite_to_json.lua',
-			'--',
-			destBase + 'Tilemaps.json',
 		], { shell: true })
 	}
 }
