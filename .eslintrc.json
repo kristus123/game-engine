@@ -153,6 +153,7 @@
         "AudioSheet": "readonly",
         "BackspaceEffect": "readonly",
         "Base64": "readonly",
+        "Bind": "readonly",
         "Blur": "readonly",
         "BottomText": "readonly",
         "Bounce": "readonly",
