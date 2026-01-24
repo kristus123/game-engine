@@ -11,7 +11,7 @@ export class TileSheet {
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
 			const position = new Position(
 				(tileInfo.x) * Scale.value * asepriteTilesJson.width,
-				(tileInfo.y+2) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
+				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
 				asepriteTilesJson.width * Scale.value,
 				asepriteTilesJson.height * Scale.value
 			)
@@ -30,11 +30,10 @@ export class TileSheet {
 		}
 	}
 
-	draw(draw) {
+	update() {
 		for (const t of this.tiles) {
-			if (t.i == 4) {
-				// t.singleTile.draw(draw)
-				// draw.rectangle(t.position)
+			if (t.i == 1) {
+				D1.rectangle(t.position)
 			}
 		}
 	}
