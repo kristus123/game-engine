@@ -2,10 +2,11 @@
 
 export class World {
 	constructor() {
-		Page.go(LandingPage)
+
 	}
 
 	update() {
+		console.log(Position(10, 10))
 	}
 
 	draw(draw) {}

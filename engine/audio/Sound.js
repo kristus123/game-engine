@@ -1,8 +1,8 @@
 export class Sound {
 
 	static init() {
-		this._click = new AudioEngine(G.Audio.click)
-		this._placeDirt = new AudioEngine(G.Audio.placeDirt)
+		this._click = AudioEngine(G.Audio.click)
+		this._placeDirt = AudioEngine(G.Audio.placeDirt)
 	}
 
 	static click() {
@@ -14,11 +14,11 @@ export class Sound {
 	}
 
 	static get nya() {
-		return new AudioSheet(G.Audio.nyaSheet)
+		return AudioSheet(G.Audio.nyaSheet)
 	}
 
 	static get sheet() {
-		return new AudioSheet(G.Audio.sheet)
+		return AudioSheet(G.Audio.sheet)
 	}
 
 	static playBlob(blob) {

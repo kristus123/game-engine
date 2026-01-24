@@ -15,12 +15,12 @@ export class Camera {
 			}
 		})
 
-		this.objectToFollow = new DynamicGameObject(new Position(0, 0, 1, 1), 1, 1)
+		this.objectToFollow = DynamicGameObject(Position(0, 0, 1, 1), 1, 1)
 
-		this.position = new Position(0, 0)
-		this.smoothPosition = new SmoothPosition(this.position, 0.01)
+		this.position = Position(0, 0)
+		this.smoothPosition = SmoothPosition(this.position, 0.01)
 
-		this.smoothZoom = new SmoothValue(1, 1, 0.5, 5)
+		this.smoothZoom = SmoothValue(1, 1, 0.5, 5)
 
 		Mouse.scrollIn = () => {
 			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue + 0.1, 0.2, 2)
@@ -30,8 +30,8 @@ export class Camera {
 			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue - 0.1, 0.2, 2)
 		}
 
-		this.anchoredPositions = new LocalObjects([
-			// new Anchor(Mouse.position, 1_000, 0.1),
+		this.anchoredPositions = LocalObjects([
+			// Anchor(Mouse.position, 1_000, 0.1),
 		])
 	}
 
@@ -83,7 +83,7 @@ export class Camera {
 	}
 
 	static p(p) { // Html.js hack
-		return new Position(
+		return Position(
 			(p.x - this.position.x) * this.zoom + this.offset.x,
 			(p.y - this.position.y) * this.zoom + this.offset.y
 		)
@@ -106,7 +106,7 @@ export class Camera {
 		const centerX = position.x + position.width / 2
 		const centerY = position.y + position.height / 2
 
-		this.follow(new Position(centerX, centerY))
+		this.follow(Position(centerX, centerY))
 
 	}
 

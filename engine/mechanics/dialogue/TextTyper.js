@@ -10,7 +10,7 @@ export class TextTyper {
 		this.textToType = this.textToType.toString()
 
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			OnTrue(() => this.text == this.textToType, () => {
 				setTimeout(() => {
 					this.completed = () => true

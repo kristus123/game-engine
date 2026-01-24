@@ -1,6 +1,6 @@
 export class GridTile {
 	constructor(pal, spr) {
-		this.grid = new Grid()
+		this.grid = Grid()
 		this.palette = pal
 		this.sprite = spr
 	}

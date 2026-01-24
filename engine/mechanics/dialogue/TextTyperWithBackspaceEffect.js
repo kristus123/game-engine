@@ -1,10 +1,10 @@
 export class TextTyperWithBackspaceEffect {
 	constructor(_text) {
 		this.completed = false
-		this.t = new TextTyper(_text)
+		this.t = TextTyper(_text)
 		this.t.onFinish = () => {
 			setTimeout(() => {
-				this.t = new BackspaceEffect(_text)
+				this.t = BackspaceEffect(_text)
 				this.t.onFinish = () => {
 					Call(this.onFinish)
 					this.completed = true

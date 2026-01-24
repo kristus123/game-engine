@@ -2,7 +2,7 @@ export class DynamicGameObject extends _GameObject {
 	constructor(position) {
 		super(position)
 
-		this.velocity = new Velocity(this, 0, 0)
+		this.velocity = Velocity(this, 0, 0)
 
 		Physics.apply(this)
 	}

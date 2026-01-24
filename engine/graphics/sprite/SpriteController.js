@@ -51,9 +51,9 @@ export class SpriteController extends StaticGameObject {
 			throw new Error('invalid default tag for .aseprite. idle must be present')
 		}
 
-		const stopWatch = new StopWatch().start()
+		const stopWatch = StopWatch().start()
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			OnTrue(() => stopWatch.time >= 100, () => {
 				if (this.type == 'show') {
 					// do nothing

@@ -33,7 +33,7 @@ function loadAsepriteAssets(path) {
 			LoadImage(`${path}Layers.png`),
 			LoadJson(`${path}Layers.json`),
 		]).then(([img, json]) => {
-			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, new AsepriteLayerJson(json))
+			G.SpriteLayers[fileName] = pos => SpriteLayers(pos, img, AsepriteLayerJson(json))
 		})
 
 		const p2 = Promise.all([
@@ -41,7 +41,7 @@ function loadAsepriteAssets(path) {
 			LoadJson(`${path}.json`),
 		]).then(([img, json]) => {
 			G.image[fileName] = img
-			Sprite[fileName] = (pos, scale) => new SpriteController(pos, img, new AsepriteJson(json), scale)
+			Sprite[fileName] = (pos, scale) => SpriteController(pos, img, AsepriteJson(json), scale)
 		})
 
 		return Promise.all([p1, p2])
@@ -65,7 +65,7 @@ function loadAsepriteTilemaps(path) {
 		path = path.replace('/game/assets/', '/game/assets/aseprite/')
 		return LoadJson(path).then(json => {
 			if (json) {
-				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
+				G.TileSheet[fileName] = new TileSheet(AsepriteTilesJson(json), G.image[fileName])
 			}
 		})
 	}
@@ -85,7 +85,7 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = new Draw(Camera.palette.ctx)
+		const draw = Draw(Camera.palette.ctx)
 
 		initD1(draw)
 
