@@ -46,6 +46,16 @@ function loadAsepriteAssets(path) {
 
 		return Promise.all([p1, p2])
 	}
+	else if (path.includes('_tilemaps.json')) {
+		const x = path.split('/').pop().replace('_tilemaps.json', '')
+		console.log(path)
+		return LoadJson(path).then(json => {
+			if (json) {
+				G.TileSheet[x] = new TileSheet(new AsepriteTilesJson(json), G.image[x])
+			}
+		})
+	}
+
 }
 
 function loadAllAudio() {
@@ -57,22 +67,8 @@ function loadAllAudio() {
 	))
 }
 
-function loadAsepriteTilemaps(path) {
-
-	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
-
-	if (path.includes('_tilemaps.json')) {
-		path = path.replace('/game/assets/', '/game/assets/aseprite/')
-		return LoadJson(path).then(json => {
-			if (json) {
-				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
-			}
-		})
-	}
-}
-
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)).then(() => Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps))),
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
 	loadAllAudio(),
 ])
 	.then(() => {

@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const SRC_DIR = path.join(__dirname, '../game/assets/aseprite')
-const DEST_BASE = path.join(__dirname, '../dist/game/assets')
+const DEST_BASE = path.join(__dirname, '../dist/game/assets/aseprite')
 
 function walk(dir, callback) {
 	fs.readdirSync(dir, { withFileTypes: true }).forEach(entry => {
