@@ -1,5 +1,6 @@
 /*
  * i don't like this code, it should be easy to do tile stuff, so there is room for improvement here
+ * rename to tilemaps or smt else
 */
 
 export class TileSheet {

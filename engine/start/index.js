@@ -22,38 +22,27 @@ document.body.addEventListener('touchmove', e => {
 
 
 function loadAsepriteAssets(path) {
+	console.log(path)
 
 	const fileName = path.split('/').pop()
 
-	if (!path.includes('Tilemaps.json')) {
-
-		const p1 = Promise.all([
-			LoadImage(`${path}Layers.png`),
-			LoadJson(`${path}Layers.json`),
-		]).then(([img, json]) => {
-			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, new AsepriteLayerJson(json))
-		})
-
-		const p2 = Promise.all([
-			LoadImage(`${path}.png`),
-			LoadJson(`${path}.json`),
-		]).then(([img, json]) => {
-			G.image[fileName] = img
-			Sprite[fileName] = (pos, scale) => new SpriteController(pos, img, new AsepriteJson(json), scale)
-		})
-
-		return Promise.all([p1, p2])
-	}
-	else if (path.includes('Tilemaps.json')) {
-		const x = path.split('/').pop().replace('Tilemaps.json', '')
-		console.log(path)
-		return LoadJson(path).then(json => {
-			if (json) {
-				G.TileSheet[x] = new TileSheet(new AsepriteTilesJson(json), G.image[x])
-			}
-		})
-	}
-
+	return Promise.all([
+		LoadImage(`${path}Layers.png`),
+		LoadJson(`${path}Layers.json`),
+		LoadImage(`${path}.png`),
+		LoadJson(`${path}.json`),
+		LoadJsonIfPresent(`${path}Tilemaps.json`),
+	]).then(([layersImage, layersJson, fullImage, fullJson, tilemapsJson]) => {
+		Sprite[fileName] = (pos, scale) => new SpriteController(
+			pos, 
+			fullImage, 
+			new AsepriteJson(fullJson),
+			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson)),
+			tilemapsJson 
+				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage) 
+				: false, 
+			scale)
+	})
 }
 
 function loadAllAudio() {
