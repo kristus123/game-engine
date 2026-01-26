@@ -4,16 +4,16 @@
 */
 
 export class TileSheet {
-	constructor(asepriteTilesJson, image) {
+	constructor(asepriteTilesJson, image, scale) {
 		this.tiles = []
 		this.tileTypes = {}
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
 			const position = Position(
-				(tileInfo.x) * Scale.value * asepriteTilesJson.width,
-				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
-				asepriteTilesJson.width * Scale.value,
-				asepriteTilesJson.height * Scale.value
+				(tileInfo.x) * Scale.value * asepriteTilesJson.width * scale,
+				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height * scale, // i have no idea why i must do +num, the error might also be elsewhere. somewhere somehow things are being offset
+				asepriteTilesJson.width * Scale.value * scale,
+				asepriteTilesJson.height * Scale.value * scale,
 			)
 
 			this.tileTypes[tileInfo.i] ??= {
@@ -33,7 +33,9 @@ export class TileSheet {
 	update() {
 		for (const t of this.tiles) {
 			if (t.i == 1) {
-				D1.rectangle(t.position)
+				if (Mouse.hovering(t.position)) {
+					D1.rectangle(t.position)
+				}
 			}
 		}
 	}

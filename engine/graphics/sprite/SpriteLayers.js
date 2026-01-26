@@ -1,5 +1,5 @@
 export class SpriteLayers extends StaticGameObject {
-	constructor(position, image, asepriteLayerJson) {
+	constructor(position, image, asepriteLayerJson, scale) {
 		super(position)
 
 		this.tags = {}

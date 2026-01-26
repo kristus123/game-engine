@@ -2,11 +2,15 @@
 
 export class World {
 	constructor() {
+		this.x = Sprite.snow(Position(-0,0), 7)
 		this.objects = [
-			this.player = DynamicGameObject(Position(0, 0)),
-			Sprite.snow(Position(-1000, -1000)),
+			this.x,
+			this.x.tilemaps,
+			this.player = DynamicGameObject(Position(8000, 8000)),
 			Sprite.player(this.player.position),
 		]
+
+		Camera.followInstantly(this.player)
 		Controller.control(this.player)
 	}
 

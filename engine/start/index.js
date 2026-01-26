@@ -33,15 +33,17 @@ function loadAsepriteAssets(path) {
 		LoadJson(`${path}.json`),
 		LoadJsonIfPresent(`${path}Tilemaps.json`),
 	]).then(([layersImage, layersJson, fullImage, fullJson, tilemapsJson]) => {
-		Sprite[fileName] = (pos, scale) => new SpriteController(
+		Sprite[fileName] = (pos, scale=1) => new SpriteController(
 			pos, 
 			fullImage, 
 			new AsepriteJson(fullJson),
-			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson)),
+			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
 			tilemapsJson 
-				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage) 
-				: false, 
-			scale)
+				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage, scale) 
+				: false
+			, 
+			scale,
+		)
 	})
 }
 
