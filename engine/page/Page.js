@@ -9,7 +9,7 @@ export class Page {
 
 	static go(page) {
 		this.pages.forEach((path, page) => {
-    		page.hide()
+			page.hide()
 		})
 		page.show()
 	}
