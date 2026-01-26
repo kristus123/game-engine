@@ -95,7 +95,15 @@ Promise.all([
 			mainPalette.apply(Camera.palette)
 		})
 	})
-	.catch(err => {
-		console.error('Image failed to load', err)
-		throw err
-	})
+.catch(e => {
+  console.error(e)
+
+  const err = e instanceof Error ? e : new Error(e)
+  const lines = (err.stack || "").split("\n")
+
+  Dom.swap(
+    lines.map(line => Html.p(line))
+  )
+
+  throw err
+})

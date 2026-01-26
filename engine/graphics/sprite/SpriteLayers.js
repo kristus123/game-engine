@@ -23,7 +23,7 @@ export class SpriteLayers extends StaticGameObject {
 			}
 
 			const sprite = {
-				position: Position(0, 0, width*Scale.vaue, height*Scale.vaue),
+				position: Position(0, 0, width*Scale.value, height*Scale.value),
 				x: x,
 				y: y,
 				width: width,
