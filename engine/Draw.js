@@ -53,14 +53,21 @@ export class Draw {
 		)
 	}
 
-	lightSource(p, radius) {
-		const gradient = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius)
-		gradient.addColorStop(0, 'rgba(255, 255, 255, 1)')
-		gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
+	lightSource(p, radius = 200) {
+		const g = this.ctx.createRadialGradient(
+			p.x, p.y, 0,
+			p.x, p.y, radius
+		)
 
-		this.ctx.fillStyle = gradient
-		this.ctx.fillRect(0, 0, Palette.width, Palette.height)
+		g.addColorStop(0, 'rgba(255, 210, 85, 1)')
+		g.addColorStop(1, 'rgba(249, 255, 137, 0)')
+
+		this.ctx.fillStyle = g
+		this.ctx.beginPath()
+		this.ctx.arc(p.x, p.y, radius, 0, Math.PI * 2)
+		this.ctx.fill()
 	}
+
 
 	curve(startPosition, controlPosition1, controlPosition2, endPosition) {
 		this.ctx.beginPath()
@@ -409,7 +416,7 @@ export class Draw {
 		const x = player.x + circleRadius * Math.cos(angle)
 		const y = player.y + circleRadius * Math.sin(angle)
 
-		this.circle(new Position(x, y), 10, 'red')
+		this.circle(Position(x, y), 10, 'red')
 	}
 
 	line(start, end) {

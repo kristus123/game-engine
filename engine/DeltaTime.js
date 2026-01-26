@@ -1,6 +1,6 @@
 export class DeltaTime {
 	static {
-		this.stopwatch = new StopWatch()
+		this.stopwatch = StopWatch()
 		this.lastTime = this.stopwatch.time
 		this.delta = 0
 	}

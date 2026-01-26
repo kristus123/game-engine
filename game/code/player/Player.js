@@ -2,7 +2,7 @@ export class Player extends DynamicGameObject {
 	constructor(position) {
 		super(position, 4000, 400)
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			this.sprite = G.Sprite.p2(this.position, 1),
 			this.jump = new Jump(this),
 

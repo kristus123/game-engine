@@ -7,7 +7,6 @@ export class LandingPage {
 
 		}))
 		Page.init(this, '/landingPage')
-
 	}
 
 	static show() {

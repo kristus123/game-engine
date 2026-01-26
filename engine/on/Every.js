@@ -1,6 +1,6 @@
 export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {}) {
 
-	const stopWatch = new StopWatch()
+	const stopWatch = StopWatch()
 
 	let totalRuns = 0
 

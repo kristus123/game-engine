@@ -1,7 +1,7 @@
 export class TurretNeeds {
 	constructor(turret) {
 		this.chokolate = false
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			Every(1_000, () => {
 			})
 		])

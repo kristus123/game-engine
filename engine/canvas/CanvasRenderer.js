@@ -1,8 +1,8 @@
-// const renderer = new CanvasRenderer()
-// const pos = new Position(0, 0, 10, 10)
-// renderer.draw.rectangle(new Position(50, 0, 1000, 1000))
+// const renderer = CanvasRenderer()
+// const pos = Position(0, 0, 10, 10)
+// renderer.draw.rectangle(Position(50, 0, 1000, 1000))
 // renderer.renderImageBitmap()
-// draw.imageBitmap(new Position(0,0), renderer.ib)
+// draw.imageBitmap(Position(0,0), renderer.ib)
 
 
 export class CanvasRenderer {
@@ -10,7 +10,7 @@ export class CanvasRenderer {
 		this.palette = Palette.fixedOffscreen(width, height)
 		this.ctx = this.palette.canvas.getContext('2d')
 
-		this.draw = new Draw(this.palette.ctx)
+		this.draw = Draw(this.palette.ctx)
 
 		this.ib = null
 	}

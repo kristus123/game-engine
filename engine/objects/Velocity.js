@@ -1,10 +1,10 @@
 export class Velocity {
 	constructor(object, _x=0, _y=0) {
-		this.position = new Position(0, 0)
+		this.position = Position(0, 0)
 	}
 
 	oppositePosition() {
-		return new Velocity(this.object, -this._x, -this._y)
+		return Velocity(this.object, -this._x, -this._y)
 	}
 
 	draw(draw) {
