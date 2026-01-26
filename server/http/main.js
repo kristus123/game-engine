@@ -1,8 +1,36 @@
 import { FileDb } from './FileDb.js'
 import { Flask } from './Flask.js'
+import webPush from 'web-push'
+
+const vapidKeys = webPush.generateVAPIDKeys()
+
+webPush.setVapidDetails(
+	'mailto:example@yourdomain.org',
+	vapidKeys.publicKey,
+	vapidKeys.privateKey
+)
+
+let subscription = null
+
+Flask.route('getVAPID', () => {
+	return { key: vapidKeys.publicKey }
+})
+
+Flask.route('subscribe', body => {
+	subscription = body.sub
+	return { status: 'server success' }
+})
+
+Flask.route('triggerNotification', body => {
+	webPush.sendNotification(subscription, JSON.stringify({
+		title: body.title,
+		body: body.body
+	}))
+
+	return { status: 'server success' }
+})
 
 Flask.route('uploadFile', (body, req) => {
-
 	const type = req.headers['content-type'] || ''
 
 	if (type.includes('application/json')) {

@@ -1,0 +1,34 @@
+export class PushClient {
+	static {
+		this.reg = null
+	}
+
+	static async register() {
+		this.reg = await navigator.serviceWorker.register('/sw-push.js')
+	}
+
+	static async subscribe(vapid) {
+		const existingSub = await this.reg.pushManager.getSubscription()
+
+		if (existingSub) {
+			existingSub.unsubscribe()
+		}
+
+		const subscription = await this.reg.pushManager.subscribe({
+			userVisibleOnly: true,
+			applicationServerKey: Uint8Array.fromBase64(vapid)
+		})
+
+		console.log(vapid)
+
+		HttpClient.subscribe({ sub: subscription }, res => {
+			console.log(res)
+		})
+	}
+
+	static push(title, body) {
+		HttpClient.triggerNotification({ title: title, body: body }, res => {
+			console.log(res)
+		})
+	}
+}

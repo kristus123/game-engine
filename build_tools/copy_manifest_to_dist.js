@@ -14,6 +14,7 @@ const mainFilename = process.argv[1]
 
 fs.copyFileSync('manifest.json', 'dist/manifest.json')
 fs.copyFileSync('sw.js', 'dist/sw.js')
+fs.copyFileSync('sw-push.js', 'dist/sw-push.js')
 
 const sw = Files.read('sw.js')
 	.replace('RANDOM_UUID', '"' + crypto.randomUUID() + '"')

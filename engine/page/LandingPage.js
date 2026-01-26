@@ -1,7 +1,7 @@
 export class LandingPage {
 	static {
 		this.dom = Dom.overlay(Html.button('This is landing page', () => {
-    		Page.go(OtherPage)
+			Page.go(OtherPage)
 		}))
 		Page.init(this, '/landingPage')
 
