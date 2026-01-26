@@ -25,7 +25,7 @@ export class GridPathFinder {
 		]
 
 		return directions
-			.map(d => new Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
+			.map(d => Position(position.x + d.x * this.gridSize, position.y + d.y * this.gridSize))
 			.filter(pos => !G.invisibleWalls.collides(pos) && G.walkableAreas.inside(pos))
 	}
 

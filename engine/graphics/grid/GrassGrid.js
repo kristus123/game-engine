@@ -1,7 +1,7 @@
 // TODO: Remove This Class After "GridMap.js" and "TileList.js" is fully implemented!
 export class GrassGrid {
 	constructor() {
-		this.grid = new Grid()
+		this.grid = Grid()
 
 		this.grassPalette = Palette.fixedOffscreen(4000, 4000)
 	}

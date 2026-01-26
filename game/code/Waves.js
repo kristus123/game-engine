@@ -1,6 +1,6 @@
 export class Waves {
 	constructor() {
-		new Quest([
+		Quest([
 			() => new class {
 				constructor() {
 

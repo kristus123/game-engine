@@ -1,16 +1,16 @@
 export class Monster extends DynamicGameObject {
 	constructor(paths, onKill=() => {}) {
-		super(new Position(677, -644, 100, 100), 10, 10)
+		super(Position(677, -644, 100, 100), 10, 10)
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			Init(this, {
-				sine: new Sine(100, 0.1),
-				hp: new Hp(this, () => {
+				sine: Sine(100, 0.1),
+				hp: Hp(this, () => {
 					this.onKill()
 					Money.increase(1)
 					this.removeFromLoop()
 				}),
-				path: new Path(this, paths),
+				path: Path(this, paths),
 				sprite: G.Sprite.enemy(this.position),
 			}),
 

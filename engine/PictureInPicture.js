@@ -1,6 +1,6 @@
 export class PictureInPicture {
 	constructor() {
-		this.position = new Position(200, 100, 400, 500)
+		this.position = Position(200, 100, 400, 500)
 	}
 
 	draw(draw) {

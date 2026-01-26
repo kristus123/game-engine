@@ -7,7 +7,7 @@ export class Motion {
 
 	start() {
 		this.value = this.startValue
-		this.elapsed = new StopWatch().start()
+		this.elapsed = StopWatch().start()
 		this.playing = true
 	}
 

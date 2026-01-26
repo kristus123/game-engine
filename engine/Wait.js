@@ -3,7 +3,7 @@
 export class Wait {
 
 	constructor(ms, onStart=() => {}) {
-		this.s = new StopWatch().start()
+		this.s = StopWatch().start()
 	}
 
 	completed() {

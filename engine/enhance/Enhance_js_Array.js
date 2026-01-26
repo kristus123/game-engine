@@ -119,5 +119,11 @@ export function Enhance_js_Array() {
 	Enhance(Array, 'clear', function () {
 		this.length = 0
 	})
+	Enhance(Array, 'update', function () {
+		for (const x of this) {
+			x.update()
+		}
+	})
+
 
 }

@@ -44,7 +44,7 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
-			draw: new Draw(ctx),
+			draw: Draw(ctx),
 			clear: () => {
 				ctx.clearRect(0, 0, Palette.width, Palette.height)
 			},
@@ -70,7 +70,7 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
-			draw: new Draw(ctx),
+			draw: Draw(ctx),
 			width: Palette.width,
 			height: Palette.height,
 			clear: () => {
@@ -94,7 +94,7 @@ export class Palette {
 		return {
 			canvas,
 			ctx,
-			draw: new Draw(ctx),
+			draw: Draw(ctx),
 			width: Palette.width,
 			height: Palette.height,
 

@@ -1,6 +1,6 @@
 export class Grid {
 	constructor(cellWidth = 16, cellHeight = 16) {
-		this.gridPositions = new GridPositions()
+		this.gridPositions = GridPositions()
 
 		this.cellWidth *= Scale.value
 		this.cellHeight *= Scale.value
@@ -68,7 +68,7 @@ export class Grid {
 	}
 
 	scaled(gridPosition) {
-		return new Position(
+		return Position(
 			gridPosition.x * this.cellWidth,
 			gridPosition.y * this.cellHeight,
 			this.cellWidth,

@@ -1,9 +1,12 @@
 export class Dom {
 
-	static swap(e) {
+	static swap(elements) {
 		const newBody = document.createElement('body')
 
-		newBody.append(e)
+		for (const e of Always.list(elements)) {
+			newBody.append(e)
+		}
+
 		document.body.parentNode.replaceChild(newBody, document.body)
 	}
 

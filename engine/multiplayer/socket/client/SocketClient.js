@@ -2,9 +2,9 @@
 
 export class SocketClient {
 	static {
-		this.clientActionListener = new ActionListener()
+		this.clientActionListener = ActionListener()
 
-		const serverActionListener = new ActionListener()
+		const serverActionListener = ActionListener()
 
 		serverActionListener.listen('UPDATE_CLIENTS_LIST', data => {
 			for (const clientId of data.clientIds) {

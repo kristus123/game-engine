@@ -1,6 +1,6 @@
 export class Noise {
 	constructor(position, size=10) {
-		this.simplexNoise = new SimplexNoise(0.001)
+		this.simplexNoise = SimplexNoise(0.001)
 
 		this.time = 0
 

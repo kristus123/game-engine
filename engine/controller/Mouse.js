@@ -2,14 +2,14 @@ export class Mouse {
 
 	static initialize() {
 
-		this.position = new Position(0, 0)
-		this.screenPosition = new Position(0, 0)
+		this.position = Position(0, 0)
+		this.screenPosition = Position(0, 0)
 
 		this.disabled = false
 
 		this.up = true
 		this.down = false
-		this.downStopWatch = new StopWatch()
+		this.downStopWatch = StopWatch()
 
 		this.onClick = null // can be set to a (p) => {}
 		this.onRightClick = null // can be set to a (p) => {}
@@ -23,7 +23,7 @@ export class Mouse {
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())
 
-		this.clickEvents = new ClickEvents()
+		this.clickEvents = ClickEvents()
 
 		this.holding = null
 		this.hoveringHtmlElement = false

@@ -2,14 +2,14 @@ export class Ally extends DynamicGameObject {
 	constructor(position) {
 		super(position, 100, 1000)
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			G.Sprite.ally(this.position),
-			this.sine = new Sine(1, 2, 0.05),
-			this.charge = new Charge(1, 100),
-			this.splash = new Splash(),
-			this.walkableAreas = new WalkableAreas(),
-			this.bounce = new Bounce(this),
-			this.linePathFinder = new LinePathFinder(this, G.player, this.walkableAreas)
+			this.sine = Sine(1, 2, 0.05),
+			this.charge = Charge(1, 100),
+			this.splash = Splash(),
+			this.walkableAreas = WalkableAreas(),
+			this.bounce = Bounce(this),
+			this.linePathFinder = LinePathFinder(this, G.player, this.walkableAreas)
 		])
 
 

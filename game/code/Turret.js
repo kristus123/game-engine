@@ -6,11 +6,11 @@ export class Turret extends DynamicGameObject {
 		this.position.height = 100
 
 
-		this.localObjects = new LocalObjects([
-			this.charge = new Charge(1, 10),
+		this.localObjects = LocalObjects([
+			this.charge = Charge(1, 10),
 			this.turretNeeds = new TurretNeeds(this),
 			G.Sprite.turret(this.position),
-			this.motion = new Motion(),
+			this.motion = Motion(),
 		])
 		this.motion.start()
 
@@ -30,7 +30,7 @@ export class Turret extends DynamicGameObject {
 		if (this.charge.ready && this.target) {
 			this.charge.exhaust()
 
-			const b = new Square(this.position.copy(), 10)
+			const b = Square(this.position.copy(), 10)
 
 			Sound.sheet.play(1)
 
