@@ -25,7 +25,11 @@ export class TileSheet {
 			this.tiles.push({
 				i: tileInfo.i,
 				position,
-				singleTile: this.tileTypes[tileInfo.i].singleTile(position)
+				singleTile: this.tileTypes[tileInfo.i].singleTile(position),
+				pixelPosition(x, y) {
+					return Position(position.x + (x*Scale.value*scale), position.y + (y*Scale.value*scale), Scale.value*scale, Scale.value*scale)
+					
+				},
 			})
 		}
 	}
@@ -33,8 +37,8 @@ export class TileSheet {
 	update() {
 		for (const t of this.tiles) {
 			if (t.i == 1) {
-				if (Mouse.hovering(t.position)) {
-					D1.rectangle(t.position)
+				if (Mouse.hovering(t.pixelPosition(1,4))) {
+					D1.rectangle(t.pixelPosition(1,4))
 				}
 			}
 		}
