@@ -1,6 +1,6 @@
 export class After {
 	constructor(intervalMs, action) {
-		this.stopWatch = new StopWatch().start()
+		this.stopWatch = StopWatch().start()
 	}
 
 	update() {

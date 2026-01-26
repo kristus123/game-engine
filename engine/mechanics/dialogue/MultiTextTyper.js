@@ -1,6 +1,6 @@
 export class MultiTextTyper {
 	constructor(position, texts, onFinish=() => {}) {
-		this.texts = texts.map(t => new TextTyperWithBackspaceEffect(t))
+		this.texts = texts.map(t => TextTyperWithBackspaceEffect(t))
 		this.index = 0
 
 		this.finished = false // rename to completed

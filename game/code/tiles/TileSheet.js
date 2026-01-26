@@ -9,7 +9,7 @@ export class TileSheet {
 		this.tileTypes = {}
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
-			const position = new Position(
+			const position = Position(
 				(tileInfo.x) * Scale.value * asepriteTilesJson.width,
 				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
 				asepriteTilesJson.width * Scale.value,
@@ -43,7 +43,7 @@ export class TileSheet {
 	}
 
 	touchesTurretTiles(position) {
-		return new Square(position, 10).touchesAny(this.turretTiles)
+		return Square(position, 10).touchesAny(this.turretTiles)
 	}
 
 	get enemyWalkTiles() {

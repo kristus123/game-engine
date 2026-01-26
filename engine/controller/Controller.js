@@ -1,7 +1,7 @@
 export class Controller {
 
 	static init() {
-		this.velocity = new Velocity(this)
+		this.velocity = Velocity(this)
 		this.disabled = false
 		this.objectToControl = null
 	}

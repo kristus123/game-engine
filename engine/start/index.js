@@ -68,7 +68,7 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = new Draw(Camera.palette.ctx)
+		const draw = Draw(Camera.palette.ctx)
 
 		initD1(draw)
 

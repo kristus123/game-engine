@@ -1,6 +1,6 @@
 export class BottomText {
 	constructor(texts) {
-		this.quest = new Quest(texts.map(t => () =>
+		this.quest = Quest(texts.map(t => () =>
 			new class {
 				constructor() {
 					Html.lower([
