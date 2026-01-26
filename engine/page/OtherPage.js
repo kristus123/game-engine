@@ -1,4 +1,4 @@
-export class OtherPage {
+export const OtherPage = Bind(class {
 	static {
 		this.dom = Dom.overlay(Html.button('This is Other Page'))
 		Page.init(this, '/landingPage')
@@ -12,4 +12,4 @@ export class OtherPage {
 	static hide() {
 		this.dom.hide()
 	}
-}
+})
