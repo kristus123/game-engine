@@ -2,11 +2,15 @@
 
 export class World {
 	constructor() {
+		this.x = Sprite.snow(new Position(0,0))
 
+		Camera.follow(Mouse.position)
 	}
 
 	update() {
-		console.log(Position(10, 10))
+		this.x.update()
+		//this.x.layers.update()
+		this.x.tilemaps.update()
 	}
 
 	draw(draw) {}

@@ -1,5 +1,3 @@
-
-
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
 
@@ -24,28 +22,27 @@ document.body.addEventListener('touchmove', e => {
 
 
 function loadAsepriteAssets(path) {
+	console.log(path)
 
 	const fileName = path.split('/').pop()
 
-	if (!path.includes('_tilemaps.json')) {
-
-		const p1 = Promise.all([
-			LoadImage(`${path}Layers.png`),
-			LoadJson(`${path}Layers.json`),
-		]).then(([img, json]) => {
-			G.SpriteLayers[fileName] = pos => SpriteLayers(pos, img, AsepriteLayerJson(json))
-		})
-
-		const p2 = Promise.all([
-			LoadImage(`${path}.png`),
-			LoadJson(`${path}.json`),
-		]).then(([img, json]) => {
-			G.image[fileName] = img
-			Sprite[fileName] = (pos, scale) => SpriteController(pos, img, AsepriteJson(json), scale)
-		})
-
-		return Promise.all([p1, p2])
-	}
+	return Promise.all([
+		LoadImage(`${path}Layers.png`),
+		LoadJson(`${path}Layers.json`),
+		LoadImage(`${path}.png`),
+		LoadJson(`${path}.json`),
+		LoadJsonIfPresent(`${path}Tilemaps.json`),
+	]).then(([layersImage, layersJson, fullImage, fullJson, tilemapsJson]) => {
+		Sprite[fileName] = (pos, scale) => new SpriteController(
+			pos, 
+			fullImage, 
+			new AsepriteJson(fullJson),
+			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson)),
+			tilemapsJson 
+				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage) 
+				: false, 
+			scale)
+	})
 }
 
 function loadAllAudio() {
@@ -57,22 +54,8 @@ function loadAllAudio() {
 	))
 }
 
-function loadAsepriteTilemaps(path) {
-
-	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
-
-	if (path.includes('_tilemaps.json')) {
-		path = path.replace('/game/assets/', '/game/assets/aseprite/')
-		return LoadJson(path).then(json => {
-			if (json) {
-				G.TileSheet[fileName] = new TileSheet(AsepriteTilesJson(json), G.image[fileName])
-			}
-		})
-	}
-}
-
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)).then(() => Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps))),
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
 	loadAllAudio(),
 ])
 	.then(() => {

@@ -44,18 +44,17 @@ export class SpriteLayers extends StaticGameObject {
 	}
 
 	update() {
-	}
-
-	draw(draw) {
 		this.forEachLayer((layer, spriteFrames) => {
 			const p = spriteFrames[0].position
 
-			if (layer == 'clouds') {
-				p.x -= 1
-			}
+			p.x -= Random.integerBetween(-1, 2) 
+			p.y -= Random.integerBetween(-1, 2) 
 
-			draw.sprite(p, spriteFrames[0], this.image)
+			D1.sprite(p, spriteFrames[0], this.image)
 
 		})
+	}
+
+	draw(draw) {
 	}
 }
