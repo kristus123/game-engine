@@ -1,4 +1,4 @@
-export class InvisibleWalls {
+export class Colliders {
 	constructor(positions) {
 
 		for (const p of positions) {
@@ -50,9 +50,9 @@ export class InvisibleWalls {
 		}
 	}
 
-	draw(draw) {
+	update() {
 		for (const p of this.positions) {
-			draw.transparentRedRectangle(p)
+			D1.transparentRedRectangle(p)
 		}
 	}
 
