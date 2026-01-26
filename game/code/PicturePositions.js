@@ -88,7 +88,7 @@ export class PicturePositions {
 				const yy = Math.round(minY * scale) + position.y
 				const width = Math.round((maxX - minX + 1) * scale)
 				const height = Math.round((maxY - minY + 1) * scale)
-				const pp = new Position(xx, yy, width, height)
+				const pp = Position(xx, yy, width, height)
 				pp.color = color
 				regionsForColor.push(pp)
 			}
@@ -112,7 +112,7 @@ export class PicturePositions {
 
 	draw(draw) {
 		if (this.ib) {
-			draw.imageBitmap(new Position(-2, -2), this.ib)
+			draw.imageBitmap(Position(-2, -2), this.ib)
 		}
 
 		for (const r of this.regions) {

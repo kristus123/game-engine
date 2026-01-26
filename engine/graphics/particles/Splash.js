@@ -7,7 +7,7 @@ export class Splash {
 		const size = Random.floatBetween(0.1, 10)
 
 		Iterate(20, () => {
-			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			const p = DynamicGameObject(Position(object.x, object.y, size, size), 20, 100)
 			p.pushTowards(object, 15)
 
 			p.life = 200
@@ -22,7 +22,7 @@ export class Splash {
 		Iterate(60, () => {
 			const size = Random.floatBetween(0.1, 10)
 
-			const p = new DynamicGameObject(new Position(object.x, object.y, size, size), 20, 100)
+			const p = DynamicGameObject(Position(object.x, object.y, size, size), 20, 100)
 			p.draw = (draw) => {
 				draw.rectangle(p, color)
 			}

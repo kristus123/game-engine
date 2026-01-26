@@ -1,6 +1,6 @@
 export class AudioDb {
 	static {
-		this.db = new Db('audioDB', 'clips')
+		this.db = Db('audioDB', 'clips')
 	}
 
 	static save(uuid, blob) {

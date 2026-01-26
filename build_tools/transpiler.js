@@ -7,7 +7,7 @@ if (!ENVIRONMENT) {
 	throw new Error('you need to include ENVIRONMENT when calling generate_dist.js')
 }
 
-
+import path from 'path'
 import Imports from './Imports.js'
 import Parameters from './Parameters.js'
 import Files from './Files.js'

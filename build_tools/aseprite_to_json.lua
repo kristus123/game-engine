@@ -48,11 +48,20 @@ if not sprite then
 end
 
 local outBase
+
 if sprite.filename and sprite.filename ~= "" then
-  outBase = sprite.filename:gsub("%.%w+$", "")
+  local path = sprite.filename:gsub("\\", "/")
+  local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
+
+  -- strip current working directory from absolute path
+  path = path:gsub("^" .. cwd .. "/?", "")
+  path = path:gsub("%.%w+$", "") -- remove extension
+
+  outBase = "dist/" .. path
 else
-  outBase = "aseprite_export"
+  outBase = "dist/aseprite_export"
 end
+
 
 local hasTilemap = false
 for _,layer in ipairs(sprite.layers) do
@@ -152,4 +161,4 @@ end
 table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
-write_file(outBase .. "_tilemaps.json", table.concat(json_parts, "\n"))
+write_file(outBase .. "Tilemaps.json", table.concat(json_parts, "\n"))
