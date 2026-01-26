@@ -3,8 +3,7 @@ const CACHE_NAME = 'v1ss'
 const FILES_TO_CACHE = [
 	'/',
 	'/manifest.json',
-	...['//home/Nabir14/code/game-engine/build_tools/Aseprite.js', '//home/Nabir14/code/game-engine/build_tools/Files.js', '//home/Nabir14/code/game-engine/build_tools/Imports.js', '//home/Nabir14/code/game-engine/build_tools/Parameters.js', '//home/Nabir14/code/game-engine/build_tools/RandomId.js', '//home/Nabir14/code/game-engine/build_tools/Runner.js', '//home/Nabir14/code/game-engine/build_tools/aseprite_to_json.lua', '//home/Nabir14/code/game-engine/build_tools/assert_unique_file_names.js', '//home/Nabir14/code/game-engine/build_tools/copy_manifest_to_dist.js', '//home/Nabir14/code/game-engine/build_tools/export_aseprite.js', '//home/Nabir14/code/game-engine/build_tools/generate_dist.js', '//home/Nabir14/code/game-engine/build_tools/js_files.js', '//home/Nabir14/code/game-engine/build_tools/reservedJsKeywords.js', '//home/Nabir14/code/game-engine/build_tools/transpiler.js', '//home/Nabir14/code/game-engine/build_tools/update_eslint.js', '//home/Nabir14/code/game-engine/build_tools/verify_no_reserved_clashes.js'].filter(f => !f.endsWith('.md'))
-]
+	...ALL_FILES.filter(f => !f.endsWith('.md'))]
 
 self.addEventListener('install', event => {
 	event.waitUntil(
