@@ -78,7 +78,7 @@ Promise.all([
 
 		initD1(draw)
 
-		Level.change(new World())
+		Level.change(new CoolApp())
 
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
@@ -90,7 +90,6 @@ Promise.all([
 				Controller.update()
 
 				Level.update()
-				Level.draw(draw) // deprecated
 
 				Mouse.update()
 			})
