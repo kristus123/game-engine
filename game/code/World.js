@@ -12,11 +12,15 @@ export class World {
 
 		Camera.followInstantly(this.player)
 		Controller.control(this.player)
+		OtherClients.onJoin(() => {
+			console.log('Somebody Joined')
+		})
 	}
 
 	update() {
 		this.objects.update()
 		D1.lightSource(Position(0, 0))
+
 	}
 
 	draw(draw) {}
