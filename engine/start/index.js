@@ -32,16 +32,20 @@ function loadAsepriteAssets(path) {
 		LoadImage(`${path}.png`),
 		LoadJson(`${path}.json`),
 		LoadJsonIfPresent(`${path}Tilemaps.json`),
-	]).then(([layersImage, layersJson, fullImage, fullJson, tilemapsJson]) => {
+	]).then(([layersImage,
+		layersJson,
+		fullImage,
+		fullJson,
+		tilemapsJson]) => {
 		Sprite[fileName] = (pos, scale=1) => new SpriteController(
-			pos, 
-			fullImage, 
+			pos,
+			fullImage,
 			new AsepriteJson(fullJson),
 			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
-			tilemapsJson 
-				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage, scale) 
+			tilemapsJson
+				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
 				: false
-			, 
+			,
 			scale,
 		)
 	})
@@ -97,15 +101,15 @@ Promise.all([
 			mainPalette.apply(Camera.palette)
 		})
 	})
-.catch(e => {
-  console.error(e)
+	.catch(e => {
+		console.error(e)
 
-  const err = e instanceof Error ? e : new Error(e)
-  const lines = (err.stack || "").split("\n")
+		const err = e instanceof Error ? e : new Error(e)
+		const lines = (err.stack || '').split('\n')
 
-  Dom.swap(
-    lines.map(line => Html.p(line))
-  )
+		Dom.swap(
+			lines.map(line => Html.p(line))
+		)
 
-  throw err
-})
+		throw err
+	})

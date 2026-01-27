@@ -2,7 +2,7 @@
 
 export class World {
 	constructor() {
-		this.x = Sprite.snow(Position(-0,0), 7)
+		this.x = Sprite.snow(Position(-0, 0), 7)
 		this.objects = [
 			this.x,
 			this.x.tilemaps,

@@ -1,6 +1,6 @@
 // ClientId(
 
-export class OtherConnectedSocketClients {
+export class OtherClients {
 	static {
 		this.ids = [] // todo rename to clientIds
 		this.onJoinListener = Listener()
