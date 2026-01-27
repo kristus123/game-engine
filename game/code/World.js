@@ -19,18 +19,14 @@ export class World {
 
 		this.objects = new LocalObjects([
 			this.snow = Sprite.snow(Position(0, 0), 7),
-			this.player = DynamicGameObject(Position(0, 0)),
-			Sprite.player(this.player.position),
+			this.player = DynamicGameObject(Position(600, 200)),
+			Sprite.samurai(this.player.position),
 			this.colliders = Colliders([]),
-			this.topTrees = [],
 		])
+			this.topTrees = this.snow.picture.copy()
+			this.topTrees.clear()
 
-		for (const t of this.snow.tilemaps.tiles) {
-			if (t.i == 1) {
-			}
-		}
-
-		Camera.followInstantly(Mouse.position)
+		Camera.followInstantly(this.player)
 		Controller.control(this.player)
 		OtherClients.onJoin(() => {
 			console.log('Somebody Joined')
@@ -38,7 +34,22 @@ export class World {
 
 		for (const t of this.snow.tilemaps.tiles) {
 			if (t.i == 1) {
-				this.snow.picture.setPixel(t.pp(3, 7))
+				const xxx = t.pixelPosition(3,7)
+				this.colliders.positions.add(xxx)
+				for(const p of [
+					{x: 2, y: 3},
+					{x: 4, y: 5},
+					{x: 3, y: 5},
+					{x: 4, y: 4},
+					{x: 2, y: 5},
+					{x: 3, y: 4},
+					{x: 2, y: 4},
+					{x: 3, y: 3},
+					{x: 4, y: 3},
+					{x: 3, y: 6},
+				]){
+					this.snow.picture.move(t.pp(p.x, p.y), this.topTrees)
+				}
 			}
 		}
 	}
@@ -47,6 +58,8 @@ export class World {
 		this.objects.update()
 		D1.lightSource(Position(0, 0))
 		this.colliders.enforce(this.player)
+		this.topTrees.draw()
+		this.colliders.update()
 	}
 
 	draw(draw) {}

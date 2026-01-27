@@ -8,7 +8,7 @@ export class Tilemap {
 			tileInfo.y += 0
 			const position = Position(
 				(tileInfo.x) * Scale.value * asepriteTilesJson.width * scale,
-				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height * scale, // i have no idea why i must do +num, the error might also be elsewhere. somewhere somehow things are being offset  ,aybe because of the height of the tilemaps that is set in aseprite
+				(tileInfo.y+0) * Scale.value * asepriteTilesJson.height * scale, // i have no idea why i must do +num, the error might also be elsewhere. somewhere somehow things are being offset  ,aybe because of the height of the tilemaps that is set in aseprite
 				asepriteTilesJson.width * Scale.value * scale,
 				asepriteTilesJson.height * Scale.value * scale)
 
