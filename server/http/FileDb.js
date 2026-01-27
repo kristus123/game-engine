@@ -36,26 +36,20 @@ export class FileDb {
  			const files = fs.readdirSync(fullPath);
 			const fileArray = []
 
-  			console.log(`\nFiles in directory: ${folderPath}`);
   			files.forEach(filename => {
-    			console.log(filename);
 				const file = FileDb.getFile(path.join(folderPath, filename))
 				fileArray.push(file)
   			});
 
 			return fileArray
 		} catch (err) {
-  			console.error('Error reading directory synchronously:', err);
-			return []
+  			throw new Error(`Error reading directory synchronously: ${err}`);
 		}
 	}
 
 	static saveFile(filePath, data) {
-		console.log("folder mode")
-		console.log(filePath)
 		const folderPath = filePath.split('/')
 		folderPath.pop()
-		console.log(folderPath)
 
 		FileDb.ensureFolderExists(path.join(FileDb.prefix, ...folderPath))
 
@@ -63,11 +57,9 @@ export class FileDb {
 		const tempPath = fullPath + '.tmp'
 
 		if (typeof data === 'object' && !(data instanceof Buffer)) {
-			// JSON object
 			fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8')
 		}
 		else {
-			// Buffer or string (binary/text file)
 			fs.writeFileSync(tempPath, data)
 		}
 

@@ -1,30 +1,26 @@
 export class ChatDb {
 	static {
-		this.hisotry = {}
+		this.db = new Db('chatDB', 'chats')
 	}
 
-	static save(uuid, from, to, blob) {
+	static save(uuid, blob) {
 		AssertNotNull(uuid)
 		AssertNotNull(blob)
 
-		this.hisotry[uuid] = {
-			originClientId: from,
-			targetClientId: to,
-			audio: blob
-		}
+		this.db.save(uuid, blob)
 
 		return uuid
 	}
 
 	static get(uuid, callback) {
-		callback(this.hisotry[uuid])
+		this.db.get(uuid, callback)
 	}
 
 	static delete(uuid) {
-		delete this.hisotry[uuid]
+		this.db.delete(uuid)
 	}
 
 	static all(callback) {
-		callback(this.hisotry)
+		this.db.all(entries => callback(entries.map(e => e.value)))
 	}
 }

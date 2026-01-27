@@ -4,24 +4,24 @@ import { Flask } from './Flask.js'
 Flask.route('uploadFile', (body, req) => {
 
 	const type = req.headers['content-type'] || ''
-	const clientId = req.headers['x-client-id']
-
-	const key = crypto.randomUUID()
+	
+	const senderId = req.headers['x-client-id']
+	const filename = crypto.randomUUID()
 
 	if (type.includes('application/json')) {
-		FileDb.saveFile(`${clientId}/${key}`, body)
+		FileDb.saveFile(`${senderId}/${filename}`, body)
 		return { status: 'server success' }
 	}
 	
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
-		const filename = `${clientId}/${key}.${ext}`
+		const path = `${senderId}/${filename}.${ext}`
 
-		FileDb.saveFile(filename, body)
+		FileDb.saveFile(path, body)
 
 		return {
 			status: 'server success (audio)',
-			filename
+			path
 		}
 	}
 

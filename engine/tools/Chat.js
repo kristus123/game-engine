@@ -7,7 +7,7 @@ export class Chat {
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
-			ChatDb.save(crypto.randomUUID, ClientId, "server", blob)
+			ChatDb.save(Random.uuid(), blob)
 		})
 	}
 
@@ -18,14 +18,14 @@ export class Chat {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
 			SocketClient.sendToClient('NEW_MESSAGE', clientId, {key: clientId});
-			ChatDb.save(crypto.randomUUID, ClientId, clientId, blob)
+			ChatDb.save(Random.uuid(), blob)
 		})
 	}
 
-	static getAudioBlob(key, callback) {
+	static getAudioBlob(folder, callback) {
 		console.log(`Getting Audio From Server...`)
 
-		HttpClient.readFiles({ folder: key }, res => {
+		HttpClient.readFiles({ folder: folder }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			
 			for (const index in res) { 
