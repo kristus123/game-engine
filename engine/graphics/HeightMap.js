@@ -1,7 +1,7 @@
 export class HeightMap {
 	constructor(position, scale) {
 		this.scale = scale
-		this.simplex = new SimplexNoise(0.001)
+		this.simplex = SimplexNoise(0.001)
 
 		this.positions = Positions.grid(this.position, this.scale).map(position => ({
 			position: position,

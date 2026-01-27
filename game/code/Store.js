@@ -3,7 +3,7 @@ export class Store {
 		this.turret = null
 
 		this.tileSheet = G.TileSheet.world,
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 
 			OnTrue(() => Keyboard.e, () => {
 				if (Money.moreThan(20)) {

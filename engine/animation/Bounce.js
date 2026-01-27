@@ -1,7 +1,7 @@
 export class Bounce {
 	constructor(object) {
-		this.localObjects = new LocalObjects([
-			this.motion = new Motion(),
+		this.localObjects = LocalObjects([
+			this.motion = Motion(),
 		])
 
 		this.motion.start()

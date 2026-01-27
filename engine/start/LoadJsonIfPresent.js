@@ -1,4 +1,4 @@
-export async function LoadJson(url) {
+export async function LoadJsonIfPresent(url) {
 	try {
 		const r = await fetch(url)
 
@@ -6,11 +6,10 @@ export async function LoadJson(url) {
 			return await r.json()
 		}
 		else {
-			throw new Error(`HTTP error! status: ${r.status}`)
+            return null
 		}
 	}
 	catch (e) {
 		throw new Error('Error loading JSON:', e)
 	}
 }
-

@@ -5,8 +5,8 @@ export class Position {
 		this._width = _width
 		this._height = _height
 
-		this.center = new CenterPosition(this, _width, _height)
-		this.screen = new ScreenPosition(this, _width, _height)
+		this.center = CenterPosition(this, _width, _height)
+		this.screen = ScreenPosition(this, _width, _height)
 
 		this._original = null // will be set on first scale()
 	}
@@ -38,11 +38,11 @@ export class Position {
 	}
 
 	copy(offset_x = 0, offset_y = 0) {
-		return new Position(this.x + offset_x, this.y + offset_y, this.width, this.height)
+		return Position(this.x + offset_x, this.y + offset_y, this.width, this.height)
 	}
 
 	offset(offset_x = 0, offset_y = 0, width = this.width, height = this.height) {
-		return new OffsetPosition(this, offset_x, offset_y, width, height)
+		return OffsetPosition(this, offset_x, offset_y, width, height)
 	}
 
 	over(y = 100) {
@@ -139,7 +139,7 @@ export class Position {
 	}
 
 	static from(jsonPosition) {
-		return new Position(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
+		return Position(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
 	}
 }
 

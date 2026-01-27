@@ -1,7 +1,7 @@
 export class PathFinder {
 	constructor(source, target, gridSize = 50) {
-		this.gridPathFinder = new GridPathFinder(gridSize)
-		this.linePathFinder = new LinePathFinder()
+		this.gridPathFinder = GridPathFinder(gridSize)
+		this.linePathFinder = LinePathFinder()
 
 
 		this.position = target
