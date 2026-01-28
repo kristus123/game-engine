@@ -15,6 +15,10 @@ export class WebSocketWrapper {
 		this.webSocket.onclose = () => {
 			this.onClose()
 		}
+
+		this.webSocket.onerror = () => {
+			this.onError()
+		}
 	}
 
 	static send(data) {
@@ -26,4 +30,7 @@ export class WebSocketWrapper {
 	static onOpen() {}
 	static onMessage(data) {}
 	static onClose() {}
+	static onError() {
+		console.error('Fail to Connect')
+	}
 }

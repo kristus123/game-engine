@@ -2,7 +2,7 @@
 
 export class World {
 	constructor() {
-		this.x = Sprite.snow(Position(-0,0), 7)
+		this.x = Sprite.snow(Position(-0, 0), 7)
 		this.objects = [
 			this.x,
 			this.x.tilemaps,
@@ -12,11 +12,15 @@ export class World {
 
 		Camera.followInstantly(this.player)
 		Controller.control(this.player)
+		OtherClients.onJoin(() => {
+			console.log('Somebody Joined')
+		})
 	}
 
 	update() {
 		this.objects.update()
 		D1.lightSource(Position(0, 0))
+
 	}
 
 	draw(draw) {}
