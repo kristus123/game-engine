@@ -3,8 +3,7 @@ const CACHE_NAME = 'v1ss'
 const FILES_TO_CACHE = [
 	'/',
 	'/manifest.json',
-	...ALL_FILES.filter(f => !f.endsWith('.md'))
-]
+	...ALL_FILES.filter(f => !f.endsWith('.md'))]
 
 self.addEventListener('install', event => {
 	event.waitUntil(
@@ -47,4 +46,3 @@ self.addEventListener('fetch', event => {
 		})
 	)
 })
-
