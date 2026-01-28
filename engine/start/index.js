@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
 document.body.addEventListener('touchmove', e => {
 	while (e.target && e.target !== document.body) {
 		if (e.target.classList && e.target.classList.contains('scroll')) {
-			// allow scroll
+			// allow scrollsp
 		}
 		else {
 			e.target = e.target.parentNode
@@ -39,11 +39,11 @@ function loadAsepriteAssets(path) {
 		tilemapsJson]) => {
 		Sprite[fileName] = (pos, scale=1) => new SpriteController(
 			pos,
-			fullImage,
+			Picture(fullImage),
 			new AsepriteJson(fullJson),
 			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
 			tilemapsJson
-				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
+				? new Tilemap(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
 				: false
 			,
 			scale,
@@ -78,7 +78,7 @@ Promise.all([
 
 		initD1(draw)
 
-		Level.change(new World())
+		Level.change(new CoolApp())
 
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
@@ -90,7 +90,6 @@ Promise.all([
 				Controller.update()
 
 				Level.update()
-				Level.draw(draw) // deprecated
 
 				Mouse.update()
 			})

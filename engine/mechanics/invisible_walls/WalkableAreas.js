@@ -1,8 +1,6 @@
 export class WalkableAreas {
 	constructor(buffer = 0) {
 		this.buffer = buffer
-
-		this.positions = G.TileSheet.world.turretTiles
 	}
 
 	add(p) {
