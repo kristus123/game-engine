@@ -1,18 +1,19 @@
 /*
  * i don't like this code, it should be easy to do tile stuff, so there is room for improvement here
+ * rename to tilemaps or smt else
 */
 
 export class TileSheet {
-	constructor(asepriteTilesJson, image) {
+	constructor(asepriteTilesJson, image, scale) {
 		this.tiles = []
 		this.tileTypes = {}
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
-			const position = new Position(
-				(tileInfo.x) * Scale.value * asepriteTilesJson.width,
-				(tileInfo.y+2) * Scale.value * asepriteTilesJson.height, // i have no idea why i must do +2, the error might also be elsewhere. somewhere somehow things are being offset
-				asepriteTilesJson.width * Scale.value,
-				asepriteTilesJson.height * Scale.value
+			const position = Position(
+				(tileInfo.x) * Scale.value * asepriteTilesJson.width * scale,
+				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height * scale, // i have no idea why i must do +num, the error might also be elsewhere. somewhere somehow things are being offset
+				asepriteTilesJson.width * Scale.value * scale,
+				asepriteTilesJson.height * Scale.value * scale,
 			)
 
 			this.tileTypes[tileInfo.i] ??= {
@@ -24,16 +25,21 @@ export class TileSheet {
 			this.tiles.push({
 				i: tileInfo.i,
 				position,
-				singleTile: this.tileTypes[tileInfo.i].singleTile(position)
+				singleTile: this.tileTypes[tileInfo.i].singleTile(position),
+				pixelPosition(x, y) {
+					return Position(position.x + (x*Scale.value*scale), position.y + (y*Scale.value*scale), Scale.value*scale, Scale.value*scale)
+
+				},
 			})
 		}
 	}
 
-	draw(draw) {
+	update() {
 		for (const t of this.tiles) {
-			if (t.i == 4) {
-				// t.singleTile.draw(draw)
-				// draw.rectangle(t.position)
+			if (t.i == 1) {
+				if (Mouse.hovering(t.pixelPosition(1, 4))) {
+					D1.rectangle(t.pixelPosition(1, 4))
+				}
 			}
 		}
 	}
@@ -43,7 +49,7 @@ export class TileSheet {
 	}
 
 	touchesTurretTiles(position) {
-		return new Square(position, 10).touchesAny(this.turretTiles)
+		return Square(position, 10).touchesAny(this.turretTiles)
 	}
 
 	get enemyWalkTiles() {

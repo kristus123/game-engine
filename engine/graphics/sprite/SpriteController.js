@@ -1,7 +1,7 @@
 // todo: this needs some comments for documentation because the api is so complex
 
 export class SpriteController extends StaticGameObject {
-	constructor(position, image, asepriteJson, scale=1) {
+	constructor(position, picture, asepriteJson, layers, tilemaps, scale=1) {
 		super(position)
 
 		this.position.width = asepriteJson.width * Scale.value * scale
@@ -51,9 +51,9 @@ export class SpriteController extends StaticGameObject {
 			throw new Error('invalid default tag for .aseprite. idle must be present')
 		}
 
-		const stopWatch = new StopWatch().start()
+		const stopWatch = StopWatch().start()
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			OnTrue(() => stopWatch.time >= 100, () => {
 				if (this.type == 'show') {
 					// do nothing
@@ -101,6 +101,7 @@ export class SpriteController extends StaticGameObject {
 
 		const frame = this.asepriteJson.tags[this.activeTag][this.currentFrame]
 
-		D1.sprite(this.position, frame, this.image)
+		//D1.sprite(this.position, frame, this.image)
+		this.picture.update(this.position, frame)
 	}
 }

@@ -1,9 +1,9 @@
 export class Rain {
 	constructor(position) {
-		this.localObjects = new LocalObjects()
+		this.localObjects = LocalObjects()
 
 		setInterval(() => {
-			const rainDrop = new Square(Random.positionWithin(position), 1)
+			const rainDrop = Square(Random.positionWithin(position), 1)
 
 			rainDrop.update = () => {
 				rainDrop.pushTowards(rainDrop.position.offset(0, 100), 0.1)

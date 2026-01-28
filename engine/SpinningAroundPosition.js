@@ -2,8 +2,8 @@ export class SpinningAroundPosition {
 	constructor(dynamicGameObject) {
 		this.angle = 0
 
-		this.cleanPosition = new Position()
-		this.position = new Position()
+		this.cleanPosition = Position()
+		this.position = Position()
 	}
 
 	update() {

@@ -10,8 +10,13 @@ setInterval(async () => {
 	const response = await fetch('/currentId')
 	const data = await response.json()
 	if (data.currentId !== currentId) {
+
 		localStorage.setItem('currentId', data.currentId)
+
 		Dom.swap(Html.p('Reloading'))
-		location.reload()
+
+		setTimeout(() => {
+			location.reload()
+		}, 200)
 	}
 }, 100)

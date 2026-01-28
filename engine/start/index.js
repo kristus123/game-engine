@@ -1,5 +1,3 @@
-
-
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
 
@@ -11,7 +9,7 @@ if ('serviceWorker' in navigator) {
 document.body.addEventListener('touchmove', e => {
 	while (e.target && e.target !== document.body) {
 		if (e.target.classList && e.target.classList.contains('scroll')) {
-			// allow scroll
+			// allow scrollsp
 		}
 		else {
 			e.target = e.target.parentNode
@@ -24,28 +22,33 @@ document.body.addEventListener('touchmove', e => {
 
 
 function loadAsepriteAssets(path) {
+	console.log(path)
 
 	const fileName = path.split('/').pop()
 
-	if (!path.includes('_tilemaps.json')) {
-
-		const p1 = Promise.all([
-			LoadImage(`${path}Layers.png`),
-			LoadJson(`${path}Layers.json`),
-		]).then(([img, json]) => {
-			G.SpriteLayers[fileName] = pos => new SpriteLayers(pos, img, new AsepriteLayerJson(json))
-		})
-
-		const p2 = Promise.all([
-			LoadImage(`${path}.png`),
-			LoadJson(`${path}.json`),
-		]).then(([img, json]) => {
-			G.image[fileName] = img
-			Sprite[fileName] = (pos, scale) => new SpriteController(pos, img, new AsepriteJson(json), scale)
-		})
-
-		return Promise.all([p1, p2])
-	}
+	return Promise.all([
+		LoadImage(`${path}Layers.png`),
+		LoadJson(`${path}Layers.json`),
+		LoadImage(`${path}.png`),
+		LoadJson(`${path}.json`),
+		LoadJsonIfPresent(`${path}Tilemaps.json`),
+	]).then(([layersImage,
+		layersJson,
+		fullImage,
+		fullJson,
+		tilemapsJson]) => {
+		Sprite[fileName] = (pos, scale=1) => new SpriteController(
+			pos,
+			Picture(fullImage),
+			new AsepriteJson(fullJson),
+			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
+			tilemapsJson
+				? new Tilemap(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
+				: false
+			,
+			scale,
+		)
+	})
 }
 
 function loadAllAudio() {
@@ -57,22 +60,8 @@ function loadAllAudio() {
 	))
 }
 
-function loadAsepriteTilemaps(path) {
-
-	const fileName = path.split('/').pop().replace('_tilemaps.json', '')
-
-	if (path.includes('_tilemaps.json')) {
-		path = path.replace('/game/assets/', '/game/assets/aseprite/')
-		return LoadJson(path).then(json => {
-			if (json) {
-				G.TileSheet[fileName] = new TileSheet(new AsepriteTilesJson(json), G.image[fileName])
-			}
-		})
-	}
-}
-
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)).then(() => Promise.all(ASEPRITE_FILES.map(loadAsepriteTilemaps))),
+	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
 	loadAllAudio(),
 ])
 	.then(() => {
@@ -85,11 +74,11 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = new Draw(Camera.palette.ctx)
+		const draw = Draw(Camera.palette.ctx)
 
 		initD1(draw)
 
-		Level.change(new World())
+		Level.change(new CoolApp())
 
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
@@ -101,7 +90,6 @@ Promise.all([
 				Controller.update()
 
 				Level.update()
-				Level.draw(draw) // deprecated
 
 				Mouse.update()
 			})
@@ -112,7 +100,15 @@ Promise.all([
 			mainPalette.apply(Camera.palette)
 		})
 	})
-	.catch(err => {
-		console.error('Image failed to load', err)
+	.catch(e => {
+		console.error(e)
+
+		const err = e instanceof Error ? e : new Error(e)
+		const lines = (err.stack || '').split('\n')
+
+		Dom.swap(
+			lines.map(line => Html.p(line))
+		)
+
 		throw err
 	})

@@ -3,7 +3,7 @@ export class Blur {
 		this.canvas = Camera.palette.canvas
 		this.ctx = Camera.palette.ctx
 
-		this.positions = Positions.grid(new Position(0, 0, 3000, 1000), 60).map(p => ({
+		this.positions = Positions.grid(Position(0, 0, 3000, 1000), 60).map(p => ({
 			position: p,
 			color: Random.choice(['white', 'grey']),
 		}))

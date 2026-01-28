@@ -2,56 +2,64 @@
 
 export class World {
 	constructor() {
+		this.x = Sprite.snow(Position(-0, 0), 7)
+		this.objects = [
+			this.x,
+			this.x.tilemaps,
+			this.player = DynamicGameObject(Position(8000, 8000)),
+			Sprite.player(this.player.position),
+		]
+		this.x = Sprite.snow(Position(-0,0), 7)
+		this.objects = [
+			this.x,
+			this.x.tilemaps,
+			this.player = DynamicGameObject(Position(8000, 8000)),
+			Sprite.player(this.player.position),
+		]
 
-		const player = new DynamicGameObject(new Position(8000, 6000))
-
-		Controller.control(player)
-		Camera.followInstantly(player)
-
-		this.localObjects = new LocalObjects([
-			Sprite.snow(new Position(0, 0), 6),
-			Sprite.samurai(player.position, 0.5),
+		this.objects = new LocalObjects([
+			this.snow = Sprite.snow(Position(0, 0), 7),
+			this.player = DynamicGameObject(Position(600, 200)),
+			Sprite.samurai(this.player.position),
+			this.colliders = Colliders([]),
 		])
+			this.topTrees = this.snow.picture.copy()
+			this.topTrees.clear()
 
-		OtherConnectedSocketClients.onConnect = connectingClientId => {
-			console.log('client connected')
-			const player = SyncedObject.link(connectingClientId, 'PLAYER', { hp: 100 })
+		Camera.followInstantly(this.player)
+		Controller.control(this.player)
+		OtherClients.onJoin(() => {
+			console.log('Somebody Joined')
+		})
 
-			Dom.add(Html.button('damage person', () => {
-				player.hp -= 1
-				console.log(player.hp)
-			}))
-			console.log('all done')
-
-			setInterval(() => {
-				Dom.add(Html.p(player.hp))
-			}, 200)
+		for (const t of this.snow.tilemaps.tiles) {
+			if (t.i == 1) {
+				const xxx = t.pixelPosition(3,7)
+				this.colliders.positions.add(xxx)
+				for(const p of [
+					{x: 2, y: 3},
+					{x: 4, y: 5},
+					{x: 3, y: 5},
+					{x: 4, y: 4},
+					{x: 2, y: 5},
+					{x: 3, y: 4},
+					{x: 2, y: 4},
+					{x: 3, y: 3},
+					{x: 4, y: 3},
+					{x: 3, y: 6},
+				]){
+					this.snow.picture.move(t.pp(p.x, p.y), this.topTrees)
+				}
+			}
 		}
-
-		Dom.overlay([
-    		Html.div('audioRecordDiv', [
-        		Html.button('Record Audio', () => {
-            		Microphone.start()
-					console.log('recording...')
-        		}),
-        		
-				Html.button('Stop Recording', () => {
-            		Microphone.stop(blob => {
-                		Chat.sendAudioBlob(blob)
-            		})
-        		}),
-        		
-				Html.button('SyncDb', () => {
-					Chat.getAudioBlob(OtherConnectedSocketClients.ids[0], blob => {
-						const url = URL.createObjectURL(blob)
-						console.log(url)
-					})
-        		}),
-    		])
-		])
 	}
 
 	update() {
+		this.objects.update()
+		D1.lightSource(Position(0, 0))
+		this.colliders.enforce(this.player)
+		this.topTrees.draw()
+		this.colliders.update()
 	}
 
 	draw(draw) {}

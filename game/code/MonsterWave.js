@@ -2,12 +2,12 @@ export class MonsterWave {
 	constructor(maxEnemies, onCompleted = () => {}) {
 		this.killed = 0
 
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 			OnTrue(() => this.completed(), () => {
 				onCompleted()
 			}),
 			Every(120, () => {
-				new Monster(G.TileSheet.world.enemyWalkTiles,
+				new Monster(G.x.world.enemyWalkTiles,
 					() => {
 						this.killed += 1
 						this.p.changeText(this.killed + '/' + this.maxEnemies)

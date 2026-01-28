@@ -1,10 +1,10 @@
 // ClientId(
 
-export class OtherConnectedSocketClients {
+export class OtherClients {
 	static {
 		this.ids = [] // todo rename to clientIds
-		this.onJoinListener = new Listener()
-		this.onLeaveListener = new Listener()
+		this.onJoinListener = Listener()
+		this.onLeaveListener = Listener()
 
 	}
 

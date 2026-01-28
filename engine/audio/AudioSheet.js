@@ -3,7 +3,7 @@ export class AudioSheet {
 		const beatsPerBar = 4 // todo try playing around with this number for fun
 		this.barDuration = (60 / bpm) * beatsPerBar
 
-		this.audioEngine = new AudioEngine(audioBuffer)
+		this.audioEngine = AudioEngine(audioBuffer)
 	}
 
 	stop() {

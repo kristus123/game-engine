@@ -9,12 +9,12 @@ export class ActionListener {
 	}
 
 	listen(action, callback) {
-		this.listeners[action] ??= new Listener()
+		this.listeners[action] ??= Listener()
 		this.listeners[action].listen(callback)
 	}
 
 	listenOnce(action, callback) {
-		this.listeners[action] ??= new Listener()
+		this.listeners[action] ??= Listener()
 		this.listeners[action].listenOnce(callback)
 	}
 }

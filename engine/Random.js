@@ -29,7 +29,7 @@ export class Random {
 		const x = Random.integerBetween(currentPosition.x - amount, currentPosition.x + amount)
 		const y = Random.integerBetween(currentPosition.y - amount, currentPosition.y + amount)
 
-		return new Position(x, y)
+		return Position(x, y)
 	}
 
 	static positionWithin(p) {
@@ -40,7 +40,7 @@ export class Random {
 		const randomX = Random.integerBetween(minX, maxX)
 		const randomY = Random.integerBetween(minY, maxY)
 
-		return new Position(randomX, randomY, 1, 1)
+		return Position(randomX, randomY, 1, 1)
 	}
 
 	static positions(minX, maxX, minY, maxY, amount) {

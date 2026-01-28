@@ -2,8 +2,7 @@ export class Store {
 	static init() {
 		this.turret = null
 
-		this.tileSheet = G.TileSheet.world,
-		this.localObjects = new LocalObjects([
+		this.localObjects = LocalObjects([
 
 			OnTrue(() => Keyboard.e, () => {
 				if (Money.moreThan(20)) {
@@ -11,7 +10,7 @@ export class Store {
 
 					this.turret = new Turret(Mouse.position.copy())
 					Mouse.onClick = p => {
-						if (this.tileSheet.touchesTurretTiles(p)) {
+						if (this.x.touchesTurretTiles(p)) {
 							Sound.click()
 
 							Money.subtract(20)
@@ -74,11 +73,11 @@ export class Store {
 			this.turret.position.xy(Mouse.position)
 			this.turret.draw(draw)
 
-			const valid = this.tileSheet.touchesTurretTiles(Mouse.position)
+			const valid = this.x.touchesTurretTiles(Mouse.position)
 			draw.color(this.turret, valid ? 'green': 'red')
 		}
 
-		this.tileSheet.draw(draw)
+		this.x.draw(draw)
 	}
 
 }

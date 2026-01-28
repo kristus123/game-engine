@@ -1,10 +1,12 @@
 export class LandingPage {
 	static {
 		this.dom = Dom.overlay(Html.button('This is landing page', () => {
-    		Page.go(OtherPage)
+			Page.go(OtherPage)
+		}).animate('fade-in', () => {
+			console.log('Animation finished')
+
 		}))
 		Page.init(this, '/landingPage')
-
 	}
 
 	static show() {
