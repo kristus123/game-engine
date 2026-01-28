@@ -4,6 +4,10 @@ export class a {
 		return typeof arg === 'string' || arg instanceof String
 	}
 
+	static integer(arg) {
+		return Number.isInteger(arg)
+	}
+
 	static number(arg) {
 		if (typeof arg === 'number' && !isNaN(arg)) {
 			return true

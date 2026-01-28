@@ -14,31 +14,26 @@ export class Splash {
 			p.color = Random.color()
 			this.particles.push(p)
 		})
+		return this
 
 	}
 
 	random(object, color='white') {
 
-		Iterate(60, () => {
+		Iterate(10, () => {
 			const size = Random.floatBetween(0.1, 10)
 
 			const p = DynamicGameObject(Position(object.x, object.y, size, size), 20, 100)
-			p.draw = (draw) => {
-				draw.rectangle(p, color)
-			}
 
 			p.pushTowards(Random.direction(object), Random.integerBetween(1, 5))
 
-			p.life = 20
+			p.life = 200
 			p.color = Random.color()
 			this.particles.push(p)
 		})
 	}
 
 	update() {
-	}
-
-	draw(draw) {
 		this.particles.forEach((p, index) => {
 			// p.x += p.velocity.x
 			// p.y += p.velocity.y
@@ -49,9 +44,9 @@ export class Splash {
 				this.particles.splice(index, 1)
 			}
 			else {
-				p.draw(draw)
+				D1.rectangle(p, p.color)
 			}
 		})
-
 	}
+
 }
