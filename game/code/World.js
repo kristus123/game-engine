@@ -8,7 +8,7 @@ export class World {
 			Html.div('pushTestDiv', [
 				Html.button('Subscribe', () => {
 					HttpClient.getVapidPublicKey({}, res => {
-						const vapid = Base64.validateString(res.publicKey)
+						const vapid = res.publicKey
 						PushClient.subscribe(vapid)
 					})
 				}),

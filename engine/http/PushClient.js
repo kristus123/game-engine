@@ -16,7 +16,7 @@ export class PushClient {
 
 		const subscription = await this.reg.pushManager.subscribe({
 			userVisibleOnly: true,
-			applicationServerKey: Uint8Array.fromBase64(vapid)
+			applicationServerKey: Uint8Array.fromBase64(vapid.replace(/-/g, '+').replace(/_/g, '/'))
 		})
 
 		HttpClient.subscribe({ subscription: subscription }, () => {})
