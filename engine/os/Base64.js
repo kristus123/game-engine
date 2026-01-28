@@ -1,4 +1,7 @@
 export class Base64 {
+	static validateString(string) {
+		return string.replace(/-/g, '+').replace(/_/g, '/')
+	}
 
 	static encode(blob, callback) {
 		const reader = new FileReader()
