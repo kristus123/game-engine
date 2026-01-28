@@ -78,7 +78,6 @@ Promise.all([
 
 		initD1(draw)
 
-		//Level.change(new CoolApp())
 		Level.change(new World())
 
 		Loop.everyFrame(deltaTime => {

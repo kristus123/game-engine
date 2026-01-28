@@ -1,8 +1,10 @@
 div {
 	box-sizing: border-box;
-	pointer-events: none; /* allow clicks to pass through */
+	pointer-events: auto; /* not sure what auto does */
 	text-align: center;
 	align-content: center;
+	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
 }
 
 div.red{
