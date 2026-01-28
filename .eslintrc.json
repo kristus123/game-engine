@@ -162,6 +162,7 @@
         "CanvasRenderer": "readonly",
         "CenterPosition": "readonly",
         "Charge": "readonly",
+        "Chat": "readonly",
         "ClickEvents": "readonly",
         "ClientId": "readonly",
         "Colliders": "readonly",
