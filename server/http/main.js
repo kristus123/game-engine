@@ -12,12 +12,12 @@ webPush.setVapidDetails(
 
 let subscription = null
 
-Flask.route('getVAPID', () => {
-	return { key: vapidKeys.publicKey }
+Flask.route('getVapidPublicKey', () => {
+	return { publicKey: vapidKeys.publicKey }
 })
 
 Flask.route('subscribe', body => {
-	subscription = body.sub
+	subscription = body.subscription
 	return { status: 'server success' }
 })
 

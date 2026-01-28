@@ -19,16 +19,10 @@ export class PushClient {
 			applicationServerKey: Uint8Array.fromBase64(vapid)
 		})
 
-		console.log(vapid)
-
-		HttpClient.subscribe({ sub: subscription }, res => {
-			console.log(res)
-		})
+		HttpClient.subscribe({ subscription: subscription }, () => {})
 	}
 
 	static push(title, body) {
-		HttpClient.triggerNotification({ title: title, body: body }, res => {
-			console.log(res)
-		})
+		HttpClient.triggerNotification({ title: title, body: body }, ()=> {})
 	}
 }

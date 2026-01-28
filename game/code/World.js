@@ -7,8 +7,8 @@ export class World {
 		Dom.overlay([
 			Html.div('pushTestDiv', [
 				Html.button('Subscribe', () => {
-					HttpClient.getVAPID({}, res => {
-						const vapid = res.key.replace(/-/g, '+').replace(/_/g, '/')
+					HttpClient.getVapidPublicKey({}, res => {
+						const vapid = res.publicKey.replace(/-/g, '+').replace(/_/g, '/')
 						PushClient.subscribe(vapid)
 					})
 				}),
