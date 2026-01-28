@@ -26,7 +26,8 @@ export function startCluster(services, onUpdateWorkers) {
 				}
 			})
 		}
-	} else {
+	}
+	else {
 		const serviceScript = process.env.SERVICE_SCRIPT
 		const serviceName = process.env.SERVICE_NAME
 
