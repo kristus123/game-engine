@@ -5,6 +5,7 @@ export class ActionListener {
 
 	trigger(action, data) {
 		this.listeners[action]?.trigger(data)
+
 	}
 
 	listen(action, callback) {
@@ -17,4 +18,3 @@ export class ActionListener {
 		this.listeners[action].listenOnce(callback)
 	}
 }
-
