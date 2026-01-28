@@ -30,20 +30,21 @@ export class FileDb {
 
 	static getFilesInFolder(folderPath) {
 		FileDb.ensureFolderExists(FileDb.prefix)
-		
+
 		try {
 			const fullPath = path.join(FileDb.prefix, folderPath)
- 			const files = fs.readdirSync(fullPath);
+ 			const files = fs.readdirSync(fullPath)
 			const fileArray = []
 
   			files.forEach(filename => {
 				const file = FileDb.getFile(path.join(folderPath, filename))
 				fileArray.push(file)
-  			});
+  			})
 
 			return fileArray
-		} catch (err) {
-  			throw new Error(`Error reading directory synchronously: ${err}`);
+		}
+		catch (err) {
+  			throw new Error(`Error reading directory synchronously: ${err}`)
 		}
 	}
 

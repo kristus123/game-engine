@@ -20,7 +20,7 @@ export class Flask {
 		app.use(express.json({
 			type: ['application/json']
 		}))
-		
+
 		app.use(express.raw({
 			type: ['audio/*', 'application/octet-stream'],
 		}))

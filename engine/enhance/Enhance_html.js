@@ -56,7 +56,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'animate', function (className, onEnd) {
+	Enhance(HTMLElement, 'animate', function (className, onEnd = () => {}) {
 		this.addClass(className)
 
 		this.addEventListener('animationstart', () => {
