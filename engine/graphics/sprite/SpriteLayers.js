@@ -47,8 +47,8 @@ export class SpriteLayers extends StaticGameObject {
 		this.forEachLayer((layer, spriteFrames) => {
 			const p = spriteFrames[0].position
 
-			p.x -= Random.integerBetween(-1, 2) 
-			p.y -= Random.integerBetween(-1, 2) 
+			p.x -= Random.integerBetween(-1, 2)
+			p.y -= Random.integerBetween(-1, 2)
 
 			D1.sprite(p, spriteFrames[0], this.image)
 

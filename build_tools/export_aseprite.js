@@ -23,7 +23,7 @@ function exportAseprite(relSrcFile, destBase) {
 		fs.mkdirSync(path.dirname(destBase), { recursive: true })
 	}
 
-	destBase = destBase.replaceAll(".aseprite", "")
+	destBase = destBase.replaceAll('.aseprite', '')
 
 	Aseprite.tags(relSrcFile, destBase)
 	Aseprite.groups(relSrcFile, destBase)
@@ -36,9 +36,10 @@ function exportAseprite(relSrcFile, destBase) {
 const editedFile = process.argv[2] || false
 
 if (editedFile) {
-	exportAseprite(editedFile, "dist/" + editedFile)
-} else {
+	exportAseprite(editedFile, 'dist/' + editedFile)
+}
+else {
 	walk('game/assets/aseprite', file => {
-		exportAseprite(file, "dist/" + file)
+		exportAseprite(file, 'dist/' + file)
 	})
 }

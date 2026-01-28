@@ -9,7 +9,7 @@ if ('serviceWorker' in navigator) {
 document.body.addEventListener('touchmove', e => {
 	while (e.target && e.target !== document.body) {
 		if (e.target.classList && e.target.classList.contains('scroll')) {
-			// allow scroll
+			// allow scrollsp
 		}
 		else {
 			e.target = e.target.parentNode
@@ -32,16 +32,20 @@ function loadAsepriteAssets(path) {
 		LoadImage(`${path}.png`),
 		LoadJson(`${path}.json`),
 		LoadJsonIfPresent(`${path}Tilemaps.json`),
-	]).then(([layersImage, layersJson, fullImage, fullJson, tilemapsJson]) => {
+	]).then(([layersImage,
+		layersJson,
+		fullImage,
+		fullJson,
+		tilemapsJson]) => {
 		Sprite[fileName] = (pos, scale=1) => new SpriteController(
-			pos, 
-			fullImage, 
+			pos,
+			Picture(fullImage),
 			new AsepriteJson(fullJson),
 			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
-			tilemapsJson 
-				? new TileSheet(new AsepriteTilesJson(tilemapsJson), fullImage, scale) 
+			tilemapsJson
+				? new Tilemap(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
 				: false
-			, 
+			,
 			scale,
 		)
 	})
@@ -74,7 +78,7 @@ Promise.all([
 
 		initD1(draw)
 
-		Level.change(new World())
+		Level.change(new CoolApp())
 
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
@@ -86,7 +90,6 @@ Promise.all([
 				Controller.update()
 
 				Level.update()
-				Level.draw(draw) // deprecated
 
 				Mouse.update()
 			})
@@ -97,15 +100,15 @@ Promise.all([
 			mainPalette.apply(Camera.palette)
 		})
 	})
-.catch(e => {
-  console.error(e)
+	.catch(e => {
+		console.error(e)
 
-  const err = e instanceof Error ? e : new Error(e)
-  const lines = (err.stack || "").split("\n")
+		const err = e instanceof Error ? e : new Error(e)
+		const lines = (err.stack || '').split('\n')
 
-  Dom.swap(
-    lines.map(line => Html.p(line))
-  )
+		Dom.swap(
+			lines.map(line => Html.p(line))
+		)
 
-  throw err
-})
+		throw err
+	})

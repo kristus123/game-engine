@@ -17,7 +17,14 @@ export class Flask {
 		Flask.server = http.createServer(app)
 		socketServer.start()
 
-		app.use(express.json())
+		app.use(express.json({
+			type: ['application/json']
+		}))
+		
+		app.use(express.raw({
+			type: ['audio/*', 'application/octet-stream'],
+		}))
+
 		app.use(cors())
 
 		app.post('/:path', (req, res) => {
