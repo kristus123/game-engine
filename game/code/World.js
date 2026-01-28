@@ -2,6 +2,7 @@
 
 export class World {
 	constructor() {
+		Page.go(LandingPage)
 		this.x = Sprite.snow(Position(-0, 0), 7)
 		this.objects = [
 			this.x,
