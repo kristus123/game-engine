@@ -8,8 +8,8 @@ export const Push = (o) => ({
 	towards: (position, multiplier=1) => {
 		const dir = Math.atan2(position.y - o.y, position.x - o.x)
 
-		o.velocity.x += Math.cos(dir) * 100 * multiplier
-		o.velocity.y += Math.sin(dir) * 100 * multiplier
+		o.velocity.x += (Math.cos(dir) * 100 * multiplier).round()
+		o.velocity.y += (Math.sin(dir) * 100 * multiplier).round()
 	},
 	roughlyTowards: (position, multiplier=1) => {
 		ForcePush(o).roughlyTowards(position, multiplier)

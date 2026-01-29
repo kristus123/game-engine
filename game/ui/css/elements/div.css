@@ -12,19 +12,17 @@ div.red{
 }
 
 div.white{
-	background-color: rgb(255, 255, 255);
+	background-color: rgb(255 255 255);
 	margin: 10px;
 }
 
 div.phone {
-  width: min(390px, 100vw);
-  height: min(844px, 100vh);
-
-  background: #111;
-  border-radius: 48px; /* big rounded / dot-like edges */
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.35),
-    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
-
-  margin: auto;
+	width: min(390px, 100vw);
+	height: min(844px, 100vh);
+	background: #111;
+	border-radius: 48px; /* big rounded / dot-like edges */
+	box-shadow:
+		0 20px 50px rgb(0 0 0 / 35%),
+		inset 0 0 0 2px rgb(255 255 255 / 5%);
+	margin: auto;
 }

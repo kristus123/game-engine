@@ -2,7 +2,6 @@
 
 export class World {
 	constructor() {
-		Page.go(LandingPage)
 		this.x = Sprite.snow(Position(-0, 0), 7)
 		this.objects = [
 			this.x,
@@ -10,7 +9,7 @@ export class World {
 			this.player = DynamicGameObject(Position(8000, 8000)),
 			Sprite.player(this.player.position),
 		]
-		this.x = Sprite.snow(Position(-0,0), 7)
+		this.x = Sprite.snow(Position(-0, 0), 7)
 		this.objects = [
 			this.x,
 			this.x.tilemaps,
@@ -23,9 +22,13 @@ export class World {
 			this.player = DynamicGameObject(Position(600, 200)),
 			Sprite.samurai(this.player.position),
 			this.colliders = Colliders([]),
+			Sprite.hamtaro(Position(0, 0), 2),
+			this.splash = Splash().towards(this.player),
+			this.xxx=Mouse.position.smooth(),
+
 		])
-			this.topTrees = this.snow.picture.copy()
-			this.topTrees.clear()
+		this.topTrees = this.snow.picture.copy()
+		this.topTrees.clear()
 
 		Camera.followInstantly(this.player)
 		Controller.control(this.player)
@@ -35,20 +38,20 @@ export class World {
 
 		for (const t of this.snow.tilemaps.tiles) {
 			if (t.i == 1) {
-				const xxx = t.pixelPosition(3,7)
+				const xxx = t.pixelPosition(3, 7)
 				this.colliders.positions.add(xxx)
-				for(const p of [
-					{x: 2, y: 3},
-					{x: 4, y: 5},
-					{x: 3, y: 5},
-					{x: 4, y: 4},
-					{x: 2, y: 5},
-					{x: 3, y: 4},
-					{x: 2, y: 4},
-					{x: 3, y: 3},
-					{x: 4, y: 3},
-					{x: 3, y: 6},
-				]){
+				for (const p of [
+					{ x: 2, y: 3 },
+					{ x: 4, y: 5 },
+					{ x: 3, y: 5 },
+					{ x: 4, y: 4 },
+					{ x: 2, y: 5 },
+					{ x: 3, y: 4 },
+					{ x: 2, y: 4 },
+					{ x: 3, y: 3 },
+					{ x: 4, y: 3 },
+					{ x: 3, y: 6 },
+				]) {
 					this.snow.picture.move(t.pp(p.x, p.y), this.topTrees)
 				}
 			}
@@ -56,11 +59,13 @@ export class World {
 	}
 
 	update() {
+		D1.circle(this.xxx.actualPosition)
 		this.objects.update()
 		D1.lightSource(Position(0, 0))
 		this.colliders.enforce(this.player)
 		this.topTrees.draw()
 		this.colliders.update()
+		//this.splash.random(this.player)
 	}
 
 	draw(draw) {}

@@ -7,7 +7,7 @@ export const HttpClient = ProxyObject(
 
 		promise.then(callback)
 	})
-	
+
 function buildRequest(body) {
 	if (isBinary(body)) {
 		return {
