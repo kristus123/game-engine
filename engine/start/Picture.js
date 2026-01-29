@@ -52,8 +52,8 @@ export class Picture {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 	}
 
-	erasePixel(p, w = 1, h = 1) {
-		this.ctx.clearRect(p.x, p.y, w, h)
+	erasePixel(p) {
+		this.ctx.clearRect(p.x, p.y, p.width, p.height)
 	}
 
 	pixelColor(p) {

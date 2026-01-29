@@ -1,20 +1,32 @@
 // todo: this needs some comments for documentation because the api is so complex
 
 export class SpriteController extends StaticGameObject {
-	constructor(position, picture, asepriteJson, layers, tilemaps, scale=1) {
+	constructor(position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
 		super(position)
+		this.picture = Picture(fullImage)
+		this.asepriteJson = new AsepriteJson(fullJson)
 
-		this.position.width = asepriteJson.width * Scale.value * scale
-		this.position.height = asepriteJson.height * Scale.value * scale
+		
+		this.layers = new SpriteLayers(
+			position, layersImage, new AsepriteLayerJson(layersJson), scale)	
+
+		if(tilemapsJson) {
+			this.tilemaps = new Tilemaps(
+				this, new AsepriteTilesJson(tilemapsJson), this.layers, scale)
+		}
+
+		this.position.width = this.asepriteJson.width * Scale.value * scale
+		this.position.height = this.asepriteJson.height * Scale.value * scale
 
 		this.currentFrame = 0
+		
 		this.tags = {}
 
 		this.type = 'loop'
 
 		this.onFinish = () => {}
 
-		for (let [tag, value] of Object.entries(asepriteJson.tags)) {
+		for (let [tag, value] of Object.entries(this.asepriteJson.tags)) {
 			this[tag] = {
 				play: (onFinish=() => {}) => {
 					this.currentFrame = 0

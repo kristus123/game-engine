@@ -1,9 +1,9 @@
 export class Tile {
-	constructor(index, position, layer, scale) {
+	constructor(index, position, picturePosition, layer, scale) {
 	}
 
 	erase() {
-    	this.layer.picture.setPixel(Position(2, 2))
+    	this.layer.picture.erasePixel(this.picturePosition)
 	}
 
 	pixelPosition(x, y) {

@@ -22,7 +22,7 @@ export class SpriteLayers extends StaticGameObject {
 				this.layers[layer] = []
 			}
 
-			const xxx = Position(0, 0, width*Scale.value, height*Scale.value)
+			const xxx = Position(x, y, width*Scale.value, height*Scale.value)
 			const sprite = {
 				position: xxx,
 				x: x,
@@ -39,7 +39,7 @@ export class SpriteLayers extends StaticGameObject {
 	}
 
 	forEachLayer(run) {
-		for (const [layer, spriteFrames] of Object.entries(this.layers).reverse()) {
+		for (const [layer, spriteFrames] of Object.entries(this.layers)) {
 			run(layer, spriteFrames)
 		}
 
@@ -47,13 +47,7 @@ export class SpriteLayers extends StaticGameObject {
 
 	update() {
 		this.forEachLayer((layer, spriteFrames) => {
-			if (layer == 'trees') {
-				const p = spriteFrames[0]
-				new Picture(this.image, p).draw()
-			}
+			console.log(spriteFrames[0].picture.draw())
 		})
-	}
-
-	draw(draw) {
 	}
 }

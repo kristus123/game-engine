@@ -1,31 +1,38 @@
 export class Tilemaps {
-	constructor(asepriteTilesJson, image, layers, scale) {
+	constructor(sprite, tilesJson, layers, scale) {
 		this.tiles = []
 
-		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
-			tileInfo.x += 0 // todo find out
+		for (const tileInfo of tilesJson.tilesForFrame(0)) {
+			// if there is no tile at 0x0 in aseprite, something strnage happens
+			tileInfo.x += 0
 			tileInfo.y += 0
 
 			const position = Position(
-				tileInfo.x * Scale.value * asepriteTilesJson.width * scale,
-				tileInfo.y * Scale.value * asepriteTilesJson.height * scale,
-				asepriteTilesJson.width * Scale.value * scale,
-				asepriteTilesJson.height * Scale.value * scale)
+				tileInfo.x * Scale.value * tilesJson.width * scale,
+				tileInfo.y * Scale.value * tilesJson.height * scale,
+				tilesJson.width * Scale.value * scale,
+				tilesJson.height * Scale.value * scale)
 
 
-			this.tiles.push(Tile(tileInfo.i, position, layers.layers.trees[0], scale))
+			this.tiles.push(Tile(
+				tileInfo.i, 
+				position, 
+				Position(
+					tileInfo.x * tilesJson.width, 
+					tileInfo.y * tilesJson.height,
+					tilesJson.width,
+					tilesJson.height),
+
+				layers.layers.trees[0], 
+				scale))
 		}
 	}
 
 	update() {
-		this.layers.layers.trees[0].picture.setPixel(Position(0, 0))
-		this.layers.layers.trees[0].picture.draw()
 		for (const t of this.tiles) {
-			if (t.index == 1) {
-				if (Mouse.hovering(t.position)) {
+			if (t.index == 1 && Mouse.hovering(t.position)) {
+				if (Mouse.down)
 					t.erase()
-					//D1.box(t.position)
-				}
 			}
 		}
 	}
