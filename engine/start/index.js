@@ -37,17 +37,21 @@ function loadAsepriteAssets(path) {
 		fullImage,
 		fullJson,
 		tilemapsJson]) => {
-		Sprite[fileName] = (pos, scale=1) => new SpriteController(
-			pos,
-			Picture(fullImage),
-			new AsepriteJson(fullJson),
-			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
-			tilemapsJson
-				? new Tilemap(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
-				: false
-			,
-			scale,
-		)
+		Sprite[fileName] = (position, scale=1) => {
+			const layers = new SpriteLayers(
+				position, layersImage, new AsepriteLayerJson(layersJson), scale)
+
+			return new SpriteController(
+				position,
+				Picture(fullImage),
+				new AsepriteJson(fullJson),
+				layers,
+				tilemapsJson
+					? new Tilemaps(new AsepriteTilesJson(tilemapsJson), fullImage, layers, scale)
+					: false
+				,
+				scale)
+		}
 	})
 }
 
