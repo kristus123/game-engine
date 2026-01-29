@@ -11,12 +11,12 @@ export class PushClient {
 		const existingSub = await this.reg.pushManager.getSubscription()
 
 		if (existingSub) {
-			existingSub.unsubscribe()
+			throw new Error("Subscription Exists Already!")
 		}
 
 		const subscription = await this.reg.pushManager.subscribe({
 			userVisibleOnly: true,
-			applicationServerKey: Uint8Array.fromBase64(vapid.replace(/-/g, '+').replace(/_/g, '/'))
+			applicationServerKey: Uint8Array.fromBase64(vapid)
 		})
 
 		HttpClient.subscribe({ subscription: subscription }, () => {})

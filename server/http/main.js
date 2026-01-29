@@ -13,7 +13,7 @@ webPush.setVapidDetails(
 let subscription = null
 
 Flask.route('getVapidPublicKey', () => {
-	return { publicKey: vapidKeys.publicKey }
+	return { publicKey: vapidKeys.publicKey.replace(/-/g, '+').replace(/_/g, '/') }
 })
 
 Flask.route('subscribe', body => {
