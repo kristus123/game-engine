@@ -142,10 +142,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	}
 
 	update() {
-	}
-
-	draw(draw) {
-		draw.rectangle(this)
+		D1.rectangle(this)
 	}
 
 }

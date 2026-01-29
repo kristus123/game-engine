@@ -1,7 +1,5 @@
 export class Position {
-	constructor(x, y, _width = 1, _height = 1) {
-		this.x = x
-		this.y = y
+	constructor(_x, _y, _width = 1, _height = 1) {
 		this._width = _width
 		this._height = _height
 
@@ -9,6 +7,24 @@ export class Position {
 		this.screen = ScreenPosition(this, _width, _height)
 
 		this._original = null // will be set on first scale()
+	}
+
+	get x() {
+		return this._x
+	}
+
+	get y() {
+		return this._y
+	}
+
+	set x(new_x) {
+		Assert.integer(new_x)
+		this._x = new_x
+	}
+
+	set y(new_y) {
+		Assert.integer(new_y)
+		this._y = new_y
 	}
 
 	// todo implement instead of using Camera.p
@@ -127,6 +143,10 @@ export class Position {
 
 	draw(draw) {
 		draw.rectangle(this)
+	}
+
+	smooth(smoothness = 0.1, snapThreshold = 1) {
+		return new SmoothPosition(this, smoothness, snapThreshold)
 	}
 
 	toJson() {

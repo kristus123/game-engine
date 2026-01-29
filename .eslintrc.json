@@ -191,6 +191,7 @@
         "Enhance_html": "readonly",
         "Enhance_js_Array": "readonly",
         "Enhance_js_Object": "readonly",
+        "Enhance_number": "readonly",
         "Every": "readonly",
         "EveryFrame": "readonly",
         "ExponentialNumber": "readonly",
