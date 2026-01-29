@@ -165,8 +165,8 @@ export class Mouse {
 	}
 
 	static positionRelativeToCamera(xx, yy) {
-		this.screenPosition.x = xx
-		this.screenPosition.y = yy
+		this.screenPosition.x = xx.round()
+		this.screenPosition.y = yy.round()
 
 		// Apply inverse transformations for translation and zoom
 		const inverseZoom = 1 / Camera.zoom
@@ -178,8 +178,8 @@ export class Mouse {
 				(yy - Camera.offset.y) * inverseZoom +
 				Camera.position.y
 
-		this.position.x = x
-		this.position.y = y
+		this.position.x = x.round()
+		this.position.y = y.round()
 
 		return this.position.copy()
 	}

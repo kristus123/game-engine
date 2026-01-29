@@ -18,11 +18,11 @@ export class Physics {
 			const frictionPerSecond = 0.9 // loses 10% per second
 			const decay = Math.pow(frictionPerSecond, deltaTime)
 
-			o.velocity.x *= decay
-			o.velocity.y *= decay
+			o.velocity.x *= decay.round()
+			o.velocity.y *= decay.round()
 
-			o.x += o.velocity.x * deltaTime
-			o.y += o.velocity.y * deltaTime
+			o.x += (o.velocity.x * deltaTime).round()
+			o.y += (o.velocity.y * deltaTime).round()
 
 			if (Math.abs(o.velocity.x) < 0.01) {
 				o.velocity.x = 0

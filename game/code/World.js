@@ -2,25 +2,28 @@
 
 export class World {
 	constructor() {
-		PushClient.register()
+		this.x = Sprite.snow(Position(-0, 0), 7)
+		this.objects = [
+			this.x,
+			this.x.tilemaps,
+			this.player = DynamicGameObject(Position(8000, 8000)),
+			Sprite.player(this.player.position),
+		]
 
-		Dom.overlay([
-			Html.div('pushTestDiv', [
-				Html.button('Subscribe', () => {
-					HttpClient.getVapidPublicKey({}, res => {
-						const vapid = res.publicKey
-						PushClient.subscribe(vapid)
-					})
-				}),
+		Camera.followInstantly(this.player)
+		Controller.control(this.player)
 
-				Html.button('Push Notification', () => {
-					PushClient.push('this is a title', 'this is body')
-				}),
-			])
-		])
+		this.p = Html.button('Good moning', () => {
+			this.p.remove()
+		})
+			.addToDom()
+			.floating()
 	}
 
-	update() {}
+	update() {
+		this.p.position(this.player)
+		this.objects.update()
+	}
 
 	draw(draw) {}
 }

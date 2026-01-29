@@ -51,12 +51,13 @@ export function Enhance_html() {
 		this.classList.add(className)
 		return this
 	})
+
 	Enhance(HTMLElement, 'removeClass', function (className) {
 		this.classList.remove(className)
 		return this
 	})
 
-	Enhance(HTMLElement, 'animate', function (className, onEnd) {
+	Enhance(HTMLElement, 'animate', function (className, onEnd = () => {}) {
 		this.addClass(className)
 
 		this.addEventListener('animationstart', () => {
@@ -71,6 +72,25 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement, 'floating', function () {
+		this.addClass('floating')
+		return this
+	})
+
+	Enhance(HTMLElement, 'addToDom', function () {
+		Dom.add(this)
+		return this
+	})
+
+	// used togeter with e.floating()
+	Enhance(HTMLElement, 'position', function (p) {
+		p = Camera.p(p) // todo imrpoveo ofc
+
+		this.style.left = `${p.x}px`
+		this.style.top = `${p.y}px`
+
+		return this
+	})
 
 }
 

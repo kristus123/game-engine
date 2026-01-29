@@ -18,7 +18,6 @@ export class Camera {
 		this.objectToFollow = DynamicGameObject(Position(0, 0, 1, 1), 1, 1)
 
 		this.position = Position(0, 0)
-		this.smoothPosition = SmoothPosition(this.position, 0.01)
 
 		this.smoothZoom = SmoothValue(1, 1, 0.5, 5)
 
@@ -46,9 +45,8 @@ export class Camera {
 	static context(run) {
 		this.smoothZoom.update()
 
-		this.smoothPosition.update(this.objectToFollow)
-		this.position.x = this.smoothPosition.position.x
-		this.position.y = this.smoothPosition.position.y
+		this.position.x = this.objectToFollow.x
+		this.position.y = this.objectToFollow.y
 
 
 		// maybe ?
@@ -78,8 +76,6 @@ export class Camera {
 		this.position.x = o.x
 		this.position.y = o.y
 
-		this.smoothPosition.smooth_x.currentValue = o.x
-		this.smoothPosition.smooth_y.currentValue = o.y
 	}
 
 	static p(p) { // Html.js hack

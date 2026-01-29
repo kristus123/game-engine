@@ -32,7 +32,7 @@ Flask.route('triggerNotification', body => {
 
 Flask.route('uploadFile', (body, req) => {
 	const type = req.headers['content-type'] || ''
-	
+
 	const senderId = req.headers['x-client-id']
 	const filename = crypto.randomUUID()
 
@@ -40,7 +40,7 @@ Flask.route('uploadFile', (body, req) => {
 		FileDb.saveFile(`${senderId}/${filename}`, body)
 		return { status: 'server success' }
 	}
-	
+
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
 		const path = `${senderId}/${filename}.${ext}`

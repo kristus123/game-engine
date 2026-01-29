@@ -14,7 +14,7 @@ export class RtcClient {
 			.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
-				GridUi.left.set([ HtmlVideo.local(stream) ])
+				GridTemplate.left.set([ HtmlVideo.local(stream) ])
 			})
 
 		SocketClient.onClientMessage('INCOMING_CALL', data => {
@@ -143,7 +143,7 @@ export class RtcClient {
 			}
 
 			this.remoteStreamIds.add(stream.id)
-			GridUi.left.push(HtmlVideo.guest(stream))
+			GridTemplate.left.push(HtmlVideo.guest(stream))
 		}
 
 		peerConnection.onicecandidate = e => {
