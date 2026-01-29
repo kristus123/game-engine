@@ -209,6 +209,7 @@ export class Html {
 		const d = HtmlElement('div', className)
 
 		for (const e of childElements) {
+			console.log(e)
 			d.appendChild(e)
 		}
 

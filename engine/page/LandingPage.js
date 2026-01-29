@@ -1,19 +1,19 @@
 export class LandingPage {
 	static {
-		this.dom = Dom.overlay(Html.button('This is landing page', () => {
-			Page.go(OtherPage)
-		}).animate('fade-in', () => {
-			console.log('Animation finished')
-
-		}))
-		Page.init(this, '/landingPage')
+		this.g = GridTemplate()
+		this.g.mid.add(Html.div('white', [
+			Html.button('Hei', () => {
+				Page.go(OtherPage)
+			})
+		]))
+		Page.init(this, '/landingPage') //Mus be at bottom
 	}
 
 	static show() {
-		this.dom.show()
+		this.g.show()
 	}
 
 	static hide() {
-		this.dom.hide()
+		this.g.hide()
 	}
 }
