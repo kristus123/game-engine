@@ -78,7 +78,8 @@ Promise.all([
 
 		initD1(draw)
 
-		Level.change(new World())
+		//Level.change(new World())
+		Level.change(new ChatApp())
 
 		Loop.everyFrame(deltaTime => {
 			Camera.palette.clear()
