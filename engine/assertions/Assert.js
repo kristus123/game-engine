@@ -10,6 +10,12 @@ export class Assert {
 		return v
 	}
 
+	static integer(v) {
+		if (not.integer(v)) {
+			throw new Error('Not an integer: ' + v)
+		}
+	}
+
 	static length(amount, list) {
 		if (list.length !== amount) {
 			throw new Error('xXx')
