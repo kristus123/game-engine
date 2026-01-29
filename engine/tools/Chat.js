@@ -1,6 +1,20 @@
 // ClientId(
 
 export class Chat {
+	static sendJson(json) {
+		HttpClient.uploadFile(json, res => {
+			console.log(`Server Response: ${JSON.stringify(res)}`)
+			console.log('sent!')
+		})
+	}
+
+	static getJson(clientId, callback) {
+		HttpClient.readFiles({ folder: clientId }, res => {
+			console.log(`Server Response: ${JSON.stringify(res)}`)
+			callback(res)
+		})
+	}
+	
 	static sendAudioBlob (blob) {
 		console.log('Sending Audio To Server...')
 

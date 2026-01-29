@@ -33,20 +33,33 @@ export class FileDb {
 
 		try {
 			const fullPath = path.join(FileDb.prefix, folderPath)
- 			const files = fs.readdirSync(fullPath)
+
+			const files = fs.readdirSync(fullPath)
+				.map(filename => {
+					const filePath = path.join(fullPath, filename)
+					const stat = fs.statSync(filePath)
+
+					return {
+						filename,
+						mtime: stat.mtime
+					}
+				})
+				.sort((a, b) => a.mtime - b.mtime) // oldest → latest
+
 			const fileArray = []
 
-  			files.forEach(filename => {
-				const file = FileDb.getFile(path.join(folderPath, filename))
-				fileArray.push(file)
-  			})
+			for (const file of files) {
+				const data = FileDb.getFile(path.join(folderPath, file.filename))
+				fileArray.push(data)
+			}
 
-			return fileArray
+		return fileArray
 		}
 		catch (err) {
-  			throw new Error(`Error reading directory synchronously: ${err}`)
+			throw new Error(`Error reading directory synchronously: ${err}`)
 		}
 	}
+
 
 	static saveFile(filePath, data) {
 		const folderPath = filePath.split('/')
