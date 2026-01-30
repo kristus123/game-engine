@@ -22,32 +22,29 @@ document.body.addEventListener('touchmove', e => {
 
 
 function loadAsepriteAssets(path) {
-	console.log(path)
-
 	const fileName = path.split('/').pop()
 
 	return Promise.all([
-		LoadImage(`${path}Layers.png`),
-		LoadJson(`${path}Layers.json`),
 		LoadImage(`${path}.png`),
 		LoadJson(`${path}.json`),
+		LoadImage(`${path}Layers.png`),
+		LoadJson(`${path}Layers.json`),
 		LoadJsonIfPresent(`${path}Tilemaps.json`),
-	]).then(([layersImage,
-		layersJson,
+	]).then(([
 		fullImage,
 		fullJson,
-		tilemapsJson]) => {
-		Sprite[fileName] = (pos, scale=1) => new SpriteController(
-			pos,
-			Picture(fullImage),
-			new AsepriteJson(fullJson),
-			new SpriteLayers(pos, layersImage, new AsepriteLayerJson(layersJson), scale),
-			tilemapsJson
-				? new Tilemap(new AsepriteTilesJson(tilemapsJson), fullImage, scale)
-				: false
-			,
-			scale,
-		)
+		layersImage,
+		layersJson,
+		tilemapsJson,
+	]) => {
+		Sprite[fileName] = (position, scale=1) => new SpriteController(
+			position,
+			fullImage,
+			fullJson,	
+			layersImage,
+			layersJson,
+			tilemapsJson,
+			scale)
 	})
 }
 

@@ -11,7 +11,7 @@ export class PushClient {
 		const existingSub = await this.reg.pushManager.getSubscription()
 
 		if (existingSub) {
-			throw new Error("Subscription Exists Already!")
+			throw new Error('Subscription Exists Already!')
 		}
 
 		const subscription = await this.reg.pushManager.subscribe({
@@ -23,6 +23,6 @@ export class PushClient {
 	}
 
 	static push(title, body) {
-		HttpClient.triggerNotification({ title: title, body: body }, ()=> {})
+		HttpClient.triggerNotification({ title: title, body: body }, () => {})
 	}
 }

@@ -22,12 +22,14 @@ export class SpriteLayers extends StaticGameObject {
 				this.layers[layer] = []
 			}
 
+			const xxx = Position(x, y, width*Scale.value, height*Scale.value)
 			const sprite = {
-				position: Position(0, 0, width*Scale.value, height*Scale.value),
+				position: xxx,
 				x: x,
 				y: y,
 				width: width,
 				height: height,
+				picture: Picture(this.image, xxx),
 			}
 
 			this.layers[layer].push(sprite)
@@ -45,16 +47,7 @@ export class SpriteLayers extends StaticGameObject {
 
 	update() {
 		this.forEachLayer((layer, spriteFrames) => {
-			const p = spriteFrames[0].position
-
-			p.x -= Random.integerBetween(-1, 2)
-			p.y -= Random.integerBetween(-1, 2)
-
-			D1.sprite(p, spriteFrames[0], this.image)
-
+			console.log(spriteFrames[0].picture.draw())
 		})
-	}
-
-	draw(draw) {
 	}
 }
