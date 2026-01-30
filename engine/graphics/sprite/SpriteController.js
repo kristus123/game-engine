@@ -6,11 +6,11 @@ export class SpriteController extends StaticGameObject {
 		this.picture = Picture(fullImage)
 		this.asepriteJson = new AsepriteJson(fullJson)
 
-		
-		this.layers = new SpriteLayers(
-			position, layersImage, new AsepriteLayerJson(layersJson), scale)	
 
-		if(tilemapsJson) {
+		this.layers = new SpriteLayers(
+			position, layersImage, new AsepriteLayerJson(layersJson), scale)
+
+		if (tilemapsJson) {
 			this.tilemaps = new Tilemaps(
 				this, new AsepriteTilesJson(tilemapsJson), this.layers, scale)
 		}
@@ -19,7 +19,7 @@ export class SpriteController extends StaticGameObject {
 		this.position.height = this.asepriteJson.height * Scale.value * scale
 
 		this.currentFrame = 0
-		
+
 		this.tags = {}
 
 		this.type = 'loop'

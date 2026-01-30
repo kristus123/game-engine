@@ -4,13 +4,14 @@ export class GridTemplate {
 			this.grid = Html.div('grid', [
 				this.top = Html.div('grid-top', [Html.p('test')]),
 				this.mid = Html.div('grid-mid', [Html.p('test')]),
-				this.bottom = Html.div('grid-bottom', [Html.p('test')])
+				this.bot = Html.div('grid-bot', [Html.p('test')])
 			])
 		])
+
 		this.grid.style.setProperty('--areas', `
 			"top top top"
-			"left mid right"
-			"bottom bottom bottom"
+			"mid mid mid"
+			"bot bot bot"
 		`)
 
 		this.grid.style.setProperty('--rows', 'auto 1fr auto')
@@ -25,7 +26,4 @@ export class GridTemplate {
 		Html.hide(this.ui)
 	}
 
-	 x() {
-
-	}
 }

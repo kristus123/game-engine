@@ -29,8 +29,8 @@
 	background-color: #4285f4;
 }
 
-.grid .grid-bottom {
-	grid-area: bottom;
+.grid .grid-bot {
+	grid-area: bot;
 	background-color: #a142f4;
 }
 

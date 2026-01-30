@@ -15,15 +15,15 @@ export class Tilemaps {
 
 
 			this.tiles.push(Tile(
-				tileInfo.i, 
-				position, 
+				tileInfo.i,
+				position,
 				Position(
-					tileInfo.x * tilesJson.width, 
+					tileInfo.x * tilesJson.width,
 					tileInfo.y * tilesJson.height,
 					tilesJson.width,
 					tilesJson.height),
 
-				layers.layers.trees[0], 
+				layers.layers.trees[0],
 				scale))
 		}
 	}
@@ -31,8 +31,9 @@ export class Tilemaps {
 	update() {
 		for (const t of this.tiles) {
 			if (t.index == 1 && Mouse.hovering(t.position)) {
-				if (Mouse.down)
+				if (Mouse.down) {
 					t.erase()
+				}
 			}
 		}
 	}

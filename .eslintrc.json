@@ -304,8 +304,6 @@
         "StaticGameObject": "readonly",
         "StopWatch": "readonly",
         "Store": "readonly",
-        "Story": "readonly",
-        "StoryUi": "readonly",
         "StraightPath": "readonly",
         "SyncedObject": "readonly",
         "Task": "readonly",

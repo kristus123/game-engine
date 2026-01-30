@@ -3,15 +3,15 @@ export class Tile {
 	}
 
 	erase() {
-    	this.layer.picture.erasePixel(this.picturePosition)
+		this.layer.picture.erasePixel(this.picturePosition)
 	}
 
 	pixelPosition(x, y) {
-    	return Position(
-        	this.position.x + (x*Scale.value*this.scale),
-        	this.position.y + (y*Scale.value*this.scale),
-        	Scale.value*this.scale,
-        	Scale.value*this.scale)
+		return Position(
+    		this.position.x + (x*Scale.value*this.scale),
+    		this.position.y + (y*Scale.value*this.scale),
+    		Scale.value*this.scale,
+    		Scale.value*this.scale)
 	}
 }
 
