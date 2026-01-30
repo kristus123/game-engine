@@ -60,10 +60,10 @@ export class Picture {
 		const data = this.ctx.getImageData(p.x, p.y, 1, 1).data
 
 		return {
-    		r: data[0],
-    		g: data[1],
-    		b: data[2],
-    		a: data[3]
+			r: data[0],
+			g: data[1],
+			b: data[2],
+			a: data[3]
 		}
 	}
 

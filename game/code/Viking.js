@@ -1,6 +1,3 @@
-
-// --- Outcomes ---
-
 const giveToEnemies = {
 	text: 'Have him bound in ropes, and give him to his enemies. [increases relationship with the neighboring clan]',
 	choices: [
@@ -51,8 +48,6 @@ const takeAsWarrior = {
 	]
 }
 
-// --- Follow-up Event (Option C picked) ---
-
 const healedManEvent = {
 	text: 'The wounded man you took in a moons turn ago is now in hale condition. It\'s become clear over time that he indeed possesses the skills of a warrior [depending on your own skills here you can determine how skilled he actually is]. Now he is back to health and ready to continue his travels, he tells the clanspeople that he likely intends to go further [direction opposite of the clan he feuds with], though he seems unsure of this.',
 	choices: [
@@ -70,8 +65,6 @@ const healedManEvent = {
 		}
 	]
 }
-
-// --- Neighbor Clan Demand Event ---
 
 const neighborClanDemand = {
 	text: 'Men of the [neighboring clan name] arrive at the edge of your clan lands, and hail some of your men asking to meet with the chief of your clan. They claim that you\'re harboring an enemy of theirs, and ask you to hand him over.',
@@ -124,8 +117,6 @@ const lieSuccess = {
 		}
 	]
 }
-
-// --- Initial Event ---
 
 export const Viking = {
 	text: 'Event - Wounded Man Found A man is found wounded just a few minutes walk outside of your stead, he has been shot by arrows, some of them still in him. He is brought before you, wheezing. He claims to be a thane from [neighboring clan name] who was outlawed on account of a blood feud, he says that he fell off his horse on account of his wounds, during the escape into your lands. He now begs you to let him have hospitality as he has nowhere else to go.',

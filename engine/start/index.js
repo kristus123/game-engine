@@ -40,7 +40,7 @@ function loadAsepriteAssets(path) {
 		Sprite[fileName] = (position, scale=1) => new SpriteController(
 			position,
 			fullImage,
-			fullJson,	
+			fullJson,
 			layersImage,
 			layersJson,
 			tilemapsJson,
