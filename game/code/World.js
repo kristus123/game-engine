@@ -6,9 +6,11 @@ export class World {
 		this.objects = [
 			this.snow.layers,
 			this.player = DynamicGameObject(Position(0, 0)),
-			Sprite.player(this.player.position),
+			this.a = Sprite.goat(this.player.position),
 			this.snow.tilemaps,
 		]
+
+		this.a.tags.idle.loop()
 
 		Camera.followInstantly(this.player)
 		Controller.control(this.player)
