@@ -1,18 +1,22 @@
 export class LowLevelCamera {
 
 	static context(camera, run) {
+		camera.palettes.forEach((d, palette) => {
+			palette.ctx.save()
 
-		camera.palette.ctx.save()
+			palette.ctx.translate(
+				-camera.position.x * camera.zoom + camera.offset.x,
+				-camera.position.y * camera.zoom + camera.offset.y)
 
-		camera.palette.ctx.translate(
-			-camera.position.x * camera.zoom + camera.offset.x,
-			-camera.position.y * camera.zoom + camera.offset.y)
+			palette.ctx.scale(camera.zoom, camera.zoom)
 
-		camera.palette.ctx.scale(camera.zoom, camera.zoom)
+		})
 
 		run()
 
-		camera.palette.ctx.restore()
+		camera.palettes.forEach((d, palette) => {
+			palette.ctx.restore()
+		})
 	}
 
 }

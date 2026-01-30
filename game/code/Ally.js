@@ -32,7 +32,7 @@ export class Ally extends DynamicGameObject {
 			this.splash.random(this, 'orange')
 			Money.increase(1)
 			Html.fadeaway('+1', this.position.offset(-100))
-			Sound.nya.playRandom()
+			Audio.nya.playRandom()
 			this.bounce.start()
 		}
 

@@ -1,5 +1,7 @@
 export const index = ''
 import { initD1 } from '/engine/start/D1.js'
+import { initD2 } from '/engine/start/D2.js'
+import { initD3 } from '/engine/start/D3.js'
 
 navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
 if ('serviceWorker' in navigator) {
@@ -37,10 +39,11 @@ function loadAsepriteAssets(path) {
 		layersJson,
 		tilemapsJson,
 	]) => {
-		Sprite[fileName] = (position, scale=1) => new SpriteController(
+		Sprite[fileName] = (d, position, scale=1) => new SpriteController(
+			d,
 			position,
 			fullImage,
-			fullJson,	
+			fullJson,
 			layersImage,
 			layersJson,
 			tilemapsJson,
@@ -65,20 +68,22 @@ Promise.all([
 		const mainPalette = Palette.main()
 		const backgroundPalette = Palette.offscreen()
 
-		Sound.init()
+		Audio.init()
 		Mouse.initialize()
 		Controller.init()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		const draw = Draw(Camera.palette.ctx)
-
-		initD1(draw)
+		initD1(Camera.palettes.d1.draw)
+		initD2(Camera.palettes.d2.draw)
+		initD3(Camera.palettes.d3.draw)
 
 		Level.change(new World())
 
 		Loop.everyFrame(deltaTime => {
-			Camera.palette.clear()
+			Camera.palettes.forEach((d, palette) => {
+				palette.clear()
+			})
 
 			Physics.update(deltaTime)
 
@@ -94,7 +99,9 @@ Promise.all([
 			backgroundPalette.fill('#10204f')
 
 			mainPalette.apply(backgroundPalette)
-			mainPalette.apply(Camera.palette)
+			mainPalette.apply(Camera.palettes.d3)
+			mainPalette.apply(Camera.palettes.d2)
+			mainPalette.apply(Camera.palettes.d1)
 		})
 	})
 	.catch(e => {

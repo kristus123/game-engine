@@ -1,6 +1,8 @@
 export class Tilemaps {
-	constructor(sprite, tilesJson, layers, scale) {
+	constructor(sprite, tilemapsJson, layers, scale) {
 		this.tiles = []
+
+		const tilesJson = new AsepriteTilemapsJson(tilemapsJson)
 
 		for (const tileInfo of tilesJson.tilesForFrame(0)) {
 			// if there is no tile at 0x0 in aseprite, something strnage happens
@@ -15,15 +17,15 @@ export class Tilemaps {
 
 
 			this.tiles.push(Tile(
-				tileInfo.i, 
-				position, 
+				tileInfo.i,
+				position,
 				Position(
-					tileInfo.x * tilesJson.width, 
+					tileInfo.x * tilesJson.width,
 					tileInfo.y * tilesJson.height,
 					tilesJson.width,
 					tilesJson.height),
 
-				layers.layers.trees[0], 
+				layers._layers.trees[0],
 				scale))
 		}
 	}
@@ -31,8 +33,9 @@ export class Tilemaps {
 	update() {
 		for (const t of this.tiles) {
 			if (t.index == 1 && Mouse.hovering(t.position)) {
-				if (Mouse.down)
+				if (Mouse.down) {
 					t.erase()
+				}
 			}
 		}
 	}

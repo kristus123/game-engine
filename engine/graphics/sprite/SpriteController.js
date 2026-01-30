@@ -1,25 +1,25 @@
 // todo: this needs some comments for documentation because the api is so complex
 
 export class SpriteController extends StaticGameObject {
-	constructor(position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
+	constructor(d, position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
 		super(position)
-		this.picture = Picture(fullImage)
+
+		this.spritePicture = SpritePicture(d, this, position, fullImage)
 		this.asepriteJson = new AsepriteJson(fullJson)
 
-		
 		this.layers = new SpriteLayers(
-			position, layersImage, new AsepriteLayerJson(layersJson), scale)	
+			this, d, position, layersImage, layersJson, scale)
 
-		if(tilemapsJson) {
+		if (tilemapsJson) {
 			this.tilemaps = new Tilemaps(
-				this, new AsepriteTilesJson(tilemapsJson), this.layers, scale)
+				this, tilemapsJson, this.layers, scale)
 		}
 
 		this.position.width = this.asepriteJson.width * Scale.value * scale
 		this.position.height = this.asepriteJson.height * Scale.value * scale
 
 		this.currentFrame = 0
-		
+
 		this.tags = {}
 
 		this.type = 'loop'
@@ -60,7 +60,7 @@ export class SpriteController extends StaticGameObject {
 			this.idle.loop()
 		}
 		else {
-			throw new Error('invalid default tag for .aseprite. idle must be present')
+			throw new Error('idle tag missing from .aseprite file')
 		}
 
 		const stopWatch = StopWatch().start()
@@ -86,18 +86,6 @@ export class SpriteController extends StaticGameObject {
 				stopWatch.restart()
 			}),
 		])
-
-		this.slices = this.asepriteJson.tags[this.activeTag][this.currentFrame].slices.map(s => {
-			const p = s.position
-
-			p.x = (p.x * Scale.value) + this.position.x
-			p.y = (p.y * Scale.value) + this.position.y
-
-			p.width *= Scale.value
-			p.height *= Scale.value
-
-			return s
-		})
 	}
 
 
@@ -109,11 +97,6 @@ export class SpriteController extends StaticGameObject {
 	update() {
 		this.localObjects.update()
 
-		this.localObjects.draw(D1)
-
-		const frame = this.asepriteJson.tags[this.activeTag][this.currentFrame]
-
-		//D1.sprite(this.position, frame, this.image)
-		this.picture.update(this.position, frame)
+		this.spritePicture.update()
 	}
 }

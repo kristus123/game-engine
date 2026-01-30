@@ -17,7 +17,7 @@ export class RecordButton {
 								uuid: uuid,
 							})
 
-							Sound.playBlob(blob)
+							Audio.playBlob(blob)
 
 							Html.clear()
 							Html.fill([

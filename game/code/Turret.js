@@ -32,7 +32,7 @@ export class Turret extends DynamicGameObject {
 
 			const b = Square(this.position.copy(), 10)
 
-			Sound.sheet.play(1)
+			Audio.sheet.play(1)
 
 			b.update = () => {
 				if (b.touchesAny(G.monsters)) {

@@ -1,30 +1,22 @@
-export class Picture {
-	constructor(position, image, frame = false) {
+export class LayerPicture {
+	constructor(d, position, image, frame) {
 		this.canvas = document.createElement('canvas')
 		this.ctx = this.canvas.getContext('2d')
 
-		if (frame) {
-			this.canvas.width = frame.width
-			this.canvas.height = frame.height
+    	this.canvas.width = frame.width
+    	this.canvas.height = frame.height
 
-			this.ctx.drawImage(
-				image,
-				frame.x,
-				frame.y,
-				frame.width,
-				frame.height,
-				0,
-				0,
-				frame.width,
-				frame.height
-			)
-		}
-		else {
-			this.canvas.width = image.naturalWidth ?? image.width
-			this.canvas.height = image.naturalHeight ?? image.height
-
-			this.ctx.drawImage(image, 0, 0)
-		}
+    	this.ctx.drawImage(
+        	image,
+        	frame.x,
+        	frame.y,
+        	frame.width,
+        	frame.height,
+        	0,
+        	0,
+        	frame.width,
+        	frame.height
+    	)
 	}
 
 	copy() {
@@ -68,12 +60,10 @@ export class Picture {
 	}
 
 
-	update(frame) {
-		D1.sprite(this.position, frame, this.canvas)
-	}
-
-	draw() {
+	draw(d = false) {
+		const xxx = d ? d : this.d
 		const x = Scale.value*7
-		D2.picture(Position(0, 0, this.canvas.width*x, this.canvas.height*x), this.canvas)
+		xxx.picture(
+			Position(0, 0, this.canvas.width*x, this.canvas.height*x), this.canvas)
 	}
 }
