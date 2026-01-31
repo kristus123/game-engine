@@ -5,15 +5,15 @@ export class LayerPicture extends Picture {
 		super.clear()
 
 		this.ctx.drawImage(
-    		image,
-    		frame.x,
-    		frame.y,
-    		frame.width,
-    		frame.height,
-    		0,
-    		0,
-    		frame.width,
-    		frame.height
+			image,
+			frame.x,
+			frame.y,
+			frame.width,
+			frame.height,
+			0,
+			0,
+			frame.width,
+			frame.height
 		)
 	}
 
