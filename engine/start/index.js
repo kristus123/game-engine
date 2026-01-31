@@ -80,12 +80,12 @@ Promise.all([
 
 		Level.change(new World())
 
-		Loop.everyFrame(deltaTime => {
+		Loop.everyFrame(() => {
 			Camera.palettes.forEach((d, palette) => {
 				palette.clear()
 			})
 
-			Physics.update(deltaTime)
+			Physics.update()
 
 			Camera.context(() => {
 

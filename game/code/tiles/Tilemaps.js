@@ -25,7 +25,7 @@ export class Tilemaps {
 					tilesJson.width,
 					tilesJson.height),
 
-				layers._layers.trees[0],
+				layers.trees,
 				scale))
 		}
 	}
@@ -39,6 +39,5 @@ export class Tilemaps {
 			}
 		}
 	}
-
 }
 

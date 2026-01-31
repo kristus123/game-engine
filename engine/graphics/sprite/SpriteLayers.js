@@ -8,7 +8,7 @@ export class SpriteLayers extends StaticGameObject {
 		this.frames = {}
 
 		AsepriteLayerJson(layersJson).forEachFrame((
-			layer, frame, x, y, width, height, tag
+			layer, frame, x, y, width, height, tag,
 		) => {
 			this.layers.add(layer)
 			this.tags[tag] ??= []
@@ -36,11 +36,7 @@ export class SpriteLayers extends StaticGameObject {
 		this.position.height = this.height * Scale.vaue
 
 		for (const layer of this.layers) {
-			this[layer] = {
-				draw: d => {
-					this._layers[layer][sprite.currentFrame].picture.draw(d)
-				}
-			}
+			Getter(this, layer, () => this._layers[layer][sprite.currentFrame].picture)
 		}
 	}
 

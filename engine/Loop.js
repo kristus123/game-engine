@@ -3,12 +3,12 @@ export class Loop {
 
 	static everyFrame(run) {
 
-		function loop(currentTimestamp) {
+		function loop() {
 			// Sleep(Random.integerBetween(0, 50)) // to simulate lag
 
 			DeltaTime.update()
 
-			run(DeltaTime.value)
+			run()
 
 			requestAnimationFrame(loop)
 		}

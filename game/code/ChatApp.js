@@ -1,11 +1,11 @@
 export class CoolApp {
 	constructor() {
 		Dom.overlay(Html.div('phone', [
-    		Html.div('white', [
-        		Html.button('HHRHRHR', () => {
+			Html.div('white', [
+    			Html.button('HHRHRHR', () => {
 
-        		}),
-    		]),
+    			}),
+			]),
 
 		]))
 	}

@@ -33,8 +33,10 @@ export class Camera {
 
 		this.position = Position(0, 0)
 
-		this.smoothZoom = SmoothValue(1, 1, 0.5, 5)
+		this.smoothZoom = SmoothValue(1, 1, 1, 1)
 
+		// the zooming is the reason why stuff is jiggling.
+		// it is not using integer values
 		Mouse.scrollIn = () => {
 			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue + 0.1, 0.2, 2)
 		}
