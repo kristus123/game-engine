@@ -8,8 +8,8 @@ export class Chat {
 		})
 	}
 
-	static getJson(clientId, callback) {
-		HttpClient.readFiles({ folder: clientId }, res => {
+	static getJson(roomId, callback) {
+		HttpClient.readFiles({ folder: roomId }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			callback(res)
 		})

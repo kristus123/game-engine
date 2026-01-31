@@ -2,24 +2,49 @@
 
 export class ChatApp {
 	constructor() {
+        this.roomId = ""
         this.text = ""
+        this.startSync = false
         this.length = 0
-        Dom.overlay(Html.div("chat", [
-                Html.input('type here', value => {
-                    this.text = value
+
+        const chatUi = Html.div('chatUi', [
+                Html.input('roomId', value => {
+                    this.roomId = value
                 }),
-                Html.button("send", () => {
-                    if(this.text != ""){
-                        Chat.sendJson({originClientId: ClientId, text: this.text})
+                
+                Html.button("join/create", () => {
+                    if(this.roomId != ""){
+                        this.startSync = true
+
+                        Html.removeChildElements(chatUi)
+
+                        Html.appendBody([
+                            Html.input('type here', value => {
+                                this.text = value
+                                }),
+                            Html.button("send", () => {
+                                if(this.text != ""){
+                                    Chat.sendJson({rootDir: this.roomId, originClientId: ClientId, text: this.text})
+                                }else{
+                                    console.log("no message")
+                                }
+                            })
+                        ])
                     }else{
-                        console.log("no message")
+                        console.log("no roomId")
                     }
                 })
-        ]))
+        ])
+        
+        Dom.overlay(chatUi)
 
         setInterval(() => {
+            if (!this.roomId || !this.startSync){
+                return
+            }
+
             console.log("syncing...")
-            Chat.getJson(ClientId, (texts) => {
+            Chat.getJson(this.roomId, (texts) => {
                 if (!texts){
                     return
                 } else if (this.length == texts.length) {
