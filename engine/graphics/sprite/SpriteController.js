@@ -1,8 +1,9 @@
-// todo: this needs some comments for documentation because the api is so complex
-
 export class SpriteController extends StaticGameObject {
 	constructor(d, position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
 		super(position)
+
+		this.currentFrame = 0
+
 
 		this.spritePicture = SpritePicture(d, this, position, fullImage)
 		this.asepriteJson = new AsepriteJson(fullJson)
@@ -18,7 +19,6 @@ export class SpriteController extends StaticGameObject {
 		this.position.width = this.asepriteJson.width * Scale.value * scale
 		this.position.height = this.asepriteJson.height * Scale.value * scale
 
-		this.currentFrame = 0
 
 		this.tags = {}
 
@@ -27,7 +27,7 @@ export class SpriteController extends StaticGameObject {
 		this.onFinish = () => {}
 
 		for (let [tag, value] of Object.entries(this.asepriteJson.tags)) {
-			this[tag] = {
+			this.tags[tag] = {
 				play: (onFinish=() => {}) => {
 					this.currentFrame = 0
 					this.activeTag = tag
@@ -52,12 +52,10 @@ export class SpriteController extends StaticGameObject {
 					return this
 				},
 			}
-
-			this.tags[tag] = this[tag]
 		}
 
-		if (this.idle) {
-			this.idle.loop()
+		if (this.tags.idle) {
+			this.tags.idle.loop()
 		}
 		else {
 			throw new Error('idle tag missing from .aseprite file')

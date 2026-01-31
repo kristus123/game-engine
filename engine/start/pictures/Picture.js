@@ -1,39 +1,16 @@
 export class Picture {
-	constructor(position, image, frame = false) {
+	constructor(position, image) {
 		this.canvas = document.createElement('canvas')
 		this.ctx = this.canvas.getContext('2d')
 
-		if (frame) {
-			this.canvas.width = frame.width
-			this.canvas.height = frame.height
+		this.canvas.width = image.naturalWidth ?? image.width
+		this.canvas.height = image.naturalHeight ?? image.height
 
-			this.ctx.drawImage(
-				image,
-				frame.x,
-				frame.y,
-				frame.width,
-				frame.height,
-				0,
-				0,
-				frame.width,
-				frame.height
-			)
-		}
-		else {
-			this.canvas.width = image.naturalWidth ?? image.width
-			this.canvas.height = image.naturalHeight ?? image.height
-
-			this.ctx.drawImage(image, 0, 0)
-		}
+		this.ctx.drawImage(image, 0, 0)
 	}
 
 	copy() {
-		const newPicture = new Picture(this.canvas)
-		return newPicture
-	}
-
-	clear() {
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+		return new Picture(this.position, this.canvas)
 	}
 
 	setPixel(p, r = 255, g = 255, b = 255, a = 255) {

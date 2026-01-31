@@ -202,6 +202,7 @@
         "FollowPlayerNoise": "readonly",
         "ForcePush": "readonly",
         "G": "readonly",
+        "Getter": "readonly",
         "GrassGrid": "readonly",
         "Grid": "readonly",
         "GridPathFinder": "readonly",
