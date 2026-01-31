@@ -8,12 +8,26 @@ export class Camera {
 			y: Palette.height / 2,
 		}
 
-		this.palette = Palette.offscreen(() => {
-			this.offset = {
-				x: Palette.width / 2,
-				y: Palette.height / 2,
-			}
-		})
+		this.palettes = {
+			d1: Palette.offscreen(() => {
+				this.offset = {
+					x: Palette.width / 2,
+					y: Palette.height / 2,
+				}
+			}),
+			d2: Palette.offscreen(() => {
+				this.offset = {
+					x: Palette.width / 2,
+					y: Palette.height / 2,
+				}
+			}),
+			d3: Palette.offscreen(() => {
+				this.offset = {
+					x: Palette.width / 2,
+					y: Palette.height / 2,
+				}
+			}),
+		}
 
 		this.objectToFollow = DynamicGameObject(Position(0, 0, 1, 1), 1, 1)
 

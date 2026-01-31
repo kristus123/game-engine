@@ -9,7 +9,7 @@ export class EditMemories {
 						const div = Html.div('big', [
 							Html.p(e.title),
 							Html.button('play', () => {
-								Sound.playBlob(Base64.decode(e.sound))
+								Audio.playBlob(Base64.decode(e.sound))
 							}),
 							Html.button('delete', () => {
 								AudioDb.delete(e.uuid)

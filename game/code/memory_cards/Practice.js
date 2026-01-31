@@ -11,12 +11,12 @@ export class Practice {
 			const important = this.important(entries)
 			if (important.length) {
 				const e = Random.choice(important)
-				Sound.playBlob(Base64.decode(e.sound))
+				Audio.playBlob(Base64.decode(e.sound))
 				Html.fill([
 					Html.div('big', [
 						Html.p('playing audio'),
 						Html.button('replay', () => {
-							Sound.playBlob(Base64.decode(e.sound))
+							Audio.playBlob(Base64.decode(e.sound))
 						}),
 						Html.div('big', [
 							Html.button('hard', () => this.review(e, 'hard')),

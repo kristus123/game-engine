@@ -1,4 +1,4 @@
-export class Sound {
+export class Audio {
 
 	static init() {
 		this._click = AudioEngine(G.Audio.click)

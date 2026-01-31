@@ -6,7 +6,7 @@ export async function LoadJsonIfPresent(url) {
 			return await r.json()
 		}
 		else {
-    		return false
+			return false
 		}
 	}
 	catch (e) {

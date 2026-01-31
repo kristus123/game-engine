@@ -6,12 +6,12 @@ export class Store {
 
 			OnTrue(() => Keyboard.e, () => {
 				if (Money.moreThan(20)) {
-					Sound.click()
+					Audio.click()
 
 					this.turret = new Turret(Mouse.position.copy())
 					Mouse.onClick = p => {
 						if (this.x.touchesTurretTiles(p)) {
-							Sound.click()
+							Audio.click()
 
 							Money.subtract(20)
 							tla(this.turret)
@@ -27,7 +27,7 @@ export class Store {
 
 			OnTrue(() => Keyboard.r, () => {
 				if (Money.moreThan(10)) {
-					Sound.click()
+					Audio.click()
 					Money.subtract(10)
 
 					new Ally(G.player.position.copy())

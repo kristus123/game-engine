@@ -1,6 +1,5 @@
 import Path from 'path'
 
-
 function containsExport(type, className, str) {
 	const regex = new RegExp(`(export\\s+)?${type}\\s+${className}\\b`, 'm')
 	return regex.test(str)
@@ -31,15 +30,7 @@ class Imports {
 		) {
 			return false
 		}
-		else if (
-			content.includes(`new ${className}`) ||
-			content.includes(`(${className})`) ||
-			// content.includes(`${className}`) || // causes bug
-			content.includes(`${className}.`) ||
-			content.includes(`${className}(`) ||
-			content.includes(`instanceof ${className}`) ||
-			content.includes(`extends ${className}`)
-		) {
+		else if (new RegExp(`\\b${className}\\b`).test(content)) {
 			return true
 		}
 	}
