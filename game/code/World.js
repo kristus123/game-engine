@@ -3,7 +3,7 @@ export class World {
 		this.snow = Sprite.snow(D2, Position(-0, 0), 7)
 
 		this.objects = [
-			Sprite.fire(D2, Position(800, 800), 1),
+			Sprite.fire(D2, Position(800, 800), 2),
 			this.snow.tilemaps,
 			this.player = DynamicGameObject(Position(0, 0)),
 			this.a = Sprite.goat(D2, this.player.position),
@@ -19,15 +19,12 @@ export class World {
 		this.objects.update()
 		this.snow.layers.trees.draw(D1)
 		this.snow.layers.background.draw(D3)
-		
-		for (const t of this.snow.tilemaps.tiles) {
-			if (t.index == 1 && Mouse.hovering(t.position)) {
-				if (Mouse.down) {
-					t.erase()
-					t.tintBlue()
-				}
 
-				break
+		for (const t of this.snow.tilemaps.tiles) {
+			if (t.index == 1) {
+				if (Mouse.hovering(t.position)) {
+					t.highlight()
+				}
 			}
 		}
 

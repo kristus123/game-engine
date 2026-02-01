@@ -158,6 +158,14 @@ export class Position {
 		}
 	}
 
+	*points() {
+		for (let yy = this.y; yy < this.y + this.height; yy++) {
+			for (let xx = this.x; xx < this.x + this.width; xx++) {
+				yield { x: xx, y: yy }
+			}
+		}
+	}
+
 	static from(jsonPosition) {
 		return Position(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
 	}

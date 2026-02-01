@@ -21,7 +21,7 @@ export class LayerPicture extends Picture {
 		const dToUse = (d ? d : this.d)
 		const trueScale = Scale.value*7
 
-		const pos = Position(0, 0, this.canvas.width*trueScale, this.canvas.height*trueScale) 
+		const pos = Position(0, 0, this.canvas.width*trueScale, this.canvas.height*trueScale)
 
 		dToUse.picture(pos, this.canvas)
 	}
