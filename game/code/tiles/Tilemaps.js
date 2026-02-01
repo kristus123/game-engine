@@ -31,13 +31,6 @@ export class Tilemaps {
 	}
 
 	update() {
-		for (const t of this.tiles) {
-			if (t.index == 1 && Mouse.hovering(t.position)) {
-				if (Mouse.down) {
-					t.erase()
-				}
-			}
-		}
 	}
 }
 

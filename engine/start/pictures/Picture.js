@@ -44,13 +44,12 @@ export class Picture {
 		}
 	}
 
-
 	update(frame) {
 		D1.sprite(this.position, frame, this.canvas)
 	}
 
 	draw() {
 		const x = Scale.value*7
-		D2.picture(Position(0, 0, this.canvas.width*x, this.canvas.height*x), this.canvas)
+		this.ctx.drawImage(this.canvas, 0, 0, this.canvas.width*x, this.canvas.height*x)
 	}
 }

@@ -18,10 +18,11 @@ export class LayerPicture extends Picture {
 	}
 
 	draw(d = false) {
-		const xxx = d ? d : this.d
-		const x = Scale.value*7
-		xxx.picture(
-			Position(0, 0, this.canvas.width*x, this.canvas.height*x),
-			this.canvas)
+		const dToUse = (d ? d : this.d)
+		const trueScale = Scale.value*7
+
+		const pos = Position(0, 0, this.canvas.width*trueScale, this.canvas.height*trueScale) 
+
+		dToUse.picture(pos, this.canvas)
 	}
 }
