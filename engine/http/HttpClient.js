@@ -1,11 +1,18 @@
 // ClientId(
 
 export const HttpClient = ProxyObject(
-	{}, (method, body = {}, callback = (body) => {}) => {
-		const request = buildRequest(body)
-		const promise = fetch(`${Config.httpUrl}/${method}`, request).then(r => r.json())
+	{}, (method, body = {}, callback = (body) => {}, params = null) => {
+		let url = `${Config.httpUrl}/${method}`
 
-		promise.then(callback)
+		if (params && typeof params === 'object') {
+			const qs = new URLSearchParams(params).toString()
+			if (qs.length > 0) {
+				url += `?${qs}`
+			}
+		}
+
+		const request = buildRequest(body)
+		fetch(url, request).then(r => r.json()).then(callback)
 	})
 
 function buildRequest(body) {
@@ -14,7 +21,6 @@ function buildRequest(body) {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/octet-stream',
-				'X-Client-Id': ClientId
 			},
 			body
 		}
@@ -24,7 +30,6 @@ function buildRequest(body) {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-Client-Id': ClientId
 		},
 		body: JSON.stringify(body ?? {})
 	}

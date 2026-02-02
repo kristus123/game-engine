@@ -1,52 +1,42 @@
 // ClientId(
 
 export class Chat {
-	static sendJson(json) {
+	static sendJson(roomId, json) {
 		HttpClient.uploadFile(json, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
-		})
+		}, {rootDir: roomId})
 	}
 
 	static getJson(roomId, callback) {
-		HttpClient.readFiles({ folder: roomId }, res => {
+		HttpClient.readFiles({ folder: `${roomId}/json` }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			callback(res)
 		})
 	}
 	
-	static sendAudioBlob (blob) {
+	static sendAudioBlob (roomId, blob) {
 		console.log('Sending Audio To Server...')
 
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
 			ChatDb.save(Random.uuid(), blob)
-		})
+		}, {rootDir: roomId})
 	}
 
-	static sendAudioBlobToClient(clientId, blob) {
-		console.log('Sending Audio To Server...')
-
-		HttpClient.uploadFile(blob, res => {
-			console.log(`Server Response: ${JSON.stringify(res)}`)
-			console.log('sent!')
-			SocketClient.sendToClient('NEW_MESSAGE', clientId, { key: clientId })
-			ChatDb.save(Random.uuid(), blob)
-		})
-	}
-
-	static getAudioBlob(folder, callback) {
+	static getAudioBlob(roomId, callback) {
 		console.log('Getting Audio From Server...')
 
-		HttpClient.readFiles({ folder: folder }, res => {
+		HttpClient.readFiles({ folder: `${roomId}/audio` }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
+			callback(res)
 
-			for (const index in res) {
-				const byteArray = new Uint8Array(res[index].data)
-				const blob = new Blob([byteArray], { type: 'audio/webm' })
-				callback(blob)
-			}
 		})
+	}
+
+	static blobify(raw) {
+		const byteArray = new Uint8Array(raw.data)
+		return new Blob([byteArray], { type: 'audio/webm' })
 	}
 }

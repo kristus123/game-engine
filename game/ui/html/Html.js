@@ -92,6 +92,16 @@ export class Html {
 		return h1
 	}
 
+	static link(text, url, className='na') {
+		const a = HtmlElement('a', className)
+		a.href = url
+		a.textContent = text
+		a.target = '_blank'   // Open A New Tab
+		a.rel = 'noopener'
+
+		return a
+	}
+
 	static p(text, className='na') {
 		const p = HtmlElement('p', className)
 		p.innerHTML = text
