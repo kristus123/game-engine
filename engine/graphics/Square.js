@@ -8,10 +8,6 @@ export class Square extends DynamicGameObject {
 	}
 
 	update() {
-
-	}
-
-	draw(draw) {
-		draw.rectangle(this.position, this.color || 'white')
+		D1.rectangle(this.position, this.color || 'white')
 	}
 }

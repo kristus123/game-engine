@@ -4,6 +4,7 @@ export class Tile {
 
 	erase() {
 		this.layer.erasePixel(this.picturePosition)
+		this.index = 0
 	}
 
 

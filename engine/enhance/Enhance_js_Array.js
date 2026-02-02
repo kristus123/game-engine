@@ -46,7 +46,6 @@ export function Enhance_js_Array() {
 		}
 	})
 
-
 	Enhance(Array, 'removeOneOrThrowException', function (predicate) {
 		const removed = this.removeIf(predicate)
 		if (!removed) {
@@ -99,7 +98,6 @@ export function Enhance_js_Array() {
 	Enhance(Array, 'add', function (o) {
 		this.push(o)
 	})
-
 
 	Enhance(Array, 'assertNoNullElements', function () {
 		for (const c of this) {

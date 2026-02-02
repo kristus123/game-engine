@@ -137,12 +137,9 @@ export class Draw {
 		this.ctx.drawImage(imageBitmap, position.x, position.y)
 	}
 
-	rectangle(position, color='yellow') {
+	rectangle(position, color='orange') {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
-
-		this.ctx.fillStyle = 'white'
-		this.ctx.font = '25px Arial'
 	}
 
 	box(p) {

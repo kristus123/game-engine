@@ -22,7 +22,7 @@ export class World {
 
 		for (const t of this.snow.tilemaps.tiles) {
 			if (t.index == 1) {
-				if (Mouse.hovering(t.position)) {
+				if (this.player.touches(t.position)) {
 					t.highlight()
 				}
 			}
