@@ -9,6 +9,15 @@ export class Picture {
 		this.ctx.drawImage(image, 0, 0)
 	}
 
+	*visiblePixelsIn(picturePosition) {
+		for (const xy of picturePosition.points()) {
+			const c = this.pixelColor(xy)
+			if (c.a != 0) {
+				yield xy
+			}
+		}
+	}
+
 	copy() {
 		return new Picture(this.position, this.canvas)
 	}

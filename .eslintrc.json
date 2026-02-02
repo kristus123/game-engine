@@ -209,7 +209,6 @@
         "GridPositions": "readonly",
         "GridTemplate": "readonly",
         "GridTile": "readonly",
-        "GuiPosition": "readonly",
         "HeightMap": "readonly",
         "HelperThing": "readonly",
         "HotReload": "readonly",
