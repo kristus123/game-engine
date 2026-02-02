@@ -33,46 +33,18 @@ export class Camera {
 
 		this.position = Position(0, 0)
 
-		this.smoothZoom = SmoothValue(1, 1, 1, 1)
-
-		// the zooming is the reason why stuff is jiggling.
-		// it is not using integer values
-		Mouse.scrollIn = () => {
-			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue + 0.1, 0.2, 2)
-		}
-
-		Mouse.scrollOut = () => {
-			this.smoothZoom.targetValue = clamp(this.smoothZoom.targetValue - 0.1, 0.2, 2)
-		}
+		this.zoom = 1
 
 		this.anchoredPositions = LocalObjects([
 			// Anchor(Mouse.position, 1_000, 0.1),
 		])
 	}
 
-	static get zoom() {
-		return this.smoothZoom.currentValue
-	}
-
-	static set zoom(x) {
-		this.smoothZoom.targetValue = x
-	}
-
 	static context(run) {
-		this.smoothZoom.update()
-
 		this.position.x = this.objectToFollow.x
 		this.position.y = this.objectToFollow.y
 
-
-		// maybe ?
-		// this.position.x = Math.round(this.position.x)
-		// this.position.y = Math.round(this.position.y)
-
 		this.anchoredPositions.update()
-		// this.anchoredPositions.objects.forEach(a => {
-		// 	console.log(a.smoothPosition.position.x)
-		// })
 
 		LowLevelCamera.context(this, run)
 	}

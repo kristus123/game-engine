@@ -19,14 +19,5 @@ export class World {
 		this.objects.update()
 		this.snow.layers.trees.draw(D1)
 		this.snow.layers.background.draw(D3)
-
-		for (const t of this.snow.tilemaps.tiles) {
-			if (t.index == 1) {
-				if (this.player.touches(t.position)) {
-					t.highlight()
-				}
-			}
-		}
-
 	}
 }
