@@ -37,12 +37,8 @@ export class FileDb {
 			const files = fs.readdirSync(fullPath)
 				.map(filename => {
 					const filePath = path.join(fullPath, filename)
-					const stat = fs.statSync(filePath)
 
-					return {
-						filename,
-						mtime: stat.mtime
-					}
+					return { filename, mtime: fs.statSync(filePath).mtime }
 				})
 				.sort((a, b) => a.mtime - b.mtime) // oldest → latest
 

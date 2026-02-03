@@ -87,7 +87,7 @@ export class ChatApp {
                 const newBlobs = blobs.slice(blobs.length - totalNew)
 
                 for (const index in newBlobs){
-                    const blob = Chat.blobify(newBlobs[index])
+                    const blob = BlobTool.blobify(newBlobs[index])
                     const url = URL.createObjectURL(blob)
                     console.log(url)
                     Html.appendBody([

@@ -32,18 +32,18 @@ Flask.route('triggerNotification', body => {
 
 Flask.route('uploadFile', (body, req) => {
 	const type = req.headers['content-type'] || ''
-	const rootDir = req.query.rootDir
+	const folder = req.query.folder
 
 	const filename = crypto.randomUUID()
 
 	if (type.includes('application/json')) {
-		FileDb.saveFile(`${rootDir}/json/${filename}`, body)
+		FileDb.saveFile(`${folder}/${filename}`, body)
 		return { status: 'server success' }
 	}
 
 	if (type.startsWith('audio/') || type === 'application/octet-stream') {
 		const ext = type.split('/')[1] || 'bin'
-		const path = `${rootDir}/audio/${filename}.${ext}`
+		const path = `${folder}/${filename}.${ext}`
 
 		FileDb.saveFile(path, body)
 
