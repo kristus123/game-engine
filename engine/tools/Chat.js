@@ -5,7 +5,8 @@ export class Chat {
 		HttpClient.uploadFile(json, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
-		}, {folder: `${roomId}/json`})
+			console.log(`${roomId}/json/${Random.uuid()}`)
+		}, { path: `${roomId}/json/${Random.uuid()}` })
 	}
 
 	static getJson(roomId, callback) {
@@ -21,8 +22,9 @@ export class Chat {
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
 			console.log('sent!')
+
 			ChatDb.save(Random.uuid(), blob)
-		}, {folder: `${roomId}/audio`})
+		}, { path: `${roomId}/audio/${Random.uuid()}` })
 	}
 
 	static getAudioBlob(roomId, callback) {
