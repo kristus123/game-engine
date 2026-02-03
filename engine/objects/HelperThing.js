@@ -26,25 +26,6 @@ export class HelperThing {
 		}
 	}
 
-	static draw(objects, draw) {
-		if (draw == null) {
-			throw new Error('null value passed to draw')
-		}
-
-		objects.forEach(e => {
-			try {
-				if (e.draw) {
-					e.draw(draw)
-				}
-			}
-			catch (error) {
-				throw error
-				//throw new Error('an error occurred while running "draw" method for '
-				//+ e.constructor.name + '  ' + error)
-			}
-		})
-	}
-
 	add(c) {
 		this.classes.push(c)
 		return c

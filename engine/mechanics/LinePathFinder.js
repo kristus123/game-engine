@@ -6,7 +6,6 @@ export class LinePathFinder {
 	update() {
 		this.square ??= Square(Position(this.source.x, this.source.y), 10)
 
-
 		EveryFrame(10, () => {
 			console.log('hey')
 			this.square.forcePushTowards(this.target, 100)
@@ -27,9 +26,4 @@ export class LinePathFinder {
 		}
 	}
 
-	draw(draw) {
-		if (this.square) {
-			this.square.draw(draw)
-		}
-	}
 }

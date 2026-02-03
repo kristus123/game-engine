@@ -104,10 +104,6 @@ export class AllObjects { // not a good name
 		HelperThing.updateAnd(this.objects, run)
 	}
 
-	draw(draw) {
-		HelperThing.draw(this.objects, draw)
-	}
-
 	empty() {
 		return this.objects.empty()
 	}

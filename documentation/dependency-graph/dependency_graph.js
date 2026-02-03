@@ -119,6 +119,7 @@ for (const [className, info] of usageMap.entries()) {
 	if (info.usedIn.length === 0) {
 		const fileToDelete = path.join(rootDir, info.definedIn)
 		try {
+			console.log(className)
 			// fs.unlinkSync(fileToDelete)
 			// console.log(`🗑️ Deleted unused file: ${info.definedIn}`)
 		}

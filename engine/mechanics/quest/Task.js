@@ -8,8 +8,5 @@ export function Task(stuff) {
 			this.localObjects.update()
 		}
 
-		draw(draw, guiDraw) {
-			this.localObjects.draw(draw, guiDraw)
-		}
 	}
 }

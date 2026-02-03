@@ -48,10 +48,4 @@ export class Quest {
 			}
 		}
 	}
-
-	draw(draw) {
-		if (!this.questCompleted && this.currentTask.draw) {
-			this.currentTask.draw(draw)
-		}
-	}
 }

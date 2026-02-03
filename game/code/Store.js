@@ -62,22 +62,15 @@ export class Store {
 
 	static update() {
 		this.localObjects.update()
-	}
-
-	static draw(draw) {
-		this.localObjects.draw(draw)
 
 		if (Mouse.onClick) {
-			draw.rectangle(this.turret)
+			D1.rectangle(this.turret)
 
 			this.turret.position.xy(Mouse.position)
-			this.turret.draw(draw)
 
 			const valid = this.x.touchesTurretTiles(Mouse.position)
-			draw.color(this.turret, valid ? 'green': 'red')
+			D1.color(this.turret, valid ? 'green': 'red')
 		}
-
-		this.x.draw(draw)
 	}
 
 }
