@@ -1,0 +1,36 @@
+// example
+
+// () => Dialogue([
+// 	TextTyper(G.friend, 'hi there!'),
+// 	TextTyper(G.player, 'what should i do?'),
+// 	TextTyper(G.friend, 'try to poop by pressing "p"'),
+// 	TextTyper(G.friend, 'poop 4 times!'),
+// ]),
+
+
+export class Dialogue {
+
+	constructor(textTypers) {
+
+		this.listLooper = ListLooper(textTypers, (textTyper, next, completed, draw) => {
+			textTyper.update()
+			textTyper.draw(draw)
+
+			if (textTyper.completed()) {
+				next()
+			}
+		})
+	}
+
+	completed() {
+		return this.listLooper.completed()
+	}
+
+	update() {
+		this.listLooper.update()
+	}
+
+	draw(draw) {
+		this.listLooper.draw(draw)
+	}
+}
