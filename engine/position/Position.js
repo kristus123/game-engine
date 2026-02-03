@@ -4,7 +4,6 @@ export class Position {
 		this._height = _height
 
 		this.center = CenterPosition(this, _width, _height)
-		this.screen = ScreenPosition(this, _width, _height)
 
 		this._original = null // will be set on first scale()
 	}
