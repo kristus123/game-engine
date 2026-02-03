@@ -48,22 +48,15 @@ export class ChatApp {
         Dom.overlay(chatUi)
 
         setInterval(() => {
-            if (!this.roomId || !this.startSync){
-                return
-            }
+		    if (!this.roomId || !this.startSync) return
 
             console.log("syncing...")
 
             // Sync Json
             Chat.getJson(this.roomId, (texts) => {
-                if (!texts){
-                    return
-                } else if (this.length == texts.length) {
-                    return
-                }
-
-                const totalNew = texts.length - this.length
-                const newTexts = texts.slice(texts.length - totalNew)
+			    if (!texts || texts.length === this.length) return
+                
+                const newTexts = texts.slice(this.length)
 
                 for (const index in newTexts){
                     const text = newTexts[index]
@@ -77,14 +70,9 @@ export class ChatApp {
 
             // Sync Audio Blobs
             Chat.getAudioBlob(this.roomId, (blobs) => {
-                if (!blobs){
-                    return
-                } else if (this.lengthBlob == blobs.length) {
-                    return
-                }
+				if (!blobs || blobs.length === this.lengthBlob) return
 
-                const totalNew = blobs.length - this.lengthBlob
-                const newBlobs = blobs.slice(blobs.length - totalNew)
+				const newBlobs = blobs.slice(this.lengthBlob)
 
                 for (const index in newBlobs){
                     const blob = BlobTool.blobify(newBlobs[index])
