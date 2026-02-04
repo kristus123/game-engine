@@ -1,7 +1,7 @@
 export function Task(stuff) {
 	return () => new class {
 		constructor() {
-			this.localObjects = LocalObjects(stuff)
+			this.localObjects = Objects(stuff)
 		}
 
 		update() {

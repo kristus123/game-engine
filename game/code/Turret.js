@@ -6,7 +6,7 @@ export class Turret extends DynamicGameObject {
 		this.position.height = 100
 
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			this.charge = Charge(1, 10),
 			this.turretNeeds = new TurretNeeds(this),
 			G.Sprite.turret(this.position),
@@ -37,7 +37,7 @@ export class Turret extends DynamicGameObject {
 			b.update = () => {
 				if (b.touchesAny(G.monsters)) {
 					this?.target?.hp?.damage(10) // temporarry hack
-					b.removeFromLoop()
+					b.removeItself()
 				}
 			}
 

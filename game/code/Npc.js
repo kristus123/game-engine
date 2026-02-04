@@ -2,7 +2,7 @@ export class Npc extends DynamicGameObject {
 	constructor(position) {
 		super(position, 10, 3)
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			Init(this, {
 				sprite: G.Sprite.player(position),
 			}),

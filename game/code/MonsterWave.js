@@ -2,7 +2,7 @@ export class MonsterWave {
 	constructor(maxEnemies, onCompleted = () => {}) {
 		this.killed = 0
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			OnTrue(() => this.completed(), () => {
 				onCompleted()
 			}),

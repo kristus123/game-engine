@@ -5,7 +5,7 @@ export class Poop extends DynamicGameObject {
 		this.position.width = 40
 		this.position.height = 40
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 		])
 	}
 
