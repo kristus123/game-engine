@@ -1,3 +1,5 @@
+// deltatime is in seconds
+
 export class DeltaTime {
 	static {
 		this.stopwatch = StopWatch()
