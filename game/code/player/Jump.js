@@ -1,6 +1,6 @@
 export class Jump {
 	constructor(player, onArrival = (p) => {}) {
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			OnTrue(() => Keyboard.q && !this.destination && !this.maxDistance, () => {
 
 				const destination = Mouse.position.copy()

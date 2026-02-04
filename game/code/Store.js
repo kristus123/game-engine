@@ -2,7 +2,7 @@ export class Store {
 	static init() {
 		this.turret = null
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 
 			OnTrue(() => Keyboard.e, () => {
 				if (Money.moreThan(20)) {

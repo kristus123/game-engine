@@ -1,5 +1,5 @@
 import LowLevelSocketServer from './LowLevelSocketServer.js'
-import List from './List.js'
+import Objects from './Objects.js'
 
 export default class {
 	constructor(port) {
@@ -23,8 +23,8 @@ export default class {
 		}
 
 		this.lowLevelSocketServer.onClose = (client, clientId) => {
-			List.remove(this.allClients, client)
-			List.remove(this.allClientIds, clientId)
+			Objects.remove(this.allClients, client)
+			Objects.remove(this.allClientIds, clientId)
 			console.log(this.allClientIds)
 
 			delete this.clientFrom[clientId]

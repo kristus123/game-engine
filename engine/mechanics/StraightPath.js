@@ -1,7 +1,7 @@
 export class StraightPath {
 	constructor(start, end) {
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			Init(this, {
 				line: Square(start.position.copy(), 20)
 			})

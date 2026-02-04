@@ -63,7 +63,7 @@ export class SpriteController extends StaticGameObject {
 
 		const stopWatch = StopWatch().start()
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			OnTrue(() => stopWatch.time >= 100, () => {
 				if (this.type == 'show') {
 					// do nothing

@@ -2,7 +2,7 @@ export class Ally extends DynamicGameObject {
 	constructor(position) {
 		super(position, 100, 1000)
 
-		this.localObjects = LocalObjects([
+		this.localObjects = Objects([
 			G.Sprite.ally(this.position),
 			this.sine = Sine(1, 2, 0.05),
 			this.charge = Charge(1, 100),

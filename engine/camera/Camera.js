@@ -35,7 +35,7 @@ export class Camera {
 
 		this.zoom = 1
 
-		this.anchoredPositions = LocalObjects([
+		this.anchoredPositions = Objects([
 			// Anchor(Mouse.position, 1_000, 0.1),
 		])
 	}

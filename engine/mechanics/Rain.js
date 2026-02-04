@@ -1,6 +1,6 @@
 export class Rain {
 	constructor(position) {
-		this.localObjects = LocalObjects()
+		this.localObjects = Objects()
 
 		setInterval(() => {
 			const rainDrop = Square(Random.positionWithin(position), 1)

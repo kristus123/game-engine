@@ -37,7 +37,7 @@ class Parameters {
 
 	static initVariablesFromConstructor(content) {
 		return Parameters.inConstructor(content)
-			.filter(p => !p.includes('...')) // because of AllObjects.js
+			.filter(p => !p.includes('...')) // because of OldAllObjects.js
 			.map(p => `this.${p} = ${p}; \n`)
 			.map(p => '\t\t' + p)
 			.join()

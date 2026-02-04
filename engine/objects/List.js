@@ -1,4 +1,4 @@
-export class LocalObjects extends AllObjects {
+export class Objects extends OldAllObjects {
 	constructor(objects=[]) {
 		super(objects)
 	}
