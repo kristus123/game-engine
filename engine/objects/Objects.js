@@ -1,4 +1,4 @@
-export class OldAllObjects { // not a good name
+export class Objects { // not a good name
 	constructor(objects=[]) {
 		AssertArray(objects)
 		AssertNoNullInArray(objects)
