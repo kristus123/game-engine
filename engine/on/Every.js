@@ -8,7 +8,7 @@ export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {})
 		update() {
 			if (maxRuns != 'infinite' && totalRuns >= maxRuns) {
 				onFinish()
-				this.removeFromLoop()
+				this.removeItself()
 			}
 			else if (stopWatch.moreThan(intervalMs)) {
 				action()

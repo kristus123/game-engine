@@ -37,7 +37,7 @@ export class Turret extends DynamicGameObject {
 			b.update = () => {
 				if (b.touchesAny(G.monsters)) {
 					this?.target?.hp?.damage(10) // temporarry hack
-					b.removeFromLoop()
+					b.removeItself()
 				}
 			}
 

@@ -6,7 +6,7 @@ export class After {
 	update() {
 		if (this.stopWatch.time > this.intervalMs) {
 			this.action()
-			this.removeFromLoop()
+			this.removeItself()
 		}
 	}
 

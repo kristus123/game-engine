@@ -4,7 +4,7 @@ export class Objects { // not a good name
 		AssertNoNullInArray(objects)
 
 		for (const o of objects) {
-			o.removeFromLoop = () => {
+			o.removeItself = () => {
 				this.remove(o)
 			}
 			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!! loop was overriden once, and it caused a head scratch
@@ -29,7 +29,7 @@ export class Objects { // not a good name
 	add(o) {
 		this.objects.push(o)
 
-		o.removeFromLoop = () => {
+		o.removeItself = () => {
 			this.remove(o)
 		}
 		o.loop = this

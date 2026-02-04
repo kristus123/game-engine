@@ -8,7 +8,7 @@ export class Monster extends DynamicGameObject {
 				hp: Hp(this, () => {
 					this.onKill()
 					Money.increase(1)
-					this.removeFromLoop()
+					this.removeItself()
 				}),
 				path: Path(this, paths),
 				sprite: G.Sprite.enemy(this.position),
