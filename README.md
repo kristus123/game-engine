@@ -3,3 +3,5 @@
 join
 
 https://discord.gg/uPUGWsUt
+
+hello
