@@ -3,38 +3,12 @@ export class Player extends DynamicGameObject {
 		super(position, 4000, 400)
 
 		this.localObjects = LocalObjects([
-			this.sprite = G.Sprite.p2(this.position, 1),
-			this.jump = new Jump(this),
-
-			OnChange(() => this.movingUp, up => {
-				if (up) {
-					this.sprite.up.loop()
-				}
-				else {
-					this.sprite.idle.loop()
-				}
-			}),
-
-			OnChange(() => this.direction, d => {
-				this.sprite.tags[d].loop()
-			}),
+			this.sprite = Sprite.(this.position),
 		])
-
-		// for (const p of new Tilemaps().turretTiles) {
-		// 	G.walkableAreas.add(p)
-		// }
 	}
 
 	update() {
 		this.localObjects.update()
-
-		this.position.scale(this.jump.scale)
-
-		// G.invisibleWalls.enforce(this)
-		// G.walkableAreas.enforce(G.player)
 	}
 
-	draw(draw) {
-		this.localObjects.draw(draw)
-	}
 }

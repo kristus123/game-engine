@@ -1,5 +1,6 @@
 export class World {
 	constructor() {
+
 		this.snow = Sprite.snow(D2, Position(0, 0), 7)
 
 		this.objects = [
