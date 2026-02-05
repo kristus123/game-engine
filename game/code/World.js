@@ -4,7 +4,7 @@ export class World {
 		this.snow = Sprite.snow(D2, Position(0, 0), 7)
 
 		this.objects = Objects([
-			Sprite.fire(D2, Position(800, 800), 2),
+			Sprite.fire(D1, Position(800, 800), 2),
 			this.snow.tilemaps,
 			this.player = DynamicGameObject(Position(700, 700)),
 			this.a = Sprite.goat(D2, this.player.position),

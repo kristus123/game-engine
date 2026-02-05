@@ -79,9 +79,11 @@ export class Palette {
 			apply: (p) => {
 				ctx.drawImage(p.canvas, 0, 0)
 			},
-			fill: (color) => {
+			fill: (color, opacity = 1) => {
+				ctx.globalAlpha = opacity
 				ctx.fillStyle = color
 				ctx.fillRect(0, 0, Palette.width, Palette.height)
+				ctx.globalAlpha = 1
 			},
 		}
 	}
