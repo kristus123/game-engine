@@ -19,4 +19,4 @@ setInterval(async () => {
 			location.reload()
 		}, 200)
 	}
-}, 100)
+}, 500)
