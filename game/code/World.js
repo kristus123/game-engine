@@ -8,6 +8,7 @@ export class World {
 			this.snow.tilemaps,
 			this.player = DynamicGameObject(Position(700, 700)),
 			this.a = Sprite.goat(D2, this.player.position),
+			Sprite.light(D1, this.player.position.offset(), 2),
 		])
 
 		this.a.tags.idle.loop()
