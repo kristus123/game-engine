@@ -2,7 +2,7 @@ export class SpriteController extends StaticGameObject {
 	constructor(d, position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
 		super(position)
 
-		this.currentFrame = 0
+		this.currentTagFrame = 0
 
 
 		this.spritePicture = SpritePicture(d, this, position, fullImage)
@@ -21,22 +21,25 @@ export class SpriteController extends StaticGameObject {
 
 
 		this.tags = {}
+		this.activeTag = 'idle'
 
 		this.type = 'loop'
 
 		this.onFinish = () => {}
 
 		for (let [tag, value] of Object.entries(this.asepriteJson.tags)) {
+
 			this.tags[tag] = {
 				play: (onFinish=() => {}) => {
-					this.currentFrame = 0
+					this.currentTagFrame = 0
 					this.activeTag = tag
 					this.type = 'play'
 					this.onFinish = onFinish
 					return this
 				},
+
 				loop: (onFinish=() => {}) => {
-					this.currentFrame = 0
+					this.currentTagFrame = 0
 					this.activeTag = tag
 					this.defaultTag = tag
 					this.type = 'loop'
@@ -45,7 +48,7 @@ export class SpriteController extends StaticGameObject {
 				},
 
 				show: (frame) => {
-					this.currentFrame = frame
+					this.currentTagFrame = frame
 					this.activeTag = tag
 					this.defaultTag = tag
 					this.type = 'show'
@@ -64,12 +67,12 @@ export class SpriteController extends StaticGameObject {
 		const stopWatch = StopWatch().start()
 
 		this.localObjects = Objects([
-			OnTrue(() => stopWatch.time >= 100, () => {
+			OnTrue(() => stopWatch.time >= this.asepriteJson.tags[this.activeTag][this.currentTagFrame].duration, () => {
 				if (this.type == 'show') {
 					// do nothing
 				}
-				else if (this.currentFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
-					this.currentFrame = 0
+				else if (this.currentTagFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
+					this.currentTagFrame = 0
 
 					if (this.type == 'play') {
 						this.activeTag = this.defaultTag
@@ -78,7 +81,7 @@ export class SpriteController extends StaticGameObject {
 					}
 				}
 				else {
-					this.currentFrame += 1
+					this.currentTagFrame += 1
 				}
 
 				stopWatch.restart()
@@ -86,15 +89,13 @@ export class SpriteController extends StaticGameObject {
 		])
 	}
 
-
 	randomStartFrame() {
-		this.currentFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
+		this.currentTagFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
 		return this
 	}
 
 	update() {
 		this.localObjects.update()
-
 		this.spritePicture.update()
 	}
 }

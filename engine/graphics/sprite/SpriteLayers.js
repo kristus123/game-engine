@@ -36,7 +36,7 @@ export class SpriteLayers extends StaticGameObject {
 		this.position.height = this.height * Scale.vaue
 
 		for (const layer of this.layers) {
-			Getter(this, layer, () => this._layers[layer][sprite.currentFrame].picture)
+			Getter(this, layer, () => this._layers[layer][sprite.currentTagFrame].picture)
 		}
 	}
 

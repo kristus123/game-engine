@@ -4,7 +4,7 @@ export class SpritePicture extends Picture {
 	}
 
 	update() {
-		const frame = this.sprite.asepriteJson.tags[this.sprite.activeTag][this.sprite.currentFrame]
+		const frame = this.sprite.asepriteJson.tags[this.sprite.activeTag][this.sprite.currentTagFrame]
 		this.d.sprite(this.position, frame, this.canvas)
 	}
 

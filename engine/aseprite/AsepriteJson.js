@@ -22,6 +22,7 @@ export class AsepriteJson {
 					width: f.frame.w,
 					height: f.frame.h,
 					slices: [],
+					duration: f.duration,
 				}
 
 				this.width = f.frame.w
@@ -55,6 +56,5 @@ export class AsepriteJson {
 	get singleFrame() {
 		return this.json.frames.length == 1
 	}
-
 
 }
