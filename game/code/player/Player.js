@@ -3,7 +3,7 @@ export class Player extends DynamicGameObject {
 		super(position, 4000, 400)
 
 		this.objects = Objects([
-			this.sprite = Sprite.(this.position),
+			this.sprite = Sprite.player(this.position),
 		])
 	}
 
