@@ -1,7 +1,7 @@
 export async function LoadJsonIfPresent(url) {
-    try {
-        const result = await fetch(url)
-        if (result.ok) {
+	try {
+    	const result = await fetch(url)
+    	if (result.ok) {
 			const text = await result.text()
 			if (text == 'null') {
 				return false
@@ -9,12 +9,13 @@ export async function LoadJsonIfPresent(url) {
 			else {
 				return JSON.parse(text)
 			}
-        }
+    	}
 		else {
-        	return false
+    		return false
 		}
-    } catch (e) {
-        throw e
-    }
+	}
+	catch (e) {
+    	throw e
+	}
 }
 
