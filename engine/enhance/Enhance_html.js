@@ -75,7 +75,7 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, 'floating', function (position = null) {
 		this.addClass('floating')
-		if(position) {
+		if (position) {
 			this.position(position)
 		}
 		return this

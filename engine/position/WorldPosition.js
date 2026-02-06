@@ -9,9 +9,9 @@ export class WorldPosition {
 	}
 
 	randomPoint() {
-		const x = Random.integerBetween(this.x, this.x + this.width) 
+		const x = Random.integerBetween(this.x, this.x + this.width)
 		const y = Random.integerBetween(this.y, this.y + this.height)
-		return WorldPosition(x,y)
+		return WorldPosition(x, y)
 	}
 
 	get x() {
@@ -171,16 +171,17 @@ export class WorldPosition {
 		}
 	}
 
-moveTowards(o) {
-  const dx = o.x - this.x;
-  const dy = o.y - this.y;
+	moveTowards(o) {
+		const dx = o.x - this.x
+		const dy = o.y - this.y
 
-  if (Math.abs(dx) > Math.abs(dy)) {
-    this.x += Math.sign(dx);
-  } else if (dy !== 0) {
-    this.y += Math.sign(dy);
-  }
-}
+		if (Math.abs(dx) > Math.abs(dy)) {
+			this.x += Math.sign(dx)
+		}
+		else if (dy !== 0) {
+			this.y += Math.sign(dy)
+		}
+	}
 
 	static from(jsonPosition) {
 		return WorldPosition(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
