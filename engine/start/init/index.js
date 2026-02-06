@@ -22,34 +22,6 @@ document.body.addEventListener('touchmove', e => {
 }, { passive: false })
 
 
-const loadedShit = ASEPRITE_FILES.map(async path => {
-	const fileName = path.split('/').pop()
-
-	return Promise.all([
-		LoadImage(`${path}.png`),
-		LoadJson(`${path}.json`),
-		LoadImage(`${path}Layers.png`),
-		LoadJson(`${path}Layers.json`),
-		LoadJsonIfPresent(`${path}Tilemaps.json`),
-	]).then(([
-		fullImage,
-		fullJson,
-		layersImage,
-		layersJson,
-		tilemapsJson,
-	]) => {
-		Sprite[fileName] = (d, position, scale=1) => new SpriteController(
-			d,
-			position,
-			fullImage,
-			fullJson,
-			layersImage,
-			layersJson,
-			tilemapsJson,
-			scale)
-	})
-})
-
 function loadAllAudio() {
 	return Promise.all(AUDIO_FILES.map(a =>
 		LoadAudio(a).then(audio => {
@@ -60,7 +32,7 @@ function loadAllAudio() {
 }
 
 Promise.all([
-	Promise.all(loadedShit),
+	Promise.all(InitSprites()),
 	loadAllAudio(),
 ])
 	.then(() => {
