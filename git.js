@@ -3,19 +3,21 @@ import { promisify } from 'util'
 
 const execAsync = promisify(exec)
 
-export async function checkAndPull(onUpdate) {
+export async function checkAndPull(triggerReload) {
 	try {
 		await execAsync('git fetch')
 
 		const { stdout } = await execAsync('git status -uno')
-		const changes = !stdout.includes('Your branch is up to date')
+		const newChanges = !stdout.includes('Your branch is up to date')
 
-		if (changes) {
-  	console.log('[git] New changes detected. Pulling...')
-  	await execAsync('git pull')
-  	console.log('[git] Git pull complete.')
-  	if (onUpdate) {
-				onUpdate()
+		if (newChanges) {
+			console.log('[git] New changes detected. Pulling...')
+
+			await execAsync('git pull')
+			console.log('[git] Git pull complete.')
+
+			if (triggerReload) {
+				triggerReload()
 			}
 		}
 	}
