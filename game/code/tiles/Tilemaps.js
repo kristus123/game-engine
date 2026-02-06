@@ -23,8 +23,8 @@ export class Tilemaps {
 					tileInfo.x * tilesJson.width,
 					tileInfo.y * tilesJson.height,
 					tilesJson.width,
-					tilesJson.height),
-
+					tilesJson.height
+				),
 				layers.trees,
 				scale))
 		}

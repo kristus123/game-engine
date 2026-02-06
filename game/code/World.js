@@ -5,7 +5,6 @@ export class World {
 
 		this.objects = Objects([
 			Sprite.fire(D1, Position(800, 800), 2),
-			this.snow.tilemaps,
 			this.player = DynamicGameObject(Position(700, 700)),
 			this.a = Sprite.goat(D2, this.player.position),
 			Sprite.light(D1, this.player.position.offset(), 2),
@@ -21,5 +20,14 @@ export class World {
 		this.objects.update()
 		this.snow.layers.trees.draw(D1)
 		this.snow.layers.background.draw(D3)
+
+		this.snow.tilemaps.tiles.forEach(t => {
+			if (t.index == 1) {
+				D1.transparentGreenRectangle(t.position)
+				if (Mouse.hovering(t.position)) {
+					D1.box(t.position)
+				}
+			}
+		})
 	}
 }

@@ -90,5 +90,9 @@ Promise.all([
 
 		Dom.swap(lines.map(line => Html.p(line)))
 
+		setTimeout(() => {
+			location.reload()
+		}, 2000);
+
 		throw err
 	})

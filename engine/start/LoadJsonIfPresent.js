@@ -1,15 +1,20 @@
 export async function LoadJsonIfPresent(url) {
-	try {
-		const r = await fetch(url)
-
-		if (r.ok) {
-			return await r.json()
-		}
+    try {
+        const result = await fetch(url)
+        if (result.ok) {
+			const text = await result.text()
+			if (text == 'null') {
+				return false
+			}
+			else {
+				return JSON.parse(text)
+			}
+        }
 		else {
-			return false
+        	return false
 		}
-	}
-	catch (e) {
-		throw new Error('Error loading JSON:', e)
-	}
+    } catch (e) {
+        throw e
+    }
 }
+
