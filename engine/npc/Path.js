@@ -8,7 +8,7 @@ export class Path {
 			return this.points[this.index]
 		}
 		else {
-			return Position(0, 0)
+			return WorldPosition(0, 0)
 		}
 	}
 

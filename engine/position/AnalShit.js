@@ -12,7 +12,7 @@ export class AnalShit {
 		const new_x = target.x + extendedVectorX
 		const new_y = target.y + extendedVectorY
 
-		return Position(new_x, new_y)
+		return WorldPosition(new_x, new_y)
 	}
 
 }

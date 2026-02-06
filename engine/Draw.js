@@ -413,7 +413,7 @@ export class Draw {
 		const x = player.x + circleRadius * Math.cos(angle)
 		const y = player.y + circleRadius * Math.sin(angle)
 
-		this.circle(Position(x, y), 10, 'red')
+		this.circle(WorldPosition(x, y), 10, 'red')
 	}
 
 	line(start, end) {

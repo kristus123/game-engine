@@ -1,6 +1,6 @@
 export class Velocity {
 	constructor(object, _x=0, _y=0) {
-		this.position = Position(0, 0)
+		this.position = WorldPosition(0, 0)
 	}
 
 	get x() {

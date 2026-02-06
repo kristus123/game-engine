@@ -11,7 +11,7 @@ export class OffsetPosition {
 	}
 
 	copy() {
-		return Position(this.position.x + this.offset_x, this.position.y + this.offset_y, this.width, this.height)
+		return WorldPosition(this.position.x + this.offset_x, this.position.y + this.offset_y, this.width, this.height)
 	}
 
 	behind(anotherPosition, distance) {

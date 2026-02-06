@@ -8,7 +8,7 @@ export class Tilemaps {
 		const tilesJson = new AsepriteTilemapsJson(tilemapsJson)
 
 		for (const tileInfo of tilesJson.tilesForFrame(0)) {
-			const position = Position(
+			const position = WorldPosition(
 				tileInfo.x * Scale.value * tilesJson.width * scale,
 				tileInfo.y * Scale.value * tilesJson.height * scale,
 				tilesJson.width * Scale.value * scale,
@@ -17,7 +17,7 @@ export class Tilemaps {
 			this.tiles.push(Tile(
 				tileInfo.i,
 				position,
-				Position(
+				WorldPosition(
 					tileInfo.x * tilesJson.width,
 					tileInfo.y * tilesJson.height,
 					tilesJson.width,

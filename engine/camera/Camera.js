@@ -29,9 +29,9 @@ export class Camera {
 			}),
 		}
 
-		this.objectToFollow = DynamicGameObject(Position(0, 0, 1, 1), 1, 1)
+		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
 
-		this.position = Position(0, 0)
+		this.position = WorldPosition(0, 0)
 
 		this.zoom = 1
 
@@ -67,7 +67,7 @@ export class Camera {
 	}
 
 	static p(p) { // Html.js hack
-		return Position(
+		return WorldPosition(
 			(p.x - this.position.x) * this.zoom + this.offset.x,
 			(p.y - this.position.y) * this.zoom + this.offset.y
 		)
@@ -90,7 +90,7 @@ export class Camera {
 		const centerX = position.x + position.width / 2
 		const centerY = position.y + position.height / 2
 
-		this.follow(Position(centerX, centerY))
+		this.follow(WorldPosition(centerX, centerY))
 
 	}
 

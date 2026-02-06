@@ -2,7 +2,7 @@ export class HouseGrid {
 	constructor() {
 		this.grid = Grid()
 
-		this.position = Position(0, 0, 96*Scale.value, 96*Scale.value) // 96x96 is the sprite size of G.image.house
+		this.position = WorldPosition(0, 0, 96*Scale.value, 96*Scale.value) // 96x96 is the sprite size of G.image.house
 	}
 
 	update() {

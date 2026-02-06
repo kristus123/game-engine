@@ -1,4 +1,4 @@
-export class Ally extends DynamicGameObject {
+export class Ally extends Entity {
 	constructor(position) {
 		super(position, 100, 1000)
 

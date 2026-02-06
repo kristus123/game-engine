@@ -1,4 +1,4 @@
-export class SpriteLayers extends StaticGameObject {
+export class SpriteLayers extends Entity {
 	constructor(sprite, d, position, image, layersJson, scale) {
 		super(position)
 
@@ -17,7 +17,7 @@ export class SpriteLayers extends StaticGameObject {
 			this.width = width
 			this.height = height
 
-			const xxx = Position(x, y, width*Scale.value, height*Scale.value)
+			const xxx = WorldPosition(x, y, width*Scale.value, height*Scale.value)
 			const yyy = {
 				position: xxx,
 				x: x,
@@ -48,6 +48,6 @@ export class SpriteLayers extends StaticGameObject {
 
 	update() {
 		// seems like it can be empty, but if it is removed
-		// it will use super's StaticGameObject.update
+		// it will use super's update
 	}
 }

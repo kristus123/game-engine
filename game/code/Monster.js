@@ -1,6 +1,6 @@
-export class Monster extends DynamicGameObject {
+export class Monster extends Entity {
 	constructor(paths, onKill=() => {}) {
-		super(Position(677, -644, 100, 100), 10, 10)
+		super(WorldPosition(677, -644, 100, 100), 10, 10)
 
 		this.localObjects = Objects([
 			Init(this, {
