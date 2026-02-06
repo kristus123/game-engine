@@ -9,7 +9,7 @@ export class TileSheet {
 		this.tileTypes = {}
 
 		for (const tileInfo of asepriteTilesJson.tilesForFrame(0)) {
-			const position = Position(
+			const position = WorldPosition(
 				(tileInfo.x) * Scale.value * asepriteTilesJson.width * scale,
 				(tileInfo.y+3) * Scale.value * asepriteTilesJson.height * scale, // i have no idea why i must do +num, the error might also be elsewhere. somewhere somehow things are being offset
 				asepriteTilesJson.width * Scale.value * scale,
@@ -27,7 +27,7 @@ export class TileSheet {
 				position,
 				singleTile: this.tileTypes[tileInfo.i].singleTile(position),
 				pixelPosition(x, y) {
-					return Position(position.x + (x*Scale.value*scale), position.y + (y*Scale.value*scale), Scale.value*scale, Scale.value*scale)
+					return WorldPosition(position.x + (x*Scale.value*scale), position.y + (y*Scale.value*scale), Scale.value*scale, Scale.value*scale)
 
 				},
 			})

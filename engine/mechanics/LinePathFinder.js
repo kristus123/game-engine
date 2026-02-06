@@ -4,7 +4,7 @@ export class LinePathFinder {
 	}
 
 	update() {
-		this.square ??= Square(Position(this.source.x, this.source.y), 10)
+		this.square ??= Square(WorldPosition(this.source.x, this.source.y), 10)
 
 		EveryFrame(10, () => {
 			console.log('hey')

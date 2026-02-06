@@ -34,7 +34,7 @@ export class AsepriteJson {
 						const b = s.keys[frame].bounds
 						sprite.slices.push({
 							name: s.name,
-							position: Position(b.x, b.y, b.w, b.h),
+							position: WorldPosition(b.x, b.y, b.w, b.h),
 						})
 					}
 				}

@@ -1,4 +1,4 @@
-export class Square extends DynamicGameObject {
+export class Square extends Entity {
 	constructor(position, size, run=() => {}) {
 		super(position, 10, 10)
 		this.position.width = size

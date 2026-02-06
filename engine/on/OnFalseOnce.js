@@ -1,13 +1,11 @@
-export class OnTrue {
+export class OnFalseOnce {
 	constructor(condition, action) {
 		Assert.method(condition)
 
 		this.onChange = OnChange(condition, b => {
-			if (b) {
-				const onFalse = (run) => {
-					this.addToSame(OnFalseOnce(condition, run))
-				}
-				action(onFalse)
+			if (!b) {
+				action(b)
+        		this.removeItself()
 			}
 		})
 	}

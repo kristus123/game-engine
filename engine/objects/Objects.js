@@ -7,6 +7,9 @@ export class Objects { // not a good name
 			o.removeItself = () => {
 				this.remove(o)
 			}
+			o.addToSame = (o) => {
+				this.add(o)
+			}
 			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!! loop was overriden once, and it caused a head scratch
 
 			o.handledBy = this
@@ -32,6 +35,9 @@ export class Objects { // not a good name
 		o.removeItself = () => {
 			this.remove(o)
 		}
+		o.addToSame = (o) => {
+			this.add(o)
+		}
 		o.loop = this
 
 		o.handledBy = this
@@ -40,6 +46,7 @@ export class Objects { // not a good name
 
 		return o
 	}
+
 	push(o) {
 		return this.add(o)
 	}

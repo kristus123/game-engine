@@ -73,8 +73,11 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'floating', function () {
+	Enhance(HTMLElement, 'floating', function (position = null) {
 		this.addClass('floating')
+		if (position) {
+			this.position(position)
+		}
 		return this
 	})
 

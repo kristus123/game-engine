@@ -1,20 +1,15 @@
-export const G = {
-	ranches: Objects([]),
-	poop: Objects([]),
-	trees: Objects([]),
-	monsters: Objects([]),
-	workers: Objects([]),
-	fire: Objects([]),
-	chickenFood: Objects([]),
-	allies: Objects([]),
-	turrets: Objects([]),
-	money: 20,
-	wave: 1,
-	pause: false,
-	pictures: {},
-	Sprite: {},
-	Audio: {},
-	image: {},
-	SpriteLayers: {},
-	tilemaps: {},
-}
+const data = {}
+
+export const G = new Proxy(data, {
+	get(target, prop) {
+		if (!(prop in target)) {
+			target[prop] = Objects([])
+		}
+		return target[prop]
+	},
+
+	set(target, prop, value) {
+		target[prop] = value
+		return true
+	}
+})

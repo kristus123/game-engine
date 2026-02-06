@@ -1,4 +1,4 @@
-export class SpriteController extends StaticGameObject {
+export class SpriteController extends Entity {
 	constructor(d, position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
 		super(position)
 

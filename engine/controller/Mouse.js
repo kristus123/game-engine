@@ -2,8 +2,8 @@ export class Mouse {
 
 	static initialize() {
 
-		this.position = Position(0, 0)
-		this.screenPosition = Position(0, 0)
+		this.position = WorldPosition(0, 0)
+		this.screenPosition = WorldPosition(0, 0)
 
 		this.disabled = false
 

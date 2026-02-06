@@ -1,4 +1,4 @@
-export class Position {
+export class WorldPosition {
 	constructor(_x, _y, _width = 1, _height = 1) {
 		this._width = _width
 		this._height = _height
@@ -6,6 +6,12 @@ export class Position {
 		this.center = CenterPosition(this, _width, _height)
 
 		this._original = null // will be set on first scale()
+	}
+
+	randomPoint() {
+		const x = Random.integerBetween(this.x, this.x + this.width)
+		const y = Random.integerBetween(this.y, this.y + this.height)
+		return WorldPosition(x, y)
 	}
 
 	get x() {
@@ -53,7 +59,7 @@ export class Position {
 	}
 
 	copy(offset_x = 0, offset_y = 0) {
-		return Position(this.x + offset_x, this.y + offset_y, this.width, this.height)
+		return WorldPosition(this.x + offset_x, this.y + offset_y, this.width, this.height)
 	}
 
 	offset(offset_x = 0, offset_y = 0, width = this.width, height = this.height) {
@@ -165,8 +171,20 @@ export class Position {
 		}
 	}
 
+	moveTowards(o) {
+		const dx = o.x - this.x
+		const dy = o.y - this.y
+
+		if (Math.abs(dx) > Math.abs(dy)) {
+			this.x += Math.sign(dx)
+		}
+		else if (dy !== 0) {
+			this.y += Math.sign(dy)
+		}
+	}
+
 	static from(jsonPosition) {
-		return Position(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
+		return WorldPosition(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
 	}
 }
 

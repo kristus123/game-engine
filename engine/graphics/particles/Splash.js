@@ -7,7 +7,7 @@ export class Splash {
 		const size = Random.floatBetween(0.1, 10)
 
 		Iterate(20, () => {
-			const p = DynamicGameObject(Position(object.x, object.y, size, size), 20, 100)
+			const p = Entity(WorldPosition(object.x, object.y, size, size), 20, 100)
 			p.pushTowards(object, 15)
 
 			p.life = 200
@@ -23,7 +23,7 @@ export class Splash {
 		Iterate(10, () => {
 			const size = Random.floatBetween(0.1, 10)
 
-			const p = DynamicGameObject(Position(object.x, object.y, size, size), 20, 100)
+			const p = Entity(WorldPosition(object.x, object.y, size, size), 20, 100)
 
 			p.pushTowards(Random.direction(object), Random.integerBetween(1, 5))
 

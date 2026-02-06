@@ -1,14 +1,23 @@
-export class Player extends DynamicGameObject {
+export class Player extends Entity {
 	constructor(position) {
-		super(position, 4000, 400)
+		super(position)
 
 		this.objects = Objects([
-			this.sprite = Sprite.player(this.position),
+			this.sprite = Sprite.player(D1, this.position),
 		])
 	}
 
 	update() {
 		this.objects.update()
+		for (const s of G.stones) {
+			if (this.touches(s)) {
+				s.position = this.position
+				Html.p('+1').dom().floating(this.position).animate('fade-away')
+				s.removeItself()
+				console.log(0)
+			}
+			s.position.moveTowards(this.position.center)
+		}
 	}
 
 }

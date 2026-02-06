@@ -1,4 +1,4 @@
-export class Npc extends DynamicGameObject {
+export class Npc extends Entity {
 	constructor(position) {
 		super(position, 10, 3)
 

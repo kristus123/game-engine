@@ -68,7 +68,7 @@ export class Grid {
 	}
 
 	scaled(gridPosition) {
-		return Position(
+		return WorldPosition(
 			gridPosition.x * this.cellWidth,
 			gridPosition.y * this.cellHeight,
 			this.cellWidth,

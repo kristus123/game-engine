@@ -3,7 +3,7 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 
 		this.position = position.copy()
 
-		this._objectId = Random.uuid()
+		this.entityId = Random.uuid()
 	}
 
 	touches(o) {

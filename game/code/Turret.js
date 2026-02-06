@@ -1,4 +1,4 @@
-export class Turret extends DynamicGameObject {
+export class Turret extends Entity {
 	constructor(position) {
 		super(position, 1, 1)
 

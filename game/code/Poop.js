@@ -1,4 +1,4 @@
-export class Poop extends DynamicGameObject {
+export class Poop extends Entity {
 	constructor(position) {
 		super(position, 10, 10)
 

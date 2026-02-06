@@ -1,4 +1,4 @@
-export class DynamicGameObject extends _GameObject {
+export class Entity extends _GameObject {
 	constructor(position) {
 		super(position)
 
