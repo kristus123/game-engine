@@ -92,7 +92,7 @@ Promise.all([
 
 		setTimeout(() => {
 			location.reload()
-		}, 2000);
+		}, 100);
 
 		throw err
 	})

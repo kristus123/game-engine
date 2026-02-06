@@ -6,13 +6,13 @@ export class SpriteController extends StaticGameObject {
 
 
 		this.spritePicture = SpritePicture(d, this, position, fullImage)
-		this.asepriteJson = new AsepriteJson(fullJson)
+		this.asepriteJson = AsepriteJson(fullJson)
 
-		this.layers = new SpriteLayers(
+		this.layers = SpriteLayers(
 			this, d, position, layersImage, layersJson, scale)
 
 		if (tilemapsJson) {
-			this.tilemaps = new Tilemaps(
+			this.tilemaps = Tilemaps(
 				this, tilemapsJson, this.layers, scale)
 		}
 

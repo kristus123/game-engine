@@ -23,9 +23,4 @@ export class Dom {
 			document.body.appendChild(Html.div('overlay', e))
 		}
 	}
-
-	static add(e) {
-		document.body.appendChild(e)
-		return e
-	}
 }

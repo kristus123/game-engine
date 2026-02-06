@@ -64,7 +64,8 @@ export function Enhance_html() {
 		})
 
 		this.addEventListener('animationend', () => {
-			this.removeClass(className)
+			// this.removeClass(className)
+			this.remove()
 
 			onEnd()
 		})
@@ -77,7 +78,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'addToDom', function () {
+	Enhance(HTMLElement, 'dom', function () {
 		Dom.add(this)
 		return this
 	})

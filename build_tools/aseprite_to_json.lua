@@ -47,44 +47,16 @@ if not sprite then
   return
 end
 
-local outBase
-
-if sprite.filename and sprite.filename ~= "" then
-  local path = sprite.filename:gsub("\\", "/")
-  local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
-
-  -- strip current working directory from absolute path
-  path = path:gsub("^" .. cwd .. "/?", "")
-  path = path:gsub("%.%w+$", "") -- remove extension
-
-  outBase = "dist/" .. path
-else
-  outBase = "dist/aseprite_export"
-end
-
-
-local hasTilemap = false
-for _,layer in ipairs(sprite.layers) do
-  if layer.isTilemap then
-    for _,cel in ipairs(sprite.cels) do
-      if cel.layer == layer and cel.image then
-        hasTilemap = true
-        break
-      end
-    end
-    if hasTilemap then break end
-  end
-end
-
-if not hasTilemap then
-  app.alert("No tilemap data found. Nothing exported.")
+if not sprite.filename or sprite.filename == "" then
+  app.alert("Sprite must be saved to a file before exporting tilemaps.")
   return
 end
 
-local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
-if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
-end
+local path = sprite.filename:gsub("\\", "/")
+local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
+path = path:gsub("^" .. cwd .. "/?", "")
+path = path:gsub("%.%w+$", "")
+local outBase = "dist/" .. path
 
 local all_tilemaps = {}
 
@@ -108,9 +80,11 @@ for _,layer in ipairs(sprite.layers) do
           local row = {}
           for x = 0, w-1 do
             local raw = img:getPixel(x, y)
-            local idx = app.pixelColor.tileI(raw)
-            local flags = app.pixelColor.tileF(raw)
-            table.insert(row, { i = idx, f = flags })
+            if raw then
+              table.insert(row, { i = app.pixelColor.tileI(raw), f = app.pixelColor.tileF(raw) })
+            else
+              table.insert(row, { i = 0, f = 0 })
+            end
           end
           table.insert(tiles, row)
         end
@@ -138,6 +112,16 @@ for _,layer in ipairs(sprite.layers) do
   end
 end
 
+if #all_tilemaps == 0 then
+  write_file(outBase .. "Tilemaps.json", "null")
+  return
+end
+
+local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
+if not ok1 then
+  pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
+end
+
 local json_parts = {}
 table.insert(json_parts, "{")
 table.insert(json_parts, '  "tilemaps": [')
@@ -162,3 +146,4 @@ table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
 write_file(outBase .. "Tilemaps.json", table.concat(json_parts, "\n"))
+

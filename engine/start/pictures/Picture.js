@@ -29,7 +29,7 @@ export class Picture {
 
 	move(p, picture) {
 		const c = this.pixelColor(p)
-		this.erasePixel(p)
+		this.erase(p)
 		picture.setPixel(p, c.r, c.g, c.b, c.a)
 		console.log(c)
 	}
@@ -38,7 +38,7 @@ export class Picture {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 	}
 
-	erasePixel(p) {
+	erase(p) {
 		this.ctx.clearRect(p.x, p.y, p.width, p.height)
 	}
 

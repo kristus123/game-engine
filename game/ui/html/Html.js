@@ -63,7 +63,6 @@ export class Html {
 
 		i.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter') {
-				console.log('hei')
 				onEnter(i.value)
 			}
 		})
@@ -209,7 +208,6 @@ export class Html {
 		const d = HtmlElement('div', className)
 
 		for (const e of childElements) {
-			console.log(e)
 			d.appendChild(e)
 		}
 

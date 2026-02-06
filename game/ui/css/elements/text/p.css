@@ -1,0 +1,10 @@
+p {
+	font-size: 30px;
+	color:black;
+}
+
+p.big {
+	font-size: 80px;
+	color:grey;
+	font-weight: 200; 
+}

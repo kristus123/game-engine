@@ -40,6 +40,9 @@ export class Objects { // not a good name
 
 		return o
 	}
+	push(o) {
+		return this.add(o)
+	}
 
 	remove(o) {
 		this.objects.remove(o)
