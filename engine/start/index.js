@@ -8,56 +8,31 @@ if ('serviceWorker' in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 }
 
-document.body.addEventListener('touchmove', e => {
-	while (e.target && e.target !== document.body) {
-		if (e.target.classList && e.target.classList.contains('scroll')) {
-			// allow scrollsp
-		}
-		else {
-			e.target = e.target.parentNode
-		}
-	}
+async function loadAsepriteAssets(path) {
 
-	e.preventDefault()
-}, { passive: false })
+	const fullImage = await LoadImage(`${path}.png`)
+	const fullJson = await LoadJson(`${path}.json`)
 
+	const layersImage = await LoadImage(`${path}Layers.png`)
+	const layersJson = await LoadJson(`${path}Layers.json`)
 
+	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 
-function loadAsepriteAssets(path) {
-	const fileName = path.split('/').pop()
-
-	return Promise.all([
-		LoadImage(`${path}.png`),
-		LoadJson(`${path}.json`),
-		LoadImage(`${path}Layers.png`),
-		LoadJson(`${path}Layers.json`),
-		LoadJsonIfPresent(`${path}Tilemaps.json`),
-	]).then(([
-		fullImage,
-		fullJson,
-		layersImage,
-		layersJson,
+	const spriteName = path.split('/').pop()
+	Sprite[spriteName] = (d, position, scale=1) => new SpriteController(
+		d, position,
+		fullImage, fullJson,
+		layersImage, layersJson,
 		tilemapsJson,
-	]) => {
-		Sprite[fileName] = (d, position, scale=1) => new SpriteController(
-			d,
-			position,
-			fullImage,
-			fullJson,
-			layersImage,
-			layersJson,
-			tilemapsJson,
-			scale)
-	})
+		scale)
 }
 
-function loadAllAudio() {
-	return Promise.all(AUDIO_FILES.map(a =>
-		LoadAudio(a).then(audio => {
-			const key = a.split('/').pop().replace('.mp3', '')
-			G.Audio[key] = audio
-		})
-	))
+async function loadAllAudio() {
+	return Promise.all(AUDIO_FILES.map(async path => {
+		const audio = await LoadAudio(path)
+		const key = path.split('/').pop().replace('.mp3', '')
+		G.Audio[key] = audio
+	}))
 }
 
 Promise.all([
@@ -100,7 +75,6 @@ Promise.all([
 				Mouse.update()
 			})
 
-
 			mainPalette.apply(backgroundPalette)
 			mainPalette.apply(Camera.palettes.d3)
 			mainPalette.apply(Camera.palettes.d2)
@@ -114,9 +88,7 @@ Promise.all([
 		const err = e instanceof Error ? e : new Error(e)
 		const lines = (err.stack || '').split('\n')
 
-		Dom.swap(
-			lines.map(line => Html.p(line))
-		)
+		Dom.swap(lines.map(line => Html.p(line)))
 
 		throw err
 	})
