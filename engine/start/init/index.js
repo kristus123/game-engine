@@ -22,8 +22,7 @@ document.body.addEventListener('touchmove', e => {
 }, { passive: false })
 
 
-
-function loadAsepriteAssets(path) {
+const loadedShit = ASEPRITE_FILES.map(async path => {
 	const fileName = path.split('/').pop()
 
 	return Promise.all([
@@ -49,7 +48,7 @@ function loadAsepriteAssets(path) {
 			tilemapsJson,
 			scale)
 	})
-}
+})
 
 function loadAllAudio() {
 	return Promise.all(AUDIO_FILES.map(a =>
@@ -61,7 +60,7 @@ function loadAllAudio() {
 }
 
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
+	Promise.all(loadedShit),
 	loadAllAudio(),
 ])
 	.then(() => {
