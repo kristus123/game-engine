@@ -1,7 +1,7 @@
 export class Objects { // not a good name
 	constructor(objects=[]) {
-		AssertArray(objects)
-		AssertNoNullInArray(objects)
+		Assert.array(objects)
+		Assert.noNullInArray(objects)
 
 		for (const o of objects) {
 			o.removeItself = () => {

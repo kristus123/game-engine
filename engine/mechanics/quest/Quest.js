@@ -7,7 +7,8 @@
 
 export class Quest {
 	constructor(tasks=[], onQuestCompleted=() => {}) {
-		AssertArray(tasks)
+		Assert.array(tasks)
+
 		for (const task of tasks) {
 			if (not.method(task)) {
 				throw new Error('Quest.js expects a list of arrow functions')

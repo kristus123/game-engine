@@ -1,34 +1,14 @@
-function arraysAreEqual(arr1, arr2) {
-	if (arr1.length !== arr2.length) {
-		return false
-	}
-
-	for (let i = 0; i < arr1.length; i++) {
-		if (arr1[i] !== arr2[i]) {
-			return false
-		}
-	}
-
-	return true
-}
-
-class Parameters {
+export default class Parameters {
 
 	static inConstructor(content) {
 		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
 
 		if (match) {
-			const parameters = match[1].split(',')
+			return match[1].split(',')
 				.map(param => param.trim())
 				.map(p => p.replaceAll(' ', ''))
 				.map(p => p.split('=')[0])
-
-			if (arraysAreEqual(parameters, [''])) {
-				return []
-			}
-			else {
-				return parameters
-			}
+				.filter(p => p != '')
 		}
 		else {
 			return []
@@ -37,7 +17,7 @@ class Parameters {
 
 	static initVariablesFromConstructor(content) {
 		return Parameters.inConstructor(content)
-			.filter(p => !p.includes('...')) // because of OldAllObjects.js
+			.filter(p => !p.includes('...')) // in case they use ...args
 			.map(p => `this.${p} = ${p}; \n`)
 			.map(p => '\t\t' + p)
 			.join()
@@ -47,12 +27,7 @@ class Parameters {
 	static nullCheckForConstructorArguments(content) {
 		return Parameters.inConstructor(content)
 			.map(p => `
-				AssertNotNull(${p}COMMA "argument ${p} in " + this.constructor.name + ".js should not be null")
-			`)
-			.join()
-			.replaceAll(',', '')
-			.replaceAll('COMMA', ',')
+				Assert.notNull(${p}, "argument ${p} in " + this.constructor.name + ".js should not be null")
+			`).join()
 	}
 }
-
-export default Parameters

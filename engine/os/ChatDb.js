@@ -4,8 +4,8 @@ export class ChatDb {
 	}
 
 	static save(uuid, blob) {
-		AssertNotNull(uuid)
-		AssertNotNull(blob)
+		Assert.notNull(uuid)
+		Assert.notNull(blob)
 
 		this.db.save(uuid, blob)
 
