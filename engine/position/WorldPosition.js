@@ -154,15 +154,6 @@ export class WorldPosition {
 		return new SmoothPosition(this, smoothness, snapThreshold)
 	}
 
-	toJson() {
-		return {
-			x: this.x,
-			y: this.y,
-			width: this.width,
-			height: this.height,
-		}
-	}
-
 	*points() {
 		for (let yy = this.y; yy < this.y + this.height; yy++) {
 			for (let xx = this.x; xx < this.x + this.width; xx++) {
@@ -183,8 +174,5 @@ export class WorldPosition {
 		}
 	}
 
-	static from(jsonPosition) {
-		return WorldPosition(jsonPosition.x, jsonPosition.y, jsonPosition.width, jsonPosition.height)
-	}
 }
 
