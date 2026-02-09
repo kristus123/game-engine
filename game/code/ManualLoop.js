@@ -14,8 +14,8 @@ export class ManualLoop {
 		if (this.ready) {
 			this.ready = false
 			this.run(this.i, () => this.ready = true, () => {
-    			this.x(this.i)
-    			this.removeItself()
+				this.x(this.i)
+				this.removeItself()
 			})
 			this.i += 1
 		}
