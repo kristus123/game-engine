@@ -12,12 +12,12 @@ export class ManualLoop {
 
 	update() {
 		if (this.ready) {
-    		this.ready = false
-    		this.run(this.i, () => this.ready = true, () => {
-        		this.x(this.i)
-        		this.removeItself()
-    		})
-    		this.i += 1
+			this.ready = false
+			this.run(this.i, () => this.ready = true, () => {
+    			this.x(this.i)
+    			this.removeItself()
+			})
+			this.i += 1
 		}
 	}
 }
