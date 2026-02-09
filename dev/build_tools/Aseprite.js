@@ -88,7 +88,7 @@ export class Aseprite {
 			'-b',
 			srcFile,
 			'--script',
-			'build_tools/aseprite_to_json.lua',
+			'dev/build_tools/aseprite_to_json.lua',
 		], { shell: true })
 	}
 }

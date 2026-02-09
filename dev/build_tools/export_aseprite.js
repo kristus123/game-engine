@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Aseprite } from './Aseprite.js'
+import paths from '../../config.js'
 
 function walk(relDir, callback) {
 	const entries = fs.readdirSync(relDir, { withFileTypes: true })
@@ -37,7 +38,7 @@ if (editedFile) {
 	exportAseprite(editedFile, 'dist/' + editedFile)
 }
 else {
-	walk('game/assets/aseprite', file => {
+	walk(paths.asepriteAssets, file => {
 		exportAseprite(file, 'dist/' + file)
 	})
 }
