@@ -1,7 +1,7 @@
 export const index = ''
-import { initD1 } from '/engine/draw_layers/start/D1.js'
-import { initD2 } from '/engine/draw_layers/start/D2.js'
-import { initD3 } from '/engine/draw_layers/start/D3.js'
+import { initD1 } from '/engine/start/draw_layers/D1.js'
+import { initD2 } from '/engine/start/draw_layers/D2.js'
+import { initD3 } from '/engine/start/draw_layers/D3.js'
 
 navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
 if ('serviceWorker' in navigator) {
