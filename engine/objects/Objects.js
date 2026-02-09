@@ -13,7 +13,6 @@ export class Objects { // not a good name
 			o.loop = this // TODO this is very dangerous to do. !!!!!!!!!!!!!!!!!!!!!!! loop was overriden once, and it caused a head scratch
 
 			o.handledBy = this
-			Registry.add(o)
 		}
 	}
 
@@ -42,7 +41,6 @@ export class Objects { // not a good name
 
 		o.handledBy = this
 
-		Registry.add(o)
 
 		return o
 	}
@@ -53,7 +51,6 @@ export class Objects { // not a good name
 
 	remove(o) {
 		this.objects.remove(o)
-		Registry.remove(o)
 	}
 
 	removeAll() {

@@ -12,7 +12,7 @@ export class Player extends Entity {
 
 		for (const s of G.stones) {
 			if (this.touches(s)) {
-				Html.p('+1').dom().floating(this.position).animate('fade-away')
+				Html.p('+1').domFloat(this.position).animate('fade-away')
 				s.removeItself()
 			}
 

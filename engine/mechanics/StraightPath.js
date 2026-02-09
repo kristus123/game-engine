@@ -19,7 +19,8 @@ export class StraightPath {
 	update() {
 		ForcePush(this.line).towards(this.end, 300)
 
-		if (this.line.touchesAny(Registry.invisibleWalls)) {
+		const invisibleWalls = null // fix when needed
+		if (this.line.touchesAny(invisibleWalls)) {
 			this.blocked = true
 
 			this.line.x = this.start.x

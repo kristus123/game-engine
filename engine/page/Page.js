@@ -4,7 +4,7 @@ export class Page {
 		this.pages.assertKeyMissing(page)
 		this.pages[path] = page
 		page.hide()
-		//history.pushState({}, "", path); Todo fix
+		//history.pushState({}, "", path); Todo fix when needed
 	}
 
 	static go(page) {

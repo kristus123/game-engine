@@ -1,11 +1,6 @@
 export class HelperThing {
 	constructor(classes=[]) {
-
-		for (const c of classes) {
-			if (c == null) {
-				throw new Error('null passed into Runall')
-			}
-		}
+		Assert.noNullInArray(classes)
 	}
 
 	static update(objects) {
@@ -26,12 +21,4 @@ export class HelperThing {
 		}
 	}
 
-	add(c) {
-		this.classes.push(c)
-		return c
-	}
-
-	remove(c) {
-		this.classes.remove(c)
-	}
 }
