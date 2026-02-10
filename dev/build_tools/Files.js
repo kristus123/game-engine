@@ -4,7 +4,7 @@ import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 
-import paths from '../../config.js'
+import paths from '../../fileConfig.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -12,8 +12,7 @@ const mainFilename = process.argv[1]
 
 export default class {
 	static writeFileToDist(srcPath, content) {
-		const destPath = Path.join(paths.distStatic, Path.relative(paths.root, srcPath))
-
+		const destPath = Path.join('dist', srcPath.replace(/^client[\/\\]/, ''))
 		const folderPath = Path.dirname(destPath)
 
 		if (!fs.existsSync(folderPath)) {
@@ -29,13 +28,16 @@ export default class {
 
 	static contentMatchingIn(path, fileContent) {
 		try {
-			const distPath = Path.join(paths.distStatic, Path.relative(paths.root, path))
+			let relativePath = path.replace(/^client[\/\\]/, '')
+			
+			const distPath = Path.join('dist', relativePath)
 			const distFile = fs.readFileSync(distPath, 'utf8')
 
 			return distFile == fileContent
 		}
 		catch (error) {
-			return false
+
+		return false
 		}
 	}
 
@@ -86,8 +88,7 @@ export default class {
 			}
 		}
 
-		return results
-			.map(f => f.replaceAll('\\', Path.dirname(mainFilename)))
+		return results.map(f => f.replaceAll('\\', '/'))
 	}
 
 

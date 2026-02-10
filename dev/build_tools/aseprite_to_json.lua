@@ -56,6 +56,7 @@ local path = sprite.filename:gsub("\\", "/")
 local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
 path = path:gsub("^" .. cwd .. "/?", "")
 path = path:gsub("%.%w+$", "")
+path = path:gsub("^client/", "")
 local outBase = "dist/" .. path
 
 local all_tilemaps = {}

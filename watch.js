@@ -5,7 +5,7 @@ import RandomId from './dev/build_tools/RandomId.js'
 import { Runner } from './dev/build_tools/Runner.js'
 import Files from './dev/build_tools/Files.js'
 
-import paths from './config.js'
+import paths from './fileConfig.js'
 
 Files.deleteFolder('dist')
 
