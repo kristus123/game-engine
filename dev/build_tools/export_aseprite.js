@@ -1,11 +1,8 @@
 import fs from 'fs'
 import path from 'path'
 import { Aseprite } from './Aseprite.js'
-<<<<<<< HEAD
+
 import { FileConfig } from '#root/FileConfig.js'
-=======
-import paths from '../../config.js'
->>>>>>> 47758959 (resolve 2)
 
 function walk(relDir, callback) {
 	const entries = fs.readdirSync(relDir, { withFileTypes: true })
