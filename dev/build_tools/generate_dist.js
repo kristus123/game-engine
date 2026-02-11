@@ -1,6 +1,6 @@
 import Files from './Files.js'
 import path from 'path'
-import paths from '../../fileConfig.js'
+import paths from '#root/fileConfig.js'
 import './transpiler.js'
 
 Files.copyFolder(paths.gameAssets, path.join(paths.dist, 'game/assets'))

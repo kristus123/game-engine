@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Aseprite } from './Aseprite.js'
-import paths from '../../fileConfig.js'
+import paths from '#root/fileConfig.js'
 
 function walk(relDir, callback) {
 	const entries = fs.readdirSync(relDir, { withFileTypes: true })
