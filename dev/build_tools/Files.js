@@ -4,8 +4,6 @@ import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 
-import paths from '#root/fileConfig.js'
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const mainFilename = process.argv[1]

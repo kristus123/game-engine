@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Aseprite } from './Aseprite.js'
-import paths from '#root/fileConfig.js'
+import { FileConfig } from '#root/FileConfig.js'
 
 function walk(relDir, callback) {
 	const entries = fs.readdirSync(relDir, { withFileTypes: true })
@@ -35,10 +35,10 @@ function exportAseprite(relSrcFile, destBase) {
 const editedFile = process.argv[2] || false
 
 if (editedFile) {
-	exportAseprite(editedFile, 'dist/' + editedFile.replace(paths.game, 'game'))
+	exportAseprite(editedFile, 'dist/' + editedFile.replace(FileConfig.game, 'game'))
 }
 else {
-	walk(paths.asepriteAssets, file => {
-		exportAseprite(file, 'dist/' + file.replace(paths.game, 'game'))
+	walk(FileConfig.asepriteAssets, file => {
+		exportAseprite(file, 'dist/' + file.replace(FileConfig.game, 'game'))
 	})
 }

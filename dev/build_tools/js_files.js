@@ -1,6 +1,6 @@
 import Files from './Files.js'
-import paths from '#root/fileConfig.js'
+import { FileConfig } from '#root/FileConfig.js'
 
-export default [...Files.at(paths.engine), ...Files.at(paths.game)]
+export default [...Files.at(FileConfig.engine), ...Files.at(FileConfig.game)]
 	.filter(f => f.endsWith('.js'))
 	.map(f => f.replaceAll('\\', '/'))

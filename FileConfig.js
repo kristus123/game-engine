@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export const paths = {
+export const FileConfig = {
 	// Source directories
 	game: 'client/game',
 	engine: 'client/engine',
@@ -12,7 +12,11 @@ export const paths = {
 	
 	// Output directory
 	dist: 'dist',
-	
+
+	// Files
+	exportAseprite: 'dev/build_tools/export_aseprite.js',
+	generateDist: 'dev/build_tools/generate_dist.js',
+
 	// Specific paths
 	get gameAssets() { return path.join(this.game, 'assets') },
 	get gameAudio() { return path.join(this.game, 'audio') },
@@ -27,4 +31,4 @@ export const paths = {
 	root: __dirname
 }
 
-export default paths
+export default FileConfig
