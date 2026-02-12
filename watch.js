@@ -7,6 +7,21 @@ import Files from './dev/build_tools/Files.js'
 
 import { FileConfig } from './FileConfig.js'
 
+import { execSync } from 'child_process'
+
+const killPort = (port) => {
+	try {
+		execSync(`fuser -k ${port}/tcp`)
+		console.log(`Killed process on port ${port}`)
+	}
+	catch (e) {
+		console.log(`Nothing running on port ${port}`)
+	}
+}
+
+
+killPort(3000)
+killPort(5000)
 Files.deleteFolder(FileConfig.dist)
 
 let currentId = RandomId()
