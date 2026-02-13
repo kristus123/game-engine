@@ -89,7 +89,7 @@ export class Aseprite {
 			'-b',
 			srcFile,
 			'--script',
-			FileConfig.asepriteToJson,
+			FileConfig.asepriteToJson, // -- TODO: Find A Better Solution For This FileConfig Hack
 		], { shell: true })
 	}
 }

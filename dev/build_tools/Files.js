@@ -10,7 +10,7 @@ const mainFilename = process.argv[1]
 
 export default class {
 	static writeFileToDist(srcPath, content) {
-		const destPath = Path.join('dist', srcPath.replace(/^client[\/\\]/, ''))
+		const destPath = Path.join('dist', srcPath)
 		const folderPath = Path.dirname(destPath)
 
 		if (!fs.existsSync(folderPath)) {
@@ -26,9 +26,7 @@ export default class {
 
 	static contentMatchingIn(path, fileContent) {
 		try {
-			let relativePath = path.replace(/^client[\/\\]/, '')
-			
-			const distPath = Path.join('dist', relativePath)
+			const distPath = Path.join('dist', path)
 			const distFile = fs.readFileSync(distPath, 'utf8')
 
 			return distFile == fileContent

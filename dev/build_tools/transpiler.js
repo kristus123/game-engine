@@ -13,6 +13,8 @@ import Files from './Files.js'
 
 import jsFiles from './js_files.js'
 
+import { FileConfig } from '#root/FileConfig.js'
+
 for (const jsFilePath of jsFiles) {
 	let fileContent = Files.read(jsFilePath)
 
@@ -53,8 +55,8 @@ for (const jsFilePath of jsFiles) {
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
 
-	if (Files.changeDetected(jsFilePath, fileContent)) {
-		Files.writeFileToDist(jsFilePath, fileContent)
+	if (Files.changeDetected(FileConfig.toDistPath(jsFilePath), fileContent)) {
+		Files.writeFileToDist(FileConfig.toDistPath(jsFilePath), fileContent)
 	}
 }
 

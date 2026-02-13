@@ -25,7 +25,11 @@ export const FileConfig = {
 	get asepriteAssets() { return path.join(this.game, 'assets/aseprite') },
 	get gameUiCss() { return path.join(this.game, 'ui/css') },
 	get gameIndexHtml() { return path.join(this.game, 'index.html') },
-	
+	toDistPath(path) {
+    	const regex = new RegExp(`^${FileConfig.client}[\\/\\\\]`)
+    	return path.replace(regex, '')
+	},
+
 	// Static output
 	get distStatic() { return path.join(this.dist, 'static') },
 	
