@@ -54,9 +54,9 @@ for (const jsFilePath of jsFiles) {
 	}
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
-	
+
 	if (!jsFilePath.includes(`${FileConfig.client}`)) {
-    	throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
+		throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
 	}
 
 	const filePath = FileConfig.removeClientPathPrefix(jsFilePath)

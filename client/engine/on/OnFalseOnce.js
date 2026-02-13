@@ -5,7 +5,7 @@ export class OnFalseOnce {
 		this.onChange = OnChange(condition, b => {
 			if (!b) {
 				action(b)
-        		this.removeItself()
+				this.removeItself()
 			}
 		})
 	}

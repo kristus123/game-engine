@@ -3,7 +3,7 @@ export class OnTrueOnce {
 		this.onTrue = OnTrue(condition, b => {
 			if (b) {
 				action(b)
-        		this.removeItself()
+				this.removeItself()
 			}
 		})
 	}

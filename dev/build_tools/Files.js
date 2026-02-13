@@ -33,7 +33,7 @@ export default class {
 		}
 		catch (error) {
 
-		return false
+			return false
 		}
 	}
 
