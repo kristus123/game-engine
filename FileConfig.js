@@ -11,9 +11,11 @@ export const FileConfig = {
 	buildTools: 'dev/build_tools',
 	
 	// Output directory
+	client: 'client',
 	dist: 'dist',
 
 	// Files
+	asepriteToJson: 'dev/build_tools/aseprite_to_json.lua',
 	exportAseprite: 'dev/build_tools/export_aseprite.js',
 	generateDist: 'dev/build_tools/generate_dist.js',
 

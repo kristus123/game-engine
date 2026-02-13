@@ -34,11 +34,10 @@ function exportAseprite(relSrcFile, destBase) {
 
 const editedFile = process.argv[2] || false
 
+const exportFile = (file) => { exportAseprite(file, `dist/${file.replace(FileConfig.game, 'game')}`) }
+
 if (editedFile) {
-	exportAseprite(editedFile, 'dist/' + editedFile.replace(FileConfig.game, 'game'))
-}
-else {
-	walk(FileConfig.asepriteAssets, file => {
-		exportAseprite(file, 'dist/' + file.replace(FileConfig.game, 'game'))
-	})
+    exportFile(editedFile)
+} else {
+    walk(FileConfig.asepriteAssets, exportFile)
 }

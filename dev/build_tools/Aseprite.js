@@ -1,5 +1,6 @@
 import { execFileSync } from 'child_process'
 import { existsSync } from 'fs'
+import { FileConfig } from '#root/FileConfig.js'
 
 const bin = (() => {
 	const potentialPaths = [
@@ -88,7 +89,7 @@ export class Aseprite {
 			'-b',
 			srcFile,
 			'--script',
-			'dev/build_tools/aseprite_to_json.lua',
+			FileConfig.asepriteToJson,
 		], { shell: true })
 	}
 }
