@@ -54,9 +54,15 @@ for (const jsFilePath of jsFiles) {
 	}
 
 	fileContent = Imports.needed(fileContent, jsFiles) + '\n' + fileContent
+	
+	if (!jsFilePath.includes(`${FileConfig.client}`)) {
+    	throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
+	}
 
-	if (Files.changeDetected(FileConfig.toDistPath(jsFilePath), fileContent)) {
-		Files.writeFileToDist(FileConfig.toDistPath(jsFilePath), fileContent)
+	const filePath = FileConfig.removeClientPathPrefix(jsFilePath)
+
+	if (Files.changeDetected(filePath, fileContent)) {
+		Files.writeFileToDist(filePath, fileContent)
 	}
 }
 

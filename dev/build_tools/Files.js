@@ -3,6 +3,7 @@ import Path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import { FileConfig } from '#root/FileConfig.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -10,7 +11,7 @@ const mainFilename = process.argv[1]
 
 export default class {
 	static writeFileToDist(srcPath, content) {
-		const destPath = Path.join('dist', srcPath)
+		const destPath = FileConfig.toDistPath(srcPath)
 		const folderPath = Path.dirname(destPath)
 
 		if (!fs.existsSync(folderPath)) {
@@ -26,8 +27,7 @@ export default class {
 
 	static contentMatchingIn(path, fileContent) {
 		try {
-			const distPath = Path.join('dist', path)
-			const distFile = fs.readFileSync(distPath, 'utf8')
+			const distFile = fs.readFileSync(FileConfig.toDistPath(path), 'utf8')
 
 			return distFile == fileContent
 		}
