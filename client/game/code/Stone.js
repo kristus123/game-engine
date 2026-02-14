@@ -7,6 +7,7 @@ export class Stone extends Entity {
 	}
 
 	update() {
+		console.log(0)
 		D1.box(this.position)
 	}
 }

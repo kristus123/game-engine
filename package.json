@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "epic game engine",
   "type": "module",
+  "imports": {
+    "#root/*": "./*"
+  },
   "scripts": {
     "dev": "npm run start",
     "start": "node watch.js"

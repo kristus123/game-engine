@@ -1,16 +1,18 @@
 import Files from './Files.js'
-
+import path from 'path'
+import { FileConfig } from '#root/FileConfig.js'
 import './transpiler.js'
 
-Files.copyFolder('game/assets/', 'dist/game/assets/')
-Files.copyFolder('game/audio/', 'dist/game/audio/')
+Files.copyFolder(FileConfig.gameAssets, path.join(FileConfig.dist, 'game/assets'))
+Files.copyFolder(FileConfig.gameAudio, path.join(FileConfig.dist, 'game/audio'))
 
 import './copy_manifest_to_dist.js'
 import './verify_no_reserved_clashes.js'
 import './assert_unique_file_names.js'
 
-const allAsepritePaths = Files.at('game/assets/aseprite')
+const allAsepritePaths = Files.at(FileConfig.asepriteAssets)
 	// .map(f => f.replace('/aseprite', ''))
+	.map(f => f.replace(FileConfig.game, 'game'))
 	.map(f => f.replace('\\aseprite', '')) // windows compability
 	.map(f => f.replace('.aseprite', ''))
 	.map(f => `/${f}`)
@@ -18,8 +20,9 @@ const allAsepritePaths = Files.at('game/assets/aseprite')
 	.map(f => f.replace(/\\/g, '/'))
 Files.replace('dist/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
 
-const audioFiles = Files.at('game/audio')
+const audioFiles = Files.at(FileConfig.gameAudio)
 	.filter(f => f.toLowerCase().endsWith('.mp3'))
+	.map(f => f.replace(FileConfig.game, 'game'))
 	.map(f => f.replace('/aseprite', ''))
 	.map(f => f.replace('\\aseprite', '')) // windows compability
 	.map(f => f.replace('.aseprite', ''))
@@ -28,11 +31,11 @@ const audioFiles = Files.at('game/audio')
 	.map(f => f.replace(/\\/g, '/'))
 Files.replace('dist/engine/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
 
-const cssImports = Files.at('game/ui/css')
+const cssImports = Files.at(FileConfig.gameUiCss)
 	.map(f => f.replaceAll('\\', '/')) // windows compability
 	.map(f => Files.read(f))
 	.join('\n')
 
-const indexHtml = Files.read('game/index.html')
+const indexHtml = Files.read(FileConfig.gameIndexHtml)
 	.replace('CSS_IMPORTS', cssImports)
 Files.write('dist/index.html', indexHtml)

@@ -1,9 +1,11 @@
 import chokidar from 'chokidar'
 import express from 'express'
 
-import RandomId from './build_tools/RandomId.js'
-import { Runner } from './build_tools/Runner.js'
-import Files from './build_tools/Files.js'
+import RandomId from './dev/build_tools/RandomId.js'
+import { Runner } from './dev/build_tools/Runner.js'
+import Files from './dev/build_tools/Files.js'
+
+import { FileConfig } from './FileConfig.js'
 
 import { execSync } from 'child_process'
 
@@ -20,7 +22,7 @@ const killPort = (port) => {
 
 killPort(3000)
 killPort(5000)
-Files.deleteFolder('dist')
+Files.deleteFolder(FileConfig.dist)
 
 let currentId = RandomId()
 let idTimeout = null
@@ -34,7 +36,7 @@ app.get('/currentId', (req, res) => { // this is used for hot-reloading. Check i
 
 app.listen(5000, () => console.log('Serving dist on port 5000'))
 
-const watcher = chokidar.watch(['game', 'engine'], {
+const watcher = chokidar.watch([FileConfig.client], {
 	ignoreInitial: true,
 	persistent: true,
 	usePolling: true,
@@ -47,14 +49,14 @@ watcher.on('all', (e, path) => {
 		console.log('rebuilding dist')
 		Files.deleteFolder('dist')
 
-		new Runner('build_tools/export_aseprite.js').start()
+		new Runner(FileConfig.exportAseprite).start()
 	}
 
 	if (path.includes('.aseprite')) {
-		new Runner('build_tools/export_aseprite.js', [path]).start()
+		new Runner(FileConfig.exportAseprite, [path]).start()
 	}
 
-	new Runner('build_tools/generate_dist.js', ['DEVELOPMENT']).start()
+	new Runner(FileConfig.generateDist, ['DEVELOPMENT']).start()
 
 
 	if (idTimeout) {
@@ -69,8 +71,8 @@ watcher.on('all', (e, path) => {
 
 
 // initial build
-new Runner('build_tools/export_aseprite.js').start()
-new Runner('build_tools/generate_dist.js', ['DEVELOPMENT']).start()
+new Runner(FileConfig.exportAseprite).start()
+new Runner(FileConfig.generateDist, ['DEVELOPMENT']).start()
 
 // for now only run it once
 new Runner('server/socket/SocketServer.js').start()
