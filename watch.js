@@ -5,9 +5,28 @@ import RandomId from './dev/build_tools/RandomId.js'
 import { Runner } from './dev/build_tools/Runner.js'
 import Files from './dev/build_tools/Files.js'
 
+<<<<<<< HEAD
 import { FileConfig } from './FileConfig.js'
 
 Files.deleteFolder(FileConfig.dist)
+=======
+import { execSync } from 'child_process'
+
+const killPort = (port) => {
+	try {
+		execSync(`fuser -k ${port}/tcp`)
+		console.log(`Killed process on port ${port}`)
+	}
+	catch (e) {
+		console.log(`Nothing running on port ${port}`)
+	}
+}
+
+
+killPort(3000)
+killPort(5000)
+Files.deleteFolder('dist')
+>>>>>>> master
 
 let currentId = RandomId()
 let idTimeout = null

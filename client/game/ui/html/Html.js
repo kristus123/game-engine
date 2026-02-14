@@ -243,7 +243,7 @@ export class Html {
 		}, 1000)
 	}
 
-	static floating(e, position) {
+	static domFloat(e, position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 
 		e.classList.add('ui')

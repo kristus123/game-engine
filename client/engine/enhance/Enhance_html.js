@@ -47,6 +47,11 @@ export function Enhance_html() {
 		Html.append(this, elements)
 	})
 
+	Enhance(HTMLElement, 'contains', function (className) {
+		this.classList.contains(className)
+	})
+
+
 	Enhance(HTMLElement, 'addClass', function (className) {
 		this.classList.add(className)
 		return this
@@ -73,11 +78,20 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'floating', function (position = null) {
-		this.addClass('floating')
-		if (position) {
-			this.position(position)
+	Enhance(HTMLElement, 'domFloat', function (position = null) {
+
+		if (!document.contains(this)) {
+			this.dom()
+			this.addClass('domFloat')
 		}
+
+		if (position) {
+			const p = Camera.p(position) // todo improve ofc
+
+			this.style.left = `${p.x}px`
+			this.style.top = `${p.y}px`
+		}
+
 		return this
 	})
 
@@ -86,16 +100,4 @@ export function Enhance_html() {
 		return this
 	})
 
-	// used togeter with e.floating()
-	Enhance(HTMLElement, 'position', function (p) {
-		p = Camera.p(p) // todo imrpoveo ofc
-
-		this.style.left = `${p.x}px`
-		this.style.top = `${p.y}px`
-
-		return this
-	})
-
 }
-
-

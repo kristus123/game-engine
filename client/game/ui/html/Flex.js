@@ -8,6 +8,14 @@ export class Flex {
 		return Html.div('flex-column', elements.map(e => this.item([e])))
 	}
 
+	static h(elements) {
+		return this.row(elements)
+	}
+
+	static v(elements) {
+		return this.column(elements)
+	}
+
 	static item(elements) {
 		return Html.div('flex-item', elements)
 	}
