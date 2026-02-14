@@ -18,7 +18,7 @@ const allAsepritePaths = Files.at(FileConfig.asepriteAssets)
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
+Files.replace('dist/static/client/engine/start/index.js', 'ASEPRITE_FILES', `[${allAsepritePaths}]`)
 
 const audioFiles = Files.at(FileConfig.gameAudio)
 	.filter(f => f.toLowerCase().endsWith('.mp3'))
@@ -29,7 +29,7 @@ const audioFiles = Files.at(FileConfig.gameAudio)
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, '/'))
-Files.replace('dist/engine/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
+Files.replace('dist/static/client/engine/start/index.js', 'AUDIO_FILES', `[${audioFiles}]`)
 
 const cssImports = Files.at(FileConfig.gameUiCss)
 	.map(f => f.replaceAll('\\', '/')) // windows compability

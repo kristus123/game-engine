@@ -89,7 +89,11 @@ export class Aseprite {
 			'-b',
 			srcFile,
 			'--script',
+<<<<<<< HEAD
 			FileConfig.asepriteToJson, // -- TODO: Find A Better Solution For This FileConfig Hack
+=======
+			'dev/build_tools/aseprite_to_json.lua',
+>>>>>>> 47758959 (resolve 2)
 		], { shell: true })
 	}
 }
