@@ -36,4 +36,4 @@ const cssImports = Files.at(FileConfig.gameUiCss)
 
 const indexHtml = Files.read(FileConfig.gameIndexHtml)
 	.replace('CSS_IMPORTS', cssImports)
-Files.write('dist/index.html', indexHtml)
+Files.write(path.join(FileConfig.dist, 'index.html'), indexHtml)

@@ -35,7 +35,7 @@ function exportAseprite(relSrcFile, destBase) {
 const editedFile = process.argv[2] || false
 
 const exportFile = (file) => {
-	exportAseprite(file, `dist/${file}`)
+	exportAseprite(file, path.join(FileConfig.dist, `${file}`))
 }
 
 if (editedFile) {

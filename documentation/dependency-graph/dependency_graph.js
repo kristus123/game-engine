@@ -1,8 +1,9 @@
+import FileConfig from '#root/FileConfig.js'
 import fs from 'fs'
 import path from 'path'
 
 const rootDir = process.cwd()
-const excludeDirs = ['node_modules', '.git', 'dist', 'build']
+const excludeDirs = ['node_modules', '.git', FileConfig.dist, 'build']
 const outputFile = path.join(rootDir, '/documentation/dependency-graph/class-usage.md')
 
 // ✅ Delete old report if exists
