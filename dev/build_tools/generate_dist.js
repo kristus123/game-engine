@@ -3,8 +3,8 @@ import path from 'path'
 import { FileConfig } from '#root/FileConfig.js'
 import './transpiler.js'
 
-Files.copyFolder(FileConfig.gameAssets, path.join(FileConfig.dist, FileConfig.gameAssets))
-Files.copyFolder(FileConfig.gameAudio, path.join(FileConfig.dist, FileConfig.gameAudio))
+Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
+Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
 
 import './copy_manifest_to_dist.js'
 import './verify_no_reserved_clashes.js'
@@ -36,4 +36,4 @@ const cssImports = Files.at(FileConfig.gameUiCss)
 
 const indexHtml = Files.read(FileConfig.gameIndexHtml)
 	.replace('CSS_IMPORTS', cssImports)
-Files.write('dist/index.html', indexHtml)
+Files.write(FileConfig.toDistPath('index.html'), indexHtml)

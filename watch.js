@@ -28,7 +28,7 @@ let currentId = RandomId()
 let idTimeout = null
 
 const app = express()
-app.use(express.static('dist'))
+app.use(express.static(FileConfig.dist))
 
 app.get('/currentId', (req, res) => { // this is used for hot-reloading. Check index.js
 	res.json({ currentId: currentId })
@@ -47,7 +47,7 @@ watcher.on('all', (e, path) => {
 
 	if (e == 'unlink' || e == 'unlinkDir') {
 		console.log('rebuilding dist')
-		Files.deleteFolder('dist')
+		Files.deleteFolder(FileConfig.dist)
 
 		new Runner(FileConfig.exportAseprite).start()
 	}
