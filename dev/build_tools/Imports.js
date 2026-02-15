@@ -14,8 +14,7 @@ class Imports {
 			const className = Path.basename(jsFile, '.js')
 
 			if (Imports.include(content, className)) {
-				const importPath = jsFile.replace(/^client[\/\\]/, '')
-				imports += `import { ${className} } from '/${importPath}'; \n`
+				imports += `import { ${className} } from '/${jsFile}'; \n`
 			}
 		}
 

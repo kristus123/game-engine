@@ -61,8 +61,8 @@ for (const jsFilePath of jsFiles) {
 
 	const filePath = FileConfig.removeClientPathPrefix(jsFilePath)
 
-	if (Files.changeDetected(filePath, fileContent)) {
-		Files.writeFileToDist(filePath, fileContent)
+	if (Files.changeDetected(jsFilePath, fileContent)) {
+		Files.writeFileToDist(jsFilePath, fileContent)
 	}
 }
 
