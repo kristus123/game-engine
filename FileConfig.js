@@ -18,6 +18,7 @@ export const FileConfig = {
 	asepriteToJson: 'dev/build_tools/aseprite_to_json.lua',
 	exportAseprite: 'dev/build_tools/export_aseprite.js',
 	generateDist: 'dev/build_tools/generate_dist.js',
+	engineIndex: 'dist/client/engine/start/index.js',
 
 	// Specific paths
 	get gameAssets() {

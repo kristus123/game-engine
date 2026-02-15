@@ -35,7 +35,7 @@ function exportAseprite(relSrcFile, destBase) {
 const editedFile = process.argv[2] || false
 
 const exportFile = (file) => {
-	exportAseprite(file, `dist/${file.replace(FileConfig.game, 'game')}`)
+	exportAseprite(file, `dist/${file}`)
 }
 
 if (editedFile) {
