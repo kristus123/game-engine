@@ -1,5 +1,5 @@
 import { WebSocketServer } from 'ws'
-import { Flask } from '../http/Flask.js'
+import { Flask } from '#root/server/http/Flask.js'
 
 export default class {
 	constructor() {

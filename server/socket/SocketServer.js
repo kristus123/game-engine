@@ -1,4 +1,4 @@
-import SocketServer from './SimplifiedSocketServerAPI.js'
+import SocketServer from '#root/server/socket/SimplifiedSocketServerAPI.js'
 
 export const socketServer = new SocketServer()
 

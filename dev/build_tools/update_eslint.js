@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import jsFiles from './js_files.js'
+import jsFiles from '#root/dev/build_tools/js_files.js'
 
 const eslintGlobalsConfig = {}
 jsFiles.forEach(jsFile => {

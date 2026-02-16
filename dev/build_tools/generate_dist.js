@@ -1,5 +1,4 @@
-import Files from './Files.js'
-import path from 'path'
+import Files from '#root/dev/build_tools/Files.js'
 import { FileConfig } from '#root/FileConfig.js'
 import './transpiler.js'
 
