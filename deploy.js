@@ -1,5 +1,5 @@
-import { startCluster } from './ccc.js'
-import { checkAndPull } from './git.js'
+import { startCluster } from '#root/ccc.js'
+import { checkAndPull } from '#root/git.js'
 
 const services = [
 	{ name: 'socket', script: 'server/socket/SocketServer.js' },

@@ -1,5 +1,5 @@
-import { FileDb } from './FileDb.js'
-import { Flask } from './Flask.js'
+import { FileDb } from '#root/server/http/FileDb.js'
+import { Flask } from '#root/server/http/Flask.js'
 import webPush from 'web-push'
 
 const vapidKeys = webPush.generateVAPIDKeys()

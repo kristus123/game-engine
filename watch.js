@@ -1,11 +1,11 @@
 import chokidar from 'chokidar'
 import express from 'express'
 
-import RandomId from './dev/build_tools/RandomId.js'
-import { Runner } from './dev/build_tools/Runner.js'
-import Files from './dev/build_tools/Files.js'
+import RandomId from '#root/dev/build_tools/RandomId.js'
+import { Runner } from '#root/dev/build_tools/Runner.js'
+import Files from '#root/dev/build_tools/Files.js'
 
-import { FileConfig } from './FileConfig.js'
+import { FileConfig } from '#root/FileConfig.js'
 
 import { execSync } from 'child_process'
 

@@ -2,7 +2,7 @@ import express from 'express'
 import http from 'http'
 import cors from 'cors'
 
-import { socketServer } from '../socket/SocketServer.js'
+import { socketServer } from '#root/server/socket/SocketServer.js'
 
 export class Flask {
 	static routes = []
