@@ -1,6 +1,6 @@
 import fs from 'fs'
 import Path from 'path'
-import Files from './Files.js'
+import Files from '#root/dev/build_tools/Files.js'
 
 import crypto from 'crypto'
 

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Aseprite } from './Aseprite.js'
+import { Aseprite } from '#root/dev/build_tools/Aseprite.js'
 import { FileConfig } from '#root/FileConfig.js'
 
 function walk(relDir, callback) {

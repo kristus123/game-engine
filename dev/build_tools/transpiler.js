@@ -7,11 +7,11 @@ if (!ENVIRONMENT) {
 }
 
 import path from 'path'
-import Imports from './Imports.js'
-import Parameters from './Parameters.js'
-import Files from './Files.js'
+import Imports from '#root/dev/build_tools/Imports.js'
+import Parameters from '#root/dev/build_tools/Parameters.js'
+import Files from '#root/dev/build_tools/Files.js'
 
-import jsFiles from './js_files.js'
+import jsFiles from '#root/dev/build_tools/js_files.js'
 
 import { FileConfig } from '#root/FileConfig.js'
 
