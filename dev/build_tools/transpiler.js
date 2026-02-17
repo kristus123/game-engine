@@ -1,5 +1,3 @@
-
-
 const ENVIRONMENT = process.argv[2] || false
 
 if (!ENVIRONMENT) {
@@ -23,13 +21,11 @@ for (const jsFilePath of jsFiles) {
 		const fileText = Files.read(f)
 
 		if (fileText.includes(`export class ${className}`)) {
-		// Only replace className( NOT preceded by 'new '
+			// Only replace className( NOT preceded by 'new '
 			const regex = new RegExp(`(?<!new )\\b${className}\\(`, 'g')
 			fileContent = fileContent.replace(regex, `new ${className}(`)
 		}
 	})
-
-
 
 	fileContent = fileContent.replaceAll('tla(', 'this.localObjects.add(')
 	fileContent = fileContent.replaceAll('ENVIRONMENT', `"${ENVIRONMENT}"`)
@@ -59,10 +55,6 @@ for (const jsFilePath of jsFiles) {
 		throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
 	}
 
-	const filePath = FileConfig.removeClientPathPrefix(jsFilePath)
-
-	if (Files.changeDetected(jsFilePath, fileContent)) {
-		Files.writeFileToDist(jsFilePath, fileContent)
-	}
+	Files.writeFileToDist(jsFilePath, fileContent)
 }
 

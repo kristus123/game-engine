@@ -1,15 +1,12 @@
 import Path from 'path'
 
 import fs from 'fs'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 import { FileConfig } from '#root/FileConfig.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 const mainFilename = process.argv[1]
 
 export default class {
+
 	static writeFileToDist(srcPath, content) {
 		const destPath = FileConfig.toDistPath(srcPath)
 		const folderPath = Path.dirname(destPath)
@@ -19,22 +16,6 @@ export default class {
 		}
 
 		fs.writeFileSync(destPath, content)
-	}
-
-	static changeDetected(path, fileContent) {
-		return !this.contentMatchingIn(path, fileContent)
-	}
-
-	static contentMatchingIn(path, fileContent) {
-		try {
-			const distFile = fs.readFileSync(FileConfig.toDistPath(path), 'utf8')
-
-			return distFile == fileContent
-		}
-		catch (error) {
-
-			return false
-		}
 	}
 
 	static getJsFiles(folderPath, jsFiles=[]) {

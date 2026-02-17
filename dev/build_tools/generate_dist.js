@@ -5,12 +5,12 @@ import './transpiler.js'
 Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
 
+// nabir todo fix absolute paths
 import './copy_manifest_to_dist.js'
 import './verify_no_reserved_clashes.js'
 import './assert_unique_file_names.js'
 
 const allAsepritePaths = Files.at(FileConfig.asepriteAssets)
-	// .map(f => f.replace('/aseprite', ''))
 	.map(f => f.replace('\\aseprite', '')) // windows compability
 	.map(f => f.replace('.aseprite', ''))
 	.map(f => `/${f}`)
