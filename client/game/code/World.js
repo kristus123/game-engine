@@ -5,16 +5,16 @@ export class World {
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
 		])
 
-		for (const p of Random.positions(WorldPosition(0, 0, 500, 500), 100)) {
-			p.width = 20
-			p.height = 20
+		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20,20)) {
 			G.stones.add(new Stone(p))
 		}
 
 		Controller.control(this.player)
+		Camera.follow(this.player)
 	}
 
 	update() {
+		console.log("No to no to sex! yes to jesus no to sex! ")
 		this.objects.update()
 		G.stones.update()
 	}

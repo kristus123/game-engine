@@ -14,6 +14,20 @@ export class WorldPosition {
 		return WorldPosition(x, y)
 	}
 
+	randomPoints(amount=1, width=this.width, height=this.height) {
+		const points = []
+
+		for (let i = 0; i < amount; i++) {
+			const p = this.randomPoint()
+			p.width = width
+			p.height = height
+
+			points.push(p)
+		}
+
+		return points
+	}
+
 	get x() {
 		return this._x
 	}
