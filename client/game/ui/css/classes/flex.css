@@ -15,13 +15,13 @@
 	display: flex;
 	padding:20px;
 	flex-flow: column; /* row or column */       
-	justify-content: center;     
-	align-items: center;         
+	justify-content: center;         
 	gap: 40px;
 
 	/* width: 100%;
   height: 100vh; */
 	box-sizing: border-box;
+	align-items: stretch; /* stretch items horizontally */
 }
 
 .flex-item {
@@ -32,11 +32,4 @@
 	box-sizing: border-box;
 	background-color: #f0f0f0;
 	text-align: center;
-}
-
-.flex-column {
-	align-items: stretch; /* stretch items horizontally */
-}
-
-.flex-item {
 }

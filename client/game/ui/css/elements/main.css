@@ -1,20 +1,7 @@
 *, *::before, *::after {
 	box-sizing: border-box;
-}
-
-html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
-	user-select: none;         /* Standard */
+	user-select: none;
 	-webkit-user-drag: none;
-}
-
-body {
-	font-family: "VT323", monospace;
-}
-
-
-html, body {
-	/* Disables pull-to-refresh but allows overscroll glow effects. */
-	overscroll-behavior-y: none;
 }
 
 html {
@@ -23,17 +10,24 @@ html {
 }
 
 body {
-	overscroll-behavior: none;
-	touch-action: pan-x pan-y;
+	font-family: "VT323", monospace;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 0;
 	margin: 0;
 	height: 100vh;
-	overflow: hidden; /* Prevent scrollbars */
+	overflow: hidden;
+	overscroll-behavior: none;
+	touch-action: pan-x pan-y;
 }
 
 canvas {
-	display: block; /* Remove default spacing */
+	display: block;
+}
+
+
+canvas,
+img {
+	image-rendering: pixelated;
 }
