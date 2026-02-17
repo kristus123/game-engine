@@ -1,8 +1,4 @@
 import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 export const FileConfig = {
 	// Source directories
@@ -49,8 +45,6 @@ export const FileConfig = {
 		return path.join(this.dist, 'static')
 	},
 
-	// Root directory
-	root: __dirname
 }
 
 export default FileConfig
