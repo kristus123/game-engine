@@ -19,7 +19,6 @@ const killPort = (port) => {
 	}
 }
 
-
 killPort(3000)
 killPort(5000)
 Files.deleteFolder(FileConfig.dist)
@@ -45,7 +44,7 @@ const watcher = chokidar.watch([FileConfig.client], {
 watcher.on('all', (e, path) => {
 	console.log('changed', path)
 
-	if (e == 'unlink' || e == 'unlinkDir') {
+	if (e == 'unlink' || e == 'unlinkDir') { // file or folder moved/deleted
 		console.log('rebuilding dist')
 		Files.deleteFolder(FileConfig.dist)
 
