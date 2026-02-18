@@ -5,7 +5,7 @@ export class World {
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
 		])
 
-		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20,20)) {
+		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20, 20)) {
 			G.stones.add(new Stone(p))
 		}
 
@@ -14,7 +14,7 @@ export class World {
 	}
 
 	update() {
-		console.log("No to no to sex! yes to jesus no to sex! ")
+		console.log('No to no to sex! yes to jesus no to sex! ')
 		this.objects.update()
 		G.stones.update()
 	}
