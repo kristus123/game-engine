@@ -31,6 +31,6 @@ export class WebSocketWrapper {
 	static onMessage(data) {}
 	static onClose() {}
 	static onError() {
-		console.error('Fail to Connect')
+		console.error("Fail to Connect")
 	}
 }

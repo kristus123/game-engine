@@ -107,7 +107,7 @@
         ],
         "@stylistic/js/quotes": [
             "error",
-            "single"
+            "double"
         ],
         "@stylistic/js/semi": [
             "error",

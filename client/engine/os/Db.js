@@ -30,18 +30,18 @@ export class Db {
 
 	save(key, blob) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, 'readwrite')
+			const tx = db.transaction(this.storeName, "readwrite")
 			const store = tx.objectStore(this.storeName)
 			const req = store.put(blob, key)
 			req.onerror = () => {
-				throw new Error('Failed to save data: ' + req.error)
+				throw new Error("Failed to save data: " + req.error)
 			}
 		})
 	}
 
 	get(key, callback) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, 'readonly')
+			const tx = db.transaction(this.storeName, "readonly")
 			const req = tx.objectStore(this.storeName).get(key)
 			req.onsuccess = () => callback(req.result)
 		})
@@ -49,14 +49,14 @@ export class Db {
 
 	delete(key) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, 'readwrite')
+			const tx = db.transaction(this.storeName, "readwrite")
 			tx.objectStore(this.storeName).delete(key)
 		})
 	}
 
 	all(callback) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, 'readonly')
+			const tx = db.transaction(this.storeName, "readonly")
 			const store = tx.objectStore(this.storeName)
 			const result = []
 			store.openCursor().onsuccess = e => {

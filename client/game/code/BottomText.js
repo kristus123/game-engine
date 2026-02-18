@@ -5,9 +5,9 @@ export class BottomText {
 				constructor() {
 					Html.lower([
 						Html.img(),
-						Html.div('big', [
+						Html.div("big", [
 							Html.p(t),
-							Html.button('next', () => {
+							Html.button("next", () => {
 								Html.clearLower()
 								this.completed = () => true
 							})

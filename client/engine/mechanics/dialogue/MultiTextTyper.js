@@ -11,7 +11,7 @@ export class MultiTextTyper {
 			const t = this.texts[this.index]
 
 			if (!t.finished) {
-				console.log('hei')
+				console.log("hei")
 				t.update()
 			}
 			else {
@@ -31,7 +31,7 @@ export class MultiTextTyper {
 			return this.texts[this.index].text
 		}
 		else {
-			return ''
+			return ""
 		}
 	}
 

@@ -11,7 +11,7 @@ export class Quest {
 
 		for (const task of tasks) {
 			if (not.method(task)) {
-				throw new Error('Quest.js expects a list of arrow functions')
+				throw new Error("Quest.js expects a list of arrow functions")
 			}
 		}
 

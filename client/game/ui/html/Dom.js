@@ -1,7 +1,7 @@
 export class Dom {
 
 	static swap(elements) {
-		const newBody = document.createElement('body')
+		const newBody = document.createElement("body")
 
 		for (const e of Always.list(elements)) {
 			newBody.append(e)
@@ -11,7 +11,7 @@ export class Dom {
 	}
 
 	static overlay(elements) {
-		const div = Html.div('overlay', Always.list(elements))
+		const div = Html.div("overlay", Always.list(elements))
 
 		document.body.appendChild(div)
 
@@ -20,7 +20,7 @@ export class Dom {
 
 	static add(elements) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
 		for (const e of Always.list(elements)) {
-			document.body.appendChild(Html.div('overlay', e))
+			document.body.appendChild(Html.div("overlay", e))
 		}
 	}
 }

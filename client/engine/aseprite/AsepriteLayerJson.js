@@ -8,7 +8,7 @@ export class AsepriteLayerJson {
 				layer,
 				frame,
 				tag
-			] = key.split('_')
+			] = key.split("_")
 
 			run(layer, frame, f.frame.x, f.frame.y, f.frame.w, f.frame.h, tag)
 		})

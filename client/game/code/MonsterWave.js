@@ -10,15 +10,15 @@ export class MonsterWave {
 				new Monster(G.x.world.enemyWalkTiles,
 					() => {
 						this.killed += 1
-						this.p.changeText(this.killed + '/' + this.maxEnemies)
+						this.p.changeText(this.killed + "/" + this.maxEnemies)
 					})
 			}, maxEnemies)
 		])
 
 		Html.upperLeft([
-			Html.div('', [
-				Html.p('kill count'),
-				this.p = Html.p(''),
+			Html.div("", [
+				Html.p("kill count"),
+				this.p = Html.p(""),
 			])
 		])
 	}

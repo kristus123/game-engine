@@ -5,7 +5,7 @@ export async function LoadAudio(url) {
 		return await AudioContext.decodeAudioData(arrayBuffer)
 	}
 	catch (err) {
-		console.error('Error loading audio:', err)
+		console.error("Error loading audio:", err)
 		return null
 	}
 }

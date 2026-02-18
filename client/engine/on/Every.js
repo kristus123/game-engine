@@ -1,4 +1,4 @@
-export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {}) {
+export function Every(intervalMs, action, maxRuns="infinite", onFinish=() => {}) {
 
 	const stopWatch = StopWatch()
 
@@ -6,7 +6,7 @@ export function Every(intervalMs, action, maxRuns='infinite', onFinish=() => {})
 
 	return new class {
 		update() {
-			if (maxRuns != 'infinite' && totalRuns >= maxRuns) {
+			if (maxRuns != "infinite" && totalRuns >= maxRuns) {
 				onFinish()
 				this.removeItself()
 			}

@@ -8,6 +8,6 @@ export class Square extends Entity {
 	}
 
 	update() {
-		D1.rectangle(this.position, this.color || 'white')
+		D1.rectangle(this.position, this.color || "white")
 	}
 }

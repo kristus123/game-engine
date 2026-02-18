@@ -6,7 +6,7 @@ export class SocketClient {
 
 		const serverActionListener = ActionListener()
 
-		serverActionListener.listen('UPDATE_CLIENTS_LIST', data => {
+		serverActionListener.listen("UPDATE_CLIENTS_LIST", data => {
 			for (const clientId of data.clientIds) {
 				OtherClients.add(clientId)
 			}
@@ -14,13 +14,13 @@ export class SocketClient {
 			this.clientActionListener.trigger(data.action, data)
 		})
 
-		serverActionListener.listen('REMOVE_CLIENT', data => {
+		serverActionListener.listen("REMOVE_CLIENT", data => {
 			OtherClients.remove(data.clientId)
 
 			this.clientActionListener.trigger(data.action, data)
 		})
 
-		serverActionListener.listen('CLIENT_TO_CLIENT', data => {
+		serverActionListener.listen("CLIENT_TO_CLIENT", data => {
 			console.log(`Message: ${JSON.stringify(data)}`)
 			this.clientActionListener.trigger(data.subAction, data)
 		})
@@ -32,7 +32,7 @@ export class SocketClient {
 
 	static sendToClient(subAction, targetClientId, data) {
 		WebSocketWrapper.send(data.merge({
-			action: 'CLIENT_TO_CLIENT',
+			action: "CLIENT_TO_CLIENT",
 			subAction: subAction,
 			originClientId: ClientId,
 			targetClientId: targetClientId,

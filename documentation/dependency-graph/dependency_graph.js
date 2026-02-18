@@ -1,10 +1,10 @@
-import FileConfig from '#root/FileConfig.js'
-import fs from 'fs'
-import path from 'path'
+import FileConfig from "#root/FileConfig.js"
+import fs from "fs"
+import path from "path"
 
 const rootDir = process.cwd()
-const excludeDirs = ['node_modules', '.git', FileConfig.dist, 'build']
-const outputFile = path.join(rootDir, '/documentation/dependency-graph/class-usage.md')
+const excludeDirs = ["node_modules", ".git", FileConfig.dist, "build"]
+const outputFile = path.join(rootDir, "/documentation/dependency-graph/class-usage.md")
 
 // ✅ Delete old report if exists
 if (fs.existsSync(outputFile)) {
@@ -25,7 +25,7 @@ function walkDir(dir) {
 			if (stat.isDirectory()) {
 				results = results.concat(walkDir(fullPath))
 			}
-			else if (file.endsWith('.js')) {
+			else if (file.endsWith(".js")) {
 				results.push(fullPath)
 			}
 		}
@@ -38,15 +38,15 @@ function walkDir(dir) {
 
 function readFileContent(filePath) {
 	try {
-		return fs.readFileSync(filePath, 'utf-8')
+		return fs.readFileSync(filePath, "utf-8")
 	}
 	catch {
-		return ''
+		return ""
 	}
 }
 
 function relativePath(file) {
-	return path.relative(rootDir, file).replace(/\\/g, '/') // normalize for Windows
+	return path.relative(rootDir, file).replace(/\\/g, "/") // normalize for Windows
 }
 
 console.log(`📂 Scanning all .js files in ${rootDir} and subdirectories...\n`)
@@ -61,7 +61,7 @@ for (const file of allFiles) {
 const usageMap = new Map()
 
 for (const classFile of allFiles) {
-	const className = path.basename(classFile, '.js')
+	const className = path.basename(classFile, ".js")
 	const users = []
 
 	for (const [file, content] of fileContents.entries()) {
@@ -101,18 +101,18 @@ for (const [className, info] of sortedEntries) {
 	mdOutput += `## ${className}\n\n`
 	mdOutput += `**Defined in:** \`${info.definedIn}\`\n\n`
 	if (info.usedIn.length > 0) {
-		mdOutput += 'Used in:\n'
+		mdOutput += "Used in:\n"
 		for (const userFile of info.usedIn) {
 			mdOutput += `- \`${userFile}\`\n`
 		}
 	}
 	else {
-		mdOutput += '_No usage found_\n'
+		mdOutput += "_No usage found_\n"
 	}
-	mdOutput += '\n'
+	mdOutput += "\n"
 }
 
-fs.writeFileSync(outputFile, mdOutput, 'utf-8')
+fs.writeFileSync(outputFile, mdOutput, "utf-8")
 console.log(`✅ New class usage report generated: ${outputFile}`)
 
 

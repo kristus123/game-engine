@@ -1,74 +1,74 @@
 export function Enhance_html() {
-	Enhance(HTMLElement, 'changeText', function (text) {
+	Enhance(HTMLElement, "changeText", function (text) {
 		this.textContent = text
 	})
 
-	Enhance(HTMLElement, 'remove', function () {
+	Enhance(HTMLElement, "remove", function () {
 		Html.remove(this)
 	})
 
-	Enhance(HTMLElement, 'clear', function () {
+	Enhance(HTMLElement, "clear", function () {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
 		}
 	})
 
 
-	Enhance(HTMLElement, 'show', function () {
+	Enhance(HTMLElement, "show", function () {
 		Html.show(this)
 	})
 
-	Enhance(HTMLElement, 'hide', function () {
+	Enhance(HTMLElement, "hide", function () {
 		Html.hide(this)
 	})
 
-	Enhance(HTMLElement, 'enable', function () {
+	Enhance(HTMLElement, "enable", function () {
 		Html.enable(this)
 	})
 
-	Enhance(HTMLElement, 'disable', function () {
+	Enhance(HTMLElement, "disable", function () {
 		Html.disable(this)
 	})
 
-	Enhance(HTMLElement, 'onClick', function (run) {
+	Enhance(HTMLElement, "onClick", function (run) {
 		Html.onClick(this, run)
 	})
 
-	Enhance(HTMLElement, 'set', function (elements) {
+	Enhance(HTMLElement, "set", function (elements) {
 		Html.removeChildElements(this)
 		Html.append(this, elements)
 	})
 
-	Enhance(HTMLElement, 'push', function (elements) {
+	Enhance(HTMLElement, "push", function (elements) {
 		Html.append(this, elements)
 	})
 
-	Enhance(HTMLElement, 'add', function (elements) {
+	Enhance(HTMLElement, "add", function (elements) {
 		Html.append(this, elements)
 	})
 
-	Enhance(HTMLElement, 'contains', function (className) {
+	Enhance(HTMLElement, "contains", function (className) {
 		this.classList.contains(className)
 	})
 
 
-	Enhance(HTMLElement, 'addClass', function (className) {
+	Enhance(HTMLElement, "addClass", function (className) {
 		this.classList.add(className)
 		return this
 	})
 
-	Enhance(HTMLElement, 'removeClass', function (className) {
+	Enhance(HTMLElement, "removeClass", function (className) {
 		this.classList.remove(className)
 		return this
 	})
 
-	Enhance(HTMLElement, 'animate', function (className, onEnd = () => {}) {
+	Enhance(HTMLElement, "animate", function (className, onEnd = () => {}) {
 		this.addClass(className)
 
-		this.addEventListener('animationstart', () => {
+		this.addEventListener("animationstart", () => {
 		})
 
-		this.addEventListener('animationend', () => {
+		this.addEventListener("animationend", () => {
 			// this.removeClass(className)
 			this.remove()
 
@@ -78,11 +78,11 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'domFloat', function (position = null) {
+	Enhance(HTMLElement, "domFloat", function (position = null) {
 
 		if (!document.contains(this)) {
 			this.dom()
-			this.addClass('domFloat')
+			this.addClass("domFloat")
 		}
 
 		if (position) {
@@ -95,7 +95,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement, 'dom', function () {
+	Enhance(HTMLElement, "dom", function () {
 		Dom.add(this)
 		return this
 	})

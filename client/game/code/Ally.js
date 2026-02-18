@@ -29,9 +29,9 @@ export class Ally extends Entity {
 	draw(draw) {
 		if (G.player.within(100, this) && this.charge.ready) {
 			this.charge.exhaust()
-			this.splash.random(this, 'orange')
+			this.splash.random(this, "orange")
 			Money.increase(1)
-			Html.fadeaway('+1', this.position.offset(-100))
+			Html.fadeaway("+1", this.position.offset(-100))
 			Audio.nya.playRandom()
 			this.bounce.start()
 		}

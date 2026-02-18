@@ -1,7 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-import { Aseprite } from '#root/dev/build_tools/Aseprite.js'
-import { FileConfig } from '#root/FileConfig.js'
+import fs from "fs"
+import path from "path"
+import { Aseprite } from "#root/dev/build_tools/Aseprite.js"
+import { FileConfig } from "#root/FileConfig.js"
 
 function walk(relDir, callback) {
 	const entries = fs.readdirSync(relDir, { withFileTypes: true })
@@ -12,7 +12,7 @@ function walk(relDir, callback) {
 		if (entry.isDirectory()) {
 			walk(relPath, callback)
 		}
-		else if (entry.isFile() && relPath.endsWith('.aseprite')) {
+		else if (entry.isFile() && relPath.endsWith(".aseprite")) {
 			callback(relPath)
 		}
 	}
@@ -24,7 +24,7 @@ function exportAseprite(relSrcFile, destBase) {
 		fs.mkdirSync(path.dirname(destBase), { recursive: true })
 	}
 
-	destBase = destBase.replaceAll('.aseprite', '')
+	destBase = destBase.replaceAll(".aseprite", "")
 
 	Aseprite.tags(relSrcFile, destBase)
 	Aseprite.groups(relSrcFile, destBase)

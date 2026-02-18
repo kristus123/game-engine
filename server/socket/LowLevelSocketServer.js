@@ -1,5 +1,5 @@
-import { WebSocketServer } from 'ws'
-import { Flask } from '#root/server/http/Flask.js'
+import { WebSocketServer } from "ws"
+import { Flask } from "#root/server/http/Flask.js"
 
 export default class {
 	constructor() {
@@ -11,13 +11,13 @@ export default class {
 
 		const webSocketServer = new WebSocketServer({ server })
 
-		webSocketServer.on('connection', (client, request) => {
+		webSocketServer.on("connection", (client, request) => {
 
-			const urlParameters = new URLSearchParams(request.url.split('?')[1])
-			const clientId = urlParameters.get('clientId')
+			const urlParameters = new URLSearchParams(request.url.split("?")[1])
+			const clientId = urlParameters.get("clientId")
 			this.onConnection(client, clientId)
 
-			client.on('message', data => {
+			client.on("message", data => {
 				try {
 					data = JSON.parse(data)
 
@@ -30,7 +30,7 @@ export default class {
 				}
 			})
 
-			client.on('close', () => {
+			client.on("close", () => {
 				this.onClose(client, clientId)
 			})
 		})

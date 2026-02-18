@@ -13,22 +13,22 @@ export class Practice {
 				const e = Random.choice(important)
 				Audio.playBlob(Base64.decode(e.sound))
 				Html.fill([
-					Html.div('big', [
-						Html.p('playing audio'),
-						Html.button('replay', () => {
+					Html.div("big", [
+						Html.p("playing audio"),
+						Html.button("replay", () => {
 							Audio.playBlob(Base64.decode(e.sound))
 						}),
-						Html.div('big', [
-							Html.button('hard', () => this.review(e, 'hard')),
-							Html.button('ok', () => this.review(e, 'ok')),
+						Html.div("big", [
+							Html.button("hard", () => this.review(e, "hard")),
+							Html.button("ok", () => this.review(e, "ok")),
 						])
 					]),
 				])
 			}
 			else {
-				Html.fill([Html.div('big', [
-					Html.p('No cards to review'),
-					Html.button('go back', () => {
+				Html.fill([Html.div("big", [
+					Html.p("No cards to review"),
+					Html.button("go back", () => {
 						new Menu()
 					}),
 				])])
@@ -45,11 +45,11 @@ export class Practice {
 		e.repetitions ??= 0
 		e.interval ??= 0
 
-		if (grade === 'hard') {
+		if (grade === "hard") {
 			e.repetitions = 0
 			e.interval = 0
 		}
-		else if (grade === 'ok') {
+		else if (grade === "ok") {
 			e.repetitions += 1
 			e.interval = e.repetitions === 1 ? 1 : e.interval * 2
 		}
@@ -59,10 +59,10 @@ export class Practice {
 
 		Html.clear()
 		Html.fillList([
-			Html.div('big', [
+			Html.div("big", [
 				Html.p(e.title),
 			]),
-			Html.button('next', () => {
+			Html.button("next", () => {
 				new Practice()
 			})
 		])

@@ -11,7 +11,7 @@ export class Jump {
 					this.destination = destination
 				}
 				else {
-					Html.fadeaway('You need to jump further away', player)
+					Html.fadeaway("You need to jump further away", player)
 				}
 			}),
 		])

@@ -1,7 +1,7 @@
 export class Picture {
 	constructor(position, image) {
-		this.canvas = document.createElement('canvas')
-		this.ctx = this.canvas.getContext('2d')
+		this.canvas = document.createElement("canvas")
+		this.ctx = this.canvas.getContext("2d")
 
 		this.canvas.width = image.naturalWidth ?? image.width
 		this.canvas.height = image.naturalHeight ?? image.height

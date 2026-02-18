@@ -17,14 +17,14 @@ export class RtcClient {
 				GridTemplate.left.set([ HtmlVideo.local(stream) ])
 			})
 
-		SocketClient.onClientMessage('INCOMING_CALL', data => {
+		SocketClient.onClientMessage("INCOMING_CALL", data => {
 			this.onIncomingCall(data.originClientId, data.offer)
 		})
 
-		SocketClient.onClientMessage('CALL_ACCEPTED', data => {
+		SocketClient.onClientMessage("CALL_ACCEPTED", data => {
 			const connection = this.connectedClientIds[data.originClientId]
 			if (!connection) {
-				throw new Error('could not find connection')
+				throw new Error("could not find connection")
 			}
 			else {
 				connection.peerConnection
@@ -39,7 +39,7 @@ export class RtcClient {
 			}
 		})
 
-		SocketClient.onClientMessage('ICE_CANDIDATE', data => {
+		SocketClient.onClientMessage("ICE_CANDIDATE", data => {
 			const connection = this.connectedClientIds[data.originClientId]
 			if (connection) {
 				connection.peerConnection
@@ -55,7 +55,7 @@ export class RtcClient {
 
 	static call(targetClientId) {
 		if (this.connectedClientIds[targetClientId]) {
-			throw new Error('you can\'t call someone you already have a connection with')
+			throw new Error("you can't call someone you already have a connection with")
 		}
 
 		const { peerConnection, dataChannel } = this.makeOffer(targetClientId)
@@ -73,7 +73,7 @@ export class RtcClient {
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
 				SocketClient.sendToClient(
-					'INCOMING_CALL',
+					"INCOMING_CALL",
 					targetClientId,
 					{ offer: peerConnection.localDescription }
 				)
@@ -103,7 +103,7 @@ export class RtcClient {
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
 				SocketClient.sendToClient(
-					'CALL_ACCEPTED',
+					"CALL_ACCEPTED",
 					callerClientId,
 					{ answer: peerConnection.localDescription })
 			}).then(() => {
@@ -133,7 +133,7 @@ export class RtcClient {
 
 	static createPeerConnection(targetClientId) {
 		const peerConnection = new RTCPeerConnection({
-			iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+			iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
 		})
 
 		peerConnection.ontrack = e => {
@@ -152,7 +152,7 @@ export class RtcClient {
 			}
 
 			SocketClient.sendToClient(
-				'ICE_CANDIDATE',
+				"ICE_CANDIDATE",
 				targetClientId,
 				{ candidate: e.candidate }
 			)
@@ -163,7 +163,7 @@ export class RtcClient {
 
 	static makeOffer(targetClientId) {
 		const peerConnection = this.createPeerConnection(targetClientId)
-		const dataChannel = peerConnection.createDataChannel('data')
+		const dataChannel = peerConnection.createDataChannel("data")
 
 		this.setupDataChannel(dataChannel)
 
@@ -172,16 +172,16 @@ export class RtcClient {
 
 	static setupDataChannel(dataChannel) {
 		dataChannel.onmessage = e => {
-			console.log('Received message:', e.data)
+			console.log("Received message:", e.data)
 			this.onData(JSON.parse(e.data))
 		}
 
 		dataChannel.onopen = () => {
-			console.log('Data channel opened')
+			console.log("Data channel opened")
 		}
 
 		dataChannel.onerror = (error) => {
-			console.error('Data channel error:', error)
+			console.error("Data channel error:", error)
 		}
 	}
 

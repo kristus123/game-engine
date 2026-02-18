@@ -1,10 +1,10 @@
-import cluster from 'cluster'
+import cluster from "cluster"
 
 function startWorker(service) {
 	const worker = cluster.fork({ SERVICE_SCRIPT: service.script, SERVICE_NAME: service.name })
 	console.log(`[${service.name}] Worker ${worker.process.pid} started`)
 
-	worker.on('exit', (code, signal) => {
+	worker.on("exit", (code, signal) => {
 		console.log(`[${service.name}] Worker ${worker.process.pid} exited (code=${code}, signal=${signal})`)
 		console.log(`[${service.name}] Restarting worker...`)
 		startWorker(service)
@@ -19,7 +19,7 @@ export function startCluster(services, onChangesDetected) {
 		services.forEach(service => startWorker(service))
 
 		onChangesDetected(() => {
-			console.log('[master] Reloading all workers due to git update...')
+			console.log("[master] Reloading all workers due to git update...")
 			for (const id in cluster.workers) {
 				cluster.workers[id].kill()
 			}

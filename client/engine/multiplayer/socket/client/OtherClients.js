@@ -16,7 +16,7 @@ export class OtherClients {
 	}
 
 	static add(clientId) {
-		console.log('-x-')
+		console.log("-x-")
 		if (this.ids.missing(clientId) && clientId != ClientId) {
 			this.ids.push(clientId)
 			this.onJoinListener.trigger(clientId)

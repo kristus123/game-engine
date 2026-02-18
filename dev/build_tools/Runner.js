@@ -1,4 +1,4 @@
-import { fork } from 'child_process'
+import { fork } from "child_process"
 
 export class Runner {
 	constructor(script, args=[]) {
@@ -12,7 +12,7 @@ export class Runner {
 			return
 		}
 		this.child = fork(this.script, this.args)
-		this.child.on('exit', () => this.child = null)
+		this.child.on("exit", () => this.child = null)
 	}
 
 	stop() {

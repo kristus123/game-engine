@@ -28,24 +28,24 @@ export class Mouse {
 		this.holding = null
 		this.hoveringHtmlElement = false
 
-		document.addEventListener('wheel', e => {
+		document.addEventListener("wheel", e => {
 			let delta = Math.sign(e.deltaY)
 
 			if (delta > 0) {
 				if (!this.hoveringHtmlElement) {
-					console.log('Scrolling out (down)')
+					console.log("Scrolling out (down)")
 					Call(this.scrollOut)
 				}
 			}
 			else {
 				if (!this.hoveringHtmlElement) {
-					console.log('Scrolling in (up)')
+					console.log("Scrolling in (up)")
 					Call(this.scrollIn)
 				}
 			}
 		})
 
-		document.addEventListener('mousedown', e => {
+		document.addEventListener("mousedown", e => {
 			if (this.disabled) {
 				return
 			}
@@ -70,7 +70,7 @@ export class Mouse {
 			}
 		})
 
-		document.addEventListener('mouseup', e => {
+		document.addEventListener("mouseup", e => {
 
 			if (e.button == 0) {
 				this.up = true
@@ -84,7 +84,7 @@ export class Mouse {
 			}
 		})
 
-		document.addEventListener('click', e => {
+		document.addEventListener("click", e => {
 			if (this.disabled) {
 				return
 			}
@@ -97,7 +97,7 @@ export class Mouse {
 			}
 		})
 
-		document.addEventListener('contextmenu', e => {
+		document.addEventListener("contextmenu", e => {
 			e.preventDefault()
 
 			if (this.disabled) {
@@ -106,7 +106,7 @@ export class Mouse {
 			else { // Right click
 				if (this.onRightClick) {
 					this.onRightClick(this.screenPosition)
-					console.log('user right lcicked')
+					console.log("user right lcicked")
 				}
 			}
 
@@ -127,7 +127,7 @@ export class Mouse {
 
 	static initializeAfterCameraIsInitialized() {
 
-		document.addEventListener('pointermove', e => {
+		document.addEventListener("pointermove", e => {
 			for (const ev of e.getCoalescedEvents()) {
 				Mouse.positionRelativeToCamera(ev.clientX, ev.clientY)
 			}
@@ -139,7 +139,7 @@ export class Mouse {
 			}, 2)
 		})
 
-		document.addEventListener('touchmove', function (event) {
+		document.addEventListener("touchmove", function (event) {
 		  if (event.touches.length > 0) {
 				const touch = event.touches[0] // First finger
 			  Mouse.positionRelativeToCamera(touch.clientX, touch.clientY)
@@ -151,7 +151,7 @@ export class Mouse {
 		})
 
 
-		document.addEventListener('touchstart', e => {
+		document.addEventListener("touchstart", e => {
 		  const t = e.changedTouches[0]
 		  Mouse.positionRelativeToCamera(t.clientX, t.clientY)
 			setTimeout(() => {
@@ -200,7 +200,7 @@ export class Mouse {
 
 	static hovering(o) {
 		if (o instanceof HTMLElement) {
-			return o.contains(document.querySelector(':hover'))
+			return o.contains(document.querySelector(":hover"))
 		}
 		else {
 			return Collision.between(this.position, o)

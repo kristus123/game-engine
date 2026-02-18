@@ -21,7 +21,7 @@ export class Listener {
 	}
 
 	listenOnce(callback) {
-		console.log('asdasdasdasdasdasdadsad')
+		console.log("asdasdasdasdasdasdadsad")
 		console.log(this.oneTimeListeners)
 		this.oneTimeListeners.push(callback)
 	}

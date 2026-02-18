@@ -16,7 +16,7 @@ export class AudioEngine {
 	}
 
 	play(start = 0, end = null) {
-		if (AudioContext.state === 'suspended') {
+		if (AudioContext.state === "suspended") {
 			AudioContext.resume()
 		}
 		else {

@@ -59,8 +59,8 @@ export class Draw {
 			p.x, p.y, radius
 		)
 
-		g.addColorStop(0, 'rgba(255, 210, 85, 1)')
-		g.addColorStop(1, 'rgba(249, 255, 137, 0)')
+		g.addColorStop(0, "rgba(255, 210, 85, 1)")
+		g.addColorStop(1, "rgba(249, 255, 137, 0)")
 
 		this.ctx.fillStyle = g
 		this.ctx.beginPath()
@@ -73,7 +73,7 @@ export class Draw {
 		this.ctx.beginPath()
 		this.ctx.moveTo(startPosition.x, startPosition.y) // Starting point
 		this.ctx.bezierCurveTo(controlPosition1.x, controlPosition1.y, controlPosition2.x, controlPosition2.y, endPosition.x, endPosition.y) // Control points and endpoint
-		this.ctx.strokeStyle = 'white' // Set the stroke color to white
+		this.ctx.strokeStyle = "white" // Set the stroke color to white
 		this.ctx.stroke()
 
 		// this.new_circle(startPosition);
@@ -84,8 +84,8 @@ export class Draw {
 
 	light(p, radius=250) {
 		const gradient = this.ctx.createRadialGradient(p.x, p.y, 10, p.x, p.y, radius)
-		gradient.addColorStop(0, 'rgba(255, 255, 200, 0.5)') // bright center
-		gradient.addColorStop(0.4, 'rgba(255, 255, 150, 0.5)') // soft glow
+		gradient.addColorStop(0, "rgba(255, 255, 200, 0.5)") // bright center
+		gradient.addColorStop(0.4, "rgba(255, 255, 150, 0.5)") // soft glow
 
 		this.ctx.fillStyle = gradient
 		this.ctx.beginPath()
@@ -99,14 +99,14 @@ export class Draw {
 		const lightX = 0
 		const lightY = 0
 
-		this.ctx.shadowColor = 'rgba(0, 0, 0, 0.1)'
+		this.ctx.shadowColor = "rgba(0, 0, 0, 0.1)"
 		this.ctx.shadowBlur = 200
 		this.ctx.shadowOffsetX = (x - lightX) / 10
 		this.ctx.shadowOffsetY = (y - lightY) / 10
 
 		this.ctx.fillRect(x, y, width, height)
 
-		this.ctx.shadowColor = 'transparent'
+		this.ctx.shadowColor = "transparent"
 		this.ctx.shadowBlur = 0
 		this.ctx.shadowOffsetX = 0
 		this.ctx.shadowOffsetY = 0
@@ -137,7 +137,7 @@ export class Draw {
 		this.ctx.drawImage(imageBitmap, position.x, position.y)
 	}
 
-	rectangle(position, color='orange') {
+	rectangle(position, color="orange") {
 		this.ctx.fillStyle = color
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
@@ -147,31 +147,31 @@ export class Draw {
 	}
 
 	pink(position) {
-		this.rectangle(position, 'pink')
+		this.rectangle(position, "pink")
 	}
 
 	purple(position) {
-		this.rectangle(position, 'purple')
+		this.rectangle(position, "purple")
 	}
 
 	green(position) {
-		this.rectangle(position, 'green')
+		this.rectangle(position, "green")
 	}
 
 	red(position) {
-		this.rectangle(position, 'red')
+		this.rectangle(position, "red")
 	}
 
 	brown(position) {
-		this.rectangle(position, 'brown')
+		this.rectangle(position, "brown")
 	}
 
 	orange(position) {
-		this.rectangle(position, 'orange')
+		this.rectangle(position, "orange")
 	}
 
 	blue(position) {
-		this.rectangle(position, 'blue')
+		this.rectangle(position, "blue")
 	}
 
 	color(position, color) {
@@ -179,26 +179,26 @@ export class Draw {
 	}
 
 	grey(position) {
-		this.rectangle(position, 'grey')
+		this.rectangle(position, "grey")
 	}
 
 	transparentGreenRectangle(position) {
-		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.5)' // RGBA color (green with 50% opacity)
+		this.ctx.fillStyle = "rgba(0, 255, 0, 0.5)" // RGBA color (green with 50% opacity)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
 	transparentRedRectangle(position) {
-		this.ctx.fillStyle = 'rgba(255, 0, 0, 0.5)' // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = "rgba(255, 0, 0, 0.5)" // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
 	transparentBlueRectangle(position) {
-		this.ctx.fillStyle = 'rgba(0, 0, 255, 0.5)' // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = "rgba(0, 0, 255, 0.5)" // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
 	blueRectangle(position) {
-		this.ctx.fillStyle = 'rgba(0, 0, 255, 1)' // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = "rgba(0, 0, 255, 1)" // rgba(red, green, blue, alpha)
 		this.ctx.fillRect(position.x, position.y, position.width, position.height)
 	}
 
@@ -207,9 +207,9 @@ export class Draw {
 
 		const gradient = this.ctx.createRadialGradient(position.x, position.y, 200, position.x, position.y, 50)
 		// Add transparent colors with alpha channel
-		gradient.addColorStop(0, 'rgba(255, 0, 255, 0.1)') // Inner color (fully transparent red)
-		gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)') // Middle color (partially transparent blue)
-		gradient.addColorStop(1, 'rgba(255, 255, 0, 0.1)') // Middle color (partially transparent blue)
+		gradient.addColorStop(0, "rgba(255, 0, 255, 0.1)") // Inner color (fully transparent red)
+		gradient.addColorStop(0.5, "rgba(255, 255, 255, 0.1)") // Middle color (partially transparent blue)
+		gradient.addColorStop(1, "rgba(255, 255, 0, 0.1)") // Middle color (partially transparent blue)
 
 		this.ctx.fillStyle = gradient
 		this.ctx.beginPath()
@@ -217,7 +217,7 @@ export class Draw {
 		this.ctx.fill()
 	}
 
-	star(position, color='white') {
+	star(position, color="white") {
 		this.ctx.lineWidth = 0
 		this.ctx.fillStyle = color
 		this.ctx.strokeStyle = color
@@ -249,12 +249,12 @@ export class Draw {
 
 		// Set line style
 		this.ctx.lineWidth = 2
-		this.ctx.strokeStyle = 'red' // You can set your desired color
+		this.ctx.strokeStyle = "red" // You can set your desired color
 
 		// Stroke the lines this.ctx.stroke() this.ctx.closePath()
 	}
 
-	hpBar(position, currentHp, maxHp, color='red') {
+	hpBar(position, currentHp, maxHp, color="red") {
 		function toPercentage() { // returns a value between 0.0 and 1.0 representing percentage
 			const numerator = currentHp
 			const denominator = maxHp
@@ -274,7 +274,7 @@ export class Draw {
 			y: position.y + 50,
 		}
 
-		this.ctx.fillStyle = 'white'
+		this.ctx.fillStyle = "white"
 		this.ctx.fillRect(position.x, position.y, width, height)
 
 
@@ -285,13 +285,13 @@ export class Draw {
 	}
 
 
-	fire(position, radius = 50, color = 'orange', alpha = 0.5) {
+	fire(position, radius = 50, color = "orange", alpha = 0.5) {
 		const grad = this.ctx.createRadialGradient(
 			position.x, position.y, 0,
 			position.x, position.y, Math.abs(radius)
 		)
 		grad.addColorStop(0, color)
-		grad.addColorStop(1, 'rgba(255,165,0,0)') // orange fully transparent
+		grad.addColorStop(1, "rgba(255,165,0,0)") // orange fully transparent
 
 		this.ctx.beginPath()
 		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
@@ -303,7 +303,7 @@ export class Draw {
 
 
 	circle(position, radius = 10) {
-		const color = 'red'
+		const color = "red"
 
 		this.ctx.beginPath()
 		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
@@ -314,7 +314,7 @@ export class Draw {
 	radius(position, radius) {
 		this.ctx.beginPath()
 		this.ctx.arc(position.x, position.y, Math.abs(radius), 0, Math.PI * 2, false)
-		this.ctx.fillStyle = 'rgba(0, 255, 0, 0.1)' // rgba(red, green, blue, alpha)
+		this.ctx.fillStyle = "rgba(0, 255, 0, 0.1)" // rgba(red, green, blue, alpha)
 		this.ctx.fill()
 
 	}
@@ -339,7 +339,7 @@ export class Draw {
 			objectToFollow.height / 2 +
 			radius * Math.sin(this.angle)
 
-		this.circle(x, y, 10, 'red')
+		this.circle(x, y, 10, "red")
 
 		this.angle += 0.1
 
@@ -357,12 +357,12 @@ export class Draw {
 		const circleX = player.x + player.width / 2 + circleRadius * Math.cos(oppositeAngle)
 		const circleY = player.y + player.height / 2 + circleRadius * Math.sin(oppositeAngle)
 
-		this.circle(circleX, circleY, playerRadius, 'red')
+		this.circle(circleX, circleY, playerRadius, "red")
 
 		player.angle = Math.atan2(mousePosition.y - player.position.center.y, mousePosition.x - player.position.center.x)
 	}
 
-	objectThatIsMovingInRectangularPathAroundObject(target, color='red') {
+	objectThatIsMovingInRectangularPathAroundObject(target, color="red") {
 		this.ctx.lineWidth = 2
 
 		// Calculate distances from player's center to mouse position
@@ -389,7 +389,7 @@ export class Draw {
 		const rectWidth = horizontalRectDistance * 2
 		const rectHeight = verticalRectDistance * 2
 
-		this.ctx.strokeStyle = 'blue'
+		this.ctx.strokeStyle = "blue"
 		this.ctx.strokeRect(rectX, rectY, rectWidth, rectHeight)
 
 		return { x: circleX, y: circleY }
@@ -413,22 +413,22 @@ export class Draw {
 		const x = player.x + circleRadius * Math.cos(angle)
 		const y = player.y + circleRadius * Math.sin(angle)
 
-		this.circle(WorldPosition(x, y), 10, 'red')
+		this.circle(WorldPosition(x, y), 10, "red")
 	}
 
 	line(start, end) {
 		this.ctx.beginPath()
 		this.ctx.moveTo(start.x, start.y)
 		this.ctx.lineTo(end.x, end.y)
-		this.ctx.strokeStyle = 'white'
+		this.ctx.strokeStyle = "white"
 		this.ctx.lineWidth = 5
 		this.ctx.stroke()
 	}
 
-	text(position, text, color='black', fontSize = 40) {
+	text(position, text, color="black", fontSize = 40) {
 		// this.rectangle(position)
 
-		this.ctx.fillStyle = 'white'
+		this.ctx.fillStyle = "white"
 
 		this.ctx.font = `${fontSize / Camera.zoom}px VT323`
 
@@ -445,7 +445,7 @@ export class Draw {
 	}
 
 	grid() {
-		this.ctx.strokeStyle = '#ccc' // Grid color
+		this.ctx.strokeStyle = "#ccc" // Grid color
 		this.ctx.lineWidth = 2
 
 		const cellSize = 100 // Adjust this to change the grid cell size

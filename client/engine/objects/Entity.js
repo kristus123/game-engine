@@ -38,19 +38,19 @@ export class Entity extends _GameObject {
 
 	get direction() {
 		if (this.movingLeft) {
-			return 'left'
+			return "left"
 		}
 		else if (this.movingRight) {
-			return 'right'
+			return "right"
 		}
 		else if (this.movingUp) {
-			return 'up'
+			return "up"
 		}
 		else if (this.movingDown) {
-			return 'down'
+			return "down"
 		}
 		else {
-			return 'idle'
+			return "idle"
 		}
 	}
 

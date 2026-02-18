@@ -2,12 +2,12 @@ export class QuestList {
 
 	static add(text) {
 		const p = Html.p(text)
-		Html.addToScreen(Html.div('ui left', [
+		Html.addToScreen(Html.div("ui left", [
 			p,
 		]))
 
 		return {
-			completed: () => p.classList.add('crossed'),
+			completed: () => p.classList.add("crossed"),
 			text: t => p.innerHTML = t,
 		}
 	}

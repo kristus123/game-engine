@@ -11,20 +11,20 @@ export const HttpClient = ProxyObject(
 function buildRequest(body) {
 	if (isBinary(body)) {
 		return {
-			method: 'POST',
+			method: "POST",
 			headers: {
-				'Content-Type': 'application/octet-stream',
-				'X-Client-Id': ClientId
+				"Content-Type": "application/octet-stream",
+				"X-Client-Id": ClientId
 			},
 			body
 		}
 	}
 
 	return {
-		method: 'POST',
+		method: "POST",
 		headers: {
-			'Content-Type': 'application/json',
-			'X-Client-Id': ClientId
+			"Content-Type": "application/json",
+			"X-Client-Id": ClientId
 		},
 		body: JSON.stringify(body ?? {})
 	}

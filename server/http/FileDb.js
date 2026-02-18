@@ -1,8 +1,8 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 
 export class FileDb {
-	static prefix = path.resolve('./fileDb')
+	static prefix = path.resolve("./fileDb")
 
 	static ensureFolderExists(folderName) {
 		if (!fs.existsSync(folderName)) {
@@ -20,7 +20,7 @@ export class FileDb {
 
 		const content = fs.readFileSync(fullPath) // Buffer
 		try {
-			const str = content.toString('utf8')
+			const str = content.toString("utf8")
 			return JSON.parse(str)
 		}
 		catch {
@@ -49,16 +49,16 @@ export class FileDb {
 	}
 
 	static saveFile(filePath, data) {
-		const folderPath = filePath.split('/')
+		const folderPath = filePath.split("/")
 		folderPath.pop()
 
 		FileDb.ensureFolderExists(path.join(FileDb.prefix, ...folderPath))
 
 		const fullPath = path.join(FileDb.prefix, filePath)
-		const tempPath = fullPath + '.tmp'
+		const tempPath = fullPath + ".tmp"
 
-		if (typeof data === 'object' && !(data instanceof Buffer)) {
-			fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf8')
+		if (typeof data === "object" && !(data instanceof Buffer)) {
+			fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), "utf8")
 		}
 		else {
 			fs.writeFileSync(tempPath, data)

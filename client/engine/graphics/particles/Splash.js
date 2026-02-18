@@ -18,7 +18,7 @@ export class Splash {
 
 	}
 
-	random(object, color='white') {
+	random(object, color="white") {
 
 		Iterate(10, () => {
 			const size = Random.floatBetween(0.1, 10)

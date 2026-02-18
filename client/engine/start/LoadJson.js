@@ -10,7 +10,7 @@ export async function LoadJson(url) {
 		}
 	}
 	catch (e) {
-		throw new Error('Error loading JSON:', e)
+		throw new Error("Error loading JSON:", e)
 	}
 }
 

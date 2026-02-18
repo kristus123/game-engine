@@ -9,13 +9,13 @@ export class Thread {
 			}
 		`
 
-		const blob = new Blob([workerCode], { type: 'application/javascript' })
+		const blob = new Blob([workerCode], { type: "application/javascript" })
 
 		this.worker = new Worker(URL.createObjectURL(blob))
 
 	}
 
-	run(input='na', onMessage) {
+	run(input="na", onMessage) {
 		this.worker.postMessage(input)
 
 		this.worker.onmessage = (e) => {

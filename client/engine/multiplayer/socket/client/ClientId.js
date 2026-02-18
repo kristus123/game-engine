@@ -1,8 +1,8 @@
-let clientId = localStorage.getItem('clientId')
+let clientId = localStorage.getItem("clientId")
 
 if (clientId === null) {
 	clientId = Random.uuid()
-	localStorage.setItem('clientId', clientId)
+	localStorage.setItem("clientId", clientId)
 }
 
 export const ClientId = clientId

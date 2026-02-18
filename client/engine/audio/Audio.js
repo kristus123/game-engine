@@ -23,7 +23,7 @@ export class Audio {
 
 	static playBlob(blob) {
 	  if (!blob) {
-		  throw new Error('no blob present')
+		  throw new Error("no blob present")
 		}
 
 	  const url = URL.createObjectURL(blob)

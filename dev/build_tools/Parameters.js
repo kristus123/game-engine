@@ -4,11 +4,11 @@ export default class Parameters {
 		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
 
 		if (match) {
-			return match[1].split(',')
+			return match[1].split(",")
 				.map(param => param.trim())
-				.map(p => p.replaceAll(' ', ''))
-				.map(p => p.split('=')[0])
-				.filter(p => p != '')
+				.map(p => p.replaceAll(" ", ""))
+				.map(p => p.split("=")[0])
+				.filter(p => p != "")
 		}
 		else {
 			return []
@@ -17,11 +17,11 @@ export default class Parameters {
 
 	static initVariablesFromConstructor(content) {
 		return Parameters.inConstructor(content)
-			.filter(p => !p.includes('...')) // in case they use ...args
+			.filter(p => !p.includes("...")) // in case they use ...args
 			.map(p => `this.${p} = ${p}; \n`)
-			.map(p => '\t\t' + p)
+			.map(p => "\t\t" + p)
 			.join()
-			.replaceAll(',', '')
+			.replaceAll(",", "")
 	}
 
 	static nullCheckForConstructorArguments(content) {

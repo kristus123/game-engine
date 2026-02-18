@@ -5,7 +5,7 @@ export class Blur {
 
 		this.positions = Positions.grid(WorldPosition(0, 0, 3000, 1000), 60).map(p => ({
 			position: p,
-			color: Random.choice(['white', 'grey']),
+			color: Random.choice(["white", "grey"]),
 		}))
 	}
 

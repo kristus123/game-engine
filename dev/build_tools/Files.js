@@ -1,7 +1,7 @@
-import Path from 'path'
+import Path from "path"
 
-import fs from 'fs'
-import { FileConfig } from '#root/FileConfig.js'
+import fs from "fs"
+import { FileConfig } from "#root/FileConfig.js"
 
 const mainFilename = process.argv[1]
 
@@ -26,8 +26,8 @@ export default class {
 				if (fs.statSync(filePath).isDirectory()) {
 					this.getJsFiles(filePath, jsFiles)
 				}
-				else if (file.endsWith('.js')) {
-					jsFiles.push(filePath.replaceAll('\\', Path.dirname(mainFilename)))
+				else if (file.endsWith(".js")) {
+					jsFiles.push(filePath.replaceAll("\\", Path.dirname(mainFilename)))
 				}
 			}
 			return jsFiles
@@ -65,13 +65,13 @@ export default class {
 			}
 		}
 
-		return results.map(f => f.replaceAll('\\', '/'))
+		return results.map(f => f.replaceAll("\\", "/"))
 	}
 
 
 
 	static read(path) {
-		return fs.readFileSync(path, 'utf-8')
+		return fs.readFileSync(path, "utf-8")
 	}
 
 	static write(path, content) {
@@ -85,14 +85,14 @@ export default class {
 	}
 
 	static deleteFolder(folder) {
-		console.log('deleting ' + folder)
+		console.log("deleting " + folder)
 		fs.rmSync(folder, { recursive: true, force: true })
 	}
 
 
 	static copyFolder(source, destination) {
 		if (!fs.existsSync(source)) {
-			console.error('Source folder does not exist.')
+			console.error("Source folder does not exist.")
 			process.exit(1)
 		}
 

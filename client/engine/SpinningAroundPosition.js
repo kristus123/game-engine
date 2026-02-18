@@ -17,7 +17,7 @@ export class SpinningAroundPosition {
 
 	draw(draw) {
 
-		draw.circle(this.position.x, this.position.y, 10, 'red')
+		draw.circle(this.position.x, this.position.y, 10, "red")
 
 		this.angle += 0.03
 	}

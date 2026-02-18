@@ -1,7 +1,7 @@
 export class OtherPage {
 	static {
-		this.dom = Dom.overlay(Html.button('This is Other Page'))
-		Page.init(this, '/landingPage')
+		this.dom = Dom.overlay(Html.button("This is Other Page"))
+		Page.init(this, "/landingPage")
 
 	}
 

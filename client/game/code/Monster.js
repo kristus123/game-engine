@@ -15,7 +15,7 @@ export class Monster extends Entity {
 			}),
 
 			OnTrue(() => this.touches(paths.at(-1)), () => {
-				DeathText.show('You lose', 9000)
+				DeathText.show("You lose", 9000)
 			}),
 		])
 

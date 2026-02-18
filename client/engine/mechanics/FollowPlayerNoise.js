@@ -16,10 +16,10 @@ export class FollowPlayerNoise {
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 
 			if (noiseValue >= 0.8) {
-				draw.color(position, '#2AB1C6')
+				draw.color(position, "#2AB1C6")
 			}
 			else {
-				draw.color(position, '#4F9182')
+				draw.color(position, "#4F9182")
 			}
 		}
 	}

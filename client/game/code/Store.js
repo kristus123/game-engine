@@ -36,24 +36,24 @@ export class Store {
 
 			OnChange(() => Money.amount, () => {
 				if (Money.lessThan(20)) {
-					this.buyTurretText.changeText('need more money')
+					this.buyTurretText.changeText("need more money")
 				}
 				else {
-					this.buyTurretText.changeText('buy turret x (press E)\'')
+					this.buyTurretText.changeText("buy turret x (press E)'")
 				}
 			}),
 		])
 
 		Html.upper([
-			this.buyTurretText = Html.p('buy turret (press E)'),
+			this.buyTurretText = Html.p("buy turret (press E)"),
 		])
 
 		Html.right([
-			this.buyAllyText = Html.p('buy ally (press r)'),
+			this.buyAllyText = Html.p("buy ally (press r)"),
 		])
 
 		Html.lower([
-			Html.p('Q to jump'),
+			Html.p("Q to jump"),
 		])
 
 
@@ -69,7 +69,7 @@ export class Store {
 			this.turret.position.xy(Mouse.position)
 
 			const valid = this.x.touchesTurretTiles(Mouse.position)
-			D1.color(this.turret, valid ? 'green': 'red')
+			D1.color(this.turret, valid ? "green": "red")
 		}
 	}
 

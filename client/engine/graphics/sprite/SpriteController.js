@@ -21,9 +21,9 @@ export class SpriteController extends Entity {
 
 
 		this.tags = {}
-		this.activeTag = 'idle'
+		this.activeTag = "idle"
 
-		this.type = 'loop'
+		this.type = "loop"
 
 		this.onFinish = () => {}
 
@@ -33,7 +33,7 @@ export class SpriteController extends Entity {
 				play: (onFinish=() => {}) => {
 					this.currentTagFrame = 0
 					this.activeTag = tag
-					this.type = 'play'
+					this.type = "play"
 					this.onFinish = onFinish
 					return this
 				},
@@ -42,7 +42,7 @@ export class SpriteController extends Entity {
 					this.currentTagFrame = 0
 					this.activeTag = tag
 					this.defaultTag = tag
-					this.type = 'loop'
+					this.type = "loop"
 					this.onFinish = onFinish
 					return this
 				},
@@ -51,7 +51,7 @@ export class SpriteController extends Entity {
 					this.currentTagFrame = frame
 					this.activeTag = tag
 					this.defaultTag = tag
-					this.type = 'show'
+					this.type = "show"
 					return this
 				},
 			}
@@ -61,22 +61,22 @@ export class SpriteController extends Entity {
 			this.tags.idle.loop()
 		}
 		else {
-			throw new Error('idle tag missing from .aseprite file')
+			throw new Error("idle tag missing from .aseprite file")
 		}
 
 		const stopWatch = StopWatch().start()
 
 		this.localObjects = Objects([
 			OnTrue(() => stopWatch.time >= this.asepriteJson.tags[this.activeTag][this.currentTagFrame].duration, () => {
-				if (this.type == 'show') {
+				if (this.type == "show") {
 					// do nothing
 				}
 				else if (this.currentTagFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
 					this.currentTagFrame = 0
 
-					if (this.type == 'play') {
+					if (this.type == "play") {
 						this.activeTag = this.defaultTag
-						this.type = 'loop'
+						this.type = "loop"
 						this.onFinish()
 					}
 				}

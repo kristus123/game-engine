@@ -1,10 +1,10 @@
-export const index = ''
-import { initD1 } from '/client/engine/start/draw_layers/D1.js'
-import { initD2 } from '/client/engine/start/draw_layers/D2.js'
-import { initD3 } from '/client/engine/start/draw_layers/D3.js'
+export const index = ""
+import { initD1 } from "/client/engine/start/draw_layers/D1.js"
+import { initD2 } from "/client/engine/start/draw_layers/D2.js"
+import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 
 navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
-if ('serviceWorker' in navigator) {
+if ("serviceWorker" in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 }
 
@@ -18,7 +18,7 @@ async function loadAsepriteAssets(path) {
 
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 
-	const spriteName = path.split('/').pop()
+	const spriteName = path.split("/").pop()
 	Sprite[spriteName] = (d, position, scale=1) => new SpriteController(
 		d, position,
 		fullImage, fullJson,
@@ -30,7 +30,7 @@ async function loadAsepriteAssets(path) {
 async function loadAllAudio() {
 	return Promise.all(AUDIO_FILES.map(async path => {
 		const audio = await LoadAudio(path)
-		const key = path.split('/').pop().replace('.mp3', '')
+		const key = path.split("/").pop().replace(".mp3", "")
 		G.Audio[key] = audio
 	}))
 }
@@ -42,10 +42,10 @@ Promise.all([
 	.then(() => {
 		const mainPalette = Palette.main()
 		const backgroundPalette = Palette.offscreen()
-		backgroundPalette.fill('#10204f')
+		backgroundPalette.fill("#10204f")
 
 		const filterPalette = Palette.offscreen()
-		filterPalette.fill('#03045e', 0.2)
+		filterPalette.fill("#03045e", 0.2)
 
 		Audio.init()
 		Mouse.initialize()
@@ -86,7 +86,7 @@ Promise.all([
 		console.error(e)
 
 		const err = e instanceof Error ? e : new Error(e)
-		const lines = (err.stack || '').split('\n')
+		const lines = (err.stack || "").split("\n")
 
 		Dom.swap(lines.map(line => Html.p(line)))
 

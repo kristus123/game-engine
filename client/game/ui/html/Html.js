@@ -5,15 +5,15 @@ export class Html {
 
 	static dialog(children=[]) {
 
-		const div = HtmlElement('div')
+		const div = HtmlElement("div")
 		for (const c of children) {
 			div.appendChild(c)
 		}
 
-		const d = HtmlElement('dialog')
+		const d = HtmlElement("dialog")
 		d.appendChild(div)
 
-		d.addEventListener('click', e => {
+		d.addEventListener("click", e => {
 			if (e.target === d) {
 			  d.close() // close modal if clicking outside of it
 			}
@@ -25,19 +25,19 @@ export class Html {
 	}
 
 	static slider(min=1, max=100) {
-		const s = HtmlElement('input')
+		const s = HtmlElement("input")
 
-		s.type = 'range'
+		s.type = "range"
 		s.min = min
 		s.max = max
 		s.value = 0
 		s.step=1
 
-		s.addEventListener('mouseover', () => {
+		s.addEventListener("mouseover", () => {
 			Mouse.hoveringHtmlElement = true
 		})
 
-		s.addEventListener('mouseout', () => {
+		s.addEventListener("mouseout", () => {
 			Mouse.hoveringHtmlElement = false
 		})
 
@@ -45,24 +45,24 @@ export class Html {
 	}
 
 
-	static input(placeholder='placeholder', onEnter=(value) => {}) {
-		const i = HtmlElement('input')
-		 i.type = 'text'
+	static input(placeholder="placeholder", onEnter=(value) => {}) {
+		const i = HtmlElement("input")
+		 i.type = "text"
 		i.placeholder = placeholder
 
 
-		  i.addEventListener('focus', () => {
+		  i.addEventListener("focus", () => {
 			Controller.disabled = true
 			Keyboard.disabled = true
 		  })
 
-		  i.addEventListener('blur', () => {
+		  i.addEventListener("blur", () => {
 			Controller.disabled = false
 			Keyboard.disabled = false
 		  })
 
-		i.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter') {
+		i.addEventListener("keydown", (e) => {
+			if (e.key === "Enter") {
 				onEnter(i.value)
 			}
 		})
@@ -77,36 +77,36 @@ export class Html {
 	}
 
 	static focusInput() {
-		const input = document.querySelector('input[type="text"]')
+		const input = document.querySelector("input[type=\"text\"]")
 		if (input) {
 			input.focus()
 		}
 	}
 
 
-	static h1(text, className='na') {
-		const h1 = HtmlElement('h1', className)
+	static h1(text, className="na") {
+		const h1 = HtmlElement("h1", className)
 		h1.innerHTML = text
 
 		return h1
 	}
 
-	static p(text, className='na') {
-		const p = HtmlElement('p', className)
+	static p(text, className="na") {
+		const p = HtmlElement("p", className)
 		p.innerHTML = text
 
 		return p
 	}
 
 	static image(x) {
-		const img = HtmlElement('img', '')
+		const img = HtmlElement("img", "")
 		img.src = x
 		return img
 	}
 
 
 	static onClick(e, run) {
-		e.addEventListener('click', () => {
+		e.addEventListener("click", () => {
 			run()
 		})
 
@@ -114,10 +114,10 @@ export class Html {
 	}
 
 	static button(text, onClick= b => {}) {
-		const button = HtmlElement('button', 'button')
+		const button = HtmlElement("button", "button")
 		button.textContent = text
 
-		button.addEventListener('click', () => {
+		button.addEventListener("click", () => {
 			onClick(button)
 
 			  if (navigator.vibrate) {
@@ -126,11 +126,11 @@ export class Html {
 
 		})
 
-		button.addEventListener('mouseover', () => {
+		button.addEventListener("mouseover", () => {
 			Mouse.hoveringHtmlElement = true
 		})
 
-		button.addEventListener('mouseout', () => {
+		button.addEventListener("mouseout", () => {
 			Mouse.hoveringHtmlElement = false
 		})
 
@@ -158,11 +158,11 @@ export class Html {
 	}
 
 	static show(e) {
-		e.style.display = 'block'
+		e.style.display = "block"
 	}
 
 	static hide(e) {
-		e.style.display = 'none'
+		e.style.display = "none"
 	}
 
 	static changeText(element, text) {
@@ -171,9 +171,9 @@ export class Html {
 
 	static text(text, position) {
 
-		const p = HtmlElement('p', '')
+		const p = HtmlElement("p", "")
 		p.textContent = text
-		p.style.fontSize = '2vw'
+		p.style.fontSize = "2vw"
 
 		position = Camera.p(position) // todo imrpoveo ofc
 		p.style.left = `${position.x}px`
@@ -205,7 +205,7 @@ export class Html {
 	static div(className, childElements=[]) {
 		childElements = Always.list(childElements)
 
-		const d = HtmlElement('div', className)
+		const d = HtmlElement("div", className)
 
 		for (const e of childElements) {
 			d.appendChild(e)
@@ -227,11 +227,11 @@ export class Html {
 	static fadeaway(text, position=Mouse.position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 
-		var textElement = HtmlElement('p')
+		var textElement = HtmlElement("p")
 		textElement.innerHTML = text
 
 
-		textElement.setAttribute('class', 'ui fade-away')
+		textElement.setAttribute("class", "ui fade-away")
 
 		textElement.style.left = `${position.x}px`
 		textElement.style.top = `${position.y - 50}px`
@@ -246,7 +246,7 @@ export class Html {
 	static domFloat(e, position) {
 		position = Camera.p(position) // todo imrpoveo ofc
 
-		e.classList.add('ui')
+		e.classList.add("ui")
 
 		e.style.left = `${position.x}px`
 		e.style.top = `${position.y - 50}px`

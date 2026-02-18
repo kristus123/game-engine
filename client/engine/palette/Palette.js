@@ -9,7 +9,7 @@ export class Palette {
 	static {
 		let debounceTimeout
 
-		window.addEventListener('resize', () => {
+		window.addEventListener("resize", () => {
 			clearTimeout(debounceTimeout)
 
 			debounceTimeout = setTimeout(() => {
@@ -30,15 +30,15 @@ export class Palette {
 	}
 
 	static main() {
-		const canvases = document.getElementById('canvases')
+		const canvases = document.getElementById("canvases")
 
-		const canvas = document.createElement('canvas')
+		const canvas = document.createElement("canvas")
 		canvases.appendChild(canvas)
 		Palette.createdCanvases.push(canvas)
 
 		canvas.width = Palette.width
 		canvas.height = Palette.height
-		const ctx = canvas.getContext('2d')
+		const ctx = canvas.getContext("2d")
 		ctx.imageSmoothingEnabled = false
 
 		return {
@@ -60,7 +60,7 @@ export class Palette {
 
 	static offscreen(onResize=() => {}) {
 		const canvas = new OffscreenCanvas(Palette.width, Palette.height)
-		const ctx = canvas.getContext('2d')
+		const ctx = canvas.getContext("2d")
 		ctx.imageSmoothingEnabled = false
 
 		Palette.createdCanvases.push(canvas)
@@ -90,7 +90,7 @@ export class Palette {
 
 	static fixedOffscreen(width, height) {
 		const canvas = new OffscreenCanvas(width, height)
-		const ctx = canvas.getContext('2d')
+		const ctx = canvas.getContext("2d")
 		ctx.imageSmoothingEnabled = false
 
 		return {

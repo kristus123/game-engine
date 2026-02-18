@@ -27,7 +27,7 @@ export class GridPositions {
 			}
 		}
 	  else {
-	  	console.log('nothing to delete')
+	  	console.log("nothing to delete")
 	  }
 	}
 

@@ -1,5 +1,5 @@
 class CurveImplementation {
-	constructor(start = 0, end = 1, duration = 1000, type = 'linear', exponent = 2, onFinish = () => {}) {
+	constructor(start = 0, end = 1, duration = 1000, type = "linear", exponent = 2, onFinish = () => {}) {
 		this.start = start
 		this.end = end
 		this.duration = duration
@@ -26,16 +26,16 @@ class CurveImplementation {
 		const t = Math.min(this.elapsed / this.duration, 1)
 
 		switch (this.type) {
-		case 'linear':
+		case "linear":
 			this.value = this.start + (this.end - this.start) * t
 			break
-		case 'exponential':
+		case "exponential":
 			this.value = this.start + (this.end - this.start) * Math.pow(t, this.exponent)
 			break
-		case 'quadratic':
+		case "quadratic":
 			this.value = this.start + (this.end - this.start) * (t * t)
 			break
-		case 'logarithmic':
+		case "logarithmic":
 			this.value = this.start + (this.end - this.start) * Math.log10(1 + 9 * t)
 			break
 		default:
@@ -59,19 +59,19 @@ class CurveImplementation {
 
 export class Curve {
 	static linear(start, end, duration, onFinish = () => {}) {
-		return new CurveImplementation(start, end, duration, 'linear', onFinish)
+		return new CurveImplementation(start, end, duration, "linear", onFinish)
 	}
 
 	static exponential(start, end, duration, exponent = 2, onFinish = () => {}) {
-		return new CurveImplementation(start, end, duration, 'exponential', exponent, onFinish)
+		return new CurveImplementation(start, end, duration, "exponential", exponent, onFinish)
 	}
 
 	static quadratic(start, end, duration, onFinish = () => {}) {
-		return new CurveImplementation(start, end, duration, 'quadratic', onFinish)
+		return new CurveImplementation(start, end, duration, "quadratic", onFinish)
 	}
 
 	static logarithmic(start, end, duration, onFinish = () => {}) {
-		return new CurveImplementation(start, end, duration, 'logarithmic', onFinish)
+		return new CurveImplementation(start, end, duration, "logarithmic", onFinish)
 	}
 }
 

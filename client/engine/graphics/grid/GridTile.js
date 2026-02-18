@@ -20,7 +20,7 @@ export class GridTile {
 
 		if (Mouse.down) {
 			if (this.grid.has(gridPosition)) {
-				D1.text(snappedPosition, 'full')
+				D1.text(snappedPosition, "full")
 			}
 			else {
 				if (G.tile) {

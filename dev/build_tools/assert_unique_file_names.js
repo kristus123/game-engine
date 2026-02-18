@@ -1,6 +1,6 @@
-import exportedNames from '#root/dev/build_tools/js_files.js'
+import exportedNames from "#root/dev/build_tools/js_files.js"
 const processedNames = exportedNames
-	.map(f => f.split('/').pop().replace('.js', ''))
+	.map(f => f.split("/").pop().replace(".js", ""))
 
 function extractDuplicates(arr) {
 	const seen = new Set()

@@ -4,14 +4,14 @@ export class PushClient {
 	}
 
 	static async register() {
-		this.reg = await navigator.serviceWorker.register('/sw-push.js')
+		this.reg = await navigator.serviceWorker.register("/sw-push.js")
 	}
 
 	static async subscribe(vapid) {
 		const existingSub = await this.reg.pushManager.getSubscription()
 
 		if (existingSub) {
-			throw new Error('Subscription Exists Already!')
+			throw new Error("Subscription Exists Already!")
 		}
 
 		const subscription = await this.reg.pushManager.subscribe({

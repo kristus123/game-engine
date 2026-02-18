@@ -3,7 +3,7 @@ export async function LoadJsonIfPresent(url) {
 		const result = await fetch(url)
 		if (result.ok) {
 			const text = await result.text()
-			if (text == 'null') {
+			if (text == "null") {
 				return false
 			}
 			else {

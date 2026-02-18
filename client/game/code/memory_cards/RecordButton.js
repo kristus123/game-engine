@@ -3,12 +3,12 @@ export class RecordButton {
 		Html.clear()
 
 
-		this.stopButton = Html.button('stop', () => {
+		this.stopButton = Html.button("stop", () => {
 			Microphone.stop(blob => {
 				Html.clear()
 
 				Html.center([
-					this.xxx = Html.input('word', title => {
+					this.xxx = Html.input("word", title => {
 						Base64.encode(blob, sound => {
 							const uuid = Random.uuid()
 							AudioDb.save(uuid, {
@@ -22,7 +22,7 @@ export class RecordButton {
 							Html.clear()
 							Html.fill([
 								this.recordButton,
-								Html.button('go back', () => {
+								Html.button("go back", () => {
 									new Menu()
 								}),
 							])
@@ -35,7 +35,7 @@ export class RecordButton {
 			})
 		})
 
-		this.recordButton = Html.button('record', () => {
+		this.recordButton = Html.button("record", () => {
 			Microphone.start()
 
 			Html.clear()
@@ -46,7 +46,7 @@ export class RecordButton {
 
 		Html.fill([
 			this.recordButton,
-			Html.button('go back', () => {
+			Html.button("go back", () => {
 				new Menu()
 			}),
 		])

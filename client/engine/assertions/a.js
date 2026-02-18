@@ -1,7 +1,7 @@
 export class a {
 
 	static string(arg) {
-		return typeof arg === 'string' || arg instanceof String
+		return typeof arg === "string" || arg instanceof String
 	}
 
 	static integer(arg) {
@@ -9,7 +9,7 @@ export class a {
 	}
 
 	static number(arg) {
-		if (typeof arg === 'number' && !isNaN(arg)) {
+		if (typeof arg === "number" && !isNaN(arg)) {
 			return true
 		}
 		else {
@@ -18,7 +18,7 @@ export class a {
 	}
 
 	static method(arg) {
-		return typeof arg === 'function'
+		return typeof arg === "function"
 	}
 
 	static list(arg) {

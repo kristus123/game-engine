@@ -10,7 +10,7 @@ export class Base64 {
 	}
 
 	static decode(dataUrl) {
-		const [meta, base64] = dataUrl.split(',')
+		const [meta, base64] = dataUrl.split(",")
 		const mime = meta.match(/:(.*?);/)[1]
 
 		const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))

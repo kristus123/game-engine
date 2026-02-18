@@ -1,6 +1,6 @@
 export class ChatDb {
 	static {
-		this.db = new Db('chatDB', 'chats')
+		this.db = new Db("chatDB", "chats")
 	}
 
 	static save(uuid, blob) {

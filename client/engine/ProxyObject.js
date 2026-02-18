@@ -14,7 +14,7 @@ export function ProxyObject(object, onChange = () => {}) {
 			return true
 		},
 		deleteProperty: () => {
-			throw new Error('Deletion of keys is not allowed bitch')
+			throw new Error("Deletion of keys is not allowed bitch")
 		}
 	})
 }

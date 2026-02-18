@@ -14,10 +14,10 @@ export class AudioSheet {
 		const startTime = (barNumber - 1) * this.barDuration
 
 		if (barNumber < 1) {
-			throw new Error('Bar number must be >= 1')
+			throw new Error("Bar number must be >= 1")
 		}
 		else if (startTime >= this.audioBuffer.duration) {
-			throw new Error('Bar number exceeds audio duration')
+			throw new Error("Bar number exceeds audio duration")
 		}
 		else {
 			this.audioEngine.play(startTime, this.barDuration)

@@ -22,13 +22,13 @@ export class GrassGrid {
 
 		if (Mouse.down) {
 			if (this.grid.has(gridPosition)) {
-				D1.text(snappedPosition, 'full')
+				D1.text(snappedPosition, "full")
 			}
 			else {
 				if (G.tile) {
 					this.grid.add(Mouse.position)
 					Audio.placeDirt()
-					if (G.tile == 'water') {
+					if (G.tile == "water") {
 						this.grassPalette.draw.picture(snappedPosition, G.image.waterTile)
 					}
 					else {

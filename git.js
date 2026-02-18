@@ -1,20 +1,20 @@
-import { exec } from 'child_process'
-import { promisify } from 'util'
+import { exec } from "child_process"
+import { promisify } from "util"
 
 const execAsync = promisify(exec)
 
 export async function checkAndPull(triggerReload) {
 	try {
-		await execAsync('git fetch')
+		await execAsync("git fetch")
 
-		const { stdout } = await execAsync('git status -uno')
-		const newChanges = !stdout.includes('Your branch is up to date')
+		const { stdout } = await execAsync("git status -uno")
+		const newChanges = !stdout.includes("Your branch is up to date")
 
 		if (newChanges) {
-			console.log('[git] New changes detected. Pulling...')
+			console.log("[git] New changes detected. Pulling...")
 
-			await execAsync('git pull')
-			console.log('[git] Git pull complete.')
+			await execAsync("git pull")
+			console.log("[git] Git pull complete.")
 
 			if (triggerReload) {
 				triggerReload()
