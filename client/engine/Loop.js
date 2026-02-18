@@ -4,7 +4,7 @@ export class Loop {
 	static everyFrame(run) {
 
 		function loop() {
-			// Sleep(Random.integerBetween(0, 50)) // to simulate lag
+			// Sleep(Random.integerBetween(0, 100)) // to simulate lag
 
 			DeltaTime.update()
 
