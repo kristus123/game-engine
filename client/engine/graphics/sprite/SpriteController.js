@@ -4,7 +4,6 @@ export class SpriteController extends Entity {
 
 		this.currentTagFrame = 0
 
-
 		this.spritePicture = SpritePicture(d, this, position, fullImage)
 		this.asepriteJson = AsepriteJson(fullJson)
 
@@ -18,7 +17,6 @@ export class SpriteController extends Entity {
 
 		this.position.width = this.asepriteJson.width * Scale.value * scale
 		this.position.height = this.asepriteJson.height * Scale.value * scale
-
 
 		this.tags = {}
 		this.activeTag = "idle"

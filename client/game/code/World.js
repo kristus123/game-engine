@@ -14,7 +14,6 @@ export class World {
 	}
 
 	update() {
-		console.log("No to no to sex! yes to jesus no to sex! ")
 		this.objects.update()
 		G.stones.update()
 	}
