@@ -2,9 +2,9 @@ export class GridTemplate {
 	constructor() {
 		this.ui = Dom.overlay([
 			this.grid = Html.div("grid", [
-				this.top = Html.div("grid-top", [Html.p("test")]),
-				this.mid = Html.div("grid-mid", [Html.p("test")]),
-				this.bottom = Html.div("grid-bottom", [Html.p("test")])
+				this.top = Html.div("grid-top", []),
+				this.mid = Html.div("grid-mid", []),
+				this.bottom = Html.div("grid-bottom", [])
 			])
 		])
 		this.grid.style.setProperty("--areas", `

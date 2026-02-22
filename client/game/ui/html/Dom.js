@@ -20,7 +20,7 @@ export class Dom {
 
 	static add(elements) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
 		for (const e of Always.list(elements)) {
-			document.body.appendChild(Html.div("overlay", e))
+			document.body.appendChild(e)
 		}
 	}
 }

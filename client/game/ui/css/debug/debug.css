@@ -1,0 +1,44 @@
+/* DEBUG LAYOUT VISUALIZER */
+/* comment it out if not needed */
+
+
+/* /1* Base element *1/ */
+/* * { */
+/*     position: relative; */
+
+/*     /1* Red outline = element border *1/ */
+/*     outline: 1px solid rgba(255, 0, 0, 0.25); */
+
+/*     /1* Green = content area *1/ */
+/*     background-color: rgba(0, 255, 0, 0.04); */
+/*     background-clip: content-box; */
+
+/*     /1* Blue glow = padding area *1/ */
+/*     box-shadow: 0 0 0 8px rgba(0, 0, 255, 0.04); */
+/* } */
+
+/* /1* Blue label = padding *1/ */
+/* *::after { */
+/*     content: "padding"; */
+/*     position: absolute; */
+/*     top: 0; */
+/*     left: 0; */
+/*     font-size: 9px; */
+/*     background: rgba(0, 0, 255, 0.25); */
+/*     color: white; */
+/*     padding: 1px 3px; */
+/*     pointer-events: none; */
+/* } */
+
+/* /1* Orange label = margin *1/ */
+/* *::before { */
+/*     content: "margin"; */
+/*     position: absolute; */
+/*     top: -12px; */
+/*     left: 0; */
+/*     font-size: 9px; */
+/*     background: rgba(255, 165, 0, 0.25); */
+/*     color: black; */
+/*     padding: 1px 3px; */
+/*     pointer-events: none; */
+/* } */
