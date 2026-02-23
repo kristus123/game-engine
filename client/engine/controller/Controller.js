@@ -6,12 +6,10 @@ export class Controller {
 		this.objectToControl = null
 	}
 
-
 	static control(o) {
 		this.objectToControl = o
 		this.velocity.object = o
 	}
-
 
 	static disable(amountInMs) {
 		this.disabled = true
@@ -19,27 +17,23 @@ export class Controller {
 		setTimeout(() => {
 			this.disabled = false
 		}, amountInMs)
-
 	}
 
-	// todo fix deltatime bug here
-	// this is the reason why it goes twice as fast on 120 fps
-	static update(speed) {
+	static update() {
 		console.log(this.objectToControl.velocity)
 
-		const xxx = 1000
-		
 		if (!this.objectToControl || this.disabled) {
 			return
 		}
 
-		const inputDir = normalizeVector(Controller.getInputDir())
-		this.objectToControl.velocity.x = inputDir.x * xxx * DeltaTime.value
-		this.objectToControl.velocity.y = inputDir.y * xxx * DeltaTime.value
+		const d = NormalizeVector(this.inputDirection)
+		const multiplier = 10000
 
+		this.objectToControl.velocity.x = d.x * multiplier * DeltaTime.value
+		this.objectToControl.velocity.y = d.y * multiplier * DeltaTime.value
 	}
 
-	static getInputDir() {
+	static get inputDirection() {
 		const directions = {
 			up:    { x:  0, y: -1 },
 			down:  { x:  0, y:  1 },
