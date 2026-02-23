@@ -24,43 +24,51 @@ export class Controller {
 
 	// todo fix deltatime bug here
 	// this is the reason why it goes twice as fast on 120 fps
-	static update() {
-		const xxx = 2
+	static update(speed) {
+		console.log(this.objectToControl.velocity)
+
+		const xxx = 1000
+		
 		if (!this.objectToControl || this.disabled) {
 			return
 		}
 
-		if (Keyboard.up) {
-			this.objectToControl.velocity.y = -xxx
+		const inputDir = normalizeVector(Controller.getInputDir())
+		this.objectToControl.velocity.x = inputDir.x * xxx * DeltaTime.value
+		this.objectToControl.velocity.y = inputDir.y * xxx * DeltaTime.value
+
+	}
+
+	static getInputDir() {
+		const directions = {
+			up:    { x:  0, y: -1 },
+			down:  { x:  0, y:  1 },
+			left:  { x: -1, y:  0 },
+			right: { x:  1, y:  0 }
 		}
-		else if (!Keyboard.down) {
-			this.objectToControl.velocity.y = 0
+
+		let vector = { x: 0, y: 0 }
+
+		if (Keyboard.up) {
+			vector.x += directions.up.x
+			vector.y += directions.up.y
 		}
 
 		if (Keyboard.down) {
-			this.objectToControl.velocity.y = xxx
-		}
-		else if (!Keyboard.up) {
-			this.objectToControl.velocity.y = 0
+			vector.x += directions.down.x
+			vector.y += directions.down.y
 		}
 
 		if (Keyboard.left) {
-			this.objectToControl.velocity.x = -xxx
-		}
-		else if (!Keyboard.right) {
-			this.objectToControl.velocity.x = 0
+			vector.x += directions.left.x
+			vector.y += directions.left.y
 		}
 
 		if (Keyboard.right) {
-			this.objectToControl.velocity.x = xxx
-			// ForcePush(this.objectToControl).towards(this.objectToControl.position.offset(1000, 0), 10)
-		}
-		else if (!Keyboard.left) {
-			this.objectToControl.velocity.x = 0
+			vector.x += directions.right.x
+			vector.y += directions.right.y
 		}
 
-		this.velocity.x = Keyboard.right ? 1 : Keyboard.left ? -1 : 0
-		this.velocity.y = Keyboard.down ? 1 : Keyboard.up ? -1 : 0
+		return vector
 	}
-
 }

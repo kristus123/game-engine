@@ -2,6 +2,11 @@ export class _GameObject { // _ means it is only meant to be extended, not used 
 	constructor(position) {
 
 		this.position = position.copy()
+		this.velocity = Velocity(this, 0, 0)
+		this.force = { x: 0, y: 0 }
+		this.weight = 1
+		this.friction = 1
+
 
 		this.entityId = Random.uuid()
 	}

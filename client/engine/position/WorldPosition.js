@@ -37,12 +37,12 @@ export class WorldPosition {
 	}
 
 	set x(new_x) {
-		Assert.integer(new_x)
+	//	Assert.integer(new_x)
 		this._x = new_x
 	}
 
 	set y(new_y) {
-		Assert.integer(new_y)
+	//	Assert.integer(new_y)
 		this._y = new_y
 	}
 
