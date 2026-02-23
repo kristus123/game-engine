@@ -2,13 +2,14 @@
 
 # Step 1
 
-Create a github account
+1. Create a github account
+2. send the username to Kristian
 
 # Step 2
 
 install git and the github cli tool `gh`:
 
-`winget` should be installed on your pc already.
+`winget` should be installed on your pc already if you are using a recent version of windows.
 
 ```bash
 winget install --id Git.Git -e --source winget
@@ -25,4 +26,4 @@ gh auth login
 
 # Step 4
 
-now you can run the `windows_pr.sh` script which is in the parent folder.
+now you can run a window pr script which is in the parent folder.
