@@ -1,3 +1,7 @@
+// This Line Is Here Because Engine Only Puts Includes For Classes That Match The Filename.
+// Please Remove This Import Statement After Test. :)
+import { TestClass, TestMixin } from "../../../client/engine/Base.js"
+
 export class World {
 	constructor() {
 		this.objects = Objects([
@@ -14,6 +18,10 @@ export class World {
 		setInterval(() => {
 		}, 200)
 		this.player.pushTowards(Mouse.position, 100)
+
+		const tc = new TestClass()
+		tc.use(TestMixin)
+		tc.testFunc()
 
 	}
 

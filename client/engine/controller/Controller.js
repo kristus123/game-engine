@@ -20,7 +20,7 @@ export class Controller {
 	}
 
 	static update() {
-		console.log(this.objectToControl.velocity)
+		//console.log(this.objectToControl.velocity)
 
 		if (!this.objectToControl || this.disabled) {
 			return
