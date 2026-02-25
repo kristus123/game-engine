@@ -5,8 +5,6 @@ export class World {
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
 		])
 
-		this.player.use(MovementCalculations)
-
 		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20, 20)) {
 			G.stones.add(new Stone(p))
 		}

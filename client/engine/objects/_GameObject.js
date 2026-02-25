@@ -10,6 +10,8 @@ export class _GameObject extends Base { // _ means it is only meant to be extend
 
 
 		this.entityId = Random.uuid()
+
+		this.use(MovementCalculations)
 	}
 
 	touches(o) {
