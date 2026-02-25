@@ -11,10 +11,15 @@ export class World {
 
 		Controller.control(this.player)
 		Camera.follow(this.player)
+		setInterval(() => {
+		}, 200)
+		// this.player.pushTowards(Mouse.position, 100)
 	}
 
 	update() {
 		this.objects.update()
 		G.stones.update()
+		if (Mouse.down) {
+		}
 	}
 }

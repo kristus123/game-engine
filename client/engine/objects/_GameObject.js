@@ -1,9 +1,17 @@
-export class _GameObject { // _ means it is only meant to be extended, not used directly
+export class _GameObject extends Base { // _ means it is only meant to be extended, not used directly
 	constructor(position) {
+		super()
 
 		this.position = position.copy()
+		this.velocity = Velocity(this, 0, 0)
+		this.force = { x: 0, y: 0 }
+		this.weight = 1
+		this.friction = 1
+
 
 		this.entityId = Random.uuid()
+
+		this.use(MovementCalculations)
 	}
 
 	touches(o) {
