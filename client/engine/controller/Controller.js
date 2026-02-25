@@ -27,10 +27,10 @@ export class Controller {
 		}
 
 		const d = NormalizeVector(this.inputDirection)
-		const multiplier = 10000
+		const multiplier = 1000
 
-		this.objectToControl.velocity.x = d.x * multiplier * DeltaTime.value
-		this.objectToControl.velocity.y = d.y * multiplier * DeltaTime.value
+		this.objectToControl.velocity.x = d.x * multiplier
+		this.objectToControl.velocity.y = d.y * multiplier
 	}
 
 	static get inputDirection() {
