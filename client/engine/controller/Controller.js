@@ -27,7 +27,7 @@ export class Controller {
 		}
 
 		const d = NormalizeVector(this.inputDirection)
-		const multiplier = 1000
+		const multiplier = 500
 
 		this.objectToControl.velocity.x = d.x * multiplier
 		this.objectToControl.velocity.y = d.y * multiplier
