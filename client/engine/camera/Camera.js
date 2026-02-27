@@ -31,7 +31,7 @@ export class Camera {
 
 		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
 
-		this.position = WorldPosition(0, 0)
+		this.position = null
 
 		this.zoom = 1
 
@@ -41,8 +41,11 @@ export class Camera {
 	}
 
 	static context(run) {
-		this.position.x = this.objectToFollow.x
-		this.position.y = this.objectToFollow.y
+		this.position = this.objectToFollow.smooth
+		this.position.targetPosition.x = this.objectToFollow.x
+		this.position.targetPosition.y = this.objectToFollow.y
+
+		this.position.update()
 
 		this.anchoredPositions.update()
 
