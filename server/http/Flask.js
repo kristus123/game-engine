@@ -1,7 +1,8 @@
-import express from 'express'
-import http from 'http'
-import cors from 'cors'
-import { socketServer } from '../socket/SocketServer.js'
+import express from "express"
+import http from "http"
+import cors from "cors"
+
+import { socketServer } from "#root/server/socket/SocketServer.js"
 
 export class Flask {
 	static routes = []
@@ -17,10 +18,17 @@ export class Flask {
 		Flask.server = http.createServer(app)
 		socketServer.start()
 
-		app.use(express.json())
+		app.use(express.json({
+			type: ["application/json"]
+		}))
+
+		app.use(express.raw({
+			type: ["audio/*", "application/octet-stream"],
+		}))
+
 		app.use(cors())
 
-		app.post('/:path', (req, res) => {
+		app.post("/:path", (req, res) => {
 			const path = req.params.path
 
 			for (const r of this.routes) {
@@ -30,7 +38,7 @@ export class Flask {
 				}
 			}
 
-			res.status(400).json({ error: 'Route not found' })
+			res.status(400).json({ error: "Route not found" })
 		})
 
 		Flask.server.listen(port)

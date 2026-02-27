@@ -68,11 +68,9 @@ netlify login
 
 # then you can run
 ./deploy_dist_to_netlify.sh
-
-# todo remove old netlify build file and remove it from netlify in the ui
 ```
 
-# netlify
+# netlify setup
 
 npm install -g netlify-cli
 

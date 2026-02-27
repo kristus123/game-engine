@@ -3,12 +3,16 @@
   "version": "0.0.1",
   "description": "epic game engine",
   "type": "module",
+  "imports": {
+    "#root/*": "./*"
+  },
   "scripts": {
     "dev": "npm run start",
     "start": "node watch.js"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
+    "@stylistic/stylelint-plugin": "^4.0.1",
     "chokidar": "^4.0.3",
     "eslint": "^8.56.0",
     "stylelint": "^16.24.0",
@@ -17,6 +21,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "web-push": "^3.6.7",
     "ws": "^8.18.3"
   }
 }

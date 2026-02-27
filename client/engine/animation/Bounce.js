@@ -1,0 +1,20 @@
+export class Bounce {
+	constructor(object) {
+		this.localObjects = Objects([
+			this.motion = Motion(),
+		])
+
+		this.motion.start()
+	}
+
+	start() {
+		this.motion.start()
+	}
+
+	update() {
+		this.object.position.scale(this.motion.value)
+	}
+
+	draw(draw) {
+	}
+}

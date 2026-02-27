@@ -1,0 +1,14 @@
+.fade-away {
+	animation: fadeOutOpacity 1.0s forwards;
+}
+
+@keyframes fadeOutOpacity {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+

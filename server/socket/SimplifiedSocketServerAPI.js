@@ -1,5 +1,5 @@
-import LowLevelSocketServer from './LowLevelSocketServer.js'
-import List from './List.js'
+import LowLevelSocketServer from "#root/server/socket/LowLevelSocketServer.js"
+import List from "#root/server/socket/List.js"
 
 export default class {
 	constructor(port) {
