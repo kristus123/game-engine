@@ -245,6 +245,7 @@
         "MovableElement": "readonly",
         "Move": "readonly",
         "MultiTextTyper": "readonly",
+        "NormalMap": "readonly",
         "Noise": "readonly",
         "Normalize": "readonly",
         "Npc": "readonly",
