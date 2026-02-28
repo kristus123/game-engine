@@ -3,6 +3,24 @@ export class SmoothPosition {
 		this.actualPosition = targetPosition.copy()
 	}
 
+	get x() {
+		return this.actualPosition.x
+	}
+
+	get y() {
+		return this.actualPosition.y
+	}
+
+	set x(new_x) {
+	//	Assert.integer(new_x)
+		this.actualPosition.x = new_x
+	}
+
+	set y(new_y) {
+	//	Assert.integer(new_y)
+		this.actualPosition.y = new_y
+	}
+
 	update() {
 		const dx = this.targetPosition.x - this.actualPosition.x
 		const dy = this.targetPosition.y - this.actualPosition.y
