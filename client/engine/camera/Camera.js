@@ -29,9 +29,9 @@ export class Camera {
 			}),
 		}
 
-    	this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
-    
-    	this.position = this.objectToFollow.position.smooth()
+		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
+
+		this.position = this.objectToFollow.position.smooth()
 
 		this.zoom = 1
 
