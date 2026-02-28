@@ -25,7 +25,7 @@ export class SpriteController extends Entity {
 
 		this.onFinish = () => {}
 
-		for (let [tag, value] of Object.entries(this.asepriteJson.tags)) {
+		for (const tag of Object.keys(this.asepriteJson.tags)) {
 
 			this.tags[tag] = {
 				play: (onFinish=() => {}) => {
@@ -92,8 +92,29 @@ export class SpriteController extends Entity {
 		return this
 	}
 
+
 	update() {
 		this.localObjects.update()
-		this.spritePicture.update()
+		const lightSource = G.lightSource || Mouse.position
+		const dx = lightSource.x - this.position.x
+		const dy = lightSource.y - this.position.y
+		const dist = Math.sqrt(dx*dx + dy*dy) || 1
+		const lightDir = { x: dx/dist, y: dy/dist, z: 2 }
+		let hasLayers = false
+		this.layers.forEachLayer((layer, frames) => {
+			hasLayers = true
+			const frame = frames[this.currentTagFrame]
+			if (frame) {
+				frame.picture.draw(this.spritePicture.d, lightDir)
+			}
+		})
+		if (!hasLayers) {
+			this.spritePicture.update()
+		}
 	}
 }
+
+
+
+
+

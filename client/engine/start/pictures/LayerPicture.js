@@ -1,28 +1,21 @@
 export class LayerPicture extends Picture {
-	constructor(d, position, image, frame) {
+	constructor(d, position, image, frame, normalData = null) {
 		super(position, image)
-
 		super.clear()
-
-		this.ctx.drawImage(
-			image,
-			frame.x,
-			frame.y,
-			frame.width,
-			frame.height,
-			0,
-			0,
-			frame.width,
-			frame.height
-		)
+		this.canvas.width = frame.width
+		this.canvas.height = frame.height
+		this.ctx = this.canvas.getContext("2d")
+		this.ctx.drawImage(image, frame.x, frame.y, frame.width, frame.height, 0, 0, frame.width, frame.height)
+		if (normalData) {
+			this.setNormalMap(normalData, frame)
+		}
 	}
 
-	draw(d = false) {
-		const dToUse = (d ? d : this.d)
-		const trueScale = Scale.value*7
-
-		const pos = WorldPosition(0, 0, this.canvas.width*trueScale, this.canvas.height*trueScale)
-
-		dToUse.picture(pos, this.canvas)
+	draw(d, lightDir = null) {
+		if (lightDir) {
+			this.applyLighting(lightDir)
+		}
+		const dToUse = d || this.d
+		dToUse.picture(this.position, this.canvas)
 	}
 }
