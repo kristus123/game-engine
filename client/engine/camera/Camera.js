@@ -41,8 +41,6 @@ export class Camera {
 	}
 
 	static context(run) {
-		console.log(this.position)
-
 		this.position.update()
 
 		this.anchoredPositions.update()
