@@ -53,7 +53,7 @@ export class Picture {
 		}
 	}
 
-	update(frame) {
+	update() {
 		// D1.sprite(this.position, frame, this.canvas)
 	}
 
@@ -61,4 +61,18 @@ export class Picture {
 		// const x = Scale.value*7
 		// this.ctx.drawImage(this.canvas, 0, 0, this.canvas.width*x, this.canvas.height*x)
 	}
+
+	setNormalMap(normalData, frame) {
+		this.normalMap = new NormalMap(normalData.image, normalData.frame, frame.width, frame.height)
+		this.baseImageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height)
+		this.normalMap.apply(this.baseImageData, { x: 0.5, y: -0.5, z: 1 }, this.ctx)
+	}
+
+	applyLighting(lightDir) {
+		if (!this.normalMap) {
+			return
+		}
+		this.normalMap.apply(this.baseImageData, lightDir, this.ctx)
+	}
+
 }
