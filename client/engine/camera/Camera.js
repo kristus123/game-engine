@@ -31,7 +31,7 @@ export class Camera {
 
 		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
 
-		this.position = WorldPosition(0, 0)
+		this.position = this.objectToFollow.position.smooth()
 
 		this.zoom = 1
 
@@ -41,8 +41,7 @@ export class Camera {
 	}
 
 	static context(run) {
-		this.position.x = this.objectToFollow.x
-		this.position.y = this.objectToFollow.y
+		this.position.update()
 
 		this.anchoredPositions.update()
 
@@ -51,6 +50,7 @@ export class Camera {
 
 	static follow(o) {
 		this.objectToFollow = o
+		this.position = o.position.smooth()
 	}
 
 	static goTo(o) { // this is wrong
