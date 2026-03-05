@@ -1,5 +1,9 @@
 export class World {
 	constructor() {
+		this.testLobby = Lobby.create()
+
+		console.log(this.testLobby)
+
 		this.objects = Objects([
 			this.player = Player(WorldPosition(0, 0)),
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
@@ -11,6 +15,7 @@ export class World {
 
 		Controller.control(this.player)
 		Camera.follow(this.player)
+
 		setInterval(() => {
 		}, 200)
 		// this.player.pushTowards(Mouse.position, 100)
