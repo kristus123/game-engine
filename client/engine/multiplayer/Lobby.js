@@ -1,21 +1,37 @@
+// ClientId(
+
 export class Lobby {
+    static {
+        this.currentLobbyId = ""
+    }
+
     static create() {
+        Lobby.currentLobbyId = Random.uuid()
+
         return {
-            id: Random.uuid(),
-            adminClientId: "",
+            id: Lobby.currentLobbyId,
+            adminClientId: ClientId,
             clients: []
         }
     }
 
     static join(lobbyId) {
+        Lobby.currentLobbyId = lobbyId
+
         return {
-            id: lobbyId,
+            id: Lobby.currentLobbyId,
             adminClientId: "",
             clients: []
         }
     }
 
     static leave() {
-        console.log("leave")
+        this.currentLobbyId = ""
+
+        console.log(`Left Lobby: ${this.currentLobbyId}`)
+    }
+
+    static sync() {
+        console.log(`Syncing With Lobby: ${this.currentLobbyId}`)
     }
 }
