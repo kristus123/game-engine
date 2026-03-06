@@ -1,8 +1,7 @@
 export class World {
 	constructor() {
-		this.testLobby = Lobby.create()
-
-		console.log(this.testLobby)
+		this.testLobbyCreated = false
+		this.testLobbyJoined = false
 
 		this.objects = Objects([
 			this.player = Player(WorldPosition(0, 0)),
@@ -24,7 +23,24 @@ export class World {
 	update() {
 		this.objects.update()
 		G.stones.update()
-		if (Mouse.down) {
+		if (Mouse.down) {}
+
+		// Test Code
+		if (Keyboard.up) {
+			if (this.testLobbyCreated) { return }
+
+			this.testLobbyCreated = true
+
+			const lobbyId = prompt("Enter LobbyID")
+			Lobby.join(lobbyId)
+		}
+
+		if (Keyboard.down) {
+			if (this.testLobbyJoined) { return }
+
+			this.testLobbyJoined = true
+
+			Lobby.create()
 		}
 	}
 }

@@ -3,35 +3,76 @@
 export class Lobby {
     static {
         this.currentLobbyId = ""
+        this.currentLobbyAdminId = ""
+        this.clients = []
+        this.isConnected = false
+
+        this.actionListener = ActionListener()
+
+        this.actionListener.listen("CREATED_LOBBY", data => {
+            if (data.targetClientId === ClientId) {
+                console.log(data)
+
+                this.currentLobbyId = data.lobbyId
+                this.currentLobbyAdminId = data.adminId
+                this.clients = data.clients
+
+                this.isConnected = true
+
+                console.log(`Created Lobby: ${this.currentLobbyId}`)
+            }
+        })
+
+        this.actionListener.listen("SYNC_LOBBY_CLIENT_LIST", data => {
+            if (this.isConnected) {
+                console.log(data)
+
+                this.currentLobbyId = data.lobbyId
+                this.currentLobbyAdminId = data.adminId
+                this.clients = data.clients
+
+                console.log(`Synchronized Lobby Client List: ${this.currentLobbyId}`)
+            }
+        })
+
+		WebSocketWrapper.onMessage = data => {
+			this.actionListener.trigger(data.action, data)
+		}
     }
 
     static create() {
-        Lobby.currentLobbyId = Random.uuid()
-
-        return {
-            id: Lobby.currentLobbyId,
-            adminClientId: ClientId,
-            clients: []
+        console.log("creating lobby")
+        
+        if (!this.isConnected) {
+            WebSocketWrapper.send({
+                action: "CREATE_LOBBY",
+            })
         }
     }
 
     static join(lobbyId) {
-        Lobby.currentLobbyId = lobbyId
+        if (!this.isConnected) {
+            this.isConnected = true
 
-        return {
-            id: Lobby.currentLobbyId,
-            adminClientId: "",
-            clients: []
+            WebSocketWrapper({
+                action: "JOIN_LOBBY",
+                id: lobbyId,
+            })
         }
     }
 
     static leave() {
-        this.currentLobbyId = ""
-
-        console.log(`Left Lobby: ${this.currentLobbyId}`)
-    }
-
-    static sync() {
-        console.log(`Syncing With Lobby: ${this.currentLobbyId}`)
+        if (this.isConnected) {
+            this.isConnected = false
+        
+            this.currentLobbyId = ""
+            this.currentLobbyAdminId = ""
+            this.clients = ""
+        
+            WebSocketWrapper({
+                action: "LEAVE_LOBBY",
+                id: lobbyId,
+            })
+        }
     }
 }

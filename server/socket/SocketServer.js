@@ -1,6 +1,9 @@
 import SocketServer from "#root/server/socket/SimplifiedSocketServerAPI.js"
+import RandomId from "#root/dev/build_tools/RandomId.js"
 
 export const socketServer = new SocketServer()
+
+const activeLobbies = {}
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
@@ -29,3 +32,51 @@ socketServer.onClose = (client, clientId) => {
 		clientId: clientId
 	})
 }
+
+socketServer.on("CREATE_LOBBY", (client, clientId, data) => {
+	const newLobby = {
+		lobbyId: RandomId(8),
+		adminId: clientId,
+		clients: [clientId]
+	}
+
+	activeLobbies[newLobby.lobbyId] = {
+		adminId: newLobby.adminId,
+		clients: newLobby.clients
+	}
+
+	socketServer.sendToEveryone({
+		action: "CREATED_LOBBY",
+		targetClientId: clientId,
+		...newLobby
+	})
+})
+
+socketServer.on("JOIN_LOBBY", (client, clientId, data) => {
+	if (Object.hasOwn(activeLobbies, data.lobbyId)) {
+		const targetLobby = activeLobbies[lobbyId]
+		targetLobby.clients.push(clientId)
+		
+		socketServer.sendToEveryone({
+			action: "SYNC_LOBBY_CLIENT_LIST",
+			lobbyId: data.lobbyId,
+			adminId: targetLobby.adminId,
+			clients: targetLobby.clients
+		})
+	}
+})
+
+socketServer.on("LEAVE_LOBBY", (client, clientId, data) => {
+	if (Object.hasOwn(activeLobbies, data.lobbyId)) {
+		const targetLobby = activeLobbies[lobbyId]
+		const indexOfClient = targetLobby.clients.indexOf(clientId)
+		targetLobby.clients.splice(indexOfClient)
+		
+		socketServer.sendToEveryone({
+			action: "SYNC_LOBBY_CLIENT_LIST",
+			lobbyId: data.lobbyId,
+			adminId: targetLobby.adminId,
+			clients: targetLobby.clients
+		})
+	}
+})
