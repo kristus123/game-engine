@@ -5,6 +5,10 @@ export class World {
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
 		])
 
+		this.player.createTag("npc")
+		this.player.createTag("player")
+		this.player.createTag("human")
+
 		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20, 20)) {
 			G.stones.add(new Stone(p))
 		}
@@ -21,5 +25,9 @@ export class World {
 		G.stones.update()
 		if (Mouse.down) {
 		}
+
+		Dom.overlay([
+			Html.p(this.player.tags),
+		])
 	}
 }
