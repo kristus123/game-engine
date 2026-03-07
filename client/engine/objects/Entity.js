@@ -2,7 +2,22 @@ export class Entity extends _GameObject {
 	constructor(position) {
 		super(position)
 
+		this.tags = []
+
 		Physics.apply(this)
+	}
+
+	createTag(tag) {
+		if (!this.tags.includes(tag)) {
+			this.tags.push(tag)
+		}
+	}
+
+	removeTag(tag) {
+		if (this.tags.includes(tag)) {
+			const tagIndex = this.tags.indexOf(tag)
+			this.tag.splice(tagIndex)
+		}
 	}
 
 	resetVelocity() {
