@@ -132,6 +132,7 @@
     },
     "globals": {
         "ActionListener": "readonly",
+        "ActiveLobby": "readonly",
         "After": "readonly",
         "Ally": "readonly",
         "Always": "readonly",
@@ -231,6 +232,7 @@
         "LoadImage": "readonly",
         "LoadJson": "readonly",
         "LoadJsonIfPresent": "readonly",
+        "Lobby": "readonly",
         "Loop": "readonly",
         "LowLevelCamera": "readonly",
         "ManualLoop": "readonly",

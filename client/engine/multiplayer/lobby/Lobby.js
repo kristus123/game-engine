@@ -1,27 +1,27 @@
 // ClientId(
 
 export class Lobby {
-    static create() {
-        console.log("creating lobby")
-        
-        const newLobbyId = Random.uuid()
+	static create() {
+    	console.log("creating lobby")
 
-        WebSocketWrapper.send({
-            action: "CREATE_LOBBY",
-            lobbyId: newLobbyId
-        })
-        
-        return ActiveLobby(newLobbyId, ClientId)
-    }
+    	const newLobbyId = Random.uuid()
 
-    static join(lobbyId) {
-        const lobby = ActiveLobby(lobbyId)
+    	WebSocketWrapper.send({
+        	action: "CREATE_LOBBY",
+        	lobbyId: newLobbyId
+    	})
 
-        WebSocketWrapper.send({
-            action: "JOIN_LOBBY",
-            lobbyId: lobbyId,
-        })
+    	return ActiveLobby(newLobbyId, ClientId)
+	}
 
-        return lobby
-    }
+	static join(lobbyId) {
+    	const lobby = ActiveLobby(lobbyId)
+
+    	WebSocketWrapper.send({
+        	action: "JOIN_LOBBY",
+        	lobbyId: lobbyId,
+    	})
+
+    	return lobby
+	}
 }

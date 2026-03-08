@@ -55,7 +55,7 @@ socketServer.on("JOIN_LOBBY", (client, clientId, data) => {
 	if (Object.hasOwn(activeLobbies, data.lobbyId)) {
 		const targetLobby = activeLobbies[data.lobbyId]
 		targetLobby.clients.push(clientId)
-		
+
 		socketServer.sendToEveryone({
 			action: "SYNC_LOBBY",
 			lobbyId: data.lobbyId,
@@ -70,7 +70,7 @@ socketServer.on("LEAVE_LOBBY", (client, clientId, data) => {
 		const targetLobby = activeLobbies[lobbyId]
 		const indexOfClient = targetLobby.clients.indexOf(clientId)
 		targetLobby.clients.splice(indexOfClient)
-		
+
 		socketServer.sendToEveryone({
 			action: "SYNC_LOBBY",
 			lobbyId: data.lobbyId,
