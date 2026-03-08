@@ -1,5 +1,4 @@
 import SocketServer from "#root/server/socket/SimplifiedSocketServerAPI.js"
-import RandomId from "#root/dev/build_tools/RandomId.js"
 
 export const socketServer = new SocketServer()
 

@@ -15,13 +15,11 @@ export class Lobby {
 	}
 
 	static join(lobbyId) {
-    	const lobby = ActiveLobby(lobbyId)
-
     	WebSocketWrapper.send({
         	action: "JOIN_LOBBY",
         	lobbyId: lobbyId,
     	})
 
-    	return lobby
+    	return ActiveLobby(lobbyId)
 	}
 }

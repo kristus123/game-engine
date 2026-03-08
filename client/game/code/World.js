@@ -1,8 +1,5 @@
 export class World {
 	constructor() {
-		this.testLobbyCreated = false
-		this.testLobbyJoined = false
-
 		this.objects = Objects([
 			this.player = Player(WorldPosition(0, 0)),
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
