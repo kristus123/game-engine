@@ -28,7 +28,7 @@ export class ActiveLobby {
 
     	WebSocketWrapper.send({
         	action: "LEAVE_LOBBY",
-        	id: lobbyId,
+        	lobbyId: lobbyId,
     	})
 	}
 }

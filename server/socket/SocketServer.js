@@ -66,7 +66,7 @@ socketServer.on("JOIN_LOBBY", (client, clientId, data) => {
 
 socketServer.on("LEAVE_LOBBY", (client, clientId, data) => {
 	if (Object.hasOwn(activeLobbies, data.lobbyId)) {
-		const targetLobby = activeLobbies[lobbyId]
+		const targetLobby = activeLobbies[data.lobbyId]
 		const indexOfClient = targetLobby.clients.indexOf(clientId)
 		targetLobby.clients.splice(indexOfClient)
 
