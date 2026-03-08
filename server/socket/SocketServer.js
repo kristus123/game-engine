@@ -35,7 +35,7 @@ socketServer.onClose = (client, clientId) => {
 
 socketServer.on("CREATE_LOBBY", (client, clientId, data) => {
 	const newLobby = {
-		lobbyId: RandomId(8),
+		lobbyId: data.lobbyId,
 		adminId: clientId,
 		clients: [clientId]
 	}
@@ -46,19 +46,18 @@ socketServer.on("CREATE_LOBBY", (client, clientId, data) => {
 	}
 
 	socketServer.sendToEveryone({
-		action: "CREATED_LOBBY",
-		targetClientId: clientId,
+		action: "SYNC_LOBBY",
 		...newLobby
 	})
 })
 
 socketServer.on("JOIN_LOBBY", (client, clientId, data) => {
 	if (Object.hasOwn(activeLobbies, data.lobbyId)) {
-		const targetLobby = activeLobbies[lobbyId]
+		const targetLobby = activeLobbies[data.lobbyId]
 		targetLobby.clients.push(clientId)
 		
 		socketServer.sendToEveryone({
-			action: "SYNC_LOBBY_CLIENT_LIST",
+			action: "SYNC_LOBBY",
 			lobbyId: data.lobbyId,
 			adminId: targetLobby.adminId,
 			clients: targetLobby.clients
@@ -73,7 +72,7 @@ socketServer.on("LEAVE_LOBBY", (client, clientId, data) => {
 		targetLobby.clients.splice(indexOfClient)
 		
 		socketServer.sendToEveryone({
-			action: "SYNC_LOBBY_CLIENT_LIST",
+			action: "SYNC_LOBBY",
 			lobbyId: data.lobbyId,
 			adminId: targetLobby.adminId,
 			clients: targetLobby.clients

@@ -18,29 +18,26 @@ export class World {
 		setInterval(() => {
 		}, 200)
 		// this.player.pushTowards(Mouse.position, 100)
+
+		let x = null
+
+		Dom.add([
+			Html.button("Create A Lobby", () => {
+				x = Lobby.create()
+			}),
+			Html.input("Join LobbyId", value => {
+				x = Lobby.join(value)
+			}),
+			Html.button("Check Lobby Object", () => {
+				console.log(x.lobbyId)
+				console.log(x.clients)
+			})
+		])
 	}
 
 	update() {
 		this.objects.update()
 		G.stones.update()
 		if (Mouse.down) {}
-
-		// Test Code
-		if (Keyboard.up) {
-			if (this.testLobbyCreated) { return }
-
-			this.testLobbyCreated = true
-
-			const lobbyId = prompt("Enter LobbyID")
-			Lobby.join(lobbyId)
-		}
-
-		if (Keyboard.down) {
-			if (this.testLobbyJoined) { return }
-
-			this.testLobbyJoined = true
-
-			Lobby.create()
-		}
 	}
 }
