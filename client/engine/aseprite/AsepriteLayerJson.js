@@ -1,6 +1,5 @@
 export class AsepriteLayerJson {
 	constructor(json) {
-		this.json = json
 	}
 
 	forEachFrame(run) {

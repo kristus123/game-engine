@@ -19,8 +19,8 @@ export class World {
 		//Normal map test: uncomment to see dynamic lighting effect
 
 
-		//const t = Date.now() / 1000
-		//G.lightSource.x = 200 + Math.cos(t) * 150
-		//G.lightSource.y = 200 + Math.sin(t) * 150
+		const t = Date.now() / 1000
+		G.lightSource.x = 200 + Math.cos(t) * 150
+		G.lightSource.y = 200 + Math.sin(t) * 150
 	}
 }

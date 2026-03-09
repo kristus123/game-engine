@@ -23,11 +23,18 @@ export default class Parameters {
 			.join()
 			.replaceAll(",", "")
 	}
-
 	static nullCheckForConstructorArguments(content) {
-		return Parameters.inConstructor(content)
+		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
+		if (!match) return ""
+		return match[1].split(",")
+			.map(param => param.trim())
+			.filter(p => p !== "")
+			.filter(p => !p.includes("="))
+			.filter(p => !p.includes("..."))
+			.map(p => p.replaceAll(" ", ""))
 			.map(p => `
 				Assert.notNull(${p}, "argument ${p} in " + this.constructor.name + ".js should not be null")
 			`).join()
 	}
+
 }
