@@ -2,14 +2,12 @@
 
 export class Lobby {
 	static create() {
-    	console.log("creating lobby...")
+	    	console.log("creating lobby...")
 
 		const newLobby = ActiveLobby(Random.uuid(), ClientId)
 		newLobby.clients.push(ClientId)
 
-		console.log(newLobby)
-
-    	return newLobby
+    		return newLobby
 	}
 
 	static join(lobbyId, hostClientId) {
