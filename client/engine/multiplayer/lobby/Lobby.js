@@ -2,24 +2,30 @@
 
 export class Lobby {
 	static create() {
-    	console.log("creating lobby")
+    	console.log("creating lobby...")
 
-    	const newLobbyId = Random.uuid()
+		const newLobby = ActiveLobby(Random.uuid(), ClientId)
+		newLobby.clients.push(ClientId)
 
-    	WebSocketWrapper.send({
-        	action: "CREATE_LOBBY",
-        	lobbyId: newLobbyId
-    	})
+		console.log(newLobby)
 
-    	return ActiveLobby(newLobbyId, ClientId)
+    	return newLobby
 	}
 
-	static join(lobbyId) {
-    	WebSocketWrapper.send({
-        	action: "JOIN_LOBBY",
-        	lobbyId: lobbyId,
-    	})
+	static join(lobbyId, hostClientId) {
+		console.log("joining lobby...")
 
-    	return ActiveLobby(lobbyId)
+		SocketClient.sendToClient("JOIN_LOBBY", hostClientId, {
+			lobbyId: lobbyId
+		})
+
+		SocketClient.onClientMessage("JOINED_LOBBY", data => {
+			const targetLobby = ActiveLobby(lobbyId, hostClientId)
+			targetLobby.clients = data.clients
+			
+			return targetLobby
+		})
+
+		return null
 	}
 }

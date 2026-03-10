@@ -1,29 +1,37 @@
 export class ActiveLobby {
-	constructor(lobbyId, adminId = "") {
+	constructor(lobbyId, hostClientId) {
     	this.lobbyId = lobbyId
-    	this.adminId = adminId
+    	this.hostClientId = hostClientId
     	this.clients = []
 
-    	this.actionListener = ActionListener()
+		SocketClient.onClientMessage("JOIN_LOBBY", data => {
+			if (this.lobbyId === data.lobbyId) {
+				this.clients.push(data.originClientId)
 
-    	this.actionListener.listen("SYNC_LOBBY", data => {
-        	console.log(data)
+				for (const clientId of this.clients) {
+					SocketClient.sendToClient("SYNC_LOBBY_CLIENT_LIST", clientId, {
+						lobbyId: this.lobbyId,
+						clients: this.clients
+					})
+				}
 
+				SocketClient.sendToClient("JOINED_LOBBY", data.originClientId, {
+					clients: this.clients
+				})
+			}
+		})
+
+    	SocketClient.onClientMessage("SYNC_LOBBY_CLIENT_LIST", data => {
         	if (data.lobbyId === this.lobbyId) {
-            	this.adminId = data.adminId
             	this.clients = data.clients
-            	console.log(`Synchronized Lobby Client List: ${this.lobbyId}`)
+            	console.log(data)
         	}
     	})
-
-		WebSocketWrapper.onMessage = data => {
-			this.actionListener.trigger(data.action, data)
-		}
 	}
 
 	leave() {
     	this.lobbyId = ""
-    	this.adminId = ""
+    	this.hostClientId = ""
     	this.clients = []
 
     	WebSocketWrapper.send({

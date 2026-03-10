@@ -11,25 +11,34 @@ export class World {
 
 		Controller.control(this.player)
 		Camera.follow(this.player)
-
-		setInterval(() => {
-		}, 200)
-		// this.player.pushTowards(Mouse.position, 100)
-
+		
 		let x = null
+		const lobbyInfo = {
+			lobbyId: "",
+			hostClientId: ""
+		}
 
 		Dom.add([
 			Html.button("Create A Lobby", () => {
 				x = Lobby.create()
 			}),
 			Html.input("Join LobbyId", value => {
-				x = Lobby.join(value)
+				lobbyInfo.lobbyId = value
+			}),
+			Html.input("Join HostClientId", value => {
+				lobbyInfo.hostClientId = value
+			}),
+			Html.button("Join Lobby", () => {
+				x = Lobby.join(lobbyInfo.lobbyId, lobbyInfo.hostClientId)
 			}),
 			Html.button("Check Lobby Object", () => {
-				console.log(x.lobbyId)
-				console.log(x.clients)
+				console.log(x)
 			})
 		])
+
+		setInterval(() => {
+		}, 200)
+		// this.player.pushTowards(Mouse.position, 100)
 	}
 
 	update() {
