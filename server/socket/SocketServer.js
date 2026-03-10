@@ -2,8 +2,6 @@ import SocketServer from "#root/server/socket/SimplifiedSocketServerAPI.js"
 
 export const socketServer = new SocketServer()
 
-const activeLobbies = {}
-
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
 
