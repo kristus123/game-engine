@@ -1,3 +1,5 @@
+// ClientId(
+
 export class ActiveLobby {
 	constructor(lobbyId, hostClientId) {
     		this.lobbyId = lobbyId
@@ -21,20 +23,6 @@ export class ActiveLobby {
 			}
 		})
 
-		SocketClient.onClientMessage("LEAVE_LOBBY", data => {
-			if (this.lobbyId === data.lobbyId) {
-				const index = this.clients.indexOf(data.originClientId)
-				this.clients.splice(index)
-
-				for (const clientId of this.clients) {
-					SocketClient.sendToClient("SYNC_LOBBY_CLIENT_LIST", clientId, {
-						lobbyId: this.lobbyId,
-						clients: this.clients
-					})
-				}			
-			}
-		})
-
 		SocketClient.onClientMessage("SYNC_LOBBY_CLIENT_LIST", data => {
 			if (data.lobbyId === this.lobbyId) {
 				this.clients = data.clients
@@ -43,12 +31,18 @@ export class ActiveLobby {
 	}
 
 	leave() {
+		const index = this.clients.indexOf(ClientId)
+		this.clients.splice(index, 1)
+
+		for (const clientId of this.clients) {
+			SocketClient.sendToClient("SYNC_LOBBY_CLIENT_LIST", clientId, {
+				lobbyId: this.lobbyId,
+				clients: this.clients
+			})
+		}
+
 		this.lobbyId = ""
 		this.hostClientId = ""
 		this.clients = []
-
-		SocketServer.sendToClient("LEAVE_LOBBY", this.hostClientId, {
-			lobbyId: lobbyId,
-		})
 	}
 }

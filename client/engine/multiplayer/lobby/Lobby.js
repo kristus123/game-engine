@@ -10,20 +10,19 @@ export class Lobby {
     		return newLobby
 	}
 
-	static join(lobbyId, hostClientId) {
+	static join(lobbyId, hostClientId, callback) {
 		console.log("joining lobby...")
 
+		const targetLobby = ActiveLobby(lobbyId, hostClientId)
+		
 		SocketClient.sendToClient("JOIN_LOBBY", hostClientId, {
 			lobbyId: lobbyId
 		})
 
 		SocketClient.onClientMessage("JOINED_LOBBY", data => {
-			const targetLobby = ActiveLobby(lobbyId, hostClientId)
 			targetLobby.clients = data.clients
-			
-			return targetLobby
 		})
-
-		return null
+		
+		return targetLobby
 	}
 }

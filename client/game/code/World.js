@@ -11,7 +11,9 @@ export class World {
 
 		Controller.control(this.player)
 		Camera.follow(this.player)
-		
+
+		// Lobby Test Code
+
 		let x = null
 		const lobbyInfo = {
 			lobbyId: "",
