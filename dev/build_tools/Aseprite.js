@@ -2,29 +2,80 @@ import { execFileSync } from "child_process"
 import { existsSync } from "fs"
 import { FileConfig } from "#root/FileConfig.js"
 
-const bin = (() => {
-	const potentialPaths = [
-		"aseprite",
-		"$HOME/aseprite/build/bin/aseprite",
-		"$HOME/aseprite/bin/aseprite",
-	]
-	for (const p of potentialPaths) {
-		try {
-			const out = execFileSync("which", [p], { shell: true }).toString().trim()
-			if (out) {
-				return p
-			}
+const isWindows = process.platform === "win32"
+
+const normalizePath = (p) => p?.replace(/^"(.*)"$/, "$1").trim()
+
+const commandExists = (command) => {
+	try {
+		const locator = isWindows ? "where.exe" : "which"
+		const out = execFileSync(locator, [command], {
+			stdio: ["ignore", "pipe", "ignore"],
+			shell: false,
+		}).toString().trim()
+
+		return Boolean(out)
+	}
+	catch {
+		return false
+	}
+}
+
+const firstExistingPath = (paths) => {
+	for (const p of paths) {
+		if (!p) {
+			continue
 		}
-		catch {
-		}
-		if (existsSync(p)) {
-			return p
+
+		const normalized = normalizePath(p)
+		if (existsSync(normalized)) {
+			return normalized
 		}
 	}
 
-	throw new Error("could not find aseprite path. Put your aseprite path in: Aseprite.js")
-})()
+	return null
+}
 
+const resolveAsepriteBin = () => {
+	const envPath = normalizePath(process.env.ASEPRITE_BIN)
+	if (envPath && existsSync(envPath)) {
+		return envPath
+	}
+
+	if (commandExists("aseprite")) {
+		return "aseprite"
+	}
+
+	const home = process.env.HOME || process.env.USERPROFILE || ""
+
+	const candidatePaths = isWindows
+		? [
+			"C:/Program Files/Aseprite/Aseprite.exe",
+			"C:/Program Files (x86)/Aseprite/Aseprite.exe",
+			`${home}/AppData/Local/Programs/Aseprite/Aseprite.exe`,
+		]
+		: [
+			`${home}/aseprite/build/bin/aseprite`,
+			`${home}/aseprite/bin/aseprite`,
+			"/usr/bin/aseprite",
+			"/usr/local/bin/aseprite",
+		]
+
+	const existingPath = firstExistingPath(candidatePaths)
+	if (existingPath) {
+		return existingPath
+	}
+
+	throw new Error(
+		[
+			"Could not find Aseprite.",
+			"Set ASEPRITE_BIN to your local Aseprite executable path,",
+			'for example on Windows: setx ASEPRITE_BIN "C:\\Program Files\\Aseprite\\Aseprite.exe"',
+		].join(" ")
+	)
+}
+
+const bin = resolveAsepriteBin()
 
 export class Aseprite {
 	static tags(srcFile, destBase) {
@@ -41,21 +92,20 @@ export class Aseprite {
 			"json-array",
 			"--filename-format",
 			"{tag}",
-		], { stdio: "inherit", shell: true })
+		], { stdio: "inherit", shell: false })
 	}
 
-	static groups(srcFile, destBase) { // use this to extract groups from aseprite file. todo
+	static groups(srcFile, destBase) {
 		execFileSync(bin, [
 			"-b",
-			srcFile,
 			"--list-layers",
+			srcFile,
 			"--data",
 			destBase + "Groups.json",
 			"--format",
 			"json-array",
-		], { shell: true })
+		], { stdio: "inherit", shell: false })
 	}
-
 
 	static layers(srcFile, destBase) {
 		execFileSync(bin, [
@@ -68,28 +118,16 @@ export class Aseprite {
 			destBase + "Layers.json",
 			"--filename-format",
 			"{layer}_{frame}_{tag}",
-		], { shell: true })
+		], { stdio: "inherit", shell: false })
 	}
 
-	static groups(srcFile, destBase) {
-		execFileSync(bin, [
-			"-b",
-			"--list-layers",
-			srcFile,
-			"--data",
-			destBase + "Groups.json",
-			"--format",
-			"json-array",
-		], { shell: true })
-	}
-
-
-	static tilemaps(srcFile) {
+	static tilemaps(srcFile, destBase) {
 		execFileSync(bin, [
 			"-b",
 			srcFile,
+			"--script-param", `outBase=${destBase}`,
 			"--script",
 			FileConfig.asepriteToJson,
-		], { shell: true })
+		], { stdio: "inherit", shell: false })
 	}
 }

@@ -1,5 +1,6 @@
 import chokidar from "chokidar"
 import express from "express"
+import path from "path"
 
 import RandomId from "#root/dev/build_tools/RandomId.js"
 import { Runner } from "#root/dev/build_tools/Runner.js"
@@ -10,11 +11,16 @@ import { FileConfig } from "#root/FileConfig.js"
 import { execSync } from "child_process"
 
 const killPort = (port) => {
+	if (process.platform === "win32") {
+		console.log(`Skipping killPort on Windows for ${port}`)
+		return
+	}
+
 	try {
 		execSync(`fuser -k ${port}/tcp`)
 		console.log(`Killed process on port ${port}`)
 	}
-	catch (e) {
+	catch {
 		console.log(`Nothing running on port ${port}`)
 	}
 }
@@ -29,7 +35,11 @@ let idTimeout = null
 const app = express()
 app.use(express.static(FileConfig.dist))
 
-app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check index.js
+app.get("/", (req, res) => {
+	res.sendFile(path.resolve(FileConfig.dist, "index.html"))
+})
+
+app.get("/currentId", (req, res) => {
 	res.json({ currentId: currentId })
 })
 
@@ -41,22 +51,21 @@ const watcher = chokidar.watch([FileConfig.client], {
 	usePolling: true,
 })
 
-watcher.on("all", (e, path) => {
-	console.log("changed", path)
+watcher.on("all", (e, changedPath) => {
+	console.log("changed", changedPath)
 
-	if (e == "unlink" || e == "unlinkDir") { // file or folder moved/deleted
+	if (e === "unlink" || e === "unlinkDir") {
 		console.log("rebuilding dist")
 		Files.deleteFolder(FileConfig.dist)
 
 		new Runner(FileConfig.exportAseprite).start()
 	}
 
-	if (path.includes(".aseprite")) {
-		new Runner(FileConfig.exportAseprite, [path]).start()
+	if (changedPath.includes(".aseprite")) {
+		new Runner(FileConfig.exportAseprite, [changedPath]).start()
 	}
 
 	new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
-
 
 	if (idTimeout) {
 		clearTimeout(idTimeout)
@@ -67,7 +76,6 @@ watcher.on("all", (e, path) => {
 		idTimeout = null
 	}, 500)
 })
-
 
 // initial build
 new Runner(FileConfig.exportAseprite).start()

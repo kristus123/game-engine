@@ -19,7 +19,6 @@ function walk(relDir, callback) {
 }
 
 function exportAseprite(relSrcFile, destBase) {
-
 	if (!fs.existsSync(path.dirname(destBase))) {
 		fs.mkdirSync(path.dirname(destBase), { recursive: true })
 	}
@@ -29,7 +28,7 @@ function exportAseprite(relSrcFile, destBase) {
 	Aseprite.tags(relSrcFile, destBase)
 	Aseprite.groups(relSrcFile, destBase)
 	Aseprite.layers(relSrcFile, destBase)
-	Aseprite.tilemaps(relSrcFile)
+	Aseprite.tilemaps(relSrcFile, destBase)
 }
 
 const editedFile = process.argv[2] || false

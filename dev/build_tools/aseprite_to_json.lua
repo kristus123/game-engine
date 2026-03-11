@@ -1,9 +1,3 @@
-local function sanitize_filename(s)
-  s = s:gsub("[<>:\\/%%\"%|%?%*]", "_")
-  s = s:gsub("%s+", "_")
-  return s
-end
-
 local function write_file(path, text)
   local f, err = io.open(path, "w")
   if not f then
@@ -52,34 +46,37 @@ if not sprite.filename or sprite.filename == "" then
   return
 end
 
-local path = sprite.filename:gsub("\\", "/")
-local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
-path = path:gsub("^" .. cwd .. "/?", "")
-path = path:gsub("%.%w+$", "")
+local outBase = app.params["outBase"]
 
-local outBase = "dist/" .. path
+if not outBase or outBase == "" then
+  local path = sprite.filename:gsub("\\", "/")
+  path = path:gsub("%.%w+$", "")
+  outBase = "dist/" .. path
+end
 
 local all_tilemaps = {}
 
-for _,layer in ipairs(sprite.layers) do
+for _, layer in ipairs(sprite.layers) do
   if layer.isTilemap then
     local layerCels = {}
-    for _,cel in ipairs(sprite.cels) do
+    for _, cel in ipairs(sprite.cels) do
       if cel.layer == layer then
         table.insert(layerCels, cel)
       end
     end
 
     if #layerCels > 0 then
-      for _,cel in ipairs(layerCels) do
+      for _, cel in ipairs(layerCels) do
         local img = cel.image
-        if not img then goto continue_cel end
+        if not img then
+          goto continue_cel
+        end
 
         local w, h = img.width, img.height
         local tiles = {}
-        for y = 0, h-1 do
+        for y = 0, h - 1 do
           local row = {}
-          for x = 0, w-1 do
+          for x = 0, w - 1 do
             local raw = img:getPixel(x, y)
             if raw then
               table.insert(row, { i = app.pixelColor.tileI(raw), f = app.pixelColor.tileF(raw) })
@@ -91,7 +88,9 @@ for _,layer in ipairs(sprite.layers) do
         end
 
         local frameNum = cel.frame.frameNumber or cel.frame
-        if type(frameNum) == "table" and frameNum.number then frameNum = frameNum.number end
+        if type(frameNum) == "table" and frameNum.number then
+          frameNum = frameNum.number
+        end
         frameNum = tonumber(frameNum) or 1
 
         local tileW = layer.tileset and layer.tileset.grid.tileSize.width or 0
@@ -118,11 +117,6 @@ if #all_tilemaps == 0 then
   return
 end
 
-local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
-if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
-end
-
 local json_parts = {}
 table.insert(json_parts, "{")
 table.insert(json_parts, '  "tilemaps": [')
@@ -147,4 +141,3 @@ table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
 write_file(outBase .. "Tilemaps.json", table.concat(json_parts, "\n"))
-
