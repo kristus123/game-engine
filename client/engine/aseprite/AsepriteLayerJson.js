@@ -3,12 +3,15 @@ export class AsepriteLayerJson {
 	}
 
 	forEachFrame(run) {
-		Object.entries(this.json.frames).forEach(([key, f]) => {
-			const parts = key.split("_")
-			const layer = parts[0]
-			const frame = parts[1]
-			const tag = parts[2] || "idle"
+		this.json.frames.forEach((key, f) => {
+			const [
+				layer,
+				frame,
+				tag
+			] = key.split("_")
+
 			run(layer, frame, f.frame.x, f.frame.y, f.frame.w, f.frame.h, tag)
 		})
 	}
+
 }

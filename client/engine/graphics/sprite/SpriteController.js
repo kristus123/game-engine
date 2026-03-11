@@ -25,7 +25,7 @@ export class SpriteController extends Entity {
 
 		this.onFinish = () => {}
 
-		for (const tag of Object.keys(this.asepriteJson.tags)) {
+		for (let [tag, value] of Object.entries(this.asepriteJson.tags))  {
 
 			this.tags[tag] = {
 				play: (onFinish=() => {}) => {
