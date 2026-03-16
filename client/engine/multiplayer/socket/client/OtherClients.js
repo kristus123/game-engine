@@ -20,7 +20,6 @@ export class OtherClients {
 		if (this.ids.missing(clientId) && clientId != ClientId) {
 			this.ids.push(clientId)
 			this.onJoinListener.trigger(clientId)
-
 		}
 	}
 

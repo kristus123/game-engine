@@ -14,6 +14,8 @@ export class World {
 
 		// Lobby Test Code
 
+		Lobby.refresh()
+
 		let x = null
 		const lobbyInfo = {
 			lobbyId: "",
