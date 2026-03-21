@@ -2,39 +2,37 @@
 
 export class Lobby {
 	static {
-		this.activeLobbyList = []
+		// { lobbyId: hostClientId, ... }
+		this.activeLobbies = {}
 
 		SocketClient.onClientMessage("GET_LOBBY_LIST", data => {
 			SocketClient.sendToClient("SYNC_LOBBY_LIST", data.originClientId, {
-				lobbyList: this.activeLobbyList
+				activeLobbies: this.activeLobbies
 			})
 		})
 
 		SocketClient.onClientMessage("SYNC_LOBBY_LIST", data => {
-			this.activeLobbyList = data.lobbyList
-
-			console.log(this.activeLobbyList)
+			this.activeLobbies = data.activeLobbies
 		})
+
+		// Get Active Lobbies On Join
+        OtherClients.onReady(() => {
+			if (Object.keys(this.activeLobbies).length == 0 && OtherClients.ids.length > 0) {
+				SocketClient.sendToClient("GET_LOBBY_LIST", OtherClients.ids[0], {})
+			}
+        })
 	}
 
-	static refresh() {
-		if (OtherClients.ids.length > 0) {
-			console.log("getting client list...")
-
-			SocketClient.sendToClient("GET_LOBBY_LIST", OtherClients.ids[0], {})
-		}
-	}
-	
 	static create() {
 	    console.log("creating lobby...")
 
 		const newLobby = ActiveLobby(Random.uuid(), ClientId)
 
-		this.activeLobbyList.push(newLobby.lobbyId)
-
+		Lobby.activeLobbies[newLobby.lobbyId] = newLobby.hostClientId
+		
 		SocketClient.sendToOtherClients("SYNC_LOBBY_LIST",
 			{
-				lobbyList: this.activeLobbyList,
+				activeLobbies: Lobby.activeLobbies,
 			}
 		)
 

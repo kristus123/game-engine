@@ -13,32 +13,29 @@ export class World {
 		Camera.follow(this.player)
 
 		// Lobby Test Code
-
-		Lobby.refresh()
-
 		let x = null
-		const lobbyInfo = {
-			lobbyId: "",
-			hostClientId: ""
-		}
+
+		const lobbyList = {}
 
 		Dom.add([
 			Html.button("Create A Lobby", () => {
 				x = Lobby.create()
 			}),
-			Html.input("Join LobbyId", value => {
-				lobbyInfo.lobbyId = value
-			}),
-			Html.input("Join HostClientId", value => {
-				lobbyInfo.hostClientId = value
-			}),
-			Html.button("Join Lobby", () => {
-				x = Lobby.join(lobbyInfo.lobbyId, lobbyInfo.hostClientId)
-			}),
 			Html.button("Check Lobby Object", () => {
 				console.log(x)
 			})
 		])
+
+		console.log(Lobby.activeLobbies)
+
+		for (const [lobbyId, hostClientId] of Object.entries(Lobby.activeLobbies)) {
+			Dom.add([
+				Html.button(lobbyId, () => {
+					console.log("joining...")
+					x = Lobby.join(lobbyId, hostClientId)
+				})
+			])
+		}
 
 		setInterval(() => {
 		}, 200)
