@@ -2,9 +2,9 @@
 
 export class ActiveLobby {
 	constructor(lobbyId, hostClientId) {
-    	this.lobbyId = lobbyId
-    	this.hostClientId = hostClientId
-    	this.clients = []
+		this.lobbyId = lobbyId
+		this.hostClientId = hostClientId
+		this.clients = []
 
 		SocketClient.onClientMessage("JOIN_LOBBY", data => {
 			if (this.lobbyId === data.lobbyId) {

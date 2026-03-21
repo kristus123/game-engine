@@ -8,13 +8,14 @@ export class OtherClients {
 		this.onReadyListener = Listener()
 	}
 
-    static onReady(callback) {
-        if (OtherClients.ids.length > 0) {
-            callback()
-        } else {
-            this.onReadyListener.listenOnce(callback)
-        }
-    }
+	static onReady(callback) {
+    	if (OtherClients.ids.length > 0) {
+        	callback()
+    	}
+		else {
+        	this.onReadyListener.listenOnce(callback)
+    	}
+	}
 
 	static onJoin(callback) {
 		this.onJoinListener.listen((clientId) => callback(clientId, (x) => this.onLeaveListener.listenOnce(x)))
