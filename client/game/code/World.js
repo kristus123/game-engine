@@ -11,6 +11,32 @@ export class World {
 
 		Controller.control(this.player)
 		Camera.follow(this.player)
+
+		// Lobby Test Code
+		let x = null
+
+		const lobbyList = {}
+
+		Dom.add([
+			Html.button("Create A Lobby", () => {
+				x = Lobby.create()
+			}),
+			Html.button("Check Lobby Object", () => {
+				console.log(x)
+			})
+		])
+
+		console.log(Lobby.activeLobbies)
+
+		for (const [lobbyId, hostClientId] of Object.entries(Lobby.activeLobbies)) {
+			Dom.add([
+				Html.button(lobbyId, () => {
+					console.log("joining...")
+					x = Lobby.join(lobbyId, hostClientId)
+				})
+			])
+		}
+
 		setInterval(() => {
 		}, 200)
 		// this.player.pushTowards(Mouse.position, 100)
@@ -19,7 +45,6 @@ export class World {
 	update() {
 		this.objects.update()
 		G.stones.update()
-		if (Mouse.down) {
-		}
+		if (Mouse.down) {}
 	}
 }

@@ -39,6 +39,12 @@ export class SocketClient {
 		}))
 	}
 
+	static sendToOtherClients(subAction, data) {
+		for (const clientId of OtherClients.ids) {
+			SocketClient.sendToClient(subAction, clientId, data)
+		}
+	}
+
 	static onServerMessage(action, callback) {
 		this.clientActionListener.listen(action, callback)
 	}
