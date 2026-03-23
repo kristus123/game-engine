@@ -104,6 +104,9 @@ export class Html {
 		return img
 	}
 
+	static img(x) {
+		return this.image(x)
+	}
 
 	static onClick(e, run) {
 		e.addEventListener("click", () => {

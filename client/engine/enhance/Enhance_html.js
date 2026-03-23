@@ -13,7 +13,6 @@ export function Enhance_html() {
 		}
 	})
 
-
 	Enhance(HTMLElement, "show", function () {
 		Html.show(this)
 	})
@@ -59,6 +58,11 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, "removeClass", function (className) {
 		this.classList.remove(className)
+		return this
+	})
+
+	Enhance(HTMLElement, "css", function (newCss) {
+		this.style.cssText += newCss
 		return this
 	})
 

@@ -1,4 +1,4 @@
-export function Enhance_number() {
+export function Enhance_js_Number() {
 	Enhance(Number, "isStrictInteger", function () {
 		return Number.isInteger(v) && !String(v).includes(".")
 	})

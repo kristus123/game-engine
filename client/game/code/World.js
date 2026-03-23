@@ -1,20 +1,30 @@
 export class World {
 	constructor() {
-		this.objects = Objects([
-			this.player = Player(WorldPosition(0, 0)),
-			Sprite.snow(D3, WorldPosition(0, 0), 4)
-		])
+		const x = PhoneLayout()
+		x.top.addClass('red')
+		x.top.add(Flex.h([
+			Html.p('hei'),
+			Html.p('hei'),
+		]))
 
-		Controller.control(this.player)
-		Camera.follow(this.player)
-		setInterval(() => {
-		}, 200)
-		// this.player.pushTowards(Mouse.position, 100)
+		x.mid.addClass('white')
+		x.mid.add(H.button('start record', () => {
+			Microphone.start()
+			console.log("sex")
+		}))
+		x.mid.add(H.button('stop record', () => {
+			Microphone.stop(blob => {
+				console.log(blob)
+				Audio.playBlob(blob)
+			})
+		}))
+
+		x.mid.add(H.img('https://i.pinimg.com/736x/a6/e2/ce/a6e2ce1c7aac11bcba9c066fccfe1507.jpg'))
+
+		x.bot.addClass('blue')
+		x.bot.add(H.p('hei'))
 	}
 
 	update() {
-		this.objects.update()
-		if (Mouse.down) {
-		}
 	}
 }
