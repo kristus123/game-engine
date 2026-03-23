@@ -107,6 +107,24 @@ export function Enhance_js_Array() {
 		}
 	})
 
+	Enhance(Array, "assertNotPresent", function (e) {
+		for (const c of this) {
+			if (c == e) {
+				throw new Error("value already present in array")
+			}
+		}
+	})
+
+	Enhance(Array, "assertPresent", function (e) {
+		for (const c of this) {
+			if (c == e) {
+				return 'ok'
+			}
+		}
+
+		throw new Error("value not present in array")
+	})
+
 	Enhance(Array, "assertLength", function (n) {
 		if (this.length != n) {
 			throw new Error("length mismash")
