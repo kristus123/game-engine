@@ -1,7 +1,6 @@
 export class LandingPage {
 	static {
 
-
 		const x = PhoneLayout()
 		this.g = x
 
