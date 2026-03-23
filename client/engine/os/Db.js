@@ -1,9 +1,9 @@
 export class Db {
-	constructor(dbName, storeName) {
+	constructor(storeName) {
 		this.db = null
 		this.ready = false
 
-		const r = indexedDB.open(this.dbName, 1)
+		const r = indexedDB.open('game-engine-db', 1)
 
 		r.onupgradeneeded = () => {
 			r.result.createObjectStore(this.storeName)
@@ -28,7 +28,9 @@ export class Db {
 		check()
 	}
 
-	save(key, blob) {
+	save(blob) {
+		const key = Random.uuid()
+
 		this.execute(db => {
 			const tx = db.transaction(this.storeName, "readwrite")
 			const store = tx.objectStore(this.storeName)
@@ -37,6 +39,8 @@ export class Db {
 				throw new Error("Failed to save data: " + req.error)
 			}
 		})
+
+		return key
 	}
 
 	get(key, callback) {
@@ -51,6 +55,14 @@ export class Db {
 		this.execute(db => {
 			const tx = db.transaction(this.storeName, "readwrite")
 			tx.objectStore(this.storeName).delete(key)
+		})
+	}
+
+	deleteAll() {
+		this.all(elements => {
+			for (const e of elements) {
+				this.delete(e.key)
+			}
 		})
 	}
 
