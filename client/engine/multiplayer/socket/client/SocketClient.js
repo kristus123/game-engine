@@ -39,9 +39,15 @@ export class SocketClient {
 		}))
 	}
 
+	static sendToClients(subAction, targetClientIds, data) {
+		for (const targetClientId of targetClientIds) {
+			SocketClient.sendToClient(subAction, targetClientId, data)
+		}
+	}
+
 	static sendToOtherClients(subAction, data) {
-		for (const clientId of OtherClients.ids) {
-			SocketClient.sendToClient(subAction, clientId, data)
+		for (const targetClientId of OtherClients.ids) {
+			SocketClient.sendToClient(subAction, targetClientId, data)
 		}
 	}
 

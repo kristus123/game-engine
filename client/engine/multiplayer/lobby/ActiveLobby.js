@@ -10,12 +10,10 @@ export class ActiveLobby {
 			if (this.lobbyId === data.lobbyId) {
 				this.clients.push(data.originClientId)
 
-				for (const clientId of this.clients) {
-					SocketClient.sendToClient("SYNC_LOBBY_CLIENT_LIST", clientId, {
-						lobbyId: this.lobbyId,
-						clients: this.clients
-					})
-				}
+				SocketClient.sendToClients("SYNC_LOBBY_CLIENT_LIST", this.clients, {
+					lobbyId: this.lobbyId,
+					clients: this.clients
+				})
 
 				SocketClient.sendToClient("JOINED_LOBBY", data.originClientId, {
 					clients: this.clients
@@ -34,12 +32,10 @@ export class ActiveLobby {
 		const index = this.clients.indexOf(ClientId)
 		this.clients.splice(index, 1)
 
-		for (const clientId of this.clients) {
-			SocketClient.sendToClient("SYNC_LOBBY_CLIENT_LIST", clientId, {
-				lobbyId: this.lobbyId,
-				clients: this.clients
-			})
-		}
+		SocketClient.sendToClients("SYNC_LOBBY_CLIENT_LIST", this.clients, {
+			lobbyId: this.lobbyId,
+			clients: this.clients
+		})
 
 		this.lobbyId = ""
 		this.hostClientId = ""
