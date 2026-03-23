@@ -9,7 +9,14 @@ export class World {
 		]))
 
 		x.mid.addClass("white")
-		x.mid.add(H.img("https://i.pinimg.com/736x/a6/e2/ce/a6e2ce1c7aac11bcba9c066fccfe1507.jpg"))
+		Microphone.start()
+		setTimeout(() => {
+			Microphone.stop(blob => {
+				console.log("sfinished")
+				console.log(blob)
+				Audio.playBlob(blob)
+			})
+		}, 500);
 
 		x.bot.addClass("blue")
 		x.bot.add(H.p("hei").addClass('glow'))

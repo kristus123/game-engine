@@ -28,6 +28,7 @@ export class Audio {
 
 	  const url = URL.createObjectURL(blob)
 	  const audio = new Audio(url)
+		console.log(audio)
 	  audio.play()
 	}
 
