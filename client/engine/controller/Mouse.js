@@ -34,13 +34,10 @@ export class Mouse {
 			if (delta > 0) {
 				if (!this.hoveringHtmlElement) {
 					console.log("Scrolling out (down)")
-					Call(this.scrollOut)
 				}
 			}
 			else {
 				if (!this.hoveringHtmlElement) {
-					console.log("Scrolling in (up)")
-					Call(this.scrollIn)
 				}
 			}
 		})

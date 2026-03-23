@@ -9,14 +9,5 @@ export class Player extends Entity {
 
 	update() {
 		this.objects.update()
-
-		for (const s of G.stones) {
-			if (this.touches(s)) {
-				Html.p("+1").domFloat(this.position).animate("fade-away")
-				s.removeItself()
-			}
-
-			s.position.moveTowards(this.position.center)
-		}
 	}
 }
