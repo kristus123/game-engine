@@ -1,1 +1,4 @@
-sjddfq;qdfq
+export class Screen {
+	constructor() {
+	}
+}
