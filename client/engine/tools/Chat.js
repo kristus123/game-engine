@@ -2,7 +2,7 @@
 
 export class Chat {
 	static sendAudioBlob (blob) {
-		console.log("Sending Audio To Server...")
+		console.log("Sending Sound To Server...")
 
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
@@ -12,7 +12,7 @@ export class Chat {
 	}
 
 	static sendAudioBlobToClient(clientId, blob) {
-		console.log("Sending Audio To Server...")
+		console.log("Sending Sound To Server...")
 
 		HttpClient.uploadFile(blob, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)
@@ -23,7 +23,7 @@ export class Chat {
 	}
 
 	static getAudioBlob(folder, callback) {
-		console.log("Getting Audio From Server...")
+		console.log("Getting Sound From Server...")
 
 		HttpClient.readFiles({ folder: folder }, res => {
 			console.log(`Server Response: ${JSON.stringify(res)}`)

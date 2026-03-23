@@ -31,7 +31,7 @@ async function loadAllAudio() {
 	return Promise.all(AUDIO_FILES.map(async path => {
 		const audio = await LoadAudio(path)
 		const key = path.split("/").pop().replace(".mp3", "")
-		G.Audio[key] = audio
+		G.Sound[key] = audio
 	}))
 }
 
@@ -47,7 +47,7 @@ Promise.all([
 		const filterPalette = Palette.offscreen()
 		filterPalette.fill("#03045e", 0.2)
 
-		Audio.init()
+		Sound.init()
 		Mouse.initialize()
 		Controller.init()
 		Camera.initialize()

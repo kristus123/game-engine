@@ -21,5 +21,9 @@ export function Enhance_js_Object() {
 		}
 	})
 
+	Getter(Object.prototype, "className", function () {
+		return this.constructor.name
+	})
+
 }
 

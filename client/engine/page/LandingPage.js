@@ -1,12 +1,25 @@
 export class LandingPage {
 	static {
-		this.g = GridTemplate()
-		this.g.mid.add(Html.div("white", [
-			Html.button("Hei", () => {
-				Page.go(OtherPage)
-			})
+
+
+		const x = PhoneLayout()
+		this.g = x
+
+		x.top.addClass("red")
+		x.top.add(Flex.h([
+			Html.p("hei"),
+			Html.p("hei"),
 		]))
-		Page.init(this, "/landingPage") //Mus be at bottom
+
+		x.mid.addClass("white")
+		x.mid.add(H.button('click', () => {
+			Page.go(OtherPage)
+		}))
+
+		x.bot.addClass("blue")
+		x.bot.add(H.p("hei").addClass('glow'))
+
+		Page.init(this) //Must be at bottom
 	}
 
 	static show() {

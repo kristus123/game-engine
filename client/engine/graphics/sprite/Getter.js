@@ -12,7 +12,7 @@ export function Getter(obj, getterName, arrowFunction) {
 		throw new Error(`Cannot define getter "${String(getterName)}": property already exists`)
 	}
 	else {
-		Object.defineProperty(obj.prototype, getterName, {
+		Object.defineProperty(obj, getterName, {
 			get: arrowFunction,
 			enumerable: false,
 			configurable: false,

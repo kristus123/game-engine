@@ -114,6 +114,12 @@ export function Enhance_js_Array() {
 		return this
 	})
 
+	Enhance(Array, "assertNotPresent", function (x) {
+		if (this.contains(x)) {
+			throw new Error("x is present")
+		}
+	})
+
 	Enhance(Array, "clear", function () {
 		this.length = 0
 	})

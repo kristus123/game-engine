@@ -12,7 +12,7 @@ export class HouseGrid {
 		if (this.grid.availableArea(this.grid.area(this.position))) {
 			if (Mouse.down) {
 				this.grid.placeArea(this.grid.area(this.position))
-				Audio.click()
+				Sound.click()
 			}
 		}
 

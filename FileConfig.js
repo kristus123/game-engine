@@ -39,12 +39,4 @@ export const FileConfig = {
 	toDistPath(filePath) {
 		return path.join(FileConfig.dist, filePath)
 	},
-
-	// Static output
-	get distStatic() {
-		return path.join(this.dist, "static")
-	},
-
 }
-
-export default FileConfig

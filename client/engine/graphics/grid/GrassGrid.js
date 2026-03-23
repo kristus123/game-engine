@@ -27,7 +27,7 @@ export class GrassGrid {
 			else {
 				if (G.tile) {
 					this.grid.add(Mouse.position)
-					Audio.placeDirt()
+					Sound.placeDirt()
 					if (G.tile == "water") {
 						this.grassPalette.draw.picture(snappedPosition, G.image.waterTile)
 					}
