@@ -24,6 +24,19 @@ export class LandingPage {
 			})
 		}))
 
+		x.mid.add(H.button('create lobby', () => {
+			Lobby.create()
+		}))
+
+		Lobby.onNewLobby(lobby => {
+			x.mid.add(H.button(lobby.lobbyId, () => {
+				console.log("click")
+				Lobby.join(lobby.lobbyId)
+				x.mid.clear()
+				x.mid.add(H.p(JSON.stringify(lobby)))
+			}))
+		})
+
 		db.all(cards => {
 			for (const c of cards) {
 				x.mid.add(H.button(c, () => {

@@ -38,6 +38,19 @@ export class SocketClient {
 		}))
 	}
 
+	// bad name, too similar to sendToClient. consider merging them
+	static sendToClients(subAction, targetClientIds, data) {
+		for (const targetClientId of targetClientIds) {
+			SocketClient.sendToClient(subAction, targetClientId, data)
+		}
+	}
+
+	static sendToOtherClients(subAction, data) {
+		for (const targetClientId of OtherClients.ids) {
+			SocketClient.sendToClient(subAction, targetClientId, data)
+		}
+	}
+
 	static onServerMessage(action, callback) {
 		this.serverActionListener.listen(action, callback)
 	}

@@ -15,13 +15,44 @@ export function Enhance_js_Object() {
 		}
 	})
 
+
+	Getter(Object, 'keys', function () {
+		const r = []
+
+		for (const k of Object.keys(this)) {
+			r.add(k)
+		}
+
+		return r
+	})
+
+	Getter(Object, "values", function () {
+		const r = []
+
+		for (const v of Object.values(this)) {
+			r.add(v)
+		}
+
+		return r
+	})
+
 	Enhance(Object, "assertKeyMissing", function (key) {
 		if (Object.hasOwn(this, key)) {
 			throw new Error("Key is present in object")
 		}
 	})
 
-	Getter(Object.prototype, "className", function () {
+	Enhance(Object, "assertKeyNotPresent", function (key) {
+		return this.assertKeyMissing(key)
+	})
+
+	Enhance(Object, "assertKeyPresent", function (key) {
+		if (!Object.hasOwn(this, key)) {
+			throw new Error("Key is not present in object")
+		}
+	})
+
+	Getter(Object, "className", function () {
 		return this.constructor.name
 	})
 

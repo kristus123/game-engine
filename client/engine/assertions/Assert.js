@@ -3,12 +3,16 @@ export class Assert {
 		if (not.method(m)) {
 			throw new Error("not a method!")
 		}
+
+		return m
 	}
 
 	static array(x) {
 		if (not.array(x)) {
 			throw new Error("NOT AN ARRAY")
 		}
+
+		return x
 	}
 
 	static value(v) {
@@ -20,12 +24,16 @@ export class Assert {
 		if (not.integer(v)) {
 			throw new Error("Not an integer: " + v)
 		}
+
+		return v
 	}
 
 	static length(amount, list) {
 		if (list.length !== amount) {
 			throw new Error("xXx")
   		}
+
+		return list
 	}
 
 	static notNull(x, errorMessage="add own message!") {
@@ -44,6 +52,8 @@ export class Assert {
 		if (typeof x === "number" && isNaN(x)) {
 			throw new Error(errorMessage + " NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH")
 		}
+
+		return x
 	}
 
 	static noNullInArray(array) {
@@ -51,6 +61,17 @@ export class Assert {
 
 		for (const o of array) {
 			Assert.notNull(o)
+		}
+
+		return array
+	}
+
+	static string(x) {
+		if (typeof x == "string") {
+			return x
+		}
+		else {
+			throw new Error(x + " is not a string");
 		}
 	}
 }
