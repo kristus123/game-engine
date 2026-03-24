@@ -14,7 +14,7 @@ export function Getter(obj, getterName, arrowFunction) {
 	else if (typeof obj === "object") {
 		p = Object.getPrototypeOf(obj)
 		if (!p) {
-    		throw new Error("Cannot determine prototype for this object")
+			throw new Error("Cannot determine prototype for this object")
 		}
 	}
 	else {

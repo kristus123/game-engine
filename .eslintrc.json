@@ -194,7 +194,6 @@
         "GridTemplate": "readonly",
         "GridTile": "readonly",
         "H": "readonly",
-        "HashList": "readonly",
         "HeightMap": "readonly",
         "HelperThing": "readonly",
         "HotReload": "readonly",
