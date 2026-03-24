@@ -42,6 +42,16 @@ export function Enhance_js_Object() {
 		}
 	})
 
+	Enhance(Object, "assertKeyNotPresent", function (key) {
+		return this.assertKeyMissing(key)
+	})
+
+	Enhance(Object, "assertKeyPresent", function (key) {
+		if (!Object.hasOwn(this, key)) {
+			throw new Error("Key is not present in object")
+		}
+	})
+
 	Getter(Object.prototype, "className", function () {
 		return this.constructor.name
 	})

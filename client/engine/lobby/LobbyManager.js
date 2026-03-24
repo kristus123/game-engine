@@ -4,15 +4,15 @@ export class LobbyManager {
 
 	static createLobby(lobbyId, hostClientId) {
 
-		this.lobbies.assertKeyNotPresent(data.lobbyId)
+		this.lobbies.assertKeyNotPresent(lobbyId)
 
-		this.lobbies[data.lobbyId] = {
+		this.lobbies[lobbyId] = {
 			lobbyId: lobbyId,
 			hostClientId: hostClientId,
-			connectedClientIds: []
+			connectedClientIds: [hostClientId]
 		}
 
-		return this.lobbies[data.lobbyId]
+		return this.lobbies[lobbyId]
 	}
 
 	static joinLobby(lobbyId, clientId) {

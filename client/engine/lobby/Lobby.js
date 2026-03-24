@@ -29,9 +29,26 @@ export class Lobby {
 		})
 	}
 
+	static get all() {
+		return LobbyManager.lobbies
+	}
+
+	static onNewLobby(callback) {
+		for (const lobby of this.all.values) {
+			callback(lobby)
+		}
+
+		this.newLobbyListener.listen(callback)
+	}
+
 	static {
+		this.newLobbyListener = Listener()
+
 		SocketClient.onClientMessage('CLIENT_CREATED_NEW_LOBBY', data => {
-			LobbyManager.createLobby(data.lobbyId, data.originClientId)
+			console.log("hey!")
+			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
+
+			this.newLobbyListener.trigger(lobby)
 		})
 
 		SocketClient.onClientMessage('CLIENT_JOINS_LOBBY', data => {

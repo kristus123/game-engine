@@ -4,7 +4,6 @@ export class Listener {
 		this.oneTimeListeners = []
 	}
 
-
 	trigger(args) {
 		this.listeners.forEach(l => l(args))
 

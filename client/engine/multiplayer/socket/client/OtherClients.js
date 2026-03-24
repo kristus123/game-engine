@@ -1,11 +1,8 @@
-// ClientId(
-
 export class OtherClients {
 	static {
 		this.ids = [] // todo rename to clientIds
 		this.onJoinListener = Listener()
 		this.onLeaveListener = Listener()
-
 	}
 
 	static onJoin(callback) {
@@ -16,11 +13,13 @@ export class OtherClients {
 	}
 
 	static add(clientId) {
-		console.log("-x-")
 		if (this.ids.missing(clientId) && clientId != ClientId) {
 			this.ids.push(clientId)
 			this.onJoinListener.trigger(clientId)
-
+		}
+		else {
+			// remove console.warn later when we have a sensible way of handling ids on browsers
+			console.warn('remember that chrome incognito and chrome normal will contain their ids even after refresh')
 		}
 	}
 
