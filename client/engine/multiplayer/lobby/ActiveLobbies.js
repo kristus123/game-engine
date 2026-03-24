@@ -4,8 +4,8 @@ export class ActiveLobbies {
 	static {
 		this.lobbies = {}
 
-		SocketClient.onClientMessage("SYNC_LOBBY_LIST", data => {
-			if (Object.keys(data.lobbies).length > 0) {
+		SocketClient.onClientMessage("UPDATE_LOBBY_LIST_FOR_FIRST_TIME", data => {
+			if (data.lobbies.notEmpty()) {
 				for (const lobbyId in data.lobbies) {
 					this.lobbies[lobbyId] = data.lobbies[lobbyId]
 				}
@@ -23,7 +23,7 @@ export class ActiveLobbies {
 				}
 			}
 
-			SocketClient.sendToClient("SYNC_LOBBY_LIST", clientId, {
+			SocketClient.sendToClient("UPDATE_LOBBY_LIST_FOR_FIRST_TIME", clientId, {
 				lobbies: lobbyList
 			})
 		})
