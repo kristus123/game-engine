@@ -16,7 +16,7 @@ export function Enhance_js_Object() {
 	})
 
 
-	Getter(Object.prototype, 'keys', function () {
+	Getter(Object, 'keys', function () {
 		const r = []
 
 		for (const k of Object.keys(this)) {
@@ -26,7 +26,7 @@ export function Enhance_js_Object() {
 		return r
 	})
 
-	Getter(Object.prototype, "values", function () {
+	Getter(Object, "values", function () {
 		const r = []
 
 		for (const v of Object.values(this)) {
@@ -52,7 +52,7 @@ export function Enhance_js_Object() {
 		}
 	})
 
-	Getter(Object.prototype, "className", function () {
+	Getter(Object, "className", function () {
 		return this.constructor.name
 	})
 

@@ -1,6 +1,6 @@
 export function Enhance_js_String() {
 
-	Getter(String.prototype, "uniqueWords", function() {
+	Getter(String, "uniqueWords", function() {
 		return [...new Set(this.split(/\s+/))]
 	})
 }
