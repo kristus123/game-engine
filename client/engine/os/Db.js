@@ -3,7 +3,7 @@ export class Db {
 		this.db = null
 		this.ready = false
 
-		const r = indexedDB.open('game-engine-db', 1)
+		const r = indexedDB.open("game-engine-db", 1)
 
 		r.onupgradeneeded = () => {
 			r.result.createObjectStore(this.storeName)

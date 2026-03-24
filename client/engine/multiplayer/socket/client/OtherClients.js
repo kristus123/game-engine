@@ -19,7 +19,7 @@ export class OtherClients {
 		}
 		else {
 			// remove console.warn later when we have a sensible way of handling ids on browsers
-			console.warn('remember that chrome incognito and chrome normal will contain their ids even after refresh')
+			console.warn("remember that chrome incognito and chrome normal will contain their ids even after refresh")
 		}
 	}
 

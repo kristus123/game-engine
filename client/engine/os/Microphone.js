@@ -9,16 +9,16 @@ export class Microphone {
 	static {
 		navigator.mediaDevices.getUserMedia({ audio: true })
   	.then(stream => {
-    	Microphone.recorder = new MediaRecorder(stream, {
-      	mimeType: Microphone.mimeType,
-      	audioBitsPerSecond: Microphone.audioBitsPerSecond,
-    	})
+				Microphone.recorder = new MediaRecorder(stream, {
+  		mimeType: Microphone.mimeType,
+  		audioBitsPerSecond: Microphone.audioBitsPerSecond,
+				})
 
-    	Microphone.recorder.ondataavailable = e => Microphone.chunks.push(e.data)
-    	Microphone.ready = true
+				Microphone.recorder.ondataavailable = e => Microphone.chunks.push(e.data)
+				Microphone.ready = true
   	})
   	.catch(err => {
-    	console.error("Failed to access microphone:", err)
+				console.error("Failed to access microphone:", err)
   	})
 	}
 
@@ -49,7 +49,7 @@ export class Microphone {
   	Microphone.state = "stopped"
 
   	if (typeof callback === "function") {
-    	callback(blob)
+				callback(blob)
   	}
 		}
 

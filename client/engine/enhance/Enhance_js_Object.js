@@ -16,7 +16,7 @@ export function Enhance_js_Object() {
 	})
 
 
-	Getter(Object, 'keys', function () {
+	Getter(Object, "keys", function () {
 		const r = []
 
 		for (const k of Object.keys(this)) {

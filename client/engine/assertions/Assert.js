@@ -71,7 +71,7 @@ export class Assert {
 			return x
 		}
 		else {
-			throw new Error(x + " is not a string");
+			throw new Error(x + " is not a string")
 		}
 	}
 }

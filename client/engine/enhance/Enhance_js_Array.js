@@ -118,7 +118,7 @@ export function Enhance_js_Array() {
 	Enhance(Array, "assertPresent", function (e) {
 		for (const c of this) {
 			if (c == e) {
-				return 'ok'
+				return "ok"
 			}
 		}
 

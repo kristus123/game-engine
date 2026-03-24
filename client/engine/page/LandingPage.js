@@ -1,6 +1,6 @@
 export class LandingPage {
 	static {
-		const db = Db('jap')
+		const db = Db("jap")
 
 		const x = PhoneLayout()
 		this.g = x
@@ -12,11 +12,11 @@ export class LandingPage {
 		]))
 
 		x.mid.addClass("white")
-		x.mid.add(H.button('start', () => {
+		x.mid.add(H.button("start", () => {
 			Microphone.start()
 		}))
 
-		x.mid.add(H.button('stop', () => {
+		x.mid.add(H.button("stop", () => {
 			Microphone.stop(blob => {
 				db.save({
 					audio: blob
@@ -24,7 +24,7 @@ export class LandingPage {
 			})
 		}))
 
-		x.mid.add(H.button('create lobby', () => {
+		x.mid.add(H.button("create lobby", () => {
 			Lobby.create()
 		}))
 
@@ -46,7 +46,7 @@ export class LandingPage {
 		})
 
 		x.bot.addClass("blue")
-		x.bot.add(H.p("hei").addClass('glow'))
+		x.bot.add(H.p("hei").addClass("glow"))
 
 		Page.init(this) //Must be at bottom
 	}

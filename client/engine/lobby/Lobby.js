@@ -3,7 +3,7 @@ export class Lobby {
 	static create() {
 		const lobby = LobbyManager.createLobby(Random.uuid(), ClientId)
 
-		SocketClient.sendToOtherClients('CLIENT_CREATED_NEW_LOBBY', {
+		SocketClient.sendToOtherClients("CLIENT_CREATED_NEW_LOBBY", {
 			lobbyId: lobby.lobbyId,
 		})
 
@@ -13,7 +13,7 @@ export class Lobby {
 	static join(lobbyId) {
 		const lobby = LobbyManager.joinLobby(lobbyId, ClientId)
 
-		SocketClient.sendToOtherClients('CLIENT_JOINS_LOBBY', {
+		SocketClient.sendToOtherClients("CLIENT_JOINS_LOBBY", {
 			lobbyId: lobby.lobbyId,
 		})
 
@@ -24,7 +24,7 @@ export class Lobby {
 
 		LobbyManager.leaveLobby(lobbyId, ClientId)
 
-		SocketClient.sendToOtherClients('CLIENT_LEAVES_LOBBY', {
+		SocketClient.sendToOtherClients("CLIENT_LEAVES_LOBBY", {
 			lobbyId: lobbyId,
 		})
 	}
@@ -44,22 +44,22 @@ export class Lobby {
 	static {
 		this.newLobbyListener = Listener()
 
-		SocketClient.onClientMessage('CLIENT_CREATED_NEW_LOBBY', data => {
+		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
 			console.log("hey!")
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
 
 			this.newLobbyListener.trigger(lobby)
 		})
 
-		SocketClient.onClientMessage('CLIENT_JOINS_LOBBY', data => {
+		SocketClient.onClientMessage("CLIENT_JOINS_LOBBY", data => {
 			LobbyManager.joinLobby(data.lobbyId, data.originClientId)
 		})
 
-		SocketClient.onClientMessage('CLIENT_LEAVES_LOBBY', data => {
+		SocketClient.onClientMessage("CLIENT_LEAVES_LOBBY", data => {
 			LobbyManager.leaveLobby(data.lobbyId, data.originClientId)
 		})
 
-		SocketClient.onClientMessage('SYNC_LOBBY', data => {
+		SocketClient.onClientMessage("SYNC_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.hostClientId)
 			for (const c of data.connectedClientIds) {
 				lobby.connectedClientIds.add(c)
@@ -68,7 +68,7 @@ export class Lobby {
 
 		OtherClients.onJoin(newClientId => {
 			for (const lobby of LobbyManager.myLobbies()) {
-				SocketClient.sendToClient('SYNC_LOBBY', newClientId, lobby)
+				SocketClient.sendToClient("SYNC_LOBBY", newClientId, lobby)
 			}
 		})
 	}
