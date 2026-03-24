@@ -34,7 +34,7 @@ export class World {
 			Dom.add([
 				Html.button(lobbyId, () => {
 					console.log("joining...")
-					x = Lobby.join(lobbyId, lobby.hostClientId)
+					x = Lobby.join(lobbyId)
 				})
 			])
 		}

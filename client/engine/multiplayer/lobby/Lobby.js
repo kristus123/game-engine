@@ -13,6 +13,26 @@ export class Lobby {
 		SocketClient.onClientMessage("CLIENT_LEFT_LOBBY", data => {
 			ActiveLobbies.leaveLobby(data.lobbyId, data.clientId)
 		})
+
+		SocketClient.onClientMessage("UPDATE_LOBBY_FOR_FIRST_TIME", data => {
+			data.lobbies.forEach((lobbyId, lobby) => {
+				this.lobbies[lobbyId].assign(data.lobbies[lobbyId])
+			})
+		})
+
+		OtherClients.onJoin(clientId => {
+			const lobbies = {}
+
+			ActiveLobbies.lobbies.forEach((lobbyId, lobby) => {
+				if (lobby.hostClientId === ClientId) {
+					lobbies[lobbyId] = lobby
+				}
+			})
+
+			SocketClient.sendToClient("UPDATE_LOBBY_FOR_FIRST_TIME", clientId, {
+				lobbies: lobbies
+			})
+		})
 	}
 
 	static create() {
@@ -25,8 +45,8 @@ export class Lobby {
 		return lobbyObject
 	}
 
-	static join(lobbyId, hostClientId) {
-		const lobbyObject = ActiveLobbies.joinLobby(lobbyId, hostClientId, ClientId)
+	static join(lobbyId) {
+		const lobbyObject = ActiveLobbies.joinLobby(lobbyId, ClientId)
 
 		SocketClient.sendToOtherClients("CLIENT_JOINED_LOBBY", { ...lobbyObject })
 
