@@ -84,6 +84,13 @@ export class Db {
 		})
 	}
 
+	forEach(callback) {
+		this.all(cards => {
+			for (const c of cards) {
+				callback(c)
+			}
+		})
+	}
 
 }
 

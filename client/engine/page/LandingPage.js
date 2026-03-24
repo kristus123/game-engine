@@ -37,12 +37,10 @@ export class LandingPage {
 			}))
 		})
 
-		db.all(cards => {
-			for (const c of cards) {
-				x.mid.add(H.button(c, () => {
-					Sound.playBlob(c.value.audio)
-				}))
-			}
+		db.forEach(c => {
+			x.mid.add(H.button(c, () => {
+				Sound.playBlob(c.value.audio) // fix c.value, it should be able to do c.audio
+			}))
 		})
 
 		x.bot.addClass("blue")
