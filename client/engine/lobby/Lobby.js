@@ -45,7 +45,6 @@ export class Lobby {
 		this.newLobbyListener = Listener()
 
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
-			console.log("hey!")
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
 
 			this.newLobbyListener.trigger(lobby)
