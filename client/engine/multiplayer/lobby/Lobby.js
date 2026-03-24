@@ -2,58 +2,43 @@
 
 export class Lobby {
 	static {
-		// { lobbyId: hostClientId, ... }
-		this.activeLobbies = {}
-
-		SocketClient.onClientMessage("GET_LOBBY_LIST", data => {
-			SocketClient.sendToClient("SYNC_LOBBY_LIST", data.originClientId, {
-				activeLobbies: this.activeLobbies
-			})
+		SocketClient.onClientMessage("CLIENT_CREATED_LOBBY", data => {
+			ActiveLobbies.createLobby(data.lobbyId, data.hostClientId, data.clientIds)
+		})
+		
+		SocketClient.onClientMessage("CLIENT_JOINED_LOBBY", data => {
+			ActiveLobbies.joinLobby(data.lobbyId, data.hostClientId, data.originClientId)
 		})
 
-		SocketClient.onClientMessage("SYNC_LOBBY_LIST", data => {
-			this.activeLobbies = data.activeLobbies
+		SocketClient.onClientMessage("CLIENT_LEFT_LOBBY", data => {
+			ActiveLobbies.leaveLobby(data.lobbyId, data.clientId)
 		})
-
-		// Get Active Lobbies On Join
-    	OtherClients.onReady(() => {
-			if (Object.keys(this.activeLobbies).length == 0 && OtherClients.ids.length > 0) {
-				SocketClient.sendToClient("GET_LOBBY_LIST", OtherClients.ids[0], {})
-			}
-    	})
 	}
 
 	static create() {
-		console.log("creating lobby...")
+		const lobbyId = Random.uuid()
+		
+		const lobbyObject = ActiveLobbies.createLobby(lobbyId, ClientId, [ClientId])
 
-		const newLobby = ActiveLobby(Random.uuid(), ClientId)
+		SocketClient.sendToOtherClients("CLIENT_CREATED_LOBBY", { ...lobbyObject })
 
-		Lobby.activeLobbies[newLobby.lobbyId] = newLobby.hostClientId
-
-		SocketClient.sendToOtherClients("SYNC_LOBBY_LIST",
-			{
-				activeLobbies: Lobby.activeLobbies,
-			}
-		)
-
-		newLobby.clients.push(ClientId)
-
-		return newLobby
+		return lobbyObject
 	}
 
 	static join(lobbyId, hostClientId) {
-		console.log("joining lobby...")
+		const lobbyObject = ActiveLobbies.joinLobby(lobbyId, hostClientId, ClientId)
 
-		const targetLobby = ActiveLobby(lobbyId, hostClientId)
+		SocketClient.sendToOtherClients("CLIENT_JOINED_LOBBY", { ...lobbyObject })
 
-		SocketClient.sendToClient("JOIN_LOBBY", hostClientId, {
-			lobbyId: lobbyId
+		return lobbyObject
+	}
+
+	static leave(lobbyId) {
+		SocketClient.sendToOtherClients("CLIENT_LEFT_LOBBY", {
+			lobbyId: lobbyId,
+			clientId: ClientId
 		})
 
-		SocketClient.onClientMessage("JOINED_LOBBY", data => {
-			targetLobby.clients = data.clients
-		})
-
-		return targetLobby
+		ActiveLobbies.removeLobby(lobbyId)
 	}
 }

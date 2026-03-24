@@ -26,13 +26,15 @@ export class World {
 			})
 		])
 
-		console.log(Lobby.activeLobbies)
+		console.log(ActiveLobbies.lobbies)
 
-		for (const [lobbyId, hostClientId] of Object.entries(Lobby.activeLobbies)) {
+		for (const lobbyId in ActiveLobbies.lobbies) {
+			const lobby = ActiveLobbies.lobbies[lobbyId]
+
 			Dom.add([
 				Html.button(lobbyId, () => {
 					console.log("joining...")
-					x = Lobby.join(lobbyId, hostClientId)
+					x = Lobby.join(lobbyId, lobby.hostClientId)
 				})
 			])
 		}
