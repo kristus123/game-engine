@@ -1,8 +1,9 @@
-export class LobbyList {
+export class LobbyManager {
 
 	static lobbies = {}
 
 	static createLobby(lobbyId, hostClientId) {
+
 		this.lobbies.assertKeyNotPresent(data.lobbyId)
 
 		this.lobbies[data.lobbyId] = {
@@ -25,12 +26,20 @@ export class LobbyList {
 	}
 
 
-	static leaveLobby(lobbyId) {
+	static leaveLobby(lobbyId, clientId) {
 		this.lobbies.assertKeyPresent(lobbyId)
 
 		this.lobbies[lobbyId].connectedClientIds.assertKeyPresent(clientId)
 
 		this.lobbies[lobbyId].connectedClientIds.remove(clientId)
+	}
+
+	static* myLobbies() {
+		for (const lobby of this.lobbies.values) {
+			if (lobby.hostClientId == ClientId) {
+				yield lobby
+			}
+		}
 	}
 
 }

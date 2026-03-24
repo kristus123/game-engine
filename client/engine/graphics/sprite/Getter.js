@@ -1,3 +1,7 @@
+// when passing something as first param obj
+// you might need to do something like String.prototype if it is a built in js object
+// this can be automated/fixed later
+
 export function Getter(obj, getterName, arrowFunction) {
 	if (obj === null || (typeof obj !== "object" && typeof obj !== "function")) {
 		throw new TypeError("First argument must be an object or function")
