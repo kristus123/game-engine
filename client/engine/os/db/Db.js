@@ -18,6 +18,10 @@ export class Db {
 		}
 	}
 
+	update(e, callback=(x) => {}) {
+		this.lowDb.update(e, callback)
+	}
+
 	get(key, callback) {
     	this.lowDb.get(key, o => {
 			callback(o)

@@ -81,6 +81,35 @@ export class LowDb {
     	})
 	}
 
+	update(o, callback = (x) => {}) {
+		// Assert that the object and _dbKey exist
+		Assert.notNull(o, 'Object cannot be null');
+		Assert.notNull(o._dbKey, 'o._dbKey cannot be null');
+
+		this.transaction("readwrite", tx => {
+			const store = tx.objectStore(this.dbName);
+
+			const getRequest = store.get(o._dbKey);
+
+			getRequest.onsuccess = () => {
+				if (getRequest.result === undefined) {
+					throw new Error(`Update failed: no entry found with dbKey "${o._dbKey}"`);
+				}
+				else {
+					const putRequest = store.put(o, o._dbKey);
+					putRequest.onsuccess = () => callback(o);
+					putRequest.onerror = e => {
+						throw new Error(`Update failed for dbKey "${o._dbKey}": ${e.target.error}`);
+					};
+				}
+			};
+
+			getRequest.onerror = e => {
+				throw new Error(`Failed to check existence of dbKey "${o._dbKey}": ${e.target.error}`);
+			};
+		});
+}
+
 	delete(dbKey) {
 		Assert.notNull(dbKey, 'dbKey cannot be null')
     	this.transaction("readwrite", tx => {

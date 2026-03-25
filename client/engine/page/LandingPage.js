@@ -59,13 +59,23 @@ export class LandingPage {
 
 
 		div.css("margin:20px;")
-		div.add(H.p(c.text))
+		const p = H.p(c.text)
+
+		div.add(p)
+
 		div.add(H.button("play", () => {
 			Sound.playBlob(c.audio)
 		}))
+
 		div.add(H.button("delete", () => {
 			this.db.delete(c)
 			div.remove()
+		}))
+
+		div.add(H.button("edit", () => {
+			c.text = 'updated'
+			this.db.update(c)
+			p.text('updated')
 		}))
 
 		this.mid.add(div)
