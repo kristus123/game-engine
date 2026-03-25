@@ -74,19 +74,16 @@ Promise.all([
 
 				Mouse.update()
 			})
+			
+			for (const entity of Entity.entityList) {
+				D1.text(entity.position, entity.assignedTags)
+			}
 
 			mainPalette.apply(backgroundPalette)
 			mainPalette.apply(Camera.palettes.d3)
 			mainPalette.apply(Camera.palettes.d2)
 			mainPalette.apply(filterPalette)
 			mainPalette.apply(Camera.palettes.d1)
-
-			/* Does Not Work - Never Updates Entity Data
-			for (const entity of Entity.entityList) {
-				D1.text(entity.position, entity.tags)
-			}
-			*/
-			
 		})
 	})
 	.catch(e => {
