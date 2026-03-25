@@ -63,21 +63,20 @@ Promise.all([
 			Camera.palettes.forEach((d, palette) => {
 				palette.clear()
 			})
-
+			
 			Physics.update()
 
 			Camera.context(() => {
-
 				Controller.update()
 
 				Level.update()
 
 				Mouse.update()
+
+				for (const entity of Entity.entityList) {
+					D1.text(entity.position, entity.assignedTags)
+				}
 			})
-			
-			for (const entity of Entity.entityList) {
-				D1.text(entity.position, entity.assignedTags)
-			}
 
 			mainPalette.apply(backgroundPalette)
 			mainPalette.apply(Camera.palettes.d3)
