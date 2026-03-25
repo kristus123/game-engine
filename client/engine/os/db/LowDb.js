@@ -39,6 +39,7 @@ export class LowDb {
 	}
 
 	transaction(mode, callback) {
+
     	this._waitReady(db => {
         	const tx = db.transaction(this.dbName, mode)
 
@@ -53,33 +54,39 @@ export class LowDb {
     	})
 	}
 
-	get(_dbKey, callback) {
+	get(dbKey, callback) {
     	this.transaction("readonly", tx => {
-        	const req = tx.objectStore(this.dbName).get(_dbKey)
-        	req.onsuccess = () => callback(req.result)
-        	req.onerror = e => {
-            	throw new Error(`Get failed for _dbKey "${_dbKey}": ${e.target.error}`)
+        	const r = tx.objectStore(this.dbName).get(dbKey)
+        	r.onsuccess = () => callback(r.result)
+        	r.onerror = e => {
+            	throw new Error(`Get failed for _dbKey "${dbKey}": ${e.target.error}`)
         	}
     	})
 	}
 
-	put(value, _dbKey, callback) {
-    	this.transaction("readwrite", tx => {
-        	const req = tx.objectStore(this.dbName).put(value, _dbKey)
-        	req.onsuccess = () => callback && callback(req.result)
+	save(o, callback = (r) => {}) {
+		Assert.notNull(o)
 
-        	req.onerror = e => {
-            	throw new Error(`Put failed for _dbKey "${_dbKey}": ${e.target.error}`)
+    	this.transaction("readwrite", tx => {
+			const dbKey = Random.uuid()
+        	const r = tx.objectStore(this.dbName).put(o, dbKey)
+
+        	r.onsuccess = () => {
+        		callback(r.result)
+        	}
+
+        	r.onerror = e => {
+            	throw new Error(`Put failed": ${e.target.error}`)
         	}
     	})
 	}
 
 	delete(_dbKey, callback) {
     	this.transaction("readwrite", tx => {
-        	const req = tx.objectStore(this.dbName).delete(_dbKey)
-        	req.onsuccess = () => callback && callback(req.result)
+        	const r = tx.objectStore(this.dbName).delete(_dbKey)
+        	r.onsuccess = () => callback && callback(r.result)
 
-        	req.onerror = e => {
+        	r.onerror = e => {
             	throw new Error(`Delete failed for _dbKey "${_dbKey}": ${e.target.error}`)
         	}
     	})
@@ -87,17 +94,16 @@ export class LowDb {
 
 	all(callback) {
     	this.transaction("readonly", tx => {
-			console.log(tx)
         	const store = tx.objectStore(this.dbName)
         	const results = []
 
         	const request = store.openCursor()
 
         	request.onsuccess = e => {
-            	const cursor = e.target.result
-            	if (cursor) {
-                	results.push(DbObject(this, cursor.value))
-                	cursor.continue()
+            	const c = e.target.result
+            	if (c) {
+                	results.push(c.value)
+                	c.continue()
             	}
 				else {
                 	callback(results)
@@ -110,5 +116,12 @@ export class LowDb {
     	})
 	}
 
+	forEach(callback) {
+    	this.all(items => {
+        	for (const i of items) {
+				callback(i)
+			}
+    	})
+	}
 
 }

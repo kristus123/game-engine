@@ -4,43 +4,29 @@ export class Db {
 	}
 
 	save(o) {
-    	if (o.key) {
-        	throw new Error("Cannot save object with existing key")
+		if (o._dbKey) {
+        	throw new Error("Cannot save an object which has an existing key") //todo fix
     	}
 
-    	const key = Random.uuid()
-    	o.key = key
-
-    	this.db.put(o, key)
-
-    	return DbObject(this.db, o)
+    	this.db.save(o)
 	}
 
 	get(key, callback) {
-    	this.db.get(key, callback)
-	}
-
-	delete(obj) {
-    	this.db.delete(obj.key)
+    	this.db.get(key, (e) => {
+			callback(DbObject(e))
+    	})
 	}
 
 	deleteAll() {
-    	this.all(elements => {
-        	for (const e of elements) {
-        		this.delete(e)
-        	}
+    	this.db.forEach(e => {
+			this.db.delete(e)
     	})
-	}
-
-	all(callback) {
-		this.db.all(callback)
 	}
 
 	forEach(callback) {
-    	this.all(items => {
-        	for (const item of items) {
-				callback(item)
-			}
-    	})
+		this.db.forEach(e => {
+			console.log(e)
+			callback(e)
+		})
 	}
 }
