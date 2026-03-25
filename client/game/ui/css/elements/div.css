@@ -1,7 +1,6 @@
 div {
 	box-sizing: border-box;
 	pointer-events: auto; /* not sure what auto does */
-	overflow-y: auto;
 
 	/* adds margin for scrollbar */
 
@@ -25,4 +24,15 @@ div.center {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+div.scrollable {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+div.test {
+  height: 100%;
+  overflow-y: visible;
 }

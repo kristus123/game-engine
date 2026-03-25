@@ -1,30 +1,41 @@
 export class Db {
 	constructor(dbName) {
-    	this.db = new LowDb(dbName)
+    	this.lowDb = new LowDb(dbName)
 	}
 
-	save(o) {
-		if (o._dbKey) {
-        	throw new Error("Cannot save an object which has an existing key") //todo fix
+	save(e, callback=(x) => {}) {
+		if (e._dbKey) {
+        	throw new Error("Cannot save an object which has an existing ._dbKey") // todo fix
     	}
+		else {
+			// slight hack, but ok
+			// used in LowDb.js and needs to be set here.
+			e._dbKey = Random.uuid()
 
-    	this.db.save(o)
+			this.lowDb.save(e, o => {
+				callback(o)
+			})
+		}
 	}
 
 	get(key, callback) {
-    	this.db.get(key, (e) => {
-			callback(DbObject(e))
+    	this.lowDb.get(key, o => {
+			callback(o)
     	})
 	}
 
+	delete(e) {
+		this.lowDb.delete(e._dbKey)
+	}
+
 	deleteAll() {
-    	this.db.forEach(e => {
-			this.db.delete(e)
+    	this.lowDb.forEach(e => {
+			this.lowDb.delete(e._dbKey)
     	})
 	}
 
 	forEach(callback) {
-		this.db.forEach(e => {
+		this.lowDb.forEach(e => {
 			console.log(e)
 			callback(e)
 		})

@@ -1,6 +1,5 @@
 p.typing-effect {
 	white-space: nowrap;
-	overflow: hidden;
 	font-size: 24px;
 	animation: typing 1s steps(22);
 }

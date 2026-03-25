@@ -59,20 +59,20 @@ export class LowDb {
         	const r = tx.objectStore(this.dbName).get(dbKey)
         	r.onsuccess = () => callback(r.result)
         	r.onerror = e => {
-            	throw new Error(`Get failed for _dbKey "${dbKey}": ${e.target.error}`)
+            	throw new Error(`Get failed for dbKey "${dbKey}": ${e.target.error}`)
         	}
     	})
 	}
 
-	save(o, callback = (r) => {}) {
+	save(o, callback = (x) => {}) {
 		Assert.notNull(o)
+		Assert.notNull(o._dbKey)
 
     	this.transaction("readwrite", tx => {
-			const dbKey = Random.uuid()
-        	const r = tx.objectStore(this.dbName).put(o, dbKey)
+        	const r = tx.objectStore(this.dbName).put(o, o._dbKey)
 
         	r.onsuccess = () => {
-        		callback(r.result)
+        		callback(o)
         	}
 
         	r.onerror = e => {
@@ -81,13 +81,14 @@ export class LowDb {
     	})
 	}
 
-	delete(_dbKey, callback) {
+	delete(dbKey) {
+		Assert.notNull(dbKey, 'dbKey cannot be null')
     	this.transaction("readwrite", tx => {
-        	const r = tx.objectStore(this.dbName).delete(_dbKey)
-        	r.onsuccess = () => callback && callback(r.result)
+        	const r = tx.objectStore(this.dbName).delete(dbKey)
+        	// r.onsuccess = () => callback && callback(r.result) // maybe add later
 
         	r.onerror = e => {
-            	throw new Error(`Delete failed for _dbKey "${_dbKey}": ${e.target.error}`)
+            	throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)
         	}
     	})
 	}

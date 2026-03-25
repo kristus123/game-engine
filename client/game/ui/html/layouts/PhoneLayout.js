@@ -6,7 +6,7 @@ export class PhoneLayout {
 				"mid"
 				"bot"
 			`,
-			h: "100px 1fr 100px",
+			h: "80px 1fr 40px",
 			v: "1fr",
 		})
 	}
