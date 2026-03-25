@@ -14,7 +14,7 @@ export class LandingPage {
 
 		const button = H.button("start", () => {
 			if (Microphone.recording) {
-				button.text('start')
+				button.text("start")
 
 				Microphone.stop(blob => {
 					const c = db.save({
@@ -25,7 +25,7 @@ export class LandingPage {
 				})
 			}
 			else {
-				button.text('stop')
+				button.text("stop")
 
 				Microphone.start()
 			}
@@ -43,14 +43,14 @@ export class LandingPage {
 	}
 
 	static addCard(c) {
-		const div = H.div().addClass('blue')
+		const div = H.div().addClass("blue")
 
-		div.css('margin:20px;')
+		div.css("margin:20px;")
 		div.add(H.p(c.text))
-		div.add(H.button('play', () => {
+		div.add(H.button("play", () => {
 			Sound.playBlob(c.audio)
 		}))
-		div.add(H.button('delete', () => {
+		div.add(H.button("delete", () => {
 			c.delete()
 			div.remove()
 		}))

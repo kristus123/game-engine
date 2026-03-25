@@ -23,7 +23,7 @@ export class Microphone {
 	}
 
 	static get recording() {
-		return this.state == 'recording'
+		return this.state == "recording"
 	}
 
 	static start() {
