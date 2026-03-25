@@ -22,6 +22,10 @@ export class Microphone {
   	})
 	}
 
+	static get recording() {
+		return this.state == 'recording'
+	}
+
 	static start() {
 		if (!Microphone.ready) {
   	throw new Error("Microphone not ready yet")

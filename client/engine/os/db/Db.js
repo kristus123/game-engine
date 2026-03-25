@@ -47,16 +47,16 @@ export class Db {
 			}
 		})
 
-		return key
+		return o // needs to match .forEach 
 	}
 
-	get(key, callback) {
-		this.execute(db => {
-			const txx = db.transaction(this.storeName, "readonly")
-			const req = txx.objectStore(this.storeName).get(key)
-			req.onsuccess = () => callback(req.result)
-		})
-	}
+	// get(key, callback) {
+	// 	this.execute(db => {
+	// 		const txx = db.transaction(this.storeName, "readonly")
+	// 		const req = txx.objectStore(this.storeName).get(key)
+	// 		req.onsuccess = () => callback(req.result)
+	// 	})
+	// }
 
 	delete(obj) {
 		this.execute(db => {
@@ -68,7 +68,7 @@ export class Db {
 	deleteAll() {
 		this.all(elements => {
 			for (const e of elements) {
-				this.delete(e.key)
+				this.delete(e)
 			}
 		})
 	}
@@ -94,6 +94,9 @@ export class Db {
 	forEach(callback) {
 		this.all(cards => {
 			for (const c of cards) {
+				c.value.delete = () => {
+					this.delete(c.value)
+				}
 				callback(c.value)
 			}
 		})

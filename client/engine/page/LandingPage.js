@@ -5,35 +5,57 @@ export class LandingPage {
 		const p = PhoneLayout()
 		const top = p.top
 		const mid = p.mid
+		this.mid = p.mid
 
 		top.addClass("red")
 
 		mid.addClass("white")
 		mid.addClass("center")
 
-		mid.add(H.button("start", () => {
-			Microphone.start()
-			mid.clear()
+		const button = H.button("start", () => {
+			if (Microphone.recording) {
+				button.text('start')
 
-			mid.add(H.button("stop", () => {
 				Microphone.stop(blob => {
-					db.save({
+					const c = db.save({
+						text: "hello",
 						audio: blob,
 					})
+					this.addCard(c)
 				})
-			}))
-		}))
+			}
+			else {
+				button.text('stop')
+
+				Microphone.start()
+			}
+		})
+		mid.add(button)
 
 		db.forEach(c => {
-			mid.add(H.button(JSON.stringify(c), () => {
-				Sound.playBlob(c.audio)
-			}))
+			this.addCard(c)
 		})
 
 		p.bot.addClass("blue")
 
 		this.g = p
 		Page.init(this) //Must be at bottom
+	}
+
+	static addCard(c) {
+		const div = H.div().addClass('blue')
+
+		div.css('margin:20px;')
+		div.add(H.p(c.text))
+		div.add(H.button('play', () => {
+			Sound.playBlob(c.audio)
+		}))
+		div.add(H.button('delete', () => {
+			c.delete()
+			div.remove()
+		}))
+
+		this.mid.add(div)
 	}
 
 	static show() {

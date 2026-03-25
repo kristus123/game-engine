@@ -1,5 +1,5 @@
 export function Enhance_html() {
-	Enhance(HTMLElement, "changeText", function (text) {
+	Enhance(HTMLElement, "text", function (text) {
 		this.textContent = text
 	})
 
