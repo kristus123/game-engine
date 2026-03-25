@@ -57,7 +57,6 @@ export class LandingPage {
 	static addCard(c) {
 		const div = H.div().addClass("blue").css('min-height:100px;')
 
-
 		div.css("margin:20px;")
 		const p = H.p(c.text)
 
