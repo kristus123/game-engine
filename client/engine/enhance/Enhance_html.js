@@ -50,7 +50,6 @@ export function Enhance_html() {
 		this.classList.contains(className)
 	})
 
-
 	Enhance(HTMLElement, "addClass", function (className) {
 		this.classList.add(className)
 		return this

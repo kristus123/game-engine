@@ -28,13 +28,20 @@ export class Db {
 		check()
 	}
 
-	save(blob) {
+	save(o) {
+		if (o.key) {
+			throw new Error("Sorry. you can't save an object to Db.js if o.key is present")
+		}
+
 		const key = Random.uuid()
 
+		o.key = key
+
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, "readwrite")
-			const store = tx.objectStore(this.storeName)
-			const req = store.put(blob, key)
+			const t = db.transaction(this.storeName, "readwrite")
+			const store = t.objectStore(this.storeName)
+			const req = store.put(o, key)
+
 			req.onerror = () => {
 				throw new Error("Failed to save data: " + req.error)
 			}
@@ -45,16 +52,16 @@ export class Db {
 
 	get(key, callback) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, "readonly")
-			const req = tx.objectStore(this.storeName).get(key)
+			const txx = db.transaction(this.storeName, "readonly")
+			const req = txx.objectStore(this.storeName).get(key)
 			req.onsuccess = () => callback(req.result)
 		})
 	}
 
-	delete(key) {
+	delete(obj) {
 		this.execute(db => {
-			const tx = db.transaction(this.storeName, "readwrite")
-			tx.objectStore(this.storeName).delete(key)
+			const t = db.transaction(this.storeName, "readwrite")
+			t.objectStore(this.storeName).delete(obj.key)
 		})
 	}
 
@@ -87,7 +94,7 @@ export class Db {
 	forEach(callback) {
 		this.all(cards => {
 			for (const c of cards) {
-				callback(c)
+				callback(c.value)
 			}
 		})
 	}

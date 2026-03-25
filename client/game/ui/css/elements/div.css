@@ -1,7 +1,6 @@
 div {
 	box-sizing: border-box;
 	pointer-events: auto; /* not sure what auto does */
-	align-content: center;
 	overflow-y: auto;
 
 	/* adds margin for scrollbar */
@@ -19,4 +18,11 @@ div.blue {
 
 div.white {
 	background-color: rgb(255 255 255);
+}
+
+div.center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }

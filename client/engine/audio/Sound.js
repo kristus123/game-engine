@@ -22,14 +22,15 @@ export class Sound {
 	}
 
 	static playBlob(blob) {
-	  if (!blob) {
-		  throw new Error("no blob present")
+		if (!blob) {
+			throw new Error("no blob present")
 		}
+		else {
+			const url = URL.createObjectURL(blob)
+			const audio = new Audio(url)
 
-	  const url = URL.createObjectURL(blob)
-	  const audio = new Audio(url)
-		console.log(audio)
-	  audio.play()
+			audio.play()
+		}
 	}
 
 }

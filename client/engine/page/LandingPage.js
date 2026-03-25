@@ -2,50 +2,37 @@ export class LandingPage {
 	static {
 		const db = Db("jap")
 
-		const x = PhoneLayout()
-		this.g = x
+		const p = PhoneLayout()
+		const top = p.top
+		const mid = p.mid
 
-		x.top.addClass("red")
-		x.top.add(Flex.h([
-			Html.p("hei"),
-			Html.p("hei"),
-		]))
+		top.addClass("red")
 
-		x.mid.addClass("white")
-		x.mid.add(H.button("start", () => {
+		mid.addClass("white")
+		mid.addClass("center")
+
+		mid.add(H.button("start", () => {
 			Microphone.start()
-		}))
+			mid.clear()
 
-		x.mid.add(H.button("stop", () => {
-			Microphone.stop(blob => {
-				db.save({
-					audio: blob
+			mid.add(H.button("stop", () => {
+				Microphone.stop(blob => {
+					db.save({
+						audio: blob,
+					})
 				})
-			})
-		}))
-
-		x.mid.add(H.button("create lobby", () => {
-			Lobby.create()
-		}))
-
-		Lobby.onNewLobby(lobby => {
-			x.mid.add(H.button(lobby.lobbyId, () => {
-				console.log("click")
-				Lobby.join(lobby.lobbyId)
-				x.mid.clear()
-				x.mid.add(H.p(JSON.stringify(lobby)))
 			}))
-		})
+		}))
 
 		db.forEach(c => {
-			x.mid.add(H.button(c, () => {
-				Sound.playBlob(c.value.audio) // fix c.value, it should be able to do c.audio
+			mid.add(H.button(JSON.stringify(c), () => {
+				Sound.playBlob(c.audio)
 			}))
 		})
 
-		x.bot.addClass("blue")
-		x.bot.add(H.p("hei").addClass("glow"))
+		p.bot.addClass("blue")
 
+		this.g = p
 		Page.init(this) //Must be at bottom
 	}
 

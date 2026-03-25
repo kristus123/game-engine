@@ -11,7 +11,10 @@ html {
 
 body {
 	font-family: "VT323", monospace;
+
+	/* find out if you can remove display flex */
 	display: flex;
+
 	flex-direction: column;
 	align-items: center;
 	padding: 0;
