@@ -13,7 +13,7 @@ export class Entity extends _GameObject {
 		this.entityList = []
 	}
 
-	createTag(tag) {
+	addTag(tag) {
 		this.assignedTags.addIfMissing(tag)
 	}
 

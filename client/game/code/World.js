@@ -5,9 +5,9 @@ export class World {
 			Sprite.snow(D3, WorldPosition(0, 0), 4)
 		])
 
-		this.player.createTag("npc")
-		this.player.createTag("player")
-		this.player.createTag("human")
+		this.player.addTag("npc")
+		this.player.addTag("player")
+		this.player.addTag("human")
 
 		for (const p of WorldPosition(0, 0, 500, 500).randomPoints(100, 20, 20)) {
 			G.stones.add(new Stone(p))
