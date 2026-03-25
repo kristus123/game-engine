@@ -21,13 +21,14 @@ export class World {
 	}
 
 	update() {
+		// Works Fine But Needs To Be In index.js
+		for (const entity of Entity.entityList) {
+			D1.text(entity.position, entity.assignedTags)
+		}
+		
 		this.objects.update()
 		G.stones.update()
 		if (Mouse.down) {
 		}
-
-		Dom.overlay([
-			Html.p(this.player.tags),
-		])
 	}
 }
