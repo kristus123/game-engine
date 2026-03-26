@@ -74,7 +74,7 @@ Promise.all([
 				Mouse.update()
 
 				for (const entity of Entity.entityList) {
-					D1.text(entity.position, entity.assignedTags)
+					D1.text(entity.position, entity.assignedTags, "black", 16)
 				}
 			})
 
