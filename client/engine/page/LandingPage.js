@@ -12,9 +12,10 @@ export class LandingPage {
 		top.addClass("red")
 
 		top.add(Flex.h([
-			H.button('hei').css('font-size:10px;'),
-			H.button('hei').css('font-size:10px;'),
-			H.button('hei').css('font-size:10px;'),
+			H.button('practice', () => {
+				Page.go(PracticePage)
+				
+			}).css('font-size:10px;'),
 		]))
 
 		mid.addClass("white")
@@ -28,6 +29,7 @@ export class LandingPage {
 					db.save({
 						text: "hello",
 						audio: blob,
+						score: 0,
 					}, c => {
 						this.addCard(c)
 					})
