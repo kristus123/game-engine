@@ -9,7 +9,10 @@ export class LobbyManager {
 		this.lobbies[lobbyId] = {
 			lobbyId: lobbyId,
 			hostClientId: hostClientId,
-			connectedClientIds: [hostClientId]
+			connectedClientIds: [hostClientId],
+			connectedObjects: {
+				[hostClientId]: {objectData: "test"}
+			}
 		}
 
 		return this.lobbies[lobbyId]
@@ -22,6 +25,8 @@ export class LobbyManager {
 
 		this.lobbies[lobbyId].connectedClientIds.add(clientId)
 
+		this.lobbies[lobbyId].connectedObjects[clientId] = {objectData: "test"}
+		
 		return this.lobbies[lobbyId]
 	}
 
@@ -32,6 +37,8 @@ export class LobbyManager {
 		this.lobbies[lobbyId].connectedClientIds.assertKeyPresent(clientId)
 
 		this.lobbies[lobbyId].connectedClientIds.remove(clientId)
+		
+		delete this.lobbies[lobbyId].connectedObjects[clientId]
 	}
 
 	static* myLobbies() {
@@ -41,5 +48,4 @@ export class LobbyManager {
 			}
 		}
 	}
-
 }
