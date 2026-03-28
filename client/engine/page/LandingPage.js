@@ -1,92 +1,68 @@
-export class LandingPage {
-	static {
-		const db = Db("jap")
-		this.db = db
+const db = Db("jap")
+const p = PhoneLayout()
 
-		const p = PhoneLayout()
-		const top = p.top
-		const mid = p.mid
-		const bot = p.bot
-		this.mid = p.mid
+function addCard(c) {
+	const div = H.div().addClass("blue").css('min-height:100px;')
 
-		top.addClass("red")
+	div.css("margin:20px;")
+	const pText = H.p(c.text)
 
-		top.add(Flex.h([
-			H.button('practice', () => {
-				Page.go(PracticePage)
-				
-			}).css('font-size:10px;'),
-		]))
+	div.add(pText)
 
-		mid.addClass("white")
-		mid.addClass("center")
+	div.add(H.button("play", () => {
+		Sound.playBlob(c.audio)
+	}))
 
-		const button = H.button("start", () => {
-			if (Microphone.recording) {
-				button.text("start")
+	div.add(H.button("delete", () => {
+		db.delete(c)
+		div.remove()
+	}))
 
-				Microphone.stop(blob => {
-					db.save({
-						text: "hello",
-						audio: blob,
-						score: 0,
-					}, c => {
-						this.addCard(c)
-					})
-				})
-			}
-			else {
-				button.text("stop")
-				Microphone.start()
-			}
-		})
-
-		bot.add(button)
-		button.css('position: relative;')
-		button.css('transform: translateY(-30px);')
-		bot.addClass('center')
-
-		db.forEach(c => {
-			this.addCard(c)
-		})
-
-		p.bot.addClass("blue")
-
-		this.g = p
-		Page.init(this) //Must be at bottom
-	}
-
-	static addCard(c) {
-		const div = H.div().addClass("blue").css('min-height:100px;')
-
-		div.css("margin:20px;")
-		const p = H.p(c.text)
-
-		div.add(p)
-
-		div.add(H.button("play", () => {
-			Sound.playBlob(c.audio)
+	div.add(H.button("edit", () => {
+		const m = H.modal(H.input("change title", t => {
+			c.text = t
+			db.update(c)
+			pText.text(t)
+			m.remove()
 		}))
+		
+	}))
 
-		div.add(H.button("delete", () => {
-			this.db.delete(c)
-			div.remove()
-		}))
-
-		div.add(H.button("edit", () => {
-			c.text = 'updated'
-			this.db.update(c)
-			p.text('updated')
-		}))
-
-		this.mid.add(div)
-	}
-
-	static show() {
-		this.g.show()
-	}
-
-	static hide() {
-		this.g.hide()
-	}
+	p.mid.add(div)
 }
+
+db.forEach(c => {
+	addCard(c)
+})
+
+p.top.addClass("red").add(Flex.h([
+	H.button('practice', () => {
+		Page.go(PracticePage)
+	}).css('font-size:10px;'),
+]))
+
+p.mid.addClass("white center")
+
+p.bot.addClass('center blue').add([
+	H.button("start", b => {
+		if (Microphone.recording) {
+			b.text("start")
+
+			Microphone.stop(blob => {
+				db.save({
+					text: "hello",
+					audio: blob,
+					score: 0,
+				}, c => {
+					addCard(c)
+				})
+			})
+		}
+		else {
+			b.text("stop")
+			Microphone.start()
+		}
+	}).css('transform: translateY(-30px); position: relative;')
+])
+
+export const LandingPage = Page.init(p)
