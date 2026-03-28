@@ -21,7 +21,6 @@ function addCard(c) {
 	div.add(H.button("edit", () => {
 		const m = H.modal([
 			Flex.v([
-				H.button("update voice"),
 				H.input("change title", t => {
 					c.text = t
 					db.update(c)
