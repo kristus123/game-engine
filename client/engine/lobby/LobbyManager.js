@@ -9,10 +9,9 @@ export class LobbyManager {
 		this.lobbies[lobbyId] = {
 			lobbyId: lobbyId,
 			hostClientId: hostClientId,
-			connectedClientIds: [hostClientId],
-			connectedObjects: {
-				[hostClientId]: {objectData: "test"}
-			}
+			clients: {
+				[hostClientId]: { objectData: "test" }
+			},
 		}
 
 		return this.lobbies[lobbyId]
@@ -20,12 +19,10 @@ export class LobbyManager {
 
 	static joinLobby(lobbyId, clientId) {
 		this.lobbies.assertKeyPresent(lobbyId)
-
-		this.lobbies[lobbyId].connectedClientIds.assertKeyNotPresent(clientId)
-
-		this.lobbies[lobbyId].connectedClientIds.add(clientId)
-
-		this.lobbies[lobbyId].connectedObjects[clientId] = {objectData: "test"}
+		
+		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
+		
+		this.lobbies[lobbyId].clients[clientId] = { objectData: "test" }
 		
 		return this.lobbies[lobbyId]
 	}
@@ -36,9 +33,7 @@ export class LobbyManager {
 
 		this.lobbies[lobbyId].connectedClientIds.assertKeyPresent(clientId)
 
-		this.lobbies[lobbyId].connectedClientIds.remove(clientId)
-		
-		delete this.lobbies[lobbyId].connectedObjects[clientId]
+		delete this.lobbies[lobbyId].clients[clientId]
 	}
 
 	static* myLobbies() {
