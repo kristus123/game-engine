@@ -60,9 +60,9 @@ export class Lobby {
 
 		SocketClient.onClientMessage("SYNC_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.hostClientId)
-			for (const c of data.connectedClientIds) {
-				lobby.connectedClientIds.add(c)
-			}
+			data.clients.forEach((c, o) => {
+				lobby.clients[c] = o
+			})
 		})
 
 		OtherClients.onJoin(newClientId => {
