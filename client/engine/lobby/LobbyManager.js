@@ -10,7 +10,7 @@ export class LobbyManager {
 			lobbyId: lobbyId,
 			hostClientId: hostClientId,
 			clients: {
-				[hostClientId]: { objectData: "test" }
+				[hostClientId]: { objectData: 0 }
 			},
 		}
 
@@ -22,7 +22,7 @@ export class LobbyManager {
 		
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 		
-		this.lobbies[lobbyId].clients[clientId] = { objectData: "test" }
+		this.lobbies[lobbyId].clients[clientId] = { objectData: 0 }
 		
 		return this.lobbies[lobbyId]
 	}
@@ -37,10 +37,10 @@ export class LobbyManager {
 	}
 
 	static* myLobbies() {
-		for (const lobby of this.lobbies.values) {
-			if (lobby.hostClientId == ClientId) {
-				yield lobby
-			}
-		}
+    	for (const [lobbyId, lobby] of Object.entries(this.lobbies)) {
+        	if (lobby.hostClientId === ClientId) {
+            	yield lobbyId
+        	}
+    	}
 	}
 }
