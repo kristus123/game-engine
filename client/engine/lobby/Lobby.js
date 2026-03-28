@@ -65,11 +65,27 @@ export class Lobby {
 			})
 		})
 
+		SocketClient.onClientMessage("UPDATE_CLIENT_OBJECT", data => {
+			const lobby = LobbyManager.lobbies[data.lobbyId]
+			lobby.clients[data.originClientId] = data.object
+		})
+
 		OtherClients.onJoin(newClientId => {
-			for (const lobby of LobbyManager.myLobbies()) {
-				SocketClient.sendToClient("SYNC_LOBBY", newClientId, lobby)
+			for (const lobbyId of LobbyManager.myLobbies()) {
+				SocketClient.sendToClient("SYNC_LOBBY", newClientId, LobbyManager.lobbies[lobbyId])
 			}
 		})
+
+		setInterval(() => {
+			LobbyManager.lobbies.forEach((lobbyId, lobby) => {
+				const object = lobby.clients[ClientId]
+		
+				SocketClient.sendToOtherClients("UPDATE_CLIENT_OBJECT", {
+					lobbyId: lobbyId,
+					object: object
+				})
+			})
+		}, 1000)
 	}
 
 }

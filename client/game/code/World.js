@@ -4,10 +4,19 @@ export class World {
 
 		let x = null
 		Dom.add([
-			Html.button("New Lobby", () => {
+			Html.p("Actions:"),
+			Html.button("Create New Lobby", () => {
 				x = Lobby.create()
 				console.log(x)
 			}),
+			Html.button("Update Object Data", () => {
+				const object = x.clients[ClientId]
+				object["objectData"]  += 1
+			}),
+			Html.button("Check Lobby Object", () => {
+				console.log(x)
+			}),
+			Html.p("Other Lobbies:")
 		])
 
 		Lobby.onNewLobby(lobby => {
