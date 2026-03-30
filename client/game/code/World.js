@@ -1,3 +1,5 @@
+// ClientId(
+
 export class World {
 	constructor() {
 //		Page.go(LandingPage)
@@ -7,11 +9,12 @@ export class World {
 			Html.p("Actions:"),
 			Html.button("Create New Lobby", () => {
 				x = Lobby.create()
+				x.clients[ClientId].x = 0
+
 				console.log(x)
 			}),
 			Html.button("Update Object Data", () => {
-				const object = x.clients[ClientId]
-				object["objectData"]  += 1
+				x.clients[ClientId].x  += 1
 			}),
 			Html.button("Check Lobby Object", () => {
 				console.log(x)
@@ -24,6 +27,8 @@ export class World {
 				Dom.add([
 					Html.button(lobby.lobbyId, () => {
 						x = Lobby.join(lobby.lobbyId)
+						x.clients[ClientId].x = 0
+
 						console.log(x)
 					})
 				])
