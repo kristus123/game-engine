@@ -43,7 +43,9 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "add", function (elements) {
-		Html.append(this, elements)
+		for (const e of Always.list(elements)) {
+			this.appendChild(e)
+		}
 	})
 
 	Enhance(HTMLElement, "contains", function (className) {
@@ -51,7 +53,12 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "addClass", function (className) {
-		this.classList.add(className)
+		for (const cc of Always.list(className)) {
+			for (const c of cc.split(" ")) {
+				this.classList.add(c)
+			}
+		}
+
 		return this
 	})
 

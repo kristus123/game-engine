@@ -20,6 +20,8 @@ body {
 	height: 100vh;
 	overscroll-behavior: none;
 	touch-action: pan-x pan-y;
+
+	padding-top: env(safe-area-inset-top);
 }
 
 canvas {

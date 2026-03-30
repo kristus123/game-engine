@@ -1,36 +1,17 @@
-// ClientId(
-
 export const HttpClient = ProxyObject(
-	{}, (method, body = {}, callback = (body) => {}) => {
-		const request = buildRequest(body)
-		const promise = fetch(`${Config.httpUrl}/${method}`, request).then(r => r.json())
+	(method, body = {}, callback = (body) => {}) => {
 
-		promise.then(callback)
-	})
-
-function buildRequest(body) {
-	if (isBinary(body)) {
-		return {
+		const request = {
+			body: body,
 			method: "POST",
 			headers: {
-				"Content-Type": "application/octet-stream",
-				"X-Client-Id": ClientId
+				"Content-Type": value instanceof Blob || value instanceof ArrayBuffer // binary
+					? "application/octet-stream"
+					: "application/json",
 			},
-			body
 		}
+
+		fetch(`${Config.httpUrl}/${method}`, request)
+			.then(r => callback(r.json()))
 	}
-
-	return {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"X-Client-Id": ClientId
-		},
-		body: JSON.stringify(body ?? {})
-	}
-}
-
-function isBinary(value) {
-	return value instanceof Blob || value instanceof ArrayBuffer
-}
-
+)

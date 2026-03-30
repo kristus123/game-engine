@@ -6,7 +6,7 @@ export class Html {
 	static dialog(children=[]) {
 
 		const div = HtmlElement("div")
-		for (const c of children) {
+		for (const c of Always.list(children)) {
 			div.appendChild(c)
 		}
 
@@ -19,6 +19,7 @@ export class Html {
 			}
 		  })
 
+		Dom.add(d)
 		d.showModal()
 
 		return d

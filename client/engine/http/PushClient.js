@@ -19,10 +19,15 @@ export class PushClient {
 			applicationServerKey: Uint8Array.fromBase64(vapid)
 		})
 
-		HttpClient.subscribe({ subscription: subscription }, () => {})
+		HttpClient.subscribe({
+			subscription: subscription,
+		})
 	}
 
 	static push(title, body) {
-		HttpClient.triggerNotification({ title: title, body: body }, () => {})
+		HttpClient.triggerNotification({
+			title: title,
+			body: body,
+		})
 	}
 }

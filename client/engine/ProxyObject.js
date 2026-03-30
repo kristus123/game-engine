@@ -1,5 +1,5 @@
-export function ProxyObject(object, onChange = () => {}) {
-	return new Proxy(object, {
+export function ProxyObject(onChange = () => {}) {
+	return new Proxy({}, {
 		get: (obj, prop) => {
 			if (!(prop in obj)) {
 				return (...args) => {

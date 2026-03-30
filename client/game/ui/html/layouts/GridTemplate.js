@@ -17,13 +17,13 @@ export class GridTemplate {
 	 show() {
 		Html.show(this.ui)
 
-		 return this
+		return this
 	}
 
 	 hide() {
 		Html.hide(this.ui)
 
-		 return this
+		return this
 	}
 
 }

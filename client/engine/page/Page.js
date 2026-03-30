@@ -8,6 +8,8 @@ export class Page {
 
 		page.hide()
 		//history.pushState({}, "", path); Todo fix when needed
+
+		return page
 	}
 
 	static go(page) {
