@@ -1,6 +1,6 @@
 export class World {
 	constructor() {
-		Page.go(PracticePage)
+		Page.go(LandingPage)
 	}
 
 	update() {

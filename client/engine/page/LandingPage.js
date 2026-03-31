@@ -2,7 +2,7 @@ const db = Db("jap")
 const p = PhoneLayout()
 
 function addCard(c) {
-	const div = H.div().addClass("blue").css('min-height:100px;')
+	const div = H.div().addClass("blue").css('min-height:300px;')
 
 	div.css("margin:20px;")
 	const pText = H.p(c.text)
@@ -47,11 +47,17 @@ p.top.addClass("red").add(Flex.h([
 
 p.mid.addClass("white center")
 
-p.bot.addClass('center blue').add([
-	H.button("start", b => {
-		if (Microphone.recording) {
-			b.text("start")
 
+p.bot.addClass("center blue").add(ToggleButton(
+	{
+		text: "start",
+		onClick: () => {
+			Microphone.start()
+		},
+	},
+	{
+		text: "stop",
+		onClick: () => {
 			Microphone.stop(blob => {
 				db.save({
 					text: "hello",
@@ -61,12 +67,9 @@ p.bot.addClass('center blue').add([
 					addCard(c)
 				})
 			})
-		}
-		else {
-			b.text("stop")
-			Microphone.start()
-		}
-	}).css('transform: translateY(-30px); position: relative;')
-])
+		
+		},
+	},
+).css('transform: translateY(-30px); position: relative;'))
 
 export const LandingPage = Page.init(p)
