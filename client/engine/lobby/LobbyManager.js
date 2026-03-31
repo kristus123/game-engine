@@ -12,7 +12,11 @@ export class LobbyManager {
 			clients: {}
 		}
 
-		this.lobbies[lobbyId].clients[hostClientId] = (hostClientId === ClientId) ? ProxyObject((prop, value) => onUpdate(lobbyId, prop, value)) : {}
+		if (hostClientId === ClientId) {
+			this.lobbies[lobbyId].clients[hostClientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
+		} else {
+			this.lobbies[lobbyId].clients[hostClientId] = {}
+		}
 		
 		return this.lobbies[lobbyId]
 	}
@@ -22,7 +26,11 @@ export class LobbyManager {
 		
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 
-    	this.lobbies[lobbyId].clients[clientId] = (clientId === ClientId) ? ProxyObject((prop, value) => onUpdate(lobbyId, prop, value)) : {}
+		if (clientId === ClientId) {
+    		this.lobbies[lobbyId].clients[clientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
+		} else {
+			this.lobbies[lobbyId].clients[clientId] = {}
+		}
 
 		return this.lobbies[lobbyId]
 	}
