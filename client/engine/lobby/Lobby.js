@@ -29,24 +29,13 @@ export class Lobby {
 		})
 	}
 
-	static get all() {
-		return LobbyManager.lobbies
-	}
-
-	static onNewLobby(callback) {
-		for (const lobby of this.all.values) {
-			callback(lobby)
-		}
-
-		this.newLobbyListener.listen(callback)
-	}
-
 	static {
 		this.newLobbyListener = Listener()
+		
 
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
-
+			
 			this.newLobbyListener.trigger(lobby)
 		})
 
@@ -60,17 +49,35 @@ export class Lobby {
 
 		SocketClient.onClientMessage("SYNC_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.hostClientId)
-			for (const c of data.connectedClientIds) {
-				lobby.connectedClientIds.add(c)
-			}
+			data.clients.forEach((c, o) => {
+				lobby.clients[c] = o
+			})
+		})
+
+		SocketClient.onClientMessage("UPDATE_CLIENT_OBJECT", data => {
+			LobbyManager.lobbies[data.lobbyId].clients[data.originClientId][data.key] = data.value
 		})
 
 		OtherClients.onJoin(newClientId => {
 			for (const lobby of LobbyManager.myLobbies()) {
-				SocketClient.sendToClient("SYNC_LOBBY", newClientId, lobby)
+				
+				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
+					lobbyId: lobby.lobbyId,
+            		hostClientId: lobby.hostClientId,
+            		clients: Object.fromEntries(
+                		Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
+            		)
+        		})
 			}
 		})
 	}
 
-}
+	static onNewLobby(callback) {
+		for (const lobby of LobbyManager.lobbies.values) {
+			callback(lobby)
+		}
 
+		this.newLobbyListener.listen(callback)
+	}
+
+}
