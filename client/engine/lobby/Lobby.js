@@ -29,14 +29,6 @@ export class Lobby {
 		})
 	}
 
-	static onNewLobby(callback) {
-		for (const lobby of LobbyManager.lobbies.values) {
-			callback(lobby)
-		}
-
-		this.newLobbyListener.listen(callback)
-	}
-
 	static {
 		this.newLobbyListener = Listener()
 		
@@ -63,8 +55,7 @@ export class Lobby {
 		})
 
 		SocketClient.onClientMessage("UPDATE_CLIENT_OBJECT", data => {
-			const lobby = LobbyManager.lobbies[data.lobbyId]
-			lobby.clients[data.originClientId][data.key] = data.value
+			LobbyManager.lobbies[data.lobbyId].clients[data.originClientId][data.key] = data.value
 		})
 
 		OtherClients.onJoin(newClientId => {
@@ -79,6 +70,14 @@ export class Lobby {
         		})
 			}
 		})
+	}
+
+	static onNewLobby(callback) {
+		for (const lobby of LobbyManager.lobbies.values) {
+			callback(lobby)
+		}
+
+		this.newLobbyListener.listen(callback)
 	}
 
 }
