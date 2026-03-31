@@ -7,6 +7,8 @@ export class Lobby {
 			lobbyId: lobby.lobbyId,
 		})
 
+		this.newLobbyListener.trigger(lobby)
+
 		return lobby
 	}
 

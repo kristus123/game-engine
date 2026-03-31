@@ -17,23 +17,22 @@ export class World {
 			Html.button("Check Lobby Object", () => {
 				console.log(x)
 			}),
-			Html.p("Other Lobbies:")
+			Html.p("Other Lobbies:"),
+			this.x = H.div(),
 		]).addClass("white")
 
 		Lobby.onNewLobby(lobby => {
-			if (lobby.hostClientId != ClientId) {
-				Dom.overlay([
-					Html.button(lobby.lobbyId, () => {
-						x = Lobby.join(lobby.lobbyId)
-						x.clients[ClientId].x = 0
+			this.x.add([
+				Html.button(lobby.lobbyId, () => {
+					x = Lobby.join(lobby.lobbyId)
 
-						console.log(x)
-					})
-				])
-			}
+					x.clients[ClientId].x ??= 0
+					x.clients[ClientId].x += 1
+
+					console.log(x)
+				})
+			])
 		})
-
-
 
 	}
 
