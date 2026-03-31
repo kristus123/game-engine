@@ -32,7 +32,6 @@ export class Lobby {
 	static {
 		this.newLobbyListener = Listener()
 		
-
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
 			
