@@ -1,11 +1,9 @@
-// ClientId(
-
 export class World {
 	constructor() {
 //		Page.go(LandingPage)
 
 		let x = null
-		Dom.add([
+		Dom.overlay([
 			Html.p("Actions:"),
 			Html.button("Create New Lobby", () => {
 				x = Lobby.create()
@@ -20,7 +18,7 @@ export class World {
 				console.log(x)
 			}),
 			Html.p("Other Lobbies:")
-		])
+		]).addClass("white")
 
 		Lobby.onNewLobby(lobby => {
 			if (lobby.hostClientId != ClientId) {
