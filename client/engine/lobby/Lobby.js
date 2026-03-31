@@ -31,10 +31,10 @@ export class Lobby {
 
 	static {
 		this.newLobbyListener = Listener()
-		
+
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
-			
+
 			this.newLobbyListener.trigger(lobby)
 		})
 
@@ -59,14 +59,14 @@ export class Lobby {
 
 		OtherClients.onJoin(newClientId => {
 			for (const lobby of LobbyManager.myLobbies()) {
-				
+
 				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
 					lobbyId: lobby.lobbyId,
-            		hostClientId: lobby.hostClientId,
-            		clients: Object.fromEntries(
-                		Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
-            		)
-        		})
+        			hostClientId: lobby.hostClientId,
+        			clients: Object.fromEntries(
+            			Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
+        			)
+    			})
 			}
 		})
 	}

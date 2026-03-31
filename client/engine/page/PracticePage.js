@@ -13,21 +13,21 @@ export class PracticePage {
 		top.addClass("red")
 
 		top.add(Flex.h([
-			H.button('landingpage', () => {
+			H.button("landingpage", () => {
 				Page.go(LandingPage)
-			}).css('font-size:10px;'),
+			}).css("font-size:10px;"),
 		]))
 
 		mid.addClass("white")
 		mid.addClass("center")
 
-		bot.addClass('center')
+		bot.addClass("center")
 		bot.addClass("blue")
 
 		bot.add(Flex.h([
-			H.button('hard'),
-			H.button('easy'),
-		]).css('transform: translate(0px, -30px)'))
+			H.button("hard"),
+			H.button("easy"),
+		]).css("transform: translate(0px, -30px)"))
 
 		Page.init(this) //Must be at bottom
 	}

@@ -2,7 +2,7 @@ const db = Db("jap")
 const p = PhoneLayout()
 
 function addCard(c) {
-	const div = H.div().addClass("blue").css('min-height:300px;')
+	const div = H.div().addClass("blue").css("min-height:300px;")
 
 	div.css("margin:20px;")
 	const pText = H.p(c.text)
@@ -29,7 +29,7 @@ function addCard(c) {
 				}),
 			]),
 		])
-		
+
 	}))
 
 	p.mid.add(div)
@@ -40,9 +40,9 @@ db.forEach(c => {
 })
 
 p.top.addClass("red").add(Flex.h([
-	H.button('practice', () => {
+	H.button("practice", () => {
 		Page.go(PracticePage)
-	}).css('font-size:10px;'),
+	}).css("font-size:10px;"),
 ]))
 
 p.mid.addClass("white center")
@@ -67,9 +67,9 @@ p.bot.addClass("center blue").add(ToggleButton(
 					addCard(c)
 				})
 			})
-		
+
 		},
 	},
-).css('transform: translateY(-30px); position: relative;'))
+).css("transform: translateY(-30px); position: relative;"))
 
 export const LandingPage = Page.init(p)

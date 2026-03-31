@@ -27,12 +27,12 @@ div.center {
 }
 
 div.scrollable {
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
+	height: 100%;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
 }
 
 div.test {
-  height: 100%;
-  overflow-y: visible;
+	height: 100%;
+	overflow-y: visible;
 }

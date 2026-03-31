@@ -13,13 +13,13 @@ export class LobbyManager {
 		}
 
 		this.lobbies[lobbyId].clients[hostClientId] = {}
-		
+
 		return this.lobbies[lobbyId]
 	}
 
 	static joinLobby(lobbyId, clientId) {
 		this.lobbies.assertKeyPresent(lobbyId)
-		
+
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 
 		this.lobbies[lobbyId].clients[clientId] = {}
@@ -37,10 +37,10 @@ export class LobbyManager {
 	}
 
 	static* myLobbies() {
-    	for (const [lobbyId, lobby] of Object.entries(this.lobbies)) {
-        	if (lobby.hostClientId === ClientId) {
-            	yield lobby
-        	}
-    	}
+		for (const [lobbyId, lobby] of Object.entries(this.lobbies)) {
+    		if (lobby.hostClientId === ClientId) {
+        		yield lobby
+    		}
+		}
 	}
 }

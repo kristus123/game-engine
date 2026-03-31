@@ -1,6 +1,6 @@
 export class World {
 	constructor() {
-//		Page.go(LandingPage)
+		//		Page.go(LandingPage)
 
 		let x = null
 		Dom.overlay([
@@ -12,7 +12,7 @@ export class World {
 				console.log(x)
 			}),
 			Html.button("Update Object Data", () => {
-				x.clients[ClientId].x  += 1
+				x.clients[ClientId].x += 1
 			}),
 			Html.button("Check Lobby Object", () => {
 				console.log(x)
@@ -33,8 +33,8 @@ export class World {
 			}
 		})
 
-		
-		
+
+
 	}
 
 	update() {

@@ -1,14 +1,11 @@
 button {
-
-  width: min(90%, 300px);         /* fill up to 90% of container, max 300px */
-  font-size: clamp(20px, 4vw, 38px); /* font scales with viewport */
-  border: none;
-
-    display: inline-block;          /* standard button behavior */
+	width: min(90%, 300px);         /* fill up to 90% of container, max 300px */
+	font-size: clamp(20px, 4vw, 38px); /* font scales with viewport */
+	border: none;
+	display: inline-block;          /* standard button behavior */
 	border-radius: 50px;
 	background-color: white; 
 	color: black; 
-
 	pointer-events: auto; /* deny clicks to pass through */
 	border-color: 2px solid black;
 }

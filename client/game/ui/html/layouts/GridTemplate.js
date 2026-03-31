@@ -2,9 +2,9 @@ export class GridTemplate {
 	constructor(args) {
 		this.ui = Dom.overlay([
 			this.grid = Html.div("grid", [
-				this.top = Html.div("grid-top", []).addClass('scrollable'),
-				this.mid = Html.div("grid-mid", []).addClass('scrollable'),
-				this.bot = Html.div("grid-bot", []).addClass('visible'),
+				this.top = Html.div("grid-top", []).addClass("scrollable"),
+				this.mid = Html.div("grid-mid", []).addClass("scrollable"),
+				this.bot = Html.div("grid-bot", []).addClass("visible"),
 			])
 		])
 
