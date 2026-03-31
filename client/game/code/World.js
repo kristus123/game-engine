@@ -22,7 +22,7 @@ export class World {
 
 		Lobby.onNewLobby(lobby => {
 			if (lobby.hostClientId != ClientId) {
-				Dom.add([
+				Dom.overlay([
 					Html.button(lobby.lobbyId, () => {
 						x = Lobby.join(lobby.lobbyId)
 						x.clients[ClientId].x = 0
