@@ -132,6 +132,7 @@
     },
     "globals": {
         "ActionListener": "readonly",
+        "AddCardPage": "readonly",
         "After": "readonly",
         "Always": "readonly",
         "AnalShit": "readonly",

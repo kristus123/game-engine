@@ -5,7 +5,7 @@ export class Db {
 
 	save(e, callback=(x) => {}) {
 		if (e._dbKey) {
-    		throw new Error("Cannot save an object which has an existing ._dbKey") // todo fix
+			throw new Error("Cannot save an object which has an existing ._dbKey") // todo fix
 		}
 		else {
 			// slight hack, but ok

@@ -8,22 +8,22 @@ export class LowDb {
 		const request = indexedDB.open(this.dbName)
 
 		request.onupgradeneeded = (e) => {
-    		this.db = request.result
-    		if (!this.db.objectStoreNames.contains(this.dbName)) {
-        		this.db.createObjectStore(this.dbName)
-    		}
-    		if (this.onUpgradeNeeded) {
+			this.db = request.result
+			if (!this.db.objectStoreNames.contains(this.dbName)) {
+    			this.db.createObjectStore(this.dbName)
+			}
+			if (this.onUpgradeNeeded) {
 				this.onUpgradeNeeded(this.db, e)
 			}
 		}
 
 		request.onsuccess = () => {
-    		this.db = request.result
-    		this.ready = true
+			this.db = request.result
+			this.ready = true
 		}
 
 		request.onerror = (e) => {
-    		throw new Error("IndexedDB failed to open: " + e.target.error)
+			throw new Error("IndexedDB failed to open: " + e.target.error)
 		}
 	}
 
@@ -41,26 +41,26 @@ export class LowDb {
 	transaction(mode, callback) {
 
 		this._waitReady(db => {
-    		const tx = db.transaction(this.dbName, mode)
+			const tx = db.transaction(this.dbName, mode)
 
-    		tx.onerror = e => {
-        		throw new Error(`Transaction failed: ${e.target.error}`)
-    		}
-    		tx.onabort = e => {
-        		throw new Error(`Transaction aborted: ${e.target.error}`)
-    		}
+			tx.onerror = e => {
+    			throw new Error(`Transaction failed: ${e.target.error}`)
+			}
+			tx.onabort = e => {
+    			throw new Error(`Transaction aborted: ${e.target.error}`)
+			}
 
-    		callback(tx)
+			callback(tx)
 		})
 	}
 
 	get(dbKey, callback) {
 		this.transaction("readonly", tx => {
-    		const r = tx.objectStore(this.dbName).get(dbKey)
-    		r.onsuccess = () => callback(r.result)
-    		r.onerror = e => {
-        		throw new Error(`Get failed for dbKey "${dbKey}": ${e.target.error}`)
-    		}
+			const r = tx.objectStore(this.dbName).get(dbKey)
+			r.onsuccess = () => callback(r.result)
+			r.onerror = e => {
+    			throw new Error(`Get failed for dbKey "${dbKey}": ${e.target.error}`)
+			}
 		})
 	}
 
@@ -69,15 +69,15 @@ export class LowDb {
 		Assert.notNull(o._dbKey)
 
 		this.transaction("readwrite", tx => {
-    		const r = tx.objectStore(this.dbName).put(o, o._dbKey)
+			const r = tx.objectStore(this.dbName).put(o, o._dbKey)
 
-    		r.onsuccess = () => {
-    			callback(o)
-    		}
+			r.onsuccess = () => {
+				callback(o)
+			}
 
-    		r.onerror = e => {
-        		throw new Error(`Put failed": ${e.target.error}`)
-    		}
+			r.onerror = e => {
+    			throw new Error(`Put failed": ${e.target.error}`)
+			}
 		})
 	}
 
@@ -113,42 +113,42 @@ export class LowDb {
 	delete(dbKey) {
 		Assert.notNull(dbKey, "dbKey cannot be null")
 		this.transaction("readwrite", tx => {
-    		const r = tx.objectStore(this.dbName).delete(dbKey)
-    		// r.onsuccess = () => callback && callback(r.result) // maybe add later
+			const r = tx.objectStore(this.dbName).delete(dbKey)
+			// r.onsuccess = () => callback && callback(r.result) // maybe add later
 
-    		r.onerror = e => {
-        		throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)
-    		}
+			r.onerror = e => {
+    			throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)
+			}
 		})
 	}
 
 	all(callback) {
 		this.transaction("readonly", tx => {
-    		const store = tx.objectStore(this.dbName)
-    		const results = []
+			const store = tx.objectStore(this.dbName)
+			const results = []
 
-    		const request = store.openCursor()
+			const request = store.openCursor()
 
-    		request.onsuccess = e => {
-        		const c = e.target.result
-        		if (c) {
-            		results.push(c.value)
-            		c.continue()
-        		}
+			request.onsuccess = e => {
+    			const c = e.target.result
+    			if (c) {
+        			results.push(c.value)
+        			c.continue()
+    			}
 				else {
-            		callback(results)
-        		}
-    		}
+        			callback(results)
+    			}
+			}
 
-    		request.onerror = e => {
-        		throw new Error(`Failed to iterate store "${this.dbName}": ${e.target.error}`)
-    		}
+			request.onerror = e => {
+    			throw new Error(`Failed to iterate store "${this.dbName}": ${e.target.error}`)
+			}
 		})
 	}
 
 	forEach(callback) {
 		this.all(items => {
-    		for (const i of items) {
+			for (const i of items) {
 				callback(i)
 			}
 		})

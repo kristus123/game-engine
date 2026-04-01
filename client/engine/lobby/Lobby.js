@@ -64,11 +64,11 @@ export class Lobby {
 
 				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
 					lobbyId: lobby.lobbyId,
-        			hostClientId: lobby.hostClientId,
-        			clients: Object.fromEntries(
-            			Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
-        			)
-    			})
+    				hostClientId: lobby.hostClientId,
+    				clients: Object.fromEntries(
+        				Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
+    				)
+				})
 			}
 		})
 	}

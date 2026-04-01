@@ -7,7 +7,7 @@ p.mid.addClass("center")
 let card = null
 
 function practiceRandomCard() {
-	const pp = Html.p('loading')
+	const pp = Html.p("loading")
 	p.mid.add(pp)
 	db.random(c => {
 		pp.remove()
@@ -23,15 +23,15 @@ p.top.add(Flex.h([
 ]))
 
 p.mid.add([
-	H.button('play front', () => {
+	H.button("play front", () => {
 		Sound.playBlob(card.front)
-	}).fontSize('50px'),
+	}).fontSize("50px"),
 ])
 
 p.mid.add([
-	H.button('play back (answer)', () => {
+	H.button("play back (answer)", () => {
 		Sound.playBlob(card.back)
-	}).css('margin-top:90px').fontSize('50px'),
+	}).css("margin-top:90px").fontSize("50px"),
 ])
 
 p.bot.addClass("center")
@@ -42,12 +42,12 @@ p.bot.add(Flex.h([
 		card.score -= 1
 		db.update(card)
 		practiceRandomCard()
-	}).fontSize('50px'),
+	}).fontSize("50px"),
 	H.button("easy", () => {
 		card.score += 1
 		db.update(card)
 		practiceRandomCard()
-	}).fontSize('50px'),
+	}).fontSize("50px"),
 ]).offset_y(-40))
 
 practiceRandomCard()
