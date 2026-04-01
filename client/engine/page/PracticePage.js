@@ -22,17 +22,15 @@ p.top.add(Flex.h([
 	}),
 ]))
 
-p.mid.add([
+p.mid.add(Flex.v([
 	H.button("play front", () => {
 		Sound.playBlob(card.front)
 	}).fontSize("50px"),
-])
-
-p.mid.add([
 	H.button("play back (answer)", () => {
 		Sound.playBlob(card.back)
 	}).css("margin-top:90px").fontSize("50px"),
-])
+]))
+
 
 p.bot.addClass("center")
 p.bot.addClass("blue")
