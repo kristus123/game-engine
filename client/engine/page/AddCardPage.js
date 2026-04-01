@@ -57,7 +57,6 @@ p.mid.add(Flex.v([
 	),
 ]))
 
-
 p.bot.add(H.button('save', () => {
 	db.save({
 		text: "hello",
