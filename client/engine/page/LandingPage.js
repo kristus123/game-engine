@@ -1,44 +1,6 @@
 const db = Db("jap")
 const p = PhoneLayout()
 
-function addCard(c) {
-	const div = H.div().addClass("blue").css("min-height:300px;")
-
-	div.css("margin:20px;")
-	const pText = H.p(c.text)
-
-	div.add(pText)
-
-	div.add(H.button("play", () => {
-		Sound.playBlob(c.audio)
-	}))
-
-	div.add(H.button("delete", () => {
-		db.delete(c)
-		div.remove()
-	}))
-
-	div.add(H.button("edit", () => {
-		const m = H.modal([
-			Flex.v([
-				H.input("change title", t => {
-					c.text = t
-					db.update(c)
-					pText.text(t)
-					m.remove()
-				}),
-			]),
-		])
-
-	}))
-
-	p.mid.add(div)
-}
-
-db.forEach(c => {
-	addCard(c)
-})
-
 p.top.addClass("red").add(Flex.h([
 	H.button("practice", () => {
 		Page.go(PracticePage)
@@ -64,12 +26,12 @@ p.bot.addClass("center blue").add(ToggleButton(
 					audio: blob,
 					score: 0,
 				}, c => {
-					addCard(c)
+					// addCard(c)
 				})
 			})
 
 		},
 	},
-).css("transform: translateY(-30px); position: relative;"))
+).offset_y(-30))
 
 export const LandingPage = Page.init(p)

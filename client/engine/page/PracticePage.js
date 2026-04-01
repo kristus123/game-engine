@@ -1,42 +1,54 @@
-export class PracticePage {
-	static {
-		const db = Db("jap")
-		this.db = db
+const db = Db("jap")
+const p = PhoneLayout()
+p.top.addClass("red")
+p.mid.addClass("white")
+p.mid.addClass("center")
 
-		const p = PhoneLayout()
-		this.g = p
+let card = null
 
-		const top = p.top
-		const mid = p.mid
-		const bot = p.bot
-
-		top.addClass("red")
-
-		top.add(Flex.h([
-			H.button("landingpage", () => {
-				Page.go(LandingPage)
-			}).css("font-size:10px;"),
-		]))
-
-		mid.addClass("white")
-		mid.addClass("center")
-
-		bot.addClass("center")
-		bot.addClass("blue")
-
-		bot.add(Flex.h([
-			H.button("hard"),
-			H.button("easy"),
-		]).css("transform: translate(0px, -30px)"))
-
-		Page.init(this) //Must be at bottom
-	}
-
-	static show() {
-		this.g.show()
-	}
-
-	static hide() {
-		this.g.hide()
-	}
+function practiceRandomCard() {
+	const pp = Html.p('loading')
+	p.mid.add(pp)
+	db.random(c => {
+		pp.remove()
+		card = c
+		Sound.playBlob(card.front)
+	})
 }
+
+p.top.add(Flex.h([
+	H.button("Add more cards", () => {
+		Page.go(AddCardPage)
+	}),
+]))
+
+p.mid.add([
+	H.button('play front', () => {
+		Sound.playBlob(card.front)
+	}).fontSize('50px'),
+])
+
+p.mid.add([
+	H.button('play back (answer)', () => {
+		Sound.playBlob(card.back)
+	}).css('margin-top:90px').fontSize('50px'),
+])
+
+p.bot.addClass("center")
+p.bot.addClass("blue")
+
+p.bot.add(Flex.h([
+	H.button("hard", () => {
+		card.score -= 1
+		db.update(card)
+		practiceRandomCard()
+	}).fontSize('50px'),
+	H.button("easy", () => {
+		card.score += 1
+		db.update(card)
+		practiceRandomCard()
+	}).fontSize('50px'),
+]).offset_y(-40))
+
+practiceRandomCard()
+export const PracticePage = p

@@ -13,8 +13,8 @@ export class Page {
 	}
 
 	static go(page) {
-		this.pages.forEach(page => {
-			page.hide()
+		this.pages.forEach(p => {
+			p.hide()
 		})
 
 		page.show()

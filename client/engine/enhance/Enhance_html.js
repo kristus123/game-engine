@@ -7,6 +7,17 @@ export function Enhance_html() {
 		Html.remove(this)
 	})
 
+	Enhance(HTMLElement, "offset_y", function (amount) {
+		this.css(`transform: translateY(${amount}px); position: relative;`)
+		return this
+	})
+
+	Enhance(HTMLElement, "offset_x", function (amount) {
+		this.css(`transform: translateX(${amount}px); position: relative;`)
+		return this
+	})
+
+
 	Enhance(HTMLElement, "clear", function () {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
@@ -19,6 +30,11 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, "hide", function () {
 		Html.hide(this)
+	})
+
+	Enhance(HTMLElement, "fontSize", function (size) {
+		this.css(`font-size: ${size};`)
+		return this
 	})
 
 	Enhance(HTMLElement, "enable", function () {

@@ -4,8 +4,8 @@ button {
 	border: none;
 	display: inline-block;          /* standard button behavior */
 	border-radius: 50px;
-	background-color: white; 
-	color: black; 
+	background-color: red; 
+	color: white; 
 	pointer-events: auto; /* deny clicks to pass through */
 	border-color: 2px solid black;
 }

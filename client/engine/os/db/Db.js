@@ -28,6 +28,13 @@ export class Db {
 		})
 	}
 
+	random(callback) {
+		this.lowDb.all(cards => {
+			const c = Random.choice(cards)
+			callback(c)
+		})
+	}
+
 	delete(e) {
 		this.lowDb.delete(e._dbKey)
 	}
