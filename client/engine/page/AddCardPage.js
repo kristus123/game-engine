@@ -16,7 +16,7 @@ p.top.addClass("red").add(Flex.h([
 
 p.mid.addClass("white center")
 
-p.mid.add(Flex.v([
+const xxx = Flex.h([
 	frontButton = ToggleButton(
 		{
 			text: "start record front",
@@ -36,6 +36,12 @@ p.mid.add(Flex.v([
 			},
 		},
 	),
+	H.button("play audio", () => {
+		Sound.playBlob(front)
+	})
+])
+
+const yyy = Flex.h([
 	backButton = ToggleButton(
 		{
 			text: "start record back",
@@ -55,6 +61,14 @@ p.mid.add(Flex.v([
 			},
 		},
 	),
+	H.button("play", () => {
+		Sound.playBlob(back)
+	})
+])
+
+p.mid.add(Flex.v([
+	xxx,
+	yyy,
 ]))
 
 p.bot.add(H.button("save", () => {

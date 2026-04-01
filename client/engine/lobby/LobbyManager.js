@@ -39,7 +39,7 @@ export class LobbyManager {
 	static* myLobbies() {
 		for (const [lobbyId, lobby] of Object.entries(this.lobbies)) {
 			if (lobby.hostClientId === ClientId) {
-    			yield lobby
+				yield lobby
 			}
 		}
 	}

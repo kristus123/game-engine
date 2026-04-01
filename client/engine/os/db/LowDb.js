@@ -10,7 +10,7 @@ export class LowDb {
 		request.onupgradeneeded = (e) => {
 			this.db = request.result
 			if (!this.db.objectStoreNames.contains(this.dbName)) {
-    			this.db.createObjectStore(this.dbName)
+				this.db.createObjectStore(this.dbName)
 			}
 			if (this.onUpgradeNeeded) {
 				this.onUpgradeNeeded(this.db, e)
@@ -44,10 +44,10 @@ export class LowDb {
 			const tx = db.transaction(this.dbName, mode)
 
 			tx.onerror = e => {
-    			throw new Error(`Transaction failed: ${e.target.error}`)
+				throw new Error(`Transaction failed: ${e.target.error}`)
 			}
 			tx.onabort = e => {
-    			throw new Error(`Transaction aborted: ${e.target.error}`)
+				throw new Error(`Transaction aborted: ${e.target.error}`)
 			}
 
 			callback(tx)
@@ -59,7 +59,7 @@ export class LowDb {
 			const r = tx.objectStore(this.dbName).get(dbKey)
 			r.onsuccess = () => callback(r.result)
 			r.onerror = e => {
-    			throw new Error(`Get failed for dbKey "${dbKey}": ${e.target.error}`)
+				throw new Error(`Get failed for dbKey "${dbKey}": ${e.target.error}`)
 			}
 		})
 	}
@@ -76,7 +76,7 @@ export class LowDb {
 			}
 
 			r.onerror = e => {
-    			throw new Error(`Put failed": ${e.target.error}`)
+				throw new Error(`Put failed": ${e.target.error}`)
 			}
 		})
 	}
@@ -117,7 +117,7 @@ export class LowDb {
 			// r.onsuccess = () => callback && callback(r.result) // maybe add later
 
 			r.onerror = e => {
-    			throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)
+				throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)
 			}
 		})
 	}
@@ -130,18 +130,18 @@ export class LowDb {
 			const request = store.openCursor()
 
 			request.onsuccess = e => {
-    			const c = e.target.result
-    			if (c) {
-        			results.push(c.value)
-        			c.continue()
-    			}
+				const c = e.target.result
+				if (c) {
+    				results.push(c.value)
+    				c.continue()
+				}
 				else {
-        			callback(results)
-    			}
+    				callback(results)
+				}
 			}
 
 			request.onerror = e => {
-    			throw new Error(`Failed to iterate store "${this.dbName}": ${e.target.error}`)
+				throw new Error(`Failed to iterate store "${this.dbName}": ${e.target.error}`)
 			}
 		})
 	}
