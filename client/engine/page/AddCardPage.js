@@ -71,15 +71,6 @@ p.mid.add(Flex.v([
 	yyy,
 ]))
 
-const f = F.test
-f.id("hei").onClick(() => {
-	console.log("hei")
-})
-
-p.mid.add(f)
-p.mid.add(F.haha)
-
-
 p.bot.add(H.button("save", () => {
 	db.save({
 		text: "hello",
