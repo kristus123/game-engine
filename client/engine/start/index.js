@@ -34,12 +34,12 @@ async function loadAsepriteAssets(path) {
 }
 
 async function loadHtmlContent(o) {
-	const template = document.createElement("template")
-	template.innerHTML = o.content
 
 	Getter(F, o.name, () => {
-		console.log('s')
-		return template.content.cloneNode(true)
+		const div = document.createElement("div")
+		div.innerHTML = o.content
+
+		return div
 	})
 }
 
