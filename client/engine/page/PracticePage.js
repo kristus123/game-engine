@@ -50,4 +50,4 @@ p.bot.add(Flex.h([
 
 practiceRandomCard()
 
-export const PracticePage = p
+export const PracticePage = Page.init(p)

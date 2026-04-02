@@ -34,12 +34,24 @@ async function loadAsepriteAssets(path) {
 }
 
 async function loadHtmlContent(o) {
-
 	Getter(F, o.name, () => {
-		const div = document.createElement("div")
-		div.innerHTML = o.content
+		const template = document.createElement("template")
+		template.innerHTML = o.content.trim()
 
-		return div
+		if (template.content.childElementCount === 0) {
+  	throw new Error(`loadHtmlContent: "${o.name}" has no top-level elements!`)
+		}
+
+		// Single element → return it directly
+		if (template.content.childElementCount === 1) {
+  	return template.content.firstElementChild // HTMLElement
+		}
+
+		// Multiple elements → wrap in a clean container
+		const container = document.createElement("div")
+		container.style.all = "unset" // optional reset to avoid layout issues
+		container.append(...template.content.children) // now HTMLElement
+		return container
 	})
 }
 

@@ -1,12 +1,19 @@
 <div class="grid" style="
+	width:100%;
 	--areas:
 		'top'
 		'mid'
 		'bot';
-	--rows: 1fr;
-	--cols: 80px 1fr 40px;
+	--rows: 80px 1fr 40px;
+	--cols: 1fr;
 ">
-	<div class="grid-top scrollable">Top content</div>
-	<div class="grid-mid scrollable">Middle content</div>
-	<div class="grid-bot visible">Bottom content</div>
+	<div class="grid-top center red">
+		<button class="red">save</button>
+	</div>
+	<div class="grid-mid scrollable white center">
+		<button class="red">save</button>
+	</div>
+	<div class="grid-bot blue center">
+		<button class="red">save</button>
+	</div>
 </div>

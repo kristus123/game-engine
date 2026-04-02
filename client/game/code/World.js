@@ -1,6 +1,7 @@
 export class World {
 	constructor() {
-		Page.go(AddCardPage)
+		// Page.go(AddCardPage)
+		Dom.overlay(F.addCard)
 
 		// let x = null
 		// Dom.overlay([
