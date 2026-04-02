@@ -17,7 +17,6 @@ export function Enhance_html() {
 		return this
 	})
 
-
 	Enhance(HTMLElement, "clear", function () {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
@@ -30,6 +29,11 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, "hide", function () {
 		Html.hide(this)
+	})
+
+	Enhance(HTMLElement, "id", function(id) {
+		const e = this.querySelector(`#${id}`)
+		return Assert.notNull(e, "Could not find id=" + id)
 	})
 
 	Enhance(HTMLElement, "fontSize", function (size) {

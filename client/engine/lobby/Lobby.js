@@ -66,7 +66,7 @@ export class Lobby {
 					lobbyId: lobby.lobbyId,
 					hostClientId: lobby.hostClientId,
 					clients: Object.fromEntries(
-    					Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
+						Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
 					)
 				})
 			}

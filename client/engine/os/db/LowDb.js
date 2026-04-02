@@ -132,11 +132,11 @@ export class LowDb {
 			request.onsuccess = e => {
 				const c = e.target.result
 				if (c) {
-    				results.push(c.value)
-    				c.continue()
+					results.push(c.value)
+					c.continue()
 				}
 				else {
-    				callback(results)
+					callback(results)
 				}
 			}
 

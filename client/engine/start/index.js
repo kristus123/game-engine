@@ -3,6 +3,12 @@ import { initD1 } from "/client/engine/start/draw_layers/D1.js"
 import { initD2 } from "/client/engine/start/draw_layers/D2.js"
 import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 
+async function loadWorld() {
+	const module = await import("/client/game/code/World.js")
+	const World = module.World // access the exported member
+	return World
+}
+
 navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
 if ("serviceWorker" in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
@@ -27,6 +33,16 @@ async function loadAsepriteAssets(path) {
 		scale)
 }
 
+async function loadHtmlContent(o) {
+
+	Getter(F, o.name, () => {
+		const div = document.createElement("div")
+		div.innerHTML = o.content
+
+		return div
+	})
+}
+
 async function loadAllAudio() {
 	return Promise.all(AUDIO_FILES.map(async path => {
 		const audio = await LoadAudio(path)
@@ -36,10 +52,12 @@ async function loadAllAudio() {
 }
 
 Promise.all([
+	loadWorld(),
 	Promise.all(ASEPRITE_FILES.map(loadAsepriteAssets)),
+	Promise.all(HTML_CONTENTS.map(loadHtmlContent)),
 	loadAllAudio(),
 ])
-	.then(() => {
+	.then((x) => {
 		const mainPalette = Palette.main()
 		const backgroundPalette = Palette.offscreen()
 		backgroundPalette.fill("#10204f")
@@ -57,7 +75,8 @@ Promise.all([
 		initD2(Camera.palettes.d2.draw)
 		initD3(Camera.palettes.d3.draw)
 
-		Level.change(new World())
+
+		Level.change(new x[0]())
 
 		Loop.everyFrame(() => {
 			Camera.palettes.forEach((d, palette) => {
