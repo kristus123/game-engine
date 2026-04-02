@@ -1,5 +1,6 @@
 import Files from "#root/dev/build_tools/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
+import { Markdown } from "#root/dev/build_tools/Markdown.js"
 
 // nabir todo fix absolute paths
 import "./transpiler.js"
@@ -20,16 +21,35 @@ const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 	.map(f => f.replace(/\\/g, "/"))
 Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
 
+
+const names = Files.at(FileConfig.client)
+	.filter(f => f.endsWith(".html") || f.endsWith(".md"))
+	.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
+
+const seen = new Set()
+for (const name of names) {
+	if (seen.has(name)) {
+		throw new Error(`Duplicate file name found: ${name}`)
+	}
+	seen.add(name)
+}
+
 const htmlContents = Files.at(FileConfig.client)
-	.filter(f => f.endsWith(".html"))
 	.filter(f => !f.includes("index.html"))
+	.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 	.map(f => {
-		const content = Files.read(f)
+		let content = Files.read(f)
+
+		if (f.endsWith(".md")) {
+			content = Markdown.toHtml(content)
+		}
+
+		content = content
 			.replace("\n", "")
 			.replace(/\s+/g, " ")
 			.trim()
 
-		const name = f.split("/").pop().replace(/\.html$/, "")
+		const name = f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, "")
 		return JSON.stringify({ name: name, content: `${content}` })
 	})
 Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)

@@ -32,7 +32,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "id", function(id) {
-		const e = this.querySelector(`#${id}`);
+		const e = this.querySelector(`#${id}`)
 		return Assert.notNull(e, "Could not find id=" + id)
 	})
 
