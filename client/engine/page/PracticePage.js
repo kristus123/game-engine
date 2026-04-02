@@ -49,4 +49,5 @@ p.bot.add(Flex.h([
 ]).offset_y(-40))
 
 practiceRandomCard()
+
 export const PracticePage = p

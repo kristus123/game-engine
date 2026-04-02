@@ -20,6 +20,22 @@ const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 	.map(f => f.replace(/\\/g, "/"))
 Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
 
+const htmlContents = Files.at(FileConfig.client)
+	.filter(f => f.endsWith(".html"))
+	.filter(f => !f.includes("index.html"))
+	.map(f => {
+		const content = Files.read(f)
+			.replace("\n", "")
+			.replace(/\s+/g, " ")
+			.trim()
+
+		const name = f.split("/").pop().replace(/\.html$/, "")
+		return JSON.stringify({ name: name, content: `${content}` })
+	})
+Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
+console.log(htmlContents)
+
+
 const audioFiles = Files.at(FileConfig.gameAudio)
 	.filter(f => f.toLowerCase().endsWith(".mp3"))
 	.map(f => f.replace("/aseprite", ""))

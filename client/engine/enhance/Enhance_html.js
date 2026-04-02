@@ -32,6 +32,10 @@ export function Enhance_html() {
 		Html.hide(this)
 	})
 
+	Enhance(HTMLElement, "id", function (id) {
+		return Assert.notNull(document.getElementById(id))
+	})
+
 	Enhance(HTMLElement, "fontSize", function (size) {
 		this.css(`font-size: ${size};`)
 		return this

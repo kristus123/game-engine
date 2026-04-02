@@ -181,6 +181,7 @@
         "Every": "readonly",
         "EveryFrame": "readonly",
         "ExponentialNumber": "readonly",
+        "F": "readonly",
         "Flex": "readonly",
         "FollowPlayerNoise": "readonly",
         "G": "readonly",

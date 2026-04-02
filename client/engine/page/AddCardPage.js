@@ -71,6 +71,11 @@ p.mid.add(Flex.v([
 	yyy,
 ]))
 
+const f = F.test
+f.id('')
+p.mid.add()
+
+
 p.bot.add(H.button("save", () => {
 	db.save({
 		text: "hello",
@@ -84,5 +89,6 @@ p.bot.add(H.button("save", () => {
 }))
 
 p.bot.addClass("center blue")
+
 
 export const AddCardPage = Page.init(p)
