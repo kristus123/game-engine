@@ -1,0 +1,20 @@
+phone-layout {
+  display: grid;
+  grid-template-areas:
+    "top"
+    "mid"
+    "bot";
+  grid-template-rows: 80px 1fr 40px;
+  grid-template-columns: 1fr;
+
+	width: 100vw;
+	height: 100vh;
+}
+
+top, mid, bot {
+  display: block;
+}
+
+phone-layout top { grid-area: top; background: red; }
+phone-layout mid { grid-area: mid; background: white; }
+phone-layout bot { grid-area: bot; background: blue; }
