@@ -3,7 +3,7 @@
 	height: 100%;
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: center; /* or space-around / space-evenly */
+	justify-content: space-around; /* center / space-around / space-evenly */
 	align-items: center;
 	box-sizing: border-box;
 }
@@ -18,7 +18,7 @@
 	box-sizing: border-box;
 }
 
-.flex-item {
+.flex-item .fi {
 	flex: 1;
 	display: flex;
 	justify-content: center; /* horizontal center inside the item */
