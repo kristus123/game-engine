@@ -1,4 +1,27 @@
 export function Enhance_html() {
+
+
+	Enhance(HTMLElement, "listen", function (type, listener, options) {
+		this._listeners ??= []
+
+		this._listeners.push({ type, listener, options });
+		this.addEventListener(type, listener, options);
+
+		return this;
+	});
+
+	Enhance(HTMLElement, "removeListeners", function () {
+		this._listeners.forEach(({ type, listener, options }) => {
+			this.removeEventListener(type, listener, options);
+		});
+
+		if (this._listeners) {
+			this._listeners.clear()
+		}
+
+		return this;
+	});
+
 	Enhance(HTMLElement, "text", function (text) {
 		this.textContent = text
 	})
@@ -50,7 +73,11 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "onClick", function (run) {
-		Html.onClick(this, run)
+		this.listen('click', () => {
+			run()
+		})
+
+		return this
 	})
 
 	Enhance(HTMLElement, "set", function (elements) {

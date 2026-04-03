@@ -109,33 +109,17 @@ export class Html {
 		return this.image(x)
 	}
 
-	static onClick(e, run) {
-		e.addEventListener("click", () => {
-			run()
-		})
-
-		return e
-	}
-
 	static button(text, onClick= b => {}) {
 		const button = HtmlElement("button", "button")
 		button.textContent = text
 
-		button.addEventListener("click", () => {
+		button.listen("click", () => {
 			onClick(button)
 
 			  if (navigator.vibrate) {
 				navigator.vibrate(50)
 			  }
 
-		})
-
-		button.addEventListener("mouseover", () => {
-			Mouse.hoveringHtmlElement = true
-		})
-
-		button.addEventListener("mouseout", () => {
-			Mouse.hoveringHtmlElement = false
 		})
 
 		return button

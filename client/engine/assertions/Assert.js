@@ -20,6 +20,7 @@ export class Assert {
 		return v
 	}
 
+
 	static integer(v) {
 		if (not.integer(v)) {
 			throw new Error("Not an integer: " + v)
@@ -34,6 +35,17 @@ export class Assert {
   		}
 
 		return list
+	}
+
+	static notPresent(v) {
+		console.log(v)
+		if (v === null) {
+		}
+		else if (v === undefined) {
+		}
+		else {
+			throw new Error("")
+		}
 	}
 
 	static notNull(x, errorMessage="add own message!") {
