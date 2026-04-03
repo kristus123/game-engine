@@ -1,7 +1,11 @@
 export class World {
 	constructor() {
 		// Page.go(AddCardPage)
-		Dom.overlay(F.addCard)
+		const x = F.addCard
+		x.id("b").onClick(() => {
+			console.log("hei")
+		})
+		Dom.overlay(x)
 
 		// let x = null
 		// Dom.overlay([
@@ -38,5 +42,6 @@ export class World {
 	}
 
 	update() {
+		console.log(Mouse.hoveringHtmlElement)
 	}
 }
