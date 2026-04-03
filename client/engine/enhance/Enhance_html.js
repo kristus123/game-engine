@@ -74,7 +74,7 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, "onClick", function (run) {
 		this.listen("click", () => {
-			run()
+			run(this)
 		})
 
 		return this
