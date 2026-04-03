@@ -1,9 +1,4 @@
 [center] {
 	display: grid;
-	place-items: center start; /* center horizontally, top vertically */
+	place-items: center;
 }
-
-[center] > * {
-	justify-self: center;
-}
-
