@@ -62,11 +62,13 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement, "ids", function() {
+		return Array.from(this.querySelectorAll('[id]')).map(e => e.id)
+	})
 
-	// Enhance(HTMLElement, "id", function(id) {
-	// 	const e = this.querySelector(`#${id}`)
-	// 	return Assert.notNull(e, "Could not find id=" + id)
-	// })
+	Enhance(HTMLElement, "getId", function(id) {
+		return Assert.value(this.getElementById(id))
+	})
 
 	Enhance(HTMLElement, "fontSize", function (size) {
 		this.css(`font-size: ${size};`)
