@@ -47,17 +47,26 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "show", function () {
-		Html.show(this)
+		this.removeAttribute('hide')
+		return this
 	})
 
 	Enhance(HTMLElement, "hide", function () {
-		Html.hide(this)
+		this.addAttribute('hide')
+		return this
 	})
 
-	Enhance(HTMLElement, "id", function(id) {
-		const e = this.querySelector(`#${id}`)
-		return Assert.notNull(e, "Could not find id=" + id)
+	// removeAttribute already exists
+	Enhance(HTMLElement, "addAttribute", function (name) {
+		this.setAttribute(name, "")
+		return this
 	})
+
+
+	// Enhance(HTMLElement, "id", function(id) {
+	// 	const e = this.querySelector(`#${id}`)
+	// 	return Assert.notNull(e, "Could not find id=" + id)
+	// })
 
 	Enhance(HTMLElement, "fontSize", function (size) {
 		this.css(`font-size: ${size};`)

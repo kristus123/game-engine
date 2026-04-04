@@ -1,89 +1,29 @@
 const db = Db("jap")
 
-const p = PhoneLayout()
+const a = F.addCard
 
-let front = null
-let back = null
+let frontSound = null
 
-let frontButton = null
-let backButton = null
+a.startRecordingFront.onClick(() => {
+	a.startRecordingFront.hide()
 
-p.top.addClass("red").add(Flex.h([
-	H.button("practice", () => {
-		Page.go(PracticePage)
-	}).css("font-size:50px;"),
-]))
+	a.stopRecordingFront.show()
 
-p.mid.addClass("white center")
+	Microphone.start()
+})
 
-const xxx = Flex.h([
-	frontButton = ToggleButton(
-		{
-			text: "start record front",
-			onClick: (b, toggle) => {
-				Microphone.start()
-				toggle()
-			},
-		},
-		{
-			text: "stop record front",
-			onClick: (b, toggle) => {
-				Microphone.stop(blob => {
-					front = blob
-					toggle()
-					b.text("front recorded (click to record again)")
-				})
-			},
-		},
-	),
-	H.button("play audio", () => {
-		Sound.playBlob(front)
+a.stopRecordingFront.onClick(() => {
+	a.stopRecordingFront.hide()
+	a.startRecordingFront.show()
+
+	Microphone.stop(blob => {
+		Sound.playBlob(blob)
+		frontSound = blob
 	})
-])
+})
 
-const yyy = Flex.h([
-	backButton = ToggleButton(
-		{
-			text: "start record back",
-			onClick: (b, toggle) => {
-				Microphone.start()
-				toggle()
-			},
-		},
-		{
-			text: "stop record back",
-			onClick: (b, toggle) => {
-				Microphone.stop(blob => {
-					back = blob
-					toggle()
-					b.text("back recorded (click to record again)")
-				})
-			},
-		},
-	),
-	H.button("play", () => {
-		Sound.playBlob(back)
-	})
-])
+a.playFront.onClick(() => {
+	Sound.playBlob(frontSound)
+})
 
-p.mid.add(Flex.v([
-	xxx,
-	yyy,
-]))
-
-p.bot.add(H.button("save", () => {
-	db.save({
-		text: "hello",
-		front: front,
-		back: back,
-		score: 0,
-	}, c => {
-		frontButton.text("start record front")
-		backButton.text("start record back")
-	})
-}))
-
-p.bot.addClass("center blue")
-
-
-export const AddCardPage = Page.init(p)
+export const AddCardPage = Page.init(a)

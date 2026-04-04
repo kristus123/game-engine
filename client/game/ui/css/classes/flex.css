@@ -1,4 +1,4 @@
-.flex-row {
+flex-row flex-h .flex-row {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -8,7 +8,7 @@
 	box-sizing: border-box;
 }
 
-.flex-column {
+flex-column flex-v .flex-column {
 	display: flex;
 	flex-flow: column nowrap;
 	padding: 20px;
@@ -18,9 +18,21 @@
 	box-sizing: border-box;
 }
 
-.flex-item .fi {
+f-e f-i .flex-item .fi {
 	flex: 1;
 	display: flex;
 	justify-content: center; /* horizontal center inside the item */
 	align-items: center;     /* vertical center inside the item */
+}
+
+flex-row,
+flex-column,
+flex-h,
+flex-v,
+.flex-row > *,
+.flex-column > * {
+    flex: 1;
+    display: flex;              /* optional: make child a flex container too */
+    justify-content: center;    /* horizontal centering inside the child */
+    align-items: center;        /* vertical centering inside the child */
 }

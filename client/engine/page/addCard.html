@@ -1,28 +1,23 @@
 <phone-layout>
 
-	<p-top center>
+	<p-top center id="top">
 		<button>hei</button>
 	</p-top>
 
-	<p-mid center scrollable>
-		<button id="b">hei</button>
+	<p-mid center scrollable id="mid">
+		<button id="startRecordingFront">Start recording</button>
+		<button id="stopRecordingFront" hide>Stop recording</button>
+
+		<button id="playFront">playFront</button>
+		<hr>
+		<button id="recordBack">recordBack</button>
+		<button id="playBack">playBack</button>
 	</p-mid>
 
 	<p-bot center>
-		<div class='flex-row'>
-			<div class="fi">
-				<button>hello?</button>
-			</div>
-
-			<div class="fi">
-				<button>hello?</button>
-			</div>
-
-			<div class="fi">
-				<button>hello?</button>
-			</div>
-		
-		</div>
+		<flex-h>
+			<button id="save" style="width:200px;">save</button>
+		</flex-h>
 	</p-bot>
 
 </phone-layout>

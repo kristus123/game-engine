@@ -7,6 +7,13 @@ export class Assert {
 		return m
 	}
 
+	static notList(e) {
+		if (Array.isArray(e)) {
+			throw new Error("element is a list")
+		} else {
+		}
+	}
+
 	static array(x) {
 		if (not.array(x)) {
 			throw new Error("NOT AN ARRAY")
@@ -38,10 +45,11 @@ export class Assert {
 	}
 
 	static notPresent(v) {
-		console.log(v)
 		if (v === null) {
+			return v
 		}
 		else if (v === undefined) {
+			return v
 		}
 		else {
 			throw new Error("")
@@ -52,20 +60,19 @@ export class Assert {
 		if (x === null) {
 			throw new Error(errorMessage + " NULL IS CONSIDERED BAD. BITCH")
 		}
-
-		if (x === undefined) {
+		else if (x === undefined) {
 			throw new Error(errorMessage + " UNDEFINED IS CONSIDERED BAD. BITCH")
+		}
+		else if (typeof x === "number" && isNaN(x)) {
+			throw new Error(errorMessage + " NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH")
+		}
+		else {
+			return x
 		}
 
 		// if (typeof x === 'string' && x.trim() === '') {
 		// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. BITCH")
 		// }
-
-		if (typeof x === "number" && isNaN(x)) {
-			throw new Error(errorMessage + " NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH")
-		}
-
-		return x
 	}
 
 	static noNullInArray(array) {

@@ -10,12 +10,14 @@ export class Dom {
 		document.body.parentNode.replaceChild(newBody, document.body)
 	}
 
-	static overlay(elements) {
-		const div = Html.div("overlay", Always.list(elements))
+	static overlay(e) {
+		Assert.notList(e)
 
-		document.body.appendChild(div)
+		e.addClass("overlay")
 
-		return div
+		document.body.appendChild(e)
+
+		return e
 	}
 
 	static add(elements) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts

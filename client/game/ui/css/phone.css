@@ -1,7 +1,14 @@
 phone-layout {
 	display: grid;
-	grid-template:
-		"top" 80px "mid" 1fr "bot" 40px / 1fr;
+
+	grid-template-areas: 
+		"top"
+		"mid"
+		"bot";
+
+	grid-template-rows: 60px 1fr 60px;
+	grid-template-columns: 1fr;
+
 	width: 100vw;
 	height: 100vh;
 }
@@ -14,6 +21,12 @@ phone-layout p-top {
 phone-layout p-mid { 
 	grid-area: mid; 
 	background: white; 
+	
+	/* Prevent content from expanding the cell */
+	min-height: 0;  
+
+	/* Optional: scroll if content is bigger than the cell */
+	overflow: auto;
 }
 
 phone-layout p-bot { 

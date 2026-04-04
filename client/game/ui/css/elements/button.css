@@ -6,7 +6,7 @@ button {
 	border-radius: 50px;
 	background-color: red; 
 	color: white; 
-	pointer-events: auto; /* deny clicks to pass through */
+	pointer-events: auto;
 	border-color: 2px solid black;
 }
 

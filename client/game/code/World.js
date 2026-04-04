@@ -1,12 +1,6 @@
 export class World {
 	constructor() {
-		// Page.go(AddCardPage)
-		const x = F.addCard
-		x.id("b").onClick(b => {
-			console.log("hei")
-			b.text('swag')
-		})
-		Dom.overlay(x)
+		Page.go(AddCardPage)
 
 		// let x = null
 		// Dom.overlay([
