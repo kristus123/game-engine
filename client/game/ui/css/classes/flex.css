@@ -1,4 +1,4 @@
-flex-row flex-h .flex-row {
+flex-row, flex-h, .flex-row {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -8,7 +8,7 @@ flex-row flex-h .flex-row {
 	box-sizing: border-box;
 }
 
-flex-column flex-v .flex-column {
+flex-column, flex-v, .flex-column {
 	display: flex;
 	flex-flow: column nowrap;
 	padding: 20px;
@@ -18,7 +18,7 @@ flex-column flex-v .flex-column {
 	box-sizing: border-box;
 }
 
-f-e f-i .flex-item .fi {
+f-e, f-i, .flex-item, .fi {
 	flex: 1;
 	display: flex;
 	justify-content: center; /* horizontal center inside the item */
