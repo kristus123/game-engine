@@ -81,13 +81,16 @@ export class Lobby {
 		OtherClients.onJoin(newClientId => {
 			for (const lobbyId of LobbyManager.myLobbies()) {
 				const lobby = LobbyManager.lobbies[lobbyId]
-				
+				const clients = {}
+
+				lobby.clients.forEach((clientId, clientData) => {
+					clients[clientId] = { ...clientData }
+				})
+
 				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
 					lobbyId: lobby.lobbyId,
             		hostClientId: lobby.hostClientId,
-            		clients: Object.fromEntries(
-                		Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
-            		)
+            		clients
         		})
 			}
 		})
