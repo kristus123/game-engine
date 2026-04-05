@@ -6,6 +6,8 @@ set -e  # Exit on any error
 
 sudo apt install g++ clang libc++-dev libc++abi-dev cmake ninja-build libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev curl nano -y
 
+sudo apt install libxrandr-dev -y
+
 sudo apt install libharfbuzz-dev libgif-dev libjpeg-dev libcurl4-openssl-dev libtinyxml-dev libpixman-1-dev libcmark-dev -y
 
 sudo apt clean -y
@@ -16,7 +18,7 @@ cd ~/src/ase
 
 
 # make sure the version is correct. you might need to look closely
-aseprite_version="v1.3.15.2"
+aseprite_version="v1.3.17"
 
 curl -LO "https://github.com/aseprite/aseprite/releases/download/${aseprite_version}/Aseprite-${aseprite_version}-Source.zip"
 
