@@ -10,7 +10,21 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement, "removeListener", function (typeToRemove) {
+		this._listeners ??= []
+
+		this._listeners.forEach(({ type, listener, options }) => {
+			if (type == typeToRemove) {
+				this.removeEventListener(type, listener, options)
+			}
+		})
+
+		return this
+	})
+
 	Enhance(HTMLElement, "removeListeners", function () {
+		this._listeners ??= []
+
 		this._listeners.forEach(({ type, listener, options }) => {
 			this.removeEventListener(type, listener, options)
 		})
@@ -67,7 +81,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "getId", function(id) {
-		return Assert.value(this.getElementById(id))
+		return Assert.value(this.querySelector(`#${id}`))
 	})
 
 	Enhance(HTMLElement, "fontSize", function (size) {
@@ -84,6 +98,8 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "onClick", function (run) {
+		this.removeListener("click")
+
 		this.listen("click", () => {
 			run(this)
 		})

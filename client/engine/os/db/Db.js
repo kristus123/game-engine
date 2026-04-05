@@ -28,8 +28,15 @@ export class Db {
 		})
 	}
 
+	all(callback) {
+		this.lowDb.all(cards => {
+			callback(cards)
+		})
+	}
+
 	random(callback) {
 		this.lowDb.all(cards => {
+			console.log(cards.empty)
 			if (cards.empty) {
 				console.log("no entries present when calling .random(), callback not triggered")
 			}

@@ -127,12 +127,14 @@ export class Html {
 
 	static disable(e) {
 		if (!e.disabled) {
+			e.addAttribute("disabled")
 			e.disabled = true
 		}
 	}
 
 	static enable(e) {
 		if (e.disabled) {
+			e.removeAttribute("disabled")
 			e.disabled = false
 		}
 	}

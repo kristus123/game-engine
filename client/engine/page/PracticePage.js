@@ -1,53 +1,38 @@
 const db = Db("jap")
-const p = PhoneLayout()
-p.top.addClass("red")
-p.mid.addClass("white")
-p.mid.addClass("center")
 
-let card = null
+const p = F.practiceCard
 
-function practiceRandomCard() {
-	const pp = Html.p("loading")
-	p.mid.add(pp)
-	db.random(c => {
-		pp.remove()
-		card = c
-		Sound.playBlob(card.front)
+db.all(cards => {
+
+	let c = cards.random()
+	Sound.playBlob(c.front)
+
+	function markThing(score) {
+		c.score += score
+		db.update(c)
+		cards.remove(c)
+		c = cards.random()
+
+		Sound.playBlob(c.front)
+	}
+
+	p.playFront.onClick(() => {
+		Sound.playBlob(c.front)
 	})
-}
 
-p.top.add(Flex.h([
-	H.button("Add more cards", () => {
-		Page.go(AddCardPage)
-	}),
-]))
+	p.playBack.onClick(() => {
+		Sound.playBlob(c.back)
+	})
 
-p.mid.add(Flex.v([
-	H.button("play front", () => {
-		Sound.playBlob(card.front)
-	}).fontSize("50px"),
-	H.button("play back (answer)", () => {
-		Sound.playBlob(card.back)
-	}).css("margin-top:90px").fontSize("50px"),
-]))
+	p.easy.onClick(() => {
+		markThing(+1)
+	})
 
+	p.hard.onClick(() => {
+		markThing(-1)
+	})
 
-p.bot.addClass("center")
-p.bot.addClass("blue")
-
-p.bot.add(Flex.h([
-	H.button("hard", () => {
-		card.score -= 1
-		db.update(card)
-		practiceRandomCard()
-	}).fontSize("50px"),
-	H.button("easy", () => {
-		card.score += 1
-		db.update(card)
-		practiceRandomCard()
-	}).fontSize("50px"),
-]).offset_y(-40))
-
-practiceRandomCard()
+	
+})
 
 export const PracticePage = Page.init(p)

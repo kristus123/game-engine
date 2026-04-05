@@ -2,44 +2,57 @@ const db = Db("jap")
 
 const a = F.addCard
 
-let frontSound = null
-let backSound = null
+a.x.onClick(() => {
+	Page.go(PracticePage)
+})
 
-console.log(a.ids)
+const sound = {}
 
-
-function xxx(direction) {
+function _init(direction) {
 	const start = a.getId("startRecording" + direction)
 	const stop = a.getId("stopRecording" + direction)
 	const play = a.getId("play" + direction)
 
+	start.enable()
+	stop.disable()
+	play.disable()
+
 	start.onClick(() => {
-		start.hide()
-		stop.show()
 		Microphone.start()
+		start.disable()
+		stop.enable()
 	})
 
-	a.getId(stop).onClick(() => {
-		stop.hide()
-		start.show()
+	stop.onClick(() => {
 
 		Microphone.stop(blob => {
 			Sound.playBlob(blob)
-			frontSound = blob
+			sound[direction] = blob
+
+			start.enable()
+			stop.disable()
+
+			play.enable()
+			play.onClick(() => {
+				Sound.playBlob(sound[direction])
+			})
 		})
 	})
-
-	play.onClick(() => {
-		Sound.playBlob(frontSound)
-	})
-	play.show()
-	
 }
 
-xxx("Front")
-xxx("Back")
+_init("Front")
+_init("Back")
 
 a.save.onClick(() => {
+	db.save({
+		front: sound["Front"],
+		back: sound["Back"],
+		score: 0,
+	}, (x) => {
+		console.log(x)
+		_init("Front")
+		_init("Back")
+	})
 })
 
 export const AddCardPage = Page.init(a)

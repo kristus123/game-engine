@@ -54,13 +54,18 @@ export function Enhance_js_Array() {
 	})
 
 
-	Enhance(Array, "empty", function () {
+	Getter(Array, "empty", function () {
 		return this.length == 0
 	})
 
 
-	Enhance(Array, "notEmpty", function () {
+
+	Getter(Array, "notEmpty", function () {
 		return !this.empty()
+	})
+
+	Enhance(Array, "random", function () {
+		return Random.choice(this)
 	})
 
 
