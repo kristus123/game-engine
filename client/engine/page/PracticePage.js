@@ -2,21 +2,42 @@ const db = Db("jap")
 
 const p = F.practiceCard
 
+p.addCards.onClick(() => {
+	Page.go(AddCardPage)
+})
+
 db.all(cards => {
+	let c = null
 
-	let c = cards.random()
-	Sound.playBlob(c.front)
+	function practiceNewCard() {
+		if (cards.empty) {
+			p.mid.clear()
+			p.bot.clear()
+			p.mid.add(H.p('all cards pracitced'))
+			p.mid.add(H.button('practice one more time'))
+		}
+		else {
+			c = cards.random()
+			Sound.playBlob(c.front)
 
-	function markThing(score) {
+			p.message.text(cards.length + " cards left")
+		}
+	}
+
+	practiceNewCard()
+
+	function applyScore(score) {
 		c.score += score
-		db.update(c)
-		cards.remove(c)
-		c = cards.random()
 
-		Sound.playBlob(c.front)
+		db.update(c)
+
+		cards.remove(c)
+
+		practiceNewCard()
 	}
 
 	p.playFront.onClick(() => {
+		console.log(c)
 		Sound.playBlob(c.front)
 	})
 
@@ -25,11 +46,16 @@ db.all(cards => {
 	})
 
 	p.easy.onClick(() => {
-		markThing(+1)
+		applyScore(+1)
 	})
 
 	p.hard.onClick(() => {
-		markThing(-1)
+		applyScore(-1)
+	})
+
+	p.delete.onClick(() => {
+		db.delete(c)
+		practiceNewCard
 	})
 
 	

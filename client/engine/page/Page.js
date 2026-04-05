@@ -3,7 +3,6 @@ export class Page {
 	static pages = []
 
 	static init(page) {
-		console.log(page)
 		this.pages.assertNotPresent(page)
 		this.pages.add(page)
 

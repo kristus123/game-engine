@@ -1,6 +1,5 @@
 button {
-	width: min(90%, 300px);         /* fill up to 90% of container, max 300px */
-	font-size: clamp(20px, 4vw, 38px); /* font scales with viewport */
+	font-size: clamp(20px, 8vw, 40px); /* font scales with viewport */
 	border: none;
 	display: inline-block;          /* standard button behavior */
 	border-radius: 50px;
@@ -23,4 +22,14 @@ button:disabled {
 
 button:disabled:hover {
 	background-color: darkgray; /* Slight change on hover */
+}
+
+button.blue {
+	background-color: blue; 
+	color: white; 
+}
+
+button.green {
+	background-color: green; 
+	color: white; 
 }

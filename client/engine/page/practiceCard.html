@@ -1,17 +1,19 @@
 <phone-layout>
 
 	<p-top center id="top">
-		<button>go back to adding card</button>
+		<flex-h>
+			<button id="addCards" class="green">add more cards</button>
+			<button id="delete" class="blue">delete</button>
+		</flex-h>
 	</p-top>
 
 	<p-mid center scrollable id="mid">
+		<p id="message">message</p>
 		<button id="playFront">play front</button>
 		<button id="playBack">play back</button>
-
-
 	</p-mid>
 
-	<p-bot center>
+	<p-bot id="bot" center>
 		<flex-h>
 			<button id="easy">easy</button>
 			<button id="hard">hard</button>

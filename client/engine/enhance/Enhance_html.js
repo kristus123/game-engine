@@ -40,6 +40,10 @@ export function Enhance_html() {
 		this.textContent = text
 	})
 
+	Enhance(HTMLElement, "replace", function (oldText, newText) {
+		this.textContent.replace(oldText, newText)
+	})
+
 	Enhance(HTMLElement, "remove", function () {
 		Html.remove(this)
 	})
