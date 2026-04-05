@@ -9,6 +9,13 @@ p.addCards.onClick(() => {
 let cards = []
 let c = null
 
+function init() {
+	db.all(dbCards => {
+		cards = dbCards
+		practiceNewCard()
+	})
+}
+
 function practiceNewCard() {
 	if (cards.empty) {
 		p.message.text('all cards pracitced')
@@ -25,12 +32,6 @@ function practiceNewCard() {
 	}
 }
 
-function init() {
-	db.all(dbCards => {
-		cards = dbCards
-		practiceNewCard()
-	})
-}
 
 function applyScore(score) {
 	c.score += score
@@ -62,7 +63,6 @@ p.delete.onClick(() => {
 	db.delete(c)
 	practiceNewCard
 })
-
 
 init()
 
