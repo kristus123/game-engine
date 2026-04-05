@@ -37,6 +37,5 @@ export class World {
 	}
 
 	update() {
-		console.log(Mouse.hoveringHtmlElement)
 	}
 }
