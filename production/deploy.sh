@@ -1,2 +1,3 @@
 #!/bin/bash
-node deploy.js
+
+node production/deploy.js
