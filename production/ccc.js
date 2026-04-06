@@ -31,7 +31,7 @@ export function startCluster(services, onChangesDetected) {
 
 		console.log(`[${serviceName}] Worker ${process.pid} running script: ${serviceScript}`)
 
-		import(`./${serviceScript}`).catch(err => {
+		import(`${serviceScript}`).catch(err => {
 			console.error(`[${serviceName}] Failed to import ${serviceScript}:`, err)
 			process.exit(1)
 		})
