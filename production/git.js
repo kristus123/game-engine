@@ -8,8 +8,8 @@ export async function checkAndPull(triggerReload) {
 		await execAsync("git fetch")
 
 		const { stdout } = await execAsync("git status -uno")
-		const newChanges = !stdout.includes("Your branch is up to date")
 
+		const newChanges = !stdout.includes("Your branch is up to date")
 		if (newChanges) {
 			console.log("[git] New changes detected. Pulling...")
 
