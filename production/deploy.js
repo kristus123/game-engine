@@ -6,7 +6,7 @@ const services = [
 	{ name: "http", script: "server/http/main.js" },
 ]
 
-startCluster(services, (triggerReload) => {
+startCluster(services, triggerReload => {
 	setInterval(() => {
 		checkAndPull(triggerReload)
 	}, 60 * 1000)

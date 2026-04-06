@@ -21,6 +21,7 @@ const killPort = (port) => {
 
 killPort(3000)
 killPort(5000)
+
 Files.deleteFolder(FileConfig.dist)
 
 let currentId = RandomId()
@@ -56,7 +57,6 @@ watcher.on("all", (e, path) => {
 	}
 
 	new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
-
 
 	if (idTimeout) {
 		clearTimeout(idTimeout)

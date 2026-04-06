@@ -16,9 +16,7 @@ export async function checkAndPull(triggerReload) {
 			await execAsync("git pull")
 			console.log("[git] Git pull complete.")
 
-			if (triggerReload) {
-				triggerReload()
-			}
+			triggerReload()
 		}
 	}
 	catch (err) {
