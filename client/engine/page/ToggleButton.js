@@ -9,7 +9,6 @@ export function ToggleButton(t1, t2) {
 			})
 		}
 		else if (t == t2) {
-
 			t2.onClick(b, () => {
 				t = t1
 				b.text(t1.text)

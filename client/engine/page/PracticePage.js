@@ -68,8 +68,8 @@ p.hard.onClick(() => {
 })
 
 p.delete.onClick(() => {
-	cards.remove(c)
 	db.delete(c, () => {
+		cards.remove(c)
 		practiceNewCard()
 	})
 })
