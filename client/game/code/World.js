@@ -1,6 +1,6 @@
 export class World {
 	constructor() {
-		Page.go(PracticePage)
+		// Page.go(PracticePage)
 
 		// let x = null
 		// Dom.overlay([
@@ -34,8 +34,12 @@ export class World {
 		// 	])
 		// })
 
+		this.p = Sprite.player(D1, WorldPosition(0,0))
+		this.p2 = Sprite.player(D1, WorldPosition(200,0))
 	}
 
 	update() {
+		this.p.update()
+		this.p2.update()
 	}
 }
