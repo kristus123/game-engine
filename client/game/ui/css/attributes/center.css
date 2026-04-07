@@ -1,4 +1,12 @@
-[center] {
+[center], .center {
 	display: grid;
 	place-items: center;
+}
+
+[vertical], .vertical {
+  display: flex;             /* use flexbox */
+  flex-direction: column;    /* stack children vertically */
+  justify-content: center;   /* vertical alignment inside the container */
+  align-items: center;       /* horizontal centering of children */
+  gap: 0px;                 /* optional spacing between items */
 }
