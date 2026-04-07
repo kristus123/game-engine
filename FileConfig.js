@@ -16,22 +16,28 @@ export const FileConfig = {
 	get gameAssets() {
 		return path.join(this.game, "assets")
 	},
+
 	get gameAudio() {
 		return path.join(this.game, "audio")
 	},
+
 	get asepriteAssets() {
 		return path.join(this.game, "assets/aseprite")
 	},
+
 	get gameUiCss() {
 		return path.join(this.game, "ui/css")
 	},
+
 	get gameIndexHtml() {
 		return path.join(this.game, "index.html")
 	},
+
 	removeClientPathPrefix(filePath) {
 		const regex = new RegExp(`^${FileConfig.client}[\\/\\\\]`)
 		return filePath.replace(regex, "")
 	},
+
 	toDistPath(filePath) {
 		return path.join(FileConfig.dist, filePath)
 	},
