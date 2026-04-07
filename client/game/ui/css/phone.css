@@ -1,14 +1,7 @@
 phone-layout {
 	display: grid;
-
-	grid-template-areas: 
-		"top"
-		"mid"
-		"bot";
-
-	grid-template-rows: 60px 1fr 60px;
-	grid-template-columns: 1fr;
-
+	grid-template: 
+		"top" 60px "mid" 1fr "bot" 60px / 1fr;
 	width: 100vw;
 	height: 100vh;
 }

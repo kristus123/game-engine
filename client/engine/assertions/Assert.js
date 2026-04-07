@@ -10,7 +10,8 @@ export class Assert {
 	static notList(e) {
 		if (Array.isArray(e)) {
 			throw new Error("element is a list")
-		} else {
+		}
+		else {
 		}
 	}
 

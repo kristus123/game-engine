@@ -66,12 +66,12 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "show", function () {
-		this.removeAttribute('hide')
+		this.removeAttribute("hide")
 		return this
 	})
 
 	Enhance(HTMLElement, "hide", function () {
-		this.addAttribute('hide')
+		this.addAttribute("hide")
 		return this
 	})
 
@@ -82,7 +82,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement, "ids", function() {
-		return Array.from(this.querySelectorAll('[id]')).map(e => e.id)
+		return Array.from(this.querySelectorAll("[id]")).map(e => e.id)
 	})
 
 	Enhance(HTMLElement, "getId", function(id) {

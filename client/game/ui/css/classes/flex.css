@@ -31,8 +31,8 @@ flex-h,
 flex-v,
 .flex-row > *,
 .flex-column > * {
-    flex: 1;
-    display: flex;              /* optional: make child a flex container too */
-    justify-content: center;    /* horizontal centering inside the child */
-    align-items: center;        /* vertical centering inside the child */
+	flex: 1;
+	display: flex;              /* optional: make child a flex container too */
+	justify-content: center;    /* horizontal centering inside the child */
+	align-items: center;        /* vertical centering inside the child */
 }

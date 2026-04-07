@@ -25,7 +25,7 @@ function init() {
 function practiceNewCard() {
 	if (cards.empty) {
 		p.message.text(`all cards pracitced (total cards in db = ${totalCards})`)
-		p.mid.add(H.button('practice one more time', b => {
+		p.mid.add(H.button("practice one more time", b => {
 			init()
 			b.remove()
 		}))
