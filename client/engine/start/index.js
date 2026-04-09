@@ -34,6 +34,7 @@ async function loadAsepriteAssets(path) {
 }
 
 async function loadHtmlContent(o) {
+	// consider not using getter. i think that is the better approach
 	Getter(F, o.name, () => {
 		const template = document.createElement("template")
 		template.innerHTML = o.content
