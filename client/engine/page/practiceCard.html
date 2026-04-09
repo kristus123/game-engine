@@ -8,16 +8,22 @@
 	</p-top>
 
 	<p-mid center scrollable id="mid">
-		<p id="message">message</p>
+		<div id="activePractice">
+			<flex-v id="buttons">
+				<button id="playFront">play front</button>
+				<button id="playBack">play back</button>
+			</flex-v>
+		</div>
 
-		<flex-v id="buttons">
-			<button id="playFront">play front</button>
-			<button id="playBack">play back</button>
-		</flex-v>
+		<div id="practiceMore" hide center>
+			<h1>finished</h1>
+			<p>what now?</p>
+			<button id="practiceMoreButton">Practice more</button>
+		</div>
 	</p-mid>
 
 	<p-bot center id="bot">
-		<flex-h>
+		<flex-h id="easyHard">
 			<button id="easy">easy</button>
 			<button id="hard">hard</button>
 		</flex-h>

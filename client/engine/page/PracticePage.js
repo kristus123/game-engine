@@ -7,14 +7,12 @@ p.addCards.onClick(() => {
 })
 
 let cards = []
-let totalCardsInDb = 0
 let activeCard = null
 
 function init({includeAll}) {
 	Assert.value(includeAll)
 
 	db.all(dbCards => {
-		totalCardsInDb = dbCards.length
 		cards = dbCards.filter(c => includeAll || LocalDate(c.nextPracticeDate).isDue())
 
 		practiceNewCard()
@@ -27,19 +25,19 @@ function init({includeAll}) {
 
 function practiceNewCard() {
 	if (cards.empty) {
-		p.message.text(`all cards pracitced (total cards in db = ${totalCardsInDb})`)
-		p.mid.add(H.button("practice all cards one more time", b => {
-			init({includeAll: true})
-			b.remove()
-		}))
+		p.practiceMore.show()
 
-		p.buttons.hide()
+		p.activePractice.hide()
+		p.easyHard.hide()
 	}
 	else {
-		p.buttons.show()
+		p.practiceMore.hide()
+
+		p.activePractice.show()
+		p.easyHard.show()
+
 		activeCard = cards.random()
 		Sound.playBlob(activeCard.front)
-		p.message.text(cards.length + " cards left")
 	}
 }
 
@@ -76,6 +74,12 @@ p.easy.onClick(() => {
 p.hard.onClick(() => {
 	applyScore(-1)
 })
+
+p.practiceMoreButton.onClick(() => {
+	init({includeAll: true})
+	p.practiceMore.hide()
+})
+
 
 p.delete.onClick(() => {
 	db.delete(activeCard, () => {
