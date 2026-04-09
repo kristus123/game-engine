@@ -7,13 +7,16 @@ p.addCards.onClick(() => {
 })
 
 let cards = []
-let totalCards = 0
-let c = null
+let totalCardsInDb = 0
+let activeCard = null
 
-function init() {
+function init({includeAll}) {
+	Assert.value(includeAll)
+
 	db.all(dbCards => {
-		totalCards = dbCards.length
-		cards = dbCards
+		totalCardsInDb = dbCards.length
+		cards = dbCards.filter(c => includeAll || LocalDate(c.nextPracticeDate).isDue())
+
 		practiceNewCard()
 
 		if (cards.empty) {
@@ -24,9 +27,9 @@ function init() {
 
 function practiceNewCard() {
 	if (cards.empty) {
-		p.message.text(`all cards pracitced (total cards in db = ${totalCards})`)
-		p.mid.add(H.button("practice one more time", b => {
-			init()
+		p.message.text(`all cards pracitced (total cards in db = ${totalCardsInDb})`)
+		p.mid.add(H.button("practice all cards one more time", b => {
+			init({includeAll: true})
 			b.remove()
 		}))
 
@@ -34,29 +37,36 @@ function practiceNewCard() {
 	}
 	else {
 		p.buttons.show()
-		c = cards.random()
-		Sound.playBlob(c.front)
+		activeCard = cards.random()
+		Sound.playBlob(activeCard.front)
 		p.message.text(cards.length + " cards left")
 	}
 }
 
-
 function applyScore(score) {
-	c.score += score
+	Assert.either(score, [-1, 1])
 
-	db.update(c)
+	activeCard.score += score
 
-	cards.remove(c)
+	if (score >= 1) {
+		cards.remove(activeCard)
+		const d = (activeCard.score / 2).roundDown()
+		activeCard.nextPracticeDate = LocalDate.now().plusDays(d).toString()
+	}
+	else if (score <= 1) {
+		activeCard.nextPracticeDate = LocalDate.now().toString()
+	}
 
+	db.update(activeCard)
 	practiceNewCard()
 }
 
 p.playFront.onClick(() => {
-	Sound.playBlob(c.front)
+	Sound.playBlob(activeCard.front)
 })
 
 p.playBack.onClick(() => {
-	Sound.playBlob(c.back)
+	Sound.playBlob(activeCard.back)
 })
 
 p.easy.onClick(() => {
@@ -68,12 +78,12 @@ p.hard.onClick(() => {
 })
 
 p.delete.onClick(() => {
-	db.delete(c, () => {
-		cards.remove(c)
+	db.delete(activeCard, () => {
+		cards.remove(activeCard)
 		practiceNewCard()
 	})
 })
 
-init()
+init({includeAll: false})
 
 export const PracticePage = Page.init(p)

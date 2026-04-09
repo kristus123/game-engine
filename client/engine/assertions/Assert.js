@@ -15,6 +15,27 @@ export class Assert {
 		}
 	}
 
+	static either(value, allowedValues) {
+		Assert.array(allowedValues)
+
+		if (!allowedValues.includes(value)) {
+			throw new Error(`v: ${value} is invalid. Expected: ${allowedValues.join(", ")}`)
+		}
+		else {
+			return value
+		}
+	}
+
+	static notZero(n) {
+		if (n == 0) {
+			throw new Error("number should not be zero")
+		}
+		else {
+			return n
+		}
+	}
+
+
 	static array(x) {
 		if (not.array(x)) {
 			throw new Error("NOT AN ARRAY")

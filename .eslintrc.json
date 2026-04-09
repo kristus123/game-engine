@@ -131,6 +131,7 @@
         ]
     },
     "globals": {
+        "A": "readonly",
         "ActionListener": "readonly",
         "AddCardPage": "readonly",
         "After": "readonly",
@@ -221,6 +222,7 @@
         "LoadJsonIfPresent": "readonly",
         "Lobby": "readonly",
         "LobbyManager": "readonly",
+        "LocalDate": "readonly",
         "Loop": "readonly",
         "LowDb": "readonly",
         "LowLevelCamera": "readonly",
@@ -231,6 +233,7 @@
         "Noise": "readonly",
         "Normalize": "readonly",
         "NormalizeVector": "readonly",
+        "Not": "readonly",
         "Objects": "readonly",
         "OffsetPosition": "readonly",
         "OnChange": "readonly",

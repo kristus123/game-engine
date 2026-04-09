@@ -17,7 +17,7 @@ Flask.route("getVapidPublicKey", () => {
 })
 
 Flask.route("test", () => {
-	return {"hei": "000000000hoooo"}
+	return { "hei": "000000000hoooo" }
 })
 
 Flask.route("subscribe", body => {

@@ -48,6 +48,7 @@ a.save.onClick(() => {
 		front: sound["Front"],
 		back: sound["Back"],
 		score: 0,
+		nextPracticeDate: LocalDate.now().toString(),
 	}, (x) => {
 		console.log(x)
 		_init("Front")
