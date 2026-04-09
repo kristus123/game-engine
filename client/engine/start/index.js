@@ -92,6 +92,7 @@ Promise.all([
 		initD2(Camera.palettes.d2.draw)
 		initD3(Camera.palettes.d3.draw)
 
+
 		Level.change(new x[0]())
 
 		Loop.everyFrame(() => {

@@ -110,16 +110,11 @@ export class LowDb {
 		})
 	}
 
-	delete(dbKey, callback = () => {}) {
+	delete(dbKey) {
 		Assert.notNull(dbKey, "dbKey cannot be null")
-		Assert.string(dbKey, "dbKey has to be a string")
-
 		this.transaction("readwrite", tx => {
 			const r = tx.objectStore(this.dbName).delete(dbKey)
-
-			r.onsuccess = () => {
-				callback()
-			}
+			// r.onsuccess = () => callback && callback(r.result) // maybe add later
 
 			r.onerror = e => {
 				throw new Error(`Delete failed for dbKey "${dbKey}": ${e.target.error}`)

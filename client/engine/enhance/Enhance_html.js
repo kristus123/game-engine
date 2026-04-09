@@ -38,7 +38,6 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement, "text", function (text) {
 		this.textContent = text
-		return this
 	})
 
 	Enhance(HTMLElement, "replace", function (oldText, newText) {

@@ -16,7 +16,6 @@ const killPort = (port) => {
 	}
 	catch (e) {
 		console.log(`Nothing running on port ${port}`)
-		console.log("error: " + e)
 	}
 }
 

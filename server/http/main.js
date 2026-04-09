@@ -16,6 +16,10 @@ Flask.route("getVapidPublicKey", () => {
 	return { publicKey: vapidKeys.publicKey.replace(/-/g, "+").replace(/_/g, "/") }
 })
 
+Flask.route("test", () => {
+	return {"hei": "000000000hoooo"}
+})
+
 Flask.route("subscribe", body => {
 	subscription = body.subscription
 	return { status: "server success" }
@@ -72,3 +76,5 @@ const PORT = 3000
 Flask.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}/`)
 })
+
+console.log("hei")

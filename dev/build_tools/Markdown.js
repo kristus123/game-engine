@@ -1,6 +1,6 @@
 export class Markdown {
 	static toHtml(md) {
-		// Headings
+	// Headings
 		md = md.replace(/^###### (.*)$/gm, "<h6>$1</h6>")
 		md = md.replace(/^##### (.*)$/gm, "<h5>$1</h5>")
 		md = md.replace(/^#### (.*)$/gm, "<h4>$1</h4>")

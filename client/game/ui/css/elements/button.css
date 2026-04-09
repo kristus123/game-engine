@@ -1,6 +1,7 @@
 button {
 	font-size: clamp(20px, 8vw, 40px); /* font scales with viewport */
 	border: none;
+	display: inline-block;          /* standard button behavior */
 	border-radius: 50px;
 	background-color: red; 
 	color: white; 
