@@ -1,4 +1,5 @@
 export default [
+
 	// Keywords
 	"break",
 	"case",

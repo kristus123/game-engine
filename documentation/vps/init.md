@@ -1,7 +1,10 @@
 # initial setup
 
+[Login](https://nerdvm.racknerd.com/login.php)
+
 ```bash
 ssh-copy-id root@107.175.8.166
+
 # then type in vps password
 ```
 
