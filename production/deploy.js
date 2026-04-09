@@ -35,8 +35,8 @@ if (cluster.isPrimary) {
 	setInterval(async () => {
 		const changes = await Git.pull()
 		if (changes) {
-  	console.log("Git changes detected, restarting workers...")
-  	restartWorkers()
+			console.log("Git changes detected, restarting workers...")
+			restartWorkers()
 		}
 	}, 2 * 1000)
 }
