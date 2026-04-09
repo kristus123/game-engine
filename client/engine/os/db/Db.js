@@ -47,8 +47,8 @@ export class Db {
 		})
 	}
 
-	delete(e) {
-		this.lowDb.delete(e._dbKey)
+	delete(e, callback) {
+		this.lowDb.delete(e._dbKey, callback)
 	}
 
 	deleteAll() {

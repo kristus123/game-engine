@@ -9,7 +9,7 @@ import { FileConfig } from "#root/FileConfig.js"
 const mainFilename = process.argv[1]
 
 fs.copyFileSync("manifest.json", FileConfig.toDistPath("manifest.json"))
-fs.copyFileSync("sw.js", FileConfig.toDistPath("sw.js"))
+fs.copyFileSync("sw.js", FileConfig.toDistPath("sw.js")) // can this be deleted?
 fs.copyFileSync("sw-push.js", FileConfig.toDistPath("sw-push.js"))
 
 const sw = Files.read("sw.js")

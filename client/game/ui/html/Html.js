@@ -109,17 +109,12 @@ export class Html {
 		return this.image(x)
 	}
 
-	static button(text, onClick= b => {}) {
+	static button(text, onClick = b => {}) {
 		const button = HtmlElement("button", "button")
 		button.textContent = text
 
-		button.listen("click", () => {
+		button.onClick(() => {
 			onClick(button)
-
-			  if (navigator.vibrate) {
-				navigator.vibrate(50)
-			  }
-
 		})
 
 		return button

@@ -7,25 +7,33 @@ p.addCards.onClick(() => {
 })
 
 let cards = []
+let totalCards = 0
 let c = null
 
 function init() {
 	db.all(dbCards => {
+		totalCards = dbCards.length
 		cards = dbCards
 		practiceNewCard()
+
+		if (cards.empty) {
+			p.delete.hide()
+		}
 	})
 }
 
 function practiceNewCard() {
 	if (cards.empty) {
-		p.message.text("all cards pracitced")
-		p.mid.add(H.button("practice one more time"), (b) => {
+		p.message.text(`all cards pracitced (total cards in db = ${totalCards})`)
+		p.mid.add(H.button("practice one more time", b => {
 			init()
 			b.remove()
-			practiceNewCard()
-		})
+		}))
+
+		p.buttons.hide()
 	}
 	else {
+		p.buttons.show()
 		c = cards.random()
 		Sound.playBlob(c.front)
 		p.message.text(cards.length + " cards left")
@@ -60,8 +68,10 @@ p.hard.onClick(() => {
 })
 
 p.delete.onClick(() => {
-	db.delete(c)
-	practiceNewCard
+	db.delete(c, () => {
+		cards.remove(c)
+		practiceNewCard()
+	})
 })
 
 init()
