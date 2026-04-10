@@ -98,6 +98,14 @@ export function Enhance_html() {
 		Html.enable(this)
 	})
 
+	Getter(HTMLElement, "enabled", function () {
+		return !this.hasAttribute("disabled")
+	})
+
+	Getter(HTMLElement, "disabled", function () {
+		return this.hasAttribute("disabled")
+	})
+
 	Enhance(HTMLElement, "disable", function () {
 		Html.disable(this)
 	})

@@ -36,6 +36,11 @@ function _init(direction) {
 			play.onClick(() => {
 				Sound.playBlob(sound[direction])
 			})
+
+			if (a.playFront.enabled && a.playBack.enabled) {
+				a.save.enable()
+			}
+
 		})
 	})
 }
@@ -53,6 +58,7 @@ a.save.onClick(() => {
 		console.log(x)
 		_init("Front")
 		_init("Back")
+		a.save.disable()
 	})
 })
 
