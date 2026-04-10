@@ -6,7 +6,10 @@ export class LocalDate {
 			if (!match) {
 				throw new Error("Invalid date format. Expected yyyy-mm-dd")
 			}
-			const [_, y, m, d] = match
+			const [_,
+				y,
+				m,
+				d] = match
 			this.date = new Date(Date.UTC(Number(y), Number(m) - 1, Number(d)))
 		}
 		else if (arg instanceof Date) {

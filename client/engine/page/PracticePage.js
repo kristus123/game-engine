@@ -9,7 +9,7 @@ p.addCards.onClick(() => {
 let cards = []
 let activeCard = null
 
-function init({includeAll}) {
+function init({ includeAll }) {
 	Assert.value(includeAll)
 
 	db.all(dbCards => {
@@ -76,7 +76,7 @@ p.hard.onClick(() => {
 })
 
 p.practiceMoreButton.onClick(() => {
-	init({includeAll: true})
+	init({ includeAll: true })
 	p.practiceMore.hide()
 })
 
@@ -88,6 +88,6 @@ p.delete.onClick(() => {
 	})
 })
 
-init({includeAll: false})
+init({ includeAll: false })
 
 export const PracticePage = Page.init(p)

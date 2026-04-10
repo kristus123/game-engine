@@ -128,3 +128,35 @@ Promise.all([
 
 		throw err
 	})
+
+
+
+
+const observer = new MutationObserver((mutations) => {
+	mutations.forEach(mutation => {
+		mutation.addedNodes.forEach(node => {
+  	if (node.nodeType !== 1) {
+  		return
+  	}
+
+  	const process = (e) => {
+    	if (e.nodeType !== 1) {
+    		return
+    	}
+
+    	if (e.hasAttribute("offset-x")) {
+      	e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
+    	}
+
+    	if (e.hasAttribute("offset-y")) {
+      	e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
+    	}
+  	}
+
+  	process(node)
+  	node.querySelectorAll?.("[offset-x], [offset-y]").forEach(process)
+		})
+	})
+})
+
+observer.observe(document.body, { childList: true, subtree: true })
