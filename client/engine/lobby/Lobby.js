@@ -34,7 +34,7 @@ export class Lobby {
 	static {
 		this.newLobbyListener = Listener()
 
-		this.onLobbyUpdate = function(lobbyId, key, value){
+		this.onLobbyUpdate = function(lobbyId, key, value) {
 			SocketClient.sendToOtherClients("UPDATE_CLIENT_OBJECT", {
 				lobbyId: lobbyId,
 				key: key,
