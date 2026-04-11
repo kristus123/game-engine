@@ -1,5 +1,3 @@
-// ClientId(
-
 export class LobbyManager {
 
 	static lobbies = {}
@@ -14,7 +12,7 @@ export class LobbyManager {
 			clients: {}
 		}
 
-		if (hostClientId === ClientId) {
+		if (hostClientId == ClientId) {
 			this.lobbies[lobbyId].clients[hostClientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
 		}
 		else {
@@ -29,7 +27,7 @@ export class LobbyManager {
 
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 
-		if (clientId === ClientId) {
+		if (clientId == ClientId) {
 			this.lobbies[lobbyId].clients[clientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
 		}
 		else {
@@ -50,7 +48,7 @@ export class LobbyManager {
 
 	static* myLobbies() {
 		for (const [lobbyId, lobby] of Object.entries(this.lobbies)) {
-			if (lobby.hostClientId === ClientId) {
+			if (lobby.hostClientId == ClientId) {
 				yield lobby
 			}
 		}
