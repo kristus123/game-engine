@@ -1,8 +1,10 @@
+// ClientId(
+
 export class LobbyManager {
 
 	static lobbies = {}
 
-	static createLobby(lobbyId, hostClientId) {
+	static createLobby(lobbyId, hostClientId, onUpdate) {
 
 		this.lobbies.assertKeyNotPresent(lobbyId)
 
@@ -12,17 +14,25 @@ export class LobbyManager {
 			clients: {}
 		}
 
-		this.lobbies[lobbyId].clients[hostClientId] = {}
+		if (hostClientId === ClientId) {
+			this.lobbies[lobbyId].clients[hostClientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
+		} else {
+			this.lobbies[lobbyId].clients[hostClientId] = {}
+		}
 
 		return this.lobbies[lobbyId]
 	}
 
-	static joinLobby(lobbyId, clientId) {
+	static joinLobby(lobbyId, clientId, onUpdate) {
 		this.lobbies.assertKeyPresent(lobbyId)
 
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 
-		this.lobbies[lobbyId].clients[clientId] = {}
+		if (clientId === ClientId) {
+    		this.lobbies[lobbyId].clients[clientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
+		} else {
+			this.lobbies[lobbyId].clients[clientId] = {}
+		}
 
 		return this.lobbies[lobbyId]
 	}

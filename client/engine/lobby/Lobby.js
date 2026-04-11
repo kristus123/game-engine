@@ -1,7 +1,7 @@
 export class Lobby {
 
 	static create() {
-		const lobby = LobbyManager.createLobby(Random.uuid(), ClientId)
+		const lobby = LobbyManager.createLobby(Random.uuid(), ClientId, this.onLobbyUpdate)
 
 		SocketClient.sendToOtherClients("CLIENT_CREATED_NEW_LOBBY", {
 			lobbyId: lobby.lobbyId,
@@ -13,7 +13,7 @@ export class Lobby {
 	}
 
 	static join(lobbyId) {
-		const lobby = LobbyManager.joinLobby(lobbyId, ClientId)
+		const lobby = LobbyManager.joinLobby(lobbyId, ClientId, this.onLobbyUpdate)
 
 		SocketClient.sendToOtherClients("CLIENT_JOINS_LOBBY", {
 			lobbyId: lobby.lobbyId,
@@ -33,6 +33,14 @@ export class Lobby {
 
 	static {
 		this.newLobbyListener = Listener()
+
+		this.onLobbyUpdate = function(lobbyId, key, value){
+			SocketClient.sendToOtherClients("UPDATE_CLIENT_OBJECT", {
+				lobbyId: lobbyId,
+				key: key,
+				value: value
+			})
+		}
 
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
 			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
@@ -61,7 +69,6 @@ export class Lobby {
 
 		OtherClients.onJoin(newClientId => {
 			for (const lobby of LobbyManager.myLobbies()) {
-
 				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
 					lobbyId: lobby.lobbyId,
 					hostClientId: lobby.hostClientId,
