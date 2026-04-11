@@ -1,3 +1,7 @@
+// const obj = ProxyObject((key, ...args) => {
+//   console.log("onChange:", key, args);
+// });
+
 export function ProxyObject(onChange = () => {}) {
 	return new Proxy({}, {
 		get: (obj, prop) => {
