@@ -1,5 +1,7 @@
 export class OnlineLobbyManager {
+
 	static {
+
 		this.newLobbyListener = Listener()
 
 		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
@@ -17,7 +19,9 @@ export class OnlineLobbyManager {
 		})
 
 		SocketClient.onClientMessage("SYNC_EXISTING_LOBBIES", data => {
-			const lobby = Lobbies.create(data.lobbyId, data.hostClientId)
+
+			// this can be something like Lobbies.createExistingLobby and have different params
+			const lobby = Lobbies.create(data.lobbyId, data.hostClientId) 
 			data.clients.forEach((c, o) => {
 				lobby.clients[c] = o
 			})
@@ -34,6 +38,7 @@ export class OnlineLobbyManager {
 				SocketClient.sendToClient("SYNC_EXISTING_LOBBIES", newClientId, {
 					lobbyId: lobby.lobbyId,
 					hostClientId: lobby.hostClientId,
+					// this can be renamed to clientIds and only contain ids [c1, c2]
 					clients: Object.fromEntries(Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }]))
 				})
 			}
@@ -74,4 +79,5 @@ export class OnlineLobbyManager {
 		})
 		
 	}
+
 }
