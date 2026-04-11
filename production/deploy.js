@@ -6,25 +6,20 @@ const services = [
 	"#root/server/http/main.js",
 ]
 
-function startWorkers() {
-	for (const s of services) {
-		const worker = cluster.fork({ SCRIPT_PATH: s })
+const poll_interval = 2000
 
-		worker.on("message", msg => {
-			if (msg.type === "log") {
-				console.log(`[Worker ${worker.id}]`, ...msg.data)
-			}
-			else if (msg.type === "error") {
-				console.error(`[Worker ${worker.id}]`, ...msg.data)
-			}
+function startWorkers() {
+	services.forEach(service => {
+		const worker = cluster.fork({ SCRIPT_PATH: service })
+		worker.on("message", ({ type, data }) => {
+			const console_method = type === "log" ? console.log : console.error
+			console_method(`[Worker ${worker.id}]`, ...data)
 		})
-	}
+	})
 }
 
 function restartWorkers() {
-	for (const id in cluster.workers) {
-		cluster.workers[id].kill()
-	}
+	Object.values(cluster.workers).forEach(worker => worker.kill())
 	startWorkers()
 }
 
@@ -33,32 +28,28 @@ if (cluster.isPrimary) {
 	startWorkers()
 
 	setInterval(async () => {
-		const changes = await Git.pull()
-		if (changes) {
+		if (await Git.pull()) {
 			console.log("Git changes detected, restarting workers...")
 			restartWorkers()
 		}
-	}, 2 * 1000)
+	}, poll_interval)
 }
 else {
-	// Worker process
-	const log = console.log
-	const error = console.error
+	const original = { log: console.log, error: console.error }
 
-	// Override console to forward logs to primary
 	console.log = (...args) => {
 		process.send?.({ type: "log", data: args })
-		log(...args)
+		original.log(...args)
 	}
 
 	console.error = (...args) => {
 		process.send?.({ type: "error", data: args })
-		error(...args)
+		original.error(...args)
 	}
 
 	console.log("Starting worker for", process.env.SCRIPT_PATH, "PID:", process.pid)
 
-	import(process.env.SCRIPT_PATH).catch((err) => {
+	import(process.env.SCRIPT_PATH).catch(err => {
 		console.error(err)
 		process.exit(1)
 	})
