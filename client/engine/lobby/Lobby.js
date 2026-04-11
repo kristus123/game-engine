@@ -1,91 +1,40 @@
 export class Lobby {
 
 	static create() {
-		const lobby = LobbyManager.createLobby(Random.uuid(), ClientId, this.onLobbyUpdate)
 
-		SocketClient.sendToOtherClients("CLIENT_CREATED_NEW_LOBBY", {
-			lobbyId: lobby.lobbyId,
+		const lobbyObject = ProxyObject((key, value) => {
+			OnlineLobbyManager.updateLobbyObjectField(lobby.lobbyId, key, value)
 		})
 
-		this.newLobbyListener.trigger(lobby)
+		const lobby = Lobbies.create(Random.uuid(), ClientId, lobbyObject)
+
+
+		OnlineLobbyManager.notifyClientCreatedNewLobby(lobby.lobbyId)
 
 		return lobby
 	}
 
 	static join(lobbyId) {
-		const lobby = LobbyManager.joinLobby(lobbyId, ClientId, this.onLobbyUpdate)
 
-		SocketClient.sendToOtherClients("CLIENT_JOINS_LOBBY", {
-			lobbyId: lobby.lobbyId,
+		const lobbyObject = ProxyObject((key, value) => {
+			OnlineLobbyManager.updateLobbyObjectField(lobby.lobbyId, key, value)
 		})
+
+		const lobby = Lobbies.join(lobbyId, ClientId, lobbyObject)
+
+		OnlineLobbyManager.notifyClientJoinsLobby(lobby.lobbyId)
 
 		return lobby
 	}
 
 	static leave(lobbyId) {
+		Lobbies.leave(lobbyId, ClientId)
 
-		LobbyManager.leaveLobby(lobbyId, ClientId)
-
-		SocketClient.sendToOtherClients("CLIENT_LEAVES_LOBBY", {
-			lobbyId: lobbyId,
-		})
-	}
-
-	static {
-		this.newLobbyListener = Listener()
-
-		this.onLobbyUpdate = function(lobbyId, key, value) {
-			SocketClient.sendToOtherClients("UPDATE_CLIENT_OBJECT", {
-				lobbyId: lobbyId,
-				key: key,
-				value: value
-			})
-		}
-
-		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
-			const lobby = LobbyManager.createLobby(data.lobbyId, data.originClientId)
-
-			this.newLobbyListener.trigger(lobby)
-		})
-
-		SocketClient.onClientMessage("CLIENT_JOINS_LOBBY", data => {
-			LobbyManager.joinLobby(data.lobbyId, data.originClientId)
-		})
-
-		SocketClient.onClientMessage("CLIENT_LEAVES_LOBBY", data => {
-			LobbyManager.leaveLobby(data.lobbyId, data.originClientId)
-		})
-
-		SocketClient.onClientMessage("SYNC_LOBBY", data => {
-			const lobby = LobbyManager.createLobby(data.lobbyId, data.hostClientId)
-			data.clients.forEach((c, o) => {
-				lobby.clients[c] = o
-			})
-		})
-
-		SocketClient.onClientMessage("UPDATE_CLIENT_OBJECT", data => {
-			LobbyManager.lobbies[data.lobbyId].clients[data.originClientId][data.key] = data.value
-		})
-
-		OtherClients.onJoin(newClientId => {
-			for (const lobby of LobbyManager.myLobbies()) {
-				SocketClient.sendToClient("SYNC_LOBBY", newClientId, {
-					lobbyId: lobby.lobbyId,
-					hostClientId: lobby.hostClientId,
-					clients: Object.fromEntries(
-						Object.entries(lobby.clients).map(([id, obj]) => [id, { ...obj }])
-					)
-				})
-			}
-		})
+		OnlineLobbyManager.notifyClientLeavesLobby(lobby.lobbyId)
 	}
 
 	static onNewLobby(callback) {
-		for (const lobby of LobbyManager.lobbies.values) {
-			callback(lobby)
-		}
-
-		this.newLobbyListener.listen(callback)
+		OnlineLobbyManager.onNewLobby(callback)
 	}
 
 }
