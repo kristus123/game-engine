@@ -1,0 +1,62 @@
+/* todo fix hack */
+.rsa, * {
+  resize: both;
+  overflow: auto;
+}
+
+
+.img-box {
+  position: relative;
+  display: inline-block; /* or block if full width */
+}
+
+.img-box-overlay {
+  position: absolute;
+  inset: 0; /* shorthand for top:0 right:0 bottom:0 left:0 */
+
+}
+
+.test-div {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("https://i.gyazo.com/c4b98fbc28d64d4f79693ff538ddb6ca.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.test-btn {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+}
+
+.test-p {
+  position: absolute;
+  top: 300px;
+  left: 300px;
+  color:white;
+}
+
+.wave span {
+  display: inline-block;
+  animation: jump 0.6s infinite ease-in-out, hue 2s infinite linear;
+}
+
+.wave span {
+  display: inline-block;
+  animation: jump 0.4s infinite ease-in-out;
+  margin: 10px 10px;
+}
+
+.wave span:nth-child(5n+1) { animation-delay: 0s; color: red; }
+.wave span:nth-child(5n+2) { animation-delay: 0.1s; color: orange; }
+.wave span:nth-child(5n+3) { animation-delay: 0.2s; color: yellow; }
+.wave span:nth-child(5n+4) { animation-delay: 0.3s; color: green; }
+.wave span:nth-child(5n+5) { animation-delay: 0.4s; color: blue; }
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
