@@ -16,7 +16,7 @@ export class Git {
 			}
 			else {
 				console.log("[git] New changes detected. Pulling...")
-				await execAsync("git pull origin master")
+				await execAsync("git pull")
 				console.log("[git] Git pull complete.")
 				return Promise.resolve(true)
 			}
