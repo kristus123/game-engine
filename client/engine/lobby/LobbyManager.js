@@ -16,7 +16,8 @@ export class LobbyManager {
 
 		if (hostClientId === ClientId) {
 			this.lobbies[lobbyId].clients[hostClientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
-		} else {
+		}
+		else {
 			this.lobbies[lobbyId].clients[hostClientId] = {}
 		}
 
@@ -29,8 +30,9 @@ export class LobbyManager {
 		this.lobbies[lobbyId].clients.assertKeyNotPresent(clientId)
 
 		if (clientId === ClientId) {
-    		this.lobbies[lobbyId].clients[clientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
-		} else {
+			this.lobbies[lobbyId].clients[clientId] = ProxyObject((prop, value) => onUpdate(lobbyId, prop, value))
+		}
+		else {
 			this.lobbies[lobbyId].clients[clientId] = {}
 		}
 
