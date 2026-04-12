@@ -19,12 +19,7 @@ export class OnlineLobbyManager {
 		})
 
 		SocketClient.onClientMessage("SYNC_EXISTING_LOBBIES", data => {
-
-			// this can be something like Lobbies.createExistingLobby and have different params
-			const lobby = Lobbies.create(data.lobbyId, data.hostClientId) 
-			data.clients.forEach((c, o) => {
-				lobby.clients[c] = o
-			})
+			Lobbies.createExistingLobby(data.lobbyId, data.hostClientId, data.clients)
 		})
 
 		SocketClient.onClientMessage("UPDATE_LOBBY_CLIENT_OBJECT", data => {

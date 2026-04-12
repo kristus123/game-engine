@@ -17,6 +17,14 @@ export class Lobbies {
 		return this.lobbies[lobbyId]
 	}
 
+	static createExistingLobby(lobbyId, hostClientId, clients) {
+		const lobby = Lobbies.create(lobbyId, hostClientId) 
+		
+		clients.forEach((c, o) => {
+			lobby.clients[c] = o
+		})
+	}
+
 	static join(lobbyId, clientId, lobbyObject={}) {
 		this.lobbies.assertKeyPresent(lobbyId)
 
