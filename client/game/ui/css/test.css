@@ -1,6 +1,6 @@
 /* todo fix hack */
 .rsa, * {
-  resize: both;
-  overflow: auto;
+	resize: both;
+	overflow: auto;
 }
 

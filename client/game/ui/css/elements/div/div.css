@@ -7,13 +7,12 @@ div {
 [image], .image {
 	--image: url("https://i.gyazo.com/c4b98fbc28d64d4f79693ff538ddb6ca.jpg");
 
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-    var(--image);
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+	background:
+		linear-gradient(rgb(0 0 0 / 45%), rgb(0 0 0 / 45%)),
+		var(--image);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 div.red {

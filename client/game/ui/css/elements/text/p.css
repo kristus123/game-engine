@@ -10,14 +10,14 @@ p.big {
 }
 
 p.wave span {
-  display: inline-block;
-  animation: rainbowJump 0.6s infinite ease-in-out, hue 2s infinite linear;
+	display: inline-block;
+	animation: rainbowJump 0.6s infinite ease-in-out, hue 2s infinite linear;
 }
 
 p.wave span {
-  display: inline-block;
-  animation: rainbowJump 0.4s infinite ease-in-out;
-  margin: 10px 10px;
+	display: inline-block;
+	animation: rainbowJump 0.4s infinite ease-in-out;
+	margin: 10px;
 }
 
 p.wave span:nth-child(5n+1) { animation-delay: 0s; color: red; }
@@ -27,6 +27,6 @@ p.wave span:nth-child(5n+4) { animation-delay: 0.3s; color: green; }
 p.wave span:nth-child(5n+5) { animation-delay: 0.4s; color: blue; }
 
 @keyframes rainbowJump {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-12px); }
 }
