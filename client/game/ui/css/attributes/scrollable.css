@@ -1,5 +1,8 @@
 [scrollable] {
 	height: 100%;
 	overflow-y: auto;
-	scrollbar-gutter: stable;
+
+	/* consider having this in another attribute */
+
+	/* scrollbar-gutter: stable; */
 }
