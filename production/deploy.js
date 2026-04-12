@@ -6,20 +6,27 @@ const services = [
 	"#root/server/http/main.js",
 ]
 
-const poll_interval = 2000
-
 function startWorkers() {
 	services.forEach(service => {
 		const worker = cluster.fork({ SCRIPT_PATH: service })
+
 		worker.on("message", ({ type, data }) => {
-			const console_method = type === "log" ? console.log : console.error
-			console_method(`[Worker ${worker.id}]`, ...data)
+			const msg = `[Worker ${worker.id}]`
+
+			if (type == "log") {
+				console.log(msg, ...data)
+			} else {
+				console.error(msg, ...data)
+			}
 		})
 	})
 }
 
 function restartWorkers() {
-	Object.values(cluster.workers).forEach(worker => worker.kill())
+	for (const id in cluster.workers) {
+		cluster.workers[id].kill()
+	}
+
 	startWorkers()
 }
 
@@ -28,11 +35,12 @@ if (cluster.isPrimary) {
 	startWorkers()
 
 	setInterval(async () => {
-		if (await Git.pull()) {
+		if (await Git.hasNewChanges()) {
 			console.log("Git changes detected, restarting workers...")
+			await Git.pull()
 			restartWorkers()
 		}
-	}, poll_interval)
+	}, 2000)
 }
 else {
 	const original = { log: console.log, error: console.error }
