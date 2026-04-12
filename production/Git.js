@@ -11,7 +11,8 @@ export class Git {
 
 			if (stdout.includes("Your branch is up to date")) {
 				return false
-			} else {
+			}
+			else {
 				return true
 			}
 		}

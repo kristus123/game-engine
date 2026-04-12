@@ -15,7 +15,8 @@ function startWorkers() {
 
 			if (type == "log") {
 				console.log(msg, ...data)
-			} else {
+			}
+			else {
 				console.error(msg, ...data)
 			}
 		})
