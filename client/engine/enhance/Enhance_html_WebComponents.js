@@ -13,4 +13,6 @@ export function Enhance_html_WebComponents() {
 	_register("flex-v")
 	_register("f-i")
 	_register("f-e")
+
+	customElements.define("video-div", VideoDiv);
 }
