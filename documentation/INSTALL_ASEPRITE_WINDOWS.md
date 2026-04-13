@@ -109,6 +109,7 @@ ninja aseprite
 ```
 
 This will compile Aseprite.
+
 The process may take several minutes.
 
 # Run Aseprite
