@@ -2,7 +2,7 @@ export class LayerPicture extends Picture {
 	constructor(d, position, image, frame) {
 		super(position, image)
 
-		super.clear()
+		this.clear()
 
 		this.ctx.drawImage(
 			image,

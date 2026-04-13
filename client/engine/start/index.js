@@ -9,13 +9,9 @@ async function loadWorld() {
 	return World
 }
 
-try {
-	navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
-	if ("serviceWorker" in navigator) {
-		// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
-	}
-} catch (error) {
-	console.log("aa")
+navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
+if ("serviceWorker" in navigator) {
+	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 }
 
 async function loadAsepriteAssets(path) {
@@ -26,15 +22,20 @@ async function loadAsepriteAssets(path) {
 	const layersImage = await LoadImage(`${path}Layers.png`)
 	const layersJson = await LoadJson(`${path}Layers.json`)
 
-	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
+	// const tilemapsJson = await LoadJsonIfPresent(`${path}SpriteTilemapInfo.json`)
 
 	const spriteName = path.split("/").pop()
-	Sprite[spriteName] = (d, position, scale=1) => new SpriteController(
-		d, position,
-		fullImage, fullJson,
-		layersImage, layersJson,
-		tilemapsJson,
-		scale)
+
+	Sprite[spriteName] = (position) => new SpriteController(position, layersImage, layersJson)
+
+	// if (tilemapsJson) {
+	// 	SpriteTilemapInfo[spriteName] = (d, position, scale=1) => new SpriteTilemapInfoController(d, x, position, fullImage)
+	// }
+	// else {
+	// 	SpriteTilemapInfo[spriteName] = () => {
+	// 		throw new Error("This aseprite file does not have tilemap info")
+	// 	}
+	// }
 }
 
 async function loadHtmlContent(o) {
@@ -134,34 +135,30 @@ Promise.all([
 	})
 
 
-// const process = (e) => {
-// 	try {
-// 		if (e.hasAttribute("offset-x")) {
-// 			e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
-// 		}
+const process = (e) => {
+	if (e.hasAttribute("offset-x")) {
+		e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
+	}
 
-// 		if (e.hasAttribute("offset-y")) {
-// 			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
-// 		}
-// 	} catch (swallow) {
-		
-// 	}
-// }
+	if (e.hasAttribute("offset-y")) {
+		e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
+	}
+}
 
-// const observer = new MutationObserver(mutations => {
-// 	const nodes = []
-// 	for (const mutation of mutations) {
-// 		for (const n of mutation.addedNodes) {
-// 			nodes.push(n)
-// 		}
-// 	}
+const observer = new MutationObserver(mutations => {
+	const nodes = []
+	for (const mutation of mutations) {
+		for (const n of mutation.addedNodes) {
+			nodes.push(n)
+		}
+	}
 
-// 	for (const node of nodes) {
-// 		process(node)
-// 		for (const subNode of node.querySelectorAll("[offset-x], [offset-y]")) {
-// 			process(subNode)
-// 		}
-// 	}
-// })
+	for (const node of nodes) {
+		process(node)
+		for (const subNode of node.querySelectorAll("[offset-x], [offset-y]")) {
+			process(subNode)
+		}
+	}
+})
 
-// observer.observe(document.body, { childList: true, subtree: true })
+observer.observe(document.body, { childList: true, subtree: true })

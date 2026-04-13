@@ -1,7 +1,7 @@
 // if there is no tile at 0x0 in aseprite, something strnage happens
 // quick fix is to just always place something in 0x0
 
-export class Tilemaps {
+export class SpriteTilemapInfoControllerx {
 	constructor(sprite, tilemapsJson, layers, scale) {
 		this.tiles = Objects([])
 

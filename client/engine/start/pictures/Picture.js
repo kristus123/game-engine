@@ -1,5 +1,5 @@
 export class Picture {
-	constructor(position, image) {
+	constructor(image) {
 		this.canvas = document.createElement("canvas")
 		this.ctx = this.canvas.getContext("2d")
 
@@ -7,6 +7,26 @@ export class Picture {
 		this.canvas.height = image.naturalHeight ?? image.height
 
 		this.ctx.drawImage(image, 0, 0)
+	}
+
+	crop(sx, sy, sw, sh) {
+
+		const newCanvas = document.createElement("canvas")
+		const newCtx = newCanvas.getContext("2d")
+
+		newCanvas.width = sw
+		newCanvas.height = sh
+
+		newCtx.drawImage(
+			this.canvas,
+			sx, sy, sw, sh, // source
+			0, 0, sw, sh // destination
+		)
+
+		this.canvas = newCanvas
+		this.ctx = newCtx
+
+		return this
 	}
 
 	*visiblePixelsIn(picturePosition) {
@@ -19,7 +39,7 @@ export class Picture {
 	}
 
 	copy() {
-		return new Picture(this.position, this.canvas)
+		return new Picture(this.canvas)
 	}
 
 	setPixel(p, r = 255, g = 255, b = 255, a = 255) {
@@ -53,12 +73,11 @@ export class Picture {
 		}
 	}
 
-	update(frame) {
-		// D1.sprite(this.position, frame, this.canvas)
+	update(p) {
+		D1.picture(p, this.canvas)
 	}
 
 	draw() {
-		// const x = Scale.value*7
-		// this.ctx.drawImage(this.canvas, 0, 0, this.canvas.width*x, this.canvas.height*x)
+		throw new Error("dont use this")
 	}
 }
