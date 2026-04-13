@@ -1,7 +1,10 @@
 mkdir capacitor_setup
+
 robocopy dist capacitor_setup\dist /E
 
 cd capacitor_setup
+
+npm init -y
 
 npm i @capacitor/core
 npm i -D @capacitor/cli
