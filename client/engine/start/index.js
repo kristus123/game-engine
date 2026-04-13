@@ -14,7 +14,8 @@ try {
 	if ("serviceWorker" in navigator) {
 		// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 	}
-} catch (error) {
+}
+catch (error) {
 	console.log("aa")
 }
 
@@ -144,7 +145,7 @@ Promise.all([
 // 			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
 // 		}
 // 	} catch (swallow) {
-		
+
 // 	}
 // }
 

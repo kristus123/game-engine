@@ -10,11 +10,12 @@ const bin = (() => {
 	]
 	for (const p of potentialPaths) {
 		try {
-			const platform = process.platform;
-			
-			if (platform === 'win32') {
+			const platform = process.platform
+
+			if (platform === "win32") {
 				const out = execFileSync("where", [p], { shell: true }).toString().trim().split(/\r?\n/)[0]
-			} else if (platform === 'linux') {
+			}
+			else if (platform === "linux") {
 				const out = execFileSync("which", [p], { shell: true }).toString().trim()
 			}
 
