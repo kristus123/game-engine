@@ -1,154 +1,138 @@
-Aseprite Setup Guide (Free Build – 2026)
+# Aseprite Setup for Windows
 
-This guide documents how to build Aseprite from source for free so new team members can install it easily for sprite creation and editing.
+[youtube video](https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
 
-Aseprite is open source, but the official builds are paid. By compiling it yourself, you can use it for free.
 
-This guide is based on the following tutorial:
+# Install Git
 
-Build Aseprite in 2026 for FREE
-https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ
-
-Requirements
-
-Before building Aseprite, install the following tools.
-
-1. Install Git
-
-Download:
-
-https://git-scm.com/download/win
+[download here](https://git-scm.com/download/win)
 
 Verify installation:
 
+```bash
 git --version
-2. Install CMake
+```
 
-Download:
+# Install CMake
 
-https://cmake.org/download/
+choose `4.2.x` version (aseprite requires that version)
 
-When installing, enable:
+[download here](https://cmake.org/download/)
 
-Add CMake to system PATH
+## Add CMake to system PATH
 
 Verify:
 
+```bash
 cmake --version
-3. Install Visual Studio (Community)
+```
 
-Download:
+# Install Visual Studio (Community)
 
-https://visualstudio.microsoft.com/
+[download here](https://visualstudio.microsoft.com/)
 
 During installation select:
 
-Desktop development with C++
+- Desktop development with C++
 
-This installs the required compiler for building Aseprite.
+![text](https://i.gyazo.com/6966c87933505bc16ea46b5939f2addd.png)
 
-4. Install Ninja Build System
+# Install Ninja Build System
 
-Download Ninja:
+[download here](https://github.com/ninja-build/ninja/releases)
 
-https://github.com/ninja-build/ninja/releases
+make sure windows 11 sdk is checked
 
-Place ninja.exe somewhere in your PATH
-Example:
+![text](https://i.gyazo.com/6a01e60d30b5ce74f85d338bebda105a.png)
 
-C:\ninja\ninja.exe
+place .exe into:
 
-Verify:
+```bash
+C:\ninja\
+```
 
+- Place ninja.exe in your PATH
+    - win + edit environment variables
+    - user -> path -> new
+    - paste the path `C:\ninja\`
+
+![text](https://i.gyazo.com/d2cb399e17c1920580992af62ee1be45.png)
+
+open new cmd and verify:
+
+```
 ninja --version
+
+cmake --version
+```
+
+# download aseprite
+
 Step 1 — Download the Source Code
 
 Open a terminal and clone Aseprite:
 
+```bash
 git clone --recursive https://github.com/aseprite/aseprite.git
-
-Enter the folder:
-
 cd aseprite
-Step 2 — Download Skia Dependency
+mkdir build
+cd build
+```
+
+# Download Skia Dependency
 
 Aseprite requires the Skia graphics library.
 
 Download the prebuilt Skia package:
 
-https://github.com/aseprite/skia/releases
+[download here](https://github.com/aseprite/skia/releases)
 
-Choose the Windows x64 version that matches your Visual Studio version.
+choose `Skia-Windows-Release-x64.zip`.
 
-Example:
+Extract it to:
 
-Skia-Windows-Release-x64
-
-Extract it somewhere like:
-
+```
 C:\deps\skia
-Step 3 — Create Build Folder
+```
 
-Inside the Aseprite directory:
+![text](https://i.gyazo.com/6c2e1ca33fb73353264b81cbca0da99c.png)
 
-mkdir build
-cd build
-Step 4 — Configure the Build
 
-Run the following CMake command.
+# Install Aseprite
 
-Adjust the SKIA_DIR path to where you extracted Skia.
+[text](https://github.com/aseprite/aseprite/releases)
 
-cmake -G Ninja ^
--DLAF_BACKEND=skia ^
--DSKIA_DIR=C:\deps\skia ^
--DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 ^
--DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib ^
-..
+Install the newest version
 
-If configured correctly, CMake will generate the build files.
+export it to 
 
-Step 5 — Compile Aseprite
+```
+C:\aseprite
+```
 
-Run:
+also create a `build` folder
+
+```
+C:\aseprite\build
+```
+
+open cmd inside of this folder
+
+run:
+
+```
+call "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G Ninja ..
 
 ninja aseprite
+```
 
-This will compile Aseprite.
-The process may take several minutes.
-
-Step 6 — Run Aseprite
-
-After compilation completes, run:
-
+C:\aseprite\build\bin
+```
 build/bin/aseprite.exe
+```
 
-You now have a working free build of Aseprite.
 
-Optional — Create Desktop Shortcut
 
-For convenience:
 
-Navigate to
-
-aseprite/build/bin
-
-Right click
-
-aseprite.exe → Create Shortcut
-
-Move shortcut to Desktop.
-
-Summary
-
-This setup allows any developer to:
-
-Build Aseprite for free
-
-Use it for sprite editing
-
-Export assets for the JavaScript game
-
-Once built, Aseprite does not need to be rebuilt again unless updating the source.
-
-In Conclusion: I followed along with the linked video and everything downloaded and ran perfectly.
