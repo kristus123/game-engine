@@ -15,6 +15,10 @@ export function Enhance_js_Object() {
 		}
 	})
 
+	Getter(Object, "all", function () {
+		return Object.entries(this)
+	})
+
 
 	Getter(Object, "keys", function () {
 		const r = []

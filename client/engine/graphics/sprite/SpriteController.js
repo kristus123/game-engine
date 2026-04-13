@@ -1,99 +1,60 @@
 export class SpriteController extends Entity {
-	constructor(d, position, fullImage, fullJson, layersImage, layersJson, tilemapsJson, scale=1) {
+	constructor(position, image, layersJson) {
 		super(position)
 
-		this.currentTagFrame = 0
+		this.layers = {}
 
-		this.spritePicture = SpritePicture(d, this, position, fullImage)
-		this.asepriteJson = AsepriteJson(fullJson)
+		this.totalFrames = null
 
-		this.layers = SpriteLayers(
-			this, d, position, layersImage, layersJson, scale)
+		layersJson.frames.forEach((key, frameInfo) => {
+			const [
+				layer,
+				frame,
+				tag,
+			] = key.split("_")
 
-		if (tilemapsJson) {
-			this.tilemaps = Tilemaps(
-				this, tilemapsJson, this.layers, scale)
-		}
 
-		this.position.width = this.asepriteJson.width * Scale.value * scale
-		this.position.height = this.asepriteJson.height * Scale.value * scale
+			this.totalFrames = frame - 1 // it will end on the last value which is the total frame
 
-		this.tags = {}
-		this.activeTag = "idle"
+			this.layers[layer] ??= {}
 
-		this.type = "loop"
+			this.width = frameInfo.frame.w * Scale.value
+			this.height = frameInfo.frame.h * Scale.value
 
-		this.onFinish = () => {}
+			const x = frameInfo.frame.x
+			const y = frameInfo.frame.y
+			const width = frameInfo.frame.w
+			const height = frameInfo.frame.h
 
-		for (let [tag, value] of Object.entries(this.asepriteJson.tags)) {
+			const pic = Picture(image).crop(x, y, width, height)
 
-			this.tags[tag] = {
-				play: (onFinish=() => {}) => {
-					this.currentTagFrame = 0
-					this.activeTag = tag
-					this.type = "play"
-					this.onFinish = onFinish
-					return this
-				},
-
-				loop: (onFinish=() => {}) => {
-					this.currentTagFrame = 0
-					this.activeTag = tag
-					this.defaultTag = tag
-					this.type = "loop"
-					this.onFinish = onFinish
-					return this
-				},
-
-				show: (frame) => {
-					this.currentTagFrame = frame
-					this.activeTag = tag
-					this.defaultTag = tag
-					this.type = "show"
-					return this
-				},
+			this.layers[layer][frame] = {
+				frame: frame,
+				picture: pic,
+				duration: frameInfo.duration,
 			}
-		}
+		})
 
-		if (this.tags.idle) {
-			this.tags.idle.loop()
-		}
-		else {
-			throw new Error("idle tag missing from .aseprite file")
-		}
+		this.currentFrame = 0
 
-		const stopWatch = StopWatch().start()
-
-		this.localObjects = Objects([
-			OnTrue(() => stopWatch.time >= this.asepriteJson.tags[this.activeTag][this.currentTagFrame].duration, () => {
-				if (this.type == "show") {
-					// do nothing
-				}
-				else if (this.currentTagFrame + 1 >= this.asepriteJson.totalFrames(this.activeTag)) {
-					this.currentTagFrame = 0
-
-					if (this.type == "play") {
-						this.activeTag = this.defaultTag
-						this.type = "loop"
-						this.onFinish()
-					}
-				}
-				else {
-					this.currentTagFrame += 1
-				}
-
-				stopWatch.restart()
-			}),
-		])
-	}
-
-	randomStartFrame() {
-		this.currentTagFrame = Random.integerBetween(0, this.asepriteJson.totalFrames(this.activeTag)-1)
-		return this
+		this.stopWatch = StopWatch().start()
 	}
 
 	update() {
-		this.localObjects.update()
-		this.spritePicture.update()
+		if (this.stopWatch.time >= 80) {
+			if (this.currentFrame >= this.totalFrames) {
+				this.currentFrame = 0
+			}
+			else {
+				this.currentFrame += 1
+			}
+
+			this.stopWatch.restart()
+		}
+
+		for (const [layer, frames] of this.layers.all) {
+			const { picture, duration } = frames[this.currentFrame]
+			picture.update(this.position)
+		}
 	}
 }
