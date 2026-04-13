@@ -2,6 +2,7 @@
 
 [youtube video](https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
 
+
 # Install Git
 
 [download here](https://git-scm.com/download/win)
@@ -34,25 +35,35 @@ During installation select:
 
 - Desktop development with C++
 
+![text](https://i.gyazo.com/6966c87933505bc16ea46b5939f2addd.png)
+
 # Install Ninja Build System
 
 [download here](https://github.com/ninja-build/ninja/releases)
 
+make sure windows 11 sdk is checked
+
+![text](https://i.gyazo.com/6a01e60d30b5ce74f85d338bebda105a.png)
+
 place .exe into:
 
 ```bash
-C:\ninja\ninja.exe
+C:\ninja\
 ```
 
 - Place ninja.exe in your PATH
     - win + edit environment variables
     - user -> path -> new
-    - paste the path
+    - paste the path `C:\ninja\`
+
+![text](https://i.gyazo.com/d2cb399e17c1920580992af62ee1be45.png)
 
 open new cmd and verify:
 
 ```
 ninja --version
+
+cmake --version
 ```
 
 # download aseprite
@@ -84,38 +95,44 @@ Extract it to:
 C:\deps\skia
 ```
 
-Step 4 — Configure the Build
+![text](https://i.gyazo.com/6c2e1ca33fb73353264b81cbca0da99c.png)
 
-Run the following CMake command.
 
-Adjust the SKIA_DIR path to where you extracted Skia.
+# Install Aseprite
 
-```bash
-cmake -G Ninja ^
--DLAF_BACKEND=skia ^
--DSKIA_DIR=C:\deps\skia ^
--DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 ^
--DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib ^
+[text](https://github.com/aseprite/aseprite/releases)
+
+Install the newest version
+
+export it to 
+
+```
+C:\aseprite
 ```
 
-If configured correctly, CMake will generate the build files.
+also create a `build` folder
 
-Step 5 — Compile Aseprite
+```
+C:\aseprite\build
+```
 
-Run:
+open cmd inside of this folder
 
-```bash
+run:
+
+```
+call "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G Ninja ..
+
 ninja aseprite
 ```
 
-This will compile Aseprite.
-
-The process may take several minutes.
-
-# Run Aseprite
-
-After compilation completes, run:
-
+C:\aseprite\build\bin
 ```
 build/bin/aseprite.exe
 ```
+
+
+
+
