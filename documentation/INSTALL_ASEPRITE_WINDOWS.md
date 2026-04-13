@@ -2,7 +2,7 @@
 
 Build Aseprite in 2026 for FREE
 
-[](https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
+(https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
 
 # Install Git
 
