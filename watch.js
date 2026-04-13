@@ -35,7 +35,7 @@ app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check i
 	res.json({ currentId: currentId })
 })
 
-app.listen(5000, "0.0.0.0", () => console.log("Serving dist on port 5000"))
+app.listen(5000, () => console.log("Serving dist on port 5000"))
 
 const watcher = chokidar.watch([FileConfig.client], {
 	ignoreInitial: true,
@@ -75,4 +75,5 @@ new Runner(FileConfig.exportAseprite).start()
 new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
 
 // for now only run it once
+new Runner("server/socket/SocketServer.js").start()
 new Runner("server/http/main.js").start()

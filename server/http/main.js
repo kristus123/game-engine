@@ -73,6 +73,8 @@ Flask.route("deleteFile", (body) => {
 })
 
 const PORT = 3000
-Flask.listen(PORT)
+Flask.listen(PORT, () => {
+	console.log(`Server running at http://localhost:${PORT}/`)
+})
 
 console.log("hei")
