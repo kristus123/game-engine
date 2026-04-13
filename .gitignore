@@ -1,4 +1,5 @@
 dist/
+capacitor_setup/
 
 # Vim Files
 *.swp
