@@ -37,7 +37,7 @@ export class Assert {
 
 
 	static array(x) {
-		if (not.array(x)) {
+		if (Not.array(x)) {
 			throw new Error("NOT AN ARRAY")
 		}
 
@@ -51,7 +51,7 @@ export class Assert {
 
 
 	static integer(v) {
-		if (not.integer(v)) {
+		if (Not.integer(v)) {
 			throw new Error("Not an integer: " + v)
 		}
 
