@@ -23,6 +23,7 @@ Verify installation:
 
 git --version
 2. Install CMake
+# (4.2.4)
 
 Download:
 
