@@ -12,7 +12,7 @@ export class Flask {
 		this.routes.push({ path, callback })
 	}
 
-	static listen(port) {
+	static listen(port, bind="0.0.0.0") {
 		const app = express()
 
 		Flask.server = http.createServer(app)
@@ -41,6 +41,6 @@ export class Flask {
 			res.status(400).json({ error: "Route not found" })
 		})
 
-		Flask.server.listen(port)
+		Flask.server.listen(port, bind)
 	}
 }
