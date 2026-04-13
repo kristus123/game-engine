@@ -1,12 +1,10 @@
-# Aseprite Setup Guide (Free Build – 2026)
+# Aseprite Setup for Windows
 
-Build Aseprite in 2026 for FREE
-
-(https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
+[youtube video](https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
 
 # Install Git
 
-[](https://git-scm.com/download/win)
+[download here](https://git-scm.com/download/win)
 
 Verify installation:
 
@@ -16,9 +14,9 @@ git --version
 
 # Install CMake
 
-choose 4.2.x version (aseprite requires that version)
+choose `4.2.x` version (aseprite requires that version)
 
-[](https://cmake.org/download/)
+[download here](https://cmake.org/download/)
 
 ## Add CMake to system PATH
 
@@ -30,7 +28,7 @@ cmake --version
 
 # Install Visual Studio (Community)
 
-[](https://visualstudio.microsoft.com/)
+[download here](https://visualstudio.microsoft.com/)
 
 During installation select:
 
@@ -38,7 +36,7 @@ During installation select:
 
 # Install Ninja Build System
 
-https://github.com/ninja-build/ninja/releases
+[download here](https://github.com/ninja-build/ninja/releases)
 
 place .exe into:
 
@@ -57,17 +55,18 @@ open new cmd and verify:
 ninja --version
 ```
 
-# x
+# download aseprite
 
 Step 1 — Download the Source Code
 
 Open a terminal and clone Aseprite:
 
+```bash
 git clone --recursive https://github.com/aseprite/aseprite.git
-
-Enter the folder:
-
 cd aseprite
+mkdir build
+cd build
+```
 
 # Download Skia Dependency
 
@@ -75,19 +74,16 @@ Aseprite requires the Skia graphics library.
 
 Download the prebuilt Skia package:
 
-https://github.com/aseprite/skia/releases
+[download here](https://github.com/aseprite/skia/releases)
 
-choose Skia-Windows-Release-x64.zip
+choose `Skia-Windows-Release-x64.zip`.
 
 Extract it to:
 
+```
 C:\deps\skia
-Step 3 — Create Build Folder
+```
 
-Inside the Aseprite directory:
-
-mkdir build
-cd build
 Step 4 — Configure the Build
 
 Run the following CMake command.
@@ -108,29 +104,17 @@ Step 5 — Compile Aseprite
 
 Run:
 
+```bash
 ninja aseprite
+```
 
 This will compile Aseprite.
 The process may take several minutes.
 
-Step 6 — Run Aseprite
+# Run Aseprite
 
 After compilation completes, run:
 
+```
 build/bin/aseprite.exe
-
-You now have a working free build of Aseprite.
-
-Optional — Create Desktop Shortcut
-
-For convenience:
-
-Navigate to
-
-aseprite/build/bin
-
-Right click
-
-aseprite.exe → Create Shortcut
-
-Move shortcut to Desktop.
+```
