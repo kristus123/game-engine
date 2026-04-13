@@ -134,30 +134,34 @@ Promise.all([
 	})
 
 
-const process = (e) => {
-	if (e.hasAttribute("offset-x")) {
-		e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
-	}
+// const process = (e) => {
+// 	try {
+// 		if (e.hasAttribute("offset-x")) {
+// 			e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
+// 		}
 
-	if (e.hasAttribute("offset-y")) {
-		e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
-	}
-}
+// 		if (e.hasAttribute("offset-y")) {
+// 			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
+// 		}
+// 	} catch (swallow) {
+		
+// 	}
+// }
 
-const observer = new MutationObserver(mutations => {
-	const nodes = []
-	for (const mutation of mutations) {
-		for (const n of mutation.addedNodes) {
-			nodes.push(n)
-		}
-	}
+// const observer = new MutationObserver(mutations => {
+// 	const nodes = []
+// 	for (const mutation of mutations) {
+// 		for (const n of mutation.addedNodes) {
+// 			nodes.push(n)
+// 		}
+// 	}
 
-	for (const node of nodes) {
-		process(node)
-		for (const subNode of node.querySelectorAll("[offset-x], [offset-y]")) {
-			process(subNode)
-		}
-	}
-})
+// 	for (const node of nodes) {
+// 		process(node)
+// 		for (const subNode of node.querySelectorAll("[offset-x], [offset-y]")) {
+// 			process(subNode)
+// 		}
+// 	}
+// })
 
-observer.observe(document.body, { childList: true, subtree: true })
+// observer.observe(document.body, { childList: true, subtree: true })
