@@ -26,7 +26,7 @@ export class SpriteController extends Entity {
 			const width = frameInfo.frame.w
 			const height = frameInfo.frame.h
 
-			const pic = Picture(image).crop(x,y, width, height)
+			const pic = Picture(image).crop(x, y, width, height)
 
 			this.layers[layer][frame] = {
 				frame: frame,
@@ -53,7 +53,7 @@ export class SpriteController extends Entity {
 		}
 
 		for (const [layer, frames] of this.layers.all) {
-			const {picture, duration} = frames[this.currentFrame]
+			const { picture, duration } = frames[this.currentFrame]
 			picture.update(this.position)
 		}
 	}
