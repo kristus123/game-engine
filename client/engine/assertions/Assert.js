@@ -1,6 +1,6 @@
 export class Assert {
 	static method(m) {
-		if (not.method(m)) {
+		if (Not.method(m)) {
 			throw new Error("not a method!")
 		}
 
