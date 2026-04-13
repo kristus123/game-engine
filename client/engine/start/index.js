@@ -9,9 +9,13 @@ async function loadWorld() {
 	return World
 }
 
-navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
-if ("serviceWorker" in navigator) {
-	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
+try {
+	navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
+	if ("serviceWorker" in navigator) {
+		// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
+	}
+} catch (error) {
+	console.log("aa")
 }
 
 async function loadAsepriteAssets(path) {
