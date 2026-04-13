@@ -1,3 +1,4 @@
+is_windows = package.config:sub(1,1) == "\\"
 
 local function sanitize_filename(s)
   s = s:gsub("[<>:\\/%%\"%|%?%*]", "_")
@@ -55,11 +56,13 @@ end
 
 local path = sprite.filename:gsub("\\", "/")
 local cwd
-if jit.os == "Windows" then
-  cwd = io.popen("cd"):read("*l"):gsub("\\", "/")
+
+if is_windows then
+  cwd = os.getenv("CD") or ""
 else
-  cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
+  cwd = os.getenv("PWD") or ""
 end
+
 path = path:gsub("^" .. cwd .. "/?", "")
 path = path:gsub("%.%w+$", "")
 
@@ -125,7 +128,7 @@ if #all_tilemaps == 0 then
 end
 
 local ok1
-if jit.os == "Windows" then
+if is_windows then
   ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBase))
 else
   ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))

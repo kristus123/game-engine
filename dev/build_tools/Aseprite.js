@@ -1,22 +1,27 @@
 import { execFileSync } from "child_process"
 import { existsSync } from "fs"
+import os from "os"
+import path from "path"
 import { FileConfig } from "#root/FileConfig.js"
 
 const bin = (() => {
+	const home = os.homedir();
 	const potentialPaths = [
-		"aseprite",
-		"$HOME/aseprite/build/bin/aseprite",
-		"$HOME/aseprite/bin/aseprite",
-	]
+    	"aseprite",
+    	path.join(home, "aseprite/build/bin/aseprite"),
+    	path.join(home, "aseprite/bin/aseprite"),
+	];
 	for (const p of potentialPaths) {
 		try {
 			const platform = process.platform
 
+			let out = null
+
 			if (platform === "win32") {
-				const out = execFileSync("where", [p], { shell: true }).toString().trim().split(/\r?\n/)[0]
+				out = execFileSync("where", [p], { shell: true }).toString().trim().split(/\r?\n/)[0]
 			}
 			else if (platform === "linux") {
-				const out = execFileSync("which", [p], { shell: true }).toString().trim()
+				out = execFileSync("which", [p], { shell: true }).toString().trim()
 			}
 
 			if (out) {
