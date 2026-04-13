@@ -1,11 +1,11 @@
 export class Not {
 
 	static method(arg) {
-		return !A.method(arg)
+		return !a.method(arg)
 	}
 
 	static integer(arg) {
-		return !A.integer(arg)
+		return !a.integer(arg)
 	}
 
 	static array(x) {
