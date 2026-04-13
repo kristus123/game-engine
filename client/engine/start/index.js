@@ -10,6 +10,7 @@ async function loadWorld() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 try {
 	navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
 	if ("serviceWorker" in navigator) {
@@ -23,6 +24,21 @@ navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregist
 if ("serviceWorker" in navigator) {
 	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
 >>>>>>> d439421d (PR (#224))
+=======
+navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
+if ("serviceWorker" in navigator) {
+	// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
+=======
+try {
+	navigator.serviceWorker.getRegistrations().then(r => r.forEach(sw => sw.unregister()))
+	if ("serviceWorker" in navigator) {
+		// navigator.serviceWorker.register('/sw.js') // add this back when our sw is ready
+	}
+}
+catch (error) {
+	console.log("aa")
+>>>>>>> 028df4ba (lint)
+>>>>>>> 07c3d4c5 (lint)
 }
 
 async function loadAsepriteAssets(path) {
@@ -152,6 +168,7 @@ const process = (e) => {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // 		if (e.hasAttribute("offset-y")) {
 // 			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
 // 		}
@@ -160,11 +177,25 @@ const process = (e) => {
 // 	}
 // }
 =======
+=======
+>>>>>>> 07c3d4c5 (lint)
 	if (e.hasAttribute("offset-y")) {
 		e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
 	}
 }
+<<<<<<< HEAD
 >>>>>>> d439421d (PR (#224))
+=======
+=======
+// 		if (e.hasAttribute("offset-y")) {
+// 			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
+// 		}
+// 	} catch (swallow) {
+
+// 	}
+// }
+>>>>>>> 028df4ba (lint)
+>>>>>>> 07c3d4c5 (lint)
 
 const observer = new MutationObserver(mutations => {
 	const nodes = []
