@@ -4,8 +4,6 @@ export class Palette {
 		const canvas = document.createElement("canvas")
 		document.getElementById("canvases").appendChild(canvas)
 
-		canvas.width = Screen.width
-		canvas.height = Screen.height
 		const ctx = canvas.getContext("2d")
 
 		ctx.imageSmoothingEnabled = false
