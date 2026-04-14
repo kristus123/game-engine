@@ -10,6 +10,11 @@ export class Palette {
 
 		ctx.imageSmoothingEnabled = false
 
+		TestResizeObserver(canvas, (width, height) => {
+			canvas.width = width
+			canvas.height = height
+		})
+
 		return {
 			apply: p => {
 				ctx.drawImage(p.canvas, 0, 0)

@@ -86,7 +86,7 @@ Promise.all([
 		backgroundPalette.fill("#10204f")
 
 		const filterPalette = Palette.offscreen()
-		filterPalette.fill("#03045e", 0.2)
+		filterPalette.fill("#03045e", 0.1)
 
 		Sound.init()
 		Mouse.initialize()
@@ -119,8 +119,8 @@ Promise.all([
 			mainPalette.apply(backgroundPalette)
 			mainPalette.apply(Camera.palettes.d3)
 			mainPalette.apply(Camera.palettes.d2)
-			mainPalette.apply(filterPalette)
 			mainPalette.apply(Camera.palettes.d1)
+			mainPalette.apply(filterPalette)
 		})
 	})
 	.catch(e => {

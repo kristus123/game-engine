@@ -7,4 +7,10 @@ export class Screen {
 	static get height() {
 		return window.innerHeight
 	}
+
+	static onResize(callback) {
+		window.addEventListener("resize", () => {
+			callback(this.width, this.height)
+		});
+	}
 }
