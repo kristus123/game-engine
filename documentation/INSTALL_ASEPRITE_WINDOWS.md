@@ -19,8 +19,6 @@ choose `4.2.x` version (aseprite requires that version)
 
 [download here](https://cmake.org/download/)
 
-## Add CMake to system PATH
-
 Verify:
 
 ```bash
@@ -66,19 +64,6 @@ ninja --version
 cmake --version
 ```
 
-# download aseprite
-
-Step 1 — Download the Source Code
-
-Open a terminal and clone Aseprite:
-
-```bash
-git clone --recursive https://github.com/aseprite/aseprite.git
-cd aseprite
-mkdir build
-cd build
-```
-
 # Download Skia Dependency
 
 Aseprite requires the Skia graphics library.
@@ -116,7 +101,7 @@ also create a `build` folder
 C:\aseprite\build
 ```
 
-open cmd inside of this folder
+open cmd inside of the build folder
 
 run:
 
