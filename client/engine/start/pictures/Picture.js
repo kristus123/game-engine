@@ -47,13 +47,6 @@ export class Picture {
 		this.ctx.fillRect(p.x, p.y, p.width, p.height)
 	}
 
-	move(p, picture) {
-		const c = this.pixelColor(p)
-		this.erase(p)
-		picture.setPixel(p, c.r, c.g, c.b, c.a)
-		console.log(c)
-	}
-
 	clear() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 	}
@@ -74,10 +67,7 @@ export class Picture {
 	}
 
 	update(p) {
-		D1.picture(p, this.canvas)
+		D1.ctx.drawImage(this.canvas, p.x, p.y, p.width, p.height)
 	}
 
-	draw() {
-		throw new Error("dont use this")
-	}
 }
