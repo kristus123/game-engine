@@ -16,8 +16,8 @@ if ("serviceWorker" in navigator) {
 
 async function loadAsepriteAssets(path) {
 
-	const fullImage = await LoadImage(`${path}.png`)
-	const fullJson = await LoadJson(`${path}.json`)
+	// const fullImage = await LoadImage(`${path}.png`)
+	// const fullJson = await LoadJson(`${path}.json`)
 
 	const layersImage = await LoadImage(`${path}Layers.png`)
 	const layersJson = await LoadJson(`${path}Layers.json`)
