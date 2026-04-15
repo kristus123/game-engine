@@ -23,12 +23,3 @@ body {
 	padding-top: env(safe-area-inset-top);
 }
 
-canvas {
-	display: block;
-}
-
-
-canvas,
-img {
-	image-rendering: pixelated;
-}

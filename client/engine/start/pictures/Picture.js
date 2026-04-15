@@ -66,7 +66,7 @@ export class Picture {
 		}
 	}
 
-	update(p) {
+	update(p, d) {
 		D1.ctx.drawImage(this.canvas, p.x, p.y, p.width, p.height)
 	}
 

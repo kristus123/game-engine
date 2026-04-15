@@ -16,8 +16,8 @@ if ("serviceWorker" in navigator) {
 
 async function loadAsepriteAssets(path) {
 
-	const fullImage = await LoadImage(`${path}.png`)
-	const fullJson = await LoadJson(`${path}.json`)
+	// const fullImage = await LoadImage(`${path}.png`)
+	// const fullJson = await LoadJson(`${path}.json`)
 
 	const layersImage = await LoadImage(`${path}Layers.png`)
 	const layersJson = await LoadJson(`${path}Layers.json`)
@@ -82,11 +82,6 @@ Promise.all([
 ])
 	.then((x) => {
 		const mainPalette = Palette.main()
-		const backgroundPalette = Palette.offscreen()
-		backgroundPalette.fill("#10204f")
-
-		const filterPalette = Palette.offscreen()
-		filterPalette.fill("#03045e", 0.2)
 
 		Sound.init()
 		Mouse.initialize()
@@ -94,33 +89,21 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		initD1(Camera.palettes.d1.draw)
-		initD2(Camera.palettes.d2.draw)
-		initD3(Camera.palettes.d3.draw)
+		initD1(Draw(mainPalette.ctx))
 
 		Level.change(new x[0]())
 
 		Loop.everyFrame(() => {
-			Camera.palettes.forEach((d, palette) => {
-				palette.clear()
-			})
+			// mainPalette.clear()
+			mainPalette.fill("#10204f")
 
 			Physics.update()
 
-			Camera.context(() => {
-
+			Camera.applyPositionContextThing(mainPalette, () => {
 				Controller.update()
-
 				Level.update()
-
 				Mouse.update()
 			})
-
-			mainPalette.apply(backgroundPalette)
-			mainPalette.apply(Camera.palettes.d3)
-			mainPalette.apply(Camera.palettes.d2)
-			mainPalette.apply(filterPalette)
-			mainPalette.apply(Camera.palettes.d1)
 		})
 	})
 	.catch(e => {
@@ -148,6 +131,7 @@ const process = (e) => {
 const observer = new MutationObserver(mutations => {
 	const nodes = []
 	for (const mutation of mutations) {
+		console.log(mutation)
 		for (const n of mutation.addedNodes) {
 			nodes.push(n)
 		}

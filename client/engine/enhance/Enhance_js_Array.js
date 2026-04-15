@@ -134,6 +134,7 @@ export function Enhance_js_Array() {
 		if (this.length != n) {
 			throw new Error("length mismash")
 		}
+
 		return this
 	})
 
