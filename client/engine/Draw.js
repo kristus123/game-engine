@@ -4,6 +4,10 @@ export class Draw {
 		this.angle = 0 // hack
 	}
 
+	clear() {
+		this.ctx.clearRect(0, 0, Screen.width, Screen.height)
+	}
+
 	palette(palette) {
 		this.ctx.drawImage(palette.canvas, 0, 0)
 	}

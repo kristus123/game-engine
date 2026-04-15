@@ -1,12 +1,6 @@
 export class Camera {
 	static initialize() { // initialize() Mouse first
 
-		this.palettes = {
-			d1: Palette.offscreen(),
-			d2: Palette.offscreen(),
-			d3: Palette.offscreen(),
-		}
-
 		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
 
 		this.position = this.objectToFollow.position.smooth()
@@ -20,10 +14,21 @@ export class Camera {
 		}
 	}
 
-	static context(run) {
+	static applyPositionContextThing(palette, run) {
+
 		this.position.update()
 
-		LowLevelCamera.context(this, run)
+		palette.ctx.save()
+
+		palette.ctx.translate(
+			-this.position.x * this.zoom + this.offset.x,
+			-this.position.y * this.zoom + this.offset.y)
+
+		palette.ctx.scale(this.zoom, this.zoom)
+
+		run()
+
+		palette.ctx.restore()
 	}
 
 	static follow(o) {
