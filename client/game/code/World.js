@@ -8,5 +8,6 @@ export class World {
 
 	update() {
 		this.p.update()
+		console.log(Mouse.position)
 	}
 }

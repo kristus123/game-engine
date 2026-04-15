@@ -11,6 +11,6 @@ export class Screen {
 	static onResize(callback) {
 		window.addEventListener("resize", () => {
 			callback(this.width, this.height)
-		});
+		})
 	}
 }

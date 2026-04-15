@@ -1,11 +1,8 @@
 export function TestResizeObserver(e, callback) {
 	const observer = new ResizeObserver(entries => {
-		for (let entry of entries) {
-			const { width, height } = entry.contentRect
-			console.log("Canvas resized:", width, height)
+		const entry = entries.assertLength(1)[0]
 
-			callback(width, height)
-		}
+		callback(entry.contentRect.width, entry.contentRect.height)
 	})
 
 	observer.observe(e)
