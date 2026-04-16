@@ -15,7 +15,7 @@ export class SpriteController extends Entity {
 			frame = ConvertTo.integer(frame)
 
 			// not sure if best approach to do - 1
-			// currently lots of hacks with this caluclation. look at CurrentFrame
+			// currently lots of hacks with this caluclation. look at CurrentFrame.js
 			this.totalFrames = frame - 1 // it will end on the last value which is the total frame
 
 			this.layers[layer] ??= {}
