@@ -26,7 +26,18 @@ killPort(5000)
 Files.deleteFolder(FileConfig.dist)
 
 let currentId = RandomId()
+
 let idTimeout = null
+function triggerClientReload() {
+	if (idTimeout) {
+		clearTimeout(idTimeout)
+	}
+
+	idTimeout = setTimeout(() => {
+		currentId = RandomId()
+		idTimeout = null
+	}, 500)
+}
 
 const app = express()
 app.use(express.static(FileConfig.dist))
@@ -46,27 +57,35 @@ const watcher = chokidar.watch([FileConfig.client], {
 watcher.on("all", (e, path) => {
 	console.log("changed", path)
 
-	if (e == "unlink" || e == "unlinkDir") { // file or folder moved/deleted
-		console.log("rebuilding dist")
-		Files.deleteFolder(FileConfig.dist)
-
-		new Runner(FileConfig.exportAseprite).start()
-	}
-
-	if (path.includes(".aseprite")) {
-		new Runner(FileConfig.exportAseprite, [path]).start()
+	console.log(e)
+	console.log(path)
+	switch (e) {
+		case "unlink": { // file deleted
+			Files.deleteFile("dist/" + path)
+			new Runner(FileConfig.exportAseprite).start()
+			break
+		}
+		case "unlinkDir": { // folder deleted
+			Files.deleteFolder("dist/" + path)
+			break
+		}
+		case "add": { // file created
+			break
+		}
+		case "addDir": { // folder created
+			break
+		}
+		case "change": { // folder created
+			break
+		}
+		default: {
+			throw new Error("unexpected e: " + e)
+		}
 	}
 
 	new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
 
-	if (idTimeout) {
-		clearTimeout(idTimeout)
-	}
-
-	idTimeout = setTimeout(() => {
-		currentId = RandomId()
-		idTimeout = null
-	}, 500)
+	triggerClientReload()
 })
 
 
