@@ -15,20 +15,21 @@ export class Camera {
 	}
 
 	static applyPositionContextThing(palette, run) {
-
 		this.position.update()
 
-		palette.ctx.save()
+		const ctx = palette.ctx
 
-		palette.ctx.translate(
-			-this.position.x * this.zoom + this.offset.x,
-			-this.position.y * this.zoom + this.offset.y)
+		ctx.save()
 
-		palette.ctx.scale(this.zoom, this.zoom)
+		ctx.translate(this.offset.x, this.offset.y)
+
+		ctx.scale(this.zoom, this.zoom)
+
+		ctx.translate(-this.position.x, -this.position.y)
 
 		run()
 
-		palette.ctx.restore()
+		ctx.restore()
 	}
 
 	static follow(o) {

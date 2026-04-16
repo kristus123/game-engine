@@ -14,7 +14,7 @@ setInterval(async () => {
 
 		localStorage.setItem("currentId", data.currentId)
 
-		Dom.overlay(Html.p("RELOADING").css('color:white; font-size:150px;'))
+		Dom.overlay(Html.p("RELOADING").css("color:white; font-size:150px;"))
 
 		setTimeout(() => {
 			location.reload()

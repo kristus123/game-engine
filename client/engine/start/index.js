@@ -31,16 +31,17 @@ Promise.all([
 
 		initD1(Draw(mainPalette.ctx))
 
-		const world = x[0]
-		Level.change(new world())
+		const worldModule = x[0]
+		Level.change(new worldModule())
 
 		Loop.everyFrame(() => {
 			// mainPalette.clear()
 			mainPalette.fill("#10204f")
 
+			Physics.update()
+			Controller.update()
+
 			Camera.applyPositionContextThing(mainPalette, () => {
-				Physics.update()
-				Controller.update()
 				Level.update()
 				Mouse.update()
 			})
