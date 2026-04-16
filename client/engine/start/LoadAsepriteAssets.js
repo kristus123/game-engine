@@ -9,7 +9,6 @@ export async function LoadAsepriteAssets(path) {
 	// const tilemapsJson = await LoadJsonIfPresent(`${path}SpriteTilemapInfo.json`)
 
 	const spriteName = path.split("/").pop()
-
 	Sprite[spriteName] = (position) => new SpriteController(position, layersImage, layersJson)
 
 	// if (tilemapsJson) {

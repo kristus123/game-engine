@@ -1,6 +1,6 @@
 export class Palette {
 
-	static main() {
+	static {
 		const canvas = document.createElement("canvas")
 		document.getElementById("canvases").appendChild(canvas)
 
@@ -11,11 +11,10 @@ export class Palette {
 			canvas.width = width
 			canvas.height = height
 
-			const ctx = canvas.getContext("2d")
 			ctx.imageSmoothingEnabled = false
 		})
 
-		return {
+		this.main = {
 			apply: p => {
 				ctx.drawImage(p.canvas, 0, 0)
 			},

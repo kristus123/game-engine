@@ -1,5 +1,5 @@
 export class SpriteController extends Entity {
-	constructor(position, image, layersJson) {
+	constructor(position, layersImage, layersJson) {
 		super(position)
 
 		this.layers = {}
@@ -15,7 +15,7 @@ export class SpriteController extends Entity {
 			frame = ConvertTo.integer(frame)
 
 			// not sure if best approach to do - 1
-			// currently lots of hacks with this caluclation. look at ActiveFrameHandler
+			// currently lots of hacks with this caluclation. look at CurrentFrame
 			this.totalFrames = frame - 1 // it will end on the last value which is the total frame
 
 			this.layers[layer] ??= {}
@@ -31,12 +31,12 @@ export class SpriteController extends Entity {
 			this.layers[layer][frame] = {
 				frame: frame,
 				tag: tag,
-				picture: Picture(image).crop(x, y, width, height),
+				picture: Picture(layersImage).crop(x, y, width, height),
 				duration: frameInfo.duration,
 			}
 		})
 
-		this.currentFrame = ActiveFrameHandler(this.totalFrames)
+		this.currentFrame = CurrentFrame(this.totalFrames)
 	}
 
 	update(d) {

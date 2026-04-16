@@ -21,31 +21,27 @@ Promise.all([
 ])
 	.then((x) => {
 
-		const mainPalette = Palette.main()
-
 		Sound.init()
 		Mouse.initialize()
 		Controller.init()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
-		initD1(Draw(mainPalette.ctx))
+		initD1(Draw(Palette.main.ctx))
 
 		const worldModule = x[0]
 		Level.change(new worldModule())
 
 		Loop.everyFrame(() => {
-			// mainPalette.clear()
-			mainPalette.fill("#10204f")
+			Palette.main.fill("#10204f")
 
 			Physics.update()
 			Controller.update()
 
-			Camera.applyPositionContextThing(mainPalette, () => {
+			Camera.applyPositionContextThing(Palette.main, () => {
 				Level.update()
 				Mouse.update()
 			})
-
 		})
 	})
 	.catch(e => {

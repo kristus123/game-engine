@@ -1,4 +1,4 @@
-export class ActiveFrameHandler {
+export class CurrentFrame {
 	constructor(totalFrames) {
 		this.currentFrame = IntegerLoop(0, totalFrames)
 		this.stopWatch = StopWatch().start()

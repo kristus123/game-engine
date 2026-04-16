@@ -1,3 +1,4 @@
+// it triggers once initially
 export function TestResizeObserver(e, callback) {
 
 	const observer = new ResizeObserver(entries => {
