@@ -42,7 +42,7 @@ function triggerClientReload() {
 const app = express()
 app.use(express.static(FileConfig.dist))
 
-app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check index.js
+app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check HotReload.js
 	res.json({ currentId: currentId })
 })
 
@@ -60,13 +60,7 @@ watcher.on("all", (e, path) => {
 	console.log(e)
 	console.log(path)
 	switch (e) {
-		case "unlink": { // file deleted
-			Files.deleteFile("dist/" + path)
-			new Runner(FileConfig.exportAseprite).start()
-			break
-		}
-		case "unlinkDir": { // folder deleted
-			Files.deleteFolder("dist/" + path)
+		case "change": { // folder created
 			break
 		}
 		case "add": { // file created
@@ -75,7 +69,13 @@ watcher.on("all", (e, path) => {
 		case "addDir": { // folder created
 			break
 		}
-		case "change": { // folder created
+		case "unlink": { // file deleted
+			Files.deleteFile("dist/" + path)
+			new Runner(FileConfig.exportAseprite).start()
+			break
+		}
+		case "unlinkDir": { // folder deleted
+			Files.deleteFolder("dist/" + path)
 			break
 		}
 		default: {
