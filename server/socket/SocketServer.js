@@ -29,5 +29,3 @@ socketServer.onClose = (client, clientId) => {
 		clientId: clientId
 	})
 }
-
-console.log("yo")
