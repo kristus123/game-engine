@@ -39,11 +39,11 @@ export class SpriteController extends Entity {
 		this.currentFrame = CurrentFrame(this.totalFrames)
 	}
 
-	update(d) {
+	update() {
 		for (const [layer, frames] of this.layers.all) {
 			const { frame, picture, duration, tag } = frames[this.currentFrame.value]
 
-			picture.update(this.position, d)
+			picture.update(this.position)
 
 			this.currentFrame.update(duration)
 		}
