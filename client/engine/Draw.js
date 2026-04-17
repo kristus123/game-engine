@@ -4,6 +4,10 @@ export class Draw {
 		this.angle = 0 // hack
 	}
 
+	clear() {
+		this.ctx.clearRect(0, 0, Screen.width, Screen.height)
+	}
+
 	palette(palette) {
 		this.ctx.drawImage(palette.canvas, 0, 0)
 	}
@@ -369,8 +373,8 @@ export class Draw {
 		const dx = target.x - Camera.position.x
 		const dy = target.y - Camera.position.y
 		// Calculate the maximum allowed distances for rectangular movement
-		const horizontalRectDistance = (Palette.width / 2 - 20)
-		const verticalRectDistance = (Palette.height / 2 - 20)
+		const horizontalRectDistance = (Screen.width / 2 - 20)
+		const verticalRectDistance = (Screen.height / 2 - 20)
 		// Calculate the position for the circle to move in a rectangular path
 		let circleX =
 			Camera.position.x +

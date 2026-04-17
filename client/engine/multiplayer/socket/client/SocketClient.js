@@ -1,5 +1,3 @@
-// ClientId(
-
 export class SocketClient {
 	static {
 		this.clientActionListener = ActionListener()
@@ -9,8 +7,6 @@ export class SocketClient {
 			for (const clientId of data.clientIds) {
 				OtherClients.add(clientId)
 			}
-
-			this.clientActionListener.trigger(data.action, data)
 		})
 
 		this.serverActionListener.listen("REMOVE_CLIENT", data => {
@@ -20,7 +16,6 @@ export class SocketClient {
 		})
 
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", data => {
-			console.log(`Message: ${JSON.stringify(data)}`)
 			this.clientActionListener.trigger(data.subAction, data)
 		})
 
@@ -46,12 +41,19 @@ export class SocketClient {
 	}
 
 	static sendToOtherClients(subAction, data) {
+		Assert.value(subAction)
+		Assert.value(data)
+
 		for (const targetClientId of OtherClients.ids) {
 			SocketClient.sendToClient(subAction, targetClientId, data)
 		}
 	}
 
+
 	static onServerMessage(action, callback) {
+		Assert.value(action)
+		Assert.value(callback)
+
 		this.serverActionListener.listen(action, callback)
 	}
 

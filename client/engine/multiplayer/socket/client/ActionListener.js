@@ -4,8 +4,14 @@ export class ActionListener {
 	}
 
 	trigger(action, data) {
-		this.listeners[action]?.trigger(data)
+		const listener = this.listeners[action]
 
+		if (listener) {
+			listener.trigger(data)
+		}
+		else {
+			throw new Error(`unexpected action: ${action}, data: ${data}`)
+		}
 	}
 
 	listen(action, callback) {

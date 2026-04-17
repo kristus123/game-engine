@@ -89,6 +89,21 @@ export default class {
 		fs.rmSync(folder, { recursive: true, force: true })
 	}
 
+	static deleteFile(file) {
+		console.log("deleting " + file)
+		fs.unlinkSync(file)
+	}
+
+	static copyFile(source, destination) {
+		const stat = fs.statSync(source)
+
+		if (stat.isDirectory()) {
+			throw new Error(`Expected file but got directory: ${source}`)
+		}
+		else {
+			fs.copyFileSync(source, destination)
+		}
+	}
 
 	static copyFolder(source, destination) {
 		if (!fs.existsSync(source)) {

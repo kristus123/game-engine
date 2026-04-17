@@ -49,11 +49,14 @@ const htmlContents = Files.at(FileConfig.client)
 			.replace(/\s+/g, " ")
 			.trim()
 
-		const name = f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, "")
-		return JSON.stringify({ name: name, content: `${content}` })
+		const name = f.split("/").pop()
+			.replace(/\.html$/, "")
+			.replace(/\.md$/, "")
+
+		return JSON.stringify({ name: name, content: content })
 	})
+
 Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
-console.log(htmlContents)
 
 
 const audioFiles = Files.at(FileConfig.gameAudio)

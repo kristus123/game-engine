@@ -2,7 +2,10 @@ import { WebSocketServer } from "ws"
 import { Flask } from "#root/server/http/Flask.js"
 
 export default class {
-	constructor() {
+	constructor({onConnection, onClose} = {}) {
+		this.onConnection = onConnection
+		this.onClose = onClose
+
 		this.actions = {}
 	}
 
@@ -12,6 +15,7 @@ export default class {
 		const webSocketServer = new WebSocketServer({ server })
 
 		webSocketServer.on("connection", (client, request) => {
+			console.log("hahah")
 
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
 			const clientId = urlParameters.get("clientId")
@@ -26,7 +30,7 @@ export default class {
 					}
 				}
 				catch (e) {
-					console.log(e)
+					throw new Error(e)
 				}
 			})
 

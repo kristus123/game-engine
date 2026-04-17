@@ -2,41 +2,40 @@ import LowLevelSocketServer from "#root/server/socket/LowLevelSocketServer.js"
 import List from "#root/server/socket/List.js"
 
 export default class {
-	constructor(port) {
+	constructor() {
 		this.allClients = []
 		this.allClientIds = []
 
 		this.clientFrom = {}
 		this.clientIdFrom = {}
 
-		this.lowLevelSocketServer = new LowLevelSocketServer(port)
+		this.lowLevelSocketServer = new LowLevelSocketServer({
+			onConnection: (client, clientId) => {
+				this.allClients.push(client)
+				this.allClientIds.push(clientId)
 
-		this.lowLevelSocketServer.onConnection = (client, clientId) => {
-			this.allClients.push(client)
-			this.allClientIds.push(clientId)
-			console.log(this.allClientIds)
+				this.clientFrom[clientId] = client
+				this.clientIdFrom[client] = clientId
 
-			this.clientFrom[clientId] = client
-			this.clientIdFrom[client] = clientId
+				this.onConnection(client, clientId)
+				console.log("triggered onConnection")
+			},
+			onClose: (client, clientId) => {
+				List.remove(this.allClients, client)
+				List.remove(this.allClientIds, clientId)
 
-			this.onConnection(client, clientId)
-		}
+				delete this.clientFrom[clientId]
+				delete this.clientIdFrom[client]
 
-		this.lowLevelSocketServer.onClose = (client, clientId) => {
-			List.remove(this.allClients, client)
-			List.remove(this.allClientIds, clientId)
-			console.log(this.allClientIds)
-
-			delete this.clientFrom[clientId]
-			delete this.clientIdFrom[client]
-
-			this.onClose(client, clientId)
-		}
+				this.onClose(client, clientId)
+				console.log("triggered onClose")
+			}
+		})
 	}
 
-	sendToOthers(from, data) {
+	sendToOthers(origin, data) {
 		for (const client of this.allClients) {
-			if (client !== from) {
+			if (client !== origin) {
 				client.send(JSON.stringify(data))
 			}
 		}
@@ -60,3 +59,4 @@ export default class {
 		this.lowLevelSocketServer.start()
 	}
 }
+

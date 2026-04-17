@@ -9,14 +9,16 @@ if (!currentId) {
 setInterval(async () => {
 	const response = await fetch("/currentId")
 	const data = await response.json()
+
 	if (data.currentId !== currentId) {
 
 		localStorage.setItem("currentId", data.currentId)
 
-		Dom.swap(Html.p("Reloading"))
+		Dom.overlay(Html.p("RELOADING").css("color:white; font-size:150px;"))
 
 		setTimeout(() => {
 			location.reload()
-		}, 200)
+		}, 20)
 	}
-}, 500)
+
+}, 100)

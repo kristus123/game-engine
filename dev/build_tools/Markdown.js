@@ -1,5 +1,6 @@
 export class Markdown {
 	static toHtml(md) {
+
 		// Headings
 		md = md.replace(/^###### (.*)$/gm, "<h6>$1</h6>")
 		md = md.replace(/^##### (.*)$/gm, "<h5>$1</h5>")
@@ -17,9 +18,8 @@ export class Markdown {
 
 		// Wrap plain lines in <p>
 		md = md.replace(
-  	/^(?!<h|<ul|<ol|<li|<blockquote|<pre|<img|<p)(.+)$/gm,
-  	"<p>$1</p>"
-		)
+			/^(?!<h|<ul|<ol|<li|<blockquote|<pre|<img|<p)(.+)$/gm,
+			"<p>$1</p>")
 
 		// Replace newlines inside <p> with <br>
 		md = md.replace(/<p>(.*?)<\/p>/gs, (match, content) => {
