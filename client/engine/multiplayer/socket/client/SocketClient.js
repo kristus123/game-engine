@@ -1,5 +1,3 @@
-// ClientId(
-
 export class SocketClient {
 	static {
 		this.clientActionListener = ActionListener()
