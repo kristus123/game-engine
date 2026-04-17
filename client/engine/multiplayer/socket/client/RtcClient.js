@@ -1,5 +1,3 @@
-// ClientId(
-
 export class RtcClient {
 	static {
 		this.connectedClientIds = {}
