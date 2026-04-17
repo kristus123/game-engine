@@ -52,6 +52,7 @@ const htmlContents = Files.at(FileConfig.client)
 		const name = f.split("/").pop()
 			.replace(/\.html$/, "")
 			.replace(/\.md$/, "")
+
 		return JSON.stringify({ name: name, content: content })
 	})
 
