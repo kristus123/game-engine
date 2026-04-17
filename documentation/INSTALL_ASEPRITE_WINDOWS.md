@@ -1,138 +1,46 @@
-# Aseprite Setup for Windows
+# Setup Aseprite for Windows
 
-[youtube video](https://youtu.be/78T94w-Mms8?si=k-FTEb0j_isVw2UZ)
+**Dependencies:**
+- Git: https://git-scm.com/install/windows,
+- Cmake: https://cmake.org/download/,
+- Ninja: https://github.com/ninja-build/ninja/releases,
+- Visual Studio: https://visualstudio.microsoft.com/downloads/,
+- And a compiled version of the `aseprite-m124` branch of the Skia library: https://github.com/aseprite/skia/releases/tag/m124-08a5439a6b,
 
+**Setup Dependencies:**
 
-# Install Git
+1. Download And Install `git`, `cmake`, `ninja` and `visual studio` from the given links.
 
-[download here](https://git-scm.com/download/win)
+> **Note:** While installing Visual Studio remember to select "Desktop development with C++": ![Example Image](https://i.imgur.com/lnW0x5L.png)
 
-Verify installation:
+2. Set the `PATH` variable for `ninja`:
 
-```bash
-git --version
+![Example Image 2](https://i.imgur.com/6sBmela.png)
+3. Download `skia-m124` binary from the provided link.
+4. Extract and Rename the extracted folder to `skia`. Then move it to `C:\deps\skia`.
+
+**Build Steps:**
+1. Open a `cmd.exe` and run:
+```sh
+cd C:
 ```
-
-# Install CMake
-
-choose `4.2.x` version (aseprite requires that version)
-
-[download here](https://cmake.org/download/)
-
-## Add CMake to system PATH
-
-Verify:
-
-```bash
-cmake --version
-```
-
-# Install Visual Studio (Community)
-
-[download here](https://visualstudio.microsoft.com/)
-
-During installation select:
-
-- Desktop development with C++
-
-![text](https://i.gyazo.com/6966c87933505bc16ea46b5939f2addd.png)
-
-# Install Ninja Build System
-
-[download here](https://github.com/ninja-build/ninja/releases)
-
-make sure windows 11 sdk is checked
-
-![text](https://i.gyazo.com/6a01e60d30b5ce74f85d338bebda105a.png)
-
-place .exe into:
-
-```bash
-C:\ninja\
-```
-
-- Place ninja.exe in your PATH
-    - win + edit environment variables
-    - user -> path -> new
-    - paste the path `C:\ninja\`
-
-![text](https://i.gyazo.com/d2cb399e17c1920580992af62ee1be45.png)
-
-open new cmd and verify:
-
-```
-ninja --version
-
-cmake --version
-```
-
-# download aseprite
-
-Step 1 — Download the Source Code
-
-Open a terminal and clone Aseprite:
-
-```bash
+2. Clone the Aseprite github repository:
+```sh
 git clone --recursive https://github.com/aseprite/aseprite.git
+```
+3. Then run:
+```sh
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
+```
+4. Finally, we can start the actual build process:
+```sh
 cd aseprite
 mkdir build
 cd build
-```
-
-# Download Skia Dependency
-
-Aseprite requires the Skia graphics library.
-
-Download the prebuilt Skia package:
-
-[download here](https://github.com/aseprite/skia/releases)
-
-choose `Skia-Windows-Release-x64.zip`.
-
-Extract it to:
-
-```
-C:\deps\skia
-```
-
-![text](https://i.gyazo.com/6c2e1ca33fb73353264b81cbca0da99c.png)
-
-
-# Install Aseprite
-
-[text](https://github.com/aseprite/aseprite/releases)
-
-Install the newest version
-
-export it to 
-
-```
-C:\aseprite
-```
-
-also create a `build` folder
-
-```
-C:\aseprite\build
-```
-
-open cmd inside of this folder
-
-run:
-
-```
-call "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=x64
-
-cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G Ninja ..
-
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\skia -DSKIA_LIBRARY_DIR=C:\deps\skia\out\Release-x64 -DSKIA_LIBRARY=C:\deps\skia\out\Release-x64\skia.lib -G ninja ..
 ninja aseprite
 ```
 
-C:\aseprite\build\bin
-```
-build/bin/aseprite.exe
-```
+> **Note:** After this there will be a `aseprite.exe` binary generated a `C:\aseprite\build\bin`. If you want you can move this `bin` folder to somewhere else.
 
-
-
-
+> **Note:** If there are errors related to Aseprite while trying to run the engine try adding the path of your aseprite binary in `Aseprite.js` excluding the `.exe` part.
