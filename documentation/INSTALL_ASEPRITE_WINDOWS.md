@@ -16,6 +16,7 @@
 2. Set the `PATH` variable for `ninja`:
 
 ![Example Image 2](https://i.imgur.com/6sBmela.png)
+
 3. Download `skia-m124` binary from the provided link.
 4. Extract and Rename the extracted folder to `skia`. Then move it to `C:\deps\skia`.
 
