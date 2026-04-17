@@ -1,26 +1,9 @@
 import LowLevelSocketServer from "#root/server/socket/LowLevelSocketServer.js"
 import List from "#root/server/socket/List.js"
 
-let totalClasses = 0
-
-import crypto from "crypto"
-
-const RUNNER_ID = crypto.randomUUID()
-
-
-
 export default class {
 	constructor() {
-		console.log("🔥 Runner booted:", RUNNER_ID, "PID:", process.pid)
-
-		totalClasses += 1
-		console.log("total classes xxxx: " + totalClasses)
-
-		setInterval(() => {
-			console.log(this.allClients.length)
-		}, 1000);
-
-		this._allClients = []
+		this.allClients = []
 		this.allClientIds = []
 
 		this.clientFrom = {}
@@ -48,11 +31,6 @@ export default class {
 				console.log("triggered onClose")
 			}
 		})
-	}
-
-	get allClients() {
-		console.log("getting clients list")
-		return this._allClients
 	}
 
 	sendToOthers(origin, data) {
