@@ -28,6 +28,7 @@ Files.deleteFolder(FileConfig.dist)
 let currentId = RandomId()
 
 let idTimeout = null
+
 function triggerClientReload() {
 	if (idTimeout) {
 		clearTimeout(idTimeout)
@@ -36,7 +37,7 @@ function triggerClientReload() {
 	idTimeout = setTimeout(() => {
 		currentId = RandomId()
 		idTimeout = null
-	}, 500)
+	}, 100)
 }
 
 const app = express()

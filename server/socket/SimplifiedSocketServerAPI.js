@@ -1,42 +1,63 @@
 import LowLevelSocketServer from "#root/server/socket/LowLevelSocketServer.js"
 import List from "#root/server/socket/List.js"
 
+let totalClasses = 0
+
+import crypto from "crypto"
+
+const RUNNER_ID = crypto.randomUUID()
+
+
+
 export default class {
-	constructor(port) {
-		this.allClients = []
+	constructor() {
+		console.log("🔥 Runner booted:", RUNNER_ID, "PID:", process.pid)
+
+		totalClasses += 1
+		console.log("total classes xxxx: " + totalClasses)
+
+		setInterval(() => {
+			console.log(this.allClients.length)
+		}, 1000);
+
+		this._allClients = []
 		this.allClientIds = []
 
 		this.clientFrom = {}
 		this.clientIdFrom = {}
 
-		this.lowLevelSocketServer = new LowLevelSocketServer(port)
+		this.lowLevelSocketServer = new LowLevelSocketServer({
+			onConnection: (client, clientId) => {
+				this.allClients.push(client)
+				this.allClientIds.push(clientId)
 
-		this.lowLevelSocketServer.onConnection = (client, clientId) => {
-			this.allClients.push(client)
-			this.allClientIds.push(clientId)
-			console.log(this.allClientIds)
+				this.clientFrom[clientId] = client
+				this.clientIdFrom[client] = clientId
 
-			this.clientFrom[clientId] = client
-			this.clientIdFrom[client] = clientId
+				this.onConnection(client, clientId)
+				console.log("triggered onConnection")
+			},
+			onClose: (client, clientId) => {
+				List.remove(this.allClients, client)
+				List.remove(this.allClientIds, clientId)
 
-			this.onConnection(client, clientId)
-		}
+				delete this.clientFrom[clientId]
+				delete this.clientIdFrom[client]
 
-		this.lowLevelSocketServer.onClose = (client, clientId) => {
-			List.remove(this.allClients, client)
-			List.remove(this.allClientIds, clientId)
-			console.log(this.allClientIds)
-
-			delete this.clientFrom[clientId]
-			delete this.clientIdFrom[client]
-
-			this.onClose(client, clientId)
-		}
+				this.onClose(client, clientId)
+				console.log("triggered onClose")
+			}
+		})
 	}
 
-	sendToOthers(from, data) {
+	get allClients() {
+		console.log("getting clients list")
+		return this._allClients
+	}
+
+	sendToOthers(origin, data) {
 		for (const client of this.allClients) {
-			if (client !== from) {
+			if (client !== origin) {
 				client.send(JSON.stringify(data))
 			}
 		}
@@ -60,3 +81,4 @@ export default class {
 		this.lowLevelSocketServer.start()
 	}
 }
+

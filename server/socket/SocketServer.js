@@ -1,6 +1,7 @@
-import SocketServer from "#root/server/socket/SimplifiedSocketServerAPI.js"
+import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServerAPI.js"
 
-export const socketServer = new SocketServer()
+export const socketServer = new SimplifiedSocketServerAPI()
+
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
@@ -9,6 +10,15 @@ socketServer.onConnection = (client, clientId) => {
 		action: "UPDATE_CLIENTS_LIST",
 		clientIds: socketServer.allClientIds,
 		originClientId: clientId
+	})
+}
+
+socketServer.onClose = (client, clientId) => {
+	console.log(`${clientId} has disconnected`)
+
+	socketServer.sendToEveryone({
+		action: "REMOVE_CLIENT",
+		clientId: clientId
 	})
 }
 
@@ -21,11 +31,3 @@ socketServer.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
 	socketServer.sendToClient(targetClient, data)
 })
 
-socketServer.onClose = (client, clientId) => {
-	console.log(`${clientId} has disconnected`)
-
-	socketServer.sendToEveryone({
-		action: "REMOVE_CLIENT",
-		clientId: clientId
-	})
-}
