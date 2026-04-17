@@ -42,6 +42,6 @@ cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DLAF_BACKEND=skia -DSKIA_DIR=C:\deps\sk
 ninja aseprite
 ```
 
-> **Note:** After this there will be a `aseprite.exe` binary generated a `C:\aseprite\build\bin`. If you want you can move this `bin` folder to somewhere else.
+> **Note:** After this there will be an `aseprite.exe` binary generated at `C:\aseprite\build\bin`. If you want you can move this `bin` folder to somewhere else.
 
 > **Note:** If there are errors related to Aseprite while trying to run the engine try adding the path of your aseprite binary in `Aseprite.js` excluding the `.exe` part.
