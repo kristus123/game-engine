@@ -197,4 +197,9 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement, "removeFromDom", function () {
+		Dom.remove(this)
+		return this
+	})
+
 }

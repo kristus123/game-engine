@@ -6,12 +6,12 @@ phone-layout {
 	height: 100vh;
 }
 
-phone-layout p-top { 
+phone-layout top { 
 	grid-area: top; 
 	background: red; 
 }
 
-phone-layout p-mid { 
+phone-layout mid { 
 	grid-area: mid; 
 	background: white; 
 	
@@ -22,7 +22,7 @@ phone-layout p-mid {
 	overflow: auto;
 }
 
-phone-layout p-bot { 
+phone-layout bot { 
 	grid-area: bot; 
 	background: blue; 
 }

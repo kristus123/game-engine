@@ -5,17 +5,17 @@ import os from "os"
 import path from "path"
 
 const bin = (() => {
-	const home = os.homedir();
+	const home = os.homedir()
 	const potentialPathsUnix = [
-    	"aseprite",
-    	path.join(home, "aseprite/build/bin/aseprite"),
-    	path.join(home, "aseprite/bin/aseprite"),
-	];
-	
+		"aseprite",
+		path.join(home, "aseprite/build/bin/aseprite"),
+		path.join(home, "aseprite/bin/aseprite"),
+	]
+
 	const potentialPathsWindows = [
 		"aseprite",
 		"D:\\apps\\Aseprite\\bin\\aseprite.exe",
-	];
+	]
 
 	const platform = process.platform
 
@@ -29,12 +29,13 @@ const bin = (() => {
 				}
 			}
 			catch {}
-			
+
 			if (existsSync(p)) {
 				return p
 			}
 		}
-	} else {
+	}
+	else {
 		for (const p of potentialPathsUnix) {
 			try {
 				const out = execFileSync("which", [p], { shell: true }).toString().trim()

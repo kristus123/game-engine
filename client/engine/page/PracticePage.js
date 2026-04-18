@@ -1,8 +1,8 @@
 const db = Db("jap")
 
-const p = F.practiceCard
+const html = F.practiceCard
 
-p.addCards.onClick(() => {
+html.addCards.onClick(() => {
 	Page.go(AddCardPage)
 })
 
@@ -18,23 +18,23 @@ function init({ includeAll }) {
 		practiceNewCard()
 
 		if (cards.empty) {
-			p.delete.hide()
+			html.delete.hide()
 		}
 	})
 }
 
 function practiceNewCard() {
 	if (cards.empty) {
-		p.practiceMore.show()
+		html.practiceMore.show()
 
-		p.activePractice.hide()
-		p.easyHard.hide()
+		html.activePractice.hide()
+		html.easyHard.hide()
 	}
 	else {
-		p.practiceMore.hide()
+		html.practiceMore.hide()
 
-		p.activePractice.show()
-		p.easyHard.show()
+		html.activePractice.show()
+		html.easyHard.show()
 
 		activeCard = cards.random()
 		Sound.playBlob(activeCard.front)
@@ -59,29 +59,29 @@ function applyScore(score) {
 	practiceNewCard()
 }
 
-p.playFront.onClick(() => {
+html.playFront.onClick(() => {
 	Sound.playBlob(activeCard.front)
 })
 
-p.playBack.onClick(() => {
+html.playBack.onClick(() => {
 	Sound.playBlob(activeCard.back)
 })
 
-p.easy.onClick(() => {
+html.easy.onClick(() => {
 	applyScore(+1)
 })
 
-p.hard.onClick(() => {
+html.hard.onClick(() => {
 	applyScore(-1)
 })
 
-p.practiceMoreButton.onClick(() => {
+html.practiceMoreButton.onClick(() => {
 	init({ includeAll: true })
-	p.practiceMore.hide()
+	html.practiceMore.hide()
 })
 
 
-p.delete.onClick(() => {
+html.delete.onClick(() => {
 	db.delete(activeCard, () => {
 		cards.remove(activeCard)
 		practiceNewCard()
@@ -90,4 +90,4 @@ p.delete.onClick(() => {
 
 init({ includeAll: false })
 
-export const PracticePage = Page.init(p)
+export const PracticePage = Page.init(html)

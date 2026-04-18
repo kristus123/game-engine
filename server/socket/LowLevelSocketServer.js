@@ -2,7 +2,7 @@ import { WebSocketServer } from "ws"
 import { Flask } from "#root/server/http/Flask.js"
 
 export default class {
-	constructor({onConnection, onClose} = {}) {
+	constructor({ onConnection, onClose } = {}) {
 		this.onConnection = onConnection
 		this.onClose = onClose
 

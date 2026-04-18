@@ -25,4 +25,8 @@ export class Dom {
 			document.body.appendChild(e)
 		}
 	}
+
+	static remove(e) {
+		document.body.removeChild(e)
+	}
 }

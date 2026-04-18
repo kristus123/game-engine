@@ -1,17 +1,17 @@
 const db = Db("jap")
 
-const a = F.addCard
+const html = F.addCard
 
-a.x.onClick(() => {
+html.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
 const sound = {}
 
 function _init(direction) {
-	const start = a.getId("startRecording" + direction)
-	const stop = a.getId("stopRecording" + direction)
-	const play = a.getId("play" + direction)
+	const start = html.getId("startRecording" + direction)
+	const stop = html.getId("stopRecording" + direction)
+	const play = html.getId("play" + direction)
 
 	start.enable()
 	stop.disable()
@@ -37,8 +37,8 @@ function _init(direction) {
 				Sound.playBlob(sound[direction])
 			})
 
-			if (a.playFront.enabled && a.playBack.enabled) {
-				a.save.enable()
+			if (html.playFront.enabled && html.playBack.enabled) {
+				html.save.enable()
 			}
 
 		})
@@ -48,18 +48,17 @@ function _init(direction) {
 _init("Front")
 _init("Back")
 
-a.save.onClick(() => {
+html.save.onClick(() => {
 	db.save({
 		front: sound["Front"],
 		back: sound["Back"],
 		score: 0,
 		nextPracticeDate: LocalDate.now().toString(),
-	}, (x) => {
-		console.log(x)
+	}, () => {
 		_init("Front")
 		_init("Back")
-		a.save.disable()
+		html.save.disable()
 	})
 })
 
-export const AddCardPage = Page.init(a)
+export const AddCardPage = Page.init(html)
