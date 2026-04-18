@@ -4,6 +4,7 @@ export class World {
 
 		this.viking = Sprite.viking(WorldPosition(-800, 0))
 		this.player = Sprite.player(WorldPosition(200, 300))
+
 		setInterval(() => {
 			SocketClient.sendToOtherClients("DELIVARETLY_UNKNOLWN", { he: 1 })
 		}, 200)
