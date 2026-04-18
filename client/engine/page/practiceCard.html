@@ -1,28 +1,28 @@
 <phone-layout>
 
-	<top center id="top">
+	<top center>
 		<flex-h>
-			<button id="addCards" class="green">add more cards</button>
+			<button id="addMoreCards" class="green">add more cards</button>
 			<button id="delete" class="blue">delete</button>
 		</flex-h>
 	</top>
 
-	<mid id="mid" center scrollable>
+	<mid center scrollable>
 		<div id="activePractice">
 			<flex-v id="buttons">
 				<button id="playFront">play front</button>
 				<button id="playBack">play back</button>
 			</flex-v>
 		</div>
+
+		<div id="practiceMore" hide center scrollable>
+			<h1>Finished</h1>
+			<p>What now?</p>
+			<button id="practiceMoreButton">Practice more</button>
+		</div>
 	</mid>
 
-	<mid hide id="practiceMore" center scrollable>
-		<h1>Finishedddd wowo wo</h1>
-		<p>What now?</p>
-		<button id="practiceMoreButton">Practice more</button>
-	</mid>
-
-	<bot center id="bot">
+	<bot center>
 		<flex-h id="easyHard">
 			<button id="easy" style="font-size: 50px;">easy</button>
 			<button id="hard" style="font-size: 50px;">hard</button>

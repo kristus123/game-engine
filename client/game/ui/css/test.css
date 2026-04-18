@@ -1,6 +1,11 @@
 /* todo fix hack */
-.rsa, * {
-	resize: both;
-	overflow: auto;
-}
+/* .rsa, * { */
+/* 	resize: both; */
+/* 	overflow: auto; */
+/* } */
 
+
+/* maybe remove this? */
+/* * { */
+/*   display: block; */
+/* } */

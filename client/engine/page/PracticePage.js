@@ -2,7 +2,7 @@ const db = Db("jap")
 
 const html = F.practiceCard
 
-html.addCards.onClick(() => {
+html.addMoreCards.onClick(() => {
 	Page.go(AddCardPage)
 })
 
@@ -79,7 +79,6 @@ html.practiceMoreButton.onClick(() => {
 	init({ includeAll: true })
 	html.practiceMore.hide()
 })
-
 
 html.delete.onClick(() => {
 	db.delete(activeCard, () => {
