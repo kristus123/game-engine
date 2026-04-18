@@ -15,8 +15,8 @@ const killPort = (port) => {
 			const result = execSync(`netstat -aon | findstr :${port}`, { encoding: "utf8" })
 			const pids = [...new Set(
   			result.split("\n")
-    		.map(line => line.trim().split(/\s+/).pop())
-    		.filter(pid => pid && /^\d+$/.test(pid) && pid !== "0")
+					.map(line => line.trim().split(/\s+/).pop())
+					.filter(pid => pid && /^\d+$/.test(pid) && pid !== "0")
 			)]
 			pids.forEach(pid => execSync(`taskkill /f /pid ${pid}`))
   		}

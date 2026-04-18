@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "npm run start",
-    "start": "node --inspect watch.js"
+    "start": "node watch.js",
+    "startInspect": "node --inspect watch.js"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
