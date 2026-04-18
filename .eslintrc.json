@@ -26,17 +26,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "@html-eslint/sort-attrs": [
-            "error",
-            {
-                "priority": [
-                    "id",
-                    "class",
-                    "type",
-                    "style"
-                ]
-            }
-        ],
         "indent": [
             "error",
             "tab",
