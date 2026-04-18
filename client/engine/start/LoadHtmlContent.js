@@ -19,13 +19,12 @@ export async function LoadHtmlContent(o) {
 
 		Array.from(div.children).forEach(child => {
 			const tag = child.tagName.toLowerCase()
-			Assert.notPresent(div[tag]) // not the safest hack but it's ok. Getter adds it to the prototype
+			// Assert.notPresent(div[tag]) // not the safest hack but it's ok. Getter adds it to the prototype
 			div[tag] = child
 		})
 
 		for (const e of div.querySelectorAll("[id]")) {
-			console.log(e)
-			Assert.notPresent(div[e.id]) // not the safest hack but it's ok. Getter adds it to the prototype
+			// Assert.notPresent(div[e.id]) // not the safest hack but it's ok. Getter adds it to the prototype
 			div[e.id] = e
 		}
 

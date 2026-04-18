@@ -1,32 +1,17 @@
-export function Getter(obj, getterName, arrowFunction) {
-	if (obj == null || (typeof obj != "object" && typeof obj != "function")) {
-		throw new Error("First argument must be an object or function")
+export function Getter(proto, name, fn) {
+	if (!proto || (typeof proto !== "object" && typeof proto !== "function")) {
+		throw new Error("First argument must be a prototype object")
 	}
 
-	Assert.string(getterName)
-	Assert.method(arrowFunction)
+	Assert.string(name)
+	Assert.method(fn)
 
-	let p
-
-	if (typeof obj === "function" && obj.prototype) {
-		p = obj.prototype
-	}
-	else if (typeof obj === "object") {
-		p = Object.getPrototypeOf(obj)
-		if (!p) {
-			throw new Error("Cannot determine prototype for this object")
-		}
-	}
-	else {
-		throw new TypeError("Cannot attach getter to this type")
+	if (name in proto) {
+		throw new Error(`Getter "${name}" already exists`)
 	}
 
-	if (getterName in p) {
-		throw new Error(`Cannot define getter "${String(getterName)}": property already exists`)
-	}
-
-	Object.defineProperty(p, getterName, {
-		get: arrowFunction,
+	Object.defineProperty(proto, name, {
+		get: fn,
 		enumerable: false,
 		configurable: false,
 	})

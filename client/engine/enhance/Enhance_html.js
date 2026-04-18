@@ -98,11 +98,11 @@ export function Enhance_html() {
 		Html.enable(this)
 	})
 
-	Getter(HTMLElement, "enabled", function () {
+	Getter(HTMLElement.prototype, "enabled", function () {
 		return !this.hasAttribute("disabled")
 	})
 
-	Getter(HTMLElement, "disabled", function () {
+	Getter(HTMLElement.prototype, "disabled", function () {
 		return this.hasAttribute("disabled")
 	})
 
@@ -183,10 +183,8 @@ export function Enhance_html() {
 		}
 
 		if (position) {
-			const p = Camera.p(position) // todo improve ofc
-
-			this.style.left = `${p.x}px`
-			this.style.top = `${p.y}px`
+			this.style.left = `${position.x}px`
+			this.style.top = `${position.y}px`
 		}
 
 		return this
