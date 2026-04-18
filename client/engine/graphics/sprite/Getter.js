@@ -1,16 +1,14 @@
-export function Getter(proto, name, fn) {
-	if (!proto || (typeof proto !== "object" && typeof proto !== "function")) {
-		throw new Error("First argument must be a prototype object")
-	}
+export function Getter(prototype, name, fn) {
 
+	Assert.value(prototype)
 	Assert.string(name)
 	Assert.method(fn)
 
-	if (name in proto) {
-		throw new Error(`Getter "${name}" already exists`)
+	if (name in prototype) {
+		throw new Error(`field "${name}" already exists`)
 	}
 
-	Object.defineProperty(proto, name, {
+	Object.defineProperty(prototype, name, {
 		get: fn,
 		enumerable: false,
 		configurable: false,

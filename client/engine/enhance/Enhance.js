@@ -1,12 +1,10 @@
-export function Enhance(target, name, fn) {
+export function Enhance(prototype, name, fn) {
 
-	const proto = target.prototype
-
-	if (Object.prototype.hasOwnProperty.call(proto, name)) {
-		throw new Error(`ENHANCE ERROR: "${target.name}" already has field "${name}". cannot be overridden`)
+	if (Object.prototype.hasOwnProperty.call(prototype, name)) {
+		throw new Error(`ENHANCE ERROR: "${prototype.name}" already has field "${name}". cannot be overridden`)
 	}
 	else {
-		Object.defineProperty(proto, name, {
+		Object.defineProperty(prototype, name, {
 			value: fn,
 			writable: true,
 			configurable: true,
