@@ -13,5 +13,7 @@ export class World {
 	update() {
 		this.viking.update()
 		this.player.update()
+
+		console.log(Mouse.hoveringHtmlElement)
 	}
 }
