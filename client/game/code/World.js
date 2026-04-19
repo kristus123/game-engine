@@ -7,12 +7,6 @@ export class World {
 
 		this.viking = Sprite.viking(WorldPosition(-800, 0))
 		this.player = Sprite.player(WorldPosition(200, 300))
-
-		this.world = Sprite.world(WorldPosition(0, 0))
-		this.worldTileInfo = SpriteTilemapInfo.world(WorldPosition(0, 0))
-
-		Controller.control(this.player)
-		Camera.follow(this.player)
 	}
 
 	update() {
