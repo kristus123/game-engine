@@ -115,4 +115,12 @@ export class Assert {
 			throw new Error(x + " is not a string")
 		}
 	}
+
+	static type(x, classType) {
+		if (x instanceof classType) {
+		}
+		else {
+			throw new Error(`${x} is not of expected class`)
+		}
+	}
 }

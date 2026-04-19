@@ -1,15 +1,13 @@
 export class Camera {
 	static initialize() { // initialize() Mouse first
 
-		this.objectToFollow = Entity(WorldPosition(0, 0, 1, 1), 1, 1)
-
-		this.position = this.objectToFollow.position
+		this.position = WorldPosition(0, 0)
 		this.zoom = 1 // used some places
 	}
 
 	static get offset() {
 		return {
-			x: (Screen.width / 2).round(), // maybe this can be improved
+			x: (Screen.width / 2).round(), // maybe this can be improved. it is hacky
 			y: (Screen.height / 2).round(),
 		}
 	}
@@ -32,8 +30,9 @@ export class Camera {
 	}
 
 	static follow(o) {
-		this.objectToFollow = o
-		this.position = o.position
+		// Assert.type(o, WorldPosition)
+
+		this.position = o
 	}
 
 }

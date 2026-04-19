@@ -11,8 +11,10 @@ export class World {
 		this.world = Sprite.world(WorldPosition(0, 0))
 		this.worldTileInfo = TileInfo.world(WorldPosition(0, 0))
 
-		Camera.follow(this.player)
 		Controller.control(this.player)
+
+		this.sky = Sprite.sky(WorldPosition(0, 0))
+		Camera.follow(this.sky.position.center)
 	}
 
 	update() {
@@ -23,5 +25,9 @@ export class World {
 		this.player.update()
 
 		GamePad.update()
+
+		this.sky.update()
+
+		console.log(this.sky.getLayer('clouds').offset.x+=1)
 	}
 }

@@ -7,6 +7,8 @@ export class Picture {
 		this.canvas.height = image.naturalHeight ?? image.height
 
 		this.ctx.drawImage(image, 0, 0)
+
+		this.offset = {x:0, y:0}
 	}
 
 	crop(sx, sy, sw, sh) {
@@ -67,7 +69,7 @@ export class Picture {
 	}
 
 	update(p) {
-		D1.ctx.drawImage(this.canvas, p.x, p.y, p.width, p.height)
+		D1.ctx.drawImage(this.canvas, p.x+this.offset.x, p.y+this.offset.y, p.width, p.height)
 	}
 
 }
