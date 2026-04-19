@@ -21,5 +21,7 @@ export class World {
 
 		this.worldTileInfo.update()
 		this.player.update()
+
+		GamePad.update()
 	}
 }

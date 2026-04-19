@@ -43,22 +43,22 @@ export class Controller {
 
 		let vector = { x: 0, y: 0 }
 
-		if (Keyboard.up) {
+		if (Keyboard.up || GamePad.up) {
 			vector.x += directions.up.x
 			vector.y += directions.up.y
 		}
 
-		if (Keyboard.down) {
+		if (Keyboard.down || GamePad.down) {
 			vector.x += directions.down.x
 			vector.y += directions.down.y
 		}
 
-		if (Keyboard.left) {
+		if (Keyboard.left || GamePad.left) {
 			vector.x += directions.left.x
 			vector.y += directions.left.y
 		}
 
-		if (Keyboard.right) {
+		if (Keyboard.right || GamePad.right) {
 			vector.x += directions.right.x
 			vector.y += directions.right.y
 		}

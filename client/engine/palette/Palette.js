@@ -7,12 +7,12 @@ export class Palette {
 		const ctx = canvas.getContext("2d")
 
 		TestResizeObserver(canvas, (width, height) => {
-			const dpr = window.devicePixelRatio || 1;
+			const dpr = window.devicePixelRatio || 1
 
-			canvas.width = canvas.clientWidth * dpr;
-			canvas.height = canvas.clientHeight * dpr;
+			canvas.width = canvas.clientWidth * dpr
+			canvas.height = canvas.clientHeight * dpr
 
-			ctx.scale(dpr, dpr);
+			ctx.scale(dpr, dpr)
 
 			ctx.imageSmoothingEnabled = false
 		})
