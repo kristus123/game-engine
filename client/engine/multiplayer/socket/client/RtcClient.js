@@ -192,5 +192,3 @@ export class RtcClient {
 		this.remoteStreamIds.clear()
 	}
 }
-
-window.RtcClient = RtcClient
