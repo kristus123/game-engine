@@ -1,3 +1,5 @@
+is_windows = package.config:sub(1,1) == "\\"
+
 local function sanitize_filename(s)
   s = s:gsub("[<>:\\/%%\"%|%?%*]", "_")
   s = s:gsub("%s+", "_")
@@ -53,7 +55,14 @@ if not sprite.filename or sprite.filename == "" then
 end
 
 local path = sprite.filename:gsub("\\", "/")
-local cwd = io.popen("pwd"):read("*l"):gsub("\\", "/")
+local cwd
+
+if is_windows then
+  cwd = os.getenv("CD") or ""
+else
+  cwd = os.getenv("PWD") or ""
+end
+
 path = path:gsub("^" .. cwd .. "/?", "")
 path = path:gsub("%.%w+$", "")
 
@@ -118,9 +127,14 @@ if #all_tilemaps == 0 then
   return
 end
 
-local ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
+local ok1
+if is_windows then
+  ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBase))
+else
+  ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
+end
 if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s" 2> nul', outBase)) end)
+  pcall(function() os.execute(string.format('mkdir "%s"', outBase)) end)
 end
 
 local json_parts = {}
@@ -147,4 +161,3 @@ table.insert(json_parts, "  ]")
 table.insert(json_parts, "}")
 
 write_file(outBase .. "Tilemaps.json", table.concat(json_parts, "\n"))
-

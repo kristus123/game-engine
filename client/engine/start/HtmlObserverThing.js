@@ -12,7 +12,6 @@ export function HtmlObserverThing() {
 	const observer = new MutationObserver(mutations => {
 		const nodes = []
 		for (const mutation of mutations) {
-			console.log(mutation)
 			for (const n of mutation.addedNodes) {
 				nodes.push(n)
 			}

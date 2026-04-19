@@ -11,7 +11,19 @@ import { execSync } from "child_process"
 
 const killPort = (port) => {
 	try {
-		execSync(`fuser -k ${port}/tcp`)
+		if (process.platform === "win32") {
+			const result = execSync(`netstat -aon | findstr :${port}`, { encoding: "utf8" })
+			const pids = [...new Set(
+  			result.split("\n")
+					.map(line => line.trim().split(/\s+/).pop())
+					.filter(pid => pid && /^\d+$/.test(pid) && pid !== "0")
+			)]
+			pids.forEach(pid => execSync(`taskkill /f /pid ${pid}`))
+  		}
+		else {
+			execSync(`fuser -k ${port}/tcp`)
+		}
+
 		console.log(`Killed process on port ${port}`)
 	}
 	catch (e) {

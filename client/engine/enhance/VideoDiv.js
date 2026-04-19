@@ -22,7 +22,7 @@ export class VideoDiv extends HTMLElement {
 		content.classList.add("center")
 
 		while (this.firstChild) {
-  	content.appendChild(this.firstChild)
+			content.appendChild(this.firstChild)
 		}
 
 		this.appendChild(video)

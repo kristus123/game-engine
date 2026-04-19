@@ -8,13 +8,15 @@
   },
   "scripts": {
     "dev": "npm run start",
-    "start": "node --inspect watch.js"
+    "start": "node watch.js",
+    "startInspect": "node --inspect watch.js"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
     "@stylistic/stylelint-plugin": "^4.0.1",
     "chokidar": "^4.0.3",
     "eslint": "^8.56.0",
+    "prettier": "^3.8.3",
     "stylelint": "^16.24.0",
     "stylelint-config-standard": "^39.0.1"
   },

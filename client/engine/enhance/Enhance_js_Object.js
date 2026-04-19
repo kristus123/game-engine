@@ -1,6 +1,6 @@
 export function Enhance_js_Object() {
 
-	Enhance(Object, "merge", function (otherObject) {
+	Enhance(Object.prototype, "merge", function (otherObject) {
 		const overlapping = Object.keys(this).filter(key => key in otherObject)
 		if (overlapping.length > 0) {
 			throw new Error(`keys are overlapping while merging objects: ${overlapping.join(", ")}`)
@@ -9,18 +9,18 @@ export function Enhance_js_Object() {
 		return { ...this, ...otherObject }
 	})
 
-	Enhance(Object, "forEach", function (run) {
+	Enhance(Object.prototype, "forEach", function (run) {
 		for (const [key, value] of Object.entries(this)) {
  			run(key, value)
 		}
 	})
 
-	Getter(Object, "all", function () {
+	Getter(Object.prototype, "all", function () {
 		return Object.entries(this)
 	})
 
 
-	Getter(Object, "keys", function () {
+	Getter(Object.prototype, "keys", function () {
 		const r = []
 
 		for (const k of Object.keys(this)) {
@@ -30,7 +30,7 @@ export function Enhance_js_Object() {
 		return r
 	})
 
-	Getter(Object, "values", function () {
+	Getter(Object.prototype, "values", function () {
 		const r = []
 
 		for (const v of Object.values(this)) {
@@ -40,23 +40,23 @@ export function Enhance_js_Object() {
 		return r
 	})
 
-	Enhance(Object, "assertKeyMissing", function (key) {
+	Enhance(Object.prototype, "assertKeyMissing", function (key) {
 		if (Object.hasOwn(this, key)) {
 			throw new Error("Key is present in object")
 		}
 	})
 
-	Enhance(Object, "assertKeyNotPresent", function (key) {
+	Enhance(Object.prototype, "assertKeyNotPresent", function (key) {
 		return this.assertKeyMissing(key)
 	})
 
-	Enhance(Object, "assertKeyPresent", function (key) {
+	Enhance(Object.prototype, "assertKeyPresent", function (key) {
 		if (!Object.hasOwn(this, key)) {
 			throw new Error("Key is not present in object")
 		}
 	})
 
-	Getter(Object, "className", function () {
+	Getter(Object.prototype, "className", function () {
 		return this.constructor.name
 	})
 

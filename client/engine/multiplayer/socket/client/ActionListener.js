@@ -10,7 +10,7 @@ export class ActionListener {
 			listener.trigger(data)
 		}
 		else {
-			throw new Error(`unexpected action: ${action}, data: ${data}`)
+			throw new Error(`undeclared action: ${action}, data: ${data}`)
 		}
 	}
 

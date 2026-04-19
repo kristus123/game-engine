@@ -1,12 +1,27 @@
 export class AsepriteTilemapsJson {
-	constructor(json) {
-		this.width = json.tilemaps[0].tileWidth
-		this.height = json.tilemaps[0].tileHeight
+	constructor(position, json) {
 	}
 
+	update() {
+		for (const x of this.json.tilemaps) {
+			if (x.layer == 'grass') {
+				for (const tile of x.tiles) {
+					const s = WorldPosition(
+						tile.x * x.width * Scale.value, 
+						tile.y * x.height * Scale.value, 
+						x.width * Scale.value, 
+						x.height * Scale.value,
+					)
 
-	tilesForFrame(i) {
-		return this.json.tilemaps[i].tiles
+					if (Mouse.hovering(s)) {
+						D1.rectangle(s, 'green')
+					}
+					else {
+						// D1.rectangle(s, 'blue')
+					}
+				}
+				
+			}
+		}
 	}
-
 }
