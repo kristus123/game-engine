@@ -13,10 +13,10 @@ export async function LoadAsepriteAssets(path) {
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 	if (tilemapsJson) {
 		console.log(spriteName)
-		SpriteTilemapInfo[spriteName] = (position) => new AsepriteTilemapsJson(position, tilemapsJson)
+		TileInfo[spriteName] = (position) => new TileInfoController(position, tilemapsJson)
 	}
 	else {
-		SpriteTilemapInfo[spriteName] = () => {
+		TileInfo[spriteName] = () => {
 			throw new Error("This aseprite file does not have tilemap info")
 		}
 	}

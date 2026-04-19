@@ -1,4 +1,4 @@
-export class AsepriteTilemapsJson {
+export class TileInfoController {
 	constructor(position, json) {
 	}
 

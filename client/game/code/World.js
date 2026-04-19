@@ -9,7 +9,7 @@ export class World {
 		this.player = Sprite.player(WorldPosition(200, 300))
 
 		this.world = Sprite.world(WorldPosition(0, 0))
-		this.worldTileInfo = SpriteTilemapInfo.world(WorldPosition(0, 0))
+		this.worldTileInfo = TileInfo.world(WorldPosition(0, 0))
 
 		Camera.follow(this.player)
 		Controller.control(this.player)

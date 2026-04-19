@@ -5,7 +5,7 @@ export class SpriteTilemapInfoControllerx {
 	constructor(sprite, tilemapsJson, layers, scale) {
 		this.tiles = Objects([])
 
-		const tilesJson = new AsepriteTilemapsJson(tilemapsJson)
+		const tilesJson = new TileInfoController(tilemapsJson)
 
 		for (const tileInfo of tilesJson.tilesForFrame(0)) {
 			const position = WorldPosition(
