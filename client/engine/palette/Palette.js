@@ -5,11 +5,14 @@ export class Palette {
 		document.getElementById("canvases").appendChild(canvas)
 
 		const ctx = canvas.getContext("2d")
-		ctx.imageSmoothingEnabled = false
 
 		TestResizeObserver(canvas, (width, height) => {
-			canvas.width = width
-			canvas.height = height
+			const dpr = window.devicePixelRatio || 1;
+
+			canvas.width = canvas.clientWidth * dpr;
+			canvas.height = canvas.clientHeight * dpr;
+
+			ctx.scale(dpr, dpr);
 
 			ctx.imageSmoothingEnabled = false
 		})

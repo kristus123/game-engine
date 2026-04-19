@@ -10,7 +10,7 @@ export class Velocity {
 	set x(new_x) {
 		this._x = new_x
 
-		this.position.x = this.object.x + this._x
+		this.position.x = (this.object.x + this._x).round()
 	}
 
 	get y() {
@@ -20,6 +20,6 @@ export class Velocity {
 	set y(new_y) {
 		this._y = new_y
 
-		this.position.y = this.object.y + this._y
+		this.position.y = (this.object.y + this._y).round()
 	}
 }

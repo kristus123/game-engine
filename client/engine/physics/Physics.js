@@ -35,8 +35,8 @@ export class Physics {
 				o.velocity.y = Math.min(0, o.velocity.y + frictionStep)
 			}
 
-			o.position.x += o.velocity.x * DeltaTime.value
-			o.position.y += o.velocity.y * DeltaTime.value
+			o.position.x += (o.velocity.x * DeltaTime.value).round()
+			o.position.y += (o.velocity.y * DeltaTime.value).round()
 		}
 	}
 }

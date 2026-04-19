@@ -9,13 +9,12 @@ export class Camera {
 
 	static get offset() {
 		return {
-			x: Screen.width / 2,
-			y: Screen.height / 2,
+			x: (Screen.width / 2).round(), // maybe this can be improved
+			y: (Screen.height / 2).round(),
 		}
 	}
 
 	static applyPositionContextThing(palette, run) {
-		this.position.update()
 
 		const ctx = palette.ctx
 
@@ -34,19 +33,7 @@ export class Camera {
 
 	static follow(o) {
 		this.objectToFollow = o
-		this.position = o.position.smooth()
-	}
-
-	static goTo(o) { // this is wrong
-		this.objectToFollow.x = o.x
-		this.objectToFollow.y = o.y
-	}
-
-	static followInstantly(o) {
-		this.objectToFollow = o
-
-		this.position.x = o.x
-		this.position.y = o.y
+		this.position = o.position
 	}
 
 }

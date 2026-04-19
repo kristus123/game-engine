@@ -7,14 +7,19 @@ export class World {
 
 		this.viking = Sprite.viking(WorldPosition(-800, 0))
 		this.player = Sprite.player(WorldPosition(200, 300))
+
+		this.world = Sprite.world(WorldPosition(0, 0))
+		this.worldTileInfo = SpriteTilemapInfo.world(WorldPosition(0, 0))
+
+		Camera.follow(this.player)
+		Controller.control(this.player)
 	}
 
 	update() {
 		this.viking.update()
 		this.world.update()
+
 		this.worldTileInfo.update()
 		this.player.update()
-
-		console.log(Mouse.hoveringHtmlElement)
 	}
 }
