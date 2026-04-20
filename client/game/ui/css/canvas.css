@@ -10,6 +10,7 @@ canvas {
 	height: 100%;
 	image-rendering: pixelated;
 	image-rendering: crisp-edges;
+
 	/* disables the swipe right to go back */
 	touch-action: none;
 }

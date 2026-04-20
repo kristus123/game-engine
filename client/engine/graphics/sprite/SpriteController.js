@@ -12,7 +12,7 @@ export class SpriteController extends Entity {
 				frame,
 				tag,
 			] = key.split("_")
-			const {x, y, w, h, duration} = frameInfo.frame
+			const { x, y, w, h, duration } = frameInfo.frame
 			frame = ConvertTo.integer(frame)
 
 			// not sure if best approach to do - 1

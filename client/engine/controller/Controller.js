@@ -20,7 +20,7 @@ export class Controller {
 	}
 
 	static inputDirection() {
-		const up =  { x: 0, y: -1 }
+		const up = { x: 0, y: -1 }
 		const down = { x: 0, y: 1 }
 		const left = { x: -1, y: 0 }
 		const right = { x: 1, y: 0 }
@@ -48,7 +48,7 @@ export class Controller {
 			y += right.y
 		}
 
-		return {x, y}
+		return { x, y }
 	}
 
 }

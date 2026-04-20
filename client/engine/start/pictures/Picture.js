@@ -8,7 +8,7 @@ export class Picture {
 
 		this.ctx.drawImage(image, 0, 0)
 
-		this.offset = {x:0, y:0}
+		this.offset = { x: 0, y: 0 }
 	}
 
 	crop(sx, sy, sw, sh) {
