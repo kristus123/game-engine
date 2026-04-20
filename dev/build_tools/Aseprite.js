@@ -100,17 +100,18 @@ export class Aseprite {
 		], { shell: true })
 	}
 
-	static groups(srcFile, destBase) {
-		execFileSync(bin, [
-			"-b",
-			"--list-layers",
-			srcFile,
-			"--data",
-			destBase + "Groups.json",
-			"--format",
-			"json-array",
-		], { shell: true })
-	}
+	// Fix duplicated code
+	// static groups(srcFile, destBase) {
+	// 	execFileSync(bin, [
+	// 		"-b",
+	// 		"--list-layers",
+	// 		srcFile,
+	// 		"--data",
+	// 		destBase + "Groups.json",
+	// 		"--format",
+	// 		"json-array",
+	// 	], { shell: true })
+	// }
 
 
 	static tilemaps(srcFile) {
