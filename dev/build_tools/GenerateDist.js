@@ -2,16 +2,14 @@ import Files from "#root/dev/build_tools/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/build_tools/Markdown.js"
 
-// nabir todo fix absolute paths
-import "./Transpiler.js"
+import "#root/dev/build_tools/Transpiler.js"
 
 Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
 
-// nabir todo fix absolute paths
-import "./CopyManifestToDist.js"
-import "./VerifyNoReservedClashes.js"
-import "./AssertUniqueFileNames.js"
+import "#root/dev/build_tools/CopyManifestToDist.js"
+import "#root/dev/build_tools/VerifyNoReservedClashes.js"
+import "#root/dev/build_tools/AssertUniqueFileNames.js"
 
 const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 	.map(f => f.replace("\\aseprite", "")) // windows compability
@@ -59,11 +57,9 @@ const htmlContents = Files.at(FileConfig.client)
 Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
 
 
+// Note: removed aseprite related code, not needed
 const audioFiles = Files.at(FileConfig.gameAudio)
 	.filter(f => f.toLowerCase().endsWith(".mp3"))
-	.map(f => f.replace("/aseprite", ""))
-	.map(f => f.replace("\\aseprite", "")) // windows compability
-	.map(f => f.replace(".aseprite", ""))
 	.map(f => `/${f}`)
 	.map(f => `"${f}"`)
 	.map(f => f.replace(/\\/g, "/"))
