@@ -9,8 +9,8 @@ export const FileConfig = {
 	dist: "dist",
 
 	asepriteToJson: "dev/build_tools/aseprite_to_json.lua",
-	exportAseprite: "dev/build_tools/export_aseprite.js",
-	generateDist: "dev/build_tools/generate_dist.js",
+	exportAseprite: "dev/build_tools/ExportAseprite.js",
+	generateDist: "dev/build_tools/GenerateDist.js",
 	engineIndex: "dist/client/engine/start/index.js",
 
 	get gameAssets() {

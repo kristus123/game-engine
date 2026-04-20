@@ -3,15 +3,15 @@ import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/build_tools/Markdown.js"
 
 // nabir todo fix absolute paths
-import "./transpiler.js"
+import "./Transpiler.js"
 
 Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
 
 // nabir todo fix absolute paths
-import "./copy_manifest_to_dist.js"
-import "./verify_no_reserved_clashes.js"
-import "./assert_unique_file_names.js"
+import "./CopyManifestToDist.js"
+import "./VerifyNoReservedClashes.js"
+import "./AssertUniqueFileNames.js"
 
 const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 	.map(f => f.replace("\\aseprite", "")) // windows compability

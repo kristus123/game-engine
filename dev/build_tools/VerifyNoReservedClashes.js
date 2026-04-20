@@ -1,6 +1,6 @@
-import jsFiles from "#root/dev/build_tools/js_files.js"
+import jsFiles from "#root/dev/build_tools/JsFiles.js"
 
-import reservedJsKeywords from "#root/dev/build_tools/reservedJsKeywords.js"
+import reservedJsKeywords from "#root/dev/build_tools/ReservedJsKeywords.js"
 
 
 // better safe and strict than sorry and loosey goosey
