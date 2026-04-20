@@ -11,10 +11,9 @@ export class World {
 		this.world = Sprite.world(WorldPosition(0, 0))
 		this.worldTileInfo = TileInfo.world(WorldPosition(0, 0))
 
-		this.sky = Sprite.sky(WorldPosition(0, 0))
-
 		Camera.follow(this.player)
 		Controller.control(this.player)
+
 	}
 
 	update() {
@@ -23,7 +22,5 @@ export class World {
 
 		this.worldTileInfo.update()
 		this.player.update()
-
-		this.sky.update()
 	}
 }

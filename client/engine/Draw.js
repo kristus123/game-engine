@@ -429,17 +429,8 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(position, text, color="black", fontSize = 40) {
-		// this.rectangle(position)
-
+	text(position, text, color="white", fontSize = 40) {
 		this.ctx.fillStyle = "white"
-
-		this.ctx.font = `${fontSize / Camera.zoom}px VT323`
-
-		const textWidth = this.ctx.measureText(text).width
-
-		this.ctx.fillRect(position.x, position.y - fontSize - 20, textWidth, fontSize + 40)
-
 		this.ctx.fillStyle = color
 		this.ctx.fillText(text, position.x, position.y)
 	}
