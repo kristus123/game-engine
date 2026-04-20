@@ -2,7 +2,7 @@ export class SpriteController extends Entity {
 	constructor(position, layersImage, layersJson) {
 		super(position)
 
-		this._layers = {}
+		this.layers = {}
 
 		this.totalFrames = null
 
@@ -18,38 +18,37 @@ export class SpriteController extends Entity {
 			// currently lots of hacks with this caluclation. look at CurrentFrame.js
 			this.totalFrames = frame - 1 // it will end on the last value which is the total frame
 
-			this._layers[layer] ??= {}
+			this.layers[layer] ??= {}
 
 			this.width = frameInfo.frame.w * Scale.value
 			this.height = frameInfo.frame.h * Scale.value
 
-			const x = frameInfo.frame.x
-			const y = frameInfo.frame.y
-			const width = frameInfo.frame.w
-			const height = frameInfo.frame.h
+			const {x, y, w, h} = frameInfo.frame
 
-			this._layers[layer][frame] = {
+			this.layers[layer][frame] = {
 				frame: frame,
 				tag: tag,
-				picture: Picture(layersImage).crop(x, y, width, height),
 				duration: frameInfo.duration,
+				picture: Picture(layersImage).crop(x, y, w, h),
 			}
 		})
 
-		this._currentFrame = CurrentFrame(this.totalFrames)
+		this.currentFrame = CurrentFrame(this.totalFrames)
 	}
 
 	getLayer(name) {
-		return Assert.notNull(this._layers[name][this._currentFrame.value].picture)
+		const layer = this.layers[name][this.currentFrame.value].picture
+		Assert.notNull(layer)
+		return layer
 	}
 
 	update() {
-		for (const [layer, frames] of this._layers.all) {
-			const { frame, picture, duration, tag } = frames[this._currentFrame.value]
+		for (const [layer, frames] of this.layers.all) {
+			const { frame, picture, duration, tag } = frames[this.currentFrame.value]
 
 			picture.update(this.position)
 
-			this._currentFrame.update(duration)
+			this.currentFrame.update(duration)
 		}
 	}
 }
