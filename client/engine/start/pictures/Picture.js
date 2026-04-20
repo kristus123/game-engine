@@ -69,7 +69,12 @@ export class Picture {
 	}
 
 	update(p) {
-		D1.ctx.drawImage(this.canvas, p.x+this.offset.x, p.y+this.offset.y, p.width, p.height)
+		D1.ctx.drawImage(
+			this.canvas,
+			p.x + this.offset.x,
+			p.y + this.offset.y,
+			p.width,
+			p.height)
 	}
 
 }

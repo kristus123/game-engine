@@ -12,23 +12,21 @@ export class SpriteController extends Entity {
 				frame,
 				tag,
 			] = key.split("_")
+			const {x, y, w, h, duration} = frameInfo.frame
 			frame = ConvertTo.integer(frame)
 
 			// not sure if best approach to do - 1
 			// currently lots of hacks with this caluclation. look at CurrentFrame.js
 			this.totalFrames = frame - 1 // it will end on the last value which is the total frame
 
+			this.width = w * Scale.value
+			this.height = h * Scale.value
+
 			this.layers[layer] ??= {}
-
-			this.width = frameInfo.frame.w * Scale.value
-			this.height = frameInfo.frame.h * Scale.value
-
-			const {x, y, w, h} = frameInfo.frame
-
 			this.layers[layer][frame] = {
 				frame: frame,
 				tag: tag,
-				duration: frameInfo.duration,
+				duration: duration,
 				picture: Picture(layersImage).crop(x, y, w, h),
 			}
 		})
