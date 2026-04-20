@@ -15,6 +15,7 @@ import { FileConfig } from "#root/FileConfig.js"
 
 for (const jsFilePath of jsFiles) {
 	let fileContent = Files.read(jsFilePath)
+	const className = path.parse(jsFilePath).name
 
 	jsFiles.forEach(f => {
 		const className = path.parse(f).name
@@ -26,6 +27,11 @@ for (const jsFilePath of jsFiles) {
 			fileContent = fileContent.replace(regex, `new ${className}(`)
 		}
 	})
+
+	if (!fileContent.includes("export class SuperClass")) {
+		fileContent = fileContent.replaceAll(
+			`export class ${className} {`, `export class ${className} extends SuperClass {`)
+	}
 
 	fileContent = fileContent.replaceAll("tla(", "this.localObjects.add(")
 	fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
@@ -40,6 +46,9 @@ for (const jsFilePath of jsFiles) {
 				break
 			}
 			else if (lines[i].includes("constructor(")) {
+				if (!fileContent.includes("export class SuperClass")) {
+					lines[i] = lines[i] + "\n" + "super()"
+				}
 				lines[i] = lines[i] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
 				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
 				break
