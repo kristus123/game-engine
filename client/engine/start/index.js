@@ -37,6 +37,7 @@ Promise.all([
 
 			Physics.update()
 			Controller.update()
+			GamePad.update()
 
 			Camera.applyPositionContextThing(Palette.main, () => {
 				Level.update()

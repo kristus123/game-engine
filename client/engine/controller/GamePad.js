@@ -1,4 +1,4 @@
-function fix(num) {
+function reduceDecimals(num) {
 	return Math.round(num * 100) / 100
 }
 
@@ -18,16 +18,16 @@ export class GamePad {
 		for (const gp of navigator.getGamepads()) {
 			if (gp && gp.index == 1) {
 
-				const x = fix(gp.axes[0])
-				const y = fix(gp.axes[1])
+				const x = reduceDecimals(gp.axes[0])
+				const y = reduceDecimals(gp.axes[1])
 
 				const deadzone = 0.4
 
-				this.right = x > deadzone
 				this.left = x < -deadzone
+				this.right = x > deadzone
 
-				this.down = y > deadzone
 				this.up = y < -deadzone
+				this.down = y > deadzone
 			}
 		}
 	}

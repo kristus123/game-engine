@@ -1,68 +1,54 @@
 export class Controller {
 
 	static init() {
-		this.velocity = Velocity(this)
-		this.disabled = false
-		this.objectToControl = null
+		this.entity = null
 	}
 
 	static control(o) {
-		this.objectToControl = o
-		this.velocity.object = o
-	}
-
-	static disable(amountInMs) {
-		this.disabled = true
-
-		setTimeout(() => {
-			this.disabled = false
-		}, amountInMs)
+		this.entity = o
 	}
 
 	static update() {
-		//console.log(this.objectToControl.velocity)
+		if (this.entity) {
+			const d = NormalizeVector(this.inputDirection())
 
-		if (!this.objectToControl || this.disabled) {
-			return
+			const multiplier = 500
+
+			this.entity.velocity.x = d.x * multiplier
+			this.entity.velocity.y = d.y * multiplier
 		}
-
-		const d = NormalizeVector(this.inputDirection)
-		const multiplier = 500
-
-		this.objectToControl.velocity.x = d.x * multiplier
-		this.objectToControl.velocity.y = d.y * multiplier
 	}
 
-	static get inputDirection() {
-		const directions = {
-			up: { x: 0, y: -1 },
-			down: { x: 0, y: 1 },
-			left: { x: -1, y: 0 },
-			right: { x: 1, y: 0 }
-		}
+	static inputDirection() {
+		const up =  { x: 0, y: -1 }
+		const down = { x: 0, y: 1 }
+		const left = { x: -1, y: 0 }
+		const right = { x: 1, y: 0 }
 
-		let vector = { x: 0, y: 0 }
+		let x = 0
+		let y = 0
 
 		if (Keyboard.up || GamePad.up) {
-			vector.x += directions.up.x
-			vector.y += directions.up.y
+			x += up.x
+			y += up.y
 		}
 
 		if (Keyboard.down || GamePad.down) {
-			vector.x += directions.down.x
-			vector.y += directions.down.y
+			x += down.x
+			y += down.y
 		}
 
 		if (Keyboard.left || GamePad.left) {
-			vector.x += directions.left.x
-			vector.y += directions.left.y
+			x += left.x
+			y += left.y
 		}
 
 		if (Keyboard.right || GamePad.right) {
-			vector.x += directions.right.x
-			vector.y += directions.right.y
+			x += right.x
+			y += right.y
 		}
 
-		return vector
+		return {x, y}
 	}
+
 }
