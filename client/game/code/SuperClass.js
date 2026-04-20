@@ -1,3 +1,8 @@
+function format(t) {
+	return ` - [${t}] - `
+	
+}
+
 export class SuperClass {
 	static all = []
 
@@ -14,11 +19,11 @@ export class SuperClass {
 	}
 
 	addTag(tag) {
-		this.tags += tag
+		this.tags += format(tag)
 		
 	}
 
 	removeTag(tag) {
-		this.tags = this.tags.replace(tag, "")
+		this.tags = this.tags.replace(format(tag), "")
 	}
 }
