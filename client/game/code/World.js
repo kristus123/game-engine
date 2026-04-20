@@ -13,7 +13,6 @@ export class World {
 
 		Camera.follow(this.player)
 		Controller.control(this.player)
-
 	}
 
 	update() {

@@ -429,8 +429,20 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(position, text, color="white", fontSize = 40) {
-		this.ctx.fillStyle = "white"
+	text(position, text, color = "white", fontSize = 40, backgroundColor = 'black') {
+		this.ctx.font = `${fontSize}px Arial`;
+
+		const metrics = this.ctx.measureText(text)
+		const textWidth = metrics.width
+		const textHeight = fontSize
+
+		this.ctx.fillStyle = backgroundColor
+		this.ctx.fillRect(
+			position.x,
+			position.y - textHeight + 4,
+			textWidth,
+			textHeight)
+
 		this.ctx.fillStyle = color
 		this.ctx.fillText(text, position.x, position.y)
 	}

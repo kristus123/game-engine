@@ -40,12 +40,11 @@ Promise.all([
 			GamePad.update()
 
 			Camera.applyPositionContextThing(Palette.main, () => {
+				Level.update()
+				Mouse.update()
 				for (const c of SuperClass.all) {
 					c.showTags()
 				}
-
-				Level.update()
-				Mouse.update()
 			})
 		})
 	})

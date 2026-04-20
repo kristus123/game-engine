@@ -14,11 +14,12 @@ export class SuperClass {
 
 	showTags() {
 		if (this.tags && this.position) {
-			D1.text(this.position, this.tags)
+			D1.text(this.position, this.tags, 'white', 20)
 		}
 	}
 
 	addTag(tag) {
+		this.removeTag(tag)
 		this.tags += format(tag)
 		
 	}
