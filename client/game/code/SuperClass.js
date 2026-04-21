@@ -1,6 +1,5 @@
 function format(t) {
 	return ` - [${t}] - `
-
 }
 
 export class SuperClass {
