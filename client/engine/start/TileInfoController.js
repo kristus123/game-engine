@@ -21,16 +21,12 @@ export class TileInfoController {
 				})
 			}
 		}
-
-		console.log(this.tiles)
 	}
 
 	touches(layer, index, position) {
-		for (const t of this.tiles[layer][0]) {
-			console.log(t.position)
-			D1.text(this.position, t.index)
-			if (t.index == index && position.touches(t.position)) {
-				D1.rectangle(t.position)
+		for (const t of this.tiles[layer][0]) { // currently always uses frame 0
+			if (t.index == index && t.position.touches(position)) {
+				D1.text(t.position, t.index)
 				return true
 			}
 		}

@@ -8,6 +8,10 @@ export class WorldPosition {
 		this._original = null // will be set on first scale()
 	}
 
+	touches(o) {
+		return Collision.between(this, o)
+	}
+
 	randomPoint() {
 		const x = Random.integerBetween(this.x, this.x + this.width)
 		const y = Random.integerBetween(this.y, this.y + this.height)
