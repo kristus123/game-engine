@@ -21,5 +21,10 @@ export class World {
 
 		this.worldTileInfo.update()
 		this.player.update()
+
+		if (this.worldTileInfo.touches('grass', 4, Mouse.position)) {
+			console.log("hei")
+		}
+
 	}
 }
