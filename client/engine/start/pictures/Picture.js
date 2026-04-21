@@ -69,6 +69,8 @@ export class Picture {
 	}
 
 	update(p) {
+		Assert.value(p)
+
 		D1.ctx.drawImage(
 			this.canvas,
 			p.x + this.offset.x,

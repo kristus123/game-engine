@@ -13,10 +13,6 @@ export class Grid {
 		}
 	}
 
-
-
-
-
 	area(position, size = 96) {
 
 		const topLeft = this.toGridPosition(position)
