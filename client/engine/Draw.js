@@ -429,8 +429,8 @@ export class Draw {
 		this.ctx.stroke()
 	}
 
-	text(position, text, color = "white", fontSize = 40, backgroundColor = 'black') {
-		this.ctx.font = `${fontSize}px Arial`;
+	text(position, text, color = "white", fontSize = 40, backgroundColor = "black") {
+		this.ctx.font = `${fontSize}px Arial`
 
 		const metrics = this.ctx.measureText(text)
 		const textWidth = metrics.width
