@@ -57,7 +57,7 @@ export class OnlineLobbyManager {
 		SocketClient.sendToOtherClients("CLIENT_CREATED_NEW_LOBBY", {
 			lobbyId: lobby.lobbyId,
 			clientObjects: Object.fromEntries(
-    			Object.entries(lobby.clientObjects).map(([id, obj]) => [id, { ...obj }])
+				Object.entries(lobby.clientObjects).map(([id, obj]) => [id, { ...obj }])
 			)
 		})
 	}
