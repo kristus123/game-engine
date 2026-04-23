@@ -56,6 +56,7 @@ const bin = (() => {
 
 
 export class Aseprite {
+
 	static tags(srcFile, destBase) {
 		execFileSync(bin, [
 			"-b",
@@ -85,7 +86,6 @@ export class Aseprite {
 		], { shell: true })
 	}
 
-
 	static layers(srcFile, destBase) {
 		execFileSync(bin, [
 			"-b",
@@ -112,7 +112,6 @@ export class Aseprite {
 	// 		"json-array",
 	// 	], { shell: true })
 	// }
-
 
 	static tilemaps(srcFile) {
 		execFileSync(bin, [

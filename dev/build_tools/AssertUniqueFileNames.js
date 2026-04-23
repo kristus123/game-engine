@@ -1,4 +1,5 @@
 import exportedNames from "#root/dev/build_tools/JsFiles.js"
+
 const processedNames = exportedNames
 	.map(f => f.split("/").pop().replace(".js", ""))
 

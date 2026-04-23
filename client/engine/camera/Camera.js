@@ -7,7 +7,7 @@ export class Camera {
 
 	static get offset() {
 		return {
-			x: (Screen.width / 2).round(), // maybe this can be improved. it is hacky
+			x: (Screen.width / 2).round(), // This can be improved. it is hacky
 			y: (Screen.height / 2).round(),
 		}
 	}

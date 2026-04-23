@@ -56,8 +56,6 @@ const htmlContents = Files.at(FileConfig.client)
 
 Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
 
-
-// Note: removed aseprite related code, not needed
 const audioFiles = Files.at(FileConfig.gameAudio)
 	.filter(f => f.toLowerCase().endsWith(".mp3"))
 	.map(f => `/${f}`)
