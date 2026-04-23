@@ -40,6 +40,10 @@ gh auth login
 
 now you can run a window pr script which is in the parent folder.
 
+```sh
+windows_artist_pr.bat
+```
+
 # Aseprite files
 
 All Aseprite files are located in xxx
