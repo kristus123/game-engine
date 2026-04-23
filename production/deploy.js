@@ -21,13 +21,6 @@ function startWorkers() {
 	}
 }
 
-function restartWorkers() {
-	for (const id in cluster.workers) {
-		cluster.workers[id].kill()
-	}
-	startWorkers()
-}
-
 if (cluster.isPrimary) {
 	console.log("Primary process started, PID:", process.pid)
 	startWorkers()
@@ -36,12 +29,15 @@ if (cluster.isPrimary) {
 		const changes = await Git.pull()
 		if (changes) {
 			console.log("Git changes detected, restarting workers...")
-			restartWorkers()
+
+			for (const id in cluster.workers) {
+				cluster.workers[id].kill()
+			}
+			startWorkers()
 		}
 	}, 2 * 1000)
 }
 else {
-	// Worker process
 	const log = console.log
 	const error = console.error
 
