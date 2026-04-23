@@ -1,29 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
-/* make text not "markable" */
-
-html, body, * { /* Chrome, Safari */    /* Firefox */     /* IE/Edge */
-	user-select: none;         /* Standard */
-	-webkit-user-drag: none;
+body {
+  font-family: "VT323", monospace;
 }
 
-h1, h2, h3, h4, p {
-	font-family: "VT323", monospace;
+input, button, textarea, select {
+  font-family: inherit;
+}
+
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, a {
 	text-align: center;
-	margin:0;
-	padding:0;
-
-	/* less extreme */
 	overflow-wrap: break-word; 
-
-	/* very extreme */
-
-	/* overflow-wrap: anywhere; */
-	
 }
 
 h1 {
-	font-size: clamp(40px, 4vw, 80px);
+	font-size: 80px;
 	line-height: 1.1;
 	font-weight: 700;
 }

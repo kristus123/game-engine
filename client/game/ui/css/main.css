@@ -1,6 +1,7 @@
 *, *::before, *::after {
 	box-sizing: border-box;
-	user-select: none;
+	padding: 0;
+	margin: 0;
 	-webkit-user-drag: none;
 }
 
@@ -9,17 +10,15 @@ html {
 }
 
 body {
-	font-family: "VT323", monospace;
+	user-select: none;
 
 	/* find out if you can remove display flex */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0;
-	margin: 0;
+
 	height: 100vh;
-	overscroll-behavior: none;
+
 	touch-action: pan-x pan-y;
 	padding-top: env(safe-area-inset-top);
 }
-
