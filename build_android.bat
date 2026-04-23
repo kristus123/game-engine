@@ -20,4 +20,3 @@ REM npx cap add ios
 npx cap sync
 
 npx cap open android
-npx cap run android

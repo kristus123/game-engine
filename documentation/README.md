@@ -1,53 +1,32 @@
 # game-engine
 
-# set up github cli tool
+## set up github cli tool
 
 it's used for running `./pr.sh`:
 
 ```bash
-sudo apt update -y
-sudo apt install gh -y
-```
-when installed do:
-
-```bash
+sudo apt update -y && sudo apt install gh -y
 gh auth login
 ```
+## Install node
 
-# Install node
+Simply install the newest version of Node.
 
-install newest version of node
+## Install Aseprite
 
-- [INSTALL](https://nodejs.org/en/download/current)
+Look at `/documentation/aseprite`.
 
-
-# Install Aseprite
-
-if linux use:
-
-    - ~/meta-repo/projects/aseprite 
-
-if windows use:
-
-## Coding conventions
-
-- Imports are added automatically so you don't need to import stuff, also it will crash if you include imports within `static/`
-- In every file, you can export one thing, and that one thing should have the same name as the file
-- ´./lint.sh´ will take care of the code convention
-
-## First time set up
+## Run project
 
 ```
 npm install
 ```
 
-## run locally
-
 ```
 npm run start
 ```
 
-then open [http://localhost:5000]()
+Then open [http://localhost:5000]()
 
 ## Run linter
 
@@ -59,19 +38,15 @@ then open [http://localhost:5000]()
 
 [Play game](https://romskip.netlify.app/)
 
-
-## setup netlify deploy thing
+## setup Netlify
 
 ```js
 npm install -g netlify-cli
 netlify login
-
-# then you can run
-./deploy_dist_to_netlify.sh
 ```
 
-# netlify setup
+When you want to deply, run:
 
-npm install -g netlify-cli
-
-netlify login
+```js
+./deploy_dist_to_netlify.sh
+```
