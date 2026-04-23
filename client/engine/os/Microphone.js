@@ -19,7 +19,7 @@ export class Microphone {
 				this.ready = true
 			})
 			.catch(err => {
-						console.error("Failed to access microphone:", err)
+				console.error("Failed to access microphone:", err)
 			})
 	}
 
