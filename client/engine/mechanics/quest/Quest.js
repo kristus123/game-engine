@@ -10,9 +10,7 @@ export class Quest {
 		Assert.array(tasks)
 
 		for (const task of tasks) {
-			if (not.method(task)) {
-				throw new Error("Quest.js expects a list of arrow functions")
-			}
+			Assert.method(task)
 		}
 
 		this.index = 0

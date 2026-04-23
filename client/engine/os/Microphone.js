@@ -1,4 +1,5 @@
 export class Microphone {
+
 	static recorder = null
 	static chunks = []
 	static state = "idle" // idle, recording, stopped
@@ -8,18 +9,18 @@ export class Microphone {
 
 	static {
 		navigator.mediaDevices.getUserMedia({ audio: true })
-  	.then(stream => {
-				Microphone.recorder = new MediaRecorder(stream, {
-  		mimeType: Microphone.mimeType,
-  		audioBitsPerSecond: Microphone.audioBitsPerSecond,
+			.then(stream => {
+				this.recorder = new MediaRecorder(stream, {
+					mimeType: this.mimeType,
+					audioBitsPerSecond: this.audioBitsPerSecond,
 				})
 
-				Microphone.recorder.ondataavailable = e => Microphone.chunks.push(e.data)
-				Microphone.ready = true
-  	})
-  	.catch(err => {
-				console.error("Failed to access microphone:", err)
-  	})
+				this.recorder.ondataavailable = e => this.chunks.push(e.data)
+				this.ready = true
+			})
+			.catch(err => {
+						console.error("Failed to access microphone:", err)
+			})
 	}
 
 	static get recording() {
@@ -27,40 +28,41 @@ export class Microphone {
 	}
 
 	static start() {
-		if (!Microphone.ready) {
-  	throw new Error("Microphone not ready yet")
+		if (!this.ready) {
+			throw new Error("this not ready yet")
 		}
-		if (Microphone.state === "recording") {
-  	throw new Error("Microphone already recording")
+		else if (this.state === "recording") {
+			throw new Error("this already recording")
 		}
-
-		Microphone.chunks = []
-		Microphone.recorder.start()
-		Microphone.state = "recording"
+		else {
+			this.chunks = []
+			this.recorder.start()
+			this.state = "recording"
+		}
 	}
 
 	static stop(callback) {
-		if (!Microphone.ready) {
-  	throw new Error("Microphone not ready yet")
-		}
-		if (Microphone.state !== "recording") {
-  	throw new Error("Microphone not recording")
-		}
+		Assert.method(callback)
 
-		Microphone.recorder.onstop = () => {
-  	const blob = new Blob([...Microphone.chunks], { type: Microphone.mimeType })
-  	Microphone.chunks = []
-  	Microphone.state = "stopped"
-
-  	if (typeof callback === "function") {
-				callback(blob)
-  	}
+		if (!this.ready) {
+			throw new Error("this not ready yet")
+		}
+		if (this.state !== "recording") {
+			throw new Error("this not recording")
 		}
 
-		Microphone.recorder.stop()
+		this.recorder.onstop = () => {
+			const blob = new Blob([...this.chunks], { type: this.mimeType })
+			this.chunks = []
+			this.state = "stopped"
+
+			callback(blob)
+		}
+
+		this.recorder.stop()
 	}
 
 	static getState() {
-		return Microphone.state
+		return this.state
 	}
 }

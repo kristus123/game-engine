@@ -23,8 +23,6 @@ export class Mouse {
 		// Prevent right click to open menu
 		// document.addEventListener('contextmenu', event => event.preventDefault())
 
-		this.clickEvents = ClickEvents()
-
 		this.holding = null
 		this.hoveringHtmlElement = false
 
@@ -112,14 +110,6 @@ export class Mouse {
 
 	static downForLongerThan(ms) {
 		return this.down && this.downStopWatch.elapsedTime > ms
-	}
-
-	static addOnClick(name, handler) {
-		this.clickEvents.addOnClick(name, handler)
-	}
-
-	static removeOnClick(name, handler) {
-		this.clickEvents.removeOnClick(name, handler)
 	}
 
 	static initializeAfterCameraIsInitialized() {
