@@ -2,7 +2,6 @@ import jsFiles from "#root/dev/build_tools/JsFiles.js"
 
 import reservedJsKeywords from "#root/dev/build_tools/ReservedJsKeywords.js"
 
-
 // better safe and strict than sorry and loosey goosey
 const keywords = reservedJsKeywords
 	.map(w => w.toLowerCase())

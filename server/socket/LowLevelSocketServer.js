@@ -10,9 +10,7 @@ export default class {
 	}
 
 	start() {
-		const server = Flask.server
-
-		const webSocketServer = new WebSocketServer({ server })
+		const webSocketServer = new WebSocketServer({ server: Flask.server })
 
 		webSocketServer.on("connection", (client, request) => {
 			console.log("hahah")

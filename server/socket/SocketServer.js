@@ -2,7 +2,6 @@ import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServe
 
 export const socketServer = new SimplifiedSocketServerAPI()
 
-
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
 
@@ -30,4 +29,3 @@ socketServer.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
 
 	socketServer.sendToClient(targetClient, data)
 })
-

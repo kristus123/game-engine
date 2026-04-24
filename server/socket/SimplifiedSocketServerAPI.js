@@ -28,7 +28,6 @@ export default class {
 				delete this.clientIdFrom[client]
 
 				this.onClose(client, clientId)
-				console.log("triggered onClose")
 			}
 		})
 	}
