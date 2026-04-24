@@ -1,4 +1,5 @@
 export const MovementCalculations = {
+
 	moveTowards(position, speedMultiplier=1) {
 		const dir = Math.atan2(position.y - this.y, position.x - this.x)
 		this.x += Math.cos(dir) * 10 * speedMultiplier

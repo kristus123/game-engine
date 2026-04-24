@@ -3,6 +3,7 @@ function format(t) {
 }
 
 // this class is added to all classes by the transpiler
+// decide if BaseClass or SuperClass is the best
 
 export class SuperClass {
 
