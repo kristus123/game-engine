@@ -13,6 +13,8 @@ export function Enhance_js_Object() {
 		for (const [key, value] of Object.entries(this)) {
  			run(key, value)
 		}
+
+		return this
 	})
 
 	Getter(Object.prototype, "all", function () {
@@ -44,6 +46,9 @@ export function Enhance_js_Object() {
 		if (Object.hasOwn(this, key)) {
 			throw new Error("Key is present in object")
 		}
+		else {
+			return this
+		}
 	})
 
 	Enhance(Object.prototype, "assertKeyNotPresent", function (key) {
@@ -53,6 +58,9 @@ export function Enhance_js_Object() {
 	Enhance(Object.prototype, "assertKeyPresent", function (key) {
 		if (!Object.hasOwn(this, key)) {
 			throw new Error("Key is not present in object")
+		}
+		else {
+			return this
 		}
 	})
 

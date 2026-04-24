@@ -55,6 +55,12 @@ function triggerClientReload() {
 const app = express()
 app.use(express.static(FileConfig.dist))
 
+app.use((req, res, next) => { // needed in order to use shared array buffers between main and worker
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  next();
+});
+
 app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check HotReload.js
 	res.json({ currentId: currentId })
 })

@@ -2,7 +2,10 @@ function format(t) {
 	return ` - [${t}] - `
 }
 
+// this class is added to all classes by the transpiler
+
 export class SuperClass {
+
 	static all = []
 
 	constructor() {
