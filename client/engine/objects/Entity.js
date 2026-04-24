@@ -65,5 +65,4 @@ export class Entity extends _GameObject {
 	}
 
 	// Move class refactor functions
-
 }

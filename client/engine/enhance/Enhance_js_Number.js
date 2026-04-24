@@ -4,7 +4,7 @@ export function Enhance_js_Number() {
 		return Number.isInteger(v) && !String(v).includes(".")
 	})
 
-	Enhance(Number.prototype, "round", function () {
+	Enhance(Number.prototype, "round", function () { // todo: rename to roundUp
 		return Math.round(this)
 	})
 
@@ -12,5 +12,3 @@ export function Enhance_js_Number() {
 		return Math.floor(this)
 	})
 }
-
-

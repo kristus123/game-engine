@@ -10,7 +10,6 @@ export function Enhance_js_Array() {
 		return false
 	})
 
-
 	Enhance(Array.prototype, "next", function (current) {
 		const i = this.indexOf(current)
 		if (i === -1 || i === this.length - 1) {
@@ -20,13 +19,11 @@ export function Enhance_js_Array() {
 		return this[i + 1]
 	})
 
-
 	Enhance(Array.prototype, "retainMax", function (maxEntries) {
 		if (this.length > maxEntries) {
 			this.splice(0, this.length - maxEntries)
 		}
 	})
-
 
 	Enhance(Array.prototype, "removeIf", function (predicate) {
 		for (let i = this.length - 1; i >= 0; i--) {
@@ -141,6 +138,7 @@ export function Enhance_js_Array() {
 	Enhance(Array.prototype, "clear", function () {
 		this.length = 0
 	})
+
 	Enhance(Array.prototype, "update", function () {
 		for (const x of this) {
 			x.update()
