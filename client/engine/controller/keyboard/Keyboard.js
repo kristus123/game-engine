@@ -9,14 +9,10 @@ export class Keyboard {
 
 	static disabled = false
 
-	static noButtonsPressed() {
-		return !this.up && !this.down && !this.left && !this.right
-	}
-
 	static {
 		document.addEventListener("keydown", e => {
 			if (this.disabled) {
-
+				// Do nothing
 			}
 			else if (e.code === "ArrowUp" || e.code === "KeyW") {
 				this.up = true
