@@ -23,6 +23,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "mediasoup": "^3.19.21",
     "web-push": "^3.6.7",
     "ws": "^8.18.3"
   }
