@@ -2,7 +2,11 @@ import { FileDb } from "#root/server/http/FileDb.js"
 import { Flask } from "#root/server/http/Flask.js"
 import webPush from "web-push"
 import { socketServer } from "#root/server/socket/SocketServer.js"
+<<<<<<< HEAD
 import { SfuServer } from "#root/server/webrtc/SfuServer.js"
+=======
+import { SfuServer_start } from "#root/server//webrtc/SfuServer.js"
+>>>>>>> fa91ac86 (nocommit)
 
 const vapidKeys = webPush.generateVAPIDKeys()
 
@@ -77,6 +81,12 @@ Flask.route("deleteFile", (body) => {
 const PORT = 3000
 Flask.listen(PORT)
 
+<<<<<<< HEAD
 SfuServer.start().then(() =>{
 	socketServer.start()
 })
+=======
+
+socketServer.start()
+//SfuServer_start();
+>>>>>>> fa91ac86 (nocommit)
