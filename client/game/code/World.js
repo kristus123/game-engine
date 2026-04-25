@@ -23,6 +23,14 @@ export class World {
 				RtcClient.call(targetClientId)
 			})
 		])
+
+		RtcClient.onIncomingCall = (callerId, offer) => {
+			RtcClient.acceptIncomingCall(callerId, offer)
+		}
+
+		RtcClient.onCallAccepted = clientId => {
+			console.log(`Conncted With ${clientId}!`)
+		}
 	}
 
 	update() {

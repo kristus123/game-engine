@@ -141,7 +141,7 @@ export class RtcClient {
 			}
 
 			this.remoteStreamIds.add(stream.id)
-			GridTemplate.left.push(HtmlVideo.guest(stream))
+			Dom.add([ HtmlVideo.guest(stream) ])
 		}
 
 		peerConnection.onicecandidate = e => {

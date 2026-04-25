@@ -1,9 +1,12 @@
 import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServerAPI.js"
+import { SfuServer } from "../webrtc/SfuServer"
 
 export const socketServer = new SimplifiedSocketServerAPI()
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
+	SfuServer.start()
+	SfuServer.connectWithClient(client, clientId)
 
 	socketServer.sendToEveryone({
 		action: "UPDATE_CLIENTS_LIST",
@@ -14,6 +17,7 @@ socketServer.onConnection = (client, clientId) => {
 
 socketServer.onClose = (client, clientId) => {
 	console.log(`${clientId} has disconnected`)
+	SfuServer.closeConnectionWithClient(client, clientId)
 
 	socketServer.sendToEveryone({
 		action: "REMOVE_CLIENT",
