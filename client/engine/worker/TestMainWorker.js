@@ -1,4 +1,4 @@
-export function InitiateWorker(workerFile, onMessage = (m) => {}) { 
+export function InitiateWorker(workerFile, onMessage = (m) => {}) {
 	Assert.value(workerFile)
 	Assert.method(onMessage)
 

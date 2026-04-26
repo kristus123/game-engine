@@ -1,4 +1,5 @@
 export class WebSocketWrapper {
+
 	static {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${ClientId}`)
 

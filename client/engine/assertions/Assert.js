@@ -1,4 +1,5 @@
 export class Assert {
+
 	static method(m) {
 		if (Not.method(m)) {
 			throw new Error("not a method!")
@@ -34,7 +35,6 @@ export class Assert {
 			return n
 		}
 	}
-
 
 	static array(x) {
 		if (Not.array(x)) {

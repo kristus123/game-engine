@@ -1,9 +1,9 @@
 body {
-  font-family: "VT323", monospace;
+	font-family: "VT323", monospace;
 }
 
 input, button, textarea, select {
-  font-family: inherit;
+	font-family: inherit;
 }
 
 

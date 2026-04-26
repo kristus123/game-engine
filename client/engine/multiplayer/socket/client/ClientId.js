@@ -1,6 +1,6 @@
 let clientId = localStorage.getItem("clientId")
 
-if (clientId === null) {
+if (clientId == null) {
 	clientId = Random.uuid()
 	localStorage.setItem("clientId", clientId)
 }
