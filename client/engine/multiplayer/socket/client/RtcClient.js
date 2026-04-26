@@ -104,11 +104,13 @@ export class RtcClient {
             if (data.consumerParams.producerId !== producerId) return
 
             const consumer = await this.recvTransport.consume(data.consumerParams)
+            
+            if (!this.consumers[data.clientId]) {
+                this.consumers[data.clientId] = { stream: new MediaStream() }
+                Dom.add([ HtmlVideo.guest(this.consumers[data.clientId].stream) ])
+            }
 
-            const stream = new MediaStream([consumer.track])
-            this.consumers[producerId] = { consumer, stream }
-
-			Dom.add([ HtmlVideo.local(stream) ])
+            this.consumers[data.clientId].stream.addTrack(consumer.track)
         })
     }
 }

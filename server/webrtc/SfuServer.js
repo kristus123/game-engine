@@ -25,7 +25,8 @@ export class SfuServer {
 
                 socketServer.sendToClient(client, {
                     action: "SFU_NEW_PRODUCER",
-                    producerId: rtcClient.producer.id
+                    producerId: rtcClient.producer.id,
+                    clientId
                 })
             })
         })
@@ -51,7 +52,8 @@ export class SfuServer {
 
                 socketServer.sendToClient(rtcClient.client, {
                     action: "SFU_NEW_PRODUCER",
-                    producerId: producer.id
+                    producerId: producer.id,
+                    clientId: rtcClient.clientId
                 })
             })
         })
