@@ -1,194 +1,114 @@
 export class RtcClient {
-	static {
-		this.connectedClientIds = {}
-		this.remoteStreamIds = new Set()
+    static {
+        this.device = null
+        this.sendTransport = null
+        this.recvTransport = null
+        this.localStream = null
+        this.producers = {}
+        this.consumers = {}         
 
-		this.onData = (json) => {}
-		this.onIncomingCall = (callerClientId, offer) => {}
-		this.onCallAccepted = (clientId) => {}
+        SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
+            console.log("Setting Up SFU Client")
 
-		this.localStream = null
-		navigator.mediaDevices
-			.getUserMedia({ video: true, audio: true })
-			.then(stream => {
-				this.localStream = stream
-				Dom.add([ HtmlVideo.local(stream) ])
-			})
+            const mediaStream = navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(stream => {
+                return stream
+            })
 
-		SocketClient.onClientMessage("INCOMING_CALL", data => {
-			this.onIncomingCall(data.originClientId, data.offer)
-		})
+            this.localStream = await mediaStream
+            Dom.add([ HtmlVideo.local(this.localStream) ])
 
-		SocketClient.onClientMessage("CALL_ACCEPTED", data => {
-			const connection = this.connectedClientIds[data.originClientId]
-			if (!connection) {
-				throw new Error("could not find connection")
+            this.device = new window.mediasoup.Device()
+			await this.device.load({ routerRtpCapabilities: data.rtpCapabilities })
+            await this.setupSendTransport(data.sendTransportParams)
+            await this.setupRecvTransport(data.recvTransportParams)
+        })
+
+        SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
+            console.log("Consuming New Producer")
+
+            await this.consume(data.producerId, data.clientId)
+        })
+    }
+
+    static async setupSendTransport(params) {
+        this.sendTransport = this.device.createSendTransport(params)
+
+        this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
+            try {
+                console.log("Requesting Connection For Webrtc Send Transport")
+                
+                SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+                    direction: "send",
+                    dtlsParameters
+                })
+                callback()
+            } catch (e) { errback(e) }
+        })
+
+        this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
+            try {
+                await new Promise(resolve => {
+                    SocketClient.serverActionListener.listenOnce("SFU_PRODUCED", data => {
+                        if (data.kind === kind) {
+                            callback({ id: data.producerId })
+                            resolve()
+                        }
+                    })
+
+                    console.log("Requesting Producer")
+                    SocketClient.sendToServer("SFU_PRODUCE", { kind, rtpParameters })
+                })
+            } catch (e) { errback(e) }
+        })
+
+        if (!this.localStream || !this.sendTransport) return
+
+        for (const track of this.localStream.getTracks()) {
+            const producer = await this.sendTransport.produce({ track })
+            this.producers[track.kind] = producer
+        }
+
+        SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {})
+    }
+
+    static async setupRecvTransport(params) {
+        this.recvTransport = this.device.createRecvTransport(params)
+
+        this.recvTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
+            try {
+                console.log("Requesting Connection For Webrtc Recv Transport")
+
+                SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+                    direction: "recv",
+                    dtlsParameters
+                })
+                callback()
+            } catch (e) {
+				errback(e)
 			}
-			else {
-				connection.peerConnection
-					.setRemoteDescription(
-						new RTCSessionDescription(data.answer)
-					)
-					.catch(e => {
-						throw new Error(e)
-					})
+        })
+    }
 
-				this.onCallAccepted(data.originClientId)
-			}
-		})
+    static async consume(producerId, originClientId) {
+        if (!this.recvTransport) return
 
-		SocketClient.onClientMessage("ICE_CANDIDATE", data => {
-			const connection = this.connectedClientIds[data.originClientId]
-			if (connection) {
-				connection.peerConnection
-					.addIceCandidate(
-						new RTCIceCandidate(data.candidate)
-					)
-					.catch(e => {
-						throw new Error(e)
-					})
-			}
-		})
-	}
+        console.log("Requesting Consumer")
 
-	static call(targetClientId) {
-		if (this.connectedClientIds[targetClientId]) {
-			throw new Error("you can't call someone you already have a connection with")
-		}
+        SocketClient.sendToServer("SFU_CONSUME", {
+            producerId,
+            rtpCapabilities: this.device.rtpCapabilities
+        })
 
-		const { peerConnection, dataChannel } = this.makeOffer(targetClientId)
+        SocketClient.serverActionListener.listenOnce("SFU_CONSUMED", async data => {
+            if (data.consumerParams.producerId !== producerId) return
 
-		this.connectedClientIds[targetClientId] = {
-			peerConnection,
-			dataChannel
-		}
+            const consumer = await this.recvTransport.consume(data.consumerParams)
 
-		this.localStream.getTracks().forEach(track =>
-			peerConnection.addTrack(track, this.localStream)
-		)
+            const stream = new MediaStream([consumer.track])
+            this.consumers[producerId] = { consumer, stream }
 
-		peerConnection.createOffer()
-			.then(offer => peerConnection.setLocalDescription(offer))
-			.then(() => {
-				SocketClient.sendToClient(
-					"INCOMING_CALL",
-					targetClientId,
-					{ offer: peerConnection.localDescription }
-				)
-			})
-	}
-
-	static acceptIncomingCall(callerClientId, offer) {
-		if (this.connectedClientIds[callerClientId]) {
-			return
-		}
-
-		const peerConnection = this.createPeerConnection(callerClientId)
-
-		this.connectedClientIds[callerClientId] = {
-			peerConnection,
-			dataChannel: null
-		}
-
-		peerConnection
-			.setRemoteDescription(new RTCSessionDescription(offer))
-			.then(() => {
-				this.localStream.getTracks().forEach(track => {
-					peerConnection.addTrack(track, this.localStream)
-				})
-			})
-			.then(() => peerConnection.createAnswer())
-			.then(answer => peerConnection.setLocalDescription(answer))
-			.then(() => {
-				SocketClient.sendToClient(
-					"CALL_ACCEPTED",
-					callerClientId,
-					{ answer: peerConnection.localDescription })
-			}).then(() => {
-				peerConnection.ondatachannel = e => {
-					if (this.connectedClientIds[callerClientId]) {
-						this.connectedClientIds[callerClientId].dataChannel = e.channel
-						this.setupDataChannel(e.channel)
-					}
-					else {
-						throw new Error(`${callerClientId} Is Not Connected`)
-					}
-				}
-			})
-			.then(() => {
-				this.onCallAccepted(callerClientId)
-			})
-	}
-
-	static send(targetClientId, data) {
-		const connection = this.connectedClientIds[targetClientId]
-		if (!connection.dataChannel) {
-			throw new Error(`Data Channel Not Found For ${targetClientId}`)
-		}
-
-		connection.dataChannel.send(JSON.stringify(data))
-	}
-
-	static createPeerConnection(targetClientId) {
-		const peerConnection = new RTCPeerConnection({
-			iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
-		})
-
-		peerConnection.ontrack = e => {
-			const stream = e.streams[0]
-			if (this.remoteStreamIds.has(stream.id)) {
-				return
-			}
-
-			this.remoteStreamIds.add(stream.id)
-			Dom.add([ HtmlVideo.guest(stream) ])
-		}
-
-		peerConnection.onicecandidate = e => {
-			if (!e.candidate) {
-				return
-			}
-
-			SocketClient.sendToClient(
-				"ICE_CANDIDATE",
-				targetClientId,
-				{ candidate: e.candidate }
-			)
-		}
-
-		return peerConnection
-	}
-
-	static makeOffer(targetClientId) {
-		const peerConnection = this.createPeerConnection(targetClientId)
-		const dataChannel = peerConnection.createDataChannel("data")
-
-		this.setupDataChannel(dataChannel)
-
-		return { peerConnection, dataChannel }
-	}
-
-	static setupDataChannel(dataChannel) {
-		dataChannel.onmessage = e => {
-			console.log("Received message:", e.data)
-			this.onData(JSON.parse(e.data))
-		}
-
-		dataChannel.onopen = () => {
-			console.log("Data channel opened")
-		}
-
-		dataChannel.onerror = (error) => {
-			console.error("Data channel error:", error)
-		}
-	}
-
-	static stopCall() {
-		for (const clientId in this.connectedClientIds) {
-			this.connectedClientIds[clientId].peerConnection.close()
-		}
-
-		this.connectedClientIds = {}
-		this.remoteStreamIds.clear()
-	}
+			Dom.add([ HtmlVideo.local(stream) ])
+        })
+    }
 }

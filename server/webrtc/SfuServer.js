@@ -8,11 +8,26 @@ export class SfuServer {
         this.rtcClients = {}
 
         socketServer.on("SFU_CONNECT_TRANSPORT", async (client, clientId, data) => {
+            console.log(`Connecting Webrtc Transport For ${clientId}`)
+
             if (data.direction == "send") {
                 await this.rtcClients[clientId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
             } else {
                 await this.rtcClients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
             }
+        })
+
+        socketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId) => {
+            Object.values(this.rtcClients).forEach(rtcClient => {
+                if (rtcClient.client === client) {
+                    return
+                }
+
+                socketServer.sendToClient(client, {
+                    action: "SFU_NEW_PRODUCER",
+                    producerId: rtcClient.producer.id
+                })
+            })
         })
 
         socketServer.on("SFU_PRODUCE", async (client, clientId, data) => {
@@ -25,7 +40,8 @@ export class SfuServer {
 
             socketServer.sendToClient(client, {
                 action: "SFU_PRODUCED",
-                producerId: producer.id
+                producerId: producer.id,
+                kind: producer.kind,
             })
 
             Object.values(this.rtcClients).forEach(rtcClient => {
@@ -58,13 +74,15 @@ export class SfuServer {
                     id: consumer.id,
                     producerId: data.producerId,
                     kind: consumer.kind,
-                    rtpParameters: consumer.rtpParameters,
+                    rtpParameters: consumer.rtpParameters
                 }
             })
         })
     }
 
     static async connectWithClient(client, clientId) {
+        console.log(`Connecting With ${clientId}`)
+
         const sendTransport = await SfuServerApi.createTransport(this.globalRouter)
         const recvTransport = await SfuServerApi.createTransport(this.globalRouter)
 
@@ -86,18 +104,12 @@ export class SfuServer {
                 dtlsParameters: recvTransport.dtlsParameters,
             }
         })
-
-        const other = Object.values(this.rtcClients).find(rtcClient => rtcClient.client !== client && rtcClient.producer)
-        if (other) {
-            socketServer.sendToClient(client, {
-                action: "SFU_NEW_PRODUCER",
-                producerId: other.producer.id
-            })
-        }
     }
 
     static closeConnectionWithClient() {
         socketServer.onClose = (client, clientId) => {
+            console.log(`Disconnecting With ${clientId}`)
+
             const state = this.rtcClients[clientId]
             if (!state) return
 

@@ -1,12 +1,12 @@
 import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServerAPI.js"
-import { SfuServer } from "../webrtc/SfuServer"
+import { SfuServer } from "#root/server/webrtc/SfuServer.js"
 
 export const socketServer = new SimplifiedSocketServerAPI()
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
-	SfuServer.start()
 	SfuServer.connectWithClient(client, clientId)
+
 
 	socketServer.sendToEveryone({
 		action: "UPDATE_CLIENTS_LIST",

@@ -21,9 +21,12 @@
     "stylelint-config-standard": "^39.0.1"
   },
   "dependencies": {
+    "browserify": "^17.0.1",
     "cors": "^2.8.5",
+    "esbuild": "^0.28.0",
     "express": "^4.19.2",
     "mediasoup": "^3.19.21",
+    "mediasoup-client": "^3.19.0",
     "web-push": "^3.6.7",
     "ws": "^8.18.3"
   }

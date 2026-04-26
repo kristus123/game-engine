@@ -2,6 +2,8 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
+		RtcClient
+
 		// const html = F.test
 		// html.domFloat({ x: 100, y: 100 })
 
@@ -14,23 +16,13 @@ export class World {
 		// Camera.follow(this.player)
 		// Controller.control(this.player)
 
-		let targetClientId = ""
-		Dom.add([
-			Html.input("clientId", value => {
-				targetClientId = value
-			}),
-			Html.button("Call Client", () => {
-				RtcClient.call(targetClientId)
-			})
-		])
+		// RtcClient.onIncomingCall = (callerId, offer) => {
+		// 	RtcClient.acceptIncomingCall(callerId, offer)
+		// }
 
-		RtcClient.onIncomingCall = (callerId, offer) => {
-			RtcClient.acceptIncomingCall(callerId, offer)
-		}
-
-		RtcClient.onCallAccepted = clientId => {
-			console.log(`Conncted With ${clientId}!`)
-		}
+		// RtcClient.onCallAccepted = clientId => {
+		// 	console.log(`Conncted With ${clientId}!`)
+		// }
 	}
 
 	update() {
