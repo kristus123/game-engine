@@ -16,9 +16,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	height: 100vh;
-
 	touch-action: pan-x pan-y;
 	padding-top: env(safe-area-inset-top);
 }
