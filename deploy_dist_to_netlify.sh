@@ -5,11 +5,8 @@ set -e
 node build_tools/export_aseprite.js
 node build_tools/generate_dist.js PRODUCTION
 
-
 find dist -type f -name '*.js' -exec npx --yes terser {} --compress --mangle -o {} \;
-
 find dist -type f -name '*.css' -exec npx --yes lightningcss --minify {} -o {} \;
-
 find dist -type f -name '*.html' -exec npx --yes html-minifier-terser --collapse-whitespace --remove-comments -o {} {} \;
 
 cat > dist/netlify.toml <<EOF
