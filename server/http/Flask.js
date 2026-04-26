@@ -14,7 +14,7 @@ export class Flask {
 	static listen(port, bind="0.0.0.0") {
 		const app = express()
 
-		Flask.server = http.createServer(app)
+		this.server = http.createServer(app)
 
 		app.use(express.json({
 			type: ["application/json"]
@@ -39,6 +39,6 @@ export class Flask {
 			res.status(400).json({ error: "Route not found" })
 		})
 
-		Flask.server.listen(port, bind)
+		this.server.listen(port, bind)
 	}
 }
