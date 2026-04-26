@@ -253,6 +253,7 @@
         "PracticePage": "readonly",
         "ProxyObject": "readonly",
         "PushClient": "readonly",
+        "Pwa": "readonly",
         "Quest": "readonly",
         "Rain": "readonly",
         "Random": "readonly",
