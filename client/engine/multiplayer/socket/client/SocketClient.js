@@ -25,12 +25,17 @@ export class SocketClient {
 		}
 	}
 
-	static sendToClient(subAction, targetClientId, data) {
+	static sendToServer(action, data) {
 		WebSocketWrapper.send(data.merge({
-			action: "CLIENT_TO_CLIENT",
+			action: action,
+			originClientId: ClientId
+		}))
+	}
+
+	static sendToClient(subAction, targetClientId, data) {
+		this.sendToServer("CLIENT_TO_CLIENT", data.merge({
 			subAction: subAction,
-			originClientId: ClientId,
-			targetClientId: targetClientId,
+			targetClientId: targetClientId
 		}))
 	}
 
