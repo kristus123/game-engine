@@ -32,7 +32,7 @@ function extractMethodParamsIfPresent(line) {
 	}
 
 	parameters = parameters.split(", ")
-	parameters = parameters.map(p => p.split('=')[0].trim());
+	parameters = parameters.map(p => p.split("=")[0].trim())
 	parameters = parameters.filter(p => p.trim())
 
 	return {
