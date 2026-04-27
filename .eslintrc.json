@@ -207,6 +207,7 @@
         "InverseExponentialNumber": "readonly",
         "Iterate": "readonly",
         "Keyboard": "readonly",
+        "LazyLoadedList": "readonly",
         "Level": "readonly",
         "LinePathFinder": "readonly",
         "ListLooper": "readonly",
