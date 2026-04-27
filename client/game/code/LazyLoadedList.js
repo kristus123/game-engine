@@ -1,54 +1,3 @@
-  #list {
-    height: 520px;
-    overflow: auto;
-    border: 1px solid #d1d5db;
-    border-radius: 12px;
-    background: white;
-    position: relative;
-  }
-
-  #spacer {
-    position: relative;
-    width: 1px;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  #content {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-  }
-
-  .row {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #eef2f7;
-    background: white;
-    font-size: 14px;
-  }
-
-  .meta {
-    margin-left: auto;
-    color: #6b7280;
-    font-size: 12px;
-    padding-left: 12px;
-  }
-
-<body>
-<h2>Virtual List (Variable Row Heights)</h2>
-
-<div id="list">
-  <div id="spacer"></div>
-  <div id="content"></div>
-</div>
-
-<script>
 const listEl = document.getElementById('list');
 const spacer = document.getElementById('spacer');
 const content = document.getElementById('content');
@@ -165,7 +114,3 @@ const virtualizer = new Virtualizer({
 
 virtualizer.update();
 render();
-</script>
-
-</body>
-</html>
