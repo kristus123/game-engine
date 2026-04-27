@@ -1,16 +1,10 @@
-const listEl = document.getElementById("list")
-const spacer = document.getElementById("spacer")
-const content = document.getElementById("content")
-
 const items = Array.from({ length: 100000 }, (_, i) => ({
 	text: `Item ${i + 1}`,
 	height: 20 + (i % 5) * 10
 }))
 
-const overscan = 5
-
 class Virtualizer {
-	constructor({ el, items, estimateSize, overscan = 0, onChange }) {
+	constructor({ el, items, estimateSize, overscan = 0, onChange } = {}) {
 		this.el = el
 		this.items = items
 		this.estimateSize = estimateSize
@@ -31,10 +25,10 @@ class Virtualizer {
 	recalculate() {
 		let sum = 0
 		for (let i = 0; i < this.items.length; i++) {
-  	const h = this.heights[i] || this.estimateSize(this.items[i], i)
-  	this.heights[i] = h
-  	this.offsets[i] = sum
-  	sum += h
+			const h = this.heights[i] || this.estimateSize(this.items[i], i)
+			this.heights[i] = h
+			this.offsets[i] = sum
+			sum += h
 		}
 		this.totalSize = sum
 	}
@@ -51,7 +45,7 @@ class Virtualizer {
 
 	findEnd(bottom) {
 		for (let i = 0; i < this.offsets.length; i++) {
-  	if (this.offsets[i] > bottom) {
+			if (this.offsets[i] > bottom) {
 				return i
 			}
 		}
@@ -67,7 +61,7 @@ class Virtualizer {
 
 		const out = []
 		for (let i = s; i < e; i++) {
-  	out.push({ index: i, start: this.offsets[i] })
+			out.push({ index: i, start: this.offsets[i] })
 		}
 		return out
 	}
@@ -80,7 +74,10 @@ class Virtualizer {
 function render() {
 	const vItems = virtualizer.getVirtualItems()
 
+	const spacer = document.getElementById("spacer")
 	spacer.style.height = virtualizer.getTotalSize() + "px"
+
+	const content = document.getElementById("content")
 
 	content.replaceChildren()
 
@@ -107,10 +104,10 @@ function render() {
 }
 
 const virtualizer = new Virtualizer({
-	el: listEl,
+	el: document.getElementById("list"),
 	items,
 	estimateSize: () => 30,
-	overscan,
+	overscan: 5,
 	onChange: render
 })
 
