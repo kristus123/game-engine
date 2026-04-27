@@ -3,14 +3,16 @@ export class LocalDate {
 
 		if (A.string(arg)) {
 			const match = arg.match(/^(\d{4})-(\d{2})-(\d{2})$/)
-			if (!match) {
+			if (match) {
+				const [_,
+					year,
+					month,
+					day] = match
+				this.date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)))
+			}
+			else {
 				throw new Error("Invalid date format. Expected yyyy-mm-dd")
 			}
-			const [_,
-				y,
-				m,
-				d] = match
-			this.date = new Date(Date.UTC(Number(y), Number(m) - 1, Number(d)))
 		}
 		else if (arg instanceof Date) {
 			this.date = new Date(Date.UTC(
@@ -56,14 +58,6 @@ export class LocalDate {
 		return `${y}-${m}-${d}`
 	}
 
-	static now() {
-		const today = new Date()
-		const y = today.getUTCFullYear()
-		const m = today.getUTCMonth() + 1
-		const d = today.getUTCDate()
-		return new LocalDate(`${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`)
-	}
-
 	toDate() {
 		return new Date(this.date)
 	}
@@ -72,4 +66,13 @@ export class LocalDate {
 		const d = LocalDate.now()
 		return this.toDate() <= d.toDate()
 	}
+
+	static now() {
+		const today = new Date()
+		const y = today.getUTCFullYear()
+		const m = today.getUTCMonth() + 1
+		const d = today.getUTCDate()
+		return new LocalDate(`${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`)
+	}
+
 }

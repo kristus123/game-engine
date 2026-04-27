@@ -283,6 +283,7 @@
         "TileInfoController": "readonly",
         "Velocity": "readonly",
         "VideoDiv": "readonly",
+        "VisibilityWatcher": "readonly",
         "Wait": "readonly",
         "Water": "readonly",
         "WebSocketWrapper": "readonly",

@@ -10,45 +10,46 @@ export class Controller {
 
 	static update() {
 		if (this.entity) {
+
 			const d = NormalizeVector(this.inputDirection())
+			const m = 500
 
-			const multiplier = 500
-
-			this.entity.velocity.x = d.x * multiplier
-			this.entity.velocity.y = d.y * multiplier
+			this.entity.velocity.x = d.x * m
+			this.entity.velocity.y = d.y * m
 		}
 	}
 
 	static inputDirection() {
-		const up = { x: 0, y: -1 }
-		const down = { x: 0, y: 1 }
-		const left = { x: -1, y: 0 }
-		const right = { x: 1, y: 0 }
 
-		let x = 0
-		let y = 0
-
-		if (Keyboard.up || GamePad.up) {
-			x += up.x
-			y += up.y
+		if (Gamepad.active) {
+			return {
+				x: Gamepad.x,
+				y: Gamepad.y,
+			}
 		}
+		else {
+			let x = 0
+			let y = 0
 
-		if (Keyboard.down || GamePad.down) {
-			x += down.x
-			y += down.y
+			if (Keyboard.up) {
+				x += 0
+				y += -1
+			}
+			if (Keyboard.down) {
+				x += 0
+				y += 1
+			}
+			if (Keyboard.left) {
+				x += -1
+				y += 0
+			}
+			if (Keyboard.rightt) {
+				x += 1
+				y += 0
+			}
+
+			return { x, y }
 		}
-
-		if (Keyboard.left || GamePad.left) {
-			x += left.x
-			y += left.y
-		}
-
-		if (Keyboard.right || GamePad.right) {
-			x += right.x
-			y += right.y
-		}
-
-		return { x, y }
 	}
 
 }

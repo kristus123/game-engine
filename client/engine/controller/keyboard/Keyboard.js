@@ -4,7 +4,6 @@ document.addEventListener("keydown", e => {
 	}
 })
 
-
 export class Keyboard {
 
 	static disabled = false
