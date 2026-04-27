@@ -1,14 +1,9 @@
-const items = Array.from({ length: 100000 }, (_, i) => ({
-	text: `Item ${i + 1}`,
-	height: 20 + (i % 5) * 10
-}))
-
 class Virtualizer {
-	constructor({ el, items, estimateSize, overscan = 0, onChange } = {}) {
-		this.el = el
+	constructor(items, onChange) {
+		this.el = document.getElementById("list"),
 		this.items = items
-		this.estimateSize = estimateSize
-		this.overscan = overscan
+		this.estimateSize = () => 30
+		this.overscan = 5
 		this.onChange = onChange
 
 		this.heights = new Array(items.length).fill(0)
@@ -23,13 +18,16 @@ class Virtualizer {
 	}
 
 	recalculate() {
+
 		let sum = 0
+
 		for (let i = 0; i < this.items.length; i++) {
 			const h = this.heights[i] || this.estimateSize(this.items[i], i)
 			this.heights[i] = h
 			this.offsets[i] = sum
 			sum += h
 		}
+
 		this.totalSize = sum
 	}
 
@@ -71,19 +69,22 @@ class Virtualizer {
 	}
 }
 
-function render() {
-	const vItems = virtualizer.getVirtualItems()
 
+const items = Array.from({ length: 100000 }, (_, i) => ({
+	text: `Item ${i + 1}`,
+	height: 20 + (i % 5) * 10
+}))
+
+function render() {
 	const spacer = document.getElementById("spacer")
 	spacer.style.height = virtualizer.getTotalSize() + "px"
 
 	const content = document.getElementById("content")
-
 	content.replaceChildren()
 
-	const frag = document.createDocumentFragment()
+	const fragment = document.createDocumentFragment()
 
-	for (const v of vItems) {
+	for (const v of virtualizer.getVirtualItems()) {
 		const row = document.createElement("div")
 		row.className = "row"
 
@@ -92,22 +93,19 @@ function render() {
 
 		row.textContent = items[v.index].text
 
-		const meta = document.createElement("span")
-		meta.className = "meta"
-		meta.textContent = `#${v.index + 1}`
+		const span = document.createElement("span")
+		span.className = "meta"
+		span.textContent = `# ${v.index + 1}`
 
-		row.appendChild(meta)
-		frag.appendChild(row)
+		row.appendChild(span)
+		fragment.appendChild(row)
 	}
 
-	content.appendChild(frag)
+	content.appendChild(fragment)
 }
 
 const virtualizer = new Virtualizer({
-	el: document.getElementById("list"),
 	items,
-	estimateSize: () => 30,
-	overscan: 5,
 	onChange: render
 })
 
