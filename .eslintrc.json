@@ -26,13 +26,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            "tab",
-            {
-                "SwitchCase": 1
-            }
-        ],
         "space-in-parens": [
             "error",
             "never"
@@ -99,7 +92,10 @@
         ],
         "@stylistic/js/indent": [
             "error",
-            "tab"
+            "tab",
+            {
+                "SwitchCase": 1
+            }
         ],
         "@stylistic/js/linebreak-style": [
             "error",
@@ -207,6 +203,7 @@
         "InverseExponentialNumber": "readonly",
         "Iterate": "readonly",
         "Keyboard": "readonly",
+        "LazyLoadedList": "readonly",
         "Level": "readonly",
         "LinePathFinder": "readonly",
         "ListLooper": "readonly",

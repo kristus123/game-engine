@@ -26,20 +26,20 @@ class CurveImplementation {
 		const t = Math.min(this.elapsed / this.duration, 1)
 
 		switch (this.type) {
-		case "linear":
-			this.value = this.start + (this.end - this.start) * t
-			break
-		case "exponential":
-			this.value = this.start + (this.end - this.start) * Math.pow(t, this.exponent)
-			break
-		case "quadratic":
-			this.value = this.start + (this.end - this.start) * (t * t)
-			break
-		case "logarithmic":
-			this.value = this.start + (this.end - this.start) * Math.log10(1 + 9 * t)
-			break
-		default:
-			this.value = this.start + (this.end - this.start) * t
+			case "linear":
+				this.value = this.start + (this.end - this.start) * t
+				break
+			case "exponential":
+				this.value = this.start + (this.end - this.start) * Math.pow(t, this.exponent)
+				break
+			case "quadratic":
+				this.value = this.start + (this.end - this.start) * (t * t)
+				break
+			case "logarithmic":
+				this.value = this.start + (this.end - this.start) * Math.log10(1 + 9 * t)
+				break
+			default:
+				this.value = this.start + (this.end - this.start) * t
 		}
 
 		if (t >= 1 && !this.finished) {
