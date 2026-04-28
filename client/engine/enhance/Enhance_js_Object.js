@@ -22,6 +22,18 @@ export function Enhance_js_Object() {
 	})
 
 
+	Enhance(Object.prototype, "map", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(k, v))
+	})
+
+	Enhance(Object.prototype, "mapKeys", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(k))
+	})
+
+	Enhance(Object.prototype, "mapValues", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(v))
+	})
+
 	Getter(Object.prototype, "keys", function () {
 		const r = []
 

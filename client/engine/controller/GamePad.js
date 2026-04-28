@@ -9,20 +9,32 @@ export class GamePad {
 	static x = 0
 	static y = 0
 
-	static left = false
-	static right = false
-	static up = false
-	static down = false
-
 	static {
 		window.addEventListener("gamepadconnected", (e) => {
 			console.log("Gamepad connected:", e.gamepad)
+
+			buttons = {}
+			for (const [i, v] of e.gamepad.buttons.entries()) {
+				const listener = Listener()
+
+				const onChange = OnChange(
+					() => button.value,
+					v => listener.trigger(v))
+
+				buttons[i] = {
+					listener: listener,
+					onChange: 
+				}
+			}
+
+			this.controllers[e.gamepad.index] = buttons
 		})
 
 		window.addEventListener("gamepaddisconnected", (e) => {
 			console.log("Gamepad disconnected:", e.gamepad)
 			this.active = false
 		})
+
 	}
 
 	static update() {
@@ -35,16 +47,12 @@ export class GamePad {
 
 				const deadzone = 0.4
 
-				this.left = x < -deadzone
-				this.right = x > deadzone
-
-				this.up = y < -deadzone
-				this.down = y > deadzone
-
 				this.x = x.abs >= deadzone ? x : 0
 				this.y = y.abs >= deadzone ? y : 0
 			}
 		}
+
+		this.objects.update()
 	}
 
 }
