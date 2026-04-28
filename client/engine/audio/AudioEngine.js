@@ -1,36 +1,47 @@
 export class AudioEngine {
 	constructor(audioBuffer) {
-		this.source = null;
+		this.source = null
 	}
 
-	async play(offset = 0, duration = null) {
+	async play(startPosition = 0, duration = null) {
 		if (SoundContext.suspended) {
 			await AudioContext.resume()
 		}
 
-		this.stop();
+		this.stop()
 
 		this.source = SoundContext.createBufferSource(this.audioBuffer)
 
-		this.source.start(0, offset, duration);
+		// 0 = play immediately
+		this.source.start(0, startPosition, duration)
 
 		this.source.onended = () => {
-			this.source = null;
+			this.source = null
 		}
 	}
 
 	stop() {
 		if (this.source) {
 			try {
-				this.source.stop();
-			} catch (_) {
+				this.source.stop()
+			}
+			catch (_) {
 				// do nothing
 			}
 
-			this.source = null;
+			this.source = null
 		}
 		else {
 			// do nothing
+		}
+	}
+
+	get duration() {
+		if (this.source) {
+			return this.source.duration
+		}
+		else {
+			throw new Error("this.source is not present")
 		}
 	}
 }

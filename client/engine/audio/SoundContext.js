@@ -12,9 +12,9 @@ export class SoundContext {
 	}
 
 	static async createBufferSource() {
-		const s =  await AudioContext.createBufferSource()
+		const s = await AudioContext.createBufferSource()
 		s.buffer = this.audioBuffer
-		s.connect(this.gain);
+		s.connect(this.gain)
 
 		return s
 	}
