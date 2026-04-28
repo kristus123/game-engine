@@ -45,7 +45,6 @@ export class Html {
 		return s
 	}
 
-
 	static input(placeholder="placeholder", onEnter=(value) => {}) {
 		const i = HtmlElement("input")
 		 i.type = "text"
