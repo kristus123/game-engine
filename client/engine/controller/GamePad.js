@@ -1,58 +1,64 @@
-function onlyTwoDecimals(num) {
-	return Math.round(num * 100) / 100
+function _improvedStickValue(num) {
+	const d = Math.round(num * 100) / 100
+
+	const deadzone = 0.4
+	return d.abs >= deadzone ? d : 0
 }
 
 export class GamePad {
 
-	static active = false
-
-	static x = 0
-	static y = 0
+	static controllers = {}
 
 	static {
-		window.addEventListener("gamepadconnected", (e) => {
-			console.log("Gamepad connected:", e.gamepad)
+		window.addEventListener("gamepadconnected", e => {
+			const gamepad = e.gamepad
 
-			buttons = {}
-			for (const [i, v] of e.gamepad.buttons.entries()) {
+			if (gamepad.mapping != "standard") {
+				throw new Error("wow. what controller is the player using?")
+			}
+
+			const button = {}
+
+			for (const [index, btn] of gamepad.buttons.entries()) {
 				const listener = Listener()
 
 				const onChange = OnChange(
-					() => button.value,
+					() => btn.pressed,
 					v => listener.trigger(v))
 
-				buttons[i] = {
+				const name = PlaystationMapper(index)
+				button[name] = {
+					name: name,
+					index: index,
 					listener: listener,
-					onChange: 
+					onChange: onChange,
 				}
 			}
 
-			this.controllers[e.gamepad.index] = buttons
+			this.controllers[gamepad.index] = {
+				index: gamepad.index,
+				gamepad,
+				button,
+				leftStick: { x: 0, y: 0 },
+				rightStick: { x: 0, y: 0 },
+			}
 		})
 
-		window.addEventListener("gamepaddisconnected", (e) => {
-			console.log("Gamepad disconnected:", e.gamepad)
-			this.active = false
+		window.addEventListener("gamepaddisconnected", e => {
+			delete this.controllers[e.gamepad.index]
 		})
-
 	}
 
 	static update() {
-		for (const gp of navigator.getGamepads()) {
-			if (gp && gp.index == 1) {
-				this.active = true
+		for (const { leftStick, gamepad, button, index } of this.controllers.values) {
 
-				const x = onlyTwoDecimals(gp.axes[0])
-				const y = onlyTwoDecimals(gp.axes[1])
-
-				const deadzone = 0.4
-
-				this.x = x.abs >= deadzone ? x : 0
-				this.y = y.abs >= deadzone ? y : 0
+			for (const { onChange } of button.values) {
+				onChange.update()
 			}
-		}
 
-		this.objects.update()
+			leftStick.x = _improvedStickValue(gamepad.axes[0])
+			leftStick.y = _improvedStickValue(gamepad.axes[1])
+		}
 	}
 
 }

@@ -17,6 +17,14 @@ export function Enhance_js_Object() {
 		return this
 	})
 
+	Enhance(Object.prototype, "forEachValue", function (run) {
+		for (const [key, value] of Object.entries(this)) {
+ 			run(value)
+		}
+
+		return this
+	})
+
 	Getter(Object.prototype, "all", function () {
 		return Object.entries(this)
 	})
@@ -44,7 +52,7 @@ export function Enhance_js_Object() {
 		return r
 	})
 
-	Getter(Object.prototype, "values", function () {
+	Getter(Object.prototype, "values", function () { // todo does this override native .values() method?
 		const r = []
 
 		for (const v of Object.values(this)) {

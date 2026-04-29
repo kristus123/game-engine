@@ -1,6 +1,6 @@
 export class Controller {
 
-	static init() {
+	static {
 		this.entity = null
 	}
 

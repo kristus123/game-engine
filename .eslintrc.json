@@ -248,6 +248,7 @@
         "Picture": "readonly",
         "PingPong": "readonly",
         "Player": "readonly",
+        "PlaystationMapper": "readonly",
         "Positions": "readonly",
         "PracticePage": "readonly",
         "ProxyObject": "readonly",

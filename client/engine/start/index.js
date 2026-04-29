@@ -23,7 +23,6 @@ Promise.all([
 
 		Sound.init()
 		Mouse.initialize()
-		Controller.init()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 

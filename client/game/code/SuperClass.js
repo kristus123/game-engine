@@ -30,4 +30,12 @@ export class SuperClass {
 	removeTag(tag) {
 		this.tags = this.tags.replace(format(tag), "")
 	}
+
+	ofType(t) { // returns true for subclasses as well
+		return this instanceof t
+	}
+
+	isClass(ClassRef) { // strict check
+		return this.constructor === ClassRef
+	}
 }
