@@ -9,14 +9,14 @@ npm init -y
 npm i @capacitor/core
 npm i -D @capacitor/cli
 
-npx cap init MyApp com.example.myapp --web-dir=dist
+npx -y cap init MyApp com.example.myapp --web-dir=dist
 
 npm i @capacitor/android 
-npx cap add android
+npx -y cap add android
 
 REM npm i @capacitor/ios 
 REM npx cap add ios
 
-npx cap sync
+npx -y cap sync
 
-npx cap open android
+npx -y cap open android
