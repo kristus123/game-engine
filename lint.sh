@@ -3,12 +3,12 @@
 clear
 echo "linting project"
 
-npx stylelint "**/*.css" "./*.css" --fix
+npx -y stylelint "**/*.css" "./*.css" --fix
 
 node dev/build_tools/UpdateEslint.js
 
 find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
 
-npx eslint . --fix --cache
+npx -y eslint . --fix --cache
 
-npx prettier "**/*.html" --write
+npx -y prettier "**/*.html" --write
