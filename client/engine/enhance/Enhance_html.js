@@ -1,6 +1,5 @@
 export function Enhance_html() {
 
-
 	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
 		this._listeners ??= []
 
@@ -198,6 +197,15 @@ export function Enhance_html() {
 	Enhance(HTMLElement.prototype, "removeFromDom", function () {
 		Dom.remove(this)
 		return this
+	})
+
+	Setter(HTMLElement.prototype, "x", {
+		get: () => {
+			return this.style.left
+		},
+		set: (x) => {
+			this.style.left = x
+		},
 	})
 
 }
