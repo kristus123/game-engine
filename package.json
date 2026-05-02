@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2",
     "web-push": "^3.6.7",
     "ws": "^8.18.3"
   }
