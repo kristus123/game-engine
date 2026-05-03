@@ -22,7 +22,7 @@ for (const jsFilePath of jsFiles) {
 		const fileText = Files.read(f)
 
 		if (fileText.includes(`export class ${className}`)) {
-			// Only replace className( NOT preceded by 'new '
+			// Only replace className( NOT prefixed with 'new '
 			const regex = new RegExp(`(?<!new )\\b${className}\\(`, "g")
 			fileContent = fileContent.replace(regex, `new ${className}(`)
 		}
