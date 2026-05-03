@@ -1,4 +1,4 @@
-export class Objects { // not a good name
+export class Objects {
 	constructor(objects=[]) {
 		Assert.array(objects)
 		Assert.noNullInArray(objects)
@@ -77,30 +77,6 @@ export class Objects { // not a good name
 		}
 
 		return null
-	}
-
-	removeByObjectId(objectId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				this.objects.remove(o)
-
-				break
-			}
-		}
-	}
-
-	setHandledBy(objectId, clientId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				o.handledByClientId = clientId
-
-				break
-			}
-		}
-	}
-
-	get(objectId) {
-		return this.gameObjectFrom[objectId]
 	}
 
 	update() {

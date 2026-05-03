@@ -38,4 +38,6 @@ export class SuperClass {
 	isClass(ClassRef) { // strict check
 		return this.constructor === ClassRef
 	}
+
 }
+
