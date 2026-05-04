@@ -35,6 +35,15 @@ export class SuperClass {
 		return this instanceof t
 	}
 
+	assertOfType(t) { // returns true for subclasses as well
+		if (!this.ofType(t)) {
+			throw new Error("not of type " + t)
+		}
+		else {
+			return this
+		}
+	}
+
 	isClass(ClassRef) { // strict check
 		return this.constructor === ClassRef
 	}

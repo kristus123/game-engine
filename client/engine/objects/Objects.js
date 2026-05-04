@@ -45,6 +45,10 @@ export class Objects {
 		return o
 	}
 
+	clear() {
+		this.objects.clear()
+	}
+
 	push(o) {
 		return this.add(o)
 	}

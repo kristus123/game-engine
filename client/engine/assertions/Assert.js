@@ -36,12 +36,17 @@ export class Assert {
 		}
 	}
 
-	static array(x) {
+	static array(x, callback=e => {}) {
 		if (Not.array(x)) {
 			throw new Error("NOT AN ARRAY")
 		}
+		else {
+			for (const e of x) {
+				callback(e)
+			}
 
-		return x
+			return x
+		}
 	}
 
 	static value(v) {
@@ -114,6 +119,10 @@ export class Assert {
 		else {
 			throw new Error(x + " is not a string")
 		}
+	}
+
+	static ofType(o, t) {
+		return o instanceof t
 	}
 
 	static type(x, classType) {
