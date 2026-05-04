@@ -1,5 +1,6 @@
 export function HtmlObserverThing() {
-	const process = (e) => {
+	// maybe just add all atributes as css variables
+	const process = e => {
 		if (e.hasAttribute("offset-x")) {
 			e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
 		}

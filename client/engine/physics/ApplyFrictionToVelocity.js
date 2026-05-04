@@ -1,2 +1,0 @@
-function ApplyFrictionToVelocity(o, dt) {
-}
