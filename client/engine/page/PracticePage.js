@@ -1,6 +1,6 @@
 const db = Db("jap")
 
-const html = F.practiceCard
+const html = F.practiceCard()
 
 html.addMoreCards.onClick(() => {
 	Page.go(AddCardPage)

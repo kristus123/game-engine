@@ -166,33 +166,46 @@ export class Entity {
 		D1.rectangle(this)
 	}
 
-
 	moveTo(position, multiplier=1) {
 		const dir = Math.atan2(position.y - this.y, position.x - this.x)
 
-		this.x += Math.cos(dir) * multiplier
-		this.y += Math.sin(dir) * multiplier
+		this.x += Math.cos(dir) * multiplier * DeltaTime.value
+		this.y += Math.sin(dir) * multiplier * DeltaTime.value
 	}
 
 	moveAway(position, multiplier=1) {
 		const dir = Math.atan2(this.y - position.y, this.x - position.x)
 
-		this.x += Math.cos(dir) * multiplier
-		this.y += Math.sin(dir) * multiplier
+		this.x += Math.cos(dir) * multiplier * DeltaTime.value
+		this.y += Math.sin(dir) * multiplier * DeltaTime.value
 	}
 
 	pushTo(position, multiplier=1) {
 		const dir = Math.atan2(position.y - this.y, position.x - this.x)
 
-		this.force.x += (Math.cos(dir) * multiplier)
-		this.force.y += (Math.sin(dir) * multiplier)
+		this.force.x += Math.cos(dir) * multiplier
+		this.force.y += Math.sin(dir) * multiplier
 	}
 
 	pushAway(position, multiplier=1) {
 		const dir = Math.atan2(this.y - position.y, this.x - position.x)
 
-		this.force.x += Math.cos(dir)
-		this.force.y += Math.sin(dir)
+		this.force.x += Math.cos(dir) * multiplier
+		this.force.y += Math.sin(dir) * multiplier
+	}
+
+	forcePushTo(position, multiplier=1) {
+		const dir = Math.atan2(position.y - this.y, position.x - this.x)
+
+		this.velocity.x += Math.cos(dir) * multiplier * DeltaTime.value
+		this.velocity.y += Math.sin(dir) * multiplier * DeltaTime.value
+	}
+
+	forcePushAway(position, multiplier=1) {
+		const dir = Math.atan2(this.y - position.y, this.x - position.x)
+
+		this.velocity.x += Math.cos(dir) * multiplier * DeltaTime.value
+		this.velocity.y += Math.sin(dir) * multiplier * DeltaTime.value
 	}
 
 }
