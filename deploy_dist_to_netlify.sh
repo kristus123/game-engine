@@ -10,7 +10,7 @@ find dist -type f -name '*.css' -exec npx --yes lightningcss --minify {} -o {} \
 find dist -type f -name '*.html' -exec npx --yes html-minifier-terser --collapse-whitespace --remove-comments -o {} {} \;
 
 
-# needed in order to use shared array buffers between main and worker
+# needed in order to use shared array buffers between main and worker threads
 cat > dist/netlify.toml <<EOF
 [[headers]]
 	for = "/*"
