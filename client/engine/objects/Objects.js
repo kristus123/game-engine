@@ -75,7 +75,7 @@ export class Objects {
 
 	anyExcept(itself) {
 		for (const o of this.objects) {
-			if (o !== itself) {
+			if (o != itself) {
 				return o
 			}
 		}

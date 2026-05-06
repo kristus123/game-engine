@@ -14,7 +14,7 @@ export class Html {
 		d.appendChild(div)
 
 		d.addEventListener("click", e => {
-			if (e.target === d) {
+			if (e.target == d) {
 			  d.close() // close modal if clicking outside of it
 			}
 		  })
@@ -62,7 +62,7 @@ export class Html {
 		  })
 
 		i.addEventListener("keydown", (e) => {
-			if (e.key === "Enter") {
+			if (e.key == "Enter") {
 				onEnter(i.value)
 			}
 		})

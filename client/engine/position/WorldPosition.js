@@ -187,7 +187,7 @@ export class WorldPosition {
 		if (Math.abs(dx) > Math.abs(dy)) {
 			this.x += Math.sign(dx)
 		}
-		else if (dy !== 0) {
+		else if (dy != 0) {
 			this.y += Math.sign(dy)
 		}
 	}

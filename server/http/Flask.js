@@ -30,7 +30,7 @@ export class Flask {
 			const path = req.params.path
 
 			for (const r of this.routes) {
-				if (r.path === path) {
+				if (r.path == path) {
 					res.json(r.callback(req.body, req))
 					return
 				}

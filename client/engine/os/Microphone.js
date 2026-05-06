@@ -31,7 +31,7 @@ export class Microphone {
 		if (!this.ready) {
 			throw new Error("this not ready yet")
 		}
-		else if (this.state === "recording") {
+		else if (this.state == "recording") {
 			throw new Error("this already recording")
 		}
 		else {
@@ -47,7 +47,7 @@ export class Microphone {
 		if (!this.ready) {
 			throw new Error("this not ready yet")
 		}
-		if (this.state !== "recording") {
+		if (this.state != "recording") {
 			throw new Error("this not recording")
 		}
 

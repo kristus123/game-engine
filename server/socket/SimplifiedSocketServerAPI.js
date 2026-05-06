@@ -34,7 +34,7 @@ export default class {
 
 	sendToOthers(origin, data) {
 		for (const client of this.allClients) {
-			if (client !== origin) {
+			if (client != origin) {
 				client.send(JSON.stringify(data))
 			}
 		}
