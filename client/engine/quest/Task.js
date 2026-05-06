@@ -21,18 +21,18 @@ class _T {
 
 export class Task {
 	constructor(objects) {
-		
+
 	}
 
 	start() {
-		
+
 	}
 
 	get completed() {
-		
+
 	}
 
 	update() {
-		
+
 	}
 }
