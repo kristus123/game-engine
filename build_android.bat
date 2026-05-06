@@ -1,5 +1,7 @@
 @echo off
 
+rmdir /s /q capacitor_setup
+
 mkdir capacitor_setup
 
 robocopy dist capacitor_setup\dist /E
