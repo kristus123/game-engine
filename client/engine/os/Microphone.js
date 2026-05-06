@@ -1,5 +1,3 @@
-import { Microphone } from '@capacitor-community/microphone';
-
 export class Microphone {
 
 	static recorder = null
@@ -10,21 +8,19 @@ export class Microphone {
 	static ready = false
 
 	static {
-		Microphone.requestPermissions().then( => {
-			navigator.mediaDevices.getUserMedia({ audio: true })
-				.then(stream => {
-					this.recorder = new MediaRecorder(stream, {
-						mimeType: this.mimeType,
-						audioBitsPerSecond: this.audioBitsPerSecond,
-					})
+		navigator.mediaDevices.getUserMedia({ audio: true })
+			.then(stream => {
+				this.recorder = new MediaRecorder(stream, {
+					mimeType: this.mimeType,
+					audioBitsPerSecond: this.audioBitsPerSecond,
+				})
 
-					this.recorder.ondataavailable = e => this.chunks.push(e.data)
-					this.ready = true
-				})
-				.catch(err => {
-					console.error("Failed to access microphone:", err)
-				})
-		})
+				this.recorder.ondataavailable = e => this.chunks.push(e.data)
+				this.ready = true
+			})
+			.catch(err => {
+				console.error("Failed to access microphone:", err)
+			})
 	}
 
 	static get recording() {
