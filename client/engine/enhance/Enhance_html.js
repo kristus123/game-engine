@@ -208,4 +208,13 @@ export function Enhance_html() {
 		},
 	})
 
+	Setter(HTMLElement.prototype, "y", {
+		get: () => {
+			return this.style.top
+		},
+		set: (y) => {
+			this.style.top = y
+		},
+	})
+
 }
