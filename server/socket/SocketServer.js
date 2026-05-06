@@ -1,5 +1,5 @@
 import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServerAPI.js"
-import { SfuServer } from "#root/server/webrtc/SfuServer.js"
+import { SfuServer } from "#root/server/rtc/SfuServer.js"
 
 export const socketServer = new SimplifiedSocketServerAPI()
 

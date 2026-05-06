@@ -1,4 +1,4 @@
-export class RtcClient {
+export class SfuClient {
     static {
         this.device = null
         this.sendTransport = null

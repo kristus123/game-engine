@@ -2,7 +2,7 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
-		RtcClient
+		SfuClient
 
 		// const html = F.test
 		// html.domFloat({ x: 100, y: 100 })
