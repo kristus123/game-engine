@@ -14,6 +14,8 @@ npx -y cap init MyApp com.example.myapp --web-dir=dist
 npm i @capacitor/android 
 npx -y cap add android
 
+npm install @capacitor-community/microphone
+
 REM npm i @capacitor/ios 
 REM npx cap add ios
 
