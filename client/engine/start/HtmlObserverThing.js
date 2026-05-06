@@ -1,30 +1,34 @@
 export function HtmlObserverThing() {
-	// maybe just add all atributes as css variables
-	const process = e => {
-		if (e.hasAttribute("offset-x")) {
-			e.style.setProperty("--offset-x", e.getAttribute("offset-x"))
+	const process = (node) => {
+		if (!(node instanceof HTMLElement)) {
+			return
 		}
 
-		if (e.hasAttribute("offset-y")) {
-			e.style.setProperty("--offset-y", e.getAttribute("offset-y"))
+		// do something
+	}
+
+	const walk = (node) => {
+		process(node)
+
+		for (const child of node.children) {
+			walk(child)
 		}
 	}
 
 	const observer = new MutationObserver(mutations => {
-		const nodes = []
 		for (const mutation of mutations) {
-			for (const n of mutation.addedNodes) {
-				nodes.push(n)
-			}
-		}
-
-		for (const node of nodes) {
-			process(node)
-			for (const subNode of node.querySelectorAll("[offset-x], [offset-y]")) {
-				process(subNode)
+			for (const node of mutation.addedNodes) {
+				walk(node)
 			}
 		}
 	})
 
-	observer.observe(document.body, { childList: true, subtree: true })
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true,
+	})
+
+	return {
+		disconnect: () => observer.disconnect(),
+	}
 }
