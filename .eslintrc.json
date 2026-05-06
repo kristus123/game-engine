@@ -152,7 +152,6 @@
         "Collision": "readonly",
         "Config": "readonly",
         "Controller": "readonly",
-        "ConvertTo": "readonly",
         "CurrentFrame": "readonly",
         "Curve": "readonly",
         "D1": "readonly",

@@ -13,7 +13,7 @@ export class SpriteController extends Entity {
 				tag,
 			] = key.split("_")
 			const { x, y, w, h, duration } = frameInfo.frame
-			frame = ConvertTo.integer(frame)
+			frame = Always.integer(frame)
 
 			// not sure if best approach to do - 1
 			// currently lots of hacks with this caluclation. look at CurrentFrame.js

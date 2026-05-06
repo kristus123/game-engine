@@ -7,7 +7,7 @@ export class TileInfoController {
 			this.tiles[x.layer] = {}
 
 			for (const t of x.tiles) {
-				const frame = ConvertTo.integer(t.f)
+				const frame = Always.integer(t.f)
 
 				this.tiles[x.layer][frame] ??= []
 
