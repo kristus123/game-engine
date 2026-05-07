@@ -48,5 +48,18 @@ export class SuperClass {
 		return this.constructor == ClassRef
 	}
 
+	get className() {
+		return this.constructor.name
+	}
+
+	assertClass(c) {
+		if (!this.isClass(c)) {
+			throw new Error(`${this.className} is not of type ${c}`)
+		}
+		else {
+			return this
+		}
+	}
+
 }
 
