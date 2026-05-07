@@ -1,64 +1,63 @@
 const db = Db("jap")
 
-const html = F.addCard
+const h = F.addCard()
 
-html.navigateToPracticeCard.onClick(() => {
+h.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
 const sound = {}
 
-function _init(direction) {
-	const start = html.getId("startRecording" + direction)
-	const stop = html.getId("stopRecording" + direction)
-	const play = html.getId("play" + direction)
+function _init() {
+	for (const direction of ["Front", "Back"]) {
+		const start = h.getId("startRecording" + direction)
+		const stop = h.getId("stopRecording" + direction)
+		const play = h.getId("play" + direction)
 
-	start.enable()
-	stop.disable()
-	play.disable()
+		start.enable()
+		stop.disable()
+		play.disable()
 
-	start.onClick(() => {
-		Microphone.start()
-		start.disable()
-		stop.enable()
-	})
-
-	stop.onClick(() => {
-
-		Microphone.stop(blob => {
-			Sound.playBlob(blob)
-			sound[direction] = blob
-
-			start.enable()
-			stop.disable()
-
-			play.enable()
-			play.onClick(() => {
-				Sound.playBlob(sound[direction])
-			})
-
-			if (html.playFront.enabled && html.playBack.enabled) {
-				html.save.enable()
-			}
-
+		start.onClick(() => {
+			Microphone.start()
+			start.disable()
+			stop.enable()
 		})
-	})
+
+		stop.onClick(() => {
+
+			Microphone.stop(blob => {
+				Sound.playBlob(blob)
+				sound[direction] = blob
+
+				start.enable()
+				stop.disable()
+
+				play.enable()
+				play.onClick(() => {
+					Sound.playBlob(sound[direction])
+				})
+
+				if (h.playFront.enabled && h.playBack.enabled) {
+					h.save.enable()
+				}
+			})
+		})
+	}
 }
 
-_init("Front")
-_init("Back")
+_init()
 
-html.save.onClick(() => {
+h.save.onClick(() => {
 	db.save({
 		front: sound["Front"],
 		back: sound["Back"],
 		score: 0,
 		nextPracticeDate: LocalDate.now().toString(),
 	}, () => {
-		_init("Front")
-		_init("Back")
-		html.save.disable()
+		_init()
+		h.save.disable()
 	})
 })
 
-export const AddCardPage = Page.init(html)
+export const AddCardPage = Page.init(h)

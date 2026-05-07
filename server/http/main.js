@@ -47,7 +47,7 @@ Flask.route("uploadFile", (body, req) => {
 		return { status: "server success" }
 	}
 
-	if (type.startsWith("audio/") || type === "application/octet-stream") {
+	if (type.startsWith("audio/") || type == "application/octet-stream") {
 		const ext = type.split("/")[1] || "bin"
 		const path = `${senderId}/${filename}.${ext}`
 

@@ -3,6 +3,10 @@ export class World {
 		// Page.go(PracticePage)
 
 		SfuClient
+    
+		//F.test().domFloat({ x: 100, y: 100 })
+
+		//F.textBubble().domFloat({ x: 200, y: 200 })
 
 		// const html = F.test
 		// html.domFloat({ x: 100, y: 100 })

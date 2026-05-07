@@ -17,10 +17,30 @@ export function Enhance_js_Object() {
 		return this
 	})
 
+	Enhance(Object.prototype, "forEachValue", function (run) {
+		for (const [key, value] of Object.entries(this)) {
+ 			run(value)
+		}
+
+		return this
+	})
+
 	Getter(Object.prototype, "all", function () {
 		return Object.entries(this)
 	})
 
+
+	Enhance(Object.prototype, "map", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(k, v))
+	})
+
+	Enhance(Object.prototype, "mapKeys", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(k))
+	})
+
+	Enhance(Object.prototype, "mapValues", function (fn) {
+		return Object.entries(this).map(([k, v]) => fn(v))
+	})
 
 	Getter(Object.prototype, "keys", function () {
 		const r = []
@@ -32,7 +52,7 @@ export function Enhance_js_Object() {
 		return r
 	})
 
-	Getter(Object.prototype, "values", function () {
+	Getter(Object.prototype, "values", function () { // todo does this override native .values() method?
 		const r = []
 
 		for (const v of Object.values(this)) {

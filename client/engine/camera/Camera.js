@@ -30,8 +30,6 @@ export class Camera {
 	}
 
 	static follow(o) {
-		// Assert.type(o, WorldPosition)
-
 		this.position = o
 	}
 

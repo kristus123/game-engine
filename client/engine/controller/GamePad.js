@@ -1,34 +1,64 @@
-function reduceDecimals(num) {
-	return Math.round(num * 100) / 100
+function _improvedStickValue(num) {
+	const d = Math.round(num * 100) / 100
+
+	const deadzone = 0.4
+	return d.abs >= deadzone ? d : 0
 }
 
 export class GamePad {
 
+	static controllers = {}
+
 	static {
-		window.addEventListener("gamepadconnected", (e) => {
-			console.log("Gamepad connected:", e.gamepad)
+		window.addEventListener("gamepadconnected", e => {
+			const gamepad = e.gamepad
+
+			if (gamepad.mapping != "standard") {
+				throw new Error("wow. what controller is the player using?")
+			}
+
+			const button = {}
+
+			for (const [index, btn] of gamepad.buttons.entries()) {
+				const listener = Listener()
+
+				const onChange = OnChange(
+					() => btn.pressed,
+					v => listener.trigger(v))
+
+				const name = PlaystationMapper(index)
+				button[name] = {
+					name: name,
+					index: index,
+					listener: listener,
+					onChange: onChange,
+				}
+			}
+
+			this.controllers[gamepad.index] = {
+				index: gamepad.index,
+				gamepad,
+				button,
+				leftStick: { x: 0, y: 0 },
+				rightStick: { x: 0, y: 0 },
+			}
 		})
 
-		window.addEventListener("gamepaddisconnected", (e) => {
-			console.log("Gamepad disconnected:", e.gamepad)
+		window.addEventListener("gamepaddisconnected", e => {
+			delete this.controllers[e.gamepad.index]
 		})
 	}
 
 	static update() {
-		for (const gp of navigator.getGamepads()) {
-			if (gp && gp.index == 1) {
+		for (const { leftStick, gamepad, button, index } of this.controllers.values) {
 
-				const x = reduceDecimals(gp.axes[0])
-				const y = reduceDecimals(gp.axes[1])
-
-				const deadzone = 0.4
-
-				this.left = x < -deadzone
-				this.right = x > deadzone
-
-				this.up = y < -deadzone
-				this.down = y > deadzone
+			for (const { onChange } of button.values) {
+				onChange.update()
 			}
+
+			leftStick.x = _improvedStickValue(gamepad.axes[0])
+			leftStick.y = _improvedStickValue(gamepad.axes[1])
 		}
 	}
+
 }

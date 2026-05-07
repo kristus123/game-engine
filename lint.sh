@@ -3,12 +3,16 @@
 clear
 echo "linting project"
 
-npx stylelint "**/*.css" "./*.css" --fix
+find . -path ./node_modules -prune -o -name "*.js" -type f -exec sed -i \
+	-e 's/===/==/g' \
+	-e 's/!==/!=/g' {} +
+
+npx -y stylelint "**/*.css" "./*.css" --fix
 
 node dev/build_tools/UpdateEslint.js
 
 find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
 
-npx eslint . --fix --cache
+npx -y eslint . --fix --cache
 
-npx prettier "**/*.html" --write
+npx -y prettier "**/*.html" --write

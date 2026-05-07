@@ -1,4 +1,4 @@
-export class Objects { // not a good name
+export class Objects {
 	constructor(objects=[]) {
 		Assert.array(objects)
 		Assert.noNullInArray(objects)
@@ -45,6 +45,10 @@ export class Objects { // not a good name
 		return o
 	}
 
+	clear() {
+		this.objects.clear()
+	}
+
 	push(o) {
 		return this.add(o)
 	}
@@ -71,36 +75,12 @@ export class Objects { // not a good name
 
 	anyExcept(itself) {
 		for (const o of this.objects) {
-			if (o !== itself) {
+			if (o != itself) {
 				return o
 			}
 		}
 
 		return null
-	}
-
-	removeByObjectId(objectId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				this.objects.remove(o)
-
-				break
-			}
-		}
-	}
-
-	setHandledBy(objectId, clientId) {
-		for (const o of this.objects) {
-			if (o.objectId == objectId) {
-				o.handledByClientId = clientId
-
-				break
-			}
-		}
-	}
-
-	get(objectId) {
-		return this.gameObjectFrom[objectId]
 	}
 
 	update() {

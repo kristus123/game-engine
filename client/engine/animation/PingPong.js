@@ -22,7 +22,7 @@ export class PingPong {
 		const progress = Math.min(elapsed / this.duration, 1)
 
 		let easedProgress
-		if (this.direction === 1) {
+		if (this.direction == 1) {
 			easedProgress = this.bounceAtEnd
 				? Easings.overshootOut(progress)
 				: this.easing(progress)
@@ -33,7 +33,7 @@ export class PingPong {
 				: this.easing(progress)
 		}
 
-		const value = this.direction === 1
+		const value = this.direction == 1
 			? this.start + (this.end - this.start) * easedProgress
 			: this.end - (this.end - this.start) * easedProgress
 
@@ -42,7 +42,7 @@ export class PingPong {
 		}
 
 		if (progress >= 1) {
-			if (this.phase === 0) {
+			if (this.phase == 0) {
 				this.phase = 1
 				this.direction = -1
 				this.startTime = now

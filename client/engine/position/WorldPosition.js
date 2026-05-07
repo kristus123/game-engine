@@ -41,12 +41,12 @@ export class WorldPosition {
 	}
 
 	set x(new_x) {
-		Assert.integer(new_x)
+		// Assert.integer(new_x)
 		this._x = new_x
 	}
 
 	set y(new_y) {
-		Assert.integer(new_y)
+		// Assert.integer(new_y)
 		this._y = new_y
 	}
 
@@ -187,7 +187,7 @@ export class WorldPosition {
 		if (Math.abs(dx) > Math.abs(dy)) {
 			this.x += Math.sign(dx)
 		}
-		else if (dy !== 0) {
+		else if (dy != 0) {
 			this.y += Math.sign(dy)
 		}
 	}

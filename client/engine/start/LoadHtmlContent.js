@@ -1,15 +1,15 @@
 export async function LoadHtmlContent(o) {
-	// consider not using getter. i think that is the better approach
-	Getter(F, o.name, () => {
+
+	Enhance(F, o.name, () => {
 		const template = document.createElement("template")
 		template.innerHTML = o.content
 
 		let div = null
 
-		if (template.content.childElementCount === 0) {
+		if (template.content.childElementCount == 0) {
 			throw new Error(`"${o.name}" has no top-level elements!`)
 		}
-		else if (template.content.childElementCount === 1) {
+		else if (template.content.childElementCount == 1) {
 			div = template.content.firstElementChild
 		}
 		else {
@@ -28,8 +28,6 @@ export async function LoadHtmlContent(o) {
 			div[e.id] = e
 		}
 
-
 		return div
 	})
 }
-

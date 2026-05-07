@@ -1,8 +1,8 @@
-export function InitiateWorker(workerFile, onMessage = (m) => {}) {
-	Assert.value(workerFile)
+export function InitiateWorker(workerFileUrl, onMessage = m => {}) {
+	Assert.value(workerFileUrl)
 	Assert.method(onMessage)
 
-	const worker = new Worker(workerFile.urlPath, {
+	const worker = new Worker(workerFileUrl, {
 		type: "module",
 	})
 

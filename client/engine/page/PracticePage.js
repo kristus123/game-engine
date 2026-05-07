@@ -1,15 +1,15 @@
 const db = Db("jap")
 
-const html = F.practiceCard
+const h = F.practiceCard()
 
-html.addMoreCards.onClick(() => {
+h.addMoreCards.onClick(() => {
 	Page.go(AddCardPage)
 })
 
 let cards = []
 let activeCard = null
 
-function init({ includeAll }) {
+function init({ includeAll } = {}) {
 	Assert.value(includeAll)
 
 	db.all(dbCards => {
@@ -18,23 +18,23 @@ function init({ includeAll }) {
 		practiceNewCard()
 
 		if (cards.empty) {
-			html.delete.hide()
+			h.delete.hide()
 		}
 	})
 }
 
 function practiceNewCard() {
 	if (cards.empty) {
-		html.practiceMore.show()
+		h.practiceMore.show()
 
-		html.activePractice.hide()
-		html.easyHard.hide()
+		h.activePractice.hide()
+		h.easyHard.hide()
 	}
 	else {
-		html.practiceMore.hide()
+		h.practiceMore.hide()
 
-		html.activePractice.show()
-		html.easyHard.show()
+		h.activePractice.show()
+		h.easyHard.show()
 
 		activeCard = cards.random()
 		Sound.playBlob(activeCard.front)
@@ -42,45 +42,48 @@ function practiceNewCard() {
 }
 
 function applyScore(score) {
-	Assert.either(score, [-1, 1])
-
-	activeCard.score += score
-
-	if (score >= 1) {
-		cards.remove(activeCard)
-		const d = (activeCard.score / 2).roundDown()
-		activeCard.nextPracticeDate = LocalDate.now().plusDays(d).toString()
-	}
-	else if (score <= 1) {
-		activeCard.nextPracticeDate = LocalDate.now().toString()
+	switch (score) {
+		case "easy": {
+			cards.remove(activeCard)
+			const d = (activeCard.score / 2).roundDown()
+			activeCard.nextPracticeDate = LocalDate.now().plusDays(d).toString()
+			activeCard.score += 1
+		}
+		case "hard": {
+			activeCard.nextPracticeDate = LocalDate.now().toString()
+			activeCard.score -= 1
+		}
+		default: {
+			throw new Error("unexpected score type")
+		}
 	}
 
 	db.update(activeCard)
 	practiceNewCard()
 }
 
-html.playFront.onClick(() => {
+h.playFront.onClick(() => {
 	Sound.playBlob(activeCard.front)
 })
 
-html.playBack.onClick(() => {
+h.playBack.onClick(() => {
 	Sound.playBlob(activeCard.back)
 })
 
-html.easy.onClick(() => {
-	applyScore(+1)
+h.easy.onClick(() => {
+	applyScore("easy")
 })
 
-html.hard.onClick(() => {
-	applyScore(-1)
+h.hard.onClick(() => {
+	applyScore("hard")
 })
 
-html.practiceMoreButton.onClick(() => {
+h.practiceMoreButton.onClick(() => {
 	init({ includeAll: true })
-	html.practiceMore.hide()
+	h.practiceMore.hide()
 })
 
-html.delete.onClick(() => {
+h.delete.onClick(() => {
 	db.delete(activeCard, () => {
 		cards.remove(activeCard)
 		practiceNewCard()
@@ -89,4 +92,4 @@ html.delete.onClick(() => {
 
 init({ includeAll: false })
 
-export const PracticePage = Page.init(html)
+export const PracticePage = Page.init(h)
