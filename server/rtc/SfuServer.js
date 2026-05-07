@@ -1,4 +1,4 @@
-import { SfuServerApi } from "#root/server/webrtc/SfuServerApi.js"
+import { SfuServerApi } from "#root/server/rtc/SfuServerApi.js"
 import { socketServer } from "#root/server/socket/SocketServer.js"
 
 export class SfuServer {
