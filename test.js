@@ -21,6 +21,7 @@ function run(command, cwd = process.cwd()) {
 	}
 }
 
+// Clean setup directory
 fs.rmSync(SETUP_DIR, {
 	recursive: true,
 	force: true,
@@ -30,18 +31,19 @@ fs.mkdirSync(SETUP_DIR, {
 	recursive: true,
 })
 
+// Ensure dist exists
 if (!fs.existsSync(DIST_DIR)) {
-  throw new Error("dist folder missing. Run build first.")
+	throw new Error("dist folder missing. Run build first.")
 }
 
+// Copy build output
 fs.cpSync(
 	DIST_DIR,
 	path.join(SETUP_DIR, "dist"),
-	{
-		recursive: true,
-	}
+	{ recursive: true }
 )
 
+// Init Capacitor project
 run("npm init -y", SETUP_DIR)
 
 run("npm i @capacitor/core", SETUP_DIR)
@@ -56,20 +58,30 @@ run("npm i @capacitor/android", SETUP_DIR)
 
 run("npx cap add android", SETUP_DIR)
 
+fs.writeFileSync(
+	path.join(SETUP_DIR, "capacitor.config.json"),
+	JSON.stringify(
+		{
+			appId: "com.example.myapp",
+			appName: "MyApp",
+			webDir: "dist",
+		},
+		null, 4),
+	"utf-8")
 
-const filePath = path.join(SETUP_DIR, "capacitor.config.json");
-fs.writeFileSync(filePath, `
-	{
-	  "appId": "com.example.myapp",
-	  "appName": "MyApp",
-	  "webDir": "dist"
-	}
-`.trim(), "utf-8");
-
-// Optional iOS support
-// run("npm i @capacitor/ios", SETUP_DIR)
-// run("npx cap add ios", SETUP_DIR)
-
+// Sync Capacitor
 run("npx cap sync", SETUP_DIR)
 
+// Ensure android folder exists before writing gradle properties
+const gradlePropsPath = path.join(
+	SETUP_DIR,
+	"android/gradle.properties"
+)
+
+fs.mkdirSync(path.dirname(gradlePropsPath), { recursive: true })
+
+const JBR_PATH = "C:/Program Files/Android/Android Studio/jbr"
+fs.appendFileSync(gradlePropsPath, `\norg.gradle.java.home=${JBR_PATH}\n`)
+
+// Open Android Studio
 run("npx cap open android", SETUP_DIR)
