@@ -65,6 +65,10 @@ fs.writeFileSync(
 			appId: "com.example.myapp",
 			appName: "MyApp",
 			webDir: "dist",
+			server: {
+				url: "http://192.168.10.65:5000",
+				cleartext: true,
+			}
 		},
 		null, 4),
 	"utf-8")
