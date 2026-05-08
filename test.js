@@ -66,11 +66,19 @@ fs.writeFileSync(
 			appName: "MyApp",
 			webDir: "dist",
 			server: {
-				url: "http://192.168.10.65:5000",
+				// url: "http://192.168.10.65:5000",
 				cleartext: true,
+				allowNavigation: ['*'],
+				host: true,
+				port: 5000
 			}
 		},
 		null, 4),
+	"utf-8")
+
+fs.writeFileSync(
+	path.join(SETUP_DIR, "android/local.properties"),
+	"sdk.dir=C\\:\\\\Users\\\\sadfa\\\\AppData\\\\Local\\\\Android\\\\Sdk",
 	"utf-8")
 
 // Sync Capacitor
@@ -88,4 +96,6 @@ const JBR_PATH = "C:/Program Files/Android/Android Studio/jbr"
 fs.appendFileSync(gradlePropsPath, `\norg.gradle.java.home=${JBR_PATH}\n`)
 
 // Open Android Studio
-run("npx cap open android", SETUP_DIR)
+// run("npx cap open android", SETUP_DIR)
+
+run("npx cap run android --live-reload --port 5000", SETUP_DIR)
