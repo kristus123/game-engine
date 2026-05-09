@@ -1,5 +1,4 @@
 export class StopWatch {
-
 	constructor() {
 		this.startTime = 0
 		this.endTime = 0

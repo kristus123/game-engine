@@ -22,7 +22,7 @@ export class GridPositions {
 		const col = this.grid.get(x)
 		if (col) {
 			col.delete(y)
-			if (col.size == 0) {
+			if (col.size === 0) {
 				this.grid.delete(x)
 			}
 		}

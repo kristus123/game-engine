@@ -10,7 +10,7 @@ setInterval(async () => {
 	const response = await fetch("/currentId")
 	const data = await response.json()
 
-	if (data.currentId != currentId) {
+	if (data.currentId !== currentId) {
 
 		localStorage.setItem("currentId", data.currentId)
 

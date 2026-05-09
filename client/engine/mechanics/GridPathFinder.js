@@ -91,7 +91,7 @@ export class GridPathFinder {
 
 				const g = node.g + this.gridSize
 				const f = g + this._heuristic(neighbor, targetPosition)
-				const existing = openList.find(n => this._gridKey(n.position) == nKey)
+				const existing = openList.find(n => this._gridKey(n.position) === nKey)
 
 				if (!existing || g < existing.g) {
 					cameFrom.set(nKey, node.position.copy())

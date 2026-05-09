@@ -57,7 +57,7 @@ export class FileDb {
 		const fullPath = path.join(FileDb.prefix, filePath)
 		const tempPath = fullPath + ".tmp"
 
-		if (typeof data == "object" && !(data instanceof Buffer)) {
+		if (typeof data === "object" && !(data instanceof Buffer)) {
 			fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), "utf8")
 		}
 		else {
@@ -77,4 +77,3 @@ export class FileDb {
 	}
 
 }
-

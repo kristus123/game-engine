@@ -11,12 +11,12 @@ import { execSync } from "child_process"
 
 const killPort = (port) => {
 	try {
-		if (process.platform == "win32") {
+		if (process.platform === "win32") {
 			const result = execSync(`netstat -aon | findstr :${port}`, { encoding: "utf8" })
 			const pids = [...new Set(
   			result.split("\n")
 					.map(line => line.trim().split(/\s+/).pop())
-					.filter(pid => pid && /^\d+$/.test(pid) && pid != "0")
+					.filter(pid => pid && /^\d+$/.test(pid) && pid !== "0")
 			)]
 			pids.forEach(pid => execSync(`taskkill /f /pid ${pid}`))
   		}
@@ -113,4 +113,4 @@ new Runner(FileConfig.exportAseprite).start()
 new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
 
 // for now only run it once
-new Runner("server/http/main.js").start()
+new Runner("server/start.js").start()

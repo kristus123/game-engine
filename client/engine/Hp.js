@@ -16,8 +16,9 @@ export class Hp {
 		if (this.dead) {
 			this.onKill()
 		}
-
-		D1.hpBar(this.object.position.offset(100, -100), this.currentHp, this.maxHp)
 	}
 
+	draw(draw) {
+		draw.hpBar(this.object.position.offset(100, -100), this.currentHp, this.maxHp)
+	}
 }
