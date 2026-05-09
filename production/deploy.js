@@ -11,10 +11,10 @@ function startWorkers() {
 		const worker = cluster.fork({ SCRIPT_PATH: s })
 
 		worker.on("message", msg => {
-			if (msg.type == "log") {
+			if (msg.type === "log") {
 				console.log(`[Worker ${worker.id}]`, ...msg.data)
 			}
-			else if (msg.type == "error") {
+			else if (msg.type === "error") {
 				console.error(`[Worker ${worker.id}]`, ...msg.data)
 			}
 		})

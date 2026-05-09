@@ -7,7 +7,7 @@ import { initD1 } from "/client/engine/start/draw_layers/D1.js"
 async function loadWorld() {
 	const module = await import("/client/game/code/World.js")
 	const World = module.World
-	return World // for some reason it crashes if you don't do it like this
+	return World // for some reason it crashes if you don't put it in a variable
 }
 
 ServiceWorker.init()
@@ -23,6 +23,7 @@ Promise.all([
 
 		Sound.init()
 		Mouse.initialize()
+		Controller.init()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
@@ -48,9 +49,13 @@ Promise.all([
 		})
 	})
 	.catch(e => {
-		const lines = (e.stack || "").split("\n")
+		console.error(e)
+
+		const err = e instanceof Error ? e : new Error(e)
+		const lines = (err.stack || "").split("\n")
 
 		Dom.swap(lines.map(x => Html.p(x)))
 
-		throw e
+		throw err
 	})
+

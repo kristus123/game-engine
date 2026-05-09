@@ -14,7 +14,7 @@ export class Flask {
 	static listen(port, bind="0.0.0.0") {
 		const app = express()
 
-		this.server = http.createServer(app)
+		Flask.server = http.createServer(app)
 
 		app.use(express.json({
 			type: ["application/json"]
@@ -30,7 +30,7 @@ export class Flask {
 			const path = req.params.path
 
 			for (const r of this.routes) {
-				if (r.path == path) {
+				if (r.path === path) {
 					res.json(r.callback(req.body, req))
 					return
 				}
@@ -39,6 +39,6 @@ export class Flask {
 			res.status(400).json({ error: "Route not found" })
 		})
 
-		this.server.listen(port, bind)
+		Flask.server.listen(port, bind)
 	}
 }

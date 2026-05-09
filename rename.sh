@@ -42,3 +42,4 @@ find . \
   -print0 | xargs -0 sed -i -E "s/\b${OLD_NAME}\b/${NEW_NAME}/g"
 
 echo "Updated references: $OLD_NAME → $NEW_NAME"
+

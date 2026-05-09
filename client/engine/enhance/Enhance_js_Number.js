@@ -11,9 +11,4 @@ export function Enhance_js_Number() {
 	Enhance(Number.prototype, "roundDown", function () {
 		return Math.floor(this)
 	})
-
-	Getter(Number.prototype, "abs", function () {
-		return Math.abs(this)
-	})
-
 }

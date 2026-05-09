@@ -1,3 +1,61 @@
+function simpleRegex(str, pattern) {
+  const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+		.replace(/\*/g, ".*");
+
+  const regex = new RegExp("^" + escaped + "$");
+
+  return regex.test(str)
+}
+
+
+
+function extractMethodParamsIfPresent(line) {
+	const blacklist = new Set([
+		"for",
+		"if",
+		"while",
+		"switch",
+		"catch",
+		"filter",
+		"Getter",
+		"Enhance"
+	])
+
+	const regex =
+		/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
+
+	const match = line.match(regex)
+	if (!match) {
+		return null
+	}
+
+	const methodName = match[1] || null
+
+	if (methodName && blacklist.has(methodName)) {
+		return null
+	}
+
+	let parameters = match[2] || match[3] || ""
+	if (parameters.includes("{")) {
+		parameters = parameters.replaceAll("= {}", "")
+		parameters = parameters.replaceAll("{", "")
+		parameters = parameters.replaceAll("}", "")
+	}
+
+	parameters = parameters.split(", ")
+	parameters = parameters.map(p => p.split("=")[0].trim())
+	parameters = parameters.filter(p => p.trim())
+
+	return {
+		methodName: methodName,
+		parameters: parameters
+	}
+}
+
+function indentations(str) {
+	return (str.match(/\t/g) || []).length;
+}
+
 const ENVIRONMENT = process.argv[2] || false
 
 if (!ENVIRONMENT) {
@@ -22,7 +80,7 @@ for (const jsFilePath of jsFiles) {
 		const fileText = Files.read(f)
 
 		if (fileText.includes(`export class ${className}`)) {
-			// Only replace className( NOT prefixed with 'new '
+			// Only replace 'ClassName(' NOT preceded by 'new '
 			const regex = new RegExp(`(?<!new )\\b${className}\\(`, "g")
 			fileContent = fileContent.replace(regex, `new ${className}(`)
 		}
@@ -33,30 +91,45 @@ for (const jsFilePath of jsFiles) {
 			`export class ${className} {`, `export class ${className} extends SuperClass {`)
 	}
 
-	fileContent = fileContent.replaceAll("tla(", "this.localObjects.add(")
 	fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
-	if (fileContent.includes("export class")) {
-		let lines = fileContent.split("\n")
+	const lines = fileContent.split("\n")
 
-		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
-				lines[i+1] = lines[i+1] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
-				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
-				break
+	for (let i = 0; i < lines.length; i++) {
+		if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
+			lines[i+1] = lines[i+1] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
+			lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
+		}
+		else if (lines[i].includes("constructor(")) {
+			if (!fileContent.includes("export class SuperClass")) {
+				lines[i] = lines[i] + "\n" + "super()"
 			}
-			else if (lines[i].includes("constructor(")) {
-				if (!fileContent.includes("export class SuperClass")) {
-					lines[i] = lines[i] + "\n" + "super()"
-				}
-				lines[i] = lines[i] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
-				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
-				break
+			lines[i] = lines[i] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
+			lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
+		}
+
+		const methodParams = extractMethodParamsIfPresent(lines[i])
+		if (methodParams && methodParams.parameters) {
+			for (let ii = 0; ii < methodParams.parameters.length; ii++) {
+				const p = methodParams.parameters[ii]
+				lines[i] = lines[i] + "\n" + `Assert.notNull(${p}, 'parameter ${p} inside of ${className}.js can not be null')`
 			}
 		}
 
-		fileContent = lines.join("\n")
+		if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {
+			const tabs = indentations(lines[i])
+
+			for (let ii = 1 ; true ; ii++) {
+				if (tabs == indentations(lines[i+ii])) {
+					lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
+					break
+				}
+			}
+
+		}
 	}
+
+	fileContent = lines.join("\n")
 
 	fileContent = Imports.needed(fileContent, jsFiles) + "\n" + fileContent
 

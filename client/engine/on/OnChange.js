@@ -2,7 +2,7 @@
 
 export class OnChange {
 	constructor(condition, action) {
-		Assert.method(condition)
+		// todo verify condition is a lambda
 		this.lastCondition = condition()
 	}
 

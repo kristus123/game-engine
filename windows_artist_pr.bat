@@ -1,5 +1,4 @@
 @echo off
-
 setlocal enabledelayedexpansion
 
 set COMMITMSG=Auto commit

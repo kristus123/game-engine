@@ -51,4 +51,5 @@ ninja aseprite
 # cd ~/src/ase/build/bin
 # ./aseprite
 
-# make sure the path is set up in Aseprite.js
+# make sure the path is set up here
+# https://github.com/kristus123/game-engine/blob/master/build_tools/Aseprite.js

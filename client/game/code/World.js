@@ -2,9 +2,8 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
-		F.test().domFloat({ x: 100, y: 100 })
-
-		F.textBubble().domFloat({ x: 200, y: 200 })
+		const html = F.test
+		html.domFloat({ x: 100, y: 100 })
 
 		this.viking = Sprite.viking(WorldPosition(-800, 0))
 		this.player = Sprite.player(WorldPosition(200, 300))
