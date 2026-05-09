@@ -1,0 +1,28 @@
+.story-grid {
+	width:100%;
+	height:100%;
+	display: grid;
+	grid-template: 
+		"top" 1fr
+		"mid" 1fr
+		"bottom" 1fr / 1fr;
+	gap: 20px;    
+}
+
+.story-grid .story-grid-top {
+	grid-area: top;
+	background-color: #f28b82;
+}
+
+
+.story-grid .story-grid-mid {
+	grid-area: mid;
+	background-color: #34a853;
+}
+
+
+.story-grid .story-grid-bottom {
+	grid-area: bottom;
+	background-color: #a142f4;
+}
+

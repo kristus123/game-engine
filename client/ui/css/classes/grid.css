@@ -1,0 +1,30 @@
+.grid {
+	display: grid;
+	grid-template-areas: var(--areas);
+	grid-template-rows: var(--rows);
+	grid-template-columns: var(--cols);
+	width: 100%;
+	height: 100%;
+	pointer-events: none; /* pass through clicks */
+
+}
+
+.grid .grid-top {
+	grid-area: top;
+}
+
+.grid .grid-left {
+	grid-area: left;
+}
+
+.grid .grid-mid {
+	grid-area: mid;
+}
+
+.grid .grid-right {
+	grid-area: right;
+}
+
+.grid .grid-bot {
+	grid-area: bot;
+}

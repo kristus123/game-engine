@@ -1,0 +1,28 @@
+phone-layout {
+	display: grid;
+	grid-template: 
+		"top" 60px "mid" 1fr "bot" 60px / 1fr;
+	width: 100vw;
+	height: 100vh;
+}
+
+phone-layout top { 
+	grid-area: top; 
+	background: red; 
+}
+
+phone-layout mid { 
+	grid-area: mid; 
+	background: white; 
+	
+	/* Prevent content from expanding the cell */
+	min-height: 0;  
+
+	/* Optional: scroll if content is bigger than the cell */
+	overflow: auto;
+}
+
+phone-layout bot { 
+	grid-area: bot; 
+	background: blue; 
+}

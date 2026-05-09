@@ -1,0 +1,13 @@
+dialog {
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+dialog::backdrop {
+	opacity: 0.70;
+	background-color: transparent;
+	box-shadow: none;
+	border: none;
+	backdrop-filter: blur(10px);
+}

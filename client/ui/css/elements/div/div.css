@@ -1,0 +1,34 @@
+div {
+	/* scrollbar-gutter: stable both-edges; */
+	box-sizing: border-box;
+	pointer-events: auto; /* not sure what auto does */
+}
+
+[image], .image {
+	--image: url("https://i.gyazo.com/c4b98fbc28d64d4f79693ff538ddb6ca.jpg");
+
+	background:
+		linear-gradient(rgb(0 0 0 / 45%), rgb(0 0 0 / 45%)),
+		var(--image);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+div.red {
+	background-color: red;
+}
+
+div.blue {
+	background-color: blue;
+}
+
+div.white {
+	background-color: rgb(255 255 255);
+}
+
+div.scrollable {
+	height: 100%;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+}

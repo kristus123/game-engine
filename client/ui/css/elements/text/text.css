@@ -1,0 +1,75 @@
+body {
+	font-family: "VT323", monospace;
+}
+
+input, button, textarea, select {
+	font-family: inherit;
+}
+
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, a {
+	text-align: center;
+	overflow-wrap: break-word; 
+}
+
+h1 {
+	font-size: 80px;
+	line-height: 1.1;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: clamp(1.6rem, 2vw, 2.4rem);
+	line-height: 1.15;
+	font-weight: 700;
+}
+
+h3 {
+	font-size: clamp(1.3rem, 1.5vw, 2rem);
+	line-height: 1.2;
+	font-weight: 600;
+}
+
+h4 {
+	font-size: clamp(1.1rem, 1.2vw, 1.6rem);
+	line-height: 1.25;
+	font-weight: 600;
+}
+
+h5 {
+	font-size: 1rem;
+	line-height: 1.3;
+	font-weight: 600;
+}
+
+h6 {
+	font-size: 0.9rem;
+	line-height: 1.35;
+	font-weight: 600;
+}
+
+p {
+	font-size: clamp(20px, 3vw, 5rem);
+	line-height: 1.6;
+	max-width: 70ch;
+}
+
+ul,
+ol {
+	font-size: 1rem;
+	line-height: 1.6;
+	padding-left: 1.25em;
+}
+
+a {
+	font-size: inherit;
+	text-decoration: underline;
+}
+
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: italic;
+}
