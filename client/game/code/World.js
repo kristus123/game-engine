@@ -2,7 +2,19 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
-		SfuClient
+		let id = null
+		Dom.add([
+			Html.input("id", (value) => {
+				id = value
+			}),
+			Html.button("Create", () => {
+				SfuClient.create()
+			}),
+			Html.button("Join", () => {
+				SfuClient.connect(id)
+			})
+		])
+		
     
 		//F.test().domFloat({ x: 100, y: 100 })
 

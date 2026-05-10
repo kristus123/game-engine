@@ -5,8 +5,6 @@ export const socketServer = new SimplifiedSocketServerAPI()
 
 socketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
-	SfuServer.connectWithClient(client, clientId)
-
 
 	socketServer.sendToEveryone({
 		action: "UPDATE_CLIENTS_LIST",
