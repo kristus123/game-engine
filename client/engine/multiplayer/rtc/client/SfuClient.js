@@ -1,6 +1,6 @@
 export class SfuClient {
     static {
-        this.connectedRouterId = null
+        this.connectedRouterId = ""
         this.device = null
         this.sendTransport = null
         this.recvTransport = null
@@ -9,8 +9,9 @@ export class SfuClient {
         this.consumers = {}         
 
         SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
-            this.connectedRouterId = data.routerId
-            this.connect(this.connectedRouterId)
+            console.log(`Router Created: ${data.routerId}`)
+
+            this.connect(data.routerId)
         })
 
         SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
@@ -50,7 +51,7 @@ export class SfuClient {
             try {
                 await new Promise(resolve => {
                     SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
-                        if (data.kind === kind) {
+                        if (data.kind == kind) {
                             callback({ producerId: data.producerId })
                             resolve()
                         }
@@ -65,8 +66,6 @@ export class SfuClient {
                 })
             } catch (e) { errback(e) }
         })
-
-        if (!this.sendTransport) return
 
         for (const track of this.localStream.getTracks()) {
             const producer = await this.sendTransport.produce({ track })
@@ -98,7 +97,10 @@ export class SfuClient {
     }
 
     static async consume(producerId, originClientId) {
-        if (!this.recvTransport) return
+        if (!this.recvTransport){
+            throw new Error("Cannot Consume Receive Transport Not Ready")
+            return
+        }
 
         console.log("Requesting Consumer")
 
@@ -109,27 +111,32 @@ export class SfuClient {
         })
 
         SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
-            if (data.consumerParams.producerId !== producerId) return
-
-            const consumer = await this.recvTransport.consume(data.consumerParams)
+            if (data.consumerParams.producerId == producerId) {
+                const consumer = await this.recvTransport.consume(data.consumerParams)
             
-            if (!this.consumers[data.clientId]) {
-                this.consumers[data.clientId] = { stream: new MediaStream() }
-                Dom.add([ HtmlVideo.guest(this.consumers[data.clientId].stream) ])
-            }
+                if (!this.consumers[data.clientId]) {
+                    this.consumers[data.clientId] = { stream: new MediaStream() }
+                    Dom.add([ HtmlVideo.guest(this.consumers[data.clientId].stream) ])
+                }
 
-            this.consumers[data.clientId].stream.addTrack(consumer.track)
+                this.consumers[data.clientId].stream.addTrack(consumer.track)
+            }
         })
     }
 
-    static async create() {
+    static async init() {
         this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         Dom.add([ HtmlVideo.local(this.localStream) ])
+    }
 
+    static async create() {
         SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
     }
 
     static async connect(routerId) {
+        await this.init()
+        this.connectedRouterId = routerId
+
         SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
             routerId: routerId
         })
@@ -137,7 +144,7 @@ export class SfuClient {
 
     static disconnect() {
         SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
-            routerId: routerId
+            routerId: this.connectedRouterId
         })
     }
 }

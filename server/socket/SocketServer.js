@@ -15,7 +15,8 @@ socketServer.onConnection = (client, clientId) => {
 
 socketServer.onClose = (client, clientId) => {
 	console.log(`${clientId} has disconnected`)
-	SfuServer.closeConnectionWithClient(client, clientId)
+	
+	SfuServer.closeConnectionWithClient(clientId)
 
 	socketServer.sendToEveryone({
 		action: "REMOVE_CLIENT",

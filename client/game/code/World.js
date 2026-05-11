@@ -12,6 +12,9 @@ export class World {
 			}),
 			Html.button("Join", () => {
 				SfuClient.connect(id)
+			}),
+			Html.button("Disconnect", () => {
+				SfuClient.disconnect()
 			})
 		])
 		
