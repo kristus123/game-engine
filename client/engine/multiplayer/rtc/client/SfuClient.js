@@ -1,12 +1,26 @@
 export class SfuClient {
     static {
         this.connectedRouterId = ""
+        this.element = null
         this.device = null
         this.sendTransport = null
         this.recvTransport = null
         this.localStream = null
         this.producers = {}
-        this.consumers = {}         
+        this.consumers = {} 
+
+        SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
+            if (this.consumers[data.clientId]) {
+
+                this.consumers[data.clientId].stream.getTracks().forEach(track => {
+                    track.stop()
+                })
+
+                this.consumers[data.clientId].element.remove()
+
+                delete this.consumers[data.clientId]
+            }
+        })
 
         SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
             console.log(`Router Created: ${data.routerId}`)
@@ -114,19 +128,21 @@ export class SfuClient {
             if (data.consumerParams.producerId == producerId) {
                 const consumer = await this.recvTransport.consume(data.consumerParams)
             
-                if (!this.consumers[data.clientId]) {
-                    this.consumers[data.clientId] = { stream: new MediaStream() }
-                    Dom.add([ HtmlVideo.guest(this.consumers[data.clientId].stream) ])
+                if (!this.consumers[originClientId]) {
+                    this.consumers[originClientId] = { stream: new MediaStream() }
+                    this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
+                    Dom.add([ this.consumers[originClientId].element ])
                 }
 
-                this.consumers[data.clientId].stream.addTrack(consumer.track)
+                this.consumers[originClientId].stream.addTrack(consumer.track)
             }
         })
     }
 
     static async init() {
         this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        Dom.add([ HtmlVideo.local(this.localStream) ])
+        this.element = HtmlVideo.local(this.localStream)
+        Dom.add([ this.element ])
     }
 
     static async create() {
@@ -143,6 +159,34 @@ export class SfuClient {
     }
 
     static disconnect() {
+        this.element.remove()
+        this.localStream.getTracks().forEach(track => {
+            track.stop()
+        })
+
+        this.producers.values.forEach(producer => {
+            producer.close()
+        })
+
+        this.consumers.values.forEach(state => {
+            state.stream.getTracks().forEach(track => {
+                track.stop()
+            })
+
+            state.element.remove()
+        })
+
+        this.sendTransport.close()
+        this.recvTransport.close()
+
+        this.producers = {}
+        this.consumers = {}
+
+        this.sendTransport = null
+        this.recvTransport = null
+        this.device = null
+        this.localStream = null
+
         SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
             routerId: this.connectedRouterId
         })

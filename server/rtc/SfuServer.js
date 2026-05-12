@@ -60,7 +60,7 @@ export class SfuServer {
                 socketServer.sendToClient(client, {
                     action: "SFU_NEW_PRODUCER",
                     producerId: rtcClient.producer.id,
-                    clientId: clientId
+                    clientId: rtcClient.clientId
                 })
             })
         })
@@ -89,7 +89,7 @@ export class SfuServer {
                 socketServer.sendToClient(rtcClient.client, {
                     action: "SFU_NEW_PRODUCER",
                     producerId: producer.id,
-                    clientId: rtcClient.clientId
+                    clientId: clientId
                 })
             })
         })
@@ -129,7 +129,7 @@ export class SfuServer {
         const sendTransport = await SfuServerApi.createTransport(router)
         const recvTransport = await SfuServerApi.createTransport(router)
 
-        routerObject.clients[clientId] = { client, sendTransport, recvTransport, producer: null }
+        routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producer: null }
 
         socketServer.sendToClient(client, {
             action: "SFU_SETUP_CLIENT",
@@ -171,6 +171,13 @@ export class SfuServer {
                 }
 
                 delete this.routers[rid].clients[clientId]
+
+                Object.values(this.routers[rid].clients).forEach(clientObject => {
+                    socketServer.sendToClient(clientObject.client, {
+                        action: "SFU_DISCONNECT_CONSUMER",
+                        clientId: clientId
+                    })
+                })
             }
         }
     }
@@ -189,16 +196,16 @@ export class SfuServer {
     }
 
     static getClientRouterId(clientId) {
+        let routerId = ""
+
         Object.values(this.routers).forEach(routerObject => {
-            Object.values(routerObject.clients).forEach(clientObject => {
-                console.log(clientObject)
-                
+            Object.values(routerObject.clients).forEach(clientObject => {         
                 if (clientObject.clientId == clientId) {
-                    return routerObject.routerId
+                    routerId = routerObject.routerId
                 }
             })
         })
 
-        return null
+        return routerId
     }
 }
