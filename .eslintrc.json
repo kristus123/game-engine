@@ -26,15 +26,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "rules": {
-            "brace-style": [
-                "error",
-                "1tbs",
-                {
-                    "allowSingleLine": false
-                }
-            ]
-        },
         "space-in-parens": [
             "error",
             "never"
