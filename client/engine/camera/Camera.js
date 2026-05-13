@@ -33,4 +33,10 @@ export class Camera {
 		this.position = o
 	}
 
+	static p(p) {
+		return new WorldPosition(
+			p.x - this.position.x + (Screen.width/2),
+			p.y - this.position.y + (Screen.height/2))
+	}
+
 }

@@ -9,6 +9,10 @@ p.big {
 	font-weight: 200; 
 }
 
+p.white {
+	color:white;
+}
+
 p.wave span {
 	display: inline-block;
 	animation: rainbowJump 0.6s infinite ease-in-out, hue 2s infinite linear;

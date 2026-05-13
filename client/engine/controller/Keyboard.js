@@ -1,6 +1,7 @@
 document.addEventListener("keydown", e => {
 	if (e.key == "Tab" || e.keyCode == 9) { // what is 9 ?
 		e.preventDefault()
+		console.log("Tab pressed")
 	}
 })
 

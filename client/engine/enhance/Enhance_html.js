@@ -189,6 +189,23 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "worldFloat", function (position) {
+		Assert.value(position)
+
+		if (!document.contains(this)) {
+			this.dom()
+			this.addClass("domFloat")
+		}
+
+		if (position) {
+			const p = Camera.p(position)
+			this.style.left = `${p.x}px`
+			this.style.top = `${p.y}px`
+		}
+
+		return this
+	})
+
 	Enhance(HTMLElement.prototype, "dom", function () {
 		Dom.add(this)
 		return this
