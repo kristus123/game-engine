@@ -104,7 +104,13 @@ for (const jsFilePath of JsFiles) {
 		const fileText = Files.read(f)
 
 		if (fileText.includes(`export class ${className}`)) {
+<<<<<<< HEAD
 			// Only replace 'ClassName(' NOT preceded by 'new '
+||||||| parent of 3a3b100d (x)
+			// Only replace className( NOT prefixed with 'new '
+=======
+			// Only replace className( NOT preceded by 'new '
+>>>>>>> 3a3b100d (x)
 			const regex = new RegExp(`(?<!new )\\b${className}\\(`, "g")
 			fileContent = fileContent.replace(regex, `new ${className}(`)
 		}

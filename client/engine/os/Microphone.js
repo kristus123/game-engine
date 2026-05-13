@@ -16,6 +16,7 @@ export class Microphone {
 		if (this.state === "recording") {
 			throw new Error("already recording")
 		}
+<<<<<<< HEAD
 
 		this.stream = await navigator.mediaDevices.getUserMedia({
 			audio: true,
@@ -30,6 +31,23 @@ export class Microphone {
 
 		this.recorder.ondataavailable = e => {
 			this.chunks.push(e.data)
+||||||| parent of 3a3b100d (x)
+		else if (this.state == "recording") {
+			throw new Error("this already recording")
+		}
+		else {
+			this.chunks = []
+			this.recorder.start()
+			this.state = "recording"
+=======
+		else if (this.state === "recording") {
+			throw new Error("this already recording")
+		}
+		else {
+			this.chunks = []
+			this.recorder.start()
+			this.state = "recording"
+>>>>>>> 3a3b100d (x)
 		}
 
 		this.recorder.start()
@@ -41,8 +59,22 @@ export class Microphone {
 
 		Assert.method(callback)
 
+<<<<<<< HEAD
 		if (this.state !== "recording") {
 			throw new Error("not recording")
+||||||| parent of 3a3b100d (x)
+		if (!this.ready) {
+			throw new Error("this not ready yet")
+		}
+		if (this.state != "recording") {
+			throw new Error("this not recording")
+=======
+		if (!this.ready) {
+			throw new Error("this not ready yet")
+		}
+		if (this.state !== "recording") {
+			throw new Error("this not recording")
+>>>>>>> 3a3b100d (x)
 		}
 
 		this.recorder.onstop = () => {

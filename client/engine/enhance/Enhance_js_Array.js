@@ -2,7 +2,7 @@ export function Enhance_js_Array() {
 
 	Enhance(Array.prototype, "remove", function (object) {
 		const index = this.indexOf(object)
-		if (index != -1) {
+		if (index !== -1) {
 			this.splice(index, 1)
 			return true
 		}
@@ -12,7 +12,7 @@ export function Enhance_js_Array() {
 
 	Enhance(Array.prototype, "next", function (current) {
 		const i = this.indexOf(current)
-		if (i == -1 || i == this.length - 1) {
+		if (i === -1 || i === this.length - 1) {
 			return null
 		}
 
@@ -38,7 +38,7 @@ export function Enhance_js_Array() {
 
 	Enhance(Array.prototype, "removeIfPresent", function (e) {
 		const index = this.indexOf(e)
-		if (index != -1) {
+		if (index !== -1) {
 			this.splice(index, 1)
 		}
 	})
@@ -67,7 +67,7 @@ export function Enhance_js_Array() {
 
 
 	Enhance(Array.prototype, "lastIndex", function (index) {
-		return index == this.length - 1
+		return index === this.length - 1
 	})
 
 	Getter(Array.prototype, "last", function () {

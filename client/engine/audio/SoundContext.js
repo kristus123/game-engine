@@ -6,7 +6,7 @@ export class SoundContext {
 		this.globalGain.connect(this.context.destination)
 	}
 
-	static decodeAudioData(b) {
+	static decodeAudioData() {
 		return this.context.decodeAudioData(b) // AudioBuffer
 	}
 
