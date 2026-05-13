@@ -24,7 +24,10 @@ export class SuperClass {
 	addTag(tag) {
 		this.removeTag(tag)
 		this.tags += format(tag)
+	}
 
+	hasTag(tag) {
+		return this.tags.includes(format(tag))
 	}
 
 	removeTag(tag) {
