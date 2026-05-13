@@ -1,11 +1,16 @@
 function simpleRegex(str, pattern) {
-  const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&")
-		.replace(/\*/g, ".*");
+  const regexPattern = pattern
+    .split("*")
+    .map(s => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
+    .join(".*");
 
-  const regex = new RegExp("^" + escaped + "$");
-
-  return regex.test(str)
+  return new RegExp("^" + regexPattern).test(str.trim());
 }
+
+
+
+
+
 
 
 function startsWith(line, list) {
