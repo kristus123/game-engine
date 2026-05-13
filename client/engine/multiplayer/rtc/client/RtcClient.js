@@ -12,7 +12,7 @@ export class RtcClient {
 			.getUserMedia({ video: true, audio: true })
 			.then(stream => {
 				this.localStream = stream
-				GridTemplate.left.set([ HtmlVideo.local(stream) ])
+				Dom.add([ HtmlVideo.local(stream) ])
 			})
 
 		SocketClient.onClientMessage("INCOMING_CALL", data => {

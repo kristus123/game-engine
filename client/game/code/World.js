@@ -2,29 +2,57 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
-		F.test().domFloat({ x: 100, y: 100 })
+		let id = null
+		Dom.add([
+			Html.input("id", (value) => {
+				id = value
+			}),
+			Html.button("Create", () => {
+				SfuClient.create()
+			}),
+			Html.button("Join", () => {
+				SfuClient.connect(id)
+			}),
+			Html.button("Disconnect", () => {
+				SfuClient.disconnect()
+			})
+		])
+		
+    
+		//F.test().domFloat({ x: 100, y: 100 })
 
-		F.textBubble().domFloat({ x: 200, y: 200 })
+		//F.textBubble().domFloat({ x: 200, y: 200 })
 
-		this.viking = Sprite.viking(WorldPosition(-800, 0))
-		this.player = Sprite.player(WorldPosition(200, 300))
+		// const html = F.test
+		// html.domFloat({ x: 100, y: 100 })
 
-		this.world = Sprite.world(WorldPosition(0, 0))
-		this.worldTileInfo = TileInfo.world(WorldPosition(0, 0))
+		// this.viking = Sprite.viking(WorldPosition(-800, 0))
+		// this.player = Sprite.player(WorldPosition(200, 300))
 
-		Camera.follow(this.player)
-		Controller.control(this.player)
+		// this.world = Sprite.world(WorldPosition(0, 0))
+		// this.worldTileInfo = TileInfo.world(WorldPosition(0, 0))
+
+		// Camera.follow(this.player)
+		// Controller.control(this.player)
+
+		// RtcClient.onIncomingCall = (callerId, offer) => {
+		// 	RtcClient.acceptIncomingCall(callerId, offer)
+		// }
+
+		// RtcClient.onCallAccepted = clientId => {
+		// 	console.log(`Conncted With ${clientId}!`)
+		// }
 	}
 
 	update() {
-		this.viking.update()
-		this.world.update()
+		// this.viking.update()
+		// this.world.update()
 
-		this.player.update()
+		// this.player.update()
 
-		if (this.worldTileInfo.touches("grass", 4, Mouse.position)) {
-			console.log("hei")
-		}
+		// if (this.worldTileInfo.touches("grass", 4, Mouse.position)) {
+		// 	console.log("hei")
+		// }
 
 	}
 }
