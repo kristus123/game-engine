@@ -12,7 +12,7 @@ function startsWith(line, list) {
   const cleaned = line.trimStart();
 
   return list.some(word =>
-    cleaned.startsWith(word)
+	cleaned.startsWith(word)
   );
 }
 
