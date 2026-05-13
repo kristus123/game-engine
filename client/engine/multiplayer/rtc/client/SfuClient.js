@@ -10,38 +10,38 @@ export class SfuClient {
 		this.consumers = {}
 
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
-    		if (this.consumers[data.clientId]) {
+			if (this.consumers[data.clientId]) {
 
-        		this.consumers[data.clientId].stream.getTracks().forEach(track => {
-            		track.stop()
-        		})
+    			this.consumers[data.clientId].stream.getTracks().forEach(track => {
+        			track.stop()
+    			})
 
-        		this.consumers[data.clientId].element.remove()
+    			this.consumers[data.clientId].element.remove()
 
-        		delete this.consumers[data.clientId]
-    		}
+    			delete this.consumers[data.clientId]
+			}
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
-    		console.log(`Router Created: ${data.routerId}`)
+			console.log(`Router Created: ${data.routerId}`)
 
-    		this.connect(data.routerId)
+			this.connect(data.routerId)
 		})
 
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
-    		console.log("Setting Up SFU Client")
+			console.log("Setting Up SFU Client")
 
-    		this.device = new window.mediasoup.Device()
-    		await this.device.load({ routerRtpCapabilities: data.rtpCapabilities })
+			this.device = new window.mediasoup.Device()
+			await this.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
-    		await this.setupSendTransport(data.sendTransportParams)
-    		await this.setupRecvTransport(data.recvTransportParams)
+			await this.setupSendTransport(data.sendTransportParams)
+			await this.setupRecvTransport(data.recvTransportParams)
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
-    		console.log("Consuming New Producer")
+			console.log("Consuming New Producer")
 
-    		await this.consume(data.producerId, data.clientId)
+			await this.consume(data.producerId, data.clientId)
 		})
 	}
 
@@ -49,51 +49,51 @@ export class SfuClient {
 		this.sendTransport = this.device.createSendTransport(params)
 
 		this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
-    		try {
-        		console.log("Requesting Connection For Webrtc Send Transport")
+			try {
+    			console.log("Requesting Connection For Webrtc Send Transport")
 
-        		SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
-            		direction: "send",
-            		dtlsParameters: dtlsParameters,
-            		routerId: this.connectedRouterId
-        		})
-        		callback()
-    		}
+    			SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+        			direction: "send",
+        			dtlsParameters: dtlsParameters,
+        			routerId: this.connectedRouterId
+    			})
+    			callback()
+			}
 			catch (e) {
 				errback(e)
 			}
 		})
 
 		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
-    		try {
-        		await new Promise(resolve => {
-            		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
-                		if (data.kind == kind) {
-                    		callback({ producerId: data.producerId })
-                    		resolve()
-                		}
-            		})
+			try {
+    			await new Promise(resolve => {
+        			SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
+            			if (data.kind == kind) {
+                			callback({ producerId: data.producerId })
+                			resolve()
+            			}
+        			})
 
-            		console.log("Requesting Producer")
-            		SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
-                		kind: kind,
-                		rtpParameters: rtpParameters,
-                		routerId: this.connectedRouterId
-            		})
-        		})
-    		}
+        			console.log("Requesting Producer")
+        			SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
+            			kind: kind,
+            			rtpParameters: rtpParameters,
+            			routerId: this.connectedRouterId
+        			})
+    			})
+			}
 			catch (e) {
 				errback(e)
 			}
 		})
 
 		for (const track of this.localStream.getTracks()) {
-    		const producer = await this.sendTransport.produce({ track })
-    		this.producers[track.kind] = producer
+			const producer = await this.sendTransport.produce({ track })
+			this.producers[track.kind] = producer
 		}
 
 		SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-    		routerId: this.connectedRouterId
+			routerId: this.connectedRouterId
 		})
 	}
 
@@ -101,16 +101,16 @@ export class SfuClient {
 		this.recvTransport = this.device.createRecvTransport(params)
 
 		this.recvTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
-    		try {
-        		console.log("Requesting Connection For Webrtc Recv Transport")
+			try {
+    			console.log("Requesting Connection For Webrtc Recv Transport")
 
-        		SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
-            		direction: "recv",
-            		dtlsParameters: dtlsParameters,
-            		routerId: this.connectedRouterId
-        		})
-        		callback()
-    		}
+    			SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+        			direction: "recv",
+        			dtlsParameters: dtlsParameters,
+        			routerId: this.connectedRouterId
+    			})
+    			callback()
+			}
 			catch (e) {
 				errback(e)
 			}
@@ -119,30 +119,30 @@ export class SfuClient {
 
 	static async consume(producerId, originClientId) {
 		if (!this.recvTransport) {
-    		throw new Error("Cannot Consume Receive Transport Not Ready")
-    		return
+			throw new Error("Cannot Consume Receive Transport Not Ready")
+			return
 		}
 
 		console.log("Requesting Consumer")
 
 		SocketClient.sendToServer("SFU_REQUEST_CONSUME", {
-    		producerId: producerId,
-    		rtpCapabilities: this.device.rtpCapabilities,
-    		routerId: this.connectedRouterId
+			producerId: producerId,
+			rtpCapabilities: this.device.rtpCapabilities,
+			routerId: this.connectedRouterId
 		})
 
 		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
-    		if (data.consumerParams.producerId == producerId) {
-        		const consumer = await this.recvTransport.consume(data.consumerParams)
+			if (data.consumerParams.producerId == producerId) {
+    			const consumer = await this.recvTransport.consume(data.consumerParams)
 
-        		if (!this.consumers[originClientId]) {
-            		this.consumers[originClientId] = { stream: new MediaStream() }
-            		this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
-            		Dom.add([ this.consumers[originClientId].element ])
-        		}
+    			if (!this.consumers[originClientId]) {
+        			this.consumers[originClientId] = { stream: new MediaStream() }
+        			this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
+        			Dom.add([ this.consumers[originClientId].element ])
+    			}
 
-        		this.consumers[originClientId].stream.addTrack(consumer.track)
-    		}
+    			this.consumers[originClientId].stream.addTrack(consumer.track)
+			}
 		})
 	}
 
@@ -161,26 +161,26 @@ export class SfuClient {
 		this.connectedRouterId = routerId
 
 		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
-    		routerId: routerId
+			routerId: routerId
 		})
 	}
 
 	static disconnect() {
 		this.element.remove()
 		this.localStream.getTracks().forEach(track => {
-    		track.stop()
+			track.stop()
 		})
 
 		this.producers.values.forEach(producer => {
-    		producer.close()
+			producer.close()
 		})
 
 		this.consumers.values.forEach(state => {
-    		state.stream.getTracks().forEach(track => {
-        		track.stop()
-    		})
+			state.stream.getTracks().forEach(track => {
+    			track.stop()
+			})
 
-    		state.element.remove()
+			state.element.remove()
 		})
 
 		this.sendTransport.close()
@@ -195,7 +195,7 @@ export class SfuClient {
 		this.localStream = null
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
-    		routerId: this.connectedRouterId
+			routerId: this.connectedRouterId
 		})
 	}
 }
