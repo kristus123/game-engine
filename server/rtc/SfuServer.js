@@ -4,208 +4,208 @@ import RandomId from "#root/dev/build_tools/RandomId.js"
 
 export class SfuServer {
 	static {
-		this.globalWorker = null
-		this.routers = {}
+    	this.globalWorker = null
+    	this.routers = {}
 	}
 
 	static async start() {
-		this.globalWorker = await SfuServerApi.createWorker()
+    	this.globalWorker = await SfuServerApi.createWorker()
 
-		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
-    		const routerObject = await this.createUniqueRouter(this.globalWorker)
+    	socketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
+        	const routerObject = await this.createUniqueRouter(this.globalWorker)
 
-    		socketServer.sendToClient(client, {
-        		action: "SFU_ROUTER_CREATED",
-        		routerId: routerObject.routerId
-    		})
-		})
+        	socketServer.sendToClient(client, {
+            	action: "SFU_ROUTER_CREATED",
+            	routerId: routerObject.routerId
+        	})
+    	})
 
-		socketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
-    		if (Object.hasOwn(this.routers, data.routerId)) {
-        		this.routers[data.routerId].clients[clientId] = {}
-        		await this.connectWithClient(client, clientId, data.routerId)
-    		} else {
-        		console.error(`Router ${routerId} Does Not Exist`)
-    		}
-		})
+    	socketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
+        	if (Object.hasOwn(this.routers, data.routerId)) {
+            	this.routers[data.routerId].clients[clientId] = {}
+            	await this.connectWithClient(client, clientId, data.routerId)
+        	} else {
+            	console.error(`Router ${routerId} Does Not Exist`)
+        	}
+    	})
 
-		socketServer.on("SDU_DISCONNECT_ROUTER", async (client, clientId, data) => {
-    		this.closeConnectionWithClient(clientId, data.routerId)
-		})
+    	socketServer.on("SDU_DISCONNECT_ROUTER", async (client, clientId, data) => {
+        	this.closeConnectionWithClient(clientId, data.routerId)
+    	})
 
-		socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
-    		this.closeConnectionWithClient(clientId, data.routerId)
-		})
+    	socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
+        	this.closeConnectionWithClient(clientId, data.routerId)
+    	})
 
-		socketServer.on("SFU_CONNECT_TRANSPORT", async (client, clientId, data) => {
-    		console.log(`Connecting Webrtc Transport For ${clientId}`)
+    	socketServer.on("SFU_CONNECT_TRANSPORT", async (client, clientId, data) => {
+        	console.log(`Connecting Webrtc Transport For ${clientId}`)
 
-    		const router = this.routers[data.routerId]
+        	const router = this.routers[data.routerId]
 
-    		if (data.direction == "send") {
-        		await router.clients[clientId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
-    		} else {
-        		await router.clients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
-    		}
-		})
+        	if (data.direction == "send") {
+            	await router.clients[clientId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
+        	} else {
+            	await router.clients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
+        	}
+    	})
 
-		socketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId, data) => {
-    		const router = this.routers[data.routerId]
+    	socketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId, data) => {
+        	const router = this.routers[data.routerId]
 
-    		Object.values(router.clients).forEach(rtcClient => {
-        		if (rtcClient.client == client) {
-            		return
-        		}
+        	Object.values(router.clients).forEach(rtcClient => {
+            	if (rtcClient.client == client) {
+                	return
+            	}
 
-        		socketServer.sendToClient(client, {
-            		action: "SFU_NEW_PRODUCER",
-            		producerId: rtcClient.producer.id,
-            		clientId: rtcClient.clientId
-        		})
-    		})
-		})
+            	socketServer.sendToClient(client, {
+                	action: "SFU_NEW_PRODUCER",
+                	producerId: rtcClient.producer.id,
+                	clientId: rtcClient.clientId
+            	})
+        	})
+    	})
 
-		socketServer.on("SFU_REQUEST_PRODUCE", async (client, clientId, data) => {
-    		const routerObject = this.routers[data.routerId]
+    	socketServer.on("SFU_REQUEST_PRODUCE", async (client, clientId, data) => {
+        	const routerObject = this.routers[data.routerId]
 
-    		const producer = await routerObject.clients[clientId].sendTransport.produce({
-        		kind: data.kind,
-        		rtpParameters: data.rtpParameters
-    		})
+        	const producer = await routerObject.clients[clientId].sendTransport.produce({
+            	kind: data.kind,
+            	rtpParameters: data.rtpParameters
+        	})
 
-    		routerObject.clients[clientId].producer = producer
+        	routerObject.clients[clientId].producer = producer
 
-    		socketServer.sendToClient(client, {
-        		action: "SFU_CONFIRM_PRODUCE",
-        		producerId: producer.id,
-        		kind: producer.kind,
-    		})
+        	socketServer.sendToClient(client, {
+            	action: "SFU_CONFIRM_PRODUCE",
+            	producerId: producer.id,
+            	kind: producer.kind,
+        	})
 
-    		Object.values(routerObject.clients).forEach(rtcClient => {
-        		if (rtcClient.client == client) {
-            		return
-        		}
+        	Object.values(routerObject.clients).forEach(rtcClient => {
+            	if (rtcClient.client == client) {
+                	return
+            	}
 
-        		socketServer.sendToClient(rtcClient.client, {
-            		action: "SFU_NEW_PRODUCER",
-            		producerId: producer.id,
-            		clientId: clientId
-        		})
-    		})
-		})
+            	socketServer.sendToClient(rtcClient.client, {
+                	action: "SFU_NEW_PRODUCER",
+                	producerId: producer.id,
+                	clientId: clientId
+            	})
+        	})
+    	})
 
-		socketServer.on("SFU_REQUEST_CONSUME", async (client, clientId, data) => {
-    		const routerObject = this.routers[data.routerId]
+    	socketServer.on("SFU_REQUEST_CONSUME", async (client, clientId, data) => {
+        	const routerObject = this.routers[data.routerId]
 
-    		if (!routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities })) {
-        		console.error("Cannot consume")
-        		return
-    		}
+        	if (!routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities })) {
+            	console.error("Cannot consume")
+            	return
+        	}
 
-    		const consumer = await routerObject.clients[clientId].recvTransport.consume({
-        		producerId: data.producerId,
-        		rtpCapabilities: data.rtpCapabilities,
-        		paused: false
-    		})
+        	const consumer = await routerObject.clients[clientId].recvTransport.consume({
+            	producerId: data.producerId,
+            	rtpCapabilities: data.rtpCapabilities,
+            	paused: false
+        	})
 
-    		socketServer.sendToClient(client, {
-        		action: "SFU_CONFIRM_CONSUME",
-        		consumerParams: {
-            		id: consumer.id,
-            		producerId: data.producerId,
-            		kind: consumer.kind,
-            		rtpParameters: consumer.rtpParameters
-        		}
-    		})
-		})
+        	socketServer.sendToClient(client, {
+            	action: "SFU_CONFIRM_CONSUME",
+            	consumerParams: {
+                	id: consumer.id,
+                	producerId: data.producerId,
+                	kind: consumer.kind,
+                	rtpParameters: consumer.rtpParameters
+            	}
+        	})
+    	})
 	}
 
 	static async connectWithClient(client, clientId, routerId) {
-		console.log(`Connecting With ${clientId}`)
+    	console.log(`Connecting With ${clientId}`)
 
-		const routerObject = this.routers[routerId]
-		const router = routerObject.router
+    	const routerObject = this.routers[routerId]
+    	const router = routerObject.router
 
-		const sendTransport = await SfuServerApi.createTransport(router)
-		const recvTransport = await SfuServerApi.createTransport(router)
+    	const sendTransport = await SfuServerApi.createTransport(router)
+    	const recvTransport = await SfuServerApi.createTransport(router)
 
-		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producer: null }
+    	routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producer: null }
 
-		socketServer.sendToClient(client, {
-    		action: "SFU_SETUP_CLIENT",
-    		rtpCapabilities: router.rtpCapabilities,
-    		sendTransportParams: {
-        		id: sendTransport.id,
-        		iceParameters: sendTransport.iceParameters,
-        		iceCandidates: sendTransport.iceCandidates,
-        		dtlsParameters: sendTransport.dtlsParameters,
-    		},
-    		recvTransportParams: {
-        		id: recvTransport.id,
-        		iceParameters: recvTransport.iceParameters,
-        		iceCandidates: recvTransport.iceCandidates,
-        		dtlsParameters: recvTransport.dtlsParameters,
-    		}
-		})
+    	socketServer.sendToClient(client, {
+        	action: "SFU_SETUP_CLIENT",
+        	rtpCapabilities: router.rtpCapabilities,
+        	sendTransportParams: {
+            	id: sendTransport.id,
+            	iceParameters: sendTransport.iceParameters,
+            	iceCandidates: sendTransport.iceCandidates,
+            	dtlsParameters: sendTransport.dtlsParameters,
+        	},
+        	recvTransportParams: {
+            	id: recvTransport.id,
+            	iceParameters: recvTransport.iceParameters,
+            	iceCandidates: recvTransport.iceCandidates,
+            	dtlsParameters: recvTransport.dtlsParameters,
+        	}
+    	})
 	}
 
 	static closeConnectionWithClient(clientId, routerId = null) {
-		console.log(`Disconnecting With ${clientId}`)
+    	console.log(`Disconnecting With ${clientId}`)
 
-		let rid = null
+    	let rid = null
 
-		if (!routerId) {
-    		rid = this.getClientRouterId(clientId)
-		} else {
-    		rid = routerId
-		}
+    	if (!routerId) {
+        	rid = this.getClientRouterId(clientId)
+    	} else {
+        	rid = routerId
+    	}
 
-		if (rid) {
-    		if (Object.hasOwn(this.routers, rid)) {
-        		const state = this.routers[rid].clients[clientId]
+    	if (rid) {
+        	if (Object.hasOwn(this.routers, rid)) {
+            	const state = this.routers[rid].clients[clientId]
 
-        		if (state.producer) {
-            		state.producer.close()
-            		state.sendTransport.close()
-            		state.recvTransport.close()
-        		}
+            	if (state.producer) {
+                	state.producer.close()
+                	state.sendTransport.close()
+                	state.recvTransport.close()
+            	}
 
-        		delete this.routers[rid].clients[clientId]
+            	delete this.routers[rid].clients[clientId]
 
-        		Object.values(this.routers[rid].clients).forEach(clientObject => {
-            		socketServer.sendToClient(clientObject.client, {
-                		action: "SFU_DISCONNECT_CONSUMER",
-                		clientId: clientId
-            		})
-        		})
-    		}
-		}
+            	Object.values(this.routers[rid].clients).forEach(clientObject => {
+                	socketServer.sendToClient(clientObject.client, {
+                    	action: "SFU_DISCONNECT_CONSUMER",
+                    	clientId: clientId
+                	})
+            	})
+        	}
+    	}
 	}
 
 	static async createUniqueRouter(worker) {
-		const routerId = RandomId()
-		const router = await SfuServerApi.createRouter(worker)
+    	const routerId = RandomId()
+    	const router = await SfuServerApi.createRouter(worker)
 
-		this.routers[routerId] = {
-    		routerId: routerId,
-    		router: router,
-    		clients: {}
-		}
+    	this.routers[routerId] = {
+        	routerId: routerId,
+        	router: router,
+        	clients: {}
+    	}
 
-		return this.routers[routerId]
+    	return this.routers[routerId]
 	}
 
 	static getClientRouterId(clientId) {
-		let routerId = ""
+    	let routerId = ""
 
-		Object.values(this.routers).forEach(routerObject => {
-    		Object.values(routerObject.clients).forEach(clientObject => {         
-        		if (clientObject.clientId == clientId) {
-            		routerId = routerObject.routerId
-        		}
-    		})
-		})
+    	Object.values(this.routers).forEach(routerObject => {
+        	Object.values(routerObject.clients).forEach(clientObject => {         
+            	if (clientObject.clientId == clientId) {
+                	routerId = routerObject.routerId
+            	}
+        	})
+    	})
 
-		return routerId
+    	return routerId
 	}
 }
