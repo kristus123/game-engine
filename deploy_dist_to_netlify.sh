@@ -2,8 +2,8 @@
 
 set -e
 
-node build_tools/export_aseprite.js
-node build_tools/generate_dist.js PRODUCTION
+node dev/build_tools/ExportAseprite.js
+node dev/build_tools/GenerateDist.js PRODUCTION
 
 find dist -type f -name '*.js' -exec npx --yes terser {} --compress --mangle -o {} \;
 find dist -type f -name '*.css' -exec npx --yes lightningcss --minify {} -o {} \;
