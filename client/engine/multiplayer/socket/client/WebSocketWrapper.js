@@ -27,7 +27,8 @@ export class WebSocketWrapper {
 	}
 
 	static onOpen() {}
-	static onMessage(data) {}
+	static onMessage(data) {
+	}
 	static onClose() {}
 	static onError() {
 		console.error("Fail to Connect")
