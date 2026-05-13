@@ -15,18 +15,18 @@ export class SfuServer {
 			const routerObject = await this.createUniqueRouter(this.globalWorker)
 
 			socketServer.sendToClient(client, {
-				action: "SFU_ROUTER_CREATED",
-				routerId: routerObject.routerId
+    			action: "SFU_ROUTER_CREATED",
+    			routerId: routerObject.routerId
 			})
 		})
 
 		socketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
 			if (Object.hasOwn(this.routers, data.routerId)) {
-				this.routers[data.routerId].clients[clientId] = {}
-				await this.connectWithClient(client, clientId, data.routerId)
+    			this.routers[data.routerId].clients[clientId] = {}
+    			await this.connectWithClient(client, clientId, data.routerId)
 			}
 			else {
-				console.error(`Router ${routerId} Does Not Exist`)
+    			console.error(`Router ${routerId} Does Not Exist`)
 			}
 		})
 
@@ -44,10 +44,10 @@ export class SfuServer {
 			const router = this.routers[data.routerId]
 
 			if (data.direction == "send") {
-				await router.clients[clientId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
+    			await router.clients[clientId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
 			}
 			else {
-				await router.clients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
+    			await router.clients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
 			}
 		})
 
@@ -55,15 +55,15 @@ export class SfuServer {
 			const router = this.routers[data.routerId]
 
 			Object.values(router.clients).forEach(rtcClient => {
-				if (rtcClient.client == client) {
-					return
-				}
+    			if (rtcClient.client == client) {
+        			return
+    			}
 
-				socketServer.sendToClient(client, {
-					action: "SFU_NEW_PRODUCER",
-					producerId: rtcClient.producer.id,
-					clientId: rtcClient.clientId
-				})
+    			socketServer.sendToClient(client, {
+        			action: "SFU_NEW_PRODUCER",
+        			producerId: rtcClient.producer.id,
+        			clientId: rtcClient.clientId
+    			})
 			})
 		})
 
@@ -71,28 +71,28 @@ export class SfuServer {
 			const routerObject = this.routers[data.routerId]
 
 			const producer = await routerObject.clients[clientId].sendTransport.produce({
-				kind: data.kind,
-				rtpParameters: data.rtpParameters
+    			kind: data.kind,
+    			rtpParameters: data.rtpParameters
 			})
 
 			routerObject.clients[clientId].producer = producer
 
 			socketServer.sendToClient(client, {
-				action: "SFU_CONFIRM_PRODUCE",
-				producerId: producer.id,
-				kind: producer.kind,
+    			action: "SFU_CONFIRM_PRODUCE",
+    			producerId: producer.id,
+    			kind: producer.kind,
 			})
 
 			Object.values(routerObject.clients).forEach(rtcClient => {
-				if (rtcClient.client == client) {
-					return
-				}
+    			if (rtcClient.client == client) {
+        			return
+    			}
 
-				socketServer.sendToClient(rtcClient.client, {
-					action: "SFU_NEW_PRODUCER",
-					producerId: producer.id,
-					clientId: clientId
-				})
+    			socketServer.sendToClient(rtcClient.client, {
+        			action: "SFU_NEW_PRODUCER",
+        			producerId: producer.id,
+        			clientId: clientId
+    			})
 			})
 		})
 
@@ -100,24 +100,24 @@ export class SfuServer {
 			const routerObject = this.routers[data.routerId]
 
 			if (!routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities })) {
-				console.error("Cannot consume")
-				return
+    			console.error("Cannot consume")
+    			return
 			}
 
 			const consumer = await routerObject.clients[clientId].recvTransport.consume({
-				producerId: data.producerId,
-				rtpCapabilities: data.rtpCapabilities,
-				paused: false
+    			producerId: data.producerId,
+    			rtpCapabilities: data.rtpCapabilities,
+    			paused: false
 			})
 
 			socketServer.sendToClient(client, {
-				action: "SFU_CONFIRM_CONSUME",
-				consumerParams: {
-					id: consumer.id,
-					producerId: data.producerId,
-					kind: consumer.kind,
-					rtpParameters: consumer.rtpParameters
-				}
+    			action: "SFU_CONFIRM_CONSUME",
+    			consumerParams: {
+        			id: consumer.id,
+        			producerId: data.producerId,
+        			kind: consumer.kind,
+        			rtpParameters: consumer.rtpParameters
+    			}
 			})
 		})
 	}
@@ -137,16 +137,16 @@ export class SfuServer {
 			action: "SFU_SETUP_CLIENT",
 			rtpCapabilities: router.rtpCapabilities,
 			sendTransportParams: {
-				id: sendTransport.id,
-				iceParameters: sendTransport.iceParameters,
-				iceCandidates: sendTransport.iceCandidates,
-				dtlsParameters: sendTransport.dtlsParameters,
+    			id: sendTransport.id,
+    			iceParameters: sendTransport.iceParameters,
+    			iceCandidates: sendTransport.iceCandidates,
+    			dtlsParameters: sendTransport.dtlsParameters,
 			},
 			recvTransportParams: {
-				id: recvTransport.id,
-				iceParameters: recvTransport.iceParameters,
-				iceCandidates: recvTransport.iceCandidates,
-				dtlsParameters: recvTransport.dtlsParameters,
+    			id: recvTransport.id,
+    			iceParameters: recvTransport.iceParameters,
+    			iceCandidates: recvTransport.iceCandidates,
+    			dtlsParameters: recvTransport.dtlsParameters,
 			}
 		})
 	}
@@ -165,22 +165,22 @@ export class SfuServer {
 
 		if (rid) {
 			if (Object.hasOwn(this.routers, rid)) {
-				const state = this.routers[rid].clients[clientId]
+    			const state = this.routers[rid].clients[clientId]
 
-				if (state.producer) {
-					state.producer.close()
-					state.sendTransport.close()
-					state.recvTransport.close()
-				}
+    			if (state.producer) {
+        			state.producer.close()
+        			state.sendTransport.close()
+        			state.recvTransport.close()
+    			}
 
-				delete this.routers[rid].clients[clientId]
+    			delete this.routers[rid].clients[clientId]
 
-				Object.values(this.routers[rid].clients).forEach(clientObject => {
-					socketServer.sendToClient(clientObject.client, {
-    					action: "SFU_DISCONNECT_CONSUMER",
-    					clientId: clientId
-					})
-				})
+    			Object.values(this.routers[rid].clients).forEach(clientObject => {
+        			socketServer.sendToClient(clientObject.client, {
+            			action: "SFU_DISCONNECT_CONSUMER",
+            			clientId: clientId
+        			})
+    			})
 			}
 		}
 	}
@@ -203,9 +203,9 @@ export class SfuServer {
 
 		Object.values(this.routers).forEach(routerObject => {
 			Object.values(routerObject.clients).forEach(clientObject => {
-				if (clientObject.clientId == clientId) {
-					routerId = routerObject.routerId
-				}
+    			if (clientObject.clientId == clientId) {
+        			routerId = routerObject.routerId
+    			}
 			})
 		})
 
