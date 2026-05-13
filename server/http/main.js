@@ -77,6 +77,6 @@ Flask.route("deleteFile", (body) => {
 const PORT = 3000
 Flask.listen(PORT)
 
-SfuServer.start().then(() =>{
+SfuServer.start().then(() => {
 	socketServer.start()
 })

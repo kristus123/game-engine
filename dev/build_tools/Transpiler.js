@@ -1,10 +1,10 @@
 function simpleRegex(str, pattern) {
-  const regexPattern = pattern
-    .split("*")
-    .map(s => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
-    .join(".*");
+	const regexPattern = pattern
+		.split("*")
+		.map(s => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
+		.join(".*")
 
-  return new RegExp("^" + regexPattern).test(str.trim());
+	return new RegExp("^" + regexPattern).test(str.trim())
 }
 
 
@@ -14,11 +14,11 @@ function simpleRegex(str, pattern) {
 
 
 function startsWith(line, list) {
-  const cleaned = line.trimStart();
+	const cleaned = line.trimStart()
 
-  return list.some(word =>
-	cleaned.startsWith(word)
-  );
+	return list.some(word =>
+		cleaned.startsWith(word)
+	)
 }
 
 function extractMethodParamsIfPresent(line) {
@@ -70,7 +70,7 @@ function extractMethodParamsIfPresent(line) {
 }
 
 function indentations(str) {
-	return (str.match(/\t/g) || []).length;
+	return (str.match(/\t/g) || []).length
 }
 
 const ENVIRONMENT = process.argv[2] || false

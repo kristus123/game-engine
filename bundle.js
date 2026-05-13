@@ -6,4 +6,4 @@
 
 // TODO: Add a script that will auto build and move this to right place.
 
-window.mediasoup = require('mediasoup-client')
+window.mediasoup = require("mediasoup-client")
