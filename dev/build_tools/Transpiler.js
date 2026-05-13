@@ -17,7 +17,7 @@ function startsWith(line, list) {
 }
 
 function extractMethodParamsIfPresent(line) {
-	if (startsWith(line, ["document."])) {
+	if (startsWith(line, ["document.", "this.", "//"])) {
 		return null
 	}
 
