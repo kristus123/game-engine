@@ -12,13 +12,13 @@ export class SfuClient {
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
 			if (this.consumers[data.clientId]) {
 
-				this.consumers[data.clientId].stream.getTracks().forEach(track => {
-					track.stop()
-				})
+    			this.consumers[data.clientId].stream.getTracks().forEach(track => {
+        			track.stop()
+    			})
 
-				this.consumers[data.clientId].element.remove()
+    			this.consumers[data.clientId].element.remove()
 
-				delete this.consumers[data.clientId]
+    			delete this.consumers[data.clientId]
 			}
 		})
 
@@ -50,14 +50,14 @@ export class SfuClient {
 
 		this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
 			try {
-				console.log("Requesting Connection For Webrtc Send Transport")
+    			console.log("Requesting Connection For Webrtc Send Transport")
 
-				SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
-					direction: "send",
-					dtlsParameters: dtlsParameters,
-					routerId: this.connectedRouterId
-				})
-				callback()
+    			SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+        			direction: "send",
+        			dtlsParameters: dtlsParameters,
+        			routerId: this.connectedRouterId
+    			})
+    			callback()
 			}
 			catch (e) {
 				errback(e)
@@ -66,21 +66,21 @@ export class SfuClient {
 
 		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
 			try {
-				await new Promise(resolve => {
-					SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
-    					if (data.kind == kind) {
-        					callback({ producerId: data.producerId })
-        					resolve()
-    					}
-					})
+    			await new Promise(resolve => {
+        			SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
+            			if (data.kind == kind) {
+                			callback({ producerId: data.producerId })
+                			resolve()
+            			}
+        			})
 
-					console.log("Requesting Producer")
-					SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
-    					kind: kind,
-    					rtpParameters: rtpParameters,
-    					routerId: this.connectedRouterId
-					})
-				})
+        			console.log("Requesting Producer")
+        			SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
+            			kind: kind,
+            			rtpParameters: rtpParameters,
+            			routerId: this.connectedRouterId
+        			})
+    			})
 			}
 			catch (e) {
 				errback(e)
@@ -102,14 +102,14 @@ export class SfuClient {
 
 		this.recvTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
 			try {
-				console.log("Requesting Connection For Webrtc Recv Transport")
+    			console.log("Requesting Connection For Webrtc Recv Transport")
 
-				SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
-					direction: "recv",
-					dtlsParameters: dtlsParameters,
-					routerId: this.connectedRouterId
-				})
-				callback()
+    			SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+        			direction: "recv",
+        			dtlsParameters: dtlsParameters,
+        			routerId: this.connectedRouterId
+    			})
+    			callback()
 			}
 			catch (e) {
 				errback(e)
@@ -133,15 +133,15 @@ export class SfuClient {
 
 		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
-				const consumer = await this.recvTransport.consume(data.consumerParams)
+    			const consumer = await this.recvTransport.consume(data.consumerParams)
 
-				if (!this.consumers[originClientId]) {
-					this.consumers[originClientId] = { stream: new MediaStream() }
-					this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
-					Dom.add([ this.consumers[originClientId].element ])
-				}
+    			if (!this.consumers[originClientId]) {
+        			this.consumers[originClientId] = { stream: new MediaStream() }
+        			this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
+        			Dom.add([ this.consumers[originClientId].element ])
+    			}
 
-				this.consumers[originClientId].stream.addTrack(consumer.track)
+    			this.consumers[originClientId].stream.addTrack(consumer.track)
 			}
 		})
 	}
@@ -177,7 +177,7 @@ export class SfuClient {
 
 		this.consumers.values.forEach(state => {
 			state.stream.getTracks().forEach(track => {
-				track.stop()
+    			track.stop()
 			})
 
 			state.element.remove()
