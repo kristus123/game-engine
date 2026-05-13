@@ -43,7 +43,7 @@ export class Controller {
 				x += -1
 				y += 0
 			}
-			if (Keyboard.rightt) {
+			if (Keyboard.right) {
 				x += 1
 				y += 0
 			}

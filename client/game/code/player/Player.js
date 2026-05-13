@@ -3,7 +3,7 @@ export class Player extends Entity {
 		super(position)
 
 		this.objects = Objects([
-			this.sprite = Sprite.player(D1, this.position),
+			this.sprite = Sprite.player(this.position),
 		])
 	}
 
