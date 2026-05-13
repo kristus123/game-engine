@@ -65,13 +65,13 @@ fs.writeFileSync(
 			appId: "com.example.myapp",
 			appName: "MyApp",
 			webDir: "dist",
-			server: {
-				// url: "http://192.168.10.65:5000",
-				cleartext: true,
-				allowNavigation: ['*'],
-				host: true,
-				port: 5000
-			}
+			// server: {
+			// 	// url: "http://192.168.10.65:5000",
+			// 	cleartext: true,
+			// 	allowNavigation: ['*'],
+			// 	host: true,
+			// 	port: 5000
+			// }
 		},
 		null, 4),
 	"utf-8")
@@ -98,4 +98,5 @@ fs.appendFileSync(gradlePropsPath, `\norg.gradle.java.home=${JBR_PATH}\n`)
 // Open Android Studio
 // run("npx cap open android", SETUP_DIR)
 
-run("npx cap run android --live-reload --port 5000", SETUP_DIR)
+// run("npx cap run android --live-reload --port 5000", SETUP_DIR)
+run("npx cap open android", SETUP_DIR)

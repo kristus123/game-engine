@@ -7,6 +7,7 @@ Android
 In android/app/src/main/AndroidManifest.xml:
 
 <uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
 
 iOS
