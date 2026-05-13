@@ -26,6 +26,15 @@
         "sourceType": "module"
     },
     "rules": {
+        "rules": {
+            "brace-style": [
+                "error",
+                "1tbs",
+                {
+                    "allowSingleLine": false
+                }
+            ]
+        },
         "space-in-parens": [
             "error",
             "never"
@@ -252,6 +261,7 @@
         "Screen": "readonly",
         "ServiceWorker": "readonly",
         "Setter": "readonly",
+        "SfuClient": "readonly",
         "Shared32BitArray": "readonly",
         "SimplexNoise": "readonly",
         "Sine": "readonly",
@@ -283,6 +293,7 @@
         "World": "readonly",
         "WorldPosition": "readonly",
         "XMotion": "readonly",
-        "index": "readonly"
+        "index": "readonly",
+        "out": "readonly"
     }
 }

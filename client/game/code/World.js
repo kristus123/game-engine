@@ -18,7 +18,7 @@ export class World {
 			})
 		])
 		
-    
+	
 		//F.test().domFloat({ x: 100, y: 100 })
 
 		//F.textBubble().domFloat({ x: 200, y: 200 })

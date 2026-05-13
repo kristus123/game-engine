@@ -16,7 +16,7 @@ function run(command, cwd = process.cwd()) {
 		shell: true,
 	})
 
-	if (result.status !== 0) {
+	if (result.status != 0) {
 		throw new Error(`Command failed: ${command}`)
 	}
 }
