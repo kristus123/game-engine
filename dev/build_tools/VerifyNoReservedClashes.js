@@ -1,4 +1,4 @@
-import jsFiles from "#root/dev/build_tools/JsFiles.js"
+import JsFiles from "#root/dev/build_tools/JsFiles.js"
 
 import reservedJsKeywords from "#root/dev/build_tools/ReservedJsKeywords.js"
 
@@ -6,7 +6,7 @@ import reservedJsKeywords from "#root/dev/build_tools/ReservedJsKeywords.js"
 const keywords = reservedJsKeywords
 	.map(w => w.toLowerCase())
 
-for (const file of jsFiles) {
+for (const file of JsFiles) {
 	const name = file.split("/").pop().replace(".js", "").toLowerCase() // ! Strict
 
 	if (keywords.includes(name)) {

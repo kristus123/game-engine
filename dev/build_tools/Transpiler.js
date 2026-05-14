@@ -84,11 +84,11 @@ import Imports from "#root/dev/build_tools/Imports.js"
 import Parameters from "#root/dev/build_tools/Parameters.js"
 import Files from "#root/dev/build_tools/Files.js"
 
-import jsFiles from "#root/dev/build_tools/JsFiles.js"
+import JsFiles from "#root/dev/build_tools/JsFiles.js"
 
 import { FileConfig } from "#root/FileConfig.js"
 
-for (const jsFilePath of jsFiles) {
+for (const jsFilePath of JsFiles) {
 	let fileContent = Files.read(jsFilePath)
 	const className = path.parse(jsFilePath).name
 	const fileName = path.basename(jsFilePath)
@@ -99,7 +99,7 @@ for (const jsFilePath of jsFiles) {
 	}
 
 
-	jsFiles.forEach(f => {
+	JsFiles.forEach(f => {
 		const className = path.parse(f).name
 		const fileText = Files.read(f)
 
@@ -155,7 +155,7 @@ for (const jsFilePath of jsFiles) {
 
 	fileContent = lines.join("\n")
 
-	fileContent = Imports.needed(fileContent, jsFiles) + "\n" + fileContent
+	fileContent = Imports.needed(fileContent, JsFiles) + "\n" + fileContent
 
 	if (!jsFilePath.includes(`${FileConfig.client}`)) {
 		throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)

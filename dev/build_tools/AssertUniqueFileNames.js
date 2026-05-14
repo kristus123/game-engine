@@ -1,6 +1,6 @@
-import exportedNames from "#root/dev/build_tools/JsFiles.js"
+import JsFiles from "#root/dev/build_tools/JsFiles.js"
 
-const processedNames = exportedNames
+const processedNames = JsFiles
 	.map(f => f.split("/").pop().replace(".js", ""))
 
 function extractDuplicates(arr) {
