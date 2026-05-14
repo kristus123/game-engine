@@ -14,7 +14,7 @@ export async function LoadHtmlContent(o) {
 		}
 		else {
 			div = document.createElement("div")
-			container.append(...template.content.children)
+			div.append(...template.content.children)
 		}
 
 		Array.from(div.children).forEach(child => {

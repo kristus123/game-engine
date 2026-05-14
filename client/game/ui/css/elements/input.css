@@ -20,3 +20,11 @@ input[type="text"]:focus {
 	border-color: #6c63ff;
 	box-shadow: 0 4px 12px rgb(108 99 255 / 20%);
 }
+
+input[type="color"] {
+  width: 80px;
+  height: 80px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
