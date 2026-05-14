@@ -11,7 +11,6 @@ export class World {
 		Camera.follow(this.player)
 		Controller.control(this.player)
 
-
 		this.b = F.talkBubble()
 		this.b.test.onClick(() => {
 			console.log("hei")
