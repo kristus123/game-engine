@@ -1,60 +1,68 @@
 export class Microphone {
-
 	static recorder = null
+	static stream = null
 	static chunks = []
-	static state = "idle" // idle, recording, stopped
+
+	static state = "idle" // idle, recording
 	static mimeType = "audio/webm;codecs=opus"
 	static audioBitsPerSecond = 64_000
-	static ready = false
-
-	static {
-		navigator.mediaDevices.getUserMedia({ audio: true })
-			.then(stream => {
-				this.recorder = new MediaRecorder(stream, {
-					mimeType: this.mimeType,
-					audioBitsPerSecond: this.audioBitsPerSecond,
-				})
-
-				this.recorder.ondataavailable = e => this.chunks.push(e.data)
-				this.ready = true
-			})
-			.catch(err => {
-				console.error("Failed to access microphone:", err)
-			})
-	}
 
 	static get recording() {
-		return this.state == "recording"
+		return this.state === "recording"
 	}
 
-	static start() {
-		if (!this.ready) {
-			throw new Error("this not ready yet")
+	static async start() {
+
+		if (this.state === "recording") {
+			throw new Error("already recording")
 		}
-		else if (this.state == "recording") {
-			throw new Error("this already recording")
+
+		this.stream = await navigator.mediaDevices.getUserMedia({
+			audio: true,
+		})
+
+		this.recorder = new MediaRecorder(this.stream, {
+			mimeType: this.mimeType,
+			audioBitsPerSecond: this.audioBitsPerSecond,
+		})
+
+		this.chunks = []
+
+		this.recorder.ondataavailable = e => {
+			this.chunks.push(e.data)
 		}
-		else {
-			this.chunks = []
-			this.recorder.start()
-			this.state = "recording"
-		}
+
+		this.recorder.start()
+
+		this.state = "recording"
 	}
 
 	static stop(callback) {
+
 		Assert.method(callback)
 
-		if (!this.ready) {
-			throw new Error("this not ready yet")
-		}
-		if (this.state != "recording") {
-			throw new Error("this not recording")
+		if (this.state !== "recording") {
+			throw new Error("not recording")
 		}
 
 		this.recorder.onstop = () => {
-			const blob = new Blob([...this.chunks], { type: this.mimeType })
+
+			const blob = new Blob(this.chunks, {
+				type: this.mimeType,
+			})
+
 			this.chunks = []
-			this.state = "stopped"
+
+			// IMPORTANT:
+			// stop all microphone tracks so the browser
+			// completely releases the microphone
+			this.stream.getTracks().forEach(track => {
+				track.stop()
+			})
+
+			this.recorder = null
+			this.stream = null
+			this.state = "idle"
 
 			callback(blob)
 		}
