@@ -29,7 +29,7 @@ Promise.all([
 		initD1(Draw(Palette.main.ctx))
 
 		const worldModule = x[0]
-		Level.change(new worldModule())
+		const world = new worldModule()
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
@@ -39,7 +39,7 @@ Promise.all([
 			GamePad.update()
 
 			Camera.applyPositionContextThing(Palette.main, () => {
-				Level.update()
+				world.update()
 				Mouse.update()
 				for (const c of SuperClass.all) {
 					c.showTags()

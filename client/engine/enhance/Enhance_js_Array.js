@@ -70,6 +70,9 @@ export function Enhance_js_Array() {
 		return index == this.length - 1
 	})
 
+	Getter(Array.prototype, "last", function () {
+		return this.at(-1)
+	})
 
 	Enhance(Array.prototype, "validIndex", function (index) {
 		return index >= 0 && index < this.length
