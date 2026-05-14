@@ -22,7 +22,7 @@ export class World {
 	update() {
 		this.objects.update()
 
-		this.b.worldFloat(WorldPosition(1512, 2100))
+		// this.b.worldFloat(WorldPosition(1512, 2100))
 
 		D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
 	}
