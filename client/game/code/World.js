@@ -12,9 +12,9 @@ export class World {
 		Controller.control(this.player)
 
 		this.b = F.talkBubble()
-		this.b.test.onClick(() => {
-			console.log("hei")
-
+		this.b.text.splitLetters()
+		this.b.text.forEach(c => {
+			c.addClass('animate')
 		})
 	}
 
