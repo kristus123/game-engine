@@ -200,7 +200,6 @@
         "Iterate": "readonly",
         "Keyboard": "readonly",
         "LazyLoadedList": "readonly",
-        "Level": "readonly",
         "LinePathFinder": "readonly",
         "ListLooper": "readonly",
         "Listener": "readonly",
@@ -284,7 +283,6 @@
         "World": "readonly",
         "WorldPosition": "readonly",
         "XMotion": "readonly",
-        "index": "readonly",
-        "out": "readonly"
+        "index": "readonly"
     }
 }

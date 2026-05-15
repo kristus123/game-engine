@@ -4,7 +4,7 @@ export class World {
 
 		// Out.js Test
 		console.log(window.mediasoup)
-		
+
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 			{
@@ -22,7 +22,7 @@ export class World {
 		this.b = F.talkBubble()
 		this.b.text.splitLetters()
 		this.b.text.forEach(c => {
-			c.addClass('animate')
+			c.addClass("animate")
 		})
 	}
 
