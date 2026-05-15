@@ -1,4 +1,4 @@
-import JsFiles from "#root/dev/build_tools/JsFiles.js"
+import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
 const processedNames = JsFiles
 	.map(f => f.split("/").pop().replace(".js", ""))

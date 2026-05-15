@@ -1,9 +1,9 @@
-import JsFiles from "#root/dev/build_tools/JsFiles.js"
+import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
-import reservedJsKeywords from "#root/dev/build_tools/ReservedJsKeywords.js"
+import { ReservedJsKeywords } from "#root/dev/build_tools/ReservedJsKeywords.js"
 
 // better safe and strict than sorry and loosey goosey
-const keywords = reservedJsKeywords
+const keywords = ReservedJsKeywords
 	.map(w => w.toLowerCase())
 
 for (const file of JsFiles) {
