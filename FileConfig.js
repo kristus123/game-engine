@@ -8,9 +8,12 @@ export const FileConfig = {
 	client: "client",
 	dist: "dist",
 
+	externalBundle: "bundle.js",
+
 	asepriteToJson: "dev/build_tools/aseprite_to_json.lua",
 	exportAseprite: "dev/build_tools/ExportAseprite.js",
 	generateDist: "dev/build_tools/GenerateDist.js",
+	prepareExternalBundle: "dev/build_tools/PrepareExternalBundle.js",
 	engineIndex: "dist/client/engine/start/index.js",
 
 	get gameAssets() {
