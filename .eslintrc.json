@@ -285,7 +285,6 @@
         "World": "readonly",
         "WorldPosition": "readonly",
         "XMotion": "readonly",
-        "index": "readonly",
-        "out": "readonly"
+        "index": "readonly"
     }
 }

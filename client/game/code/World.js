@@ -4,7 +4,7 @@ export class World {
 
 		// Out.js Test
 		console.log(window.mediasoup)
-		
+
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 			{
