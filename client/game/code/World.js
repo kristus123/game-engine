@@ -4,6 +4,11 @@ export class World {
 
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
+			{
+				update: () => {
+					D1.lightSource(WorldPosition(1600, 2238))
+				},
+			},
 			Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
 		])
@@ -12,9 +17,9 @@ export class World {
 		Controller.control(this.player)
 
 		this.b = F.talkBubble()
-		this.b.test.onClick(() => {
-			console.log("hei")
-
+		this.b.text.splitLetters()
+		this.b.text.forEach(c => {
+			c.addClass('animate')
 		})
 	}
 

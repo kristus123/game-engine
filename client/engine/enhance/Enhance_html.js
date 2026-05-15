@@ -1,5 +1,34 @@
 export function Enhance_html() {
 
+	Enhance(HTMLElement.prototype, "forEach", function (callback) {
+		const children = this.children
+
+		for (let i = 0; i < children.length; i++) {
+			callback(children[i], i, this)
+		}
+
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "splitLetters", function () {
+		
+		const text = Assert.value(this.textContent)
+		this.textContent = ""
+
+		const frag = document.createDocumentFragment()
+
+		for (let i = 0; i < text.length; i++) {
+			const span = document.createElement("span")
+			span.textContent = text[i]
+			span.dataset.index = i
+			frag.appendChild(span)
+		}
+
+		this.appendChild(frag)
+
+		return this
+	})
+
 	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
 		this._listeners ??= []
 
