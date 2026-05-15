@@ -6,6 +6,13 @@ import { FileConfig } from "#root/FileConfig.js"
 const mainFilename = process.argv[1]
 
 export default class {
+	static appendString(path, string) {
+		if (!fs.existsSync(path)) {
+			fs.mkdirSync(path, { recursive: true })
+		}
+
+		fs.appendFileSync(path, string)
+	}
 
 	static writeFileToDist(srcPath, content) {
 		const destPath = FileConfig.toDistPath(srcPath)
