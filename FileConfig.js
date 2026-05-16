@@ -15,6 +15,7 @@ export const FileConfig = {
 	generateDist: "dev/build_tools/GenerateDist.js",
 	prepareExternalBundle: "dev/build_tools/PrepareExternalBundle.js",
 	engineIndex: "dist/client/engine/start/index.js",
+	externalBundleDistPath: "dist/out.js",
 
 	get gameAssets() {
 		return path.join(this.game, "assets")
