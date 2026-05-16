@@ -5,7 +5,7 @@ function containsExport(type, className, str) {
 	return regex.test(str)
 }
 
-class Imports {
+export class Imports {
 
 	static needed(content, jsFilePaths) {
 		let imports = ""
@@ -35,5 +35,3 @@ class Imports {
 		}
 	}
 }
-
-export default Imports

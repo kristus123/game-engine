@@ -1,5 +1,4 @@
 export class SoundContext {
-
 	static {
 		this.context = new (window.AudioContext || window.webkitAudioContext)()
 
