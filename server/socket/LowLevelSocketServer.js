@@ -1,5 +1,4 @@
 import { WebSocketServer } from "ws"
-import { Flask } from "#root/server/http/Flask.js"
 
 export default class {
 	constructor({ onConnection, onClose } = {}) {
@@ -9,8 +8,8 @@ export default class {
 		this.actions = {}
 	}
 
-	start() {
-		const webSocketServer = new WebSocketServer({ server: Flask.server })
+	start(httpServer) {
+		const webSocketServer = new WebSocketServer({ server: httpServer })
 
 		webSocketServer.on("connection", (client, request) => {
 			console.log("hahah")

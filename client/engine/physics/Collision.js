@@ -1,7 +1,7 @@
 export class Collision {
 	static between(red, blue) {
 		return (
-			red != blue &&
+			red !== blue &&
 			red.x + red.width >= blue.x &&
 			red.x <= blue.x + blue.width &&
 			red.y + red.height >= blue.y &&
@@ -9,7 +9,7 @@ export class Collision {
 	}
 
 	static deny(red, blue) {
-		if (!this.between(red, blue) || red == blue) {
+		if (!this.between(red, blue) || red === blue) {
 			return
 		}
 

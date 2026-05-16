@@ -26,6 +26,26 @@
         "sourceType": "module"
     },
     "rules": {
+<<<<<<< HEAD
+||||||| parent of 3a3b100d (x)
+        "rules": {
+            "brace-style": [
+                "error",
+                "1tbs",
+                {
+                    "allowSingleLine": false
+                }
+            ]
+        },
+=======
+        "indent": [
+            "error",
+            "tab",
+            {
+                "SwitchCase": 1
+            }
+        ],
+>>>>>>> 3a3b100d (x)
         "space-in-parens": [
             "error",
             "never"
@@ -92,10 +112,7 @@
         ],
         "@stylistic/js/indent": [
             "error",
-            "tab",
-            {
-                "SwitchCase": 1
-            }
+            "tab"
         ],
         "@stylistic/js/linebreak-style": [
             "error",
@@ -133,21 +150,25 @@
         "After": "readonly",
         "Always": "readonly",
         "AnalShit": "readonly",
+        "Anchor": "readonly",
         "Args": "readonly",
         "Assert": "readonly",
         "AudioBuffers": "readonly",
         "AudioEngine": "readonly",
         "AudioSheet": "readonly",
+        "Base": "readonly",
         "Base64": "readonly",
         "Bounce": "readonly",
         "Calculate": "readonly",
         "Camera": "readonly",
         "CenterPosition": "readonly",
+        "Charge": "readonly",
         "ClientId": "readonly",
         "Colliders": "readonly",
         "Collision": "readonly",
         "Config": "readonly",
         "Controller": "readonly",
+        "ConvertTo": "readonly",
         "CurrentFrame": "readonly",
         "Curve": "readonly",
         "D1": "readonly",
@@ -199,7 +220,6 @@
         "InverseExponentialNumber": "readonly",
         "Iterate": "readonly",
         "Keyboard": "readonly",
-        "LazyLoadedList": "readonly",
         "Level": "readonly",
         "LinePathFinder": "readonly",
         "ListLooper": "readonly",
@@ -218,6 +238,7 @@
         "Microphone": "readonly",
         "Motion": "readonly",
         "Mouse": "readonly",
+        "MovementCalculations": "readonly",
         "Noise": "readonly",
         "Normalize": "readonly",
         "NormalizeVector": "readonly",
@@ -232,6 +253,8 @@
         "OtherClients": "readonly",
         "Page": "readonly",
         "Palette": "readonly",
+        "Parallax": "readonly",
+        "Particle": "readonly",
         "Path": "readonly",
         "PathFinder": "readonly",
         "Physics": "readonly",
@@ -252,7 +275,6 @@
         "Screen": "readonly",
         "ServiceWorker": "readonly",
         "Setter": "readonly",
-        "SfuClient": "readonly",
         "Shared32BitArray": "readonly",
         "SimplexNoise": "readonly",
         "Sine": "readonly",
@@ -275,6 +297,7 @@
         "TestResizeObserver": "readonly",
         "TileInfo": "readonly",
         "TileInfoController": "readonly",
+        "Velocity": "readonly",
         "VideoDiv": "readonly",
         "VisibilityWatcher": "readonly",
         "Wait": "readonly",
@@ -284,7 +307,7 @@
         "World": "readonly",
         "WorldPosition": "readonly",
         "XMotion": "readonly",
-        "index": "readonly",
-        "out": "readonly"
+        "_GameObject": "readonly",
+        "index": "readonly"
     }
 }

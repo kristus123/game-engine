@@ -12,9 +12,17 @@ export class SpriteController extends Entity {
 				frame,
 				tag,
 			] = key.split("_")
+<<<<<<< HEAD
 			const { x, y, w, h } = frameInfo.frame
 			frame = Always.integer(frame)
 			const duration = frameInfo.duration
+||||||| parent of 3a3b100d (x)
+			const { x, y, w, h, duration } = frameInfo.frame
+			frame = Always.integer(frame)
+=======
+			const { x, y, w, h, duration } = frameInfo.frame
+			frame = ConvertTo.integer(frame)
+>>>>>>> 3a3b100d (x)
 
 			// not sure if best approach to do - 1
 			// currently lots of hacks with this caluclation. look at CurrentFrame.js

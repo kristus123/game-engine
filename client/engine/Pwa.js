@@ -2,7 +2,7 @@ export class Pwa {
 	static deferredPrompt = null
 
 	static init(onReady = () => {}) {
-		window.addEventListener("beforeinstallprompt", e => {
+		window.addEventListener("beforeinstallprompt", (e) => {
 			e.preventDefault()
 
 			this.deferredPrompt = e

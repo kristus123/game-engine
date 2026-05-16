@@ -1,5 +1,4 @@
 import SimplifiedSocketServerAPI from "#root/server/socket/SimplifiedSocketServerAPI.js"
-import { SfuServer } from "#root/server/rtc/SfuServer.js"
 
 export const socketServer = new SimplifiedSocketServerAPI()
 
@@ -15,8 +14,14 @@ socketServer.onConnection = (client, clientId) => {
 
 socketServer.onClose = (client, clientId) => {
 	console.log(`${clientId} has disconnected`)
+<<<<<<< HEAD
 
 	SfuServer.closeConnectionWithClient(clientId)
+||||||| parent of 3a3b100d (x)
+	
+	SfuServer.closeConnectionWithClient(clientId)
+=======
+>>>>>>> 3a3b100d (x)
 
 	socketServer.sendToEveryone({
 		action: "REMOVE_CLIENT",

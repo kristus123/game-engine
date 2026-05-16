@@ -92,7 +92,7 @@ export class LowDb {
 			const getRequest = store.get(o._dbKey)
 
 			getRequest.onsuccess = () => {
-				if (getRequest.result == undefined) {
+				if (getRequest.result === undefined) {
 					throw new Error(`Update failed: no entry found with dbKey "${o._dbKey}"`)
 				}
 				else {
