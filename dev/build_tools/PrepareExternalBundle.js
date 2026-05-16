@@ -1,5 +1,5 @@
 import childProcess from "child_process"
-import Files from "#root/dev/build_tools/Files.js"
+import { Files } from "#root/dev/build_tools/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import path from "path"
 
