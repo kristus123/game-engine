@@ -11,7 +11,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "splitLetters", function () {
-		
+
 		const text = Assert.value(this.textContent)
 		this.textContent = ""
 

@@ -8,12 +8,12 @@ export class Microphone {
 	static audioBitsPerSecond = 64_000
 
 	static get recording() {
-		return this.state === "recording"
+		return this.state == "recording"
 	}
 
 	static async start() {
 
-		if (this.state === "recording") {
+		if (this.state == "recording") {
 			throw new Error("already recording")
 		}
 
@@ -41,7 +41,7 @@ export class Microphone {
 
 		Assert.method(callback)
 
-		if (this.state !== "recording") {
+		if (this.state != "recording") {
 			throw new Error("not recording")
 		}
 
