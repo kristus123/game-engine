@@ -1,4 +1,4 @@
-export default class Parameters {
+export class Parameters {
 
 	static inConstructor(content) {
 		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)

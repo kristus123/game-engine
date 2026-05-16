@@ -1,10 +1,10 @@
 import fs from "fs"
 import path from "path"
 
-import jsFiles from "#root/dev/build_tools/JsFiles.js"
+import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
 const eslintGlobalsConfig = {}
-jsFiles.forEach(jsFile => {
+JsFiles.forEach(jsFile => {
 	const className = path.basename(jsFile, ".js")
 	eslintGlobalsConfig[className] = "readonly"
 })

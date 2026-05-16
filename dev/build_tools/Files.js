@@ -5,7 +5,7 @@ import { FileConfig } from "#root/FileConfig.js"
 
 const mainFilename = process.argv[1]
 
-export default class {
+export class Files {
 
 	static writeFileToDist(srcPath, content) {
 		const destPath = FileConfig.toDistPath(srcPath)
