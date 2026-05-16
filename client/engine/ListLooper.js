@@ -1,23 +1,18 @@
 export class ListLooper {
-	constructor(list, callback= () => {}) {
+	constructor(list, callback= () => {}, onFinish = () => {}) {
 		this.index = 0
 	}
 
-	completed() {
-		return !(this.index < this.list.length)
-	}
-
 	update() {
-		console.log("don't call update while using ListLooper!")
-	}
-
-	draw(draw) {
-		if (!this.completed()) {
+		const completed = !(this.index < this.list.length)
+		if (!completed) {
 			this.callback(
 				this.list[this.index], // element
-				() => this.index += 1, // next()
-				this.completed(),
-				draw)
+				() => this.index += 1) // next()	
+		}
+		else {
+			this.onFinish()
 		}
 	}
+
 }
