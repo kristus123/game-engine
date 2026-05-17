@@ -5,7 +5,7 @@ export class Dialog {
 
 		const stopWatch = StopWatch().start()
 
-		this.texts = ListLooper(xxx, ({text, sleepEnd}, next) => {
+		this.texts = ListLooper(xxx, ({ text, sleepEnd }, next) => {
 			if (stopWatch.moreThan(sleepEnd)) {
 				stopWatch.restart()
 				next()
@@ -20,7 +20,7 @@ export class Dialog {
 			this.removeItself()
 		})
 	}
-	
+
 	update() {
 		this.texts.update()
 	}

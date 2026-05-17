@@ -12,16 +12,16 @@ export class World {
 			Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
 			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
-				Tts('wo---ooo-ooo-ooow. a sami lavvo')
+				Tts("wo---ooo-ooo-ooow. a sami lavvo")
 			}),
 			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
-				Tts('woooo-oooow. a fireplace')
+				Tts("woooo-oooow. a fireplace")
 			}),
 			Dialog([
-				{text: "how are you", sleepEnd: 200},
-				{text: "It is time we learn about the Sami people", sleepEnd: 100},
-				{text: "Sit down, and relax", sleepEnd: 100},
-				{text: "We need some berries. go pick some!", sleepEnd: 1000},
+				{ text: "how are you", sleepEnd: 200 },
+				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
+				{ text: "Sit down, and relax", sleepEnd: 100 },
+				{ text: "We need some berries. go pick some!", sleepEnd: 1000 },
 			], () => {
 				console.log("wow")
 			}),

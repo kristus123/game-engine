@@ -8,7 +8,7 @@ export class ListLooper {
 		if (!completed) {
 			this.callback(
 				this.list[this.index], // element
-				() => this.index += 1) // next()	
+				() => this.index += 1) // next()
 		}
 		else {
 			this.onFinish()

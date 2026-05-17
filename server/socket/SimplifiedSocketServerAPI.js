@@ -1,7 +1,7 @@
-import LowLevelSocketServer from "#root/server/socket/LowLevelSocketServer.js"
-import List from "#root/server/socket/List.js"
+import { LowLevelSocketServer } from "#root/server/socket/LowLevelSocketServer.js"
+import { List } from "#root/server/socket/List.js"
 
-export default class {
+export class SimplifiedSocketServerAPI {
 	constructor() {
 		this.allClients = []
 		this.allClientIds = []

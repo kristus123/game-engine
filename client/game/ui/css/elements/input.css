@@ -22,9 +22,9 @@ input[type="text"]:focus {
 }
 
 input[type="color"] {
-  width: 80px;
-  height: 80px;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+	width: 80px;
+	height: 80px;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }
