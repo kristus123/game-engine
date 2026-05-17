@@ -22,9 +22,9 @@ export class SfuServerApi {
 				clockRate: 90000,
 				parameters:
 				{
-    				"packetization-mode": 1,
-    				"profile-level-id": "42e01f",
-    				"level-asymmetry-allowed": 1
+					"packetization-mode": 1,
+					"profile-level-id": "42e01f",
+					"level-asymmetry-allowed": 1
 				}
 			}
 		]
