@@ -111,6 +111,7 @@ watcher.on("all", (e, path) => {
 // initial build
 new Runner(FileConfig.exportAseprite).start()
 new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
+new Runner(FileConfig.prepareExternalBundle).start()
 
 // for now only run it once
 new Runner("server/http/main.js").start()

@@ -2,6 +2,9 @@ export class World {
 	constructor() {
 		// Page.go(PracticePage)
 
+		// Out.js Test
+		console.log(window.mediasoup)
+
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 			{
