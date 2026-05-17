@@ -17,9 +17,9 @@ export class World {
 			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
 				Tts("wo---ooo-ooo-ooow. a sami lavvo")
 			}),
-		OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
-			Tts("woooo-oooow. a fireplace")
-		}),
+			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
+				Tts("woooo-oooow. a fireplace")
+			}),
 			Dialog([
 				{ text: "how are you", sleepEnd: 200 },
 				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
