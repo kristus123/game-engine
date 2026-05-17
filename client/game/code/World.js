@@ -25,9 +25,7 @@ export class World {
 				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
 				{ text: "Sit down, and relax", sleepEnd: 100 },
 				{ text: "We need some berries. go pick some!", sleepEnd: 1000 },
-			], () => {
-				console.log("wow")
-			}),
+			]),
 		])
 
 		Camera.follow(this.player)

@@ -1,28 +1,32 @@
 export class Dialog {
-	constructor(xxx, onFinish = () => {}) {
+	constructor(texts) {
+		Assert.notEmpty(texts)
 
-		this.talkBubble = F.talkBubble()
+		const bubble = F.talkBubble()
 
-		const stopWatch = StopWatch().start()
+		const stopWatch = StopWatch()
 
-		this.texts = ListLooper(xxx, ({ text, sleepEnd }, next) => {
-			if (stopWatch.moreThan(sleepEnd)) {
-				stopWatch.restart()
-				next()
-			}
-			else {
-				this.talkBubble.text.textContent = text
-				this.talkBubble.worldFloat(WorldPosition(1512, 2100))
-			}
-		}, () => {
-			this.talkBubble.remove()
-			onFinish()
-			this.removeItself()
+		this.lazyLoop = LazyLoop(texts, {
+			onNext: (value) => {
+				bubble.text.textContent = value.text
+			},
+			onFinish: () => {
+				bubble.remove()
+			},
+			onUpdate: (value) => {
+				if (stopWatch.moreThan(value.sleepEnd)) {
+					stopWatch.restart()
+					this.lazyLoop.next()
+				}
+				else {
+					bubble.worldFloat(WorldPosition(1512, 2100))
+				}
+			},
 		})
 	}
 
 	update() {
-		this.texts.update()
+		this.lazyLoop.update()
 	}
 
 }
