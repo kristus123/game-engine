@@ -28,7 +28,6 @@ export class World {
 			], () => {
 				console.log("wow")
 			}),
-
 		])
 
 		Camera.follow(this.player)
