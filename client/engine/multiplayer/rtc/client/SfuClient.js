@@ -69,8 +69,8 @@ export class SfuClient {
 				await new Promise(resolve => {
 					SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
 						if (data.kind == kind) {
-    						callback({ producerId: data.producerId })
-    						resolve()
+							callback({ producerId: data.producerId })
+							resolve()
 						}
 					})
 
