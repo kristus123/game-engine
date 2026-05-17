@@ -177,8 +177,8 @@ export class SfuServer {
 
 				Object.values(this.routers[rid].clients).forEach(clientObject => {
 					socketServer.sendToClient(clientObject.client, {
-    					action: "SFU_DISCONNECT_CONSUMER",
-    					clientId: clientId
+						action: "SFU_DISCONNECT_CONSUMER",
+						clientId: clientId
 					})
 				})
 			}

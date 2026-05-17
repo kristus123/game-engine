@@ -68,17 +68,17 @@ export class SfuClient {
 			try {
 				await new Promise(resolve => {
 					SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
-    					if (data.kind == kind) {
-        					callback({ producerId: data.producerId })
-        					resolve()
-    					}
+						if (data.kind == kind) {
+    						callback({ producerId: data.producerId })
+    						resolve()
+						}
 					})
 
 					console.log("Requesting Producer")
 					SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
-    					kind: kind,
-    					rtpParameters: rtpParameters,
-    					routerId: this.connectedRouterId
+						kind: kind,
+						rtpParameters: rtpParameters,
+						routerId: this.connectedRouterId
 					})
 				})
 			}
