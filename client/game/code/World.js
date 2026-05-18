@@ -20,7 +20,7 @@ export class World {
 			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
 				Tts("woooo-oooow. a fireplace")
 			}),
-			Dialog([
+			Dialogue([
 				{ text: "how are you", sleepEnd: 200000000 },
 				{ text: "It is time we learn about the Sami people", sleepEnd: 1000 },
 				{ text: "Sit down, and relax", sleepEnd: 1000 },

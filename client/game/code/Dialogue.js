@@ -1,4 +1,4 @@
-export class Dialog {
+export class Dialogue {
 	constructor(texts) {
 		Assert.notEmpty(texts)
 
