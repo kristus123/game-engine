@@ -21,9 +21,9 @@ export class World {
 				Tts("woooo-oooow. a fireplace")
 			}),
 			Dialog([
-				{ text: "how are you", sleepEnd: 200 },
-				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
-				{ text: "Sit down, and relax", sleepEnd: 100 },
+				{ text: "how are you", sleepEnd: 200000000 },
+				{ text: "It is time we learn about the Sami people", sleepEnd: 1000 },
+				{ text: "Sit down, and relax", sleepEnd: 1000 },
 				{ text: "We need some berries. go pick some!", sleepEnd: 1000 },
 			]),
 		])

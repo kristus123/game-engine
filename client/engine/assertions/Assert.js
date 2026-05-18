@@ -37,7 +37,7 @@ export class Assert {
 	}
 
 	static notEmpty(n) {
-		Assert.list(n)
+		Assert.array(n)
 
 		if (n.length == 0) {
 			throw new Error("list should not be empty")

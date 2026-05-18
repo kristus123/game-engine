@@ -4,23 +4,30 @@ export class Dialog {
 
 		const bubble = F.talkBubble()
 
-		const stopWatch = StopWatch()
-
 		this.lazyLoop = LazyLoop(texts, {
 			onNext: (value) => {
 				bubble.text.textContent = value.text
+				const text = bubble.text
+
+				text.splitLetters().forEach((s, i) => {
+					s.animate("fadeIn", {
+						variables: {
+							delay: (i * 8) + "ms",
+						},
+						onFinish: () => {
+							if (s == text.last) {
+								this.lazyLoop.next()
+							}
+						},
+					})
+
+				})
 			},
 			onFinish: () => {
 				bubble.remove()
 			},
 			onUpdate: (value) => {
-				if (stopWatch.moreThan(value.sleepEnd)) {
-					stopWatch.restart()
-					this.lazyLoop.next()
-				}
-				else {
-					bubble.worldFloat(WorldPosition(1512, 2100))
-				}
+				bubble.worldFloat(WorldPosition(1512, 2100))
 			},
 		})
 	}

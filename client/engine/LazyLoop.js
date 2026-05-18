@@ -1,28 +1,30 @@
 export class LazyLoop {
-	constructor(elements, { onNext, onFinish, onUpdate } = {}) {
+	constructor(elements, on) {
 		this.index = 0
 		this.completed = false
+
+		this.on.onNext(this.element)
 	}
 
 	get element() {
 		return this.elements[this.index]
 	}
 
-	get next() {
+	next() {
 		this.index += 1
 
 		if (this.index < this.elements.length) {
-			this.onNext?.(this.element)
+			this.on.onNext(this.element)
 		}
 		else {
-			this.onFinish?.()
+			this.on.onFinish?.()
 			this.completed = true
 		}
 	}
 
 	update() {
 		if (!this.completed) {
-			this.onUpdate?.(this.element)
+			this.on.onUpdate?.(this.element)
 		}
 	}
 

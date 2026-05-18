@@ -10,24 +10,64 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "splitLetters", function () {
+	Getter(HTMLElement.prototype, "last", function (callback) {
+		return this.children.at(-1)
+	})
 
+	Enhance(HTMLElement.prototype, "splitWords", function () {
 		const text = Assert.value(this.textContent)
 		this.textContent = ""
 
 		const frag = document.createDocumentFragment()
 
-		for (let i = 0; i < text.length; i++) {
+		const tokens = text.split(/(\s+)/)
+
+		for (const token of tokens) {
+			if (token == "") {
+				continue
+			}
+
+			// whitespace → KEEP AS TEXT NODE
+			if (/\s+/.test(token)) {
+  	frag.appendChild(document.createTextNode(token))
+  	continue
+			}
+
+			// word → wrap in span
 			const span = document.createElement("span")
-			span.textContent = text[i]
-			span.dataset.index = i
+			span.className = "word"
+			span.textContent = token
+
 			frag.appendChild(span)
 		}
 
 		this.appendChild(frag)
+		return this
+	})
+
+
+	Enhance(HTMLElement.prototype, "splitLetters", function () {
+		this.splitWords()
+
+		this.querySelectorAll("span.word").forEach(word => {
+			const text = word.textContent
+			word.textContent = ""
+
+			const frag = document.createDocumentFragment()
+
+			for (let i = 0; i < text.length; i++) {
+  	const span = document.createElement("span")
+  	span.textContent = text[i]
+  	span.dataset.index = i
+  	frag.appendChild(span)
+			}
+
+			word.appendChild(frag)
+		})
 
 		return this
 	})
+
 
 	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
 		this._listeners ??= []
@@ -182,23 +222,50 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "addCssVariable", function (key, value) {
+		this.style.setProperty(`--${key}`, value)
+		return this
+	})
+
 	Enhance(HTMLElement.prototype, "css", function (newCss) {
 		this.style.cssText += newCss
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "animate", function (className, onEnd = () => {}) {
-		this.addClass(className)
+	Enhance(HTMLElement.prototype, "animate", function (className, { variables={} onStart, onEnd } = {}) {
+		const runId = crypto.randomUUID()
 
-		this.addEventListener("animationstart", () => {
+		variables.forEach((key, value) => {
+			this.addCssVariable(key, value)
 		})
 
-		this.addEventListener("animationend", () => {
-			// this.removeClass(className)
+		this.classList.add(className)
+		this.dataset.animRunId = runId
+
+		const handleStart = (e) => {
+		if (e.target != this) return
+		if (this.dataset.animRunId != runId) return
+
+		onStart?.(e)
+		}
+
+		const handleEnd = (e) => {
+			if (e.target != this) return
+			if (e.animationName && e.animationName != className) return
+			if (this.dataset.animRunId != runId) return
+
+			this.classList.remove(className)
+			delete this.dataset.animRunId
+
+			this.removeEventListener("animationstart", handleStart)
+			this.removeEventListener("animationend", handleEnd)
+
 			this.remove()
+			onEnd?.(e)
+		}
 
-			onEnd()
-		})
+		this.addEventListener("animationstart", handleStart)
+		this.addEventListener("animationend", handleEnd)
 
 		return this
 	})

@@ -2,6 +2,8 @@ span {
 	display: inline-block;
 	animation: bounce 1s infinite;
 	transform-origin: bottom;
+	margin:0;
+	padding:0;
 }
 
 @keyframes bounce {
@@ -13,4 +15,32 @@ span {
 	70%  { transform: translateY(-4px); }
 	85%  { transform: translateY(0); }
 	100% { transform: translateY(-200px); }
+}
+
+
+span.fadeIn {
+	opacity: 0;
+	display: inline-block;
+	animation: fadeIn 0.5s forwards;
+	animation-delay: var(--delay);
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.word {
+	display: inline-block;
+}
+
+.word span {
+	display: inline-block;
 }
