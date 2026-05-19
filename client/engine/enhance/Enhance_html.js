@@ -10,8 +10,13 @@ export function Enhance_html() {
 		return this
 	})
 
-	Getter(HTMLElement.prototype, "last", function (callback) {
-		return this.children.at(-1)
+	Getter(HTMLElement.prototype, "last", function () {
+		if (this.empty) {
+			throw new Error("can't get last element if list is empty")
+		}
+		else {
+			return this.children[this.children.length - 1]
+		}
 	})
 
 	Enhance(HTMLElement.prototype, "splitWords", function () {
@@ -232,35 +237,45 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "animate", function (className, { variables={} onStart, onEnd } = {}) {
-		const runId = crypto.randomUUID()
+	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
+		const uuid = crypto.randomUUID()
 
 		variables.forEach((key, value) => {
 			this.addCssVariable(key, value)
 		})
 
 		this.classList.add(className)
-		this.dataset.animRunId = runId
+		this.dataset.uuid = uuid
 
 		const handleStart = (e) => {
-		if (e.target != this) return
-		if (this.dataset.animRunId != runId) return
+			if (e.target != this) {
+				return
+			}
+			if (this.dataset.uuid != uuid) {
+				return
+			}
 
-		onStart?.(e)
+			onStart?.(e)
 		}
 
 		const handleEnd = (e) => {
-			if (e.target != this) return
-			if (e.animationName && e.animationName != className) return
-			if (this.dataset.animRunId != runId) return
+			if (e.target != this) {
+				return
+			}
+			if (e.animationName && e.animationName != className) {
+				return
+			}
+			if (this.dataset.uuid != uuid) {
+				return
+			}
 
 			this.classList.remove(className)
-			delete this.dataset.animRunId
+			delete this.dataset.uuid
 
 			this.removeEventListener("animationstart", handleStart)
 			this.removeEventListener("animationend", handleEnd)
 
-			this.remove()
+			// this.remove()
 			onEnd?.(e)
 		}
 

@@ -1,26 +1,11 @@
 span {
 	display: inline-block;
-	animation: bounce 1s infinite;
-	transform-origin: bottom;
 	margin:0;
 	padding:0;
 }
 
-@keyframes bounce {
-	0%   { transform: translateY(50px); }
-	10%  { transform: translateY(-6px); }
-	25%  { transform: translateY(0); }
-	40%  { transform: translateY(-90px); }
-	55%  { transform: translateY(200px); }
-	70%  { transform: translateY(-4px); }
-	85%  { transform: translateY(0); }
-	100% { transform: translateY(-200px); }
-}
-
-
 span.fadeIn {
 	opacity: 0;
-	display: inline-block;
 	animation: fadeIn 0.5s forwards;
 	animation-delay: var(--delay);
 }
@@ -35,12 +20,4 @@ span.fadeIn {
 		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-.word {
-	display: inline-block;
-}
-
-.word span {
-	display: inline-block;
 }

@@ -31,10 +31,6 @@ export class LazyLoop {
 		if (!this.completed) {
 			this.on.onUpdate?.(this.element)
 		}
-		else {
-			// find out if this ever happens. it should not. after that remove if block
-			throw new Error("i dont want update to ever be triggered when completed")
-		}
 	}
 
 }
