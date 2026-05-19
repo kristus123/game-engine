@@ -11,7 +11,7 @@ async function loadWorld() {
 }
 
 ServiceWorker.init()
-HtmlObserverThing()
+// HtmlObserverThing()
 
 Promise.all([
 	loadWorld(),

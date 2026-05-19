@@ -12,22 +12,48 @@ export class World {
 					D1.lightSource(WorldPosition(1600, 2238))
 				},
 			},
+			this.oldSami = Sprite.oldSami(WorldPosition(1483 - 200, 2215 - 200)),
 			Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
-			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
-				Tts("wo---ooo-ooo-ooow. a sami lavvo")
+			...Iterate(100, () => {
+				const r = Sprite.rain(Random.direction(this.player.position, 2000))
+				return {
+					update() {
+						r.update()
+					}
+
+				}
 			}),
-			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
-				Tts("woooo-oooow. a fireplace")
-			}),
-			Dialog([
-				{ text: "how are you", sleepEnd: 200 },
-				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
-				{ text: "Sit down, and relax", sleepEnd: 100 },
-				{ text: "We need some berries. go pick some!", sleepEnd: 1000 },
-			], () => {
-				console.log("wow")
-			}),
+			Quest([
+				() => {
+					const d = Dialogue(this.oldSami.position, [
+						{ text: "We need some berries. go pick some!", sleepEnd: 100 },
+					])
+
+					return {
+						completed: () => {
+							return d.completed
+						},
+						update: () => {
+							d.update()
+						},
+					}
+				},
+				() => {
+					const d = Dialogue(this.player.position.offset(0, -20), [
+						{ text: "i need to find berries", sleepEnd: 100 },
+					])
+
+					return {
+						completed: () => {
+							return d.completed
+						},
+						update: () => {
+							d.update()
+						},
+					}
+				},
+			])
 		])
 
 		Camera.follow(this.player)
