@@ -7,7 +7,12 @@ export class LazyLoop {
 	}
 
 	get element() {
-		return this.elements[this.index]
+		if (this.elements.empty) {
+			throw new Error("list is empty")
+		}
+		else {
+			return this.elements[this.index]
+		}
 	}
 
 	next() {
@@ -25,6 +30,10 @@ export class LazyLoop {
 	update() {
 		if (!this.completed) {
 			this.on.onUpdate?.(this.element)
+		}
+		else {
+			// find out if this ever happens. it should not. after that remove if block
+			throw new Error("i dont want update to ever be triggered when completed")
 		}
 	}
 

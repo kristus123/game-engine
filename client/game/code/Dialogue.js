@@ -1,21 +1,19 @@
 export class Dialogue {
 	constructor(texts) {
-		Assert.notEmpty(texts)
 
-		const bubble = F.talkBubble()
+		const box = F.talkBubble()
 
 		this.lazyLoop = LazyLoop(texts, {
 			onNext: (value) => {
-				bubble.text.textContent = value.text
-				const text = bubble.text
+				box.text.textContent = value.text
 
-				text.splitLetters().forEach((s, i) => {
+				box.text.splitLetters().forEach((s, i) => {
 					s.animate("fadeIn", {
 						variables: {
 							delay: (i * 8) + "ms",
 						},
 						onFinish: () => {
-							if (s == text.last) {
+							if (s == box.text.last) {
 								this.lazyLoop.next()
 							}
 						},
@@ -24,10 +22,10 @@ export class Dialogue {
 				})
 			},
 			onFinish: () => {
-				bubble.remove()
+				box.remove()
 			},
 			onUpdate: (value) => {
-				bubble.worldFloat(WorldPosition(1512, 2100))
+				box.worldFloat(WorldPosition(1512, 2100))
 			},
 		})
 	}
