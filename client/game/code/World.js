@@ -24,10 +24,10 @@ export class World {
 				this.player.toggleTag("warm", b)
 			}),
 			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
-				Tts("wo---ooo-ooo-ooow. a sami lavvo")
+				Tts("sami lavvo")
 			}),
 			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
-				Tts("woooo-oooow. a fireplace")
+				Tts("fireplace")
 			}),
 			Dialogue(this.player.position, [
 				{ text: "how are you", sleepEnd: 200 },
