@@ -5,6 +5,12 @@ export class World {
 		// Out.js Test
 		console.log(window.mediasoup)
 
+		console.log(AudioBuffers.theme)
+		setTimeout(() => {
+
+			Sound.playBuffer(AudioBuffers.theme)
+		}, 2000)
+
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 			{

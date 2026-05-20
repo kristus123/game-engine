@@ -71,11 +71,6 @@ export class SpriteController extends Entity {
 	}
 
 	update() {
-		console.log(this.spriteName)
-		if (this.spriteName == "player") {
-			console.log(this.currentFrame)
-
-		}
 		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
 			picture.update(this.position)
 

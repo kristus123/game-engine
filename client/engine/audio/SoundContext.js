@@ -1,4 +1,5 @@
 export class SoundContext {
+
 	static {
 		this.context = new (window.AudioContext || window.webkitAudioContext)()
 
@@ -10,8 +11,8 @@ export class SoundContext {
 		return this.context.decodeAudioData(b) // AudioBuffer
 	}
 
-	static async createBufferSource(audioBuffer) {
-		const s = await AudioContext.createBufferSource()
+	static createBufferSource(audioBuffer) {
+		const s = this.context.createBufferSource()
 		s.buffer = audioBuffer
 		s.connect(this.globalGain)
 

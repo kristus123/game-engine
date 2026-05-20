@@ -8,4 +8,8 @@ export class Sound {
 		audio.play()
 	}
 
+	static playBuffer(buffer) {
+		const source = SoundContext.createBufferSource(buffer)
+		source.start(0)
+	}
 }
