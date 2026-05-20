@@ -10,6 +10,15 @@ export function Enhance_js_Array() {
 		return false
 	})
 
+	Enhance(Array.prototype, "valuePresent", function (value) {
+		return this.includes(value)
+	})
+
+	Getter(Array.prototype, "first", function () {
+		Assert.notEmpty(this)
+		return this[0]
+	})
+
 	Enhance(Array.prototype, "next", function (current) {
 		const i = this.indexOf(current)
 		if (i == -1 || i == this.length - 1) {
@@ -71,6 +80,7 @@ export function Enhance_js_Array() {
 	})
 
 	Getter(Array.prototype, "last", function () {
+		Assert.notEmpty(this)
 		return this.at(-1)
 	})
 

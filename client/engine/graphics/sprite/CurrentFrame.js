@@ -1,11 +1,13 @@
 export class CurrentFrame {
-	constructor(totalFrames) {
-		this.currentFrame = IntegerLoop(0, totalFrames)
-		this.stopWatch = StopWatch().start()
+	constructor(totalFrames, framesToIterateThrough) {
 	}
 
 	get value() {
 		return this.currentFrame.value
+	}
+
+	set value(n) {
+		this.currentFrame.current = n
 	}
 
 	next() {
@@ -13,9 +15,5 @@ export class CurrentFrame {
 	}
 
 	update(duration) {
-		if (this.stopWatch.time >= duration) {
-			this.currentFrame.next()
-			this.stopWatch.restart()
-		}
 	}
 }

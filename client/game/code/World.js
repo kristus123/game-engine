@@ -12,10 +12,10 @@ export class World {
 					D1.lightSource(WorldPosition(1600, 2238))
 				},
 			},
-			this.oldSami = Sprite.oldSami(WorldPosition(1483 - 200, 2215 - 200)),
+			// this.oldSami = Sprite.oldSami(WorldPosition(1483 - 200, 2215 - 200)),
 			Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
-			...Iterate(100, () => {
+			...Iterate(0, () => {
 				const r = Sprite.rain(Random.direction(this.player.position, 2000))
 				return {
 					update() {
@@ -26,7 +26,7 @@ export class World {
 			}),
 			Quest([
 				() => {
-					const d = Dialogue(this.oldSami.position, [
+					const d = Dialogue(this.player.position, [
 						{ text: "We need some berries. go pick some!", sleepEnd: 100 },
 					])
 
@@ -59,11 +59,15 @@ export class World {
 		Camera.follow(this.player)
 		Controller.control(this.player)
 
+		setTimeout(() => {
+			this.player.sprite.playTag("magic")
+		}, 2000)
+
 	}
 
 	update() {
 		this.objects.update()
 
-		D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
+		D1.text(Mouse.position, `${Mouse.x} ${Mouse.y}`)
 	}
 }
