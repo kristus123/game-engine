@@ -1,6 +1,7 @@
 export class Reindeer extends Entity {
 	constructor() {
 		super(Random.direction(WorldPosition(1000, 2000), 1000))
+
 		this.objects = Objects([
 			Sprite.reindeer(this.position).loopTag("run"),
 		])
