@@ -10,6 +10,89 @@ async function loadWorld() {
 	return World // for some reason it crashes if you don't do it like this
 }
 
+
+
+
+
+// export function drawLight(ctx, x, y, radius=200, color = "yellow", intensity = 1) {
+// 	ctx.globalCompositeOperation = "source-atop"
+
+// 	const g = ctx.createRadialGradient(
+// 		x, y, 0,
+// 		x, y, radius
+// 	)
+
+// 	ctx.globalAlpha = intensity
+
+// 	g.addColorStop(0, color)
+// 	g.addColorStop(1, "rgba(255,255,255,0)")
+
+// 	ctx.fillStyle = g
+
+// 	ctx.beginPath()
+// 	ctx.arc(x, y, radius, 0, Math.PI * 2)
+// 	ctx.fill()
+// }
+
+export function drawLight(ctx, x, y, radius=700) {
+	ctx.save()
+
+	ctx.globalCompositeOperation = "destination-out"
+
+	const g = ctx.createRadialGradient(x, y, 0, x, y, radius)
+	g.addColorStop(0, "rgba(255,255,255,1)")
+	g.addColorStop(1, "rgba(255,255,255,0)")
+
+	ctx.fillStyle = g
+	ctx.beginPath()
+	ctx.arc(x, y, radius, 0, Math.PI * 2)
+	ctx.fill()
+
+	ctx.restore()
+}
+
+export function drawLightColor(ctx, x, y, radius, color = "255,255,255", intensity = 1) {
+	ctx.save()
+
+	ctx.globalCompositeOperation = "screen"
+	// ctx.globalCompositeOperation = "lighter"
+
+	const g = ctx.createRadialGradient(x, y, 0, x, y, radius)
+
+	g.addColorStop(0, `rgba(${color},${intensity})`)
+	g.addColorStop(1, `rgba(${color},0)`)
+
+	ctx.fillStyle = g
+	ctx.beginPath()
+	ctx.arc(x, y, radius, 0, Math.PI * 2)
+	ctx.fill()
+
+	ctx.restore()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ServiceWorker.init()
 // HtmlObserverThing()
 
@@ -33,6 +116,7 @@ Promise.all([
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
+			Palette.light.clear()
 
 			Physics.update()
 			Controller.update()
@@ -45,6 +129,16 @@ Promise.all([
 					c.showTags()
 				}
 			})
+
+			Palette.light.fill("black", 0.98)
+			Camera.applyPositionContextThing(Palette.light, () => {
+				drawLight(Palette.light.ctx, 2000, 2000)
+				drawLight(Palette.light.ctx, 1500, 2200)
+				// drawLightColor(Palette.light.ctx, 2000, 2000, 700, "200,0,100", 0.5)
+				// drawLightColor(Palette.light.ctx, 2000, 2000, 700, "200,0,20", 0.5)
+			})
+
+			Palette.main.apply(Palette.light)
 		})
 	})
 	.catch(e => {

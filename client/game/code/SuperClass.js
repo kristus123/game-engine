@@ -21,6 +21,15 @@ export class SuperClass {
 		}
 	}
 
+	toggleTag(tag, toggle) {
+		if (toggle) {
+			this.addTag(tag)
+		}
+		else {
+			this.removeTag(tag)
+		}
+	}
+
 	addTag(tag) {
 		this.removeTag(tag)
 		this.tags += format(tag)

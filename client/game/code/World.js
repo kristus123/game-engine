@@ -12,8 +12,11 @@ export class World {
 					D1.lightSource(WorldPosition(1600, 2238))
 				},
 			},
-			Sprite.fireplace(WorldPosition(1512, 2100)),
+			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
+			OnChange(() => this.player.within(200, this.fireplace), b => {
+				this.player.toggleTag("warm", b)
+			}),
 			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
 				Tts("wo---ooo-ooo-ooow. a sami lavvo")
 			}),

@@ -29,11 +29,7 @@ export class SpriteController extends Entity {
 				frame: frame,
 				tag: tag,
 				duration: duration,
-				picture: Picture(layersImage).crop(x, y, w, h).changeColor({ "rgb(171,161,92)": {
-					r: 0,
-					g: 0,
-					b: 255
-				} }),
+				picture: Picture(layersImage).crop(x, y, w, h),
 			}
 
 			this.tagFrames[tag] ??= []
