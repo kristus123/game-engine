@@ -28,9 +28,9 @@ export class SpriteController extends Entity {
 				frame: frame,
 				tag: tag,
 				duration: duration,
-				picture: Picture(layersImage).crop(x, y, w, h).changeColor({ "17116192": {
-					r: 255,
-					g: 255,
+				picture: Picture(layersImage).crop(x, y, w, h).changeColor({ "rgb(171,161,92)": {
+					r: 0,
+					g: 0,
 					b: 255
 				} }),
 			}

@@ -29,8 +29,8 @@ export class Picture {
 			const g = data[i + 1]
 			const b = data[i + 2]
 
-			if (colorMap[`${r}${g}${b}`]) {
-				const color = colorMap[`${r}${g}${b}`]
+			if (colorMap[`rgb(${r},${g},${b})`]) {
+				const color = colorMap[`rgb(${r},${g},${b})`]
 
 				data[i] = color.r
 				data[i + 1] = color.g
