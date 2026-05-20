@@ -36,6 +36,8 @@ export class World {
 	}
 
 	update() {
+		
+		
 		this.objects.update()
 
 		D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
