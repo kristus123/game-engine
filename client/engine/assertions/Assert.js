@@ -36,6 +36,17 @@ export class Assert {
 		}
 	}
 
+	static notEmpty(n) {
+		Assert.array(n)
+
+		if (n.length == 0) {
+			throw new Error("list should not be empty")
+		}
+		else {
+			return n
+		}
+	}
+
 	static array(x, callback=e => {}) {
 		if (Not.array(x)) {
 			throw new Error("NOT AN ARRAY")

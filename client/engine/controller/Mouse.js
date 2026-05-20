@@ -212,4 +212,12 @@ export class Mouse {
 		}
 	}
 
+	static get x() {
+		return this.position.x
+	}
+
+	static get y() {
+		return this.position.y
+	}
+
 }

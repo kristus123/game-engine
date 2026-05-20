@@ -1,24 +1,24 @@
 export class Quest {
 	constructor(tasks=[], onQuestCompleted=() => {}) {
-
-		Assert.method(onQuestCompleted)
-		Assert.array(tasks, t => t.assertOfType(Task))
-
 		this.index = 0
+
+		this.activeTask = tasks[this.index]()
 	}
 
 	update() {
-		tasks[this.index].update()
-
-		if (tasks[this.index].completed) {
+		if (this.activeTask.completed()) {
 			this.index += 1
-			if (tasks.validIndex(this.index)) {
-				tasks[this.index].start()
+
+			if (this.tasks.validIndex(this.index)) {
+				this.activeTask = this.tasks[this.index]()
 			}
 			else {
-				onQuestCompleted()
-				this.removeItself()
+				this.onQuestCompleted()
+				this.removeItself?.()
 			}
+		}
+		else {
+			this.activeTask.update()
 		}
 	}
 }
