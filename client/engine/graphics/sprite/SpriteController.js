@@ -42,6 +42,30 @@ export class SpriteController extends Entity {
 		this.stopWatch = StopWatch().start()
 	}
 
+	tint(r, g, b, a) {
+		for (const picture of this.getAllPicture()) {
+			picture.tint(r, g, b, a)
+		}
+	}
+
+	mirror() {
+		for (const picture of this.getAllPicture()) {
+			picture.mirror()
+		}
+	}
+
+	changeColor(colorMap) {
+		for (const picture of this.getAllPicture()) {
+			picture.changeColor(colorMap)
+		}
+	}
+
+	reset() {
+		for (const picture of this.getAllPicture()) {
+			picture.reset()
+		}
+	}
+
 	playTag(tag) {
 		this.activeTag = tag
 		this.looping = false
@@ -67,6 +91,14 @@ export class SpriteController extends Entity {
 			const { frame, tag, duration, picture } = frames[wantedFrame]
 
 			yield { layer, frames, frame, tag, duration, picture }
+		}
+	}
+
+	*getAllPicture() {
+		for (const frames of Object.values(this.layers)) {
+			for (const { picture } of Object.values(frames)) {
+				yield picture
+			}
 		}
 	}
 
