@@ -23,7 +23,7 @@ export class Picture {
 
 		const image = newCtx.getImageData(0, 0, this.canvas.width, this.canvas.height)
 		const data = image.data
-		
+
 		for (let i = 0; i < data.length; i += 4) {
 			const r = data[i]
 			const g = data[i + 1]
@@ -39,10 +39,10 @@ export class Picture {
 		}
 
 		newCtx.putImageData(image, 0, 0)
-		
+
 		this.ctx = newCtx
 		this.canvas = newCanvas
-		
+
 		this.ctx.drawImage(this.canvas, 0, 0)
 
 		return this
@@ -81,9 +81,9 @@ export class Picture {
 	}
 
 	tint(r, g, b, a) {
-		this.ctx.globalCompositeOperation =  "source-atop";
+		this.ctx.globalCompositeOperation = "source-atop"
 
-		this.ctx.fillStyle =  `rgba(${r},${g},${b},${a})`
+		this.ctx.fillStyle = `rgba(${r},${g},${b},${a})`
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 		this.ctx.drawImage(this.canvas, 0, 0)
 
