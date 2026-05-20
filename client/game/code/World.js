@@ -37,6 +37,9 @@ export class World {
 			], () => {
 				console.log("wow")
 			}),
+			...Iterate(200, () => {
+				return Reindeer()
+			}),
 		])
 
 		Camera.follow(this.player)
