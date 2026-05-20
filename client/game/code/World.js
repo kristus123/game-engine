@@ -46,7 +46,7 @@ export class World {
 		Controller.control(this.player)
 
 		// TEST CODE BELOW! PROCEED WITH CAUTION!!
-		
+
 		// Uncomment To Tint
 		//this.fireplace.tint(255, 55, 55, 255)
 

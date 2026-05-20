@@ -79,7 +79,7 @@ watcher.on("all", (e, path) => {
 	console.log(e)
 	console.log(path)
 	switch (e) {
-		case "change": { // folder created
+		case "change": { // file changed
 			break
 		}
 		case "add": { // file created
