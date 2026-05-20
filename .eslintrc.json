@@ -247,6 +247,7 @@
         "Quest": "readonly",
         "Rain": "readonly",
         "Random": "readonly",
+        "Reindeer": "readonly",
         "RtcClient": "readonly",
         "Scale": "readonly",
         "Screen": "readonly",
