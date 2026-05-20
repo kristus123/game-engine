@@ -12,7 +12,7 @@ export class World {
 		}, 2000)
 
 		this.objects = Objects([
-			Sprite.world(WorldPosition(0, 0)),
+			this.world = Sprite.world(WorldPosition(0, 0)),
 			{
 				update: () => {
 					D1.lightSource(WorldPosition(1600, 2238))
@@ -45,6 +45,30 @@ export class World {
 		Camera.follow(this.player)
 		Controller.control(this.player)
 
+		// TEST CODE BELOW! PROCEED WITH CAUTION!!
+		
+		// Uncomment To Tint
+		//this.fireplace.tint(255, 55, 55, 255)
+
+		// Uncomment To Mirror
+		// this.fireplace.mirror()
+
+		// Uncomment To Swap Color
+		this.world.changeColor({
+			"rgb(171,161,92)": {
+				r: 0,
+				g: 0,
+				b: 255
+			},
+			"rgb(133,140,79)": {
+				r: 255,
+				g: 0,
+				b: 0
+			}
+		})
+
+		// Uncomment To Reset Changes
+		// this.world.reset()
 	}
 
 	update() {
