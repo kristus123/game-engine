@@ -5,7 +5,7 @@ import path from "path"
 
 export function PrepareExternalBundle() {
 	console.log("Building External Bundle...")
-	
+
 	childProcess.exec(`npx esbuild ${FileConfig.externalBundle} --bundle --outfile=${FileConfig.externalBundleDistPath}`, (err, stdout, stderr) => {
 		if (err) {
 			console.error(err)

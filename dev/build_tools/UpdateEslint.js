@@ -5,7 +5,7 @@ import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
 export function UpdateEslint() {
 	const eslintGlobalsConfig = {}
-	
+
 	JsFiles.forEach(jsFile => {
 		const className = path.basename(jsFile, ".js")
 		eslintGlobalsConfig[className] = "readonly"
