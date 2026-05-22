@@ -10,11 +10,11 @@ class CurveImplementation {
 		this.elapsed = 0
 		this.value = start
 		this.lastTime = performance.now()
-		this.finished = false
+		this.done = false
 	}
 
 	update() {
-		if (this.finished) {
+		if (this.done) {
 			return this.value
 		}
 
@@ -42,8 +42,8 @@ class CurveImplementation {
 				this.value = this.start + (this.end - this.start) * t
 		}
 
-		if (t >= 1 && !this.finished) {
-			this.finished = true
+		if (t >= 1 && !this.done) {
+			this.done = true
 			if (this.onFinish) {
 				this.onFinish(this.value)
 			}
@@ -53,7 +53,7 @@ class CurveImplementation {
 	}
 
 	isFinished() {
-		return this.finished
+		return this.done
 	}
 }
 

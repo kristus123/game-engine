@@ -7,14 +7,14 @@ export class InfiniteListLooper {
 		this.index += 1
 	}
 
-	get finished() {
+	get done() {
 		return !(this.index < this.list.length)
 	}
 
 	goThrough(callback) {
 		callback(this.list[this.index], this.next)
 
-		if (this.finished) {
+		if (this.done) {
 			this.index = 0
 		}
 	}

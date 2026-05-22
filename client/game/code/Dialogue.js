@@ -2,7 +2,7 @@ export class Dialogue {
 	constructor(defaultPosition, texts) {
 
 		const box = F.talkBubble()
-		this.completed = false
+		this.done = false
 
 		this.lazyLoop = LazyLoop(texts, {
 			onNext: (value) => {
@@ -26,7 +26,7 @@ export class Dialogue {
 			},
 			onFinish: () => {
 				box.remove()
-				this.completed = true
+				this.done = true
 			},
 			onUpdate: (value) => {
 				box.worldFloat(value.position ?? this.defaultPosition)

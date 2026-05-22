@@ -1,7 +1,7 @@
 class _T {
 	constructor(objects) {
 		this.objects = Objects()
-		this.completed = false
+		this.done = false
 	}
 
 	start() {
@@ -15,7 +15,7 @@ class _T {
 
 	done() {
 		this.objects.clear()
-		this.completed = true
+		this.done = true
 	}
 }
 
@@ -28,7 +28,7 @@ export class Task {
 
 	}
 
-	get completed() {
+	get done() {
 
 	}
 

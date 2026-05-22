@@ -4,7 +4,7 @@ export class Path {
 	}
 
 	get position() {
-		if (!this.completed) {
+		if (!this.done) {
 			return this.points[this.index]
 		}
 		else {
@@ -24,7 +24,7 @@ export class Path {
 		}
 	}
 
-	get completed() {
+	get done() {
 		return this.index >= this.points.length - 1 &&
 		   	this.npc.touches(this.points[this.points.length - 1])
 	}

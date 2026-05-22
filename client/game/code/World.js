@@ -21,50 +21,17 @@ export class World {
 			this.player = Player(WorldPosition(1800, 2100)),
 			this.oldSami = OldSami(),
 			Quest([
-				() => {
+				({ markDone }) => {
 					const d = Dialogue(this.oldSami.position, [
 						{ text: "Come here young man", sleepEnd: 1000 },
-					])
+					], () => {
+						markDone()
+					})
 					return {
-						completed: () => this.oldSami.within(10, this.player),
 						update: () => {
 							d.update()
 							console.log("hei")
 							this.oldSami.forcePushTo(this.player, 50)
-						},
-					}
-				},
-				() => {
-					let done = false
-					const d = Dialogue(this.oldSami.position, [
-						{
-							text: "you were supposed to clean the playground",
-							sleepEnd: 1000,
-						},
-						{
-							text: "what are you, a poop?",
-							sleepEnd: 1000,
-						},
-						{
-							position: this.player.position,
-							text: "sorry chief",
-							sleepEnd: 1000,
-						},
-						{
-							text: "don't worry chump",
-							sleepEnd: 1000,
-						},
-						{
-							text: "just don't fool anymore around",
-							sleepEnd: 1000,
-						},
-					], () => {
-						done = true
-					})
-					return {
-						completed: () => done,
-						update: () => {
-							d.update()
 						},
 					}
 				},
