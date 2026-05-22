@@ -10,31 +10,7 @@ async function loadWorld() {
 	return World // for some reason it crashes if you don't do it like this
 }
 
-
-
-
-
-// export function drawLight(ctx, x, y, radius=200, color = "yellow", intensity = 1) {
-// 	ctx.globalCompositeOperation = "source-atop"
-
-// 	const g = ctx.createRadialGradient(
-// 		x, y, 0,
-// 		x, y, radius
-// 	)
-
-// 	ctx.globalAlpha = intensity
-
-// 	g.addColorStop(0, color)
-// 	g.addColorStop(1, "rgba(255,255,255,0)")
-
-// 	ctx.fillStyle = g
-
-// 	ctx.beginPath()
-// 	ctx.arc(x, y, radius, 0, Math.PI * 2)
-// 	ctx.fill()
-// }
-
-export function drawLight(ctx, x, y, radius=700) {
+export function drawLight(ctx, x, y, radius=1500) {
 	ctx.save()
 
 	ctx.globalCompositeOperation = "destination-out"
@@ -130,10 +106,10 @@ Promise.all([
 				}
 			})
 
-			Palette.light.fill("black", 0.98)
+			// Palette.light.fill("black", 1)
 			Camera.applyPositionContextThing(Palette.light, () => {
-				drawLight(Palette.light.ctx, 2000, 2000)
-				drawLight(Palette.light.ctx, 1500, 2200)
+				// drawLight(Palette.light.ctx, 2000, 2000)
+				// drawLight(Palette.light.ctx, 1500, 2200)
 				// drawLightColor(Palette.light.ctx, 2000, 2000, 700, "200,0,100", 0.5)
 				// drawLightColor(Palette.light.ctx, 2000, 2000, 700, "200,0,20", 0.5)
 			})

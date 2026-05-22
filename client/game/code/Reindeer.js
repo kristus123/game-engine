@@ -6,7 +6,7 @@ export class Reindeer extends Entity {
 			Sprite.reindeer(this.position).loopTag("run"),
 		])
 
-		this.speed = Random.integerBetween(1, 10)
+		this.speed = Random.integerBetween(1, 3)
 	}
 
 	update() {

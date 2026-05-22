@@ -7,7 +7,6 @@ export class World {
 
 		console.log(AudioBuffers.theme)
 		setTimeout(() => {
-
 			Sound.playBuffer(AudioBuffers.theme)
 		}, 2000)
 
@@ -20,6 +19,56 @@ export class World {
 			},
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
+			this.oldSami = OldSami(),
+			Quest([
+				() => {
+					const d = Dialogue(this.oldSami.position, [
+						{ text: "Come here young man", sleepEnd: 1000 },
+					])
+					return {
+						completed: () => this.oldSami.within(10, this.player),
+						update: () => {
+							d.update()
+							console.log("hei")
+							this.oldSami.forcePushTo(this.player, 50)
+						},
+					}
+				},
+				() => {
+					let done = false
+					const d = Dialogue(this.oldSami.position, [
+						{
+							text: "you were supposed to clean the playground",
+							sleepEnd: 1000,
+						},
+						{
+							text: "what are you, a poop?",
+							sleepEnd: 1000,
+						},
+						{
+							position: this.player.position,
+							text: "sorry chief",
+							sleepEnd: 1000,
+						},
+						{
+							text: "don't worry chump",
+							sleepEnd: 1000,
+						},
+						{
+							text: "just don't fool anymore around",
+							sleepEnd: 1000,
+						},
+					], () => {
+						done = true
+					})
+					return {
+						completed: () => done,
+						update: () => {
+							d.update()
+						},
+					}
+				},
+			]),
 			OnChange(() => this.player.within(200, this.fireplace), b => {
 				this.player.toggleTag("warm", b)
 			}),
@@ -37,7 +86,7 @@ export class World {
 			], () => {
 				console.log("wow")
 			}),
-			...Iterate(200, () => {
+			...Iterate(100, () => {
 				return Reindeer()
 			}),
 		])
@@ -68,7 +117,7 @@ export class World {
 		})
 
 		// Uncomment To Reset Changes
-		// this.world.reset()
+		this.world.reset()
 	}
 
 	update() {
