@@ -76,7 +76,7 @@ function indentations(str) {
 
 export function Transpiler(ENVIRONMENT) {
 	if (!ENVIRONMENT) {
-		throw new Error("you need to include ENVIRONMENTironment when calling generate_dist.js")
+		throw new Error("you need to include environment when calling generate_dist.js")
 	}
 
 	for (const jsFilePath of JsFiles) {
