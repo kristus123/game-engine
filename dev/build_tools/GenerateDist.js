@@ -1,73 +1,79 @@
 import { Files } from "#root/dev/build_tools/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/build_tools/Markdown.js"
+import { CopyManifestToDist } from "#root/dev/build_tools/CopyManifestToDist.js"
+import { VerifyNoReservedClashes } from "#root/dev/build_tools/VerifyNoReservedClashes.js"
+import { AssertUniqueFileNames } from "#root/dev/build_tools/AssertUniqueFileNames.js"
+import { Transpiler } from "#root/dev/build_tools/Transpiler.js"
 
-import "#root/dev/build_tools/Transpiler.js"
+export function GenerateDist(env) {
+	Transpiler(env)
 
-Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
-Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
+	Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
+	Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
 
-import "#root/dev/build_tools/CopyManifestToDist.js"
-import "#root/dev/build_tools/VerifyNoReservedClashes.js"
-import "#root/dev/build_tools/AssertUniqueFileNames.js"
+	CopyManifestToDist()
+	VerifyNoReservedClashes()
+	AssertUniqueFileNames()
 
-const asepriteFiles = Files.at(FileConfig.asepriteAssets)
-	.map(f => f.replace("\\aseprite", "")) // windows compability
-	.map(f => f.replace(".aseprite", ""))
-	.map(f => `/${f}`)
-	.map(f => `"${f}"`)
-	.map(f => f.replace(/\\/g, "/"))
-Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
+	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
+		.map(f => f.replace("\\aseprite", "")) // windows compability
+		.map(f => f.replace(".aseprite", ""))
+		.map(f => `/${f}`)
+		.map(f => `"${f}"`)
+		.map(f => f.replace(/\\/g, "/"))
+	Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
 
 
-const names = Files.at(FileConfig.client)
-	.filter(f => f.endsWith(".html") || f.endsWith(".md"))
-	.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
+	const names = Files.at(FileConfig.client)
+		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
+		.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
 
-const seen = new Set()
-for (const name of names) {
-	if (seen.has(name)) {
-		throw new Error(`Duplicate file name found: ${name}`)
-	}
-	seen.add(name)
-}
-
-const htmlContents = Files.at(FileConfig.client)
-	.filter(f => !f.includes("index.html"))
-	.filter(f => f.endsWith(".html") || f.endsWith(".md"))
-	.map(f => {
-		let content = Files.read(f)
-
-		if (f.endsWith(".md")) {
-			content = Markdown.toHtml(content)
+	const seen = new Set()
+	for (const name of names) {
+		if (seen.has(name)) {
+			throw new Error(`Duplicate file name found: ${name}`)
 		}
+		seen.add(name)
+	}
 
-		content = content
-			.replace("\n", "")
-			.replace(/\s+/g, " ")
-			.trim()
+	const htmlContents = Files.at(FileConfig.client)
+		.filter(f => !f.includes("index.html"))
+		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
+		.map(f => {
+			let content = Files.read(f)
 
-		const name = f.split("/").pop()
-			.replace(/\.html$/, "")
-			.replace(/\.md$/, "")
+			if (f.endsWith(".md")) {
+				content = Markdown.toHtml(content)
+			}
 
-		return JSON.stringify({ name: name, content: content })
-	})
+			content = content
+				.replace("\n", "")
+				.replace(/\s+/g, " ")
+				.trim()
 
-Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
+			const name = f.split("/").pop()
+				.replace(/\.html$/, "")
+				.replace(/\.md$/, "")
 
-const audioFiles = Files.at(FileConfig.gameAudio)
-	.filter(f => f.toLowerCase().endsWith(".mp3"))
-	.map(f => `/${f}`)
-	.map(f => `"${f}"`)
-	.map(f => f.replace(/\\/g, "/"))
-Files.replace(FileConfig.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
+			return JSON.stringify({ name: name, content: content })
+		})
 
-const cssImports = Files.at(FileConfig.gameUiCss)
-	.map(f => f.replaceAll("\\", "/")) // windows compability
-	.map(f => Files.read(f))
-	.join("\n")
+	Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
 
-const indexHtml = Files.read(FileConfig.gameIndexHtml)
-	.replace("CSS_IMPORTS", cssImports)
-Files.write(FileConfig.toDistPath("index.html"), indexHtml)
+	const audioFiles = Files.at(FileConfig.gameAudio)
+		.filter(f => f.toLowerCase().endsWith(".mp3"))
+		.map(f => `/${f}`)
+		.map(f => `"${f}"`)
+		.map(f => f.replace(/\\/g, "/"))
+	Files.replace(FileConfig.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
+
+	const cssImports = Files.at(FileConfig.gameUiCss)
+		.map(f => f.replaceAll("\\", "/")) // windows compability
+		.map(f => Files.read(f))
+		.join("\n")
+
+	const indexHtml = Files.read(FileConfig.gameIndexHtml)
+		.replace("CSS_IMPORTS", cssImports)
+	Files.write(FileConfig.toDistPath("index.html"), indexHtml)
+}

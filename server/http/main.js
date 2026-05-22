@@ -4,6 +4,7 @@ import webPush from "web-push"
 import { socketServer } from "#root/server/socket/SocketServer.js"
 import { SfuServer } from "#root/server/rtc/SfuServer.js"
 
+const PORT = 3000
 const vapidKeys = webPush.generateVAPIDKeys()
 
 webPush.setVapidDetails(
@@ -74,9 +75,11 @@ Flask.route("deleteFile", (body) => {
 	return FileDb.deleteFile(body.filename)
 })
 
-const PORT = 3000
-Flask.listen(PORT)
+export function StartMain() {
+	Flask.listen(PORT)
 
-SfuServer.start().then(() => {
-	socketServer.start()
-})
+	SfuServer.start().then(() => {
+		socketServer.start()
+	})
+}
+

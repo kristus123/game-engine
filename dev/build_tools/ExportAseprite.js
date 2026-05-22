@@ -32,15 +32,15 @@ function exportAseprite(relSrcFile, destBase) {
 	Aseprite.tilemaps(relSrcFile)
 }
 
-const editedFile = process.argv[2] || false
+export function ExportAseprite(editedFile) {
+	const exportFile = (file) => {
+		exportAseprite(file, FileConfig.toDistPath(`${file}`))
+	}
 
-const exportFile = (file) => {
-	exportAseprite(file, FileConfig.toDistPath(`${file}`))
-}
-
-if (editedFile) {
-	exportFile(editedFile)
-}
-else {
-	walk(FileConfig.asepriteAssets, exportFile)
+	if (editedFile) {
+		exportFile(editedFile)
+	}
+	else {
+		walk(FileConfig.asepriteAssets, exportFile)
+	}
 }

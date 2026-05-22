@@ -1,8 +1,5 @@
 import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
-const processedNames = JsFiles
-	.map(f => f.split("/").pop().replace(".js", ""))
-
 function extractDuplicates(arr) {
 	const seen = new Set()
 	const dupes = new Set()
@@ -17,10 +14,15 @@ function extractDuplicates(arr) {
 	return [...dupes]
 }
 
-const duplicates = extractDuplicates(processedNames)
+export function AssertUniqueFileNames() {
+	const processedNames = JsFiles
+		.map(f => f.split("/").pop().replace(".js", ""))
 
-if (duplicates.length != 0) {
-	throw new Error(`${duplicates}: we do not allow duplicate naming`)
-	// maybe we change this in the future. it is a little strict
-	// but currently this is what the engine expects
+	const duplicates = extractDuplicates(processedNames)
+
+	if (duplicates.length != 0) {
+		throw new Error(`${duplicates}: we do not allow duplicate naming`)
+		// maybe we change this in the future. it is a little strict
+		// but currently this is what the engine expects
+	}
 }

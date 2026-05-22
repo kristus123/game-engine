@@ -8,6 +8,10 @@ import { Files } from "#root/dev/build_tools/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 
 import { execSync } from "child_process"
+import { ExportAseprite } from "#root/dev/build_tools/ExportAseprite.js"
+import { GenerateDist } from "#root/dev/build_tools/GenerateDist.js"
+import { PrepareExternalBundle } from "#root/dev/build_tools/PrepareExternalBundle.js"
+import { StartMain } from "#root/server/http/main.js"
 
 const killPort = (port) => {
 	try {
@@ -90,7 +94,7 @@ watcher.on("all", (e, path) => {
 		}
 		case "unlink": { // file deleted
 			Files.deleteFile("dist/" + path)
-			new Runner(FileConfig.exportAseprite).start()
+			ExportAseprite(true)
 			break
 		}
 		case "unlinkDir": { // folder deleted
@@ -102,16 +106,16 @@ watcher.on("all", (e, path) => {
 		}
 	}
 
-	new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
+	GenerateDist("DEVELOPMENT")
 
 	triggerClientReload()
 })
 
 
 // initial build
-new Runner(FileConfig.exportAseprite).start()
-new Runner(FileConfig.generateDist, ["DEVELOPMENT"]).start()
-new Runner(FileConfig.prepareExternalBundle).start()
+ExportAseprite(false)
+GenerateDist("DEVELOPMENT")
+PrepareExternalBundle()
 
 // for now only run it once
-new Runner("server/http/main.js").start()
+StartMain()

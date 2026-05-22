@@ -3,18 +3,21 @@ import path from "path"
 
 import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
-const eslintGlobalsConfig = {}
-JsFiles.forEach(jsFile => {
-	const className = path.basename(jsFile, ".js")
-	eslintGlobalsConfig[className] = "readonly"
-})
+export function UpdateEslint() {
+	const eslintGlobalsConfig = {}
 
-// Sort alphabetically
-const sortedEslintGlobalsConfig = Object.fromEntries(Object.entries(eslintGlobalsConfig).sort())
+	JsFiles.forEach(jsFile => {
+		const className = path.basename(jsFile, ".js")
+		eslintGlobalsConfig[className] = "readonly"
+	})
 
-const eslintRcPath = ".eslintrc.json"
+	// Sort alphabetically
+	const sortedEslintGlobalsConfig = Object.fromEntries(Object.entries(eslintGlobalsConfig).sort())
 
-const eslintRcData = JSON.parse(fs.readFileSync(eslintRcPath, "utf8"))
-eslintRcData.globals = sortedEslintGlobalsConfig
+	const eslintRcPath = ".eslintrc.json"
 
-fs.writeFileSync(eslintRcPath, JSON.stringify(eslintRcData, null, 4))
+	const eslintRcData = JSON.parse(fs.readFileSync(eslintRcPath, "utf8"))
+	eslintRcData.globals = sortedEslintGlobalsConfig
+
+	fs.writeFileSync(eslintRcPath, JSON.stringify(eslintRcData, null, 4))
+}

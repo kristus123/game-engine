@@ -2,14 +2,16 @@ import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 
 import { ReservedJsKeywords } from "#root/dev/build_tools/ReservedJsKeywords.js"
 
-// better safe and strict than sorry and loosey goosey
-const keywords = ReservedJsKeywords
-	.map(w => w.toLowerCase())
+export function VerifyNoReservedClashes() {
+	// better safe and strict than sorry and loosey goosey
+	const keywords = ReservedJsKeywords
+		.map(w => w.toLowerCase())
 
-for (const file of JsFiles) {
-	const name = file.split("/").pop().replace(".js", "").toLowerCase() // ! Strict
+	for (const file of JsFiles) {
+		const name = file.split("/").pop().replace(".js", "").toLowerCase() // ! Strict
 
-	if (keywords.includes(name)) {
-		throw new Error(`${file} can not be named as such, because it clashes with a reserved js keywords`)
+		if (keywords.includes(name)) {
+			throw new Error(`${file} can not be named as such, because it clashes with a reserved js keywords`)
+		}
 	}
 }
