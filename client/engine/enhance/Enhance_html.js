@@ -20,59 +20,80 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "splitWords", function () {
-		const text = Assert.value(this.textContent)
-		this.textContent = ""
+		const walker = document.createTreeWalker(
+			this,
+			NodeFilter.SHOW_TEXT
+		)
 
-		const frag = document.createDocumentFragment()
+		const textNodes = []
 
-		const tokens = text.split(/(\s+)/)
+		while (walker.nextNode()) {
+			textNodes.push(walker.currentNode)
+		}
 
-		for (const token of tokens) {
-			if (token == "") {
+		for (const node of textNodes) {
+			const text = node.nodeValue
+
+			// skip whitespace-only nodes
+			if (!text.trim()) {
 				continue
 			}
 
-			// whitespace → KEEP AS TEXT NODE
-			if (/\s+/.test(token)) {
-  	frag.appendChild(document.createTextNode(token))
-  	continue
+			const frag = document.createDocumentFragment()
+
+			const tokens = text.split(/(\s+)/)
+
+			for (const token of tokens) {
+				if (!token) {
+					continue
+				}
+
+				if (/\s+/.test(token)) {
+					frag.appendChild(document.createTextNode(token))
+					continue
+				}
+
+				const span = document.createElement("span")
+				span.className = "word"
+				span.textContent = token
+
+				frag.appendChild(span)
 			}
 
-			// word → wrap in span
-			const span = document.createElement("span")
-			span.className = "word"
-			span.textContent = token
-
-			frag.appendChild(span)
+			node.replaceWith(frag)
 		}
 
-		this.appendChild(frag)
 		return this
 	})
-
 
 	Enhance(HTMLElement.prototype, "splitLetters", function () {
 		this.splitWords()
 
 		this.querySelectorAll("span.word").forEach(word => {
+			// only split spans we created
+			if (word.dataset.splitLetters) {
+				return
+			}
+
 			const text = word.textContent
 			word.textContent = ""
 
 			const frag = document.createDocumentFragment()
 
 			for (let i = 0; i < text.length; i++) {
-  	const span = document.createElement("span")
-  	span.textContent = text[i]
-  	span.dataset.index = i
-  	frag.appendChild(span)
+				const span = document.createElement("span")
+				span.textContent = text[i]
+				span.dataset.index = i
+
+				frag.appendChild(span)
 			}
 
+			word.dataset.splitLetters = "true"
 			word.appendChild(frag)
 		})
 
 		return this
 	})
-
 
 	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
 		this._listeners ??= []

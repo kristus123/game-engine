@@ -1,8 +1,13 @@
 export function IntroQuest(player, oldSami) {
 	return Quest([
+
+
+
+
+
 		({ markDone }) => {
 			const d = Dialogue(oldSami.position, [
-				{ text: "Come here young man", sleepEnd: 1000 },
+				{ text: "Come here <span style='color:red'>sexy ass</span> young man", sleepEnd: 1000 },
 			], () => {
 				console.log("ok done")
 				markDone()
@@ -15,9 +20,16 @@ export function IntroQuest(player, oldSami) {
 				},
 			}
 		},
+
+
+
+
+
 		({ markDone }) => {
 			const d = Dialogue(player.position, [
-				{ text: "how are you", sleepEnd: 200 },
+				{ text: `
+						how are you <span style='color:yellow; font-size:40px;'>cum ass</span>
+					`, sleepEnd: 2000 },
 			], () => {
 				markDone()
 			})
@@ -29,6 +41,11 @@ export function IntroQuest(player, oldSami) {
 				},
 			}
 		},
+
+
+
+
+
 		({ markDone }) => {
 			const box = F.talkBubble()
 			box.text.textContent = "i need to find x"
@@ -39,8 +56,12 @@ export function IntroQuest(player, oldSami) {
 					console.log("updating lsat thing baby")
 				},
 			}
-
 		},
+
+
+
+
+
 	], () => {
 		console.log("finished questing baby")
 	})
