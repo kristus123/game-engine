@@ -27,7 +27,7 @@ export class LightSource {
 
 		const ctx = Palette.light.ctx
 
-		this.removeShadow(x,y,radius)
+		this.removeShadow(x, y, radius)
 
 		// THIS ADDS LIGHT (does NOT erase anything)
 		// alternative: "lighter" for stronger additive blending
