@@ -33,7 +33,6 @@ Promise.all([
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
-			Palette.light.clear()
 
 			Physics.update()
 			Controller.update()
@@ -47,6 +46,7 @@ Promise.all([
 				}
 			})
 
+			Palette.light.clear()
 			LightSource.update()
 			Camera.applyPositionContextThing(Palette.light.ctx, () => {
 				LightSource.drawLight(1500, 2200)
