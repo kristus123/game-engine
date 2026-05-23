@@ -74,8 +74,8 @@ function indentations(str) {
 	return (str.match(/\t/g) || []).length
 }
 
-export function Transpiler(env) {
-	if (!env) {
+export function Transpiler(ENVIRONMENT) {
+	if (!ENVIRONMENT) {
 		throw new Error("you need to include environment when calling generate_dist.js")
 	}
 
@@ -106,7 +106,7 @@ export function Transpiler(env) {
 				`export class ${className} {`, `export class ${className} extends SuperClass {`)
 		}
 
-		fileContent = fileContent.replaceAll("env", `"${env}"`)
+		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 		const lines = fileContent.split("\n")
 

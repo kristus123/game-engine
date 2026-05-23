@@ -11,7 +11,7 @@ import { execSync } from "child_process"
 import { ExportAseprite } from "#root/dev/build_tools/ExportAseprite.js"
 import { GenerateDist } from "#root/dev/build_tools/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/build_tools/PrepareExternalBundle.js"
-import { StartMain } from "#root/server/http/main.js"
+import { StartServer } from "#root/server/http/StartServer.js"
 
 const killPort = (port) => {
 	try {
@@ -118,4 +118,4 @@ GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 
 // for now only run it once
-StartMain()
+StartServer()

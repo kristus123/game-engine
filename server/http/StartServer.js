@@ -75,11 +75,10 @@ Flask.route("deleteFile", (body) => {
 	return FileDb.deleteFile(body.filename)
 })
 
-export function StartMain() {
+export function StartServer() {
 	Flask.listen(PORT)
 
 	SfuServer.start().then(() => {
 		socketServer.start()
 	})
 }
-
