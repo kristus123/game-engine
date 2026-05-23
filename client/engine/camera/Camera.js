@@ -12,9 +12,7 @@ export class Camera {
 		}
 	}
 
-	static applyPositionContextThing(palette, run) {
-
-		const ctx = palette.ctx
+	static applyPositionContextThing(ctx, run) {
 
 		ctx.save()
 
