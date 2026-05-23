@@ -84,14 +84,22 @@ watcher.on("all", (e, path) => {
 	console.log(path)
 	switch (e) {
 		case "change": { // file changed
+			Files.copyFile(path, "dist/" + path)
+			ExportAseprite(true)
 			break
 		}
+
 		case "add": { // file created
+			Files.copyFile(path, "dist/" + path)
+			ExportAseprite(true)
 			break
 		}
+
 		case "addDir": { // folder created
+			Files.createFolder("dist/" + path)
 			break
 		}
+
 		case "unlink": { // file deleted
 			Files.deleteFile("dist/" + path)
 			ExportAseprite(true)

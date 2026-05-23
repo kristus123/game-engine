@@ -38,7 +38,7 @@ export function ExportAseprite(editedFile) {
 	}
 
 	if (editedFile) {
-		exportFile(editedFile)
+		exportFile(editedFile) // <--- editedFile is a boolean not path!
 	}
 	else {
 		walk(FileConfig.asepriteAssets, exportFile)
