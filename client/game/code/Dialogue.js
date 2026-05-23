@@ -1,5 +1,5 @@
 export class Dialogue {
-	constructor(defaultPosition, texts) {
+	constructor(defaultPosition, texts, onDone = () => {}) {
 
 		const box = F.talkBubble()
 		this.done = false
@@ -21,12 +21,12 @@ export class Dialogue {
 							}
 						},
 					})
-
 				})
 			},
 			onFinish: () => {
 				box.remove()
 				this.done = true
+				onDone()
 			},
 			onUpdate: (value) => {
 				box.worldFloat(value.position ?? this.defaultPosition)

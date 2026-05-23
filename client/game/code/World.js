@@ -20,42 +20,7 @@ export class World {
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
 			this.oldSami = OldSami(),
-			Quest([
-				({ markDone }) => {
-					const d = Dialogue(this.oldSami.position, [
-						{ text: "Come here young man", sleepEnd: 1000 },
-					], () => {
-						markDone()
-					})
-					return {
-						update: () => {
-							d.update()
-							console.log("hei")
-							this.oldSami.forcePushTo(this.player, 50)
-						},
-					}
-				},
-			]),
-			OnChange(() => this.player.within(200, this.fireplace), b => {
-				this.player.toggleTag("warm", b)
-			}),
-			OnTrue(() => this.player.within(200, WorldPosition(1642, 1907)), () => {
-				Tts("sami lavvo")
-			}),
-			OnTrue(() => this.player.within(200, WorldPosition(1600, 2233)), () => {
-				Tts("fireplace")
-			}),
-			Dialogue(this.player.position, [
-				{ text: "how are you", sleepEnd: 200 },
-				{ text: "It is time we learn about the Sami people", sleepEnd: 100 },
-				{ text: "Sit down, and relax", sleepEnd: 100 },
-				{ text: "We need some berries. go pick some!", sleepEnd: 1000 },
-			], () => {
-				console.log("wow")
-			}),
-			...Iterate(100, () => {
-				return Reindeer()
-			}),
+			IntroQuest(this.player, this.oldSami),
 		])
 
 		Camera.follow(this.player)
