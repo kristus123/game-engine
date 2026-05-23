@@ -92,7 +92,7 @@ export class Files {
 	}
 
 	static createFolder(path) {
-		fs.mkdirSync(path, {recursive: true})
+		fs.mkdirSync(path, { recursive: true })
 	}
 
 	static deleteFolder(folder) {
