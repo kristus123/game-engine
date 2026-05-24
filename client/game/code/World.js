@@ -20,7 +20,7 @@ export class World {
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.player = Player(WorldPosition(1800, 2100)),
 			this.oldSami = OldSami(),
-			IntroQuest(this.player, this.oldSami),
+			// IntroQuest(this.player, this.oldSami),
 		])
 
 		Camera.follow(this.player)
@@ -56,6 +56,7 @@ export class World {
 		this.objects.update()
 
 		D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
+		D1.box(this.player.collider)
 	}
 
 }

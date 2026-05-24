@@ -7,6 +7,10 @@ export class Player extends Entity {
 		])
 	}
 
+	get collider() {
+		return this.sprite.collider
+	}
+
 	update() {
 		this.objects.update()
 	}
