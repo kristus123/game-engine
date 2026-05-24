@@ -1,30 +1,31 @@
 <phone-layout>
 	<top center>
-		<flex-h>
+		<flex-h style="gap: 20px">
 			<button id="addMoreCards" class="green">add more cards</button>
 			<button id="delete" class="blue">delete</button>
 		</flex-h>
 	</top>
 
 	<mid center scrollable>
-		<div id="activePractice">
-			<flex-v id="buttons">
-				<button id="playFront">play front</button>
-				<button id="playBack">play back</button>
+		<div id="activePractice" style="width: 100%; height: 100%">
+			<flex-v id="buttons" style="padding: 20px; gap: 20px">
+				<button id="playFront" style="font-size: 50px">play front</button>
+				<button id="playBack" style="font-size: 50px">play back</button>
 			</flex-v>
 		</div>
 
-		<div id="practiceMore" hide>
-			<h1>Finished</h1>
-			<p>What now?</p>
-			<button id="practiceMoreButton">Practice more</button>
+		<div id="practiceMore" style="width: 100%; height: 100%" hide>
+			<flex-v style="padding: 20px; gap: 20px">
+				<h1>Finished</h1>
+				<button id="practiceMoreButton">Practice more</button>
+			</flex-v>
 		</div>
 	</mid>
 
 	<bot center>
-		<flex-h id="easyHard">
+		<flex-v id="easyHard" style="gap: 20px; padding: 20px">
 			<button id="easy" style="font-size: 50px">easy</button>
 			<button id="hard" style="font-size: 50px">hard</button>
-		</flex-h>
+		</flex-v>
 	</bot>
 </phone-layout>

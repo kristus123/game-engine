@@ -1,7 +1,7 @@
 phone-layout {
 	display: grid;
 	grid-template: 
-		"top" 60px "mid" 1fr "bot" 60px / 1fr;
+		"top" 50px "mid" 0.5fr "bot" 0.5fr / 1fr;
 	width: 100vw;
 	height: 100vh;
 }
