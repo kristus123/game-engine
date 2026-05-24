@@ -28,7 +28,7 @@ export function IntroQuest(player, oldSami) {
 		({ markDone }) => {
 			const d = Dialogue(player.position, [
 				{ text: `
-						how are you <span style='color:yellow; font-size:40px;'>cum ass</span>
+						how are you <span style='color:yellow; font-size:40px;'>MAN YO</span>
 					`, sleepEnd: 2000 },
 			], () => {
 				markDone()
