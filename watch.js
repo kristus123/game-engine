@@ -53,7 +53,7 @@ function triggerClientReload() {
 	idTimeout = setTimeout(() => {
 		currentId = RandomId()
 		idTimeout = null
-	}, 100)
+	}, 50)
 }
 
 const app = express()
@@ -84,19 +84,36 @@ watcher.on("all", (e, path) => {
 	console.log(path)
 	switch (e) {
 		case "change": { // file changed
+			if (path.includes(".aseprite")) {
+				ExportAseprite(path)
+			}
+			else {
+				Files.copyFile(path, "dist/" + path)
+			}
 			break
 		}
+
 		case "add": { // file created
+			if (path.includes(".aseprite")) {
+				ExportAseprite(path)
+			}
+			else {
+				Files.copyFile(path, "dist/" + path)
+			}
 			break
 		}
+
 		case "addDir": { // folder created
+			Files.createFolder("dist/" + path)
 			break
 		}
+
 		case "unlink": { // file deleted
 			Files.deleteFile("dist/" + path)
-			ExportAseprite(true)
+			ExportAseprite()
 			break
 		}
+
 		case "unlinkDir": { // folder deleted
 			Files.deleteFolder("dist/" + path)
 			break
@@ -113,7 +130,7 @@ watcher.on("all", (e, path) => {
 
 
 // initial build
-ExportAseprite(false)
+ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 

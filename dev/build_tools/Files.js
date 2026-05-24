@@ -91,6 +91,10 @@ export class Files {
 		this.write(path, content)
 	}
 
+	static createFolder(path) {
+		fs.mkdirSync(path, { recursive: true })
+	}
+
 	static deleteFolder(folder) {
 		console.log("deleting " + folder)
 		fs.rmSync(folder, { recursive: true, force: true })
