@@ -32,13 +32,13 @@ function exportAseprite(relSrcFile, destBase) {
 	Aseprite.tilemaps(relSrcFile)
 }
 
-export function ExportAseprite(editedFile) {
+export function ExportAseprite(path = null) {
 	const exportFile = (file) => {
 		exportAseprite(file, FileConfig.toDistPath(`${file}`))
 	}
 
-	if (editedFile) {
-		exportFile(editedFile) // <--- editedFile is a boolean not path!
+	if (path) {
+		exportFile(path)
 	}
 	else {
 		walk(FileConfig.asepriteAssets, exportFile)
