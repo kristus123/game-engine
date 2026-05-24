@@ -11,14 +11,47 @@ export class Microphone {
 		return this.state == "recording"
 	}
 
-	static async start() {
+	static get selected() {
+		return localStorage.getItem("selectedMic") ?? null
+	}
 
+	static set selected(m) {
+		localStorage.setItem("selectedMic", m)
+	}
+
+	static all(callback) {
+
+		// You often need permission first to get labels
+		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+			navigator.mediaDevices.enumerateDevices().then((devices) => {
+				const x = devices.filter(device => device.kind == "audioinput")
+				for (const m of x) {
+					if (!(m.deviceId == "default" || m.deviceId == "communications")) {
+						callback(m)
+					}
+				}
+			})
+		})
+	}
+
+	static async start(onStart = () => {}) {
 		if (this.state == "recording") {
 			throw new Error("already recording")
 		}
 
 		this.stream = await navigator.mediaDevices.getUserMedia({
-			audio: true,
+			audio: {
+				deviceId: {
+					exact: this.selected ?? "default", // use deviceId // exact or ideal field
+				},
+				echoCancellation: false,
+				noiseSuppression: false,
+				autoGainControl: false,
+				channelCount: 1,
+				// sampleRate: 48000,   // optional - browser may ignore
+				// sampleSize: 16,      // optional - browser may ignore
+				// latency: 0.01        // optional - browser may ignore
+			},
 		})
 
 		this.recorder = new MediaRecorder(this.stream, {
@@ -27,14 +60,16 @@ export class Microphone {
 		})
 
 		this.chunks = []
-
 		this.recorder.ondataavailable = e => {
 			this.chunks.push(e.data)
 		}
 
-		this.recorder.start()
+		this.recorder.onstart = () => {
+			this.state = "recording"
+			onStart()
+		}
 
-		this.state = "recording"
+		this.recorder.start()
 	}
 
 	static stop(callback) {
@@ -72,5 +107,18 @@ export class Microphone {
 
 	static getState() {
 		return this.state
+	}
+
+	static allMics(callback) {
+		navigator.mediaDevices.enumerateDevices().then(devices => {
+			const mics = devices
+				.filter(device => device.kind == "audioinput")
+				.map(device => ({
+					deviceId: device.deviceId,
+					label: device.label,
+				}))
+			callback(mics)
+		})
+
 	}
 }

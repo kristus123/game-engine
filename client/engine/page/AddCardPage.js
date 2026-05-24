@@ -6,6 +6,10 @@ h.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
+h.settings.onClick(() => {
+	Page.go(SettingsPage)
+})
+
 const sound = {}
 
 function _init() {
@@ -19,13 +23,13 @@ function _init() {
 		play.disable()
 
 		start.onClick(() => {
-			Microphone.start()
 			start.disable()
-			stop.enable()
+			Microphone.start(() => {
+				stop.enable()
+			})
 		})
 
 		stop.onClick(() => {
-
 			Microphone.stop(blob => {
 				Sound.playBlob(blob)
 				sound[direction] = blob
