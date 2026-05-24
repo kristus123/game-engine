@@ -1,84 +1,17 @@
-import { FileDb } from "#root/server/http/FileDb.js"
-import { Flask } from "#root/server/http/Flask.js"
-import webPush from "web-push"
+import { HttpServer } from "#root/server/http/HttpServer.js"
 import { socketServer } from "#root/server/socket/SocketServer.js"
 import { SfuServer } from "#root/server/rtc/SfuServer.js"
+import { Files } from "#root/dev/build_tools/Files.js"
+import { pathToFileURL } from "url"
 
-const PORT = 3000
-const vapidKeys = webPush.generateVAPIDKeys()
-
-webPush.setVapidDetails(
-	"mailto:example@yourdomain.org",
-	vapidKeys.publicKey,
-	vapidKeys.privateKey
-)
-
-let subscription = null
-
-Flask.route("getVapidPublicKey", () => {
-	return { publicKey: vapidKeys.publicKey.replace(/-/g, "+").replace(/_/g, "/") }
-})
-
-Flask.route("test", () => {
-	return { "hei": "000000000hoooo" }
-})
-
-Flask.route("subscribe", body => {
-	subscription = body.subscription
-	return { status: "server success" }
-})
-
-Flask.route("triggerNotification", body => {
-	webPush.sendNotification(subscription, JSON.stringify({
-		title: body.title,
-		body: body.body
-	}))
-
-	return { status: "server success" }
-})
-
-Flask.route("uploadFile", (body, req) => {
-	const type = req.headers["content-type"] || ""
-
-	const senderId = req.headers["x-client-id"]
-	const filename = crypto.randomUUID()
-
-	if (type.includes("application/json")) {
-		FileDb.saveFile(`${senderId}/${filename}`, body)
-		return { status: "server success" }
-	}
-
-	if (type.startsWith("audio/") || type == "application/octet-stream") {
-		const ext = type.split("/")[1] || "bin"
-		const path = `${senderId}/${filename}.${ext}`
-
-		FileDb.saveFile(path, body)
-
-		return {
-			status: "server success (audio)",
-			path
-		}
-	}
-
-	return { status: "server failure" }
-})
-
-Flask.route("readFile", (body) => {
-	return FileDb.getFile(body.filename)
-})
-
-Flask.route("readFiles", (body) => {
-	return FileDb.getFilesInFolder(body.folder)
-})
-
-Flask.route("deleteFile", (body) => {
-	return FileDb.deleteFile(body.filename)
-})
+for (const e of Files.getJsFiles("server/http/endpoints")) {
+	await import(pathToFileURL(e).href)
+}
 
 export function StartServer() {
-	Flask.listen(PORT)
+	const server = HttpServer.listen(3000)
 
 	SfuServer.start().then(() => {
-		socketServer.start()
+		socketServer.start(server)
 	})
 }
