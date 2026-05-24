@@ -57,4 +57,5 @@ export class World {
 
 		D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
 	}
+
 }

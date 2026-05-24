@@ -78,54 +78,58 @@ const watcher = chokidar.watch([FileConfig.client], {
 })
 
 watcher.on("all", (e, path) => {
-	console.log("changed", path)
+	try {
+		console.log("changed", path)
 
-	console.log(e)
-	console.log(path)
-	switch (e) {
-		case "change": { // file changed
-			if (path.includes(".aseprite")) {
-				ExportAseprite(path)
+		console.log(e)
+		console.log(path)
+		switch (e) {
+			case "change": { // file changed
+				if (path.includes(".aseprite")) {
+					ExportAseprite(path)
+				}
+				else {
+					Files.copyFile(path, "dist/" + path)
+				}
+				break
 			}
-			else {
-				Files.copyFile(path, "dist/" + path)
+
+			case "add": { // file created
+				if (path.includes(".aseprite")) {
+					ExportAseprite(path)
+				}
+				else {
+					Files.copyFile(path, "dist/" + path)
+				}
+				break
 			}
-			break
-		}
 
-		case "add": { // file created
-			if (path.includes(".aseprite")) {
-				ExportAseprite(path)
+			case "addDir": { // folder created
+				Files.createFolder("dist/" + path)
+				break
 			}
-			else {
-				Files.copyFile(path, "dist/" + path)
+
+			case "unlink": { // file deleted
+				Files.deleteFile("dist/" + path)
+				ExportAseprite()
+				break
 			}
-			break
+
+			case "unlinkDir": { // folder deleted
+				Files.deleteFolder("dist/" + path)
+				break
+			}
+			default: {
+				throw new Error("unexpected e: " + e)
+			}
 		}
 
-		case "addDir": { // folder created
-			Files.createFolder("dist/" + path)
-			break
-		}
-
-		case "unlink": { // file deleted
-			Files.deleteFile("dist/" + path)
-			ExportAseprite()
-			break
-		}
-
-		case "unlinkDir": { // folder deleted
-			Files.deleteFolder("dist/" + path)
-			break
-		}
-		default: {
-			throw new Error("unexpected e: " + e)
-		}
+		GenerateDist("DEVELOPMENT")
+		triggerClientReload()
 	}
-
-	GenerateDist("DEVELOPMENT")
-
-	triggerClientReload()
+	catch (e) {
+		console.log(e)
+	}
 })
 
 
