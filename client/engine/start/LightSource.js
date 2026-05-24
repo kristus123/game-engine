@@ -23,7 +23,7 @@ export class LightSource {
 		ctx.fill()
 	}
 
-	static add(x, y, radius, color = "255,255,255", intensity = 1) {
+	static add(x, y, radius=900, color = "255,255,255", intensity = 1) {
 
 		const ctx = Palette.light.ctx
 

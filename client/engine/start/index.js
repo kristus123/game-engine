@@ -49,7 +49,7 @@ Promise.all([
 			Palette.light.clear()
 			LightSource.update()
 			Camera.applyPositionContextThing(Palette.light.ctx, () => {
-				LightSource.drawLight(1500, 2200)
+				LightSource.removeShadow(1500, 2200)
 			})
 
 			Palette.main.apply(Palette.light)
