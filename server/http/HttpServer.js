@@ -22,7 +22,7 @@ export async function parseBody(req) {
 		rawBody = Buffer.concat([rawBody, chunk])
 	}
 
-	if (rawBody.length === 0) {
+	if (rawBody.length == 0) {
 		return null
 	}
 
@@ -52,13 +52,13 @@ function assertJsonBody(req) {
 }
 
 export class HttpServer {
-	
+
 	static listen(port, bind = "0.0.0.0") {
 		const server = http.createServer(async (req, res) => {
 
 			addCorsHeaders(res)
 
-			if (req.method === "POST") {
+			if (req.method == "POST") {
 				assertJsonBody(req)
 
 				try {
@@ -77,7 +77,7 @@ export class HttpServer {
 					})
 				}
 			}
-			else if (req.method === "OPTIONS") { // Preflight / cors
+			else if (req.method == "OPTIONS") { // Preflight / cors
 				res.writeHead(204)
 				res.end()
 			}
