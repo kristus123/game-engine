@@ -1,9 +1,9 @@
 export class LazyLoop {
 	constructor(elements, on) {
-		this.index = 0
-		this.completed = false
+		this.done = false
 
-		this.on.onNext(this.element)
+		this.on.onNext(this.elements.first)
+		this.index = 0
 	}
 
 	get element() {
@@ -23,12 +23,12 @@ export class LazyLoop {
 		}
 		else {
 			this.on.onFinish?.()
-			this.completed = true
+			this.done = true
 		}
 	}
 
 	update() {
-		if (!this.completed) {
+		if (!this.done) {
 			this.on.onUpdate?.(this.element)
 		}
 	}

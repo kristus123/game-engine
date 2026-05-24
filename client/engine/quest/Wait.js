@@ -6,7 +6,7 @@ export class Wait {
 		this.s = StopWatch().start()
 	}
 
-	completed() {
+	done() {
 		if (this.s.time > this.ms) {
 			onStart()
 		}

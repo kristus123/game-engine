@@ -1,12 +1,19 @@
 export class Dialogue {
-	constructor(defaultPosition, texts) {
+	constructor(defaultPosition, texts, onDone = () => {}) {
 
 		const box = F.talkBubble()
-		this.completed = false
+		this.done = false
 
 		this.lazyLoop = LazyLoop(texts, {
 			onNext: (value) => {
-				box.text.textContent = value.text
+				const template = document.createElement("template")
+				template.innerHTML = value.text
+
+				const node = template.content.cloneNode(true)
+
+				// box.text.textContent = node
+				box.text.innerHTML = ""
+				box.text.appendChild(node)
 
 				box.text.splitLetters().forEach((s, i) => {
 					s.animate("fadeIn", {
@@ -21,12 +28,12 @@ export class Dialogue {
 							}
 						},
 					})
-
 				})
 			},
 			onFinish: () => {
 				box.remove()
-				this.completed = true
+				this.done = true
+				onDone()
 			},
 			onUpdate: (value) => {
 				box.worldFloat(value.position ?? this.defaultPosition)
