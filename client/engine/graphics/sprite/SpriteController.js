@@ -74,10 +74,10 @@ export class SpriteController extends Entity {
 			const s = c.pixelPosition
 			console.log(s)
 			return WorldPosition(
-				this.position.x,
+				this.position.x + (s.x * Scale.value),
 				this.position.y,
-				this.position.width,
-				this.position.height,
+				s.width * Scale.value,
+				s.height * Scale.value,
 			)
 		}
 	}
