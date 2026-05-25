@@ -54,8 +54,8 @@ export class SimplifiedSocketServerAPI {
 		this.lowLevelSocketServer.on(action, callback)
 	}
 
-	start() {
-		this.lowLevelSocketServer.start()
+	start(server) {
+		this.lowLevelSocketServer.start(server)
 	}
 }
 
