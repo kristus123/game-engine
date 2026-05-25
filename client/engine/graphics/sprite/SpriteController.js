@@ -1,10 +1,37 @@
 export class SpriteController extends Entity {
-	constructor(position, layersImage, layersJson, spriteName) {
+	constructor(position, layersImage, layersJson, fullJson, spriteName) {
 		super(position)
 
 		this.layers = {}
 		this.tagFrames = {}
 		this.currentFrame = 0
+
+		console.log("")
+		console.log("")
+		console.log("")
+		console.log("")
+		console.log("___")
+		this.slices = []
+		if (!fullJson.meta.slices.empty) {
+			console.log(spriteName)
+			for (const x of fullJson.meta.slices) {
+				console.log(x.name)
+				const slice = {
+					name: x.name,
+				}
+				for (const y of x.keys) {
+					const p = y.bounds
+					slice.pixelPosition = WorldPosition(p.x, p.y, p.w, p.h)
+				}
+
+				this.slices.add(slice)
+			}
+		}
+		console.log("___")
+		console.log("")
+		console.log("")
+		console.log("")
+		console.log("")
 
 		layersJson.frames.forEach((key, frameInfo) => {
 			let [
@@ -40,6 +67,19 @@ export class SpriteController extends Entity {
 		this.looping = true
 
 		this.stopWatch = StopWatch().start()
+	}
+
+	get collider() {
+		for (const c of this.slices) {
+			const s = c.pixelPosition
+			console.log(s)
+			return WorldPosition(
+				this.position.x + (s.x * Scale.value),
+				this.position.y + (s.y * Scale.value),
+				s.width * Scale.value,
+				s.height * Scale.value,
+			)
+		}
 	}
 
 	tint(r, g, b, a) {
