@@ -18,14 +18,15 @@ export class SfuServer {
 				})
 
 				delete this.routers[data.routerId]
-			} else {
+			}
+			else {
 				console.error(`Router ${data.routerId} Does Not Exist`)
 			}
 		})
 
 		socketServer.on("SFU_GET_ROUTER_LIST", (client, clientId) => {
 			const routerList = {}
-			
+
 			Object.values(this.routers).forEach(router => {
 				routerList[router.routerId] = {
 					routerId: router.routerId,

@@ -6,7 +6,7 @@ export class World {
 
 		Dom.add([
 			Html.input("Enter routerId", value => {
-				routerId = value;
+				routerId = value
 			}),
 			Html.button("Create Sfu Lobby", () => {
 				SfuClient.create()
@@ -14,21 +14,24 @@ export class World {
 			Html.button("Join Sfu Lobby", () => {
 				if (routerId.trim() == "") {
 					console.log("routerId Is Empty")
-				} else {
+				}
+				else {
 					SfuClient.join(routerId)
 				}
 			}),
 			Html.button("Leave Sfu Lobby", () => {
 				if (SfuClient.connectedRouterId.trim() == "") {
 					console.log("Not Connected")
-				} else {
+				}
+				else {
 					SfuClient.leave()
 				}
 			}),
 			Html.button("Delete Sfu Lobby", () => {
 				if (SfuClient.connectedRouterId.trim() == "") {
 					console.log("Not Connected")
-				} else {
+				}
+				else {
 					SfuClient.deleteRouter()
 				}
 			})

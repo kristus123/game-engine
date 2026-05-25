@@ -1,7 +1,7 @@
 export class SfuClient {
 	static {
 		this.connectedRouterId = ""
-		
+
 		this.element = null
 		this.device = null
 		this.sendTransport = null
@@ -9,7 +9,7 @@ export class SfuClient {
 		this.localStream = null
 		this.producers = {}
 		this.consumers = {}
-		
+
 		this.routerList = {}
 
 		this.onCreate = (lobbyList) => {}
@@ -24,7 +24,7 @@ export class SfuClient {
 
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
 			const router = this.routerList[data.routerId]
-			
+
 			if (router) {
 				router.connectedClientIds.removeIfPresent(data.clientId)
 			}
@@ -65,7 +65,7 @@ export class SfuClient {
 
 		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
 			const router = this.routerList[data.routerId]
-			
+
 			if (router) {
 				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
 			}
@@ -198,7 +198,7 @@ export class SfuClient {
 		this.element = HtmlVideo.local(this.localStream)
 		Dom.add([ this.element ])
 	}
-	
+
 	static #updateRouterList() {
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
@@ -232,6 +232,7 @@ export class SfuClient {
 		this.device = null
 		this.localStream = null
 	}
+
 	static async create() {
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
 	}
@@ -256,7 +257,7 @@ export class SfuClient {
 	static deleteRouter() {
 		if (this.routerList[this.connectedRouterId] && ClientId == this.routerList[this.connectedRouterId].hostClientId) {
 			delete this.routerList[this.connectedRouterId]
-			
+
 			this.#clean()
 
 			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
