@@ -35,6 +35,8 @@ export class SfuServer {
 				}
 			})
 
+			console.log("Sending Router List: ", routerList)
+
 			socketServer.sendToClient(client, {
 				action: "SFU_UPDATE_ROUTER_LIST",
 				routerList: routerList

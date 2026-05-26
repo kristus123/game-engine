@@ -4,6 +4,16 @@ export class World {
 
 		let routerId = ""
 
+		SfuClient.init()
+		
+		SfuClient.onJoin = (router) => {
+			if (router.routerId == SfuClient.connectedRouterId) {
+				console.log("New Connection!")
+				console.log(SfuClient.isHost)
+				console.log(SfuClient.connectedClientIds)
+			}
+		}
+
 		Dom.add([
 			Html.input("Enter routerId", value => {
 				routerId = value

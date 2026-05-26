@@ -12,14 +12,14 @@ export class SfuClient {
 
 		this.routerList = {}
 
-		this.onCreate = (lobbyList) => {}
-		this.onJoin = (lobbyList) => {}
-		this.onLeave = (lobbyList) => {}
-
-		this.#updateRouterList()
+		this.onCreate = (router) => {}
+		this.onJoin = (router) => {}
+		this.onLeave = (router) => {}
 
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routerList = data.routerList
+
+			console.log(this.routerList)
 		})
 
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
@@ -42,7 +42,7 @@ export class SfuClient {
 				delete this.consumers[data.clientId]
 			}
 
-			this.onLeave(this.routerList)
+			this.onLeave(this.routerList[data.routerId])
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
@@ -60,7 +60,7 @@ export class SfuClient {
 				this.join(data.routerId)
 			}
 
-			this.onCreate(this.routerList)
+			this.onCreate(this.routerList[data.routerId])
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
@@ -72,7 +72,7 @@ export class SfuClient {
 
 			console.log(this.routerList)
 
-			this.onJoin(this.routerList)
+			this.onJoin(router)
 		})
 
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
@@ -81,18 +81,18 @@ export class SfuClient {
 			this.device = new window.mediasoup.Device()
 			await this.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
-			await this.#setupSendTransport(data.sendTransportParams)
-			await this.#setupRecvTransport(data.recvTransportParams)
+			await this.setupSendTransport(data.sendTransportParams)
+			await this.setupRecvTransport(data.recvTransportParams)
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
 
-			await this.#consume(data.producerId, data.clientId)
+			await this.consume(data.producerId, data.clientId)
 		})
 	}
 
-	static async #setupSendTransport(params) {
+	static async setupSendTransport(params) {
 		this.sendTransport = this.device.createSendTransport(params)
 
 		this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
@@ -144,7 +144,7 @@ export class SfuClient {
 		})
 	}
 
-	static async #setupRecvTransport(params) {
+	static async setupRecvTransport(params) {
 		this.recvTransport = this.device.createRecvTransport(params)
 
 		this.recvTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
@@ -164,7 +164,7 @@ export class SfuClient {
 		})
 	}
 
-	static async #consume(producerId, originClientId) {
+	static async consume(producerId, originClientId) {
 		if (!this.recvTransport) {
 			throw new Error("Cannot Consume Receive Transport Not Ready")
 			return
@@ -193,26 +193,15 @@ export class SfuClient {
 		})
 	}
 
-	static async #init() {
+	static async init() {
 		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 		this.element = HtmlVideo.local(this.localStream)
 		Dom.add([ this.element ])
-	}
 
-	static #updateRouterList() {
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
 
-	static #clean() {
-		this.element.remove()
-		this.localStream.getTracks().forEach(track => {
-			track.stop()
-		})
-
-		this.producers.values.forEach(producer => {
-			producer.close()
-		})
-
+	static clean() {
 		this.consumers.values.forEach(state => {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
@@ -221,24 +210,14 @@ export class SfuClient {
 			state.element.remove()
 		})
 
-		this.sendTransport.close()
-		this.recvTransport.close()
-
-		this.producers = {}
 		this.consumers = {}
-
-		this.sendTransport = null
-		this.recvTransport = null
-		this.device = null
-		this.localStream = null
 	}
 
-	static async create() {
+	static create() {
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
 	}
 
 	static async join(routerId) {
-		await this.#init()
 		this.connectedRouterId = routerId
 
 		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
@@ -247,7 +226,7 @@ export class SfuClient {
 	}
 
 	static leave() {
-		this.#clean()
+		this.clean()
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
 			routerId: this.connectedRouterId
@@ -258,7 +237,7 @@ export class SfuClient {
 		if (this.routerList[this.connectedRouterId] && ClientId == this.routerList[this.connectedRouterId].hostClientId) {
 			delete this.routerList[this.connectedRouterId]
 
-			this.#clean()
+			this.clean()
 
 			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
 				routerId: this.connectedRouterId
