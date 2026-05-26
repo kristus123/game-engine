@@ -131,17 +131,17 @@ export function Transpiler(ENVIRONMENT) {
 				}
 			}
 
-			// if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {
-			// 	const tabs = indentations(lines[i])
+			if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {
+				const tabs = indentations(lines[i])
 
-			// 	for (let ii = 1 ; true ; ii++) {
-			// 		if (tabs == indentations(lines[i+ii])) {
-			// 			lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
-			// 			break
-			// 		}
-			// 	}
+				for (let ii = 1 ; true ; ii++) {
+					if (tabs == indentations(lines[i+ii])) {
+						lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
+						break
+					}
+				}
 
-			// }
+			}
 		}
 
 		fileContent = lines.join("\n")
