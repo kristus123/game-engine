@@ -11,67 +11,26 @@ export class SfuServer {
 	static async start() {
 		this.globalWorker = await SfuServerApi.createWorker()
 
-		socketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
-			if (this.routers[data.routerId] && this.routers[data.routerId].hostClientId == clientId) {
-				Object.keys(this.routers[data.routerId].clients).forEach(clientId => {
-					this.closeConnectionWithClient(clientId, data.routerId)
-				})
-
-				delete this.routers[data.routerId]
-			}
-			else {
-				console.error(`Router ${data.routerId} Does Not Exist`)
-			}
-		})
-
-		socketServer.on("SFU_GET_ROUTER_LIST", (client, clientId) => {
-			const routerList = {}
-
-			Object.values(this.routers).forEach(router => {
-				routerList[router.routerId] = {
-					routerId: router.routerId,
-					hostClientId: router.hostClientId,
-					connectedClientIds: this.getRouterClientIds(router.routerId)
-				}
-			})
-
-			console.log("Sending Router List: ", routerList)
+		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
+			const routerObject = await this.createUniqueRouter(this.globalWorker)
 
 			socketServer.sendToClient(client, {
-				action: "SFU_UPDATE_ROUTER_LIST",
-				routerList: routerList
-			})
-		})
-
-		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
-			const routerObject = await this.createUniqueRouter(this.globalWorker, clientId)
-
-			socketServer.sendToEveryone({
 				action: "SFU_ROUTER_CREATED",
-				routerId: routerObject.routerId,
-				hostClientId: clientId,
-				connectedClientIds: [clientId]
+				routerId: routerObject.routerId
 			})
 		})
 
 		socketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
 			if (Object.hasOwn(this.routers, data.routerId)) {
 				this.routers[data.routerId].clients[clientId] = {}
-
 				await this.connectWithClient(client, clientId, data.routerId)
-
-				socketServer.sendToEveryone({
-					action: "SFU_NEW_CONNECTION",
-					routerId: data.routerId,
-					newlyConnectedClientId: clientId
-				})
 			}
 			else {
-				console.error(`Router ${data.routerId} Does Not Exist`)
+				console.error(`Router ${routerId} Does Not Exist`)
 			}
 		})
 
-		socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
+		socketServer.on("SDU_DISCONNECT_ROUTER", async (client, clientId, data) => {
 			this.closeConnectionWithClient(clientId, data.routerId)
 		})
 
@@ -219,22 +178,20 @@ export class SfuServer {
 				Object.values(this.routers[rid].clients).forEach(clientObject => {
 					socketServer.sendToClient(clientObject.client, {
 						action: "SFU_DISCONNECT_CONSUMER",
-						clientId: clientId,
-						routerId: rid
+						clientId: clientId
 					})
 				})
 			}
 		}
 	}
 
-	static async createUniqueRouter(worker, hostClientId) {
+	static async createUniqueRouter(worker) {
 		const routerId = RandomId()
 		const router = await SfuServerApi.createRouter(worker)
 
 		this.routers[routerId] = {
 			routerId: routerId,
 			router: router,
-			hostClientId: hostClientId,
 			clients: {}
 		}
 
@@ -253,17 +210,5 @@ export class SfuServer {
 		})
 
 		return routerId
-	}
-
-	static getRouterClientIds(routerId) {
-		const connectedClientIds = []
-
-		if (this.routers[routerId]) {
-			Object.keys(this.routers[routerId].clients).forEach(clientId => {
-				connectedClientIds.push(clientId)
-			})
-		}
-
-		return connectedClientIds
 	}
 }

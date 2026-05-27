@@ -1,23 +1,29 @@
 export class Config {
 	static get httpUrl() {
 		switch (ENVIRONMENT) {
-			case "DEVELOPMENT":
+			case "DEVELOPMENT": {
 				return "http://localhost:3000"
-			case "PRODUCTION":
+			}
+			case "PRODUCTION": {
 				return "https://myproductionurl.com"
-			default:
+			}
+			default: {
 				throw new Error("unexpected environment given")
+			}
 		}
 	}
 
 	static get wsUrl() {
 		switch (ENVIRONMENT) {
-			case "DEVELOPMENT":
+			case "DEVELOPMENT": {
 				return "ws://localhost:3000"
-			case "PRODUCTION":
+			}
+			case "PRODUCTION": {
 				return "wss://myproductionurl.com"
-			default:
+			}
+			default: {
 				throw new Error("unexpected environment given")
+			}
 		}
 	}
 }
