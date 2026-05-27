@@ -25,7 +25,7 @@ export class SfuClient {
 
 		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
 			delete this.routerList[data.routerId]
-			
+
 			this.onNewLobbyDeleted(data.routerId)
 		})
 
