@@ -2,7 +2,7 @@ export function LoadPersistedJson() {
 
 	return HttpClient.allPersistedJsonFiles({}, body => {
 
-		for (let {name, content} of body) {
+		for (let { name, content } of body) {
 			PersistedJson[name] = Assert.jsonObject(content)
 
 			PersistedJson[name].save = () => {

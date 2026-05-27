@@ -2,7 +2,7 @@ import { Files } from "#root/dev/build_tools/Files.js"
 import { Methods } from "#root/server/http/Methods.js"
 
 Methods.add("allPersistedJsonFiles", ({ body, req }) => {
-	const x =  Files.inFolder("persistedjson").map(path => ({
+	const x = Files.inFolder("persistedjson").map(path => ({
 		name: path.split("/").pop().split(".")[0],
 		content: JSON.parse(Files.read(path)),
 	}))
@@ -10,7 +10,8 @@ Methods.add("allPersistedJsonFiles", ({ body, req }) => {
 })
 
 Methods.add("getPersistedJson", ({ body, req }) => {
-	return Files.read(`persistedjson/${body.name}.json`)})
+	return Files.read(`persistedjson/${body.name}.json`)
+})
 
 Methods.add("savePersistedJson", ({ body }) => {
 	try {
@@ -24,6 +25,6 @@ Methods.add("savePersistedJson", ({ body }) => {
 		console.log("____X___________")
 		console.log(e)
 		console.log("____X___________")
-		
+
 	}
 })

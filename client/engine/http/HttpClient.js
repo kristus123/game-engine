@@ -1,7 +1,7 @@
 export const HttpClient = ProxyObject(
 	(method, body = {}, callback = responseBody => {}) => {
 		Assert.jsonObject(body)
-		
+
 		const request = {
 			body: JSON.stringify(body),
 			method: "POST",

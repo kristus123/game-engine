@@ -32,27 +32,29 @@ export class A {
 	static jsonString(arg) {
 		try {
 			if (A.string(arg)) {
-				JSON.parse(arg);
-				return true;
+				JSON.parse(arg)
+				return true
 			}
-		} catch {
+		}
+		catch {
 			// not json
 		}
 
-		return false;
+		return false
 	}
 
 	static jsonObject(arg) {
 		try {
 			if (A.object(arg) || A.list(arg)) {
-				JSON.stringify(arg);
-				return true;
+				JSON.stringify(arg)
+				return true
 			}
-		} catch {
+		}
+		catch {
 			// not json
 		}
 
-		return false;
+		return false
 	}
 
 }

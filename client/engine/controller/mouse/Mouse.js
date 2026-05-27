@@ -27,7 +27,7 @@ export class Mouse {
 			e.preventDefault()
 		})
 	}
-	
+
 
 	static initializeAfterCameraIsInitialized() {
 		document.addEventListener("pointermove", e => {
