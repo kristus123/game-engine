@@ -18,12 +18,12 @@ Methods.add("getVapidPublicKey", () => {
 	}
 })
 
-Methods.add("subscribe", body => {
+Methods.add("subscribe", ({ body }) => {
 	subscription = body.subscription
 	return { status: "server success" }
 })
 
-Methods.add("triggerNotification", body => {
+Methods.add("triggerNotification", ({ body }) => {
 	webPush.sendNotification(subscription, JSON.stringify({
 		title: body.title,
 		body: body.body

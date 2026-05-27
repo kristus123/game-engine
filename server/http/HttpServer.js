@@ -23,7 +23,7 @@ export async function parseBody(req) {
 	}
 
 	if (rawBody.length == 0) {
-		return null
+		throw new Error("Invalid JSON body: " + rawBody)
 	}
 
 	try {
@@ -36,6 +36,16 @@ export async function parseBody(req) {
 
 function getPath(req) {
 	return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
+}
+
+function validJson(value) {
+	if (value == null) {
+		return false
+	}
+
+	const type = Object.prototype.toString.call(value)
+
+	return type == "[object Object]" || type == "[object Array]"
 }
 
 function getQueryParameters(req) {
@@ -62,14 +72,24 @@ export class HttpServer {
 				assertJsonBody(req)
 
 				try {
+					const x = await parseBody(req)
+					console.log(x)
 					const json = Methods.call(getPath(req), {
-						body: await parseBody(req),
+						body: x,
 						headers: req.headers,
 						contentType: req.headers["content-type"] || null,
 						params: getQueryParameters(req),
-					})
+					}) ?? {}
 
-					sendJson(res, 200, json)
+
+					if (validJson(json)) {
+						sendJson(res, 200, json)
+					}
+					else {
+						sendJson(res, 500, {
+							error: "You must send valid json as a response.",
+						})
+					}
 				}
 				catch (e) {
 					sendJson(res, 500, {

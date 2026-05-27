@@ -25,5 +25,35 @@ export class A {
 		return Array.isArray(arg)
 	}
 
+	static object(arg) {
+		return typeof arg == "object"
+	}
+
+	static jsonString(arg) {
+		try {
+			if (A.string(arg)) {
+				JSON.parse(arg);
+				return true;
+			}
+		} catch {
+			// not json
+		}
+
+		return false;
+	}
+
+	static jsonObject(arg) {
+		try {
+			if (A.object(arg) || A.list(arg)) {
+				JSON.stringify(arg);
+				return true;
+			}
+		} catch {
+			// not json
+		}
+
+		return false;
+	}
+
 }
 

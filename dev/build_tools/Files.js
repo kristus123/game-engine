@@ -25,6 +25,10 @@ export class Files {
 		fs.writeFileSync(destPath, content)
 	}
 
+	static inFolder(path) {
+		return fs.readdirSync(path).map(f => Path.join(path, f))
+	}
+
 	static getJsFiles(folderPath, jsFiles=[]) {
 		try {
 			for (const file of fs.readdirSync(folderPath)) {

@@ -1,5 +1,23 @@
 export class Assert {
 
+	static jsonObject(o) {
+		if (A.jsonObject(o)) {
+			return o
+		}
+		else {
+			throw new Error(`not valid json: ${o}`)
+		}
+	}
+
+	static jsonString(o) {
+		if (A.jsonString(o)) {
+			return o
+		}
+		else {
+			throw new Error(`string is not valid json: ${o}`)
+		}
+	}
+
 	static method(m) {
 		if (Not.method(m)) {
 			throw new Error("not a method!")

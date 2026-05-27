@@ -9,13 +9,11 @@ export function IntroQuest(player, oldSami) {
 			const d = Dialogue(oldSami.position, [
 				{ text: "Come here <span style='color:red'>sexy ass</span> young man", sleepEnd: 1000 },
 			], () => {
-				console.log("ok done")
 				markDone()
 			})
 			return {
 				update: () => {
 					d.update()
-					console.log("hei t1")
 					oldSami.forcePushTo(player, 50)
 				},
 			}
@@ -37,7 +35,6 @@ export function IntroQuest(player, oldSami) {
 			return {
 				update: () => {
 					d.update()
-					console.log("updating lsat thing baby")
 				},
 			}
 		},
@@ -53,7 +50,6 @@ export function IntroQuest(player, oldSami) {
 			return {
 				update: () => {
 					box.worldFloat(player.position)
-					console.log("updating lsat thing baby")
 				},
 			}
 		},
@@ -63,6 +59,5 @@ export function IntroQuest(player, oldSami) {
 
 
 	], () => {
-		console.log("finished questing baby")
 	})
 }

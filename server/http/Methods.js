@@ -13,7 +13,14 @@ export class Methods {
 
 	static call(path, args) {
 		if (path in this.all) {
-			return this.all[path](args)
+			try {
+				return this.all[path](args)
+			}
+			catch (e) {
+				console.log("ERROR: " + path)
+				console.log(e)
+				throw e
+			}
 		}
 		else {
 			throw new Error("not found")

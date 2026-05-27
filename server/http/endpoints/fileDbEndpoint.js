@@ -1,7 +1,7 @@
 import { FileDb } from "#root/server/http/FileDb.js"
 import { Methods } from "#root/server/http/Methods.js"
 
-Methods.add("uploadFile", (body, req) => {
+Methods.add("uploadFile", ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 
 	const senderId = req.headers["x-client-id"]
@@ -27,14 +27,14 @@ Methods.add("uploadFile", (body, req) => {
 	}
 })
 
-Methods.add("readFile", (body) => {
+Methods.add("readFile", ({ body }) => {
 	return FileDb.getFile(body.filename)
 })
 
-Methods.add("readFiles", (body) => {
+Methods.add("readFiles", ({ body }) => {
 	return FileDb.getFilesInFolder(body.folder)
 })
 
-Methods.add("deleteFile", (body) => {
+Methods.add("deleteFile", ({ body }) => {
 	return FileDb.deleteFile(body.filename)
 })

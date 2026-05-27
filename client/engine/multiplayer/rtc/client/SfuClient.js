@@ -1,7 +1,6 @@
 export class SfuClient {
 	static {
 		this.connectedRouterId = ""
-
 		this.element = null
 		this.device = null
 		this.sendTransport = null
@@ -10,27 +9,7 @@ export class SfuClient {
 		this.producers = {}
 		this.consumers = {}
 
-		this.routerList = {}
-
-		this.onCreate = (router) => {}
-		this.onJoin = (router) => {}
-		this.onLeave = (router) => {}
-
-		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
-			this.routerList = data.routerList
-
-			console.log(this.routerList)
-		})
-
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
-			const router = this.routerList[data.routerId]
-
-			if (router) {
-				router.connectedClientIds.removeIfPresent(data.clientId)
-			}
-
-			console.log(this.routerList)
-
 			if (this.consumers[data.clientId]) {
 
 				this.consumers[data.clientId].stream.getTracks().forEach(track => {
@@ -41,38 +20,12 @@ export class SfuClient {
 
 				delete this.consumers[data.clientId]
 			}
-
-			this.onLeave(this.routerList[data.routerId])
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
-			console.log(`New Router Created: ${data.routerId}`)
+			console.log(`Router Created: ${data.routerId}`)
 
-			this.routerList[data.routerId] = {
-				routerId: data.routerId,
-				hostClientId: data.hostClientId,
-				connectedClientIds: data.connectedClientIds
-			}
-
-			console.log(this.routerList)
-
-			if (data.hostClientId == ClientId) {
-				this.join(data.routerId)
-			}
-
-			this.onCreate(this.routerList[data.routerId])
-		})
-
-		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
-			const router = this.routerList[data.routerId]
-
-			if (router) {
-				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
-			}
-
-			console.log(this.routerList)
-
-			this.onJoin(router)
+			this.connect(data.routerId)
 		})
 
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
@@ -197,11 +150,31 @@ export class SfuClient {
 		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 		this.element = HtmlVideo.local(this.localStream)
 		Dom.add([ this.element ])
-
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
 
-	static clean() {
+	static async create() {
+		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
+	}
+
+	static async connect(routerId) {
+		await this.init()
+		this.connectedRouterId = routerId
+
+		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
+			routerId: routerId
+		})
+	}
+
+	static disconnect() {
+		this.element.remove()
+		this.localStream.getTracks().forEach(track => {
+			track.stop()
+		})
+
+		this.producers.values.forEach(producer => {
+			producer.close()
+		})
+
 		this.consumers.values.forEach(state => {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
@@ -210,46 +183,19 @@ export class SfuClient {
 			state.element.remove()
 		})
 
+		this.sendTransport.close()
+		this.recvTransport.close()
+
+		this.producers = {}
 		this.consumers = {}
-	}
 
-	static create() {
-		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
-	}
-
-	static async join(routerId) {
-		this.connectedRouterId = routerId
-
-		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
-			routerId: routerId
-		})
-	}
-
-	static leave() {
-		this.clean()
+		this.sendTransport = null
+		this.recvTransport = null
+		this.device = null
+		this.localStream = null
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
 			routerId: this.connectedRouterId
 		})
-	}
-
-	static deleteRouter() {
-		if (this.routerList[this.connectedRouterId] && ClientId == this.routerList[this.connectedRouterId].hostClientId) {
-			delete this.routerList[this.connectedRouterId]
-
-			this.clean()
-
-			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
-				routerId: this.connectedRouterId
-			})
-		}
-	}
-
-	static get isHost() {
-		return (this.routerList[this.connectedRouterId].hostClientId == ClientId)
-	}
-
-	static get connectedClientIds() {
-		return this.routerList[this.connectedRouterId].connectedClientIds
 	}
 }
