@@ -14,19 +14,23 @@ export class World {
 			}
 		}
 
+		SfuClient.onNewLobbyDeleted = (routerId) => {
+			console.log("Lobby Removed: ", routerId)
+		}
+
 		Dom.add([
 			Html.input("Enter routerId", value => {
 				routerId = value
 			}),
 			Html.button("Create Sfu Lobby", () => {
-				SfuClient.create()
+				SfuClient.createLobby()
 			}),
 			Html.button("Join Sfu Lobby", () => {
 				if (routerId.trim() == "") {
 					console.log("routerId Is Empty")
 				}
 				else {
-					SfuClient.join(routerId)
+					SfuClient.joinLobby(routerId)
 				}
 			}),
 			Html.button("Leave Sfu Lobby", () => {
@@ -34,7 +38,7 @@ export class World {
 					console.log("Not Connected")
 				}
 				else {
-					SfuClient.leave()
+					SfuClient.leaveLobby()
 				}
 			}),
 			Html.button("Delete Sfu Lobby", () => {
@@ -42,7 +46,7 @@ export class World {
 					console.log("Not Connected")
 				}
 				else {
-					SfuClient.deleteRouter()
+					SfuClient.deleteLobby()
 				}
 			})
 		])
