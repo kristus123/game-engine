@@ -9,9 +9,11 @@ export async function LoadAsepriteAssets(path) {
 
 
 	const spriteName = path.split("/").pop()
-	Sprite[spriteName] = (position) => new SpriteController(
-		position, layersImage, layersJson, fullJson, groupsJson, spriteName)
 
+	Assert.notPresent(Sprite[spriteName])
+
+	Sprite[spriteName] = (position) => new Sprite(
+		position, layersImage, layersJson, fullJson, groupsJson, spriteName)
 
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 

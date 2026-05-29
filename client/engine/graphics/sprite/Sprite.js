@@ -1,4 +1,4 @@
-export class SpriteController extends Entity {
+export class Sprite extends Entity {
 	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
 		super(position)
 		this.groupInfo = {}
@@ -138,7 +138,7 @@ export class SpriteController extends Entity {
 		}
 	}
 
-	group(layer) {
+	group(layer) { // we use groups in aseprite
 		return Assert.value(this.groupInfo[layer], `${this.spriteName}.aseprite needs to have a Draw order group`)
 	}
 
@@ -154,6 +154,9 @@ export class SpriteController extends Entity {
 			}
 			else if (this.group(layer) == "D3") {
 				picture.update(this.position, D3)
+			}
+			else {
+				throw new Error("Unsupported xxlsakdjflaksdjf")
 			}
 
 			if (this.stopWatch.time >= duration) {
