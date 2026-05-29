@@ -42,7 +42,7 @@ export class Microphone {
 		this.stream = await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
-					exact: this.selected ?? "default", // use deviceId // exact or ideal field
+					ideal: this.selected ?? undefined, // use deviceId // exact or ideal field //seems i need to use undefined
 				},
 				echoCancellation: false,
 				noiseSuppression: false,
