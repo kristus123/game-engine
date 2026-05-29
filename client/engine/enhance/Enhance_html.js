@@ -321,19 +321,12 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "worldFloat", function (position) {
+	Enhance(HTMLElement.prototype, "worldPosition", function (position) {
 		Assert.value(position)
 
-		if (!document.contains(this)) {
-			this.dom()
-			this.addClass("domFloat")
-		}
-
-		if (position) {
-			const p = Camera.p(position)
-			this.style.left = `${p.x}px`
-			this.style.top = `${p.y}px`
-		}
+		const p = Camera.p(position)
+		this.style.left = `${p.x}px`
+		this.style.top = `${p.y}px`
 
 		return this
 	})
@@ -389,12 +382,6 @@ export function Enhance_html() {
 		set(p) {
 			this._position = p
 		},
-	})
-
-	Enhance(HTMLElement.prototype, "update", function () {
-		const p = Camera.p(this.position)
-		this.x = p.x
-		this.y = p.y
 	})
 
 }

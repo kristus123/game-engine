@@ -2,10 +2,17 @@ export class Player extends Entity {
 	constructor(position) {
 		super(position)
 
+		this.msg = Dom.add(H.p("click <key>E</key>")).floating()
+
 		this.objects = Objects([
 			this.sprite = Sprite.player(this.position),
-			this.s = Light.add(this.collider.center, 900, "255,165,0", 0, 5),
+			OnTrue(() => Keyboard.e, () => {
+				Dom.remove(this.msg)
+				this.light.intensity = 0.6
+			})
 		])
+
+		this.light = Light.add(this.collider.center, 300, "255,165,0", 0, 5)
 	}
 
 	get collider() {
@@ -14,5 +21,6 @@ export class Player extends Entity {
 
 	update() {
 		this.objects.update()
+		this.msg.worldPosition(this.position)
 	}
 }

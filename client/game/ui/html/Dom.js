@@ -13,7 +13,7 @@ export class Dom {
 	static add(e) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (document.body.contains(e)) {
+		if (e.isConnected) {
 			throw new Error("use .move if element is already in dom")
 		}
 		else {
@@ -25,7 +25,7 @@ export class Dom {
 	static move(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (document.body.contains(e)) {
+		if (e.isConnected) {
 			document.body.appendChild(e)
 			return this
 		}
@@ -38,7 +38,7 @@ export class Dom {
 	static remove(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (document.body.contains(e)) {
+		if (e.isConnected) {
 			document.body.removeChild(e)
 		}
 		else {

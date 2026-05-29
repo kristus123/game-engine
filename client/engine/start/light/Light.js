@@ -25,18 +25,18 @@ export class Light {
 	}
 
 	static _drawLight(source) {
-		Shadow.remove(source)
 
 		const { x, y } = source.position
 		const { radius, color, intensity } = source
 
 		const ctx = Palette.light.ctx
 
-		ctx.save()
+		Shadow.remove(source)
 
-		ctx.globalCompositeOperation = "screen"
-		ctx.globalCompositeOperation = "color-dodge"
-		ctx.globalCompositeOperation = "darken"
+		// ctx.globalCompositeOperation = "color-dodge"
+		// ctx.globalCompositeOperation = "darken"
+		ctx.globalCompositeOperation = "lighter"
+		// ctx.globalCompositeOperation = "plus-lighter"
 		ctx.globalCompositeOperation = "screen"
 
 		const g = ctx.createRadialGradient(
@@ -52,8 +52,6 @@ export class Light {
 		ctx.beginPath()
 		ctx.arc(x, y, radius, 0, Math.PI * 2)
 		ctx.fill()
-
-		ctx.restore()
 	}
 
 
