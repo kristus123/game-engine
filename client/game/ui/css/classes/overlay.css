@@ -1,7 +1,6 @@
 overlay,
 .overlay {
 	display: block;
-
 	position: fixed;
 	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
 	max-width: 100vw;

@@ -350,7 +350,7 @@ export function Enhance_html() {
 
 	Setter(HTMLElement.prototype, "x", {
 		get() {
-			return parseFloat(this.style.left) || 0;
+			return parseFloat(this.style.left) || 0
 		},
 		set(x) {
 			this.style.left = `${x}px`
@@ -359,7 +359,7 @@ export function Enhance_html() {
 
 	Setter(HTMLElement.prototype, "y", {
 		get() {
-			return parseFloat(this.style.top) || 0;
+			return parseFloat(this.style.top) || 0
 		},
 		set(y) {
 			this.style.top = `${y}px`
