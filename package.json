@@ -26,6 +26,7 @@
     "express": "^4.19.2",
     "mediasoup": "^3.19.21",
     "mediasoup-client": "^3.19.0",
+    "nodemon": "^3.1.14",
     "puppeteer": "^25.0.4",
     "web-push": "^3.6.7",
     "ws": "^8.18.3"

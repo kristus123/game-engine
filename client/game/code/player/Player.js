@@ -4,6 +4,7 @@ export class Player extends Entity {
 
 		this.objects = Objects([
 			this.sprite = Sprite.player(this.position),
+			this.s = Light.add(this.collider.center, 900, "255,165,0", 0, 5),
 		])
 	}
 

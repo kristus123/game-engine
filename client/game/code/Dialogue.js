@@ -1,7 +1,7 @@
 export class Dialogue {
-	constructor(defaultPosition, texts, onDone = () => {}) {
+	constructor(texts, onDone = () => {}) {
 
-		const box = F.talkBubble()
+		const box = Html.talkBubble()
 		this.done = false
 
 		this.lazyLoop = LazyLoop(texts, {
@@ -24,7 +24,7 @@ export class Dialogue {
 							if (s == box.text.last) {
 								setTimeout(() => {
 									this.lazyLoop.next()
-								}, 1000)
+								}, value.sleepEnd ?? 1000)
 							}
 						},
 					})
@@ -36,7 +36,7 @@ export class Dialogue {
 				onDone()
 			},
 			onUpdate: (value) => {
-				box.worldFloat(value.position ?? this.defaultPosition)
+				box.worldFloat(value.position)
 			},
 		})
 	}

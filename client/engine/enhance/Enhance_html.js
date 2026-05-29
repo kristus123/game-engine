@@ -140,7 +140,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "remove", function () {
-		Html.remove(this)
+		H.remove(this)
 	})
 
 	Enhance(HTMLElement.prototype, "offset_y", function (amount) {
@@ -189,7 +189,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "enable", function () {
-		Html.enable(this)
+		H.enable(this)
 	})
 
 	Getter(HTMLElement.prototype, "enabled", function () {
@@ -201,7 +201,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "disable", function () {
-		Html.disable(this)
+		H.disable(this)
 	})
 
 	Enhance(HTMLElement.prototype, "onClick", function (run) {
@@ -215,12 +215,12 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "set", function (elements) {
-		Html.removeChildElements(this)
-		Html.append(this, elements)
+		H.removeChildElements(this)
+		H.append(this, elements)
 	})
 
 	Enhance(HTMLElement.prototype, "push", function (elements) {
-		Html.append(this, elements)
+		H.append(this, elements)
 	})
 
 	Enhance(HTMLElement.prototype, "add", function (elements) {
@@ -349,21 +349,42 @@ export function Enhance_html() {
 	})
 
 	Setter(HTMLElement.prototype, "x", {
-		get: () => {
-			return this.style.left
+		get() {
+			return parseFloat(this.style.left) || 0
 		},
-		set: (x) => {
-			this.style.left = x
+		set(x) {
+			this.style.left = `${x}px`
 		},
 	})
 
 	Setter(HTMLElement.prototype, "y", {
-		get: () => {
-			return this.style.top
+		get() {
+			return parseFloat(this.style.top) || 0
 		},
-		set: (y) => {
-			this.style.top = y
+		set(y) {
+			this.style.top = `${y}px`
 		},
+	})
+
+	Setter(HTMLElement.prototype, "position", {
+
+		get() {
+			if (this._position) { // todo set position field beforehand
+				return this._position
+			}
+			else {
+				this._position = WorldPosition(this.x, this.y)
+			}
+		},
+		set(p) {
+			this._position = p
+		},
+	})
+
+	Enhance(HTMLElement.prototype, "update", function () {
+		const p = Camera.p(this.position)
+		this.x = p.x
+		this.y = p.y
 	})
 
 }

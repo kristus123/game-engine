@@ -1,6 +1,14 @@
 export class SpriteController extends Entity {
-	constructor(position, layersImage, layersJson, fullJson, spriteName) {
+	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
 		super(position)
+		this.groupInfo = {}
+		for (const x of groupsJson.meta.layers) {
+			if (x.group) {
+				console.log(x)
+				this.groupInfo[x.name] = x.group
+
+			}
+		}
 
 		this.layers = {}
 		this.tagFrames = {}
@@ -55,17 +63,18 @@ export class SpriteController extends Entity {
 		this.looping = true
 
 		this.stopWatch = StopWatch().start()
+		this.collider = WorldPosition(0, 0, 0, 0)
+		this.updateColliderPosition()
 	}
 
-	get collider() {
+	updateColliderPosition() {
 		for (const c of this.slices) {
 			const s = c.pixelPosition
-			return WorldPosition(
-				this.position.x + (s.x * Scale.value),
-				this.position.y + (s.y * Scale.value),
-				s.width * Scale.value,
-				s.height * Scale.value,
-			)
+			this.collider.x = this.position.x + (s.x * Scale.value)
+			this.collider.y = this.position.y + (s.y * Scale.value)
+			this.collider.width = s.width * Scale.value
+			this.collider.height = s.height * Scale.value
+			break
 		}
 	}
 
@@ -129,9 +138,23 @@ export class SpriteController extends Entity {
 		}
 	}
 
+	group(layer) {
+		return Assert.value(this.groupInfo[layer], `${this.spriteName}.aseprite needs to have a Draw order group`)
+	}
+
 	update() {
+		this.updateColliderPosition()
 		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
-			picture.update(this.position)
+
+			if (this.group(layer) == "D1") {
+				picture.update(this.position, D1)
+			}
+			else if (this.group(layer) == "D2") {
+				picture.update(this.position, D2)
+			}
+			else if (this.group(layer) == "D3") {
+				picture.update(this.position, D3)
+			}
 
 			if (this.stopWatch.time >= duration) {
 				this.stopWatch.restart()

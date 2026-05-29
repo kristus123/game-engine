@@ -1,0 +1,11 @@
+{
+  "watch": ["."],
+  "ignore": [
+    "persistedjson/**",
+    "client/**",
+    "node_modules/**",
+    ".git/**"
+  ],
+  "ext": "js,mjs,cjs,ts,json",
+  "exec": "node watch.js"
+}
