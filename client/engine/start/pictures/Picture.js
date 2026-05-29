@@ -11,6 +11,21 @@ export class Picture {
 
 		this.offset = { x: 0, y: 0 }
 	}
+	
+	flicker(intensity) {
+		this.tint(0, 0, 0, Math.random() * intensity)
+	}
+
+	shake(intensity) {
+		this.ctx.save()
+		const dx = Math.random()*intensity
+		const dy = Math.random()*intensity
+		this.ctx.translate(dx, dy)
+
+		this.ctx.drawImage(this.canvas, 0, 0)
+
+		this.ctx.restore()
+	}
 
 	changeColor(colorMap) {
 		const newCanvas = document.createElement("canvas")

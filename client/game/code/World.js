@@ -26,6 +26,11 @@ export class World {
 
 	update() {
 		this.objects.update()
+
+		this.fireplace.shake(5)
+		this.fireplace.flicker(.5)
+		this.fireplace.reset()
+
 		D2.circle(WorldPosition(2000, 2000), 50)
 	}
 
