@@ -2,8 +2,10 @@ phone-layout {
 	display: grid;
 	grid-template: 
 		"top" 50px "mid" 0.5fr "bot" 0.5fr / 1fr;
-	width: 100vw;
-	height: 100vh;
+	max-width: 100vw;
+	max-height: 100vh;
+	position: fixed;
+	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
 }
 
 phone-layout top { 

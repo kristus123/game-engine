@@ -6,7 +6,7 @@ export class Page {
 		this.pages.assertNotPresent(page)
 		this.pages.add(page)
 
-		Dom.overlay(page)
+		Dom.add(page)
 		page.hide()
 		//history.pushState({}, "", path); Todo fix when needed
 
