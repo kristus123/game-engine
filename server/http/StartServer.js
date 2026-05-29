@@ -5,6 +5,9 @@ import { Files } from "#root/dev/build_tools/Files.js"
 import { pathToFileURL } from "url"
 
 for (const e of Files.getJsFiles("server/http/endpoints")) {
+	console.log("___")
+	console.log(e)
+	console.log("___")
 	await import(pathToFileURL(e).href)
 }
 
