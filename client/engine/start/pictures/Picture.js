@@ -149,10 +149,10 @@ export class Picture {
 		}
 	}
 
-	update(p) {
+	update(p, drawLayer = D1) {
 		Assert.value(p)
 
-		D1.ctx.drawImage(
+		drawLayer.ctx.drawImage(
 			this.canvas,
 			p.x + this.offset.x,
 			p.y + this.offset.y,

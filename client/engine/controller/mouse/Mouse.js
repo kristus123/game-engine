@@ -53,8 +53,8 @@ export class Mouse {
 	}
 
 	static update() {
-		D1.circle(this.position)
 		this.updatePosition(this.latest_x, this.latest_y)
+		D1.circle(this.position)
 	}
 
 }

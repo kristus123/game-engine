@@ -12,21 +12,14 @@ export class SfuClient {
 
 		this.routerList = {}
 
-		this.onNewLobbyCreated = (router) => {}
-		this.onNewLobbyDeleted = (routerId) => {}
-		this.onjoinLobby = (router) => {}
-		this.onleaveLobby = (router) => {}
+		this.onCreate = (router) => {}
+		this.onJoin = (router) => {}
+		this.onLeave = (router) => {}
 
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routerList = data.routerList
 
 			console.log(this.routerList)
-		})
-
-		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
-			delete this.routerList[data.routerId]
-
-			this.onNewLobbyDeleted(data.routerId)
 		})
 
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
@@ -49,7 +42,7 @@ export class SfuClient {
 				delete this.consumers[data.clientId]
 			}
 
-			this.onleaveLobby(router)
+			this.onLeave(this.routerList[data.routerId])
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
@@ -64,10 +57,10 @@ export class SfuClient {
 			console.log(this.routerList)
 
 			if (data.hostClientId == ClientId) {
-				this.joinLobby(data.routerId)
+				this.join(data.routerId)
 			}
 
-			this.onNewLobbyCreated(this.routerList[data.routerId])
+			this.onCreate(this.routerList[data.routerId])
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
@@ -79,7 +72,7 @@ export class SfuClient {
 
 			console.log(this.routerList)
 
-			this.onjoinLobby(router)
+			this.onJoin(router)
 		})
 
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
@@ -220,11 +213,11 @@ export class SfuClient {
 		this.consumers = {}
 	}
 
-	static createLobby() {
+	static create() {
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
 	}
 
-	static async joinLobby(routerId) {
+	static async join(routerId) {
 		this.connectedRouterId = routerId
 
 		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
@@ -232,17 +225,15 @@ export class SfuClient {
 		})
 	}
 
-	static leaveLobby() {
+	static leave() {
 		this.clean()
-
-		this.connectedRouterId = ""
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
 			routerId: this.connectedRouterId
 		})
 	}
 
-	static deleteLobby() {
+	static deleteRouter() {
 		if (this.routerList[this.connectedRouterId] && ClientId == this.routerList[this.connectedRouterId].hostClientId) {
 			delete this.routerList[this.connectedRouterId]
 

@@ -1,112 +1,40 @@
 export class World {
+
 	constructor() {
-		// Page.go(PracticePage)
+		this.player = Player(WorldPosition(2000, 2000)),
+		G.player = this.player
 
-		let routerId = ""
+		Dom.add(Html.x())
+		this.y = Html.y()
+		Dom.add(this.y)
 
-		SfuClient.init()
-
-		SfuClient.onJoin = (router) => {
-			if (router.routerId == SfuClient.connectedRouterId) {
-				console.log("New Connection!")
-				console.log(SfuClient.isHost)
-				console.log(SfuClient.connectedClientIds)
-			}
-		}
-
-		SfuClient.onNewLobbyDeleted = (routerId) => {
-			console.log("Lobby Removed: ", routerId)
-		}
-
-		Dom.add([
-			Html.input("Enter routerId", value => {
-				routerId = value
-			}),
-			Html.button("Create Sfu Lobby", () => {
-				SfuClient.createLobby()
-			}),
-			Html.button("Join Sfu Lobby", () => {
-				if (routerId.trim() == "") {
-					console.log("routerId Is Empty")
-				}
-				else {
-					SfuClient.joinLobby(routerId)
-				}
-			}),
-			Html.button("Leave Sfu Lobby", () => {
-				if (SfuClient.connectedRouterId.trim() == "") {
-					console.log("Not Connected")
-				}
-				else {
-					SfuClient.leaveLobby()
-				}
-			}),
-			Html.button("Delete Sfu Lobby", () => {
-				if (SfuClient.connectedRouterId.trim() == "") {
-					console.log("Not Connected")
-				}
-				else {
-					SfuClient.deleteLobby()
-				}
-			})
+		this.objects = Objects([
+			this.y,
+			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
+			this.world = Sprite.world(WorldPosition(0, 0)),
+			{
+				update: () => {
+					D1.lightSource(WorldPosition(1600, 2238))
+				},
+			},
+			G.player,
+			this.tree = Tree(WorldPosition(2000, 2000)),
+			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
+			this.oldSami = OldSami(),
+			IntroQuest(this.player, this.oldSami, this.bush),
+			Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),
 		])
 
-		// // Out.js Test
-		// console.log(window.mediasoup)
+		Camera.follow(this.player)
+		Controller.control(this.player)
 
-		// console.log(AudioBuffers.theme)
-		// setTimeout(() => {
-		// 	Sound.playBuffer(AudioBuffers.theme)
-		// }, 2000)
-
-		// this.objects = Objects([
-		// 	this.world = Sprite.world(WorldPosition(0, 0)),
-		// 	{
-		// 		update: () => {
-		// 			D1.lightSource(WorldPosition(1600, 2238))
-		// 		},
-		// 	},
-		// 	this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
-		// 	this.player = Player(WorldPosition(1800, 2100)),
-		// 	this.oldSami = OldSami(),
-		// 	IntroQuest(this.player, this.oldSami),
-		// ])
-
-		// Camera.follow(this.player)
-		// Controller.control(this.player)
-
-		// // TEST CODE BELOW! PROCEED WITH CAUTION!!
-
-		// // Uncomment To Tint
-		// //this.fireplace.tint(255, 55, 55, 255)
-
-		// // Uncomment To Mirror
-		// // this.fireplace.mirror()
-
-		// // Uncomment To Swap Color
-		// this.world.changeColor({
-		// 	"rgb(171,161,92)": {
-		// 		r: 0,
-		// 		g: 0,
-		// 		b: 255
-		// 	},
-		// 	"rgb(133,140,79)": {
-		// 		r: 255,
-		// 		g: 0,
-		// 		b: 0
-		// 	}
-		// })
-
-		// // Uncomment To Reset Changes
-		// this.world.reset()
+		this.y.position = Mouse.position
 	}
 
 	update() {
-		// this.objects.update()
+		this.objects.update()
+		D2.circle(WorldPosition(2000, 2000), 50)
 
-		// D1.text(Mouse.position, `${Mouse.position.x} ${Mouse.position.y}`)
 	}
 
 }
-
-

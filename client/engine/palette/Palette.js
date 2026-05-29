@@ -1,35 +1,41 @@
 export class Palette {
 
 	static {
+		function xxx() {
+			const lightCanvas = new OffscreenCanvas(1, 1)
+			const lightCtx = lightCanvas.getContext("2d")
 
+			return {
+				canvas: lightCanvas,
+				ctx: lightCtx,
 
-		const lightCanvas = new OffscreenCanvas(1, 1)
-		const lightCtx = lightCanvas.getContext("2d")
+				resize: (width, height) => {
+					const dpr = window.devicePixelRatio || 1
+					lightCanvas.width = width * dpr
+					lightCanvas.height = height * dpr
 
-		this.light = {
-			canvas: lightCanvas,
-			ctx: lightCtx,
+					lightCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
+					lightCtx.imageSmoothingEnabled = false
+				},
 
-			resize: (width, height) => {
-				const dpr = window.devicePixelRatio || 1
-				lightCanvas.width = width * dpr
-				lightCanvas.height = height * dpr
+				clear: () => {
+					lightCtx.clearRect(0, 0, lightCanvas.width, lightCanvas.height)
+				},
 
-				lightCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
-				lightCtx.imageSmoothingEnabled = false
-			},
+				fill: (color, opacity = 1) => {
+					lightCtx.globalAlpha = opacity
+					lightCtx.fillStyle = color
+					lightCtx.fillRect(0, 0, lightCanvas.width, lightCanvas.height)
+					lightCtx.globalAlpha = 1
+				},
+			}
 
-			clear: () => {
-				lightCtx.clearRect(0, 0, lightCanvas.width, lightCanvas.height)
-			},
-
-			fill: (color, opacity = 1) => {
-				lightCtx.globalAlpha = opacity
-				lightCtx.fillStyle = color
-				lightCtx.fillRect(0, 0, lightCanvas.width, lightCanvas.height)
-				lightCtx.globalAlpha = 1
-			},
 		}
+
+		this.light = xxx()
+		this.d1 = xxx()
+		this.d2 = xxx()
+		this.d3 = xxx()
 
 
 
@@ -53,6 +59,9 @@ export class Palette {
 			ctx.imageSmoothingEnabled = false
 
 			this.light.resize(canvas.clientWidth, canvas.clientHeight)
+			this.d1.resize(canvas.clientWidth, canvas.clientHeight)
+			this.d2.resize(canvas.clientWidth, canvas.clientHeight)
+			this.d3.resize(canvas.clientWidth, canvas.clientHeight)
 		})
 
 		this.main = {
@@ -71,9 +80,9 @@ export class Palette {
 			},
 
 			apply: (layer, mode = "source-over") => {
-				ctx.globalCompositeOperation = mode
+				// ctx.globalCompositeOperation = mode
 				ctx.drawImage(layer.canvas, 0, 0)
-				ctx.globalCompositeOperation = "source-over"
+				// ctx.globalCompositeOperation = "source-over"
 			},
 		}
 	}

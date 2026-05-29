@@ -5,9 +5,12 @@ export async function LoadAsepriteAssets(path) {
 
 	const layersImage = await LoadImage(`${path}Layers.png`)
 	const layersJson = await LoadJson(`${path}Layers.json`)
+	const groupsJson = await LoadJson(`${path}Groups.json`)
+
 
 	const spriteName = path.split("/").pop()
-	Sprite[spriteName] = (position) => new SpriteController(position, layersImage, layersJson, fullJson, spriteName)
+	Sprite[spriteName] = (position) => new SpriteController(
+		position, layersImage, layersJson, fullJson, groupsJson, spriteName)
 
 
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)

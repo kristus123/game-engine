@@ -1,6 +1,6 @@
 export async function LoadHtmlContent(o) {
 
-	Enhance(F, o.name, () => {
+	Enhance(Html, o.name, () => {
 		const template = document.createElement("template")
 		template.innerHTML = o.content
 

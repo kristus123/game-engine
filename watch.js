@@ -56,6 +56,7 @@ function triggerClientReload() {
 	}, 50)
 }
 
+
 const app = express()
 app.use(express.static(FileConfig.dist))
 
@@ -111,7 +112,6 @@ watcher.on("all", (e, path) => {
 
 			case "unlink": { // file deleted
 				Files.deleteFile("dist/" + path)
-				ExportAseprite()
 				break
 			}
 

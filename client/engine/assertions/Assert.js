@@ -78,8 +78,8 @@ export class Assert {
 		}
 	}
 
-	static value(v) {
-		Assert.notNull(v)
+	static value(v, message) {
+		Assert.notNull(v, message)
 		return v
 	}
 

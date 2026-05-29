@@ -5,7 +5,22 @@ import { Files } from "#root/dev/build_tools/Files.js"
 import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
 import { FileConfig } from "#root/FileConfig.js"
 
+function blockWithoutParentheses(keyword, line) {
+	const regex = new RegExp(
+		`^\\s*${keyword}\\s+(?!\\()[^]*\\{$`
+	)
+
+	return regex.test(line)
+}
+
+function addParentheses(keyword, line) {
+	const regex = new RegExp(`^(\\s*${keyword}\\s+)(?!\\()(.*?)(\\s*\\{\\s*)$`)
+
+	return line.replace(regex, "$1($2)$3")
+}
+
 function simpleRegex(str, pattern) {
+
 	const regexPattern = pattern
 		.split("*")
 		.map(s => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
@@ -140,7 +155,10 @@ export function Transpiler(ENVIRONMENT) {
 						break
 					}
 				}
+			}
 
+			if (blockWithoutParentheses("if", lines[i])) {
+				lines[i] = addParentheses("if", lines[i])
 			}
 		}
 

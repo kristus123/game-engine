@@ -12,19 +12,23 @@ export class Camera {
 		}
 	}
 
-	static applyPositionContextThing(ctx, run) {
+	static applyPositionContextThing(ctxes, run) {
+		for (const ctx of ctxes) {
+			ctx.save()
 
-		ctx.save()
+			ctx.translate(this.offset.x, this.offset.y)
 
-		ctx.translate(this.offset.x, this.offset.y)
+			ctx.scale(this.zoom, this.zoom)
 
-		ctx.scale(this.zoom, this.zoom)
-
-		ctx.translate(-this.position.x, -this.position.y)
+			ctx.translate(-this.position.x, -this.position.y)
+		}
 
 		run()
 
-		ctx.restore()
+		for (const ctx of ctxes) {
+			ctx.restore()
+		}
+
 	}
 
 	static follow(o) {

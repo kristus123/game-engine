@@ -12,11 +12,16 @@ export class Quest {
 					},
 				})
 				activeTask.done = false
+				activeTask.stopWatch=StopWatch().start()
 
 				index += 1
 			},
 			onUpdate: () => {
-				if (activeTask.done || activeTask.markDoneIf?.()) {
+				if (
+					activeTask.done
+					|| activeTask.markDoneIf?.()
+					|| (activeTask.markDoneIfMoreThanMs && activeTask.stopWatch.moreThan(activeTask.markDoneIfMoreThanMs))
+				) {
 					activeTask.done = true
 					activeTask.onDone?.()
 					this.lazyLoop.next()
