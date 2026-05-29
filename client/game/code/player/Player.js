@@ -7,8 +7,8 @@ export class Player extends Entity {
 		this.objects = Objects([
 			this.sprite = Sprite.player(this.position),
 			OnTrue(() => Keyboard.e, () => {
-				Dom.remove(this.msg)
-				this.light.intensity = 0.6
+				this.msg.hide()
+				this.light.intensity = 0.1
 			})
 		])
 
