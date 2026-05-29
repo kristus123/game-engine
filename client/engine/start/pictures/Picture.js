@@ -18,8 +18,10 @@ export class Picture {
 
 	shake(intensity) {
 		this.ctx.save()
+
 		const dx = Math.random()*intensity
 		const dy = Math.random()*intensity
+
 		this.ctx.translate(dx, dy)
 
 		this.ctx.drawImage(this.canvas, 0, 0)
