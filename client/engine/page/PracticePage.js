@@ -3,6 +3,7 @@ const db = Db("jap")
 const h = Html.practiceCard()
 
 h.addMoreCards.onClick(() => {
+	console.log("hei")
 	Page.go(AddCardPage)
 })
 

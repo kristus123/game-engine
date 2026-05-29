@@ -16,6 +16,8 @@ export class Page {
 	static go(page) {
 		this.pages.forEach(p => {
 			p.hide()
+			console.log("hiding")
+			console.log(p)
 		})
 
 		page.show()

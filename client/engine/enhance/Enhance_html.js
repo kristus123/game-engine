@@ -160,12 +160,12 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "show", function () {
-		this.removeAttribute("hide")
+		this.removeAttribute("hidden")
 		return this
 	})
 
 	Enhance(HTMLElement.prototype, "hide", function () {
-		this.addAttribute("hide")
+		this.addAttribute("hidden")
 		return this
 	})
 
