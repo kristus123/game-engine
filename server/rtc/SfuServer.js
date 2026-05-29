@@ -18,9 +18,14 @@ export class SfuServer {
 				})
 
 				delete this.routers[data.routerId]
+
+				socketServer.sendToEveryone({
+					action: "SFU_ROUTER_DELETED",
+					routerId: data.routerId
+				})
 			}
 			else {
-				console.error(`Router ${data.routerId} Does Not Exist`)
+				throw new Error(`Router ${data.routerId} Does Not Exist`)
 			}
 		})
 
@@ -69,10 +74,6 @@ export class SfuServer {
 			else {
 				console.error(`Router ${data.routerId} Does Not Exist`)
 			}
-		})
-
-		socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
-			this.closeConnectionWithClient(clientId, data.routerId)
 		})
 
 		socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
