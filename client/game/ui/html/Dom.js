@@ -10,12 +10,9 @@ export class Dom {
 		return e
 	}
 
-	static add(elements) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
-
-		for (const e of Always.list(elements)) {
-			Assert.notList(e)
-			document.body.appendChild(e)
-		}
+	static add(e) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
+		Assert.notList(e)
+		document.body.appendChild(e)
 	}
 
 	static remove(e) {

@@ -6,7 +6,7 @@ export class Page {
 		this.pages.assertNotPresent(page)
 		this.pages.add(page)
 
-		Dom.overlay(page)
+		Dom.add(page)
 		page.hide()
 		//history.pushState({}, "", path); Todo fix when needed
 
@@ -16,8 +16,6 @@ export class Page {
 	static go(page) {
 		this.pages.forEach(p => {
 			p.hide()
-			console.log("hiding")
-			console.log(p)
 		})
 
 		page.show()
