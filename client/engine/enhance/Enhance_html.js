@@ -348,6 +348,16 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "floating", function () {
+		this.addClass("floating")
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "overlay", function () {
+		this.addClass("overlay")
+		return this
+	})
+
 	Setter(HTMLElement.prototype, "x", {
 		get() {
 			return parseFloat(this.style.left) || 0

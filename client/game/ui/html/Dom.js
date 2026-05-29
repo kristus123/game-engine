@@ -13,6 +13,7 @@ export class Dom {
 	static add(e) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
 		Assert.notList(e)
 		document.body.appendChild(e)
+		return e
 	}
 
 	static remove(e) {
