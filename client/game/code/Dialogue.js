@@ -1,7 +1,7 @@
 export class Dialogue {
 	constructor(texts, onDone = () => {}) {
 
-		const box = Html.talkBubble()
+		const box = Dom.add(Html.talkBubble())
 		this.done = false
 
 		this.lazyLoop = LazyLoop(texts, {
@@ -31,7 +31,7 @@ export class Dialogue {
 				})
 			},
 			onFinish: () => {
-				box.remove()
+				Dom.remove(box)
 				this.done = true
 				onDone()
 			},

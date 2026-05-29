@@ -140,7 +140,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "remove", function () {
-		H.remove(this)
+		throw new Error("deprecated. use Dom.remove()")
 	})
 
 	Enhance(HTMLElement.prototype, "offset_y", function (amount) {

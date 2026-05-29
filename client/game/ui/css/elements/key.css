@@ -1,9 +1,25 @@
 key {
 	display: inline-block;
-	padding: 2px 6px;
-	border: 1px solid #ccc;
-	border-bottom: 2px solid #aaa;
-	border-radius: 4px;
-	background: #f7f7f7;
+	padding-block: 5px;
+	padding-inline: 20px;
+	border: 6px solid #111;         /* darker, chunkier border */
+	border-bottom: 12px solid #000;  /* strong key depth */
+	background: black;            /* more solid, less soft */
 	font-family: monospace;
+	font-weight: 700;
+	transform: translateY(0);
+	animation: keyClick 800ms steps(2, end) infinite;
+	will-change: transform, background;
+}
+
+@keyframes keyClick {
+	0% {
+		transform: translateY(0);
+		background: #e6e6e6;
+	}
+
+	100% {
+		transform: translateY(20px);
+		background: #cfcfcf;
+	}
 }

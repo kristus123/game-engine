@@ -84,43 +84,48 @@ watcher.on("all", (e, path) => {
 
 		console.log(e)
 		console.log(path)
-		switch (e) {
-			case "change": { // file changed
-				if (path.includes(".aseprite")) {
-					ExportAseprite(path)
+		if (path.includes(".css")) {
+			// do nothing as of now
+		}
+		else {
+			switch (e) {
+				case "change": { // file changed
+					if (path.includes(".aseprite")) {
+						ExportAseprite(path)
+					}
+					else {
+						Files.copyFile(path, "dist/" + path)
+					}
+					break
 				}
-				else {
-					Files.copyFile(path, "dist/" + path)
+
+				case "add": { // file created
+					if (path.includes(".aseprite")) {
+						ExportAseprite(path)
+					}
+					else {
+						Files.copyFile(path, "dist/" + path)
+					}
+					break
 				}
-				break
-			}
 
-			case "add": { // file created
-				if (path.includes(".aseprite")) {
-					ExportAseprite(path)
+				case "addDir": { // folder created
+					Files.createFolder("dist/" + path)
+					break
 				}
-				else {
-					Files.copyFile(path, "dist/" + path)
+
+				case "unlink": { // file deleted
+					Files.deleteFile("dist/" + path)
+					break
 				}
-				break
-			}
 
-			case "addDir": { // folder created
-				Files.createFolder("dist/" + path)
-				break
-			}
-
-			case "unlink": { // file deleted
-				Files.deleteFile("dist/" + path)
-				break
-			}
-
-			case "unlinkDir": { // folder deleted
-				Files.deleteFolder("dist/" + path)
-				break
-			}
-			default: {
-				throw new Error("unexpected e: " + e)
+				case "unlinkDir": { // folder deleted
+					Files.deleteFolder("dist/" + path)
+					break
+				}
+				default: {
+					throw new Error("unexpected e: " + e)
+				}
 			}
 		}
 
