@@ -1,4 +1,4 @@
-export class SpriteController extends Entity {
+export class Sprite extends Entity {
 	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
 		super(position)
 		this.groupInfo = {}
