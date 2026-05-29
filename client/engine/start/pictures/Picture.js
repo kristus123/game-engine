@@ -26,7 +26,7 @@ export class Picture {
 
 		this.ctx.restore()
 	}
-	
+
 	changeColor(colorMap) {
 		const newCanvas = document.createElement("canvas")
 		const newCtx = newCanvas.getContext("2d")
