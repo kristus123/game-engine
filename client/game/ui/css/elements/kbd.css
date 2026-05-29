@@ -1,0 +1,11 @@
+kbd.key {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #aaa;
+  border-radius: 4px;
+  background: #f7f7f7;
+  font-family: monospace;
+  font-size: 0.9em;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}

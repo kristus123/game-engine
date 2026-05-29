@@ -4,6 +4,9 @@ export class World {
 		this.player = Player(WorldPosition(2000, 2000)),
 		G.player = this.player
 
+
+		H.p("hei <kbd class">")
+
 		Dom.add(Html.x())
 		this.y = Html.y()
 		Dom.add(this.y)
