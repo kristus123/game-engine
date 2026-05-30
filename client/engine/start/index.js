@@ -34,39 +34,39 @@ Promise.all([
 		const worldModule = x[0]
 		const world = new worldModule()
 
-		// Loop.everyFrame(() => {
-		// 	Palette.main.fill("#10204f")
+		Loop.everyFrame(() => {
+			Palette.main.fill("#10204f")
 
-		// 	Palette.d1.clear()
-		// 	Palette.d2.clear()
-		// 	Palette.d3.clear()
+			Palette.d1.clear()
+			Palette.d2.clear()
+			Palette.d3.clear()
 
-		// 	Palette.light.clear()
+			Palette.light.clear()
 
-		// 	Physics.update()
-		// 	Controller.update()
-		// 	GamePad.update()
+			Physics.update()
+			Controller.update()
+			GamePad.update()
 
-		// 	Shadow.updateOutsideCameraContext()
-		// 	Camera.applyPositionContextThing([
-		// 		Palette.d1.ctx,
-		// 		Palette.d2.ctx,
-		// 		Palette.d3.ctx,
-		// 		Palette.light.ctx,
-		// 	], () => {
-		// 		world.update()
-		// 		Mouse.update()
-		// 		for (const c of SuperClass.all) {
-		// 			c.showTags()
-		// 		}
-		// 		Light.updateInsideCameraContext()
-		// 	})
+			Shadow.updateOutsideCameraContext()
+			Camera.applyPositionContextThing([
+				Palette.d1.ctx,
+				Palette.d2.ctx,
+				Palette.d3.ctx,
+				Palette.light.ctx,
+			], () => {
+				world.update()
+				Mouse.update()
+				for (const c of SuperClass.all) {
+					c.showTags()
+				}
+				Light.updateInsideCameraContext()
+			})
 
-		// 	Palette.main.apply(Palette.d3)
-		// 	Palette.main.apply(Palette.d2)
-		// 	Palette.main.apply(Palette.d1)
-		// 	Palette.main.apply(Palette.light)
-		// })
+			Palette.main.apply(Palette.d3)
+			Palette.main.apply(Palette.d2)
+			Palette.main.apply(Palette.d1)
+			Palette.main.apply(Palette.light)
+		})
 	})
 	.catch(e => {
 		const lines = (e.stack || "").split("\n")
