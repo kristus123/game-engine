@@ -38,7 +38,7 @@ export class Files {
 					this.getJsFiles(filePath, jsFiles)
 				}
 				else if (file.endsWith(".js")) {
-					jsFiles.push(filePath.replaceAll("\\", Path.dirname(mainFilename)))
+					jsFiles.push(filePath)
 				}
 			}
 			return jsFiles
