@@ -22,13 +22,14 @@ export class World {
 
 		Camera.follow(this.player)
 		Controller.control(this.player)
+
+		this.fireplace.shake(20, 10)
 	}
 
 	update() {
 		this.objects.update()
 
-		this.fireplace.shake(20)
-		this.fireplace.flicker(0.5)
+		this.fireplace.flicker(0.5, 255, 0, 0)
 		this.fireplace.reset()
 
 		D2.circle(WorldPosition(2000, 2000), 50)

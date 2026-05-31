@@ -78,15 +78,15 @@ export class Sprite extends Entity {
 		}
 	}
 	
-	flicker(intensity) {
+	flicker(intensity, r = 0, g = 0, b = 0) {
 		for (const picture of this.getAllPicture()) {
-			picture.flicker(intensity)
+			picture.flicker(intensity, r, g, b)
 		}
 	}
 
-	shake(intensity) {
+	shake(intensity, durationSeconds) {
 		for (const picture of this.getAllPicture()) {
-			picture.shake(intensity)
+			picture.shake(intensity, durationSeconds)
 		}
 	}
 
