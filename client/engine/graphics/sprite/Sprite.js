@@ -77,6 +77,18 @@ export class Sprite extends Entity {
 			break
 		}
 	}
+	
+	flicker(intensity, r = 0, g = 0, b = 0) {
+		for (const picture of this.getAllPicture()) {
+			picture.flicker(intensity, r, g, b)
+		}
+	}
+
+	shake(intensity, durationSeconds) {
+		for (const picture of this.getAllPicture()) {
+			picture.shake(intensity, durationSeconds)
+		}
+	}
 
 	tint(r, g, b, a) {
 		for (const picture of this.getAllPicture()) {
