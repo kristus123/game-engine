@@ -10,6 +10,20 @@ export class Picture {
 		this.ctx.drawImage(image, 0, 0)
 
 		this.offset = { x: 0, y: 0 }
+		this.shakeOffset = { x: 0, y: 0 }
+	}
+	
+	flicker(intensity, r = 0, g = 0, b = 0) {
+		this.tint(r, g, b, Math.random() * intensity)
+	}
+
+	shake(intensity, durationSeconds) {
+		this.shakeOffset.x = Math.random()* intensity
+		this.shakeOffset.y = Math.random() * intensity
+		
+		setTimeout(() => {
+			this.shakeOffset = { x: 0, y: 0 }
+		}, durationSeconds * 1000)
 	}
 
 	changeColor(colorMap) {
@@ -154,8 +168,8 @@ export class Picture {
 
 		drawLayer.ctx.drawImage(
 			this.canvas,
-			p.x + this.offset.x,
-			p.y + this.offset.y,
+			p.x + this.offset.x + this.shakeOffset.x,
+			p.y + this.offset.y + this.shakeOffset.y,
 			p.width,
 			p.height)
 	}
