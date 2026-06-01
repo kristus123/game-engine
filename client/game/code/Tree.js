@@ -10,7 +10,10 @@ export class Tree extends Entity {
 	update() {
 		this.objects.update()
 
-		// Collision.js is a reference
+		if (this.sprite.collider.touches(G.player.sprite.collider)) {
+			G.player.position.x = G.player.previousPosition.x
+			G.player.position.y = G.player.previousPosition.y
+		}
 
 		D1.box(this.sprite.collider)
 		D1.box(G.player.sprite.collider)
