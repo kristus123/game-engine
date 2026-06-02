@@ -12,7 +12,7 @@ export class Picture {
 		this.offset = { x: 0, y: 0 }
 		this.shakeOffset = { x: 0, y: 0 }
 	}
-	
+
 	flicker(intensity, r = 0, g = 0, b = 0) {
 		this.tint(r, g, b, Math.random() * intensity)
 	}
@@ -20,7 +20,7 @@ export class Picture {
 	shake(intensity, durationSeconds) {
 		this.shakeOffset.x = Math.random()* intensity
 		this.shakeOffset.y = Math.random() * intensity
-		
+
 		setTimeout(() => {
 			this.shakeOffset = { x: 0, y: 0 }
 		}, durationSeconds * 1000)

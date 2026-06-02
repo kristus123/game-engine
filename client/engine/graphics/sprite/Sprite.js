@@ -77,7 +77,7 @@ export class Sprite extends Entity {
 			break
 		}
 	}
-	
+
 	flicker(intensity, r = 0, g = 0, b = 0) {
 		for (const picture of this.getAllPicture()) {
 			picture.flicker(intensity, r, g, b)
