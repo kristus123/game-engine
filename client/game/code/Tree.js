@@ -5,14 +5,28 @@ export class Tree extends Entity {
 		this.objects = Objects([
 			this.sprite = Sprite.tree(this.position),
 		])
+		console.log(this.sprite.collider)
 	}
 
 	update() {
 		this.objects.update()
 
+		
 		if (this.sprite.collider.touches(G.player.sprite.collider)) {
-			G.player.position.x = G.player.previousPosition.x
-			G.player.position.y = G.player.previousPosition.y
+			const treeCollider = this.sprite.collider
+			const playerCollider = G.player.sprite.collider
+			
+			const overlapX = Math.min(treeCollider.x + treeCollider.width - playerCollider.x,
+									  playerCollider.x + playerCollider.width - treeCollider.x)
+
+			const overlapY = Math.min(treeCollider.y + treeCollider.height - playerCollider.y,
+									  playerCollider.y + playerCollider.height - treeCollider.y)
+			
+			if (overlapX < overlapY) {
+				G.player.position.x = G.player.previousPosition.x
+			} else if (overlapX > overlapY) {
+				G.player.position.y = G.player.previousPosition.y
+			}
 		}
 
 		D1.box(this.sprite.collider)
