@@ -16,6 +16,37 @@ export function IntroQuest(player, oldSami, bush) {
 			}
 		},
 
+		({ markDone }) => {
+			let berriesFound = false
+
+			const d = Dialogue([
+				{ position: oldSami, text: "Find some berries", sleepEnd: 1000 },
+			], () => {
+			})
+			return {
+				update: () => {
+					d.update()
+
+					if (player.touches(bush)) {
+						markDone()
+						bush.loopTag("idle")
+					}
+				},
+			}
+		},
+
+		({ markDone }) => {
+			const d = Dialogue([
+				{ position: player, text: "I found them!", sleepEnd: 1000 },
+			], () => {
+			})
+			return {
+				update: () => {
+					d.update()
+				},
+			}
+		},
+
 	], () => {
 	})
 }

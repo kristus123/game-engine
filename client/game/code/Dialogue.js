@@ -36,7 +36,7 @@ export class Dialogue {
 				onDone()
 			},
 			onUpdate: (value) => {
-				box.worldFloat(value.position)
+				box.worldPosition(value.position)
 			},
 		})
 	}

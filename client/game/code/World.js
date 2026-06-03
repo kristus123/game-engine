@@ -16,7 +16,7 @@ export class World {
 			this.tree = Tree(WorldPosition(2000, 2000)),
 			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
 			this.oldSami = OldSami(),
-			// IntroQuest(this.player, this.oldSami, this.bush),
+			IntroQuest(this.player, this.oldSami, this.bush),
 			// Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),
 		])
 
