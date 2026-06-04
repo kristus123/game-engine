@@ -21,11 +21,38 @@ export class Tree extends Entity {
 
 			const overlapY = Math.min(treeCollider.y + treeCollider.height - playerCollider.y,
 									  playerCollider.y + playerCollider.height - treeCollider.y)
-			
+		
+			const centerTreeX =
+				treeCollider.x + treeCollider.width * 0.5
+			const centerTreeY =
+				treeCollider.y + treeCollider.height * 0.5
+
+			const centerPlayerX =
+				playerCollider.x + playerCollider.width * 0.5
+			const centerPlayerY =
+				playerCollider.y + playerCollider.height * 0.5
+
+			let pushX
+			let pushY
+
+			if (centerPlayerX < centerTreeX) {
+				pushX = -overlapX
+			} else {
+				pushX = overlapX
+			}
+
+			if (centerPlayerY < centerTreeY) {
+				pushY = -overlapY
+			} else {
+				pushY = overlapY
+			}
+
 			if (overlapX < overlapY) {
-				G.player.position.x = G.player.previousPosition.x
-			} else if (overlapX > overlapY) {
-				G.player.position.y = G.player.previousPosition.y
+				G.player.position.x += pushX
+				G.player.velocity.x = 0
+			} else {
+				G.player.position.y += pushY
+				G.player.velocity.y = 0
 			}
 		}
 
