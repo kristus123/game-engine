@@ -11,17 +11,17 @@ export class Tree extends Entity {
 	update() {
 		this.objects.update()
 
-		
+
 		if (this.sprite.collider.touches(G.player.sprite.collider)) {
 			const treeCollider = this.sprite.collider
 			const playerCollider = G.player.sprite.collider
-			
+
 			const overlapX = Math.min(treeCollider.x + treeCollider.width - playerCollider.x,
 									  playerCollider.x + playerCollider.width - treeCollider.x)
 
 			const overlapY = Math.min(treeCollider.y + treeCollider.height - playerCollider.y,
 									  playerCollider.y + playerCollider.height - treeCollider.y)
-		
+
 			const centerTreeX =
 				treeCollider.x + treeCollider.width * 0.5
 			const centerTreeY =
@@ -37,21 +37,23 @@ export class Tree extends Entity {
 
 			if (centerPlayerX < centerTreeX) {
 				pushX = -overlapX
-			} else {
+			}
+			else {
 				pushX = overlapX
 			}
 
 			if (centerPlayerY < centerTreeY) {
 				pushY = -overlapY
-			} else {
+			}
+			else {
 				pushY = overlapY
 			}
 
 			if (overlapX < overlapY) {
 				G.player.position.x += pushX
 			}
-			
-			if(overlapX > overlapY) {
+
+			if (overlapX > overlapY) {
 				G.player.position.y += pushY
 			}
 		}
