@@ -13,7 +13,9 @@ export class World {
 				},
 			},
 			G.player,
-			this.tree = Tree(WorldPosition(2000, 2000)),
+			...Iterate(200, () => {
+				return Tree(Random.direction(WorldPosition(2000, 2000), 4000))
+			}),
 			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
 			this.oldSami = OldSami(),
 			IntroQuest(this.player, this.oldSami, this.bush),
