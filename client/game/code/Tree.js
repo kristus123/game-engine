@@ -49,10 +49,10 @@ export class Tree extends Entity {
 
 			if (overlapX < overlapY) {
 				G.player.position.x += pushX
-				G.player.velocity.x = 0
-			} else {
+			}
+			
+			if(overlapX > overlapY) {
 				G.player.position.y += pushY
-				G.player.velocity.y = 0
 			}
 		}
 
