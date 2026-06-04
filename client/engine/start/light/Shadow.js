@@ -1,7 +1,7 @@
 export class Shadow {
 
 	static color = "black"
-	static opacity = 0.0
+	static opacity = 0.8
 
 	static remove(source) {
 		const { x, y } = source.position
