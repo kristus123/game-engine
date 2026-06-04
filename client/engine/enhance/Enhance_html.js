@@ -306,21 +306,6 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "domFloat", function (position = null) {
-
-		if (!document.contains(this)) {
-			this.dom()
-			this.addClass("domFloat")
-		}
-
-		if (position) {
-			this.style.left = `${position.x}px`
-			this.style.top = `${position.y}px`
-		}
-
-		return this
-	})
-
 	Enhance(HTMLElement.prototype, "worldPosition", function (position) {
 		Assert.value(position)
 
@@ -331,22 +316,14 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "dom", function () {
-		Dom.add(this)
-		return this
-	})
-
-	Enhance(HTMLElement.prototype, "removeFromDom", function () {
-		Dom.remove(this)
-		return this
-	})
-
 	Enhance(HTMLElement.prototype, "floating", function () {
+		//assert that class is not already present
 		this.addClass("floating")
 		return this
 	})
 
 	Enhance(HTMLElement.prototype, "overlay", function () {
+		//assert that class is not already present
 		this.addClass("overlay")
 		return this
 	})

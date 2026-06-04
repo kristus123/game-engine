@@ -21,6 +21,9 @@ function init({ includeAll } = {}) {
 		if (cards.empty) {
 			h.delete.hide()
 		}
+		else {
+			h.delete.show()
+		}
 	})
 }
 
