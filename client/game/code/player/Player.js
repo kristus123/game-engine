@@ -8,11 +8,11 @@ export class Player extends Entity {
 			this.sprite = Sprite.player(this.position),
 			OnTrue(() => Keyboard.e, () => {
 				this.msg.hide()
-				this.light.intensity = 0.2
+				this.light.intensity = 0.1
 			})
 		])
 
-		this.light = Light.add(this.collider.center, 800, "255,165,0", 0, 5)
+		this.light = Light.add(this.collider.center, 600, "255,165,0", 0, 5)
 	}
 
 	get collider() {
