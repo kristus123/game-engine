@@ -146,7 +146,6 @@ export function Enhance_html() {
 				draggedItem.style.opacity = "0.5"
 				e.target.setPointerCapture(e.pointerId);
 
-
 				draggedItem.addAttribute("being-dragged")
 				onDrag(draggedItem)
 			}
