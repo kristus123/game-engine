@@ -78,6 +78,18 @@ export class Sprite extends Entity {
 		}
 	}
 
+	shadow(r = 0, g = 0, b = 0, a = 1.0) {
+		for (const picture of this.getAllPicture()) {
+			picture.shadow(r, g, b, a)
+		}
+	}
+
+	updateShadow(lightPos) {
+		for (const picture of this.getAllPicture()) {
+			picture.updateShadow(this.position, lightPos)
+		}
+	}
+
 	flicker(intensity, r = 0, g = 0, b = 0) {
 		for (const picture of this.getAllPicture()) {
 			picture.flicker(intensity, r, g, b)
@@ -96,9 +108,15 @@ export class Sprite extends Entity {
 		}
 	}
 
-	mirror() {
+	mirrorX() {
 		for (const picture of this.getAllPicture()) {
-			picture.mirror()
+			picture.mirrorX()
+		}
+	}
+
+	mirrorY() {
+		for (const picture of this.getAllPicture()) {
+			picture.mirrorY()
 		}
 	}
 

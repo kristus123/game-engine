@@ -11,6 +11,45 @@ export class Picture {
 
 		this.offset = { x: 0, y: 0 }
 		this.shakeOffset = { x: 0, y: 0 }
+
+		this.shadowSprite = null
+		this.shadowScale = { width: 0, height: 0 }
+		this.shadowAngle = 0.0
+	}
+
+	shadow(r = 0, g = 0, b = 0, a = 1.0) {
+		const shadowSprite = this.copy().mirrorY()
+		shadowSprite.offset.y = shadowSprite.canvas.height * 4
+		this.shadowSprite = shadowSprite
+
+		this.shadowSprite.tint(r, g, b, a)
+	}
+
+	updateShadow(selfPosition, lightPos) {
+		const distanceVector = { x: 0, y: 0 }
+
+		distanceVector.x = lightPos.x - selfPosition.x
+		distanceVector.y = lightPos.y - selfPosition.y
+
+		const distanceDelta = Math.sqrt(
+			(distanceVector.x * distanceVector.x) + (distanceVector.y * distanceVector.y)
+		)
+		
+		const maxScale = 350
+		const minScale = 1
+		
+		this.shadowScale.height = Math.max(
+			minScale,
+			maxScale - distanceDelta
+		)
+
+		const shadowDirection = { x: 0, y: 0 }
+		shadowDirection.x = selfPosition.x - lightPos.x
+		shadowDirection.y = selfPosition.y - lightPos.y
+
+		const theta = Math.atan2(shadowDirection.y, shadowDirection.x) - Math.PI * 0.5
+
+		this.shadowAngle = theta
 	}
 
 	flicker(intensity, r = 0, g = 0, b = 0) {
@@ -77,7 +116,7 @@ export class Picture {
 		return this
 	}
 
-	mirror() {
+	mirrorX() {
 		const newCanvas = document.createElement("canvas")
 		const newCtx = newCanvas.getContext("2d")
 
@@ -86,6 +125,23 @@ export class Picture {
 
 		newCtx.translate(this.canvas.width, 0)
 		newCtx.scale(-1, 1)
+		newCtx.drawImage(this.canvas, 0, 0)
+
+		this.canvas = newCanvas
+		this.ctx = newCtx
+
+		return this
+	}
+
+	mirrorY() {
+		const newCanvas = document.createElement("canvas")
+		const newCtx = newCanvas.getContext("2d")
+
+		newCanvas.width = this.canvas.width
+		newCanvas.height = this.canvas.height
+
+		newCtx.translate(0, this.canvas.height)
+		newCtx.scale(1, -1)
 		newCtx.drawImage(this.canvas, 0, 0)
 
 		this.canvas = newCanvas
@@ -166,12 +222,34 @@ export class Picture {
 	update(p, drawLayer = D1) {
 		Assert.value(p)
 
+		if (this.shadowSprite) {
+			drawLayer.ctx.save()
+			
+			drawLayer.ctx.translate(
+				p.x + p.width * 0.5,
+				p.y + this.shadowSprite.offset.y
+			)
+			
+			drawLayer.ctx.rotate(this.shadowAngle)
+
+			drawLayer.ctx.drawImage(
+				this.shadowSprite.canvas,
+				-(p.width + this.shadowScale.width) * 0.5,
+				0,
+				p.width + this.shadowScale.width,
+				p.height + this.shadowScale.height
+			)
+
+			drawLayer.ctx.restore()
+		}
+
 		drawLayer.ctx.drawImage(
 			this.canvas,
 			p.x + this.offset.x + this.shakeOffset.x,
 			p.y + this.offset.y + this.shakeOffset.y,
 			p.width,
-			p.height)
+			p.height
+		)
 	}
 
 }

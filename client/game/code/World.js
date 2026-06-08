@@ -23,15 +23,16 @@ export class World {
 		Camera.follow(this.player)
 		Controller.control(this.player)
 
-		this.fireplace.shake(20, 10)
+		this.fireplace.shadow()
+		this.tree.sprite.shadow()
 	}
 
 	update() {
 		this.objects.update()
 
-		this.fireplace.flicker(0.5, 255, 0, 0)
-		this.fireplace.reset()
-
+		this.fireplace.updateShadow(this.player.position)
+		this.tree.sprite.updateShadow(this.player.position)
+		
 		D2.circle(WorldPosition(2000, 2000), 50)
 	}
 
