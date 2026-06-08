@@ -4,6 +4,16 @@ export class World {
 		const t = Html.test()
 
 		Dom.add(t)
+		Microphone.start()
+		setTimeout(() => {
+			Microphone.stop(b => {
+				Transcribe(b)
+			})
+		}, 5000)
+		Tts()
+
+
+		Toast("Hallo")
 
 		t.list.onDragChild({
 			onDrag: (e) => {

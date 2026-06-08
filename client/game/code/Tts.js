@@ -1,13 +1,31 @@
-export function Tts(text) {
-	if (!("speechSynthesis" in window)) {
-		console.log("TTS not supported in this browser.")
-		return
+export class Tts {
+	constructor() {
+		this.lang = "en-US"
+		this.rate = 1
+		this.pitch = 1
+
+		this.voice = null
+
+		speechSynthesis.onvoiceschanged = () => {
+			const voices = speechSynthesis.getVoices()
+			console.log("Available voices:", voices)
+
+			this.voice = voices[0]
+		}
 	}
 
-	const utterance = new SpeechSynthesisUtterance(text)
-	utterance.lang = "en-US" // you can change language if needed
-	utterance.rate = 1 // speed (0.5 to 2)
-	utterance.pitch = 1 // pitch (0 to 2)
+	speak(text) {
+		const utterance = new SpeechSynthesisUtterance(text)
 
-	speechSynthesis.speak(utterance)
+		utterance.lang = this.lang
+		utterance.rate = this.rate
+		utterance.pitch = this.pitch
+		utterance.voice = this.voice
+
+		speechSynthesis.speak(utterance)
+	}
+
+	stop() {
+		speechSynthesis.cancel()
+	}
 }
