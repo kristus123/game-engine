@@ -34,10 +34,10 @@ export class Picture {
 		const distanceDelta = Math.sqrt(
 			(distanceVector.x * distanceVector.x) + (distanceVector.y * distanceVector.y)
 		)
-		
+
 		const maxScale = 350
 		const minScale = 1
-		
+
 		this.shadowScale.height = Math.max(
 			minScale,
 			maxScale - distanceDelta
@@ -224,12 +224,12 @@ export class Picture {
 
 		if (this.shadowSprite) {
 			drawLayer.ctx.save()
-			
+
 			drawLayer.ctx.translate(
 				p.x + p.width * 0.5,
 				p.y + this.shadowSprite.offset.y
 			)
-			
+
 			drawLayer.ctx.rotate(this.shadowAngle)
 
 			drawLayer.ctx.drawImage(

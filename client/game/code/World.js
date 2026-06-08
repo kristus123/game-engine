@@ -32,7 +32,7 @@ export class World {
 
 		this.fireplace.updateShadow(this.player.position)
 		this.tree.sprite.updateShadow(this.player.position)
-		
+
 		D2.circle(WorldPosition(2000, 2000), 50)
 	}
 
