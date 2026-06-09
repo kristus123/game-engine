@@ -28,3 +28,20 @@ flex-v > *
 	justify-content: center;    /* horizontal centering inside the child */
 	align-items: center;        /* vertical centering inside the child */
 }
+
+
+flex-v > [left] {
+	justify-content: flex-start;
+}
+
+flex-v > [right] {
+	justify-content: flex-end;
+}
+
+flex-v > [top] {
+	align-items: flex-start;
+}
+
+flex-v > [bot] {
+	align-items: flex-end;
+}

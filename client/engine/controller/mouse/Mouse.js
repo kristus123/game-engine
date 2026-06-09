@@ -5,6 +5,10 @@ export class Mouse {
 
 	static onClick = p => {}
 
+	static onDomClick = p => {
+		console.log(p)
+	}
+
 	static position = WorldPosition(0, 0)
 	static screenPosition = WorldPosition(0, 0)
 
@@ -17,6 +21,9 @@ export class Mouse {
 
 			if (e.target == Palette.main.canvas) { // not sure if this works
 				this.onClick(this.position)
+			}
+			else {
+				this.onDomClick(e.target)
 			}
 		})
 
