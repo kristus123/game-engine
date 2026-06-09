@@ -6,7 +6,7 @@ export class MicApi {
 		navigator.mediaDevices
 			.getUserMedia({ audio: true })
 			.then(stream => {
-				stream.getTracks().forEach(track => track.stop());
+				stream.getTracks().forEach(track => track.stop())
 
 				callback(this.permissionGiven = true)
 			})
@@ -14,7 +14,7 @@ export class MicApi {
 				console.error(e)
 
 				callback(this.permissionGiven = false)
-			});
+			})
 	}
 
 	static createStream() {
@@ -32,7 +32,7 @@ export class MicApi {
 				// latency: 0.01        // optional - browser may ignore
 			},
 		})
-		
+
 	}
 
 }
