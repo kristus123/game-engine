@@ -135,7 +135,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "onDragChild", function ({onDrag, whileDragging, onDrop} = {}) {
+	Enhance(HTMLElement.prototype, "onDragChild", function ({ onDrag, whileDragging, onDrop } = {}) {
 
 		let draggedItem = null
 
@@ -144,7 +144,7 @@ export function Enhance_html() {
 
 			if (draggedItem) {
 				draggedItem.style.opacity = "0.5"
-				e.target.setPointerCapture(e.pointerId);
+				e.target.setPointerCapture(e.pointerId)
 
 				draggedItem.addAttribute("being-dragged")
 				onDrag(draggedItem)
@@ -155,17 +155,18 @@ export function Enhance_html() {
 			if (draggedItem) {
 				whileDragging(draggedItem)
 
-				const items = [...this.children].filter(el => el !== draggedItem);
+				const items = [...this.children].filter(el => el != draggedItem)
 
 				const nextItem = items.find(item => {
-					const rect = item.getBoundingClientRect();
-					return e.clientY < rect.top + rect.height / 2;
-				});
+					const rect = item.getBoundingClientRect()
+					return e.clientY < rect.top + rect.height / 2
+				})
 
 				if (nextItem) {
-					this.insertBefore(draggedItem, nextItem);
-				} else {
-					this.appendChild(draggedItem);
+					this.insertBefore(draggedItem, nextItem)
+				}
+				else {
+					this.appendChild(draggedItem)
 				}
 			}
 		})
@@ -185,7 +186,7 @@ export function Enhance_html() {
 
 		window.addEventListener("pointercancel", () => {
 			stopDrag()
-		});
+		})
 
 	})
 
@@ -198,7 +199,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "closestDraggable", function () {
-		return this.closest('[draggable]')
+		return this.closest("[draggable]")
 	})
 
 	Enhance(HTMLElement.prototype, "offset_x", function (amount) {
@@ -212,7 +213,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "transformPosition", function (p) {
-		this.style.transform = `translate(${p.x}px, ${p.y}px)`;
+		this.style.transform = `translate(${p.x}px, ${p.y}px)`
 	})
 
 	Enhance(HTMLElement.prototype, "clear", function () {

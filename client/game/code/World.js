@@ -18,14 +18,14 @@ export class World {
 		t.list.onDragChild({
 			onDrag: (e) => {
 				console.log(e)
-				
+
 			},
 			onDrop: (e) => {
 				console.log(e)
-				
+
 			},
 			whileDragging: () => {
-				
+
 			},
 		})
 

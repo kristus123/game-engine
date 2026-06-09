@@ -9,6 +9,7 @@ span {
 	animation: fadeIn 0.5s forwards;
 	animation-delay: var(--delay);
 }
+
 .fadeOut {
 	opacity: 0;
 	animation: fadeIn 0.5s backwards;

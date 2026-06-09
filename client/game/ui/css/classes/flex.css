@@ -31,17 +31,17 @@ flex-v > *
 
 
 flex-v > [left] {
-    justify-content: flex-start;
+	justify-content: flex-start;
 }
 
 flex-v > [right] {
-    justify-content: flex-end;
+	justify-content: flex-end;
 }
 
 flex-v > [top] {
-    align-items: flex-start;
+	align-items: flex-start;
 }
 
 flex-v > [bot] {
-    align-items: flex-end;
+	align-items: flex-end;
 }

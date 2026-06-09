@@ -4,12 +4,12 @@ export async function Transcribe(blob) {
 	form.append("file", blob, "audio.webm")
 	form.append("model", "gpt-4o-mini-transcribe")
 
-    form.append("language", "en")
+	form.append("language", "en")
 
 	const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
 		method: "POST",
 		headers: {
-			Authorization: `Bearer YOUR_API_KEY_HERE`,
+			Authorization: "Bearer YOUR_API_KEY_HERE",
 		},
 		body: form,
 	})

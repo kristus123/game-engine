@@ -39,20 +39,7 @@ export class Microphone {
 			throw new Error("already recording")
 		}
 
-		this.stream = await navigator.mediaDevices.getUserMedia({
-			audio: {
-				deviceId: {
-					ideal: this.selected ?? undefined, // use deviceId // exact or ideal field //seems i need to use undefined
-				},
-				echoCancellation: false,
-				noiseSuppression: false,
-				autoGainControl: false,
-				channelCount: 1,
-				// sampleRate: 48000,   // optional - browser may ignore
-				// sampleSize: 16,      // optional - browser may ignore
-				// latency: 0.01        // optional - browser may ignore
-			},
-		})
+		this.stream = MicApi.createStream()
 
 		this.recorder = new MediaRecorder(this.stream, {
 			mimeType: this.mimeType,
