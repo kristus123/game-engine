@@ -135,22 +135,85 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "onDragChild", function ({ onDrag, whileDragging, onDrop } = {}) {
+
+		let draggedItem = null
+
+		window.addEventListener("pointerdown", e => {
+			draggedItem = e.target.closest("[draggable]")
+
+			if (draggedItem) {
+				draggedItem.style.opacity = "0.5"
+				e.target.setPointerCapture(e.pointerId)
+
+				draggedItem.addAttribute("being-dragged")
+				onDrag(draggedItem)
+			}
+		})
+
+		window.addEventListener("pointermove", e => {
+			if (draggedItem) {
+				whileDragging(draggedItem)
+
+				const items = [...this.children].filter(el => el != draggedItem)
+
+				const nextItem = items.find(item => {
+					const rect = item.getBoundingClientRect()
+					return e.clientY < rect.top + rect.height / 2
+				})
+
+				if (nextItem) {
+					this.insertBefore(draggedItem, nextItem)
+				}
+				else {
+					this.appendChild(draggedItem)
+				}
+			}
+		})
+
+		const stopDrag = () => {
+			if (draggedItem) {
+				draggedItem.removeAttribute("being-dragged")
+				draggedItem.style.opacity = "1"
+
+				onDrop(draggedItem)
+				draggedItem = null
+			}
+		}
+		window.addEventListener("pointerup", e => {
+			stopDrag()
+		})
+
+		window.addEventListener("pointercancel", () => {
+			stopDrag()
+		})
+
+	})
+
 	Enhance(HTMLElement.prototype, "replace", function (oldText, newText) {
 		this.textContent.replace(oldText, newText)
 	})
 
 	Enhance(HTMLElement.prototype, "remove", function () {
-		throw new Error("deprecated. use Dom.remove()")
+		return Dom.remove(this)
 	})
 
-	Enhance(HTMLElement.prototype, "offset_y", function (amount) {
-		this.css(`transform: translateY(${amount}px); position: relative;`)
-		return this
+	Enhance(HTMLElement.prototype, "closestDraggable", function () {
+		return this.closest("[draggable]")
 	})
 
 	Enhance(HTMLElement.prototype, "offset_x", function (amount) {
-		this.css(`transform: translateX(${amount}px); position: relative;`)
+		this.css(`transform: translateX(${amount}px); position: relative;`) // position relative might be possible to remove
 		return this
+	})
+
+	Enhance(HTMLElement.prototype, "offset_y", function (amount) {
+		this.css(`transform: translateY(${amount}px); position: relative;`) // position relative might be possible to remove
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "transformPosition", function (p) {
+		this.style.transform = `translate(${p.x}px, ${p.y}px)`
 	})
 
 	Enhance(HTMLElement.prototype, "clear", function () {

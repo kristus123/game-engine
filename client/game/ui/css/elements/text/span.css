@@ -4,9 +4,15 @@ span {
 	padding:0;
 }
 
-span.fadeIn {
+.fadeIn {
 	opacity: 0;
 	animation: fadeIn 0.5s forwards;
+	animation-delay: var(--delay);
+}
+
+.fadeOut {
+	opacity: 0;
+	animation: fadeIn 0.5s backwards;
 	animation-delay: var(--delay);
 }
 
