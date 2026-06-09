@@ -140,13 +140,14 @@ export function Enhance_html() {
 		let draggedItem = null
 
 		window.addEventListener("pointerdown", e => {
-			draggedItem = e.target.closest("[draggable]")
+			draggedItem = e.target.closest("[draggable]") // it should also check that the draggable is inside of "this"
+			// or maybe it can be replaced with this.addEventListener
 
 			if (draggedItem) {
 				draggedItem.style.opacity = "0.5"
 				e.target.setPointerCapture(e.pointerId)
 
-				draggedItem.addAttribute("being-dragged")
+				draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
 				onDrag(draggedItem)
 			}
 		})

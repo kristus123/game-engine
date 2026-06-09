@@ -1,18 +1,23 @@
 export class World {
 
 	constructor() {
-		const t = Html.test()
+		const test = Html.test()
+		Dom.add(test)
 
-		Dom.add(t)
+		Dom.onDrag = e => {
 
-		t.list.onDragChild({
+		}
+
+		Dom.onDrop = e => {
+			e.closest("[user-sortable]")
+		}
+
+		test.list.onDragChild({
 			onDrag: (e) => {
 				console.log(e)
-
 			},
 			onDrop: (e) => {
 				console.log(e)
-
 			},
 			whileDragging: () => {
 
