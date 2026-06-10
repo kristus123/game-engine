@@ -1,4 +1,5 @@
 import crypto from "crypto"
+import { randomUUID } from "crypto"
 
 const SECRET = "CHANGE_ME"
 
@@ -19,7 +20,14 @@ function encodeBase64(payload) {
 
 export class ServerToken {
 
-	static create({ internal = {}, unsafe = {} } = {}) {
+	static create() {
+		const internal = {
+			userId: randomUUID(),
+		}
+
+		const unsafe = {
+
+		}
 
 		const internalData = encodeBase64(internal)
 		const internalDataSignature = signSha256(internalData)

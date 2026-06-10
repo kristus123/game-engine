@@ -3,10 +3,7 @@ import { ServerToken } from "#root/server/ServerToken.js"
 
 Methods.add("createToken", ({ body }) => {
 
-	const token = ServerToken.create({
-		internal: {},
-		unsafe: {},
-	})
+	const token = ServerToken.create()
 
 	return {
 		token: token,

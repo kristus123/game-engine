@@ -1,7 +1,18 @@
 export class ClientToken {
 
 	static get() {
-    	return Assert.value(localStorage.getItem("clientToken"))
+		const encoded = Assert.value(localStorage.getItem("clientToken"))
+
+		const [
+			internalData,
+			internalDataSignature,
+			unsafeData,
+		] = encoded.split(".")
+
+		return {
+			internal: Base64.decode(internalData),
+			unsafe: Base64.decode(unsafeData),
+		}
 	}
 
 	static create() {
@@ -13,7 +24,7 @@ export class ClientToken {
 	static store(token) {
 		Assert.value(token)
 
-    	localStorage.setItem("clientToken", token)
+		localStorage.setItem("clientToken", token)
 	}
 
 	static remove() {
@@ -26,6 +37,10 @@ export class ClientToken {
 	}
 
 	static present() {
-    	return Assert.value(localStorage.getItem("clientToken"))
+		return Assert.value(localStorage.getItem("clientToken"))
+	}
+
+	static getFields() {
+
 	}
 }
