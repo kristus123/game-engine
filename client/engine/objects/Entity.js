@@ -66,6 +66,10 @@ export class Entity {
 		this.velocity.y *= multiplier
 	}
 
+	enforceCollision(collider) {
+		Collision.applyCollisionBetween(collider, this)
+	}
+	
 	touches(o) {
 		return Collision.between(this.position, o)
 	}

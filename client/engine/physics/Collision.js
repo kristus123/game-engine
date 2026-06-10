@@ -35,4 +35,55 @@ export class Collision {
 			}
 		}
 	}
+
+	static pushOutwards(collider, collidingEntity) {
+		const collidingEntityCollider = collidingEntity.sprite.collider
+
+		const overlapX = Math.min(collider.x + collider.width - collidingEntityCollider.x,
+			collidingEntityCollider.x + collidingEntityCollider.width - collider.x)
+
+		const overlapY = Math.min(collider.y + collider.height - collidingEntityCollider.y,
+			collidingEntityCollider.y + collidingEntityCollider.height - collider.y)
+
+		const centerColliderX =
+			collider.x + collider.width * 0.5
+		const centerColliderY =
+			collider.y + collider.height * 0.5
+
+		const centerCollidingEntityColliderX =
+			collidingEntityCollider.x + collidingEntityCollider.width * 0.5
+		const centerCollidingEntityColliderY =
+			collidingEntityCollider.y + collidingEntityCollider.height * 0.5
+
+		let pushX
+		let pushY
+
+		if (centerCollidingEntityColliderX < centerColliderX) {
+			pushX = -overlapX
+		}
+		else {
+			pushX = overlapX
+		}
+
+		if (centerCollidingEntityColliderY < centerColliderY) {
+			pushY = -overlapY
+		}
+		else {
+			pushY = overlapY
+		}
+
+		if (overlapX < overlapY) {
+			collidingEntity.position.x += pushX
+		}
+
+		if (overlapX > overlapY) {
+			collidingEntity.position.y += pushY
+		}
+	}
+
+	static applyCollisionBetween(collider, collidingEntity) {
+		if (this.between(collider, collidingEntity.sprite.collider)) {
+			this.pushOutwards(collider, collidingEntity)
+		}
+	}
 }
