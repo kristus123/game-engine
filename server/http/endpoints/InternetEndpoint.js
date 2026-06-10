@@ -1,6 +1,6 @@
 import { Methods } from "#root/server/http/Methods.js"
 
-Methods.add("internetPing", () => {
+Methods.add("ping", () => {
 	return {
 		connected: true,
 	}
