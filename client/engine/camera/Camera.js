@@ -43,12 +43,18 @@ export class Camera {
 			p.y - this.position.y + (Screen.height/2))
 	}
 
+	static inside(entity) {
+		this.update()
+
+		return Collision.between(entity, this.visiblePosition)
+	}
+
 
 	static update() {
-		this.visiblePosition.x = Camera.position.x - Screen.width / 2
-		this.visiblePosition.y = Camera.position.y - Screen.height / 2
-		this.visiblePosition.width = Screen.width
-		this.visiblePosition.height = Screen.height
+		this.visiblePosition.x = Camera.position.x - Screen.width / 2 / this.zoom
+		this.visiblePosition.y = Camera.position.y - Screen.height / 2 / this.zoom
+		this.visiblePosition.width = Screen.width / this.zoom
+		this.visiblePosition.height = Screen.height / this.zoom
 	}
 }
 

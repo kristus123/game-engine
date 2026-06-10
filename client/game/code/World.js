@@ -50,8 +50,8 @@ export class World {
 
 
 		setInterval(() => {
-		  Tts("Ja, jeg smiler og ler nar jeg ser deg").speak("hello")
-		  console.log("YOLO")
+			Tts("Ja, jeg smiler og ler nar jeg ser deg").speak("hello")
+			console.log("YOLO")
 		}, 3000)
 
 		this.objects = Objects([
@@ -89,7 +89,23 @@ export class World {
 
 		D2.circle(WorldPosition(2000, 2000), 50)
 
-		D1.box(Camera.visiblePosition)
+		this.drawCameraVisibilityTest()
+	}
+
+	drawCameraVisibilityTest() {
+		const npc = this.oldSami.sprite.collider
+		const isInCameraView = Camera.inside(npc)
+		const textPosition = WorldPosition(
+			Camera.visiblePosition.x + 20 / Camera.zoom,
+			Camera.visiblePosition.y + 40 / Camera.zoom
+		)
+
+		D1.text(
+			textPosition,
+			`OldSami in camera: ${isInCameraView ? "YES" : "NO"}`,
+			isInCameraView ? "lime" : "red",
+			24 / Camera.zoom
+		)
 	}
 
 }
