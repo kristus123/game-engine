@@ -8,6 +8,7 @@ const bin = (() => {
 	const home = os.homedir()
 	const potentialPathsUnix = [
 		"aseprite",
+		"/Applications/Aseprite.app/Contents/MacOS/aseprite",
 		path.join(home, "aseprite/build/bin/aseprite"),
 		path.join(home, "aseprite/bin/aseprite"),
 		path.join(home, "Documents/Apps/AppData/Aseprite/aseprite")
