@@ -3,11 +3,7 @@ export class Camera {
 
 		this.position = WorldPosition(0, 0)
 		this.zoom = 1 // used some places
-		this.visiblePosition = WorldPosition(
-			Camera.position.x - Screen.width / 2,
-			Camera.position.y - Screen.height / 2,
-			Screen.width,
-			Screen.height - 500)
+		this.visiblePosition = WorldPosition(0, 0)
 	}
 
 
