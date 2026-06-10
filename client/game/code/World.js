@@ -50,7 +50,7 @@ export class World {
 
 
 		setInterval(() => {
-		  Tts("Jueg eru velduigu gladu i kaku").speak("hello")
+		  Tts("Ja, jeg smiler og ler nar jeg ser deg").speak("hello")
 		  console.log("YOLO")
 		}, 3000)
 
@@ -68,7 +68,7 @@ export class World {
 			}),
 			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
 			this.oldSami = OldSami(),
-			TestRandom(0, 100, 5000, (v) => {
+			RandomIntegerEveryMs(0, 100, 5000, (v) => {
 				console.log(v)
 			}),
 			IntroQuest(this.player, this.oldSami, this.bush),

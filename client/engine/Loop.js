@@ -13,7 +13,7 @@ export class Loop {
 			run()
 
 			const end = performance.now()
-			//console.log(`Frame took ${(end - start).toFixed(2)} ms`)
+			// console.log(`Frame took ${(end - start).toFixed(2)} ms`)
 
 			requestAnimationFrame(loop)
 		}
