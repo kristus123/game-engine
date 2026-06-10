@@ -36,8 +36,10 @@ const killPort = (port) => {
 	}
 }
 
+const distPort = Number(process.env.DIST_PORT ?? process.env.PORT ?? 5000)
+
 killPort(3000)
-killPort(5000)
+killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
 
@@ -70,7 +72,7 @@ app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check H
 	res.json({ currentId: currentId })
 })
 
-app.listen(5000, "0.0.0.0", () => console.log("Serving dist on port 5000"))
+app.listen(distPort, "0.0.0.0", () => console.log(`Serving dist on port ${distPort}`))
 
 const watcher = chokidar.watch([FileConfig.client], {
 	ignoreInitial: true,

@@ -50,6 +50,9 @@ export class Camera {
 		this.visiblePosition.width = Screen.width
 		this.visiblePosition.height = Screen.height
 	}
+
+	static insideView(entity) {
+		return Collision.between(entity.position, this.visiblePosition)
+	}
+
 }
-
-
