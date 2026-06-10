@@ -48,7 +48,7 @@ export class Camera {
 		this.visiblePosition.x = Camera.position.x - Screen.width / 2
 		this.visiblePosition.y = Camera.position.y - Screen.height / 2
 		this.visiblePosition.width = Screen.width
-		this.visiblePosition.height = Screen.height - 500
+		this.visiblePosition.height = Screen.height
 	}
 }
 
