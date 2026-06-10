@@ -4,6 +4,12 @@ export class ClientToken {
     	return Assert.value(localStorage.getItem("clientToken"))
 	}
 
+	static create() {
+		HttpClient.createToken({}, body => {
+			this.store(body.token)
+		})
+	}
+
 	static store(token) {
 		Assert.value(token)
 

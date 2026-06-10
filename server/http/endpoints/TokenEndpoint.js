@@ -9,6 +9,6 @@ Methods.add("createToken", ({ body }) => {
 	})
 
 	return {
-		token: token
+		token: token,
 	}
 })

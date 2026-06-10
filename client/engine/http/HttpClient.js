@@ -13,15 +13,10 @@ export const HttpClient = ProxyObject(
 		return fetch(`${Config.httpUrl}/${method}`, request)
 			.then(r => r.json())
 			.then(json => {
-				console.log("____________________________")
-				console.log(Assert.jsonObject(json))
-				console.log(JSON.stringify(json))
 				return callback(Assert.jsonObject(json))
 			})
 			.catch(e => {
-				console.log(`Error while calling ${method}`)
-				console.log(e)
-				console.log("____________________________")
+				throw new Error(e)
 			})
 	}
 )
