@@ -89,6 +89,8 @@ export class World {
 		Controller.control(this.player)
 
 		this.fireplace.shake(20, 10)
+		
+		console.log(this.fireplace)
 	}
 
 	update() {
@@ -101,12 +103,12 @@ export class World {
 		)
 		this.cameraViewTest.style.color = fireplaceInsideView ? "lime" : "red"
 
-		this.fireplace.flicker(0.5, 255, 0, 0)
-		this.fireplace.reset()
-
+		Collision.applyCollisionBetween(this.fireplace, G.player)
+		D1.box(this.fireplace.position)
+		
 		D2.circle(WorldPosition(2000, 2000), 50)
 
-		//D1.box(Camera.visiblePosition)
+		
 	}
 
 }

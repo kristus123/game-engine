@@ -11,6 +11,8 @@ export class Tree extends Entity {
 	update() {
 		this.objects.update()
 
+		Collision.applyCollisionBetween(this.sprite.collider, G.player)
+
 		// D1.box(this.sprite.collider)
 		// D1.box(G.player.sprite.collider)
 	}
