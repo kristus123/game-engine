@@ -51,6 +51,19 @@ export class World {
 		this.player = Player(WorldPosition(2000, 2000)),
 		G.player = this.player
 
+		Internet.onOnline(() => {
+			console.log("Server connection restored")
+		})
+
+		Internet.onOffline(() => {
+			console.log("Server connection lost")
+		})
+
+		setInterval(() => {
+		  Tts("Ja, jeg smiler og ler nar jeg ser deg").speak("hello")
+		  console.log("YOLO")
+		}, 3000)
+
 		this.objects = Objects([
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.world = Sprite.world(WorldPosition(0, 0)),
@@ -70,7 +83,6 @@ export class World {
 			}),
 			Every(2000, () => {
 				console.log("fireplace inside view:", Camera.insideView(this.fireplace))
-				console.log("internet connected:", Internet.connected)
 			}),
 			IntroQuest(this.player, this.oldSami, this.bush),
 			// Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),

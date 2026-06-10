@@ -3,6 +3,9 @@ export class Internet {
 	static pingIntervalMs = 5000
 	static pingTimeoutMs = 2000
 
+	static onlineListener = new Listener()
+	static offlineListener = new Listener()
+
 	static {
 		this.connected = navigator.onLine
 
@@ -11,7 +14,7 @@ export class Internet {
 		})
 
 		window.addEventListener("offline", () => {
-			this.connected = false
+			this.setConnected(false)
 		})
 
 		this.update()
@@ -20,13 +23,34 @@ export class Internet {
 		}, this.pingIntervalMs)
 	}
 
+	static onOnline(callback) {
+		this.onlineListener.listen(callback)
+	}
+
+	static onOffline(callback) {
+		this.offlineListener.listen(callback)
+	}
+
+	static setConnected(isConnected) {
+		const wasConnected = this.connected
+		this.connected = isConnected
+
+		if (wasConnected && !isConnected) {
+			this.offlineListener.trigger()
+		}
+		else if (!wasConnected && isConnected) {
+			this.onlineListener.trigger()
+		}
+	}
+
 	static async update() {
 		if (!navigator.onLine) {
-			this.connected = false
+			this.setConnected(false)
 			return this.connected
 		}
 
-		this.connected = await this.serverConnected()
+		const isConnected = await this.serverConnected()
+		this.setConnected(isConnected)
 		return this.connected
 	}
 
@@ -37,19 +61,8 @@ export class Internet {
 		}, this.pingTimeoutMs)
 
 		try {
-			const response = await fetch(`${Config.httpUrl}/internetPing`, {
-				body: JSON.stringify({}),
-				cache: "no-store",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				method: "POST",
-				signal: controller.signal,
-			})
-
-			const json = await response.json()
-
-			return response.ok && json.connected == true
+			const response = await HttpClient.ping({}, () => {})
+			return response !== undefined
 		}
 		catch (e) {
 			return false
