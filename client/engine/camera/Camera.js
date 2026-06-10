@@ -39,8 +39,8 @@ export class Camera {
 
 	static p(p) {
 		return new WorldPosition(
-			p.x - this.position.x + (Screen.width/2),
-			p.y - this.position.y + (Screen.height/2))
+			p.x - this.position.x + (Screen.width / 2),
+			p.y - this.position.y + (Screen.height / 2))
 	}
 
 
@@ -49,6 +49,12 @@ export class Camera {
 		this.visiblePosition.y = Camera.position.y - Screen.height / 2
 		this.visiblePosition.width = Screen.width
 		this.visiblePosition.height = Screen.height
+	}
+
+	//here is the change
+	static isInView(entity) {
+		const p = entity.position ?? entity
+		return Collision.between(p, this.visiblePosition)
 	}
 }
 
