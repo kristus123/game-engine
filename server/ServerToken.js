@@ -19,7 +19,7 @@ function encodeBase64(payload) {
 
 export class ServerToken {
 
-	static create({ internal = {}, unsafe = {}} = {}) {
+	static create({ internal = {}, unsafe = {} } = {}) {
 
 		const internalData = encodeBase64(internal)
 		const internalDataSignature = signSha256(internalData)
