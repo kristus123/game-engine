@@ -52,6 +52,11 @@ export function Enhance_js_Array() {
 		}
 	})
 
+	Enhance(Array.prototype, "except", function (e) {
+		// todo verify it works
+		return [...this].filter(c => c != e)
+	})
+
 	Enhance(Array.prototype, "removeOneOrThrowException", function (predicate) {
 		const removed = this.removeIf(predicate)
 		if (!removed) {

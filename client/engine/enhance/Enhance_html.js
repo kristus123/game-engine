@@ -135,6 +135,10 @@ export function Enhance_html() {
 		return this
 	})
 
+	Getter(HTMLElement.prototype, "parent", function () {
+		return this.parentElement
+	})
+
 	Enhance(HTMLElement.prototype, "onDragChild", function ({ onDrag, whileDragging, onDrop } = {}) {
 
 		let draggedItem = null
@@ -142,6 +146,7 @@ export function Enhance_html() {
 		window.addEventListener("pointerdown", e => {
 			draggedItem = e.target.closest("[draggable]") // it should also check that the draggable is inside of "this"
 			// or maybe it can be replaced with this.addEventListener
+			// right now it is scary and global
 
 			if (draggedItem) {
 				draggedItem.style.opacity = "0.5"
@@ -153,14 +158,16 @@ export function Enhance_html() {
 		})
 
 		window.addEventListener("pointermove", e => {
+			// or maybe it can be replaced with this.addEventListener
+			// right now it is scary and global
 			if (draggedItem) {
 				whileDragging(draggedItem)
 
-				const items = [...this.children].filter(el => el != draggedItem)
+				const items = [...this.children].filter(c => c != draggedItem)
 
-				const nextItem = items.find(item => {
-					const rect = item.getBoundingClientRect()
-					return e.clientY < rect.top + rect.height / 2
+				const nextItem = items.find(i => {
+					const r = i.getBoundingClientRect()
+					return e.clientY < r.top + r.height / 2
 				})
 
 				if (nextItem) {
@@ -181,11 +188,16 @@ export function Enhance_html() {
 				draggedItem = null
 			}
 		}
+
 		window.addEventListener("pointerup", e => {
+			// or maybe it can be replaced with this.addEventListener
+			// right now it is scary and global
 			stopDrag()
 		})
 
 		window.addEventListener("pointercancel", () => {
+			// or maybe it can be replaced with this.addEventListener
+			// right now it is scary and global
 			stopDrag()
 		})
 

@@ -1,5 +1,45 @@
 export class Dom {
 
+	static onDrag = () => {}
+	static onDrop = () => {}
+	static whileDragging = () => {}
+
+	static {
+		let draggedItem = null
+
+		window.addEventListener("pointerdown", e => {
+			draggedItem = e.target.closest("[draggable]")
+
+			if (draggedItem) {
+				this.onDrag?.()
+
+				draggedItem.style.opacity = "0.5"
+				e.target.setPointerCapture(e.pointerId)
+
+				draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
+			}
+		})
+
+		window.addEventListener("pointermove", e => {
+			if (draggedItem) {
+				this.whileDragging?.(draggedItem)
+			}
+		})
+
+		const stopDrag = () => {
+			if (draggedItem) {
+				draggedItem.removeAttribute("being-dragged")
+				draggedItem.style.opacity = "1"
+
+				this.onDrop?.(draggedItem)
+				draggedItem = null
+			}
+		}
+
+		window.addEventListener("pointerup", e => stopDrag())
+		window.addEventListener("pointercancel", () => stopDrag())
+	}
+
 	static overlay(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
@@ -32,7 +72,6 @@ export class Dom {
 		else {
 			throw new Error("element must be added in dom before it can be moved")
 		}
-
 	}
 
 	static remove(e) {

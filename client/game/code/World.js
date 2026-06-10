@@ -1,28 +1,48 @@
 export class World {
 
 	constructor() {
-		const test = Html.test()
-		Dom.add(test)
+		const test = Dom.add(Html.test())
+
+		let placeholder = null
 
 		Dom.onDrag = e => {
-
+			test.list.forEach(c => {
+				c.addClass("blue")
+			})
 		}
 
 		Dom.onDrop = e => {
-			e.closest("[user-sortable]")
+			test.list.forEach(c => {
+				c.removeClass("blue")
+			})
 		}
 
-		test.list.onDragChild({
-			onDrag: (e) => {
-				console.log(e)
-			},
-			onDrop: (e) => {
-				console.log(e)
-			},
-			whileDragging: () => {
+		Dom.whileDragging = e => {
 
-			},
-		})
+			const nextItem = test.list.children.find(i => {
+				const r = i.getBoundingClientRect()
+				return Mouse.screen.y < r.top + r.height / 2
+			})
+
+			if (nextItem) {
+				test.list.insertBefore(e, nextItem)
+			}
+			else {
+				test.list.appendChild(e)
+			}
+		}
+
+		// test.list.onDragChild({
+		// 	onDrag: (e) => {
+		// 		console.log(e)
+		// 	},
+		// 	onDrop: (e) => {
+		// 		console.log(e)
+		// 	},
+		// 	whileDragging: () => {
+
+		// 	},
+		// })
 
 		// this.player = Player(WorldPosition(2000, 2000)),
 		// G.player = this.player

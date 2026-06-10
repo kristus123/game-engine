@@ -10,9 +10,11 @@ export class Mouse {
 	}
 
 	static position = WorldPosition(0, 0)
-	static screenPosition = WorldPosition(0, 0)
+	static screen = WorldPosition(0, 0)
 
 	static initialize() {
+		// is it better to use window.addEventListener
+
 		document.addEventListener("wheel", e => {
 		})
 
@@ -28,6 +30,9 @@ export class Mouse {
 		})
 
 		document.addEventListener("pointerup", e => {
+		})
+
+		document.addEventListener("pointercancel", e => {
 		})
 
 		document.addEventListener("contextmenu", e => {
@@ -47,8 +52,8 @@ export class Mouse {
 	}
 
 	static updatePosition(xx, yy) {
-		this.screenPosition.x = xx.round()
-		this.screenPosition.y = yy.round()
+		this.screen.x = xx
+		this.screen.y = yy
 
 		const inverseZoom = 1 / Camera.zoom
 
