@@ -1,5 +1,7 @@
 // deltatime is in seconds
 
+
+
 export class DeltaTime {
 	static {
 		this.stopwatch = StopWatch()
@@ -31,6 +33,10 @@ export class DeltaTime {
 
 	static get value() {
 		return this.delta
+	}
+
+	static get ms() {
+		return this.delta * 1000
 	}
 
 	static get fps() {

@@ -47,6 +47,13 @@ export class World {
 		this.player = Player(WorldPosition(2000, 2000)),
 		G.player = this.player
 
+
+
+		setInterval(() => {
+		  Tts("Jueg eru velduigu gladu i kaku").speak("hello")
+		  console.log("YOLO")
+		}, 3000)
+
 		this.objects = Objects([
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.world = Sprite.world(WorldPosition(0, 0)),
@@ -61,6 +68,9 @@ export class World {
 			}),
 			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
 			this.oldSami = OldSami(),
+			TestRandom(0, 100, 5000, (v) => {
+				console.log(v)
+			}),
 			IntroQuest(this.player, this.oldSami, this.bush),
 			// Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),
 		])
@@ -78,6 +88,8 @@ export class World {
 		this.fireplace.reset()
 
 		D2.circle(WorldPosition(2000, 2000), 50)
+
+		D1.box(Camera.visiblePosition)
 	}
 
 }

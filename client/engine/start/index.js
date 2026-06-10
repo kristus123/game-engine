@@ -56,6 +56,7 @@ Promise.all([
 			], () => {
 				world.update()
 				Mouse.update()
+				Camera.update()
 				for (const c of SuperClass.all) {
 					c.showTags()
 				}
