@@ -21,7 +21,6 @@ export class ServerToken {
 
 	static create({ internal, unsafe } = {}) {
 
-
 		const internalData = encodeBase64(internal)
 		const internalDataSignature = signSha256(internalData)
 
@@ -59,11 +58,3 @@ export class ServerToken {
 		}
 	}
 }
-
-const token = ServerToken.create({
-	internal: { 1: 2 },
-	unsafe: { 1: 2 },
-})
-
-console.log(token)
-console.log(ServerToken.decode(token))
