@@ -50,6 +50,29 @@ export class Camera {
 		this.visiblePosition.width = Screen.width
 		this.visiblePosition.height = Screen.height - 500
 	}
+
+	static insideView(entity) {
+		const position = entity.position ?? entity
+		const width = position.width ?? 0
+		const height = position.height ?? 0
+		const halfWidth = Screen.width / this.zoom / 2
+		const halfHeight = Screen.height / this.zoom / 2
+
+		const viewLeft = this.position.x - halfWidth
+		const viewRight = this.position.x + halfWidth
+		const viewTop = this.position.y - halfHeight
+		const viewBottom = this.position.y + halfHeight
+
+		const entityLeft = position.x
+		const entityRight = position.x + width
+		const entityTop = position.y
+		const entityBottom = position.y + height
+
+		return entityRight >= viewLeft
+            && entityLeft <= viewRight
+            && entityBottom >= viewTop
+            && entityTop <= viewBottom
+	}
 }
 
 

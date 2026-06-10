@@ -76,6 +76,17 @@ export class World {
 		])
 
 		Camera.follow(this.player)
+
+		this.cameraViewTest = Dom.add(H.p("FIREPLACE IN VIEW: ..."))
+		this.cameraViewTest.style.position = "fixed"
+		this.cameraViewTest.style.left = "20px"
+		this.cameraViewTest.style.top = "20px"
+		this.cameraViewTest.style.zIndex = "1000"
+		this.cameraViewTest.style.padding = "8px"
+		this.cameraViewTest.style.backgroundColor = "black"
+		this.cameraViewTest.style.pointerEvents = "none"
+
+
 		Controller.control(this.player)
 
 		this.fireplace.shake(20, 10)
@@ -83,6 +94,13 @@ export class World {
 
 	update() {
 		this.objects.update()
+
+		const fireplaceInsideView = Camera.insideView(this.fireplace)
+		H.changeText(
+			this.cameraViewTest,
+			`FIREPLACE IN VIEW: ${fireplaceInsideView ? "YES" : "NO"}`
+		)
+		this.cameraViewTest.style.color = fireplaceInsideView ? "lime" : "red"
 
 		this.fireplace.flicker(0.5, 255, 0, 0)
 		this.fireplace.reset()
