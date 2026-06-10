@@ -13,39 +13,41 @@ function decodeBase64(encoded) {
 	return JSON.parse(Buffer.from(encoded, "base64url").toString("utf8"))
 }
 
-function encodeJson(payload) {
+function encodeBase64(payload) {
 	return Buffer.from(JSON.stringify(payload)).toString("base64url")
 }
 
-export class ServerJwt {
+export class ServerToken {
 
-	static create({ internalJson, clientJson } = {}) {
+	static create({ internal, unsafe } = {}) {
 
-		const signature = signSha256(immutableData)
-		const immutableData = encodeJson(internalJson)
-		const mutableData = encodeJson(clientJson)
 
-		return `${signature}.${immutableData}.${mutableData}`
+		const internalData = encodeBase64(internal)
+		const internalDataSignature = signSha256(internalData)
+
+		const unsafeData = encodeBase64(unsafe)
+
+		return `${internalData}.${internalDataSignature}.${unsafeData}`
 	}
 
 	static decode(token) {
 		try {
 			const [
-				signature,
-				immutableData,
-				mutableData,
+				internalData,
+				internalDataSignature,
+				unsafeData,
 			] = token.split(".")
 
-			const expected = signSha256(immutableData)
+			const expected = signSha256(internalData)
 
 			const valid = crypto.timingSafeEqual(
-				Buffer.from(signature),
+				Buffer.from(internalDataSignature),
 				Buffer.from(expected))
 
 			if (valid) {
 				return {
-					immutableData: decodeBase64(immutableData),
-					mutableData: decodeBase64(mutableData),
+					internal: decodeBase64(internalData),
+					unsafe: decodeBase64(unsafeData),
 				}
 			}
 			else {
@@ -58,10 +60,10 @@ export class ServerJwt {
 	}
 }
 
-const token = ServerJwt.create({
-	internalJson: { 1: 2 },
-	clientJson: { 1: 2 },
+const token = ServerToken.create({
+	internal: { 1: 2 },
+	unsafe: { 1: 2 },
 })
 
 console.log(token)
-console.log(ServerJwt.decode(token))
+console.log(ServerToken.decode(token))
