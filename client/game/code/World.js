@@ -1,6 +1,10 @@
 export class World {
 
 	constructor() {
+		ClientToken.create(() => {
+			console.log(ClientToken.get().internal)
+		})
+
 		// const test = Dom.add(Html.test())
 
 		// let placeholder = null
