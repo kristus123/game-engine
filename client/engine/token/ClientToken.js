@@ -30,7 +30,7 @@ export class ClientToken {
 		}
 		else {
 		}
-			localStorage.setItem("clientToken", token)
+		localStorage.setItem("clientToken", token)
 	}
 
 	static remove() {
