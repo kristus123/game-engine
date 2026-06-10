@@ -103,7 +103,8 @@ export class World {
 		)
 		this.cameraViewTest.style.color = fireplaceInsideView ? "lime" : "red"
 
-		Collision.applyCollisionBetween(this.fireplace, G.player)
+		G.player.enforceCollision(this.fireplace)
+
 		D1.box(this.fireplace.position)
 
 		D2.circle(WorldPosition(2000, 2000), 50)
