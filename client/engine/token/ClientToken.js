@@ -10,21 +10,27 @@ export class ClientToken {
 		] = encoded.split(".")
 
 		return {
-			internal: Base64.decode(internalData),
-			unsafe: Base64.decode(unsafeData),
+			internal: JSON.parse(Base64.decode(internalData)),
+			unsafe: JSON.parse(Base64.decode(unsafeData)),
 		}
 	}
 
-	static create() {
+	static create(callback = () => {}) {
 		HttpClient.createToken({}, body => {
 			this.store(body.token)
+			callback(this.get())
 		})
 	}
 
 	static store(token) {
 		Assert.value(token)
 
-		localStorage.setItem("clientToken", token)
+		if (this.present()) {
+			// throw new Error("can't store token if another token is already stored")
+		}
+		else {
+		}
+			localStorage.setItem("clientToken", token)
 	}
 
 	static remove() {
