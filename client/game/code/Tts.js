@@ -1,17 +1,17 @@
+let voice = null
+speechSynthesis.onvoiceschanged = () => {
+	voice = speechSynthesis.getVoices().find((v) => {
+		return v.lang == "ja-JP"
+	})
+}
+
 export class Tts {
-	constructor() {
-		this.lang = "en-US"
+	constructor(text) {
+		this.lang = "ja-JP"
+		//this.lang = "en-US"
 		this.rate = 1
 		this.pitch = 1
-
-		this.voice = null
-
-		speechSynthesis.onvoiceschanged = () => {
-			const voices = speechSynthesis.getVoices()
-			console.log("Available voices:", voices)
-
-			this.voice = voices[0]
-		}
+		this.speak(text)
 	}
 
 	speak(text) {
@@ -20,7 +20,7 @@ export class Tts {
 		utterance.lang = this.lang
 		utterance.rate = this.rate
 		utterance.pitch = this.pitch
-		utterance.voice = this.voice
+		utterance.voice = voice
 
 		speechSynthesis.speak(utterance)
 	}
