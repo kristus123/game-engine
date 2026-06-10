@@ -40,10 +40,10 @@ export class Collision {
 		const collidingEntityCollider = collidingEntity.sprite.collider
 
 		const overlapX = Math.min(collider.x + collider.width - collidingEntityCollider.x,
-									collidingEntityCollider.x + collidingEntityCollider.width - collider.x)
+			collidingEntityCollider.x + collidingEntityCollider.width - collider.x)
 
 		const overlapY = Math.min(collider.y + collider.height - collidingEntityCollider.y,
-									collidingEntityCollider.y + collidingEntityCollider.height - collider.y)
+			collidingEntityCollider.y + collidingEntityCollider.height - collider.y)
 
 		const centerColliderX =
 			collider.x + collider.width * 0.5

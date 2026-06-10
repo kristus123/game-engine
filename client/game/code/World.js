@@ -89,7 +89,7 @@ export class World {
 		Controller.control(this.player)
 
 		this.fireplace.shake(20, 10)
-		
+
 		console.log(this.fireplace)
 	}
 
@@ -105,10 +105,10 @@ export class World {
 
 		Collision.applyCollisionBetween(this.fireplace, G.player)
 		D1.box(this.fireplace.position)
-		
+
 		D2.circle(WorldPosition(2000, 2000), 50)
 
-		
+
 	}
 
 }
