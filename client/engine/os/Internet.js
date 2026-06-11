@@ -40,7 +40,7 @@ export class Internet {
 			})
 		}
 		catch (e) {
-			
+
 		}
 	}
 }
