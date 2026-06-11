@@ -49,7 +49,7 @@ export class World {
 		// })
 
 		this.player = Player(WorldPosition(2000, 2000)),
-		G.player = this.player
+			G.player = this.player
 
 		Internet.onOnline(() => {
 			console.log("Server connection restored")
@@ -98,8 +98,6 @@ export class World {
 		G.player.enforceCollision(this.fireplace)
 
 		D1.box(this.fireplace.position)
-		this.fireplace.flicker(0.5, 255, 0, 0)
-		this.fireplace.reset()
 
 		D2.circle(WorldPosition(2000, 2000), 50)
 
