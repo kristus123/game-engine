@@ -2,6 +2,6 @@ import { Methods } from "#root/server/http/Methods.js"
 
 Methods.add("ping", () => {
 	return {
-		connected: true,
+		pong: true,
 	}
 })
