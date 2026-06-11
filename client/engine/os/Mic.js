@@ -1,4 +1,5 @@
-export class Microphone {
+export class Mic {
+
 	static recorder = null
 	static stream = null
 	static chunks = []
@@ -20,6 +21,9 @@ export class Microphone {
 	}
 
 	static all(callback) {
+		if (!MicPermission.granted) {
+			throw new Error("Needs permission first")
+		}
 
 		// You often need permission first to get labels
 		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {

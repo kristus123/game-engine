@@ -114,20 +114,20 @@ export class Assert {
 
 	static notNull(x, errorMessage="add own message!") {
 		if (x == null) {
-			throw new Error(errorMessage + " NULL IS CONSIDERED BAD. BITCH")
+			throw new Error(errorMessage + " NULL IS CONSIDERED BAD. SMILE!!!")
 		}
 		else if (x == undefined) {
-			throw new Error(errorMessage + " UNDEFINED IS CONSIDERED BAD. BITCH")
+			throw new Error(errorMessage + " UNDEFINED IS CONSIDERED BAD. SMILE!!!")
 		}
 		else if (typeof x == "number" && isNaN(x)) {
-			throw new Error(errorMessage + " NOT A NUMBER (nan) IS CONSIDERED BAD. BITCH")
+			throw new Error(errorMessage + " NOT A NUMBER (nan) IS CONSIDERED BAD. SMILE!!!")
 		}
 		else {
 			return x
 		}
 
 		// if (typeof x == 'string' && x.trim() == '') {
-		// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. BITCH")
+		// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. SMILE!!!")
 		// }
 	}
 

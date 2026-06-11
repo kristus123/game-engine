@@ -24,13 +24,13 @@ function _init() {
 
 		start.onClick(() => {
 			start.disable()
-			Microphone.start(() => {
+			Mic.start(() => {
 				stop.enable()
 			})
 		})
 
 		stop.onClick(() => {
-			Microphone.stop(blob => {
+			Mic.stop(blob => {
 				Sound.playBlob(blob)
 				sound[direction] = blob
 

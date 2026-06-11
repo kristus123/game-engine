@@ -4,10 +4,10 @@ h.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
-Microphone.all(m => {
+Mic.all(m => {
 	const label = m.label.replace(/\s*\([^()]*\)\s*$/, "")
 	h.mid.add(H.button(label, () => {
-		Microphone.selected = m.deviceId
+		Mic.selected = m.deviceId
 	}).css("padding:20px;"))
 })
 
