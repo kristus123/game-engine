@@ -1,8 +1,5 @@
 export class Internet {
 	static connected = navigator.onLine
-	static pingIntervalMs = 5000
-	static pingTimeoutMs = 2000
-
 	static onlineListener = new Listener()
 	static offlineListener = new Listener()
 
@@ -18,7 +15,7 @@ export class Internet {
 		this.ping()
 		setInterval(() => {
 			this.ping()
-		}, this.pingIntervalMs)
+		}, 5000)
 	}
 
 	static onOnline(callback) {
@@ -51,11 +48,11 @@ export class Internet {
 
 		const timeout = setTimeout(() => {
 			this.setConnected(false)
-		}, this.pingTimeoutMs)
+		}, 2000)
 
-		HttpClient.ping({}, (response) => {
+		HttpClient.ping({}, (body) => {
 			clearTimeout(timeout)
-			this.setConnected(response?.connected === true)
+			this.setConnected(body?.connected === true)
 		}).catch(() => {
 			clearTimeout(timeout)
 			this.setConnected(false)
