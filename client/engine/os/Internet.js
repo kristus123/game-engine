@@ -1,5 +1,5 @@
 export class Internet {
-	static connected = false
+	static connected = navigator.onLine
 	static pingIntervalMs = 5000
 	static pingTimeoutMs = 2000
 
@@ -7,19 +7,17 @@ export class Internet {
 	static offlineListener = new Listener()
 
 	static {
-		this.connected = navigator.onLine
-
 		window.addEventListener("online", () => {
-			this.update()
+			this.ping()
 		})
 
 		window.addEventListener("offline", () => {
 			this.setConnected(false)
 		})
 
-		this.update()
+		this.ping()
 		setInterval(() => {
-			this.update()
+			this.ping()
 		}, this.pingIntervalMs)
 	}
 
@@ -36,34 +34,31 @@ export class Internet {
 		this.connected = isConnected
 
 		if (wasConnected && !isConnected) {
-			this.offlineListener.trigger()
+			console.log("Internet: offline")
+			this.offlineListener.trigger(false)
 		}
 		else if (!wasConnected && isConnected) {
-			this.onlineListener.trigger()
+			console.log("Internet: online")
+			this.onlineListener.trigger(true)
 		}
 	}
 
-	static async update() {
+	static ping() {
 		if (!navigator.onLine) {
 			this.setConnected(false)
-			return this.connected
+			return
 		}
 
-		const isConnected = await this.serverConnected()
-		this.setConnected(isConnected)
-		return this.connected
-	}
+		const timeout = setTimeout(() => {
+			this.setConnected(false)
+		}, this.pingTimeoutMs)
 
-	static serverConnected() {
-		return new Promise((resolve) => {
-			const timeout = setTimeout(() => {
-				resolve(false)
-			}, this.pingTimeoutMs)
-
-			HttpClient.ping({}, (response) => {
-				clearTimeout(timeout)
-				resolve(response?.connected === true)
-			})
+		HttpClient.ping({}, (response) => {
+			clearTimeout(timeout)
+			this.setConnected(response?.connected === true)
+		}).catch(() => {
+			clearTimeout(timeout)
+			this.setConnected(false)
 		})
 	}
 }

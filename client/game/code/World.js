@@ -59,11 +59,6 @@ export class World {
 			console.log("Server connection lost")
 		})
 
-		setInterval(() => {
-		  Tts("Ja, jeg smiler og ler nar jeg ser deg").speak("hello")
-		  console.log("YOLO")
-		}, 3000)
-
 		this.objects = Objects([
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.world = Sprite.world(WorldPosition(0, 0)),
