@@ -54,21 +54,16 @@ export class Internet {
 		return this.connected
 	}
 
-	static async serverConnected() {
-		const controller = new AbortController()
-		const timeout = setTimeout(() => {
-			controller.abort()
-		}, this.pingTimeoutMs)
+	static serverConnected() {
+		return new Promise((resolve) => {
+			const timeout = setTimeout(() => {
+				resolve(false)
+			}, this.pingTimeoutMs)
 
-		try {
-			const response = await HttpClient.ping({}, () => {})
-			return response !== undefined
-		}
-		catch (e) {
-			return false
-		}
-		finally {
-			clearTimeout(timeout)
-		}
+			HttpClient.ping({}, (response) => {
+				clearTimeout(timeout)
+				resolve(response?.connected === true)
+			})
+		})
 	}
 }
