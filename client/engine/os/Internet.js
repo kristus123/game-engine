@@ -29,10 +29,11 @@ export class Internet {
 	}
 
 	static check() {
-		try {
+		try { // improve more
 			HttpClient.ping({}, body => {
-				Assert.bool(body.pong)
-				this.connected = body.pong
+				Assert.yes(body.pong)
+
+				this.connected = true
 
 				if (!this.connected) {
 					this.on.trigger()
@@ -40,6 +41,9 @@ export class Internet {
 			})
 		}
 		catch (e) {
+				if (this.connected) {
+					this.on.trigger()
+				}
 
 		}
 	}
