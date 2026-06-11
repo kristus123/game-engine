@@ -67,6 +67,8 @@ Promise.all([
 			Palette.main.apply(Palette.d2)
 			Palette.main.apply(Palette.d1)
 			Palette.main.apply(Palette.light)
+
+			Mouse.drawCursor()
 		})
 	})
 	.catch(e => {

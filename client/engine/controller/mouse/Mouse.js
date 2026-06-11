@@ -66,7 +66,15 @@ export class Mouse {
 
 	static update() {
 		this.updatePosition(this.latest_x, this.latest_y)
-		D1.circle(this.position)
+	}
+
+	static drawCursor() {
+		// Draw directly on main canvas without any transformation
+		const ctx = Palette.main.ctx
+		ctx.beginPath()
+		ctx.arc(this.screen.x, this.screen.y, 10, 0, Math.PI * 2, false)
+		ctx.fillStyle = "red"
+		ctx.fill()
 	}
 
 }
