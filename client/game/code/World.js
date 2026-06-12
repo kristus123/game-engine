@@ -49,7 +49,7 @@ export class World {
 		// })
 
 		this.player = Player(WorldPosition(2000, 2000)),
-			G.player = this.player
+		G.player = this.player
 
 		Internet.onOnline(() => {
 			console.log("Server connection restored")
