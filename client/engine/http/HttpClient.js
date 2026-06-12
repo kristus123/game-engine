@@ -18,10 +18,12 @@ export const HttpClient = ProxyObject(
 		}
 
 		return fetch(`${Config.httpUrl}/${method}`, request)
-			.then(r => r.json())
-			.then(json => {
+			.then(async response => {
+				const json = await response.json()
+
 				Assert.jsonObject(json)
 				callback(json)
+
 				return json
 			})
 			.catch(e => {
@@ -33,3 +35,18 @@ export const HttpClient = ProxyObject(
 			})
 	}
 )
+
+
+// in the future
+// maybe do something like this
+/*
+httpClient.getStuff({
+	body: {},
+	ok: body => {
+		
+	},
+	error: e => {
+		
+	},
+})
+*/

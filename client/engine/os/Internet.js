@@ -36,13 +36,13 @@ export class Internet {
 			Assert.true(body.pong)
 
 			if (this.connected == null || this.connected == false) {
-				this._on.trigger({})
+				this._on.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = true
 			}
 		}
 		catch (e) {
 			if (this.connected == null || this.connected == true) {
-				this._off.trigger({})
+				this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = false
 			}
 		}
