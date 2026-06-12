@@ -1,6 +1,6 @@
 export class Internet {
 
-	static connected = false
+	static connected = null
 
 	static {
 		this.check()
@@ -18,33 +18,33 @@ export class Internet {
 		}, 500)
 	}
 
-	static on = new Listener()
+	static _on = new Listener()
 	static onOnline(callback) {
-		this.o.listen(callback)
+		console.log("online")
+		this._on.listen(callback)
 	}
 
-	static off = new Listener()
+	static _off = new Listener()
 	static onOffline(callback) {
-		this.off.listen(callback)
+		console.log("offline")
+		this._off.listen(callback)
 	}
 
-	static check() {
-		try { // improve more
-			HttpClient.ping({}, body => {
-				Assert.yes(body.pong)
+	static async check() {
+		try {
+			const body = await HttpClient.ping()
+			Assert.true(body.pong)
 
+			if (this.connected == null || this.connected == false) {
+				this._on.trigger({})
 				this.connected = true
-
-				if (!this.connected) {
-					this.on.trigger()
-				}
-			})
+			}
 		}
 		catch (e) {
-				if (this.connected) {
-					this.on.trigger()
-				}
-
+			if (this.connected == null || this.connected == true) {
+				this._off.trigger({})
+				this.connected = false
+			}
 		}
 	}
 }

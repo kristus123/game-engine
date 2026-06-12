@@ -114,7 +114,6 @@ export class World {
 
 		D2.circle(WorldPosition(2000, 2000), 50)
 
-
 	}
 
 }

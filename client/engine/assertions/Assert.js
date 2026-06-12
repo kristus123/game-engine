@@ -1,5 +1,32 @@
 export class Assert {
 
+	static true(o) {
+		if (o == true) {
+			return o
+		}
+		else {
+			throw new Error("value should be true")
+		}
+	}
+
+	static bool(o) {
+		if ( o == true || o == false) { // Maybe there is a better way to do this.
+			return o
+		}
+		else {
+			throw new Error("value should be a bool, but instead got: " + o)
+		}
+	}
+
+	static false(o) {
+		if (o == false) {
+			return o
+		}
+		else {
+			throw new Error("value should be false")
+		}
+	}
+
 	static jsonObject(o) {
 		if (A.jsonObject(o)) {
 			return o
