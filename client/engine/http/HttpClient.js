@@ -25,6 +25,7 @@ export const HttpClient = ProxyObject(
 				return json
 			})
 			.catch(e => {
+				console.error(`${method}: ${e?.message}`)
 				throw e
 			})
 			.finally(() => {

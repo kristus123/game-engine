@@ -5,16 +5,7 @@ export class Assert {
 			return o
 		}
 		else {
-			throw new Error("value should be true")
-		}
-	}
-
-	static bool(o) {
-		if ( o == true || o == false) { // Maybe there is a better way to do this.
-			return o
-		}
-		else {
-			throw new Error("value should be a bool, but instead got: " + o)
+			throw new Error("value should be true, but is: " + o)
 		}
 	}
 
@@ -23,7 +14,16 @@ export class Assert {
 			return o
 		}
 		else {
-			throw new Error("value should be false")
+			throw new Error("value should be false, but is: " + o)
+		}
+	}
+
+	static bool(o) {
+		if ( o == true || o == false) { // Maybe there is a better way to do this.
+			return o
+		}
+		else {
+			throw new Error("value should be a bool, but is: " + o)
 		}
 	}
 
