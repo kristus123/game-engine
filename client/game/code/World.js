@@ -51,6 +51,14 @@ export class World {
 		this.player = Player(WorldPosition(2000, 2000)),
 		G.player = this.player
 
+		Internet.onOnline(() => {
+			console.log("Server connection restored")
+		})
+
+		Internet.onOffline(() => {
+			console.log("Server connection lost")
+		})
+
 		this.objects = Objects([
 			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
 			this.world = Sprite.world(WorldPosition(0, 0)),
@@ -105,7 +113,6 @@ export class World {
 		D1.box(this.fireplace.position)
 
 		D2.circle(WorldPosition(2000, 2000), 50)
-
 
 	}
 
