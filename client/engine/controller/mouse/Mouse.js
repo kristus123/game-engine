@@ -21,7 +21,7 @@ export class Mouse {
 		document.addEventListener("pointerdown", e => {
 			Mouse.updatePosition(e.clientX, e.clientY)
 
-			if (e.target == Palette.main.canvas) {
+			if (e.target == Palette.main.canvas) { // not sure if this works
 				this.onClick(this.position)
 			}
 			else {
