@@ -5,39 +5,39 @@ export class Dom {
 	static whileDragging = () => {}
 	static onMouseMove = () => {}
 
+	static draggedItem = null
+
 	static {
-		let draggedItem = null
-
 		window.addEventListener("pointerdown", e => {
-			draggedItem = e.target.closest("[draggable]")
+			this.draggedItem = e.target.closest("[draggable]")
 
-			if (draggedItem) {
-				//this.whileDragging?.(draggedItem)
-				this.onDrag?.(draggedItem)
+			if (this.draggedItem) {
+				//this.whileDragging?.(this.draggedItem)
+				this.onDrag?.(this.draggedItem)
 
-				draggedItem.style.opacity = "0.5"
+				this.draggedItem.style.opacity = "0.5"
 				e.target.setPointerCapture(e.pointerId)
 
-				draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
+				this.draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
 			}
 		})
 
 		window.addEventListener("pointermove", e => {
-			if (draggedItem) {
-				this.whileDragging?.(draggedItem)
+			if (this.draggedItem) {
+				this.whileDragging?.(this.draggedItem)
 			}
 
-			this.onMouseMove?.(e)
+			this.onMouseMove?.(e.target)
 		})
 
 		const stopDrag = () => {
-			if (draggedItem) {
-				draggedItem.removeAttribute("being-dragged")
-				draggedItem.style.opacity = "1"
+			if (this.draggedItem) {
+				this.draggedItem.removeAttribute("being-dragged")
+				this.draggedItem.style.opacity = "1"
 
-				//this.whileDragging?.(draggedItem)
-				this.onDrop?.(draggedItem)
-				draggedItem = null
+				//this.whileDragging?.(this.draggedItem)
+				this.onDrop?.(this.draggedItem)
+				this.draggedItem = null
 			}
 		}
 

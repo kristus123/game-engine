@@ -10,13 +10,26 @@ export function Enhance_html() {
 		return this
 	})
 
+	Getter(HTMLElement.prototype, "tag", function () {
+		return this.tagName.toLowerCase()
+	})
 
-	Enhance(HTMLElement.prototype, "order", function (draggedItem) {
+	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) {
+
 		const items = [...this.children].filter(c => c != draggedItem)
 
 		const nextItem = items.find(i => {
 			const r = i.getBoundingClientRect()
-			return Mouse.screen.y < r.top + r.height / 2
+
+			if (this.tag == "flex-v") {
+				return Mouse.screen.y < r.top + r.height / 2
+			}
+			else if (this.tag == "flex-h") {
+				return Mouse.screen.x < r.left + r.width / 2
+			}
+			else {
+				throw new Error("unsupported thing")
+			}
 		})
 
 		if (nextItem) {
@@ -417,10 +430,10 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "swag", function (p) {
+	Enhance(HTMLElement.prototype, "followMouse", function () {
 
-		this.style.left = `${p.x}px`
-		this.style.top = `${p.y}px`
+		this.style.left = `${Mouse.screen.x}px`
+		this.style.top = `${Mouse.screen.y}px`
 
 		return this
 	})
