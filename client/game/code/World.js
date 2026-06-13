@@ -26,7 +26,6 @@ export class World {
 
 		Dom.whileDragging = (e) => {
 			const x = e.closest("[user-sortable]")
-			console.log(x)
 			x.orderBasedOnMousePosition(e)
 
 			placeholder?.followMouse()
@@ -34,7 +33,7 @@ export class World {
 	}
 
 	update() {
-
+			console.log(Dom.hovering?.closest("[user-sortable]"))
 	}
 
 }

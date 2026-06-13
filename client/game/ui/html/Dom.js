@@ -109,4 +109,8 @@ export class Dom {
 
 		document.body.parentNode.replaceChild(newBody, document.body)
 	}
+
+	static get hovering() {
+		return document.elementFromPoint(Mouse.screen.x, Mouse.screen.y)
+	}
 }
