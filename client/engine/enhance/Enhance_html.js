@@ -10,6 +10,23 @@ export function Enhance_html() {
 		return this
 	})
 
+
+	Enhance(HTMLElement.prototype, "order", function (draggedItem) {
+		const items = [...this.children].filter(c => c != draggedItem)
+
+		const nextItem = items.find(i => {
+			const r = i.getBoundingClientRect()
+			return Mouse.screen.y < r.top + r.height / 2
+		})
+
+		if (nextItem) {
+			this.insertBefore(draggedItem, nextItem)
+		}
+		else {
+			this.appendChild(draggedItem)
+		}
+	})
+
 	Getter(HTMLElement.prototype, "last", function () {
 		if (this.empty) {
 			throw new Error("can't get last element if list is empty")
@@ -211,6 +228,14 @@ export function Enhance_html() {
 		return Dom.remove(this)
 	})
 
+	Enhance(HTMLElement.prototype, "visible", function () {
+		return this.css("visibility: visible;")
+	})
+
+	Enhance(HTMLElement.prototype, "invisible", function () {
+		return this.css("visibility: hidden;")
+	})
+
 	Enhance(HTMLElement.prototype, "closestDraggable", function () {
 		return this.closest("[draggable]")
 	})
@@ -386,6 +411,14 @@ export function Enhance_html() {
 		Assert.value(position)
 
 		const p = Camera.p(position)
+		this.style.left = `${p.x}px`
+		this.style.top = `${p.y}px`
+
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "swag", function (p) {
+
 		this.style.left = `${p.x}px`
 		this.style.top = `${p.y}px`
 

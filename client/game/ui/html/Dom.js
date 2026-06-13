@@ -3,6 +3,7 @@ export class Dom {
 	static onDrag = () => {}
 	static onDrop = () => {}
 	static whileDragging = () => {}
+	static onMouseMove = () => {}
 
 	static {
 		let draggedItem = null
@@ -11,7 +12,8 @@ export class Dom {
 			draggedItem = e.target.closest("[draggable]")
 
 			if (draggedItem) {
-				this.onDrag?.()
+				//this.whileDragging?.(draggedItem)
+				this.onDrag?.(draggedItem)
 
 				draggedItem.style.opacity = "0.5"
 				e.target.setPointerCapture(e.pointerId)
@@ -24,6 +26,8 @@ export class Dom {
 			if (draggedItem) {
 				this.whileDragging?.(draggedItem)
 			}
+
+			this.onMouseMove?.(e)
 		})
 
 		const stopDrag = () => {
@@ -31,6 +35,7 @@ export class Dom {
 				draggedItem.removeAttribute("being-dragged")
 				draggedItem.style.opacity = "1"
 
+				//this.whileDragging?.(draggedItem)
 				this.onDrop?.(draggedItem)
 				draggedItem = null
 			}
@@ -44,6 +49,16 @@ export class Dom {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
 		e.addClass("overlay")
+
+		document.body.appendChild(e)
+
+		return e
+	}
+
+	static floating(e) {
+		Assert.notList(e) // do Assert.htmlElement instead in the future
+
+		e.addClass("floating")
 
 		document.body.appendChild(e)
 
