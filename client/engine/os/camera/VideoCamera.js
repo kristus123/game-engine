@@ -1,4 +1,4 @@
-export class Camera {
+export class VideoCamera {
 
 	static async request(callback) {
 		try {
@@ -10,6 +10,7 @@ export class Camera {
 			callback(true)
 		} catch (err) {
 			console.error("Permission denied or error:", err);
+			callback(false)
 			throw new Error("camera denied")
 		}
 	}
