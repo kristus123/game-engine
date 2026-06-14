@@ -25,15 +25,20 @@ export class World {
 		}
 
 		Dom.whileDragging = (e) => {
-			const x = e.closest("[user-sortable]")
-			x.orderBasedOnMousePosition(e)
-
 			placeholder?.followMouse()
+
+			const list = Dom.hovering?.closest("[user-sortable]")
+
+			if (list) {
+				const x = e.closest("[user-sortable]")
+				list.orderBasedOnMousePosition(e)
+			}
 		}
 	}
 
 	update() {
-			console.log(Dom.hovering?.closest("[user-sortable]"))
+		console.log(Dom.hovering)
+		const list = Dom.hovering.closest("[user-sortable]")
 	}
 
 }

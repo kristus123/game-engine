@@ -110,7 +110,11 @@ export class Dom {
 		document.body.parentNode.replaceChild(newBody, document.body)
 	}
 
+	// right now I'm not sure how I want to do it, if a floating element it should probably ignore the floating element or maybe not. I am not sure how to solve this
 	static get hovering() {
-		return document.elementFromPoint(Mouse.screen.x, Mouse.screen.y)
+		for (const e of document.elementsFromPoint(Mouse.screen.x, Mouse.screen.y)) {
+			console.log(e)
+			return e
+		}
 	}
 }

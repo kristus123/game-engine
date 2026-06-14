@@ -14,7 +14,7 @@ export function Enhance_html() {
 		return this.tagName.toLowerCase()
 	})
 
-	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) {
+	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) { // Not the best name.
 
 		const items = [...this.children].filter(c => c != draggedItem)
 
