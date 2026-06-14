@@ -27,7 +27,7 @@ export class World {
 		DomMouse.whileDragging = (e) => {
 			placeholder?.followMouse()
 
-			for (const h of DomMouse.hovering) {
+			for (const h of DomMouse.hovering) { // find better solution for this
 				const list = h.closest("[user-sortable]")
 				if (list) {
 					list.orderBasedOnMousePosition(e)

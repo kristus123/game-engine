@@ -1,3 +1,6 @@
+// Maybe make it so that there is one central place for all event listeners because right now Dom Mouse and Mouse are both setting up event listeners.
+// And I guess it would be very useful to have an easy overview of what event listeners are being used.
+
 export class Mouse {
 
 	static latest_x = 0
@@ -33,7 +36,6 @@ export class Mouse {
 			e.preventDefault()
 		})
 	}
-
 
 	static initializeAfterCameraIsInitialized() {
 		document.addEventListener("pointermove", e => {
