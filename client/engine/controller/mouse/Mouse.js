@@ -1,3 +1,6 @@
+// Maybe make it so that there is one central place for all event listeners because right now Dom Mouse and Mouse are both setting up event listeners.
+// And I guess it would be very useful to have an easy overview of what event listeners are being used.
+
 export class Mouse {
 
 	static latest_x = 0
@@ -5,27 +8,21 @@ export class Mouse {
 
 	static onClick = p => {}
 
-	static onDomClick = p => {
-		console.log(p)
-	}
-
 	static position = WorldPosition(0, 0)
-	static screen = WorldPosition(0, 0)
 
 	static initialize() {
-		// is it better to use window.addEventListener
+		// is it better to use window.addEventListener ?
 
 		document.addEventListener("wheel", e => {
 		})
 
+		// change the pointerdown to use canvas later
+		// Instead of listening globally.
 		document.addEventListener("pointerdown", e => {
 			Mouse.updatePosition(e.clientX, e.clientY)
 
-			if (e.target == Palette.main.canvas) { // not sure if this works
+			if (e.target == Palette.main.canvas) {
 				this.onClick(this.position)
-			}
-			else {
-				this.onDomClick(e.target)
 			}
 		})
 
@@ -40,7 +37,6 @@ export class Mouse {
 		})
 	}
 
-
 	static initializeAfterCameraIsInitialized() {
 		document.addEventListener("pointermove", e => {
 			const events = e.getCoalescedEvents()
@@ -52,9 +48,6 @@ export class Mouse {
 	}
 
 	static updatePosition(xx, yy) {
-		this.screen.x = xx
-		this.screen.y = yy
-
 		const inverseZoom = 1 / Camera.zoom
 
 		const x = (xx - Camera.offset.x) * inverseZoom + Camera.position.x

@@ -12,30 +12,14 @@ export class Mic {
 		return this.state == "recording"
 	}
 
-	static get selected() {
-		return localStorage.getItem("selectedMic") ?? null
-	}
-
-	static set selected(m) {
-		localStorage.setItem("selectedMic", m)
-	}
-
-	static all(callback) {
+	static async all(callback) {
 		if (!MicPermission.granted) {
 			throw new Error("Needs permission first")
 		}
 
-		// You often need permission first to get labels
-		navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-			navigator.mediaDevices.enumerateDevices().then((devices) => {
-				const x = devices.filter(device => device.kind == "audioinput")
-				for (const m of x) {
-					if (!(m.deviceId == "default" || m.deviceId == "communications")) {
-						callback(m)
-					}
-				}
-			})
-		})
+		for (const m of await AllMics.get()) {
+			callback(m)
+		}
 	}
 
 	static async start(onStart = () => {}) {
@@ -100,16 +84,5 @@ export class Mic {
 		return this.state
 	}
 
-	static allMics(callback) {
-		navigator.mediaDevices.enumerateDevices().then(devices => {
-			const mics = devices
-				.filter(device => device.kind == "audioinput")
-				.map(device => ({
-					deviceId: device.deviceId,
-					label: device.label,
-				}))
-			callback(mics)
-		})
 
-	}
 }

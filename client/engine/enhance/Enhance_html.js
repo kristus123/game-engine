@@ -10,6 +10,36 @@ export function Enhance_html() {
 		return this
 	})
 
+	Getter(HTMLElement.prototype, "tag", function () {
+		return this.tagName.toLowerCase()
+	})
+
+	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) { // Not the best name.
+
+		const items = [...this.children].filter(c => c != draggedItem)
+
+		const nextItem = items.find(i => {
+			const r = i.getBoundingClientRect()
+
+			if (this.tag == "flex-v") {
+				return DomMouse.y < r.top + r.height / 2
+			}
+			else if (this.tag == "flex-h") {
+				return DomMouse.x < r.left + r.width / 2
+			}
+			else {
+				throw new Error("unsupported thing")
+			}
+		})
+
+		if (nextItem) {
+			this.insertBefore(draggedItem, nextItem)
+		}
+		else {
+			this.appendChild(draggedItem)
+		}
+	})
+
 	Getter(HTMLElement.prototype, "last", function () {
 		if (this.empty) {
 			throw new Error("can't get last element if list is empty")
@@ -211,6 +241,14 @@ export function Enhance_html() {
 		return Dom.remove(this)
 	})
 
+	Enhance(HTMLElement.prototype, "visible", function () {
+		return this.css("visibility: visible;")
+	})
+
+	Enhance(HTMLElement.prototype, "invisible", function () {
+		return this.css("visibility: hidden;")
+	})
+
 	Enhance(HTMLElement.prototype, "closestDraggable", function () {
 		return this.closest("[draggable]")
 	})
@@ -388,6 +426,14 @@ export function Enhance_html() {
 		const p = Camera.p(position)
 		this.style.left = `${p.x}px`
 		this.style.top = `${p.y}px`
+
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "followMouse", function () {
+
+		this.style.left = `${DomMouse.x}px`
+		this.style.top = `${DomMouse.y}px`
 
 		return this
 	})
