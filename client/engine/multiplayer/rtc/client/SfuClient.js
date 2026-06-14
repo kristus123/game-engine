@@ -199,7 +199,7 @@ export class SfuClient {
 		})
 	}
 
-	static async init() {
+	static async init() { // redundant
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {}) // client shouldn't need to send this. it should send the list on connection
 	}
 
