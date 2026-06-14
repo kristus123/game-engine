@@ -201,7 +201,7 @@ export class SfuClient {
 	}
 
 	static async init() {
-		this.localStream = await VideoCamera.get()
+		this.localStream = await Webcam.get()
 		this.element = HtmlVideo.local(this.localStream)
 		Dom.overlay(this.element)
 

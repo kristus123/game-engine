@@ -1,4 +1,4 @@
-export class VideoCamera {
+export class Webcam {
 
 	static async get() {
 		return await navigator.mediaDevices.getUserMedia({ video: true, audio: true })

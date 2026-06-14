@@ -8,7 +8,7 @@ export class SfuWorld {
 			})
 		}
 
-		VideoCamera.request(async (ok) => {
+		Webcam.request(async (ok) => {
 			if (ok) {
 				await SfuClient.init()
 				SfuClient.createLobby()
