@@ -5,8 +5,6 @@ export class Kristian {
 
 		Dom.add(t)
 
-		Dom.add(Html.ui())
-
 		let placeholder = null
 
 		DomMouse.onDrag = (e) => {

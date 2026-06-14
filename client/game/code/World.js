@@ -1,6 +1,7 @@
 export class World {
 
 	constructor() {
+		Dom.add(Html.ui())
 		ClientToken.create(() => {
 			console.log(ClientToken.get().internal)
 		})
@@ -91,7 +92,7 @@ export class World {
 		this.cameraViewTest.style.backgroundColor = "black"
 		this.cameraViewTest.style.pointerEvents = "none"
 
-		Controller.control(this.player)
+		Controller.control(G.player)
 
 		this.fireplace.shake(20, 10)
 
