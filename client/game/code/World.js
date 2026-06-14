@@ -7,38 +7,38 @@ export class World {
 
 		let placeholder = null
 
-		Dom.onDrag = (e) => {
+		DomMouse.onDrag = (e) => {
 			placeholder = e.cloneNode(true).css("font-size: 50px")
 			Dom.floating(placeholder)
 
 			e.invisible()
 		}
 
-		Dom.onDrop = (e) => {
+		DomMouse.onDrop = (e) => {
 			Dom.remove(placeholder)
 			placeholder = null
 
 			e.visible()
 		}
 
-		Dom.onMouseMove = (e) => {
+		DomMouse.onMouseMove = (e) => {
 		}
 
-		Dom.whileDragging = (e) => {
+		DomMouse.whileDragging = (e) => {
 			placeholder?.followMouse()
 
-			const list = Dom.hovering?.closest("[user-sortable]")
-
-			if (list) {
-				const x = e.closest("[user-sortable]")
-				list.orderBasedOnMousePosition(e)
+			for (const h of DomMouse.hovering) {
+				const list = h.closest("[user-sortable]")
+				if (list) {
+					console.log(list)
+					list.orderBasedOnMousePosition(e)
+					break
+				}
 			}
 		}
 	}
 
 	update() {
-		console.log(Dom.hovering)
-		const list = Dom.hovering.closest("[user-sortable]")
 	}
 
 }
