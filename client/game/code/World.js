@@ -1,6 +1,6 @@
 export class World {
-
 	constructor() {
+<<<<<<< HEAD
 		ClientToken.create(() => {
 			console.log(ClientToken.get().internal)
 		})
@@ -96,24 +96,21 @@ export class World {
 		this.fireplace.shake(20, 10)
 
 		console.log(this.fireplace)
+=======
+		this.objects = Objects([
+			this.testSprite = Sprite.bush(WorldPosition(0, 0)),
+			this.x = Sprite.bush(WorldPosition(0, 0)),
+			this.y = Sprite.bush(WorldPosition(0, 0))
+		])
+
+		console.log(SpriteSlicer.slice(this.testSprite, 2, 2))
+		SpriteSlicer.shuffle([
+			this.x, this.y
+		], 10)
+>>>>>>> 89bffc9d (test)
 	}
 
 	update() {
 		this.objects.update()
-
-		const fireplaceInsideView = Camera.insideView(this.fireplace)
-		H.changeText(
-			this.cameraViewTest,
-			`FIREPLACE IN VIEW: ${fireplaceInsideView ? "YES" : "NO"}`
-		)
-		this.cameraViewTest.style.color = fireplaceInsideView ? "lime" : "red"
-
-		G.player.enforceCollision(this.fireplace)
-
-		D1.box(this.fireplace.position)
-
-		D2.circle(WorldPosition(2000, 2000), 50)
-
 	}
-
 }
