@@ -43,10 +43,12 @@ export class ClientToken {
 	}
 
 	static present() {
-		return Assert.value(localStorage.getItem("clientToken"))
+		if (localStorage.getItem("clientToken")) {
+			return true
+		}
+		else {
+			return false
+		}
 	}
 
-	static getFields() {
-
-	}
 }
