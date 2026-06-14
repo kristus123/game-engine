@@ -1,116 +1,36 @@
 export class World {
 	constructor() {
-<<<<<<< HEAD
-		ClientToken.create(() => {
-			console.log(ClientToken.get().internal)
-		})
+		// TEST: Sprite Copy
 
-		// const test = Dom.add(Html.test())
+		// this.objects = Objects([
+		// 	this.x = Sprite.bush(WorldPosition(0, 0)),
+		// 	this.y = this.x.copy()
+		// ])
 
-		// let placeholder = null
+		// this.y.position = WorldPosition(
+		// 	this.y.position.x + 500,
+		// 	this.y.position.y,
+		// 	this.y.position.width,
+		// 	this.y.position.height
+		// )
 
-		// Dom.onDrag = e => {
-		// 	test.list.forEach(c => {
-		// 		c.addClass("blue")
-		// 	})
-		// }
+		// TEST: Slice And Shuffle
 
-		// Dom.onDrop = e => {
-		// 	test.list.forEach(c => {
-		// 		c.removeClass("blue")
-		// 	})
-		// }
-
-		// Dom.whileDragging = e => {
-
-		// 	const nextItem = test.list.children.find(i => {
-		// 		const r = i.getBoundingClientRect()
-		// 		return Mouse.screen.y < r.top + r.height / 2
-		// 	})
-
-		// 	if (nextItem) {
-		// 		test.list.insertBefore(e, nextItem)
-		// 	}
-		// 	else {
-		// 		test.list.appendChild(e)
-		// 	}
-		// }
-
-		// test.list.onDragChild({
-		// 	onDrag: (e) => {
-		// 		console.log(e)
-		// 	},
-		// 	onDrop: (e) => {
-		// 		console.log(e)
-		// 	},
-		// 	whileDragging: () => {
-
-		// 	},
-		// })
-
-
-		G.player = Player(WorldPosition(2000, 2000)),
-
-		Internet.onOnline(() => {
-			console.log("Server connection restored")
-		})
-
-		Internet.onOffline(() => {
-			console.log("Server connection lost")
-		})
-
-		this.objects = Objects([
-			this.fireplace = Sprite.fireplace(WorldPosition(1512, 2100)),
-			this.world = Sprite.world(WorldPosition(0, 0)),
-			{
-				update: () => {
-					// D1.lightSource(WorldPosition(1600, 2238))
-				},
-			},
-			G.player,
-			...Iterate(200, () => {
-				return Tree(Random.direction(WorldPosition(2000, 2000), 4000))
-			}),
-			this.bush = Sprite.bush(WorldPosition(2000, 1500)).loopTag("berries"),
-			this.oldSami = OldSami(),
-			RandomIntegerEveryMs(0, 100, 5000, (v) => {
-				console.log(v)
-			}),
-			IntroQuest(G.player, this.oldSami, this.bush),
-			// Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),
+		this.normalObjects = Objects([
+			this.normalBush = Sprite.bush(WorldPosition(0, -256))
 		])
 
-		Camera.follow(G.player)
+		// TODO: Fix Scaling Bug
 
-		this.cameraViewTest = Dom.add(H.p("FIREPLACE IN VIEW: ..."))
-		this.cameraViewTest.style.position = "fixed"
-		this.cameraViewTest.style.left = "20px"
-		this.cameraViewTest.style.top = "20px"
-		this.cameraViewTest.style.zIndex = "1000"
-		this.cameraViewTest.style.padding = "8px"
-		this.cameraViewTest.style.backgroundColor = "black"
-		this.cameraViewTest.style.pointerEvents = "none"
-
-		Controller.control(this.player)
-
-		this.fireplace.shake(20, 10)
-
-		console.log(this.fireplace)
-=======
-		this.objects = Objects([
-			this.testSprite = Sprite.bush(WorldPosition(0, 0)),
-			this.x = Sprite.bush(WorldPosition(0, 0)),
-			this.y = Sprite.bush(WorldPosition(0, 0))
+		this.slicedObjects = Objects([
+			SpriteSlicer.slice(Sprite.bush(WorldPosition(0, 0)), 2, 2)
 		])
 
-		console.log(SpriteSlicer.slice(this.testSprite, 2, 2))
-		SpriteSlicer.shuffle([
-			this.x, this.y
-		], 10)
->>>>>>> 89bffc9d (test)
+		SpriteSlicer.shuffle(this.slicedObjects.objects[0])
 	}
 
 	update() {
-		this.objects.update()
+		this.normalObjects.update()
+		this.slicedObjects.update()
 	}
 }
