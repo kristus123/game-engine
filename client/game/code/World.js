@@ -48,8 +48,8 @@ export class World {
 		// 	},
 		// })
 
-		this.player = Player(WorldPosition(2000, 2000)),
-		G.player = this.player
+
+		G.player = Player(WorldPosition(2000, 2000)),
 
 		Internet.onOnline(() => {
 			console.log("Server connection restored")
@@ -76,11 +76,11 @@ export class World {
 			RandomIntegerEveryMs(0, 100, 5000, (v) => {
 				console.log(v)
 			}),
-			IntroQuest(this.player, this.oldSami, this.bush),
+			IntroQuest(G.player, this.oldSami, this.bush),
 			// Light.add(WorldPosition(1600, 2238), 200, "255,165,0", 0.5),
 		])
 
-		Camera.follow(this.player)
+		Camera.follow(G.player)
 
 		this.cameraViewTest = Dom.add(H.p("FIREPLACE IN VIEW: ..."))
 		this.cameraViewTest.style.position = "fixed"
