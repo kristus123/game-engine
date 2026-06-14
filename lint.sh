@@ -1,18 +1,19 @@
 #!/bin/bash
 
 clear
-echo "linting project"
 
-find . -path ./node_modules -prune -o -name "*.js" -type f -exec sed -i \
-	-e 's/===/==/g' \
-	-e 's/!==/!=/g' {} +
+# echo "linting project"
 
-npx -y stylelint "**/*.css" "./*.css" --fix
+# find . -path ./node_modules -prune -o -name "*.js" -type f -exec sed -i \
+# 	-e 's/===/==/g' \
+# 	-e 's/!==/!=/g' {} +
 
-node dev/build_tools/UpdateEslint.js
+# npx -y stylelint "**/*.css" "./*.css" --fix
 
-find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
+# node dev/build_tools/UpdateEslint.js
 
-npx -y eslint . --fix --cache
+# find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
 
-npx -y prettier "**/*.html" --write
+# npx -y eslint . --fix --cache
+
+# npx -y prettier "**/*.html" --write
