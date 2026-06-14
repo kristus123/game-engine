@@ -7,5 +7,10 @@ export default {
 		"keyframes-name-pattern": null,
 		"selector-class-pattern": null,
 		"block-no-empty": null,
+		"declaration-block-no-redundant-longhand-properties": null,
+		"shorthand-property-no-redundant-values": null,
+		"value-list-max-empty-lines": null,
+		"declaration-empty-line-before": null,
 	},
 }
+
