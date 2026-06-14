@@ -78,6 +78,17 @@ export class Sprite extends Entity {
 		}
 	}
 
+	copy() {
+		return Sprite(
+			this.position,
+			this.layersImage,
+			this.layersJson,
+			this.fullJson,
+			this.groupsJson,
+			this.spriteName
+		)
+	}
+
 	shadow(r = 0, g = 0, b = 0, a = 1.0) {
 		for (const picture of this.getAllPicture()) {
 			picture.shadow(r, g, b, a)
