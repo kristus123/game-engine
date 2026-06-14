@@ -1,3 +1,7 @@
+//
+// Okay, it doesn't really seem like it is able to protect if a field already exists, so this needs to be fixed
+//
+
 export function Enhance(prototype, name, fn) {
 
 	if (Object.prototype.hasOwnProperty.call(prototype, name)) {
