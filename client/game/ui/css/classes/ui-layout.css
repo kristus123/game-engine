@@ -2,24 +2,58 @@ ui-layout {
   display: grid;
 
   grid-template-areas:
-    "top-left  top      top-right"
-    "mid-left  mid      mid-right"
-    "bot-left  bot      bot-right";
+    "top-left top top-right"
+    "mid-left mid mid-right"
+    "bot-left bot bot-right";
 
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 50px 1fr 80px;
 
+  width: 100vw;
   height: 100vh;
 }
 
-top-left  { grid-area: top-left; background: red; }
-top       { grid-area: top; background: orange; }
-top-right { grid-area: top-right; background: yellow; }
+top-left  { 
+	grid-area: top-left;
+	background: red;
+}
 
-mid-left  { grid-area: mid-left; background: green; }
-mid       { grid-area: mid; background: lightblue; }
-mid-right { grid-area: mid-right; background: blue; }
+top       { 
+	grid-area: top;
+	background: orange;
+}
 
-bot-left  { grid-area: bot-left; background: purple; }
-bot       { grid-area: bot; background: pink; }
-bot-right { grid-area: bot-right; background: gray; }
+top-right { 
+	grid-area: top-right;
+	background: yellow;
+}
+
+mid-left  { 
+	grid-area: mid-left;
+	background: green;
+}
+
+mid { 
+	grid-area: mid;
+	background: lightblue;
+}
+
+mid-right { 
+	grid-area: mid-right;
+	background: blue;
+}
+
+bot-left { 
+	grid-area: bot-left;
+	background: purple;
+}
+
+bot { 
+	grid-area: bot;
+	background: pink;
+}
+
+bot-right { 
+	grid-area: bot-right;
+	background: gray; 
+}

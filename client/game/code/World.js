@@ -1,7 +1,9 @@
 export class World {
 
 	constructor() {
+
 		Dom.add(Html.ui())
+
 		ClientToken.create(() => {
 			console.log(ClientToken.get().internal)
 		})
@@ -114,7 +116,6 @@ export class World {
 		D1.box(this.fireplace.position)
 
 		D2.circle(WorldPosition(2000, 2000), 50)
-
 	}
 
 }
