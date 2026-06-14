@@ -43,10 +43,10 @@ export const HttpClient = ProxyObject(
 httpClient.getStuff({
 	body: {},
 	ok: body => {
-		
+
 	},
 	error: e => {
-		
+
 	},
 })
 */

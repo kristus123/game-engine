@@ -19,7 +19,7 @@ export class Assert {
 	}
 
 	static bool(o) {
-		if ( o == true || o == false) { // Maybe there is a better way to do this.
+		if (o == true || o == false) { // Maybe there is a better way to do this.
 			return o
 		}
 		else {
