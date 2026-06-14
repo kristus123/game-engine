@@ -1,5 +1,9 @@
 export class VideoCamera {
 
+	static async get() {
+		return await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+	}
+
 	static async request(callback) {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ video: true }, {audio: true});
