@@ -6,7 +6,6 @@ export class SfuClient {
 		this.device = null
 		this.sendTransport = null
 		this.recvTransport = null
-		this.localStream = null
 		this.producers = {}
 		this.consumers = {}
 
@@ -141,7 +140,7 @@ export class SfuClient {
 			}
 		})
 
-		for (const track of this.localStream.getTracks()) {
+		for (const track of await Webcam.get()) { // todo fix
 			const producer = await this.sendTransport.produce({ track })
 			this.producers[track.kind] = producer
 		}
@@ -201,13 +200,7 @@ export class SfuClient {
 	}
 
 	static async init() {
-		this.localStream = await Webcam.get()
-		this.element = HtmlVideo.local(this.localStream)
-		Dom.overlay(this.element)
-
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
-
-		return 
+		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {}) // client shouldn't need to send this. it should send the list on connection
 	}
 
 	static clean() {

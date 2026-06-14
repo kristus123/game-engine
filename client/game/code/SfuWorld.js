@@ -10,7 +10,7 @@ export class SfuWorld {
 
 		Webcam.request(async (ok) => {
 			if (ok) {
-				await SfuClient.init()
+				s.localCam.srcObject = await Webcam.get()
 				SfuClient.createLobby()
 			}
 			else {
