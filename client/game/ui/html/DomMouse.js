@@ -1,5 +1,7 @@
 export class DomMouse { // Maybe rename to UI Mouse.
 
+	static position = WorldPosition(0, 0)
+
 	static onDrag = () => {}
 	static onDrop = () => {}
 	static whileDragging = () => {}
@@ -22,6 +24,9 @@ export class DomMouse { // Maybe rename to UI Mouse.
 		})
 
 		window.addEventListener("pointermove", e => {
+			this.position.x = e.clientX
+			this.position.y = e.clientY
+
 			if (this.draggedItem) {
 				this.whileDragging?.(this.draggedItem)
 			}
@@ -43,9 +48,17 @@ export class DomMouse { // Maybe rename to UI Mouse.
 		window.addEventListener("pointercancel", () => stopDrag())
 	}
 
+	static get x() {
+		return this.position.x
+	}
+
+	static get y() {
+		return this.position.y
+	}
+
 	// right now I'm not sure how I want to do it.
 	// If a floating element it should probably ignore the floating element or maybe not.
 	static get hovering() {
-		return document.elementsFromPoint(Mouse.screen.x, Mouse.screen.y)
+		return document.elementsFromPoint(this.position.x, this.position.y)
 	}
 }

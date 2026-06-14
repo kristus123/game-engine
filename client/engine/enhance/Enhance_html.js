@@ -22,10 +22,10 @@ export function Enhance_html() {
 			const r = i.getBoundingClientRect()
 
 			if (this.tag == "flex-v") {
-				return Mouse.screen.y < r.top + r.height / 2
+				return DomMouse.y < r.top + r.height / 2
 			}
 			else if (this.tag == "flex-h") {
-				return Mouse.screen.x < r.left + r.width / 2
+				return DomMouse.x < r.left + r.width / 2
 			}
 			else {
 				throw new Error("unsupported thing")
@@ -432,8 +432,8 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement.prototype, "followMouse", function () {
 
-		this.style.left = `${Mouse.screen.x}px`
-		this.style.top = `${Mouse.screen.y}px`
+		this.style.left = `${DomMouse.x}px`
+		this.style.top = `${DomMouse.y}px`
 
 		return this
 	})

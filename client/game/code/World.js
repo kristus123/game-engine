@@ -30,7 +30,6 @@ export class World {
 			for (const h of DomMouse.hovering) {
 				const list = h.closest("[user-sortable]")
 				if (list) {
-					console.log(list)
 					list.orderBasedOnMousePosition(e)
 					break
 				}
