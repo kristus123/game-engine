@@ -1,4 +1,4 @@
-export class World {
+export class Kristian {
 
 	constructor() {
 		const t = Html.test()
