@@ -13,12 +13,12 @@ ui-layout {
   height: 100vh;
 }
 
-top-left  { 
+top-left { 
 	grid-area: top-left;
 	background: red;
 }
 
-top       { 
+top { 
 	grid-area: top;
 	background: orange;
 }
@@ -28,7 +28,7 @@ top-right {
 	background: yellow;
 }
 
-mid-left  { 
+mid-left { 
 	grid-area: mid-left;
 	background: green;
 }

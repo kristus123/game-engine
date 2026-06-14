@@ -2,7 +2,7 @@ export class World {
 
 	constructor() {
 
-		Dom.add(Html.ui())
+		Dom.add(Html.uiLayout())
 
 		ClientToken.create(() => {
 			console.log(ClientToken.get().internal)
