@@ -203,7 +203,7 @@ export class SfuClient {
 	static async init() {
 		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 		this.element = HtmlVideo.local(this.localStream)
-		Dom.add([ this.element ])
+		Dom.overlay(this.element)
 
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
