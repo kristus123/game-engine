@@ -1,6 +1,7 @@
 import http from "http"
 
 import { Methods } from "#root/server/http/Methods.js"
+import { ServerToken } from "#root/server/ServerToken.js"
 
 function addCorsHeaders(res) {
 	res.setHeader("Access-Control-Allow-Origin", "*")
@@ -72,15 +73,20 @@ export class HttpServer {
 				assertJsonBody(req)
 
 				try {
+					const token = ServerToken.decode(req.headers["token"])
+
 					const x = await parseBody(req)
 					console.log(x)
+
 					const json = Methods.call(getPath(req), {
 						body: x,
 						headers: req.headers,
-						contentType: req.headers["content-type"] || null,
+						token: token,
+						userType: token.userType,
+						userId: token.userId,
+						contentType: req.headers["content-type"] || null, // is this being used?
 						params: getQueryParameters(req),
 					}) ?? {}
-
 
 					if (validJson(json)) {
 						sendJson(res, 200, json)
