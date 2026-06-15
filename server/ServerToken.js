@@ -26,7 +26,8 @@ export class ServerToken {
 		}
 
 		const unsafe = {
-
+			name: "Your username",
+			age: "Your age",
 		}
 
 		const internalData = encodeBase64(internal)

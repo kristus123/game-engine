@@ -5,8 +5,8 @@ import { initD2 } from "/client/engine/start/draw_layers/D2.js"
 import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 
 async function loadWorld() {
-	const module = await import("/client/game/code/World.js")
-	const World = module.World
+	const module = await import("/client/game/code/SfuWorld.js")
+	const World = module.SfuWorld
 	return World // for some reason it crashes if you don't do it like this
 }
 

@@ -1,7 +1,9 @@
 export class ClientToken {
 
 	static get() {
-		const encoded = Assert.value(localStorage.getItem("clientToken"))
+		const encoded = localStorage.getItem("clientToken")
+
+		Assert.value(encoded)
 
 		const [
 			internalData,
@@ -30,6 +32,8 @@ export class ClientToken {
 		}
 		else {
 		}
+
+		// currently just allow it
 		localStorage.setItem("clientToken", token)
 	}
 
@@ -43,10 +47,12 @@ export class ClientToken {
 	}
 
 	static present() {
-		return Assert.value(localStorage.getItem("clientToken"))
+		if (localStorage.getItem("clientToken")) {
+			return true
+		}
+		else {
+			return false
+		}
 	}
 
-	static getFields() {
-
-	}
 }
