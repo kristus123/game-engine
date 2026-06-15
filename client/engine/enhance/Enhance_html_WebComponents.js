@@ -39,22 +39,22 @@ export function Enhance_html_WebComponents() {
 
 	customElements.define("local-webcam", class extends HTMLElement {
 		connectedCallback() {
-			const video = document.createElement("video");
+			const video = document.createElement("video")
 
-			video.autoplay = true;
-			video.muted = true;
+			video.autoplay = true
+			video.muted = true
 
-			this.appendChild(video);
+			this.appendChild(video)
 		}
 	})
 
 	customElements.define("guest-webcam", class extends HTMLElement {
 		connectedCallback() {
-			const video = document.createElement("video");
+			const video = document.createElement("video")
 
-			video.autoplay = true;
+			video.autoplay = true
 
-			this.appendChild(video);
+			this.appendChild(video)
 		}
 	})
 

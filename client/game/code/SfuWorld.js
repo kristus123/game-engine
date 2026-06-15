@@ -20,6 +20,6 @@ export class SfuWorld {
 	}
 
 	update() {
-		
+
 	}
 }
