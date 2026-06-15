@@ -1,3 +1,5 @@
+// we will swap to using userId from token that is generated from server.
+
 let clientId = localStorage.getItem("clientId")
 
 if (clientId == null) {
@@ -5,5 +7,6 @@ if (clientId == null) {
 	localStorage.setItem("clientId", clientId)
 }
 
-export const My.clientId = clientId
-console.log(My.clientId)
+export const My = {
+	clientId: clientId,
+}
