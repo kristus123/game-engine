@@ -5,5 +5,5 @@ if (clientId == null) {
 	localStorage.setItem("clientId", clientId)
 }
 
-export const ClientId = clientId
-console.log(ClientId)
+export const My.clientId = clientId
+console.log(My.clientId)

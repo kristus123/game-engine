@@ -28,7 +28,7 @@ export class SocketClient {
 	static sendToServer(action, data) {
 		WebSocketWrapper.send(data.merge({
 			action: action,
-			originClientId: ClientId
+			originClientId: My.clientId
 		}))
 	}
 

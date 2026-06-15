@@ -63,7 +63,7 @@ export class SfuClient {
 
 			console.log(this.routerList)
 
-			if (data.hostClientId == ClientId) {
+			if (data.hostClientId == My.clientId) {
 				this.joinLobby(data.routerId)
 			}
 
@@ -243,7 +243,7 @@ export class SfuClient {
 	}
 
 	static deleteLobby() {
-		if (this.routerList[this.connectedRouterId] && ClientId == this.routerList[this.connectedRouterId].hostClientId) {
+		if (this.routerList[this.connectedRouterId] && My.clientId == this.routerList[this.connectedRouterId].hostClientId) {
 			delete this.routerList[this.connectedRouterId]
 
 			this.clean()
@@ -255,7 +255,7 @@ export class SfuClient {
 	}
 
 	static get isHost() {
-		return (this.routerList[this.connectedRouterId].hostClientId == ClientId)
+		return (this.routerList[this.connectedRouterId].hostClientId == My.clientId)
 	}
 
 	static get connectedClientIds() {
