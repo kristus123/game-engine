@@ -19,7 +19,7 @@ export class DomMouse { // Maybe rename to UI Mouse.
 				this.draggedItem.style.opacity = "0.5"
 				e.target.setPointerCapture(e.pointerId)
 
-				this.draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
+				this.draggedItem.addAttribute("being-dragged") // todo: only one element should have attribute 'being-dragged' at any given time, add asserts etc
 			}
 		})
 
@@ -58,6 +58,7 @@ export class DomMouse { // Maybe rename to UI Mouse.
 
 	// right now I'm not sure how I want to do it.
 	// If a floating element it should probably ignore the floating element or maybe not.
+	// find better solution for this
 	static get hovering() {
 		return document.elementsFromPoint(this.position.x, this.position.y)
 	}

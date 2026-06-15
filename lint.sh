@@ -1,6 +1,7 @@
 #!/bin/bash
 
 clear
+
 echo "linting project"
 
 find . -path ./node_modules -prune -o -name "*.js" -type f -exec sed -i \
