@@ -1,7 +1,9 @@
 export class Webcam {
 
-	static async get() {
-		return await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+	this.cam = null
+
+	static async enable() {
+		this.cam = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 	}
 
 	static async request(callback) {

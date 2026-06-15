@@ -6,9 +6,7 @@ function _register(tagName) {
 export function Enhance_html_WebComponents() {
 
 	customElements.define("video-div", class extends HTMLElement {
-		constructor() {
-			super() //required
-
+		connectedCallback() {
 			const video = document.createElement("video")
 
 			const src = this.getAttribute("src")
@@ -39,7 +37,7 @@ export function Enhance_html_WebComponents() {
 	})
 
 
-	customElements.define("local-cam", class extends HTMLElement {
+	customElements.define("local-webcam", class extends HTMLElement {
 		connectedCallback() {
 			const video = document.createElement("video");
 
@@ -50,7 +48,7 @@ export function Enhance_html_WebComponents() {
 		}
 	})
 
-	customElements.define("guest-cam", class extends HTMLElement {
+	customElements.define("guest-webcam", class extends HTMLElement {
 		connectedCallback() {
 			const video = document.createElement("video");
 
