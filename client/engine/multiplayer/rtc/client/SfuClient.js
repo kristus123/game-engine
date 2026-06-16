@@ -197,7 +197,8 @@ export class SfuClient {
 
 					if (this.streamMode && !this.isHost) {
 						Dom.add(this.consumers[originClientId].element)
-					} else if (!this.streamMode) {
+					}
+					else if (!this.streamMode) {
 						Dom.add(this.consumers[originClientId].element)
 					}
 				}
@@ -228,7 +229,7 @@ export class SfuClient {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
 			})
-			
+
 			state.element.remove()
 		})
 
