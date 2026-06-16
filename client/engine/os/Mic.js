@@ -1,8 +1,8 @@
 export class Mic {
 
+	static chunks = []
 	static recorder = null
 	static stream = null
-	static chunks = []
 
 	static state = "idle" // idle, recording
 	static mimeType = "audio/webm;codecs=opus"
@@ -12,18 +12,8 @@ export class Mic {
 		return this.state == "recording"
 	}
 
-	static async all(callback) {
-		if (!MicPermission.granted) {
-			throw new Error("Needs permission first")
-		}
-
-		for (const m of await AllMics.get()) {
-			callback(m)
-		}
-	}
-
-	static async start(onStart = () => {}) {
-		if (this.state == "recording") {
+	static start(onStart = () => {}) {
+		if (this.recording) {
 			throw new Error("already recording")
 		}
 
@@ -47,42 +37,31 @@ export class Mic {
 		this.recorder.start()
 	}
 
-	static stop(callback) {
+	static stop(onStop) {
 
-		Assert.method(callback)
+		Assert.method(onStop)
 
-		if (this.state != "recording") {
+		if (!this.recording) {
 			throw new Error("not recording")
 		}
 
 		this.recorder.onstop = () => {
+
+			MicApi.stopTracks(this.stream)
 
 			const blob = new Blob(this.chunks, {
 				type: this.mimeType,
 			})
 
 			this.chunks = []
-
-			// IMPORTANT:
-			// stop all microphone tracks so the browser
-			// completely releases the microphone
-			this.stream.getTracks().forEach(track => {
-				track.stop()
-			})
-
 			this.recorder = null
 			this.stream = null
 			this.state = "idle"
 
-			callback(blob)
+			onStop(blob)
 		}
 
 		this.recorder.stop()
 	}
-
-	static getState() {
-		return this.state
-	}
-
 
 }

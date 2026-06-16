@@ -1,5 +1,14 @@
 export class MicApi {
 
+	// IMPORTANT:
+	// stop all microphone tracks so the browser
+	// completely releases the microphone
+	static stopTracks(stream) {
+		stream.getTracks().forEach(track => {
+			track.stop()
+		})
+	}
+
 	static createStream() {
 		return navigator.mediaDevices.getUserMedia({
 			audio: {
