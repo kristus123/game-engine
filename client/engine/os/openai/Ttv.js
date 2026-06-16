@@ -12,7 +12,7 @@ const voices = [
 ]
 
 
-export async function Ttv(text, callback) {
+export async function Ttv(text) {
 	const res = await fetch("https://api.openai.com/v1/audio/speech", {
 		method: "POST",
 		headers: {
@@ -32,8 +32,5 @@ export async function Ttv(text, callback) {
 		throw new Error("Speech generation failed: " + err)
 	}
 
-	const audioBlob = await res.blob()
-	callback(audioBlob)
-
-	return audioBlob
+	return await res.blob()
 }

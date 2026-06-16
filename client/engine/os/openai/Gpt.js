@@ -1,4 +1,4 @@
-export async function Gpt(text, callback) {
+export async function Gpt(text) {
 	const res = await fetch("https://api.openai.com/v1/responses", {
 		method: "POST",
 		headers: {
@@ -21,9 +21,6 @@ export async function Gpt(text, callback) {
 	console.log(data)
 
 	const reply = data.output[0].content.find((c) => c.type == "output_text").text
-
-	console.log(reply)
-	callback(reply)
 
 	return reply
 }

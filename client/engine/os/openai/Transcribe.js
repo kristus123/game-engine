@@ -1,4 +1,4 @@
-export async function Transcribe(blob, callback) {
+export async function Transcribe(blob) {
 	const form = new FormData()
 
 	form.append("file", blob, "audio.webm")
@@ -21,5 +21,5 @@ export async function Transcribe(blob, callback) {
 
 	const data = await res.json()
 	console.log(data.text)
-	callback(data.text)
+	return data.text
 }

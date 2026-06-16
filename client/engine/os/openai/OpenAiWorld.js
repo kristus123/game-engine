@@ -1,21 +1,20 @@
 export class OpenAiWorld {
+
 	constructor() {
 		Dom.add(H.button("start", () => {
 			Mic.start()
 		}))
 
 		Dom.add(H.button("stop", () => {
-			Mic.stop((b) => {
-				Transcribe(b, (text) => {
-					Gpt("Translate my text to chinese: " + text, r => {
-						Ttv(r, b => {
-							Sound.playBlob(b)
-						})
-					})
-				})
-			})
+			Mic.stop(async b => {
+				const transcribedText = await Transcribe(b)
 
+				const gptText = await Gpt("Translate to chinese: " + transcribedText)
+
+				Sound.playBlob(await Ttv(gptText))
+			})
 		}))
+
 		MicPermission.request(() => {
 		})
 

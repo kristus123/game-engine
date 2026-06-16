@@ -59,7 +59,7 @@ export class Mic {
 			this.stream = null
 			this.state = "idle"
 
-			onStop(blob)
+			return onStop(blob)
 		}
 
 		this.recorder.stop()
