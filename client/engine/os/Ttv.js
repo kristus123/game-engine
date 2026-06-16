@@ -8,7 +8,7 @@ const voices = [
 	"onyx",
 	"nova",
 	"sage",
-	"shimmer"
+	"shimmer",
 ]
 
 
