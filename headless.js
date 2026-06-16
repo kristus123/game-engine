@@ -5,4 +5,4 @@ const page = await browser.newPage()
 
 page.on("console", msg => console.log(msg.text()))
 
-await page.goto("http://localhost:5000")
+await page.goto("http://localhost:5050")
