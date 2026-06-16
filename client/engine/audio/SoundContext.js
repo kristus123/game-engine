@@ -7,30 +7,8 @@ export class SoundContext {
 		this.globalGain.connect(this.context.destination)
 	}
 
-	static get destination() {
-		return this.context.destination
-	}
-
-	static set destination(d) {
-		this.context.destination = d
-	}
-
-	static createOscillator() {
-		return this.context.createOscillator()
-	}
-
-	static createGain() {
-		return this.context.createGain()
-	}
-
-	static createBiquadFilter() {
-		return this.context.createBiquadFilter()
-	}
-
 	static decodeAudioData(b) {
-		return this.context.decodeAudioData(b)
-		// returns
-		// AudioBuffer
+		return this.context.decodeAudioData(b) // AudioBuffer
 	}
 
 	static createBufferSource(audioBuffer) {

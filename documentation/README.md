@@ -26,7 +26,7 @@ npm install
 npm run start
 ```
 
-Then open [http://localhost:5000]()
+Then open [http://localhost:6001]()
 
 ## Run linter
 
