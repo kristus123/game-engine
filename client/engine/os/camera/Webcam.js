@@ -1,9 +1,18 @@
 export class Webcam {
 
-	static cam = null
+	static stream = null
+
+	static enabled = false
+	static granted = false
 
 	static async enable() {
-		this.cam = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+		this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+		this.enabled = true
+	}
+
+	static disable() {
+		this.stream.getTracks().forEach(track => track.stop())
+		this.enabled = false
 	}
 
 	static async request(callback) {
@@ -13,11 +22,11 @@ export class Webcam {
 			stream.getTracks().forEach(track => track.stop())
 
 			console.log("Camera permission granted (then closed).")
-			callback(true)
+			callback(this.granted = true)
 		}
 		catch (err) {
 			console.error("Permission denied or error:", err)
-			callback(false)
+			callback(this.granted = false)
 			throw new Error("camera denied")
 		}
 	}

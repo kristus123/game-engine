@@ -1,9 +1,12 @@
 <overlay>
-	<flex-h>
-		<local-webcam id="localWebcam"></local-webcam>
-		<guest-webcam id="guestWebcam"></guest-webcam>
+	<button id="create">create</button>
 
-		<flex-v id="lobbies"></flex-v>
+	<flex-h>
+		<video autoplay muted id="localWebcam"></video>
+		<video autoplay id="guestWebcam"></video>
 	</flex-h>
+
 	<h1>lobbies</h1>
+
+	<flex-v id="lobbies"></flex-v>
 </overlay>

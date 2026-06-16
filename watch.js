@@ -36,7 +36,7 @@ const killPort = (port) => {
 	}
 }
 
-const distPort = Number(5050)
+const distPort = Number(process.env.DIST_PORT ?? process.env.PORT ?? 5000)
 
 killPort(3000)
 killPort(distPort)
