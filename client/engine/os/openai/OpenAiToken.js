@@ -4,5 +4,8 @@ if (token == null) {
 	const value = prompt("Enter a value to store:")
 	localStorage.setItem("openaiToken", value)
 }
+else {
+	console.log(token)
+}
 
 export const OpenAiToken = token
