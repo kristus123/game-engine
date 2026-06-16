@@ -195,9 +195,10 @@ export class SfuClient {
 					this.consumers[originClientId] = { stream: new MediaStream() }
 					this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
 
+					// If we are on stream mode we only want remote stream for joiners
 					if (this.streamMode && !this.isHost) {
 						Dom.add(this.consumers[originClientId].element)
-					}
+					} // If we are not on stream mode we want remote stream for all
 					else if (!this.streamMode) {
 						Dom.add(this.consumers[originClientId].element)
 					}
@@ -216,7 +217,7 @@ export class SfuClient {
 	static async init() {
 		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 
-		// check if we wanted to Call instead of Stream (For Joiners)
+		// Check if we wanted to Call instead of Stream (For Joiners)
 		if (!this.streamMode) {
 			this.appendLocalVideoElement()
 		}
