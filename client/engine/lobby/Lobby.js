@@ -1,4 +1,3 @@
-
 export class Lobby {
 
 	static create() {

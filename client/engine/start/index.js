@@ -4,12 +4,6 @@ import { initD1 } from "/client/engine/start/draw_layers/D1.js"
 import { initD2 } from "/client/engine/start/draw_layers/D2.js"
 import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 
-async function loadWorld() {
-	const module = await import("/client/game/code/SfuWorld.js") // Let's just revert to doing it the normal way so that we don't need to stress about writing in the correct path when we want to change the main entry point. Nabir todo
-	const World = module.SfuWorld
-	return World // for some reason it crashes if you don't do it like this
-}
-
 ServiceWorker.init()
 // HtmlObserverThing()
 
@@ -18,7 +12,6 @@ Gp.init()
 EnhanceAll()
 
 Promise.all([
-	loadWorld(),
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
 	LoadAllAudio(AUDIO_FILES),
@@ -36,6 +29,7 @@ Promise.all([
 		initD3(Draw(Palette.d3.ctx))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		const activeThing = World()
 ||||||| parent of 4c8c836b (x)
 		const activeThing = Kristian()
@@ -43,6 +37,12 @@ Promise.all([
 		const worldModule = x[0]
 		const world = new worldModule()
 >>>>>>> 4c8c836b (x)
+||||||| parent of 6c71a44a (x)
+		const worldModule = x[0]
+		const world = new worldModule()
+=======
+		const activeThing = Kristian()
+>>>>>>> 6c71a44a (x)
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
@@ -65,6 +65,14 @@ Promise.all([
 				Palette.light.ctx,
 			], () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+||||||| parent of 6c71a44a (x)
+				world.update()
+				Mouse.update()
+=======
+				activeThing.update()
+				Mouse.update()
+>>>>>>> 6c71a44a (x)
 				Camera.update()
 				activeThing.update()
 ||||||| parent of 4c8c836b (x)
