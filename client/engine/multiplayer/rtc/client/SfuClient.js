@@ -11,6 +11,10 @@ export class SfuClient {
 		this.producers = {}
 		this.consumers = {}
 
+		// Move this into SfuRoutes.js, and have it also 
+		// SfuRoutes.onRouteCreated = (route) => {}
+		// SfuRoutes.onRouteDeleted = (route) => {}
+		// you can think of what would be the best solution
 		this.routerList = {} // set this to null instead of empty object. also rename it. misleading name
 
 		this.onNewLobbyCreated = (router) => {}
