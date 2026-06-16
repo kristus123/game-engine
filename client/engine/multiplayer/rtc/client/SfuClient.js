@@ -1,5 +1,7 @@
 export class SfuClient {
 	static {
+		this.streamMode = false
+
 		this.connectedRouterId = ""
 
 		this.element = null
@@ -7,9 +9,9 @@ export class SfuClient {
 		this.sendTransport = null
 		this.recvTransport = null
 		this.localStream = null
+
 		this.producers = {}
 		this.consumers = {}
-
 		this.routerList = {}
 
 		this.onNewLobbyCreated = (router) => {}
@@ -192,7 +194,12 @@ export class SfuClient {
 				if (!this.consumers[originClientId]) {
 					this.consumers[originClientId] = { stream: new MediaStream() }
 					this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
-					Dom.add([ this.consumers[originClientId].element ])
+
+					if (this.streamMode && !this.isHost) {
+						Dom.add(this.consumers[originClientId].element)
+					} else if (!this.streamMode) {
+						Dom.add(this.consumers[originClientId].element)
+					}
 				}
 
 				this.consumers[originClientId].stream.addTrack(consumer.track)
@@ -200,10 +207,18 @@ export class SfuClient {
 		})
 	}
 
+	static appendLocalVideoElement() {
+		this.element = HtmlVideo.local(this.localStream)
+		Dom.add(this.element)
+	}
+
 	static async init() {
 		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-		this.element = HtmlVideo.local(this.localStream)
-		Dom.add([ this.element ])
+
+		// check if we wanted to Call instead of Stream (For Joiners)
+		if (!this.streamMode) {
+			this.appendLocalVideoElement()
+		}
 
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
@@ -213,7 +228,7 @@ export class SfuClient {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
 			})
-
+			
 			state.element.remove()
 		})
 
@@ -221,6 +236,11 @@ export class SfuClient {
 	}
 
 	static createLobby() {
+		// we want to add element of us even if we Stream
+		if (this.streamMode) {
+			this.appendLocalVideoElement()
+		}
+
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
 	}
 
