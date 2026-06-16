@@ -34,7 +34,7 @@ export class DomMouse { // Maybe rename to UI Mouse.
 			this.onMouseMove?.(e.target)
 		})
 
-		const stopDrag = () => {
+		const stopDragging = () => {
 			if (this.draggedItem) {
 				this.draggedItem.removeAttribute("being-dragged")
 				this.draggedItem.style.opacity = "1"
@@ -44,8 +44,8 @@ export class DomMouse { // Maybe rename to UI Mouse.
 			}
 		}
 
-		window.addEventListener("pointerup", e => stopDrag())
-		window.addEventListener("pointercancel", () => stopDrag())
+		window.addEventListener("pointerup", e => stopDragging())
+		window.addEventListener("pointercancel", () => stopDragging())
 	}
 
 	static get x() {
