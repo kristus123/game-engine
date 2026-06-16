@@ -1,9 +1,12 @@
 export class WebSocketWrapper {
 
+	static wasConnected = false
+
 	static {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
 		this.webSocket.onopen = () => {
+			this.wasConnected = true
 			this.onOpen()
 		}
 
@@ -30,8 +33,14 @@ export class WebSocketWrapper {
 	static onMessage(data) {
 	}
 
-	static onClose() {}
+	static onClose() {
+		if (this.wasConnected) {
+			throw new Error("Socket connection lost")
+		}
+	}
 	static onError() {
-		console.error("Fail to Connect")
+		if (!this.wasConnected) {
+			throw new Error("Failed to connect to socket server")
+		}
 	}
 }

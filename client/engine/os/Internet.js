@@ -1,5 +1,7 @@
 export class Internet {
 
+	static init() {}
+
 	static connected = null
 
 	static {
@@ -36,14 +38,17 @@ export class Internet {
 			Assert.true(body.pong)
 
 			if (this.connected == null || this.connected == false) {
+				console.log("Server connection restored")
 				this._on.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = true
 			}
 		}
 		catch (e) {
 			if (this.connected == null || this.connected == true) {
+				console.warn("Server connection lost")
 				this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = false
+				throw new Error("Internet connection lost")
 			}
 		}
 	}

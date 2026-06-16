@@ -20,6 +20,9 @@ Promise.all([
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
 
+		Internet.init()
+		SocketClient.init()
+
 		initD1(Draw(Palette.d1.ctx))
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))

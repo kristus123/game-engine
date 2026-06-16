@@ -1,5 +1,7 @@
 export class SocketClient {
 
+	static init() {}
+
 	static {
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
