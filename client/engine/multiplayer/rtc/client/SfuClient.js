@@ -1,26 +1,27 @@
 export class SfuClient {
-	static {
-		this.connectedRouterId = ""
 
-		this.element = null
+	static init() { // for some reason enhanceAll.js is not run if just using static block. not important to fix for now
+
+		console.log("good moring")
+		this.connectedRouterId = "" // use null
+
 		this.device = null
 		this.sendTransport = null
 		this.recvTransport = null
-		this.localStream = null
 		this.producers = {}
 		this.consumers = {}
 
-		this.routerList = {}
+		this.routerList = {} // set this to null instead of empty object. also rename it. misleading name
 
 		this.onNewLobbyCreated = (router) => {}
+		this.onGuestConnection = (stream) => {}
 		this.onNewLobbyDeleted = (routerId) => {}
 		this.onjoinLobby = (router) => {}
 		this.onleaveLobby = (router) => {}
 
+		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routerList = data.routerList
-
-			console.log(this.routerList)
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
@@ -58,7 +59,7 @@ export class SfuClient {
 			this.routerList[data.routerId] = {
 				routerId: data.routerId,
 				hostClientId: data.hostClientId,
-				connectedClientIds: data.connectedClientIds
+				connectedClientIds: data.connectedClientIds,
 			}
 
 			console.log(this.routerList)
@@ -82,7 +83,7 @@ export class SfuClient {
 			this.onjoinLobby(router)
 		})
 
-		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
+		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => { // this looks like server inits stuff on connection. if so, it should be moved to the top
 			console.log("Setting Up SFU Client")
 
 			this.device = new window.mediasoup.Device()
@@ -94,23 +95,23 @@ export class SfuClient {
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
-
-			await this.consume(data.producerId, data.clientId)
+			await this.consume(data.producerId, data.clientId) // It doesn't need to be async.
 		})
 	}
 
 	static async setupSendTransport(params) {
 		this.sendTransport = this.device.createSendTransport(params)
 
-		this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => {
+		this.sendTransport.on("connect", async ({ dtlsParameters }, callback, errback) => { // It seems this class as well does not need to be async.
 			try {
 				console.log("Requesting Connection For Webrtc Send Transport")
 
 				SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
 					direction: "send",
 					dtlsParameters: dtlsParameters,
-					routerId: this.connectedRouterId
+					routerId: this.connectedRouterId,
 				})
+
 				callback()
 			}
 			catch (e) {
@@ -119,6 +120,7 @@ export class SfuClient {
 		})
 
 		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
+			// Is this the best way to handle it? Will the catch block actually be triggered? And also why are we using new promise? Isn't it possible to write it in a pretty way since we are already using async away?
 			try {
 				await new Promise(resolve => {
 					SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
@@ -141,14 +143,19 @@ export class SfuClient {
 			}
 		})
 
-		for (const track of this.localStream.getTracks()) {
-			const producer = await this.sendTransport.produce({ track })
-			this.producers[track.kind] = producer
+		if (!Webcam.enabled) {
+			throw new Error("webcam is not active. enable webcam first!")
 		}
+		else {
+			for (const track of Webcam.stream.getTracks()) {
+				const producer = await this.sendTransport.produce({ track })
+				this.producers[track.kind] = producer
+			}
 
-		SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-			routerId: this.connectedRouterId
-		})
+			SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
+				routerId: this.connectedRouterId,
+			})
+		}
 	}
 
 	static async setupRecvTransport(params) {
@@ -174,7 +181,6 @@ export class SfuClient {
 	static async consume(producerId, originClientId) {
 		if (!this.recvTransport) {
 			throw new Error("Cannot Consume Receive Transport Not Ready")
-			return
 		}
 
 		console.log("Requesting Consumer")
@@ -191,21 +197,13 @@ export class SfuClient {
 
 				if (!this.consumers[originClientId]) {
 					this.consumers[originClientId] = { stream: new MediaStream() }
-					this.consumers[originClientId]["element"] = HtmlVideo.guest(this.consumers[originClientId].stream)
-					Dom.add([ this.consumers[originClientId].element ])
 				}
 
 				this.consumers[originClientId].stream.addTrack(consumer.track)
+
+				this.onGuestConnection(this.consumers[originClientId].stream)
 			}
 		})
-	}
-
-	static async init() {
-		this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-		this.element = HtmlVideo.local(this.localStream)
-		Dom.add([ this.element ])
-
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
 
 	static clean() {
@@ -235,10 +233,12 @@ export class SfuClient {
 	static leaveLobby() {
 		this.clean()
 
+		// Is there a reason why we are not setting it to null is this to avoid a null pointer exception.
+		// If so we should handle the null pointer exception and use a null value instead.
 		this.connectedRouterId = ""
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
-			routerId: this.connectedRouterId
+			routerId: this.connectedRouterId,
 		})
 	}
 
@@ -249,7 +249,7 @@ export class SfuClient {
 			this.clean()
 
 			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
-				routerId: this.connectedRouterId
+				routerId: this.connectedRouterId,
 			})
 		}
 	}
