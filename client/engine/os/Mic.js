@@ -12,12 +12,13 @@ export class Mic {
 		return this.state == "recording"
 	}
 
-	static start(onStart = () => {}) {
+	static async start(onStart = () => {}) {
 		if (this.recording) {
 			throw new Error("already recording")
 		}
 
-		this.stream = MicApi.createStream()
+		this.stream = await MicApi.createStream()
+		console.log(this.stream)
 
 		this.recorder = new MediaRecorder(this.stream, {
 			mimeType: this.mimeType,

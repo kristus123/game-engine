@@ -9,8 +9,8 @@ export class MicApi {
 		})
 	}
 
-	static createStream() {
-		return navigator.mediaDevices.getUserMedia({
+	static async createStream() {
+		return await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
 					ideal: ActiveMic.selected ?? undefined, // use deviceId // exact or ideal field //seems i need to use undefined

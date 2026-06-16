@@ -12,18 +12,18 @@ const voices = [
 ]
 
 
-export async function Ttv(text) {
+export async function Ttv(text, callback) {
 	const res = await fetch("https://api.openai.com/v1/audio/speech", {
 		method: "POST",
 		headers: {
-			Authorization: "Bearer YOUR_API_KEY_HERE",
+			Authorization: `Bearer ${OpenAiToken}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
 			model: "gpt-4o-mini-tts",
 			voice: "alloy",
 			input: text,
-			instructions: "Speak in Norwegian with a Norwegian accent."
+			instructions: "Speak in chinese"
 		}),
 	})
 
@@ -33,6 +33,7 @@ export async function Ttv(text) {
 	}
 
 	const audioBlob = await res.blob()
+	callback(audioBlob)
 
 	return audioBlob
 }

@@ -1,8 +1,8 @@
-export async function Gpt(text) {
+export async function Gpt(text, callback) {
 	const res = await fetch("https://api.openai.com/v1/responses", {
 		method: "POST",
 		headers: {
-			Authorization: "Bearer YOUR_API_KEY_HERE",
+			Authorization: `Bearer ${OpenAiToken}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
@@ -18,9 +18,12 @@ export async function Gpt(text) {
 
 	const data = await res.json()
 
-	const reply = data.output_text
+	console.log(data)
+
+	const reply = data.output[0].content.find((c) => c.type == "output_text").text
 
 	console.log(reply)
+	callback(reply)
 
 	return reply
 }

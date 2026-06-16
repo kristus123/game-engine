@@ -1,4 +1,4 @@
-export async function Transcribe(blob) {
+export async function Transcribe(blob, callback) {
 	const form = new FormData()
 
 	form.append("file", blob, "audio.webm")
@@ -9,7 +9,7 @@ export async function Transcribe(blob) {
 	const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
 		method: "POST",
 		headers: {
-			Authorization: "Bearer YOUR_API_KEY_HERE",
+			Authorization: `Bearer ${OpenAiToken}`,
 		},
 		body: form,
 	})
@@ -21,4 +21,5 @@ export async function Transcribe(blob) {
 
 	const data = await res.json()
 	console.log(data.text)
+	callback(data.text)
 }
