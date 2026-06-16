@@ -18,32 +18,14 @@ const killPort = (port) => {
 		if (process.platform == "win32") {
 			const result = execSync(`netstat -aon | findstr :${port}`, { encoding: "utf8" })
 			const pids = [...new Set(
-				result.split("\n")
+  			result.split("\n")
 					.map(line => line.trim().split(/\s+/).pop())
 					.filter(pid => pid && /^\d+$/.test(pid) && pid != "0")
 			)]
 			pids.forEach(pid => execSync(`taskkill /f /pid ${pid}`))
-		}
+  		}
 		else {
-			try {
-				const pids = execSync(`lsof -t -i:${port}`, { stdio: ["pipe", "pipe", "ignore"], encoding: "utf8" })
-					.split("\n")
-					.map(pid => pid.trim())
-					.filter(pid => /^\d+$/.test(pid))
-				if (pids.length > 0) {
-					pids.forEach(pid => execSync(`kill -9 ${pid}`, { stdio: "ignore" }))
-				}
-			}
-			catch (e) {
-				if (e.status !== 1) {
-					try {
-						execSync(`fuser -k ${port}/tcp`, { stdio: "ignore" })
-					}
-					catch (err) {
-						// ignore
-					}
-				}
-			}
+			execSync(`fuser -k ${port}/tcp`)
 		}
 
 		console.log(`Killed process on port ${port}`)
@@ -54,7 +36,7 @@ const killPort = (port) => {
 	}
 }
 
-const distPort = Number(process.env.DIST_PORT ?? process.env.PORT ?? 6001)
+const distPort = Number(5050)
 
 killPort(3000)
 killPort(distPort)
