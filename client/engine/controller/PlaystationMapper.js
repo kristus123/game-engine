@@ -19,9 +19,11 @@ export function PlaystationMapper(index) {
 		16: "ps"
 	}
 
-	if (!(index in mapping)) {
+	if (index in mapping) {
+		return mapping[index]
+	}
+	else {
 		throw new Error(`Unknown gamepad button index: ${index}`)
 	}
 
-	return mapping[index]
 }
