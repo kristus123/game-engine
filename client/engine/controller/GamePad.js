@@ -17,17 +17,17 @@ export class GamePad {
 				throw new Error("wow. what controller is the player using?")
 			}
 
-			const button = {}
+			const buttons = {}
 
-			for (const [index, btn] of gamepad.buttons.entries()) {
+			for (const [index, button] of gamepad.buttons.entries()) {
 				const listener = Listener()
 
 				const onChange = OnChange(
-					() => btn.pressed,
+					() => button.pressed,
 					v => listener.trigger(v))
 
 				const name = PlaystationMapper(index)
-				button[name] = {
+				buttons[name] = {
 					name: name,
 					index: index,
 					listener: listener,
@@ -38,7 +38,7 @@ export class GamePad {
 			this.controllers[gamepad.index] = {
 				index: gamepad.index,
 				gamepad,
-				button,
+				buttons,
 				leftStick: { x: 0, y: 0 },
 				rightStick: { x: 0, y: 0 },
 			}
@@ -50,9 +50,9 @@ export class GamePad {
 	}
 
 	static update() {
-		for (const { leftStick, gamepad, button, index } of this.controllers.values) {
+		for (const { leftStick, gamepad, buttons, index } of this.controllers.values) {
 
-			for (const { onChange } of button.values) {
+			for (const { onChange } of buttons.values) {
 				onChange.update()
 			}
 

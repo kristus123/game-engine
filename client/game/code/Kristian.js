@@ -1,6 +1,10 @@
 export class Kristian {
 
 	constructor() {
+		setInterval(() => {
+			Track.test()
+		}, 200)
+
 		const t = Html.test()
 
 		Dom.add(t)
