@@ -5,15 +5,16 @@ export class Gp {
 	static onConnect(controller) {
 		this.connected = true
 
-		controller.buttons.left.listener.listen(pressed => {
+		controller.buttons.left.listen(pressed => {
+			console.log("clicked left")
 			if (pressed) {
-				this.onLeft()
+				this.left()
 			}
 		})
 
-		controller.buttons.right.listener.listen(pressed => {
+		controller.buttons.right.listen(pressed => {
 			if (pressed) {
-				this.onRight()
+				this.right()
 			}
 		})
 	}
@@ -22,9 +23,7 @@ export class Gp {
 		this.connected = false
 	}
 
-	static onLeft = () => {}
-	static onRight = () => {}
-	static onUp = () => {}
-	static onDown = () => {}
+	static left = () => {}
+	static right = () => {}
 
 }

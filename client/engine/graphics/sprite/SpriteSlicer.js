@@ -17,15 +17,15 @@ export class SpriteSlicer {
 
 		for (let x = 0; x < sliceCountX; x++) {
 			for (let y = 0; y < sliceCountY; y++) {
-    			const spriteSlice = sprite.copy()
+				const spriteSlice = sprite.copy()
 
-    			const sx = Math.round((spriteWidth / sliceCountX)) * x
-    			const sy = Math.round((spriteHeight / sliceCountY)) * y
-    			const sw = Math.round(spriteWidth / sliceCountX)
-    			const sh = Math.round(spriteHeight / sliceCountY)
+				const sx = Math.round((spriteWidth / sliceCountX)) * x
+				const sy = Math.round((spriteHeight / sliceCountY)) * y
+				const sw = Math.round(spriteWidth / sliceCountX)
+				const sh = Math.round(spriteHeight / sliceCountY)
 
-    			for (const picture of spriteSlice.getAllPicture()) {
-        			picture.crop(sx, sy, sw, sh)
+				for (const picture of spriteSlice.getAllPicture()) {
+    				picture.crop(sx, sy, sw, sh)
 
 					const spriteSliceWidth = picture.canvas.width * Scale.value
 					const spriteSliceHeight = picture.canvas.height * Scale.value
@@ -36,10 +36,10 @@ export class SpriteSlicer {
 						spriteSliceWidth,
 						spriteSliceHeight
 					)
-    			}
+				}
 
 
-    			sprites.push(spriteSlice)
+				sprites.push(spriteSlice)
 			}
 		}
 
