@@ -6,8 +6,8 @@ export class OpenAiWorld {
 		}))
 
 		Dom.add(H.button("stop", () => {
-			Mic.stop(async b => {
-				const transcribedText = await Transcribe(b)
+			Mic.stop(async blob => {
+				const transcribedText = await Transcribe(blob)
 
 				const gptText = await Gpt("Translate to chinese: " + transcribedText)
 

@@ -11,36 +11,36 @@ export class SpriteSlicer {
 		for (const picture of sprite.getAllPicture()) {
 			spriteWidth = picture.canvas.width
 			spriteHeight = picture.canvas.height
-			
-			break; // We only need the first picture
+
+			break // We only need the first picture
 		}
 
 		for (let x = 0; x < sliceCountX; x++) {
-    		for (let y = 0; y < sliceCountY; y++) {
-        		const spriteSlice = sprite.copy()
+			for (let y = 0; y < sliceCountY; y++) {
+    			const spriteSlice = sprite.copy()
 
-        		const sx = Math.round((spriteWidth / sliceCountX)) * x
-        		const sy = Math.round((spriteHeight / sliceCountY)) * y
-        		const sw = Math.round(spriteWidth / sliceCountX)
-        		const sh = Math.round(spriteHeight / sliceCountY)
+    			const sx = Math.round((spriteWidth / sliceCountX)) * x
+    			const sy = Math.round((spriteHeight / sliceCountY)) * y
+    			const sw = Math.round(spriteWidth / sliceCountX)
+    			const sh = Math.round(spriteHeight / sliceCountY)
 
-        		for (const picture of spriteSlice.getAllPicture()) {
-            		picture.crop(sx, sy, sw, sh)
-					
+    			for (const picture of spriteSlice.getAllPicture()) {
+        			picture.crop(sx, sy, sw, sh)
+
 					const spriteSliceWidth = picture.canvas.width * Scale.value
 					const spriteSliceHeight = picture.canvas.height * Scale.value
-					
+
 					spriteSlice.position = WorldPosition(
-						spriteSliceWidth * x ,
-						spriteSliceHeight * y ,
+						spriteSliceWidth * x,
+						spriteSliceHeight * y,
 						spriteSliceWidth,
 						spriteSliceHeight
 					)
-        		}
+    			}
 
 
-        		sprites.push(spriteSlice)
-    		}
+    			sprites.push(spriteSlice)
+			}
 		}
 
 		return sprites
@@ -50,8 +50,8 @@ export class SpriteSlicer {
 		let nextSliceIndex = 0
 
 		for (let i = 0; i < slicedSprites.length; i++) {
-    		const destSliceIndex = Math.round(Math.random() * (slicedSprites.length - 1))
-    		
+			const destSliceIndex = Math.round(Math.random() * (slicedSprites.length - 1))
+
 			slicedSprites[nextSliceIndex].position = slicedSprites[destSliceIndex].position
 			nextSliceIndex = destSliceIndex
 		}

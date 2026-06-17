@@ -8,6 +8,7 @@ export async function Gpt(text) {
 		body: JSON.stringify({
 			model: "gpt-4o",
 			input: text,
+			temperature: 0,
 		}),
 	})
 
