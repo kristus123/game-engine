@@ -17,11 +17,6 @@ export class OpenAiWorld {
 
 		MicPermission.request(() => {
 		})
-
-		Gp.left = () => {
-			console.log("clicked left")
-		}
-
 	}
 
 	update() {
