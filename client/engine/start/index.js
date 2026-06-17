@@ -7,6 +7,8 @@ import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 ServiceWorker.init()
 // HtmlObserverThing()
 
+await ClientToken.init()
+
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),

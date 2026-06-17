@@ -153,6 +153,7 @@ export class Assert {
 			return x
 		}
 
+		// todo: consider adding this back very soong
 		// if (typeof x == 'string' && x.trim() == '') {
 		// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. SMILE!!!")
 		// }

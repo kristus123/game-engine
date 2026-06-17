@@ -14,12 +14,17 @@ export const HttpClient = ProxyObject(
 			signal: abortController.signal,
 			headers: {
 				"Content-Type": "application/json",
+				"token": Assert.value(My.token),
 			},
 		}
 
 		return fetch(`${Config.httpUrl}/${method}`, request)
 			.then(async response => {
 				const json = await response.json()
+
+				console.log("_________")
+				console.log(json)
+				console.log("_________")
 
 				Assert.jsonObject(json)
 				callback(json)
