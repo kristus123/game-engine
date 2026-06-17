@@ -15,9 +15,7 @@ export class GamePad {
 			const gamepad = e.gamepad
 			setInterval(() => {
 				for (const b of gamepad.buttons) {
-					if (b.pressed) {
-						console.log(b)
-					}
+					console.log(b)
 				}
 			}, 100)
 
@@ -58,7 +56,7 @@ export class GamePad {
 				rightStick: { x: 0, y: 0 },
 			}
 
-			Gp.onConnect(this.controllers[gamepad.index])
+			// Gp.onConnect(this.controllers[gamepad.index])
 		})
 
 		window.addEventListener("gamepaddisconnected", e => {
@@ -71,7 +69,7 @@ export class GamePad {
 
 			for (const { onChange, button, name } of buttons.values) {
 				if (button.pressed == true) {
-					console.log(name)
+					// console.log(name)
 				}
 				onChange.update()
 			}
@@ -81,4 +79,47 @@ export class GamePad {
 		}
 	}
 
+}
+
+
+
+
+
+
+
+
+let gpIndex = null;
+
+window.addEventListener("gamepadconnected", (e) => {
+  gpIndex = e.gamepad.index;
+  console.log("Gamepad connected:", e.gamepad.id);
+  requestAnimationFrame(update);
+});
+
+window.addEventListener("gamepaddisconnected", () => {
+  gpIndex = null;
+  console.log("Gamepad disconnected");
+});
+
+function update() {
+  const gamepads = navigator.getGamepads();
+  const gp = gamepads[gpIndex];
+
+  if (!gp) {
+    requestAnimationFrame(update);
+    return;
+  }
+
+  // Buttons
+  const pressedButtons = gp.buttons
+    .map((btn, i) => (btn.pressed ? i : null))
+    .filter(v => v !== null);
+
+  console.clear();
+  console.log("Pressed buttons:", pressedButtons);
+
+  // Axes (sticks)
+  console.log("Axes:", gp.axes.map(a => a.toFixed(2)));
+
+  requestAnimationFrame(update);
 }
