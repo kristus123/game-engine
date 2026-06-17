@@ -1,11 +1,16 @@
 export class OpenAiWorld {
 
 	constructor() {
-		Dom.add(H.button("start", () => {
-			Mic.start()
-		}))
+		MicPermission.request(() => {
+		})
 
-		Dom.add(H.button("stop", () => {
+		Gp.left = () => {
+			console.log("pressed left")
+			Mic.start()
+		}
+
+		Gp.right = () => {
+			console.log("pressed right")
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
 
@@ -13,10 +18,8 @@ export class OpenAiWorld {
 
 				Sound.playBlob(await Ttv(gptText))
 			})
-		}))
+		}
 
-		MicPermission.request(() => {
-		})
 	}
 
 	update() {

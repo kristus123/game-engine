@@ -5,35 +5,57 @@ function _improvedStickValue(num) {
 	return d.abs >= deadzone ? d : 0
 }
 
-let gpIndex = null;
+let index = null
 
 export class Gp {
-	static init() {
 
+	static init() {
+	}
+
+	static {
 		window.addEventListener("gamepadconnected", (e) => {
-		  gpIndex = e.gamepad.index;
-		  console.log("Gamepad connected:", e.gamepad.id);
-		});
+			index = e.gamepad.index
+			console.log("Gamepad connected:", e.gamepad.id)
+			console.log(e.gamepad)
+		})
 
 		window.addEventListener("gamepaddisconnected", () => {
-		  gpIndex = null;
-		  console.log("Gamepad disconnected");
-		});
+			index = null
+			console.log("Gamepad disconnected")
+		})
 
+		this.onTrueListeners = []
+		for (const button of Playstation.buttons) {
+			console.log(button)
+			this[button] = () => {}
+			this[button + "Pressed"] = false
+			this[button + "Listener"] = OnTrue(() => this[button + "Pressed"], () => {
+				this[button]?.()
+			})
+
+			this.onTrueListeners.add(this[button + "Listener"])
+		}
 	}
 
 	static update() {
-		  const gp = navigator.getGamepads()[gpIndex];
+		if (index != null) {
+			const gp = navigator.getGamepads()[index]
 
-		  if (gp) {
-			  const pressedButtons = gp.buttons
-				.map((btn, i) => (btn.pressed ? PlaystationMapper(i) : null))
-				.filter(v => v !== null);
+			for (const [i, button] of gp.buttons.entries()) {
+				const name = Playstation.mapToButton(i)
+				this[name + "Pressed"] = button.pressed
+				if (button.pressed) {
+					console.log(`${name} is pressed`)
+				}
+			}
 
-			  console.clear();
-			  console.log("Pressed buttons:", pressedButtons);
+			const axes = gp.axes.map(a => a.toFixed(2))
+		}
 
-			  console.log("Axes:", gp.axes.map(a => a.toFixed(2)));
-		  }
+		for (const onTrue of this.onTrueListeners) {
+			onTrue.update()
+		}
+
 	}
+	
 }
