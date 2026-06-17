@@ -55,7 +55,6 @@ export class SocketClient {
 		}
 	}
 
-
 	static onServerMessage(action, callback) {
 		Assert.value(action)
 		Assert.value(callback)
