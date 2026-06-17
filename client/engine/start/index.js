@@ -1,3 +1,5 @@
+EnhanceAll()
+
 export const index = ""
 
 import { initD1 } from "/client/engine/start/draw_layers/D1.js"
@@ -6,6 +8,9 @@ import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 
 ServiceWorker.init()
 // HtmlObserverThing()
+
+SfuRouters.init()
+SfuClient.init()
 
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
