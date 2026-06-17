@@ -25,15 +25,16 @@ export class Gp {
 		})
 
 		this.onTrueListeners = []
+
 		for (const button of Playstation.buttons) {
 			console.log(button)
 			this[button] = () => {}
 			this[button + "Pressed"] = false
-			this[button + "Listener"] = OnTrue(() => this[button + "Pressed"], () => {
+			this[button + "OnTrueListener"] = OnTrue(() => this[button + "Pressed"], () => {
 				this[button]?.()
 			})
 
-			this.onTrueListeners.add(this[button + "Listener"])
+			this.onTrueListeners.add(this[button + "OnTrueListener"])
 		}
 	}
 

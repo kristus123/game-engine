@@ -1,4 +1,5 @@
 export class Sound {
+
 	static init() {}
 
 	static playBlob(blob) {
