@@ -1,7 +1,5 @@
 export class Internet {
 
-	static init() {}
-
 	static connected = null
 
 	static {

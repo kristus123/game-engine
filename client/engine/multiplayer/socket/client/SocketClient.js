@@ -1,7 +1,5 @@
 export class SocketClient {
 
-	static init() {}
-
 	static {
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
@@ -56,7 +54,6 @@ export class SocketClient {
 			SocketClient.sendToClient(subAction, targetClientId, data)
 		}
 	}
-
 
 	static onServerMessage(action, callback) {
 		Assert.value(action)
