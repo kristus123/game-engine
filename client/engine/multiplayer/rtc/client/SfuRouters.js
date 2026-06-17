@@ -1,5 +1,5 @@
 export class SfuRouters {
-    static {
+    static init() {
 		// Move this into SfuRoutes.js, and have it also 
 		// SfuRoutes.onRouteCreated = (route) => {}
 		// SfuRoutes.onRouteDeleted = (route) => {}

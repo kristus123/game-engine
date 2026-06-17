@@ -217,7 +217,7 @@ export class SfuClient {
 			}
 		})
 
-		this.sendTransport.on("produce", ({ kind, rtpParameters }, callback, errback) => {
+		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
 			// Is this the best way to handle it? Will the catch block actually be triggered? And also why are we using new promise? Isn't it possible to write it in a pretty way since we are already using async away?
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
