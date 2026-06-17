@@ -30,6 +30,7 @@ Promise.all([
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		const activeThing = World()
 ||||||| parent of 4c8c836b (x)
 		const activeThing = Kristian()
@@ -43,6 +44,11 @@ Promise.all([
 =======
 		const activeThing = Kristian()
 >>>>>>> 6c71a44a (x)
+||||||| parent of f48fce0a (SfuRouters.js and Comment Fixed)
+		const activeThing = Kristian()
+=======
+		const activeThing = SfuWorld()
+>>>>>>> f48fce0a (SfuRouters.js and Comment Fixed)
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
