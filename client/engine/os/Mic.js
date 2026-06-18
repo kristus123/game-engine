@@ -43,26 +43,27 @@ export class Mic {
 		Assert.method(onStop)
 
 		if (!this.recording) {
-			throw new Error("not recording")
+			console.error("not recording")
 		}
+		else {
+			this.recorder.onstop = () => {
 
-		this.recorder.onstop = () => {
+				MicApi.stopTracks(this.stream)
 
-			MicApi.stopTracks(this.stream)
+				const blob = new Blob(this.chunks, {
+					type: this.mimeType,
+				})
 
-			const blob = new Blob(this.chunks, {
-				type: this.mimeType,
-			})
+				this.chunks = []
+				this.recorder = null
+				this.stream = null
+				this.state = "idle"
 
-			this.chunks = []
-			this.recorder = null
-			this.stream = null
-			this.state = "idle"
+				return onStop(blob)
+			}
 
-			return onStop(blob)
+			this.recorder.stop()
 		}
-
-		this.recorder.stop()
 	}
 
 }
