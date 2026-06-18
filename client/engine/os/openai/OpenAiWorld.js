@@ -1,23 +1,25 @@
 export class OpenAiWorld {
 
 	constructor() {
+		const html = Dom.add(Html.translator)
+
 		MicPermission.request(() => {
 		})
 
 		Gp.left = () => {
 			console.log("pressed left start record")
-			Toast("Start")
+			html.title.text("recording")
 			Mic.start()
 		}
 
 		Gp.right = () => {
-			Toast("Stop")
+			html.title.text("transcribing")
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
-				Toast(transcribedText)
+				html.title.text(transcribedText)
 
 				const translatedText = await Gpt("Translate to chinese: " + transcribedText)
-				Toast(translatedText)
+				html.title.text(translatedText)
 
 				Sound.playBlob(await Ttv(translatedText))
 			})
