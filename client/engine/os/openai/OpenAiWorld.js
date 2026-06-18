@@ -12,13 +12,14 @@ export class OpenAiWorld {
 
 		Gp.right = () => {
 			Toast("Stop")
-			console.log("pressed right start record")
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
+				Toast(transcribedText)
 
-				const gptText = await Gpt("Translate to chinese: " + transcribedText)
+				const translatedText = await Gpt("Translate to chinese: " + transcribedText)
+				Toast(translatedText)
 
-				Sound.playBlob(await Ttv(gptText))
+				Sound.playBlob(await Ttv(translatedText))
 			})
 		}
 
