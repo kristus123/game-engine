@@ -1,33 +1,25 @@
 export class SfuWorld {
 	constructor() {
-		SfuClient.init()
+		SfuRouters.updateRouterList()
 
 		const s = Dom.add(Html.sfu())
 
-		SfuClient.onNewLobbyCreated = lobby => {
+		SfuRouters.onRouterCreated = lobby => {
 			s.lobbies.add(H.button("join " + lobby.routerId, () => {
 				SfuClient.joinLobby(lobby.routerId)
 			}))
 		}
 
-		SfuClient.onGuestConnection = stream => {
+		SfuRouters.onGuestConnection = stream => {
 			s.guestWebcam.srcObject = stream
 		}
 
-		Webcam.request(async (ok) => {
-			if (ok) {
-				await Webcam.enable()
-				console.log(s.localWebcam)
-				s.localWebcam.srcObject = Webcam.stream
-				SfuClient.createLobby()
-			}
-			else {
-				throw new Error("explosion")
-			}
-		})
+		SfuRouters.onLocalConnection = stream => {
+			s.localWebcam.srcObject = stream
+		}
 
 		s.create.onClick(() => {
-			SfuClient.createLobby()
+			SfuClient.createLobby(true)
 		})
 	}
 

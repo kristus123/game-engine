@@ -36,7 +36,8 @@ export class SfuServer {
 				routerList[router.routerId] = {
 					routerId: router.routerId,
 					hostClientId: router.hostClientId,
-					connectedClientIds: this.getRouterClientIds(router.routerId)
+					connectedClientIds: this.getRouterClientIds(router.routerId),
+					streamOnly: router.streamOnly
 				}
 			})
 
@@ -48,14 +49,15 @@ export class SfuServer {
 			})
 		})
 
-		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
-			const routerObject = await this.createUniqueRouter(this.globalWorker, clientId)
+		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId, data) => {
+			const routerObject = await this.createUniqueRouter(this.globalWorker, clientId, data.streamOnly)
 
 			socketServer.sendToEveryone({
 				action: "SFU_ROUTER_CREATED",
 				routerId: routerObject.routerId,
 				hostClientId: clientId,
-				connectedClientIds: [clientId]
+				connectedClientIds: [clientId],
+				streamOnly: data.streamOnly
 			})
 		})
 
@@ -98,6 +100,10 @@ export class SfuServer {
 
 			Object.values(router.clients).forEach(rtcClient => {
 				if (rtcClient.client == client) {
+					return
+				}
+
+				if (!rtcClient.producer) {
 					return
 				}
 
@@ -228,7 +234,7 @@ export class SfuServer {
 		}
 	}
 
-	static async createUniqueRouter(worker, hostClientId) {
+	static async createUniqueRouter(worker, hostClientId, streamOnly) {
 		const routerId = RandomId()
 		const router = await SfuServerApi.createRouter(worker)
 
@@ -236,7 +242,8 @@ export class SfuServer {
 			routerId: routerId,
 			router: router,
 			hostClientId: hostClientId,
-			clients: {}
+			clients: {},
+			streamOnly: streamOnly
 		}
 
 		return this.routers[routerId]

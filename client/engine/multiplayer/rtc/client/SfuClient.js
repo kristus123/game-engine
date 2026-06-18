@@ -1,7 +1,5 @@
 export class SfuClient {
-
-	static init() { // for some reason enhanceAll.js is not run if just using static block. not important to fix for now
-		console.log("good moring")
+	static init() {
 		this.connectedRouterId = null
 
 		this.device = null
@@ -14,7 +12,7 @@ export class SfuClient {
 	static async setupSendTransport(params) {
 		this.sendTransport = this.device.createSendTransport(params)
 
-		this.sendTransport.on("connect", ({ dtlsParameters }, callback, errback) => { // It seems this class as well does not need to be async.
+		this.sendTransport.on("connect", ({ dtlsParameters }, callback, errback) => {
 			try {
 				console.log("Requesting Connection For Webrtc Send Transport")
 
@@ -32,7 +30,6 @@ export class SfuClient {
 		})
 
 		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
-			// Is this the best way to handle it? Will the catch block actually be triggered? And also why are we using new promise? Isn't it possible to write it in a pretty way since we are already using async away?
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
 					if (data.kind == kind) {
@@ -51,19 +48,27 @@ export class SfuClient {
 			})
 		})
 
-		if (!Webcam.enabled) {
-			throw new Error("webcam is not active. enable webcam first!")
-		}
-		else {
-			for (const track of Webcam.stream.getTracks()) {
-				const producer = await this.sendTransport.produce({ track })
-				this.producers[track.kind] = producer
+		const produceLogic = async () => {
+			if (!Webcam.enabled) {
+				throw new Error("webcam is not active. enable webcam first!")
 			}
-
-			SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-				routerId: this.connectedRouterId,
-			})
+			else {
+				for (const track of Webcam.stream.getTracks()) {
+					const producer = await this.sendTransport.produce({ track })
+					this.producers[track.kind] = producer
+				}
+			}
 		}
+
+		if (SfuRouters.routers[this.connectedRouterId].streamOnly && SfuClient.isHost) {
+			await produceLogic()
+		} else if (!SfuRouters.routers[this.connectedRouterId].streamOnly) {
+			await produceLogic()
+		}
+
+		SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
+			routerId: this.connectedRouterId,
+		})
 	}
 
 	static async setupRecvTransport(params) {
@@ -105,7 +110,9 @@ export class SfuClient {
 
 				this.consumers[originClientId].stream.addTrack(consumer.track)
 
-				this.onGuestConnection(this.consumers[originClientId].stream)
+				if (SfuRouters.routers[this.connectedRouterId].streamOnly && !SfuClient.isHost) {
+					SfuRouters.onGuestConnection(this.consumers[originClientId].stream)
+				}
 			}
 		})
 	}
@@ -122,8 +129,20 @@ export class SfuClient {
 		this.consumers = {}
 	}
 
-	static createLobby() {
-		SocketClient.sendToServer("SFU_CREATE_ROUTER", {})
+	static createLobby(streamOnly = false) {
+		if (!streamOnly) {
+			Webcam.request(async (ok) => {
+				if (ok) {
+					await Webcam.enable()
+
+					SfuRouters.onLocalConnection(Webcam.stream)
+				}
+			})
+		}
+
+		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
+			streamOnly: streamOnly
+		})
 	}
 
 	static async joinLobby(routerId) {

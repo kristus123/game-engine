@@ -1,24 +1,23 @@
 export class SfuRouters {
     static init() {
-		// Move this into SfuRoutes.js, and have it also 
-		// SfuRoutes.onRouteCreated = (route) => {}
-		// SfuRoutes.onRouteDeleted = (route) => {}
-		// you can think of what would be the best solution
-		this.routers = null // set this to null instead of empty object. also rename it. misleading name
+		this.routers = {}
 
 		this.onRouterCreated = (router) => {}
-		this.onGuestConnection = (stream) => {}
 		this.onRouterDeleted = (routerId) => {}
+		this.onGuestConnection = (stream) => {}
+		this.onLocalConnection = (stream) => {}
 		this.onJoinLobby = (router) => {}
 		this.onLeaveLobby = (router) => {}
 
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
-
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routers = data.routerList
+
+			Object.keys(this.routers).forEach(routerId => {
+				this.onRouterCreated(this.routers[routerId])
+			})
 		})
 
-		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => { // this looks like server inits stuff on connection. if so, it should be moved to the top
+		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
 			console.log("Setting Up SFU Client")
 
 			SfuClient.device = new window.mediasoup.Device()
@@ -64,6 +63,7 @@ export class SfuRouters {
 				routerId: data.routerId,
 				hostClientId: data.hostClientId,
 				connectedClientIds: data.connectedClientIds,
+				streamOnly: data.streamOnly
 			}
 
 			console.log(this.routers)
@@ -82,6 +82,16 @@ export class SfuRouters {
 				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
 			}
 
+			if (data.newlyConnectedClientId == ClientId) {
+				Webcam.request(async (ok) => {
+					if (ok) {
+						await Webcam.enable()
+
+						SfuRouters.onLocalConnection(Webcam.stream)
+					}
+				})
+			}
+
 			console.log(this.routers)
 
 			this.onJoinLobby(router)
@@ -89,7 +99,12 @@ export class SfuRouters {
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
-			SfuClient.consume(data.producerId, data.clientId) // It doesn't need to be async.
+			SfuClient.consume(data.producerId, data.clientId)
 		})
     }
+
+	// Does not work if is directly inside init()
+	static updateRouterList() {
+		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
+	}
 }
