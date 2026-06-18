@@ -34,7 +34,7 @@ export class Gp {
 				this[button]?.()
 			})
 
-			this.onTrueListeners.add(this[button + "OnTrueListener"])
+			this.onTrueListeners.push(this[button + "OnTrueListener"])
 		}
 	}
 
@@ -44,9 +44,11 @@ export class Gp {
 
 			for (const [i, button] of gp.buttons.entries()) {
 				const name = Playstation.mapToButton(i)
-				this[name + "Pressed"] = button.pressed
-				if (button.pressed) {
-					console.log(`${name} is pressed`)
+				if (name) {
+					this[name + "Pressed"] = button.pressed
+					if (button.pressed) {
+						// console.log(`${name} is pressed`)
+					}
 				}
 			}
 

@@ -33,7 +33,8 @@ export class Playstation {
 			return mappings[index]
 		}
 		else {
-			throw new Error(`Unknown gamepad button index: ${index}`)
+			// console.warn(`Unknown gamepad button index: ${index}`)
+			return null
 		}
 	}
 
