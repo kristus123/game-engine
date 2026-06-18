@@ -74,6 +74,10 @@ export class Entity {
 		return Collision.between(this.position, o)
 	}
 
+	coveredBy(container, padding = 0) {
+		return Collision.coveredEntirely(container, this.position, padding)
+	}
+
 	touchesAny(list, condition= (o) => true) {
 		for (const o of list) {
 			if (Collision.between(this.position, o) && this != o && condition(o)) {
