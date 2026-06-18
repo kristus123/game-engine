@@ -24,7 +24,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-		const activeThing = OpenAiWorld()
+		const activeThing = World()
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
@@ -46,9 +46,9 @@ Promise.all([
 				Palette.d3.ctx,
 				Palette.light.ctx,
 			], () => {
+				Camera.update()
 				activeThing.update()
 				Mouse.update()
-				Camera.update()
 				for (const c of SuperClass.all) {
 					c.showTags()
 				}
