@@ -15,7 +15,7 @@ Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
 	LoadAllAudio(AUDIO_FILES),
-	LoadPersistedJson(),
+	// LoadPersistedJson(),
 ])
 	.then((x) => {
 
