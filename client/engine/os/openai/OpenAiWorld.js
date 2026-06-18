@@ -1,24 +1,18 @@
 export class OpenAiWorld {
 
 	constructor() {
+		MicPermission.request(() => {
+		})
+
 		const html = Dom.add(Html.translator())
 
 		let language = "Chinese"
 
-		html.languages.add(H.button("Chinese", () => {
-			language = "Chinese"
-		}))
-
-		html.languages.add(H.button("Japanese", () => {
-			language = "Japanese"
-		}))
-
-		html.languages.add(H.button("Korean", () => {
-			language = "Korean"
-		}))
-
-		MicPermission.request(() => {
-		})
+		for (const lang of ["Chinese", "Japanese", "Korean", "Vietnamese", "Thailand"]) {
+			html.languages.add(H.button(lang, () => {
+				language = lang
+			}))
+		}
 
 		Gp.left = () => {
 			console.log("pressed left start record")
