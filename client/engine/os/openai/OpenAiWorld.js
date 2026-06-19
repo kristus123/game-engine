@@ -32,7 +32,7 @@ export class OpenAiWorld {
 				const transcribedText = await Transcribe(blob)
 				const translator = await Translator.create({
 				  sourceLanguage: "en",
-				  targetLanguage: "zn"
+				  targetLanguage: "zh"
 				});
 				const result = await translator.translate(transcribedText);
 				html.h1.text(result)
