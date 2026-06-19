@@ -8,7 +8,7 @@ export function VerifyNoReservedClashes() {
 		.map(w => w.toLowerCase())
 
 	for (const file of JsFiles) {
-		const name = file.split("/").pop().replace(".js", "").toLowerCase() // ! Strict
+		const name = file.split("/").pop().replace(".js", "").toLowerCase() // Strict !!
 
 		if (keywords.includes(name)) {
 			throw new Error(`${file} can not be named as such, because it clashes with a reserved js keywords`)
