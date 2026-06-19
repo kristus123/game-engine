@@ -25,7 +25,7 @@ export class SpriteSlicer {
 				const sh = Math.round(spriteHeight / sliceCountY)
 
 				for (const picture of spriteSlice.getAllPicture()) {
-    				picture.crop(sx, sy, sw, sh)
+					picture.crop(sx, sy, sw, sh)
 
 					const spriteSliceWidth = picture.canvas.width * Scale.value
 					const spriteSliceHeight = picture.canvas.height * Scale.value
