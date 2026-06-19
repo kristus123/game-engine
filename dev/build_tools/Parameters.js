@@ -39,6 +39,6 @@ export class Parameters {
 		return Parameters.inConstructor(content)
 			.map(p => `
 				Assert.notNull(${p}, "argument ${p} in " + this.constructor.name + ".js should not be null")
-			`).join()
+			`).join("")
 	}
 }
