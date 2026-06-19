@@ -1,5 +1,5 @@
 export class Task {
-	constructor(name, {onStart, onUpdate, markDoneIf, markDoneIfMoreThanMs} = {}) {
+	constructor(name, { onStart, onUpdate, markDoneIf, markDoneIfMoreThanMs } = {}) {
 		this.done = false
 		this.stopWatch = StopWatch()
 		this.started = false
