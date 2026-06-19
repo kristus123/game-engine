@@ -29,16 +29,14 @@ export class OpenAiWorld {
 
 			html.h1.textContent = "transciribng"
 			Mic.stop(async blob => {
-				// const transcribedText = await Transcribe(blob)
+				const transcribedText = await Transcribe(blob)
+				LibreTranslate(translatedText)
 				// html.h1.text(transcribedText)
 
 				// const translatedText = await Gpt(`Translate to ${language}: ${transcribedText}`)
 				// html.h1.text(translatedText)
 
 				// Sound.playBlob(await Ttv(translatedText, `Speak in ${language}`))
-				TestTranscribe(translatedText, t => {
-					Tts(t)
-				})
 			})
 			
 		}))
