@@ -29,54 +29,6 @@ function simpleRegex(str, pattern) {
 	return new RegExp("^" + regexPattern).test(str.trim())
 }
 
-function startsWith(line, list) {
-	const cleaned = line.trimStart()
-
-	return list.some(word =>
-		cleaned.startsWith(word)
-	)
-}
-
-function extractMethodParamsIfPresent(line) {
-	if (startsWith(line, ["document.", "this.", "//"])) {
-		return null
-	}
-
-	const blacklist = new Set([
-		"for",
-		"if",
-		"while",
-		"switch",
-		"catch",
-		"filter",
-		"Getter",
-		"Enhance",
-	])
-
-
-	const regex =
-		/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
-
-	const match = line.match(regex)
-	if (!match) {
-		return null
-	}
-
-	const methodName = match[1] || null
-
-	if (methodName && blacklist.has(methodName)) {
-		return null
-	}
-
-	const parametersStr = match[2] || match[3] || ""
-	const parameters = Parameters.extractParameters(parametersStr)
-
-	return {
-		methodName: methodName,
-		parameters: parameters
-	}
-}
-
 function indentations(str) {
 	return (str.match(/\t/g) || []).length
 }
@@ -95,7 +47,6 @@ export function Transpiler(ENVIRONMENT) {
 			Files.writeFileToDist(jsFilePath, fileContent)
 			continue
 		}
-
 
 		JsFiles.forEach(f => {
 			const className = path.parse(f).name
@@ -119,7 +70,7 @@ export function Transpiler(ENVIRONMENT) {
 
 		for (let i = 0; i < lines.length; i++) {
 
-			const methodParams = extractMethodParamsIfPresent(lines[i])
+			const methodParams = Parameters.extractIfPresent(lines[i])
 
 			const applyNullChecks = (line = 0) => {
 				if (methodParams && methodParams.parameters && fileName != "Assert.js") {
@@ -129,19 +80,25 @@ export function Transpiler(ENVIRONMENT) {
 							+ "\n"
 							+ `Assert.notNull(${p}, '${p} - ${className}.${methodParams.methodName}')`
 					}
+
+					return methodParams.parameters
+				}
+				else {
+					return []
 				}
 			}
 
 			if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
-				applyNullChecks(i+1)
-				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
+				const params = applyNullChecks(i+1)
+				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 			}
 			else if (lines[i].includes("constructor(")) {
 				if (!fileContent.includes("export class SuperClass")) {
 					lines[i] = lines[i] + "\n" + "super()"
 				}
 				applyNullChecks(i)
-				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
+				const params = applyNullChecks(i+1)
+				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 			}
 			else {
 				applyNullChecks(i)

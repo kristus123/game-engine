@@ -1,39 +1,65 @@
+function startsWith(line, list) {
+	const cleaned = line.trimStart()
+
+	return list.some(word =>
+		cleaned.startsWith(word)
+	)
+}
+
 export class Parameters {
 
-	static extractParameters(parametersStr) {
-		return parametersStr
-			.replaceAll("= {}", "")
-			.replaceAll("{", "")
-			.replaceAll("}", "")
-			.split(",")
-			.map(p => p.split("=")[0].trim())
-			.filter(p => p.trim())
-	}
-
-	static inConstructor(content) {
-		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
-
-		if (match) {
-			return Parameters.extractParameters(match[1])
-		}
-		else {
-			return []
-		}
-	}
-
-	static initVariablesFromConstructor(content) {
-		return Parameters.inConstructor(content)
-			.filter(p => !p.includes("...")) // in case they use ...args
+	static initVariablesFromConstructor(content, params) {
+		return params
 			.map(p => `this.${p} = ${p}; \n`)
 			.map(p => "\t\t" + p)
 			.join()
 			.replaceAll(",", "")
 	}
 
-	static nullCheckForConstructorArguments(content) {
-		return Parameters.inConstructor(content)
-			.map(p => `
-				Assert.notNull(${p}, "argument ${p} in " + this.constructor.name + ".js should not be null")
-			`).join("")
+	static extractIfPresent(line) {
+		if (startsWith(line, ["document.", "this.", "//"])) {
+			return null
+		}
+
+		const blacklist = new Set([
+			"for",
+			"if",
+			"while",
+			"switch",
+			"catch",
+			"filter",
+			"Getter",
+			"Enhance",
+		])
+
+
+		const regex =
+			/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
+
+		const match = line.match(regex)
+		if (!match) {
+			return null
+		}
+
+		const methodName = match[1] || null
+
+		if (methodName && blacklist.has(methodName)) {
+			return null
+		}
+
+		const parametersStr = match[2] || match[3] || ""
+		const parameters = parametersStr
+			.replaceAll("= {}", "")
+			.replaceAll("{", "")
+			.replaceAll("}", "")
+			.split(",")
+			.map(p => p.split("=")[0].trim())
+			.filter(p => p.trim())
+			.map(p => p.replace("...", ""))
+
+		return {
+			methodName: methodName,
+			parameters: parameters
+		}
 	}
 }
