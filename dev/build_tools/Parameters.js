@@ -1,18 +1,13 @@
 export class Parameters {
 
 	static extractParameters(parametersStr) {
-		let parameters = parametersStr || ""
-		if (parameters.includes("{")) {
-			parameters = parameters.replaceAll("= {}", "")
-			parameters = parameters.replaceAll("{", "")
-			parameters = parameters.replaceAll("}", "")
-		}
-
-		parameters = parameters.split(",")
-		parameters = parameters.map(p => p.split("=")[0].trim())
-		parameters = parameters.filter(p => p.trim())
-
-		return parameters
+		return parametersStr
+			.replaceAll("= {}", "")
+			.replaceAll("{", "")
+			.replaceAll("}", "")
+			.split(",")
+			.map(p => p.split("=")[0].trim())
+			.filter(p => p.trim())
 	}
 
 	static inConstructor(content) {
