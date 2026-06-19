@@ -1,14 +1,25 @@
 export class Parameters {
 
+	static extractParameters(parametersStr) {
+		let parameters = parametersStr || ""
+		if (parameters.includes("{")) {
+			parameters = parameters.replaceAll("= {}", "")
+			parameters = parameters.replaceAll("{", "")
+			parameters = parameters.replaceAll("}", "")
+		}
+
+		parameters = parameters.split(",")
+		parameters = parameters.map(p => p.split("=")[0].trim())
+		parameters = parameters.filter(p => p.trim())
+
+		return parameters
+	}
+
 	static inConstructor(content) {
 		const match = content.match(/constructor\(([\s\S]*?)\)\s*\{/)
 
 		if (match) {
-			return match[1].split(",")
-				.map(param => param.trim())
-				.map(p => p.replaceAll(" ", ""))
-				.map(p => p.split("=")[0])
-				.filter(p => p != "")
+			return Parameters.extractParameters(match[1])
 		}
 		else {
 			return []

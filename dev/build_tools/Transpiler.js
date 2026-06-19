@@ -68,16 +68,8 @@ function extractMethodParamsIfPresent(line) {
 		return null
 	}
 
-	let parameters = match[2] || match[3] || ""
-	if (parameters.includes("{")) {
-		parameters = parameters.replaceAll("= {}", "")
-		parameters = parameters.replaceAll("{", "")
-		parameters = parameters.replaceAll("}", "")
-	}
-
-	parameters = parameters.split(", ")
-	parameters = parameters.map(p => p.split("=")[0].trim())
-	parameters = parameters.filter(p => p.trim())
+	const parametersStr = match[2] || match[3] || ""
+	const parameters = Parameters.extractParameters(parametersStr)
 
 	return {
 		methodName: methodName,
