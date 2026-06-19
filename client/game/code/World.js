@@ -1,6 +1,5 @@
 export class World {
 	constructor(test1, {wow, two} = {}, {akjsldkf, asdlkf}, {thisone}, ...args) {
-		super()
 		this.normalObjects = Objects([
 			this.normalBush = Sprite.bush(WorldPosition(0, -256))
 		])

@@ -70,35 +70,37 @@ export function Transpiler(ENVIRONMENT) {
 
 		for (let i = 0; i < lines.length; i++) {
 
-			const methodParams = Parameters.extractIfPresent(lines[i])
+			const p = Parameters.extractIfPresent(lines[i])
 
 			const applyNullChecks = (line = 0) => {
-				if (methodParams && methodParams.parameters && fileName != "Assert.js") {
-					for (let ii = 0; ii < methodParams.parameters.length; ii++) {
-						const p = methodParams.parameters[ii]
+				if (p && p.parameters && fileName != "Assert.js") {
+					for (let ii = 0; ii < p.parameters.length; ii++) {
+						const pp = p.parameters[ii]
 						lines[line] = lines[line]
 							+ "\n"
-							+ `Assert.notNull(${p}, '${p} - ${className}.${methodParams.methodName}')`
+							+ "\t".repeat(3) // Just to make it slightly prettier
+							+ `Assert.notNull(${pp}, 'param ${ii+1} - ${pp} - ${className}.${p.methodName}')`
 					}
 
-					return methodParams.parameters
+					return p.parameters
 				}
 				else {
 					return []
 				}
 			}
 
-			if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
-				const params = applyNullChecks(i+1)
-				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
-			}
-			else if (lines[i].includes("constructor(")) {
-				if (!fileContent.includes("export class SuperClass")) {
-					lines[i] = lines[i] + "\n" + "super()"
+			if (lines[i].includes("constructor(")) {
+				if (lines[i+1].includes("super(")) {
+					const params = applyNullChecks(i+1)
+					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
-				applyNullChecks(i)
-				const params = applyNullChecks(i+1)
-				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
+				else {
+					if (!fileContent.includes("export class SuperClass")) {
+						lines[i] = lines[i] + "\n" + "super()"
+					}
+					const params = applyNullChecks(i)
+					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
+				}
 			}
 			else {
 				applyNullChecks(i)
