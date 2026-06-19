@@ -118,24 +118,33 @@ export function Transpiler(ENVIRONMENT) {
 		const lines = fileContent.split("\n")
 
 		for (let i = 0; i < lines.length; i++) {
+
+			const methodParams = extractMethodParamsIfPresent(lines[i])
+
+			const applyNullChecks = (line = 0) => {
+				if (methodParams && methodParams.parameters && fileName != "Assert.js") {
+					for (let ii = 0; ii < methodParams.parameters.length; ii++) {
+						const p = methodParams.parameters[ii]
+						lines[line] = lines[line]
+							+ "\n"
+							+ `Assert.notNull(${p}, '${p} - ${className}.${methodParams.methodName}')`
+					}
+				}
+			}
+
 			if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
-				lines[i+1] = lines[i+1] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
+				applyNullChecks(i+1)
 				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
 			}
 			else if (lines[i].includes("constructor(")) {
 				if (!fileContent.includes("export class SuperClass")) {
 					lines[i] = lines[i] + "\n" + "super()"
 				}
-				lines[i] = lines[i] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
+				applyNullChecks(i)
 				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
 			}
-
-			const methodParams = extractMethodParamsIfPresent(lines[i])
-			if (methodParams && methodParams.parameters && fileName != "Assert.js") {
-				for (let ii = 0; ii < methodParams.parameters.length; ii++) {
-					const p = methodParams.parameters[ii]
-					lines[i] = lines[i] + "\n" + `Assert.notNull(${p}, 'parameter ${p} inside of ${className}.js can not be null')`
-				}
+			else {
+				applyNullChecks(i)
 			}
 
 			if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {

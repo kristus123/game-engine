@@ -1,5 +1,6 @@
 export class World {
-	constructor() {
+	constructor(test1, {wow, two} = {}, {akjsldkf, asdlkf}, {thisone}) {
+		super()
 		this.normalObjects = Objects([
 			this.normalBush = Sprite.bush(WorldPosition(0, -256))
 		])
@@ -11,7 +12,7 @@ export class World {
 		SpriteSlicer.shuffle(this.slicedObjects.objects[0])
 	}
 
-	update() {
+	update(test1, {wow, two} = {}, {akjsldkf, asdlkf}, {thisone}) {
 		this.normalObjects.update()
 		this.slicedObjects.update()
 	}
