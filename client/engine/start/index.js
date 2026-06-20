@@ -28,7 +28,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-		const activeThing = World()
+		const activeThing = OpenAiWorld()
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
