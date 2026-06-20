@@ -1,17 +1,19 @@
 let voice = null
 speechSynthesis.onvoiceschanged = () => {
 	voice = speechSynthesis.getVoices().find((v) => {
-		return v.lang == "ja-JP"
+		// return v.lang == "ja-JP"
+		return v.lang == "zh-CN"
 	})
 }
 
 export class Tts {
 	constructor(text) {
-		this.lang = "ja-JP"
+		this.lang = "zh-CN"
+		// this.lang = "ja-JP"
 		//this.lang = "en-US"
 		this.rate = 1
 		this.pitch = 1
-		if (text) {
+		if (text && voice) {
 			this.speak(text)
 		}
 	}

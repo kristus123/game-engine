@@ -12,7 +12,7 @@ const voices = [
 ]
 
 
-export async function Ttv(text) {
+export async function Ttv(text, instructions) {
 	const res = await fetch("https://api.openai.com/v1/audio/speech", {
 		method: "POST",
 		headers: {
@@ -23,7 +23,7 @@ export async function Ttv(text) {
 			model: "gpt-4o-mini-tts",
 			voice: "alloy",
 			input: text,
-			instructions: "Speak in chinese"
+			instructions: instructions,
 		}),
 	})
 

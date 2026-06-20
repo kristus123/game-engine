@@ -7,11 +7,15 @@ import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 ServiceWorker.init()
 // HtmlObserverThing()
 
+Gp.init()
+
+EnhanceAll()
+
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
 	LoadAllAudio(AUDIO_FILES),
-	LoadPersistedJson(),
+	// LoadPersistedJson(),
 ])
 	.then((x) => {
 
@@ -37,7 +41,7 @@ Promise.all([
 
 			Physics.update()
 			Controller.update()
-			GamePad.update()
+			Gp.update()
 
 			Shadow.updateOutsideCameraContext()
 			Camera.applyPositionContextThing([
