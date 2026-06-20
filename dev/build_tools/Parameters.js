@@ -32,7 +32,6 @@ export class Parameters {
 			"Enhance",
 		])
 
-
 		const regex =
 			/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
 
@@ -47,8 +46,8 @@ export class Parameters {
 			return null
 		}
 
-		const parametersStr = match[2] || match[3] || ""
-		const parameters = parametersStr
+		const parameters = (match[2] || match[3] || "")
+			.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, '') // remove text inside of strings
 			.replaceAll("= {}", "")
 			.replaceAll("{", "")
 			.replaceAll("}", "")

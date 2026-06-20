@@ -72,7 +72,7 @@ export function Transpiler(ENVIRONMENT) {
 
 			const p = Parameters.extractIfPresent(lines[i])
 
-			const applyNullChecks = (line = 0) => {
+			const applyNullChecks = (line) => { // hacky
 				if (p && p.parameters && fileName != "Assert.js") {
 					for (let ii = 0; ii < p.parameters.length; ii++) {
 						const pp = p.parameters[ii]
@@ -91,14 +91,14 @@ export function Transpiler(ENVIRONMENT) {
 
 			if (lines[i].includes("constructor(")) {
 				if (lines[i+1].includes("super(")) {
-					const params = applyNullChecks(i+1)
+					const params = applyNullChecks(i+1) // hacky
 					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 				else {
 					if (!fileContent.includes("export class SuperClass")) {
 						lines[i] = lines[i] + "\n" + "super()"
 					}
-					const params = applyNullChecks(i)
+					const params = applyNullChecks(i) // hacky
 					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 			}
@@ -117,8 +117,8 @@ export function Transpiler(ENVIRONMENT) {
 				}
 			}
 
-			if (blockWithoutParentheses("if", lines[i])) {
-				lines[i] = addParentheses("if", lines[i])
+			if (blockWithoutParentheses("if", lines[i])) { // i am not sure if this works properly
+				lines[i] = addParentheses("if", lines[i]) // i am not sure if this works properly
 			}
 		}
 

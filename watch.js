@@ -140,7 +140,7 @@ watcher.on("all", (e, path) => {
 
 
 // initial build
-// ExportAseprite()
+ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 
