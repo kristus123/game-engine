@@ -9,15 +9,10 @@ import { initD3 } from "/client/engine/start/draw_layers/D3.js"
 ServiceWorker.init()
 // HtmlObserverThing()
 
-<<<<<<< HEAD
 Gp.init()
 
-EnhanceAll()
-||||||| parent of c82ff414 (quick fix)
-=======
 SfuRouters.init()
 SfuClient.init()
->>>>>>> c82ff414 (quick fix)
 
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
@@ -36,27 +31,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-		const activeThing = World()
-||||||| parent of 4c8c836b (x)
-		const activeThing = Kristian()
-=======
-		const worldModule = x[0]
-		const world = new worldModule()
->>>>>>> 4c8c836b (x)
-||||||| parent of 6c71a44a (x)
-		const worldModule = x[0]
-		const world = new worldModule()
-=======
-		const activeThing = Kristian()
->>>>>>> 6c71a44a (x)
-||||||| parent of f48fce0a (SfuRouters.js and Comment Fixed)
-		const activeThing = Kristian()
-=======
 		const activeThing = SfuWorld()
->>>>>>> f48fce0a (SfuRouters.js and Comment Fixed)
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
@@ -78,23 +53,9 @@ Promise.all([
 				Palette.d3.ctx,
 				Palette.light.ctx,
 			], () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-||||||| parent of 6c71a44a (x)
-				world.update()
 				Mouse.update()
-=======
 				activeThing.update()
-				Mouse.update()
->>>>>>> 6c71a44a (x)
 				Camera.update()
-				activeThing.update()
-||||||| parent of 4c8c836b (x)
-				activeThing.update()
-=======
-				world.update()
->>>>>>> 4c8c836b (x)
-				Mouse.update()
 				for (const c of SuperClass.all) {
 					c.showTags()
 				}

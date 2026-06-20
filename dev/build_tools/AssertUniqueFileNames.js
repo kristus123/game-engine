@@ -21,6 +21,7 @@ export function AssertUniqueFileNames() {
 	const duplicates = extractDuplicates(processedNames)
 
 	if (duplicates.length != 0) {
+		console.log(duplicates)
 		throw new Error(`${duplicates}: we do not allow duplicate naming`)
 		// maybe we change this in the future. it is a little strict
 		// but currently this is what the engine expects
