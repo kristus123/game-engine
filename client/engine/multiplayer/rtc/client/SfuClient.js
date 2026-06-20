@@ -61,7 +61,7 @@ export class SfuClient {
 
 	static async setupRecvTransport(params) {
 		this.recvTransport = this.device.createRecvTransport(params)
-		
+
 		this.recvTransport.on("connect", ({ dtlsParameters }, callback, errback) => {
 			console.log("Requesting Connection For Webrtc Recv Transport")
 

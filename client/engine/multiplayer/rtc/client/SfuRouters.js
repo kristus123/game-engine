@@ -1,6 +1,6 @@
 export class SfuRouters {
-    static init() {
-		// Move this into SfuRoutes.js, and have it also 
+	static init() {
+		// Move this into SfuRoutes.js, and have it also
 		// SfuRoutes.onRouteCreated = (route) => {}
 		// SfuRoutes.onRouteDeleted = (route) => {}
 		// you can think of what would be the best solution
@@ -91,5 +91,5 @@ export class SfuRouters {
 			console.log("Consuming New Producer")
 			SfuClient.consume(data.producerId, data.clientId) // It doesn't need to be async.
 		})
-    }
+	}
 }
