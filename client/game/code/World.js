@@ -9,6 +9,22 @@ export class World {
 		])
 
 		SpriteSlicer.shuffle(this.slicedObjects.objects[0])
+		
+		Quest([
+			Task({
+				name: "get berries",
+				start: () => {
+					let berriesFound = 0
+					
+					return {
+						markDoneIf: () => berriesFound >= 5,
+						update: () => {
+							
+						},
+					}
+				},
+			}),
+		])
 	}
 
 	update() {
