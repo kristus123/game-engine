@@ -1,10 +1,10 @@
 export class WebSocketWrapper {
 
 	static {
-		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${ClientId}`)
+		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
 		this.webSocket.onopen = () => {
-			this.onOpen()
+			console.log("WebSocket connection opened")
 		}
 
 		this.webSocket.onmessage = e => {
@@ -12,11 +12,11 @@ export class WebSocketWrapper {
 		}
 
 		this.webSocket.onclose = () => {
-			this.onClose()
+			throw new Error("Socket connection lost")
 		}
 
 		this.webSocket.onerror = () => {
-			this.onError()
+			throw new Error("Failed to connect to socket server")
 		}
 	}
 
@@ -26,12 +26,5 @@ export class WebSocketWrapper {
 		}
 	}
 
-	static onOpen() {}
-	static onMessage(data) {
-	}
-
-	static onClose() {}
-	static onError() {
-		console.error("Fail to Connect")
-	}
+	static onMessage(data) {} // this method is supposed to be overridden
 }

@@ -7,7 +7,7 @@ export class Lobby {
 			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
 		})
 
-		const lobby = Lobbies.create(lobbyId, ClientId, clientObject)
+		const lobby = Lobbies.create(lobbyId, My.clientId, clientObject)
 
 		OnlineLobbyManager.notifyClientCreatedNewLobby(lobby)
 
@@ -19,7 +19,7 @@ export class Lobby {
 			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
 		})
 
-		const lobby = Lobbies.join(lobbyId, ClientId, clientObject)
+		const lobby = Lobbies.join(lobbyId, My.clientId, clientObject)
 
 		OnlineLobbyManager.notifyClientJoinsLobby(lobby.lobbyId)
 
@@ -27,7 +27,7 @@ export class Lobby {
 	}
 
 	static leave(lobbyId) {
-		Lobbies.leave(lobbyId, ClientId)
+		Lobbies.leave(lobbyId, My.clientId)
 
 		OnlineLobbyManager.notifyClientLeavesLobby(lobbyId)
 	}

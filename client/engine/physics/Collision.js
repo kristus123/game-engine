@@ -8,6 +8,15 @@ export class Collision {
 			red.y <= blue.y + blue.height)
 	}
 
+	static coveredEntirely(container, content, padding = 0) {
+		return (
+			content.x >= container.x + padding &&
+			content.x + content.width <= container.x + container.width - padding &&
+			content.y >= container.y + padding &&
+			content.y + content.height <= container.y + container.height - padding
+		)
+	}
+
 	static deny(red, blue) {
 		if (!this.between(red, blue) || red == blue) {
 			return

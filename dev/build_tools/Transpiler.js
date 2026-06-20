@@ -29,62 +29,6 @@ function simpleRegex(str, pattern) {
 	return new RegExp("^" + regexPattern).test(str.trim())
 }
 
-function startsWith(line, list) {
-	const cleaned = line.trimStart()
-
-	return list.some(word =>
-		cleaned.startsWith(word)
-	)
-}
-
-function extractMethodParamsIfPresent(line) {
-	if (startsWith(line, ["document.", "this.", "//"])) {
-		return null
-	}
-
-	const blacklist = new Set([
-		"for",
-		"if",
-		"while",
-		"switch",
-		"catch",
-		"filter",
-		"Getter",
-		"Enhance",
-	])
-
-
-	const regex =
-		/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
-
-	const match = line.match(regex)
-	if (!match) {
-		return null
-	}
-
-	const methodName = match[1] || null
-
-	if (methodName && blacklist.has(methodName)) {
-		return null
-	}
-
-	let parameters = match[2] || match[3] || ""
-	if (parameters.includes("{")) {
-		parameters = parameters.replaceAll("= {}", "")
-		parameters = parameters.replaceAll("{", "")
-		parameters = parameters.replaceAll("}", "")
-	}
-
-	parameters = parameters.split(", ")
-	parameters = parameters.map(p => p.split("=")[0].trim())
-	parameters = parameters.filter(p => p.trim())
-
-	return {
-		methodName: methodName,
-		parameters: parameters
-	}
-}
-
 function indentations(str) {
 	return (str.match(/\t/g) || []).length
 }
@@ -103,7 +47,6 @@ export function Transpiler(ENVIRONMENT) {
 			Files.writeFileToDist(jsFilePath, fileContent)
 			continue
 		}
-
 
 		JsFiles.forEach(f => {
 			const className = path.parse(f).name
@@ -126,24 +69,41 @@ export function Transpiler(ENVIRONMENT) {
 		const lines = fileContent.split("\n")
 
 		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes("constructor(") && lines[i+1].includes("super(")) {
-				lines[i+1] = lines[i+1] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
-				lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
-			}
-			else if (lines[i].includes("constructor(")) {
-				if (!fileContent.includes("export class SuperClass")) {
-					lines[i] = lines[i] + "\n" + "super()"
+
+			const p = Parameters.extractIfPresent(lines[i])
+
+			const applyNullChecks = (line) => { // hacky
+				if (p && p.parameters && fileName != "Assert.js") {
+					for (let ii = 0; ii < p.parameters.length; ii++) {
+						const pp = p.parameters[ii]
+						lines[line] = lines[line]
+							+ "\n"
+							+ "\t".repeat(3) // Just to make it slightly prettier
+							+ `Assert.notNull(${pp}, 'param ${ii+1} - ${pp} - ${className}.${p.methodName}')`
+					}
+
+					return p.parameters
 				}
-				lines[i] = lines[i] + "\n" + Parameters.nullCheckForConstructorArguments(fileContent)
-				lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent)
+				else {
+					return []
+				}
 			}
 
-			const methodParams = extractMethodParamsIfPresent(lines[i])
-			if (methodParams && methodParams.parameters && fileName != "Assert.js") {
-				for (let ii = 0; ii < methodParams.parameters.length; ii++) {
-					const p = methodParams.parameters[ii]
-					lines[i] = lines[i] + "\n" + `Assert.notNull(${p}, 'parameter ${p} inside of ${className}.js can not be null')`
+			if (lines[i].includes("constructor(")) {
+				if (lines[i+1].includes("super(")) {
+					const params = applyNullChecks(i+1) // hacky
+					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
+				else {
+					if (!fileContent.includes("export class SuperClass")) {
+						lines[i] = lines[i] + "\n" + "super()"
+					}
+					const params = applyNullChecks(i) // hacky
+					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
+				}
+			}
+			else {
+				applyNullChecks(i)
 			}
 
 			if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {
@@ -157,8 +117,8 @@ export function Transpiler(ENVIRONMENT) {
 				}
 			}
 
-			if (blockWithoutParentheses("if", lines[i])) {
-				lines[i] = addParentheses("if", lines[i])
+			if (blockWithoutParentheses("if", lines[i])) { // i am not sure if this works properly
+				lines[i] = addParentheses("if", lines[i]) // i am not sure if this works properly
 			}
 		}
 

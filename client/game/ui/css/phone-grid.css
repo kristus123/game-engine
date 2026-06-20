@@ -1,19 +1,33 @@
-phone-layout {
+phone-grid {
 	display: grid;
-	grid-template: 
-		"top" 50px "mid" 0.5fr "bot" 0.5fr / 1fr;
+
+	grid-template-areas:
+		"top"
+		"mid"
+		"bot";
+
+	grid-template-columns: 1fr;
+
+	grid-template-rows:
+		50px
+		0.5fr
+		0.5fr;
+
+
 	max-width: 100vw;
 	max-height: 100vh;
-	position: fixed;
+
+	
+	position: fixed; /* remove this and use overlay */
 	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
 }
 
-phone-layout top { 
+phone-grid top { 
 	grid-area: top; 
 	background: red; 
 }
 
-phone-layout mid { 
+phone-grid mid { 
 	grid-area: mid; 
 	background: white; 
 	
@@ -24,7 +38,7 @@ phone-layout mid {
 	overflow: auto;
 }
 
-phone-layout bot { 
+phone-grid bot { 
 	grid-area: bot; 
 	background: blue; 
 }

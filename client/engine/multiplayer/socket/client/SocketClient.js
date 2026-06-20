@@ -28,7 +28,7 @@ export class SocketClient {
 	static sendToServer(action, data) {
 		WebSocketWrapper.send(data.merge({
 			action: action,
-			originClientId: ClientId
+			originClientId: My.clientId
 		}))
 	}
 
@@ -54,7 +54,6 @@ export class SocketClient {
 			SocketClient.sendToClient(subAction, targetClientId, data)
 		}
 	}
-
 
 	static onServerMessage(action, callback) {
 		Assert.value(action)

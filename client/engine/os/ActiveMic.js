@@ -1,4 +1,5 @@
 export class ActiveMic {
+
 	static get selected() {
 		return localStorage.getItem("selectedMic") ?? null
 	}

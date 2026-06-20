@@ -20,13 +20,11 @@ export class Internet {
 
 	static _on = new Listener()
 	static onOnline(callback) {
-		console.log("online")
 		this._on.listen(callback)
 	}
 
 	static _off = new Listener()
 	static onOffline(callback) {
-		console.log("offline")
 		this._off.listen(callback)
 	}
 
@@ -36,14 +34,17 @@ export class Internet {
 			Assert.true(body.pong)
 
 			if (this.connected == null || this.connected == false) {
+				console.log("online")
 				this._on.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = true
 			}
 		}
 		catch (e) {
 			if (this.connected == null || this.connected == true) {
+				console.log("offline")
 				this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = false
+				throw new Error("Internet connection lost")
 			}
 		}
 	}

@@ -4,7 +4,7 @@ h.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
-Mic.all(m => {
+AllMics.get(m => {
 	const label = m.label.replace(/\s*\([^()]*\)\s*$/, "")
 	h.mid.add(H.button(label, () => {
 		Mic.selected = m.deviceId

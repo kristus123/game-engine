@@ -12,6 +12,10 @@ export class WorldPosition {
 		return Collision.between(this, o)
 	}
 
+	coveredBy(container, padding = 0) {
+		return Collision.coveredEntirely(container, this, padding)
+	}
+
 	randomPoint() {
 		const x = Random.integerBetween(this.x, this.x + this.width)
 		const y = Random.integerBetween(this.y, this.y + this.height)

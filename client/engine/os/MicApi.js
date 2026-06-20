@@ -1,7 +1,16 @@
 export class MicApi {
 
-	static createStream() {
-		return navigator.mediaDevices.getUserMedia({
+	// IMPORTANT:
+	// stop all microphone tracks so the browser
+	// completely releases the microphone
+	static stopTracks(stream) {
+		stream.getTracks().forEach(track => {
+			track.stop()
+		})
+	}
+
+	static async createStream() {
+		return await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
 					ideal: ActiveMic.selected ?? undefined, // use deviceId // exact or ideal field //seems i need to use undefined

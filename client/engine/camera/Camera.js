@@ -52,7 +52,7 @@ export class Camera {
 	}
 
 	static insideView(entity) {
-		return Collision.between(entity.position, this.visiblePosition)
+		return Collision.coveredEntirely(this.visiblePosition, entity.position)
 	}
 
 }

@@ -11,12 +11,15 @@ ServiceWorker.init()
 
 SfuRouters.init()
 SfuClient.init()
+Gp.init()
+
+EnhanceAll()
 
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
 	LoadAllAudio(AUDIO_FILES),
-	LoadPersistedJson(),
+	// LoadPersistedJson(),
 ])
 	.then((x) => {
 
@@ -42,7 +45,7 @@ Promise.all([
 
 			Physics.update()
 			Controller.update()
-			GamePad.update()
+			Gp.update()
 
 			Shadow.updateOutsideCameraContext()
 			Camera.applyPositionContextThing([
@@ -51,9 +54,9 @@ Promise.all([
 				Palette.d3.ctx,
 				Palette.light.ctx,
 			], () => {
+				Camera.update()
 				activeThing.update()
 				Mouse.update()
-				Camera.update()
 				for (const c of SuperClass.all) {
 					c.showTags()
 				}

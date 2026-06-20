@@ -160,7 +160,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "text", function (text) {
+	Enhance(HTMLElement.prototype, "text", function (text) { // should be a get/set
 		this.textContent = text
 		return this
 	})
