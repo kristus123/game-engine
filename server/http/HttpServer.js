@@ -71,16 +71,19 @@ export class HttpServer {
 			if (req.method == "POST") {
 				assertJsonBody(req)
 
+				let token = "token" in req.headers
+					? ServerToken.decode(req.headers["token"])
+					: null
+
 				try {
-					const x = await parseBody(req)
-					console.log(x)
 					const json = Methods.call(getPath(req), {
-						body: x,
+						body: await parseBody(req),
+						token: token,
+						role: token?.internal?.role, // wrap it into a Role.js in the future
 						headers: req.headers,
 						contentType: req.headers["content-type"] || null,
 						params: getQueryParameters(req),
 					}) ?? {}
-
 
 					if (validJson(json)) {
 						sendJson(res, 200, json)
