@@ -33,8 +33,8 @@ export class OpenAiWorld {
 				const translator = await Translator.create({
 				  sourceLanguage: "en",
 				  targetLanguage: "zh"
-				});
-				const result = await translator.translate(transcribedText);
+				})
+				const result = await translator.translate(transcribedText)
 				html.h1.text(result)
 
 				// const translatedText = await Gpt(`Translate to ${language}: ${transcribedText}`)
@@ -42,7 +42,7 @@ export class OpenAiWorld {
 
 				// Sound.playBlob(await Ttv(translatedText, `Speak in ${language}`))
 			})
-			
+
 		}))
 		Gp.right = () => {
 		}

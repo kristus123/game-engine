@@ -71,8 +71,8 @@ export class Gp {
 					duration: 100,
 					strongMagnitude: 1.0,
 					weakMagnitude: 0.5,
-				});
-			}	
+				})
+			}
 		}
 	}
 

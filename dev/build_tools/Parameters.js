@@ -47,7 +47,7 @@ export class Parameters {
 		}
 
 		const parameters = (match[2] || match[3] || "")
-			.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, '') // remove text inside of strings
+			.replace(/"[^"]*"|'[^']*'|`[^`]*`/g, "") // remove text inside of strings
 			.replaceAll("= {}", "")
 			.replaceAll("{", "")
 			.replaceAll("}", "")
