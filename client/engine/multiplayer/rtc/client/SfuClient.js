@@ -1,5 +1,6 @@
 export class SfuClient {
 	static init() {
+
 		this.connectedRouterId = null
 
 		this.device = null

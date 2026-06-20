@@ -7,10 +7,12 @@ export class SfuRouters {
 		this.routers = null // set this to null instead of empty object. also rename it. misleading name
 
 		this.onRouterCreated = (router) => {}
-		this.onGuestConnection = (stream) => {}
 		this.onRouterDeleted = (routerId) => {}
+
 		this.onJoinLobby = (router) => {}
 		this.onLeaveLobby = (router) => {}
+
+		this.onGuestConnection = (stream) => {}
 
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 
