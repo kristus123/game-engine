@@ -19,7 +19,7 @@ export class SfuWorld {
 		}
 
 		s.create.onClick(() => {
-			SfuClient.createLobby(true)
+			SfuClient.createLobby(true) // streamOnly == true
 		})
 	}
 

@@ -20,11 +20,34 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
 			console.log("Setting Up SFU Client")
 
+			const router = SfuRouters.routers[SfuClient.connectedRouterId]
+
 			SfuClient.device = new window.mediasoup.Device()
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
+			
+			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
+			if (!router.streamOnly || SfuClient.isHost) {
+				Webcam.request(async (ok) => {
+					if (ok) {
+						await Webcam.enable()
 
-			await SfuClient.setupSendTransport(data.sendTransportParams)
-			await SfuClient.setupRecvTransport(data.recvTransportParams)
+						SfuRouters.onLocalConnection(Webcam.stream)
+
+						// Setup Send Transport after Webcam is Enabled
+						await SfuClient.setupSendTransport(data.sendTransportParams)
+					}
+				})
+			}
+
+			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
+			if (!router.streamOnly || !SfuClient.isHost) {
+				await SfuClient.setupRecvTransport(data.recvTransportParams)
+
+				console.log("Getting Producers...")
+				SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
+					routerId: SfuClient.connectedRouterId,
+				})
+			}
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
@@ -80,16 +103,6 @@ export class SfuRouters {
 
 			if (router) {
 				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
-			}
-
-			if (data.newlyConnectedClientId == ClientId) {
-				Webcam.request(async (ok) => {
-					if (ok) {
-						await Webcam.enable()
-
-						SfuRouters.onLocalConnection(Webcam.stream)
-					}
-				})
 			}
 
 			console.log(this.routers)

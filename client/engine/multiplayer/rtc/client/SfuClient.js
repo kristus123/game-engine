@@ -19,7 +19,7 @@ export class SfuClient {
 				SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
 					direction: "send",
 					dtlsParameters: dtlsParameters,
-					routerId: this.connectedRouterId,
+					routerId: this.connectedRouterId
 				})
 
 				callback()
@@ -48,27 +48,15 @@ export class SfuClient {
 			})
 		})
 
-		const produceLogic = async () => {
-			if (!Webcam.enabled) {
-				throw new Error("webcam is not active. enable webcam first!")
-			}
-			else {
-				for (const track of Webcam.stream.getTracks()) {
-					const producer = await this.sendTransport.produce({ track })
-					this.producers[track.kind] = producer
-				}
+		if (!Webcam.enabled) {
+			throw new Error("webcam is not active. enable webcam first!")
+		}
+		else {
+			for (const track of Webcam.stream.getTracks()) {
+				const producer = await this.sendTransport.produce({ track })
+				this.producers[track.kind] = producer
 			}
 		}
-
-		if (SfuRouters.routers[this.connectedRouterId].streamOnly && SfuClient.isHost) {
-			await produceLogic()
-		} else if (!SfuRouters.routers[this.connectedRouterId].streamOnly) {
-			await produceLogic()
-		}
-
-		SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-			routerId: this.connectedRouterId,
-		})
 	}
 
 	static async setupRecvTransport(params) {
@@ -109,10 +97,7 @@ export class SfuClient {
 				}
 
 				this.consumers[originClientId].stream.addTrack(consumer.track)
-
-				if (SfuRouters.routers[this.connectedRouterId].streamOnly && !SfuClient.isHost) {
-					SfuRouters.onGuestConnection(this.consumers[originClientId].stream)
-				}
+				SfuRouters.onGuestConnection(this.consumers[originClientId].stream)
 			}
 		})
 	}
@@ -130,16 +115,6 @@ export class SfuClient {
 	}
 
 	static createLobby(streamOnly = false) {
-		if (!streamOnly) {
-			Webcam.request(async (ok) => {
-				if (ok) {
-					await Webcam.enable()
-
-					SfuRouters.onLocalConnection(Webcam.stream)
-				}
-			})
-		}
-
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
 			streamOnly: streamOnly
 		})
@@ -156,13 +131,11 @@ export class SfuClient {
 	static leaveLobby() {
 		this.clean()
 
-		// Is there a reason why we are not setting it to null is this to avoid a null pointer exception.
-		// If so we should handle the null pointer exception and use a null value instead.
-		this.connectedRouterId = null
-
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
 			routerId: this.connectedRouterId,
 		})
+
+		this.connectedRouterId = null
 	}
 
 	static deleteLobby() {
