@@ -1,4 +1,8 @@
-export class SfuServer {
+import { SfuServerApi } from '#root/transpiledBackend/server/rtc/SfuServerApi.js'; 
+import { List } from '#root/transpiledBackend/server/socket/List.js'; 
+import { start } from '#root/transpiledBackend/server/start.js'; 
+
+export class SfuServer extends SuperClass {
 	static {
 		this.globalWorker = null
 		this.routers = {}
@@ -161,6 +165,9 @@ export class SfuServer {
 	}
 
 	static async connectWithClient(client, clientId, routerId) {
+			Assert.notNull(client, 'param 1 - client - SfuServer.connectWithClient')
+			Assert.notNull(clientId, 'param 2 - clientId - SfuServer.connectWithClient')
+			Assert.notNull(routerId, 'param 3 - routerId - SfuServer.connectWithClient')
 		console.log(`Connecting With ${clientId}`)
 
 		const routerObject = this.routers[routerId]
@@ -190,6 +197,8 @@ export class SfuServer {
 	}
 
 	static closeConnectionWithClient(clientId, routerId = null) {
+			Assert.notNull(clientId, 'param 1 - clientId - SfuServer.closeConnectionWithClient')
+			Assert.notNull(routerId, 'param 2 - routerId - SfuServer.closeConnectionWithClient')
 		console.log(`Disconnecting With ${clientId}`)
 
 		let rid = null
@@ -225,6 +234,8 @@ export class SfuServer {
 	}
 
 	static async createUniqueRouter(worker, hostClientId) {
+			Assert.notNull(worker, 'param 1 - worker - SfuServer.createUniqueRouter')
+			Assert.notNull(hostClientId, 'param 2 - hostClientId - SfuServer.createUniqueRouter')
 		const routerId = RandomId()
 		const router = await SfuServerApi.createRouter(worker)
 
@@ -239,6 +250,7 @@ export class SfuServer {
 	}
 
 	static getClientRouterId(clientId) {
+			Assert.notNull(clientId, 'param 1 - clientId - SfuServer.getClientRouterId')
 		let routerId = ""
 
 		Object.values(this.routers).forEach(routerObject => {
@@ -253,6 +265,7 @@ export class SfuServer {
 	}
 
 	static getRouterClientIds(routerId) {
+			Assert.notNull(routerId, 'param 1 - routerId - SfuServer.getRouterClientIds')
 		const connectedClientIds = []
 
 		if (this.routers[routerId]) {

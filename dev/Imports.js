@@ -14,8 +14,18 @@ export class Imports {
 			const className = Path.basename(jsFile, ".js")
 
 			if (Imports.include(content, className)) {
-				const browserPath = jsFile.startsWith("frontend/") ? jsFile.substring("frontend/".length) : jsFile
-				imports += `import { ${className} } from '/${browserPath}'; \n`
+				if (jsFile.startsWith("frontend/")) {
+					const browserPath = jsFile.startsWith("frontend/") ? jsFile.substring("frontend/".length) : jsFile
+					imports += `import { ${className} } from '/${browserPath}'; \n`
+				}
+				else if (jsFile.startsWith("backend/")) {
+					const serverPath = `#root/${jsFile}`.replace("backend/", "transpiledBackend/")
+					imports += `import { ${className} } from '${serverPath}'; \n`
+				}
+				else {
+					console.log(jsFile)
+					throw new Error("salkdfjsalkdjf")
+				}
 			}
 		}
 

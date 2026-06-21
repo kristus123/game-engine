@@ -1,4 +1,3 @@
-
 import chokidar from "chokidar"
 import express from "express"
 
@@ -12,8 +11,21 @@ import { FileConfig } from "#root/FileConfig.js"
 import { execSync } from "child_process"
 import { ExportAseprite } from "#root/dev/ExportAseprite.js"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
+import { GenerateTranspiledBackend } from "#root/dev/GenerateTranspiledBackend.js"
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
-import { StartServer } from "#root/backend/server/http/StartServer.js"
 
 const killPort = (port) => {
 	try {
@@ -134,6 +146,7 @@ watcher.on("all", (e, path) => {
 		}
 
 		GenerateDist("DEVELOPMENT")
+		GenerateTranspiledBackend("DEVELOPMENT")
 		triggerClientReload()
 	}
 	catch (e) {
@@ -145,7 +158,9 @@ watcher.on("all", (e, path) => {
 // initial build
 ExportAseprite()
 GenerateDist("DEVELOPMENT")
+GenerateTranspiledBackend("DEVELOPMENT")
 PrepareExternalBundle()
 
 // for now only run it once
-StartServer()
+// import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
+// StartServer()

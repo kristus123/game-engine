@@ -1,3 +1,6 @@
+import { FileDb } from '#root/transpiledBackend/server/http/FileDb.js'; 
+import { Methods } from '#root/transpiledBackend/server/http/Methods.js'; 
+
 Methods.add("uploadFile", ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 

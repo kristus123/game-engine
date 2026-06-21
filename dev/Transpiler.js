@@ -1,8 +1,8 @@
 import path from "path"
+
 import { Imports } from "#root/dev/Imports.js"
 import { Parameters } from "#root/dev/Parameters.js"
 import { Files } from "#root/dev/Files.js"
-import { JsFiles } from "#root/dev/JsFiles.js"
 import { FileConfig } from "#root/FileConfig.js"
 
 function blockWithoutParentheses(keyword, line) {
@@ -33,7 +33,7 @@ function indentations(str) {
 	return (str.match(/\t/g) || []).length
 }
 
-export function Transpiler(ENVIRONMENT) {
+export function Transpiler(ENVIRONMENT, JsFiles) {
 	if (!ENVIRONMENT) {
 		throw new Error("you need to include environment when calling generate_dist.js")
 	}
@@ -126,11 +126,16 @@ export function Transpiler(ENVIRONMENT) {
 
 		fileContent = Imports.needed(fileContent, JsFiles) + "\n" + fileContent
 
-		if (!jsFilePath.includes(`${FileConfig.client}`)) {
-			throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
-		}
+		// if (!jsFilePath.includes(`${FileConfig.client}`)) {
+		// 	throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
+		// }
 
-		Files.writeFileToDist(jsFilePath, fileContent)
+		if (jsFilePath.includes("frontend/")) {
+			Files.writeFileToDist(jsFilePath, fileContent)
+		}
+		else if (jsFilePath.includes("backend/")) {
+			Files.writeFileToTranspiledBackend(jsFilePath, fileContent)
+		}
 	}
 
 }

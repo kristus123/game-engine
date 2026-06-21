@@ -25,6 +25,18 @@ export class Files {
 		fs.writeFileSync(destPath, content)
 	}
 
+	static writeFileToTranspiledBackend(srcPath, content) {
+		const destPath = FileConfig.toTranspiledBackendPath(srcPath)
+		const folderPath = Path.dirname(destPath)
+
+		if (!fs.existsSync(folderPath)) {
+			fs.mkdirSync(folderPath, { recursive: true })
+		}
+
+		fs.writeFileSync(destPath, content)
+		console.log(destPath)
+	}
+
 	static inFolder(path) {
 		return fs.readdirSync(path).map(f => Path.join(path, f))
 	}

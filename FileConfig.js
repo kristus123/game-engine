@@ -7,6 +7,7 @@ export const FileConfig = {
 
 	client: "frontend/client",
 	dist: "dist",
+	transpiledBackend: "transpiledBackend",
 
 	externalBundle: "bundle.js",
 
@@ -45,5 +46,10 @@ export const FileConfig = {
 	toDistPath(filePath) {
 		const relativePath = filePath.startsWith("frontend/") ? filePath.substring("frontend/".length) : filePath
 		return path.join(FileConfig.dist, relativePath)
+	},
+
+	toTranspiledBackendPath(filePath) {
+		const relativePath = filePath.startsWith("backend/") ? filePath.substring("backend/".length) : filePath
+		return path.join(FileConfig.transpiledBackend, relativePath)
 	},
 }

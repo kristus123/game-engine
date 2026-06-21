@@ -1,12 +1,18 @@
+import { Methods } from '#root/transpiledBackend/server/http/Methods.js'; 
+
 import http from "http"
 
 function addCorsHeaders(res) {
+			Assert.notNull(res, 'param 1 - res - HttpServer.addCorsHeaders')
 	res.setHeader("Access-Control-Allow-Origin", "*")
 	res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type")
 }
 
 function sendJson(res, httpStatus, data) {
+			Assert.notNull(res, 'param 1 - res - HttpServer.sendJson')
+			Assert.notNull(httpStatus, 'param 2 - httpStatus - HttpServer.sendJson')
+			Assert.notNull(data, 'param 3 - data - HttpServer.sendJson')
 	res.writeHead(httpStatus, {
 		"Content-Type": "application/json"
 	})
@@ -14,9 +20,11 @@ function sendJson(res, httpStatus, data) {
 }
 
 export async function parseBody(req) {
+			Assert.notNull(req, 'param 1 - req - HttpServer.parseBody')
 	let rawBody = Buffer.alloc(0)
 
 	for await (const chunk of req) {
+			Assert.notNull(const chunk of req, 'param 1 - const chunk of req - HttpServer.await')
 		rawBody = Buffer.concat([rawBody, chunk])
 	}
 
@@ -33,10 +41,12 @@ export async function parseBody(req) {
 }
 
 function getPath(req) {
+			Assert.notNull(req, 'param 1 - req - HttpServer.getPath')
 	return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
 }
 
 function validJson(value) {
+			Assert.notNull(value, 'param 1 - value - HttpServer.validJson')
 	if (value == null) {
 		return false
 	}
@@ -47,11 +57,13 @@ function validJson(value) {
 }
 
 function getQueryParameters(req) {
+			Assert.notNull(req, 'param 1 - req - HttpServer.getQueryParameters')
 	const url = new URL(req.url, `http://${req.headers.host}`)
 	return Object.fromEntries(url.searchParams.entries())
 }
 
 function assertJsonBody(req) {
+			Assert.notNull(req, 'param 1 - req - HttpServer.assertJsonBody')
 	const t = req.headers["content-type"] || ""
 
 	if (!t.includes("application/json")) {
@@ -59,9 +71,11 @@ function assertJsonBody(req) {
 	}
 }
 
-export class HttpServer {
+export class HttpServer extends SuperClass {
 
 	static listen(port, bind = "0.0.0.0") {
+			Assert.notNull(port, 'param 1 - port - HttpServer.listen')
+			Assert.notNull(bind, 'param 2 - bind - HttpServer.listen')
 		const server = http.createServer(async (req, res) => {
 
 			addCorsHeaders(res)

@@ -23,6 +23,7 @@ export class Parameters {
 
 		const blacklist = new Set([
 			"for",
+			"for await",
 			"if",
 			"while",
 			"switch",

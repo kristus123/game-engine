@@ -1,3 +1,8 @@
+import { Git } from '#root/transpiledBackend/production/Git.js'; 
+import { deploy } from '#root/transpiledBackend/production/deploy.js'; 
+import { StartServer } from '#root/transpiledBackend/server/http/StartServer.js'; 
+import { SocketServer } from '#root/transpiledBackend/server/socket/SocketServer.js'; 
+
 import cluster from "cluster"
 
 const services = [
@@ -42,11 +47,13 @@ else {
 
 	// Override console to forward logs to primary
 	console.log = (...args) => {
+			Assert.notNull(args, 'param 1 - args - deploy.null')
 		process.send?.({ type: "log", data: args })
 		log(...args)
 	}
 
 	console.error = (...args) => {
+			Assert.notNull(args, 'param 1 - args - deploy.null')
 		process.send?.({ type: "error", data: args })
 		error(...args)
 	}

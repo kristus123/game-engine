@@ -1,3 +1,5 @@
+import { Methods } from '#root/transpiledBackend/server/http/Methods.js'; 
+
 Methods.add("allPersistedJsonFiles", ({ body, req }) => {
 	return Files.inFolder("backend/persistedJson").map(path => ({
 		name: path.split("/").pop().split(".")[0],

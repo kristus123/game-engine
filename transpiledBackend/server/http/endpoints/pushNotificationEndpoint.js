@@ -1,3 +1,5 @@
+import { Methods } from '#root/transpiledBackend/server/http/Methods.js'; 
+
 import webPush from "web-push"
 
 const vapidKeys = webPush.generateVAPIDKeys()

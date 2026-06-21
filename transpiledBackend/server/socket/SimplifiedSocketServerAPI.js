@@ -1,5 +1,11 @@
-export class SimplifiedSocketServerAPI {
+import { List } from '#root/transpiledBackend/server/socket/List.js'; 
+import { LowLevelSocketServer } from '#root/transpiledBackend/server/socket/LowLevelSocketServer.js'; 
+import { start } from '#root/transpiledBackend/server/start.js'; 
+
+export class SimplifiedSocketServerAPI extends SuperClass {
 	constructor() {
+super()
+
 		this.allClients = []
 		this.allClientIds = []
 
@@ -30,6 +36,8 @@ export class SimplifiedSocketServerAPI {
 	}
 
 	sendToOthers(origin, data) {
+			Assert.notNull(origin, 'param 1 - origin - SimplifiedSocketServerAPI.sendToOthers')
+			Assert.notNull(data, 'param 2 - data - SimplifiedSocketServerAPI.sendToOthers')
 		for (const client of this.allClients) {
 			if (client != origin) {
 				client.send(JSON.stringify(data))
@@ -38,20 +46,26 @@ export class SimplifiedSocketServerAPI {
 	}
 
 	sendToEveryone(data) { // todo maybe pass client first just to keep it consistent
+			Assert.notNull(data, 'param 1 - data - SimplifiedSocketServerAPI.sendToEveryone')
 		for (const client of this.allClients) {
 			client.send(JSON.stringify(data))
 		}
 	}
 
 	sendToClient(client, data) {
+			Assert.notNull(client, 'param 1 - client - SimplifiedSocketServerAPI.sendToClient')
+			Assert.notNull(data, 'param 2 - data - SimplifiedSocketServerAPI.sendToClient')
 		client.send(JSON.stringify(data))
 	}
 
 	on(action, callback) {
+			Assert.notNull(action, 'param 1 - action - SimplifiedSocketServerAPI.on')
+			Assert.notNull(callback, 'param 2 - callback - SimplifiedSocketServerAPI.on')
 		this.lowLevelSocketServer.on(action, callback)
 	}
 
 	start(server) {
+			Assert.notNull(server, 'param 1 - server - SimplifiedSocketServerAPI.start')
 		this.lowLevelSocketServer.start(server)
 	}
 }

@@ -1,6 +1,12 @@
+import { SfuServer } from '#root/transpiledBackend/server/rtc/SfuServer.js'; 
+import { SimplifiedSocketServerAPI } from '#root/transpiledBackend/server/socket/SimplifiedSocketServerAPI.js'; 
+import { SocketServer } from '#root/transpiledBackend/server/socket/SocketServer.js'; 
+
 export const socketServer = new SimplifiedSocketServerAPI()
 
 socketServer.onConnection = (client, clientId) => {
+			Assert.notNull(client, 'param 1 - client - SocketServer.null')
+			Assert.notNull(clientId, 'param 2 - clientId - SocketServer.null')
 	console.log(`${clientId} has connected`)
 
 	socketServer.sendToEveryone({
@@ -11,6 +17,8 @@ socketServer.onConnection = (client, clientId) => {
 }
 
 socketServer.onClose = (client, clientId) => {
+			Assert.notNull(client, 'param 1 - client - SocketServer.null')
+			Assert.notNull(clientId, 'param 2 - clientId - SocketServer.null')
 	console.log(`${clientId} has disconnected`)
 
 	SfuServer.closeConnectionWithClient(clientId)
