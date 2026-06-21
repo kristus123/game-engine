@@ -44,8 +44,6 @@ killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
 
-let currentId = RandomId()
-
 let idTimeout = null
 
 function triggerClientReload() {
@@ -54,7 +52,6 @@ function triggerClientReload() {
 	}
 
 	idTimeout = setTimeout(() => {
-		currentId = RandomId()
 		socketServer.sendToEveryone({ action: EngineConstants.HOT_RELOAD })
 		idTimeout = null
 	}, 50)
@@ -68,10 +65,6 @@ app.use((req, res, next) => { // needed in order to use shared array buffers bet
 	res.setHeader("Cross-Origin-Opener-Policy", "same-origin")
 	res.setHeader("Cross-Origin-Embedder-Policy", "require-corp")
 	next()
-})
-
-app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check HotReload.js
-	res.json({ currentId: currentId })
 })
 
 app.listen(distPort, "0.0.0.0", () => console.log(`Serving dist on port ${distPort}`))
