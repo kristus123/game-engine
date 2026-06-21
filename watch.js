@@ -11,6 +11,8 @@ import { ExportAseprite } from "#root/dev/build_tools/ExportAseprite.js"
 import { GenerateDist } from "#root/dev/build_tools/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/build_tools/PrepareExternalBundle.js"
 import { StartServer } from "#root/server/http/StartServer.js"
+import { socketServer } from "#root/server/socket/SocketServer.js"
+import { EngineConstants } from "#root/client/engine/EngineConstants.js"
 
 const killPort = (port) => {
 	try {
@@ -53,6 +55,7 @@ function triggerClientReload() {
 
 	idTimeout = setTimeout(() => {
 		currentId = RandomId()
+		socketServer.sendToEveryone({ action: EngineConstants.HOT_RELOAD })
 		idTimeout = null
 	}, 50)
 }
