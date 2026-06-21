@@ -14,7 +14,8 @@ export class Imports {
 			const className = Path.basename(jsFile, ".js")
 
 			if (Imports.include(content, className)) {
-				imports += `import { ${className} } from '/${jsFile}'; \n`
+				const browserPath = jsFile.startsWith("frontend/") ? jsFile.substring("frontend/".length) : jsFile
+				imports += `import { ${className} } from '/${browserPath}'; \n`
 			}
 		}
 

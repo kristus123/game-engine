@@ -1,6 +1,6 @@
 import http from "http"
 
-import { Methods } from "#root/server/http/Methods.js"
+import { Methods } from "#root/backend/server/http/Methods.js"
 
 function addCorsHeaders(res) {
 	res.setHeader("Access-Control-Allow-Origin", "*")

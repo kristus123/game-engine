@@ -1,10 +1,10 @@
-import { Files } from "#root/dev/build_tools/Files.js"
+import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-import { Markdown } from "#root/dev/build_tools/Markdown.js"
-import { CopyManifestToDist } from "#root/dev/build_tools/CopyManifestToDist.js"
-import { VerifyNoReservedClashes } from "#root/dev/build_tools/VerifyNoReservedClashes.js"
-import { AssertUniqueFileNames } from "#root/dev/build_tools/AssertUniqueFileNames.js"
-import { Transpiler } from "#root/dev/build_tools/Transpiler.js"
+import { Markdown } from "#root/dev/Markdown.js"
+import { CopyManifestToDist } from "#root/dev/CopyManifestToDist.js"
+import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
+import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
+import { Transpiler } from "#root/dev/Transpiler.js"
 
 export function GenerateDist(env) {
 	Transpiler(env)
@@ -19,6 +19,7 @@ export function GenerateDist(env) {
 	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability
 		.map(f => f.replace(".aseprite", ""))
+		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
@@ -63,6 +64,7 @@ export function GenerateDist(env) {
 
 	const audioFiles = Files.at(FileConfig.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))
+		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))

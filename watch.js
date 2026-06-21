@@ -1,16 +1,16 @@
 import chokidar from "chokidar"
 import express from "express"
 
-import { RandomId } from "#root/dev/build_tools/RandomId.js"
-import { Files } from "#root/dev/build_tools/Files.js"
+import { RandomId } from "#root/dev/RandomId.js"
+import { Files } from "#root/dev/Files.js"
 
 import { FileConfig } from "#root/FileConfig.js"
 
 import { execSync } from "child_process"
-import { ExportAseprite } from "#root/dev/build_tools/ExportAseprite.js"
-import { GenerateDist } from "#root/dev/build_tools/GenerateDist.js"
-import { PrepareExternalBundle } from "#root/dev/build_tools/PrepareExternalBundle.js"
-import { StartServer } from "#root/server/http/StartServer.js"
+import { ExportAseprite } from "#root/dev/ExportAseprite.js"
+import { GenerateDist } from "#root/dev/GenerateDist.js"
+import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
+import { StartServer } from "#root/backend/server/http/StartServer.js"
 
 const killPort = (port) => {
 	try {
@@ -95,7 +95,7 @@ watcher.on("all", (e, path) => {
 						ExportAseprite(path)
 					}
 					else {
-						Files.copyFile(path, "dist/" + path)
+						Files.copyFile(path, FileConfig.toDistPath(path))
 					}
 					break
 				}
@@ -105,23 +105,23 @@ watcher.on("all", (e, path) => {
 						ExportAseprite(path)
 					}
 					else {
-						Files.copyFile(path, "dist/" + path)
+						Files.copyFile(path, FileConfig.toDistPath(path))
 					}
 					break
 				}
 
 				case "addDir": { // folder created
-					Files.createFolder("dist/" + path)
+					Files.createFolder(FileConfig.toDistPath(path))
 					break
 				}
 
 				case "unlink": { // file deleted
-					Files.deleteFile("dist/" + path)
+					Files.deleteFile(FileConfig.toDistPath(path))
 					break
 				}
 
 				case "unlinkDir": { // folder deleted
-					Files.deleteFolder("dist/" + path)
+					Files.deleteFolder(FileConfig.toDistPath(path))
 					break
 				}
 				default: {

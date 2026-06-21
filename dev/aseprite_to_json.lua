@@ -66,6 +66,10 @@ end
 path = path:gsub("^" .. cwd .. "/?", "")
 path = path:gsub("%.%w+$", "")
 
+if path:sub(1, 9) == "frontend/" then
+  path = path:sub(10)
+end
+
 local outBase = "dist/" .. path
 
 local all_tilemaps = {}

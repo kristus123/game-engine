@@ -1,4 +1,4 @@
-import { Methods } from "#root/server/http/Methods.js"
+import { Methods } from "#root/backend/server/http/Methods.js"
 
 import webPush from "web-push"
 

@@ -1,4 +1,4 @@
-import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
+import { JsFiles } from "#root/dev/JsFiles.js"
 
 function extractDuplicates(arr) {
 	const seen = new Set()

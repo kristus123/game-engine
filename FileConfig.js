@@ -1,19 +1,19 @@
 import path from "path"
 
 export const FileConfig = {
-	game: "client/game",
-	engine: "client/engine",
-	buildTools: "dev/build_tools",
+	game: "frontend/client/game",
+	engine: "frontend/client/engine",
+	buildTools: "dev",
 
-	client: "client",
+	client: "frontend/client",
 	dist: "dist",
 
 	externalBundle: "bundle.js",
 
-	asepriteToJson: "dev/build_tools/aseprite_to_json.lua",
-	exportAseprite: "dev/build_tools/ExportAseprite.js",
-	generateDist: "dev/build_tools/GenerateDist.js",
-	prepareExternalBundle: "dev/build_tools/PrepareExternalBundle.js",
+	asepriteToJson: "dev/aseprite_to_json.lua",
+	exportAseprite: "dev/ExportAseprite.js",
+	generateDist: "dev/GenerateDist.js",
+	prepareExternalBundle: "dev/PrepareExternalBundle.js",
 	engineIndex: "dist/client/engine/start/index.js",
 	externalBundleDistPath: "dist/out.js",
 
@@ -43,6 +43,7 @@ export const FileConfig = {
 	},
 
 	toDistPath(filePath) {
-		return path.join(FileConfig.dist, filePath)
+		const relativePath = filePath.startsWith("frontend/") ? filePath.substring("frontend/".length) : filePath
+		return path.join(FileConfig.dist, relativePath)
 	},
 }

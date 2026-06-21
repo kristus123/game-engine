@@ -1,8 +1,8 @@
 import path from "path"
-import { Imports } from "#root/dev/build_tools/Imports.js"
-import { Parameters } from "#root/dev/build_tools/Parameters.js"
-import { Files } from "#root/dev/build_tools/Files.js"
-import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
+import { Imports } from "#root/dev/Imports.js"
+import { Parameters } from "#root/dev/Parameters.js"
+import { Files } from "#root/dev/Files.js"
+import { JsFiles } from "#root/dev/JsFiles.js"
 import { FileConfig } from "#root/FileConfig.js"
 
 function blockWithoutParentheses(keyword, line) {

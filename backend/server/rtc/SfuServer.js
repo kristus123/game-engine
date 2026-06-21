@@ -1,6 +1,6 @@
-import { SfuServerApi } from "#root/server/rtc/SfuServerApi.js"
-import { socketServer } from "#root/server/socket/SocketServer.js"
-import { RandomId } from "#root/dev/build_tools/RandomId.js"
+import { SfuServerApi } from "#root/backend/server/rtc/SfuServerApi.js"
+import { socketServer } from "#root/backend/server/socket/SocketServer.js"
+import { RandomId } from "#root/dev/RandomId.js"
 
 export class SfuServer {
 	static {

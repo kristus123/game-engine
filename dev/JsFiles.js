@@ -1,4 +1,4 @@
-import { Files } from "#root/dev/build_tools/Files.js"
+import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 
 export const JsFiles = [...Files.at(FileConfig.engine), ...Files.at(FileConfig.game)]

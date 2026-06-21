@@ -1,5 +1,5 @@
-import { LowLevelSocketServer } from "#root/server/socket/LowLevelSocketServer.js"
-import { List } from "#root/server/socket/List.js"
+import { LowLevelSocketServer } from "#root/backend/server/socket/LowLevelSocketServer.js"
+import { List } from "#root/backend/server/socket/List.js"
 
 export class SimplifiedSocketServerAPI {
 	constructor() {

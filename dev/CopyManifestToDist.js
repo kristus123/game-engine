@@ -1,6 +1,6 @@
 import fs from "fs"
 import Path from "path"
-import { Files } from "#root/dev/build_tools/Files.js"
+import { Files } from "#root/dev/Files.js"
 
 import crypto from "crypto"
 
@@ -15,7 +15,9 @@ export function CopyManifestToDist() {
 
 	const sw = Files.read("sw.js")
 		.replace("RANDOM_UUID", "\"" + crypto.randomUUID() + "\"")
-		.replace("ALL_FILES", "[" + Files.at(Path.dirname(mainFilename)).map(f => "\"/" + f + "\"").join(",") + "]")
+		.replace("ALL_FILES", "[" + Files.at(FileConfig.dist)
+			.map(f => f.startsWith("dist/") ? f.substring("dist/".length) : f)
+			.map(f => "\"/" + f + "\"").join(",") + "]")
 
 	Files.write(FileConfig.toDistPath("sw.js"), sw)
 }

@@ -1,9 +1,9 @@
 import cluster from "cluster"
-import { Git } from "#root/production/Git.js"
+import { Git } from "#root/backend/production/Git.js"
 
 const services = [
-	"#root/server/socket/SocketServer.js",
-	"#root/server/http/main.js",
+	"#root/backend/server/socket/SocketServer.js",
+	"#root/backend/server/http/StartServer.js",
 ]
 
 function startWorkers() {

@@ -1,5 +1,5 @@
-import { SimplifiedSocketServerAPI } from "#root/server/socket/SimplifiedSocketServerAPI.js"
-import { SfuServer } from "#root/server/rtc/SfuServer.js"
+import { SimplifiedSocketServerAPI } from "#root/backend/server/socket/SimplifiedSocketServerAPI.js"
+import { SfuServer } from "#root/backend/server/rtc/SfuServer.js"
 
 export const socketServer = new SimplifiedSocketServerAPI()
 

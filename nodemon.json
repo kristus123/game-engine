@@ -1,8 +1,8 @@
 {
   "watch": ["."],
   "ignore": [
-    "persistedjson/**",
-    "client/**",
+    "backend/persistedJson/**",
+    "frontend/client/**",
     "node_modules/**",
     ".git/**"
   ],

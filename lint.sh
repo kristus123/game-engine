@@ -10,7 +10,7 @@ find . -path ./node_modules -prune -o -name "*.js" -type f -exec sed -i \
 
 npx -y stylelint "**/*.css" "./*.css" --fix
 
-node dev/build_tools/UpdateEslint.js
+node dev/UpdateEslint.js
 
 find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
 

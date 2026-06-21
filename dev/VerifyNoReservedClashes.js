@@ -1,6 +1,6 @@
-import { JsFiles } from "#root/dev/build_tools/JsFiles.js"
+import { JsFiles } from "#root/dev/JsFiles.js"
 
-import { ReservedJsKeywords } from "#root/dev/build_tools/ReservedJsKeywords.js"
+import { ReservedJsKeywords } from "#root/dev/ReservedJsKeywords.js"
 
 export function VerifyNoReservedClashes() {
 	// better safe and strict than sorry and loosey goosey
