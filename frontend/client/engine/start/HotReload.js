@@ -1,24 +1,7 @@
-let currentId = localStorage.getItem("currentId")
+SocketClient.onServerMessage(EngineConstants.HOT_RELOAD, () => {
+	Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 
-if (!currentId) {
-	const response = await fetch("/currentId")
-	const data = await response.json()
-	localStorage.setItem("currentId", data.currentId)
-}
-
-setInterval(async () => {
-	const response = await fetch("/currentId")
-	const data = await response.json()
-
-	if (data.currentId != currentId) {
-
-		localStorage.setItem("currentId", data.currentId)
-
-		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
-
-		setTimeout(() => {
-			location.reload()
-		}, 20)
-	}
-
-}, 50)
+	setTimeout(() => {
+		location.reload()
+	}, 20)
+})
