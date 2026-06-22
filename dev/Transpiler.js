@@ -1,44 +1,20 @@
 import path from "path"
 import { Imports } from "#root/dev/Imports.js"
 import { Parameters } from "#root/dev/Parameters.js"
+import { Regex } from "#root/dev/Regex.js"
 import { Files } from "#root/dev/Files.js"
-import { JsFiles } from "#root/dev/JsFiles.js"
 import { FileConfig } from "#root/FileConfig.js"
-
-function blockWithoutParentheses(keyword, line) {
-	const regex = new RegExp(
-		`^\\s*${keyword}\\s+(?!\\()[^]*\\{$`
-	)
-
-	return regex.test(line)
-}
-
-function addParentheses(keyword, line) {
-	const regex = new RegExp(`^(\\s*${keyword}\\s+)(?!\\()(.*?)(\\s*\\{\\s*)$`)
-
-	return line.replace(regex, "$1($2)$3")
-}
-
-function simpleRegex(str, pattern) {
-
-	const regexPattern = pattern
-		.split("*")
-		.map(s => s.replace(/[.+?^${}()|[\]\\]/g, "\\$&"))
-		.join(".*")
-
-	return new RegExp("^" + regexPattern).test(str.trim())
-}
 
 function indentations(str) {
 	return (str.match(/\t/g) || []).length
 }
 
-export function Transpiler(ENVIRONMENT) {
+export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
 		throw new Error("you need to include environment when calling generate_dist.js")
 	}
 
-	for (const jsFilePath of JsFiles) {
+	for (const jsFilePath of jsFiles) {
 		let fileContent = Files.read(jsFilePath)
 		const className = path.parse(jsFilePath).name
 		const fileName = path.basename(jsFilePath)
@@ -48,7 +24,7 @@ export function Transpiler(ENVIRONMENT) {
 			continue
 		}
 
-		JsFiles.forEach(f => {
+		for (const f of jsFiles) {
 			const className = path.parse(f).name
 			const fileText = Files.read(f)
 
@@ -57,7 +33,7 @@ export function Transpiler(ENVIRONMENT) {
 				const regex = new RegExp(`(?<!new )\\b${className}\\(`, "g")
 				fileContent = fileContent.replace(regex, `new ${className}(`)
 			}
-		})
+		}
 
 		if (!fileContent.includes("export class SuperClass")) {
 			fileContent = fileContent.replaceAll(
@@ -106,7 +82,7 @@ export function Transpiler(ENVIRONMENT) {
 				applyNullChecks(i)
 			}
 
-			if (simpleRegex(lines[i], "case *:") || simpleRegex(lines[i], "default:")) {
+			if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
 				const tabs = indentations(lines[i])
 
 				for (let ii = 1 ; true ; ii++) {
@@ -116,16 +92,13 @@ export function Transpiler(ENVIRONMENT) {
 					}
 				}
 			}
-
-			if (blockWithoutParentheses("if", lines[i])) { // i am not sure if this works properly
-				lines[i] = addParentheses("if", lines[i]) // i am not sure if this works properly
-			}
 		}
 
 		fileContent = lines.join("\n")
 
-		fileContent = Imports.needed(fileContent, JsFiles) + "\n" + fileContent
+		fileContent = Imports.needed(fileContent, jsFiles) + "\n" + fileContent
 
+		// this can probably be improved and removed from here. this was just an extra safety
 		if (!jsFilePath.includes(`${FileConfig.client}`)) {
 			throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
 		}

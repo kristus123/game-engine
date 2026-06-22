@@ -6,8 +6,10 @@ import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 
+import { JsFiles } from "#root/dev/JsFiles.js"
+
 export function GenerateDist(env) {
-	Transpiler(env)
+	Transpiler(env, JsFiles)
 
 	Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 	Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
