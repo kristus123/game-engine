@@ -158,6 +158,7 @@ const reservedJsKeywords = [
 	"structuredClone",
 ]
 
+// rename to Assert...
 export function VerifyNoReservedClashes() {
 
 	// better safe and strict than sorry and loosey goosey

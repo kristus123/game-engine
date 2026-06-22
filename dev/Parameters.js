@@ -32,7 +32,7 @@ export class Parameters {
 			"Enhance",
 		])
 
-		const regex =
+		const regex = // what is this regex doing?
 			/(?:([a-zA-Z_$][\w$]*)\s*\(([\s\S]*)\)\s*\{|=\s*\(([\s\S]*)\)\s*=>\s*\{)/
 
 		const match = line.match(regex)
