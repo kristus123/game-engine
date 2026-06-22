@@ -1,7 +1,6 @@
 import chokidar from "chokidar"
 import express from "express"
 
-import { RandomId } from "#root/dev/RandomId.js"
 import { Files } from "#root/dev/Files.js"
 
 import { FileConfig } from "#root/FileConfig.js"
@@ -12,6 +11,11 @@ import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { StartServer } from "#root/backend/server/http/StartServer.js"
 import { socketServer } from "#root/backend/server/socket/SocketServer.js"
+import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
+import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
+
+AssertUniqueFileNames()
+VerifyNoReservedClashes()
 
 const killPort = (port) => {
 	try {

@@ -2,8 +2,6 @@ import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/Markdown.js"
 import { CopyManifestToDist } from "#root/dev/CopyManifestToDist.js"
-import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
-import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 
 import { JsFiles } from "#root/dev/JsFiles.js"
@@ -13,10 +11,11 @@ export function GenerateDist(env) {
 
 	Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 	Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
+	// instead do
+	// Files.copyFolderToDist(FileConfig.gameAudio)
+	// Files.copyFolderToDist(FileConfig.gameAssets)
 
 	CopyManifestToDist()
-	VerifyNoReservedClashes()
-	AssertUniqueFileNames()
 
 	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability
@@ -26,7 +25,6 @@ export function GenerateDist(env) {
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
 	Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
-
 
 	const names = Files.at(FileConfig.client)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
@@ -40,7 +38,7 @@ export function GenerateDist(env) {
 		seen.add(name)
 	}
 
-	const htmlContents = Files.at(FileConfig.client)
+	const htmlContents = Files.at(FileConfig.client) // rename to htmlTemplates
 		.filter(f => !f.includes("index.html"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
@@ -62,7 +60,7 @@ export function GenerateDist(env) {
 			return JSON.stringify({ name: name, content: content })
 		})
 
-	Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`)
+	Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
 
 	const audioFiles = Files.at(FileConfig.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))

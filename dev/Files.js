@@ -59,17 +59,19 @@ export class Files {
 		return uniqueElements
 	}
 
-	static at(directory) {
+	static at(directory, ignoredFolders = new Set(["node_modules", "dist", ".git"])) {
 		let results = []
 
-		const entries = fs.readdirSync(directory)
+		for (const entry of fs.readdirSync(directory)) {
+			if (ignoredFolders.has(entry)) {
+				continue
+			}
 
-		for (const entry of entries) {
 			const fullPath = Path.join(directory, entry)
 			const stat = fs.statSync(fullPath)
 
 			if (stat.isDirectory()) {
-				results = results.concat(this.at(fullPath))
+				results.push(...this.at(fullPath, ignoredFolders))
 			}
 			else {
 				results.push(fullPath)
@@ -79,6 +81,23 @@ export class Files {
 		return results.map(f => f.replaceAll("\\", "/"))
 	}
 
+	static find(filename) {
+		const matches = Files.at("./").filter(file =>
+			Path.basename(file) == filename
+		)
+
+		if (matches.length == 0) {
+			throw new Error(`File not found: ${filename}`)
+		}
+
+		if (matches.length > 1) {
+			throw new Error(
+				`Duplicate files found for "${filename}":\n${matches.join("\n")}`
+			)
+		}
+
+		return matches[0]
+	}
 
 
 	static read(path) {
@@ -89,6 +108,8 @@ export class Files {
 		fs.writeFileSync(path, content)
 	}
 
+	// rename to replaceContent or replaceAll In order to make it clear that we are editing the file.
+	// something at least should be improved
 	static replace(path, x, y) {
 		const content = this.read(path)
 			.replaceAll(x, y)

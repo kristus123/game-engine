@@ -2,6 +2,7 @@ import path from "path"
 
 export const FileConfig = {
 	frontend: "frontend",
+	backend: "backend",
 	game: "frontend/client/game",
 	engine: "frontend/client/engine",
 	buildTools: "dev",

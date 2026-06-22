@@ -1,6 +1,11 @@
 import { SfuServerApi } from "#root/backend/server/rtc/SfuServerApi.js"
 import { socketServer } from "#root/backend/server/socket/SocketServer.js"
-import { RandomId } from "#root/dev/RandomId.js"
+
+import { randomUUID } from "crypto"
+
+const Random = { // to make it easy to replace with actual Random.js later
+	uuid: () => randomUUID()
+}
 
 export class SfuServer {
 	static {
@@ -229,7 +234,7 @@ export class SfuServer {
 	}
 
 	static async createUniqueRouter(worker, hostClientId) {
-		const routerId = RandomId()
+		const routerId = Random.uuid()
 		const router = await SfuServerApi.createRouter(worker)
 
 		this.routers[routerId] = {
