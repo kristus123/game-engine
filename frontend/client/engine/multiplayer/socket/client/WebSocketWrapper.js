@@ -26,7 +26,7 @@ export class WebSocketWrapper {
 		}
 	}
 
-	static onMessage(data) {
-		
-	} // this method is supposed to be overridden
+	static onMessage(data) {  // this method is supposed to be overridden
+	}
+	
 }
