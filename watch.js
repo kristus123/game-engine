@@ -11,6 +11,7 @@ import { ExportAseprite } from "#root/dev/ExportAseprite.js"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { StartServer } from "#root/backend/server/http/StartServer.js"
+import { socketServer } from "#root/backend/server/socket/SocketServer.js"
 
 const killPort = (port) => {
 	try {
@@ -42,8 +43,6 @@ killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
 
-let currentId = RandomId()
-
 let idTimeout = null
 
 function triggerClientReload() {
@@ -52,7 +51,7 @@ function triggerClientReload() {
 	}
 
 	idTimeout = setTimeout(() => {
-		currentId = RandomId()
+		socketServer.sendToEveryone({ action: "HOT_RELOAD" })
 		idTimeout = null
 	}, 50)
 }
@@ -67,9 +66,6 @@ app.use((req, res, next) => { // needed in order to use shared array buffers bet
 	next()
 })
 
-app.get("/currentId", (req, res) => { // this is used for hot-reloading. Check HotReload.js
-	res.json({ currentId: currentId })
-})
 
 app.listen(distPort, "0.0.0.0", () => console.log(`Serving dist on port ${distPort}`))
 
