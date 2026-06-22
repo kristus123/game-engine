@@ -127,6 +127,7 @@ watcher.on("all", (e, path) => {
 					Files.deleteFolder(FileConfig.toDistPath(path))
 					break
 				}
+
 				default: {
 					throw new Error("unexpected e: " + e)
 				}
