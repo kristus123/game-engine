@@ -1,6 +1,7 @@
 import { execFileSync } from "child_process"
 import { existsSync } from "fs"
 import { FileConfig } from "#root/FileConfig.js"
+
 import os from "os"
 import path from "path"
 
@@ -76,7 +77,7 @@ export class Aseprite {
 		], { stdio: "inherit", shell: true })
 	}
 
-	static groups(srcFile, destBase) { // use this to extract groups from aseprite file. todo
+	static groups(srcFile, destBase) {
 		execFileSync(bin, [
 			"-b",
 			srcFile,
