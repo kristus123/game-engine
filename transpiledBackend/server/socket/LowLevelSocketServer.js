@@ -1,8 +1,7 @@
-import { start } from '#root/transpiledBackend/server/start.js'; 
 
 import { WebSocketServer } from "ws"
 
-export class LowLevelSocketServer extends SuperClass {
+export class LowLevelSocketServer {
 	constructor({ onConnection, onClose } = {}) {
 super()
 			Assert.notNull(onConnection, 'param 1 - onConnection - LowLevelSocketServer.constructor')

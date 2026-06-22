@@ -1,5 +1,5 @@
 
-export class List extends SuperClass {
+export class List {
 
 	static remove(list, o) {
 			Assert.notNull(list, 'param 1 - list - List.remove')

@@ -1,2 +1,7 @@
 // this is where stuff should init.
 // right now it inits in http/StartServer.js
+//
+
+export function Start() {
+	throw new Error("not in use yet")
+}

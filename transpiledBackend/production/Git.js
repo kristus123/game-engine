@@ -2,7 +2,7 @@
 import { exec } from "child_process"
 import { promisify } from "util"
 
-export class Git extends SuperClass {
+export class Git {
 
 	static async pull() {
 		const execAsync = promisify(exec)

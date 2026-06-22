@@ -17,13 +17,12 @@ export class Parameters {
 	}
 
 	static extractIfPresent(line) {
-		if (startsWith(line, ["document.", "this.", "//"])) {
+		if (startsWith(line, ["document.", "this.", "//", "for await"])) {
 			return null
 		}
 
 		const blacklist = new Set([
 			"for",
-			"for await",
 			"if",
 			"while",
 			"switch",

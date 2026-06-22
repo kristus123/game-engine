@@ -2,7 +2,7 @@
 import fs from "fs"
 import path from "path"
 
-export class FileDb extends SuperClass {
+export class FileDb {
 	static prefix = path.resolve("./fileDb")
 
 	static ensureFolderExists(folderName) {

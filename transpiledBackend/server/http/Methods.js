@@ -1,5 +1,5 @@
 
-export class Methods extends SuperClass {
+export class Methods {
 
 	static all = Object.create(null) // no prototype keys
 

@@ -24,7 +24,6 @@ export async function parseBody(req) {
 	let rawBody = Buffer.alloc(0)
 
 	for await (const chunk of req) {
-			Assert.notNull(const chunk of req, 'param 1 - const chunk of req - HttpServer.await')
 		rawBody = Buffer.concat([rawBody, chunk])
 	}
 
@@ -71,7 +70,7 @@ function assertJsonBody(req) {
 	}
 }
 
-export class HttpServer extends SuperClass {
+export class HttpServer {
 
 	static listen(port, bind = "0.0.0.0") {
 			Assert.notNull(port, 'param 1 - port - HttpServer.listen')

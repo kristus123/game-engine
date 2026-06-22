@@ -60,8 +60,10 @@ export function Transpiler(ENVIRONMENT, JsFiles) {
 		})
 
 		if (!fileContent.includes("export class SuperClass")) {
-			fileContent = fileContent.replaceAll(
-				`export class ${className} {`, `export class ${className} extends SuperClass {`)
+			if (jsFilePath.includes("frontend/")) {
+				fileContent = fileContent.replaceAll(
+					`export class ${className} {`, `export class ${className} extends SuperClass {`)
+			}
 		}
 
 		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)

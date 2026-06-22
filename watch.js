@@ -15,16 +15,6 @@ import { GenerateTranspiledBackend } from "#root/dev/GenerateTranspiledBackend.j
 
 
 
-
-
-
-
-
-
-
-
-
-
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 
 const killPort = (port) => {
@@ -56,6 +46,7 @@ killPort(3000)
 killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
+Files.deleteFolder(FileConfig.transpiledBackend)
 
 let currentId = RandomId()
 
@@ -154,6 +145,8 @@ watcher.on("all", (e, path) => {
 	}
 })
 
+console.log("hei")
+
 
 // initial build
 ExportAseprite()
@@ -162,5 +155,6 @@ GenerateTranspiledBackend("DEVELOPMENT")
 PrepareExternalBundle()
 
 // for now only run it once
-// import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
-// StartServer()
+import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
+
+StartServer()

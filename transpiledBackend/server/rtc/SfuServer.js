@@ -1,8 +1,7 @@
 import { SfuServerApi } from '#root/transpiledBackend/server/rtc/SfuServerApi.js'; 
 import { List } from '#root/transpiledBackend/server/socket/List.js'; 
-import { start } from '#root/transpiledBackend/server/start.js'; 
 
-export class SfuServer extends SuperClass {
+export class SfuServer {
 	static {
 		this.globalWorker = null
 		this.routers = {}

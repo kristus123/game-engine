@@ -22,7 +22,7 @@ function encodeBase64(payload) {
 	return Buffer.from(JSON.stringify(payload)).toString("base64url")
 }
 
-export class ServerToken extends SuperClass {
+export class ServerToken {
 
 	static create() {
 		const internal = {

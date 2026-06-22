@@ -1,7 +1,7 @@
 
 import * as mediasoup from "mediasoup"
 
-export class SfuServerApi extends SuperClass {
+export class SfuServerApi {
 	static async createWorker() {
 		const worker = await mediasoup.createWorker()
 

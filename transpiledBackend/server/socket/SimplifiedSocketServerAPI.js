@@ -1,8 +1,7 @@
 import { List } from '#root/transpiledBackend/server/socket/List.js'; 
 import { LowLevelSocketServer } from '#root/transpiledBackend/server/socket/LowLevelSocketServer.js'; 
-import { start } from '#root/transpiledBackend/server/start.js'; 
 
-export class SimplifiedSocketServerAPI extends SuperClass {
+export class SimplifiedSocketServerAPI {
 	constructor() {
 super()
 
