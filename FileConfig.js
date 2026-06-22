@@ -39,12 +39,14 @@ export const FileConfig = {
 	},
 
 	removeClientPathPrefix(filePath) {
-		const regex = new RegExp(`^${FileConfig.client}[\\/\\\\]`)
-		return filePath.replace(regex, "")
+		const normalizedPath = filePath.replaceAll("\\", "/")
+		const regex = new RegExp(`^${FileConfig.client.replaceAll("\\", "/")}[/]`)
+		return normalizedPath.replace(regex, "")
 	},
 
 	toDistPath(filePath) {
-		const relativePath = filePath.startsWith("frontend/") ? filePath.substring("frontend/".length) : filePath
+		const normalizedPath = filePath.replaceAll("\\", "/")
+		const relativePath = normalizedPath.startsWith("frontend/") ? normalizedPath.substring("frontend/".length) : normalizedPath
 		return path.join(FileConfig.dist, relativePath)
 	},
 }
