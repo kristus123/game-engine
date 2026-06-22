@@ -12,7 +12,6 @@ import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { StartServer } from "#root/backend/server/http/StartServer.js"
 import { socketServer } from "#root/backend/server/socket/SocketServer.js"
-import { EngineConstants } from "#root/frontend/client/engine/EngineConstants.js"
 
 const killPort = (port) => {
 	try {
@@ -52,7 +51,7 @@ function triggerClientReload() {
 	}
 
 	idTimeout = setTimeout(() => {
-		socketServer.sendToEveryone({ action: EngineConstants.HOT_RELOAD })
+		socketServer.sendToEveryone({ action: "HOT_RELOAD" })
 		idTimeout = null
 	}, 50)
 }
