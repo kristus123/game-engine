@@ -11,7 +11,7 @@ import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { StartServer } from "#root/backend/server/http/StartServer.js"
-import { socketServer } from "#root/backend/server/socket/SocketServer.js"
+import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
 import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 
@@ -58,7 +58,7 @@ function triggerClientReload() {
 	}
 
 	idTimeout = setTimeout(() => {
-		socketServer.sendToEveryone({ action: "HOT_RELOAD" })
+		SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
 		idTimeout = null
 	}, 50)
 }

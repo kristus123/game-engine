@@ -1,5 +1,5 @@
 import { HttpServer } from "#root/backend/server/http/HttpServer.js"
-import { socketServer } from "#root/backend/server/socket/SocketServer.js"
+import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
 import { SfuServer } from "#root/backend/server/rtc/SfuServer.js"
 import { Files } from "#root/dev/Files.js"
 import { pathToFileURL } from "url"
@@ -12,6 +12,6 @@ export function StartServer() {
 	const server = HttpServer.listen(3000)
 
 	SfuServer.start().then(() => {
-		socketServer.start(server)
+		SocketServer.start(server)
 	})
 }
