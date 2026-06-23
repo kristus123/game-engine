@@ -16,7 +16,7 @@ export function GenerateDist(env) {
 
 
 	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
-		.map(f => f.replace("\\aseprite", "")) // windows compability
+		.map(f => f.replace("\\aseprite", "")) // windows compability // is this needed?
 		.map(f => f.replace(".aseprite", ""))
 		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
