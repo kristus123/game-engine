@@ -70,7 +70,7 @@ export function GenerateDist(env) {
 		.map(f => f.replace(/\\/g, "/"))
 	Files.replace(FileConfig.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
 
-	const cssImports = Files.at(FileConfig.gameUiCss)
+	const cssImports = Files.at(FileConfig.cssFolder)
 		.map(f => f.replaceAll("\\", "/")) // windows compability
 		.map(f => Files.read(f))
 		.join("\n")
