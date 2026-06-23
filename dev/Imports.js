@@ -5,6 +5,20 @@ function containsExport(type, className, str) {
 	return regex.test(str)
 }
 
+function include(content, className) {
+	if (
+		containsExport("class", className, content) ||
+		containsExport("function", className, content) ||
+		containsExport("const", className, content) ||
+		containsExport("let", className, content)
+	) {
+		return false
+	}
+	else if (new RegExp(`\\b${className}\\b`).test(content)) {
+		return true
+	}
+}
+
 export class Imports {
 
 	static needed(content, jsFilePaths) {
@@ -13,26 +27,12 @@ export class Imports {
 		for (const jsFile of jsFilePaths) {
 			const className = Path.basename(jsFile, ".js")
 
-			if (Imports.include(content, className)) {
+			if (include(content, className)) {
 				const browserPath = jsFile.startsWith("frontend/") ? jsFile.substring("frontend/".length) : jsFile
 				imports += `import { ${className} } from '/${browserPath}'; \n`
 			}
 		}
 
 		return imports
-	}
-
-	static include(content, className) {
-		if (
-			containsExport("class", className, content) ||
-			containsExport("function", className, content) ||
-			containsExport("const", className, content) ||
-			containsExport("let", className, content)
-		) {
-			return false
-		}
-		else if (new RegExp(`\\b${className}\\b`).test(content)) {
-			return true
-		}
 	}
 }
