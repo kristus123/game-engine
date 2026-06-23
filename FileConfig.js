@@ -1,5 +1,3 @@
-import path from "path"
-
 export const FileConfig = {
 	frontend: "frontend",
 	backend: "backend",
@@ -20,19 +18,19 @@ export const FileConfig = {
 	externalBundleDistPath: "dist/out.js",
 
 	get gameAssets() {
-		return path.join(this.game, "assets")
+		return `${this.game}/assets`
 	},
 
 	get gameAudio() {
-		return path.join(this.game, "audio")
+		return `${this.game}/audio`
 	},
 
 	get asepriteAssets() {
-		return path.join(this.game, "assets/aseprite")
+		return `${this.game}/assets/aseprite`
 	},
 
 	get gameUiCss() {
-		return path.join(this.game, "ui/css")
+		return `${this.game}/ui/css`
 	},
 
 	get index_html() {
@@ -48,6 +46,6 @@ export const FileConfig = {
 	toDistPath(filePath) {
 		const normalizedPath = filePath.replaceAll("\\", "/")
 		const relativePath = normalizedPath.startsWith("frontend/") ? normalizedPath.substring("frontend/".length) : normalizedPath
-		return path.join(FileConfig.dist, relativePath)
+		return `${FileConfig.dist}/${relativePath}`
 	},
 }
