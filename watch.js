@@ -11,17 +11,15 @@ import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 
 // ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
+import { GenerateBackend } from "#root/GenerateBackend.js"
+GenerateBackend() // todo pass environment - "DEVELOPMENT"
 import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
 import { SocketServer } from "#root/transpiledBackend/server/socket/SocketServer.js"
-import { GenerateBackend } from "#root/GenerateBackend.js"
 // ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
 
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
-
-
-
 
 const ExportAseprite = await Import("ExportAseprite")
 
@@ -153,11 +151,9 @@ watcher.on("all", (e, path) => {
 
 
 // initial build
-GenerateBackend() // todo pass environment - "DEVELOPMENT"
 ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 
 // for now only run it once
-
 StartServer()
