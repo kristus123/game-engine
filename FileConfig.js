@@ -14,7 +14,7 @@ export const FileConfig = {
 	exportAseprite: "dev/ExportAseprite.js",
 	generateDist: "dev/GenerateDist.js",
 	prepareExternalBundle: "dev/PrepareExternalBundle.js",
-	engineIndex: "dist/client/engine/start/index.js",
+	engineIndex: "dist/index.js",
 	externalBundleDistPath: "dist/out.js",
 
 	get gameAssets() {
@@ -29,18 +29,12 @@ export const FileConfig = {
 		return `${this.game}/assets/aseprite`
 	},
 
-	get gameUiCss() {
-		return `${this.game}/ui/css`
+	get cssFolder() {
+		return `${this.frontend}/ui/css`
 	},
 
 	get index_html() {
 		return `${this.frontend}/index.html`
-	},
-
-	removeClientPathPrefix(filePath) {
-		const normalizedPath = filePath.replaceAll("\\", "/")
-		const regex = new RegExp(`^${FileConfig.client.replaceAll("\\", "/")}[/]`)
-		return normalizedPath.replace(regex, "")
 	},
 
 	toDistPath(filePath) {

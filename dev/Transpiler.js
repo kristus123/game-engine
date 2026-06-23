@@ -98,11 +98,6 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		fileContent = Imports.needed(fileContent, jsFiles) + "\n" + fileContent
 
-		// this can probably be improved and removed from here. this was just an extra safety
-		if (!jsFilePath.includes(`${FileConfig.client}`)) {
-			throw new Error(`${jsFilePath} is not inside ${FileConfig.client}`)
-		}
-
 		Files.writeFileToDist(jsFilePath, fileContent)
 	}
 
