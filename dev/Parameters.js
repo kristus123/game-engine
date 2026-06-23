@@ -1,4 +1,3 @@
-
 function startsWith(line, list) {
 	const cleaned = line.trimStart()
 

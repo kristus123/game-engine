@@ -1,4 +1,3 @@
-
 export class Markdown {
 	static toHtml(md) {
 

@@ -1,4 +1,3 @@
-
 export class Regex {
 
 	static simple(str, pattern) {
