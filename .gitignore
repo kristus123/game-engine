@@ -1,6 +1,7 @@
 .eslintcache
 
 dist/
+transpiledBackend/
 node_modules/
 capacitor_setup/
 
