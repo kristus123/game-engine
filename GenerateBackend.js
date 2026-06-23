@@ -9,8 +9,8 @@ for (let f of Files.at("backend/")) {
 
 	const content = Files.read(f)
 
-	
+
 	const imports = Imports.needed(content, Files.at("backend/")).replaceAll("/backend/", "#root/backend/")
 
-	Files.write(f.replace("backend/", "transpiledBackend/" ), imports + "\n" + content)
+	Files.write(f.replace("backend/", "transpiledBackend/"), imports + "\n" + content)
 }

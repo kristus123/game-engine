@@ -105,10 +105,10 @@ export class Files {
 	}
 
 	static write(filePath, content) {
-		const dir = Path.dirname(filePath);
+		const dir = Path.dirname(filePath)
 
-		fs.mkdirSync(dir, { recursive: true });
-		fs.writeFileSync(filePath, content);
+		fs.mkdirSync(dir, { recursive: true })
+		fs.writeFileSync(filePath, content)
 	}
 
 	// rename to replaceContent or replaceAll In order to make it clear that we are editing the file.
