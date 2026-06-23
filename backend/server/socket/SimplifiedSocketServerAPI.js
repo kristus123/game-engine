@@ -1,6 +1,3 @@
-import { LowLevelSocketServer } from "#root/backend/server/socket/LowLevelSocketServer.js"
-import { List } from "#root/backend/server/socket/List.js"
-
 export class SimplifiedSocketServerAPI {
 	constructor() {
 		this.allClients = []

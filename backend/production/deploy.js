@@ -1,5 +1,4 @@
 import cluster from "cluster"
-import { Git } from "#root/backend/production/Git.js"
 
 const services = [
 	"#root/backend/server/socket/SocketServer.js",

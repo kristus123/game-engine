@@ -1,6 +1,3 @@
-import { FileDb } from "#root/backend/server/http/FileDb.js"
-import { Methods } from "#root/backend/server/http/Methods.js"
-
 Methods.add("uploadFile", ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 

@@ -1,3 +1,4 @@
+
 is_windows = package.config:sub(1,1) == "\\"
 
 local function sanitize_filename(s)

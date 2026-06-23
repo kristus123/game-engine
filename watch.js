@@ -9,9 +9,14 @@ import { FileConfig } from "#root/FileConfig.js"
 
 import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
+
+// ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
+import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
+import { SocketServer } from "#root/transpiledBackend/server/socket/SocketServer.js"
+import { GenerateBackend } from "#root/GenerateBackend.js"
+// ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
+
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
-import { StartServer } from "#root/backend/server/http/StartServer.js"
-import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
 import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 
@@ -52,6 +57,7 @@ killPort(3000)
 killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
+Files.deleteFolder("transpiledBackend") // todo put into FileConfig
 
 let idTimeout = null
 
@@ -147,9 +153,11 @@ watcher.on("all", (e, path) => {
 
 
 // initial build
+GenerateBackend() // todo pass environment - "DEVELOPMENT"
 ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 
 // for now only run it once
+
 StartServer()

@@ -1,3 +1,4 @@
+
 import Path from "path"
 
 function containsExport(type, className, str) {

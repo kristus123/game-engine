@@ -1,6 +1,3 @@
-import { SfuServerApi } from "#root/backend/server/rtc/SfuServerApi.js"
-import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
-
 import { randomUUID } from "crypto"
 
 const Random = { // to make it easy to replace with actual Random.js later
