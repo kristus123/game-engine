@@ -12,13 +12,16 @@ import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { StartServer } from "#root/backend/server/http/StartServer.js"
 import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
-import { VerifyNoReservedClashes } from "#root/dev/VerifyNoReservedClashes.js"
+import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
+
+
+
 
 const ExportAseprite = await Import("ExportAseprite")
 
 AssertUniqueFileNames()
-VerifyNoReservedClashes()
+AssertNoReservedKeywordsUsedInFileNames()
 
 const killPort = (port) => {
 	try {

@@ -159,7 +159,7 @@ const reservedJsKeywords = [
 ]
 
 // rename to Assert...
-export function VerifyNoReservedClashes() {
+export function AssertNoReservedKeywordsUsedInFileNames() {
 
 	// better safe and strict than sorry and loosey goosey
 	const keywords = reservedJsKeywords
