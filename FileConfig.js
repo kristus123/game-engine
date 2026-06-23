@@ -35,8 +35,8 @@ export const FileConfig = {
 		return path.join(this.game, "ui/css")
 	},
 
-	get gameIndexHtml() {
-		return path.join(this.game, "index.html")
+	get index_html() {
+		return `${this.frontend}/index.html`
 	},
 
 	removeClientPathPrefix(filePath) {

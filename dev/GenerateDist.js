@@ -75,7 +75,7 @@ export function GenerateDist(env) {
 		.map(f => Files.read(f))
 		.join("\n")
 
-	const indexHtml = Files.read(FileConfig.gameIndexHtml)
+	const indexHtml = Files.read(FileConfig.index_html)
 		.replace("CSS_IMPORTS", cssImports)
 	Files.write(FileConfig.toDistPath("index.html"), indexHtml)
 }
