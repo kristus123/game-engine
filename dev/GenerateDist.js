@@ -1,7 +1,6 @@
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/Markdown.js"
-import { CopyManifestToDist } from "#root/dev/CopyManifestToDist.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 
 import { JsFiles } from "#root/dev/JsFiles.js"
@@ -15,7 +14,6 @@ export function GenerateDist(env) {
 	// Files.copyFolderToDist(FileConfig.gameAudio)
 	// Files.copyFolderToDist(FileConfig.gameAssets)
 
-	CopyManifestToDist()
 
 	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability
