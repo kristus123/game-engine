@@ -104,8 +104,11 @@ export class Files {
 		return fs.readFileSync(path, "utf-8")
 	}
 
-	static write(path, content) {
-		fs.writeFileSync(path, content)
+	static write(filePath, content) {
+		const dir = Path.dirname(filePath);
+
+		fs.mkdirSync(dir, { recursive: true });
+		fs.writeFileSync(filePath, content);
 	}
 
 	// rename to replaceContent or replaceAll In order to make it clear that we are editing the file.
