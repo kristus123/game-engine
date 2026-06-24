@@ -22,8 +22,8 @@ export class SfuRouters {
 
 			const router = SfuRouters.routers[SfuClient.connectedRouterId]
 
-			SfuClient.device = new window.mediasoup.Device()
-			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
+			const device = new window.mediasoup.Device()
+			await device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
 			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
 			if (!router.streamOnly || SfuClient.isHost) {
