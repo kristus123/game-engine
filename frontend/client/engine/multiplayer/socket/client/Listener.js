@@ -12,7 +12,7 @@ export class Listener {
 			l(args)
 		})
 
-		this.oneTimeListeners.clear()
+		this.oneTimeListeners.length = 0
 	}
 
 	listen(callback) {

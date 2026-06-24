@@ -2,9 +2,9 @@ class SoundClass {
 
 	static init() {}
 
-	static playBlob(blob) {
+	static async playBlob(blob) {
 		const url = URL.createObjectURL(blob)
-		const audio = new Audio(url)
+		const audio = await SpeakerApi.createAudio(url)
 
 		audio.play()
 	}

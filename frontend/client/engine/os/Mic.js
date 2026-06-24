@@ -8,6 +8,22 @@ export class Mic {
 	static mimeType = "audio/webm;codecs=opus"
 	static audioBitsPerSecond = 64_000
 
+	static get selected() {
+		return ActiveMic.selected
+	}
+
+	static set selected(mic) {
+		ActiveMic.selected = mic
+	}
+
+	static get active() {
+		return this.selected
+	}
+
+	static set active(mic) {
+		this.selected = mic
+	}
+
 	static get recording() {
 		return this.state == "recording"
 	}

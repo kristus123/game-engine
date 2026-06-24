@@ -38,10 +38,11 @@ export const FileConfig = {
 	},
 
 	toDistPath(path) {
-		if (path.startsWith("frontend/")) {
-			// is this needed? attempt to remove replaceAll on windows and see if it still works
-			const p = path.replaceAll("\\", "/").replace("frontend/", "")
-			return `${FileConfig.dist}/${p}`
+		const normalizedPath = path.replaceAll("\\", "/")
+
+		if (normalizedPath.startsWith("frontend/")) {
+			const normalizedDistPath = normalizedPath.replace("frontend/", "")
+			return `${FileConfig.dist}/${normalizedDistPath}`
 		}
 		else {
 			throw new Error(path + " does not start with frontend/")

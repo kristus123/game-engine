@@ -1,9 +1,7 @@
-
 import { NewDeviceListener } from "./NewDeviceListener.js"
-import { MicPermission } from "./MicPermission.js"
-import { AllMics } from "./AllMics.js"
+import { AllSpeakers } from "./AllSpeakers.js"
 
-export class NewMicListener {
+export class NewSpeakerListener {
 
 	static listener = null
 
@@ -27,7 +25,7 @@ export class NewMicListener {
 	}
 
 	static createListener() {
-		return new NewDeviceListener(async () => AllMics.get())
+		return new NewDeviceListener(async () => AllSpeakers.get())
 	}
 
 }
