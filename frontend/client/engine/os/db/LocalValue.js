@@ -1,8 +1,13 @@
 export class LocalValue {
 
 	constructor(key, defaultValue) {
-		if (localStorage.getItem(key) === null) {
-			localStorage.setItem(key, JSON.stringify(defaultValue))
+		if (localStorage.getItem(key) == null) {
+			if (A.jsonObject(defaultValue)) {
+				localStorage.setItem(key, JSON.stringify(defaultValue))
+			}
+			else {
+				localStorage.setItem(key, defaultValue)
+			}
 		}
 	}
 
@@ -16,7 +21,12 @@ export class LocalValue {
 	}
 
 	set value(val) {
-		localStorage.setItem(this.key, JSON.stringify(val))
+		if (A.jsonObject(val)) {
+			localStorage.setItem(this.key, JSON.stringify(val))
+		}
+		else {
+			localStorage.setItem(this.key, val)
+		}
 	}
 
 }
