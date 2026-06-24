@@ -49,11 +49,15 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 			const p = Parameters.extractIfPresent(lines[i])
 
-			const applyNullChecks = (line) => { // hacky
-				if (p && p.parameters && fileName != "Assert.js") {
+			const applyNullChecks = i => { // hacky
+				if (lines[i].includes("no-null-check")) {
+					// do nothing
+					return []
+				}
+				else if (p && p.parameters && fileName != "Assert.js") {
 					for (let ii = 0; ii < p.parameters.length; ii++) {
 						const pp = p.parameters[ii]
-						lines[line] = lines[line]
+						lines[i] = lines[i]
 							+ "\n"
 							+ "\t".repeat(3) // Just to make it slightly prettier
 							+ `Assert.notNull(${pp}, 'param ${ii+1} - ${pp} - ${className}.${p.methodName}')`
@@ -80,7 +84,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 				}
 			}
 			else {
-				applyNullChecks(i)
+				applyNullChecks(i) // hacky
 			}
 
 			if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
