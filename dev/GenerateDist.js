@@ -10,6 +10,11 @@ export const jsFiles = Files.at(FileConfig.frontend)
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
 export function GenerateDist(env) {
+	if (env == null) {
+		throw new Error("env cannot be null")
+	}
+
+
 	Transpiler(env, jsFiles)
 
 	Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
@@ -86,4 +91,12 @@ export function GenerateDist(env) {
 	const indexHtml = Files.read(FileConfig.index_html)
 		.replace("CSS_IMPORTS", cssImports)
 	Files.write(FileConfig.toDistPath(FileConfig.index_html), indexHtml)
+}
+
+
+
+
+import { fileURLToPath } from "url"
+if (process.argv[1] == fileURLToPath(import.meta.url)) {
+	GenerateDist(process.argv[2])
 }
