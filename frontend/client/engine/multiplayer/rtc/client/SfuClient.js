@@ -52,7 +52,7 @@ export class SfuClient {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
 		else {
-			for (const track of Webcam.stream.getTracks()) {
+			for (const track of Webcam.cam.getTracks()) {
 				const producer = await this.sendTransport.produce({ track })
 				this.producers[track.kind] = producer
 			}
@@ -139,7 +139,7 @@ export class SfuClient {
 	}
 
 	static deleteLobby() {
-		if (SfuRouters.routers[this.connectedRouterId] && My.ClientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
+		if (SfuRouters.routers[this.connectedRouterId] && My.clientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
 			delete SfuRouters.routers[this.connectedRouterId]
 
 			this.clean()
@@ -151,7 +151,7 @@ export class SfuClient {
 	}
 
 	static get isHost() {
-		return (SfuRouters.routers[this.connectedRouterId].hostClientId == My.ClientId)
+		return (SfuRouters.routers[this.connectedRouterId].hostClientId == My.clientId)
 	}
 
 	static get connectedClientIds() {

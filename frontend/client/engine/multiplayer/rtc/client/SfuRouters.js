@@ -27,19 +27,21 @@ export class SfuRouters {
 
 			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
 			if (!router.streamOnly || SfuClient.isHost) {
-				Webcam.request(async (ok) => {
-					if (ok) {
-						await Webcam.enable()
+				Webcam.request(
+					async (ok) => {
+						if (ok) {
+							await Webcam.enable()
 
-						SfuRouters.onLocalConnection(Webcam.cam)
+							SfuRouters.onLocalConnection(Webcam.cam)
 
-						// Setup Send Transport after Webcam is Enabled
-						await SfuClient.setupSendTransport(data.sendTransportParams)
+							// Setup Send Transport after Webcam is Enabled
+							await SfuClient.setupSendTransport(data.sendTransportParams)
+						}
+						else {
+							throw new Error("webcam permission not granted")
+						}
 					}
-					else {
-						throw new Error("webcam permission not granted")
-					}
-				})
+				)
 			}
 
 			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
@@ -94,7 +96,8 @@ export class SfuRouters {
 
 			console.log(this.routers)
 
-			if (data.hostClientId == My.ClientId) {
+			if (data.hostClientId == My.clientId) {
+				console.log("Joining Created Lobby...")
 				SfuClient.joinLobby(data.routerId)
 			}
 

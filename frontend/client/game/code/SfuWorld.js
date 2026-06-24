@@ -1,34 +1,35 @@
 export class SfuWorld {
 	constructor() {
+		SfuClient.init()
 		SfuRouters.init()
-		
-		Webcam.request(() => {
-			SfuRouters.updateRouterList()
 
-			const s = Dom.add(Html.sfu())
+		SfuRouters.updateRouterList()
 
-			SfuRouters.onRouterCreated = lobby => {
-				s.lobbies.add(H.button("join " + lobby.routerId, () => {
-					SfuClient.joinLobby(lobby.routerId)
-				}))
-			}
+		console.log(My.clientId)
 
-			SfuRouters.onGuestConnection = stream => {
-				console.log("hei")
-				s.guestWebcam.srcObject = stream
-			}
+		const s = Dom.add(Html.sfu())
 
-			SfuRouters.onLocalConnection = stream => {
-				console.log("hei")
-				s.localWebcam.srcObject = stream
-			}
+		SfuRouters.onRouterCreated = lobby => {
+			s.lobbies.add(H.button("join " + lobby.routerId, () => {
+				SfuClient.joinLobby(lobby.routerId)
+			}))
+		}
 
-			s.create.onClick(() => {
-				SfuClient.createLobby(true) // streamOnly == true
-			})
-			
+		SfuRouters.onGuestConnection = stream => {
+			console.log("hei")
+			console.log(stream)
+			s.guestWebcam.srcObject = stream
+		}
+
+		SfuRouters.onLocalConnection = stream => {
+			console.log("hei")
+			console.log(stream)
+			s.localWebcam.srcObject = stream
+		}
+
+		s.create.onClick(() => {
+			SfuClient.createLobby(true) // streamOnly == true
 		})
-
 	}
 
 	update() {
