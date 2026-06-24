@@ -1,123 +1,160 @@
-export class SfuRouters {
-    static init() {
-		this.routers = {}
+export class SfuClient {
+	static init() {
+		this.connectedRouterId = null
 
-		this.onRouterCreated = (router) => {}
-		this.onRouterDeleted = (routerId) => {}
-		this.onGuestConnection = (stream) => {}
-		this.onLocalConnection = (stream) => {}
-		this.onJoinLobby = (router) => {}
-		this.onLeaveLobby = (router) => {}
+		this.device = null
+		this.sendTransport = null
+		this.recvTransport = null
+		this.producers = {}
+		this.consumers = {}
+	}
 
-		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
-			this.routers = data.routerList
+	static async setupSendTransport(params) {
+		this.sendTransport = this.device.createSendTransport(params)
 
-			Object.keys(this.routers).forEach(routerId => {
-				this.onRouterCreated(this.routers[routerId])
+		this.sendTransport.on("connect", ({ dtlsParameters }, callback, errback) => {
+			try {
+				console.log("Requesting Connection For Webrtc Send Transport")
+
+				SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+					direction: "send",
+					dtlsParameters: dtlsParameters,
+					routerId: this.connectedRouterId
+				})
+
+				callback()
+			}
+			catch (e) {
+				errback(e)
+			}
+		})
+
+		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
+			await new Promise(resolve => {
+				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
+					if (data.kind == kind) {
+						callback({ producerId: data.producerId })
+						resolve()
+					}
+				})
+
+				console.log("Requesting Producer")
+
+				SocketClient.sendToServer("SFU_REQUEST_PRODUCE", {
+					kind: kind,
+					rtpParameters: rtpParameters,
+					routerId: this.connectedRouterId
+				})
 			})
 		})
 
-		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
-			console.log("Setting Up SFU Client")
-
-			const router = SfuRouters.routers[SfuClient.connectedRouterId]
-
-			SfuClient.device = new window.mediasoup.Device()
-			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
-			
-			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
-			if (!router.streamOnly || SfuClient.isHost) {
-				Webcam.request(async (ok) => {
-					if (ok) {
-						await Webcam.enable()
-
-						SfuRouters.onLocalConnection(Webcam.stream)
-
-						// Setup Send Transport after Webcam is Enabled
-						await SfuClient.setupSendTransport(data.sendTransportParams)
-					}
-				})
+		if (!Webcam.enabled) {
+			throw new Error("webcam is not active. enable webcam first!")
+		}
+		else {
+			for (const track of Webcam.stream.getTracks()) {
+				const producer = await this.sendTransport.produce({ track })
+				this.producers[track.kind] = producer
 			}
+		}
+	}
 
-			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
-			if (!router.streamOnly || !SfuClient.isHost) {
-				await SfuClient.setupRecvTransport(data.recvTransportParams)
+	static async setupRecvTransport(params) {
+		this.recvTransport = this.device.createRecvTransport(params)
+		
+		this.recvTransport.on("connect", ({ dtlsParameters }, callback, errback) => {
+			console.log("Requesting Connection For Webrtc Recv Transport")
 
-				console.log("Getting Producers...")
-				SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-					routerId: SfuClient.connectedRouterId,
-				})
-			}
+			SocketClient.sendToServer("SFU_CONNECT_TRANSPORT", {
+				direction: "recv",
+				dtlsParameters: dtlsParameters,
+				routerId: this.connectedRouterId
+			})
+
+			callback()
+		})
+	}
+
+	static async consume(producerId, originClientId) {
+		if (!this.recvTransport) {
+			throw new Error("Cannot Consume Receive Transport Not Ready")
+		}
+
+		console.log("Requesting Consumer")
+
+		SocketClient.sendToServer("SFU_REQUEST_CONSUME", {
+			producerId: producerId,
+			rtpCapabilities: this.device.rtpCapabilities,
+			routerId: this.connectedRouterId
 		})
 
-		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
-			delete this.routers[data.routerId]
+		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
+			if (data.consumerParams.producerId == producerId) {
+				const consumer = await this.recvTransport.consume(data.consumerParams)
 
-			this.onRouterDeleted(data.routerId)
+				if (!this.consumers[originClientId]) {
+					this.consumers[originClientId] = { stream: new MediaStream() }
+				}
+
+				this.consumers[originClientId].stream.addTrack(consumer.track)
+				SfuRouters.onGuestConnection(this.consumers[originClientId].stream)
+			}
+		})
+	}
+
+	static clean() {
+		this.consumers.values.forEach(state => {
+			state.stream.getTracks().forEach(track => {
+				track.stop()
+			})
+
+			state.element.remove()
 		})
 
-		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
-			const router = this.routers[data.routerId]
+		this.consumers = {}
+	}
 
-			if (router) {
-				router.connectedClientIds.removeIfPresent(data.clientId)
-			}
+	static createLobby(streamOnly = false) {
+		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
+			streamOnly: streamOnly
+		})
+	}
 
-			console.log(this.routers)
+	static async joinLobby(routerId) {
+		this.connectedRouterId = routerId
 
-			if (SfuClient.consumers[data.clientId]) {
+		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
+			routerId: routerId
+		})
+	}
 
-				SfuClient.consumers[data.clientId].stream.getTracks().forEach(track => {
-					track.stop()
-				})
+	static leaveLobby() {
+		this.clean()
 
-				SfuClient.consumers[data.clientId].element.remove()
-
-				delete SfuClient.consumers[data.clientId]
-			}
-
-			this.onLeaveLobby(router)
+		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
+			routerId: this.connectedRouterId,
 		})
 
-		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
-			console.log(`New Router Created: ${data.routerId}`)
+		this.connectedRouterId = null
+	}
 
-			this.routers[data.routerId] = {
-				routerId: data.routerId,
-				hostClientId: data.hostClientId,
-				connectedClientIds: data.connectedClientIds,
-				streamOnly: data.streamOnly
-			}
+	static deleteLobby() {
+		if (SfuRouters.routers[this.connectedRouterId] && My.ClientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
+			delete SfuRouters.routers[this.connectedRouterId]
 
-			console.log(this.routers)
+			this.clean()
 
-			if (data.hostClientId == My.ClientId) {
-				SfuClient.joinLobby(data.routerId)
-			}
+			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
+				routerId: this.connectedRouterId,
+			})
+		}
+	}
 
-			this.onRouterCreated(this.routers[data.routerId])
-		})
+	static get isHost() {
+		return (SfuRouters.routers[this.connectedRouterId].hostClientId == My.ClientId)
+	}
 
-		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
-			const router = this.routers[data.routerId]
-
-			if (router) {
-				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
-			}
-
-			console.log(this.routers)
-
-			this.onJoinLobby(router)
-		})
-
-		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
-			console.log("Consuming New Producer")
-			SfuClient.consume(data.producerId, data.clientId)
-		})
-    }
-
-	// Does not work if is directly inside init()
-	static updateRouterList() {
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
+	static get connectedClientIds() {
+		return SfuRouters.routers[this.connectedRouterId].connectedClientIds
 	}
 }
