@@ -91,7 +91,7 @@ export class SfuRouters {
 
 			console.log(this.routers)
 
-			if (data.hostClientId == ClientId) {
+			if (data.hostClientId == My.ClientId) {
 				SfuClient.joinLobby(data.routerId)
 			}
 

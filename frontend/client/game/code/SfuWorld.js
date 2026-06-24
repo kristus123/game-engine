@@ -1,5 +1,7 @@
 export class SfuWorld {
 	constructor() {
+		SfuRouters.init()
+		
 		SfuRouters.updateRouterList()
 
 		const s = Dom.add(Html.sfu())
