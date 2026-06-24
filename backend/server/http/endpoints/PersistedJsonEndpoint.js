@@ -1,6 +1,3 @@
-import { Files } from "#root/dev/Files.js"
-import { Methods } from "#root/backend/server/http/Methods.js"
-
 Methods.add("allPersistedJsonFiles", ({ body, req }) => {
 	return Files.inFolder("backend/persistedJson").map(path => ({
 		name: path.split("/").pop().split(".")[0],

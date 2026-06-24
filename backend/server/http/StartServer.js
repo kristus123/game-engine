@@ -1,10 +1,6 @@
-import { HttpServer } from "#root/backend/server/http/HttpServer.js"
-import { SocketServer } from "#root/backend/server/socket/SocketServer.js"
-import { SfuServer } from "#root/backend/server/rtc/SfuServer.js"
-import { Files } from "#root/dev/Files.js"
 import { pathToFileURL } from "url"
 
-for (const e of Files.getJsFiles("backend/server/http/endpoints")) {
+for (const e of Files.getJsFiles("transpiledBackend/server/http/endpoints")) { // todo find fix
 	await import(pathToFileURL(e).href)
 }
 

@@ -4,7 +4,7 @@ import { pathToFileURL } from "url"
 
 const cache = new Map()
 
-export async function Import(name) {
+export async function Import(name, callback = () => {}) {
 	if (cache.has(name)) {
 		return cache.get(name)
 	}
@@ -23,6 +23,7 @@ export async function Import(name) {
 
 		cache.set(name, mod[name])
 
+		callback(mod[name])
 		return mod[name]
 	}
 }

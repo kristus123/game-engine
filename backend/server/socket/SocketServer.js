@@ -1,6 +1,3 @@
-import { SimplifiedSocketServerAPI } from "#root/backend/server/socket/SimplifiedSocketServerAPI.js"
-import { SfuServer } from "#root/backend/server/rtc/SfuServer.js"
-
 export const SocketServer = new SimplifiedSocketServerAPI()
 
 SocketServer.onConnection = (client, clientId) => {
