@@ -4,6 +4,7 @@ const Random = { // to make it easy to replace with actual Random.js later
 	uuid: () => randomUUID()
 }
 
+
 export class SfuServer {
 	static {
 		this.globalWorker = null
@@ -13,7 +14,7 @@ export class SfuServer {
 	static async start() {
 		this.globalWorker = await SfuServerApi.createWorker()
 
-		SocketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
+		socketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
 			if (this.routers[data.routerId] && this.routers[data.routerId].hostClientId == clientId) {
 				Object.keys(this.routers[data.routerId].clients).forEach(clientId => {
 					this.closeConnectionWithClient(clientId, data.routerId)
@@ -21,7 +22,7 @@ export class SfuServer {
 
 				delete this.routers[data.routerId]
 
-				SocketServer.sendToEveryone({
+				socketServer.sendToEveryone({
 					action: "SFU_ROUTER_DELETED",
 					routerId: data.routerId
 				})
@@ -31,43 +32,45 @@ export class SfuServer {
 			}
 		})
 
-		SocketServer.on("SFU_GET_ROUTER_LIST", (client, clientId) => {
+		socketServer.on("SFU_GET_ROUTER_LIST", (client, clientId) => {
 			const routerList = {}
 
 			Object.values(this.routers).forEach(router => {
 				routerList[router.routerId] = {
 					routerId: router.routerId,
 					hostClientId: router.hostClientId,
-					connectedClientIds: this.getRouterClientIds(router.routerId)
+					connectedClientIds: this.getRouterClientIds(router.routerId),
+					streamOnly: router.streamOnly
 				}
 			})
 
 			console.log("Sending Router List: ", routerList)
 
-			SocketServer.sendToClient(client, {
+			socketServer.sendToClient(client, {
 				action: "SFU_UPDATE_ROUTER_LIST",
 				routerList: routerList
 			})
 		})
 
-		SocketServer.on("SFU_CREATE_ROUTER", async (client, clientId) => {
-			const routerObject = await this.createUniqueRouter(this.globalWorker, clientId)
+		socketServer.on("SFU_CREATE_ROUTER", async (client, clientId, data) => {
+			const routerObject = await this.createUniqueRouter(this.globalWorker, clientId, data.streamOnly)
 
-			SocketServer.sendToEveryone({
+			socketServer.sendToEveryone({
 				action: "SFU_ROUTER_CREATED",
 				routerId: routerObject.routerId,
 				hostClientId: clientId,
-				connectedClientIds: [clientId]
+				connectedClientIds: [clientId],
+				streamOnly: data.streamOnly
 			})
 		})
 
-		SocketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
+		socketServer.on("SFU_CONNECT_ROUTER", async (client, clientId, data) => {
 			if (Object.hasOwn(this.routers, data.routerId)) {
 				this.routers[data.routerId].clients[clientId] = {}
 
 				await this.connectWithClient(client, clientId, data.routerId)
 
-				SocketServer.sendToEveryone({
+				socketServer.sendToEveryone({
 					action: "SFU_NEW_CONNECTION",
 					routerId: data.routerId,
 					newlyConnectedClientId: clientId
@@ -78,11 +81,11 @@ export class SfuServer {
 			}
 		})
 
-		SocketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
+		socketServer.on("SFU_DISCONNECT_ROUTER", async (client, clientId, data) => {
 			this.closeConnectionWithClient(clientId, data.routerId)
 		})
 
-		SocketServer.on("SFU_CONNECT_TRANSPORT", async (client, clientId, data) => {
+		socketServer.on("SFU_CONNECT_TRANSPORT", async (client, clientId, data) => {
 			console.log(`Connecting Webrtc Transport For ${clientId}`)
 
 			const router = this.routers[data.routerId]
@@ -95,7 +98,7 @@ export class SfuServer {
 			}
 		})
 
-		SocketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId, data) => {
+		socketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId, data) => {
 			const router = this.routers[data.routerId]
 
 			Object.values(router.clients).forEach(rtcClient => {
@@ -103,7 +106,11 @@ export class SfuServer {
 					return
 				}
 
-				SocketServer.sendToClient(client, {
+				if (!rtcClient.producer) {
+					return
+				}
+
+				socketServer.sendToClient(client, {
 					action: "SFU_NEW_PRODUCER",
 					producerId: rtcClient.producer.id,
 					clientId: rtcClient.clientId
@@ -111,7 +118,7 @@ export class SfuServer {
 			})
 		})
 
-		SocketServer.on("SFU_REQUEST_PRODUCE", async (client, clientId, data) => {
+		socketServer.on("SFU_REQUEST_PRODUCE", async (client, clientId, data) => {
 			const routerObject = this.routers[data.routerId]
 
 			const producer = await routerObject.clients[clientId].sendTransport.produce({
@@ -121,7 +128,7 @@ export class SfuServer {
 
 			routerObject.clients[clientId].producer = producer
 
-			SocketServer.sendToClient(client, {
+			socketServer.sendToClient(client, {
 				action: "SFU_CONFIRM_PRODUCE",
 				producerId: producer.id,
 				kind: producer.kind,
@@ -132,7 +139,7 @@ export class SfuServer {
 					return
 				}
 
-				SocketServer.sendToClient(rtcClient.client, {
+				socketServer.sendToClient(rtcClient.client, {
 					action: "SFU_NEW_PRODUCER",
 					producerId: producer.id,
 					clientId: clientId
@@ -140,7 +147,7 @@ export class SfuServer {
 			})
 		})
 
-		SocketServer.on("SFU_REQUEST_CONSUME", async (client, clientId, data) => {
+		socketServer.on("SFU_REQUEST_CONSUME", async (client, clientId, data) => {
 			const routerObject = this.routers[data.routerId]
 
 			if (!routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities })) {
@@ -154,7 +161,7 @@ export class SfuServer {
 				paused: false
 			})
 
-			SocketServer.sendToClient(client, {
+			socketServer.sendToClient(client, {
 				action: "SFU_CONFIRM_CONSUME",
 				consumerParams: {
 					id: consumer.id,
@@ -177,7 +184,7 @@ export class SfuServer {
 
 		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producer: null }
 
-		SocketServer.sendToClient(client, {
+		socketServer.sendToClient(client, {
 			action: "SFU_SETUP_CLIENT",
 			rtpCapabilities: router.rtpCapabilities,
 			sendTransportParams: {
@@ -220,7 +227,7 @@ export class SfuServer {
 				delete this.routers[rid].clients[clientId]
 
 				Object.values(this.routers[rid].clients).forEach(clientObject => {
-					SocketServer.sendToClient(clientObject.client, {
+					socketServer.sendToClient(clientObject.client, {
 						action: "SFU_DISCONNECT_CONSUMER",
 						clientId: clientId,
 						routerId: rid
@@ -230,7 +237,7 @@ export class SfuServer {
 		}
 	}
 
-	static async createUniqueRouter(worker, hostClientId) {
+	static async createUniqueRouter(worker, hostClientId, streamOnly) {
 		const routerId = Random.uuid()
 		const router = await SfuServerApi.createRouter(worker)
 
@@ -238,7 +245,8 @@ export class SfuServer {
 			routerId: routerId,
 			router: router,
 			hostClientId: hostClientId,
-			clients: {}
+			clients: {},
+			streamOnly: streamOnly
 		}
 
 		return this.routers[routerId]
