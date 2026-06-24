@@ -10,12 +10,13 @@ import { FileConfig } from "#root/FileConfig.js"
 import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 
-// ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
 import { GenerateBackend } from "#root/GenerateBackend.js"
 GenerateBackend() // todo pass environment - "DEVELOPMENT"
-import { StartServer } from "#root/transpiledBackend/server/http/StartServer.js"
-import { SocketServer } from "#root/transpiledBackend/server/socket/SocketServer.js"
-// ok ? ok ? ok ? ok ? ok ? ok ? ok ? ok ?
+
+// todo improve comment
+// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
+const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
+const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
@@ -55,7 +56,6 @@ killPort(3000)
 killPort(distPort)
 
 Files.deleteFolder(FileConfig.dist)
-Files.deleteFolder("transpiledBackend") // todo put into FileConfig
 
 let idTimeout = null
 

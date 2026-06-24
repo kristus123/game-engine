@@ -2,7 +2,7 @@ import { Files } from "#root/dev/Files.js"
 import { Imports } from "#root/dev/Imports.js"
 
 export function GenerateBackend() {
-	Files.deleteFolder("transpiledBackend")
+	Files.deleteFolder("transpiledBackend") // todo put into FileConfig
 
 	for (let f of Files.at("backend/")) {
 		console.log(f)
@@ -21,7 +21,7 @@ export function GenerateBackend() {
 
 }
 
-import { fileURLToPath } from 'url';
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+import { fileURLToPath } from "url"
+if (process.argv[1] == fileURLToPath(import.meta.url)) {
 	GenerateBackend()
 }

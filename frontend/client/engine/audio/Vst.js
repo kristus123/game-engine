@@ -19,7 +19,7 @@ export class Vst {
 	static distortion(amount = 50) {
 		const node = SoundContext.context.createWaveShaper()
 		const makeDistortionCurve = (amt) => {
-			const k = typeof amt === "number" ? amt : 50
+			const k = typeof amt == "number" ? amt : 50
 			const n_samples = 44100
 			const curve = new Float32Array(n_samples)
 			const deg = Math.PI / 180

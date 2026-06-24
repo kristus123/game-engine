@@ -29,7 +29,9 @@ export class Track {
 			SoundContext.context.resume()
 		}
 		const buffer = audioBuffer?.buffer ?? audioBuffer
-		if (!buffer) return
+		if (!buffer) {
+			return
+		}
 		const source = SoundContext.context.createBufferSource()
 		source.buffer = buffer
 		source.connect(this.input)
