@@ -61,6 +61,27 @@ function assertJsonBody(req) {
 
 export class HttpServer {
 
+	static activeServer = null
+
+	static start(params = {}) {
+		const port = params.port ?? 3000
+		const bind = params.bind ?? "0.0.0.0"
+
+		if (this.activeServer) {
+			this.stop()
+		}
+
+		this.activeServer = this.listen(port, bind)
+		return this.activeServer
+	}
+
+	static stop() {
+		if (this.activeServer) {
+			this.activeServer.close()
+			this.activeServer = null
+		}
+	}
+
 	static listen(port, bind = "0.0.0.0") {
 		const server = http.createServer(async (req, res) => {
 

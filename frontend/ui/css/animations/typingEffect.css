@@ -1,4 +1,4 @@
-p.typing-effect {
+p.typingEffect {
 	white-space: nowrap;
 	font-size: 24px;
 	animation: typing 1s steps(22);
