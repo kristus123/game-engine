@@ -32,7 +32,7 @@ export class Kristian {
 			placeholder?.followMouse()
 
 			for (const h of DomMouse.hovering) { // find better solution for this
-				const list = h.closest("[user-sortable]")
+				const list = h.closest("[sortable]")
 				if (list) {
 					list.orderBasedOnMousePosition(e)
 					break

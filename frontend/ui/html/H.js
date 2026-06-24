@@ -215,7 +215,7 @@ export class H {
 		textElement.innerHTML = text
 
 
-		textElement.setAttribute("class", "ui fade-away")
+		textElement.setAttribute("class", "ui fadeAway")
 
 		textElement.style.left = `${position.x}px`
 		textElement.style.top = `${position.y - 50}px`

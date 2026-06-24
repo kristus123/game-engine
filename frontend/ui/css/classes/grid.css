@@ -9,22 +9,22 @@
 
 }
 
-.grid .grid-top {
+.grid .gridTop {
 	grid-area: top;
 }
 
-.grid .grid-left {
+.grid .gridLeft {
 	grid-area: left;
 }
 
-.grid .grid-mid {
+.grid .gridMid {
 	grid-area: mid;
 }
 
-.grid .grid-right {
+.grid .gridRight {
 	grid-area: right;
 }
 
-.grid .grid-bot {
+.grid .gridBot {
 	grid-area: bot;
 }

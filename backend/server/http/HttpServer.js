@@ -61,6 +61,26 @@ function assertJsonBody(req) {
 
 export class HttpServer {
 
+	static activeServer = null
+
+	static start() {
+		if (this.activeServer) {
+			throw new Error("HttpServer is already running")
+		}
+
+		this.activeServer = this.listen(3000)
+		return this.activeServer
+	}
+
+	static stop() {
+		if (!this.activeServer) {
+			throw new Error("HttpServer is not running")
+		}
+
+		this.activeServer.close()
+		this.activeServer = null
+	}
+
 	static listen(port, bind = "0.0.0.0") {
 		const server = http.createServer(async (req, res) => {
 
