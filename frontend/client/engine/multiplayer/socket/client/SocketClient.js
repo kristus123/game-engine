@@ -47,18 +47,12 @@ export class SocketClient {
 	}
 
 	static sendToOtherClients(subAction, data) {
-		Assert.value(subAction)
-		Assert.value(data)
-
 		for (const targetClientId of OtherClients.ids) {
 			SocketClient.sendToClient(subAction, targetClientId, data)
 		}
 	}
 
 	static onServerMessage(action, callback) {
-		Assert.value(action)
-		Assert.value(callback)
-
 		this.serverActionListener.listen(action, callback)
 	}
 
