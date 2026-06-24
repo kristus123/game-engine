@@ -1,8 +1,30 @@
 export class Vst {
-	static delay(time = 0.35) {
-		const node = SoundContext.context.createDelay()
-		node.delayTime.value = time
-		return node
+
+	static delay(time = 0.15, feedback = 0.4) {
+	  const ctx = SoundContext.context
+
+	  const input = ctx.createGain()
+	  const output = ctx.createGain()
+
+	  const delay = ctx.createDelay()
+	  const fb = ctx.createGain()
+
+	  delay.delayTime.value = time
+	  fb.gain.value = feedback
+
+	  // routing
+	  input.connect(output)
+
+	  input.connect(delay)
+	  delay.connect(output)
+
+	  delay.connect(fb)
+	  fb.connect(delay)
+
+	  // expose only input node
+	  input.connect = output.connect.bind(output)
+
+	  return input
 	}
 
 	static filter(type = "lowpass", freq = 1200) {

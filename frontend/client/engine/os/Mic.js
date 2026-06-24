@@ -28,6 +28,18 @@ export class Mic {
 		return this.state == "recording"
 	}
 
+	static async routeTo(track) {
+		try {
+			const stream = await MicApi.createStream()
+			const source = SoundContext.context.createMediaStreamSource(stream)
+			source.connect(track.input ?? track)
+			return source
+		}
+		catch (e) {
+			console.error("Error accessing microphone:", e)
+		}
+	}
+
 	static async start(onStart = () => {}) {
 		if (this.recording) {
 			throw new Error("already recording")
