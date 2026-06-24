@@ -1,12 +1,19 @@
 import fs from "fs"
 import path from "path"
 
-import { JsFiles } from "#root/dev/JsFiles.js"
+import { Files } from "#root/dev/Files.js"
 
 export function UpdateEslint() {
 	const eslintGlobalsConfig = {}
 
-	JsFiles.forEach(jsFile => {
+
+	const allJsFiles = [ // todo improve this somehow. it will probably lead to bugs in the future
+		...Files.at("frontend/"),
+		...Files.at("backend/"),
+		...Files.at("dev/"),
+	].filter(f => f.endsWith(".js"))
+
+	allJsFiles.forEach(jsFile => {
 		const className = path.basename(jsFile, ".js")
 		eslintGlobalsConfig[className] = "readonly"
 	})
@@ -20,4 +27,10 @@ export function UpdateEslint() {
 	eslintRcData.globals = sortedEslintGlobalsConfig
 
 	fs.writeFileSync(eslintRcPath, JSON.stringify(eslintRcData, null, 4))
+}
+
+
+import { fileURLToPath } from "url"
+if (process.argv[1] == fileURLToPath(import.meta.url)) {
+	UpdateEslint()
 }
