@@ -6,6 +6,7 @@ export const FileConfig = {
 	buildTools: "dev",
 
 	client: "frontend/client",
+	favicon: "frontend/favicon.ico",
 	dist: "dist",
 
 	externalBundle: "bundle.js",

@@ -1,4 +1,4 @@
-import { JsFiles } from "#root/dev/JsFiles.js"
+import { Files } from "#root/dev/Files.js"
 
 const reservedJsKeywords = [
 
@@ -158,6 +158,12 @@ const reservedJsKeywords = [
 	"structuredClone",
 ]
 
+const allJsFiles = [ // todo improve this somehow. it will probably lead to bugs in the future
+	...Files.at("frontend/"),
+	...Files.at("backend/"),
+	...Files.at("dev/"),
+].filter(f => f.endsWith(".js"))
+
 // rename to Assert...
 export function AssertNoReservedKeywordsUsedInFileNames() {
 
@@ -165,7 +171,7 @@ export function AssertNoReservedKeywordsUsedInFileNames() {
 	const keywords = reservedJsKeywords
 		.map(w => w.toLowerCase())
 
-	for (const file of JsFiles) {
+	for (const file of allJsFiles) {
 		const name = file.split("/").pop().replace(".js", "").toLowerCase() // Strict !!
 
 		if (keywords.includes(name)) {
