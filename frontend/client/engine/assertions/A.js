@@ -1,14 +1,14 @@
 export class A {
 
-	static string(arg) {
+	static string(arg) { // no-null-check // todo make do transpiler-disable-null-assert to be super clear
 		return typeof arg == "string" || arg instanceof String
 	}
 
-	static integer(arg) {
+	static integer(arg) { // no-null-check
 		return Number.isInteger(arg)
 	}
 
-	static number(arg) {
+	static number(arg) { // no-null-check
 		if (typeof arg == "number" && !isNaN(arg)) {
 			return true
 		}
@@ -17,19 +17,19 @@ export class A {
 		}
 	}
 
-	static method(arg) {
+	static method(arg) { // no-null-check
 		return typeof arg == "function"
 	}
 
-	static list(arg) {
+	static list(arg) { // no-null-check
 		return Array.isArray(arg)
 	}
 
-	static object(arg) {
+	static object(arg) { // no-null-check
 		return typeof arg == "object"
 	}
 
-	static jsonString(arg) {
+	static jsonString(arg) { // no-null-check
 		try {
 			if (A.string(arg)) {
 				JSON.parse(arg)
@@ -43,7 +43,7 @@ export class A {
 		return false
 	}
 
-	static jsonObject(arg) {
+	static jsonObject(arg) { // no-null-check
 		try {
 			if (A.object(arg) || A.list(arg)) {
 				JSON.stringify(arg)

@@ -32,7 +32,6 @@ export class Gp {
 			this[button + "Pressed"] = false
 			this[button + "OnTrueListener"] = OnTrue(() => this[button + "Pressed"], () => {
 				this[button]?.()
-				this.vibrate()
 			})
 
 			this.onTrueListeners.push(this[button + "OnTrueListener"])
@@ -40,6 +39,7 @@ export class Gp {
 	}
 
 	static update() {
+		console.log("hses")
 		if (index != null) {
 			const gp = navigator.getGamepads()[index]
 
@@ -63,12 +63,12 @@ export class Gp {
 	}
 
 	static vibrate() {
-		if (index) {
+		if (A.number(index)) {
 			const gp = navigator.getGamepads()[index] // duplicate line
 
 			if (gp && gp.vibrationActuator) {
 				gp.vibrationActuator.playEffect("dual-rumble", {
-					duration: 100,
+					duration: 50,
 					strongMagnitude: 1.0,
 					weakMagnitude: 0.5,
 				})

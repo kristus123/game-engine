@@ -3,16 +3,26 @@ import { FileConfig } from "#root/FileConfig.js"
 import { Markdown } from "#root/dev/Markdown.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 
-import { JsFiles } from "#root/dev/JsFiles.js"
+// todo find better solution?
+// right now everyone creates their own list
+export const jsFiles = Files.at(FileConfig.frontend)
+	.filter(f => f.endsWith(".js"))
+	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
 export function GenerateDist(env) {
-	Transpiler(env, JsFiles)
+	Transpiler(env, jsFiles)
 
 	Files.copyFolder(FileConfig.gameAssets, FileConfig.toDistPath(FileConfig.gameAssets))
 	Files.copyFolder(FileConfig.gameAudio, FileConfig.toDistPath(FileConfig.gameAudio))
-	// instead do
 	// Files.copyFolderToDist(FileConfig.gameAudio)
 	// Files.copyFolderToDist(FileConfig.gameAssets)
+
+	// we should have a better solution for this
+	// as we want it to be easy to place stuff in frontend/ and have it automatically be placed in dist/
+	Files.copyFile(FileConfig.favicon, FileConfig.toDistPath(FileConfig.favicon))
+	const manifest = "frontend/manifest.json"
+	Files.copyFile(manifest, FileConfig.toDistPath(manifest))
+	// we should have a better solution for this
 
 
 	const asepriteFiles = Files.at(FileConfig.asepriteAssets)

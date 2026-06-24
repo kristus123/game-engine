@@ -14,6 +14,10 @@ export class World {
 			Mix.fx.play(Sound.click)
 			Mix.master.play(Sound.placeDirt)
 		}
+
+		Gp.left = () => {
+			Gp.vibrate()
+		}
 	}
 
 	update() {
