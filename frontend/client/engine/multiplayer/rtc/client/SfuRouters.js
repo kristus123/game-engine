@@ -1,5 +1,5 @@
 export class SfuRouters {
-    static init() {
+	static init() {
 		this.routers = {}
 
 		this.onRouterCreated = (router) => {}
@@ -24,7 +24,7 @@ export class SfuRouters {
 
 			SfuClient.device = new window.mediasoup.Device()
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
-			
+
 			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
 			if (!router.streamOnly || SfuClient.isHost) {
 				Webcam.request(async (ok) => {
@@ -114,7 +114,7 @@ export class SfuRouters {
 			console.log("Consuming New Producer")
 			SfuClient.consume(data.producerId, data.clientId)
 		})
-    }
+	}
 
 	// Does not work if is directly inside init()
 	static updateRouterList() {
