@@ -9,6 +9,11 @@ export class World {
 		])
 
 		SpriteSlicer.shuffle(this.slicedObjects.objects[0])
+
+		Mouse.onClick = () => {
+			Mix.fx.play(Sound.click)
+			Mix.master.play(Sound.placeDirt)
+		}
 	}
 
 	update() {

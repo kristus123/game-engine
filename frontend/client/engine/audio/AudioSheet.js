@@ -1,6 +1,7 @@
 export class AudioSheet {
 
 	constructor(audioBuffer, bpm = 100) {
+		this.audioBuffer = audioBuffer
 		this.audioEngine = AudioEngine(audioBuffer)
 
 		const beatsPerBar = 4 // todo try playing around with this number for fun

@@ -14,4 +14,5 @@ export function EnhanceAll() {
 	Enhance_js_String()
 	Enhance_html_WebComponents()
 	Enhance_html_collection()
+	Enhance_audio()
 }
