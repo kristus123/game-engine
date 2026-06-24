@@ -13,9 +13,10 @@ export class LocalValue {
 
 	get value() {
 		const item = localStorage.getItem(this.key)
-		try {
+		if (A.jsonString(item)) {
 			return JSON.parse(item)
-		} catch (e) {
+		}
+		else {
 			return item
 		}
 	}
