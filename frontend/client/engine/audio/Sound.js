@@ -16,18 +16,6 @@ class SoundClass {
 		const source = SoundContext.createBufferSource(buffer)
 		source.start(0)
 	}
-
-	static async routeMicTo(track) {
-		try {
-			const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-			const source = SoundContext.context.createMediaStreamSource(stream)
-			source.connect(track.input ?? track)
-			return source
-		}
-		catch (e) {
-			console.error("Error accessing microphone:", e)
-		}
-	}
 }
 
 export const Sound = new Proxy(SoundClass, {
