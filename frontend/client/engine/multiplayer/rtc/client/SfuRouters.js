@@ -36,6 +36,9 @@ export class SfuRouters {
 						// Setup Send Transport after Webcam is Enabled
 						await SfuClient.setupSendTransport(data.sendTransportParams)
 					}
+					else {
+						throw new Error("webcam permission not granted")
+					}
 				})
 			}
 
