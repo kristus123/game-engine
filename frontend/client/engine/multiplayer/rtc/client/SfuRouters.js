@@ -31,7 +31,7 @@ export class SfuRouters {
 					if (ok) {
 						await Webcam.enable()
 
-						SfuRouters.onLocalConnection(Webcam.stream)
+						SfuRouters.onLocalConnection(Webcam.cam)
 
 						// Setup Send Transport after Webcam is Enabled
 						await SfuClient.setupSendTransport(data.sendTransportParams)
