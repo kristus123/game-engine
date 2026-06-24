@@ -6,6 +6,10 @@ export class Webcam {
 		this.cam = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
 	}
 
+	static get enabled() {
+		return (Webcam.cam != null)
+	}
+
 	static async request(callback) {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ video: true }, { audio: true })
