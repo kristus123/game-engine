@@ -1,24 +1,16 @@
 export class Speaker {
 
-	static get selected() {
+	static get active() {
 		return localStorage.getItem("selectedSpeaker") ?? null
 	}
 
-	static set selected(speaker) {
+	static set active(speaker) {
 		if (speaker == null || speaker == "") {
 			localStorage.removeItem("selectedSpeaker")
 		}
 		else {
 			localStorage.setItem("selectedSpeaker", speaker)
 		}
-	}
-
-	static get active() {
-		return this.selected
-	}
-
-	static set active(speaker) {
-		this.selected = speaker
 	}
 
 }

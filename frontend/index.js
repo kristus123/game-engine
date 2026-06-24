@@ -64,6 +64,7 @@ Promise.all([
 			Palette.main.apply(Palette.d1)
 			Palette.main.apply(Palette.light)
 		})
+		SpeakerLogTest.run() // remove after speaker testing
 	})
 	.catch(e => {
 		const lines = (e.stack || "").split("\n")

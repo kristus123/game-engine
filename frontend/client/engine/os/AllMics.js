@@ -1,19 +1,27 @@
 export class AllMics {
 
-	static async get(callback) {
-		const devices = await navigator.mediaDevices.enumerateDevices()
+	static async get(callback = () => {}) {
+    try {
+			await navigator.mediaDevices.getUserMedia({ audio: true });
+      const devices = await navigator.mediaDevices.enumerateDevices();
 
-		const mics = devices
-			.filter(d => d.kind == "audioinput")
-			.filter(d => !(d.deviceId == "default" || d.deviceId == "communications"))
-
-		if (typeof callback == "function") {
-			for (const mic of mics) {
-				callback(mic)
+      const mics = devices.filter(d => 
+        d.kind === "audioinput" && 
+        d.deviceId !== "default" && 
+        d.deviceId !== "communications"
+      );
+			
+			if (!callback) {	
+				for (const m of mics) {
+					callback(m)
+				}
 			}
+
+			return mics
+    } 
+		catch (error) {
+			console.error("Error enumerating audio input devices:", error)
+			return []
 		}
-
-		return mics
 	}
-
 }

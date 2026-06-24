@@ -1,8 +1,4 @@
 
-import { NewDeviceListener } from "./NewDeviceListener.js"
-import { MicPermission } from "./MicPermission.js"
-import { AllMics } from "./AllMics.js"
-
 export class NewMicListener {
 
 	static listener = null

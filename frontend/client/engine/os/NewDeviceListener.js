@@ -1,6 +1,3 @@
-import { Listener } from "../multiplayer/socket/client/Listener.js"
-import { Debounce } from "./Debounce.js"
-
 export class NewDeviceListener {
 
 	constructor(getDevices) {

@@ -1,19 +1,28 @@
 export class AllSpeakers {
 
-	static async get(callback) {
-		const devices = await navigator.mediaDevices.enumerateDevices()
+	static async get(callback = () => {}) {
+    try {
+			await navigator.mediaDevices.getUserMedia({ audio: true });
+			const devices = await navigator.mediaDevices.enumerateDevices();
 
-		const speakers = devices
-			.filter(d => d.kind == "audiooutput")
-			.filter(d => !(d.deviceId == "default" || d.deviceId == "communications"))
+      const speakers = devices.filter(d => 
+        d.kind === "audiooutput" && 
+        d.deviceId !== "default" && 
+        d.deviceId !== "communications"
+      );
 
-		if (typeof callback == "function") {
-			for (const speaker of speakers) {
-				callback(speaker)
+			if (!callback) {	
+				for (const m of speakers) {
+					callback(m)
+				}
 			}
-		}
 
-		return speakers
+			return speakers
+    } 
+		catch (error) {
+			console.error("Error enumerating audio devices:", error)
+			return []
+		}
 	}
 
 }

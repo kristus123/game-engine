@@ -1,6 +1,3 @@
-import { NewDeviceListener } from "./NewDeviceListener.js"
-import { AllSpeakers } from "./AllSpeakers.js"
-
 export class NewSpeakerListener {
 
 	static listener = null
