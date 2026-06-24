@@ -1,13 +1,13 @@
 export class LocalValue {
 
 	constructor(key, defaultValue) {
+		if (localStorage.getItem(key) === null) {
+			localStorage.setItem(key, JSON.stringify(defaultValue))
+		}
 	}
 
 	get value() {
 		const item = localStorage.getItem(this.key)
-		if (item === null) {
-			return this.defaultValue
-		}
 		try {
 			return JSON.parse(item)
 		} catch (e) {

@@ -63,23 +63,22 @@ export class HttpServer {
 
 	static activeServer = null
 
-	static start(params = {}) {
-		const port = params.port ?? 3000
-		const bind = params.bind ?? "0.0.0.0"
-
+	static start() {
 		if (this.activeServer) {
-			this.stop()
+			throw new Error("HttpServer is already running")
 		}
 
-		this.activeServer = this.listen(port, bind)
+		this.activeServer = this.listen(3000)
 		return this.activeServer
 	}
 
 	static stop() {
-		if (this.activeServer) {
-			this.activeServer.close()
-			this.activeServer = null
+		if (!this.activeServer) {
+			throw new Error("HttpServer is not running")
 		}
+
+		this.activeServer.close()
+		this.activeServer = null
 	}
 
 	static listen(port, bind = "0.0.0.0") {
