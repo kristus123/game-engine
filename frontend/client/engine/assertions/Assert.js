@@ -1,5 +1,15 @@
 export class Assert {
 
+	static number(n) {
+		if (A.number) {
+			return n
+		}
+		else {
+			throw new Error(n + " is not a number")
+		}
+
+	}
+
 	static true(o) {
 		if (o == true) {
 			return o

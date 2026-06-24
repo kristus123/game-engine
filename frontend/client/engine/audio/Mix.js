@@ -3,7 +3,10 @@ export class Mix {
 	static fx = Track("fx")
 
 	static {
+		Mix.fx
+			.apply(Vst.reverb({ decay: 1.2 }))
+			.routeTo(Mix.master)
+
 		Mix.master.routeTo(SoundContext.destination)
-		Mix.fx.apply(Vst.reverb({ decay: 1.2 })).routeTo(Mix.master)
 	}
 }
