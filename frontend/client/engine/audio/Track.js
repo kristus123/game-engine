@@ -1,27 +1,45 @@
 export class Track {
-
-	static {
-		const lowpass = SoundContext.createBiquadFilter()
-
-		lowpass.type = "lowpass"
-		lowpass.frequency.value = 200
-
-		lowpass.connect(SoundContext.destination)
-
-		this.lowpass = lowpass
+	constructor(name = "unnamed") {
+		this.name = name
+		this.input = SoundContext.createGain()
+		this.output = this.input
 	}
 
-	static test() {
+	get volume() {
+		return this.input.gain.value
+	}
 
-		const osc1 = SoundContext.createOscillator()
-		osc1.frequency.value = 440 // A4
-		osc1.connect(this.lowpass)
+	set volume(val) {
+		this.input.gain.value = val
+	}
 
-		const osc2 = SoundContext.createOscillator()
-		osc2.frequency.value = 660 // E5
-		osc2.connect(this.lowpass)
+	routeTo(target) {
+		this.output.connect(target.input ?? target)
+		return target
+	}
 
-		osc1.start()
-		osc2.start()
+	apply(effect) {
+		this.output.connect(effect.input ?? effect)
+		this.output = effect.output ?? effect
+		return this
+	}
+
+	play(audioBuffer) {
+		if (SoundContext.suspended) {
+			SoundContext.context.resume()
+		}
+		const buffer = audioBuffer?.buffer ?? audioBuffer
+		if (!buffer) return
+		const source = SoundContext.context.createBufferSource()
+		source.buffer = buffer
+		source.connect(this.input)
+		source.start(0)
+		return source
+	}
+
+	addAnalyser() {
+		const analyser = Vst.analyser()
+		this.apply(analyser)
+		return analyser
 	}
 }

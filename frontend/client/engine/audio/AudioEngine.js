@@ -5,7 +5,7 @@ export class AudioEngine {
 
 	async play(startPosition = 0, duration = null) {
 		if (SoundContext.suspended) {
-			await AudioContext.resume()
+			await SoundContext.context.resume()
 		}
 
 		this.stop()
