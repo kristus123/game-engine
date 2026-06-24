@@ -1,4 +1,4 @@
-export class SpeakerLogTest {
+export class MicSpeakerLogTest {
 
 	static testUrl = "/client/game/audio/click.mp3"
 
