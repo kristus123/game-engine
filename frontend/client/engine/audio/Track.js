@@ -38,8 +38,7 @@ export class Track {
 	}
 
 	addAnalyser() {
-		const analyser = SoundContext.context.createAnalyser()
-		analyser.fftSize = 256
+		const analyser = Vst.analyser()
 		this.apply(analyser)
 		return analyser
 	}

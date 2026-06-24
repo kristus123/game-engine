@@ -21,7 +21,7 @@ class SoundClass {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
 			const source = SoundContext.context.createMediaStreamSource(stream)
-			source.connect(track.input)
+			source.connect(track.input ?? track)
 			return source
 		}
 		catch (e) {

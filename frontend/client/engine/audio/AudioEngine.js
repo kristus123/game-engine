@@ -1,6 +1,5 @@
 export class AudioEngine {
 	constructor(audioBuffer) {
-		this.audioBuffer = audioBuffer
 		this.source = null
 	}
 

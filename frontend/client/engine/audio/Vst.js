@@ -82,4 +82,10 @@ export class Vst {
 
 		return { input, output }
 	}
+
+	static analyser(fftSize = 256) {
+		const analyser = SoundContext.context.createAnalyser()
+		analyser.fftSize = fftSize
+		return analyser
+	}
 }
