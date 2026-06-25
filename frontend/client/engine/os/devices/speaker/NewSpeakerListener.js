@@ -12,10 +12,6 @@ export class NewSpeakerListener {
 	}
 
 	static async init() {
-		if (!MicPermission.granted) { //mic permission is need for the web API navigator.mediaDevices.enumerateDevices() to return name of the speakers, otherwise it returns empty name
-			throw new Error("x")
-		}
-
 		let last = await AllSpeakers.get()
 		for (const speaker of last) {
 			NewSpeakerListener.connectedListener.trigger(speaker)

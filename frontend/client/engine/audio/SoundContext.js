@@ -15,6 +15,10 @@ export class SoundContext {
 		this.context.destination = d
 	}
 
+	static async setSink(deviceId) {
+		await this.context.setSinkId(deviceId)
+	}
+
 	static createOscillator() {
 		return this.context.createOscillator()
 	}

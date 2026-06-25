@@ -23,13 +23,13 @@ Promise.all([
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
+		AllSpeakers.init()
 
 		initD1(Draw(Palette.d1.ctx))
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
 		const activeThing = SfuWorld()
-		SpeakerLogTest.run() //remove this later, just for testing
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
