@@ -36,7 +36,7 @@ export class SfuServerApi {
 
 	static async createTransport(router) {
 		const transport = await router.createWebRtcTransport({
-			listenIps: [{ ip: "0.0.0.0", announcedIp: Config.mediasoupAnnounceIp }],
+			listenIps: [{ ip: "0.0.0.0", announcedIp: "krispetter.duckdns.org" }],
 			enableUdp: true,
 			enableTcp: true,
 			preferUdp: true,
