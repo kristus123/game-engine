@@ -22,6 +22,8 @@ import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 
+const TestWatcher = await Import("TestWatcher")
+
 const ExportAseprite = await Import("ExportAseprite")
 const ServeDist = await Import("ServeDist")
 
@@ -74,71 +76,39 @@ function triggerClientReload() {
 
 ServeDist()
 
-const watcher = chokidar.watch([FileConfig.client], {
-	ignoreInitial: true,
-	persistent: true,
-	usePolling: true,
-})
-
-watcher.on("all", (e, path) => {
-	try {
-		console.log("changed", path)
-
-		console.log(e)
-		console.log(path)
-		if (path.includes(".css")) {
-			// do nothing as of now
+TestWatcher([FileConfig.client], {
+	onAdd: () => {
+		if (path.includes(".aseprite")) {
+			ExportAseprite(path)
 		}
 		else {
-			switch (e) {
-				case "change": { // file changed
-					if (path.includes(".aseprite")) {
-						ExportAseprite(path)
-					}
-					else {
-						Files.copyFile(path, FileConfig.toDistPath(path))
-					}
-					break
-				}
-
-				case "add": { // file created
-					if (path.includes(".aseprite")) {
-						ExportAseprite(path)
-					}
-					else {
-						Files.copyFile(path, FileConfig.toDistPath(path))
-					}
-					break
-				}
-
-				case "addDir": { // folder created
-					Files.createFolder(FileConfig.toDistPath(path))
-					break
-				}
-
-				case "unlink": { // file deleted
-					Files.deleteFile(FileConfig.toDistPath(path))
-					break
-				}
-
-				case "unlinkDir": { // folder deleted
-					Files.deleteFolder(FileConfig.toDistPath(path))
-					break
-				}
-
-				default: {
-					throw new Error("unexpected e: " + e)
-				}
-			}
+			Files.copyFile(path, FileConfig.toDistPath(path)) // this is wrong
 		}
 
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
-	}
-	catch (e) {
-		console.log(e)
-	}
+
+	},
+	onChange: () => {
+		if (path.includes(".aseprite")) {
+			ExportAseprite(path)
+		}
+		else {
+			Files.copyFile(path, FileConfig.toDistPath(path)) // this is wrong
+		}
+
+		GenerateDist("DEVELOPMENT")
+		triggerClientReload()
+
+	},
+	onDelete: () => {
+		Files.deleteFile(FileConfig.toDistPath(path))
+
+		GenerateDist("DEVELOPMENT")
+		triggerClientReload()
+	},
 })
+
 
 
 // initial build
@@ -146,5 +116,5 @@ ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 
-// for now only run it once
+// for now only run server once
 StartServer()
