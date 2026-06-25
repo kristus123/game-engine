@@ -2,7 +2,7 @@ export const SocketServer = new SimplifiedSocketServerAPI()
 
 SocketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
-	
+
 	Test()
 
 	SocketServer.sendToEveryone({

@@ -1,3 +1,3 @@
 export function Test() {
-    console.log("Test From Shared!")
+	console.log("Test From Shared!")
 }
