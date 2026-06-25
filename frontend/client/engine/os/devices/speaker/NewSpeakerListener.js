@@ -10,7 +10,7 @@ export class NewSpeakerListener {
 	static onDisconnect(callback) {
 		this.disconnectedListener.listen(callback)
 	}
-	
+
 	static async init() {
 		if (!MicPermission.granted) {
 			throw new Error ("x")

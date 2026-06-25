@@ -30,7 +30,7 @@ Promise.all([
 
 		const activeThing = SfuWorld()
 		SpeakerLogTest.run() //remove this later, just for testing
-		
+
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
 
