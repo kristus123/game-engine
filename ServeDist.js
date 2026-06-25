@@ -8,14 +8,16 @@ const server = http.createServer((req, res) => {
 	res.setHeader("Cross-Origin-Opener-Policy", "same-origin")
 	res.setHeader("Cross-Origin-Embedder-Policy", "require-corp")
 
-	let url = req.url === "/" ? "/index.html" : req.url
+	let url = req.url == "/" ? "/index.html" : req.url
 
 	if (url.includes("..")) {
 		res.writeHead(403)
 		return res.end()
 	}
 
-	if (url.endsWith("/")) url += "index.html"
+	if (url.endsWith("/")) {
+		url += "index.html"
+	}
 
 	let filePath = FileConfig.dist + url
 
