@@ -5,7 +5,7 @@ export class Config {
 				return "http://localhost:3000"
 			}
 			case "PRODUCTION": {
-				return "https://myproductionurl.com"
+				return "https://krispetter.duckdns.org"
 			}
 			default: {
 				throw new Error("unexpected environment given")
@@ -19,7 +19,7 @@ export class Config {
 				return "ws://localhost:3000"
 			}
 			case "PRODUCTION": {
-				return "wss://myproductionurl.com"
+				return "wss://krispetter.duckdns.org"
 			}
 			default: {
 				throw new Error("unexpected environment given")

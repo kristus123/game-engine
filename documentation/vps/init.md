@@ -22,3 +22,50 @@ PermitRootLogin prohibit-password
 ```bash
 sudo systemctl restart ssh
 ```
+
+## Ngingx
+
+```bash
+sudo apt update -y
+sudo apt install nginx -y
+
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+sudo systemctl status nginx
+```
+
+## ufw
+
+
+```bash
+sudo apt install ufw -y
+
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+sudo ufw allow OpenSSH
+sudo ufw limit OpenSSH
+
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+sudo ufw enable
+```
+
+## certbot
+
+
+```bash
+sudo apt update
+sudo apt install certbot python3-certbot-nginx
+
+sudo certbot --nginx
+sudo certbot renew --dry-run
+```
+
+
+## edit ngisngs
+
+sudo nginx -t
+sudo systemctl reload nginx

@@ -5,7 +5,7 @@ for (const e of Files.getJsFiles("transpiledBackend/server/http/endpoints")) { /
 }
 
 export function StartServer() {
-	const server = HttpServer.listen(3000)
+	const server = HttpServer.start()
 
 	SfuServer.start().then(() => {
 		SocketServer.start(server)
