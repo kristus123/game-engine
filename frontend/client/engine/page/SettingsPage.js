@@ -14,7 +14,7 @@ AllMics.get(m => {
 AllSpeakers.get(s => {
 	const label = s.label.replace(/\s*\([^()]*\)\s*$/, "")
 	h.mid.add(H.button(label, () => {
-		Speaker.selected = s.deviceId
+		ActiveSpeaker.active = s.deviceId
 	}).css("padding:20px;"))
 })
 

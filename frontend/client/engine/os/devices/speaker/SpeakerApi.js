@@ -1,12 +1,12 @@
 export class SpeakerApi {
 
-	static async apply(audioElement, deviceId = Speaker.active) {
+	static async apply(audioElement, deviceId = ActiveSpeaker.active) {
 		if (!audioElement) {
 			return false
 		}
 
 		// Fallback sequence: try the requested ID -> try current active -> try browser default string -> fail
-		const targetDeviceId = deviceId || Speaker.active || "default"
+		const targetDeviceId = deviceId || ActiveSpeaker.active || "default"
 
 		if (typeof audioElement.setSinkId === "function") {
 			try {
@@ -15,14 +15,15 @@ export class SpeakerApi {
 			}
 			catch (e) {
 				console.warn(`[SpeakerApi] setSinkId failed for device [${targetDeviceId}], trying "default" fallback...`, e)
-				
+
 				// If the custom device ID failed and we haven't already tried "default", try the ultimate browser fallback
 				if (targetDeviceId !== "default") {
 					try {
 						await audioElement.setSinkId("default")
 						return true
-					} catch (fallbackError) {
-						console.error('[SpeakerApi] Ultimate "default" speaker fallback failed:', fallbackError)
+					}
+					catch (fallbackError) {
+						console.error("[SpeakerApi] Ultimate \"default\" speaker fallback failed:", fallbackError)
 					}
 				}
 			}
@@ -31,7 +32,7 @@ export class SpeakerApi {
 		return false
 	}
 
-	static async createAudio(url, deviceId = Speaker.active) {
+	static async createAudio(url, deviceId = ActiveSpeaker.active) {
 		const audio = new Audio(url)
 		await this.apply(audio, deviceId)
 		return audio

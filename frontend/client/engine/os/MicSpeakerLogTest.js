@@ -4,7 +4,7 @@ export class MicSpeakerLogTest {
 
 	static async run() {
 		console.log("[SpeakerLogTest] start")
-		console.log("[SpeakerLogTest] active speaker deviceId:", Speaker.active)
+		console.log("[SpeakerLogTest] active speaker deviceId:", ActiveSpeaker.active)
 		console.log("[SpeakerLogTest] setSinkId supported", typeof HTMLAudioElement.prototype.setSinkId == "function")
 
 		// 1. Ensure permissions are granted before initializing listeners
@@ -35,7 +35,8 @@ export class MicSpeakerLogTest {
 			await NewSpeakerListener.init()
 			await NewMicListener.init()
 			console.log("[SpeakerLogTest] Device listeners initialized successfully.")
-		} catch (error) {
+		}
+		catch (error) {
 			console.error("[SpeakerLogTest] Failed to initialize listeners:", error)
 		}
 
@@ -63,8 +64,8 @@ export class MicSpeakerLogTest {
 
 	static async playOnAllSpeakers(speakers) {
 		for (const speaker of speakers) {
-			console.log("[SpeakerLogTest] setting Speaker.active to", speaker.deviceId)
-			Speaker.active = speaker.deviceId 
+			console.log("[SpeakerLogTest] setting ActiveSpeaker.active to", speaker.deviceId)
+			ActiveSpeaker.active = speaker.deviceId
 
 			console.log("[SpeakerLogTest] playing on", speaker.label || "(no label)", speaker.deviceId)
 			await this.playOnSpeaker()

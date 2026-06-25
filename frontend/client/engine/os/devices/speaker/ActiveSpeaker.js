@@ -1,4 +1,4 @@
-export class Speaker {
+export class ActiveSpeaker {
 
 	static get active() {
 		return localStorage.getItem("selectedSpeaker") ?? null

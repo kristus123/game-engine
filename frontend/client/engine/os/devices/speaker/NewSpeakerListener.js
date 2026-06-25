@@ -1,25 +1,25 @@
 export class NewSpeakerListener {
 
-  static listener = this.createListener()
+	static listener = this.createListener()
 
-  static onConnect(callback) {
-    this.listener.onConnect(callback)
-  }
+	static onConnect(callback) {
+		this.listener.onConnect(callback)
+	}
 
-  static onDisconnect(callback) {
-    this.listener.onDisconnect(callback)
-  }
+	static onDisconnect(callback) {
+		this.listener.onDisconnect(callback)
+	}
 
-  static async init() {
-    if (!MicPermission.granted) {
-      throw new Error("x")
-    }
+	static async init() {
+		if (!MicPermission.granted) {
+			throw new Error("x")
+		}
 
-    await this.listener.init()
-  }
+		await this.listener.init()
+	}
 
-  static createListener() {
-    return new NewDeviceListener(async () => AllSpeakers.get())
-  }
+	static createListener() {
+		return new NewDeviceListener(async () => AllSpeakers.get())
+	}
 
 }
