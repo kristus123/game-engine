@@ -26,4 +26,18 @@ export class Config {
 			}
 		}
 	}
+
+	static get mediasoupAnnounceIp() {
+		switch (ENVIRONMENT) {
+			case "DEVELOPMENT": {
+				return "127.0.0.1"
+			}
+			case "PRODUCTION": {
+				return "krispetter.duckdns.org"
+			}
+			default: {
+				throw new Error("unexpected environment given")
+			}
+		}
+	}
 }
