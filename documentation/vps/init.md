@@ -50,6 +50,9 @@ sudo ufw limit OpenSSH
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 
+# mediasoup sfu
+ufw allow 40000:49999/udp
+
 sudo ufw enable
 ```
 

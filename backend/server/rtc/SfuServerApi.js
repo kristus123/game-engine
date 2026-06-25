@@ -40,6 +40,8 @@ export class SfuServerApi {
 			enableUdp: true,
 			enableTcp: true,
 			preferUdp: true,
+			rtcMinPort: 40000, // verify they are supposed to be here
+			rtcMaxPort: 49999 // verify they are supposed to be here
 		})
 
 		transport.on("dtlsstatechange", (dtlsState) => {
