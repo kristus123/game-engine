@@ -1,13 +1,43 @@
 export class AllSpeakers {
 
 	static async init() {
+		NewSpeakerListener.onConnect((device) => {
+			console.log("[AllSpeakers] 🔊 Speaker Connected:", device.label, device.deviceId)
+		})
+
+		NewSpeakerListener.onDisconnect(async (device) => {
+			console.log("[AllSpeakers] ❌ Speaker Disconnected:", device.label, device.deviceId)
+			if (ActiveSpeaker.active == device.deviceId) {
+				await this.setDefaultSpeaker()
+			}
+		})
+
 		await NewSpeakerListener.init()
 
+		if (ActiveSpeaker.active == null) {
+			await this.setDefaultSpeaker()
+		}
+		else {
+			await this.setSpeaker(ActiveSpeaker.active)
+		}
+	}
+
+	static async setSpeaker(preferredDeviceID) {
 		const speakers = await this.get()
-		console.log("[AllSpeakers] speakers available:", speakers.map(s => ({
-			label: s.label,
-			deviceId: s.deviceId,
-		})))
+		const preferredSpeakerExists = speakers.some(s => s.deviceId === preferredDeviceID)
+
+		if (preferredDeviceID && preferredSpeakerExists) {
+			console.log("[AllSpeakers] Using saved speaker preference:", preferredDeviceID)
+			ActiveSpeaker.active = preferredDeviceID
+			await SoundContext.setSink(ActiveSpeaker.active)
+		}
+		else if (ActiveSpeaker.active == null || ActiveSpeaker.active == preferredDeviceID) {
+			await this.setDefaultSpeaker();
+		}
+	}
+
+	static async setDefaultSpeaker() {
+		const speakers = await this.get()
 
 		if (!speakers || speakers.length === 0) {
 			console.warn("[AllSpeakers] no speakers found")
@@ -15,9 +45,8 @@ export class AllSpeakers {
 		}
 		else {
 			ActiveSpeaker.active = speakers[0].deviceId
-			console.log("[AllSpeakers] setting ActiveSpeaker.active to", speakers[0].deviceId)
+			console.log("[AllSpeakers] Defaulting to:", ActiveSpeaker.active)
 		}
-
 		await SoundContext.setSink(ActiveSpeaker.active)
 	}
 
@@ -46,7 +75,6 @@ export class AllSpeakers {
 
 	//Call this if user selects a different speaker
 	static async onUserSelectSpeaker(speakerDevice) {
-		ActiveSpeaker.active = speakerDevice.deviceId
-		await SoundContext.setSink(speakerDevice.deviceId)
+		await this.setSpeaker(speakerDevice)
 	}
 }

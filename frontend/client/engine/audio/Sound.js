@@ -1,12 +1,19 @@
 class SoundClass {
 
-	static init() {}
+	static init() { }
 
-	static playBlob(blob) {
+	static async playBlob(blob) {
 		const url = URL.createObjectURL(blob)
-		const audio = new Audio(url)
-
+		const audio = await this.createAudio(url)
 		audio.play()
+	}
+
+	static async createAudio(url) {
+		const audio = new Audio(url)
+		if (ActiveSpeaker.active) {
+			await audio.setSinkId(ActiveSpeaker.active)
+		}
+		return audio
 	}
 
 	static playBuffer(buffer) {
