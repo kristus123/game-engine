@@ -1,14 +1,14 @@
 export class AllSpeakers {
 
-	static async get(callback = () => {}) {
+	static async get(callback = () => { }) {
 		try {
 			await navigator.mediaDevices.getUserMedia({ audio: true })
 			const devices = await navigator.mediaDevices.enumerateDevices()
 
 			const speakers = devices.filter(d =>
 				d.kind === "audiooutput" &&
-        d.deviceId !== "default" &&
-        d.deviceId !== "communications"
+				d.deviceId !== "default" &&
+				d.deviceId !== "communications"
 			)
 
 			if (!callback) {
@@ -24,5 +24,4 @@ export class AllSpeakers {
 			return []
 		}
 	}
-
 }

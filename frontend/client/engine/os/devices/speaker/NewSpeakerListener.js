@@ -12,13 +12,12 @@ export class NewSpeakerListener {
 	}
 
 	static async init() {
-		if (!MicPermission.granted) {
-			throw new Error ("x")
+		if (!MicPermission.granted) { //mic permission is need for the web API navigator.mediaDevices.enumerateDevices() to return name of the speakers, otherwise it returns empty name
+			throw new Error("x")
 		}
 
 		let last = await AllSpeakers.get()
 		for (const speaker of last) {
-			// FIX: Added class name prefix
 			NewSpeakerListener.connectedListener.trigger(speaker)
 		}
 
@@ -28,7 +27,6 @@ export class NewSpeakerListener {
 
 			for (const speaker of current) {
 				if (!last.some(d => d.deviceId == speaker.deviceId)) {
-					// FIX: Added class name prefix
 					NewSpeakerListener.connectedListener.trigger(speaker)
 					console.log("connected", speaker)
 				}
@@ -37,7 +35,6 @@ export class NewSpeakerListener {
 			for (const speaker of last) {
 				if (!current.some(d => d.deviceId == speaker.deviceId)) {
 					console.log("disconnected", speaker)
-					// FIX: Added class name prefix
 					NewSpeakerListener.disconnectedListener.trigger(speaker)
 				}
 			}

@@ -59,7 +59,7 @@ export class SpeakerLogTest {
 
 	static playOnSpeaker() {
 		return new Promise(async (resolve, reject) => {
-			const audio = await SpeakerApi.createAudio(this.testUrl)
+			const audio = await ActiveSpeaker.createAudio(this.testUrl)
 			audio.onended = () => resolve()
 			audio.onerror = e => reject(e)
 			audio.play().catch(reject)
