@@ -10,7 +10,32 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
 
 	function queue(file, type) {
 		pending.set(file, type)
-		schedule()
+
+		clearTimeout(timeout)
+
+		timeout = setTimeout(() => {
+			const emitted = new Set()
+
+			for (const [file, type] of pending) {
+				if (emitted.has(file)) {
+					continue
+				}
+
+				if (type == "add") {
+					onAdd?.(file)
+				}
+				if (type == "change") {
+					onChange?.(file)
+				}
+				if (type == "delete") {
+					onDelete?.(file)
+				}
+
+				emitted.add(file)
+			}
+
+			pending.clear()
+		}, 50)
 	}
 
 	function compute() {
@@ -53,38 +78,11 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
 		initialized = true
 	}
 
-	function flush() {
-		const emitted = new Set()
-
-		for (const [file, type] of pending) {
-			if (emitted.has(file)) {
-				continue
-			}
-
-			if (type == "add") {
-				onAdd?.(file)
-			}
-			if (type == "change") {
-				onChange?.(file)
-			}
-			if (type == "delete") {
-				onDelete?.(file)
-			}
-
-			emitted.add(file)
-		}
-
-		pending.clear()
-	}
-
-	function schedule() {
-		clearTimeout(timeout)
-		timeout = setTimeout(flush, 50)
-	}
-
 	for (const f of Array.isArray(folders) ? folders : [folders]) {
 		compute()
 	}
 
-	setInterval(compute, 200)
+	setInterval(() => {
+		compute()
+	}, 200)
 }
