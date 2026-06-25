@@ -11,10 +11,8 @@ export class AllSpeakers {
 				d.deviceId !== "communications"
 			)
 
-			if (!callback) {
-				for (const m of speakers) {
-					callback(m)
-				}
+			for (const m of speakers) {
+				callback(m)
 			}
 
 			return speakers
