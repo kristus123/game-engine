@@ -4,6 +4,8 @@ export class SocketClient {
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
 
+		this.onRemovedClient = (clientId) => {}
+
 		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", data => {
 			for (const clientId of data.clientIds) {
 				OtherClients.add(clientId)
@@ -13,7 +15,7 @@ export class SocketClient {
 		this.serverActionListener.listen("REMOVE_CLIENT", data => {
 			OtherClients.remove(data.clientId)
 
-			this.clientActionListener.trigger(data.action, data)
+			this.onRemovedClient(data.clientId)
 		})
 
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", data => {
