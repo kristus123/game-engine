@@ -111,7 +111,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		Files.writeFileToDist(jsFilePath, fileContent)
 
 		const destPath = path.join(FileConfig.dist, "shared")
-		
+
 		Files.createFolder(destPath)
 
 		for (let sharedFilePath of Files.at(FileConfig.shared)) {
@@ -122,7 +122,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 			const imports = Imports.needed(content, [
 				...Files.at(FileConfig.shared)
 			])
-				
+
 			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
 		}
 

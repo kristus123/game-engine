@@ -16,8 +16,8 @@ export function GenerateBackend() {
 		const imports = Imports.needed(content, [
 			...Files.at(FileConfig.shared)
 		])
-		.replaceAll("/shared", "#root/" + destPath)
-			
+			.replaceAll("/shared", "#root/" + destPath)
+
 		Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
 	}
 

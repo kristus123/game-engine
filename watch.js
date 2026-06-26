@@ -11,9 +11,7 @@ import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 
 import { GenerateBackend } from "#root/GenerateBackend.js"
-import { GenerateShared } from "#root/GenerateShared.js"
 
-GenerateShared()
 GenerateBackend() // todo pass environment - "DEVELOPMENT"
 
 // todo improve comment
