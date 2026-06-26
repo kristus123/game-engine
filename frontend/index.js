@@ -19,7 +19,6 @@ Promise.all([
 ])
 	.then((x) => {
 
-		Sound.init()
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
