@@ -1,6 +1,7 @@
 export const FileConfig = {
 	frontend: "frontend",
 	backend: "backend",
+	shared: "shared",
 	game: "frontend/client/game",
 	engine: "frontend/client/engine",
 	buildTools: "dev",
@@ -8,6 +9,8 @@ export const FileConfig = {
 	client: "frontend/client",
 	favicon: "frontend/favicon.ico",
 	dist: "dist",
+	transpiledBackend: "transpiledBackend",
+	transpiledShared: "transpiledShared",
 
 	externalBundle: "bundle.js",
 

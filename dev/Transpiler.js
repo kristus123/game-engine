@@ -101,9 +101,30 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		fileContent = lines.join("\n")
 
-		fileContent = Imports.needed(fileContent, jsFiles) + "\n" + fileContent
+		const sharedFiles = Files.at(FileConfig.shared)
+
+		fileContent = Imports.needed(fileContent, [
+			...jsFiles,
+			...sharedFiles
+		]) + "\n" + fileContent
 
 		Files.writeFileToDist(jsFilePath, fileContent)
-	}
 
+		const destPath = path.join(FileConfig.dist, "shared")
+		
+		Files.createFolder(destPath)
+
+		for (let sharedFilePath of Files.at(FileConfig.shared)) {
+			console.log(sharedFilePath)
+
+			const content = Files.read(sharedFilePath)
+
+			const imports = Imports.needed(content, [
+				...Files.at(FileConfig.shared)
+			])
+				
+			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
+		}
+
+	}
 }
