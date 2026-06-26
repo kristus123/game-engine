@@ -8,6 +8,7 @@ ServiceWorker.init()
 // HtmlObserverThing()
 
 Gp.init()
+DeviceListener.init()
 
 EnhanceAll()
 

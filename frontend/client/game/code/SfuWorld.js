@@ -1,5 +1,6 @@
 export class SfuWorld {
 	constructor() {
+
 		SfuClient.init()
 		SfuRouters.init()
 
