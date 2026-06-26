@@ -10,18 +10,18 @@ webPush.setVapidDetails(
 
 let subscription = null
 
-Methods.add("getVapidPublicKey", () => {
+Route.add("getVapidPublicKey", () => {
 	return {
 		publicKey: vapidKeys.publicKey.replace(/-/g, "+").replace(/_/g, "/")
 	}
 })
 
-Methods.add("subscribe", ({ body }) => {
+Route.add("subscribe", ({ body }) => {
 	subscription = body.subscription
 	return { status: "server success" }
 })
 
-Methods.add("triggerNotification", ({ body }) => {
+Route.add("triggerNotification", ({ body }) => {
 	webPush.sendNotification(subscription, JSON.stringify({
 		title: body.title,
 		body: body.body

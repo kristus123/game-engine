@@ -1,4 +1,4 @@
-export class Methods {
+export class Route {
 
 	static all = Object.create(null) // no prototype keys
 

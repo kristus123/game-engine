@@ -1,15 +1,15 @@
-Methods.add("allPersistedJsonFiles", ({ body, req }) => {
+Route.add("allPersistedJsonFiles", ({ body, req }) => {
 	return Files.inFolder("backend/persistedJson").map(path => ({
 		name: path.split("/").pop().split(".")[0],
 		content: JSON.parse(Files.read(path)),
 	}))
 })
 
-Methods.add("getPersistedJson", ({ body, req }) => {
+Route.add("getPersistedJson", ({ body, req }) => {
 	return Files.read(`backend/persistedJson/${body.name}.json`)
 })
 
-Methods.add("savePersistedJson", ({ body }) => {
+Route.add("savePersistedJson", ({ body }) => {
 	try {
 		Files.write(`backend/persistedJson/${body.name}.json`, JSON.stringify(body.content, null, 4))
 	}

@@ -8,6 +8,7 @@ ServiceWorker.init()
 // HtmlObserverThing()
 
 Gp.init()
+DeviceListener.init()
 
 EnhanceAll()
 
@@ -19,7 +20,6 @@ Promise.all([
 ])
 	.then((x) => {
 
-		Sound.init()
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()

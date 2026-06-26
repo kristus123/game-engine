@@ -50,3 +50,8 @@ httpClient.getStuff({
 	},
 })
 */
+
+/*
+ * and also support this
+const {ok, error} = await httpClient.getStuff({body: {}})
+*/

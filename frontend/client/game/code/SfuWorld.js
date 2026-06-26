@@ -1,10 +1,5 @@
 export class SfuWorld {
 	constructor() {
-		Test()
-
-		SocketClient.onRemovedClient = (clientId) => {
-			console.log("Client Removed: ", clientId)
-		}
 
 		SfuClient.init()
 		SfuRouters.init()
