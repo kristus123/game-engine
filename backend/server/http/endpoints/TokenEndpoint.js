@@ -1,4 +1,4 @@
-Methods.add("createToken", ({ body }) => {
+Route.add("createToken", ({ body }) => {
 
 	const token = ServerToken.create()
 

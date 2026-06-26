@@ -1,4 +1,4 @@
-Methods.add("uploadFile", ({ body, req }) => {
+Route.add("uploadFile", ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 
 	const senderId = req.headers["x-client-id"]
@@ -24,14 +24,14 @@ Methods.add("uploadFile", ({ body, req }) => {
 	}
 })
 
-Methods.add("readFile", ({ body }) => {
+Route.add("readFile", ({ body }) => {
 	return FileDb.getFile(body.filename)
 })
 
-Methods.add("readFiles", ({ body }) => {
+Route.add("readFiles", ({ body }) => {
 	return FileDb.getFilesInFolder(body.folder)
 })
 
-Methods.add("deleteFile", ({ body }) => {
+Route.add("deleteFile", ({ body }) => {
 	return FileDb.deleteFile(body.filename)
 })

@@ -1,3 +1,3 @@
-Methods.add("test", ({ body }) => {
+Route.add("test", ({ body }) => {
 	return body
 })

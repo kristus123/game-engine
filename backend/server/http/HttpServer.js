@@ -92,7 +92,7 @@ export class HttpServer {
 				try {
 					const x = await parseBody(req)
 					console.log(x)
-					const json = Methods.call(getPath(req), {
+					const json = Route.call(getPath(req), {
 						body: x,
 						headers: req.headers,
 						contentType: req.headers["content-type"] || null,

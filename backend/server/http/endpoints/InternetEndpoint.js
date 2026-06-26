@@ -1,4 +1,4 @@
-Methods.add("ping", () => {
+Route.add("ping", () => {
 	return {
 		pong: true,
 	}
