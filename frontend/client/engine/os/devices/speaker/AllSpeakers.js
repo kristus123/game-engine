@@ -29,7 +29,7 @@ export class AllSpeakers {
 		if (preferredDeviceID && preferredSpeakerExists) {
 			console.log("[AllSpeakers] Using saved speaker preference:", preferredDeviceID)
 			ActiveSpeaker.active = preferredDeviceID
-			await SoundContext.setSink(ActiveSpeaker.active)
+			await SoundContext.setSinkId(ActiveSpeaker.active)
 		}
 		else if (ActiveSpeaker.active == null || ActiveSpeaker.active == preferredDeviceID) {
 			await this.setDefaultSpeaker();
@@ -47,7 +47,7 @@ export class AllSpeakers {
 			ActiveSpeaker.active = speakers[0].deviceId
 			console.log("[AllSpeakers] Defaulting to:", ActiveSpeaker.active)
 		}
-		await SoundContext.setSink(ActiveSpeaker.active)
+		await SoundContext.setSinkId(ActiveSpeaker.active)
 	}
 
 	static async get(callback = () => { }) {
