@@ -10,6 +10,7 @@ export const FileConfig = {
 	favicon: "frontend/favicon.ico",
 	dist: "dist",
 	transpiledBackend: "transpiledBackend",
+	transpiledShared: "transpiledShared",
 
 	externalBundle: "bundle.js",
 
