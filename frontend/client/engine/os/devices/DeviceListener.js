@@ -1,13 +1,9 @@
 // todo
 // create two more files
-// MicListener
-// SpeakerListener
-//
-// which uses DeviceListener
-//
-// or 
 // AllMics
 // AllSpeakers
+//
+// which uses DeviceListener
 // 
 // .onConnect
 // .onDisconnect
