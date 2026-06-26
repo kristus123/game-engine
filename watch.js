@@ -1,5 +1,4 @@
 import chokidar from "chokidar"
-import express from "express"
 
 import { Import } from "#root/Import.js"
 
@@ -24,6 +23,7 @@ import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReser
 import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
 
 const ExportAseprite = await Import("ExportAseprite")
+const ServeDist = await Import("ServeDist")
 
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
@@ -72,17 +72,7 @@ function triggerClientReload() {
 }
 
 
-const app = express()
-app.use(express.static(FileConfig.dist))
-
-app.use((req, res, next) => { // needed in order to use shared array buffers between main and worker
-	res.setHeader("Cross-Origin-Opener-Policy", "same-origin")
-	res.setHeader("Cross-Origin-Embedder-Policy", "require-corp")
-	next()
-})
-
-
-app.listen(distPort, "0.0.0.0", () => console.log(`Serving dist on port ${distPort}`))
+ServeDist()
 
 const watcher = chokidar.watch([FileConfig.client], {
 	ignoreInitial: true,
