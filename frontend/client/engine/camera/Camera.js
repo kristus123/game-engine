@@ -58,14 +58,6 @@ export class Camera {
 		)
 	}
 
-	static get screenView() {
-		return {
-			top: (percent) => this.top(percent),
-			bottom: (percent) => this.bottom(percent),
-			left: (percent) => this.left(percent),
-			right: (percent) => this.right(percent),
-		}
-	}
 
 	static applyPositionContextThing(ctxes, run) {
 		for (const ctx of ctxes) {
