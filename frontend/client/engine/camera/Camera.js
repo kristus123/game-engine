@@ -37,6 +37,7 @@ export class Camera {
 	}
 
 	static left(percent = 1) {
+		const w = this.visiblePosition.width * Math.abs(percent)
 		const x = percent >= 0 ? this.visiblePosition.x : this.visiblePosition.x - w
 		return WorldPosition(
 			x,
