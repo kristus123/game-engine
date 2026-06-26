@@ -4,7 +4,7 @@
 // AllSpeakers
 //
 // which uses DeviceListener
-// 
+//
 // .onConnect
 // .onDisconnect
 //
