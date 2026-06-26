@@ -9,7 +9,7 @@ export async function Import(name, callback = () => {}) {
 		return cache.get(name)
 	}
 	else {
-		const filePath = await Files.find(`${name}.js`)
+		const filePath = await Files.find(`${name}.js`, {exclude: ["backend/"]})
 
 		if (!filePath) {
 			throw new Error(`File "${name}.js" not found`)

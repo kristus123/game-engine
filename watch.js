@@ -1,20 +1,17 @@
 import chokidar from "chokidar"
 
 import { Import } from "#root/Import.js"
-
 import { Files } from "#root/dev/Files.js"
-
 import { FileConfig } from "#root/FileConfig.js"
-
 import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
-
 import { GenerateBackend } from "#root/GenerateBackend.js"
 
 GenerateBackend() // todo pass environment - "DEVELOPMENT"
 
 // todo improve comment
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
+// also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
 const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
@@ -30,38 +27,9 @@ const ServeDist = await Import("ServeDist")
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
-const killPort = (port) => {
-	try {
-		if (process.platform == "win32") {
-			const result = execSync(`netstat -aon | findstr :${port}`, { encoding: "utf8" })
-			const pids = [...new Set(
-  			result.split("\n")
-					.map(line => line.trim().split(/\s+/).pop())
-					.filter(pid => pid && /^\d+$/.test(pid) && pid != "0")
-			)]
-			pids.forEach(pid => execSync(`taskkill /f /pid ${pid}`))
-  		}
-		else {
-			execSync(`fuser -k ${port}/tcp`)
-		}
-
-		console.log(`Killed process on port ${port}`)
-	}
-	catch (e) {
-		console.log(`Nothing running on port ${port}`)
-		console.log("error: " + e)
-	}
-}
-
-const distPort = Number(5050)
-
-killPort(3000)
-killPort(distPort)
-
 Files.deleteFolder(FileConfig.dist)
 
 let idTimeout = null
-
 function triggerClientReload() {
 	if (idTimeout) {
 		clearTimeout(idTimeout)
@@ -74,15 +42,10 @@ function triggerClientReload() {
 }
 
 
-ServeDist()
-
-TestWatcher([FileConfig.client], [], {
+TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 	onAdd: (path) => {
 		if (path.includes(".aseprite")) {
 			ExportAseprite(path)
-		}
-		else {
-			Files.copyFile(path, FileConfig.toDistPath(path)) // this is wrong
 		}
 
 		GenerateDist("DEVELOPMENT")
@@ -92,9 +55,6 @@ TestWatcher([FileConfig.client], [], {
 	onChange: (path) => {
 		if (path.includes(".aseprite")) {
 			ExportAseprite(path)
-		}
-		else {
-			Files.copyFile(path, FileConfig.toDistPath(path)) // this is wrong
 		}
 
 		GenerateDist("DEVELOPMENT")
@@ -110,11 +70,11 @@ TestWatcher([FileConfig.client], [], {
 })
 
 
-
 // initial build
 ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
+ServeDist()
 
 // for now only run server once
 StartServer()

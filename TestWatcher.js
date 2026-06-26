@@ -2,7 +2,7 @@ import fs from "fs"
 import { Import } from "#root/Import.js"
 const Files = await Import("Files")
 
-export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [] }) {
+export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
 	const last = new Map()
 	const pending = new Map()
 	let initialized = false
@@ -36,13 +36,13 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 			}
 
 			if (type == "add") {
-				onAdd?.(file)
+				onAdd(file)
 			}
 			else if (type == "change") {
-				onChange?.(file)
+				onChange(file)
 			}
 			else if (type == "delete") {
-				onDelete?.(file)
+				onDelete(file)
 			}
 
 			emitted.add(file)
