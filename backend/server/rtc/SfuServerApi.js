@@ -37,38 +37,38 @@ export class SfuServerApi {
 	static async createTransport(router) {
 	  // Create a WebRTC transport using the new listenInfos API
 	  const transport = await router.createWebRtcTransport({
-		listenInfos: [
-		{
-			protocol: "udp",
-			ip: "0.0.0.0",
-			announcedAddress: "krispetter.duckdns.org",  // Public DNS name or IP
-			portRange: { min: 40000, max: 49999 }       // New portRange replaces rtcMin/rtcMax
-		},
-		{
-			protocol: "tcp",
-			ip: "0.0.0.0",
-			announcedAddress: "krispetter.duckdns.org",
-			portRange: { min: 40000, max: 49999 }
-		}
-		],
-		enableUdp: true,
-		enableTcp: true,
-		preferUdp: true
-	  });
+			listenInfos: [
+				{
+					protocol: "udp",
+					ip: "0.0.0.0",
+					announcedAddress: "krispetter.duckdns.org", // Public DNS name or IP
+					portRange: { min: 40000, max: 49999 } // New portRange replaces rtcMin/rtcMax
+				},
+				{
+					protocol: "tcp",
+					ip: "0.0.0.0",
+					announcedAddress: "krispetter.duckdns.org",
+					portRange: { min: 40000, max: 49999 }
+				}
+			],
+			enableUdp: true,
+			enableTcp: true,
+			preferUdp: true
+	  })
 
 	  // Close transport when DTLS state is closed
 	  transport.on("dtlsstatechange", (dtlsState) => {
-		if (dtlsState == "closed") {
-		transport.close();
-		}
-	  });
+			if (dtlsState == "closed") {
+				transport.close()
+			}
+	  })
 
 	  // Handle transport close event
 	  transport.on("close", () => {
-		console.warn("WebRTC Transport closed");
-	  });
+			console.warn("WebRTC Transport closed")
+	  })
 
-	  return transport;
+	  return transport
 	}
 
 

@@ -11,8 +11,12 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 	function queue(file, type) {
 		const prev = pending.get(file)
 
-		if (prev === "add") return
-		if (prev === "change" && type === "delete") return
+		if (prev == "add") {
+			return
+		}
+		if (prev == "change" && type == "delete") {
+			return
+		}
 
 		pending.set(file, type)
 		scheduleFlush()
@@ -27,11 +31,19 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 		const emitted = new Set()
 
 		for (const [file, type] of pending) {
-			if (emitted.has(file)) continue
+			if (emitted.has(file)) {
+				continue
+			}
 
-			if (type === "add") onAdd?.(file)
-			else if (type === "change") onChange?.(file)
-			else if (type === "delete") onDelete?.(file)
+			if (type == "add") {
+				onAdd?.(file)
+			}
+			else if (type == "change") {
+				onChange?.(file)
+			}
+			else if (type == "delete") {
+				onDelete?.(file)
+			}
 
 			emitted.add(file)
 		}
@@ -40,7 +52,9 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 	}
 
 	function allowed(file) {
-		if (!extensions || extensions.length === 0) return true
+		if (!extensions || extensions.length == 0) {
+			return true
+		}
 		return extensions.some(ext => file.endsWith(ext))
 	}
 
@@ -53,7 +67,9 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 		}
 
 		for (const file of allFiles) {
-			if (!allowed(file)) continue
+			if (!allowed(file)) {
+				continue
+			}
 
 			current.add(file)
 
@@ -64,8 +80,11 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 
 			if (!prev) {
 				last.set(file, key)
-				if (initialized) queue(file, "add")
-			} else if (prev !== key) {
+				if (initialized) {
+					queue(file, "add")
+				}
+			}
+			else if (prev != key) {
 				last.set(file, key)
 				queue(file, "change")
 			}
@@ -83,7 +102,9 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [
 		initialized = true
 	}
 
-	for (const f of Array.isArray(folders) ? folders : [folders]) compute()
+	for (const f of Array.isArray(folders) ? folders : [folders]) {
+		compute()
+	}
 
 	setInterval(compute, 200)
 }
