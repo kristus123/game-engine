@@ -22,7 +22,6 @@ Promise.all([
 		Mouse.initialize()
 		Camera.initialize()
 		Mouse.initializeAfterCameraIsInitialized()
-		AllSpeakers.init()
 
 		initD1(Draw(Palette.d1.ctx))
 		initD2(Draw(Palette.d2.ctx))
