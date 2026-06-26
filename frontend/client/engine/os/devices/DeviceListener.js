@@ -34,6 +34,10 @@ export class DeviceListener {
 	}
 
 	static async init() {
+		if (!MicPermission.granted) {
+			throw new Error ("we need access to stuff in order to get values. smt like that todo improve message")
+		}
+
 		let last = await navigator.mediaDevices.enumerateDevices()
 
 		for (const device of last) {
