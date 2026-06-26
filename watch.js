@@ -76,8 +76,8 @@ function triggerClientReload() {
 
 ServeDist()
 
-TestWatcher([FileConfig.client], {
-	onAdd: () => {
+TestWatcher([FileConfig.client], [], {
+	onAdd: (path) => {
 		if (path.includes(".aseprite")) {
 			ExportAseprite(path)
 		}
@@ -89,7 +89,7 @@ TestWatcher([FileConfig.client], {
 		triggerClientReload()
 
 	},
-	onChange: () => {
+	onChange: (path) => {
 		if (path.includes(".aseprite")) {
 			ExportAseprite(path)
 		}
@@ -101,7 +101,7 @@ TestWatcher([FileConfig.client], {
 		triggerClientReload()
 
 	},
-	onDelete: () => {
+	onDelete: (path) => {
 		Files.deleteFile(FileConfig.toDistPath(path))
 
 		GenerateDist("DEVELOPMENT")

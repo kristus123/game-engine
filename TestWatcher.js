@@ -2,40 +2,46 @@ import fs from "fs"
 import { Import } from "#root/Import.js"
 const Files = await Import("Files")
 
-export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
+export function TestWatcher(folders, { onAdd, onChange, onDelete, extensions = [] }) {
 	const last = new Map()
 	const pending = new Map()
 	let initialized = false
 	let timeout = null
 
 	function queue(file, type) {
+		const prev = pending.get(file)
+
+		if (prev === "add") return
+		if (prev === "change" && type === "delete") return
+
 		pending.set(file, type)
+		scheduleFlush()
+	}
 
+	function scheduleFlush() {
 		clearTimeout(timeout)
+		timeout = setTimeout(flush, 50)
+	}
 
-		timeout = setTimeout(() => {
-			const emitted = new Set()
+	function flush() {
+		const emitted = new Set()
 
-			for (const [file, type] of pending) {
-				if (emitted.has(file)) {
-					continue
-				}
+		for (const [file, type] of pending) {
+			if (emitted.has(file)) continue
 
-				if (type == "add") {
-					onAdd?.(file)
-				}
-				if (type == "change") {
-					onChange?.(file)
-				}
-				if (type == "delete") {
-					onDelete?.(file)
-				}
+			if (type === "add") onAdd?.(file)
+			else if (type === "change") onChange?.(file)
+			else if (type === "delete") onDelete?.(file)
 
-				emitted.add(file)
-			}
+			emitted.add(file)
+		}
 
-			pending.clear()
-		}, 50)
+		pending.clear()
+	}
+
+	function allowed(file) {
+		if (!extensions || extensions.length === 0) return true
+		return extensions.some(ext => file.endsWith(ext))
 	}
 
 	function compute() {
@@ -47,6 +53,8 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
 		}
 
 		for (const file of allFiles) {
+			if (!allowed(file)) continue
+
 			current.add(file)
 
 			const stat = fs.statSync(file)
@@ -56,11 +64,8 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
 
 			if (!prev) {
 				last.set(file, key)
-				if (initialized) {
-					queue(file, "add")
-				}
-			}
-			else if (prev != key) {
+				if (initialized) queue(file, "add")
+			} else if (prev !== key) {
 				last.set(file, key)
 				queue(file, "change")
 			}
@@ -78,11 +83,7 @@ export function TestWatcher(folders, { onAdd, onChange, onDelete }) {
 		initialized = true
 	}
 
-	for (const f of Array.isArray(folders) ? folders : [folders]) {
-		compute()
-	}
+	for (const f of Array.isArray(folders) ? folders : [folders]) compute()
 
-	setInterval(() => {
-		compute()
-	}, 200)
+	setInterval(compute, 200)
 }

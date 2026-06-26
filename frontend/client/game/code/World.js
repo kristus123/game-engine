@@ -25,3 +25,4 @@ export class World {
 		this.slicedObjects.update()
 	}
 }
+
