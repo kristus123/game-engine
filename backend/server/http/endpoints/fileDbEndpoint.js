@@ -1,4 +1,4 @@
-Route.add("uploadFile", ({ body, req }) => {
+Route.uploadFile = ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 
 	const senderId = req.headers["x-client-id"]
@@ -22,16 +22,16 @@ Route.add("uploadFile", ({ body, req }) => {
 	else {
 		throw new Error("xxxxxxxxxxx")
 	}
-})
+}
 
-Route.add("readFile", ({ body }) => {
+Route.readFile = ({ body }) => {
 	return FileDb.getFile(body.filename)
-})
+}
 
-Route.add("readFiles", ({ body }) => {
+Route.readFiles = ({ body }) => {
 	return FileDb.getFilesInFolder(body.folder)
-})
+}
 
-Route.add("deleteFile", ({ body }) => {
+Route.deleteFile = ({ body }) => {
 	return FileDb.deleteFile(body.filename)
-})
+}
