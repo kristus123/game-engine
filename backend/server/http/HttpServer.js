@@ -96,10 +96,10 @@ export class HttpServer {
 						body: x,
 						req: req,
 						headers: req.headers,
-						contentType: req.headers["content-type"] || null,
+						contentType: req.headers["Content-Type"] || null,
+						token: req.headers["token"] || null,
 						params: getQueryParameters(req),
 					}) ?? {}
-
 
 					if (validJson(json)) {
 						sendJson(res, 200, json)
