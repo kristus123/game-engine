@@ -32,7 +32,7 @@ export class ClientToken {
 	}
 
 	static remove() {
-		if (this.present) {
+		if (localStorage.getItem("encodedToken")) {
 			localStorage.removeItem("encodedToken")
 		}
 		else {
