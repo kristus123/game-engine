@@ -2,6 +2,8 @@ import fs from "fs"
 import { Import } from "#root/Import.js"
 const Files = await Import("Files")
 
+// chatgpt code
+
 export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
 	const last = new Map()
 	const pending = new Map()
