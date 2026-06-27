@@ -4,7 +4,6 @@ const Random = { // to make it easy to replace with actual Random.js later
 	uuid: () => randomUUID()
 }
 
-
 export class SfuServer {
 	static {
 		this.globalWorker = null
@@ -40,7 +39,7 @@ export class SfuServer {
 					routerId: router.routerId,
 					hostClientId: router.hostClientId,
 					connectedClientIds: this.getRouterClientIds(router.routerId),
-					streamOnly: router.streamOnly
+					streamOnly: router.streamOnly,
 				}
 			})
 
@@ -60,7 +59,7 @@ export class SfuServer {
 				routerId: routerObject.routerId,
 				hostClientId: clientId,
 				connectedClientIds: [clientId],
-				streamOnly: data.streamOnly
+				streamOnly: data.streamOnly,
 			})
 		})
 
@@ -73,7 +72,7 @@ export class SfuServer {
 				SocketServer.sendToEveryone({
 					action: "SFU_NEW_CONNECTION",
 					routerId: data.routerId,
-					newlyConnectedClientId: clientId
+					newlyConnectedClientId: clientId,
 				})
 			}
 			else {
@@ -230,7 +229,7 @@ export class SfuServer {
 					SocketServer.sendToClient(clientObject.client, {
 						action: "SFU_DISCONNECT_CONSUMER",
 						clientId: clientId,
-						routerId: rid
+						routerId: rid,
 					})
 				})
 			}
@@ -246,7 +245,7 @@ export class SfuServer {
 			router: router,
 			hostClientId: hostClientId,
 			clients: {},
-			streamOnly: streamOnly
+			streamOnly: streamOnly,
 		}
 
 		return this.routers[routerId]

@@ -6,8 +6,6 @@ export class SfuWorld {
 
 		SfuRouters.updateRouterList()
 
-		console.log(My.clientId)
-
 		const s = Dom.add(Html.sfu())
 
 		SfuRouters.onRouterCreated = lobby => {
@@ -22,8 +20,6 @@ export class SfuWorld {
 		}
 
 		SfuRouters.onLocalConnection = stream => {
-			console.log("hei")
-			console.log(stream)
 			s.localWebcam.srcObject = stream
 		}
 
