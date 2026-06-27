@@ -1,27 +1,13 @@
 import fs from "fs"
-import path from "path"
+import Path from "path"
 import { Aseprite } from "#root/dev/aseprite/Aseprite.js"
 import { FileConfig } from "#root/FileConfig.js"
-
-function walk(relDir, callback) {
-	const entries = fs.readdirSync(relDir, { withFileTypes: true })
-
-	for (const entry of entries) {
-		const relPath = path.join(relDir, entry.name)
-
-		if (entry.isDirectory()) {
-			walk(relPath, callback)
-		}
-		else if (entry.isFile() && relPath.endsWith(".aseprite")) {
-			callback(relPath)
-		}
-	}
-}
+import { Files } from "#root/dev/Files.js"
 
 function exportAseprite(relSrcFile, destBase) {
 
-	if (!fs.existsSync(path.dirname(destBase))) {
-		fs.mkdirSync(path.dirname(destBase), { recursive: true })
+	if (!fs.existsSync(Path.dirname(destBase))) {
+		fs.mkdirSync(Path.dirname(destBase), { recursive: true })
 	}
 
 	destBase = destBase.replaceAll(".aseprite", "")
@@ -41,6 +27,11 @@ export function ExportAseprite(path = null) {
 		exportFile(path)
 	}
 	else {
-		walk(FileConfig.asepriteAssets, exportFile)
+		const files = Files.at(FileConfig.asepriteAssets)
+			.filter(f => f.endsWith(".aseprite"))
+
+		for (const f of files) {
+			exportFile(f)
+		}
 	}
 }
