@@ -1,15 +1,11 @@
 import { Import } from "#root/Import.js"
+
+import { execSync } from "child_process"
+
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-import { execSync } from "child_process"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { GenerateBackend } from "#root/GenerateBackend.js"
-
-GenerateBackend() // todo pass environment - "DEVELOPMENT"
-
-// todo improve comment
-// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
-// also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
 const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
@@ -22,6 +18,13 @@ const TestWatcher = await Import("TestWatcher")
 const ExportAseprite = await Import("ExportAseprite")
 const ServeDist = await Import("ServeDist")
 
+execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
+
+GenerateBackend() // todo pass environment - "DEVELOPMENT"
+
+// todo improve comment
+// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
+// also, we should use Import.js
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
@@ -64,8 +67,8 @@ TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 })
 
 // initial build
-await ExportAseprite()
 GenerateDist("DEVELOPMENT")
+await ExportAseprite()
 PrepareExternalBundle()
 ServeDist()
 
