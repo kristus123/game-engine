@@ -1,5 +1,3 @@
-import chokidar from "chokidar"
-
 import { Import } from "#root/Import.js"
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
