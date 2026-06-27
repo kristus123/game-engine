@@ -5,8 +5,12 @@ import { AsepritePath } from "#root/dev/aseprite/AsepritePath.js"
 function run(args) {
 	return new Promise((resolve, reject) => {
 		execFile(AsepritePath, args, { stdio: "inherit", shell: true }, (err) => {
-			if (err) reject(err)
-			else resolve()
+			if (err) {
+				reject(err)
+			}
+			else {
+				resolve()
+			}
 		})
 	})
 }
