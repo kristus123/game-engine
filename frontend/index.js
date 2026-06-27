@@ -12,6 +12,8 @@ DeviceListener.init()
 
 EnhanceAll()
 
+await ClientToken.init()
+
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),

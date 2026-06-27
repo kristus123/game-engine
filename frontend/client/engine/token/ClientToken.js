@@ -17,28 +17,29 @@ export class ClientToken {
 		}
 	}
 
-	static create(callback = () => {}) {
-		HttpClient.createToken({}, body => {
+	static async createAndStore() {
+		if (this.present) {
+			throw new Error("You can't create a token if you already have a token")
+		}
+		else {
+			const body = await HttpClient.createToken({})
 			this.store(body.token)
-			callback(this.get())
-		})
+		}
 	}
 
 	static store(token) {
 		Assert.value(token)
 
-		if (this.present()) {
-			// throw new Error("can't store token if another token is already stored")
+		if (this.present) {
+			throw new Error("can't store token if another token is already stored")
 		}
 		else {
+			localStorage.setItem("clientToken", token)
 		}
-
-		// currently just allow it
-		localStorage.setItem("clientToken", token)
 	}
 
 	static remove() {
-		if (this.present()) {
+		if (this.present) {
 			localStorage.removeItem("clientToken")
 		}
 		else {
@@ -46,7 +47,7 @@ export class ClientToken {
 		}
 	}
 
-	static present() {
+	static get present() {
 		if (localStorage.getItem("clientToken")) {
 			return true
 		}
@@ -55,4 +56,13 @@ export class ClientToken {
 		}
 	}
 
+	static async init() {
+		if (this.present) {
+			console.log("token already present")
+		}
+		else {
+			console.log("creating new token")
+			await this.createAndStore()
+		}
+	}
 }
