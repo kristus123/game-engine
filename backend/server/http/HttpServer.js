@@ -90,20 +90,20 @@ export class HttpServer {
 
 			if (req.method == "POST") {
 				assertJsonBody(req)
-				const token = req.headers["token"] || null
-				const role = "user" // todo fix
+				const encodedToken = req.headers["token"] || null
+				const decodedToken = ServerToken.decode(encodedToken)
+				const role = Role(decodedToken)
 
 				try {
 					const body = await parseBody(req)
 					const method = Router(role, routeName(req))
-					console.log(method)
 
 					const json = method({
 						body: body,
 						req: req,
 						headers: req.headers,
 						contentType: req.headers["Content-Type"] || null,
-						token: token,
+						decodedToken: decodedToken,
 						params: getQueryParameters(req),
 					}) ?? {}
 
