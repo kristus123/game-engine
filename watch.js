@@ -50,7 +50,6 @@ TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
-
 	},
 	onChange: (path) => {
 		if (path.includes(".aseprite")) {
@@ -59,11 +58,8 @@ TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
-
 	},
 	onDelete: (path) => {
-		Files.deleteFile(FileConfig.toDistPath(path))
-
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
 	},
