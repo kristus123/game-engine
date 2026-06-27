@@ -135,6 +135,7 @@
         "Always": "readonly",
         "AnalShit": "readonly",
         "Aseprite": "readonly",
+        "AsepritePath": "readonly",
         "Assert": "readonly",
         "AssertNoReservedKeywordsUsedInFileNames": "readonly",
         "AssertUniqueFileNames": "readonly",
