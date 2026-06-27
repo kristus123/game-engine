@@ -16,7 +16,7 @@ const mime = {
   ".wasm": "application/wasm"
 }
 
-export function lookup(filePath) {
+export function contentType(filePath) {
   const ext = filePath.slice(filePath.lastIndexOf("."))
   return mime[ext] || "application/octet-stream"
 }
@@ -44,7 +44,7 @@ const server = http.createServer((req, res) => {
 			return res.end()
 		}
 		else {
-			res.setHeader("Content-Type", lookup(filePath) || "application/octet-stream")
+			res.setHeader("Content-Type", contentType(filePath))
 			res.writeHead(200)
 			res.end(data)
 		}
