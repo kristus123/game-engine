@@ -1,5 +1,5 @@
-Route.add("ping", () => {
+Route.ping = () => {
 	return {
 		pong: true,
 	}
-})
+}

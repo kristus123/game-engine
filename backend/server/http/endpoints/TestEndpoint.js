@@ -1,3 +1,3 @@
-Route.add("test", ({ body }) => {
+Route.test = ({ body }) => {
 	return body
-})
+}

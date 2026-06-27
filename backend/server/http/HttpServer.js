@@ -92,8 +92,9 @@ export class HttpServer {
 				try {
 					const x = await parseBody(req)
 					console.log(x)
-					const json = Route.call(getPath(req), {
+					const json = Route[getPath(req)]({
 						body: x,
+						req: req,
 						headers: req.headers,
 						contentType: req.headers["content-type"] || null,
 						params: getQueryParameters(req),
