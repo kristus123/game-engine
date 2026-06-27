@@ -41,31 +41,30 @@ function triggerClientReload() {
 
 
 TestWatcher([FileConfig.client], [".js", ".aseprite"], {
-	onAdd: (path) => {
+	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
-			ExportAseprite(path)
+			await ExportAseprite(path)
 		}
 
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
 	},
-	onChange: (path) => {
+	onChange: async (path) => {
 		if (path.includes(".aseprite")) {
-			ExportAseprite(path)
+			await ExportAseprite(path)
 		}
 
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
 	},
-	onDelete: (path) => {
+	onDelete: async (path) => {
 		GenerateDist("DEVELOPMENT")
 		triggerClientReload()
 	},
 })
 
-
 // initial build
-ExportAseprite()
+await ExportAseprite()
 GenerateDist("DEVELOPMENT")
 PrepareExternalBundle()
 ServeDist()

@@ -1,11 +1,19 @@
-import { execFileSync } from "child_process"
+import { execFile } from "child_process"
 import { FileConfig } from "#root/FileConfig.js"
 import { AsepritePath } from "#root/dev/aseprite/AsepritePath.js"
 
-export class Aseprite {
+function run(args) {
+	return new Promise((resolve, reject) => {
+		execFile(AsepritePath, args, { stdio: "inherit", shell: true }, (err) => {
+			if (err) reject(err)
+			else resolve()
+		})
+	})
+}
 
+export class Aseprite {
 	static tags(srcFile, destBase) {
-		execFileSync(AsepritePath, [
+		return run([
 			"-b",
 			srcFile,
 			"--split-tags",
@@ -18,11 +26,11 @@ export class Aseprite {
 			"json-array",
 			"--filename-format",
 			"{tag}",
-		], { stdio: "inherit", shell: true })
+		])
 	}
 
 	static groups(srcFile, destBase) {
-		execFileSync(AsepritePath, [
+		return run([
 			"-b",
 			srcFile,
 			"--list-layers",
@@ -30,11 +38,11 @@ export class Aseprite {
 			destBase + "Groups.json",
 			"--format",
 			"json-array",
-		], { shell: true })
+		])
 	}
 
 	static layers(srcFile, destBase) {
-		execFileSync(AsepritePath, [
+		return run([
 			"-b",
 			"--split-layers",
 			srcFile,
@@ -44,15 +52,15 @@ export class Aseprite {
 			destBase + "Layers.json",
 			"--filename-format",
 			"{layer}_{frame}_{tag}",
-		], { shell: true })
+		])
 	}
 
 	static tilemaps(srcFile) {
-		execFileSync(AsepritePath, [
+		return run([
 			"-b",
 			srcFile,
 			"--script",
 			FileConfig.asepriteToJson,
-		], { shell: true })
+		])
 	}
 }

@@ -4,34 +4,35 @@ import { Aseprite } from "#root/dev/aseprite/Aseprite.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { Files } from "#root/dev/Files.js"
 
-function exportAseprite(relSrcFile, destBase) {
+async function exportAseprite(relSrcFile, destBase) {
+	const dir = Path.dirname(destBase)
 
-	if (!fs.existsSync(Path.dirname(destBase))) {
-		fs.mkdirSync(Path.dirname(destBase), { recursive: true })
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir, { recursive: true })
 	}
 
 	destBase = destBase.replaceAll(".aseprite", "")
 
-	Aseprite.tags(relSrcFile, destBase)
-	Aseprite.groups(relSrcFile, destBase)
-	Aseprite.layers(relSrcFile, destBase)
-	Aseprite.tilemaps(relSrcFile)
+	await Promise.all([
+		Aseprite.tags(relSrcFile, destBase),
+		Aseprite.groups(relSrcFile, destBase),
+		Aseprite.layers(relSrcFile, destBase),
+		Aseprite.tilemaps(relSrcFile),
+	])
 }
 
-export function ExportAseprite(path = null) {
-	const exportFile = (file) => {
-		exportAseprite(file, FileConfig.toDistPath(`${file}`))
+export async function ExportAseprite(path = null) {
+	const exportFile = async (file) => {
+		await exportAseprite(file, FileConfig.toDistPath(`${file}`))
 	}
 
 	if (path) {
-		exportFile(path)
+		await exportFile(path)
+		return
 	}
-	else {
-		const files = Files.at(FileConfig.asepriteAssets)
-			.filter(f => f.endsWith(".aseprite"))
 
-		for (const f of files) {
-			exportFile(f)
-		}
-	}
+	const files = Files.at(FileConfig.asepriteAssets)
+		.filter(f => f.endsWith(".aseprite"))
+
+	await Promise.all(files.map(f => exportFile(f)))
 }
