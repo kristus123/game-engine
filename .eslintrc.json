@@ -270,6 +270,7 @@
         "RandomIntegerEveryMs": "readonly",
         "Regex": "readonly",
         "Reindeer": "readonly",
+        "Role": "readonly",
         "Route": "readonly",
         "Router": "readonly",
         "RtcClient": "readonly",
