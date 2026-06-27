@@ -14,7 +14,7 @@ export const HttpClient = ProxyObject(
 			signal: abortController.signal,
 			headers: {
 				"Content-Type": "application/json",
-				"token": ClientToken.encoded ?? null,
+				"token": ClientToken.encodedToken ?? null,
 			},
 		}
 

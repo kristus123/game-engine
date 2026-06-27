@@ -1,7 +1,7 @@
 export class ClientToken {
 
-	static encoded = null
-	static decoded = null
+	static encodedToken = null
+	static decodedToken = null
 
 	static async init() {
 		if (localStorage.getItem("encodedToken") == null) {
@@ -25,7 +25,7 @@ export class ClientToken {
 			unsafeData,
 		] = encodedToken.split(".")
 
-		this.decoded = {
+		this.decodedToken = {
 			internal: JSON.parse(Base64.decode(internalData)),
 			unsafe: JSON.parse(Base64.decode(unsafeData)),
 		}
