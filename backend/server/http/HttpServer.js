@@ -28,11 +28,13 @@ export async function parseBody(req) {
 		return JSON.parse(rawBody.toString())
 	}
 	catch {
-		throw new Error("Invalid JSON body: " + rawBody)
+		const m = "Invalid JSON body: " + rawBody
+		console.log(m)
+		throw new Error(m)
 	}
 }
 
-function getPath(req) {
+function routeName(req) {
 	return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
 }
 
@@ -88,16 +90,20 @@ export class HttpServer {
 
 			if (req.method == "POST") {
 				assertJsonBody(req)
+				const token = req.headers["token"] || null
+				const role = "user" // todo fix
 
 				try {
-					const x = await parseBody(req)
-					console.log(x)
-					const json = Route[getPath(req)]({
-						body: x,
+					const body = await parseBody(req)
+					const method = Router(role, routeName(req))
+					console.log(method)
+
+					const json = method({
+						body: body,
 						req: req,
 						headers: req.headers,
 						contentType: req.headers["Content-Type"] || null,
-						token: req.headers["token"] || null,
+						token: token,
 						params: getQueryParameters(req),
 					}) ?? {}
 
@@ -111,6 +117,7 @@ export class HttpServer {
 					}
 				}
 				catch (e) {
+					console.log(e)
 					sendJson(res, 500, {
 						error: e?.message || "shit went WHACK yo",
 					})

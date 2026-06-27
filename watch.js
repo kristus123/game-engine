@@ -6,8 +6,6 @@ import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { GenerateBackend } from "#root/GenerateBackend.js"
-const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
-const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
 import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
@@ -29,6 +27,9 @@ AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(FileConfig.dist)
+
+const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
+const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
 let idTimeout = null
 function triggerClientReload() {

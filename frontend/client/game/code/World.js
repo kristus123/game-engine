@@ -4,6 +4,10 @@ export class World {
 			this.normalBush = Sprite.bush(WorldPosition(0, -256))
 		])
 
+		HttpClient.ping({}, (body) => {
+			console.log(body)
+		})
+
 		this.slicedObjects = Objects([
 			SpriteSlicer.slice(Sprite.bush(WorldPosition(0, 0)), 2, 2)
 		])
