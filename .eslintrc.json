@@ -131,6 +131,7 @@
         "ActionListener": "readonly",
         "ActiveMic": "readonly",
         "AddCardPage": "readonly",
+        "AdminUser": "readonly",
         "After": "readonly",
         "Always": "readonly",
         "AnalShit": "readonly",
