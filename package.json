@@ -20,7 +20,6 @@
     "stylelint-config-standard": "^39.0.1"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "esbuild": "^0.28.0",
     "mediasoup": "^3.19.21",
     "mediasoup-client": "^3.19.0",
