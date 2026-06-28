@@ -18,7 +18,7 @@ const ServeDist = await Import("ServeDist")
 
 execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
 
-GenerateBackend() // todo pass environment - "DEVELOPMENT"
+GenerateBackend("DEVELOPMENT")
 
 // todo improve comment
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.

@@ -41,13 +41,13 @@ export class SfuServerApi {
 				{
 					protocol: "udp",
 					ip: "0.0.0.0",
-					announcedAddress: "krispetter.duckdns.org", // Public DNS name or IP // todo put this into Config.js later
+					announcedAddress: Config.mediasoupAnnounceIp,
 					portRange: { min: 40000, max: 49999 } // New portRange replaces rtcMin/rtcMax
 				},
 				{
 					protocol: "tcp",
 					ip: "0.0.0.0",
-					announcedAddress: "krispetter.duckdns.org", // todo put this into Config.js later // and find out what it should be set to for working locally
+					announcedAddress: Config.mediasoupAnnounceIp,
 					portRange: { min: 40000, max: 49999 }
 				}
 			],
