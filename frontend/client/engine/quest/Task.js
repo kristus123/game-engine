@@ -17,7 +17,7 @@ export class Task {
 		this.start = () => {
 			if (start) {
 				const result = start(() => this.markDone())
-				if (result && typeof result.update === "function") {
+				if (result && typeof result.update == "function") {
 					this.onUpdate = () => result.update()
 				}
 			}

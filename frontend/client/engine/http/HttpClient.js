@@ -1,6 +1,6 @@
 export const HttpClient = ProxyObject(
-	(method, body = {}, callback = responseBody => {}) => {
-		Assert.jsonObject(body)
+	(method, params = { body: {}, ok: body => {}, error: body => {} }) => {
+		Assert.jsonObject(params.body)
 
 		const abortController = new AbortController()
 		const timer = setTimeout(() => {
@@ -8,7 +8,7 @@ export const HttpClient = ProxyObject(
 		}, 1_000)
 
 		const request = {
-			body: JSON.stringify(body),
+			body: JSON.stringify(params.body),
 			method: "POST",
 			cache: "no-store", // disables cache
 			signal: abortController.signal,
@@ -20,12 +20,29 @@ export const HttpClient = ProxyObject(
 
 		return fetch(`${Config.httpUrl}/${method}`, request)
 			.then(async response => {
-				const json = await response.json()
+				const body = await response.json()
 
-				Assert.jsonObject(json)
-				callback(json)
+				Assert.jsonObject(body)
 
-				return json
+				if (response.ok) {
+					params.ok(body)
+
+					return {
+						ok: true,
+						error: null,
+						body: body
+					}
+				}
+				else {
+					params.error(body)
+
+					return {
+						ok: false,
+						error: body,
+						body: null
+
+					}
+				}
 			})
 			.catch(e => {
 				console.error(`${method}: ${e?.message}`)

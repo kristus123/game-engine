@@ -41,7 +41,7 @@ export class Light {
 		)
 
 		g.addColorStop(0, `rgba(0,0,0,${intensity})`)
-		g.addColorStop(1, `rgba(0,0,0,0)`)
+		g.addColorStop(1, "rgba(0,0,0,0)")
 
 		ctx.fillStyle = g
 
