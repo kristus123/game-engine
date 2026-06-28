@@ -126,6 +126,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 			const imports = Imports.needed(content, [
 				...Files.at(FileConfig.shared),
+				...jsFiles,
 			])
 
 			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)

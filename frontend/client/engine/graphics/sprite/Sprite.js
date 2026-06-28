@@ -187,14 +187,16 @@ export class Sprite extends Entity {
 		this.updateColliderPosition()
 		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
 
+			let drawPos = this.position
+
 			if (this.group(layer) == "D1") {
-				picture.update(this.position, D1)
+				picture.update(drawPos, D1)
 			}
 			else if (this.group(layer) == "D2") {
-				picture.update(this.position, D2)
+				picture.update(drawPos, D2)
 			}
 			else if (this.group(layer) == "D3") {
-				picture.update(this.position, D3)
+				picture.update(drawPos, D3)
 			}
 			else {
 				throw new Error("Unsupported xxlsakdjflaksdjf")
