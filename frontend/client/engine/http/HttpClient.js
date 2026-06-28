@@ -20,27 +20,26 @@ export const HttpClient = ProxyObject(
 
 		return fetch(`${Config.httpUrl}/${method}`, request)
 			.then(async response => {
-				const body = await response.json()
+				const json = await response.json()
 
-				Assert.jsonObject(body)
+				Assert.jsonObject(json)
 
 				if (response.ok) {
-					params.ok(body)
+					params.ok(json)
 
 					return {
 						ok: true,
 						error: null,
-						body: body
+						body: json
 					}
 				}
 				else {
-					params.error(body)
+					params.error(json)
 
 					return {
 						ok: false,
-						error: body,
+						error: json,
 						body: null
-
 					}
 				}
 			})
