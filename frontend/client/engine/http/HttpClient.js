@@ -29,7 +29,7 @@ export const HttpClient = ProxyObject(
 
 					return {
 						ok: true,
-						error: null,
+						error: false,
 						body: json
 					}
 				}
@@ -38,8 +38,8 @@ export const HttpClient = ProxyObject(
 
 					return {
 						ok: false,
-						error: json,
-						body: null
+						error: true,
+						body: json
 					}
 				}
 			})
