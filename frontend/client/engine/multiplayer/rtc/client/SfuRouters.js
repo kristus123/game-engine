@@ -123,6 +123,7 @@ export class SfuRouters {
 	}
 
 	// Does not work if is directly inside init()
+	// That is probably because the client has not connected to the server when this runs, and currently we just ignore messages if it is not connected to the server.
 	static updateRouterList() {
 		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
 	}
