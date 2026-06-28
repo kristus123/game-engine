@@ -2,7 +2,11 @@ import path from "path"
 import { Files } from "#root/dev/Files.js"
 import { Imports } from "#root/dev/Imports.js"
 
-export function GenerateBackend() {
+export function GenerateBackend(ENVIRONMENT) {
+	if (!ENVIRONMENT) {
+		throw new Error("Environment needs to be passed when calling GenerateBacked.")
+	}
+
 	Files.deleteFolder(FileConfig.transpiledBackend)
 
 	// Copy Shared Into transpiledBackend
@@ -11,7 +15,8 @@ export function GenerateBackend() {
 	for (let sharedFilePath of Files.at(FileConfig.shared)) {
 		console.log(sharedFilePath)
 
-		const content = Files.read(sharedFilePath)
+		let content = Files.read(sharedFilePath)
+		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 		const imports = Imports.needed(content, [
 			...Files.at(FileConfig.shared)

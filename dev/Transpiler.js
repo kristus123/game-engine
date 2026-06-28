@@ -120,7 +120,9 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		Files.createFolder(destPath)
 
 		for (let sharedFilePath of Files.at(FileConfig.shared)) {
-			const content = Files.read(sharedFilePath)
+			let content = Files.read(sharedFilePath)
+
+			content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 			const imports = Imports.needed(content, [
 				...Files.at(FileConfig.shared),
