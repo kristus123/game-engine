@@ -20,14 +20,14 @@ execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version
 
 GenerateBackend("DEVELOPMENT")
 
-// todo improve comment
-// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
-// also, we should use Import.js
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(FileConfig.dist)
 
+// todo improve comment
+// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
+// also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
 const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
@@ -42,7 +42,6 @@ function triggerClientReload() {
 		idTimeout = null
 	}, 50)
 }
-
 
 TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 	onAdd: async (path) => {
