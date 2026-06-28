@@ -81,8 +81,12 @@ export class Palette {
 
 			apply: (layer, mode = "source-over") => {
 				// ctx.globalCompositeOperation = mode
-				ctx.drawImage(layer.canvas, 0, 0)
+				//ctx.drawImage(layer.canvas, 0, 0)
 				// ctx.globalCompositeOperation = "source-over"
+				ctx.save()
+				ctx.setTransform(1, 0, 0, 1, 0, 0)
+				ctx.drawImage(layer.canvas, 0, 0, canvas.width, canvas.height)
+				ctx.restore()
 			},
 		}
 	}

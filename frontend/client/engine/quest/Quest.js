@@ -1,36 +1,31 @@
 export class Quest {
 	constructor(tasks=[], onQuestCompleted) {
-
-		let index = 0
-		let activeTask = null
-
-		this.lazyLoop = LazyLoop(tasks, {
-			onNext: () => {
-				activeTask = this.tasks[index]({
-					markDone: () => {
-						activeTask.done = true
-					},
-				})
-				activeTask.done = false
-				activeTask.stopWatch=StopWatch().start()
-
-				index += 1
-			},
-			onUpdate: () => {
-				if (
-					activeTask.done
-					|| activeTask.markDoneIf?.()
-					|| (activeTask.markDoneIfMoreThanMs && activeTask.stopWatch.moreThan(activeTask.markDoneIfMoreThanMs))
-				) {
-					activeTask.done = true
-					activeTask.onDone?.()
-					this.lazyLoop.next()
+		this.tasks = tasks.map(task => {
+			if (task instanceof Task) {
+				return task
+			}
+			return new Task("Legacy Task", {
+				start: (markDone) => {
+					return task({ markDone })
 				}
-				else {
-					activeTask.update?.()
+			})
+		})
+
+		this.activeTask = null
+
+		this.lazyLoop = LazyLoop(this.tasks, {
+			onNext: (task) => {
+				this.activeTask = task
+				this.activeTask.start()
+			},
+			onUpdate: (task) => {
+				task.update()
+				if (task.done) {
+					this.lazyLoop.next()
 				}
 			},
 			onFinish: () => {
+				this.activeTask = null
 				this.onQuestCompleted?.()
 				this.removeItself?.()
 			},
