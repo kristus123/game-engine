@@ -296,7 +296,8 @@ export class World {
 							if (dist > 5) {
 								this.oldSami.position.x += (dx / dist) * 120 * DeltaTime.value
 								this.oldSami.position.y += (dy / dist) * 120 * DeltaTime.value
-							} else {
+							}
+							else {
 								this.oldSami.removeItself()
 							}
 
@@ -308,7 +309,7 @@ export class World {
 
 								if (Keyboard.e) {
 									this.player.msg.hide()
-									
+
 									// Ensure old Sami is removed if he hasn't reached yet
 									this.oldSami.removeItself()
 									this.player.removeItself()
@@ -320,7 +321,8 @@ export class World {
 
 									markDone()
 								}
-							} else {
+							}
+							else {
 								this.player.msg.hide()
 							}
 						}
@@ -362,7 +364,7 @@ export class World {
 								this.seasonIndex++
 								this.seasonTimer.restart()
 
-								if (this.seasonIndex === 1) {
+								if (this.seasonIndex == 1) {
 									// Reset winter color changes to green summer
 									this.lavvu.reset()
 									this.bushes.forEach(b => b.reset())
@@ -373,13 +375,15 @@ export class World {
 									], () => {
 										this.dialogue = null
 									})
-								} else if (this.seasonIndex === 2) {
+								}
+								else if (this.seasonIndex == 2) {
 									this.dialogue = Dialogue([
 										{ position: this.oldSami, text: "And the autumn rain tells us it is time to return to the fire.", sleepEnd: 3500 }
 									], () => {
 										this.dialogue = null
 									})
-								} else {
+								}
+								else {
 									markDone()
 								}
 							}
@@ -438,11 +442,12 @@ export class World {
 		this.entities.update()
 
 		// Draw season-based ground color overlays
-		if (this.seasonIndex === 0) {
+		if (this.seasonIndex == 0) {
 			// Winter: Icy ground tint
 			D1.ctx.fillStyle = "rgba(180, 215, 255, 0.25)"
 			D1.ctx.fillRect(groundArea.x, groundArea.y, groundArea.width, groundArea.height)
-		} else if (this.seasonIndex === 1) {
+		}
+		else if (this.seasonIndex == 1) {
 			// Summer: Bright sunny ground tint
 			D1.ctx.fillStyle = "rgba(255, 255, 170, 0.12)"
 			D1.ctx.fillRect(groundArea.x, groundArea.y, groundArea.width, groundArea.height)
@@ -502,17 +507,19 @@ export class World {
 
 			// Draw sky - color changes with season
 			let skyColor = "#040b26" // default night sky
-			if (this.seasonIndex === 0) {
+			if (this.seasonIndex == 0) {
 				skyColor = "#1a2a4a" // winter: icy dark blue
-			} else if (this.seasonIndex === 1) {
+			}
+			else if (this.seasonIndex == 1) {
 				skyColor = "#4a90c2" // summer: warm light blue
-			} else if (this.seasonIndex === 2) {
+			}
+			else if (this.seasonIndex == 2) {
 				skyColor = "#3d4550" // rain: overcast grey
 			}
 			D3.color(skyArea, skyColor)
 
 			// Draw stars (with slight twinkling) - remove during Winter (0) and Summer (1)
-			if (this.seasonIndex === -1 || this.seasonIndex === 2) {
+			if (this.seasonIndex == -1 || this.seasonIndex == 2) {
 				D3.ctx.fillStyle = "white"
 				this.stars.forEach(star => {
 					const sx = skyArea.x + star.rx * skyArea.width
@@ -539,7 +546,7 @@ export class World {
 		}
 
 		// Weather transitions & ambient color adjustments
-		if (this.seasonIndex === 0) {
+		if (this.seasonIndex == 0) {
 			// Winter
 			Palette.ambientColor = "rgba(200, 220, 255, 0.2)"
 
@@ -554,7 +561,8 @@ export class World {
 				D1.ctx.fillRect(p.x, p.y, p.size, p.size)
 			})
 			D1.ctx.restore()
-		} else if (this.seasonIndex === 1) {
+		}
+		else if (this.seasonIndex == 1) {
 			// Summer
 			Palette.ambientColor = "rgba(255, 240, 200, 0.15)"
 
@@ -566,7 +574,7 @@ export class World {
 					cloud.x = -120 * cloud.scale
 					cloud.y = Math.random() * 60 + 20
 				}
-				
+
 				D1.ctx.beginPath()
 				const cx = cloud.x
 				const cy = cloud.y
@@ -577,7 +585,8 @@ export class World {
 				D1.ctx.fill()
 			})
 			D1.ctx.restore()
-		} else if (this.seasonIndex === 2) {
+		}
+		else if (this.seasonIndex == 2) {
 			// Rain
 			Palette.ambientColor = "rgba(50, 50, 60, 0.4)"
 
@@ -596,24 +605,27 @@ export class World {
 			})
 			D1.ctx.stroke()
 			D1.ctx.restore()
-		} else if (this.seasonIndex === -1 && this.skyOpacity > 0) {
+		}
+		else if (this.seasonIndex == -1 && this.skyOpacity > 0) {
 			// Default faded-in ambient color (night time dark blue tint)
 			Palette.ambientColor = "rgba(16, 32, 79, 0.3)"
 		}
 
 		// Update quest UI
 		if (this.questUI) {
-			let questHTML = `<div style="font-size: 18px; color: #8faec4; margin-bottom: 6px; border-bottom: 1px solid #3d5670; padding-bottom: 4px;">JOURNAL</div>`
+			let questHTML = "<div style=\"font-size: 18px; color: #8faec4; margin-bottom: 6px; border-bottom: 1px solid #3d5670; padding-bottom: 4px;\">JOURNAL</div>"
 			this.quest.tasks.forEach(task => {
 				if (task.done) {
 					questHTML += `<div style="color: #6a8094; text-decoration: line-through; margin-bottom: 4px;">[x] ${task.name}</div>`
-				} else if (task.active) {
+				}
+				else if (task.active) {
 					let name = task.name
-					if (task.name === "Find Berries") {
+					if (task.name == "Find Berries") {
 						name = `Find Berries (${this.berriesCollected}/3)`
 					}
 					questHTML += `<div style="color: #ffd700; margin-bottom: 4px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);">[&gt;] ${name}</div>`
-				} else {
+				}
+				else {
 					questHTML += `<div style="color: #a0b2c6; margin-bottom: 4px;">[ ] ${task.name}</div>`
 				}
 			})
@@ -642,11 +654,13 @@ function makeWinterColorMap(sprite) {
 						nr = 255
 						ng = 255
 						nb = 255
-					} else if (brightness > 70) {
+					}
+					else if (brightness > 70) {
 						nr = 220
 						ng = 230
 						nb = 245
-					} else {
+					}
+					else {
 						nr = 160
 						ng = 180
 						nb = 205
