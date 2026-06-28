@@ -6,10 +6,6 @@ export class Player extends Entity {
 
 		this.objects = Objects([
 			this.sprite = Sprite.player(this.position),
-			OnTrue(() => Keyboard.e, () => {
-				this.msg.hide()
-				this.light.intensity = 0.1
-			})
 		])
 
 		this.light = Light.add(this.collider.center, 600, "255,165,0", 0, 5)

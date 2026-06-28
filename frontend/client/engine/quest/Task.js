@@ -1,16 +1,26 @@
 // to be used in quest.js
 
 export class Task {
-	constructor(name, { name, start, onDone, markDoneIf, markDoneIfMoreThanMs } = {}) {
+	constructor(name, config = {}) {
+		const { start, onDone, markDoneIf, markDoneIfMoreThanMs } = config
+
 		this.done = false
 		this.stopWatch = StopWatch()
 		this.started = false
 
+		this.onDone = onDone
+		this.markDoneIf = markDoneIf
+		this.markDoneIfMoreThanMs = markDoneIfMoreThanMs
+
 		this.onUpdate = () => {}
 
 		this.start = () => {
-			const {update} = start(() => this.markDone())
-			this.onUpdate = () => update()
+			if (start) {
+				const result = start(() => this.markDone())
+				if (result && typeof result.update === "function") {
+					this.onUpdate = () => result.update()
+				}
+			}
 
 			this.started = true
 			this.stopWatch.start()
@@ -24,7 +34,7 @@ export class Task {
 		this.onDone?.()
 	}
 
-	active() { // maybe not needed to be its own method
+	get active() {
 		return this.started && !this.done
 	}
 
