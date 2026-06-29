@@ -107,11 +107,7 @@ export const IntroTasks = {
 			return {
 				update: () => {
 					world.player.resetVelocity()
-					const dist = Math.hypot(
-						Camera.position.x - world.cameraTarget.x,
-						Camera.position.y - world.cameraTarget.y
-					)
-					if (dist < 15) {
+					if (Distance.within(15, Camera.position, world.cameraTarget)) {
 						markDone()
 					}
 				}
@@ -148,11 +144,7 @@ export const IntroTasks = {
 
 					Shadow.opacity = 0.45
 
-					const dist = Math.hypot(
-						Camera.position.x - world.player.position.x,
-						Camera.position.y - world.player.position.y
-					)
-					if (dist < 15 && world.quest.skyOpacity <= 0) {
+					if (Distance.within(15, Camera.position, world.player.position) && world.quest.skyOpacity <= 0) {
 						markDone()
 					}
 				}
