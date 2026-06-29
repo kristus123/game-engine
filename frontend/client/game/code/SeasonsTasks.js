@@ -45,7 +45,7 @@ export const SeasonsTasks = {
 
 	ExperienceSeasons: (world) => Task("Experience the Seasons", {
 		start: (markDone) => {
-			world.seasonIndex = 0 // 0 = Winter, 1 = Summer, 2 = Rain
+			world.season = Season.winter
 			world.seasonTimer = StopWatch().start()
 
 			// Generate winter color maps and apply them!
@@ -91,10 +91,10 @@ export const SeasonsTasks = {
 					}
 
 					if (world.seasonTimer.time > 12000) {
-						world.seasonIndex++
 						world.seasonTimer.restart()
 
-						if (world.seasonIndex == 1) {
+						if (world.season == Season.winter) {
+							world.season = Season.summer
 							// Reset winter color changes to green summer
 							world.lavvu.reset()
 							world.bushes.forEach(b => b.reset())
@@ -106,7 +106,8 @@ export const SeasonsTasks = {
 								world.dialogue = null
 							})
 						}
-						else if (world.seasonIndex == 2) {
+						else if (world.season == Season.summer) {
+							world.season = Season.rain
 							world.dialogue = Dialogue([
 								{ position: world.oldSami, text: "And the autumn rain tells us it is time to return to the fire.", sleepEnd: 3500 }
 							], () => {
