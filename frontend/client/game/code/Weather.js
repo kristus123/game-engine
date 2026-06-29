@@ -51,14 +51,13 @@ export class Weather {
 		Palette.ambientColor = "rgba(200, 220, 255, 0.2)"
 
 		D1.ctx.save()
-		D1.ctx.fillStyle = "rgba(255, 255, 255, 0.8)"
 		this.snowParticles.forEach(p => {
 			p.y += p.speed * DeltaTime.value
 			if (p.y > Screen.height) {
 				p.y = 0
-				p.x = Math.random() * Screen.width
+				p.x = Random.floatBetween(0, Screen.width)
 			}
-			D1.ctx.fillRect(p.x, p.y, p.size, p.size)
+			D1.color(WorldPosition(p.x, p.y, p.size, p.size), "rgba(255, 255, 255, 0.8)")
 		})
 		D1.ctx.restore()
 	}
@@ -72,7 +71,7 @@ export class Weather {
 			cloud.x += cloud.speed * DeltaTime.value
 			if (cloud.x > Screen.width + 120 * cloud.scale) {
 				cloud.x = -120 * cloud.scale
-				cloud.y = Math.random() * 60 + 20
+				cloud.y = Random.floatBetween(20, 80)
 			}
 			this.drawCloud(cloud)
 		})
@@ -102,7 +101,7 @@ export class Weather {
 			p.y += p.speed * DeltaTime.value
 			if (p.y > Screen.height) {
 				p.y = 0
-				p.x = Math.random() * Screen.width
+				p.x = Random.floatBetween(0, Screen.width)
 			}
 			D1.ctx.moveTo(p.x, p.y)
 			D1.ctx.lineTo(p.x, p.y + p.length)
