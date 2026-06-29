@@ -31,17 +31,17 @@ export class Weather {
 		]
 	}
 
-	update(seasonIndex, skyOpacity) {
-		if (seasonIndex == 0) {
+	update(season, skyOpacity) {
+		if (season == Season.winter) {
 			this.updateWinter()
 		}
-		else if (seasonIndex == 1) {
+		else if (season == Season.summer) {
 			this.updateSummer()
 		}
-		else if (seasonIndex == 2) {
+		else if (season == Season.rain) {
 			this.updateRain()
 		}
-		else if (seasonIndex == -1 && skyOpacity > 0) {
+		else if (season == Season.normal && skyOpacity > 0) {
 			// Night ambient light
 			Palette.ambientColor = "rgba(16, 32, 79, 0.3)"
 		}
