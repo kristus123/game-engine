@@ -9,8 +9,7 @@ export const SeasonsTasks = {
 					}
 
 					// 2. Prompt player when close to the entrance
-					const playerDist = Math.hypot(world.player.position.x - 1000, world.player.position.y - 370)
-					if (playerDist < 100) {
+					if (Distance.within(100, world.player.position, WorldPosition(1000, 370))) {
 						world.player.msg.set([H.p("Press <key>E</key> to enter the lavvu")])
 						world.player.msg.show()
 
