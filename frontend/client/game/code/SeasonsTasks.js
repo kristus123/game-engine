@@ -4,14 +4,7 @@ export const SeasonsTasks = {
 			return {
 				update: () => {
 					// 1. Move old Sami towards the lavvu entrance at (1000, 370)
-					const dx = 1000 - world.oldSami.position.x
-					const dy = 370 - world.oldSami.position.y
-					const dist = Math.hypot(dx, dy)
-					if (dist > 5) {
-						world.oldSami.position.x += (dx / dist) * 120 * DeltaTime.value
-						world.oldSami.position.y += (dy / dist) * 120 * DeltaTime.value
-					}
-					else {
+					if (world.oldSami.moveTowards(WorldPosition(1000, 370), 120)) {
 						world.oldSami.removeItself()
 					}
 
@@ -26,7 +19,6 @@ export const SeasonsTasks = {
 							// Ensure old Sami is removed if he hasn't reached yet
 							world.oldSami.removeItself()
 							world.player.removeItself()
-							world.isPlayerSitting = true // lock control
 
 							// Start Sami theme song
 							Mix.master.volume = 0.6
@@ -45,12 +37,11 @@ export const SeasonsTasks = {
 
 	ExperienceSeasons: (world) => Task("Experience the Seasons", {
 		start: (markDone) => {
-			world.season = Season.winter
+			world.quest.season = Season.winter
+			world.quest.skyOpacity = 0
 			world.seasonTimer = StopWatch().start()
 
-			// Generate winter color maps and apply them!
-			const treeMap = Season.makeWinterColorMap(world.lavvu)
-			world.lavvu.changeColor(treeMap)
+			// Generate winter color maps and apply them to map and bushes
 			world.bushes.forEach(b => {
 				const bushMap = Season.makeWinterColorMap(b)
 				b.changeColor(bushMap)
@@ -58,7 +49,6 @@ export const SeasonsTasks = {
 			const worldMapColorMap = Season.makeWinterColorMap(world.worldMap)
 			world.worldMap.changeColor(worldMapColorMap)
 
-			world.skyOpacity = 0
 			Shadow.opacity = 1.0
 
 			world.dialogue = Dialogue([
@@ -71,13 +61,8 @@ export const SeasonsTasks = {
 				update: () => {
 					world.player.resetVelocity()
 
-					// Smoothly fade the sky and weather systems back in
-					if (world.skyOpacity < 1) {
-						world.skyOpacity += 0.8 * DeltaTime.value
-					}
-					else {
-						world.skyOpacity = 1
-					}
+					// Keep sky opacity at 0 to hide sky bar
+					world.quest.skyOpacity = 0
 
 					if (Shadow.opacity > 0.45) {
 						Shadow.opacity -= 0.8 * DeltaTime.value
@@ -93,10 +78,9 @@ export const SeasonsTasks = {
 					if (world.seasonTimer.time > 12000) {
 						world.seasonTimer.restart()
 
-						if (world.season == Season.winter) {
-							world.season = Season.summer
+						if (world.quest.season == Season.winter) {
+							world.quest.season = Season.summer
 							// Reset winter color changes to green summer
-							world.lavvu.reset()
 							world.bushes.forEach(b => b.reset())
 							world.worldMap.reset()
 
@@ -106,8 +90,8 @@ export const SeasonsTasks = {
 								world.dialogue = null
 							})
 						}
-						else if (world.season == Season.summer) {
-							world.season = Season.rain
+						else if (world.quest.season == Season.summer) {
+							world.quest.season = Season.rain
 							world.dialogue = Dialogue([
 								{ position: world.oldSami, text: "And the autumn rain tells us it is time to return to the fire.", sleepEnd: 3500 }
 							], () => {
@@ -125,11 +109,6 @@ export const SeasonsTasks = {
 
 	EndTitle: (world) => Task("End Title", {
 		start: (markDone) => {
-			if (world.questUI) {
-				Dom.remove(world.questUI)
-				world.questUI = null
-			}
-
 			world.endUI = Dom.overlay(H.div("", [
 				H.p("SAMI SPIRIT").css("font-size: 80px; font-weight: bold; margin-bottom: 20px; font-family: Courier New, monospace; color: white;"),
 				H.p("* WORKING TITLE").css("font-size: 30px; font-family: Courier New, monospace; color: white;")

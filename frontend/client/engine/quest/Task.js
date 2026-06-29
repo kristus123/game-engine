@@ -2,12 +2,11 @@
 
 export class Task {
 	constructor(name, config = {}) {
-		const { start, onDone, markDoneIf, markDoneIfMoreThanMs, hidden } = config
+		const { start, onDone, markDoneIf, markDoneIfMoreThanMs } = config
 
 		this.done = false
 		this.stopWatch = StopWatch()
 		this.started = false
-		this.hidden = hidden || false
 
 		this.onDone = onDone
 		this.markDoneIf = markDoneIf

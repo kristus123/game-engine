@@ -181,6 +181,22 @@ export class Entity {
 		this.y += Math.sin(dir) * multiplier * DeltaTime.value
 	}
 
+	moveTowards(position, speed) {
+		const dx = position.x - this.x
+		const dy = position.y - this.y
+		const dist = Math.hypot(dx, dy)
+		if (dist > 5) {
+			this.x += (dx / dist) * speed * DeltaTime.value
+			this.y += (dy / dist) * speed * DeltaTime.value
+			return false
+		}
+		else {
+			this.x = position.x
+			this.y = position.y
+			return true
+		}
+	}
+
 	moveAway(position, multiplier=1) {
 		const dir = Math.atan2(this.y - position.y, this.x - position.x)
 
