@@ -54,7 +54,7 @@ export const GatheringTasks = {
 								b.loopTag("idle")
 								world.player.sprite.playTag("magic") // gather animation
 								Mix.fx.play(Sound.click)
-								world.berriesCollected++
+								world.quest.berriesCollected++
 								world.player.msg.hide()
 							}
 						}
@@ -65,7 +65,7 @@ export const GatheringTasks = {
 						world.player.msg.hide()
 					}
 
-					if (world.berriesCollected >= 3) {
+					if (world.quest.berriesCollected >= 3) {
 						if (world.player.distance(world.oldSami) < 100) {
 							world.player.msg.hide()
 							world.player.resetVelocity()

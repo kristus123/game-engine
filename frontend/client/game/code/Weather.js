@@ -2,25 +2,25 @@ export class Weather {
 	constructor() {
 		// Initialize Stars
 		this.stars = Array.from({ length: 60 }, () => ({
-			rx: Math.random(),
-			ry: Math.random(),
-			size: Math.random() * 2 + 1,
+			rx: Random.floatBetween(0, 1),
+			ry: Random.floatBetween(0, 1),
+			size: Random.floatBetween(1, 3),
 		}))
 
 		// Initialize Snow particles
 		this.snowParticles = Array.from({ length: 80 }, () => ({
-			x: Math.random() * Screen.width,
-			y: Math.random() * Screen.height,
-			speed: Math.random() * 40 + 30,
-			size: Math.random() * 3 + 1,
+			x: Random.floatBetween(0, Screen.width),
+			y: Random.floatBetween(0, Screen.height),
+			speed: Random.floatBetween(30, 70),
+			size: Random.floatBetween(1, 4),
 		}))
 
 		// Initialize Rain particles
 		this.rainParticles = Array.from({ length: 120 }, () => ({
-			x: Math.random() * Screen.width,
-			y: Math.random() * Screen.height,
-			speed: Math.random() * 300 + 300,
-			length: Math.random() * 12 + 8,
+			x: Random.floatBetween(0, Screen.width),
+			y: Random.floatBetween(0, Screen.height),
+			speed: Random.floatBetween(300, 600),
+			length: Random.floatBetween(8, 20),
 		}))
 
 		// Initialize Clouds
@@ -112,13 +112,14 @@ export class Weather {
 	}
 
 	drawStars(skyArea, skyOpacity) {
-		D3.ctx.fillStyle = "white"
 		this.stars.forEach(star => {
 			const sx = skyArea.x + star.rx * skyArea.width
 			const sy = skyArea.y + star.ry * skyArea.height
 			const twinkle = Math.sin(Date.now() * 0.002 + star.rx * 100) * 0.3 + 0.7
+			D3.ctx.save()
 			D3.ctx.globalAlpha = skyOpacity * twinkle
-			D3.ctx.fillRect(sx, sy, star.size, star.size)
+			D3.rectangle(WorldPosition(sx, sy, star.size, star.size), "white")
+			D3.ctx.restore()
 		})
 	}
 }

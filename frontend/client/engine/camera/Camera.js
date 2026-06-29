@@ -79,7 +79,8 @@ export class Camera {
 	}
 
 	static follow(o) {
-		this.position = o
+		this.position.x = o.x
+		this.position.y = o.y
 	}
 
 	static p(p) {
@@ -94,6 +95,19 @@ export class Camera {
 		this.visiblePosition.y = Camera.position.y - Screen.height / 2
 		this.visiblePosition.width = Screen.width
 		this.visiblePosition.height = Screen.height
+	}
+
+	static smoothing(target, lerpSpeed = 1.2) {
+		const dx = target.x - this.position.x
+		const dy = target.y - this.position.y
+		if (Math.hypot(dx, dy) > 0.5) {
+			this.position.x += dx * lerpSpeed * DeltaTime.value
+			this.position.y += dy * lerpSpeed * DeltaTime.value
+		}
+		else {
+			this.position.x = target.x
+			this.position.y = target.y
+		}
 	}
 
 	static insideView(entity) {

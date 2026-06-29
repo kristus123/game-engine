@@ -41,5 +41,16 @@ export const Season = {
 			}
 		}
 		return map
+	},
+
+	drawGroundOverlay(season, groundArea) {
+		if (season == Season.winter) {
+			D1.ctx.fillStyle = "rgba(180, 215, 255, 0.25)"
+			D1.ctx.fillRect(groundArea.x, groundArea.y, groundArea.width, groundArea.height)
+		}
+		else if (season == Season.summer) {
+			D1.ctx.fillStyle = "rgba(255, 255, 170, 0.12)"
+			D1.ctx.fillRect(groundArea.x, groundArea.y, groundArea.width, groundArea.height)
+		}
 	}
 }
