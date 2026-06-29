@@ -306,6 +306,7 @@
         "Task": "readonly",
         "TestEndpoint": "readonly",
         "TestMainWorker": "readonly",
+        "TestNewHttp": "readonly",
         "TestResizeObserver": "readonly",
         "TileInfo": "readonly",
         "TileInfoController": "readonly",
