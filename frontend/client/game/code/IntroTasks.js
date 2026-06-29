@@ -60,21 +60,20 @@ export const IntroTasks = {
 	}),
 
 	FadeInStars: (world) => Task("Fade in Stars", {
-		hidden: true,
 		start: (markDone) => {
-			world.skyOpacity = 0
+			world.quest.skyOpacity = 0
 			Shadow.opacity = 1.0
 			return {
 				update: () => {
 					world.player.resetVelocity()
-					if (world.skyOpacity < 1) {
-						world.skyOpacity += 0.8 * DeltaTime.value
+					if (world.quest.skyOpacity < 1) {
+						world.quest.skyOpacity += 0.8 * DeltaTime.value
 					}
 					if (Shadow.opacity > 0.45) {
 						Shadow.opacity -= 0.8 * DeltaTime.value
 					}
-					if (world.skyOpacity >= 1 && Shadow.opacity <= 0.45) {
-						world.skyOpacity = 1
+					if (world.quest.skyOpacity >= 1 && Shadow.opacity <= 0.45) {
+						world.quest.skyOpacity = 1
 						Shadow.opacity = 0.45
 						markDone()
 					}
@@ -84,7 +83,6 @@ export const IntroTasks = {
 	}),
 
 	SamiTalkStars: (world) => Task("Sami Talk Stars", {
-		hidden: true,
 		start: (markDone) => {
 			world.dialogue = Dialogue([
 				{ position: world.oldSami, text: "Look at the sky! The stars are so clear tonight...", sleepEnd: 3000 }
@@ -104,15 +102,14 @@ export const IntroTasks = {
 	}),
 
 	PanCameraUp: (world) => Task("Pan Camera Up", {
-		hidden: true,
 		start: (markDone) => {
 			world.cameraTarget = WorldPosition(world.player.position.x, world.player.position.y - 250)
 			return {
 				update: () => {
 					world.player.resetVelocity()
 					const dist = Math.hypot(
-						world.cameraPosition.x - world.cameraTarget.x,
-						world.cameraPosition.y - world.cameraTarget.y
+						Camera.position.x - world.cameraTarget.x,
+						Camera.position.y - world.cameraTarget.y
 					)
 					if (dist < 15) {
 						markDone()
@@ -137,26 +134,25 @@ export const IntroTasks = {
 	}),
 
 	PanCameraDown: (world) => Task("Pan Camera Down", {
-		hidden: true,
 		start: (markDone) => {
 			world.cameraTarget = world.player.position
 			return {
 				update: () => {
 					world.player.resetVelocity()
-					if (world.skyOpacity > 0) {
-						world.skyOpacity -= 0.8 * DeltaTime.value
+					if (world.quest.skyOpacity > 0) {
+						world.quest.skyOpacity -= 0.8 * DeltaTime.value
 					}
 					else {
-						world.skyOpacity = 0
+						world.quest.skyOpacity = 0
 					}
 
 					Shadow.opacity = 0.45
 
 					const dist = Math.hypot(
-						world.cameraPosition.x - world.player.position.x,
-						world.cameraPosition.y - world.player.position.y
+						Camera.position.x - world.player.position.x,
+						Camera.position.y - world.player.position.y
 					)
-					if (dist < 15 && world.skyOpacity <= 0) {
+					if (dist < 15 && world.quest.skyOpacity <= 0) {
 						markDone()
 					}
 				}
