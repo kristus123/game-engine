@@ -2,8 +2,12 @@
 
 [Login](https://nerdvm.racknerd.com/login.php)
 
+https://github.com/settings/ssh/new
+
 ```bash
 sudo apt update -y && sudo apt upgrade -y
+
+sudo apt install git -y
 
 # Create a user
 adduser kristian
@@ -12,6 +16,23 @@ adduser kristian
 
 su - kristian
 ```
+
+
+```bash
+ssh-keygen -t ed25519 -C "krispetter@gmail.com"
+
+eval "$(ssh-agent -s)"
+
+ssh-add ~/.ssh/id_ed25519
+
+cat ~/.ssh/id_ed25519.pub
+
+echo "put this into"
+echo "___"
+echo "https://github.com/settings/ssh/new"
+echo "___"
+```
+
 
 # Set up passwordless
 
@@ -137,8 +158,6 @@ sudo certbot renew --dry-run
 sudo nginx -t
 sudo systemctl reload nginx
 ```
-
-
 
 # set up duckdns
 
