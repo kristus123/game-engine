@@ -11,10 +11,10 @@ git pull
 
 npm install
 
-kill $(cat app.pid) || true
+kill $(cat game_engine.pid) || true
 
 git pull
 npm install
 
-nohup node start.js > app.log 2>&1 & echo $! > /run/game_engine.pid
+nohup node start.js > app.log 2>&1 & echo $! > game_engine.pid
 "
