@@ -2,8 +2,8 @@ export class LazyLoop {
 	constructor(elements, on) {
 		this.done = false
 
-		this.on.onNext(this.elements.first)
 		this.index = 0
+		this.started = false
 	}
 
 	get element() {
@@ -28,6 +28,10 @@ export class LazyLoop {
 	}
 
 	update() {
+		if (!this.started) {
+			this.on.onNext(this.elements.first)
+			this.started = true
+		}
 		if (!this.done) {
 			this.on.onUpdate?.(this.element)
 		}

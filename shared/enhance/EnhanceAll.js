@@ -1,5 +1,9 @@
+var enhanced = false
 
 export function EnhanceAll() {
+	if (enhanced) return
+	enhanced = true
+
 	console.log("enhacing THE SHIT OUT OF EVERYTHING")
 	Enhance_js_Array()
 	Enhance_js_Object()
@@ -10,3 +14,6 @@ export function EnhanceAll() {
 	Enhance_html_collection()
 	Enhance_audio()
 }
+
+// Auto-execute during module evaluation
+EnhanceAll()

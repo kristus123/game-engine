@@ -15,6 +15,8 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		throw new Error("you need to include environment when calling generate_dist.js")
 	}
 
+	const candidateJsFiles = jsFiles.filter(f => !f.replaceAll("\\", "/").endsWith("/index.js"))
+
 	console.log("Transpiling \"frontend/\" and \"shared/\" into \"dist/\"...")
 
 	for (const jsFilePath of jsFiles) {
@@ -108,8 +110,8 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		//  Use sharedFiles and add imports for files in frontend/, Then write it to dist
 		fileContent = Imports.needed(fileContent, [
-			...jsFiles,
-			...sharedFiles
+			...sharedFiles,
+			...candidateJsFiles
 		]) + "\n" + fileContent
 
 		Files.writeFileToDist(jsFilePath, fileContent)
@@ -126,7 +128,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 			const imports = Imports.needed(content, [
 				...Files.at(FileConfig.shared),
-				...jsFiles,
+				...candidateJsFiles,
 			])
 
 			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
