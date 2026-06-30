@@ -3,12 +3,24 @@
 [Login](https://nerdvm.racknerd.com/login.php)
 
 ```bash
-ssh-copy-id root@107.175.8.166
+sudo apt update -y && sudo apt upgrade -y
 
-# then type in vps password
+# Create a user
+adduser kristian
+
+/usr/sbin/usermod -a -G sudo kristian
+
+su - kristian
 ```
 
-[password is currently stored in my lastpass (link won't work for anyone except me)](chrome-extension://hdokiejnpimakedhajhdlcegeplioahd/edit.html?id=7572799172324880476)
+# Set up passwordless
+
+Outside of server
+
+```bash
+ssh-copy-id kristian@107.175.8.166
+# then type in vps password
+```
 
 ```bash
 sudo nano /etc/ssh/sshd_config
@@ -19,8 +31,17 @@ PubkeyAuthentication yes
 PermitRootLogin prohibit-password
 ```
 
+Then run this command
+
 ```bash
-sudo systemctl restart ssh
+ssh-copy-id user@107.175.8.166
+```
+
+and finally:
+
+```bash
+# you could also just restart ssh, but i prefer simple shit
+sudo reboot now
 ```
 
 ## Ngingx
@@ -34,9 +55,7 @@ sudo systemctl start nginx
 
 sudo systemctl status nginx
 ```
-
 ## ufw
-
 
 ```bash
 sudo apt install ufw -y
@@ -56,19 +75,71 @@ ufw allow 40000:49999/udp
 sudo ufw enable
 ```
 
-## certbot
+# Ngingx config
+
+map must be inside the http {} block, not inside a server {} block.
+
+```bash
+sudo nano /etc/nginx/nginx.conf
+```
+
+```bash
+http {
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+
+    include /etc/nginx/sites-enabled/*;
+}
+```
+
+## Other stuff
+
+```bash
+sudo rm /etc/nginx/sites-available/default
+```
 
 
 ```bash
-sudo apt update
-sudo apt install certbot python3-certbot-nginx
+sudo nano /etc/nginx/sites-available/krispetter.duckdns.org
+```
+
+```bash
+server {
+    listen 80;
+    server_name krispetter.duckdns.org;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+    }
+}
+```
+
+```bash
+sudo ln -s /etc/nginx/sites-available/krispetter.duckdns.org /etc/nginx/sites-enabled/krispetter.duckdns.org
+```
+
+## certbot
+
+```bash
+sudo apt update -y
+sudo apt install certbot python3-certbot-nginx -y
 
 sudo certbot --nginx
 sudo certbot renew --dry-run
 ```
 
 
-## edit ngisngs
+## final test
 
+```bash
 sudo nginx -t
 sudo systemctl reload nginx
+```
+
+
+
+# set up duckdns
+
+TODO
