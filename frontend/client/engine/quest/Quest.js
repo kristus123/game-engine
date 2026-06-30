@@ -13,29 +13,26 @@ export class Quest {
 
 		this.onQuestCompleted = onQuestCompleted
 		this.activeTask = null
-		this.lazyLoop = null
+		this.lazyLoop = LazyLoop(this.tasks, {
+			onNext: (task) => {
+				this.activeTask = task
+				this.activeTask.start()
+			},
+			onUpdate: (task) => {
+				task.update()
+				if (task.done) {
+					this.lazyLoop.next()
+				}
+			},
+			onFinish: () => {
+				this.activeTask = null
+				this.onQuestCompleted?.()
+				this.removeItself?.()
+			},
+		})
 	}
 
 	update() {
-		if (!this.lazyLoop) {
-			this.lazyLoop = LazyLoop(this.tasks, {
-				onNext: (task) => {
-					this.activeTask = task
-					this.activeTask.start()
-				},
-				onUpdate: (task) => {
-					task.update()
-					if (task.done) {
-						this.lazyLoop.next()
-					}
-				},
-				onFinish: () => {
-					this.activeTask = null
-					this.onQuestCompleted?.()
-					this.removeItself?.()
-				},
-			})
-		}
 		this.lazyLoop.update()
 	}
 
