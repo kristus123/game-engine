@@ -322,7 +322,6 @@
         "UnsecureRoute": "readonly",
         "UpdateEslint": "readonly",
         "UserRoute": "readonly",
-        "Vibrate": "readonly",
         "VisibilityWatcher": "readonly",
         "Vst": "readonly",
         "Wait": "readonly",

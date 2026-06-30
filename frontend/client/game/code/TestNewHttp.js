@@ -10,14 +10,14 @@ export class TestNewHttp {
 			}
 		})
 
-    	this.testNew()
+		this.testNew()
 	}
 
 	update() {}
 
 	async testNew() {
-    	const { ok, error, body } = await HttpClient.anEndpointThatDoesNotExistWhateverYouDoOnTheCircuitDoNotTurnLeft()
+		const { ok, error, body } = await HttpClient.anEndpointThatDoesNotExistWhateverYouDoOnTheCircuitDoNotTurnLeft()
 
-    	console.log(`Response is ${ok}, the error is ${JSON.stringify(error)} and the body is ${body}`)
+		console.log(`Response is ${ok}, the error is ${JSON.stringify(error)} and the body is ${body}`)
 	}
 }
