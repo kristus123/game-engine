@@ -11,28 +11,46 @@ export class Quest {
 			})
 		})
 
+		this.onQuestCompleted = onQuestCompleted
 		this.activeTask = null
-
-		this.lazyLoop = LazyLoop(this.tasks, {
-			onNext: (task) => {
-				this.activeTask = task
-				this.activeTask.start()
-			},
-			onUpdate: (task) => {
-				task.update()
-				if (task.done) {
-					this.lazyLoop.next()
-				}
-			},
-			onFinish: () => {
-				this.activeTask = null
-				this.onQuestCompleted?.()
-				this.removeItself?.()
-			},
-		})
+		this.lazyLoop = null
 	}
 
 	update() {
+		if (!this.lazyLoop) {
+			this.lazyLoop = LazyLoop(this.tasks, {
+				onNext: (task) => {
+					this.activeTask = task
+					this.activeTask.start()
+				},
+				onUpdate: (task) => {
+					task.update()
+					if (task.done) {
+						this.lazyLoop.next()
+					}
+				},
+				onFinish: () => {
+					this.activeTask = null
+					this.onQuestCompleted?.()
+					this.removeItself?.()
+				},
+			})
+		}
 		this.lazyLoop.update()
+	}
+
+	static msg(messageText, startAction, markDoneIf, onDone) { // no-null-check
+		return new Task("Message Task", {
+			start: () => {
+				G.player.msg.set([H.p(messageText)])
+				G.player.msg.show()
+				startAction?.()
+			},
+			markDoneIf: markDoneIf,
+			onDone: () => {
+				G.player.msg.hide()
+				onDone?.()
+			}
+		})
 	}
 }
