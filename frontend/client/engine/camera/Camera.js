@@ -79,8 +79,7 @@ export class Camera {
 	}
 
 	static follow(o) {
-		this.position.x = o.x
-		this.position.y = o.y
+		this.position = o
 	}
 
 	static p(p) {
