@@ -30,7 +30,7 @@ export const HttpClient = ProxyObject(
 					return {
 						ok: true,
 						error: false,
-						body: json
+						body: json,
 					}
 				}
 				else {
@@ -39,36 +39,21 @@ export const HttpClient = ProxyObject(
 					return {
 						ok: false,
 						error: true,
-						body: json
+						body: json,
 					}
 				}
 			})
 			.catch(e => {
 				console.error(`${method}: ${e?.message}`)
-				throw e
+				error({error: e})
+				return {
+					ok: false,
+					error: true,
+					body: json,
+				}
 			})
 			.finally(() => {
 				clearTimeout(timer)
 			})
 	}
 )
-
-
-// in the future
-// maybe do something like this
-/*
-httpClient.getStuff({
-	body: {},
-	ok: body => {
-
-	},
-	error: e => {
-
-	},
-})
-*/
-
-/*
- * and also support this
-const {ok, error} = await httpClient.getStuff({body: {}})
-*/
