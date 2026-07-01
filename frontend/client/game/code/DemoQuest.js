@@ -1,4 +1,4 @@
-export const DemoQuest = Quest([
+export const DemoQuest = () => Quest([
 	Quest.msg(
 		"Press <key>E</key> to light torch",
 		() => { G.player.light.intensity = 0 },
