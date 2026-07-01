@@ -4,6 +4,17 @@ const Files = await Import("Files")
 
 // chatgpt code
 
+function Try(callback) {
+	try {
+		return callback()
+	}
+	catch (e) {
+		console.log("ERROR")
+		console.log(e)
+		console.log("ERROR")
+	}
+}
+
 export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
 	const last = new Map()
 	const pending = new Map()
@@ -26,7 +37,7 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 
 	function scheduleFlush() {
 		clearTimeout(timeout)
-		timeout = setTimeout(flush, 50)
+		timeout = setTimeout(flush, 10)
 	}
 
 	function flush() {
@@ -37,14 +48,25 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 				continue
 			}
 
+			console.log(`${file} - ${type}`)
+
 			if (type == "add") {
-				onAdd(file)
+				Try(() => {
+					onAdd(file)
+				})
 			}
 			else if (type == "change") {
-				onChange(file)
+				Try(() => {
+					onChange(file)
+				})
 			}
 			else if (type == "delete") {
-				onDelete(file)
+				Try(() => {
+					onDelete(file)
+				})
+			}
+			else {
+				throw new Error("unsupported type: " + type)
 			}
 
 			emitted.add(file)
@@ -108,5 +130,5 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		compute()
 	}
 
-	setInterval(compute, 200)
+	setInterval(compute, 10)
 }
