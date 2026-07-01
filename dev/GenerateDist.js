@@ -91,6 +91,8 @@ export function GenerateDist(env) {
 	const indexHtml = Files.read(FileConfig.index_html)
 		.replace("CSS_IMPORTS", cssImports)
 	Files.write(FileConfig.toDistPath(FileConfig.index_html), indexHtml)
+
+	console.log("finished generating dist")
 }
 
 
