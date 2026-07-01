@@ -1,19 +1,9 @@
-var enhanced = false
-
-export function EnhanceAll() {
-	if (enhanced) return
-	enhanced = true
-
-	console.log("enhacing THE SHIT OUT OF EVERYTHING")
-	Enhance_js_Array()
-	Enhance_js_Object()
-	Enhance_html()
-	Enhance_js_Number()
-	Enhance_js_String()
-	Enhance_html_WebComponents()
-	Enhance_html_collection()
-	Enhance_audio()
-}
-
-// Auto-execute during module evaluation
-EnhanceAll()
+console.log("enhacing THE SHIT OUT OF EVERYTHING")
+Enhance_js_Array()
+Enhance_js_Object()
+Enhance_html()
+Enhance_js_Number()
+Enhance_js_String()
+Enhance_html_WebComponents()
+Enhance_html_collection()
+Enhance_audio()
