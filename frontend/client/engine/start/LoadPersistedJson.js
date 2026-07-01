@@ -1,7 +1,7 @@
 export async function LoadPersistedJson() {
 	try {
 		return HttpClient.allPersistedJsonFiles({
-			body: {}, 
+			body: {},
 			ok: body => {
 				// 			for (let { name, content } of body) {
 				// 				PersistedJson[name] = Assert.jsonObject(content)
