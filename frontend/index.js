@@ -1,4 +1,3 @@
-EnhanceAll()
 export const index = ""
 
 import { initD1 } from "/client/engine/start/draw_layers/D1.js"
