@@ -20,14 +20,18 @@ export class PushClient {
 		})
 
 		HttpClient.subscribe({
-			subscription: subscription,
+			body: {
+				subscription: subscription,
+			}
 		})
 	}
 
 	static push(title, body) {
 		HttpClient.triggerNotification({
-			title: title,
-			body: body,
+			body: {
+				title: title,
+				body: body,
+			}
 		})
 	}
 }

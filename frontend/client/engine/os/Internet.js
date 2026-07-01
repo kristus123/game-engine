@@ -30,7 +30,7 @@ export class Internet {
 
 	static async check() {
 		try {
-			const body = await HttpClient.ping()
+			const { body } = await HttpClient.ping()
 			Assert.true(body.pong)
 
 			if (this.connected == null || this.connected == false) {
