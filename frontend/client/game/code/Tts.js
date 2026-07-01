@@ -33,3 +33,13 @@ export class Tts {
 		speechSynthesis.cancel()
 	}
 }
+
+
+
+
+
+
+
+
+
+

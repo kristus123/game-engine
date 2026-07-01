@@ -1,24 +1,40 @@
 import fs from "fs"
 import { Import } from "#root/Import.js"
+
 const Files = await Import("Files")
 
-// chatgpt code
+function Try(fn) {
+	try {
+		return fn()
+	} catch (e) {
+		console.log("ERROR", e)
+	}
+}
 
 export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
 	const last = new Map()
 	const pending = new Map()
+	const seen = new Set()
+
 	let initialized = false
 	let timeout = null
+	let running = false
+
+	const folderList = Array.isArray(folders) ? folders : [folders]
+
+	function allowed(file) {
+		if (!extensions?.length) return true
+		for (const ext of extensions) {
+			if (file.endsWith(ext)) return true
+		}
+		return false
+	}
 
 	function queue(file, type) {
 		const prev = pending.get(file)
 
-		if (prev == "add") {
-			return
-		}
-		if (prev == "change" && type == "delete") {
-			return
-		}
+		if (prev === "add") return
+		if (prev === "change" && type === "delete") return
 
 		pending.set(file, type)
 		scheduleFlush()
@@ -26,69 +42,53 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 
 	function scheduleFlush() {
 		clearTimeout(timeout)
-		timeout = setTimeout(flush, 50)
+		timeout = setTimeout(flush, 10)
 	}
 
 	function flush() {
-		const emitted = new Set()
+		if (running) return
+		running = true
 
 		for (const [file, type] of pending) {
-			if (emitted.has(file)) {
-				continue
-			}
+			if (seen.has(file)) continue
+			seen.add(file)
 
-			if (type == "add") {
-				onAdd(file)
-			}
-			else if (type == "change") {
-				onChange(file)
-			}
-			else if (type == "delete") {
-				onDelete(file)
-			}
-
-			emitted.add(file)
+			if (type === "add") Try(() => onAdd(file))
+			else if (type === "change") Try(() => onChange(file))
+			else if (type === "delete") Try(() => onDelete(file))
 		}
 
 		pending.clear()
-	}
-
-	function allowed(file) {
-		if (!extensions || extensions.length == 0) {
-			return true
-		}
-		return extensions.some(ext => file.endsWith(ext))
+		seen.clear()
+		running = false
 	}
 
 	function compute() {
 		const current = new Set()
-		const allFiles = []
 
-		for (const f of Array.isArray(folders) ? folders : [folders]) {
-			allFiles.push(...Files.at(f))
-		}
+		for (const f of folderList) {
+			for (const file of Files.at(f)) {
+				if (!allowed(file)) continue
 
-		for (const file of allFiles) {
-			if (!allowed(file)) {
-				continue
-			}
+				current.add(file)
 
-			current.add(file)
-
-			const stat = fs.statSync(file)
-			const key = stat.mtimeMs + ":" + stat.size
-
-			const prev = last.get(file)
-
-			if (!prev) {
-				last.set(file, key)
-				if (initialized) {
-					queue(file, "add")
+				let stat
+				try {
+					stat = fs.statSync(file)
+				} catch {
+					continue
 				}
-			}
-			else if (prev != key) {
-				last.set(file, key)
-				queue(file, "change")
+
+				const key = stat.mtimeMs + ":" + stat.size
+				const prev = last.get(file)
+
+				if (!prev) {
+					last.set(file, key)
+					if (initialized) queue(file, "add")
+				} else if (prev !== key) {
+					last.set(file, key)
+					queue(file, "change")
+				}
 			}
 		}
 
@@ -104,9 +104,6 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		initialized = true
 	}
 
-	for (const f of Array.isArray(folders) ? folders : [folders]) {
-		compute()
-	}
-
-	setInterval(compute, 200)
+	compute()
+	setInterval(compute, 50)
 }
