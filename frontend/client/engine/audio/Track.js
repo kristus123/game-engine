@@ -1,6 +1,5 @@
 export class Track {
-	constructor(name = "unnamed") {
-		this.name = name
+	constructor() {
 		this.input = SoundContext.createGain()
 		this.output = this.input
 	}
