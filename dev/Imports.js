@@ -6,6 +6,8 @@ function containsExport(type, className, str) {
 }
 
 function include(content, className) {
+	// dont import lowercase files. this fixes index.js bug with EnhanceAll.js
+	// todo improve solution later
 	if (className[0] !== className[0].toUpperCase()) {
 		return false
 	}
