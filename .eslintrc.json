@@ -258,6 +258,7 @@
         "Positions": "readonly",
         "PracticePage": "readonly",
         "PrepareExternalBundle": "readonly",
+        "PrepareIndexHtml": "readonly",
         "ProxyObject": "readonly",
         "PushClient": "readonly",
         "Pwa": "readonly",

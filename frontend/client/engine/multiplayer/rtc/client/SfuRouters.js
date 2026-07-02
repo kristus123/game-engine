@@ -20,7 +20,7 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
 			console.log("Setting Up SFU Client")
 
-			const router = SfuRouters.routers[SfuClient.connectedRouterId]
+			const router = this.routers[SfuClient.connectedRouterId]
 
 			SfuClient.device = new window.mediasoup.Device()
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
@@ -32,7 +32,7 @@ export class SfuRouters {
 						if (ok) {
 							await Webcam.enable()
 
-							SfuRouters.onLocalConnection(Webcam.cam)
+							this.onLocalConnection(Webcam.cam)
 
 							// Setup Send Transport after Webcam is Enabled
 							await SfuClient.setupSendTransport(data.sendTransportParams)
@@ -120,11 +120,10 @@ export class SfuRouters {
 			console.log("Consuming New Producer")
 			SfuClient.consume(data.producerId, data.clientId)
 		})
-	}
 
-	// Does not work if is directly inside init()
-	// That is probably because the client has not connected to the server when this runs, and currently we just ignore messages if it is not connected to the server.
-	static updateRouterList() {
-		SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
+		setTimeout(() => {
+			// hack to wait for server to connect. todo fix
+			SocketClient.sendToServer("SFU_GET_ROUTER_LIST", {})
+		}, 1_000)
 	}
 }
