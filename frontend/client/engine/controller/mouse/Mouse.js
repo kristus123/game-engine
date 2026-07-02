@@ -6,7 +6,7 @@ export class Mouse {
 	static latest_x = 0
 	static latest_y = 0
 
-	static onClick = p => {}
+	static onClick = p => { }
 
 	static position = WorldPosition(0, 0)
 
@@ -42,8 +42,8 @@ export class Mouse {
 			const events = e.getCoalescedEvents()
 
 			const last = events[events.length - 1]
-			this.latest_x = last.clientX
-			this.latest_y = last.clientY
+			this.latest_x = last.clientX / 4
+			this.latest_y = last.clientY / 4
 		})
 	}
 
