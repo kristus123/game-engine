@@ -16,6 +16,6 @@ canvas {
 }
 
 .palette-canvas {
-	transform: scale(var(--palette-visual-scale, 1));
+	transform: scale(1);
 	transform-origin: top left;
 }
