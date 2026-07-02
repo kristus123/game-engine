@@ -1,6 +1,6 @@
 export const HttpClient = ProxyObject(
-	(method, params = { body: {}, ok: body => {}, error: body => {} }) => {
-		Assert.jsonObject(params.body)
+	(method, { body = {}, ok = body => {}, error = body => {} } = {}) => {
+		Assert.jsonObject(body)
 
 		const abortController = new AbortController()
 		const timer = setTimeout(() => {
@@ -8,7 +8,7 @@ export const HttpClient = ProxyObject(
 		}, 1_000)
 
 		const request = {
-			body: JSON.stringify(params.body),
+			body: JSON.stringify(body),
 			method: "POST",
 			cache: "no-store", // disables cache
 			signal: abortController.signal,
@@ -25,50 +25,35 @@ export const HttpClient = ProxyObject(
 				Assert.jsonObject(json)
 
 				if (response.ok) {
-					params.ok(json)
+					ok(json)
 
 					return {
 						ok: true,
 						error: false,
-						body: json
+						body: json,
 					}
 				}
 				else {
-					params.error(json)
+					error(json)
 
 					return {
 						ok: false,
 						error: true,
-						body: json
+						body: json,
 					}
 				}
 			})
 			.catch(e => {
 				console.error(`${method}: ${e?.message}`)
-				throw e
+				error({error: e})
+				return {
+					ok: false,
+					error: true,
+					body: json,
+				}
 			})
 			.finally(() => {
 				clearTimeout(timer)
 			})
 	}
 )
-
-
-// in the future
-// maybe do something like this
-/*
-httpClient.getStuff({
-	body: {},
-	ok: body => {
-
-	},
-	error: e => {
-
-	},
-})
-*/
-
-/*
- * and also support this
-const {ok, error} = await httpClient.getStuff({body: {}})
-*/
