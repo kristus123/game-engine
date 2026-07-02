@@ -96,19 +96,6 @@ export class Camera {
 		this.visiblePosition.height = Screen.height
 	}
 
-	static smoothing(target, lerpSpeed = 1.2) { // we can use this one later
-		const dx = target.x - this.position.x
-		const dy = target.y - this.position.y
-		if (Math.hypot(dx, dy) > 0.5) {
-			this.position.x += dx * lerpSpeed * DeltaTime.value
-			this.position.y += dy * lerpSpeed * DeltaTime.value
-		}
-		else {
-			this.position.x = target.x
-			this.position.y = target.y
-		}
-	}
-
 	static insideView(entity) {
 		return Collision.coveredEntirely(this.visiblePosition, entity.position)
 	}
