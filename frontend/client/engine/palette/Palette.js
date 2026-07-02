@@ -1,6 +1,6 @@
 export class Palette {
-	static renderScale = 0.5;
-	static visualScale = 1;
+	static renderScale = 0.5; // engine’s internal drawing scale. it tells the canvas backing buffer to be created at half the visible size
+	static visualScale = 1; // the CSS scale applied to the final canvas element. at 1, the canvas is shown at its natural size
 
 	static {
 		function xxx() {
@@ -43,10 +43,8 @@ export class Palette {
 		this.d3 = xxx()
 
 		const canvas = document.createElement("canvas")
-		canvas.style.width = "100%"
-		canvas.style.height = "100%"
-		canvas.style.transform = `scale(${Palette.visualScale})`
-		canvas.style.transformOrigin = "top left"
+		canvas.classList.add("palette-canvas")
+		canvas.style.setProperty("--palette-visual-scale", String(Palette.visualScale))
 		document.getElementById("canvases").appendChild(canvas)
 
 		const ctx = canvas.getContext("2d")
