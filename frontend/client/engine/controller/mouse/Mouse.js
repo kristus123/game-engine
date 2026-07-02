@@ -11,7 +11,7 @@ export class Mouse {
 	static position = WorldPosition(0, 0)
 
 	static toRenderCoordinates(clientX, clientY) {
-		const coordinateScale = Palette.renderScale / (1 / Palette.renderScale)
+		const coordinateScale = Palette.renderScaleFactor / (1 / Palette.renderScaleFactor)
 		return {
 			x: clientX * coordinateScale,
 			y: clientY * coordinateScale,
