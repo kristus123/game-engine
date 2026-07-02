@@ -1,13 +1,11 @@
 export class Weather {
 	constructor() {
-		// Initialize Stars
 		this.stars = Array.from({ length: 60 }, () => ({
 			rx: Random.floatBetween(0, 1),
 			ry: Random.floatBetween(0, 1),
 			size: Random.floatBetween(1, 3),
 		}))
 
-		// Initialize Snow particles
 		this.snowParticles = Array.from({ length: 80 }, () => ({
 			x: Random.floatBetween(0, Screen.width),
 			y: Random.floatBetween(0, Screen.height),
@@ -15,7 +13,6 @@ export class Weather {
 			size: Random.floatBetween(1, 4),
 		}))
 
-		// Initialize Rain particles
 		this.rainParticles = Array.from({ length: 120 }, () => ({
 			x: Random.floatBetween(0, Screen.width),
 			y: Random.floatBetween(0, Screen.height),
@@ -23,7 +20,6 @@ export class Weather {
 			length: Random.floatBetween(8, 20),
 		}))
 
-		// Initialize Clouds
 		this.clouds = [
 			{ x: 100, y: 35, speed: 25, scale: 0.8 },
 			{ x: 350, y: 55, speed: 15, scale: 1.1 },
