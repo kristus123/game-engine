@@ -36,18 +36,4 @@ export class Quest {
 		this.lazyLoop.update()
 	}
 
-	static msg(messageText, startAction, markDoneIf, onDone) { // no-null-check
-		return new Task("Message Task", {
-			start: () => {
-				G.player.msg.set([H.p(messageText)])
-				G.player.msg.show()
-				startAction?.()
-			},
-			markDoneIf: markDoneIf,
-			onDone: () => {
-				G.player.msg.hide()
-				onDone?.()
-			}
-		})
-	}
 }
