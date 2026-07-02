@@ -42,7 +42,6 @@ export class Palette {
 		this.d3 = xxx()
 
 		const canvas = document.createElement("canvas")
-		canvas.classList.add("palette-canvas")
 		document.getElementById("canvases").appendChild(canvas)
 
 		const ctx = canvas.getContext("2d")

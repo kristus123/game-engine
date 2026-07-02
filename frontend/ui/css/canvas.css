@@ -14,8 +14,3 @@ canvas {
 	/* disables the swipe right to go back */
 	touch-action: none;
 }
-
-.palette-canvas {
-	transform: scale(1);
-	transform-origin: top left;
-}
