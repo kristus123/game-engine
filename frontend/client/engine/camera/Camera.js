@@ -96,7 +96,7 @@ export class Camera {
 		this.visiblePosition.height = Screen.height
 	}
 
-	static smoothing(target, lerpSpeed = 1.2) {
+	static smoothing(target, lerpSpeed = 1.2) { // we can use this one later
 		const dx = target.x - this.position.x
 		const dy = target.y - this.position.y
 		if (Math.hypot(dx, dy) > 0.5) {
