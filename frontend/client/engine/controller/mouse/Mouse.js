@@ -10,6 +10,14 @@ export class Mouse {
 
 	static position = WorldPosition(0, 0)
 
+	static toRenderCoordinates(clientX, clientY) {
+		const coordinateScale = Palette.renderScale / (Palette.visualScale / Palette.renderScale)
+		return {
+			x: clientX * coordinateScale,
+			y: clientY * coordinateScale,
+		}
+	}
+
 	static initialize() {
 		// is it better to use window.addEventListener ?
 
@@ -19,7 +27,8 @@ export class Mouse {
 		// change the pointerdown to use canvas later
 		// Instead of listening globally.
 		document.addEventListener("pointerdown", e => {
-			Mouse.updatePosition(e.clientX, e.clientY)
+			const { x, y } = this.toRenderCoordinates(e.clientX, e.clientY)
+			Mouse.updatePosition(x, y)
 
 			if (e.target == Palette.main.canvas) {
 				this.onClick(this.position)
@@ -40,10 +49,10 @@ export class Mouse {
 	static initializeAfterCameraIsInitialized() {
 		document.addEventListener("pointermove", e => {
 			const events = e.getCoalescedEvents()
-
 			const last = events[events.length - 1]
-			this.latest_x = last.clientX / 4
-			this.latest_y = last.clientY / 4
+			const { x, y } = this.toRenderCoordinates(last.clientX, last.clientY)
+			this.latest_x = x
+			this.latest_y = y
 		})
 	}
 
