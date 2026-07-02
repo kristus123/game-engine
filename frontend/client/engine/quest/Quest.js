@@ -11,8 +11,8 @@ export class Quest {
 			})
 		})
 
+		this.onQuestCompleted = onQuestCompleted
 		this.activeTask = null
-
 		this.lazyLoop = LazyLoop(this.tasks, {
 			onNext: (task) => {
 				this.activeTask = task
@@ -35,4 +35,5 @@ export class Quest {
 	update() {
 		this.lazyLoop.update()
 	}
+
 }

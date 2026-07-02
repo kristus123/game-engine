@@ -33,7 +33,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-		const activeThing = TestNewHttp()
+		const activeThing = World()
 
 		Loop.everyFrame(() => {
 			Palette.main.fill("#10204f")
