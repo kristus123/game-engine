@@ -1,23 +1,7 @@
 export class Quest {
 	constructor(tasks=[], onQuestCompleted) {
-		this.tasks = tasks.map(task => {
-			if (task instanceof Task) {
-				return task
-			}
-			return new Task("Legacy Task", {
-				start: (markDone) => {
-					return task({ markDone })
-				}
-			})
-		})
-
-		this.onQuestCompleted = onQuestCompleted
-		this.activeTask = null
 		this.lazyLoop = LazyLoop(this.tasks, {
-			onNext: (task) => {
-				this.activeTask = task
-				this.activeTask.start()
-			},
+			onNext: (task) => task.start(),
 			onUpdate: (task) => {
 				task.update()
 				if (task.done) {
@@ -25,8 +9,7 @@ export class Quest {
 				}
 			},
 			onFinish: () => {
-				this.activeTask = null
-				this.onQuestCompleted?.()
+				onQuestCompleted?.()
 				this.removeItself?.()
 			},
 		})
