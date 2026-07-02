@@ -45,7 +45,7 @@ export const HttpClient = ProxyObject(
 			})
 			.catch(e => {
 				console.error(`${method}: ${e?.message}`)
-				error({error: e})
+				error({ error: e })
 				return {
 					ok: false,
 					error: true,

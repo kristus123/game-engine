@@ -1,6 +1,6 @@
 export async function LoadPersistedJson() {
 	const { ok, body } = await HttpClient.allPersistedJsonFiles({
-		body: {}, 
+		body: {},
 		ok: body => {
 			// 			for (let { name, content } of body) {
 			// 				PersistedJson[name] = Assert.jsonObject(content)
@@ -21,7 +21,8 @@ export async function LoadPersistedJson() {
 
 	if (ok) {
 		return body
-	} else {
+	}
+	else {
 		Toast(body)
 		console.error(body)
 	}
