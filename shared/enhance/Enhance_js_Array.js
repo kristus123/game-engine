@@ -1,9 +1,9 @@
 export function Enhance_js_Array() {
 
 	Enhance(Array.prototype, "remove", function (object) {
-		const index = this.indexOf(object)
-		if (index != -1) {
-			this.splice(index, 1)
+		const idx = this.indexOf(object)
+		if (idx != -1) {
+			this.splice(idx, 1)
 			return true
 		}
 
@@ -46,9 +46,9 @@ export function Enhance_js_Array() {
 	})
 
 	Enhance(Array.prototype, "removeIfPresent", function (e) {
-		const index = this.indexOf(e)
-		if (index != -1) {
-			this.splice(index, 1)
+		const idx = this.indexOf(e)
+		if (idx != -1) {
+			this.splice(idx, 1)
 		}
 	})
 
@@ -80,8 +80,8 @@ export function Enhance_js_Array() {
 	})
 
 
-	Enhance(Array.prototype, "lastIndex", function (index) {
-		return index == this.length - 1
+	Enhance(Array.prototype, "lastIndex", function (idx) {
+		return idx == this.length - 1
 	})
 
 	Getter(Array.prototype, "last", function () {
@@ -89,8 +89,8 @@ export function Enhance_js_Array() {
 		return this.at(-1)
 	})
 
-	Enhance(Array.prototype, "validIndex", function (index) {
-		return index >= 0 && index < this.length
+	Enhance(Array.prototype, "validIndex", function (idx) {
+		return idx >= 0 && idx < this.length
 	})
 
 

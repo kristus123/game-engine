@@ -6,6 +6,10 @@ function containsExport(type, className, str) {
 }
 
 function include(content, className) {
+	if (className[0] !== className[0].toUpperCase()) {
+		return false
+	}
+
 	if (
 		containsExport("class", className, content) ||
 		containsExport("function", className, content) ||
