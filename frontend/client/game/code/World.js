@@ -2,9 +2,7 @@ export class World {
     constructor() {
         G.player = Player(WorldPosition(950, 420))
 
-        G.oldSami = OldSami(WorldPosition(730, 600)) // WorldPosition is not an actual param in OldSami // todo fix
-        G.oldSami.position.x = 730 // todo remove
-        G.oldSami.position.y = 600 // todo remove
+        G.oldSami = OldSami(WorldPosition(730, 600))
 
         this.bushes = [
             Sprite.bush(WorldPosition(500, 400)),
