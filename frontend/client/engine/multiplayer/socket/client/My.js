@@ -7,6 +7,14 @@ if (clientId == null) {
 	localStorage.setItem("clientId", clientId)
 }
 
-export const My = {
-	clientId: clientId,
+export class My {
+	static clientId = clientId
+
+	static _userId = null
+
+	static get clientId() {
+		Assert.value(clientId)
+		return clientId
+	}
+
 }

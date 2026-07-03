@@ -13,6 +13,11 @@ function sendJson(res, httpStatus, data) {
 	res.end(JSON.stringify(data))
 }
 
+
+function validToken(encodedToken) {
+	return encodedToken != null && encodedToken != "null" 
+}
+
 export async function parseBody(req) {
 	let rawBody = Buffer.alloc(0)
 
@@ -90,9 +95,14 @@ export class HttpServer {
 
 			if (req.method == "POST") {
 				assertJsonBody(req)
-				const encodedToken = req.headers["token"] || null
-				const decodedToken = ServerToken.decode(encodedToken)
-				const role = Role(decodedToken)
+
+				const encodedToken = req.headers["token"]
+
+				const decodedToken = validToken(encodedToken)
+					? ServerToken.decode(encodedToken)
+					: null //todo not use null
+
+				const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 
 				try {
 					const body = await parseBody(req)
@@ -103,7 +113,6 @@ export class HttpServer {
 						req: req,
 						headers: req.headers,
 						contentType: req.headers["Content-Type"] || null,
-						decodedToken: decodedToken,
 						params: getQueryParameters(req),
 					}) ?? {}
 
@@ -119,8 +128,6 @@ export class HttpServer {
 				catch (e) {
 					console.log(e)
 					sendJson(res, 500, {
-						error: e?.message || "shit went WHACK yo",
-					})
 				}
 			}
 			else if (req.method == "OPTIONS") { // Preflight / cors

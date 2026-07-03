@@ -8,7 +8,7 @@ export function Router(role, path) { // todo rename to Route.js
 		return UserRoute[path]
 	}
 	else if (UnsecureRoute[path]) {
-		return UnsecureRoute[path]
+		return UnsecureRoute[path] // accessible by everyone
 	}
 	else if (Route[path]) {
 		// todo delete Route.js
@@ -16,7 +16,7 @@ export function Router(role, path) { // todo rename to Route.js
 		return Route[path]
 	}
 	else {
-		throw new Error("unsupported route thingy")
+		throw new Error("unsupported route thingy for: " + path)
 	}
 }
 
