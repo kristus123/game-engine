@@ -6,7 +6,7 @@ import { Regex } from "#root/dev/Regex.js"
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
 
-function indentations(str) {
+function tabCount(str) {
 	return (str.match(/\t/g) || []).length
 }
 
@@ -85,10 +85,10 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 			}
 
 			if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
-				const tabs = indentations(lines[i])
+				const tabs = tabCount(lines[i])
 
 				for (let ii = 1 ; true ; ii++) {
-					if (tabs == indentations(lines[i+ii])) {
+					if (tabs == tabCount(lines[i+ii])) {
 						lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
 						break
 					}
