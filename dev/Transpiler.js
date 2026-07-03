@@ -22,11 +22,6 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		const className = path.parse(jsFilePath).name
 		const fileName = path.basename(jsFilePath)
 
-		if (fileName == "out.js") {
-			Files.writeFileToDist(jsFilePath, fileContent)
-			continue
-		}
-
 		for (const f of jsFiles) {
 			const className = path.parse(f).name
 			const fileText = Files.read(f)
