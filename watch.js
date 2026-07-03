@@ -93,7 +93,7 @@ function triggerClientReload() {
 		SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
 		console.log("reload triggered")
 		idTimeout = null
-	}, 50)
+	}, 100)
 }
 
 TestWatcher([FileConfig.client], [".js", ".aseprite"], {
