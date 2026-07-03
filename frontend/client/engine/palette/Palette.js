@@ -1,5 +1,5 @@
 export class Palette {
-	static renderScale = 2 // engine’s internal drawing scale level: 1 to 5 means 1/1 to 1/5 of the visible size
+	static renderScale = 1 // engine’s internal drawing scale level: 1 to 5 means 1/1 to 1/5 of the visible size
 
 	static get renderScaleFactor() {
 		return 1 / this.renderScale

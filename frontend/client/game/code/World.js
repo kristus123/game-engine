@@ -24,7 +24,7 @@ export class World {
 		])
 
 		Controller.control(G.player)
-		Camera.follow(G.player.position)
+		Camera.follow(G.player)
 	}
 
 	update() {
