@@ -2,13 +2,10 @@ import path from "path"
 
 import { Imports } from "#root/dev/Imports.js"
 import { Parameters } from "#root/dev/Parameters.js"
-import { Regex } from "#root/dev/Regex.js"
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-
-function tabCount(str) {
-	return (str.match(/\t/g) || []).length
-}
+import { AddNullChecks } from "#root/dev/transpiler/AddNullChecks.js"
+import { ImproveSwitchCase } from "#root/dev/transpiler/ImproveSwitchCase.js"
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
@@ -16,6 +13,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 	}
 
 	console.log("Transpiling \"frontend/\" and \"shared/\" into \"dist/\"...")
+	const sharedFiles = Files.at(FileConfig.shared)
 
 	for (const jsFilePath of jsFiles) {
 		let fileContent = Files.read(jsFilePath)
@@ -38,88 +36,53 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 				`export class ${className} {`, `export class ${className} extends SuperClass {`)
 		}
 
-		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
-
 		const lines = fileContent.split("\n")
 
 		for (let i = 0; i < lines.length; i++) {
-
-
-			const applyNullChecks = i => { // hacky
-				if (lines[i].includes("no-null-check")) {
-					return [] // do nothing
-				}
-
-				const p = Parameters.extractIfPresent(lines[i])
-
-				if (p && p.parameters && fileName != "Assert.js") {
-					for (let ii = 0; ii < p.parameters.length; ii++) {
-						const pp = p.parameters[ii]
-						lines[i] = lines[i]
-							+ "\n"
-							+ "\t".repeat(3) // Just to make it slightly prettier
-							+ `Assert.notNull(${pp}, 'param ${ii+1} - ${pp} - ${className}.${p.methodName}')`
-					}
-
-					return p.parameters
-				}
-				else {
-					return []
-				}
-			}
-
 			if (lines[i].includes("constructor(")) {
 				if (lines[i+1].includes("super(")) {
-					const params = applyNullChecks(i+1) // hacky
+					const params = AddNullChecks(fileName, className, lines, i+1)
 					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 				else {
 					if (!fileContent.includes("export class SuperClass")) {
 						lines[i] = lines[i] + "\n" + "super()"
 					}
-					const params = applyNullChecks(i) // hacky
+					const params = AddNullChecks(fileName, className, lines, i)
 					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 			}
 			else {
-				applyNullChecks(i) // hacky
+				AddNullChecks(fileName, className, lines, i)
 			}
 
-			if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
-				const tabs = tabCount(lines[i])
-
-				for (let ii = 1 ; true ; ii++) {
-					if (tabs == tabCount(lines[i+ii])) {
-						lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
-						break
-					}
-				}
-			}
+			ImproveSwitchCase(lines, i)
 		}
 
 		fileContent = lines.join("\n")
-
-		const sharedFiles = Files.at(FileConfig.shared)
 
 		fileContent = Imports.needed(fileContent, [
 			...jsFiles,
 			...sharedFiles
 		]) + "\n" + fileContent
 
+		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+
 		Files.writeFileToDist(jsFilePath, fileContent)
+	}
 
-		for (let sharedFilePath of sharedFiles) {
-			let content = Files.read(sharedFilePath)
+	for (let sharedFilePath of sharedFiles) {
+		let content = Files.read(sharedFilePath)
 
-			content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
-			const imports = Imports.needed(content, [
-				...sharedFiles,
-				...jsFiles,
-			])
+		const imports = Imports.needed(content, [
+			...sharedFiles,
+			...jsFiles, // todo remove this. this is a hack
+		])
 
-			Files.write(sharedFilePath.replace(FileConfig.shared, "dist/shared"), imports + "\n" + content) // todo use FileConfig
-		}
-
+		const p = "dist/" + sharedFilePath // todo improve
+		const c = imports + "\n" + content
+		Files.write(p, c)
 	}
 }

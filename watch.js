@@ -57,13 +57,12 @@ export function _generateDist(onExit) {
 			return
 		}
 		child = null
+		if (code != 0) {
+			return
+		}
 		onExit?.(code, signal)
 	})
 }
-
-
-
-
 
 
 
