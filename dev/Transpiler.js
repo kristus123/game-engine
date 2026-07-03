@@ -98,10 +98,8 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		fileContent = lines.join("\n")
 
-		// Get all files from shared
 		const sharedFiles = Files.at(FileConfig.shared)
 
-		//  Use sharedFiles and add imports for files in frontend/, Then write it to dist
 		fileContent = Imports.needed(fileContent, [
 			...jsFiles,
 			...sharedFiles
@@ -109,18 +107,15 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		Files.writeFileToDist(jsFilePath, fileContent)
 
-		// Use sharedFiles and add imports for shared/, Then write it to dist.
 		const destPath = path.join(FileConfig.dist, "shared")
 
-		Files.createFolder(destPath)
-
-		for (let sharedFilePath of Files.at(FileConfig.shared)) {
+		for (let sharedFilePath of sharedFiles) {
 			let content = Files.read(sharedFilePath)
 
 			content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 			const imports = Imports.needed(content, [
-				...Files.at(FileConfig.shared),
+				...sharedFiles,
 				...jsFiles,
 			])
 
