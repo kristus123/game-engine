@@ -1,16 +1,15 @@
 export class SfuWorld {
 	constructor() {
-
 		SfuClient.init()
 		SfuRouters.init()
 
-		SfuRouters.updateRouterList()
+		// SfuRouters.updateRouterList()
 
 		const s = Dom.add(Html.sfu())
 
 		SfuRouters.onRouterCreated = lobby => {
 			s.lobbies.add(H.button("join " + lobby.routerId, () => {
-				SfuClient.joinLobby(lobby.routerId)
+				SfuClient.join(lobby.routerId)
 			}))
 		}
 
@@ -24,7 +23,7 @@ export class SfuWorld {
 		}
 
 		s.create.onClick(() => {
-			SfuClient.createLobby(true) // streamOnly == true
+			SfuClient.createRouter(true) // streamOnly == true
 		})
 	}
 

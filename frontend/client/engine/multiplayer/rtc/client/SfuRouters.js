@@ -6,7 +6,7 @@ export class SfuRouters {
 		this.onRouterDeleted = (routerId) => {}
 		this.onGuestConnection = (stream) => {}
 		this.onLocalConnection = (stream) => {}
-		this.onJoinLobby = (router) => {}
+		this.onjoin = (router) => {}
 		this.onLeaveLobby = (router) => {}
 
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
@@ -98,7 +98,7 @@ export class SfuRouters {
 
 			if (data.hostClientId == My.clientId) {
 				console.log("Joining Created Lobby...")
-				SfuClient.joinLobby(data.routerId)
+				SfuClient.join(data.routerId)
 			}
 
 			this.onRouterCreated(this.routers[data.routerId])
@@ -113,7 +113,7 @@ export class SfuRouters {
 
 			console.log(this.routers)
 
-			this.onJoinLobby(router)
+			this.onjoin(router)
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
