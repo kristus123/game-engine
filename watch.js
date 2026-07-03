@@ -4,7 +4,6 @@ import { execSync } from "child_process"
 
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-import { GenerateDist } from "#root/dev/GenerateDist.js"
 import { GenerateBackend } from "#root/GenerateBackend.js"
 
 import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
@@ -31,6 +30,59 @@ Files.deleteFolder(FileConfig.dist)
 const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
 const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
+
+
+
+
+
+import { spawn } from "child_process"
+
+let child
+
+export function _generateDist(onExit) {
+	if (child) {
+		child.kill("SIGTERM")
+		child = null
+	}
+
+	child = spawn(process.execPath, ["dev/GenerateDist.js", "DEVELOPMENT"], {
+		stdio: "inherit"
+	})
+
+	child.on("exit", (code, signal) => {
+		child = null
+		if (onExit) {
+			onExit(code, signal)
+		}
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let idTimeout = null
 function triggerClientReload() {
 	if (idTimeout) {
@@ -39,6 +91,7 @@ function triggerClientReload() {
 
 	idTimeout = setTimeout(() => {
 		SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
+		console.log("reload triggered")
 		idTimeout = null
 	}, 50)
 }
@@ -49,28 +102,32 @@ TestWatcher([FileConfig.client], [".js", ".aseprite"], {
 			await ExportAseprite(path)
 		}
 
-		GenerateDist("DEVELOPMENT")
-		triggerClientReload()
+		_generateDist(() => {
+			triggerClientReload()
+		})
 	},
 	onChange: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)
 		}
 
-		GenerateDist("DEVELOPMENT")
-		triggerClientReload()
+		_generateDist(() => {
+			triggerClientReload()
+		})
 	},
 	onDelete: async (path) => {
-		GenerateDist("DEVELOPMENT")
-		triggerClientReload()
+		_generateDist(() => {
+			triggerClientReload()
+		})
 	},
 })
 
 // initial build
-GenerateDist("DEVELOPMENT")
-await ExportAseprite()
-PrepareExternalBundle()
-ServeDist()
+_generateDist(async () => {
+	await ExportAseprite()
+	PrepareExternalBundle()
+	ServeDist()
 
-// for now only run server once
-StartServer()
+	// for now only run server once
+	StartServer()
+})

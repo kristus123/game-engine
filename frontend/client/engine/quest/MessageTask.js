@@ -1,4 +1,4 @@
-export function MessageTask({text, onStart, markDoneIf, onDone} = {}) { // no-null-check
+export function MessageTask({ text, onStart, markDoneIf, onDone } = {}) { // no-null-check
 	return Task("Message Task", {
 		start: () => {
 			G.player.msg.set([H.p(text)])
