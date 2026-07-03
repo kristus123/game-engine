@@ -75,20 +75,25 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 
 			current.add(file)
 
-			const stat = fs.statSync(file)
-			const key = stat.mtimeMs + ":" + stat.size
+			try {
+				const stat = fs.statSync(file)
+				const key = stat.mtimeMs + ":" + stat.size
 
-			const prev = last.get(file)
+				const prev = last.get(file)
 
-			if (!prev) {
-				last.set(file, key)
-				if (initialized) {
-					queue(file, "add")
+				if (!prev) {
+					last.set(file, key)
+					if (initialized) {
+						queue(file, "add")
+					}
+				}
+				else if (prev != key) {
+					last.set(file, key)
+					queue(file, "change")
 				}
 			}
-			else if (prev != key) {
-				last.set(file, key)
-				queue(file, "change")
+			catch (e) {
+				console.log("poop")
 			}
 		}
 
@@ -108,5 +113,5 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		compute()
 	}
 
-	setInterval(compute, 200)
+	setInterval(compute, 50)
 }

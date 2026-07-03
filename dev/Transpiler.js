@@ -2,13 +2,10 @@ import path from "path"
 
 import { Imports } from "#root/dev/Imports.js"
 import { Parameters } from "#root/dev/Parameters.js"
-import { Regex } from "#root/dev/Regex.js"
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-
-function indentations(str) {
-	return (str.match(/\t/g) || []).length
-}
+import { AddNullChecks } from "#root/dev/transpiler/AddNullChecks.js"
+import { ImproveSwitchCase } from "#root/dev/transpiler/ImproveSwitchCase.js"
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
@@ -16,16 +13,12 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 	}
 
 	console.log("Transpiling \"frontend/\" and \"shared/\" into \"dist/\"...")
+	const sharedFiles = Files.at(FileConfig.shared)
 
 	for (const jsFilePath of jsFiles) {
 		let fileContent = Files.read(jsFilePath)
 		const className = path.parse(jsFilePath).name
 		const fileName = path.basename(jsFilePath)
-
-		if (fileName == "out.js") {
-			Files.writeFileToDist(jsFilePath, fileContent)
-			continue
-		}
 
 		for (const f of jsFiles) {
 			const className = path.parse(f).name
@@ -43,94 +36,53 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 				`export class ${className} {`, `export class ${className} extends SuperClass {`)
 		}
 
-		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
-
 		const lines = fileContent.split("\n")
 
 		for (let i = 0; i < lines.length; i++) {
-
-			const p = Parameters.extractIfPresent(lines[i])
-
-			const applyNullChecks = i => { // hacky
-				if (lines[i].includes("no-null-check")) {
-					// do nothing
-					return []
-				}
-				else if (p && p.parameters && fileName != "Assert.js") {
-					for (let ii = 0; ii < p.parameters.length; ii++) {
-						const pp = p.parameters[ii]
-						lines[i] = lines[i]
-							+ "\n"
-							+ "\t".repeat(3) // Just to make it slightly prettier
-							+ `Assert.notNull(${pp}, 'param ${ii+1} - ${pp} - ${className}.${p.methodName}')`
-					}
-
-					return p.parameters
-				}
-				else {
-					return []
-				}
-			}
-
 			if (lines[i].includes("constructor(")) {
 				if (lines[i+1].includes("super(")) {
-					const params = applyNullChecks(i+1) // hacky
+					const params = AddNullChecks(fileName, className, lines, i+1)
 					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 				else {
 					if (!fileContent.includes("export class SuperClass")) {
 						lines[i] = lines[i] + "\n" + "super()"
 					}
-					const params = applyNullChecks(i) // hacky
+					const params = AddNullChecks(fileName, className, lines, i)
 					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
 				}
 			}
 			else {
-				applyNullChecks(i) // hacky
+				AddNullChecks(fileName, className, lines, i)
 			}
 
-			if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
-				const tabs = indentations(lines[i])
-
-				for (let ii = 1 ; true ; ii++) {
-					if (tabs == indentations(lines[i+ii])) {
-						lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
-						break
-					}
-				}
-			}
+			ImproveSwitchCase(lines, i)
 		}
 
 		fileContent = lines.join("\n")
 
-		// Get all files from shared
-		const sharedFiles = Files.at(FileConfig.shared)
-
-		//  Use sharedFiles and add imports for files in frontend/, Then write it to dist
 		fileContent = Imports.needed(fileContent, [
 			...jsFiles,
 			...sharedFiles
 		]) + "\n" + fileContent
 
+		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+
 		Files.writeFileToDist(jsFilePath, fileContent)
+	}
 
-		// Use sharedFiles and add imports for shared/, Then write it to dist.
-		const destPath = path.join(FileConfig.dist, "shared")
+	for (let sharedFilePath of sharedFiles) {
+		let content = Files.read(sharedFilePath)
 
-		Files.createFolder(destPath)
+		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
-		for (let sharedFilePath of Files.at(FileConfig.shared)) {
-			let content = Files.read(sharedFilePath)
+		const imports = Imports.needed(content, [
+			...sharedFiles,
+			...jsFiles, // todo remove this. this is a hack
+		])
 
-			content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
-
-			const imports = Imports.needed(content, [
-				...Files.at(FileConfig.shared),
-				...jsFiles,
-			])
-
-			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
-		}
-
+		const p = "dist/" + sharedFilePath // todo improve
+		const c = imports + "\n" + content
+		Files.write(p, c)
 	}
 }

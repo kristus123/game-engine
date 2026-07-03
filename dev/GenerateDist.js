@@ -24,5 +24,6 @@ export function GenerateDist(env) {
 
 import { fileURLToPath } from "url"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
-	GenerateDist(process.argv[2])
+	const env = process.argv[2]
+	GenerateDist(env)
 }
