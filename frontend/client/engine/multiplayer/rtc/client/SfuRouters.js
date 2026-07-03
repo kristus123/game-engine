@@ -6,8 +6,8 @@ export class SfuRouters {
 		this.onRouterDeleted = (routerId) => {}
 		this.onGuestConnection = (stream) => {}
 		this.onLocalConnection = (stream) => {}
-		this.onjoin = (router) => {}
-		this.onLeaveLobby = (router) => {}
+		this.onJoin = (router) => {}
+		this.onLeave = (router) => {}
 
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routers = data.routerList
@@ -81,7 +81,7 @@ export class SfuRouters {
 				delete SfuClient.consumers[data.clientId]
 			}
 
-			this.onLeaveLobby(router)
+			this.onLeave(router)
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
@@ -113,7 +113,7 @@ export class SfuRouters {
 
 			console.log(this.routers)
 
-			this.onjoin(router)
+			this.onJoin(router)
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
