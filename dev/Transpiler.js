@@ -44,14 +44,15 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		for (let i = 0; i < lines.length; i++) {
 
-			const p = Parameters.extractIfPresent(lines[i])
 
 			const applyNullChecks = i => { // hacky
 				if (lines[i].includes("no-null-check")) {
-					// do nothing
-					return []
+					return [] // do nothing
 				}
-				else if (p && p.parameters && fileName != "Assert.js") {
+
+				const p = Parameters.extractIfPresent(lines[i])
+
+				if (p && p.parameters && fileName != "Assert.js") {
 					for (let ii = 0; ii < p.parameters.length; ii++) {
 						const pp = p.parameters[ii]
 						lines[i] = lines[i]
@@ -107,8 +108,6 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		Files.writeFileToDist(jsFilePath, fileContent)
 
-		const destPath = path.join(FileConfig.dist, "shared")
-
 		for (let sharedFilePath of sharedFiles) {
 			let content = Files.read(sharedFilePath)
 
@@ -119,7 +118,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 				...jsFiles,
 			])
 
-			Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
+			Files.write(sharedFilePath.replace(FileConfig.shared, "dist/shared"), imports + "\n" + content) // todo use FileConfig
 		}
 
 	}
