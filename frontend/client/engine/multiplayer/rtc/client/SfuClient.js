@@ -120,7 +120,7 @@ export class SfuClient {
 		})
 	}
 
-	static async join(routerId) {
+	static async joinRouter(routerId) {
 		this.connectedRouterId = routerId
 
 		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
@@ -128,7 +128,7 @@ export class SfuClient {
 		})
 	}
 
-	static leave() {
+	static leaveRouter() {
 		this.clean()
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {

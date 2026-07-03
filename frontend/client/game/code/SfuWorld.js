@@ -7,7 +7,7 @@ export class SfuWorld {
 
 		SfuRouters.onRouterCreated = lobby => {
 			s.lobbies.add(H.button("join " + lobby.routerId, () => {
-				SfuClient.join(lobby.routerId)
+				SfuClient.joinRouter(lobby.routerId)
 			}))
 		}
 

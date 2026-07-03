@@ -98,7 +98,7 @@ export class SfuRouters {
 
 			if (data.hostClientId == My.clientId) {
 				console.log("Joining Created Lobby...")
-				SfuClient.join(data.routerId)
+				SfuClient.joinRouter(data.routerId)
 			}
 
 			this.onRouterCreated(this.routers[data.routerId])
