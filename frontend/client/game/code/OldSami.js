@@ -1,6 +1,6 @@
 export class OldSami extends Entity {
-	constructor() {
-		super(WorldPosition(1000, 2000))
+	constructor(position) {
+		super(position)
 
 		this.objects = Objects([
 			this.sprite = Sprite.oldSami(this.position)
