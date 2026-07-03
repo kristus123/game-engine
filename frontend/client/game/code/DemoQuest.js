@@ -1,6 +1,6 @@
 export const DemoQuest = () => Quest([
 	MessageTask({
-		messageText: "Press <key>E</key> to light torch",
+		text: "Press <key>E</key> to light torch",
 		markDoneIf: () => Keyboard.e,
 		onStart: () => {
 			G.player.light.intensity = 0
@@ -13,7 +13,7 @@ export const DemoQuest = () => Quest([
 		},
 	}),
 	MessageTask({
-		messageText: "Walk to Old Sami",
+		text: "Walk to Old Sami",
 		markDoneIf: () => Distance.within(150, G.player.position, G.oldSami.position),
 	})
 ], () => {
