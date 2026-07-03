@@ -108,5 +108,5 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		compute()
 	}
 
-	setInterval(compute, 200)
+	setInterval(compute, 100)
 }

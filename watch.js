@@ -38,8 +38,11 @@ const { SocketServer } = await import("#root/transpiledBackend/server/socket/Soc
 import { spawn } from "child_process"
 
 let child
+let runId = 0
 
 export function _generateDist(onExit) {
+	const currentId = ++runId
+
 	if (child) {
 		child.kill("SIGTERM")
 		child = null
@@ -50,23 +53,13 @@ export function _generateDist(onExit) {
 	})
 
 	child.on("exit", (code, signal) => {
-		child = null
-		if (onExit) {
-			onExit(code, signal)
+		if (currentId != runId) {
+			return
 		}
+		child = null
+		onExit?.(code, signal)
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
