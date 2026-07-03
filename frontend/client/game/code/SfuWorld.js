@@ -3,8 +3,6 @@ export class SfuWorld {
 		SfuClient.init()
 		SfuRouters.init()
 
-		// SfuRouters.updateRouterList()
-
 		const s = Dom.add(Html.sfu())
 
 		SfuRouters.onRouterCreated = lobby => {
