@@ -114,13 +114,13 @@ export class SfuClient {
 		this.consumers = {}
 	}
 
-	static createLobby(streamOnly = false) {
+	static createRouter(streamOnly = false) {
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
 			streamOnly: streamOnly
 		})
 	}
 
-	static async joinLobby(routerId) {
+	static async joinRouter(routerId) {
 		this.connectedRouterId = routerId
 
 		SocketClient.sendToServer("SFU_CONNECT_ROUTER", {
@@ -128,7 +128,7 @@ export class SfuClient {
 		})
 	}
 
-	static leaveLobby() {
+	static leaveRouter() {
 		this.clean()
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
@@ -138,7 +138,7 @@ export class SfuClient {
 		this.connectedRouterId = null
 	}
 
-	static deleteLobby() {
+	static deleteRouter() {
 		if (SfuRouters.routers[this.connectedRouterId] && My.clientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
 			delete SfuRouters.routers[this.connectedRouterId]
 
