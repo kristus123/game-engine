@@ -13,9 +13,9 @@ ServiceWorker.init()
 // HtmlObserverThing()
 
 Gp.init()
-DeviceListener.init()
+// DeviceListener.init()
 
-await ClientToken.init()
+// await ClientToken.init()
 
 Promise.all([
 	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
