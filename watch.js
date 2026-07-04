@@ -15,7 +15,13 @@ const TestWatcher = await Import("TestWatcher")
 const ExportAseprite = await Import("ExportAseprite")
 const ServeDist = await Import("ServeDist")
 
-execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
+try {
+	execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
+}
+catch (e) {
+	console.log(e)
+	console.log("failed to kill ports. most likely because this is a windows pc")
+}
 
 GenerateBackend("DEVELOPMENT")
 
