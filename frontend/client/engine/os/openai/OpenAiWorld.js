@@ -11,16 +11,17 @@ export class OpenAiWorld {
 
 		const html = Dom.add(Html.translator())
 
-		html.buttons.add(H.button("download", async () => {
-			localTranslator = await Translator.create({
-				sourceLanguage: "en",
-				targetLanguage: "zh",
-			})
-		}))
+		// html.buttons.add(H.button("download", async () => {
+		// 	localTranslator = await Translator.create({
+		// 		sourceLanguage: "en",
+		// 		targetLanguage: "zh",
+		// 	})
+		// }))
 
 		let language = "Chinese"
 
 		const startRecording = () => {
+			Gp.vibrate()
 			console.log("pressed left start record")
 			html.h1.text("recording")
 			Mic.start()
@@ -29,6 +30,7 @@ export class OpenAiWorld {
 		Gp.left = startRecording
 
 		const stopAndTranslate = () => {
+			Gp.vibrate()
 			html.h1.textContent = "transciribng"
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
@@ -43,6 +45,7 @@ export class OpenAiWorld {
 		Gp.right = stopAndTranslate
 
 		const stopAndPrompt = () => {
+			Gp.vibrate()
 			html.h1.textContent = "transciribng"
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
