@@ -19,6 +19,7 @@ export class OpenAiWorld {
 		// }))
 
 		let language = "Chinese"
+		let lastResult = null
 
 		const startRecording = () => {
 			Gp.vibrate()
@@ -38,6 +39,7 @@ export class OpenAiWorld {
 
 				html.h1.text(transcribedText)
 				Tts(translatedText)
+				lastResult = translatedText
 			})
 		}
 
@@ -52,11 +54,18 @@ export class OpenAiWorld {
 				const result = await Gpt(`"${transcribedText}" - Keep it short and reply in ${language}.`)
 				html.h1.text(transcribedText)
 				Tts(result)
+				lastResult = result
 			})
 		}
 
 		html.buttons.add(H.button("stop and prompt", stopAndPrompt))
 		Gp.down = stopAndPrompt
+
+		Gp.up = () => {
+			if (lastResult) {
+				Tts(lastResult)
+			}
+		}
 	}
 
 	update() {
