@@ -1,11 +1,9 @@
-const token = localStorage.getItem("openaiToken")
+let token = localStorage.getItem("openaiToken")
 
 if (token == null) {
 	const value = prompt("Paste your openAI token")
 	localStorage.setItem("openaiToken", value)
-}
-else {
-	console.log(token)
+	token = value
 }
 
 export const OpenAiToken = token

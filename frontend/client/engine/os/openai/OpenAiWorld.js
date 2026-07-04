@@ -32,15 +32,10 @@ export class OpenAiWorld {
 			html.h1.textContent = "transciribng"
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
-				const result = await localTranslate(transcribedText)
+				const translatedText = await Gpt(`Translate to ${language}: ${transcribedText}`)
 
 				html.h1.text(transcribedText)
-				Tts(result)
-
-				// const translatedText = await Gpt(`Translate to ${language}: ${transcribedText}`)
-				// html.h1.text(translatedText)
-
-				// Sound.playBlob(await Ttv(translatedText, `Speak in ${language}`))
+				Tts(translatedText)
 			})
 		}
 
@@ -51,10 +46,8 @@ export class OpenAiWorld {
 			html.h1.textContent = "transciribng"
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
-				const gptResponse = await Gpt(`${transcribedText}`)
-
-				const result = await localTranslate(gptResponse)
-				html.h1.text(gptResponse)
+				const result = await Gpt(`${transcribedText}. reply in ${language}`)
+				html.h1.text(result)
 				Tts(result)
 			})
 		}
