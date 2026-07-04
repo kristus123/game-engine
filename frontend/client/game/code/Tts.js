@@ -11,7 +11,7 @@ export class Tts {
 		this.lang = "zh-CN"
 		// this.lang = "ja-JP"
 		//this.lang = "en-US"
-		this.rate = 1
+		this.rate = 0.9
 		this.pitch = 1
 		if (text && voice) {
 			this.speak(text)
