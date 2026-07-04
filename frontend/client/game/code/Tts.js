@@ -1,21 +1,27 @@
-let voice = null
-speechSynthesis.onvoiceschanged = () => {
-	voice = speechSynthesis.getVoices().find((v) => {
-		// return v.lang == "ja-JP"
-		return v.lang == "zh-CN"
-	})
-}
-
 export class Tts {
 	constructor(text) {
 		this.lang = "zh-CN"
-		// this.lang = "ja-JP"
-		//this.lang = "en-US"
 		this.rate = 0.9
 		this.pitch = 1
-		if (text && voice) {
+		this.voice = null
+
+		this.initVoices()
+
+		if (text) {
 			this.speak(text)
 		}
+	}
+
+	initVoices() {
+		const load = () => {
+			const voices = speechSynthesis.getVoices()
+			this.voice = voices.find(v => v.lang == this.lang)
+		}
+
+		load()
+
+		window.addEventListener("pointerdown", load, { once: true })
+		window.addEventListener("touchstart", load, { once: true })
 	}
 
 	speak(text) {
@@ -24,7 +30,10 @@ export class Tts {
 		utterance.lang = this.lang
 		utterance.rate = this.rate
 		utterance.pitch = this.pitch
-		utterance.voice = voice
+
+		if (this.voice) {
+			utterance.voice = this.voice
+		}
 
 		speechSynthesis.speak(utterance)
 	}

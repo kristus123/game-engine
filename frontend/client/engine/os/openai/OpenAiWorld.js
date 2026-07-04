@@ -47,7 +47,7 @@ export class OpenAiWorld {
 			Mic.stop(async blob => {
 				const transcribedText = await Transcribe(blob)
 				const result = await Gpt(`${transcribedText}. reply in ${language}`)
-				html.h1.text(result)
+				html.h1.text(transcribedText)
 				Tts(result)
 			})
 		}
