@@ -67,6 +67,7 @@ export function _generateDist(onExit) {
 			return
 		}
 		onExit?.(code, signal)
+		console.log("reload triggered")
 	})
 }
 
@@ -89,12 +90,11 @@ function triggerClientReload() {
 
 	idTimeout = setTimeout(() => {
 		SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
-		console.log("reload triggered")
 		idTimeout = null
 	}, 100)
 }
 
-TestWatcher([FileConfig.client], [".js", ".aseprite"], {
+TestWatcher([FileConfig.frontend, FileConfig.backend], [".js", ".aseprite", ".html"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)

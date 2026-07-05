@@ -65,7 +65,12 @@ export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		const allFiles = []
 
 		for (const f of Array.isArray(folders) ? folders : [folders]) {
-			allFiles.push(...Files.at(f))
+			try {
+				allFiles.push(...Files.at(f))
+			}
+			catch (e) {
+				console.log("x")
+			}
 		}
 
 		for (const file of allFiles) {

@@ -3,5 +3,5 @@ export function Toast(text) {
 	t.div.text(text)
 	setTimeout(() => {
 		t.remove()
-	}, 1224)
+	}, 1_000)
 }

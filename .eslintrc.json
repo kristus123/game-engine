@@ -325,6 +325,7 @@
         "Tree": "readonly",
         "Tts": "readonly",
         "Ttv": "readonly",
+        "Twitch": "readonly",
         "UnsecureRoute": "readonly",
         "UpdateEslint": "readonly",
         "UserRoute": "readonly",
