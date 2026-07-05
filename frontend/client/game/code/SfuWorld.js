@@ -21,7 +21,15 @@ export class SfuWorld {
 		}
 
 		s.create.onClick(() => {
-			SfuClient.createRouter(true) // streamOnly == true
+			SfuClient.createRouter(false) // streamOnly == true
+		})
+
+		s.toggleAudio.onClick(() => {
+			SfuClient.toggleAudio()
+		})
+
+		s.toggleVideo.onClick(() => {
+			SfuClient.toggleVideo()
 		})
 	}
 

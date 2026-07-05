@@ -7,6 +7,9 @@ export class SfuClient {
 		this.recvTransport = null
 		this.producers = {}
 		this.consumers = {}
+
+		this.canSendVideo = true
+		this.canSendAudio = true
 	}
 
 	static async setupSendTransport(params) {
@@ -33,7 +36,7 @@ export class SfuClient {
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
 					if (data.kind == kind) {
-						callback({ producerId: data.producerId })
+						callback({ id: data.producerId })
 						resolve()
 					}
 				})
@@ -54,7 +57,7 @@ export class SfuClient {
 		else {
 			for (const track of Webcam.cam.getTracks()) {
 				const producer = await this.sendTransport.produce({ track })
-				this.producers[track.kind] = producer
+				this.producers[producer.id] = producer
 			}
 		}
 	}
@@ -156,5 +159,39 @@ export class SfuClient {
 
 	static get connectedClientIds() {
 		return SfuRouters.routers[this.connectedRouterId].connectedClientIds
+	}
+
+	static toggleAudio() {
+		this.producers.values.forEach(producer => {
+			if (producer.kind == "audio") {
+				console.log("changing audio state")
+
+				if (this.canSendAudio) {
+					producer.pause()
+				}
+				else {
+					producer.resume()
+				}
+
+				this.canSendAudio = !this.canSendAudio
+			}
+		})
+	}
+
+	static toggleVideo() {
+		this.producers.values.forEach(producer => {
+			if (producer.kind == "video") {
+				console.log("changing video state")
+
+				if (this.canSendVideo) {
+					producer.pause()
+				}
+				else {
+					producer.resume()
+				}
+
+				this.canSendVideo = !this.canSendVideo
+			}
+		})
 	}
 }
