@@ -9,6 +9,14 @@ export class SfuRouters {
 		this.onJoinRouter = (router) => {}
 		this.onLeaveRouter = (router) => {}
 
+		SocketClient.onServerMessage("SFU_CLIENT_MUTE_SELF", () => {
+			SfuClient.mute()
+		})
+
+		SocketClient.onServerMessage("SFU_CLIENT_UNMUTE_SELF", () => {
+			SfuClient.unmute()
+		})
+
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routers = data.routerList
 
@@ -31,8 +39,9 @@ export class SfuRouters {
 					async (ok) => {
 						if (ok) {
 							await Webcam.enable()
+							Webcam.routeTo(SfuClient.videoStream)
 
-							this.onLocalConnection(Webcam.cam)
+							this.onLocalConnection(SfuClient.videoStream.stream)
 
 							// Setup Send Transport after Webcam is Enabled
 							await SfuClient.setupSendTransport(data.sendTransportParams)

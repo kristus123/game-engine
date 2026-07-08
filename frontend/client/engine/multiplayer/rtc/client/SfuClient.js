@@ -10,6 +10,9 @@ export class SfuClient {
 
 		this.canSendVideo = true
 		this.canSendAudio = true
+
+		this.videoStream = VideoStream()
+		this.audioStream = null
 	}
 
 	static async setupSendTransport(params) {
@@ -55,9 +58,20 @@ export class SfuClient {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
 		else {
-			for (const track of Webcam.cam.getTracks()) {
-				const producer = await this.sendTransport.produce({ track })
-				this.producers[producer.id] = producer
+			if (this.videoStream){
+				for (const track of this.videoStream.stream.getTracks()) {
+					const producer = await this.sendTransport.produce({ track })
+
+					this.producers[producer.id] = producer
+				}
+			}
+
+			if (this.audioStream) {
+				for (const track of this.audioStream.getTracks()) {
+					const producer = await this.sendTransport.produce({ track })
+
+					this.producers[producer.id] = producer
+				}
 			}
 		}
 	}
@@ -161,37 +175,86 @@ export class SfuClient {
 		return SfuRouters.routers[this.connectedRouterId].connectedClientIds
 	}
 
-	static toggleAudio() {
+	static mute(clientId) {
+		if (clientId == My.clientId) {
+			this.muteSelf()
+		} else {
+			SocketClient.sendToServer("SFU_MUTE_CLIENT", {
+				targetClientId: clientId
+			})
+		}
+	}
+
+	static unmute(clientId) {
+		if (clientId == My.clientId) {
+			this.unmuteSelf()
+		} else {
+			SocketClient.sendToServer("SFU_UNMUTE_CLIENT", {
+				targetClientId: clientId
+			})
+		}
+	}
+
+	static muteSelf() {
 		this.producers.values.forEach(producer => {
 			if (producer.kind == "audio") {
-				console.log("changing audio state")
+				console.log("muting myself")
 
-				if (this.canSendAudio) {
-					producer.pause()
-				}
-				else {
-					producer.resume()
-				}
-
-				this.canSendAudio = !this.canSendAudio
+				producer.pause()
 			}
 		})
 	}
 
-	static toggleVideo() {
+	static unmuteSelf() {
 		this.producers.values.forEach(producer => {
-			if (producer.kind == "video") {
-				console.log("changing video state")
+			if (producer.kind == "audio") {
+				console.log("unmuting myself")
 
-				if (this.canSendVideo) {
-					producer.pause()
-				}
-				else {
-					producer.resume()
-				}
-
-				this.canSendVideo = !this.canSendVideo
+				producer.resume()
 			}
 		})
+	}
+
+	static stopVideo() {
+		this.producers.values.forEach(producer => {
+			if (producer.kind == "video") {
+				console.log("stopping video")
+
+				producer.pause()
+			}
+		})
+	}
+
+	static startVideo() {
+		this.producers.values.forEach(producer => {
+			console.log(producer)
+			if (producer.kind == "video") {
+				console.log("starting video")
+
+				producer.resume()
+			}
+		})
+	}
+
+	static toggleAudio() {
+		if (this.canSendAudio) {
+			this.muteSelf()
+		}
+		else {
+			this.unmuteSelf()
+		}
+
+		this.canSendAudio = !this.canSendAudio
+	}
+
+	static toggleVideo() {
+		if (this.canSendVideo) {
+			this.stopVideo()
+		}
+		else {
+			this.startVideo()
+		}
+
+		this.canSendVideo = !this.canSendVideo
 	}
 }

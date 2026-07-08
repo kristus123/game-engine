@@ -12,7 +12,6 @@ export class SfuWorld {
 		}
 
 		SfuRouters.onGuestConnection = stream => {
-			console.log(stream)
 			s.guestWebcam.srcObject = stream
 		}
 
@@ -30,6 +29,10 @@ export class SfuWorld {
 
 		s.toggleVideo.onClick(() => {
 			SfuClient.toggleVideo()
+		})
+
+		s.muteClient.onClick(() => {
+			SfuClient.mute(s.clientId.value)
 		})
 	}
 

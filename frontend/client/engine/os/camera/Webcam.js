@@ -1,18 +1,18 @@
 export class Webcam {
 
-	static cam = null
+	static stream = null
 
 	static async enable() {
-		this.cam = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+		this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 	}
 
 	static get enabled() {
-		return (Webcam.cam != null)
+		return (Webcam.stream != null)
 	}
 
 	static async request(callback) {
 		try {
-			const stream = await navigator.mediaDevices.getUserMedia({ video: true }, { audio: true })
+			const stream = await navigator.mediaDevices.getUserMedia({ video: true }, { audio: false })
 
 			stream.getTracks().forEach(track => track.stop())
 
@@ -26,5 +26,8 @@ export class Webcam {
 		}
 	}
 
+	static routeTo(video) {
+		video.stream = this.stream
+	}
 }
 
