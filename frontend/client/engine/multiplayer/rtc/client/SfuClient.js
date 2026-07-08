@@ -180,6 +180,7 @@ export class SfuClient {
 			this.muteSelf()
 		} else {
 			SocketClient.sendToServer("SFU_MUTE_CLIENT", {
+				routerId: this.connectedRouterId,
 				targetClientId: clientId
 			})
 		}
@@ -190,6 +191,7 @@ export class SfuClient {
 			this.unmuteSelf()
 		} else {
 			SocketClient.sendToServer("SFU_UNMUTE_CLIENT", {
+				routerId: this.connectedRouterId,
 				targetClientId: clientId
 			})
 		}
