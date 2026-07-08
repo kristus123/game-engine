@@ -24,7 +24,9 @@ export class OpenAiWorld {
 			Mic.stop(async blob => {
 				const s = StopWatch().start()
 				const transcribedText = await Transcribe(blob)
+				console.log(transcribedText)
 				const translatedText = await MyTranslate(transcribedText)
+				console.log(translatedText)
 				console.log(s.ms)
 
 				html.h1.text(transcribedText)
