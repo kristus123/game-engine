@@ -1,8 +1,3 @@
-let localTranslator = null
-async function localTranslate(text) {
-	return await localTranslator.translate(text)
-}
-
 export class OpenAiWorld {
 
 	constructor() {
@@ -10,13 +5,6 @@ export class OpenAiWorld {
 		})
 
 		const html = Dom.add(Html.translator())
-
-		// html.buttons.add(H.button("download", async () => {
-		// 	localTranslator = await Translator.create({
-		// 		sourceLanguage: "en",
-		// 		targetLanguage: "zh",
-		// 	})
-		// }))
 
 		let language = "Chinese"
 		let lastResult = null
@@ -32,34 +20,21 @@ export class OpenAiWorld {
 
 		const stopAndTranslate = () => {
 			Gp.vibrate()
-			html.h1.textContent = "transciribng"
+			html.h1.textContent = "CRUNCHING"
 			Mic.stop(async blob => {
+				const s = StopWatch().start()
 				const transcribedText = await Transcribe(blob)
-				const translatedText = await Gpt(`Translate to ${language}: ${transcribedText}`)
+				const translatedText = await MyTranslate(transcribedText)
+				console.log(s.ms)
 
 				html.h1.text(transcribedText)
-				Tts(translatedText)
 				lastResult = translatedText
+				Tts(translatedText)
 			})
 		}
 
 		html.buttons.add(H.button("stop and translate", stopAndTranslate))
 		Gp.right = stopAndTranslate
-
-		const stopAndPrompt = () => {
-			Gp.vibrate()
-			html.h1.textContent = "transciribng"
-			Mic.stop(async blob => {
-				const transcribedText = await Transcribe(blob)
-				const result = await Gpt(`"${transcribedText}" - Keep it short and reply in ${language}.`)
-				html.h1.text(transcribedText)
-				Tts(result)
-				lastResult = result
-			})
-		}
-
-		html.buttons.add(H.button("stop and prompt", stopAndPrompt))
-		Gp.down = stopAndPrompt
 
 		Gp.up = () => {
 			if (lastResult) {
