@@ -18,7 +18,3 @@ export async function Translate(source, target, text) {
 	const result = await translator(text)
 	return result[0].translation_text
 }
-
-async function ToChinese(text) {
-	return await translate("en", "zh", text)
-}
