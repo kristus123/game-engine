@@ -8,7 +8,7 @@ export async function LoadAllAudio(AUDIO_FILES) {
 
 			const b = await r.arrayBuffer()
 			const buffer = await SoundContext.decodeAudioData(b)
-			AudioBuffers[name] = buffer
+			Mp3[name] = buffer
 			Sound[name] = buffer
 		}
 		catch (e) {

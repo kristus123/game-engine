@@ -9,7 +9,7 @@ export const DemoQuest = () => Quest([
 		},
 		onDone: () => {
 			G.player.light.intensity = 0.8
-			Mix.fx.play(Sound.click)
+			Mix.fx.play(Mp3.click)
 		},
 	}),
 	MessageTask({
