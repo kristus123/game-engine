@@ -1,4 +1,5 @@
 export class Mix {
+
 	static master = Track("master")
 	static fx = Track("fx")
 
