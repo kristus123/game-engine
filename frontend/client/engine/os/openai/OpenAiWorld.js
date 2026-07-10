@@ -6,43 +6,45 @@ export class OpenAiWorld {
 
 		const html = Dom.add(Html.translator())
 
-		let language = "Chinese"
 		let lastResult = null
 
 		const startRecording = () => {
-			Gp.vibrate()
-			console.log("pressed left start record")
-			html.h1.text("recording")
-			Mic.start()
 		}
-		html.buttons.add(H.button("record", startRecording))
-		Gp.left = startRecording
 
-		const stopAndTranslate = () => {
-			Gp.vibrate()
-			html.h1.textContent = "CRUNCHING"
-			Mic.stop(async blob => {
-				const s = StopWatch().start()
-				const transcribedText = await Transcribe(blob)
-				console.log(transcribedText)
-				const translatedText = await MyTranslate(transcribedText)
-				console.log(translatedText)
-				console.log(s.ms)
+		const b1 = H.button("record", () => {
+			if (Mic.idle) {
+				Mic.start()
+				b1.text("recording")
+			}
+			else if (Mic.recording) {
+				Mic.stop(async blob => {
+					b1.text("please wait")
+					b1.disable()
+					const translatedText = await MyTranslate(await Transcribe(blob))
 
-				html.h1.text(transcribedText)
-				lastResult = translatedText
-				Tts(translatedText)
+					lastResult = translatedText
+					Tts(translatedText)
+					b1.enable()
+					b1.text("press to record")
+				})
+			}
+		}).css("max-height:400px;")
+
+		html.buttons.add(b1)
+
+		html.buttons.add(H.button("cancel", () => {
+			Mic.stop(() => {
+				b1.text("press to record")
+				b1.enable()
 			})
-		}
+		}).css("max-height:40px;"))
 
-		html.buttons.add(H.button("stop and translate", stopAndTranslate))
-		Gp.right = stopAndTranslate
-
-		Gp.up = () => {
+		html.buttons.add(H.button("repeat", () => {
 			if (lastResult) {
 				Tts(lastResult)
 			}
-		}
+		}).css("max-height:40px;"))
+
 	}
 
 	update() {
