@@ -1,9 +1,13 @@
 export class AudioStream {
     constructor() {
-        this.stream = null
+        this.destination = SoundContext.context.createMediaStreamDestination()
     }
 
-    set sourceStream(stream) {
-        this.stream = stream
+    routeTo(track) {
+        track.routeTo(this.destination)
+    }
+
+    get stream() {
+        return this.destination.stream
     }
 }

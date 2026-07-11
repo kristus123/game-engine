@@ -11,12 +11,7 @@ export class Microphone {
         })
 
         const source = SoundContext.context.createMediaStreamSource(this.stream)
-        source.connect(Mix.fx.input)
-    }
-
-    static connect(input) {
-        const source = SoundContext.context.createMediaStreamSource(this.stream)
-        source.connect(input)
+        source.connect(Mix.mic.input)
     }
 }
 
