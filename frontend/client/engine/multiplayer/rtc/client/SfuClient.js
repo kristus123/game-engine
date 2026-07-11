@@ -8,11 +8,10 @@ export class SfuClient {
 		this.producers = {}
 		this.consumers = {}
 
-		this.canSendVideo = true
-		this.canSendAudio = true
+		this.isAudioMuted = true
 
 		this.videoStream = VideoStream()
-		this.audioStream = null
+		this.audioStream = AudioStream()
 	}
 
 	static async setupSendTransport(params) {
@@ -59,7 +58,7 @@ export class SfuClient {
 		}
 		else {
 			if (this.videoStream){
-				for (const track of this.videoStream.stream.getTracks()) {
+				for (const track of this.videoStream.stream.getVideoTracks()) {
 					const producer = await this.sendTransport.produce({ track })
 
 					this.producers[producer.id] = producer
@@ -67,7 +66,7 @@ export class SfuClient {
 			}
 
 			if (this.audioStream) {
-				for (const track of this.audioStream.getTracks()) {
+				for (const track of this.audioStream.stream.getAudioTracks()) {
 					const producer = await this.sendTransport.produce({ track })
 
 					this.producers[producer.id] = producer
@@ -176,7 +175,7 @@ export class SfuClient {
 	}
 
 	static mute(clientId) {
-		if (clientId == My.clientId || SfuClient.isHost) {
+		if (clientId && clientId == My.clientId || SfuClient.isHost) {
 			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
@@ -184,7 +183,7 @@ export class SfuClient {
 	}
 
 	static unmute(clientId) {
-		if (clientId == My.clientId || SfuClient.isHost) {
+		if (clientId && clientId == My.clientId || SfuClient.isHost) {
 			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
@@ -224,24 +223,22 @@ export class SfuClient {
 	}
 
 	static toggleMic() {
-		if (this.canSendAudio) {
+		if (this.isAudioMuted) {
 			this.muteSelf()
 		}
 		else {
 			this.unmuteSelf()
 		}
 
-		this.canSendAudio = !this.canSendAudio
+		this.isAudioMuted = !this.isAudioMuted
 	}
 
 	static async toggleVideo() {
-		if (this.canSendVideo) {
+		if (this.videoStream.enabled) {
 			this.stopVideo()
 		}
 		else {
 			await this.startVideo()
 		}
-
-		this.canSendVideo = !this.canSendVideo
 	}
 }

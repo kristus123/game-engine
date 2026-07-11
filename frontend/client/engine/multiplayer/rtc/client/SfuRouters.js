@@ -55,6 +55,12 @@ export class SfuRouters {
 						}
 					}
 				)
+
+				await Microphone.enable()
+				Microphone.connect(Mix.fx.input)
+
+				Mix.routeTo(SfuClient.audioStream)
+				Mix.gainControl.gain.value = 0 // So client can't hear themselves.
 			}
 
 			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All

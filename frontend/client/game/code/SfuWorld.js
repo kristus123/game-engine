@@ -24,7 +24,7 @@ export class SfuWorld {
 		})
 
 		s.toggleAudio.onClick(() => {
-			SfuClient.toggleAudio()
+			SfuClient.toggleMic()
 		})
 
 		s.toggleVideo.onClick(async () => {

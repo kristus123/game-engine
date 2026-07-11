@@ -20,6 +20,10 @@ export class VideoStream {
         this.video.srcObject = stream
     }
 
+    get enabled() {
+        return !this.video.paused
+    }
+
     pause() {
         this.video.pause()
     }
