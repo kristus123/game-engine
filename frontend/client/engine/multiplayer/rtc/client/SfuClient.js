@@ -176,23 +176,17 @@ export class SfuClient {
 	}
 
 	static mute(clientId) {
-		if (clientId == My.clientId) {
-			this.muteSelf()
-		} else {
-			SocketClient.sendToServer("SFU_MUTE_CLIENT", {
+		if (clientId == My.clientId || SfuClient.isHost) {
+			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
-				targetClientId: clientId
 			})
 		}
 	}
 
 	static unmute(clientId) {
-		if (clientId == My.clientId) {
-			this.unmuteSelf()
-		} else {
-			SocketClient.sendToServer("SFU_UNMUTE_CLIENT", {
+		if (clientId == My.clientId || SfuClient.isHost) {
+			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
-				targetClientId: clientId
 			})
 		}
 	}
@@ -218,27 +212,18 @@ export class SfuClient {
 	}
 
 	static stopVideo() {
-		this.producers.values.forEach(producer => {
-			if (producer.kind == "video") {
-				console.log("stopping video")
-
-				producer.pause()
-			}
-		})
+		console.log("stopping video")
+		
+		this.videoStream.pause()
 	}
 
-	static startVideo() {
-		this.producers.values.forEach(producer => {
-			console.log(producer)
-			if (producer.kind == "video") {
-				console.log("starting video")
-
-				producer.resume()
-			}
-		})
+	static async startVideo() {
+		console.log("starting video")
+		
+		await this.videoStream.resume()
 	}
 
-	static toggleAudio() {
+	static toggleMic() {
 		if (this.canSendAudio) {
 			this.muteSelf()
 		}
@@ -249,12 +234,12 @@ export class SfuClient {
 		this.canSendAudio = !this.canSendAudio
 	}
 
-	static toggleVideo() {
+	static async toggleVideo() {
 		if (this.canSendVideo) {
 			this.stopVideo()
 		}
 		else {
-			this.startVideo()
+			await this.startVideo()
 		}
 
 		this.canSendVideo = !this.canSendVideo

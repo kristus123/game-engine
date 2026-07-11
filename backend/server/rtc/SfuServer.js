@@ -12,34 +12,6 @@ export class SfuServer {
 
 	static async start() {
 		this.globalWorker = await SfuServerApi.createWorker()
-
-		SocketServer.on("SFU_MUTE_CLIENT", (client, clientId, data) => {
-			const router = this.routers[data.routerId]
-
-			if (router && router.hostClientId == clientId) {
-				const routerClientData = router.clients[data.targetClientId]
-
-				if (routerClientData) {
-					SocketServer.sendToClient(routerClientData.client, {
-						action: "SFU_CLIENT_MUTE_SELF"
-					})
-				}
-			}
-		})
-
-		SocketServer.on("SFU_UNMUTE_CLIENT", (client, clientId, data) => {
-			const router = this.routers[data.routerId]
-
-			if (router && router.hostClientId == clientId) {
-				const routerClientData = router.clients[data.targetClientId]
-
-				if (routerClientData) {
-					SocketServer.sendToClient(routerClientData.client, {
-						action: "SFU_CLIENT_UNMUTE_SELF"
-					})
-				}
-			}
-		})
 		
 		SocketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
 			if (this.routers[data.routerId] && this.routers[data.routerId].hostClientId == clientId) {

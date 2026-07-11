@@ -15,8 +15,8 @@ export class SfuWorld {
 			s.guestWebcam.srcObject = stream
 		}
 
-		SfuRouters.onLocalConnection = stream => {
-			s.localWebcam.srcObject = stream
+		SfuRouters.onLocalConnection = () => {
+			s.localWebcam.srcObject = SfuClient.videoStream.stream
 		}
 
 		s.create.onClick(() => {
@@ -27,8 +27,8 @@ export class SfuWorld {
 			SfuClient.toggleAudio()
 		})
 
-		s.toggleVideo.onClick(() => {
-			SfuClient.toggleVideo()
+		s.toggleVideo.onClick(async () => {
+			await SfuClient.toggleVideo()
 		})
 
 		s.muteClient.onClick(() => {
@@ -37,6 +37,6 @@ export class SfuWorld {
 	}
 
 	update() {
-
+		SfuClient.videoStream.update()
 	}
 }

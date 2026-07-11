@@ -27,7 +27,7 @@ export class Webcam {
 	}
 
 	static routeTo(video) {
-		video.stream = this.stream
+		video.sourceStream = this.stream
 	}
 }
 
