@@ -1,7 +1,6 @@
 export class World {
 	constructor() {
 		G.player = Player(WorldPosition(950, 420))
-
 		G.oldSami = OldSami(WorldPosition(730, 600))
 
 		this.bushes = [

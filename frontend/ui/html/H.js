@@ -1,4 +1,5 @@
 export class H {
+
 	static modal(children=[]) {
 		return this.dialog(children)
 	}
@@ -33,14 +34,6 @@ export class H {
 		s.max = max
 		s.value = 0
 		s.step=1
-
-		s.addEventListener("mouseover", () => {
-			Mouse.hoveringHtmlElement = true
-		})
-
-		s.addEventListener("mouseout", () => {
-			Mouse.hoveringHtmlElement = false
-		})
 
 		return s
 	}
@@ -168,14 +161,12 @@ export class H {
 
 	static remove(e) {
 		e.parentNode.removeChild(e)
-	  Mouse.hoveringHtmlElement = false
 	}
 
 	static removeChildElements(div) {
 		while (div.firstChild) {
 			div.removeChild(div.firstChild)
 		}
-	  Mouse.hoveringHtmlElement = false
 	}
 
 	static removeChildElementsInId(id) {
@@ -183,7 +174,7 @@ export class H {
 		while (div.firstChild) {
 			div.removeChild(div.firstChild)
 		}
-	  Mouse.hoveringHtmlElement = false
+
 	}
 
 	static div(className, childElements=[]) {

@@ -146,7 +146,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "removeListeners", function () {
+	Enhance(HTMLElement.prototype, "removeAllListeners", function () {
 		this._listeners ??= []
 
 		this._listeners.forEach(({ type, listener, options }) => {
