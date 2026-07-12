@@ -274,11 +274,15 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "show", function () {
+		// make it trigger this if it is modal
+		// this.showModal()
 		this.removeAttribute("hidden")
 		return this
 	})
 
 	Enhance(HTMLElement.prototype, "hide", function () {
+		// if modal
+		// d.close()
 		this.addAttribute("hidden")
 		return this
 	})
@@ -303,7 +307,11 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "enable", function () {
-		H.enable(this)
+		if (this.disabled) {
+			this.removeAttribute("disabled")
+			this.disabled = false
+		}
+
 	})
 
 	Getter(HTMLElement.prototype, "enabled", function () {
@@ -315,7 +323,10 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "disable", function () {
-		H.disable(this)
+		if (!this.disabled) {
+			this.addAttribute("disabled")
+			this.disabled = true
+		}
 	})
 
 	Enhance(HTMLElement.prototype, "onClick", function (run) {
@@ -329,12 +340,20 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "set", function (elements) {
-		H.removeChildElements(this)
-		H.append(this, elements)
+		while (this.firstChild) {
+			this.removeChild(this.firstChild)
+		}
+
+
+		for (const e of Always.list(elements)) {
+			this.appendChild(e)
+		}
 	})
 
 	Enhance(HTMLElement.prototype, "push", function (elements) {
-		H.append(this, elements)
+		for (const e of Always.list(elements)) {
+			this.appendChild(e)
+		}
 	})
 
 	Enhance(HTMLElement.prototype, "add", function (elements) {

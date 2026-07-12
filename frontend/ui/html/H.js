@@ -1,9 +1,5 @@
 export class H {
 
-	static modal(children=[]) {
-		return this.dialog(children)
-	}
-
 	static dialog(children=[]) {
 
 		const div = HtmlElement("div")
@@ -20,8 +16,8 @@ export class H {
 			}
 		})
 
-		Dom.add(d)
 		d.showModal()
+		// make it use show() and hide()
 
 		return d
 	}
@@ -43,45 +39,23 @@ export class H {
 		i.type = "text"
 		i.placeholder = placeholder
 
-
-		i.addEventListener("focus", () => {
+		i.listen("focus", () => {
 			Controller.disabled = true
 			Keyboard.disabled = true
 		})
 
-		i.addEventListener("blur", () => {
+		i.listen("blur", () => {
 			Controller.disabled = false
 			Keyboard.disabled = false
 		})
 
-		i.addEventListener("keydown", (e) => {
+		i.listen("keydown", (e) => {
 			if (e.key == "Enter") {
 				onEnter(i.value)
 			}
 		})
 
-
 		return i
-	}
-
-
-	static focus(element) {
-		element.focus()
-	}
-
-	static focusInput() {
-		const input = document.querySelector("input[type=\"text\"]")
-		if (input) {
-			input.focus()
-		}
-	}
-
-
-	static h1(text, className="na") {
-		const h1 = HtmlElement("h1", className)
-		h1.innerHTML = text
-
-		return h1
 	}
 
 	static p(text, className="na") {
@@ -89,16 +63,6 @@ export class H {
 		p.innerHTML = text
 
 		return p
-	}
-
-	static image(x) {
-		const img = HtmlElement("img", "")
-		img.src = x
-		return img
-	}
-
-	static img(x) {
-		return this.image(x)
 	}
 
 	static button(text, onClick = b => {}) {
@@ -112,120 +76,5 @@ export class H {
 		return button
 	}
 
-	static disable(e) {
-		if (!e.disabled) {
-			e.addAttribute("disabled")
-			e.disabled = true
-		}
-	}
 
-	static enable(e) {
-		if (e.disabled) {
-			e.removeAttribute("disabled")
-			e.disabled = false
-		}
-	}
-
-	static disableFor(ms, e) {
-		e.disabled = true
-
-		setTimeout(() => {
-			e.disabled = false
-		}, ms)
-	}
-
-	static show(e) {
-		e.style.display = "block"
-	}
-
-	static hide(e) {
-		e.style.display = "none"
-	}
-
-	static changeText(element, text) {
-		element.textContent = text
-	}
-
-	static text(text, position) {
-
-		const p = HtmlElement("p", "")
-		p.textContent = text
-		p.style.fontSize = "2vw"
-
-		position = Camera.p(position) // todo imrpoveo ofc
-		p.style.left = `${position.x}px`
-		p.style.top = `${position.y}px`
-
-		return p
-	}
-
-	static remove(e) {
-		e.parentNode.removeChild(e)
-	}
-
-	static removeChildElements(div) {
-		while (div.firstChild) {
-			div.removeChild(div.firstChild)
-		}
-	}
-
-	static removeChildElementsInId(id) {
-		const div = document.getElementById(id)
-		while (div.firstChild) {
-			div.removeChild(div.firstChild)
-		}
-
-	}
-
-	static div(className, childElements=[]) {
-		childElements = Always.list(childElements)
-
-		const d = HtmlElement("div", className)
-
-		for (const e of childElements) {
-			d.appendChild(e)
-		}
-
-		return d
-	}
-
-	static append(element, childrenElements=[]) {
-		for (const e of Always.list(childrenElements)) {
-			element.appendChild(e)
-		}
-	}
-
-	static appendBody(childrenElements=[]) {
-		this.append(document.body, childrenElements)
-	}
-
-	static fadeaway(text, position=Mouse.position) {
-		position = Camera.p(position) // todo imrpoveo ofc
-
-		var textElement = HtmlElement("p")
-		textElement.innerHTML = text
-
-
-		textElement.setAttribute("class", "ui fadeAway")
-
-		textElement.style.left = `${position.x}px`
-		textElement.style.top = `${position.y - 50}px`
-
-		H.addToScreen(textElement)
-
-		setTimeout(() => {
-			H.remove(textElement)
-		}, 1000)
-	}
-
-	static domFloat(e, position) {
-		position = Camera.p(position) // todo imrpoveo ofc
-
-		e.classList.add("ui")
-
-		e.style.left = `${position.x}px`
-		e.style.top = `${position.y - 50}px`
-
-		return e
-	}
 }

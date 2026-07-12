@@ -174,7 +174,6 @@
         "ExportAseprite": "readonly",
         "FileDb": "readonly",
         "Files": "readonly",
-        "Flex": "readonly",
         "FollowPlayerNoise": "readonly",
         "G": "readonly",
         "GenerateDist": "readonly",
