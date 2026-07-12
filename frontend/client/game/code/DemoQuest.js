@@ -14,7 +14,7 @@ export const DemoQuest = () => Quest([
 	}),
 	MessageTask({
 		text: "Walk to Old Sami",
-		markDoneIf: () => Distance.within(150, G.player.position, G.oldSami.position),
+		markDoneIf: () => G.player.within(150, G.oldSami),
 	})
 ], () => {
 	console.log("Demo Completed!")

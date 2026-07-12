@@ -34,30 +34,30 @@ export class VideoStream {
 
 	update() {
 		if (this.video.paused) {
-    		this.drawPreview()
+			this.drawPreview()
 		}
 		else {
-    		this.drawSource()
+			this.drawSource()
 		}
 	}
 
 	drawPreview() {
 		this.ctx.fillStyle = "rgba(0, 0, 255, 1)"
 		this.ctx.fillRect(
-    		0,
-    		0,
-    		this.canvas.width,
-    		this.canvas.height
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
 		)
 	}
 
 	drawSource() {
 		this.ctx.drawImage(
-    		this.video,
-    		0,
-    		0,
-    		this.canvas.width,
-    		this.canvas.height
+			this.video,
+			0,
+			0,
+			this.canvas.width,
+			this.canvas.height
 		)
 	}
 }

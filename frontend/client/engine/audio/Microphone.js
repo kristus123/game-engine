@@ -6,8 +6,8 @@ export class Microphone {
 
 	static async enable() {
 		this.stream = await navigator.mediaDevices.getUserMedia({
-    		video: false,
-    		audio: true,
+			video: false,
+			audio: true,
 		})
 
 		const source = SoundContext.context.createMediaStreamSource(this.stream)
