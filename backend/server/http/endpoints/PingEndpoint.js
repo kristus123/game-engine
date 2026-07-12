@@ -1,4 +1,4 @@
-Route.ping = () => {
+AdminRoute.ping = () => {
 	return {
 		pong: true,
 	}

@@ -13,6 +13,11 @@ function sendJson(res, httpStatus, data) {
 	res.end(JSON.stringify(data))
 }
 
+
+function validToken(encodedToken) {
+	return encodedToken != null && encodedToken != "null" 
+}
+
 export async function parseBody(req) {
 	let rawBody = Buffer.alloc(0)
 
@@ -27,7 +32,7 @@ export async function parseBody(req) {
 	try {
 		return JSON.parse(rawBody.toString())
 	}
-	catch {
+	catch (e) {
 		const m = "Invalid JSON body: " + rawBody
 		console.log(m)
 		throw new Error(m)
@@ -90,20 +95,25 @@ export class HttpServer {
 
 			if (req.method == "POST") {
 				assertJsonBody(req)
-				const token = req.headers["token"] || null
-				const role = "user" // todo fix
+
+				const encodedToken = req.headers["token"]
+
+				const decodedToken = validToken(encodedToken)
+					? ServerToken.decode(encodedToken)
+					: null //todo not use null
+
 
 				try {
 					const body = await parseBody(req)
+
+					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, routeName(req))
-					console.log(method)
 
 					const json = method({
 						body: body,
 						req: req,
 						headers: req.headers,
 						contentType: req.headers["Content-Type"] || null,
-						token: token,
 						params: getQueryParameters(req),
 					}) ?? {}
 
@@ -119,7 +129,7 @@ export class HttpServer {
 				catch (e) {
 					console.log(e)
 					sendJson(res, 500, {
-						error: e?.message || "shit went WHACK yo",
+						error: "error: " + e,
 					})
 				}
 			}
