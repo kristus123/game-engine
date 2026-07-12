@@ -57,20 +57,16 @@ export class SfuClient {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
 		else {
-			if (this.videoStream){
-				for (const track of this.videoStream.stream.getVideoTracks()) {
-					const producer = await this.sendTransport.produce({ track })
+			for (const track of this.videoStream.stream.getVideoTracks()) {
+				const producer = await this.sendTransport.produce({ track })
 
-					this.producers[producer.id] = producer
-				}
+				this.producers[producer.id] = producer
 			}
 
-			if (this.audioStream) {
-				for (const track of this.audioStream.stream.getAudioTracks()) {
-					const producer = await this.sendTransport.produce({ track })
+			for (const track of this.audioStream.stream.getAudioTracks()) {
+				const producer = await this.sendTransport.produce({ track })
 
-					this.producers[producer.id] = producer
-				}
+				this.producers[producer.id] = producer
 			}
 		}
 	}
@@ -104,7 +100,7 @@ export class SfuClient {
 			routerId: this.connectedRouterId
 		})
 
-		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
+		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
 
@@ -175,18 +171,22 @@ export class SfuClient {
 	}
 
 	static mute(clientId) {
-		if (clientId && clientId == My.clientId || SfuClient.isHost) {
+		if (clientId == My.clientId || SfuClient.isHost) {
 			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
+		} else {
+			throw new Error("You do not have permission to mute", clientId)
 		}
 	}
 
 	static unmute(clientId) {
-		if (clientId && clientId == My.clientId || SfuClient.isHost) {
+		if (clientId == My.clientId || SfuClient.isHost) {
 			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
+		} else {
+			throw new Error("You do not have permission to unmute", clientId)
 		}
 	}
 

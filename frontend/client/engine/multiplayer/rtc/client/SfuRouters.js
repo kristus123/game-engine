@@ -57,8 +57,8 @@ export class SfuRouters {
 				)
 
 				await Microphone.enable()
-
 				SfuClient.audioStream.routeTo(Mix.mic)
+				Mix.master.volume = 0
 			}
 
 			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
@@ -135,6 +135,7 @@ export class SfuRouters {
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
+			
 			SfuClient.consume(data.producerId, data.clientId)
 		})
 
