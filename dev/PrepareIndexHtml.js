@@ -11,7 +11,7 @@ export function PrepareIndexHtml() {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`)
+	Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`) // i dont like Files.replace
 
 	const names = Files.at(FileConfig.client)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
@@ -64,5 +64,6 @@ export function PrepareIndexHtml() {
 
 	const indexHtml = Files.read(FileConfig.index_html)
 		.replace("CSS_IMPORTS", cssImports)
+
 	Files.write(FileConfig.toDistPath(FileConfig.index_html), indexHtml)
 }

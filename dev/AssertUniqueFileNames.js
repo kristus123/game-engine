@@ -19,6 +19,7 @@ function extractDuplicates(arr) {
 const allJsFiles = [
 	...Files.at(FileConfig.backend),
 	...Files.at(FileConfig.frontend),
+	...Files.at(FileConfig.shared),
 ].filter(f => f.endsWith(".js"))
 
 export function AssertUniqueFileNames() {

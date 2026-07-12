@@ -1,3 +1,5 @@
+// move this into dev/asserts/
+
 import { Files } from "#root/dev/Files.js"
 
 const reservedJsKeywords = [

@@ -1,3 +1,5 @@
+// move this into dev/asserts/
+
 import fs from "fs"
 import Path from "path"
 import { Aseprite } from "#root/dev/aseprite/Aseprite.js"
