@@ -1,14 +1,15 @@
 export class Track {
+
 	constructor() {
 		this.input = SoundContext.createGain()
 		this.output = this.input
 	}
 
-	get volume() {
+	get db() {
 		return this.input.gain.value
 	}
 
-	set volume(val) {
+	set db(val) {
 		this.input.gain.value = val
 	}
 
@@ -23,24 +24,17 @@ export class Track {
 		return this
 	}
 
-	play(audioBuffer) {
+	play(sound) {
 		if (SoundContext.suspended) {
 			SoundContext.context.resume()
 		}
-		const buffer = audioBuffer?.buffer ?? audioBuffer
-		if (!buffer) {
-			return
+		const buffer = sound?.buffer ?? sound // todo only use one. this is a hacky hack
+		if (buffer) {
+			const source = SoundContext.context.createBufferSource()
+			source.buffer = buffer
+			source.connect(this.input)
+			source.start(0)
 		}
-		const source = SoundContext.context.createBufferSource()
-		source.buffer = buffer
-		source.connect(this.input)
-		source.start(0)
-		return source
 	}
 
-	addAnalyser() {
-		const analyser = Vst.analyser()
-		this.apply(analyser)
-		return analyser
-	}
 }

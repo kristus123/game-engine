@@ -12,6 +12,10 @@ export class Mic {
 		return this.state == "recording"
 	}
 
+	static get idle() {
+		return this.state == "idle"
+	}
+
 	static async routeTo(track) {
 		try {
 			const stream = await MicApi.createStream()
