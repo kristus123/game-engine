@@ -16,9 +16,9 @@ export class H {
 
 		d.addEventListener("click", e => {
 			if (e.target == d) {
-			  d.close() // close modal if clicking outside of it
+				d.close() // close modal if clicking outside of it
 			}
-		  })
+		})
 
 		Dom.add(d)
 		d.showModal()
@@ -40,19 +40,19 @@ export class H {
 
 	static input(placeholder="placeholder", onEnter=(value) => {}) {
 		const i = HtmlElement("input")
-		 i.type = "text"
+		i.type = "text"
 		i.placeholder = placeholder
 
 
-		  i.addEventListener("focus", () => {
+		i.addEventListener("focus", () => {
 			Controller.disabled = true
 			Keyboard.disabled = true
-		  })
+		})
 
-		  i.addEventListener("blur", () => {
+		i.addEventListener("blur", () => {
 			Controller.disabled = false
 			Keyboard.disabled = false
-		  })
+		})
 
 		i.addEventListener("keydown", (e) => {
 			if (e.key == "Enter") {
