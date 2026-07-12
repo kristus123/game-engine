@@ -12,7 +12,6 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		throw new Error("you need to include environment when calling generate_dist.js")
 	}
 
-	console.log("Transpiling \"frontend/\" and \"shared/\" into \"dist/\"...")
 	const sharedFiles = Files.at(FileConfig.shared)
 
 	for (const jsFilePath of jsFiles) {
@@ -63,7 +62,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 
 		fileContent = Imports.needed(fileContent, [
 			...jsFiles,
-			...sharedFiles
+			...sharedFiles,
 		]) + "\n" + fileContent
 
 		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
