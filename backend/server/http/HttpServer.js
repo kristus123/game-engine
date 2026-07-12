@@ -32,7 +32,7 @@ export async function parseBody(req) {
 	try {
 		return JSON.parse(rawBody.toString())
 	}
-	catch {
+	catch (e) {
 		const m = "Invalid JSON body: " + rawBody
 		console.log(m)
 		throw new Error(m)
@@ -128,6 +128,8 @@ export class HttpServer {
 				catch (e) {
 					console.log(e)
 					sendJson(res, 500, {
+						error: "error: " + e,
+					})
 				}
 			}
 			else if (req.method == "OPTIONS") { // Preflight / cors
