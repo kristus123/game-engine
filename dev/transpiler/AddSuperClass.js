@@ -14,7 +14,9 @@ export function AddSuperClass(className, fileContent, jsFiles) {
 	}
 
 
-	if (!fileContent.includes("export class SuperClass")) {
+	if (className == "Assert") {}
+	else if (className == "A") {}
+	else if (!fileContent.includes("export class SuperClass")) {
 		fileContent = fileContent.replaceAll(
 			`export class ${className} {`, `export class ${className} extends SuperClass {`)
 	}

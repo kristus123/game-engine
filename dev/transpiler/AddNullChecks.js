@@ -4,6 +4,9 @@ export function AddNullChecks(fileName, className, lines, i) {
 	if (lines[i].includes("no-null-check")) {
 		return [] // do nothing
 	}
+	else if (className == "Not") {
+		return [] // do nothing
+	}
 
 	const p = Parameters.extractIfPresent(lines[i])
 

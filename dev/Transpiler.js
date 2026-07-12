@@ -26,7 +26,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		const lines = fileContent.split("\n")
 
 		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes("constructor(")) {
+			if (lines[i].includes("constructor(") && fileContent.includes("extends SuperClass")) {
 				if (lines[i+1].includes("super(")) {
 					const params = AddNullChecks(fileName, className, lines, i+1)
 					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
