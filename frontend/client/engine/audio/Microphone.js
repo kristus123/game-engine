@@ -4,14 +4,14 @@
 export class Microphone {
 	static stream = null
 
-    static async enable() {
-        this.stream = await navigator.mediaDevices.getUserMedia({
-            video: false,
-            audio: true,
-        })
+	static async enable() {
+		this.stream = await navigator.mediaDevices.getUserMedia({
+    		video: false,
+    		audio: true,
+		})
 
-        const source = SoundContext.context.createMediaStreamSource(this.stream)
-        source.connect(Mix.mic.input)
-    }
+		const source = SoundContext.context.createMediaStreamSource(this.stream)
+		source.connect(Mix.mic.input)
+	}
 }
 

@@ -12,7 +12,7 @@ export class SfuServer {
 
 	static async start() {
 		this.globalWorker = await SfuServerApi.createWorker()
-		
+
 		SocketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
 			if (this.routers[data.routerId] && this.routers[data.routerId].hostClientId == clientId) {
 				Object.keys(this.routers[data.routerId].clients).forEach(clientId => {
@@ -124,7 +124,7 @@ export class SfuServer {
 			})
 
 			routerObject.clients[clientId].producers[producer.id] = producer
-			
+
 			SocketServer.sendToClient(client, {
 				action: "SFU_CONFIRM_PRODUCE",
 				producerId: producer.id,
@@ -218,7 +218,7 @@ export class SfuServer {
 				Object.values(state.producers).forEach(producer => {
 					producer.close()
 				})
-				
+
 				state.sendTransport.close()
 				state.recvTransport.close()
 

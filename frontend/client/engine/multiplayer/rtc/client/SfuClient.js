@@ -175,7 +175,8 @@ export class SfuClient {
 			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
-		} else {
+		}
+		else {
 			throw new Error("You do not have permission to mute", clientId)
 		}
 	}
@@ -185,7 +186,8 @@ export class SfuClient {
 			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
 				routerId: this.connectedRouterId,
 			})
-		} else {
+		}
+		else {
 			throw new Error("You do not have permission to unmute", clientId)
 		}
 	}
@@ -212,13 +214,13 @@ export class SfuClient {
 
 	static stopVideo() {
 		console.log("stopping video")
-		
+
 		this.videoStream.pause()
 	}
 
 	static async startVideo() {
 		console.log("starting video")
-		
+
 		await this.videoStream.resume()
 	}
 

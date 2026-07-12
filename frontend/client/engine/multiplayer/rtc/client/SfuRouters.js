@@ -38,23 +38,21 @@ export class SfuRouters {
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
 			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
-			if (!router.streamOnly || SfuClient.isHost) {
-				Webcam.request(
-					async (ok) => {
-						if (ok) {
-							await Webcam.enable()
-							Webcam.routeTo(SfuClient.videoStream)
+			if (!router.streamOnl || SfuClient.isHost) {
+				Webcam.request(async ok => {
+					if (ok) {
+						await Webcam.enable()
+						Webcam.routeTo(SfuClient.videoStream)
 
-							this.onLocalConnection()
+						this.onLocalConnection()
 
-							// Setup Send Transport after Webcam is Enabled
-							await SfuClient.setupSendTransport(data.sendTransportParams)
-						}
-						else {
-							throw new Error("webcam permission not granted")
-						}
+						// Setup Send Transport after Webcam is Enabled
+						await SfuClient.setupSendTransport(data.sendTransportParams)
 					}
-				)
+					else {
+						throw new Error("webcam permission not granted")
+					}
+				})
 
 				await Microphone.enable()
 				SfuClient.audioStream.routeTo(Mix.mic)
@@ -135,7 +133,7 @@ export class SfuRouters {
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
-			
+
 			SfuClient.consume(data.producerId, data.clientId)
 		})
 
