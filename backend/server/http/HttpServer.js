@@ -15,7 +15,7 @@ function sendJson(res, httpStatus, data) {
 
 
 function validToken(encodedToken) {
-	return encodedToken != null && encodedToken != "null" 
+	return encodedToken != null && encodedToken != "null"
 }
 
 export async function parseBody(req) {
