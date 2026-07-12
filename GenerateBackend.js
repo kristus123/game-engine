@@ -10,7 +10,7 @@ export function GenerateBackend(ENVIRONMENT) {
 	Files.deleteFolder(FileConfig.transpiledBackend)
 
 	// Copy Shared Into transpiledBackend
-	const destPath = path.join(FileConfig.transpiledBackend, "shared")
+	const destPath = path.join(FileConfig.transpiledBackend, "shared") // nabir, stop using path.join. it is ugly
 
 	for (let sharedFilePath of Files.at(FileConfig.shared)) {
 		console.log(sharedFilePath)
@@ -27,14 +27,12 @@ export function GenerateBackend(ENVIRONMENT) {
 	}
 
 	for (let f of Files.at("backend/")) {
-		console.log(f)
-
 		const content = Files.read(f)
 
 		const imports = Imports.needed(content, [
 			...Files.at("backend/"),
 			...Files.at("dev/"),
-			...Files.at(FileConfig.shared)
+			...Files.at(FileConfig.shared),
 		])
 			.replaceAll("/backend/", "#root/transpiledBackend/")
 			.replaceAll("/dev/", "#root/dev/")
@@ -47,5 +45,6 @@ export function GenerateBackend(ENVIRONMENT) {
 import { fileURLToPath } from "url"
 import { FileConfig } from "#root/FileConfig.js"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
+	throw new Error("stop right there")
 	GenerateBackend()
 }
