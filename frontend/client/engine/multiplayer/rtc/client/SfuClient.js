@@ -7,6 +7,11 @@ export class SfuClient {
 		this.recvTransport = null
 		this.producers = {}
 		this.consumers = {}
+
+		this.isAudioMuted = true
+
+		this.videoStream = VideoStream()
+		this.audioStream = AudioStream()
 	}
 
 	static async setupSendTransport(params) {
@@ -33,7 +38,7 @@ export class SfuClient {
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
 					if (data.kind == kind) {
-						callback({ producerId: data.producerId })
+						callback({ id: data.producerId })
 						resolve()
 					}
 				})
@@ -52,9 +57,16 @@ export class SfuClient {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
 		else {
-			for (const track of Webcam.cam.getTracks()) {
+			for (const track of this.videoStream.stream.getVideoTracks()) {
 				const producer = await this.sendTransport.produce({ track })
-				this.producers[track.kind] = producer
+
+				this.producers[producer.id] = producer
+			}
+
+			for (const track of this.audioStream.stream.getAudioTracks()) {
+				const producer = await this.sendTransport.produce({ track })
+
+				this.producers[producer.id] = producer
 			}
 		}
 	}
@@ -88,7 +100,7 @@ export class SfuClient {
 			routerId: this.connectedRouterId
 		})
 
-		SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_CONSUME", async data => {
+		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
 
@@ -156,5 +168,77 @@ export class SfuClient {
 
 	static get connectedClientIds() {
 		return SfuRouters.routers[this.connectedRouterId].connectedClientIds
+	}
+
+	static mute(clientId) {
+		if (clientId == My.clientId || SfuClient.isHost) {
+			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
+				routerId: this.connectedRouterId,
+			})
+		} else {
+			throw new Error("You do not have permission to mute", clientId)
+		}
+	}
+
+	static unmute(clientId) {
+		if (clientId == My.clientId || SfuClient.isHost) {
+			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
+				routerId: this.connectedRouterId,
+			})
+		} else {
+			throw new Error("You do not have permission to unmute", clientId)
+		}
+	}
+
+	static muteSelf() {
+		this.producers.values.forEach(producer => {
+			if (producer.kind == "audio") {
+				console.log("muting myself")
+
+				producer.pause()
+			}
+		})
+	}
+
+	static unmuteSelf() {
+		this.producers.values.forEach(producer => {
+			if (producer.kind == "audio") {
+				console.log("unmuting myself")
+
+				producer.resume()
+			}
+		})
+	}
+
+	static stopVideo() {
+		console.log("stopping video")
+		
+		this.videoStream.pause()
+	}
+
+	static async startVideo() {
+		console.log("starting video")
+		
+		await this.videoStream.resume()
+	}
+
+	static toggleMic() {
+		if (this.isAudioMuted) {
+			this.muteSelf()
+		}
+		else {
+			this.unmuteSelf()
+		}
+
+		this.isAudioMuted = !this.isAudioMuted
+	}
+
+	static async toggleVideo() {
+		if (this.videoStream.enabled) {
+			this.stopVideo()
+		}
+		else {
+			await this.startVideo()
+		}
 	}
 }

@@ -12,7 +12,7 @@ export class SfuServer {
 
 	static async start() {
 		this.globalWorker = await SfuServerApi.createWorker()
-
+		
 		SocketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {
 			if (this.routers[data.routerId] && this.routers[data.routerId].hostClientId == clientId) {
 				Object.keys(this.routers[data.routerId].clients).forEach(clientId => {
@@ -105,14 +105,12 @@ export class SfuServer {
 					return
 				}
 
-				if (!rtcClient.producer) {
-					return
-				}
-
-				SocketServer.sendToClient(client, {
-					action: "SFU_NEW_PRODUCER",
-					producerId: rtcClient.producer.id,
-					clientId: rtcClient.clientId
+				Object.keys(rtcClient.producers).forEach(producerId => {
+					SocketServer.sendToClient(client, {
+						action: "SFU_NEW_PRODUCER",
+						producerId: producerId,
+						clientId: rtcClient.clientId
+					})
 				})
 			})
 		})
@@ -125,8 +123,8 @@ export class SfuServer {
 				rtpParameters: data.rtpParameters
 			})
 
-			routerObject.clients[clientId].producer = producer
-
+			routerObject.clients[clientId].producers[producer.id] = producer
+			
 			SocketServer.sendToClient(client, {
 				action: "SFU_CONFIRM_PRODUCE",
 				producerId: producer.id,
@@ -181,7 +179,7 @@ export class SfuServer {
 		const sendTransport = await SfuServerApi.createTransport(router)
 		const recvTransport = await SfuServerApi.createTransport(router)
 
-		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producer: null }
+		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producers: {} }
 
 		SocketServer.sendToClient(client, {
 			action: "SFU_SETUP_CLIENT",
@@ -217,11 +215,12 @@ export class SfuServer {
 			if (Object.hasOwn(this.routers, rid)) {
 				const state = this.routers[rid].clients[clientId]
 
-				if (state.producer) {
-					state.producer.close()
-					state.sendTransport.close()
-					state.recvTransport.close()
-				}
+				Object.values(state.producers).forEach(producer => {
+					producer.close()
+				})
+				
+				state.sendTransport.close()
+				state.recvTransport.close()
 
 				delete this.routers[rid].clients[clientId]
 

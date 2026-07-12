@@ -5,9 +5,21 @@ export class SfuRouters {
 		this.onRouterCreated = (router) => {}
 		this.onRouterDeleted = (routerId) => {}
 		this.onGuestConnection = (stream) => {}
-		this.onLocalConnection = (stream) => {}
+		this.onLocalConnection = () => {}
 		this.onJoinRouter = (router) => {}
 		this.onLeaveRouter = (router) => {}
+
+		SocketClient.onClientMessage("SFU_CLIENT_MUTE_SELF", data => {
+			if (data.routerId == SfuClient.connectedRouterId) {
+				SfuClient.muteSelf()
+			}
+		})
+
+		SocketClient.onClientMessage("SFU_CLIENT_UNMUTE_SELF", data => {
+			if (data.routerId == SfuClient.connectedRouterId) {
+				SfuClient.unmuteSelf()
+			}
+		})
 
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routers = data.routerList
@@ -31,8 +43,9 @@ export class SfuRouters {
 					async (ok) => {
 						if (ok) {
 							await Webcam.enable()
+							Webcam.routeTo(SfuClient.videoStream)
 
-							this.onLocalConnection(Webcam.cam)
+							this.onLocalConnection()
 
 							// Setup Send Transport after Webcam is Enabled
 							await SfuClient.setupSendTransport(data.sendTransportParams)
@@ -42,6 +55,10 @@ export class SfuRouters {
 						}
 					}
 				)
+
+				await Microphone.enable()
+				SfuClient.audioStream.routeTo(Mix.mic)
+				Mix.master.volume = 0
 			}
 
 			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
@@ -118,6 +135,7 @@ export class SfuRouters {
 
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
+			
 			SfuClient.consume(data.producerId, data.clientId)
 		})
 

@@ -12,20 +12,31 @@ export class SfuWorld {
 		}
 
 		SfuRouters.onGuestConnection = stream => {
-			console.log(stream)
 			s.guestWebcam.srcObject = stream
 		}
 
-		SfuRouters.onLocalConnection = stream => {
-			s.localWebcam.srcObject = stream
+		SfuRouters.onLocalConnection = () => {
+			s.localWebcam.srcObject = SfuClient.videoStream.stream
 		}
 
 		s.create.onClick(() => {
-			SfuClient.createRouter(true) // streamOnly == true
+			SfuClient.createRouter(false) // streamOnly == true
+		})
+
+		s.toggleAudio.onClick(() => {
+			SfuClient.toggleMic()
+		})
+
+		s.toggleVideo.onClick(async () => {
+			await SfuClient.toggleVideo()
+		})
+
+		s.muteClient.onClick(() => {
+			SfuClient.mute(s.clientId.value)
 		})
 	}
 
 	update() {
-
+		SfuClient.videoStream.update()
 	}
 }

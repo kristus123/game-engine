@@ -2,6 +2,7 @@ export class Mix {
 
 	static master = Track("master")
 	static fx = Track("fx")
+	static mic = Track("mic")
 
 	static {
 		Mix.fx
