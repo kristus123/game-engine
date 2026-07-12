@@ -8,8 +8,10 @@ button {
 	border-color: 2px solid black;
 }
 
-button:hover {
-	background-color: green;
+@media (hover: hover) {
+	button:hover {
+		background-color: green;
+	}
 }
 
 button:disabled {
