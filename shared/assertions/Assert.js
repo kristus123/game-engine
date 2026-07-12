@@ -168,6 +168,26 @@ export class Assert {
 		// }
 	}
 
+	static role(role, expectedRole) {
+		Assert.value(role)
+		Assert.value(expectedRole)
+
+		if (role == expectedRole) {
+			return role
+		}
+		else {
+			throw new Error(role + " is not " + expectedRole)
+		}
+	}
+
+	static admin(role) {
+		return Assert.role(role, "ADMIN_ROLE")
+	}
+
+	static user(role) {
+		return Assert.role(role, "USER_ROLE")
+	}
+
 	static noNullInArray(array) {
 		Assert.notNull(array)
 

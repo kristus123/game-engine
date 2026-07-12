@@ -102,10 +102,11 @@ export class HttpServer {
 					? ServerToken.decode(encodedToken)
 					: null //todo not use null
 
-				const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 
 				try {
 					const body = await parseBody(req)
+
+					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, routeName(req))
 
 					const json = method({

@@ -3,7 +3,7 @@ export function Role(decoded) {
 		// UNSECURE_ROLE is not the best name
 		return "UNSECURE_ROLE" // mby find better names
 	}
-	else if (AdminUser(decoded.internal.userId)) {
+	else if (AdminUserId(decoded.internal.userId)) {
 		return "ADMIN_ROLE"
 	}
 	else {

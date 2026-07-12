@@ -2,6 +2,6 @@ const adminUserIds = [
 
 ]
 
-export function AdminUser(userId) {
+export function AdminUserId(userId) {
 	return adminUserIds.includes(userId)
 }

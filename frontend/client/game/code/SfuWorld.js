@@ -1,5 +1,16 @@
 export class SfuWorld {
 	constructor() {
+
+		HttpClient.ping({
+			ok: (body) => {
+				console.log(body)
+			},
+			error: (body) => {
+				console.log(body)
+				console.log("big error baby")
+			}
+		})
+
 		SfuClient.init()
 		SfuRouters.init()
 

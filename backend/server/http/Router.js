@@ -1,5 +1,7 @@
 export function Router(role, path) { // todo rename to Route.js
 	if (AdminRoute[path]) {
+		console.log("hei sex")
+		console.log(role)
 		Assert.admin(role)
 		return AdminRoute[path]
 	}
