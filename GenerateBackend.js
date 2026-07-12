@@ -47,5 +47,5 @@ export function GenerateBackend(ENVIRONMENT) {
 import { fileURLToPath } from "url"
 import { FileConfig } from "#root/FileConfig.js"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
-	GenerateBackend()
+	GenerateBackend(process.argv[2])
 }

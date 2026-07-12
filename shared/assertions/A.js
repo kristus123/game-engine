@@ -1,5 +1,8 @@
 export class A {
 
+	constructor() {
+	}
+
 	static string(arg) { // no-null-check // todo make do transpiler-disable-null-assert to be super clear
 		return typeof arg == "string" || arg instanceof String
 	}
