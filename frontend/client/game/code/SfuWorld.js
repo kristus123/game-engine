@@ -15,6 +15,7 @@ export class SfuWorld {
 		SfuRouters.init()
 
 		const s = Dom.add(Html.sfu())
+		Dom.add(Html.test())
 
 		SfuRouters.onRouterCreated = lobby => {
 			s.lobbies.add(H.button("join " + lobby.routerId, () => {

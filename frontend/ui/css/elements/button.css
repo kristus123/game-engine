@@ -10,8 +10,12 @@ button {
 
 @media (hover: hover) {
 	button:hover {
-		background-color: green;
+		background-color: black;
 	}
+}
+
+button:active {
+	transform: scale(0.70);
 }
 
 button:disabled {

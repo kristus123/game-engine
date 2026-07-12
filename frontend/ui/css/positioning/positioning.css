@@ -5,34 +5,34 @@
 [mid],
 [bottom] {
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
-	box-sizing: border-box;
 }
 
-[center],
-[mid] {
-	justify-content: center;
+[center] {
 	align-items: center;
+	justify-content: center;
+	min-height:100%;
 }
 
 [left] {
-	justify-content: flex-start;
-	align-items: center;
-}
-
-[right] {
-	justify-content: flex-end;
-	align-items: center;
-}
-
-[top] {
-	justify-content: center;
 	align-items: flex-start;
 }
 
-[bottom] {
-	justify-content: center;
+[right] {
 	align-items: flex-end;
+}
+
+[top] {
+	justify-content: flex-start;
+}
+
+[mid] {
+	justify-content: center;
+}
+
+[bottom] {
+	justify-content: flex-end;
 }
 
 [fill] {
