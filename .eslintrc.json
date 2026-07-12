@@ -132,7 +132,7 @@
         "AddCardPage": "readonly",
         "AddNullChecks": "readonly",
         "AdminRoute": "readonly",
-        "AdminUser": "readonly",
+        "AdminUserId": "readonly",
         "After": "readonly",
         "Always": "readonly",
         "AnalShit": "readonly",
