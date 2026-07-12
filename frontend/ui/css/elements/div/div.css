@@ -85,3 +85,7 @@ div[spread] > * {
 	align-items: center;
 }
 
+div[fill] {
+	width: 100vw;
+	height: 100vh;
+}
