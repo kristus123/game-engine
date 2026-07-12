@@ -32,3 +32,56 @@ div.scrollable {
 	overflow-y: auto;
 	scrollbar-gutter: stable;
 }
+
+div[center],
+div[left],
+div[right],
+div[top],
+div[mid],
+div[bottom] {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+}
+
+div[left] {
+	align-items: flex-start;
+}
+
+div[center] {
+	align-items: center;
+}
+
+div[right] {
+	align-items: flex-end;
+}
+
+div[top] {
+	justify-content: flex-start;
+}
+
+div[mid] {
+	justify-content: center;
+}
+
+div[bottom] {
+	justify-content: flex-end;
+}
+
+
+div[spread] {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
+
+div[spread] > * {
+	flex: 1;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+

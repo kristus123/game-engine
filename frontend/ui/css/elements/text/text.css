@@ -7,9 +7,20 @@ input, button, textarea, select {
 }
 
 
-h1, h2, h3, h4, h5, h6, p, ul, ol, a {
+:is(h1, h2, h3, h4, h5, h6, p, ul, ol, a) {
+	overflow-wrap: break-word;
+}
+
+:is(h1, h2, h3, h4, h5, h6, p, ul, ol, a)[left] {
+	text-align: left;
+}
+
+:is(h1, h2, h3, h4, h5, h6, p, ul, ol, a)[center] {
 	text-align: center;
-	overflow-wrap: break-word; 
+}
+
+:is(h1, h2, h3, h4, h5, h6, p, ul, ol, a)[right] {
+	text-align: right;
 }
 
 h1 {
