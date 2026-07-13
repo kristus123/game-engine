@@ -1,3 +1,7 @@
+// you need to run
+//
+// npm i -g puppeteer
+
 import puppeteer from "puppeteer"
 
 const browser = await puppeteer.launch({ headless: true })

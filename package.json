@@ -23,14 +23,11 @@
     "esbuild": "^0.28.0",
     "mediasoup": "^3.19.21",
     "mediasoup-client": "^3.19.0",
-    "nodemon": "^3.1.14",
-    "puppeteer": "^25.0.4",
     "web-push": "^3.6.7",
     "ws": "^8.18.3"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
-    "mediasoup@3.20.0": true,
-    "puppeteer@25.1.0": true
+    "mediasoup@3.20.0": true
   }
 }
