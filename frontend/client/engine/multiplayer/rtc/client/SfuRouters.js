@@ -8,6 +8,19 @@ export class SfuRouters {
 		this.onLocalConnection = () => {}
 		this.onJoinRouter = (router) => {}
 		this.onLeaveRouter = (router) => {}
+		this.onMessage = (clientId, data) => {}
+
+		SocketClient.onClientMessage("SFU_MESSAGE", data => {
+			this.onMessage(data.originClientId, data.message)
+		})
+
+		SocketClient.onClientMessage("SFU_KICK_SELF", data => {
+			if (data.routerId == SfuClient.connectedRouterId) {
+				SfuClient.leaveRouter()
+
+				console.log("You Have Been Kicked!")
+			}
+		})
 
 		SocketClient.onClientMessage("SFU_CLIENT_MUTE_SELF", data => {
 			if (data.routerId == SfuClient.connectedRouterId) {
@@ -38,21 +51,23 @@ export class SfuRouters {
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
 			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
-			if (!router.streamOnl || SfuClient.isHost) {
-				Webcam.request(async ok => {
-					if (ok) {
-						await Webcam.enable()
-						Webcam.routeTo(SfuClient.videoStream)
+			if (!router.streamOnly || SfuClient.isHost) {
+				Webcam.request(
+					async (ok) => {
+						if (ok) {
+							await Webcam.enable()
+							Webcam.routeTo(SfuClient.videoStream)
 
-						this.onLocalConnection()
+							this.onLocalConnection()
 
-						// Setup Send Transport after Webcam is Enabled
-						await SfuClient.setupSendTransport(data.sendTransportParams)
+							// Setup Send Transport after Webcam is Enabled
+							await SfuClient.setupSendTransport(data.sendTransportParams)
+						}
+						else {
+							throw new Error("webcam permission not granted")
+						}
 					}
-					else {
-						throw new Error("webcam permission not granted")
-					}
-				})
+				)
 
 				await Microphone.enable()
 				SfuClient.audioStream.routeTo(Mix.mic)
@@ -90,8 +105,6 @@ export class SfuRouters {
 				SfuClient.consumers[data.clientId].stream.getTracks().forEach(track => {
 					track.stop()
 				})
-
-				SfuClient.consumers[data.clientId].element.remove()
 
 				delete SfuClient.consumers[data.clientId]
 			}

@@ -119,8 +119,6 @@ export class SfuClient {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
 			})
-
-			state.element.remove()
 		})
 
 		this.consumers = {}
@@ -241,6 +239,25 @@ export class SfuClient {
 		}
 		else {
 			await this.startVideo()
+		}
+	}
+
+	static sendToEveryone(message) {
+		SfuClient.connectedClientIds.forEach(clientId => {
+			SocketClient.sendToClient("SFU_MESSAGE", clientId, { message: message })
+		})
+	}
+
+	static kick(clientId) {
+		if (clientId != My.clientId) { // They should not kick themselves? Let me know...
+			if (SfuClient.isHost) {
+				SocketClient.sendToClient("SFU_KICK_SELF", clientId, {
+					routerId: SfuClient.connectedRouterId
+				})
+			}
+			else {
+				throw new Error("You do not have permission to kick", clientId)
+			}
 		}
 	}
 }

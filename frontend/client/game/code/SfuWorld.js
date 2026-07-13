@@ -1,21 +1,10 @@
+
 export class SfuWorld {
 	constructor() {
-
-		HttpClient.ping({
-			ok: (body) => {
-				console.log(body)
-			},
-			error: (body) => {
-				console.log(body)
-				console.log("big error baby")
-			}
-		})
-
 		SfuClient.init()
 		SfuRouters.init()
 
 		const s = Dom.add(Html.sfu())
-		Dom.add(Html.test())
 
 		SfuRouters.onRouterCreated = lobby => {
 			s.lobbies.add(H.button("join " + lobby.routerId, () => {
@@ -29,6 +18,10 @@ export class SfuWorld {
 
 		SfuRouters.onLocalConnection = () => {
 			s.localWebcam.srcObject = SfuClient.videoStream.stream
+		}
+
+		SfuRouters.onMessage = (clientId, message) => {
+			console.log("MESSAGE FROM " + clientId + ": ", message)
 		}
 
 		s.create.onClick(() => {
@@ -45,6 +38,15 @@ export class SfuWorld {
 
 		s.muteClient.onClick(() => {
 			SfuClient.mute(s.clientId.value)
+		})
+
+		s.kickClient.onClick(() => {
+			console.log("TRYING TO KICK CLIENT: ", s.clientId.value)
+			SfuClient.kick(s.clientId.value)
+		})
+
+		s.sendMessage.onClick(() => {
+			SfuClient.sendToEveryone(s.message.value)
 		})
 	}
 
