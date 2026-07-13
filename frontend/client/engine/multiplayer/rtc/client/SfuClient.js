@@ -6,6 +6,7 @@ export class SfuClient {
 		this.sendTransport = null
 		this.recvTransport = null
 		this.producers = {}
+		this.dataProducer = null
 		this.consumers = {}
 
 		this.isAudioMuted = true
@@ -53,6 +54,28 @@ export class SfuClient {
 			})
 		})
 
+		this.sendTransport.on("produceData", async ({ sctpStreamParameters, label, protocol, appData }, callback, errback) => {
+			await new Promise(resolve => {
+				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE_DATA", data => {
+					if (data.kind == kind) {
+						callback({ id: data.producerId })
+						resolve()
+					}
+				})
+
+				console.log("Requesting Data Producer")
+
+				SocketClient.sendToServer("SFU_REQUEST_PRODUCE_DATA", {
+					kind: kind,
+					sctpStreamParameters: rtpParameters,
+					label: label,
+					protocol: protocol,
+					appData: appData,
+					routerId: this.connectedRouterId
+				})
+			})
+		})
+
 		if (!Webcam.enabled) {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
@@ -69,6 +92,12 @@ export class SfuClient {
 				this.producers[producer.id] = producer
 			}
 		}
+
+		this.dataProducer = await this.sendTransport.produceData({
+			ordered: true,
+			label: "json",
+			protocol: ""
+		})
 	}
 
 	static async setupRecvTransport(params) {
@@ -113,6 +142,31 @@ export class SfuClient {
 			}
 		})
 	}
+
+	static async consumeData(producerId, originClientId) {
+		if (!this.recvTransport) {
+			throw new Error("Cannot Consume Data Receive Transport Not Ready")
+		}
+
+		console.log("Requesting Data Consumer")
+
+		SocketClient.sendToServer("SFU_REQUEST_CONSUME_DATA", {
+			producerId: producerId,
+			sctpCapabilities: this.device.sctpCapabilities,
+			routerId: this.connectedRouterId
+		})
+
+		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME_DATA", async data => {
+			if (data.consumerParams.producerId == producerId) {
+				const consumer = await this.recvTransport.consumeData(data.consumerParams)
+
+				consumer.on("message", message => {
+					SfuRouters.onMessage(originClientId, message)
+				})
+			}
+		})
+	}
+
 
 	static clean() {
 		this.consumers.values.forEach(state => {
@@ -243,9 +297,7 @@ export class SfuClient {
 	}
 
 	static sendToEveryone(message) {
-		SfuClient.connectedClientIds.forEach(clientId => {
-			SocketClient.sendToClient("SFU_MESSAGE", clientId, { message: message })
-		})
+		this.dataProducer.send(JSON.stringify(message))
 	}
 
 	static kick(clientId) {

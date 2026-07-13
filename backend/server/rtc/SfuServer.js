@@ -112,6 +112,12 @@ export class SfuServer {
 						clientId: rtcClient.clientId
 					})
 				})
+
+				SocketServer.sendToClient(client, {
+					action: "SFU_NEW_DATA_PRODUCER",
+					producerId: rtcClient.dataProducer.id,
+					clientId: rtcClient.clientId
+				})
 			})
 		})
 
@@ -144,6 +150,36 @@ export class SfuServer {
 			})
 		})
 
+		SocketServer.on("SFU_REQUEST_PRODUCE_DATA", async (client, clientId, data) => {
+			const routerObject = this.routers[data.routerId]
+
+			const producer = await routerObject.clients[clientId].sendTransport.produceData({
+				sctpStreamParameters: data.sctpStreamParameters,
+				label: data.label,
+				protocol: data.protocol,
+				appData: data.appData,
+			})
+
+			routerObject.clients[clientId].dataProducer = producer
+
+			SocketServer.sendToClient(client, {
+				action: "SFU_CONFIRM_PRODUCE_DATA",
+				producerId: producer.id,
+			})
+
+			Object.values(routerObject.clients).forEach(rtcClient => {
+				if (rtcClient.client == client) {
+					return
+				}
+
+				SocketServer.sendToClient(rtcClient.client, {
+					action: "SFU_NEW_DATA_PRODUCER",
+					producerId: producer.id,
+					clientId: clientId
+				})
+			})
+		})
+
 		SocketServer.on("SFU_REQUEST_CONSUME", async (client, clientId, data) => {
 			const routerObject = this.routers[data.routerId]
 
@@ -168,8 +204,34 @@ export class SfuServer {
 				}
 			})
 		})
+
+		SocketServer.on("SFU_REQUEST_CONSUME_DATA", async (client, clientId, data) => {
+			const routerObject = this.routers[data.routerId]
+
+			if (!routerObject.router.canConsumeData({ dataProducerId: data.producerId, sctpCapabilities: data.sctpCapabilities })) {
+				console.error("Cannot consume")
+				return
+			}
+
+			const consumer = await routerObject.clients[clientId].recvTransport.consumeData({
+				dataProducerId: data.producerId,
+			})
+
+			SocketServer.sendToClient(client, {
+				action: "SFU_CONFIRM_CONSUME_DATA",
+				consumerParams: {
+					id: consumer.id,
+					dataProducerId: data.producerId,
+					sctpStreamParameters: consumer.sctpStreamParameters,
+					label: consumer.label,
+					protocol: consumer.protocol
+				}
+			})
+		})
 	}
 
+
+	
 	static async connectWithClient(client, clientId, routerId) {
 		console.log(`Connecting With ${clientId}`)
 
@@ -179,7 +241,7 @@ export class SfuServer {
 		const sendTransport = await SfuServerApi.createTransport(router)
 		const recvTransport = await SfuServerApi.createTransport(router)
 
-		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producers: {} }
+		routerObject.clients[clientId] = { clientId, client, sendTransport, recvTransport, producers: {}, dataProducer: null }
 
 		SocketServer.sendToClient(client, {
 			action: "SFU_SETUP_CLIENT",
@@ -218,6 +280,10 @@ export class SfuServer {
 				Object.values(state.producers).forEach(producer => {
 					producer.close()
 				})
+
+				if (state.dataProducer) {
+					state.dataProducer.close()
+				}
 
 				state.sendTransport.close()
 				state.recvTransport.close()

@@ -149,6 +149,12 @@ export class SfuRouters {
 
 			SfuClient.consume(data.producerId, data.clientId)
 		})
+		
+		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async data => {
+			console.log("Consuming New Producer")
+
+			SfuClient.consumeData(data.producerId, data.clientId)
+		})
 
 		setTimeout(() => {
 			// hack to wait for server to connect. todo fix
