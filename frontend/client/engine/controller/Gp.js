@@ -7,6 +7,7 @@ function _improvedStickValue(num) {
 
 let index = null
 
+// rename to Con.js instead, that is better
 export class Gp {
 
 	static init() {
@@ -64,7 +65,7 @@ export class Gp {
 
 	static vibrate() {
 		if (A.number(index)) {
-			const gp = navigator.getGamepads()[index] // duplicate line
+			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
 			if (gp && gp.vibrationActuator) {
 				gp.vibrationActuator.playEffect("dual-rumble", {

@@ -11,4 +11,8 @@ export class Not {
 	static array(x) {
 		return !Array.isArray(x)
 	}
+
+	static bool(x) {
+		return !A.bool(x)
+	}
 }

@@ -1,3 +1,8 @@
+// maybe merge Controller and Gamepad/Con.js
+// i think that makes sense
+//
+// Con.control(player)
+
 export class Controller {
 
 	static {
