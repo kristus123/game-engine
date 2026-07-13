@@ -256,6 +256,7 @@
         "PathFinder": "readonly",
         "PersistedJson": "readonly",
         "PersistedJsonEndpoint": "readonly",
+        "Phone": "readonly",
         "Physics": "readonly",
         "Picture": "readonly",
         "PingEndpoint": "readonly",
