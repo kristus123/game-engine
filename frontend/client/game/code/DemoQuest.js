@@ -17,5 +17,5 @@ export const DemoQuest = () => Quest([
 		markDoneIf: () => G.player.within(150, G.oldSami),
 	})
 ], () => {
-	console.log("Demo Completed!")
+	Toast("Demo Completed!")
 })
