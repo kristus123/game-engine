@@ -1,6 +1,6 @@
 export class Entity {
 	constructor(position) {
-		this.position = position.copy()
+		this.position = position
 
 		// you do not need to worry about deltatime when using force.
 		// force is a one-off force applied, and dt is calculated in Physics.js

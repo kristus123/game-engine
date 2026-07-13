@@ -2,7 +2,7 @@
 
 export class Task {
 	constructor(name, config = {}) {
-		const { start, onDone, markDoneIf, markDoneIfMoreThanMs } = config
+		const { start, onDone, markDoneIf, markDoneAfterMs } = config
 
 		this.done = false
 		this.stopWatch = StopWatch()
@@ -10,7 +10,7 @@ export class Task {
 
 		this.onDone = onDone
 		this.markDoneIf = markDoneIf
-		this.markDoneIfMoreThanMs = markDoneIfMoreThanMs
+		this.markDoneAfterMs = markDoneAfterMs
 
 		this.onUpdate = () => {}
 
@@ -45,7 +45,7 @@ export class Task {
 			if (this.markDoneIf?.()) {
 				this.markDone()
 			}
-			else if (this.markDoneIfMoreThanMs && this.duration >= this.markDoneIfMoreThanMs) {
+			else if (this.markDoneAfterMs && this.duration >= this.markDoneAfterMs) {
 				this.markDone()
 			}
 		}
