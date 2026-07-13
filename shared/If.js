@@ -33,7 +33,7 @@ export class IfCondition {
 			}
 		}
 		else if (anyTrue(arg == "", arg == null, A.number(arg), A.nan(arg))) {
-    		throw new Error(`Wonky arg detected in if-condition: ${String(arg)}`)
+			throw new Error(`Wonky arg detected in if-condition: ${String(arg)}`)
 		}
 		else {
 			return arg
