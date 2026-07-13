@@ -6,9 +6,7 @@ export class World {
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 
-			Sprite.bush(WorldPosition(500, 400)).loopTag("berries"),
-			Sprite.bush(WorldPosition(550, 800)).loopTag("berries"),
-			Sprite.bush(WorldPosition(1150, 750)).loopTag("berries"),
+			Sprite.fireplace(WorldPosition(500, 400)),
 
 			DemoQuest(),
 
