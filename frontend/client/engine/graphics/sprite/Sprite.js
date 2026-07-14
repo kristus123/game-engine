@@ -143,7 +143,7 @@ export class Sprite extends Entity {
 		}
 	}
 
-	playTag(tag) {
+	playTag(tag, onFinish = () => {}) {
 		this.activeTag = tag
 		this.looping = false
 

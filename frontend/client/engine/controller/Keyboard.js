@@ -42,6 +42,15 @@ export class Keyboard {
 			else if (e.code == "KeyR") {
 				this.r = true
 			}
+			else if (e.code == "Digit1") {
+				this.one = true
+			}
+			else if (e.code == "Digit2") {
+				this.two = true
+			}
+			else if (e.code == "Digit3") {
+				this.three = true
+			}
 		})
 
 		document.addEventListener("keyup", e => {
@@ -72,6 +81,15 @@ export class Keyboard {
 			}
 			else if (e.code == "KeyR") {
 				this.r = false
+			}
+			else if (e.code == "Digit1") {
+				this.one = false
+			}
+			else if (e.code == "Digit2") {
+				this.two = false
+			}
+			else if (e.code == "Digit3") {
+				this.three = false
 			}
 		})
 	}
