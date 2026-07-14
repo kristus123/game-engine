@@ -16,4 +16,6 @@ body {
 	touch-action: pan-x pan-y;
 	padding-top: env(safe-area-inset-top);
 	white-space: normal;
+
+	overflow: hidden;
 }
