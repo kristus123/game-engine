@@ -1,4 +1,4 @@
-export class DomMouse { // Maybe rename to UI Mouse.
+export class DomMouse { // Maybe rename to UI Mouse? not sure
 
 	static position = WorldPosition(0, 0)
 
