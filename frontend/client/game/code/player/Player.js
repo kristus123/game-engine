@@ -50,8 +50,6 @@ export class Player extends Entity {
 		])
 
 		this.light = Light.add(this.collider.center, 600, "255,165,0", 0, 5)
-
-
 	}
 
 	get collider() {
