@@ -15,6 +15,7 @@ function anyTrue(...args) {
 }
 
 export class IfCondition {
+
 	static validate(arg) {
 		if (An.object(arg)) {
 			if (An.emptyObject(arg)) {
@@ -39,4 +40,5 @@ export class IfCondition {
 			return arg
 		}
 	}
+
 }

@@ -1,4 +1,4 @@
-// deprecated
+// deprecated // todo delete
 export class HtmlVideo {
 
 	static local(srcObject) {

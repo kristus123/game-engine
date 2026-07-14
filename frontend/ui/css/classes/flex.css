@@ -1,8 +1,6 @@
 flex-h {
 	display: flex;
 
-	/* width: 100%;
-	height: 100%; */
 	flex-flow: row wrap;
 	justify-content: space-around; /* center / space-around / space-evenly */
 	align-items: center;
@@ -12,8 +10,6 @@ flex-h {
 flex-v {
 	display: flex;
 
-	/* width: 100%;
-	height: 100%; */
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: stretch;
@@ -24,26 +20,26 @@ flex-h > *,
 flex-v > *
 {
 	flex: 1;
-
-	/* can this be removed? */
 	display: flex;
 	justify-content: center;    /* horizontal centering inside the child */
 	align-items: center;        /* vertical centering inside the child */
 }
 
-
-flex-v > [left] {
-	justify-content: flex-start;
+flex-h[max-width],
+flex-v[max-width]
+{
+	width:100%;
 }
 
-flex-v > [right] {
-	justify-content: flex-end;
+flex-h[max-height],
+flex-v[max-height]
+{
+	height:100%;
 }
 
-flex-v > [top] {
-	align-items: flex-start;
-}
-
-flex-v > [bot] {
-	align-items: flex-end;
+flex-h[max-size],
+flex-v[max-size]
+{
+	width:100%;
+	height:100%;
 }
