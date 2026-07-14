@@ -1,7 +1,7 @@
 export class Phone {
 	static get current() {
 		if (window.innerWidth > window.innerHeight) {
-    		return "horizontal"
+			return "horizontal"
 		}
 
 		return "vertical"
