@@ -1,5 +1,19 @@
-video {
-	/* max-width:100px; */
+video-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column nowrap;
+}
 
-	/* max-height:100px; */
+video {
+	width: 100vw;
+	height: 100vh;
+
+	max-width: 700px;
+	max-height: 580px;
+
+	object-fit: contain;
+	object-position: center;
 }

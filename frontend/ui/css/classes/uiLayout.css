@@ -22,45 +22,54 @@ ui-layout {
 
 top-left { 
 	grid-area: top-left;
-	background: red;
+
+	/* background: red; */
 }
 
 top { 
 	grid-area: top;
-	background: orange;
+
+	/* background: orange; */
 }
 
 top-right { 
 	grid-area: top-right;
-	background: yellow;
+
+	/* background: yellow; */
 }
 
 mid-left { 
 	grid-area: mid-left;
-	background: green;
+
+	/* background: green; */
 }
 
 mid { 
 	grid-area: mid;
-	background: lightblue;
+
+	/* background: lightblue; */
 }
 
 mid-right { 
 	grid-area: mid-right;
-	background: blue;
+
+	/* background: blue; */
 }
 
 bot-left { 
 	grid-area: bot-left;
-	background: purple;
+
+	/* background: purple; */
 }
 
 bot { 
 	grid-area: bot;
-	background: pink;
+
+	/* background: pink; */
 }
 
 bot-right { 
 	grid-area: bot-right;
-	background: gray; 
+
+	/* background: gray; */ 
 }

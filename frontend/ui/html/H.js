@@ -1,5 +1,14 @@
 export class H {
 
+	static video(src) {
+		const v = HtmlElement("video")
+		v.src = src
+		v.muted = true
+		v.autoplay = true
+
+		return v
+	}
+
 	static dialog(children=[]) {
 
 		const div = HtmlElement("div")
