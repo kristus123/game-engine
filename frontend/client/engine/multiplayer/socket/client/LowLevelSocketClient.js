@@ -1,4 +1,4 @@
-export class WebSocketWrapper {
+export class LowLevelSocketClient {
 
 	static {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)

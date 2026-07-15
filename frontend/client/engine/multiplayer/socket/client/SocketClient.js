@@ -22,13 +22,13 @@ export class SocketClient {
 			this.clientActionListener.trigger(data.subAction, data)
 		})
 
-		WebSocketWrapper.onMessage = data => {
+		LowLevelSocketClient.onMessage = data => {
 			this.serverActionListener.trigger(data.action, data)
 		}
 	}
 
 	static sendToServer(action, data) {
-		WebSocketWrapper.send(data.merge({
+		LowLevelSocketClient.send(data.merge({
 			action: action,
 			originClientId: My.clientId
 		}))
