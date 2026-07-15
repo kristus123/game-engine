@@ -34,17 +34,12 @@ export class SocketClient {
 		}))
 	}
 
-	static sendToClient(subAction, targetClientId, data) {
-		this.sendToServer("CLIENT_TO_CLIENT", data.merge({
-			subAction: subAction,
-			targetClientId: targetClientId
-		}))
-	}
-
-	// bad name, too similar to sendToClient. consider merging them
-	static sendToClients(subAction, targetClientIds, data) {
-		for (const targetClientId of targetClientIds) {
-			SocketClient.sendToClient(subAction, targetClientId, data)
+	static sendToClient(subAction, targetClientIds, data) {
+		for (const id of Always.list(targetClientIds)) {
+			this.sendToServer("CLIENT_TO_CLIENT", data.merge({
+				subAction: subAction,
+				targetClientId: id,
+			}))
 		}
 	}
 
