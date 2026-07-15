@@ -6,7 +6,6 @@ import { Files } from "#root/dev/Files.js"
 export function UpdateEslint() {
 	const eslintGlobalsConfig = {}
 
-
 	const allJsFiles = [ // todo improve this somehow. it will probably lead to bugs in the future
 		...Files.at("frontend/"),
 		...Files.at("backend/"),
