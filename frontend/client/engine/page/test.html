@@ -1,36 +1,35 @@
 <overlay>
-	<div style="position:relative;">
+	<div style="position: relative">
 		<video-container>
 			<video src="/portrait.mp4" muted autoplay loop></video>
 		</video-container>
-		<flex-h center>
-		</flex-h>
+		<flex-h center></flex-h>
 		<overlay>
-			<button id="openChat" style="position:absolute; right:20px; bottom: 20px;">Chat</button>
+			<button id="openChat" style="position: absolute; right: 20px; bottom: 20px">Chat</button>
 		</overlay>
 	</div>
 
 	<overlay class="bgWhite">
-		<phone-grid style="padding:20px">
+		<phone-grid style="padding: 20px">
 			<top center>
 				<button id="closeChat">Close</button>
 			</top>
 			<mid>
 				<flex-v class="bgWhite" left close scrollable>
 					<flex-h class="bgWhite" close>
-						<p style="color:green; margin-right:10px;">Gary</p>
-						<p>hei lkjsdflkjs dflkjs dfskljdflks </p>
+						<p style="color: green; margin-right: 10px">Gary</p>
+						<p>hei lkjsdflkjs dflkjs dfskljdflks</p>
 					</flex-h>
 					<flex-h class="bgWhite" close>
-						<p style="color:purple; margin-right:10px;">suzy</p>
+						<p style="color: purple; margin-right: 10px">suzy</p>
 						<p>hei</p>
 					</flex-h>
 				</flex-v>
 			</mid>
 			<bot max-size>
 				<flex-h max-size>
-					<input max-size style="flex:3; font-size:40px;" id="message" placeholder="type your message" />
-					<button max-size style="flex:1" id="send">Send</button>
+					<input max-size style="flex: 3; font-size: 40px" id="message" placeholder="type your message" />
+					<button max-size style="flex: 1" id="send">Send</button>
 				</flex-h>
 			</bot>
 		</phone-grid>
