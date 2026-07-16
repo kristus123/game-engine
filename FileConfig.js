@@ -16,7 +16,7 @@ export const FileConfig = {
 
 	asepriteToJson: "dev/aseprite_to_json.lua",
 	exportAseprite: "dev/ExportAseprite.js",
-	generateDist: "dev/GenerateDist.js",
+	generateDist: "dev/GenerateFrontend.js",
 	prepareExternalBundle: "dev/PrepareExternalBundle.js",
 	engineIndex: "dist/index.js",
 	externalBundleDistPath: "dist/out.js",

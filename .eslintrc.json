@@ -176,7 +176,7 @@
         "Files": "readonly",
         "FollowPlayerNoise": "readonly",
         "G": "readonly",
-        "GenerateDist": "readonly",
+        "GenerateFrontend": "readonly",
         "Git": "readonly",
         "Gp": "readonly",
         "Gpt": "readonly",

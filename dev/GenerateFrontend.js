@@ -10,7 +10,7 @@ export const jsFiles = Files.at(FileConfig.frontend)
 	.filter(f => f.endsWith(".js"))
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
-export function GenerateDist(env) {
+export function GenerateFrontend(env) {
 	if (env == null) {
 		throw new Error("env cannot be null")
 	}
@@ -25,5 +25,5 @@ export function GenerateDist(env) {
 import { fileURLToPath } from "url"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
 	const env = process.argv[2]
-	GenerateDist(env)
+	GenerateFrontend(env)
 }
