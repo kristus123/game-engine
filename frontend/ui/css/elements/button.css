@@ -15,7 +15,7 @@ button {
 }
 
 button:active {
-	transform: scale(0.70);
+	transform: scale(1.30);
 }
 
 button:disabled {

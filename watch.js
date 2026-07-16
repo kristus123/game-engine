@@ -94,7 +94,7 @@ function triggerClientReload() {
 	}, 100)
 }
 
-TestWatcher([FileConfig.frontend, FileConfig.backend], [".js", ".aseprite", ".html", ".css"], {
+TestWatcher([FileConfig.shared, FileConfig.frontend, FileConfig.backend], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)

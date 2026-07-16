@@ -276,14 +276,19 @@ export function Enhance_html() {
 	Enhance(HTMLElement.prototype, "show", function () {
 		// make it trigger this if it is modal
 		// this.showModal()
+
 		this.removeAttribute("hidden")
+
 		return this
 	})
 
 	Enhance(HTMLElement.prototype, "hide", function () {
 		// if modal
 		// d.close()
+
 		this.addAttribute("hidden")
+
+
 		return this
 	})
 
@@ -394,43 +399,35 @@ export function Enhance_html() {
 	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
 		const uuid = crypto.randomUUID()
 
-		variables.forEach((key, value) => {
-			this.addCssVariable(key, value)
+		variables.forEach((name, value) => {
+			this.addCssVariable(name, value)
 		})
 
 		this.classList.add(className)
 		this.dataset.uuid = uuid
 
 		const handleStart = (e) => {
-			if (e.target != this) {
-				return
+			if (this == e.target && this.dataset.uuid == uuid) {
+				console.log("sstart")
+				onStart?.(e)
 			}
-			if (this.dataset.uuid != uuid) {
-				return
-			}
-
-			onStart?.(e)
 		}
 
-		const handleEnd = (e) => {
-			if (e.target != this) {
-				return
-			}
-			if (e.animationName && e.animationName != className) {
-				return
-			}
-			if (this.dataset.uuid != uuid) {
-				return
-			}
+		const handleEnd = e => {
+			if (
+				this == e.target &&
+				(e.animationName ?? "") == className &&
+				this.dataset.uuid == uuid
+			) {
+				console.log("end")
+				onEnd?.(e)
 
-			this.classList.remove(className)
-			delete this.dataset.uuid
+				this.classList.remove(className)
+				delete this.dataset.uuid
 
-			this.removeEventListener("animationstart", handleStart)
-			this.removeEventListener("animationend", handleEnd)
-
-			// this.remove()
-			onEnd?.(e)
+				this.removeEventListener("animationstart", handleStart)
+				this.removeEventListener("animationend", handleEnd)
+			}
 		}
 
 		this.addEventListener("animationstart", handleStart)

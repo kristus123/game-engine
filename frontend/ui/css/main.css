@@ -19,3 +19,13 @@ body {
 
 	overflow: hidden;
 }
+
+* {
+	position: relative;
+}
+
+.bot-right {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}

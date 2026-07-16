@@ -10,8 +10,8 @@ phone-grid {
 
 	grid-template-rows:
 		50px
-		0.5fr
-		0.5fr;
+		1fr
+		50px;
 
 
 	max-width: 100vw;
@@ -24,12 +24,14 @@ phone-grid {
 
 phone-grid top { 
 	grid-area: top; 
-	background: red; 
+
+	/* background: red; */ 
 }
 
 phone-grid mid { 
 	grid-area: mid; 
-	background: white; 
+
+	/* background: white; */ 
 	
 	/* Prevent content from expanding the cell */
 	min-height: 0;  
@@ -40,5 +42,6 @@ phone-grid mid {
 
 phone-grid bot { 
 	grid-area: bot; 
-	background: blue; 
+
+	/* background: blue; */ 
 }

@@ -7,39 +7,50 @@ flex-h {
 	box-sizing: border-box;
 }
 
+flex-h[close] {
+	justify-content: center;
+}
+
+flex-v[close] {
+	justify-content: flex-start;
+}
+
+flex-v[left] {
+	align-items: flex-start;
+}
+
+
 flex-v {
 	display: flex;
 
 	flex-flow: column nowrap;
-	justify-content: center;
 	align-items: stretch;
 	box-sizing: border-box;
+	justify-content: space-evenly;
 }
+
 
 flex-h > *,
 flex-v > *
 {
-	flex: 1;
-	display: flex;
-	justify-content: center;    /* horizontal centering inside the child */
-	align-items: center;        /* vertical centering inside the child */
+	/* flex: 1; */
+
+	/* display: flex; */
+
+	/* justify-content: center;    /1* horizontal centering inside the child *1/ */
+
+	/* align-items: center;        /1* vertical centering inside the child *1/ */
 }
 
-flex-h[max-width],
-flex-v[max-width]
-{
+[max-width] {
 	width:100%;
 }
 
-flex-h[max-height],
-flex-v[max-height]
-{
+[max-height] {
 	height:100%;
 }
 
-flex-h[max-size],
-flex-v[max-size]
-{
+[max-size] {
 	width:100%;
 	height:100%;
 }

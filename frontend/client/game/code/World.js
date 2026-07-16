@@ -3,6 +3,16 @@ export class World {
 		G.player = Player(WorldPosition(950, 420))
 		G.oldSami = OldSami(WorldPosition(730, 600))
 
+		const html = Dom.add(Html.test())
+
+		html.openChat.onClick(() => {
+			html.chat.show()
+		})
+
+		html.closeChat.onClick(() => {
+			html.chat.hide()
+		})
+
 		this.objects = Objects([
 			Sprite.world(WorldPosition(0, 0)),
 

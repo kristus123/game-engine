@@ -1,12 +1,30 @@
-<overlay style="background-color: white; font-size: 50px">
-	<flex-v max-size>
-		<flex-v style="gap: 0px; background-color: grey; margin-bottom: 20px">
-			<h1>hei</h1>
-			<h1>hei</h1>
-		</flex-v>
-		<flex-h style="gap: 80px; background-color: grey">
-			<h1>hei</h1>
-			<h1>hei</h1>
-		</flex-h>
-	</flex-v>
+<overlay>
+	<video src="/portrait.mp4" muted autoplay loop></video>
+	<button id="openChat" class="bot-right" style="margin: 20px">Chat</button>
+
+	<overlay id="chat" class="bgWhite" hidden>
+		<phone-grid style="padding: 20px">
+			<top center>
+				<button id="closeChat">Close</button>
+			</top>
+			<mid>
+				<flex-v class="bgWhite" left close scrollable>
+					<flex-h class="bgWhite" close>
+						<p style="color: green; margin-right: 10px">Gary</p>
+						<p>hei lkjsdflkjs dflkjs dfskljdflks</p>
+					</flex-h>
+					<flex-h class="bgWhite" close>
+						<p style="color: purple; margin-right: 10px">suzy</p>
+						<p>hei</p>
+					</flex-h>
+				</flex-v>
+			</mid>
+			<bot max-size>
+				<flex-h max-size>
+					<input max-size style="flex: 3; font-size: 40px" id="message" placeholder="type your message" />
+					<button max-size style="flex: 1" id="send">Send</button>
+				</flex-h>
+			</bot>
+		</phone-grid>
+	</overlay>
 </overlay>
