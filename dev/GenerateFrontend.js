@@ -1,6 +1,5 @@
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-import { Markdown } from "#root/dev/Markdown.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 import { PrepareIndexHtml } from "#root/dev/PrepareIndexHtml.js"
 
