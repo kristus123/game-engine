@@ -1,0 +1,30 @@
+/* maybe rename to float */
+
+/* float bot right */
+
+[anchor] {
+	position: absolute;
+}
+
+[anchor][left] {
+	left: 0;
+}
+
+[anchor][right] {
+	right: 0;
+}
+
+[anchor][top] {
+	top: 0;
+}
+
+[anchor][bot] {
+	bottom: 0;
+}
+
+[anchor][mid] {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
