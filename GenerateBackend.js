@@ -4,7 +4,7 @@ import { Imports } from "#root/dev/Imports.js"
 
 export function GenerateBackend(ENVIRONMENT) {
 	if (!ENVIRONMENT) {
-		throw new Error("Environment needs to be passed when calling GenerateBacked.")
+		throw new Error("Environment needs to be passed when calling GenerateBackend.")
 	}
 
 	Files.deleteFolder(FileConfig.transpiledBackend)
