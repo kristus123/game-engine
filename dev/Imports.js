@@ -27,10 +27,14 @@ function include(content, className) {
 
 export class Imports {
 
-	static needed(content, jsFilePaths) {
+	static needed(content, jsFilePaths, sourceFilePath) {
 		let imports = ""
 
 		for (const jsFile of jsFilePaths) {
+			if (sourceFilePath && jsFile == sourceFilePath) {
+				continue
+			}
+
 			const className = Path.basename(jsFile, ".js")
 
 			if (include(content, className)) {

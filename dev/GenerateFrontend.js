@@ -1,6 +1,6 @@
 import { Files } from "#root/dev/Files.js"
 import { FileConfig } from "#root/FileConfig.js"
-import { Markdown } from "#root/dev/Markdown.js"
+import { Imports } from "#root/dev/Imports.js"
 import { Transpiler } from "#root/dev/Transpiler.js"
 import { PrepareIndexHtml } from "#root/dev/PrepareIndexHtml.js"
 
@@ -10,14 +10,30 @@ export const jsFiles = Files.at(FileConfig.frontend)
 	.filter(f => f.endsWith(".js"))
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
-export function GenerateDist(env) {
+export function GenerateFrontend(env) {
 	if (env == null) {
 		throw new Error("env cannot be null")
 	}
 
 	Files.copyFolder("frontend/", "dist/") // todo use FileConfig.js
 
-	Transpiler(env, jsFiles)
+	const sharedFiles = Files.at(FileConfig.shared)
+
+	Transpiler(env, jsFiles, [...jsFiles, ...sharedFiles], Files.writeFileToDist)
+
+	for (let sharedFilePath of sharedFiles) {
+		let content = Files.read(sharedFilePath)
+		content = content.replaceAll("ENVIRONMENT", `"${env}"`)
+
+		const imports = Imports.needed(content, [
+			...sharedFiles,
+			...jsFiles, // todo remove this. this is a hack
+		])
+
+		const p = "dist/" + sharedFilePath // todo improve
+		const c = imports + "\n" + content
+		Files.write(p, c)
+	}
 
 	PrepareIndexHtml()
 }
@@ -25,5 +41,5 @@ export function GenerateDist(env) {
 import { fileURLToPath } from "url"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
 	const env = process.argv[2]
-	GenerateDist(env)
+	GenerateFrontend(env)
 }

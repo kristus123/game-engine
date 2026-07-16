@@ -54,7 +54,7 @@ export function _generateDist(onExit) {
 		child = null
 	}
 
-	child = spawn(process.execPath, ["dev/GenerateDist.js", "DEVELOPMENT"], {
+	child = spawn(process.execPath, ["dev/GenerateFrontend.js", "DEVELOPMENT"], {
 		stdio: "inherit"
 	})
 
