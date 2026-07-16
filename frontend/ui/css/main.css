@@ -3,6 +3,8 @@
 	padding: 0;
 	margin: 0;
 	-webkit-user-drag: none;
+
+	position: relative; /* newly added, maybe dangerous */
 }
 
 html {
@@ -18,10 +20,6 @@ body {
 	white-space: normal;
 
 	overflow: hidden;
-}
-
-* {
-	position: relative;
 }
 
 .bot-right {

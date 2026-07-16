@@ -3,27 +3,3 @@ span {
 	margin:0;
 	padding:0;
 }
-
-.fadeIn {
-	opacity: 0;
-	animation: fadeIn 0.5s forwards;
-	animation-delay: var(--delay);
-}
-
-.fadeOut {
-	opacity: 0;
-	animation: fadeIn 0.5s backwards;
-	animation-delay: var(--delay);
-}
-
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
