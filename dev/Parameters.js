@@ -28,6 +28,7 @@ export class Parameters {
 			"switch",
 			"catch",
 			"filter",
+			"await",
 			"Getter",
 			"Enhance",
 		])
