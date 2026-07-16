@@ -6,3 +6,8 @@
 
 	/* scrollbar-gutter: stable; */
 }
+
+/* find better name */
+[preserve-scrollbar-space] {
+	scrollbar-gutter: stable;
+}

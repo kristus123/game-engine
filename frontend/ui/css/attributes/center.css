@@ -1,12 +1,10 @@
 [center-content] {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+	flex-direction: column; /* or row; */
+	align-items: stretch; /* not sure what this does yet */
 
-	/* flex-direction: row; */
 }
-
 
 [center-element] {
 	position: absolute;
