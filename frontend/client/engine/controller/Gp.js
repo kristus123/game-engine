@@ -40,7 +40,6 @@ export class Gp {
 	}
 
 	static update() {
-		console.log("hses")
 		if (index != null) {
 			const gp = navigator.getGamepads()[index]
 

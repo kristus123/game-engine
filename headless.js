@@ -1,6 +1,5 @@
-// you need to run
-//
-// npm i -g puppeteer
+console.log("if crash, run:)
+console.log("npm i -g puppeteer")
 
 import puppeteer from "puppeteer"
 

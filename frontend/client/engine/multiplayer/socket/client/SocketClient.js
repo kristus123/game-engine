@@ -22,29 +22,24 @@ export class SocketClient {
 			this.clientActionListener.trigger(data.subAction, data)
 		})
 
-		WebSocketWrapper.onMessage = data => {
+		LowLevelSocketClient.onMessage = data => {
 			this.serverActionListener.trigger(data.action, data)
 		}
 	}
 
 	static sendToServer(action, data) {
-		WebSocketWrapper.send(data.merge({
+		LowLevelSocketClient.send(data.merge({
 			action: action,
 			originClientId: My.clientId
 		}))
 	}
 
-	static sendToClient(subAction, targetClientId, data) {
-		this.sendToServer("CLIENT_TO_CLIENT", data.merge({
-			subAction: subAction,
-			targetClientId: targetClientId
-		}))
-	}
-
-	// bad name, too similar to sendToClient. consider merging them
-	static sendToClients(subAction, targetClientIds, data) {
-		for (const targetClientId of targetClientIds) {
-			SocketClient.sendToClient(subAction, targetClientId, data)
+	static sendToClient(subAction, targetClientIds, data) {
+		for (const id of Always.list(targetClientIds)) {
+			this.sendToServer("CLIENT_TO_CLIENT", data.merge({
+				subAction: subAction,
+				targetClientId: id,
+			}))
 		}
 	}
 
