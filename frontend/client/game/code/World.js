@@ -5,10 +5,9 @@ export class World {
 
 		const html = Dom.add(Html.test())
 
-
 		const b = Dom.floating(H.button("hei"))
 		DomMouse.onMove = (x, y) => {
-			b.followMouse(0, b.offsetHeight)
+			b.followMouse(0, 0)
 		}
 
 		html.openChat.onClick(() => {
