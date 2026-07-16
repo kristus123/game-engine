@@ -5,7 +5,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 	static onDrag = () => {}
 	static onDrop = () => {}
 	static whileDragging = () => {}
-	static onMouseMove = () => {}
+	static onMove = () => {}
 
 	static draggedItem = null
 
@@ -31,7 +31,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 				this.whileDragging?.(this.draggedItem)
 			}
 
-			this.onMouseMove?.(e.target)
+			this.onMove?.(this.position.x, this.position.y)
 		})
 
 		const stopDragging = () => {

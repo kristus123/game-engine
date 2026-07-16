@@ -446,10 +446,10 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "followMouse", function () {
+	Enhance(HTMLElement.prototype, "followMouse", function (offset_x=0, offset_y=0) {
 
-		this.style.left = `${DomMouse.x}px`
-		this.style.top = `${DomMouse.y}px`
+		this.style.left = `${DomMouse.x + offset_x}px`
+		this.style.top = `${DomMouse.y + offset_y}px`
 
 		return this
 	})
