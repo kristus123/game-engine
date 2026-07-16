@@ -2,8 +2,8 @@ flex-h {
 	display: flex;
 
 	flex-flow: row wrap;
-	justify-content: space-around; /* center / space-around / space-evenly */
 	align-items: center;
+	justify-content: space-around; /* center / space-around / space-evenly */
 	box-sizing: border-box;
 }
 
@@ -24,20 +24,13 @@ flex-v {
 	display: flex;
 
 	flex-flow: column nowrap;
-	align-items: stretch;
-	box-sizing: border-box;
+	align-items: stretch; /* what happens if this one is center? is that possible */
 	justify-content: space-evenly;
+	box-sizing: border-box;
 }
 
 
 flex-h > *,
 flex-v > *
 {
-	/* flex: 1; */
-
-	/* display: flex; */
-
-	/* justify-content: center;    /1* horizontal centering inside the child *1/ */
-
-	/* align-items: center;        /1* vertical centering inside the child *1/ */
 }
