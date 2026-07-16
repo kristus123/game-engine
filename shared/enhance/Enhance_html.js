@@ -14,6 +14,14 @@ export function Enhance_html() {
 		return this.tagName.toLowerCase()
 	})
 
+	Getter(HTMLElement.prototype, "width", function () {
+		return this.getBoundingClientRect().width
+	})
+
+	Getter(HTMLElement.prototype, "height", function () {
+		return this.getBoundingClientRect().height
+	})
+
 	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) { // Not the best name.
 
 		const items = [...this.children].filter(c => c != draggedItem)
