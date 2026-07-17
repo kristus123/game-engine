@@ -3,10 +3,10 @@ export class SfuWorld {
 		SfuClient.init()
 		SfuRouters.init()
 
-		const s = Dom.add(Html.sfu())
+		const html = Dom.add(Html.sfu())
 
 		SfuRouters.onRouterCreated = lobby => {
-			s.lobbies.add(H.button("join " + lobby.routerId, () => {
+			html.lobbies.add(H.button("join " + lobby.routerId, () => {
 				SfuClient.joinRouter(lobby.routerId)
 			}))
 		}
@@ -14,42 +14,42 @@ export class SfuWorld {
 		SfuRouters.onGuestConnection = stream => {
 			console.log("Guest Webcam Received")
 			
-			s.guestWebcam.srcObject = stream
+			html.guestWebcam.srcObject = stream
 		}
 
 		SfuRouters.onLocalConnection = () => {
 			console.log("Local Webcam Received")
 
-			s.localWebcam.srcObject = SfuClient.videoStream.stream
+			html.localWebcam.srcObject = SfuClient.videoStream.stream
 		}
 
 		SfuRouters.onMessage = (clientId, message) => {
 			console.log("MESSAGE FROM " + clientId + ": ", message)
 		}
 
-		s.create.onClick(() => {
-			SfuClient.createRouter(false) // streamOnly == true
+		html.create.onClick(() => {
+			SfuClient.createRouter(true) // streamOnly == true
 		})
 
-		s.toggleAudio.onClick(() => {
+		html.toggleAudio.onClick(() => {
 			SfuClient.toggleMic()
 		})
 
-		s.toggleVideo.onClick(async () => {
+		html.toggleVideo.onClick(async () => {
 			await SfuClient.toggleVideo()
 		})
 
-		s.muteClient.onClick(() => {
-			SfuClient.mute(s.clientId.value)
+		html.muteClient.onClick(() => {
+			SfuClient.mute(html.clientId.value)
 		})
 
-		s.kickClient.onClick(() => {
-			console.log("TRYING TO KICK CLIENT: ", s.clientId.value)
-			SfuClient.kick(s.clientId.value)
+		html.kickClient.onClick(() => {
+			console.log("TRYING TO KICK CLIENT: ", html.clientId.value)
+			SfuClient.kick(html.clientId.value)
 		})
 
-		s.sendMessage.onClick(() => {
-			SfuClient.sendToEveryone(s.message.value)
+		html.sendMessage.onClick(() => {
+			SfuClient.sendToEveryone(html.message.value)
 		})
 	}
 
