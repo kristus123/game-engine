@@ -281,21 +281,29 @@ export function Enhance_html() {
 		}
 	})
 
-	Enhance(HTMLElement.prototype, "show", function () {
+	Enhance(HTMLElement.prototype, "show", function (animName) {
 		// make it trigger this if it is modal
 		// this.showModal()
 
 		this.removeAttribute("hidden")
 
+		if (animName) {
+			this.animate(animName)
+		}
+
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "hide", function () {
+	Enhance(HTMLElement.prototype, "hide", function (animName) {
 		// if modal
 		// d.close()
 
-		this.addAttribute("hidden")
-
+		if (animName) {
+			this.animate(animName, { onEnd: () => this.addAttribute("hidden") })
+		}
+		else {
+			this.addAttribute("hidden")
+		}
 
 		return this
 	})
@@ -405,6 +413,18 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
+		if (this._activeAnimation) {
+			const active = this._activeAnimation
+
+			this.classList.remove(active.className)
+			delete this.dataset.uuid
+
+			this.removeEventListener("animationstart", active.handleStart)
+			this.removeEventListener("animationend", active.handleEnd)
+
+			this._activeAnimation = null
+		}
+
 		const uuid = crypto.randomUUID()
 
 		variables.forEach((name, value) => {
@@ -416,7 +436,6 @@ export function Enhance_html() {
 
 		const handleStart = (e) => {
 			if (this == e.target && this.dataset.uuid == uuid) {
-				console.log("sstart")
 				onStart?.(e)
 			}
 		}
@@ -427,7 +446,6 @@ export function Enhance_html() {
 				(e.animationName ?? "") == className &&
 				this.dataset.uuid == uuid
 			) {
-				console.log("end")
 				onEnd?.(e)
 
 				this.classList.remove(className)
@@ -435,8 +453,12 @@ export function Enhance_html() {
 
 				this.removeEventListener("animationstart", handleStart)
 				this.removeEventListener("animationend", handleEnd)
+
+				this._activeAnimation = null
 			}
 		}
+
+		this._activeAnimation = { className, uuid, handleStart, handleEnd }
 
 		this.addEventListener("animationstart", handleStart)
 		this.addEventListener("animationend", handleEnd)
