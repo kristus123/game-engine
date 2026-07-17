@@ -306,7 +306,7 @@ export class SfuClient {
 	}
 
 	static kick(clientId) {
-		if (clientId != My.clientId) { // They should not kick themselves? Let me know...
+		if (clientId != My.clientId) {
 			if (SfuClient.isHost) {
 				SocketClient.sendToClient("SFU_KICK_SELF", clientId, {
 					routerId: SfuClient.connectedRouterId
@@ -315,6 +315,8 @@ export class SfuClient {
 			else {
 				throw new Error("You do not have permission to kick", clientId)
 			}
+		} else {
+			throw new Error("You can't kick yourself!")
 		}
 	}
 }
