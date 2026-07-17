@@ -208,11 +208,6 @@ export class SfuServer {
 		SocketServer.on("SFU_REQUEST_CONSUME_DATA", async (client, clientId, data) => {
 			const routerObject = this.routers[data.routerId]
 
-			if (!routerObject.router.canConsumeData({ dataProducerId: data.producerId, sctpCapabilities: data.sctpCapabilities })) {
-				console.error("Cannot consume")
-				return
-			}
-
 			const consumer = await routerObject.clients[clientId].recvTransport.consumeData({
 				dataProducerId: data.producerId,
 			})
@@ -251,12 +246,16 @@ export class SfuServer {
 				iceParameters: sendTransport.iceParameters,
 				iceCandidates: sendTransport.iceCandidates,
 				dtlsParameters: sendTransport.dtlsParameters,
+				rtpParameters: sendTransport.rtpParameters,
+				sctpParameters: sendTransport.sctpParameters
 			},
 			recvTransportParams: {
 				id: recvTransport.id,
 				iceParameters: recvTransport.iceParameters,
 				iceCandidates: recvTransport.iceCandidates,
 				dtlsParameters: recvTransport.dtlsParameters,
+				rtpParameters: recvTransport.rtpParameters,
+				sctpParameters: recvTransport.sctpParameters
 			}
 		})
 	}

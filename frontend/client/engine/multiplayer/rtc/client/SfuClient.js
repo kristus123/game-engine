@@ -8,6 +8,7 @@ export class SfuClient {
 		this.producers = {}
 		this.dataProducer = null
 		this.consumers = {}
+		this.dataConsumers = {}
 
 		this.isAudioMuted = true
 
@@ -54,20 +55,17 @@ export class SfuClient {
 			})
 		})
 
-		this.sendTransport.on("produceData", async ({ sctpStreamParameters, label, protocol, appData }, callback, errback) => {
+		this.sendTransport.on("producedata", async ({ sctpStreamParameters, label, protocol, appData }, callback, errback) => {
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE_DATA", data => {
-					if (data.kind == kind) {
-						callback({ id: data.producerId })
-						resolve()
-					}
+					callback({ id: data.producerId })
+					resolve()
 				})
 
 				console.log("Requesting Data Producer")
 
 				SocketClient.sendToServer("SFU_REQUEST_PRODUCE_DATA", {
-					kind: kind,
-					sctpStreamParameters: rtpParameters,
+					sctpStreamParameters: sctpStreamParameters,
 					label: label,
 					protocol: protocol,
 					appData: appData,
@@ -95,7 +93,7 @@ export class SfuClient {
 
 		this.dataProducer = await this.sendTransport.produceData({
 			ordered: true,
-			label: "json",
+			label: "text",
 			protocol: ""
 		})
 	}
@@ -157,8 +155,10 @@ export class SfuClient {
 		})
 
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME_DATA", async data => {
-			if (data.consumerParams.producerId == producerId) {
+			if (data.consumerParams.dataProducerId == producerId) {
 				const consumer = await this.recvTransport.consumeData(data.consumerParams)
+
+				this.dataConsumers[originClientId] = consumer
 
 				consumer.on("message", message => {
 					SfuRouters.onMessage(originClientId, message)
@@ -175,7 +175,12 @@ export class SfuClient {
 			})
 		})
 
+		this.dataConsumers.values.forEach(state => {
+			state.close()
+		})
+
 		this.consumers = {}
+		this.dataConsumers = {}
 	}
 
 	static createRouter(streamOnly = false) {
