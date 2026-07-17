@@ -1,4 +1,3 @@
-
 export class SfuWorld {
 	constructor() {
 		SfuClient.init()
@@ -13,10 +12,14 @@ export class SfuWorld {
 		}
 
 		SfuRouters.onGuestConnection = stream => {
+			console.log("Guest Webcam Received")
+			
 			s.guestWebcam.srcObject = stream
 		}
 
 		SfuRouters.onLocalConnection = () => {
+			console.log("Local Webcam Received")
+
 			s.localWebcam.srcObject = SfuClient.videoStream.stream
 		}
 
