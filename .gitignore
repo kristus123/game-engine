@@ -1,4 +1,6 @@
 .eslintcache
+CLAUDE.md
+.claude/
 
 dist/
 transpiledBackend/
