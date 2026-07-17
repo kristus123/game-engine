@@ -9,7 +9,7 @@ import { ImproveSwitchCase } from "#root/dev/transpiler/ImproveSwitchCase.js"
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
-		throw new Error("you need to include environment when calling generate_dist.js")
+		throw new Error("you need to include environment when calling Transpiler.js")
 	}
 
 	const sharedFiles = Files.at(FileConfig.shared)
