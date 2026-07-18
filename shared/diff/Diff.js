@@ -4,19 +4,21 @@ export class Diff {
 	static remove = "DIFF_TYPE_REMOVE"
 
 	static init () {
-		const client = { hello: "wow" }
-		const server = { hello: "now" }
+		const client = { users: [] }
+		const server = { users: ["user_1"] }
 
 		for (const d of client.diff(server)) {
 			console.log(d)
-
-			if (d.type == Diff.set) {
+			if (d.add) {
+				if (d.path[0] == "users") {
+					console.log("new user joined")
+				}
 				client.applyDiff(d)
 			}
-			else if (d.type == Diff.add) {
+			else if (d.set) {
 				client.applyDiff(d)
 			}
-			else if (d.type == Diff.remove) {
+			else if (d.remove) {
 				client.applyDiff(d)
 			}
 			else {

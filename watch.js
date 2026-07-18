@@ -1,7 +1,7 @@
 import { execSync } from "child_process"
 import { AllImports } from "#root/AllImports.js"
 
-const { 
+const {
 	Files,
 	FileConfig,
 	GenerateBackend,

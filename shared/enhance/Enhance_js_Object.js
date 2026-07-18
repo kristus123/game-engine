@@ -4,14 +4,18 @@ function _compareOrdered(a, b, path) {
 	for (let i = 0; i < Math.max(a.length, b.length); i++) {
 		if (i >= a.length) {
 			changes.push({
-				type: Diff.add,
+				add: true,
+				set: false,
+				remove: false,
 				path,
 				value: b[i]
 			})
 		}
 		else if (i >= b.length) {
 			changes.push({
-				type: Diff.remove,
+				add: false,
+				set: false,
+				remove: true,
 				path: [...path, i]
 			})
 		}
@@ -34,7 +38,9 @@ function _compareUnordered(a, b, path) {
 
 		if (match == -1) {
 			changes.push({
-				type: Diff.remove,
+				add: false,
+				set: false,
+				remove: true,
 				path,
 				value
 			})
@@ -46,7 +52,9 @@ function _compareUnordered(a, b, path) {
 
 	for (const value of unmatched) {
 		changes.push({
-			type: Diff.add,
+			add: true,
+			set: false,
+			remove: false,
 			path,
 			value
 		})
@@ -175,47 +183,40 @@ export function Enhance_js_Object() {
 	})
 
 	Enhance(Object.prototype, "applyDiff", function (diff) {
-		console.log(diff.type)
-		switch (diff.type) {
-			case Diff.add: {
-				let target = this
+		if (diff.add) {
+			let target = this
 
-				for (let i = 0; i < diff.path.length; i++) {
-					target = target[diff.path[i]]
-				}
-
-				target.push(diff.value)
-				break // todo transpiler should add break
+			for (let i = 0; i < diff.path.length; i++) {
+				target = target[diff.path[i]]
 			}
-			case Diff.set: {
-				let target = this
 
-				for (let i = 0; i < diff.path.length - 1; i++) {
-					target = target[diff.path[i]]
-				}
+			target.push(diff.value)
+		}
+		else if (diff.set) {
+			let target = this
 
-				target[diff.path.at(-1)] = diff.value
-
-				break // todo transpiler should add break
+			for (let i = 0; i < diff.path.length - 1; i++) {
+				target = target[diff.path[i]]
 			}
-			case Diff.remove: {
-				let target = this
 
-				for (let i = 0; i < diff.path.length - 1; i++) {
-					target = target[diff.path[i]]
-				}
+			target[diff.path.at(-1)] = diff.value
+		}
+		else if (diff.remove) {
+			let target = this
 
-				if (Array.isArray(target)) {
-					target.splice(diff.path.at(-1), 1)
-				}
-				else {
-					delete target[diff.path.at(-1)]
-				}
-				break // todo transpiler should add break
+			for (let i = 0; i < diff.path.length - 1; i++) {
+				target = target[diff.path[i]]
 			}
-			default: {
-				throw new Error("unsupported type: " + diff.type)
+
+			if (Array.isArray(target)) {
+				target.splice(diff.path.at(-1), 1)
 			}
+			else {
+				delete target[diff.path.at(-1)]
+			}
+		}
+		else {
+			throw new Error("unsupported type: " + diff.type)
 		}
 	})
 
@@ -229,7 +230,9 @@ export function Enhance_js_Object() {
 
 		if (typeof this != "object" || typeof other != "object" || this == null || other == null) {
 			return [{
-				type: Diff.set,
+				add: false,
+				set: true,
+				remove: false,
 				path,
 				value: other
 			}]
@@ -250,7 +253,9 @@ export function Enhance_js_Object() {
 
 		if (Array.isArray(this) != Array.isArray(other)) {
 			return [{
-				type: Diff.set,
+				add: false,
+				set: true,
+				remove: false,
 				path,
 				value: other
 			}]
@@ -259,14 +264,18 @@ export function Enhance_js_Object() {
 		for (const key of new Set([...Object.keys(this), ...Object.keys(other)])) {
 			if (!(key in this)) {
 				changes.push({
-					type: Diff.set,
+					add: false,
+					set: true,
+					remove: false,
 					path: [...path, key],
 					value: other[key]
 				})
 			}
 			else if (!(key in other)) {
 				changes.push({
-					type: Diff.remove,
+					add: false,
+					set: false,
+					remove: true,
 					path: [...path, key]
 				})
 			}
