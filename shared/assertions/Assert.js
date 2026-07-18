@@ -227,7 +227,7 @@ export class Assert {
 		const bIsObject = b != null && typeof b == "object" && !bIsArray
 
 		if ((aIsArray && bIsArray) || (aIsObject && bIsObject)) {
-    		return true
+			return true
 		}
 
 		console.log("___")
@@ -239,24 +239,24 @@ export class Assert {
 
 	static validJson(value) {
 		if (["string", "number", "boolean"].includes(typeof value)) {
-    		return true
+			return true
 		}
 		else if (Array.isArray(value)) {
-    		for (const item of value) {
-        		Assert.validJson(item)
-    		}
-    		return true
+			for (const item of value) {
+    			Assert.validJson(item)
+			}
+			return true
 		}
 		else if (typeof value == "object") {
-    		if (Object.getPrototypeOf(value) != Object.prototype) {
-        		throw new Error("Invalid JSON value")
-    		}
+			if (Object.getPrototypeOf(value) != Object.prototype) {
+    			throw new Error("Invalid JSON value")
+			}
 
-    		for (const item of Object.values(value)) {
-        		Assert.validJson(item)
-    		}
+			for (const item of Object.values(value)) {
+    			Assert.validJson(item)
+			}
 
-    		return true
+			return true
 		}
 		else {
 			throw new Error("Invalid JSON value")

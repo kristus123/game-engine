@@ -156,16 +156,19 @@ export class Diff {
 	}
 }
 
-const client = {users:{}}
-const server = {users:{swags:1}}
+const client = { users: {} }
+const server = { users: { swags: 1 } }
 
 for (const d of Diff.compare(client, server)) {
 	console.log(d)
 
 	if (d.type == Diff.set) {
+		// client.applyDiff(d)
+		// client.path(d.path, d.value)
 		Diff.setThing(client, d.path, d.value)
 	}
 	else if (d.type == Diff.add) {
+		// client.applyDiff(d)
 		Diff.addThing(client, d.path, d.value)
 	}
 	else if (d.type == Diff.remove) {

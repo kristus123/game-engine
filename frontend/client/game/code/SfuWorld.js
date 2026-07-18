@@ -16,7 +16,7 @@ export class SfuWorld {
 
 		SfuRouters.onGuestConnection = stream => {
 			console.log("Guest Webcam Received")
-			
+
 			html.guestWebcam.srcObject = stream
 		}
 

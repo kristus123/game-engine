@@ -88,5 +88,30 @@ export function Enhance_js_Object() {
 		return this.constructor.name
 	})
 
+	Enhance(Object.prototype, "path", function (path, value) {
+		let obj = this
+
+		for (let i = 0; i < path.length - 1; i++) {
+			if (obj == null || !(path[i] in obj)) {
+				throw new Error(`Path not found: ${path.join(".")}`)
+			}
+
+			obj = obj[path[i]]
+		}
+
+		const key = path[path.length - 1]
+
+		if (obj == null || !(key in obj)) {
+			throw new Error(`Path not found: ${path.join(".")}`)
+		}
+
+		if (arguments.length >= 2) {
+			obj[key] = value
+			return null
+		}
+
+		return obj[key]
+	})
+
 }
 
