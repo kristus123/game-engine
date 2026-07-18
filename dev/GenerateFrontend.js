@@ -1,7 +1,5 @@
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
-import { Transpiler } from "#root/dev/Transpiler.js"
-import { PrepareIndexHtml } from "#root/dev/PrepareIndexHtml.js"
+import { AllImports } from "#root/AllImports.js"
+const { Files, FileConfig, Transpiler, PrepareIndexHtml } = AllImports
 
 // todo find better solution?
 // right now everyone creates their own list

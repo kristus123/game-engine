@@ -1,6 +1,6 @@
 import path from "path"
-import { Files } from "#root/dev/Files.js"
-import { Imports } from "#root/dev/Imports.js"
+import { AllImports } from "#root/AllImports.js"
+const { Files, Imports, FileConfig } = AllImports
 
 export function GenerateBackend(ENVIRONMENT) {
 	if (!ENVIRONMENT) {
@@ -43,7 +43,6 @@ export function GenerateBackend(ENVIRONMENT) {
 }
 
 import { fileURLToPath } from "url"
-import { FileConfig } from "#root/FileConfig.js"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
 	throw new Error("stop right there")
 	GenerateBackend()

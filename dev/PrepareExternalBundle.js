@@ -1,7 +1,7 @@
 import childProcess from "child_process"
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
 import path from "path"
+import { AllImports } from "#root/AllImports.js"
+const { Files, FileConfig } = AllImports
 
 export function PrepareExternalBundle() {
 	console.log("Building External Bundle...")

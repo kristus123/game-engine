@@ -1,5 +1,5 @@
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
+import { AllImports } from "#root/AllImports.js"
+const { Files, FileConfig } = AllImports
 
 function extractDuplicates(arr) {
 	const seen = new Set()

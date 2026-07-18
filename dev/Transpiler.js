@@ -1,11 +1,7 @@
 import path from "path"
 
-import { Imports } from "#root/dev/Imports.js"
-import { Parameters } from "#root/dev/Parameters.js"
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
-import { AddNullChecks } from "#root/dev/transpiler/AddNullChecks.js"
-import { ImproveSwitchCase } from "#root/dev/transpiler/ImproveSwitchCase.js"
+import { AllImports } from "#root/AllImports.js"
+const { Imports, Parameters, Files, FileConfig, AddNullChecks, ImproveSwitchCase } = AllImports
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {

@@ -4,24 +4,18 @@ import Path from "path"
 
 const require = createRequire(import.meta.url)
 
-let fileMap = null
+const fileMap = Object.fromEntries(
+    Files.at("./").filter(f => f.endsWith(".js")).map(f => [Path.basename(f, ".js"), f])
+)
 
 export const AllImports = new Proxy({}, {
     get(target, prop) {
         if (typeof prop === "string") {
-            if (!fileMap) {
-                fileMap = {}
-                Files.at("./").forEach(f => {
-                    if (f.endsWith(".js")) {
-                        fileMap[Path.basename(f, ".js")] = f
-                    }
-                })
+            if (!fileMap[prop]) {
+                throw new Error(`File ${prop}.js not found in project`)
+            } else {
+                return require(Path.resolve(fileMap[prop]))[prop]
             }
-            
-            const filePath = fileMap[prop]
-            if (!filePath) throw new Error(`File ${prop}.js not found in project`)
-            
-            return require(Path.resolve(filePath))[prop]
         }
     }
 })

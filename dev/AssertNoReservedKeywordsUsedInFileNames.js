@@ -1,6 +1,7 @@
 // move this into dev/asserts/
 
-import { Files } from "#root/dev/Files.js"
+import { AllImports } from "#root/AllImports.js"
+const { Files } = AllImports
 
 const reservedJsKeywords = [
 
