@@ -6,53 +6,60 @@ export class SfuWorld {
 		SfuClient.init()
 		SfuRouters.init()
 
-		const html = Dom.add(Html.sfu())
+		const html = Dom.add(Html.test())
 
-		SfuRouters.onRouterCreated = lobby => {
-			html.lobbies.add(H.button("join " + lobby.routerId, () => {
-				SfuClient.joinRouter(lobby.routerId)
-			}))
+		html.openChat.onClick(() => {
+			html.chat.show()
+		})
+
+		html.closeChat.onClick(() => {
+			html.chat.hide()
+		})
+
+		SfuRouters.onRouterCreated = router => {
+			if (!SfuClient.isHost) {
+				console.log("joining since we are not host")
+				SfuClient.joinRouter(router.routerId) // hack for now
+			}
 		}
 
 		SfuRouters.onGuestConnection = stream => {
 			console.log("Guest Webcam Received")
-
-			html.guestWebcam.srcObject = stream
+			html.video.srcObject = stream
 		}
 
 		SfuRouters.onLocalConnection = () => {
 			console.log("Local Webcam Received")
 
-			html.localWebcam.srcObject = SfuClient.videoStream.stream
+			html.video.srcObject = SfuClient.videoStream.stream
 		}
 
 		SfuRouters.onMessage = (clientId, message) => {
-			console.log("MESSAGE FROM " + clientId + ": ", message)
+			html.chatHistory.add(`
+				<flex-h class="bgWhite" close>
+					<p style="color: purple; margin-right: 10px">Other</p>
+					<p>${message}</p>
+				</flex-h>
+			`.toHtml())
 		}
 
 		html.create.onClick(() => {
-			SfuClient.createRouter(false) // streamOnly == true
+			SfuClient.createRouter(true) // streamOnly == true
 		})
 
-		html.toggleAudio.onClick(() => {
-			SfuClient.toggleMic()
-		})
-
-		html.toggleVideo.onClick(async () => {
+		html.toggle.onClick(async () => {
 			await SfuClient.toggleVideo()
 		})
 
-		html.muteClient.onClick(() => {
-			SfuClient.mute(html.clientId.value)
-		})
-
-		html.kickClient.onClick(() => {
-			console.log("TRYING TO KICK CLIENT: ", html.clientId.value)
-			SfuClient.kick(html.clientId.value)
-		})
-
-		html.sendMessage.onClick(() => {
-			SfuClient.sendToEveryone(html.message.value)
+		html.message.onEnter(() => {
+			html.chatHistory.add(`
+				<flex-h class="bgWhite" close>
+					<p style="color: green; margin-right: 10px">Me</p>
+					<p>${html.message.value}</p>
+				</flex-h>
+			`.toHtml())
+			SfuClient.sendToEveryone({ message: html.message.value })
+			html.message.clear()
 		})
 	}
 
