@@ -6,7 +6,9 @@ export class SfuClient {
 		this.sendTransport = null
 		this.recvTransport = null
 		this.producers = {}
+		this.dataProducer = null
 		this.consumers = {}
+		this.dataConsumers = {}
 
 		this.isAudioMuted = true
 
@@ -53,6 +55,25 @@ export class SfuClient {
 			})
 		})
 
+		this.sendTransport.on("producedata", async ({ sctpStreamParameters, label, protocol, appData }, callback, errback) => {
+			await new Promise(resolve => {
+				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE_DATA", data => {
+					callback({ id: data.producerId })
+					resolve()
+				})
+
+				console.log("Requesting Data Producer")
+
+				SocketClient.sendToServer("SFU_REQUEST_PRODUCE_DATA", {
+					sctpStreamParameters: sctpStreamParameters,
+					label: label,
+					protocol: protocol,
+					appData: appData,
+					routerId: this.connectedRouterId
+				})
+			})
+		})
+
 		if (!Webcam.enabled) {
 			throw new Error("webcam is not active. enable webcam first!")
 		}
@@ -69,6 +90,12 @@ export class SfuClient {
 				this.producers[producer.id] = producer
 			}
 		}
+
+		this.dataProducer = await this.sendTransport.produceData({
+			ordered: true,
+			label: "text",
+			protocol: ""
+		})
 	}
 
 	static async setupRecvTransport(params) {
@@ -114,16 +141,46 @@ export class SfuClient {
 		})
 	}
 
+	static async consumeData(producerId, originClientId) {
+		if (!this.recvTransport) {
+			throw new Error("Cannot Consume Data Receive Transport Not Ready")
+		}
+
+		console.log("Requesting Data Consumer")
+
+		SocketClient.sendToServer("SFU_REQUEST_CONSUME_DATA", {
+			producerId: producerId,
+			sctpCapabilities: this.device.sctpCapabilities,
+			routerId: this.connectedRouterId
+		})
+
+		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME_DATA", async data => {
+			if (data.consumerParams.dataProducerId == producerId) {
+				const consumer = await this.recvTransport.consumeData(data.consumerParams)
+
+				this.dataConsumers[originClientId] = consumer
+
+				consumer.on("message", message => {
+					SfuRouters.onMessage(originClientId, message)
+				})
+			}
+		})
+	}
+
+
 	static clean() {
 		this.consumers.values.forEach(state => {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
 			})
+		})
 
-			state.element.remove()
+		this.dataConsumers.values.forEach(state => {
+			state.close()
 		})
 
 		this.consumers = {}
+		this.dataConsumers = {}
 	}
 
 	static createRouter(streamOnly = false) {
@@ -241,6 +298,24 @@ export class SfuClient {
 		}
 		else {
 			await this.startVideo()
+		}
+	}
+
+	static sendToEveryone(json) {
+		Assert.jsonObject(json)
+
+		this.dataProducer.send(JSON.stringify(json))
+	}
+
+	static kick(clientId) {
+		if (clientId == My.clientId) {
+			throw new Error("You can't kick yourself!")
+		} else if (!SfuClient.isHost) {
+			throw new Error("You do not have permission to kick", clientId)
+		} else {
+			SocketClient.sendToClient("SFU_KICK_SELF", clientId, {
+				routerId: SfuClient.connectedRouterId
+			})
 		}
 	}
 }

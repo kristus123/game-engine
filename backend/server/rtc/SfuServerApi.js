@@ -53,7 +53,12 @@ export class SfuServerApi {
 			],
 			enableUdp: true,
 			enableTcp: true,
-			preferUdp: true
+			preferUdp: true,
+			enableSctp: true,
+			numSctpStreams: {
+				OS: 1024,
+				MIS: 1024
+			}
 	  })
 
 	  // Close transport when DTLS state is closed

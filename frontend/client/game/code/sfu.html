@@ -3,13 +3,19 @@
 	<button id="toggleAudio">Toggle Audio</button>
 	<button id="toggleVideo">Toggle Video</button>
 	<br />
-	<input type="text" id="clientId" />
+	<input type="text" id="clientId" placeholder="clientId" />
+	<input type="text" id="message" placeholder="message" />
+	<br />
 	<button id="muteClient">Mute Client</button>
-	<flex-h>
-		<video autoplay muted id="localWebcam"></video>
-		<video autoplay id="guestWebcam"></video>
-
-		<flex-v id="lobbies"></flex-v>
-	</flex-h>
+	<button id="kickClient">Kick Client</button>
+	<button id="sendMessage">Send Message</button>
+	
 	<h1>lobbies</h1>
+	<flex-v id="lobbies"></flex-v>
+
+	<!-- FIXME: Nothing after the first video element gets rendered. So here localWebcam wont be visible even if valid!-->
+	<flex-h>
+		<video autoplay id="guestWebcam"></video>
+		<video autoplay muted id="localWebcam"></video>
+	</flex-h>
 </overlay>

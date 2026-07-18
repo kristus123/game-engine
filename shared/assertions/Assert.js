@@ -218,4 +218,49 @@ export class Assert {
 			throw new Error(`${x} is not of expected class`)
 		}
 	}
+
+	static bothArrayOrObject(a, b) {
+		const aIsArray = Array.isArray(a)
+		const bIsArray = Array.isArray(b)
+
+		const aIsObject = a != null && typeof a == "object" && !aIsArray
+		const bIsObject = b != null && typeof b == "object" && !bIsArray
+
+		if ((aIsArray && bIsArray) || (aIsObject && bIsObject)) {
+    		return true
+		}
+
+		console.log("___")
+		console.log(a)
+		console.log(b)
+		console.log("___")
+		throw new Error("Expected both values to be arrays or object")
+	}
+
+	static validJson(value) {
+		if (["string", "number", "boolean"].includes(typeof value)) {
+    		return true
+		}
+		else if (Array.isArray(value)) {
+    		for (const item of value) {
+        		Assert.validJson(item)
+    		}
+    		return true
+		}
+		else if (typeof value == "object") {
+    		if (Object.getPrototypeOf(value) != Object.prototype) {
+        		throw new Error("Invalid JSON value")
+    		}
+
+    		for (const item of Object.values(value)) {
+        		Assert.validJson(item)
+    		}
+
+    		return true
+		}
+		else {
+			throw new Error("Invalid JSON value")
+		}
+	}
+
 }
