@@ -1,19 +1,17 @@
-import { Import } from "#root/Import.js"
-
 import { execSync } from "child_process"
+import { AllImports } from "#root/AllImports.js"
 
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
-import { GenerateBackend } from "#root/GenerateBackend.js"
-
-import { PrepareExternalBundle } from "#root/dev/PrepareExternalBundle.js"
-import { AssertNoReservedKeywordsUsedInFileNames } from "#root/dev/AssertNoReservedKeywordsUsedInFileNames.js"
-import { AssertUniqueFileNames } from "#root/dev/AssertUniqueFileNames.js"
-
-const TestWatcher = await Import("TestWatcher")
-
-const ExportAseprite = await Import("ExportAseprite")
-const ServeDist = await Import("ServeDist")
+const { 
+	Files,
+	FileConfig,
+	GenerateBackend,
+	PrepareExternalBundle,
+	AssertNoReservedKeywordsUsedInFileNames,
+	AssertUniqueFileNames,
+	TestWatcher,
+	ExportAseprite,
+	ServeDist
+} = AllImports
 
 try {
 	execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well

@@ -1,6 +1,5 @@
-import { Files } from "#root/dev/Files.js"
-import { FileConfig } from "#root/FileConfig.js"
-import { Markdown } from "#root/dev/Markdown.js"
+import { AllImports } from "#root/AllImports.js"
+const { Files, FileConfig, Markdown } = AllImports
 
 export function PrepareIndexHtml() {
 

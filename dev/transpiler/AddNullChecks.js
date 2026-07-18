@@ -1,4 +1,5 @@
-import { Parameters } from "#root/dev/Parameters.js"
+import { AllImports } from "#root/AllImports.js"
+const { Parameters } = AllImports
 
 export function AddNullChecks(fileName, className, lines, i) {
 	if (lines[i].includes("no-null-check")) {

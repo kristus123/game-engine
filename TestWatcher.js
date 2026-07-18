@@ -1,6 +1,6 @@
 import fs from "fs"
-import { Import } from "#root/Import.js"
-const Files = await Import("Files")
+import { AllImports } from "#root/AllImports.js"
+const { Files } = AllImports
 
 // chatgpt code
 

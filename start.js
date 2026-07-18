@@ -1,4 +1,5 @@
-import { GenerateBackend } from "#root/GenerateBackend.js"
+import { AllImports } from "#root/AllImports.js"
+const { GenerateBackend } = AllImports
 GenerateBackend() // todo pass environment - "DEVELOPMENT"
 
 // todo improve comment
