@@ -11,7 +11,7 @@ export class SfuRouters {
 		this.onMessage = (clientId, data) => {}
 
 		SocketClient.onClientMessage("SFU_MESSAGE", data => {
-			this.onMessage(data.originClientId, data.message)
+			this.onMessage(data.originClientId, JSON.parse(data.message))
 		})
 
 		SocketClient.onClientMessage("SFU_KICK_SELF", data => {

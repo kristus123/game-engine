@@ -31,7 +31,7 @@ export class SfuWorld {
 		}
 
 		html.create.onClick(() => {
-			SfuClient.createRouter(true) // streamOnly == true
+			SfuClient.createRouter(false) // streamOnly == true
 		})
 
 		html.toggleAudio.onClick(() => {
