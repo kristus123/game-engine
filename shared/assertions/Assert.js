@@ -243,17 +243,17 @@ export class Assert {
 		}
 		else if (Array.isArray(value)) {
 			for (const item of value) {
-    			Assert.validJson(item)
+				Assert.validJson(item)
 			}
 			return true
 		}
 		else if (typeof value == "object") {
 			if (Object.getPrototypeOf(value) != Object.prototype) {
-    			throw new Error("Invalid JSON value")
+				throw new Error("Invalid JSON value")
 			}
 
 			for (const item of Object.values(value)) {
-    			Assert.validJson(item)
+				Assert.validJson(item)
 			}
 
 			return true

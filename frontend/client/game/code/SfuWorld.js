@@ -1,7 +1,7 @@
 export class SfuWorld {
 	constructor() {
 
-		Diff
+		Diff.init()
 
 		SfuClient.init()
 		SfuRouters.init()

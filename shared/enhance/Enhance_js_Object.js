@@ -1,3 +1,64 @@
+function _compareOrdered(a, b, path) {
+	const changes = []
+
+	for (let i = 0; i < Math.max(a.length, b.length); i++) {
+		if (i >= a.length) {
+			changes.push({
+				type: Diff.add,
+				path,
+				value: b[i]
+			})
+		}
+		else if (i >= b.length) {
+			changes.push({
+				type: Diff.remove,
+				path: [...path, i]
+			})
+		}
+		else {
+			changes.push(...a[i].diff(b[i], [...path, i]))
+		}
+	}
+
+	return changes
+}
+
+function _compareUnordered(a, b, path) {
+	const changes = []
+	const unmatched = [...b]
+
+	for (const value of a) {
+		const match = unmatched.findIndex(candidate =>
+			value.diff(candidate, path).length == 0
+		)
+
+		if (match == -1) {
+			changes.push({
+				type: Diff.remove,
+				path,
+				value
+			})
+		}
+		else {
+			unmatched.splice(match, 1)
+		}
+	}
+
+	for (const value of unmatched) {
+		changes.push({
+			type: Diff.add,
+			path,
+			value
+		})
+	}
+
+	return changes
+}
+
+
+
+
+
 export function Enhance_js_Object() {
 
 	Enhance(Object.prototype, "merge", function (otherObject) {
@@ -88,21 +149,21 @@ export function Enhance_js_Object() {
 		return this.constructor.name
 	})
 
-	Enhance(Object.prototype, "path", function (path, value) {
+	Enhance(Object.prototype, "path", function (path_x, value) {
 		let obj = this
 
-		for (let i = 0; i < path.length - 1; i++) {
-			if (obj == null || !(path[i] in obj)) {
-				throw new Error(`Path not found: ${path.join(".")}`)
+		for (let i = 0; i < path_x.length - 1; i++) {
+			if (obj == null || !(path_x[i] in obj)) {
+				throw new Error(`Path not found: ${path_x.join(".")}`)
 			}
 
-			obj = obj[path[i]]
+			obj = obj[path_x[i]]
 		}
 
-		const key = path[path.length - 1]
+		const key = path_x[path_x.length - 1]
 
 		if (obj == null || !(key in obj)) {
-			throw new Error(`Path not found: ${path.join(".")}`)
+			throw new Error(`Path not found: ${path_x.join(".")}`)
 		}
 
 		if (arguments.length >= 2) {
@@ -111,6 +172,110 @@ export function Enhance_js_Object() {
 		}
 
 		return obj[key]
+	})
+
+	Enhance(Object.prototype, "applyDiff", function (diff) {
+		console.log(diff.type)
+		switch (diff.type) {
+			case Diff.add: {
+				let target = this
+
+				for (let i = 0; i < diff.path.length; i++) {
+					target = target[diff.path[i]]
+				}
+
+				target.push(diff.value)
+				break // todo transpiler should add break
+			}
+			case Diff.set: {
+				let target = this
+
+				for (let i = 0; i < diff.path.length - 1; i++) {
+					target = target[diff.path[i]]
+				}
+
+				target[diff.path.at(-1)] = diff.value
+
+				break // todo transpiler should add break
+			}
+			case Diff.remove: {
+				let target = this
+
+				for (let i = 0; i < diff.path.length - 1; i++) {
+					target = target[diff.path[i]]
+				}
+
+				if (Array.isArray(target)) {
+					target.splice(diff.path.at(-1), 1)
+				}
+				else {
+					delete target[diff.path.at(-1)]
+				}
+				break // todo transpiler should add break
+			}
+			default: {
+				throw new Error("unsupported type: " + diff.type)
+			}
+		}
+	})
+
+	Enhance(Object.prototype, "diff", function (other, path=[]) {
+		Assert.validJson(this)
+		Assert.validJson(other)
+
+		if (Object.is(this, other)) {
+			return []
+		}
+
+		if (typeof this != "object" || typeof other != "object" || this == null || other == null) {
+			return [{
+				type: Diff.set,
+				path,
+				value: other
+			}]
+		}
+
+		Assert.bothArrayOrObject(this, other)
+
+		const changes = []
+
+		if (Array.isArray(this) && Array.isArray(other)) {
+			if (String(path.at(-1)).startsWith("unordered_")) {
+				return _compareUnordered(this, other, path)
+			}
+			else {
+				return _compareOrdered(this, other, path)
+			}
+		}
+
+		if (Array.isArray(this) != Array.isArray(other)) {
+			return [{
+				type: Diff.set,
+				path,
+				value: other
+			}]
+		}
+
+		for (const key of new Set([...Object.keys(this), ...Object.keys(other)])) {
+			if (!(key in this)) {
+				changes.push({
+					type: Diff.set,
+					path: [...path, key],
+					value: other[key]
+				})
+			}
+			else if (!(key in other)) {
+				changes.push({
+					type: Diff.remove,
+					path: [...path, key]
+				})
+			}
+			else {
+				changes.push(...this[key].diff(other[key], [...path, key]))
+			}
+		}
+
+		return changes
 	})
 
 }
