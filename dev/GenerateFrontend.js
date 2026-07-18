@@ -1,9 +1,9 @@
 import { AllImports } from "#root/AllImports.js"
-const { Files, FileConfig, Transpiler, PrepareIndexHtml } = AllImports
+const { Files, Paths, Transpiler, PrepareIndexHtml } = AllImports
 
 // todo find better solution?
 // right now everyone creates their own list
-export const jsFiles = Files.at(FileConfig.frontend)
+export const jsFiles = Files.at(Paths.frontend)
 	.filter(f => f.endsWith(".js"))
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
@@ -12,7 +12,7 @@ export function GenerateFrontend(env) {
 		throw new Error("env cannot be null")
 	}
 
-	Files.copyFolder("frontend/", "dist/") // todo use FileConfig.js
+	Files.copyFolder("frontend/", "dist/") // todo use Paths.js
 
 	Transpiler(env, jsFiles)
 

@@ -1,6 +1,6 @@
 import { execFile } from "child_process"
 import { AllImports } from "#root/AllImports.js"
-const { FileConfig, AsepritePath } = AllImports
+const { Paths, AsepritePath } = AllImports
 
 function run(args) {
 	return new Promise((resolve, reject) => {
@@ -64,7 +64,7 @@ export class Aseprite {
 			"-b",
 			srcFile,
 			"--script",
-			FileConfig.asepriteToJson,
+			Paths.asepriteToJson,
 		])
 	}
 }

@@ -1,29 +1,29 @@
 import path from "path"
 import { AllImports } from "#root/AllImports.js"
-const { Files, Imports, FileConfig } = AllImports
+const { Files, Imports, Paths } = AllImports
 
 export function GenerateBackend(ENVIRONMENT) {
 	if (!ENVIRONMENT) {
 		throw new Error("Environment needs to be passed when calling GenerateBackend.")
 	}
 
-	Files.deleteFolder(FileConfig.transpiledBackend)
+	Files.deleteFolder(Paths.transpiledBackend)
 
 	// Copy Shared Into transpiledBackend
-	const destPath = path.join(FileConfig.transpiledBackend, "shared") // nabir, stop using path.join. it is ugly
+	const destPath = path.join(Paths.transpiledBackend, "shared") // nabir, stop using path.join. it is ugly
 
-	for (let sharedFilePath of Files.at(FileConfig.shared)) {
+	for (let sharedFilePath of Files.at(Paths.shared)) {
 		console.log(sharedFilePath)
 
 		let content = Files.read(sharedFilePath)
 		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 		const imports = Imports.needed(content, [
-			...Files.at(FileConfig.shared)
+			...Files.at(Paths.shared)
 		])
 			.replaceAll("/shared", "#root/" + destPath)
 
-		Files.write(sharedFilePath.replace(FileConfig.shared, destPath), imports + "\n" + content)
+		Files.write(sharedFilePath.replace(Paths.shared, destPath), imports + "\n" + content)
 	}
 
 	for (let f of Files.at("backend/")) {
@@ -32,7 +32,7 @@ export function GenerateBackend(ENVIRONMENT) {
 		const imports = Imports.needed(content, [
 			...Files.at("backend/"),
 			...Files.at("dev/"),
-			...Files.at(FileConfig.shared),
+			...Files.at(Paths.shared),
 		])
 			.replaceAll("/backend/", "#root/transpiledBackend/")
 			.replaceAll("/dev/", "#root/dev/")

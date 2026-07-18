@@ -1,7 +1,7 @@
 import Path from "path"
 
 import fs from "fs"
-import { FileConfig } from "#root/FileConfig.js"
+import { Paths } from "#root/Paths.js"
 
 const mainFilename = process.argv[1]
 
@@ -15,7 +15,7 @@ export class Files {
 	}
 
 	static writeFileToDist(srcPath, content) {
-		const destPath = FileConfig.toDistPath(srcPath)
+		const destPath = Paths.toDistPath(srcPath)
 		const folderPath = Path.dirname(destPath)
 
 		if (!fs.existsSync(folderPath)) {

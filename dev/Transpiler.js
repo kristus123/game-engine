@@ -1,14 +1,14 @@
 import path from "path"
 
 import { AllImports } from "#root/AllImports.js"
-const { Imports, Parameters, Files, FileConfig, AddNullChecks, ImproveSwitchCase } = AllImports
+const { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase } = AllImports
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
 		throw new Error("you need to include environment when calling Transpiler.js")
 	}
 
-	const sharedFiles = Files.at(FileConfig.shared)
+	const sharedFiles = Files.at(Paths.shared)
 
 	for (const jsFilePath of jsFiles) {
 		let fileContent = Files.read(jsFilePath)
