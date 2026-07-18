@@ -3,7 +3,7 @@
 import fs from "fs"
 import Path from "path"
 import { AllImports } from "#root/AllImports.js"
-const { Aseprite, FileConfig, Files } = AllImports
+const { Aseprite, Paths, Files } = AllImports
 
 async function exportAseprite(relSrcFile, destBase) {
 	const dir = Path.dirname(destBase)
@@ -24,7 +24,7 @@ async function exportAseprite(relSrcFile, destBase) {
 
 export async function ExportAseprite(path = null) {
 	const exportFile = async (file) => {
-		await exportAseprite(file, FileConfig.toDistPath(`${file}`))
+		await exportAseprite(file, Paths.toDistPath(`${file}`))
 	}
 
 	if (path) {
@@ -32,7 +32,7 @@ export async function ExportAseprite(path = null) {
 		return
 	}
 
-	const files = Files.at(FileConfig.asepriteAssets)
+	const files = Files.at(Paths.asepriteAssets)
 		.filter(f => f.endsWith(".aseprite"))
 
 	await Promise.all(files.map(f => exportFile(f)))

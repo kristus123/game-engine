@@ -1,18 +1,18 @@
 import { AllImports } from "#root/AllImports.js"
-const { Files, FileConfig, Markdown } = AllImports
+const { Files, Paths, Markdown } = AllImports
 
 export function PrepareIndexHtml() {
 
-	const asepriteFiles = Files.at(FileConfig.asepriteAssets)
+	const asepriteFiles = Files.at(Paths.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability // is this needed?
 		.map(f => f.replace(".aseprite", ""))
 		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(FileConfig.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`) // i dont like Files.replace
+	Files.replace(Paths.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`) // i dont like Files.replace
 
-	const names = Files.at(FileConfig.client)
+	const names = Files.at(Paths.client)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
 
@@ -24,7 +24,7 @@ export function PrepareIndexHtml() {
 		seen.add(name)
 	}
 
-	const htmlContents = Files.at(FileConfig.client) // rename to htmlTemplates
+	const htmlContents = Files.at(Paths.client) // rename to htmlTemplates
 		.filter(f => !f.includes("index.html"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
@@ -46,23 +46,23 @@ export function PrepareIndexHtml() {
 			return JSON.stringify({ name: name, content: content })
 		})
 
-	Files.replace(FileConfig.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
+	Files.replace(Paths.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
 
-	const audioFiles = Files.at(FileConfig.gameAudio)
+	const audioFiles = Files.at(Paths.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))
 		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(FileConfig.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
+	Files.replace(Paths.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
 
-	const cssImports = Files.at(FileConfig.cssFolder)
+	const cssImports = Files.at(Paths.cssFolder)
 		.map(f => f.replaceAll("\\", "/")) // windows compability
 		.map(f => Files.read(f))
 		.join("\n")
 
-	const indexHtml = Files.read(FileConfig.index_html)
+	const indexHtml = Files.read(Paths.index_html)
 		.replace("CSS_IMPORTS", cssImports)
 
-	Files.write(FileConfig.toDistPath(FileConfig.index_html), indexHtml)
+	Files.write(Paths.toDistPath(Paths.index_html), indexHtml)
 }

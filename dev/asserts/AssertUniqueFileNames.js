@@ -1,5 +1,5 @@
 import { AllImports } from "#root/AllImports.js"
-const { Files, FileConfig } = AllImports
+const { Files, Paths } = AllImports
 
 function extractDuplicates(arr) {
 	const seen = new Set()
@@ -17,9 +17,9 @@ function extractDuplicates(arr) {
 
 // consider a better more robust solution as this will probably be duplicated multiple places
 const allJsFiles = [
-	...Files.at(FileConfig.backend),
-	...Files.at(FileConfig.frontend),
-	...Files.at(FileConfig.shared),
+	...Files.at(Paths.backend),
+	...Files.at(Paths.frontend),
+	...Files.at(Paths.shared),
 ].filter(f => f.endsWith(".js"))
 
 export function AssertUniqueFileNames() {

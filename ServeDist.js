@@ -1,7 +1,7 @@
 import http from "http"
 import fs from "fs"
 import { AllImports } from "#root/AllImports.js"
-const { FileConfig } = AllImports
+const { Paths } = AllImports
 
 const mime = {
 	".html": "text/html",
@@ -36,7 +36,7 @@ const server = http.createServer((req, res) => {
 		url += "index.html"
 	}
 
-	let filePath = FileConfig.dist + url
+	let filePath = Paths.dist + url
 
 	fs.readFile(filePath, (err, data) => {
 		if (err) {

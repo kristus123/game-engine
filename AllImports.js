@@ -10,13 +10,13 @@ const fileMap = Object.fromEntries(
 
 export const AllImports = new Proxy({}, {
 	get(target, prop) {
-    	if (typeof prop == "string") {
-        	if (!fileMap[prop]) {
-            	throw new Error(`File ${prop}.js not found in project`)
-        	}
+		if (typeof prop == "string") {
+    		if (!fileMap[prop]) {
+        		throw new Error(`File ${prop}.js not found in project`)
+    		}
 			else {
-            	return require(Path.resolve(fileMap[prop]))[prop]
-        	}
-    	}
+        		return require(Path.resolve(fileMap[prop]))[prop]
+    		}
+		}
 	}
 })
