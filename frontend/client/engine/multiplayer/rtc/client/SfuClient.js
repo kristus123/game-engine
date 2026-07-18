@@ -302,13 +302,9 @@ export class SfuClient {
 	}
 
 	static sendToEveryone(json) {
-		if (typeof json == 'object') {
-			this.dataProducer.send(JSON.stringify(json))
-		} else if (typeof JSON.parse(json) == 'object') {
-			this.dataProducer.send(json)
-		} else {
-			throw new Error("Message Needs To Be Valid JSON!")
-		}	
+		Assert.jsonObject(json)
+
+		this.dataProducer.send(JSON.stringify(json))
 	}
 
 	static kick(clientId) {
