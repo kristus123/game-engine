@@ -27,6 +27,7 @@ export class Webcam {
 	}
 
 	static routeTo(video) {
+		console.log("are you thre?")
 		video.sourceStream = this.stream
 	}
 }

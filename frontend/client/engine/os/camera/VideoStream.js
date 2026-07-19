@@ -12,6 +12,9 @@ export class VideoStream {
 		this.video.onloadedmetadata = () => {
 			this.canvas.width = this.video.videoWidth
 			this.canvas.height = this.video.videoHeight
+			console.log("___")
+			console.log(this.video.videoWidth)
+			console.log("___")
 		}
 
 		this.stream = this.canvas.captureStream(60)
@@ -19,6 +22,7 @@ export class VideoStream {
 	}
 
 	set sourceStream(stream) {
+		console.log("setting remote stream")
 		this.video.srcObject = stream
 	}
 
