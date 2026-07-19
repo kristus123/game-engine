@@ -16,7 +16,7 @@ export class SuperClass {
 	}
 
 	showTags() {
-		if (this.tags && this.position) {
+		if (this.tags != "" && this.position != null) {
 			D1.text(this.position, this.tags, "white", 20)
 		}
 	}

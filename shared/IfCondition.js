@@ -14,10 +14,13 @@ function anyTrue(...args) {
 	return false
 }
 
-export class IfCondition {
+export class IfCondition { // maybe rename to function _If(arg)
 
 	static validate(arg) {
-		if (An.object(arg)) {
+		if (A.bool(arg)) {
+			return arg
+		}
+		else if (An.object(arg)) {
 			if (An.emptyObject(arg)) {
 				return false
 			}
@@ -33,11 +36,24 @@ export class IfCondition {
 				return false
 			}
 		}
-		else if (anyTrue(arg == "", arg == null, A.number(arg), A.nan(arg))) {
-			throw new Error(`Wonky arg detected in if-condition: ${String(arg)}`)
+		else if (arg == null) {
+			throw new Error("null value not allowed in if condition")
+		}
+		else if (A.number(arg)) {
+			throw new Error("numbers are not allowed in if condition")
+		}
+		else if (A.nan(arg)) {
+			throw new Error("NAN not allowed in if condition")
+		}
+		else if (arg == "") {
+			throw new Error("emtpry string is not allowed in if condition")
 		}
 		else {
-			return arg
+			console.log("___")
+			console.log("type:")
+			console.log(typeof arg)
+			console.log("___")
+			throw new Error("Please handle: " + arg)
 		}
 	}
 

@@ -9,7 +9,8 @@ export function ImproveIf(lines, i) {
 	if (Regex.simple(lines[i], "if * {")) {
 		const s = Regex.editIfMatch(lines[i],
 			"if * {",
-			"if (*) {")
+			"if (IfCondition.validate(*)) {")
+		
 
 		const tabs = "\t".repeat(tabCount(lines[i]))
 		lines[i] = tabs + s

@@ -3,6 +3,10 @@
 //
 // Con.control(player)
 
+function NotNull(arg) { // no-null-check
+	return arg != null
+}
+
 export class Controller {
 
 	static {
@@ -14,7 +18,7 @@ export class Controller {
 	}
 
 	static update() {
-		if (this.entity) {
+		if (NotNull(this.entity)) {
 
 			const d = NormalizeVector(this.inputDirection())
 			const m = 500
