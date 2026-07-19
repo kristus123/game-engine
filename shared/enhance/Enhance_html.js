@@ -439,30 +439,28 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
-		// Clean up any existing animation on this element
-		if (this._animClassName) {
-			this.classList.remove(this._animClassName)
-			if (this._animHandleStart) {
-				this.removeEventListener("animationstart", this._animHandleStart)
-			}
-			if (this._animHandleEnd) {
-				this.removeEventListener("animationend", this._animHandleEnd)
-			}
+		this._anims ??= new Map()
+
+		// Clean up any existing animation with the same class name
+		if (this._anims.has(className)) {
+			const old = this._anims.get(className)
+			this.classList.remove(className)
+			this.removeEventListener("animationstart", old.handleStart)
+			this.removeEventListener("animationend", old.handleEnd)
+			this._anims.delete(className)
 		}
 
 		const uuid = crypto.randomUUID()
 
-		if (variables) {
-			for (const [name, value] of Object.entries(variables)) {
-				this.addCssVariable(name, value)
-			}
+		for (const [name, value] of Object.entries(variables)) {
+			this.addCssVariable(name, value)
 		}
 
 		this.classList.add(className)
 		this.dataset.uuid = uuid
 
 		const handleStart = (e) => {
-			if (this == e.target && this.dataset.uuid == uuid) {
+			if (this == e.target && (e.animationName ?? "") == className) {
 				console.log("sstart")
 				onStart?.(e)
 			}
@@ -471,8 +469,7 @@ export function Enhance_html() {
 		const handleEnd = e => {
 			if (
 				this == e.target &&
-				(e.animationName ?? "") == className &&
-				this.dataset.uuid == uuid
+				(e.animationName ?? "") == className
 			) {
 				console.log("end")
 				onEnd?.(e)
@@ -483,15 +480,11 @@ export function Enhance_html() {
 				this.removeEventListener("animationstart", handleStart)
 				this.removeEventListener("animationend", handleEnd)
 
-				this._animClassName = null
-				this._animHandleStart = null
-				this._animHandleEnd = null
+				this._anims.delete(className)
 			}
 		}
 
-		this._animClassName = className
-		this._animHandleStart = handleStart
-		this._animHandleEnd = handleEnd
+		this._anims.set(className, { handleStart, handleEnd })
 
 		this.addEventListener("animationstart", handleStart)
 		this.addEventListener("animationend", handleEnd)
