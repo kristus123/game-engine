@@ -74,7 +74,7 @@ export class SfuClient {
 			})
 		})
 
-		if (!Webcam.enabled) {
+		if (!Webcam.enabled) { // nabir we should be able to connect even if webcam is not ready yet.
 			throw new Error("webcam is not active. enable webcam first!")
 		}
 		else {
@@ -183,7 +183,7 @@ export class SfuClient {
 		this.dataConsumers = {}
 	}
 
-	static createRouter(streamOnly = false) {
+	static createRouter(streamOnly = false) { // nabir split into createGroup and createLivestream or smt like that
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
 			streamOnly: streamOnly
 		})

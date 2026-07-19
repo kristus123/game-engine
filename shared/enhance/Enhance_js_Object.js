@@ -98,6 +98,10 @@ export function Enhance_js_Object() {
 		return Object.entries(this)
 	})
 
+	Getter(Object.prototype, "empty", function () {
+		return Object.keys(this).length == 0
+	})
+
 
 	Enhance(Object.prototype, "map", function (fn) {
 		return Object.entries(this).map(([k, v]) => fn(k, v))

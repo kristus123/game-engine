@@ -37,6 +37,7 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
 			this.routers = data.routerList
 
+			// nabir rewrite by using enhance_js stuff instead. i think it is this.routers.keys
 			Object.keys(this.routers).forEach(routerId => {
 				this.onRouterCreated(this.routers[routerId])
 			})

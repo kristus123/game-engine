@@ -1,6 +1,7 @@
 export class SfuWorld {
 	constructor() {
-		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to have it. maybe My.js
+		// currently not in use
+		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to init it
 
 		Diff.init()
 
@@ -45,7 +46,12 @@ export class SfuWorld {
 		}
 
 		html.create.onClick(() => {
-			SfuClient.createRouter(true) // streamOnly == true
+			if (SfuRouters.routers.empty) {
+				SfuClient.createRouter(true) // streamOnly == true
+			}
+			else {
+				throw new Error("only one route for now - for testing")
+			}
 		})
 
 		html.toggle.onClick(async () => {
