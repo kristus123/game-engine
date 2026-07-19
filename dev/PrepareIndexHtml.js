@@ -3,6 +3,8 @@ const { Files, Paths, Markdown } = AllImports
 
 export function PrepareIndexHtml() {
 
+	let engineIndexContent = Files.read(Paths.engineIndex)
+
 	const asepriteFiles = Files.at(Paths.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability // is this needed?
 		.map(f => f.replace(".aseprite", ""))
@@ -10,7 +12,7 @@ export function PrepareIndexHtml() {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(Paths.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`) // i dont like Files.replace
+	engineIndexContent = engineIndexContent.replaceAll("ASEPRITE_FILES", `[${asepriteFiles}]`)
 
 	const names = Files.at(Paths.client)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
@@ -46,7 +48,7 @@ export function PrepareIndexHtml() {
 			return JSON.stringify({ name: name, content: content })
 		})
 
-	Files.replace(Paths.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
+	engineIndexContent = engineIndexContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
 
 	const audioFiles = Files.at(Paths.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))
@@ -54,7 +56,9 @@ export function PrepareIndexHtml() {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(Paths.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
+	engineIndexContent = engineIndexContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
+
+	Files.write(Paths.engineIndex, engineIndexContent)
 
 	const cssImports = Files.at(Paths.cssFolder)
 		.map(f => f.replaceAll("\\", "/")) // windows compability
