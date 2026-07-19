@@ -10,7 +10,8 @@ export function PrepareIndexHtml() {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(Paths.engineIndex, "ASEPRITE_FILES", `[${asepriteFiles}]`) // i dont like Files.replace
+
+	Files.write(Paths.engineIndex, Files.read(Paths.engineIndex).replaceAll("ASEPRITE_FILES", `[${asepriteFiles}]`))
 
 	const names = Files.at(Paths.client)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
@@ -46,7 +47,7 @@ export function PrepareIndexHtml() {
 			return JSON.stringify({ name: name, content: content })
 		})
 
-	Files.replace(Paths.engineIndex, "HTML_CONTENTS", `[${htmlContents}]`) // rename to HTML_TEMPLATES
+	Files.write(Paths.engineIndex, Files.read(Paths.engineIndex).replaceAll("HTML_CONTENTS", `[${htmlContents}]`))
 
 	const audioFiles = Files.at(Paths.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))
@@ -54,7 +55,8 @@ export function PrepareIndexHtml() {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	Files.replace(Paths.engineIndex, "AUDIO_FILES", `[${audioFiles}]`)
+
+	Files.write(Paths.engineIndex, Files.read(Paths.engineIndex).replaceAll("AUDIO_FILES", `[${audioFiles}]`))
 
 	const cssImports = Files.at(Paths.cssFolder)
 		.map(f => f.replaceAll("\\", "/")) // windows compability
