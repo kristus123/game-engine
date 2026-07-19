@@ -1,7 +1,7 @@
 import path from "path"
 
 import { AllImports } from "#root/AllImports.js"
-const { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase } = AllImports
+const { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase, ImproveIf } = AllImports
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
@@ -52,6 +52,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 			}
 
 			ImproveSwitchCase(lines, i)
+			ImproveIf(lines, i)
 		}
 
 		fileContent = lines.join("\n")

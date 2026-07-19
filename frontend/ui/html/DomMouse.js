@@ -13,7 +13,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 		window.addEventListener("pointerdown", e => {
 			this.draggedItem = e.target.closest("[draggable]")
 
-			if (this.draggedItem) {
+			if (this.draggedItem != null) {
 				this.onDrag?.(this.draggedItem)
 
 				this.draggedItem.style.opacity = "0.5"
@@ -27,7 +27,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 			this.position.x = e.clientX
 			this.position.y = e.clientY
 
-			if (this.draggedItem) {
+			if (this.draggedItem != null) {
 				this.whileDragging?.(this.draggedItem)
 			}
 
@@ -35,7 +35,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 		})
 
 		const stopDragging = () => {
-			if (this.draggedItem) {
+			if (this.draggedItem != null) {
 				this.draggedItem.removeAttribute("being-dragged")
 				this.draggedItem.style.opacity = "1"
 
