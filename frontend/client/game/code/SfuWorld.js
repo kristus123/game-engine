@@ -1,5 +1,6 @@
 export class SfuWorld {
 	constructor() {
+		document.body.dataset.role = "user" // cool
 
 		Diff.init()
 
