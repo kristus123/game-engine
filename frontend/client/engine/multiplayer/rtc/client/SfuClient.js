@@ -127,6 +127,8 @@ export class SfuClient {
 			routerId: this.connectedRouterId
 		})
 
+		// nabir - i feel like using listen and not listenOnce will throw error. this entire listener should be moved out of this method
+		// it is triggering twice with what seems to be the same stream
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
