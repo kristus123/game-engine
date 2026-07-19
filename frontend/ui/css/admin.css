@@ -1,0 +1,12 @@
+body:not([data-role]) [show-if-admin],
+body:not([data-role]) [hide-if-admin] {
+	display: none;
+}
+
+[data-role="user"] [show-if-admin] {
+	display: none;
+}
+
+[data-role="admin"] [hide-if-admin] {
+	display: none;
+}

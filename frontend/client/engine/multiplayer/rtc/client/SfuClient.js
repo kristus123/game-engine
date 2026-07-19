@@ -220,7 +220,7 @@ export class SfuClient {
 	}
 
 	static get isHost() {
-		return (SfuRouters.routers[this.connectedRouterId].hostClientId == My.clientId)
+		return this.connectedRouterId && SfuRouters.routers[this.connectedRouterId].hostClientId == My.clientId
 	}
 
 	static get connectedClientIds() {

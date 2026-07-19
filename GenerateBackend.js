@@ -44,6 +44,5 @@ export function GenerateBackend(ENVIRONMENT) {
 
 import { fileURLToPath } from "url"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
-	throw new Error("stop right there")
-	GenerateBackend()
+	GenerateBackend(process.argv[2])
 }

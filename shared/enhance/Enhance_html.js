@@ -276,6 +276,15 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "clear", function () {
+		if (this.tag == "input") {
+			this.value = ""
+		}
+		else {
+			throw new Error("unsupported: " + this.tag + " - you need to explcititly tell how this.clear should work")
+		}
+	})
+
+	Enhance(HTMLElement.prototype, "removeChildren", function () {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
 		}
@@ -347,6 +356,19 @@ export function Enhance_html() {
 
 		this.listen("click", () => {
 			run(this)
+		})
+
+		return this
+	})
+
+	Enhance(HTMLElement.prototype, "onEnter", function (run) {
+		this.removeListener("keydown")
+
+		this.listen("keydown", (e) => {
+			if (e.key == "Enter") {
+				console.log("hei")
+				run(this.value)
+			}
 		})
 
 		return this

@@ -16,3 +16,6 @@ capacitor_setup/
 Zone.Identifier
 .DS_Store
 Thumbs.db
+
+
+Secrets.js

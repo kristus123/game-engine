@@ -1,16 +1,24 @@
 <overlay>
-	<video src="/portrait.mp4" muted autoplay loop></video>
-	<button anchor bot right id="openChat" style="margin: 20px">Chat</button>
+	<video id="video" src="/portrait.mp4" muted autoplay loop></video>
+	<flex-h anchor top max-width show-if-admin>
+		<button id="create" style="margin: 20px">create</button>
+		<button id="toggle" style="margin: 20px">toggle</button>
+	</flex-h>
+	<flex-h anchor top max-width show-if-user>
+		<button id="join" style="margin: 20px">join</button>
+	</flex-h>
+	<flex-h anchor bot max-width>
+		<button id="openChat" style="margin: 20px">open chat</button>
+	</flex-h>
 </overlay>
 
 <overlay id="chat" class="bgWhite" hidden>
-	<phone-grid style="padding: 20px">
+	<phone-grid style="padding: 0px">
 		<top center-h>
-			<button id="closeChat">Close</button>
 			<button id="closeChat">Close</button>
 		</top>
 		<mid>
-			<flex-v class="bgWhite" left close scrollable>
+			<flex-v id="chatHistory" class="bgWhite" left close scrollable>
 				<flex-h class="bgWhite" close>
 					<p style="color: green; margin-right: 10px">Gary</p>
 					<p>hei lkjsdflkjs dflkjs dfskljdflks</p>
@@ -21,9 +29,9 @@
 				</flex-h>
 			</flex-v>
 		</mid>
-		<bot max-size>
-			<flex-h max-size>
-				<input max-size style="flex: 3; font-size: 40px" id="message" placeholder="type your message" />
+		<bot>
+			<flex-h max-size style="padding: 5px; gap: 10px">
+				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" />
 				<button max-size style="flex: 1" id="send">Send</button>
 			</flex-h>
 		</bot>
