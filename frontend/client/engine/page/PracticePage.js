@@ -46,18 +46,18 @@ function practiceNewCard() {
 }
 
 function applyScore(score) {
-	switch (score) {
-		case "easy": {
+	switch score {
+		case "easy" {
 			cards.remove(activeCard)
 			const d = (activeCard.score / 2).roundDown()
 			activeCard.nextPracticeDate = LocalDate.now().plusDays(d).toString()
 			activeCard.score += 1
 		}
-		case "hard": {
+		case "hard" {
 			activeCard.nextPracticeDate = LocalDate.now().toString()
 			activeCard.score -= 1
 		}
-		default: {
+		default {
 			throw new Error("unexpected score type")
 		}
 	}
