@@ -290,21 +290,33 @@ export function Enhance_html() {
 		}
 	})
 
-	Enhance(HTMLElement.prototype, "show", function () {
+	Enhance(HTMLElement.prototype, "show", function (animationClassName) {
 		// make it trigger this if it is modal
 		// this.showModal()
 
 		this.removeAttribute("hidden")
 
+		if (animationClassName) {
+			this.animate(animationClassName)
+		}
+
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "hide", function () {
+	Enhance(HTMLElement.prototype, "hide", function (animationClassName) {
 		// if modal
 		// d.close()
 
-		this.addAttribute("hidden")
-
+		if (animationClassName) {
+			this.animate(animationClassName, {
+				onEnd: () => {
+					this.addAttribute("hidden")
+				},
+			})
+		}
+		else {
+			this.addAttribute("hidden")
+		}
 
 		return this
 	})
@@ -427,11 +439,24 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
+		// Clean up any existing animation on this element
+		if (this._animClassName) {
+			this.classList.remove(this._animClassName)
+			if (this._animHandleStart) {
+				this.removeEventListener("animationstart", this._animHandleStart)
+			}
+			if (this._animHandleEnd) {
+				this.removeEventListener("animationend", this._animHandleEnd)
+			}
+		}
+
 		const uuid = crypto.randomUUID()
 
-		variables.forEach((name, value) => {
-			this.addCssVariable(name, value)
-		})
+		if (variables) {
+			for (const [name, value] of Object.entries(variables)) {
+				this.addCssVariable(name, value)
+			}
+		}
 
 		this.classList.add(className)
 		this.dataset.uuid = uuid
@@ -457,8 +482,16 @@ export function Enhance_html() {
 
 				this.removeEventListener("animationstart", handleStart)
 				this.removeEventListener("animationend", handleEnd)
+
+				this._animClassName = null
+				this._animHandleStart = null
+				this._animHandleEnd = null
 			}
 		}
+
+		this._animClassName = className
+		this._animHandleStart = handleStart
+		this._animHandleEnd = handleEnd
 
 		this.addEventListener("animationstart", handleStart)
 		this.addEventListener("animationend", handleEnd)
