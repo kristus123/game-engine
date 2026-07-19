@@ -134,9 +134,16 @@ server {
     location / {
         proxy_pass http://127.0.0.1:3000;
 
+        
+        proxy_buffering off;
+        proxy_cache off;
+
         proxy_http_version 1.1; # Enable HTTP/1.1 for WebSocket support
         proxy_set_header Upgrade $http_upgrade; # Forward WebSocket upgrade request
         proxy_set_header Connection "upgrade"; # Tell nginx to switch connection protocol
+
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
     }
 }
 ```
