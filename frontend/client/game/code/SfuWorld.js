@@ -1,6 +1,6 @@
 export class SfuWorld {
 	constructor() {
-		document.body.dataset.role = "user" // cool
+		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to have it. maybe My.js
 
 		Diff.init()
 
