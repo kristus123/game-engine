@@ -18,7 +18,7 @@ export class Paths {
 	static exportAseprite = "dev/ExportAseprite.js"
 	static generateDist = "dev/GenerateFrontend.js"
 	static prepareExternalBundle = "dev/PrepareExternalBundle.js"
-	static engineIndex = "dist/index.js"
+	static index_js = "dist/index.js"
 	static externalBundleDistPath = "dist/out.js"
 
 	static get gameAssets() {

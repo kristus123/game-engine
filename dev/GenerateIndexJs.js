@@ -2,7 +2,7 @@ import { AllImports } from "#root/AllImports.js"
 const { Files, Paths, Markdown } = AllImports
 
 export function GenerateIndexJs(htmlContents) {
-	let fileContent = Files.read(Paths.engineIndex)
+	let fileContent = Files.read(Paths.index_js)
 
 	const asepriteFiles = Files.at(Paths.asepriteAssets)
 		.map(f => f.replace("\\aseprite", "")) // windows compability // is this needed?
@@ -23,5 +23,5 @@ export function GenerateIndexJs(htmlContents) {
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
 
-	Files.write(Paths.engineIndex, fileContent)
+	Files.write(Paths.index_js, fileContent)
 }
