@@ -196,6 +196,7 @@
         "HttpClient": "readonly",
         "HttpServer": "readonly",
         "Imports": "readonly",
+        "ImproveIf": "readonly",
         "ImproveSwitchCase": "readonly",
         "InfiniteListLooper": "readonly",
         "InitArgs": "readonly",
