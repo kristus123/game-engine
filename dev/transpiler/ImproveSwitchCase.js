@@ -6,15 +6,6 @@ function tabCount(str) {
 }
 
 export function ImproveSwitchCase(lines, i) {
-	// if (Regex.simple(lines[i], "case *:") || Regex.simple(lines[i], "default:")) {
-	// 	for (let ii = 1 ; true ; ii++) {
-	// 		if (tabCount(lines[i]) == tabCount(lines[i+ii])) {
-	// 			lines[i+ii] = "break // transpiler" + "\n" + lines[i+ii]
-	// 			break
-	// 		}
-	// 	}
-	// }
-
 	if (Regex.simple(lines[i], "switch * {")) {
 
 		const s = Regex.editIfMatch(lines[i], "switch * {", "switch (*) {")
