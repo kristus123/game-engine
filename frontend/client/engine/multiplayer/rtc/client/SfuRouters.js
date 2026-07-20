@@ -6,6 +6,7 @@ export class SfuRouters {
 		this.onRouterDeleted = (routerId) => {}
 		this.onGuestConnection = (stream) => {}
 		this.onLocalConnection = () => {}
+		this.onLocalSetup = () => {}
 		this.onJoinRouter = (router) => {}
 		this.onLeaveRouter = (router) => {}
 		this.onMessage = (clientId, data) => {}
@@ -38,7 +39,8 @@ export class SfuRouters {
 			this.routers = data.routerList
 
 			// nabir rewrite by using enhance_js stuff instead. i think it is this.routers.keys
-			Object.keys(this.routers).forEach(routerId => {
+			console.log(this.routers.keys)
+			this.routers.keys.forEach(routerId => {
 				this.onRouterCreated(this.routers[routerId])
 			})
 		})
@@ -51,39 +53,19 @@ export class SfuRouters {
 			SfuClient.device = new window.mediasoup.Device()
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
-			// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
-			if (!router.streamOnly || SfuClient.isHost) {
-				Webcam.request(
-					async (ok) => {
-						if (ok) {
-							await Webcam.enable()
-							Webcam.routeTo(SfuClient.videoStream)
-
-							this.onLocalConnection()
-
-							// Setup Send Transport after Webcam is Enabled
-							await SfuClient.setupSendTransport(data.sendTransportParams)
-						}
-						else {
-							throw new Error("webcam permission not granted")
-						}
-					}
-				)
-
-				await Microphone.enable()
-				SfuClient.audioStream.routeTo(Mix.mic)
-				Mix.master.volume = 0
+			if (!SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost) {
+				SfuRouters.onLocalSetup()
 			}
 
-			// Setup Recv Transport *Only* for Viewers *Only* when Stream Mode is On / Setup Recv Transport For All
-			if (!router.streamOnly || !SfuClient.isHost) {
-				await SfuClient.setupRecvTransport(data.recvTransportParams)
+			await SfuClient.setupSendTransport(data.sendTransportParams)
+			await SfuClient.setupRecvTransport(data.recvTransportParams)
 
-				console.log("Getting Producers...")
-				SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
-					routerId: SfuClient.connectedRouterId,
-				})
-			}
+			this.onLocalConnection()
+
+			console.log("Getting Producers...")
+			SocketClient.sendToServer("SFU_GET_EXISTING_PRODUCERS", {
+				routerId: SfuClient.connectedRouterId,
+			})
 		})
 
 		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
@@ -148,7 +130,10 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
 			console.log("Consuming New Producer")
 
-			SfuClient.consume(data.producerId, data.clientId)
+			// Consume Streams *Only* if Viewer *Only* when Stream Mode is On
+			if (!this.routers[SfuClient.connectedRouterId].streamOnly || !SfuClient.isHost) {
+				SfuClient.consume(data.producerId, data.clientId)
+			}
 		})
 
 		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async data => {
