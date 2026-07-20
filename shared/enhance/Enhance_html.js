@@ -290,21 +290,33 @@ export function Enhance_html() {
 		}
 	})
 
-	Enhance(HTMLElement.prototype, "show", function () {
+	Enhance(HTMLElement.prototype, "show", function (animationClassName) {
 		// make it trigger this if it is modal
 		// this.showModal()
 
 		this.removeAttribute("hidden")
 
+		if (animationClassName) {
+			this.animate(animationClassName)
+		}
+
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "hide", function () {
+	Enhance(HTMLElement.prototype, "hide", function (animationClassName) {
 		// if modal
 		// d.close()
 
-		this.addAttribute("hidden")
-
+		if (animationClassName) {
+			this.animate(animationClassName, {
+				onEnd: () => {
+					this.addAttribute("hidden")
+				},
+			})
+		}
+		else {
+			this.addAttribute("hidden")
+		}
 
 		return this
 	})
@@ -427,17 +439,28 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
+		this._anims ??= new Map()
+
+		// Clean up any existing animation with the same class name
+		if (this._anims.has(className)) {
+			const old = this._anims.get(className)
+			this.classList.remove(className)
+			this.removeEventListener("animationstart", old.handleStart)
+			this.removeEventListener("animationend", old.handleEnd)
+			this._anims.delete(className)
+		}
+
 		const uuid = crypto.randomUUID()
 
-		variables.forEach((name, value) => {
+		for (const [name, value] of Object.entries(variables)) {
 			this.addCssVariable(name, value)
-		})
+		}
 
 		this.classList.add(className)
 		this.dataset.uuid = uuid
 
 		const handleStart = (e) => {
-			if (this == e.target && this.dataset.uuid == uuid) {
+			if (this == e.target && (e.animationName ?? "") == className) {
 				console.log("sstart")
 				onStart?.(e)
 			}
@@ -446,8 +469,7 @@ export function Enhance_html() {
 		const handleEnd = e => {
 			if (
 				this == e.target &&
-				(e.animationName ?? "") == className &&
-				this.dataset.uuid == uuid
+				(e.animationName ?? "") == className
 			) {
 				console.log("end")
 				onEnd?.(e)
@@ -457,8 +479,12 @@ export function Enhance_html() {
 
 				this.removeEventListener("animationstart", handleStart)
 				this.removeEventListener("animationend", handleEnd)
+
+				this._anims.delete(className)
 			}
 		}
+
+		this._anims.set(className, { handleStart, handleEnd })
 
 		this.addEventListener("animationstart", handleStart)
 		this.addEventListener("animationend", handleEnd)
