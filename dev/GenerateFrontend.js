@@ -66,7 +66,7 @@ export function GenerateFrontend(env) {
 
 	const htmlContents = PrepareIndexHtml()
 	GenerateIndexJs(htmlContents)
-	
+
 }
 
 import { fileURLToPath } from "url"

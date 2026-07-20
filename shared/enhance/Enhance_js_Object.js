@@ -115,15 +115,16 @@ export function Enhance_js_Object() {
 		return Object.entries(this).map(([k, v]) => fn(v))
 	})
 
-	// Getter(Object.prototype, "keys", function () {
-	// 	const r = []
+	// was uncommented by nabir to use in SfuRouters
+	Getter(Object.prototype, "keys", function () {
+		const r = []
 
-	// 	for (const k of Object.keys(this)) {
-	// 		r.add(k)
-	// 	}
+		for (const k of Object.keys(this)) {
+			r.add(k)
+		}
 
-	// 	return r
-	// })
+		return r
+	})
 
 	Getter(Object.prototype, "values", function () { // todo does this override native .values() method?
 		const r = []

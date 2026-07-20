@@ -74,10 +74,10 @@ export class SfuClient {
 			})
 		})
 
-		if (!Webcam.enabled) { // nabir we should be able to connect even if webcam is not ready yet.
-			throw new Error("webcam is not active. enable webcam first!")
-		}
-		else {
+		// Copied this into here because stream viewers should be able to use data channels but not produce streams
+		// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
+		if (!SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost) {
+			// nabir we should be able to connect even if webcam is not ready yet.
 			for (const track of this.videoStream.stream.getVideoTracks()) {
 				const producer = await this.sendTransport.produce({ track })
 
@@ -129,6 +129,9 @@ export class SfuClient {
 
 		// nabir - i feel like using listen and not listenOnce will throw error. this entire listener should be moved out of this method
 		// it is triggering twice with what seems to be the same stream
+		//
+		// kristian - the listen fires more than once for video and audio its different streams. Thats why I used listen not listenOnce.
+		// this should not throw error and fix bugs caused by listenOnce if used in this specific case.
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
@@ -170,7 +173,7 @@ export class SfuClient {
 	}
 
 
-	static clean() {
+	static disconnectConsumers() {
 		this.consumers.values.forEach(state => {
 			state.stream.getTracks().forEach(track => {
 				track.stop()
@@ -191,6 +194,14 @@ export class SfuClient {
 		})
 	}
 
+	static createCall() {
+		this.createRouter(false)
+	}
+
+	static createLivestream() {
+		this.createRouter(true)
+	}
+
 	static async joinRouter(routerId) {
 		this.connectedRouterId = routerId
 
@@ -200,7 +211,7 @@ export class SfuClient {
 	}
 
 	static leaveRouter() {
-		this.clean()
+		this.disconnectConsumers()
 
 		SocketClient.sendToServer("SFU_DISCONNECT_ROUTER", {
 			routerId: this.connectedRouterId,
@@ -213,7 +224,7 @@ export class SfuClient {
 		if (SfuRouters.routers[this.connectedRouterId] && My.clientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
 			delete SfuRouters.routers[this.connectedRouterId]
 
-			this.clean()
+			this.disconnectConsumers()
 
 			SocketClient.sendToServer("SFU_DELETE_ROUTER", {
 				routerId: this.connectedRouterId,

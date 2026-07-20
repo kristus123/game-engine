@@ -11,14 +11,14 @@ export function GenerateIndexJs(htmlContents) {
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	
+
 	const audioFiles = Files.at(Paths.gameAudio)
 		.filter(f => f.toLowerCase().endsWith(".mp3"))
 		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `/${f}`)
 		.map(f => `"${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
-	
+
 	fileContent = fileContent.replaceAll("ASEPRITE_FILES", `[${asepriteFiles}]`)
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)

@@ -1,5 +1,4 @@
 export class SfuWorld {
-
 	constructor() {
 		switch "hei" {
 			case "hei" {
@@ -42,6 +41,24 @@ export class SfuWorld {
 			html.video.srcObject = SfuClient.videoStream.stream
 		}
 
+		SfuRouters.onLocalSetup = async () => {
+			Webcam.request(
+				async (ok) => {
+					if (ok) {
+						await Webcam.enable()
+						Webcam.routeTo(SfuClient.videoStream)
+					}
+					else {
+						throw new Error("webcam permission not granted")
+					}
+				}
+			)
+
+			await Microphone.enable()
+			SfuClient.audioStream.routeTo(Mix.mic)
+			Mix.master.volume = 0
+		}
+
 		SfuRouters.onMessage = (clientId, message) => {
 			html.chatHistory.add(`
 				<flex-h class="bgWhite" close>
@@ -53,7 +70,7 @@ export class SfuWorld {
 
 		html.create.onClick(() => {
 			if (SfuRouters.routers.empty) {
-				SfuClient.createRouter(true) // streamOnly == true
+				SfuClient.createLivestream() // streamOnly == true
 			}
 			else {
 				throw new Error("only one route for now - for testing")
