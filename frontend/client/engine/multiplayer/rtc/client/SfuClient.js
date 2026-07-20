@@ -188,18 +188,16 @@ export class SfuClient {
 		this.dataConsumers = {}
 	}
 
-	static createRouter(streamOnly = false) { // nabir split into createGroup and createLivestream or smt like that
+	static createCall() {
 		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
-			streamOnly: streamOnly
+			streamOnly: false
 		})
 	}
 
-	static createCall() {
-		this.createRouter(false)
-	}
-
 	static createLivestream() {
-		this.createRouter(true)
+		SocketClient.sendToServer("SFU_CREATE_ROUTER", {
+			streamOnly: true
+		})
 	}
 
 	static async joinRouter(routerId) {
