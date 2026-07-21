@@ -17,6 +17,14 @@ adduser kristian
 su - kristian
 ```
 
+```bash
+cd
+git clone https://github.com/kristus123/game-engine.git
+
+# Switch to ssh later
+# git@github.com:kristus123/game-engine.git
+```
+
 
 ```bash
 ssh-keygen -t ed25519 -C "krispetter@gmail.com"
@@ -29,7 +37,7 @@ cat ~/.ssh/id_ed25519.pub
 
 echo "put this into"
 echo "___"
-echo "https://github.com/settings/ssh/new"
+echo "https://github.com/kristus123/game-engine/settings/keys/new"
 echo "___"
 ```
 
@@ -39,7 +47,7 @@ echo "___"
 Outside of server
 
 ```bash
-ssh-copy-id kristian@107.175.8.166
+ssh-copy-id kristian@krispetter.duckdns.org
 # then type in vps password
 ```
 
@@ -55,7 +63,19 @@ PermitRootLogin prohibit-password
 Then run this command
 
 ```bash
-ssh-copy-id user@107.175.8.166
+ssh-copy-id user@krispetter.duckdns.org
+```
+
+## disable need for password
+
+```
+sudo visudo
+```
+
+Place this at the bottom of the file
+
+```
+kristian ALL=(ALL:ALL) NOPASSWD: ALL
 ```
 
 and finally:
