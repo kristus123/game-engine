@@ -9,3 +9,9 @@ const { StartServer } = await import("#root/transpiledBackend/server/http/StartS
 const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
 
 StartServer()
+
+process.on("SIGTERM", () => {
+	// nuke all for now. later clean up gently
+	console.log("SIGTERM received")
+	process.exit(0)
+})
