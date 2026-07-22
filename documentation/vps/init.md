@@ -26,6 +26,24 @@ git clone https://github.com/kristus123/game-engine.git
 ```
 
 
+# stuff
+
+```bash
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+touch ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+
+# content of file, todo make it auto fill in the file
+
+```bash
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPflnfPPJmsEJyV1Zo760mRKvQ4ckMjnRmAXk7SzSH2 mushfiquefarhannabir@gmail.com
+```
+
+
+
 ```bash
 ssh-keygen -t ed25519 -C "krispetter@gmail.com"
 
@@ -192,3 +210,6 @@ sudo systemctl reload nginx
 # set up duckdns
 
 TODO
+
+
+
