@@ -1,7 +1,5 @@
 # Systemd setup
 
-- aseprite is not needed to run server.
-
 ```bash
 cd
 sudo apt update -y
@@ -14,6 +12,7 @@ source ~/.bashrc
 nvm install node
 ```
 
+## create file
 
 ```
 sudo nano /etc/systemd/system/game-engine.service
@@ -37,19 +36,10 @@ Environment=NODE_ENV=production
 WantedBy=multi-user.target
 ```
 
+## first time startup
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable game-engine
 sudo systemctl start game-engine
-```
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl restart game-engine
-sudo systemctl status game-engine
-```
-
-```bash
-sudo journalctl -u game-engine -f
 ```

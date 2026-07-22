@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 cd game-engine/
 
 if [ "$(git branch --show-current)" != "master" ]; then
@@ -10,4 +12,7 @@ fi
 git pull
 
 echo "restarting game-engine"
-sudo systemctl restart game-engine.service
+
+sudo systemctl daemon-reload
+sudo systemctl restart game-engine
+sudo systemctl status game-engine

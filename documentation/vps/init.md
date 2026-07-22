@@ -182,7 +182,6 @@ sudo certbot --nginx
 sudo certbot renew --dry-run
 ```
 
-
 ## final test
 
 ```bash

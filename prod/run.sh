@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 HOST=kristian@krispetter.duckdns.org
 
 COMMAND="$1"
