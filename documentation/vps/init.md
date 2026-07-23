@@ -26,6 +26,13 @@ git clone https://github.com/kristus123/game-engine.git
 # git@github.com:kristus123/game-engine.git
 ```
 
+sudo nano /etc/ssh/sshd_config
+
+Make sure these are set:
+
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
 
 # stuff
 
@@ -37,9 +44,13 @@ touch ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
 
+
+sudo nano ~/.ssh/authorized_keys
+
 # content of file, todo make it auto fill in the file
 
 ```bash
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXoYbJPGmeJ2Jm6h6ixfty9YKNc4KdmN0nBfrsSSCrf krispetter@gmail.com
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPflnfPPJmsEJyV1Zo760mRKvQ4ckMjnRmAXk7SzSH2 mushfiquefarhannabir@gmail.com
 ```
 
