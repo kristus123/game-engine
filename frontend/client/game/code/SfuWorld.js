@@ -5,6 +5,7 @@ export class SfuWorld {
 				console.log("hei")
 			}
 		}
+
 		// currently not in use
 		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to init it
 
