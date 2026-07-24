@@ -6,7 +6,6 @@ const port = 465
 
 const user = "kristian@happysun.no"
 const pass = Secrets.emailPassword
-console.log(pass)
 
 const from = "kristian@happysun.no"
 const to = "krispetter@gmail.com"
@@ -23,64 +22,122 @@ const message = [
 	"Hello from Node.js without any libraries!"
 ].join("\r\n")
 
-const socket = tls.connect(port, host, () => {
-	send("EHLO localhost")
-})
+const socket = tls.connect({ host, port, servername: host })
 
-let step = 0
+let buffer = ""
+let responseLines = []
+let step = "greeting"
+
+socket.setEncoding("utf8")
 
 socket.on("data", data => {
-	const response = data.toString()
-	console.log(response.trim())
+	buffer += data
 
-	if (response.startsWith("220")) {
-		send("EHLO localhost")
-	}
+	while (buffer.includes("\r\n")) {
+		const lineEnd = buffer.indexOf("\r\n")
+		const line = buffer.slice(0, lineEnd)
+		buffer = buffer.slice(lineEnd + 2)
+		responseLines.push(line)
 
-	else if (response.startsWith("250") && step == 0 && response.includes("AUTH")) {
-		step = 1
-		send("AUTH LOGIN")
-	}
-
-	else if (response.startsWith("334") && step == 1) {
-		step = 2
-		send(Buffer.from(user).toString("base64"))
-	}
-
-	else if (response.startsWith("334") && step == 2) {
-		step = 3
-		send(Buffer.from(pass).toString("base64"))
-	}
-
-	else if (response.startsWith("235")) {
-		step = 4
-		send(`MAIL FROM:<${from}>`)
-	}
-
-	else if (response.startsWith("250") && step == 4) {
-		step = 5
-		send(`RCPT TO:<${to}>`)
-	}
-
-	else if (response.startsWith("250") && step == 5) {
-		step = 6
-		send("DATA")
-	}
-
-	else if (response.startsWith("354")) {
-		send(message + "\r\n.")
-	}
-
-	else if (response.startsWith("250") && step == 6) {
-		send("QUIT")
-	}
-
-	else if (response.startsWith("221")) {
-		socket.end()
+		if (/^\d{3} /.test(line)) {
+			try {
+				handleResponse(responseLines)
+			}
+			catch (error) {
+				console.error("SMTP protocol error:", error.message)
+				socket.end()
+				process.exitCode = 1
+			}
+			responseLines = []
+		}
 	}
 })
 
-function send(text) {
-	console.log(">", text)
+socket.on("error", error => {
+	console.error("SMTP connection failed:", error.message)
+	process.exitCode = 1
+})
+
+function handleResponse(lines) {
+	const response = lines.join("\n")
+	const code = Number(lines.at(-1).slice(0, 3))
+	console.log(response)
+
+	if (code >= 400) {
+		console.error(`SMTP failed during ${step}`)
+		socket.end()
+		process.exitCode = 1
+		return
+	}
+
+	switch (step) {
+		case "greeting":
+			expect(code, 220)
+			step = "ehlo"
+			send("EHLO localhost")
+			break
+		case "ehlo":
+			expect(code, 250)
+			if (!lines.some(line => /AUTH(?:=|\s).*LOGIN/i.test(line))) {
+				throw new Error("SMTP server does not advertise AUTH LOGIN")
+			}
+			step = "auth-user"
+			send("AUTH LOGIN")
+			break
+		case "auth-user":
+			expect(code, 334)
+			step = "auth-pass"
+			send(Buffer.from(user).toString("base64"), true)
+			break
+		case "auth-pass":
+			expect(code, 334)
+			step = "mail-from"
+			send(Buffer.from(pass).toString("base64"), true)
+			break
+		case "mail-from":
+			expect(code, 235)
+			step = "rcpt-to"
+			send(`MAIL FROM:<${from}>`)
+			break
+		case "rcpt-to":
+			expect(code, 250)
+			step = "data"
+			send(`RCPT TO:<${to}>`)
+			break
+		case "data":
+			expect(code, 250)
+			step = "message"
+			send("DATA")
+			break
+		case "message":
+			expect(code, 354)
+			step = "quit"
+			send(dotStuff(message) + "\r\n.")
+			break
+		case "quit":
+			expect(code, 250)
+			step = "done"
+			send("QUIT")
+			break
+		case "done":
+			expect(code, 221)
+			socket.end()
+			console.log("Email sent successfully")
+			break
+	}
+}
+
+function expect(actual, expected) {
+	if (actual != expected) {
+		throw new Error(`Expected SMTP ${expected} during ${step}, received ${actual}`)
+	}
+}
+
+function dotStuff(text) {
+	return text.replace(/(^|\r\n)\./g, "$1..")
+}
+
+function send(text, secret = false) {
+	console.log(">", secret ? "[credentials hidden]" : text)
 	socket.write(text + "\r\n")
 }
