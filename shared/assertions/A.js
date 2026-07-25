@@ -58,6 +58,10 @@ export class A {
 		)
 	}
 
+	static emptyList(arg) {
+		return A.list(arg) && arg.length == 0 // todo replace with arg.legnth or smt more clean, isEmpty, not sure yet
+	}
+
 	static jsonString(arg) { // no-null-check
 		try {
 			if (A.string(arg)) {

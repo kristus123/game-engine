@@ -65,13 +65,13 @@ export function Enhance_js_Array() {
 	})
 
 
-	Getter(Array.prototype, "empty", function () {
+	Getter(Array.prototype, "empty", function () { // make into a getter
 		return this.length == 0
 	})
 
 
 
-	Getter(Array.prototype, "notEmpty", function () {
+	Getter(Array.prototype, "notEmpty", function () { // make into a getter
 		return !this.empty()
 	})
 
