@@ -29,7 +29,11 @@ export class SfuClient {
 					routerId: this.connectedRouterId
 				})
 
-				callback()
+				SocketClient.onServerMessage("SFU_TRANSPORT_CONNECTED", () => {
+					console.log("Transports Connected")
+					
+					callback()
+				})
 			}
 			catch (e) {
 				errback(e)
@@ -110,7 +114,9 @@ export class SfuClient {
 				routerId: this.connectedRouterId
 			})
 
-			callback()
+			SocketClient.onServerMessage("SFU_TRANSPORT_CONNECTED", () => {
+				callback()
+			})
 		})
 	}
 
