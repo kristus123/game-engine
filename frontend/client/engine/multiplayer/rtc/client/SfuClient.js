@@ -29,9 +29,9 @@ export class SfuClient {
 					routerId: this.connectedRouterId
 				})
 
-				SocketClient.serverActionListener.listenOnce("SFU_TRANSPORT_CONNECTED", () => {
+				SocketClient.onServerMessage("SFU_TRANSPORT_CONNECTED", () => {
 					console.log("Transports Connected")
-
+					
 					callback()
 				})
 			}
