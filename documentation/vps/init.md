@@ -26,6 +26,13 @@ git clone https://github.com/kristus123/game-engine.git
 # git@github.com:kristus123/game-engine.git
 ```
 
+# Set up crons
+
+```bash
+# Every 1 minute
+*/1 * * * * cd /home/kristian/game-engine && ./prod/redeploy_if_changes.sh
+```
+
 sudo nano /etc/ssh/sshd_config
 
 Make sure these are set:
