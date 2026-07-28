@@ -115,6 +115,8 @@ export class SfuClient {
 			})
 
 			SocketClient.serverActionListener.listenOnce("SFU_TRANSPORT_CONNECTED", () => {
+				console.log("Transports Connected")
+				
 				callback()
 			})
 		})
