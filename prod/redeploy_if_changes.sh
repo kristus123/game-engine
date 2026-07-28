@@ -14,7 +14,9 @@ if [ "$LOCAL" != "$REMOTE" ]; then
 
     sudo systemctl restart game-engine.service
 
+    echo "new changes detected"
     echo "Restarted game-engine.service"
 else
     echo "Already up to date."
+    echo "not redeploying"
 fi
