@@ -6,7 +6,8 @@ export class SfuWorld {
 			}
 		}
 
-		RealTimeTranslate.start()
+		// RealTimeTranslate.start()
+		ChineseCharacters
 
 		// currently not in use
 		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to init it

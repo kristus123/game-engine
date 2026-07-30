@@ -8,6 +8,14 @@ export function Enhance_js_String() {
 		return this.includes(subString)
 	})
 
+	Enhance(String.prototype, "toOneLine", function(separator=" ") {
+		return this.replace(/\r?\n/g, separator)
+	})
+
+	Enhance(String.prototype, "beforePunctuation", function() {
+		return this.split(/[.,?]/)[0]
+	})
+
 	Enhance(String.prototype, "toHtml", function() {
 		return new DOMParser() // .innerHTML is also an option
 			.parseFromString(this, "text/html")
