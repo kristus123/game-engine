@@ -21,3 +21,17 @@ body {
 
 	overflow: hidden;
 }
+
+[bg-nature] {
+	background-image:
+		radial-gradient(
+			ellipse,
+			transparent 20%,
+			rgba(0, 0, 0, 0.7) 100%
+		),
+		url("/image.jpg");
+
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
