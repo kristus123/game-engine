@@ -230,23 +230,8 @@ sudo systemctl reload nginx
 In this engine `mediasoup` is used for SFU.
 When creating SFU Transports we need to specify a `portRange`.
 
-This is a chunk of our current code from `SfuServerApi.js`:
-```js
-            listenInfos: [
-                {
-                    protocol: "udp",
-                    ip: "0.0.0.0",
-                    announcedAddress: Config.mediasoupAnnounceIp,
-                    portRange: { min: 40000, max: 49999 }
-                },
-                {
-                    protocol: "tcp",
-                    ip: "0.0.0.0",
-                    announcedAddress: Config.mediasoupAnnounceIp,
-                    portRange: { min: 40000, max: 49999 }
-                }
-```
-Based on this our port range is `40000-49999` for tcp and udp. That means that the vps firewall should allow access to these ports.
+Look at port range in `SfuServerApi.js`:
+That means that the vps firewall should allow access to these ports.
 
 For `ufw` you can add a rule for these port ranges using:
 ```
@@ -257,6 +242,3 @@ sudo ufw allow 40000:49999/tcp
 # set up duckdns
 
 TODO
-
-
-
