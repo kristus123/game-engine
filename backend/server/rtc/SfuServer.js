@@ -95,6 +95,8 @@ export class SfuServer {
 			else {
 				await router.clients[clientId].recvTransport.connect({ dtlsParameters: data.dtlsParameters })
 			}
+
+			SocketServer.sendToClient(client, { action: "SFU_TRANSPORT_CONNECTED" })
 		})
 
 		SocketServer.on("SFU_GET_EXISTING_PRODUCERS", (client, clientId, data) => {

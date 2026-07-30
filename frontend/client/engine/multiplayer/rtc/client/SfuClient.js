@@ -29,7 +29,11 @@ export class SfuClient {
 					routerId: this.connectedRouterId
 				})
 
-				callback()
+				SocketClient.serverActionListener.listenOnce("SFU_TRANSPORT_CONNECTED", () => {
+					console.log("Transports Connected")
+					
+					callback()
+				})
 			}
 			catch (e) {
 				errback(e)
@@ -110,7 +114,11 @@ export class SfuClient {
 				routerId: this.connectedRouterId
 			})
 
-			callback()
+			SocketClient.serverActionListener.listenOnce("SFU_TRANSPORT_CONNECTED", () => {
+				console.log("Transports Connected")
+				
+				callback()
+			})
 		})
 	}
 
@@ -132,6 +140,11 @@ export class SfuClient {
 		//
 		// kristian - the listen fires more than once for video and audio its different streams. Thats why I used listen not listenOnce.
 		// this should not throw error and fix bugs caused by listenOnce if used in this specific case.
+		// 
+		// for kristian - okay while research I found out that this approach has a flaw because we never disconnect it.
+		// so it can dupelicate listen action. However listenOnce does not fix it because well it will cause bug since
+		// audio and video streams are sent seperately. So for now we can stick to listen. When we implement SfuRouterObject
+		// We can add disconnect mechanism.
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
