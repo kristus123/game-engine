@@ -49,7 +49,7 @@ export class IfCondition { // maybe rename to function _If(arg)
 			// throw new Error("emtpry string is not allowed in if condition")
 		}
 		else if (arg == null) {
-			console.log("null values in if's are treated like false")
+			// console.log("null values in if's are treated like false")
 			return false
 		}
 		else {

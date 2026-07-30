@@ -1,15 +1,5 @@
 export class SfuWorld {
 	constructor() {
-		switch "hei" {
-			case "hei" {
-				console.log("hei")
-			}
-		}
-
-		// RealTimeTranslate.start()
-		ChineseCharacters
-
-		// currently not in use
 		document.body.dataset.role = "user" // cool, but move somewhere where it makes sense to init it
 
 		Diff.init()
