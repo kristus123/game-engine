@@ -42,9 +42,9 @@ export class RealTimeTranslate {
 			console.log("Connection:", pc.connectionState)
 
 			if (
-				pc.connectionState === "failed" ||
-				pc.connectionState === "disconnected" ||
-				pc.connectionState === "closed"
+				pc.connectionState == "failed" ||
+				pc.connectionState == "disconnected" ||
+				pc.connectionState == "closed"
 			) {
 				console.log("todo handle")
 			}
