@@ -156,6 +156,16 @@ export class RtcClient {
 			)
 		}
 
+		peerConnection.oniceconnectionstatechange = () => {
+			console.log("oniceconnectionstatechange")
+			console.log(targetClientId, peerConnection.iceConnectionState)
+		}
+
+		peerConnection.onconnectionstatechange = () => {
+			console.log("onconnectionstatechange")
+			console.log("Connection:", peer.connectionState)
+		}
+
 		return peerConnection
 	}
 

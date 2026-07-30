@@ -61,6 +61,10 @@ export class SfuServerApi {
 			}
 	  })
 
+		console.log("__")
+  	console.log(transport.iceCandidates)
+		console.log("__")
+
 	  // Close transport when DTLS state is closed
 	  transport.on("dtlsstatechange", (dtlsState) => {
 			if (dtlsState == "closed") {
