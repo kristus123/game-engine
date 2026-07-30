@@ -276,6 +276,7 @@
         "Rain": "readonly",
         "Random": "readonly",
         "RandomIntegerEveryMs": "readonly",
+        "RealTimeTranslate": "readonly",
         "Regex": "readonly",
         "Reindeer": "readonly",
         "Role": "readonly",
