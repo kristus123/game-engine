@@ -2,22 +2,26 @@
 
 set -e
 
-git fetch origin
+while true; do
 
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse @{u})
+	git fetch origin
 
-if [ "$LOCAL" != "$REMOTE" ]; then
-    echo "New changes found"
-    echo "Redeploying"
+	LOCAL=$(git rev-parse HEAD)
+	REMOTE=$(git rev-parse @{u})
 
-    git pull --ff-only
+	if [ "$LOCAL" != "$REMOTE" ]; then
+		echo "New changes found"
+		echo "Redeploying"
 
-    sudo systemctl restart game-engine.service
+		git pull --ff-only
 
-    echo "New changes detected"
-    echo "Restarted game-engine.service"
-else
-    echo "Already up to date."
-    echo "Not redeploying"
-fi
+		sudo systemctl restart game-engine.service
+
+		echo "New changes detected"
+		echo "Restarted game-engine.service"
+	else
+		echo "Already up to date. No action needed."
+	fi
+
+    sleep 5
+done
