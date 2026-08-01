@@ -1,0 +1,39 @@
+<overlay>
+	<video id="video" src="/media/portrait.mp4" muted autoplay loop></video>
+	<flex-v anchor top max-width>
+		<flex-h>
+			<button id="create" style="">create stream</button>
+			<button id="toggle" style="">toggle video</button>
+			<button id="join" style="">join stream</button>
+		</flex-h>
+	</flex-v>
+	<flex-h anchor bot max-width>
+		<button id="openChat" style="margin: 20px">open chat</button>
+	</flex-h>
+</overlay>
+
+<overlay id="chat" class="bgWhite" hidden>
+	<phone-grid style="padding: 0px">
+		<top center-h>
+			<button id="closeChat">Close</button>
+		</top>
+		<mid>
+			<flex-v id="chatHistory" class="bgWhite" left close scrollable>
+				<flex-h class="bgWhite" close>
+					<p style="color: green; margin-right: 10px">Gary</p>
+					<p>hei lkjsdflkjs dflkjs dfskljdflks</p>
+				</flex-h>
+				<flex-h class="bgWhite" close>
+					<p style="color: purple; margin-right: 10px">suzy</p>
+					<p>hei</p>
+				</flex-h>
+			</flex-v>
+		</mid>
+		<bot>
+			<flex-h max-size style="padding: 5px; gap: 10px">
+				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" />
+				<button max-size style="flex: 1" id="send">Send</button>
+			</flex-h>
+		</bot>
+	</phone-grid>
+</overlay>

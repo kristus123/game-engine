@@ -1,0 +1,51 @@
+export class VideoStream {
+	constructor() {
+		this.canvas = document.createElement("canvas")
+		this.canvas.width = 1280
+		this.canvas.height = 720
+		this.ctx = this.canvas.getContext("2d")
+
+		this.video = document.createElement("video")
+		this.video.autoplay = true
+		this.video.muted = true
+		this.video.playsInline = true
+		this.video.onloadedmetadata = () => {
+			this.canvas.width = this.video.videoWidth
+			this.canvas.height = this.video.videoHeight
+			console.log("___")
+			console.log(this.video.videoWidth)
+			console.log("___")
+		}
+
+		this.stream = this.canvas.captureStream(60)
+		this.track = this.stream.getVideoTracks()[0]
+	}
+
+	set sourceStream(stream) {
+		console.log("setting remote stream")
+		this.video.srcObject = stream
+	}
+
+	get enabled() {
+		return !this.video.paused
+	}
+
+	pause() {
+		this.video.pause()
+	}
+
+	resume() {
+		this.video.play()
+	}
+
+	update() {
+		if (this.video.paused) {
+			this.ctx.fillStyle = "rgba(0, 0, 255, 1)"
+			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+		}
+		else {
+			this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height)
+		}
+	}
+
+}

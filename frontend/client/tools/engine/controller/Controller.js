@@ -1,0 +1,64 @@
+// maybe merge Controller and Gamepad/Con.js
+// i think that makes sense
+//
+// Con.control(player)
+
+function NotNull(arg) { // no-null-check
+	return arg != null
+}
+
+export class Controller {
+
+	static {
+		this.entity = null
+	}
+
+	static control(o) {
+		this.entity = o
+	}
+
+	static update() {
+		if (NotNull(this.entity)) {
+
+			const d = NormalizeVector(this.inputDirection())
+			const m = 500
+
+			this.entity.velocity.x = d.x * m
+			this.entity.velocity.y = d.y * m
+		}
+	}
+
+	static inputDirection() {
+
+		if (Gamepad.active) {
+			return {
+				x: Gamepad.x,
+				y: Gamepad.y,
+			}
+		}
+		else {
+			let x = 0
+			let y = 0
+
+			if (Keyboard.up) {
+				x += 0
+				y += -1
+			}
+			if (Keyboard.down) {
+				x += 0
+				y += 1
+			}
+			if (Keyboard.left) {
+				x += -1
+				y += 0
+			}
+			if (Keyboard.right) {
+				x += 1
+				y += 0
+			}
+
+			return { x, y }
+		}
+	}
+
+}
