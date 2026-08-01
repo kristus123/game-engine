@@ -34,7 +34,7 @@ export function AssertUniqueFileNames() {
 	const jsBaseNames = allFiles
 		.filter(f => f.endsWith(".js"))
 		.map(f => f.split("/").pop().replace(".js", ""))
-	
+
 	assertUnique(jsBaseNames, "we do not allow duplicate naming for .js files")
 
 	// check all other files by their exact file names
