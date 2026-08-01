@@ -1,10 +1,3 @@
-function arraysEqual(a, b) {
-	return (
-    	a.length == b.length &&
-    	a.every((value, index) => value == b[index])
-	)
-}
-
 export class Kristian {
 
 	constructor() {
@@ -22,9 +15,10 @@ export class Kristian {
 		let placeholder = null
 
 		DomMouse.onDrag = (e) => {
+
 			placeholder = e.cloneNode(true)
-			placeholder?.followMouse()
 			Dom.floating(placeholder)
+			placeholder.followMouse()
 
 			e.invisible()
 		}
@@ -35,9 +29,8 @@ export class Kristian {
 
 			e.visible()
 
-
-			const c = (html.list.map(c => c.getAttribute("data-value")))
-			if (arraysEqual(c, ["1", "2", "3", "4"])) {
+			const c = html.list.map(c => c.data.value)
+			if (c.same(["1", "2", "3", "4"])) {
 				html.h1.textContent = "BRA"
 			}
 		}

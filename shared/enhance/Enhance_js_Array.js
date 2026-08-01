@@ -14,6 +14,13 @@ export function Enhance_js_Array() {
 		return this.includes(value)
 	})
 
+	Enhance(Array.prototype, "same", function (o) {
+		Assert.array(o)
+
+		return this.length == o.length
+			&& this.every((value, index) => value == o[index])
+	})
+
 	Getter(Array.prototype, "first", function () {
 		Assert.notEmpty(this)
 		return this[0]

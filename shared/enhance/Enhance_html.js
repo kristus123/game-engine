@@ -25,6 +25,10 @@ export function Enhance_html() {
 		return this.tagName.toLowerCase()
 	})
 
+	Getter(HTMLElement.prototype, "data", function () {
+		return this.dataset
+	})
+
 	Getter(HTMLElement.prototype, "width", function () {
 		return this.getBoundingClientRect().width
 	})
