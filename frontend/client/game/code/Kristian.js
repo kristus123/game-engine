@@ -1,8 +1,21 @@
+function arraysEqual(a, b) {
+    return (
+        a.length === b.length &&
+        a.every((value, index) => value === b[index])
+    );
+}
+
 export class Kristian {
 
 	constructor() {
 		const html = Html.matte()
-		this.html = html
+		for(const x of [4,3,2,1]) {
+			html.list.add(`
+				<div data-value="${x}" draggable style="width: 100px; height: 100px" class="bgWhite">
+					<p style="font-size:65px" center class="textWhite">${x}</p>
+				</div>
+			`.toHtml())
+		}
 
 		Dom.add(html)
 
@@ -22,7 +35,11 @@ export class Kristian {
 
 			e.visible()
 
-			html.h1.textContent = "BRA"
+			
+			const c = (html.list.map(c => c.getAttribute("data-value")))
+			if (arraysEqual(c, ["1", "2", "3","4"]) ) {
+				html.h1.textContent = "BRA"
+			}
 		}
 
 		DomMouse.onMouseMove = (e) => {

@@ -18,7 +18,8 @@ cd ~/src/ase
 
 
 # make sure the version is correct. you might need to look closely
-aseprite_version="v1.3.17"
+# https://github.com/aseprite/aseprite/releases
+aseprite_version="v1.3.18.1"
 
 curl -LO "https://github.com/aseprite/aseprite/releases/download/${aseprite_version}/Aseprite-${aseprite_version}-Source.zip"
 
