@@ -147,6 +147,7 @@
         "Calculate": "readonly",
         "Camera": "readonly",
         "CenterPosition": "readonly",
+        "ChineseCharacters": "readonly",
         "ClientToken": "readonly",
         "Collision": "readonly",
         "Controller": "readonly",

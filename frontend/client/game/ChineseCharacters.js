@@ -32,9 +32,9 @@ import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers
 
 
 
-	
+
 })()
 
 export class ChineseCharacters {
-	
+
 }

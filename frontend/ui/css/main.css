@@ -27,9 +27,8 @@ body {
 		radial-gradient(
 			ellipse,
 			transparent 20%,
-			rgba(0, 0, 0, 0.7) 100%
-		),
-		url("/image.jpg");
+			rgb(0 0 0 / 70%) 100%
+		), url("/image.jpg");
 
 	background-size: cover;
 	background-position: center;
