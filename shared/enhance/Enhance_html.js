@@ -10,6 +10,17 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "map", function (callback) {
+		const children = this.children
+		const x = []
+
+		for (let i = 0; i < children.length; i++) {
+			x.push(callback(children[i]))
+		}
+
+		return x
+	})
+
 	Getter(HTMLElement.prototype, "tag", function () {
 		return this.tagName.toLowerCase()
 	})
@@ -503,9 +514,11 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "followMouse", function (offset_x=0, offset_y=0) {
+		const x = DomMouse.x + offset_x - (this.width/2)
+		const y = DomMouse.y + offset_y - (this.height/2)
 
-		this.style.left = `${DomMouse.x + offset_x}px`
-		this.style.top = `${DomMouse.y + offset_y}px`
+		this.style.left = `${x}px`
+		this.style.top = `${y}px`
 
 		return this
 	})
