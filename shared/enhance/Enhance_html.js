@@ -453,7 +453,8 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "animate", function (className, { variables={}, onStart, onEnd } = {}) {
+	// This one we should not override because this is actually already an existing method. Sorry about this, we should fix this
+	Enhance(HTMLElement.prototype, "animateXXX", function (className, { variables={}, onStart, onEnd } = {}) {
 		this._anims ??= new Map()
 
 		// Clean up any existing animation with the same class name
@@ -506,6 +507,50 @@ export function Enhance_html() {
 
 		return this
 	})
+
+	Enhance(HTMLElement.prototype, "copy", function (destination) {
+		return this.cloneNode(true);
+	})
+
+
+
+	Enhance(HTMLElement.prototype, "swap", function (o) {
+		const parent = this.parentNode;
+		const placeholder = document.createElement("span");
+
+		parent.insertBefore(placeholder, this);
+		parent.insertBefore(this, o);
+		parent.insertBefore(o, placeholder);
+
+		placeholder.remove();
+
+	})
+
+
+	Enhance(HTMLElement.prototype, "animateTowards", function (destination) {
+		const first = this.getBoundingClientRect();
+
+		destination.appendChild(this);
+
+		const last = this.getBoundingClientRect();
+
+		const dx = first.left - last.left;
+		const dy = first.top - last.top;
+
+		// onStart?.();
+
+		const animation = this.animate([
+			{ transform: `translate(${dx}px, ${dy}px)` },
+			{ transform: "translate(0, 0)" }
+		], {
+			duration: 200,
+			easing: "ease-in-out"
+		});
+
+		animation.onfinish = () => {
+			console.log("finish animating")
+		}
+	});
 
 	Enhance(HTMLElement.prototype, "worldPosition", function (position) {
 		Assert.value(position)

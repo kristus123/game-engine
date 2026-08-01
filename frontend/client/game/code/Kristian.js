@@ -2,6 +2,8 @@ export class Kristian {
 
 	constructor() {
 		const html = Html.matte()
+
+
 		for (const x of [4, 3, 2, 1]) {
 			html.list.add(`
 				<div data-value="${x}" draggable style="width: 100px; height: 100px" class="bgWhite">
@@ -11,6 +13,12 @@ export class Kristian {
 		}
 
 		Dom.add(html)
+		setTimeout(() => {
+			const copy = html.box.copy()
+			html.box.swap(copy)
+
+			html.box.animateTowards(html.otherBox)
+		}, 500)
 
 		let placeholder = null
 
