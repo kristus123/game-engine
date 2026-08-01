@@ -1,18 +1,16 @@
 export class Kristian {
 
 	constructor() {
-		setInterval(() => {
-			Track.test()
-		}, 200)
+		const html = Html.matte()
+		this.html = html
 
-		const t = Html.test()
-
-		Dom.add(t)
+		Dom.add(html)
 
 		let placeholder = null
 
 		DomMouse.onDrag = (e) => {
-			placeholder = e.cloneNode(true).css("font-size: 50px")
+			placeholder = e.cloneNode(true)
+			placeholder?.followMouse()
 			Dom.floating(placeholder)
 
 			e.invisible()
@@ -23,6 +21,8 @@ export class Kristian {
 			placeholder = null
 
 			e.visible()
+
+			html.h1.textContent = "BRA"
 		}
 
 		DomMouse.onMouseMove = (e) => {

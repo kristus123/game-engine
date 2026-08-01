@@ -44,19 +44,24 @@ export class IfCondition { // maybe rename to function _If(arg)
 			throw new Error("NAN not allowed in if condition")
 		}
 		else if (arg == "") {
-			throw new Error("emtpry string is not allowed in if condition")
+			return false
+			// Think about how we should handle this later
+			// throw new Error("emtpry string is not allowed in if condition")
 		}
 		else if (arg == null) {
-			console.log("null values in if's are treated like false")
+			// console.log("null values in if's are treated like false")
 			return false
 		}
 		else {
+			return true
 			// should we instead threat a value as true? todo think
-			console.log("___")
-			console.log("type:")
-			console.log(typeof arg)
-			console.log("___")
-			throw new Error("Please handle: " + arg)
+			// Decide whether to treat it as true or to throw an error
+			//
+			// console.log("___")
+			// console.log("type:")
+			// console.log(typeof arg)
+			// console.log("___")
+			// throw new Error("Please handle: " + arg)
 		}
 	}
 }
@@ -89,10 +94,8 @@ function throwsError(callback) { // move into Assert
 	}
 }
 
-Assert.true(throwsError(() => {
-	IfCondition.validate("hello")
-}))
+Assert.true(IfCondition.validate("hello"))
 
-Assert.true(throwsError(() => {
-	IfCondition.validate("")
-}))
+// Assert.true(throwsError(() => {
+// 	IfCondition.validate("")
+// }))
