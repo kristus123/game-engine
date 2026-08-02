@@ -501,8 +501,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	// This one we should not override because this is actually already an existing method. Sorry about this, we should fix this
-	Enhance(HTMLElement.prototype, "animateXXX", function (className, { variables={}, onStart, onEnd } = {}) {
+	Enhance(HTMLElement.prototype, "play", function (className, { variables={}, onStart, onEnd } = {}) {
 		this._anims ??= new Map()
 
 		// Clean up any existing animation with the same class name

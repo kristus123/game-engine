@@ -1,0 +1,13 @@
+.moveOut {
+	animation: move-out-of-view 500ms ease-in-out forwards;
+}
+
+@keyframes moveOut {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-100vw);
+	}
+}
