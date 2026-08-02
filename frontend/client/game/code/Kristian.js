@@ -1,15 +1,15 @@
 function shrink(element, duration = 1000) {
-    const width = element.offsetWidth;
-    const height = element.offsetHeight;
+	const width = element.offsetWidth
+	const height = element.offsetHeight
 
-    element.style.transition = `width ${duration}ms, height ${duration}ms`;
-    element.style.width = `${width}px`;
-    element.style.height = `${height}px`;
+	element.style.transition = `width ${duration}ms, height ${duration}ms`
+	element.style.width = `${width}px`
+	element.style.height = `${height}px`
 
-    requestAnimationFrame(() => {
-        element.style.width = "0px";
-        element.style.height = "0px";
-    });
+	requestAnimationFrame(() => {
+    	element.style.width = "0px"
+    	element.style.height = "0px"
+	})
 }
 
 function unshrink(element, duration = 1000) {
@@ -17,15 +17,15 @@ function unshrink(element, duration = 1000) {
 	const width = element.width
 	const height = element.height
 
-    element.style.transition = "none";
-    element.style.width = "0px";
-    element.style.height = "0px";
+	element.style.transition = "none"
+	element.style.width = "0px"
+	element.style.height = "0px"
 
-    requestAnimationFrame(() => {
-        element.style.transition = `width ${duration}ms, height ${duration}ms`;
-        element.style.width = `${width}px`;
-        element.style.height = `${height}px`;
-    });
+	requestAnimationFrame(() => {
+    	element.style.transition = `width ${duration}ms, height ${duration}ms`
+    	element.style.width = `${width}px`
+    	element.style.height = `${height}px`
+	})
 }
 
 
