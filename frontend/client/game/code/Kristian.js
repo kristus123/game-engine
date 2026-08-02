@@ -56,7 +56,7 @@ export class Kristian {
 
 		let placeholder = null
 
-		DomMouse.onDrag = (e) => {
+		DomMouse.onDrag = e => {
 			Tts(e.data.number)
 			Mix.fx.play(Mp3.click)
 
@@ -67,7 +67,7 @@ export class Kristian {
 			e.invisible()
 		}
 
-		DomMouse.onDrop = (e) => {
+		DomMouse.onDrop = e => {
 			Dom.remove(placeholder)
 			placeholder = null
 
@@ -86,10 +86,10 @@ export class Kristian {
 			}
 		}
 
-		DomMouse.onMouseMove = (e) => {
+		DomMouse.onMouseMove = e => {
 		}
 
-		DomMouse.whileDragging = (e) => {
+		DomMouse.whileDragging = e => {
 			placeholder?.followMouse(0, -50)
 
 			for (const h of DomMouse.hovering) { // find better solution for this
