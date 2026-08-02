@@ -55,22 +55,14 @@ if not sprite.filename or sprite.filename == "" then
 end
 
 local path = sprite.filename:gsub("\\", "/")
-local cwd
 
-if is_windows then
-  cwd = os.getenv("CD") or ""
-else
-  cwd = os.getenv("PWD") or ""
+local filename = path:match("([^/]+)%.%w+$")
+if not filename then
+  filename = path:match("([^/]+)$")
 end
 
-path = path:gsub("^" .. cwd .. "/?", "")
-path = path:gsub("%.%w+$", "")
-
-if path:sub(1, 9) == "frontend/" then
-  path = path:sub(10)
-end
-
-local outBase = "dist/" .. path
+local outBaseDir = "dist/generatedAseprite/" .. filename
+local outBase = outBaseDir .. "/" .. filename
 
 local all_tilemaps = {}
 
@@ -133,12 +125,12 @@ end
 
 local ok1
 if is_windows then
-  ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBase))
+  ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBaseDir))
 else
-  ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBase))
+  ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBaseDir))
 end
 if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s"', outBase)) end)
+  pcall(function() os.execute(string.format('mkdir "%s"', outBaseDir)) end)
 end
 
 local json_parts = {}

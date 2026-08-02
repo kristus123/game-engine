@@ -1,7 +1,7 @@
 export async function LoadAllAudio(AUDIO_FILES) {
 	return Promise.all(AUDIO_FILES.map(async path => {
 
-		const name = path.split("/").pop().replace(".mp3", "")
+		const name = path.split("/").pop().replace(/\.(mp3|wav)$/i, "")
 
 		try {
 			const r = await fetch(path)

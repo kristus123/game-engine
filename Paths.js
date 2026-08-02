@@ -25,13 +25,7 @@ export class Paths {
 		return `${this.game}/assets`
 	}
 
-	static get gameAudio() {
-		return `${this.game}/audio`
-	}
 
-	static get asepriteAssets() {
-		return `${this.game}/assets/aseprite`
-	}
 
 	static get cssFolder() {
 		return `${this.frontend}/ui/css`

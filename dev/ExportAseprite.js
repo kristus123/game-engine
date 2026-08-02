@@ -24,7 +24,9 @@ async function exportAseprite(relSrcFile, destBase) {
 
 export async function ExportAseprite(path = null) {
 	const exportFile = async (file) => {
-		await exportAseprite(file, Paths.toDistPath(`${file}`))
+		const name = Path.basename(file, ".aseprite")
+		const destBase = `dist/generatedAseprite/${name}/${name}`
+		await exportAseprite(file, destBase)
 	}
 
 	if (path) {
@@ -32,7 +34,7 @@ export async function ExportAseprite(path = null) {
 		return
 	}
 
-	const files = Files.at(Paths.asepriteAssets)
+	const files = Files.at(Paths.frontend)
 		.filter(f => f.endsWith(".aseprite"))
 
 	await Promise.all(files.map(f => exportFile(f)))
