@@ -305,6 +305,23 @@ export function Enhance_html() {
 		}
 	})
 
+	Enhance(HTMLElement.prototype, "bounce", function (delay=0) {
+		setTimeout(() => {
+			this.animate(
+				[
+					{ transform: "translateY(0)" },
+					{ transform: "translateY(-80px)" },
+					{ transform: "translateY(0)" }
+				],
+				{
+					duration: 500,
+					easing: "ease-out"
+				}
+			)
+		}, delay)
+	})
+
+
 	Enhance(HTMLElement.prototype, "show", function (animationClassName) {
 		// make it trigger this if it is modal
 		// this.showModal()

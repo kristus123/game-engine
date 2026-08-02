@@ -14,6 +14,17 @@ export function Enhance_js_Array() {
 		return this.includes(value)
 	})
 
+	Enhance(Array.prototype, "shuffle", function () {
+		const a = [...this];
+
+		for (let i = a.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[a[i], a[j]] = [a[j], a[i]];
+		}
+
+		return a;
+	})
+
 	Enhance(Array.prototype, "same", function (o) {
 		Assert.array(o)
 
