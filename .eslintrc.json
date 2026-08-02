@@ -150,6 +150,8 @@
         "ChineseCharacters": "readonly",
         "ClientToken": "readonly",
         "Collision": "readonly",
+        "Confetti": "readonly",
+        "ConfettiSplash": "readonly",
         "Controller": "readonly",
         "CurrentFrame": "readonly",
         "D1": "readonly",

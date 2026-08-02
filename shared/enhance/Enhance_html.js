@@ -260,9 +260,9 @@ export function Enhance_html() {
 		this.textContent.replace(oldText, newText)
 	})
 
-	Enhance(HTMLElement.prototype, "remove", function () {
-		return Dom.remove(this)
-	})
+	// already exists. don't override
+	// Enhance(HTMLElement.prototype, "remove", function () {
+	// })
 
 	Enhance(HTMLElement.prototype, "visible", function () {
 		return this.css("visibility: visible;")
@@ -335,23 +335,6 @@ export function Enhance_html() {
 			this.style.height = "0px"
 		})
 	})
-
-	Enhance(HTMLElement.prototype, "bounce", function (delay=0) {
-		setTimeout(() => {
-			this.animate(
-				[
-					{ transform: "translateY(0)" },
-					{ transform: "translateY(-80px)" },
-					{ transform: "translateY(0)" }
-				],
-				{
-					duration: 500,
-					easing: "ease-out"
-				}
-			)
-		}, delay)
-	})
-
 
 	Enhance(HTMLElement.prototype, "show", function (animationClassName) {
 		// make it trigger this if it is modal

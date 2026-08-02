@@ -1,0 +1,21 @@
+.confetti {
+	position: fixed;
+	inset: 0;
+	width: 10px;
+	height: 10px;
+	background: var(--color);
+	pointer-events: none;
+	animation: confetti var(--duration, 2s) cubic-bezier(.15,.8,.3,1) forwards;
+}
+
+@keyframes confetti {
+	from {
+		transform: translate(0, 0);
+		opacity: 1;
+	}
+
+	to {
+		transform: translate(var(--vx), var(--vy));
+		opacity: 0;
+	}
+}

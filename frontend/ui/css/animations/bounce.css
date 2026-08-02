@@ -1,0 +1,18 @@
+.bounce {
+	animation: bounce 500ms ease-out;
+	animation-delay: var(--delay, 0ms);
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-500px);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
