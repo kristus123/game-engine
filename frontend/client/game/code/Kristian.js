@@ -39,8 +39,9 @@ export class Kristian {
 
 		for (const number of challenge.shuffle()) {
 			html.list.add(`
-				<div bg-nature data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
+				<div bg-nature data-number="${number}" draggable style="min-width: 100px; min-height: 100px; max-width:200px;" class="bgWhite">
 					<p style="font-size:85px" center class="textWhite">${number}</p>
+					<img src="/threeApples.jpg">
 				</div>
 			`.toHtml())
 		}
