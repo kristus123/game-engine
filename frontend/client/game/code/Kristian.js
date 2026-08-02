@@ -1,14 +1,28 @@
+function moveOutOfView(element, duration = 500) {
+	element.animate(
+    	[
+        	{ transform: "translateX(0)" },
+        	{ transform: "translateX(-100vw)" }
+    	],
+    	{
+        	duration,
+        	easing: "ease-in-out",
+        	fill: "forwards"
+    	}
+	)
+}
+
 export class Kristian {
 
 	constructor() {
 		const html = Html.matte()
 		Dom.add(html)
 
-		const challenge = ["1", "2", "tre", "4"]
+		const challenge = ["1", "2", "tre", "4", "fem", "6"]
 
 		for (const number of challenge.shuffle()) {
 			html.list.add(`
-				<div bg-nature data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
+				<div data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
 					<p style="font-size:85px" center class="textWhite">${number}</p>
 				</div>
 			`.toHtml())
@@ -48,7 +62,8 @@ export class Kristian {
 
 				html.list.forEach((x, i) => {
 					setTimeout(() => {
-						x.bounce()
+						// x.bounce()
+						moveOutOfView(x)
 						Mix.fx.play(Mp3.click)
 					}, 200 * i)
 				})
