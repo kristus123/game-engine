@@ -7,8 +7,8 @@ function shrink(element, duration = 1000) {
 	element.style.height = `${height}px`
 
 	requestAnimationFrame(() => {
-    	element.style.width = "0px"
-    	element.style.height = "0px"
+		element.style.width = "0px"
+		element.style.height = "0px"
 	})
 }
 
@@ -22,9 +22,9 @@ function unshrink(element, duration = 1000) {
 	element.style.height = "0px"
 
 	requestAnimationFrame(() => {
-    	element.style.transition = `width ${duration}ms, height ${duration}ms`
-    	element.style.width = `${width}px`
-    	element.style.height = `${height}px`
+		element.style.transition = `width ${duration}ms, height ${duration}ms`
+		element.style.width = `${width}px`
+		element.style.height = `${height}px`
 	})
 }
 

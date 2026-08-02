@@ -15,14 +15,16 @@ export function Enhance_js_Array() {
 	})
 
 	Enhance(Array.prototype, "shuffle", function () {
-		const a = [...this];
+		const a = [...this]
 
-		for (let i = a.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[a[i], a[j]] = [a[j], a[i]];
-		}
+		do {
+			for (let i = a.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[a[i], a[j]] = [a[j], a[i]]
+			}
+		} while (this.same(a))
 
-		return a;
+		return a
 	})
 
 	Enhance(Array.prototype, "same", function (o) {
