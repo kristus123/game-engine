@@ -1,3 +1,34 @@
+function shrink(element, duration = 1000) {
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
+
+    element.style.transition = `width ${duration}ms, height ${duration}ms`;
+    element.style.width = `${width}px`;
+    element.style.height = `${height}px`;
+
+    requestAnimationFrame(() => {
+        element.style.width = "0px";
+        element.style.height = "0px";
+    });
+}
+
+function unshrink(element, duration = 1000) {
+
+	const width = element.width
+	const height = element.height
+
+    element.style.transition = "none";
+    element.style.width = "0px";
+    element.style.height = "0px";
+
+    requestAnimationFrame(() => {
+        element.style.transition = `width ${duration}ms, height ${duration}ms`;
+        element.style.width = `${width}px`;
+        element.style.height = `${height}px`;
+    });
+}
+
+
 export class Kristian {
 
 	constructor() {
@@ -14,10 +45,12 @@ export class Kristian {
 
 		Dom.add(html)
 		setTimeout(() => {
-			const copy = html.box.copy()
-			html.box.swap(copy)
-
-			html.box.animateTowards(html.otherBox)
+			const copy = html.h1.copy()
+			copy.invisible()
+			html.main.prepend(copy)
+			shrink(copy, 1000)
+			// unshrink(html.h1)
+			html.h1.animateTowards(html.otherBox, 200)
 		}, 500)
 
 		let placeholder = null

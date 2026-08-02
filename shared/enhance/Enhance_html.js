@@ -513,7 +513,6 @@ export function Enhance_html() {
 	})
 
 
-
 	Enhance(HTMLElement.prototype, "swap", function (o) {
 		const parent = this.parentNode
 		const placeholder = document.createElement("span")
@@ -523,11 +522,10 @@ export function Enhance_html() {
 		parent.insertBefore(o, placeholder)
 
 		placeholder.remove()
-
 	})
 
 
-	Enhance(HTMLElement.prototype, "animateTowards", function (destination) {
+	Enhance(HTMLElement.prototype, "animateTowards", function (destination, duration=200) {
 		const first = this.getBoundingClientRect()
 
 		destination.appendChild(this)
@@ -543,7 +541,7 @@ export function Enhance_html() {
 			{ transform: `translate(${dx}px, ${dy}px)` },
 			{ transform: "translate(0, 0)" }
 		], {
-			duration: 200,
+			duration: duration,
 			easing: "ease-in-out"
 		})
 
