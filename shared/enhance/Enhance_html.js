@@ -305,6 +305,37 @@ export function Enhance_html() {
 		}
 	})
 
+	Enhance(HTMLElement.prototype, "unshrink", function (duration = 200) {
+	const width = this.width
+	const height = this.height
+
+	this.style.transition = "none"
+	this.style.width = "0px"
+	this.style.height = "0px"
+
+	requestAnimationFrame(() => {
+		this.style.transition = `width ${duration}ms, height ${duration}ms`
+		this.style.width = `${width}px`
+		this.style.height = `${height}px`
+	})
+
+	})
+
+
+	Enhance(HTMLElement.prototype, "shrink", function (duration) {
+	const width = this.offsetWidth
+	const height = this.offsetHeight
+
+	this.style.transition = `width ${duration}ms, height ${duration}ms`
+	this.style.width = `${width}px`
+	this.style.height = `${height}px`
+
+	requestAnimationFrame(() => {
+		this.style.width = "0px"
+		this.style.height = "0px"
+		})
+	})
+
 	Enhance(HTMLElement.prototype, "bounce", function (delay=0) {
 		setTimeout(() => {
 			this.animate(
