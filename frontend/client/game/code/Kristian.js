@@ -86,7 +86,6 @@ export class Kristian {
 		}
 
 		newChallenge()
-
 	}
 
 	update() {
