@@ -86,9 +86,24 @@ export class Kristian {
 		}
 
 		newChallenge()
+
+		this.objects = Objects([
+			LazyLoop([], {
+				onNext: () => {
+
+				},
+				onFinish: () => {
+
+				},
+				onUpdate: () => {
+
+				},
+			}),
+		])
 	}
 
 	update() {
+		this.objects.update()
 	}
 
 }
