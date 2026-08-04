@@ -8,7 +8,7 @@ export const jsFiles = Files.at(Paths.frontend)
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
 function PrepareIndexHtml() {
-	const htmlContents = Files.at(Paths.client) // rename to htmlTemplates
+	const htmlContents = Files.at(Paths.frontend) // rename to htmlTemplates
 		.filter(f => !f.includes("index.html"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
@@ -52,13 +52,14 @@ export function GenerateFrontend(env) {
 
 	Transpiler(env, jsFiles)
 
-	const names = Files.at(Paths.client)
+	const names = Files.at(Paths.frontend)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
 
 	const seen = new Set()
 	for (const name of names) {
 		if (seen.has(name)) {
+			console.log(name)
 			throw new Error(`Duplicate file name found: ${name}`)
 		}
 		seen.add(name)
