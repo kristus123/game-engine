@@ -1,3 +1,4 @@
+// nabir move this
 export function NormalizeVector(vector) {
 
 	const mag = Math.sqrt(vector.x * vector.x + vector.y * vector.y)

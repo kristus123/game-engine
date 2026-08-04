@@ -1,8 +1,8 @@
 export const index = ""
 
-import { initD1 } from "/client/tools/start/draw_layers/D1.js"
-import { initD2 } from "/client/tools/start/draw_layers/D2.js"
-import { initD3 } from "/client/tools/start/draw_layers/D3.js"
+import { initD1 } from "/tools/start/draw_layers/D1.js"
+import { initD2 } from "/tools/start/draw_layers/D2.js"
+import { initD3 } from "/tools/start/draw_layers/D3.js"
 
 SocketClient.onServerMessage("HOT_RELOAD", () => {
 	Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))

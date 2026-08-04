@@ -2,11 +2,8 @@ export class Paths {
 	static frontend = "frontend"
 	static backend = "backend"
 	static shared = "shared"
-	static game = "frontend/client/game"
-	static engine = "frontend/client/engine"
 	static buildTools = "dev"
 
-	static client = "frontend/client"
 	static favicon = "frontend/favicon.ico"
 	static dist = "dist"
 	static transpiledBackend = "transpiledBackend"
