@@ -326,6 +326,7 @@
         "TestResizeObserver": "readonly",
         "TileInfo": "readonly",
         "TileInfoController": "readonly",
+        "To": "readonly",
         "ToChinese": "readonly",
         "Toast": "readonly",
         "TokenEndpoint": "readonly",
