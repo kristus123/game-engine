@@ -128,3 +128,35 @@ body {
 	--duration: 10s;
 	--delay: -20s;
 }
+
+.background {
+	opacity: 0.5;
+	background:
+		radial-gradient(
+			ellipse at 20% 30%,
+			rgb(255 190 220 / 70%),
+			transparent 35%
+		),
+		radial-gradient(
+			ellipse at 75% 25%,
+			rgb(190 220 255 / 70%),
+			transparent 35%
+		),
+		radial-gradient(
+			ellipse at 60% 75%,
+			rgb(210 190 255 / 65%),
+			transparent 40%
+		),
+		radial-gradient(
+			ellipse at 25% 80%,
+			rgb(190 255 230 / 60%),
+			transparent 35%
+		),
+		radial-gradient(
+			ellipse at 50% 50%,
+			rgb(255 245 190 / 40%),
+			transparent 50%
+		),
+		#f8f7ff;
+
+}
