@@ -71,6 +71,7 @@ export class Kristian {
 			DomMouse.onMouseMove = e => {
 			}
 
+
 			DomMouse.whileDragging = e => {
 				placeholder?.followMouse(0, -50)
 
@@ -86,24 +87,9 @@ export class Kristian {
 		}
 
 		newChallenge()
-
-		this.objects = Objects([
-			LazyLoop([], {
-				onNext: () => {
-
-				},
-				onFinish: () => {
-
-				},
-				onUpdate: () => {
-
-				},
-			}),
-		])
 	}
 
 	update() {
-		this.objects.update()
 	}
 
 }

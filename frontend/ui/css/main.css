@@ -30,7 +30,101 @@ body {
 			rgb(0 0 0 / 70%) 100%
 		), url("/image.jpg");
 
+	filter: blur(10px);
+
+	image-rendering: pixelated;
+
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+}
+
+.bubble {
+	--size: 100px;
+	--x: 50%;
+	--duration: 5s;
+	--delay: 0s;
+
+	position: absolute;
+	left: var(--x);
+	bottom: -20%;
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+
+	background: var(--color, white);
+	box-shadow:
+		0 0 20px rgb(255 255 255 / 25%),
+		0 0 60px rgb(255 255 255 / 15%),
+		0 0 120px rgb(255 255 255 / 8%);
+
+	animation: bubble-up var(--duration) ease-in-out var(--delay) infinite;
+}
+
+@keyframes bubble-up {
+	0% {
+		bottom: -20%;
+		transform: translateX(0) scale(0.8);
+		opacity: 0;
+	}
+
+	10% {
+		opacity: 0.6;
+	}
+
+	35% {
+		transform: translateX(30px) scale(1.8);
+	}
+
+	60% {
+		transform: translateX(-30px) scale(1.05);
+	}
+
+	85% {
+		transform: translateX(60px) scale(0.9);
+	}
+
+	100% {
+		bottom: 120%;
+		transform: translateX(-90px) scale(0.3);
+		opacity: 0;
+	}
+}
+
+.bubble:nth-child(1) {
+	--color: yellow;
+	--size: 80px;
+	--x: 20%;
+	--duration: 8s;
+	--delay: -1s;
+}
+
+.bubble:nth-child(2) {
+	--size: 180px;
+	--x: 50%;
+	--duration: 8s;
+	--delay: -3s;
+}
+
+.bubble:nth-child(3) {
+	--size: 80px;
+	--x: 80%;
+	--duration: 8s;
+	--delay: -8s;
+}
+
+.bubble:nth-child(4) {
+	--color: orange;
+	--size: 180px;
+	--x: 90%;
+	--duration: 20s;
+	--delay: -20s;
+}
+
+.bubble:nth-child(5) {
+	--color: blue;
+	--size: 300px;
+	--x: 20%;
+	--duration: 10s;
+	--delay: -20s;
 }
