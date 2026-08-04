@@ -30,7 +30,7 @@ body {
 			rgb(0 0 0 / 70%) 100%
 		), url("/image.jpg");
 
-	filter: blur(10px);
+	/* filter: blur(10px); */
 
 	image-rendering: pixelated;
 
