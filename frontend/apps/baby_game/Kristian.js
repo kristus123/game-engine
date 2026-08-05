@@ -44,7 +44,7 @@ export class Kristian {
 					html.progress.style.width = html.progress.data.value + "%"
 
 					if (html.progress.data.value >= 100) {
-						html.progress.style.background = 'orange'
+						html.progress.style.background = "orange"
 
 					}
 

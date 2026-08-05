@@ -1,28 +1,18 @@
 <style>
+	.success {
+		background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b967ff, #ff6b6b);
+		background-size: 200% 100%;
+		animation: success-rainbow 1s linear infinite;
+	}
 
-.success {
-    background: linear-gradient(
-        90deg,
-        #ff6b6b,
-        #ffd93d,
-        #6bcb77,
-        #4d96ff,
-        #b967ff,
-        #ff6b6b
-    );
-    background-size: 200% 100%;
-    animation: success-rainbow 1s linear infinite;
-}
-
-@keyframes success-rainbow {
-    from {
-        background-position: 0% 50%;
-    }
-    to {
-        background-position: 200% 50%;
-    }
-}
-
+	@keyframes success-rainbow {
+		from {
+			background-position: 0% 50%;
+		}
+		to {
+			background-position: 200% 50%;
+		}
+	}
 </style>
 
 <overlay bg-nature></overlay>
@@ -40,7 +30,12 @@
 
 		<bot center>
 			<div max-width style="max-width: 1200px; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden">
-				<div data-value="0" id="progress" class="success" style="width: 0%; height: 100%; transition: width 0.2s ease"></div>
+				<div
+					data-value="0"
+					id="progress"
+					class="success"
+					style="width: 0%; height: 100%; transition: width 0.2s ease"
+				></div>
 			</div>
 		</bot>
 	</phone-grid>
