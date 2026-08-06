@@ -28,6 +28,11 @@
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
-    "mediasoup@3.20.0": true
+    "mediasoup@3.21.0": true
+  },
+  "overrides": {
+    "brace-expansion": ">5.0.7",
+    "fast-uri": ">3.0.1",
+    "tar": ">7.5.20"
   }
 }
