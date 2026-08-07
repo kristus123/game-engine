@@ -34,7 +34,7 @@ export async function ExportAseprite(path = null) {
 		return
 	}
 
-	const files = Files.at(Paths.frontend)
+	const files = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".aseprite"))
 
 	await Promise.all(files.map(f => exportFile(f)))

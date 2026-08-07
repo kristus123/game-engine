@@ -8,7 +8,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		throw new Error("you need to include environment when calling Transpiler.js")
 	}
 
-	const sharedFiles = Files.at(Paths.shared)
+	const sharedFiles = Files.at(Paths.sharedFolder)
 
 	for (const jsFilePath of jsFiles) {
 		let fileContent = Files.read(jsFilePath)

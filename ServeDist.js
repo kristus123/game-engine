@@ -36,7 +36,7 @@ const server = http.createServer((req, res) => {
 		url += "index.html"
 	}
 
-	let filePath = Paths.dist + url
+	let filePath = Paths.distFolder + url
 
 	fs.readFile(filePath, (err, data) => {
 		if (err) {
