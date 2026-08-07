@@ -3,12 +3,12 @@ const { Files, Paths, Transpiler, Markdown, GenerateIndexJs } = AllImports
 
 // todo find better solution?
 // right now everyone creates their own list
-export const jsFiles = Files.at(Paths.frontend)
+export const jsFiles = Files.at(Paths.frontendFolder)
 	.filter(f => f.endsWith(".js"))
 	.map(f => f.replaceAll("\\", "/")) // is this one needed?
 
 function PrepareIndexHtml() {
-	const htmlContents = Files.at(Paths.frontend) // rename to htmlTemplates
+	const htmlContents = Files.at(Paths.frontendFolder) // rename to htmlTemplates
 		.filter(f => !f.includes("index.html"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
@@ -52,7 +52,7 @@ export function GenerateFrontend(env) {
 
 	Transpiler(env, jsFiles)
 
-	const names = Files.at(Paths.frontend)
+	const names = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => f.split("/").pop().replace(/\.html$/, "").replace(/\.md$/, ""))
 

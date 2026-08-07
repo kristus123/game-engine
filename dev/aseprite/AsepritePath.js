@@ -12,7 +12,7 @@ export const AsepritePath = (() => {
 		path.join(home, "aseprite/build/bin/aseprite"), // Windows - maybe one of them is redundant
 		path.join(home, "aseprite/bin/aseprite"), // Windows - maybe one of them is redundant
 		path.join(home, "src/ase/build/bin/aseprite"),
-		path.join(home, "Apps/AppData/Aseprite/bin/aseprite"), // Nabir
+		path.join(home, "Apps/AppData/Aseprite/aseprite"), // Nabir
 	]
 
 	const potentialPathsWindows = [

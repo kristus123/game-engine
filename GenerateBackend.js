@@ -12,18 +12,18 @@ export function GenerateBackend(ENVIRONMENT) {
 	// Copy Shared Into transpiledBackend
 	const destPath = path.join(Paths.transpiledBackend, "shared") // nabir, stop using path.join. it is ugly
 
-	for (let sharedFilePath of Files.at(Paths.shared)) {
+	for (let sharedFilePath of Files.at(Paths.sharedFolder)) {
 		console.log(sharedFilePath)
 
 		let content = Files.read(sharedFilePath)
 		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
 		const imports = Imports.needed(content, [
-			...Files.at(Paths.shared)
+			...Files.at(Paths.sharedFolder)
 		])
 			.replaceAll("/shared", "#root/" + destPath)
 
-		Files.write(sharedFilePath.replace(Paths.shared, destPath), imports + "\n" + content)
+		Files.write(sharedFilePath.replace(Paths.sharedFolder, destPath), imports + "\n" + content)
 	}
 
 	for (let f of Files.at("backend/")) {
@@ -32,7 +32,7 @@ export function GenerateBackend(ENVIRONMENT) {
 		const imports = Imports.needed(content, [
 			...Files.at("backend/"),
 			...Files.at("dev/"),
-			...Files.at(Paths.shared),
+			...Files.at(Paths.sharedFolder),
 		])
 			.replaceAll("/backend/", "#root/transpiledBackend/")
 			.replaceAll("/dev/", "#root/dev/")

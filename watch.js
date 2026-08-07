@@ -26,7 +26,7 @@ GenerateBackend("DEVELOPMENT")
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
-Files.deleteFolder(Paths.dist)
+Files.deleteFolder(Paths.distFolder)
 
 // todo improve comment
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
@@ -92,7 +92,7 @@ function triggerClientReload() {
 	}, 100)
 }
 
-TestWatcher([Paths.shared, Paths.frontend, Paths.backend], [".js", ".aseprite", ".html", ".css"], {
+TestWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)

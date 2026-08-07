@@ -6,7 +6,7 @@ const { Files, Paths } = AllImports
 export function PrepareExternalBundle() {
 	console.log("Building External Bundle...")
 
-	childProcess.exec(`npx esbuild ${Paths.externalBundle} --bundle --outfile=${Paths.externalBundleDistPath}`, (err, stdout, stderr) => {
+	childProcess.exec(`npx esbuild bundle.js --bundle --outfile=${Paths.dist.externalBundle}`, (err, stdout, stderr) => {
 		if (err) {
 			console.error(err)
 		}
@@ -17,6 +17,6 @@ export function PrepareExternalBundle() {
 			console.log(stdout)
 		}
 
-		Files.appendString(Paths.externalBundleDistPath, "\nexport const out = \"\"")
+		Files.appendString(Paths.dist.externalBundle, "\nexport const out = \"\"")
 	})
 }

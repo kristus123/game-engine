@@ -17,9 +17,9 @@ function extractDuplicates(arr) {
 
 // consider a better more robust solution as this will probably be duplicated multiple places
 const allFiles = [
-	...Files.at(Paths.backend),
-	...Files.at(Paths.frontend),
-	...Files.at(Paths.shared),
+	...Files.at(Paths.backendFolder),
+	...Files.at(Paths.frontendFolder),
+	...Files.at(Paths.sharedFolder),
 ].filter(f => !f.endsWith(".DS_Store")) // this is for macos users since mac makes this file for every folder opened.
 
 function assertUnique(names, errorMessage) {
