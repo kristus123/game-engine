@@ -12,15 +12,26 @@ export class Kristian {
 			html.list.removeChildren()
 			html.h1.textContent = "try again"
 
-			const challenge = ["1", "2"]
+			const challenge = ["1", "2", "3", "4"]
 
+			const q = Queue()
 			for (const number of challenge.shuffle()) {
-				html.list.add(`
+				const card = `
 					<div data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
 						<p style="font-size:85px" center class="textWhite">${number}</p>
 					</div>
-				`.toHtml())
+				`.toHtml()
+
+				card.invisible()
+				html.list.add(card)
+
+				q.add(next => {
+					card.visible()
+					card.play("moveIn", { onHalf: next })
+				})
 			}
+
+			q.start()
 
 			let placeholder = null
 
@@ -51,14 +62,20 @@ export class Kristian {
 
 					for (const card of html.list.children) {
 						q.add(next => card.play("moveOut", {
-							onEnd: () => {
+							onHalf: () => {
 								next()
-								card.hide()
+							},
+							onEnd: () => {
+								card.invisible()
 							}
 						}))
 					}
 
-					q.start(() => newChallenge())
+					q.start({
+						onEnd: () => {
+							newChallenge()
+						}
+					})
 				}
 			}
 

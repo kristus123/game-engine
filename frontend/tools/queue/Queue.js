@@ -8,7 +8,7 @@ export class Queue {
 		return this
 	}
 
-	start(onEnd = () => {}) {
+	start({ onEnd = () => {} } = {}) {
 		if (this.running) {
 			throw new Error("WorkerQueue is already running")
 		}

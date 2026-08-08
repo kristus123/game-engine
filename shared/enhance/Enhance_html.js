@@ -484,56 +484,59 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "play", function (className, { variables={}, onStart, onEnd } = {}) {
-		this._anims ??= new Map()
+	Enhance(HTMLElement.prototype, "play", function (className, { variables={}, onStart, onHalf, onEnd } = {}) {
+		this._activeAnimations ??= new Map()
 
-		// Clean up any existing animation with the same class name
-		if (this._anims.has(className)) {
-			const old = this._anims.get(className)
-			this.classList.remove(className)
-			this.removeEventListener("animationstart", old.handleStart)
-			this.removeEventListener("animationend", old.handleEnd)
-			this._anims.delete(className)
+		if (this._activeAnimations.has(className)) {
+			throw new Error("todo handle this case one day")
 		}
-
-		const uuid = crypto.randomUUID()
 
 		for (const [name, value] of Object.entries(variables)) {
 			this.addCssVariable(name, value)
 		}
 
-		this.classList.add(className)
-		this.dataset.uuid = uuid
+		const animationListeners = {
+			animationStart: e => {
+				if (this == e.target && e.animationName == className) {
+					console.log("playing " + className)
+					onStart?.(e)
 
-		const handleStart = (e) => {
-			if (this == e.target && (e.animationName ?? "") == className) {
-				console.log("sstart")
-				onStart?.(e)
-			}
+					const start = performance.now()
+					const duration = parseFloat(getComputedStyle(this).animationDuration) * 1000
+					const checkHalf = () => {
+						if ((performance.now() - start) >= duration / 2) {
+							onHalf?.(e)
+						}
+						else {
+							requestAnimationFrame(checkHalf)
+						}
+					}
+					requestAnimationFrame(checkHalf)
+				}
+			},
+			animationEnd: e => {
+				if (this == e.target && e.animationName == className) {
+					console.log("removing " + className)
+					onEnd?.(e)
+
+					this.removeClass(className)
+
+					this.removeEventListener("animationstart", animationListeners.animationStart)
+					this.removeEventListener("animationend", animationListeners.animationEnd)
+
+					this._activeAnimations.delete(className)
+				}
+			},
 		}
+		this._activeAnimations.set(className, animationListeners)
 
-		const handleEnd = e => {
-			if (
-				this == e.target &&
-				(e.animationName ?? "") == className
-			) {
-				console.log("end")
-				onEnd?.(e)
+		this.addEventListener("animationstart", animationListeners.animationStart)
+		this.addEventListener("animationend", animationListeners.animationEnd)
+		this.addEventListener("animationcancel", () => {
+			throw new Error("handle one day")
+		})
 
-				this.classList.remove(className)
-				delete this.dataset.uuid
-
-				this.removeEventListener("animationstart", handleStart)
-				this.removeEventListener("animationend", handleEnd)
-
-				this._anims.delete(className)
-			}
-		}
-
-		this._anims.set(className, { handleStart, handleEnd })
-
-		this.addEventListener("animationstart", handleStart)
-		this.addEventListener("animationend", handleEnd)
+		this.addClass(className)
 
 		return this
 	})

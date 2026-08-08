@@ -13,10 +13,81 @@
 			background-position: 200% 50%;
 		}
 	}
+
+	.aurora-bg {
+		overflow: hidden;
+		background: linear-gradient(180deg, #020313, #050821, #02030d);
+	}
+
+	.aurora {
+		position: absolute;
+		inset: -30%;
+		background:
+			radial-gradient(ellipse at 30% 45%, rgba(40, 255, 180, 0.2), transparent 30%),
+			radial-gradient(ellipse at 60% 40%, rgba(80, 160, 255, 0.16), transparent 30%),
+			radial-gradient(ellipse at 80% 55%, rgba(180, 80, 255, 0.1), transparent 25%);
+		filter: blur(40px);
+		animation: aurora 18s ease-in-out infinite;
+	}
+
+	@keyframes aurora {
+		0% {
+			transform: translate(-5%, 2%) skewX(-6deg) scale(1);
+		}
+
+		25% {
+			transform: translate(3%, -2%) skewX(4deg) scale(1.08);
+		}
+
+		50% {
+			transform: translate(7%, 3%) skewX(10deg) scale(1);
+		}
+
+		75% {
+			transform: translate(-2%, -3%) skewX(-4deg) scale(1.12);
+		}
+
+		100% {
+			transform: translate(-5%, 2%) skewX(-6deg) scale(1);
+		}
+	}
+
+	.stars {
+		position: absolute;
+		inset: 0;
+		opacity: 0.7;
+		background-image:
+			radial-gradient(circle at 12% 18%, white 1px, transparent 1.5px),
+			radial-gradient(circle at 31% 72%, white 0.7px, transparent 1.2px),
+			radial-gradient(circle at 47% 24%, white 1.2px, transparent 1.8px),
+			radial-gradient(circle at 68% 61%, white 0.6px, transparent 1.2px),
+			radial-gradient(circle at 82% 31%, white 0.9px, transparent 1.5px),
+			radial-gradient(circle at 91% 78%, white 0.5px, transparent 1px),
+			radial-gradient(circle at 23% 43%, #b9d9ff 0.6px, transparent 1.2px),
+			radial-gradient(circle at 58% 86%, #d8eaff 0.8px, transparent 1.3px);
+		animation: stars 4s ease-in-out infinite alternate;
+	}
+
+	@keyframes stars {
+		from {
+			opacity: 0.2;
+		}
+
+		to {
+			opacity: 0.6;
+		}
+	}
 </style>
 
-<overlay bg-nature></overlay>
-<overlay class="background" id="blurred" bg-nature></overlay>
+<!-- <overlay bg-nature></overlay> -->
+<!-- <overlay class="background" id="blurred" bg-nature></overlay> -->
+
+<overlay>
+	<div class="aurora-bg" max-size>
+		<div class="aurora"></div>
+		<div class="stars"></div>
+	</div>
+</overlay>
 
 <overlay>
 	<phone-grid>
