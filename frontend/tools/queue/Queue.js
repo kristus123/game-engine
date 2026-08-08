@@ -10,10 +10,10 @@ export class Queue {
 
 	start(onEnd = () => {}) {
 		if (this.running) {
-    		throw new Error("WorkerQueue is already running")
+			throw new Error("WorkerQueue is already running")
 		}
 		else if (this.queue.length == 0) {
-    		throw new Error("WorkerQueue is empty")
+			throw new Error("WorkerQueue is empty")
 		}
 		else {
 			this.running = true
