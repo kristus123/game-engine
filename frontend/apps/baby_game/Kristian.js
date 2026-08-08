@@ -45,10 +45,20 @@ export class Kristian {
 
 					if (html.progress.data.value >= 100) {
 						html.progress.style.background = "orange"
-
 					}
 
-					newChallenge()
+					const q = Queue()
+
+					for (const card of html.list.children) {
+						q.add(next => card.play("moveOut", {
+							onEnd: () => {
+								next()
+								card.hide()
+							}
+						}))
+					}
+
+					q.start(() => newChallenge())
 				}
 			}
 

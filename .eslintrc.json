@@ -278,6 +278,7 @@
         "PushClient": "readonly",
         "Pwa": "readonly",
         "Quest": "readonly",
+        "Queue": "readonly",
         "Rain": "readonly",
         "Random": "readonly",
         "RandomIntegerEveryMs": "readonly",
