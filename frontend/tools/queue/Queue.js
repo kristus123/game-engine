@@ -1,20 +1,20 @@
 export class Queue {
 	constructor(queue=[]) {
-    	this.running = false
+		this.running = false
 	}
 
 	add(task) {
-    	this.queue.push(task)
-    	return this
+		this.queue.push(task)
+		return this
 	}
 
 	start(onEnd = () => {}) {
-    	if (this.running) {
-        	throw new Error("WorkerQueue is already running")
-    	}
+		if (this.running) {
+    		throw new Error("WorkerQueue is already running")
+		}
 		else if (this.queue.length == 0) {
-        	throw new Error("WorkerQueue is empty")
-    	}
+    		throw new Error("WorkerQueue is empty")
+		}
 		else {
 			this.running = true
 			this.processNextTask(onEnd)

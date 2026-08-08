@@ -65,15 +65,14 @@ export class Kristian {
 			DomMouse.whileDragging = e => {
 				placeholder.followMouse(0, -50)
 
-				for (const h of DomMouse.hovering) { // find better solution for this
-					const list = h.closest("[sortable]")
+				for (const e of DomMouse.hovering) { // find better solution for this
+					const list = e.closest("[sortable]")
 					if (list) {
 						list.orderBasedOnMousePosition(e)
 						break
 					}
 				}
 			}
-
 		}
 
 		newChallenge()
