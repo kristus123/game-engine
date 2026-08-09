@@ -37,7 +37,7 @@ export function Enhance_html() {
 		return this.getBoundingClientRect().height
 	})
 
-	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem) { // Not the best name.
+	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem, onChange= () => {}) { // Not the best name.
 
 		const items = [...this.children].filter(c => c != draggedItem)
 
@@ -56,9 +56,11 @@ export function Enhance_html() {
 		})
 
 		if (nextItem) {
+			onChange()
 			this.insertBefore(draggedItem, nextItem)
 		}
 		else {
+			onChange()
 			this.appendChild(draggedItem)
 		}
 	})
@@ -603,6 +605,17 @@ export function Enhance_html() {
 		return this
 	})
 
+
+	Enhance(HTMLElement.prototype, "placeOver", function (other) {
+		const rect = other.getBoundingClientRect()
+
+		this.style.left = `${rect.left}px`
+		this.style.top = `${rect.top}px`
+
+		this.style.width = `${rect.width}px`
+		this.style.height = `${rect.height}px`
+	})
+
 	Enhance(HTMLElement.prototype, "floating", function () {
 		//assert that class is not already present
 		this.addClass("floating")
@@ -617,7 +630,7 @@ export function Enhance_html() {
 
 	Setter(HTMLElement.prototype, "x", {
 		get() {
-			return parseFloat(this.style.left) || 0
+			return this.getBoundingClientRect().left
 		},
 		set(x) {
 			this.style.left = `${x}px`
@@ -626,7 +639,7 @@ export function Enhance_html() {
 
 	Setter(HTMLElement.prototype, "y", {
 		get() {
-			return parseFloat(this.style.top) || 0
+			return this.getBoundingClientRect().top
 		},
 		set(y) {
 			this.style.top = `${y}px`

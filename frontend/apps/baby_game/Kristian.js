@@ -4,17 +4,15 @@ export class Kristian {
 		const html = Html.matte()
 		Dom.add(html)
 
-		this.objects = Objects([
-
-		])
-
 		function newChallenge() {
 			html.list.removeChildren()
+
 			html.h1.textContent = "try again"
 
-			const challenge = ["1", "2", "3", "4"]
+			const challenge = ["1", "2"]
 
-			const q = Queue()
+			const queue = Queue()
+
 			for (const number of challenge.shuffle()) {
 				const card = `
 					<div data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
@@ -25,13 +23,19 @@ export class Kristian {
 				card.invisible()
 				html.list.add(card)
 
-				q.add(next => {
+				queue.add(next => {
 					card.visible()
-					card.play("moveIn", { onHalf: next })
+					card.play("moveIn", {
+						onEnd: next,
+					})
 				})
 			}
 
-			q.start()
+			queue.start({
+				onEnd: () => {
+					html.test.placeOver(html.list.children.last)
+				}
+			})
 
 			let placeholder = null
 
@@ -54,27 +58,23 @@ export class Kristian {
 					html.progress.data.value = To.integer(html.progress.data.value) + 50
 					html.progress.style.width = html.progress.data.value + "%"
 
-					if (html.progress.data.value >= 100) {
-						html.progress.style.background = "orange"
-					}
-
-					const q = Queue()
+					const queue = Queue()
 
 					for (const card of html.list.children) {
-						q.add(next => card.play("moveOut", {
+						queue.add(next => card.play("moveOut", {
 							onHalf: () => {
 								next()
 							},
 							onEnd: () => {
 								card.invisible()
-							}
+							},
 						}))
 					}
 
-					q.start({
+					queue.start({
 						onEnd: () => {
 							newChallenge()
-						}
+						},
 					})
 				}
 			}
@@ -85,7 +85,11 @@ export class Kristian {
 				for (const h of DomMouse.hovering) { // find better solution for this
 					const list = h.closest("[sortable]")
 					if (list) {
-						list.orderBasedOnMousePosition(e)
+						list.orderBasedOnMousePosition(e, () => {
+							console.log("onchange baby")
+							html.test.placeOver(html.list.children.last)
+						})
+
 						break
 					}
 				}
@@ -96,7 +100,6 @@ export class Kristian {
 	}
 
 	update() {
-		this.objects.update()
 	}
 
 }
