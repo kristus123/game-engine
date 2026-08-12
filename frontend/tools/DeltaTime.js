@@ -1,12 +1,10 @@
 // deltatime is in seconds
 
-
-
 export class DeltaTime {
 	static {
 		this.stopwatch = StopWatch()
 		this.lastTime = this.stopwatch.time
-		this.delta = 0
+		this.delta = 0 // seconds
 	}
 
 	static update() {
@@ -31,7 +29,7 @@ export class DeltaTime {
 		return this
 	}
 
-	static get value() {
+	static get value() { // seconds
 		return this.delta
 	}
 

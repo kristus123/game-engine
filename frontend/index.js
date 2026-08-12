@@ -36,7 +36,7 @@ Promise.all([
 
 		const activeThing = Kristian()
 
-		Loop.everyFrame(() => {
+		GameLoop.start(() => {
 			Palette.main.fill("#10204f")
 
 			Palette.d1.clear()
