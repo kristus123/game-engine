@@ -6,3 +6,10 @@ img {
 	max-height:100%;
 	image-rendering: pixelated;
 }
+
+
+[stretch-max-size] {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
