@@ -1,15 +1,9 @@
-[float-top] {
-	position: absolute;
-	top: 0;
-}
-
 [float-mid] {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 }
-
 
 [float-bot] {
 	position: absolute;
@@ -30,6 +24,13 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+[float-top-mid] {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 [float-top-right] {
