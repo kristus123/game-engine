@@ -8,9 +8,10 @@ export class LayoutTest {
 			p: Random.integerBetween(-30, 30),
 		}))) {
 			html.list.add(`
-				<div max-size class="bgWhite" style="top: ${c.p}%; width:300px; height:40%;">
+				<div max-size class="bgWhite" style="top: ${c.p}%; width:700px; height:40%;">
 					<h1 float-top-mid>${c.title}</h1>
 					<h1 float-bot-right>swag</h1>
+					<h1 float-bot-left>yolo</h1>
 					</div>
 				</div>
 			`.toHtml())
