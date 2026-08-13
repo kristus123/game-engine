@@ -1,0 +1,51 @@
+[float-top] {
+	position: absolute;
+	top: 0;
+}
+
+[float-mid] {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
+[float-bot] {
+	position: absolute;
+	bottom: 0;
+}
+
+[float-left] {
+	position: absolute;
+	left: 0;
+}
+
+[float-right] {
+	position: absolute;
+	right: 0;
+}
+
+[float-top-left] {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+[float-top-right] {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+[float-bot-left] {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+[float-bot-right] {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}

@@ -8,3 +8,17 @@ overlay,
 	max-height: 100vh;
 }
 
+
+overlay[game] {
+	width: min(100vw, 1000px);
+	aspect-ratio: 16 / 9;
+	height: auto;
+	max-height: 100vh;
+
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	border-radius: 80px;
+}
