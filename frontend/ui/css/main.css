@@ -7,10 +7,6 @@
 	position: relative; /* newly added, maybe dangerous */
 }
 
-html {
-	overscroll-behavior: none;
-}
-
 body {
 	user-select: none;
 
@@ -18,9 +14,15 @@ body {
 	touch-action: pan-x pan-y;
 	padding-top: env(safe-area-inset-top);
 	white-space: normal;
-
-	overflow: hidden;
 }
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	overscroll-behavior: none;
+}
+
 
 [bg-nature] {
 	background-image:
@@ -159,4 +161,14 @@ body {
 		),
 		#f8f7ff;
 
+}
+
+
+
+/* to keep stuff consistent */
+button,
+input,
+textarea,
+select {
+	font: inherit;
 }

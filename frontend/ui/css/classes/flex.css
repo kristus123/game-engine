@@ -3,7 +3,7 @@ flex-h {
 
 	flex-flow: row wrap;
 	align-items: center;
-	justify-content: space-around; /* center / space-around / space-evenly */
+	justify-content: center; /* center / space-around / space-evenly */
 	box-sizing: border-box;
 }
 

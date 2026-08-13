@@ -211,6 +211,7 @@
         "Iterate": "readonly",
         "Keyboard": "readonly",
         "Kristian": "readonly",
+        "LayoutTest": "readonly",
         "LazyLoadedList": "readonly",
         "LazyLoop": "readonly",
         "Light": "readonly",

@@ -34,7 +34,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-		const activeThing = Kristian()
+		const activeThing = LayoutTest()
 
 		GameLoop.start(() => {
 			Palette.main.fill("#10204f")
