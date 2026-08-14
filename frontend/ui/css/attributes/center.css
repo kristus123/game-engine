@@ -22,3 +22,8 @@
 	align-items: center;   
 	flex-direction: column;
 }
+
+[center-content] {
+	display: grid;
+	place-items: center;
+}

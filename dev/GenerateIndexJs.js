@@ -4,6 +4,12 @@ const { Files, Paths, Markdown } = AllImports
 export function GenerateIndexJs(htmlContents) {
 	let fileContent = Files.read(Paths.dist.index_js)
 
+	const webComponentFiles = Files.at(Paths.frontendFolder)
+		.filter(f => f.includes("-"))
+		.filter(f => f.endsWith(".html"))
+	
+	console.log(webComponentFiles)
+
 	const asepriteFiles = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".aseprite"))
 		.map(f => f.split("/").pop().replace(".aseprite", ""))
