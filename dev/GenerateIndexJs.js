@@ -7,6 +7,10 @@ export function GenerateIndexJs(htmlContents) {
 	const webComponentFiles = Files.at(Paths.frontendFolder)
 		.filter(f => f.includes("-"))
 		.filter(f => f.endsWith(".html"))
+		.map(f => ({
+			name: f.split("/").pop().replace(".html", ""),
+			path: f.replace("frontend", "")
+		}))
 	
 	console.log(webComponentFiles)
 
@@ -31,6 +35,7 @@ export function GenerateIndexJs(htmlContents) {
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
 	fileContent = fileContent.replaceAll("IMAGE_FILES", `[${imageFiles}]`)
+	fileContent = fileContent.replaceAll("WEB_COMPONENTS", `${JSON.stringify(webComponentFiles)}`)
 
 	Files.write(Paths.dist.index_js, fileContent)
 }
