@@ -3,8 +3,25 @@ const { Files, Paths, Markdown } = AllImports
 
 export function GenerateIndexJs() {
 
+	const customWebComponents = Files.at(Paths.frontendFolder)
+		.filter(f => f.endsWith(".html") && f.includes("-"))
+		.map(f => {
+			let content = Files.read(f)
+
+			content = content
+				.replace("\n", "")
+				.replace(/\s+/g, " ")
+				.trim()
+
+			const name = f.split("/").pop()
+				.replace(".html", "")
+
+			return JSON.stringify({ name: name, content: content })
+		})
+
 	const htmlContents = Files.at(Paths.frontendFolder) // rename to htmlTemplates
 		.filter(f => !f.includes("index.html"))
+		.filter(f => !f.includes("-"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
 			console.log(f)
@@ -48,6 +65,7 @@ export function GenerateIndexJs() {
 
 	fileContent = fileContent.replaceAll("ASEPRITE_FILES", `[${asepriteFiles}]`)
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
+	fileContent = fileContent.replaceAll("CUSTOM_WEB_COMPONENTS", `[${customWebComponents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
 	fileContent = fileContent.replaceAll("IMAGE_FILES", `[${imageFiles}]`)
 

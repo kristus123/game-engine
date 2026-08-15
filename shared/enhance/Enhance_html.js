@@ -452,7 +452,11 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "add", function (elements) {
-		for (const e of Always.list(elements)) {
+		for (let e of Always.list(elements)) {
+			if (A.string(e)) {
+				e = e.toHtml()
+			}
+
 			this.appendChild(e)
 		}
 	})

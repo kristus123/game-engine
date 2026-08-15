@@ -350,6 +350,7 @@
         "Wait": "readonly",
         "WaitUntil": "readonly",
         "Water": "readonly",
+        "WebComponent": "readonly",
         "Webcam": "readonly",
         "WorkerFile": "readonly",
         "World": "readonly",

@@ -22,6 +22,9 @@ Promise.all([
 	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
 	LoadAllAudio(AUDIO_FILES),
 	LoadAllImages(IMAGE_FILES),
+	Promise.all(CUSTOM_WEB_COMPONENTS.map(c => {
+		WebComponent(c.name, c.content)
+	}))
 	// LoadPersistedJson(),
 ])
 	.then((x) => {
