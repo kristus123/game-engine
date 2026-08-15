@@ -17,15 +17,13 @@ export async function LoadHtmlContent(o) {
 			div.append(...template.content.children)
 		}
 
-		Array.from(div.children).forEach(child => {
+		div.children.forEach(child => {
 			const tag = child.tagName.toLowerCase()
-			// Assert.notPresent(div[tag]) // not the safest hack but it's ok. Getter adds it to the prototype
-			div[tag] = child
+			div[tag] = child // fix hack later
 		})
 
 		for (const e of div.querySelectorAll("[id]")) {
-			// Assert.notPresent(div[e.id]) // not the safest hack but it's ok. Getter adds it to the prototype
-			div[e.id] = e
+			div[e.id] = e // fix hack later
 		}
 
 		return div

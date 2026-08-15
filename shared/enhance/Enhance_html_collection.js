@@ -8,8 +8,13 @@ export function Enhance_html_collection() {
 		return Array.from(this).find(...args)
 	})
 
+	Enhance(HTMLCollection.prototype, "forEach", function (...args) {
+		return Array.from(this).forEach(...args)
+	})
+
 	Getter(HTMLCollection.prototype, "last", function () {
 		return this[this.length - 1]
 	})
+
 
 }
