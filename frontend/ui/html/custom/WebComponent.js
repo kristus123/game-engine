@@ -1,5 +1,9 @@
 // To use slots, you need to use shadow DOM, but then you don't get access to the global CSS
 
+//
+// Not a big fan of the name because it just doesn't really say that we are registering it, so yeah, but that can be fixed later
+//
+
 export function WebComponent(name, html) {
 	Assert.string(html)
 
