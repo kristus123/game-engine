@@ -1,5 +1,17 @@
-<div class="bgWhite" style="width: 20cqw; height: 40cqh">
-	<other-thing>
-		<slot name="title">hello</slot>
-	</other-thing>
+<div class="bgWhite" style="width: 15cqw; height: 40cqh">
+	<absolute-overlay>
+		<img
+			fill-space
+			id="img"
+			style="filter: blur(0px) brightness(0.9); transform: scale(1.1)"
+			src="/apps/layout_test/pics/lavvo.png"
+		/>
+	</absolute-overlay>
+
+	<h1 class="bgWhite" style="transform: translate(-50px, -50px)">Title</h1>
+
+	<flex-h float-bot>
+		<p class="bgWhite" style="font-size: 50px">5/20</p>
+		<button style="margin-bottom: 20px; height: 40px; font-size: 40px">Play</button>
+	</flex-h>
 </div>

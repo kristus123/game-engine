@@ -1,0 +1,8 @@
+.test {
+	background-image: url("/apps/layout_test/pics/aurora.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed; /* Optional */
+	filter: blur(5px) brightness(0.9);
+}

@@ -241,6 +241,7 @@
         "Microphone": "readonly",
         "Mix": "readonly",
         "Mouse": "readonly",
+        "MouseDragScroll": "readonly",
         "Mp3": "readonly",
         "My": "readonly",
         "MyTranslate": "readonly",
