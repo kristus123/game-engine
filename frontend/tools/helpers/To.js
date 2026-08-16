@@ -1,5 +1,9 @@
 export class To {
 
+	static string(a) {
+		return String(a)
+	}
+
 	static integer(value) {
 		if (typeof value == "string" && !/^-?\d+(\.0+)?$/.test(value)) {
 			throw new Error("invalid integer format: " + value)

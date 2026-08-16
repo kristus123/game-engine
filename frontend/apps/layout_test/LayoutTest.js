@@ -6,17 +6,11 @@ export class LayoutTest {
 
 		for (const c of Iterate(80, () => ({
 			title: Random.choice(["wow", "yo", "omg"]),
-			p: Random.integerBetween(-30, 30),
+			p: Random.integerBetween(-20, 20),
 		}))) {
-			html.list.add(`
-				<div class="bgWhite" style="top: ${c.p}%; width:100px; height:40%;">
-					<other-thing>
-						<slot name="title">
-							hello
-						</slot>
-					</other-thing>
-				</div>
-			`)
+			const h = Html.card()
+			h.style.top = To.string(c.p) + "%"
+			html.list.add(h)
 		}
 	}
 
