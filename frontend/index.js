@@ -53,6 +53,7 @@ Promise.all([
 			Gp.update()
 
 			Shadow.updateOutsideCameraContext()
+
 			Camera.applyPositionContextThing([
 				Palette.d1.ctx,
 				Palette.d2.ctx,
