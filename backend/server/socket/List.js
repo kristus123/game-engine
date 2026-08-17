@@ -1,3 +1,5 @@
+// todo remove
+
 export class List {
 
 	static remove(list, o) {

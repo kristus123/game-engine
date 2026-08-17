@@ -18,8 +18,9 @@ export class SimplifiedSocketServerAPI {
 				console.log("triggered onConnection")
 			},
 			onClose: (client, clientId) => {
-				List.remove(this.allClients, client)
-				List.remove(this.allClientIds, clientId)
+				// use enhanced methods instead. Enahnce is now moved to shared/.
+				List.remove(this.allClients, client) // todo don't use List.remove
+				List.remove(this.allClientIds, clientId) // todo don't use List.remove
 
 				delete this.clientFrom[clientId]
 				delete this.clientIdFrom[client]
