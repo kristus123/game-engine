@@ -51,8 +51,6 @@ const server = http.createServer((req, res) => {
 	})
 })
 
-
-
 export function ServeDist() {
 	server.listen(5050, "0.0.0.0")
 }
