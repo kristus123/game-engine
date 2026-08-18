@@ -1,5 +1,5 @@
 export const HttpClient = ProxyObject(
-	(method, { body = {}, ok = body => {}, error = body => {} } = {}) => {
+	(method, { body = {}, rawBody = null, ok = body => {}, error = body => {} } = {}) => {
 		Assert.jsonObject(body)
 
 		const abortController = new AbortController()
@@ -8,7 +8,7 @@ export const HttpClient = ProxyObject(
 		}, 1_000)
 
 		const request = {
-			body: JSON.stringify(body),
+			body: rawBody ?? JSON.stringify(body),
 			method: "POST",
 			cache: "no-store", // disables cache
 			signal: abortController.signal,

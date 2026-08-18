@@ -18,7 +18,23 @@ function validToken(encodedToken) {
 	return encodedToken != null && encodedToken != "null"
 }
 
-export async function parseBody(req) {
+function parseRawBody(req) {
+	return new Promise((resolve, reject) => {
+		const chunks = []
+
+		req.on("data", chunk => {
+			chunks.push(chunk)
+		})
+
+		req.on("end", () => {
+			resolve(Buffer.concat(chunks))
+		})
+
+		req.on("error", reject)
+	})
+}
+
+async function parseBody(req) {
 	let rawBody = Buffer.alloc(0)
 
 	for await (const chunk of req) {
@@ -108,13 +124,13 @@ export class HttpServer {
 					: null //todo not use null
 
 				try {
-					const body = await parseBody(req)
+					const body = await parseRawBody(req)
 
 					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, routeName(req))
 
 					const returnValue = method({
-						body: body,
+						body: body, // fix
 						req: req,
 						headers: req.headers,
 						contentType: req.headers["Content-Type"] || null,
