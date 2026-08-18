@@ -1,4 +1,5 @@
 export class LocalDate {
+
 	constructor(arg) {
 
 		if (A.string(arg)) {
