@@ -43,6 +43,11 @@ function routeName(req) {
 	return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
 }
 
+
+function aPromise(value) {
+	return value instanceof Promise
+}
+
 function validJson(value) {
 	if (value == null) {
 		return false
@@ -102,14 +107,13 @@ export class HttpServer {
 					? ServerToken.decode(encodedToken)
 					: null //todo not use null
 
-
 				try {
 					const body = await parseBody(req)
 
 					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, routeName(req))
 
-					const json = method({
+					const returnValue = method({
 						body: body,
 						req: req,
 						headers: req.headers,
@@ -117,12 +121,22 @@ export class HttpServer {
 						params: getQueryParameters(req),
 					}) ?? {}
 
-					if (validJson(json)) {
-						sendJson(res, 200, json)
+					if (aPromise(returnValue)) { // Consider moving this promise check into the method method
+						// currently no endpoints returns a promise, But i am just a comment and at one point I am wrong
+						const x = await returnValue
+						if (validJson(x)) {
+							sendJson(res, 200, x)
+						}
+						else {
+							throw new Error("return value of promise must be json, instead it is : " + x)
+						}
+					}
+					else if (validJson(returnValue)) {
+						sendJson(res, 200, returnValue)
 					}
 					else {
 						sendJson(res, 500, {
-							error: "You must send valid json as a response.",
+							error: "endpoint must return a valuid value. it returned: " + returnValue,
 						})
 					}
 				}
