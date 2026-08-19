@@ -31,7 +31,6 @@ export class Livestream {
 		}
 
 		mediaRecorder.start(1000)
-
 	}
 
 	update() {
