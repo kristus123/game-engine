@@ -9,7 +9,17 @@ export class HttpServer {
 
 			Poop.addCorsHeaders(res)
 
-			if (req.method == "POST") {
+			if (req.method == "GET") { 
+				const routeName = Poop.routeName(req)
+				console.log(routeName)
+
+				res.writeHead(200, {
+					"Content-Type": ContentType.fromFile(routeName)
+				})
+
+				fs.createReadStream("./file.mp4").pipe(res)
+			}
+			else if (req.method == "POST") {
 				Poop.assertJsonBody(req)
 
 				const encodedToken = req.headers["token"]
@@ -24,11 +34,13 @@ export class HttpServer {
 					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, Poop.routeName(req))
 
+					const contentType = ContentType.assertSupported(req.headers["Content-Type"])
+
 					const returnValue = method({
 						body: body, // fix
 						req: req,
 						headers: req.headers,
-						contentType: req.headers["Content-Type"] || null,
+						contentType: contentType,
 						params: Poop.getQueryParameters(req),
 					}) ?? {}
 
