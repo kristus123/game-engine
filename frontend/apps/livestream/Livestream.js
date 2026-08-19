@@ -42,7 +42,7 @@ export class Livestream {
 				})
 			}
 
-			mediaRecorder.start(1000)
+			mediaRecorder.start(5_000)
 		})
 	}
 
