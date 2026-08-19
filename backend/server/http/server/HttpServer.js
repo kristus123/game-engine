@@ -1,4 +1,5 @@
 import http from "http"
+import fs from "fs"
 
 export class HttpServer {
 
@@ -6,7 +7,6 @@ export class HttpServer {
 
 	static _listen(port, bind = "0.0.0.0") {
 		const server = http.createServer(async (req, res) => {
-
 			Poop.addCorsHeaders(res)
 
 			if (req.method == "GET") { 
@@ -17,10 +17,16 @@ export class HttpServer {
 					"Content-Type": ContentType.fromFile(routeName)
 				})
 
-				fs.createReadStream("./file.mp4").pipe(res)
+				const stream = fs.createReadStream(routeName)
+				stream.on("error", error => {
+					console.error(error)
+					res.end()
+				})
+
+				stream.pipe(res)
 			}
 			else if (req.method == "POST") {
-				Poop.assertJsonBody(req)
+				// Poop.assertJsonBody(req)
 
 				const encodedToken = req.headers["token"]
 
@@ -34,7 +40,7 @@ export class HttpServer {
 					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 					const method = Router(role, Poop.routeName(req))
 
-					const contentType = ContentType.assertSupported(req.headers["Content-Type"])
+					const contentType = ContentType.assertSupported(req.headers["content-type"])
 
 					const returnValue = method({
 						body: body, // fix

@@ -16,8 +16,11 @@ export class Livestream {
 				return
 			}
 
+			console.log(e.data.type)
+
 			HttpClient.sendChunk({
 				rawBody: e.data,
+				contentType: 'video/webm',
 				ok: () => {
 					console.log("ok!")
 				},

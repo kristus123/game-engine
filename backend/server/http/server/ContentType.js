@@ -1,5 +1,6 @@
 export class ContentType {
 	static json = 'application/json'
+	static md = 'text/markdown'
 	static hls = 'application/vnd.apple.mpegurl'
 	static hlsAlt = 'application/x-mpegURL'
 	static mp4 = 'video/mp4'
@@ -20,8 +21,33 @@ export class ContentType {
 	static pdf = 'application/pdf'
 	static zip = 'application/zip'
 
+	static values = [
+		ContentType.json,
+		ContentType.md,
+		ContentType.hls,
+		ContentType.hlsAlt,
+		ContentType.mp4,
+		ContentType.webm,
+		ContentType.ogg,
+		ContentType.mpegTs,
+		ContentType.mp3,
+		ContentType.wav,
+		ContentType.png,
+		ContentType.jpeg,
+		ContentType.gif,
+		ContentType.webp,
+		ContentType.svg,
+		ContentType.html,
+		ContentType.css,
+		ContentType.javascript,
+		ContentType.text,
+		ContentType.pdf,
+		ContentType.zip
+	]
+
 	static extensions = {
 		'.json': ContentType.json,
+		'.md': ContentType.md,
 		'.m3u8': ContentType.hls,
 		'.ts': ContentType.mpegTs,
 		'.mp4': ContentType.mp4,
@@ -45,16 +71,19 @@ export class ContentType {
 
 	static fromFile(file) {
 		const extension = file.substring(file.lastIndexOf('.')).toLowerCase()
+
 		if (this.extensions[extension]) {
 			return this.extensions[extension]
 		}
-		else {
-			throw new Error("unsupported file type: " + file)
-		}
+
+		throw new Error("error while calling .fromFile, unsupported file type: " + file)
 	}
 
 	static assertSupported(contentType) {
-		throw new Error("gpt implement")
-	}
+		if (!this.values.includes(contentType)) {
+			throw new Error("uerror while calling .assertSupported, nsupported content type: " + contentType)
+		}
 
+		return contentType
+	}
 }

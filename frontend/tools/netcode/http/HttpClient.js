@@ -1,6 +1,8 @@
 export const HttpClient = ProxyObject(
-	(method, { body = {}, rawBody = null, ok = body => {}, error = body => {} } = {}) => {
+	(method, { body = {}, contentType, rawBody = null, ok = body => {}, error = body => {} } = {}) => {
 		Assert.jsonObject(body)
+		Assert.value(contentType)
+		console.log(contentType)
 
 		const abortController = new AbortController()
 		const timer = setTimeout(() => {
@@ -13,7 +15,7 @@ export const HttpClient = ProxyObject(
 			cache: "no-store", // disables cache
 			signal: abortController.signal,
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": contentType,
 				"token": ClientToken.encodedToken ?? null,
 			},
 		}

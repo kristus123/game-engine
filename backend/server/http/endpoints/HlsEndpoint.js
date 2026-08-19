@@ -6,18 +6,22 @@ const ffmpeg = spawn("ffmpeg", [
 	"pipe:0",
 	"-c:v",
 	"libx264",
+	"-preset",
+	"ultrafast",
+	"-tune",
+	"zerolatency",
 	"-c:a",
 	"aac",
 	"-f",
 	"hls",
 	"-hls_time",
-	"2",
+	"1",
 	"-hls_list_size",
-	"5",
-	"output.m3u8"
+	"3",
+	"-hls_flags",
+	"delete_segments",
+	"public_folder/hls/output.m3u8"
 ])
-
-
 
 
 ffmpeg.stderr.on("data", data => {
@@ -33,6 +37,8 @@ ffmpeg.on("error", error => {
 })
 
 Route.sendChunk = ({ body }) => {
+	console.log(Buffer.isBuffer(body), body.length)
+
 	ffmpeg.stdin.write(body)
 
 	// req.on("end", () => {
