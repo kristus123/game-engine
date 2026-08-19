@@ -89,5 +89,5 @@ export class Poop {
 		}
 	}
 
-	
+
 }

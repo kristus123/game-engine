@@ -32,7 +32,7 @@ export class Livestream {
 
 				HttpClient.sendChunk({
 					rawBody: e.data,
-					contentType: 'video/webm',
+					contentType: "video/webm",
 					ok: () => {
 						console.log("ok!")
 					},

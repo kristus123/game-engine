@@ -9,7 +9,7 @@ export class HttpServer {
 		const server = http.createServer(async (req, res) => {
 			Poop.addCorsHeaders(res)
 
-			if (req.method == "GET") { 
+			if (req.method == "GET") {
 				const routeName = Poop.routeName(req)
 				console.log(routeName)
 

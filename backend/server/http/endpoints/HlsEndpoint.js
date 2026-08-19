@@ -3,14 +3,22 @@ import { spawn } from "child_process"
 Files.deleteFilesInFolder("public_folder/hls")
 
 const ffmpeg = spawn("ffmpeg", [
-	"-i", "pipe:0",
-	"-c:v", "libx264",
-	"-preset", "ultrafast",
-	"-c:a", "aac",
-	"-f", "hls",
-	"-hls_time", "5",
-	"-hls_list_size", "3",
-	"-hls_flags", "delete_segments",
+	"-i",
+	"pipe:0",
+	"-c:v",
+	"libx264",
+	"-preset",
+	"ultrafast",
+	"-c:a",
+	"aac",
+	"-f",
+	"hls",
+	"-hls_time",
+	"5",
+	"-hls_list_size",
+	"3",
+	"-hls_flags",
+	"delete_segments",
 	"public_folder/hls/output.m3u8"
 ])
 
