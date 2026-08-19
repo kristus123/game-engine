@@ -10,6 +10,7 @@ function sendJson(res, httpStatus, data) {
 	res.writeHead(httpStatus, {
 		"Content-Type": "application/json"
 	})
+
 	res.end(JSON.stringify(data))
 }
 
@@ -95,18 +96,20 @@ export class HttpServer {
 		if (this.activeServer) {
 			throw new Error("HttpServer is already running")
 		}
-
-		this.activeServer = this.listen(3000)
-		return this.activeServer
+		else {
+			this.activeServer = this.listen(3000)
+			return this.activeServer
+		}
 	}
 
 	static stop() {
-		if (!this.activeServer) {
+		if (this.activeServer) {
+			this.activeServer.close()
+			this.activeServer = null
+		}
+		else {
 			throw new Error("HttpServer is not running")
 		}
-
-		this.activeServer.close()
-		this.activeServer = null
 	}
 
 	static listen(port, bind = "0.0.0.0") {
