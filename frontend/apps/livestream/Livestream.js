@@ -1,36 +1,49 @@
 export class Livestream {
 	constructor() {
-		this.start()
-	}
 
-	async start() {
-		const stream = await navigator.mediaDevices.getUserMedia({
-			video: true,
-			audio: true
+		const html = Dom.add(Html.livestream())
+
+		html.watch.onClick(() => {
+			html.clearChildren()
+			html.add(`
+				<video
+					src="${Config.httpUrl}/public_folder/hls/output.m3u8"
+					controls
+					autoplay
+					muted
+				></video>
+			`)
 		})
 
-		const mediaRecorder = new MediaRecorder(stream)
+		html.start.onClick(async () => {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				video: true,
+				audio: true
+			})
 
-		mediaRecorder.ondataavailable = async e => {
-			if (e.data.size == 0) {
-				return
+			const mediaRecorder = new MediaRecorder(stream)
+
+			mediaRecorder.ondataavailable = async e => {
+				if (e.data.size == 0) {
+					return
+				}
+
+				console.log(e.data.type)
+
+				HttpClient.sendChunk({
+					rawBody: e.data,
+					contentType: 'video/webm',
+					ok: () => {
+						console.log("ok!")
+					},
+					error: () => {
+						console.log("error!")
+					},
+				})
 			}
 
-			console.log(e.data.type)
-
-			HttpClient.sendChunk({
-				rawBody: e.data,
-				contentType: 'video/webm',
-				ok: () => {
-					console.log("ok!")
-				},
-				error: () => {
-					console.log("error!")
-				},
-			})
-		}
-
-		mediaRecorder.start(1000)
+			mediaRecorder.start(1000)
+		})
 	}
 
 	update() {

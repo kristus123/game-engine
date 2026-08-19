@@ -1,4 +1,6 @@
 export class Config {
+
+	// should This one should be renamed to something else like server URL or something at least, I'm not sure actually
 	static get httpUrl() {
 		switch (ENVIRONMENT) {
 			case "DEVELOPMENT": {

@@ -292,6 +292,10 @@ export function Enhance_html() {
 		this.style.transform = `translate(${p.x}px, ${p.y}px)`
 	})
 
+	Enhance(HTMLElement.prototype, "clearChildren", function () {
+		this.replaceChildren()
+	})
+
 	Enhance(HTMLElement.prototype, "clear", function () {
 		if (this.tag == "input") {
 			this.value = ""
