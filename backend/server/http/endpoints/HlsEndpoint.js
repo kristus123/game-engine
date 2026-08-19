@@ -1,5 +1,6 @@
 import { spawn } from "child_process"
 
+Files.deleteFilesInFolder("public_folder/hls")
 
 const ffmpeg = spawn("ffmpeg", [
 	"-i",

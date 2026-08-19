@@ -133,6 +133,12 @@ export class Files {
 		fs.unlinkSync(file)
 	}
 
+	static deleteFilesInFolder(folder) {
+		for (const f of this.at(folder)) {
+			this.deleteFile(f)
+		}
+	}
+
 	static copyFile(source, destination) {
 		const stat = fs.statSync(source)
 
