@@ -1,103 +1,85 @@
 import http from "http"
 
-function addCorsHeaders(res) {
-	res.setHeader("Access-Control-Allow-Origin", "*")
-	res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, token")
-}
-
-function sendJson(res, httpStatus, data) {
-	res.writeHead(httpStatus, {
-		"Content-Type": "application/json"
-	})
-
-	res.end(JSON.stringify(data))
-}
-
-
-function validToken(encodedToken) {
-	return encodedToken != null && encodedToken != "null"
-}
-
-function parseRawBody(req) {
-	return new Promise((resolve, reject) => {
-		const chunks = []
-
-		req.on("data", chunk => {
-			chunks.push(chunk)
-		})
-
-		req.on("end", () => {
-			resolve(Buffer.concat(chunks))
-		})
-
-		req.on("error", reject)
-	})
-}
-
-async function parseBody(req) {
-	let rawBody = Buffer.alloc(0)
-
-	for await (const chunk of req) {
-		rawBody = Buffer.concat([rawBody, chunk])
-	}
-
-	if (rawBody.length == 0) {
-		throw new Error("Invalid JSON body: " + rawBody)
-	}
-
-	try {
-		return JSON.parse(rawBody.toString())
-	}
-	catch (e) {
-		const m = "Invalid JSON body: " + rawBody
-		console.log(m)
-		throw new Error(m)
-	}
-}
-
-function routeName(req) {
-	return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
-}
-
-
-function aPromise(value) {
-	return value instanceof Promise
-}
-
-function validJson(value) {
-	if (value == null) {
-		return false
-	}
-
-	const type = Object.prototype.toString.call(value)
-
-	return type == "[object Object]" || type == "[object Array]"
-}
-
-function getQueryParameters(req) {
-	const url = new URL(req.url, `http://${req.headers.host}`)
-	return Object.fromEntries(url.searchParams.entries())
-}
-
-function assertJsonBody(req) {
-	const t = req.headers["content-type"] || ""
-
-	if (!t.includes("application/json")) {
-		throw new Error("unsupported content type")
-	}
-}
-
 export class HttpServer {
 
 	static activeServer = null
+
+	static _listen(port, bind = "0.0.0.0") {
+		const server = http.createServer(async (req, res) => {
+
+			Poop.addCorsHeaders(res)
+
+			if (req.method == "POST") {
+				Poop.assertJsonBody(req)
+
+				const encodedToken = req.headers["token"]
+
+				const decodedToken = Poop.validToken(encodedToken)
+					? ServerToken.decode(encodedToken)
+					: null //todo not use null
+
+				try {
+					const body = await Poop.parseRawBody(req)
+
+					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
+					const method = Router(role, Poop.routeName(req))
+
+					const returnValue = method({
+						body: body, // fix
+						req: req,
+						headers: req.headers,
+						contentType: req.headers["Content-Type"] || null,
+						params: Poop.getQueryParameters(req),
+					}) ?? {}
+
+					if (Poop.aPromise(returnValue)) { // Consider moving this promise check into the method method
+						// currently no endpoints returns a promise, But i am just a comment and at one point I am wrong
+						const x = await returnValue
+						if (Poop.validJson(x)) {
+							Poop.sendJson(res, 200, x)
+						}
+						else {
+							throw new Error("return value of promise must be json, instead it is : " + x)
+						}
+					}
+					else if (Poop.validJson(returnValue)) {
+						Poop.sendJson(res, 200, returnValue)
+					}
+					else {
+						Poop.sendJson(res, 500, {
+							error: "endpoint must return a valuid value. it returned: " + returnValue,
+						})
+					}
+				}
+				catch (e) {
+					console.log(e)
+					Poop.sendJson(res, 500, {
+						error: "error: " + e,
+					})
+				}
+			}
+			else if (req.method == "OPTIONS") { // Preflight / cors
+				res.writeHead(204)
+				res.end()
+			}
+			else {
+				Poop.sendJson(res, 500, {
+					error: "unsupported http method: " + req.method,
+				})
+			}
+		})
+
+		server.listen(port, bind)
+
+		return server
+	}
 
 	static start() {
 		if (this.activeServer) {
 			throw new Error("HttpServer is already running")
 		}
 		else {
-			this.activeServer = this.listen(3000)
+			this.activeServer = this._listen(3000)
 			return this.activeServer
 		}
 	}
@@ -110,76 +92,6 @@ export class HttpServer {
 		else {
 			throw new Error("HttpServer is not running")
 		}
-	}
-
-	static listen(port, bind = "0.0.0.0") {
-		const server = http.createServer(async (req, res) => {
-
-			addCorsHeaders(res)
-
-			if (req.method == "POST") {
-				assertJsonBody(req)
-
-				const encodedToken = req.headers["token"]
-
-				const decodedToken = validToken(encodedToken)
-					? ServerToken.decode(encodedToken)
-					: null //todo not use null
-
-				try {
-					const body = await parseRawBody(req)
-
-					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
-					const method = Router(role, routeName(req))
-
-					const returnValue = method({
-						body: body, // fix
-						req: req,
-						headers: req.headers,
-						contentType: req.headers["Content-Type"] || null,
-						params: getQueryParameters(req),
-					}) ?? {}
-
-					if (aPromise(returnValue)) { // Consider moving this promise check into the method method
-						// currently no endpoints returns a promise, But i am just a comment and at one point I am wrong
-						const x = await returnValue
-						if (validJson(x)) {
-							sendJson(res, 200, x)
-						}
-						else {
-							throw new Error("return value of promise must be json, instead it is : " + x)
-						}
-					}
-					else if (validJson(returnValue)) {
-						sendJson(res, 200, returnValue)
-					}
-					else {
-						sendJson(res, 500, {
-							error: "endpoint must return a valuid value. it returned: " + returnValue,
-						})
-					}
-				}
-				catch (e) {
-					console.log(e)
-					sendJson(res, 500, {
-						error: "error: " + e,
-					})
-				}
-			}
-			else if (req.method == "OPTIONS") { // Preflight / cors
-				res.writeHead(204)
-				res.end()
-			}
-			else {
-				sendJson(res, 500, {
-					error: "unsupported http method: " + req.method,
-				})
-			}
-		})
-
-		server.listen(port, bind)
-
-		return server
 	}
 
 }
