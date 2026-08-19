@@ -1,5 +1,10 @@
 # initial setup
 
+
+Hello, hello. Remember to document somewhere that FFM peg needs to be installed because we are using ffmpag for the backend, and it is important to document this stuff, of course. Yes, yes, yes. Awesome
+
+
+
 [Login](https://nerdvm.racknerd.com/login.php)
 
 https://github.com/settings/ssh/new
