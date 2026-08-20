@@ -200,6 +200,7 @@
         "HtmlObserverThing": "readonly",
         "HtmlVideo": "readonly",
         "HttpClient": "readonly",
+        "HttpMethod": "readonly",
         "HttpServer": "readonly",
         "Imports": "readonly",
         "ImproveIf": "readonly",
