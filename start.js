@@ -5,8 +5,8 @@ GenerateBackend(process.argv[2]) // todo pass environment - "DEVELOPMENT" or "PR
 
 // todo improve comment
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
-const { StartServer } = await import("#root/transpiledBackend/server/http/StartServer.js")
-const { SocketServer } = await import("#root/transpiledBackend/server/socket/SocketServer.js")
+const { StartServer } = await import("#root/transpiledBackend/http/StartServer.js")
+const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
 
 StartServer()
 
