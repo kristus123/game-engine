@@ -18,7 +18,8 @@ export function Router(role, path) { // todo rename to Route.js
 		return Route[path]
 	}
 	else {
-		throw new Error("unsupported route thingy for: " + path)
+		console.log("is it registered correctly?")
+		throw new Error("could not find where it is : " + path)
 	}
 }
 

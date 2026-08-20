@@ -1,5 +1,5 @@
 export const HttpClient = ProxyObject(
-	(method, { body = {}, contentType="application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
+	(routeName, { body = {}, contentType="application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
 		// todo fix default contentType
 		Assert.jsonObject(body)
 		Assert.value(contentType)
@@ -21,7 +21,7 @@ export const HttpClient = ProxyObject(
 			},
 		}
 
-		return fetch(`${Config.httpUrl}/${method}`, request)
+		return fetch(`${Config.httpUrl}/${routeName}`, request)
 			.then(async response => {
 				const json = await response.json()
 
@@ -47,7 +47,8 @@ export const HttpClient = ProxyObject(
 				}
 			})
 			.catch(e => {
-				console.error(`${method}: ${e?.message}`)
+				console.log("happy.")
+				console.error(`${routeName}: ${e?.message}`)
 				error({ error: e })
 				return {
 					ok: false,
