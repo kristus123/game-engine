@@ -10,10 +10,15 @@ export class HttpMethod {
 
 		const decodedToken = Poop.validToken(encodedToken)
 			? ServerToken.decode(encodedToken)
-			: null //todo not use null
+			: null //todo - do not use null
 
 		try {
-			const body = await Poop.parseRawBody(req)
+			// Streaming the request body is preferable especially in HLS scenarios
+			// that we are working on because then you can pipe it directly into FFmpeg,
+			// but for now we just do it like this
+			const bufferBody = await Poop.parseRawBody(req)
+
+			const jsonBody = TryOrNull(() => JSON.parse(bufferBody.toString()))
 
 			const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 			const method = Router(role, Poop.routeName(req))
@@ -21,7 +26,8 @@ export class HttpMethod {
 			const contentType = ContentType.assertSupported(req.headers["content-type"])
 
 			const returnValue = method({
-				body: body, // fix
+				bufferBody: bufferBody,
+				jsonBody: jsonBody,
 				req: req,
 				headers: req.headers,
 				contentType: contentType,

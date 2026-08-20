@@ -1,5 +1,6 @@
 export const HttpClient = ProxyObject(
-	(method, { body = {}, contentType, rawBody = null, ok = body => {}, error = body => {} } = {}) => {
+	(method, { body = {}, contentType="application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
+		// todo fix default contentType
 		Assert.jsonObject(body)
 		Assert.value(contentType)
 		console.log(contentType)

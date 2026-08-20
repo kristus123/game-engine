@@ -90,5 +90,34 @@ export class A {
 		return false
 	}
 
+	static notNull(x) {
+		return !this.null(x)
+	}
+
+	static value(x) {
+		return !this.null(x)
+	}
+
+	static null(x) {
+		if (x == null) {
+			return true
+		}
+		else if (x == undefined) {
+			return true
+		}
+		else if (typeof x == "number" && isNaN(x)) {
+			return true
+		}
+		else {
+			return false
+		}
+
+		// if (typeof x == 'string' && x.trim() == '') {
+		// 	throw new Error(errorMessage + " EMPTY STRINGS ARE CONSIDERED BAD. SMILE!!!")
+		// }
+
+	}
+
+
 }
 
