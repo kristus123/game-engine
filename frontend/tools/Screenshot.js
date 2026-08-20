@@ -38,10 +38,10 @@ export async function Screenshot() {
   	ctx.fillStyle = style.backgroundColor
 
   	ctx.fillRect(
-    	x,
-    	y,
-    	rect.width,
-    	rect.height
+				x,
+				y,
+				rect.width,
+				rect.height
   	)
 		}
 
@@ -56,10 +56,10 @@ export async function Screenshot() {
   	ctx.lineWidth = borderWidth
 
   	ctx.strokeRect(
-    	x,
-    	y,
-    	rect.width,
-    	rect.height
+				x,
+				y,
+				rect.width,
+				rect.height
   	)
 		}
 
@@ -78,13 +78,13 @@ export async function Screenshot() {
 
 		for (const node of element.childNodes) {
   	if (node.nodeType != Node.TEXT_NODE) {
-    	continue
+				continue
   	}
 
   	const text = node.textContent.trim()
 
   	if (!text) {
-    	continue
+				continue
   	}
 
   	// Find the actual position of this text node
@@ -94,13 +94,13 @@ export async function Screenshot() {
   	const rects = range.getClientRects()
 
   	for (const textRect of rects) {
-    	const textX = textRect.left + window.scrollX
-    	const textY =
-      	textRect.top +
-      	window.scrollY +
-      	parseFloat(style.fontSize)
+				const textX = textRect.left + window.scrollX
+				const textY =
+  		textRect.top +
+  		window.scrollY +
+  		parseFloat(style.fontSize)
 
-    	ctx.fillText(text, textX, textY)
+				ctx.fillText(text, textX, textY)
   	}
 		}
 	}
