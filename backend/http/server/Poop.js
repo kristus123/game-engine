@@ -1,3 +1,6 @@
+import fs from "fs"
+import path from "path"
+
 export class Poop {
 
 	static addCorsHeaders(res) {
@@ -57,8 +60,20 @@ export class Poop {
 		}
 	}
 
+	// todo
+	// We should sanitize so that they can't fetch other places. Also, we should add some sort of whitelist so that only certain stuff are allowed
+	//
 	static routeName(req) {
-		return new URL(req.url, `http://${req.headers.host}`).pathname.slice(1)
+		const pathname = new URL(req.url, `http://${req.headers.host}`).pathname
+		const decodedPath = decodeURIComponent(pathname)
+		const root = process.cwd()
+		const filePath = path.resolve(root, "." + decodedPath)
+
+		if (!filePath.startsWith(root + path.sep)) {
+			throw new Error("Path traversal attempt")
+		}
+
+		return filePath
 	}
 
 
@@ -89,5 +104,18 @@ export class Poop {
 		}
 	}
 
+	static streamFile(res, routeName) {
+		res.writeHead(200, {
+			"Content-Type": ContentType.fromFile(routeName)
+		})
+
+		const stream = fs.createReadStream(routeName)
+		stream.on("error", error => {
+			console.error(error)
+			res.end()
+		})
+
+		stream.pipe(res)
+	}
 
 }

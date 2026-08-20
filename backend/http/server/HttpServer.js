@@ -1,104 +1,44 @@
 import http from "http"
-import fs from "fs"
 
 export class HttpServer {
 
 	static activeServer = null
 
-	static _listen(port, bind = "0.0.0.0") {
-		const server = http.createServer(async (req, res) => {
-			Poop.addCorsHeaders(res)
-
-			if (req.method == "GET") {
-				const routeName = Poop.routeName(req)
-				console.log(routeName)
-
-				res.writeHead(200, {
-					"Content-Type": ContentType.fromFile(routeName)
-				})
-
-				const stream = fs.createReadStream(routeName)
-				stream.on("error", error => {
-					console.error(error)
-					res.end()
-				})
-
-				stream.pipe(res)
-			}
-			else if (req.method == "POST") {
-				// Poop.assertJsonBody(req)
-
-				const encodedToken = req.headers["token"]
-
-				const decodedToken = Poop.validToken(encodedToken)
-					? ServerToken.decode(encodedToken)
-					: null //todo not use null
-
-				try {
-					const body = await Poop.parseRawBody(req)
-
-					const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
-					const method = Router(role, Poop.routeName(req))
-
-					const contentType = ContentType.assertSupported(req.headers["content-type"])
-
-					const returnValue = method({
-						body: body, // fix
-						req: req,
-						headers: req.headers,
-						contentType: contentType,
-						params: Poop.getQueryParameters(req),
-					}) ?? {}
-
-					if (Poop.aPromise(returnValue)) { // Consider moving this promise check into the method method
-						// currently no endpoints returns a promise, But i am just a comment and at one point I am wrong
-						const x = await returnValue
-						if (Poop.validJson(x)) {
-							Poop.sendJson(res, 200, x)
-						}
-						else {
-							throw new Error("return value of promise must be json, instead it is : " + x)
-						}
-					}
-					else if (Poop.validJson(returnValue)) {
-						Poop.sendJson(res, 200, returnValue)
-					}
-					else {
-						Poop.sendJson(res, 500, {
-							error: "endpoint must return a valuid value. it returned: " + returnValue,
-						})
-					}
-				}
-				catch (e) {
-					console.log(e)
-					Poop.sendJson(res, 500, {
-						error: "error: " + e,
-					})
-				}
-			}
-			else if (req.method == "OPTIONS") { // Preflight / cors
-				res.writeHead(204)
-				res.end()
-			}
-			else {
-				Poop.sendJson(res, 500, {
-					error: "unsupported http method: " + req.method,
-				})
-			}
-		})
-
-		server.listen(port, bind)
-
-		return server
-	}
-
-	static start() {
+	static start(port=3000, bind = "0.0.0.0") {
 		if (this.activeServer) {
 			throw new Error("HttpServer is already running")
 		}
 		else {
-			this.activeServer = this._listen(3000)
-			return this.activeServer
+			console.log("starting server biotechnology")
+			const server = http.createServer(async (req, res) => {
+				Poop.addCorsHeaders(res)
+
+				switch (req.method) {
+					case "GET": {
+						Poop.streamFile(res, Poop.routeName(req))
+						break
+					}
+					case "POST": {
+						HttpMethod.post(req, res)
+						break
+					}
+					case "OPTIONS": { // Preflight / cors
+						res.writeHead(204)
+						res.end()
+						break
+					}
+					default: {
+						Poop.sendJson(res, 500, {
+							error: "unsupported http method: " + req.method,
+						})
+						break
+					}
+				}
+			})
+
+			server.listen(port, bind)
+
+			return server
 		}
 	}
 
