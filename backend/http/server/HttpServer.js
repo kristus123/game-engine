@@ -14,7 +14,8 @@ export class HttpServer {
 
 				switch (req.method) {
 					case "GET": {
-						Poop.streamFile(res, Poop.routeName(req))
+						const fileName = Poop.routeName(req) // fix routeName name
+						Poop.streamFile(res, fileName)
 						break
 					}
 					case "POST": {
