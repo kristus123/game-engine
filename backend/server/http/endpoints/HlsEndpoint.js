@@ -35,6 +35,7 @@ ffmpeg.on("error", error => {
 })
 
 Route.sendChunk = ({ body }) => {
+	// we should stream raw body into ffmpeg
 	console.log(Buffer.isBuffer(body), body.length)
 
 	ffmpeg.stdin.write(body)
