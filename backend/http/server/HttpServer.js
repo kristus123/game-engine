@@ -4,12 +4,11 @@ export class HttpServer {
 
 	static activeServer = null
 
-	static start(port=3000, bind = "0.0.0.0") {
+	static start() {
 		if (this.activeServer) {
 			throw new Error("HttpServer is already running")
 		}
 		else {
-			console.log("starting server biotechnology")
 			const server = http.createServer(async (req, res) => {
 				Poop.addCorsHeaders(res)
 
@@ -36,9 +35,11 @@ export class HttpServer {
 				}
 			})
 
-			server.listen(port, bind)
+			server.listen(3000, "0.0.0.0")
 
 			this.activeServer = server
+
+			return this.activeServer
 		}
 	}
 
