@@ -21,7 +21,7 @@ export class Livestream {
 			}
 			else {
 				html.start.onClick(async () => {
-					await Assert.ok(HttpClient.startStream())
+					Assert.ok(await HttpClient.startStream())
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,

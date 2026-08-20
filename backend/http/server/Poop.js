@@ -70,12 +70,12 @@ export class Poop {
 		const filePath = path.resolve(root, "." + decodedPath)
 
 		if (!filePath.startsWith(root + path.sep)) {
+			console.log(filePath)
 			throw new Error("Path traversal attempt")
 		}
 
-		return filePath
+		return path.relative(root, filePath)
 	}
-
 
 	static aPromise(value) {
 		return value instanceof Promise

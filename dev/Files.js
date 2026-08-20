@@ -29,23 +29,16 @@ export class Files {
 		return fs.readdirSync(path).map(f => Path.join(path, f))
 	}
 
-	static getJsFiles(folderPath, jsFiles=[]) {
-		try {
-			for (const file of fs.readdirSync(folderPath)) {
-				const filePath = Path.join(folderPath, file)
+	static getJsFiles(folderPath) {
+		const jsFiles = []
 
-				if (fs.statSync(filePath).isDirectory()) {
-					this.getJsFiles(filePath, jsFiles)
-				}
-				else if (file.endsWith(".js")) {
-					jsFiles.push(filePath)
-				}
+		for (const f of Files.at(folderPath)) {
+			if (f.endsWith(".js")) {
+				jsFiles.push(f)
 			}
-			return jsFiles
 		}
-		catch (error) {
-			return []
-		}
+
+		return jsFiles
 	}
 
 	static getUniqueElements(firstList, secondList) {
