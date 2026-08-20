@@ -38,7 +38,7 @@ export class HttpServer {
 
 			server.listen(port, bind)
 
-			return server
+			this.activeServer = server
 		}
 	}
 
