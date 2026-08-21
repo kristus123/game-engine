@@ -7,7 +7,7 @@ export class CodeEditor {
 		const numberContent = document.getElementById("numberContent")
 
 		const lines = [
-			'const message = "Hello world";',
+			"const message = \"Hello world\";",
 		]
 
 		function emitInput() {
@@ -45,7 +45,8 @@ export class CodeEditor {
 
 			if (input.firstChild) {
 				range.setStart(input.firstChild, offset)
-			} else {
+			}
+			else {
 				range.selectNodeContents(input)
 				range.collapse(true)
 			}
@@ -111,7 +112,8 @@ export class CodeEditor {
 
 			if (referenceLine) {
 				code.insertBefore(line, referenceLine)
-			} else {
+			}
+			else {
 				code.appendChild(line)
 			}
 
@@ -119,7 +121,8 @@ export class CodeEditor {
 
 			if (referenceNumber) {
 				numberContent.insertBefore(number, referenceNumber)
-			} else {
+			}
+			else {
 				numberContent.appendChild(number)
 			}
 
@@ -166,7 +169,7 @@ export class CodeEditor {
 			const index = getLineIndex(input)
 			const cursor = getCursor(input)
 
-			if (event.key === "Enter") {
+			if (event.key == "Enter") {
 				event.preventDefault()
 
 				const before = lines[index].slice(0, cursor)
@@ -198,8 +201,8 @@ export class CodeEditor {
 				return
 			}
 
-			if (event.key === "Backspace") {
-				if (cursor !== 0 || index === 0) {
+			if (event.key == "Backspace") {
+				if (cursor != 0 || index == 0) {
 					return
 				}
 
@@ -228,10 +231,10 @@ export class CodeEditor {
 				return
 			}
 
-			if (event.key === "Delete") {
+			if (event.key == "Delete") {
 				if (
 					cursor < lines[index].length ||
-					index === lines.length - 1
+					index == lines.length - 1
 				) {
 					return
 				}
@@ -253,11 +256,11 @@ export class CodeEditor {
 			}
 
 			if (
-				event.key === "ArrowUp" ||
-				event.key === "ArrowDown"
+				event.key == "ArrowUp" ||
+				event.key == "ArrowDown"
 			) {
 				const direction =
-					event.key === "ArrowUp" ? -1 : 1
+					event.key == "ArrowUp" ? -1 : 1
 
 				const targetIndex = index + direction
 
@@ -281,7 +284,7 @@ export class CodeEditor {
 				return
 			}
 
-			if (event.key === "Tab") {
+			if (event.key == "Tab") {
 				event.preventDefault()
 
 				if (event.shiftKey) {
@@ -353,7 +356,7 @@ export class CodeEditor {
 
 			const parts = pasted.split("\n")
 
-			if (parts.length === 1) {
+			if (parts.length == 1) {
 				lines[index] =
 					lines[index].slice(0, cursor) +
 					parts[0] +
@@ -379,7 +382,7 @@ export class CodeEditor {
 
 			for (let i = 1; i < parts.length; i++) {
 				const text =
-					i === parts.length - 1
+					i == parts.length - 1
 						? parts[i] + after
 						: parts[i]
 
