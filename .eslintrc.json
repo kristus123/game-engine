@@ -149,6 +149,7 @@
         "CenterPosition": "readonly",
         "ChineseCharacters": "readonly",
         "ClientToken": "readonly",
+        "CodeEditor": "readonly",
         "Collision": "readonly",
         "Confetti": "readonly",
         "ConfettiSplash": "readonly",
