@@ -1,3 +1,24 @@
+function doSleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function CheckUntilOk(callback) {
+	return new Promise(resolve => {
+		const check = () => {
+			if (callback()) {
+				resolve(true)
+			}
+			else {
+				setTimeout(check, 100)
+			}
+		}
+
+		check()
+	})
+}
+
+
+
 export class Livestream {
 	constructor() {
 		Execute(async () => {
@@ -7,45 +28,50 @@ export class Livestream {
 			console.log(r)
 
 			if (r.streaming) {
-				function addVideoToDom() {
+				html.clearChildren()
+
+				const video = `
+					<video
+						src="${Config.httpUrl}/public_folder/hls/output.m3u8"
+						controls
+						autoplay
+						muted
+						playsinline
+					></video>
+				`.toHtml()
+				html.add(video)
+
+				video.addEventListener("loadedmetadata", () => {
+					console.log("loadedmetadata")
+				})
+				video.addEventListener("canplay", () => {
+					console.log("canplay")
 					html.clearChildren()
-					const video = `
-						<video
-							src="${Config.httpUrl}/public_folder/hls/output.m3u8"
-							controls
-							autoplay
-							muted
-							playsinline
-						></video>
-					`.toHtml()
 					html.add(video)
+				})
+				video.addEventListener("playing", () => {
+					console.log("playing")
+				})
+				video.addEventListener("waiting", () => {
+					console.log("waiting")
+				})
+				video.addEventListener("stalled", () => {
+					console.log("stalled")
+				})
+				video.addEventListener("error", () => {
+					console.log("error")
+					CheckUntilOk(async () => {
+						video.reloadSrc()
+						await doSleep(500)
+						const x = video.canPlay
+						video.play()
+						return x
+					})
+				})
+				video.addEventListener("ended", () => {
+					console.log("ended")
+				})
 
-					video.addEventListener("loadedmetadata", () => {
-						console.log("loadedmetadata")
-					})
-					video.addEventListener("canplay", () => {
-						console.log("canplay")
-						addVideoToDom()
-					})
-					video.addEventListener("playing", () => {
-						console.log("playing")
-					})
-					video.addEventListener("waiting", () => {
-						console.log("waiting")
-					})
-					video.addEventListener("stalled", () => {
-						console.log("stalled")
-					})
-					video.addEventListener("error", () => {
-						addVideoToDom()
-						console.log("error")
-					})
-					video.addEventListener("ended", () => {
-						console.log("ended")
-					})
-				}
-
-				addVideoToDom()
 			}
 			else {
 				html.start.onClick(async () => {
