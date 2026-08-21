@@ -34,6 +34,9 @@ export const HttpClient = ProxyObject(
 						ok: true,
 						error: false,
 						body: json,
+						assertOk: () => {
+							return json
+						},
 					}
 				}
 				else {
@@ -43,6 +46,10 @@ export const HttpClient = ProxyObject(
 						ok: false,
 						error: true,
 						body: json,
+						assertOk: () => {
+							console.log(body)
+							throw new Error(`Error when calling ${routeName}. Body:`, body)
+						},
 					}
 				}
 			})
@@ -54,6 +61,9 @@ export const HttpClient = ProxyObject(
 					ok: false,
 					error: true,
 					body: json,
+					assertOk: () => {
+						throw new Error(`Error when calling ${routeName}. Error: ${e}`)
+					},
 				}
 			})
 			.finally(() => {
