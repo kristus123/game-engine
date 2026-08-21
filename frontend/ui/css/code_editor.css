@@ -3,14 +3,16 @@
     height: 100%;
     display: flex;
     overflow: hidden;
+    background: #ffffff;
+    color: #1e1e1e;
 }
 
 #numbers {
     width: 60px;
     flex: 0 0 60px;
     position: relative;
-    background: #181818;
-    color: #666;
+    background: #f3f3f3;
+    color: #858585;
     user-select: none;
     overflow: hidden;
 }
@@ -32,12 +34,12 @@
 }
 
 .line-number:hover {
-    color: #ddd;
+    color: #333;
 }
 
 .line-number.selected {
-    background: #264f78;
-    color: white;
+    background: #add6ff;
+    color: #1e1e1e;
 }
 
 #code {
@@ -45,6 +47,7 @@
     overflow: auto;
     padding: 12px 0;
     line-height: 22px;
+    background: #ffffff;
 }
 
 .line {
@@ -57,7 +60,7 @@
 }
 
 .line.selected-line {
-    background: #264f78;
+    background: #add6ff;
 }
 
 .highlight {
@@ -76,36 +79,37 @@
     outline: none;
     line-height: 22px;
     white-space: pre;
-    color: transparent;
-    caret-color: white;
     tab-size: 4;
+
+    color: #000;
+    caret-color: #000;
 }
 
 .input::selection {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(0, 120, 215, 0.2);
     color: transparent;
 }
 
 .keyword {
-    color: #569cd6;
+    color: #0000ff;
 }
 
 .string {
-    color: #ce9178;
+    color: #a31515;
 }
 
 .number {
-    color: #b5cea8;
+    color: #098658;
 }
 
 .comment {
-    color: #6a9955;
+    color: #008000;
 }
 
 .function {
-    color: #dcdcaa;
+    color: #795e26;
 }
 
 .boolean {
-    color: #569cd6;
+    color: #0000ff;
 }
