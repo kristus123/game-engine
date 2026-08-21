@@ -1,27 +1,55 @@
 export class Livestream {
 	constructor() {
 		Execute(async () => {
-			const x = await HttpClient.currentlyStreaming()
-			console.log(x)
-			const { body: { streaming } } = Assert.ok(x)
-
 			const html = Dom.add(Html.livestream())
 
-			if (streaming) {
-				html.clearChildren()
-				html.add(`
-					<video
-						src="${Config.httpUrl}/public_folder/hls/output.m3u8"
-						controls
-						autoplay
-						muted
-						playsinline
-					></video>
-				`)
+			const r = (await HttpClient.currentlyStreaming()).assertOk()
+			console.log(r)
+
+			if (r.streaming) {
+				function addVideoToDom() {
+					html.clearChildren()
+					const video = `
+						<video
+							src="${Config.httpUrl}/public_folder/hls/output.m3u8"
+							controls
+							autoplay
+							muted
+							playsinline
+						></video>
+					`.toHtml()
+					html.add(video)
+
+					video.addEventListener("loadedmetadata", () => {
+						console.log("loadedmetadata")
+					})
+					video.addEventListener("canplay", () => {
+						console.log("canplay")
+						addVideoToDom()
+					})
+					video.addEventListener("playing", () => {
+						console.log("playing")
+					})
+					video.addEventListener("waiting", () => {
+						console.log("waiting")
+					})
+					video.addEventListener("stalled", () => {
+						console.log("stalled")
+					})
+					video.addEventListener("error", () => {
+						addVideoToDom()
+						console.log("error")
+					})
+					video.addEventListener("ended", () => {
+						console.log("ended")
+					})
+				}
+
+				addVideoToDom()
 			}
 			else {
 				html.start.onClick(async () => {
-					Assert.ok(await HttpClient.startStream())
+					(await HttpClient.startStream()).assertOk()
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,
@@ -52,7 +80,6 @@ export class Livestream {
 					mediaRecorder.start(5_000)
 				})
 			}
-
 		})
 	}
 

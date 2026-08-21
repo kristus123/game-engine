@@ -1,10 +1,5 @@
 export class Assert {
 
-	static ok(r) {
-		Assert.true(r.ok)
-		return r
-	}
-
 	static number(n) {
 		if (A.number) {
 			return n
