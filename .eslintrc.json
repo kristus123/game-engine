@@ -168,6 +168,7 @@
         "Distance": "readonly",
         "DoWhile": "readonly",
         "Dom": "readonly",
+        "DomEvents": "readonly",
         "DomMouse": "readonly",
         "Draw": "readonly",
         "DuckCheck": "readonly",
