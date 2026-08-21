@@ -16,23 +16,36 @@ export function WebComponent(name, html) {
 			const content = template.content.cloneNode(true)
 
 			for (const slot of content.querySelectorAll("slot")) {
-				const name = slot.getAttribute("name")
+				const slotName = slot.getAttribute("name")
+				console.log("___")
+				console.log(slotName)
+				console.log("___")
 
 				for (const child of children) {
 					if (child.nodeType != Node.ELEMENT_NODE) {
 						continue
 					}
-
-					if (child.tagName != "SLOT") {
+					else if (child.tagName != "SLOT") {
 						continue
 					}
-
-					if (child.getAttribute("name") != name) {
+					else if (child.getAttribute("name") != slotName) {
 						continue
+					}
+					else if (this.getAttribute("slot-" + slotName)) {
+						throw new Error("duplicate. only choose one way of setting slot value")
 					}
 
 					slot.replaceWith(...child.childNodes)
 				}
+
+				this.attributes.forEach((i, slotAttribute) => {
+					if (slotAttribute.name.startsWith("slot-")) {
+						if (slotAttribute.name.replace("slot-", "") == slotName) {
+							slot.replaceWith(document.createTextNode(slotAttribute.value))
+						}
+					}
+				})
+
 			}
 
 			this.replaceChildren(content)

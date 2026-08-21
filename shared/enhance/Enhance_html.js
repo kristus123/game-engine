@@ -426,10 +426,13 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "onEnter", function (run) {
+		console.log("this one is DANGEROUS")
+
 		this.removeListener("keydown")
 
 		this.listen("keydown", (e) => {
 			if (e.key == "Enter") {
+				e.preventDefault()
 				console.log("hei")
 				run(this.value)
 			}
@@ -463,6 +466,15 @@ export function Enhance_html() {
 
 			this.appendChild(e)
 		}
+	})
+
+
+	Enhance(HTMLElement.prototype, "addAfter", function (e) {
+		this.after(e)
+	})
+
+	Enhance(HTMLElement.prototype, "addBefore", function (e) {
+		this.before(e)
 	})
 
 	Enhance(HTMLElement.prototype, "contains", function (className) {
