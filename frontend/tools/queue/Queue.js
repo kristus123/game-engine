@@ -17,11 +17,11 @@ export class Queue {
 		}
 		else {
 			this.running = true
-			this.processNextTask(onEnd)
+			this._processNextTask(onEnd)
 		}
 	}
 
-	processNextTask(onEnd) {
+	_processNextTask(onEnd) {
 		const task = this.queue.shift()
 
 		task(() => {
@@ -35,7 +35,7 @@ export class Queue {
 			}
 			else {
 				console.log("hei")
-				this.processNextTask(onEnd)
+				this._processNextTask(onEnd)
 			}
 		})
 	}
