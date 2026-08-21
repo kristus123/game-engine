@@ -1,37 +1,21 @@
 export class CodeEditor {
 
 	constructor() {
-		const onInput = (i) => {
-			console.log(i)
-		}
 		const html = Dom.add(Html.codeEditor())
 
 		const code = html.code
 		const numberContent = document.getElementById("numberContent")
 
-		let lines = [
+		const lines = [
 			'const message = "Hello world";',
 		]
 
-		const selectedLines = new Set()
-
-		let dragging = false
-		let dragStart = null
-
-		function getContent() {
-			return lines.join("\n")
-		}
-
 		function emitInput() {
-			onInput?.(getContent())
-		}
-
-		function getLine(input) {
-			return input.parentElement
+			console.log(lines.join("\n"))
 		}
 
 		function getLineIndex(input) {
-			return [...code.children].indexOf(getLine(input))
+			return [...code.children].indexOf(input.parentElement)
 		}
 
 		function getCursor(input) {
@@ -74,147 +58,88 @@ export class CodeEditor {
 			input.focus()
 		}
 
-		function createLine(index) {
+		function createLine(text, index) {
 			const line = document.createElement("div")
 			line.className = "line"
-
-			if (selectedLines.has(index)) {
-				line.classList.add("selected-line")
-			}
 
 			const input = document.createElement("div")
 			input.className = "input"
 			input.contentEditable = "true"
 			input.spellcheck = false
-			input.textContent = lines[index]
+			input.textContent = text
 
 			line.appendChild(input)
 
-			return line
+			const number = document.createElement("div")
+			number.className = "line-number"
+			number.dataset.index = index
+			number.textContent = index + 1
+
+			numberContent.appendChild(number)
+			code.appendChild(line)
+
+			return input
 		}
 
-		function render() {
-			code.innerHTML = ""
+		function updateLineNumbers() {
+			numberContent.querySelectorAll(".line-number").forEach((number, index) => {
+				number.dataset.index = index
+				number.textContent = index + 1
+			})
+		}
 
-			for (let i = 0; i < lines.length; i++) {
-				code.appendChild(createLine(i))
+		function insertLine(index, text) {
+			lines.splice(index, 0, text)
+
+			const line = document.createElement("div")
+			line.className = "line"
+
+			const input = document.createElement("div")
+			input.className = "input"
+			input.contentEditable = "true"
+			input.spellcheck = false
+			input.textContent = text
+
+			line.appendChild(input)
+
+			const number = document.createElement("div")
+			number.className = "line-number"
+			number.dataset.index = index
+			number.textContent = index + 1
+
+			const referenceLine = code.children[index]
+
+			if (referenceLine) {
+				code.insertBefore(line, referenceLine)
+			} else {
+				code.appendChild(line)
 			}
 
-			numberContent.innerHTML = ""
+			const referenceNumber = numberContent.children[index]
 
-			for (let i = 0; i < lines.length; i++) {
-				const number = document.createElement("div")
-
-				number.className = "line-number"
-				number.dataset.index = i
-				number.textContent = i + 1
-
-				if (selectedLines.has(i)) {
-					number.classList.add("selected")
-				}
-
+			if (referenceNumber) {
+				numberContent.insertBefore(number, referenceNumber)
+			} else {
 				numberContent.appendChild(number)
 			}
+
+			updateLineNumbers()
+
+			return input
 		}
 
-		function updateSelection() {
-			code.querySelectorAll(".line").forEach((line, i) => {
-				line.classList.toggle(
-					"selected-line",
-					selectedLines.has(i)
-				)
-			})
+		function removeLine(index) {
+			lines.splice(index, 1)
 
-			numberContent.querySelectorAll(".line-number").forEach((number, i) => {
-				number.classList.toggle(
-					"selected",
-					selectedLines.has(i)
-				)
-			})
-		}
+			code.children[index].remove()
+			numberContent.children[index].remove()
 
-		function selectRange(a, b) {
-			selectedLines.clear()
-
-			const start = Math.min(a, b)
-			const end = Math.max(a, b)
-
-			for (let i = start; i <= end; i++) {
-				selectedLines.add(i)
-			}
-
-			updateSelection()
+			updateLineNumbers()
 		}
 
 		code.addEventListener("scroll", () => {
 			numberContent.style.transform =
 				`translateY(${-code.scrollTop}px)`
-		})
-
-		numberContent.addEventListener("mousedown", event => {
-			const number = event.target.closest(".line-number")
-
-			if (!number) {
-				return
-			}
-
-			event.preventDefault()
-
-			const index = Number(number.dataset.index)
-
-			if (event.shiftKey && selectedLines.size) {
-				selectRange(
-					[...selectedLines].at(-1),
-					index
-				)
-				return
-			}
-
-			if (event.ctrlKey || event.metaKey) {
-				selectedLines.has(index)
-					? selectedLines.delete(index)
-					: selectedLines.add(index)
-
-				updateSelection()
-				return
-			}
-
-			selectedLines.clear()
-			selectedLines.add(index)
-
-			updateSelection()
-
-			dragging = true
-			dragStart = index
-		})
-
-		numberContent.addEventListener("mousemove", event => {
-			if (!dragging) {
-				return
-			}
-
-			const number = event.target.closest(".line-number")
-
-			if (!number) {
-				return
-			}
-
-			selectRange(
-				dragStart,
-				Number(number.dataset.index)
-			)
-		})
-
-		document.addEventListener("mouseup", () => {
-			dragging = false
-			dragStart = null
-		})
-
-		code.addEventListener("mousedown", event => {
-			if (event.target.closest(".input")) {
-				selectedLines.clear()
-				updateSelection()
-			}
 		})
 
 		code.addEventListener("input", event => {
@@ -256,17 +181,15 @@ export class CodeEditor {
 						: ""
 
 				lines[index] = before
+				input.textContent = before
 
-				lines.splice(
+				const newInput = insertLine(
 					index + 1,
-					0,
 					indentation + extra + after
 				)
 
-				render()
-
 				setCursor(
-					code.children[index + 1].querySelector(".input"),
+					newInput,
 					indentation.length + extra.length
 				)
 
@@ -282,17 +205,21 @@ export class CodeEditor {
 
 				event.preventDefault()
 
+				const previousInput =
+					code.children[index - 1].querySelector(".input")
+
 				const previous = lines[index - 1]
 
 				lines[index - 1] =
 					previous + lines[index]
 
-				lines.splice(index, 1)
+				previousInput.textContent =
+					lines[index - 1]
 
-				render()
+				removeLine(index)
 
 				setCursor(
-					code.children[index - 1].querySelector(".input"),
+					previousInput,
 					previous.length
 				)
 
@@ -314,14 +241,11 @@ export class CodeEditor {
 				const length = lines[index].length
 
 				lines[index] += lines[index + 1]
-				lines.splice(index + 1, 1)
+				input.textContent = lines[index]
 
-				render()
+				removeLine(index + 1)
 
-				setCursor(
-					code.children[index].querySelector(".input"),
-					length
-				)
+				setCursor(input, length)
 
 				emitInput()
 
@@ -450,33 +374,35 @@ export class CodeEditor {
 			const before = lines[index].slice(0, cursor)
 			const after = lines[index].slice(cursor)
 
-			lines.splice(
-				index,
-				1,
-				before + parts[0],
-				...parts.slice(1, -1),
-				parts.at(-1) + after
-			)
+			lines[index] = before + parts[0]
+			input.textContent = lines[index]
 
-			render()
+			for (let i = 1; i < parts.length; i++) {
+				const text =
+					i === parts.length - 1
+						? parts[i] + after
+						: parts[i]
+
+				insertLine(index + i, text)
+			}
 
 			const finalIndex =
 				index + parts.length - 1
 
+			const finalInput =
+				code.children[finalIndex].querySelector(".input")
+
 			setCursor(
-				code.children[finalIndex].querySelector(".input"),
+				finalInput,
 				parts.at(-1).length
 			)
 
 			emitInput()
 		})
 
-		render()
+		createLine(lines[0], 0)
 
-		setCursor(
-			code.children[0].querySelector(".input"),
-			0
-		)
+		setCursor(code.children[0].querySelector(".input"), 0)
 	}
 
 	update() {
