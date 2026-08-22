@@ -4,8 +4,8 @@ function doSleep(ms) {
 
 function CheckUntilOk(callback) {
 	return new Promise(resolve => {
-		const check = () => {
-			if (callback()) {
+		const check = async () => {
+			if (await callback()) {
 				resolve(true)
 			}
 			else {
@@ -17,7 +17,17 @@ function CheckUntilOk(callback) {
 	})
 }
 
+function debounce(callback, delay) {
+	let timeout
 
+	return (...args) => {
+		clearTimeout(timeout)
+
+		timeout = setTimeout(() => {
+			callback(...args)
+		}, delay)
+	}
+}
 
 export class Livestream {
 	constructor() {
@@ -39,39 +49,61 @@ export class Livestream {
 						playsinline
 					></video>
 				`.toHtml()
+
 				html.add(video)
 
 				video.addEventListener("loadedmetadata", () => {
 					console.log("loadedmetadata")
 				})
+
 				video.addEventListener("canplay", () => {
 					console.log("canplay")
-					html.clearChildren()
-					html.add(video)
 				})
+
 				video.addEventListener("playing", () => {
 					console.log("playing")
 				})
+
 				video.addEventListener("waiting", () => {
 					console.log("waiting")
 				})
+
 				video.addEventListener("stalled", () => {
 					console.log("stalled")
 				})
+
+				const reconnect = debounce(async () => {
+					console.log("reconnecting")
+
+					await CheckUntilOk(async () => {
+						video.reloadSrc()
+
+						await doSleep(500)
+
+						if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+							try {
+								await video.play()
+								return true
+							}
+							catch {
+								return false
+							}
+						}
+
+						return false
+					})
+
+					console.log("reconnected")
+				}, 1000)
+
 				video.addEventListener("error", () => {
 					console.log("error")
-					CheckUntilOk(async () => {
-						video.reloadSrc()
-						await doSleep(500)
-						const x = video.canPlay
-						video.play()
-						return x
-					})
+					reconnect()
 				})
+
 				video.addEventListener("ended", () => {
 					console.log("ended")
 				})
-
 			}
 			else {
 				html.start.onClick(async () => {
