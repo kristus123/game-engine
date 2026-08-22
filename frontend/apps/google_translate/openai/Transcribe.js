@@ -1,7 +1,7 @@
 export async function Transcribe(blob) {
 	const form = new FormData()
 
-	form.append("file", blob, "audio.webm")
+	form.append("file", blob, "audio.wav")
 	form.append("model", "gpt-4o-mini-transcribe")
 
 	form.append("language", "en")
