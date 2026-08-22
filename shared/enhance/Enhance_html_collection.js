@@ -12,6 +12,10 @@ export function Enhance_html_collection() {
 		return Array.from(this).forEach(...args)
 	})
 
+	Enhance(HTMLCollection.prototype, "map", function (...args) {
+		return Array.from(this).map(...args)
+	})
+
 	Getter(HTMLCollection.prototype, "last", function () {
 		return this[this.length - 1]
 	})

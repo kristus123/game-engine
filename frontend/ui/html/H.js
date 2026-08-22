@@ -1,5 +1,15 @@
 export class H {
 
+	static create(name, attributes={}) {
+		const e = document.createElement(name)
+
+		attributes.forEach((key, value) => {
+			e.setAttribute(key, value)
+		})
+
+		return e
+	}
+
 	static video(src) {
 		const v = HtmlElement("video")
 		v.src = src

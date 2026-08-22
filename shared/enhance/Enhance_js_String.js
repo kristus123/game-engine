@@ -21,4 +21,16 @@ export function Enhance_js_String() {
 			.parseFromString(this, "text/html")
 			.body.firstChild
 	})
+
+	Enhance(String.prototype, "dedent", function() {
+		const string = this.replace(/^\n|\n\s*$/g, "")
+
+		const amount = string.match(/^[ \t]*/)[0].length
+
+		return string
+			.split("\n")
+			.map(line => line.slice(amount))
+			.join("\n")
+	})
+
 }
