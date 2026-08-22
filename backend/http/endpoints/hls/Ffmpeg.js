@@ -21,7 +21,7 @@ export class Ffmpeg {
 			"-hls_time",
 			"5",
 			"-hls_list_size",
-			"3",
+			"6",
 			"-hls_flags",
 			"delete_segments",
 			"public_folder/hls/output.m3u8"
@@ -44,7 +44,7 @@ export class Ffmpeg {
 
 	static stop() {
 		if (!this.p) {
-			throw new Error("can't stop as no process is running")
+			throw new Error("can't trigger stop as no process is running")
 		}
 
 		return new Promise(resolve => {

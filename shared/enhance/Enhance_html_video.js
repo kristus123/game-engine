@@ -8,8 +8,6 @@ export function Enhance_html_video() {
 
 		this.src = old
 		this.load()
-
-		return this.play().catch(() => {})
 	})
 
 	Getter(HTMLVideoElement.prototype, "canPlay", function () {
