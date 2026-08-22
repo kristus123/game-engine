@@ -5,11 +5,16 @@ function doSleep(ms) {
 function CheckUntilOk(callback) {
 	return new Promise(resolve => {
 		const check = async () => {
-			if (await callback()) {
-				resolve(true)
+			try {
+				if (await callback()) {
+					resolve(true)
+				}
+				else {
+					setTimeout(check, 1000)
+				}
 			}
-			else {
-				setTimeout(check, 100)
+			catch {
+				setTimeout(check, 1000)
 			}
 		}
 
@@ -72,28 +77,68 @@ export class Livestream {
 					console.log("stalled")
 				})
 
+				let reconnecting = false
+
 				const reconnect = debounce(async () => {
-					console.log("reconnecting")
+					if (reconnecting) {
+						return
+					}
 
-					await CheckUntilOk(async () => {
-						video.reloadSrc()
+					reconnecting = true
 
-						await doSleep(500)
+					try {
+						console.log("reconnecting")
 
-						if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-							try {
-								await video.play()
-								return true
-							}
-							catch {
-								return false
-							}
-						}
+						await CheckUntilOk(async () => {
+							video.reloadSrc()
 
-						return false
-					})
+							return new Promise(resolve => {
+								let timeout
 
-					console.log("reconnected")
+								const cleanup = () => {
+									clearTimeout(timeout)
+									video.removeEventListener("canplay", onCanPlay)
+									video.removeEventListener("error", onError)
+									video.removeEventListener("stalled", onError)
+								}
+
+								const onCanPlay = async () => {
+									cleanup()
+
+									try {
+										await video.play()
+										resolve(true)
+									}
+									catch {
+										resolve(false)
+									}
+								}
+
+								const onError = () => {
+									cleanup()
+									resolve(false)
+								}
+
+								timeout = setTimeout(() => {
+									cleanup()
+									resolve(false)
+								}, 5000)
+
+								video.addEventListener("canplay", onCanPlay, { once: true })
+								video.addEventListener("error", onError, { once: true })
+								video.addEventListener("stalled", onError, { once: true })
+
+								if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+									onCanPlay()
+								}
+							})
+						})
+
+						console.log("reconnected")
+					}
+					finally {
+						reconnecting = false
+					}
 				}, 1000)
 
 				video.addEventListener("error", () => {
@@ -103,6 +148,7 @@ export class Livestream {
 
 				video.addEventListener("ended", () => {
 					console.log("ended")
+					reconnect()
 				})
 			}
 			else {
@@ -125,7 +171,7 @@ export class Livestream {
 
 						HttpClient.sendChunk({
 							rawBody: e.data,
-							contentType: "video/webm",
+							contentType: mediaRecorder.mimeType,
 							ok: () => {
 								console.log("ok!")
 							},
