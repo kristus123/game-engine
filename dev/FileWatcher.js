@@ -4,7 +4,7 @@ const { Files } = AllImports
 
 // chatgpt code
 
-export function TestWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
+export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) {
 	const last = new Map()
 	const pending = new Map()
 	let initialized = false
