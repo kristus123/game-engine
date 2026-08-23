@@ -21,7 +21,7 @@ HtmlObserverThing((node) => {
 		console.log(10)
 
 		node.addEventListener("keydown", (e) => {
-			if (e.key === "Enter") {
+			if (e.key == "Enter") {
 	 		   e.preventDefault();
 	 		}
 		});

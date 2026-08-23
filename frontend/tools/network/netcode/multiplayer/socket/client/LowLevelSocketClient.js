@@ -4,7 +4,7 @@ export class LowLevelSocketClient {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
 		this.webSocket.onopen = () => {
-			onConnect() 
+			onConnect()
 			//Todo: this should not be triggered on every onOpen
 			// We should have one connect and one on initial connect
 			console.log("WebSocket connection opened")

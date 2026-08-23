@@ -12,8 +12,8 @@ export class CodeEditor {
 		html.lines.add(x)
 		html.lines.add(x)
 		html.lines.add(x)
-		
-		
+
+
 	}
 
 	update() {
