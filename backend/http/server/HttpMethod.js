@@ -23,14 +23,14 @@ export class HttpMethod {
 			const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 			const method = Router(role, Poop.routeName(req))
 
-			const contentType = ContentType.assertSupported(req.headers["content-type"])
+			const contentType = ContentType.parse(req.headers["content-type"])
 
 			const returnValue = method({
 				bufferBody: bufferBody,
 				jsonBody: jsonBody,
 				req: req,
 				headers: req.headers,
-				contentType: contentType,
+				contentType: contentType.name,
 				params: Poop.getQueryParameters(req),
 			}) ?? {}
 
