@@ -4,13 +4,29 @@ import { initD1 } from "/tools/game/start/draw_layers/D1.js"
 import { initD2 } from "/tools/game/start/draw_layers/D2.js"
 import { initD3 } from "/tools/game/start/draw_layers/D3.js"
 
+SocketClient.connect(() => {
+	console.log("connected")
+})
+
 SocketClient.onServerMessage("HOT_RELOAD", () => {
 	Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 	location.reload()
 })
 
 ServiceWorker.init()
-// HtmlObserverThing()
+HtmlObserverThing((node) => {
+
+	//make it better later! currently only work with content only editable
+	if node.hasAttribute("prevent-default") {  
+		console.log(10)
+
+		node.addEventListener("keydown", (e) => {
+			if (e.key == "Enter") {
+	 		   e.preventDefault();
+	 		}
+		});
+	}
+})
 
 Gp.init()
 // DeviceListener.init()
@@ -37,7 +53,7 @@ Promise.all([
 		initD2(Draw(Palette.d2.ctx))
 		initD3(Draw(Palette.d3.ctx))
 
-		const activeThing = Livestream()
+		const activeThing = CodeEditor()
 
 		GameLoop.start(() => {
 			Palette.main.fill("#10204f")

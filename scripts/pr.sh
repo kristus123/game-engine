@@ -9,7 +9,7 @@ fi
 
 git pull --rebase && git pull --rebase origin master
 
-./lint.sh
+./scripts/lint.sh
 
 git add .
 git commit -m "lint"

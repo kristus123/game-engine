@@ -1,9 +1,10 @@
-export function HtmlObserverThing() {
+export function HtmlObserverThing(onNewNodeAdded) {
 	const process = (node) => {
 		if (!(node instanceof HTMLElement)) {
 			return
 		}
-
+		console.log(node)
+		onNewNodeAdded(node)
 		// do something
 	}
 
