@@ -14,7 +14,7 @@ const {
 } = AllImports
 
 try {
-	execSync("./kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
+	execSync("./scripts/kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
 }
 catch (e) {
 	console.log(e)

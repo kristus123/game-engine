@@ -7,8 +7,9 @@ const mainFilename = process.argv[1]
 
 export class Files {
 	static appendString(path, string) {
-		if (!fs.existsSync(path)) {
-			fs.mkdirSync(path, { recursive: true })
+		const dir = Path.dirname(path);
+		if (!fs.existsSync(dir)) {
+			fs.mkdirSync(dir, { recursive: true })
 		}
 
 		fs.appendFileSync(path, string)
