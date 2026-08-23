@@ -8,7 +8,7 @@ const {
 	PrepareExternalBundle,
 	AssertNoReservedKeywordsUsedInFileNames,
 	AssertUniqueFileNames,
-	TestWatcher,
+	FileWatcher,
 	ExportAseprite,
 	ServeDist
 } = AllImports
@@ -92,7 +92,7 @@ function triggerClientReload() {
 	}, 100)
 }
 
-TestWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
+FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)
