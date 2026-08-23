@@ -92,19 +92,19 @@ export class ContentType {
 				continue
 			}
 
-			if (char === "\\") {
+			if (char == "\\") {
 				part += char
 				escaped = true
 				continue
 			}
 
-			if (char === '"') {
+			if (char == "\"") {
 				quoted = !quoted
 				part += char
 				continue
 			}
 
-			if (char === ";" && !quoted) {
+			if (char == ";" && !quoted) {
 				parts.push(part)
 				part = ""
 				continue
@@ -126,7 +126,7 @@ export class ContentType {
 		for (const part of parts) {
 			const separator = part.indexOf("=")
 
-			if (separator === -1) {
+			if (separator == -1) {
 				continue
 			}
 
@@ -134,12 +134,12 @@ export class ContentType {
 			let parameterValue = part.substring(separator + 1).trim()
 
 			if (
-				parameterValue.startsWith('"') &&
-				parameterValue.endsWith('"')
+				parameterValue.startsWith("\"") &&
+				parameterValue.endsWith("\"")
 			) {
 				parameterValue = parameterValue
 					.substring(1, parameterValue.length - 1)
-					.replace(/\\"/g, '"')
+					.replace(/\\"/g, "\"")
 					.replace(/\\\\/g, "\\")
 			}
 
