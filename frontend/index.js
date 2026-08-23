@@ -1,4 +1,5 @@
 export const index = ""
+window.Log = Log // trigger auto-import
 
 import { initD1 } from "/tools/game/start/draw_layers/D1.js"
 import { initD2 } from "/tools/game/start/draw_layers/D2.js"
