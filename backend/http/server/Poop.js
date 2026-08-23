@@ -69,7 +69,7 @@ export class Poop {
 		const root = process.cwd()
 		const filePath = path.resolve(root, "." + decodedPath)
 
-		if (!filePath.startsWith(root + path.sep)) {
+		if (filePath !== root && !filePath.startsWith(root + path.sep)) {
 			console.log(filePath)
 			throw new Error("Path traversal attempt")
 		}
