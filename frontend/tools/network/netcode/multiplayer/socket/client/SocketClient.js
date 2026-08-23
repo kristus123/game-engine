@@ -26,6 +26,9 @@ export class SocketClient {
 			this.serverActionListener.trigger(data.action, data)
 		}
 	}
+	static connect(onConnect) {
+		LowLevelSocketClient.connect(onConnect)
+	}
 
 	static sendToServer(action, data) {
 		LowLevelSocketClient.send(data.merge({
