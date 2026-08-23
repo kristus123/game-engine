@@ -78,12 +78,6 @@ export class CodeEditor {
 		Mic.request(() => {
 		})
 
-		html.start.onClick(() => {
-			console.log("started")
-			Mic.start()
-		})
-
-
 		vad.MicVAD.new({
 			onSpeechStart: () => {
 				console.log("Speech start detected")
@@ -93,7 +87,7 @@ export class CodeEditor {
 				console.log(text)
 
 				const x = await Gpt(`
-					- Only return code, but without the triple-tick markdown syntax.
+					- Only return code, but without the triple tick markdown syntax.
 					- I will use "git diff", so apply as little changes as possible
 
 					prompt:
