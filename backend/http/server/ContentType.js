@@ -79,11 +79,76 @@ export class ContentType {
 		throw new Error("error while calling .fromFile, unsupported file type: " + file)
 	}
 
-	static assertSupported(contentType) {
-		if (!this.values.includes(contentType)) {
-			throw new Error("uerror while calling .assertSupported, nsupported content type: " + contentType)
+	static parse(value) {
+		const parts = []
+		let part = ""
+		let quoted = false
+		let escaped = false
+
+		for (const char of value) {
+			if (escaped) {
+				part += char
+				escaped = false
+				continue
+			}
+
+			if (char === "\\") {
+				part += char
+				escaped = true
+				continue
+			}
+
+			if (char === '"') {
+				quoted = !quoted
+				part += char
+				continue
+			}
+
+			if (char === ";" && !quoted) {
+				parts.push(part)
+				part = ""
+				continue
+			}
+
+			part += char
 		}
 
-		return contentType
+		parts.push(part)
+
+		const contentType = parts.shift().trim()
+
+		if (!this.values.includes(contentType)) {
+			throw new Error("error while calling .parse, unsupported content type: " + contentType)
+		}
+
+		const parameters = {}
+
+		for (const part of parts) {
+			const separator = part.indexOf("=")
+
+			if (separator === -1) {
+				continue
+			}
+
+			const key = part.substring(0, separator).trim()
+			let parameterValue = part.substring(separator + 1).trim()
+
+			if (
+				parameterValue.startsWith('"') &&
+				parameterValue.endsWith('"')
+			) {
+				parameterValue = parameterValue
+					.substring(1, parameterValue.length - 1)
+					.replace(/\\"/g, '"')
+					.replace(/\\\\/g, "\\")
+			}
+
+			parameters[key] = parameterValue
+		}
+
+		return {
+			name: contentType,
+			parameters: parameters
+		}
 	}
 }
