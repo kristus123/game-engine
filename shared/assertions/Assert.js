@@ -1,7 +1,9 @@
 export class Assert {
 
 	static ok(httpResponse) {
+		// Also, verify that it that the parameter is an HTTP response
 		Assert.true(httpResponse.ok)
+		return httpResponse.body
 	}
 
 	static number(n) {

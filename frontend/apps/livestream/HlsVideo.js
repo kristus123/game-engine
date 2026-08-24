@@ -1,0 +1,43 @@
+export function HlsVideo() {
+
+	const v = `
+		<video
+			src="${Config.httpUrl}/public_folder/hls/output.m3u8"
+			controls
+			autoplay
+			muted
+			playsinline
+		></video>
+	`.toHtml()
+
+
+	v.addEventListener("loadedmetadata", () => {
+		console.log("loadedmetadata")
+	})
+
+	v.addEventListener("canplay", () => {
+		console.log("canplay")
+	})
+
+	v.addEventListener("playing", () => {
+		console.log("playing")
+	})
+
+	v.addEventListener("waiting", () => {
+		console.log("waiting")
+	})
+
+	v.addEventListener("stalled", () => {
+		console.log("stalled")
+	})
+
+	v.addEventListener("error", () => {
+		console.log("error")
+	})
+
+	v.addEventListener("ended", () => {
+		console.log("ended")
+	})
+
+	return v
+}
