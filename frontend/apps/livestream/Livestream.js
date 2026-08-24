@@ -153,7 +153,7 @@ export class Livestream {
 			}
 			else {
 				html.start.onClick(async () => {
-					(await HttpClient.startStream()).assertOk()
+					Assert.ok(await HttpClient.startStream())
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,
