@@ -8,7 +8,6 @@ export class DiscordLogServer {
 			try {
 				const channelName = sessionId.replace(/[^a-z0-9-]/ig, "").toLowerCase()
 				const id = await this.getChannelId(channelName)
-
 				const content = message.length > 1990 ? message.substring(0, 1990) + "..." : message
 				await DiscordHttpClient.post(`/channels/${id}/messages`, { content })
 
