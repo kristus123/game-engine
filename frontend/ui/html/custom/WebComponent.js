@@ -17,9 +17,6 @@ export function WebComponent(name, html) {
 
 			for (const slot of content.querySelectorAll("slot")) {
 				const slotName = slot.getAttribute("name")
-				console.log("___")
-				console.log(slotName)
-				console.log("___")
 
 				for (const child of children) {
 					if (child.nodeType != Node.ELEMENT_NODE) {

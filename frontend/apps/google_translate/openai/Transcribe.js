@@ -1,9 +1,8 @@
-export async function Transcribe(blob) {
-	const form = new FormData()
+export async function Transcribe(wav) {
 
+	const form = new FormData()
 	form.append("file", blob, "audio.wav")
 	form.append("model", "gpt-4o-mini-transcribe")
-
 	form.append("language", "en")
 
 	const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
@@ -14,12 +13,11 @@ export async function Transcribe(blob) {
 		body: form,
 	})
 
-	if (!res.ok) {
-		const err = await res.text()
-		throw new Error("Transcription failed: " + err)
+	if (res.ok) {
+		const data = await res.json()
+		return data.text
 	}
-
-	const data = await res.json()
-	console.log(data.text)
-	return data.text
+	else {
+		throw new Error("Transcription failed: " + await res.text())
+	}
 }

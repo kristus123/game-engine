@@ -17,6 +17,7 @@ export class Paths {
 	static get dist() {
 		return {
 			index_js: "dist/index.js",
+			assetPaths: "dist/AssetPaths.js",
 			externalBundle: "dist/out.js"
 		}
 	}

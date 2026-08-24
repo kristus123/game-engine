@@ -3,7 +3,6 @@ import { spawn } from "child_process"
 Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
-
 Route.sendChunk = async ({ bufferBody }) => {
 	// we should stream body into ffmpeg without first wrapping it.
 	// but that can be done later
@@ -31,7 +30,6 @@ Route.stopStream = async () => {
 		stopped: true,
 	}
 }
-
 
 Route.currentlyStreaming = () => {
 	return {
