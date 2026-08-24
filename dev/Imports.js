@@ -12,12 +12,7 @@ function include(content, className) {
 		return false
 	}
 
-	if (
-		containsExport("class", className, content) ||
-		containsExport("function", className, content) ||
-		containsExport("const", className, content) ||
-		containsExport("let", className, content)
-	) {
+	if (containsExport("class", className, content) || containsExport("function", className, content) || containsExport("const", className, content) || containsExport("let", className, content)) {
 		return false
 	}
 	else if (new RegExp(`\\b${className}\\b`).test(content)) {
