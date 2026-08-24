@@ -10,6 +10,7 @@ export function UpdateEslint() {
 	const allJsFiles = [ // todo improve this somehow. it will probably lead to bugs in the future
 		...Files.at("frontend/"),
 		...Files.at("backend/"),
+		...Files.at("shared/"),
 		...Files.at("dev/"),
 	].filter(f => f.endsWith(".js"))
 
