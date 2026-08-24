@@ -10,9 +10,6 @@ let index = null
 // rename to Con.js instead, that is better
 export class Gp {
 
-	static init() {
-	}
-
 	static {
 		window.addEventListener("gamepadconnected", (e) => {
 			index = e.gamepad.index

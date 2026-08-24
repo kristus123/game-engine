@@ -150,6 +150,7 @@
         "Base64": "readonly",
         "Calculate": "readonly",
         "Camera": "readonly",
+        "CanvasGame": "readonly",
         "CenterPosition": "readonly",
         "ChineseCharacters": "readonly",
         "ClientToken": "readonly",

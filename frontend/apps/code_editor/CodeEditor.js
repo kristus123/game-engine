@@ -44,7 +44,4 @@ export class CodeEditor {
 		})
 	}
 
-	update() {
-
-	}
 }

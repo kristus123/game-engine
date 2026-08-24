@@ -23,13 +23,8 @@ export class Dom {
 	static add(e) { // should this add itself to an overlay? i guess that would make sense. this is for easy debugging and not for proper layouts
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (e.isConnected) {
-			throw new Error("use .move if element is already in dom")
-		}
-		else {
-			document.body.appendChild(e)
-			return e
-		}
+		document.body.appendChild(e)
+		return e
 	}
 
 	static move(e) {
