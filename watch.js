@@ -10,7 +10,7 @@ const {
 	AssertUniqueFileNames,
 	FileWatcher,
 	ExportAseprite,
-	ServeDist
+	ServeDist,
 } = AllImports
 
 try {

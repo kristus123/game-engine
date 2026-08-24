@@ -16,10 +16,8 @@ SocketClient.onServerMessage("HOT_RELOAD", () => {
 ServiceWorker.init()
 HtmlObserverThing((node) => {
 
-	//make it better later! currently only work with content only editable
+	//make it better later! currently only work with contenteditable
 	if node.hasAttribute("prevent-default") {  
-		console.log(10)
-
 		node.addEventListener("keydown", (e) => {
 			if (e.key == "Enter") {
 	 		   e.preventDefault();
@@ -34,11 +32,11 @@ Gp.init()
 // await ClientToken.init()
 
 Promise.all([
-	Promise.all(ASEPRITE_FILES.map(LoadAsepriteAssets)),
-	Promise.all(HTML_CONTENTS.map(LoadHtmlContent)),
-	LoadAllAudio(AUDIO_FILES),
-	LoadAllImages(IMAGE_FILES),
-	Promise.all(CUSTOM_WEB_COMPONENTS.map(c => {
+	Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
+	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
+	LoadAllAudio(AssetPaths.audio),
+	LoadAllImages(AssetPaths.image),
+	Promise.all(AssetPaths.htmlComponent.map(c => {
 		WebComponent(c.name, c.content)
 	}))
 	// LoadPersistedJson(),

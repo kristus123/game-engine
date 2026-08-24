@@ -1,5 +1,11 @@
 import { AllImports } from "#root/AllImports.js"
-const { Files, Paths, Transpiler, Markdown, GenerateIndexJs } = AllImports
+const {
+	Files,
+	Paths,
+	Transpiler,
+	Markdown,
+	GenerateIndexJs,
+} = AllImports
 
 // todo find better solution?
 // right now everyone creates their own list

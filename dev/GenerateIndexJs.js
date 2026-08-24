@@ -6,9 +6,7 @@ export function GenerateIndexJs() {
 	const customWebComponents = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".html") && f.includes("-"))
 		.map(f => {
-			let content = Files.read(f)
-
-			content = content
+			const content = Files.read(f)
 				.replace("\n", "")
 				.replace(/\s+/g, " ")
 				.trim()
@@ -44,7 +42,6 @@ export function GenerateIndexJs() {
 			return JSON.stringify({ name: name, content: content })
 		})
 
-	let fileContent = Files.read(Paths.dist.index_js)
 
 	const asepriteFiles = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".aseprite"))
@@ -63,11 +60,13 @@ export function GenerateIndexJs() {
 		.map(f => `"/${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
 
+
+	let fileContent = Files.read(Paths.dist.assetPaths)
 	fileContent = fileContent.replaceAll("ASEPRITE_FILES", `[${asepriteFiles}]`)
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
 	fileContent = fileContent.replaceAll("CUSTOM_WEB_COMPONENTS", `[${customWebComponents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
 	fileContent = fileContent.replaceAll("IMAGE_FILES", `[${imageFiles}]`)
 
-	Files.write(Paths.dist.index_js, fileContent)
+	Files.write(Paths.dist.assetPaths, fileContent)
 }

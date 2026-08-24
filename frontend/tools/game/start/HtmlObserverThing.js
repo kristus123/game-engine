@@ -1,15 +1,8 @@
 export function HtmlObserverThing(onNewNodeAdded) {
-	const process = (node) => {
-		if (!(node instanceof HTMLElement)) {
-			return
-		}
-		console.log(node)
-		onNewNodeAdded(node)
-		// do something
-	}
-
 	const walk = (node) => {
-		process(node)
+		if (node instanceof HTMLElement) {
+			onNewNodeAdded(node)
+		}
 
 		for (const child of node.children) {
 			walk(child)
