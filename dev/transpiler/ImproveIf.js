@@ -15,4 +15,7 @@ export function ImproveIf(lines, i) {
 		const tabs = "\t".repeat(tabCount(lines[i]))
 		lines[i] = tabs + s
 	}
+	else if (Regex.simple(lines[i], "if *")) {
+		throw new Error(lines[i] + " <--- Expected '{' Here. Only Single Line Ifs Are Allowed!")
+	}
 }
