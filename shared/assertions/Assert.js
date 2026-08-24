@@ -1,5 +1,9 @@
 export class Assert {
 
+	static ok(httpResponse) {
+		Assert.true(httpResponse.ok)
+	}
+
 	static number(n) {
 		if (A.number) {
 			return n

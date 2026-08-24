@@ -329,7 +329,6 @@
         "SpriteSheet": "readonly",
         "SpriteSlicer": "readonly",
         "Square": "readonly",
-        "Start": "readonly",
         "StartServer": "readonly",
         "StopWatch": "readonly",
         "StraightPath": "readonly",
