@@ -1,5 +1,6 @@
 SocketClient.connect(() => {
 	console.log("connected")
+	Log("Session started - Client connected!")
 })
 
 SocketClient.onServerMessage("HOT_RELOAD", () => {
