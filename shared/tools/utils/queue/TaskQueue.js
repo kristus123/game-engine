@@ -13,7 +13,8 @@ export class TaskQueue {
 			this.tasks.push(async () => {
 				try {
 					resolve(await task())
-				} catch (e) {
+				}
+				catch (e) {
 					reject(e)
 				}
 			})
@@ -22,7 +23,9 @@ export class TaskQueue {
 	}
 
 	async process() {
-		if (this.isProcessing || this.tasks.length === 0) return
+		if (this.isProcessing || this.tasks.length === 0) {
+			return
+		}
 		this.isProcessing = true
 
 		while (this.tasks.length > 0) {
