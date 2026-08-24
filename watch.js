@@ -31,7 +31,7 @@ Files.deleteFolder(Paths.distFolder)
 // todo improve comment
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
 // also, we should use Import.js
-const { StartServer } = await import("#root/transpiledBackend/http/StartServer.js")
+const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
 
 
