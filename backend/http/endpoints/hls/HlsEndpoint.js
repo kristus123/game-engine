@@ -1,5 +1,6 @@
 import { spawn } from "child_process"
 
+Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
 
