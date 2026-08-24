@@ -6,6 +6,7 @@ import { initD3 } from "/tools/game/start/draw_layers/D3.js"
 
 SocketClient.connect(() => {
 	console.log("connected")
+	Log("Session started - Client connected!")
 })
 
 SocketClient.onServerMessage("HOT_RELOAD", () => {
