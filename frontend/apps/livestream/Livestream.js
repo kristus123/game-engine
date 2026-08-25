@@ -35,9 +35,6 @@ export class Livestream {
 
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size > 0) {
-							console.log(e.data.type)
-							Log("Sending chunk")
-
 							HttpClient.sendChunk({
 								rawBody: e.data,
 								contentType: mimeType,

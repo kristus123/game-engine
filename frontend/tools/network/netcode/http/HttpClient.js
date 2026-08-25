@@ -1,74 +1,23 @@
 export const HttpClient = ProxyObject(
-	async (routeName, { body = {}, contentType = "application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
-		Assert.jsonObject(body)
-		Assert.value(contentType)
-		console.log(contentType)
+	async (routeName, { body = null, contentType, ok = body => {}, error = body => {} } = {}) => {
 
-		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else
+		if (A.jsonObject(body)) {
+			Assert.null(contentType, "contentType should not be present if body is normal json object")
 
-		const request = {
-			body: rawBody ?? JSON.stringify(body),
-			method: "POST",
-			cache: "no-store",
-			signal: timer,
-			headers: {
-				"Content-Type": contentType,
-				"token": ClientToken.encodedToken ?? null,
-			},
+			return LowLevelHttpClient.post(
+				routeName,
+				JSON.stringify(body),
+				response => response.json(),
+				"application/json")
 		}
+		else {
+			Assert.value(contentType)
 
-		try {
-			Log(`Sending request to: ${routeName}`)
-
-			const response = await fetch(`${Config.httpUrl}/${routeName}`, request)
-			const responseBody = await response.json()
-
-			Assert.jsonObject(responseBody)
-
-			if (response.ok) {
-				ok(responseBody)
-
-				Log("ok")
-				Log(responseBody)
-
-				return {
-					ok: true,
-					error: false,
-					body: responseBody,
-				}
-			}
-
-			error(responseBody)
-
-			Log("ERROR 1".dedent())
-			Log(responseBody)
-
-			return {
-				ok: false,
-				error: true,
-				body: responseBody,
-			}
-		}
-		catch (e) {
-			Log(`
-				ERROR 2
-
-				${e}
-
-				\`\`\`
-				${e.stack}
-				\`\`\`
-			`.dedent())
-
-			console.error(e)
-
-			return {
-				ok: false,
-				error: true,
-			}
-		}
-		finally {
-			clearTimeout(timer)
+			return LowLevelHttpClient.post(
+				routeName,
+				body,
+				response => response.json(),
+				contentType)
 		}
 	}
 )

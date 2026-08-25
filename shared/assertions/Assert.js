@@ -149,6 +149,15 @@ export class Assert {
 		return list
 	}
 
+	static null(a, msg) {
+		if (A.null(a)) {
+			return v
+		}
+		else {
+			throw new Error(msg ?? "wow")
+		}
+	}
+
 	static notPresent(v) {
 		if (v == null) {
 			return v

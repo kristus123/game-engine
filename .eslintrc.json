@@ -267,6 +267,7 @@
         "Log": "readonly",
         "LogEndpoint": "readonly",
         "LowDb": "readonly",
+        "LowLevelHttpClient": "readonly",
         "LowLevelSocketClient": "readonly",
         "LowLevelSocketServer": "readonly",
         "Markdown": "readonly",
