@@ -11,12 +11,12 @@ export class TaskQueue {
 	add(task) {
 		return new Promise((resolve, reject) => {
 			this.tasks.push(async () => {
-    			try {
-        			resolve(await task())
-    			}
-    			catch (e) {
-        			reject(e)
-    			}
+				try {
+    				resolve(await task())
+				}
+				catch (e) {
+    				reject(e)
+				}
 			})
 			this.process()
 		})
