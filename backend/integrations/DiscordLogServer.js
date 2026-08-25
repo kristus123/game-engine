@@ -36,7 +36,7 @@ export class DiscordLogServer {
 		const channels = await DiscordHttpClient.get(`/guilds/${guildId}/channels`)
 		for (const c of channels) {
 			channelCache.set(c.name, c.id)
-			if (c.name === name) {
+			if (c.name == name) {
 				return c.id
 			}
 		}

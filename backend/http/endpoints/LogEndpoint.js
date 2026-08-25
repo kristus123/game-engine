@@ -1,4 +1,4 @@
 UnsecureRoute.log = ({ jsonBody }) => {
-    DiscordLogServer.sendMessage(jsonBody.sessionId, jsonBody.message)
-    return {}
+	DiscordLogServer.sendMessage(jsonBody.sessionId, jsonBody.message)
+	return {}
 }
