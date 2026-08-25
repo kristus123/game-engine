@@ -19,6 +19,18 @@ export class H {
 		return v
 	}
 
+	static streamVideo(stream) {
+		const video = document.createElement("video")
+
+		video.autoplay = true
+		video.muted = true
+		video.playsInline = true
+
+		video.srcObject = stream
+
+		return video
+	}
+
 	static dialog(children=[]) {
 
 		const div = HtmlElement("div")
