@@ -21,10 +21,11 @@ export class Livestream {
 					})
 					Log("getUserMedia started")
 
-					const mediaRecorder = new MediaRecorder(stream)
-					Log("mimetype____")
-					Log(mediaRecorder.mimeType)
-					Log("mimetype____")
+					const mimeType = Platform.safari()
+						? "video/mp4;codecs=h264,aac"
+						: "video/webm;codecs=vp8,opus"
+
+					const mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType })
 
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size == 0) {
@@ -36,7 +37,7 @@ export class Livestream {
 
 						HttpClient.sendChunk({
 							rawBody: e.data,
-							contentType: mediaRecorder.mimeType,
+							contentType: mimeType,
 							ok: () => {
 								Log("ok!")
 							},

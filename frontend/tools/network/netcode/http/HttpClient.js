@@ -10,7 +10,8 @@ export const HttpClient = ProxyObject(
 			body: rawBody ?? JSON.stringify(body),
 			method: "POST",
 			cache: "no-store",
-			signal: timer, headers: {
+			signal: timer,
+			headers: {
 				"Content-Type": contentType,
 				"token": ClientToken.encodedToken ?? null,
 			},
@@ -39,11 +40,8 @@ export const HttpClient = ProxyObject(
 
 			error(responseBody)
 
-			Log(`
-				ERROR 1
-
-				${responseBody}
-			`.dedent())
+			Log("ERROR 1".dedent())
+			Log(responseBody)
 
 			return {
 				ok: false,
@@ -67,7 +65,6 @@ export const HttpClient = ProxyObject(
 			return {
 				ok: false,
 				error: true,
-				body: { msg: "todo get body" },
 			}
 		}
 		finally {

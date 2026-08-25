@@ -5,7 +5,9 @@ function _sendToDiscord(args) {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ sessionId: SessionId, message: args.join(" ") })
-	}).catch(() => {})
+	}).catch(() => {
+		console.error("failed to send log to discord server")
+	})
 }
 
 export function Log(...args) {
@@ -14,7 +16,7 @@ export function Log(...args) {
 }
 
 Log.info = (...args) => {
-	throw new Error("don't use Log.info, just use Log(x)")
+	throw new Error("don't use Log.info(), just use Log()")
 }
 
 Log.warn = (...args) => {

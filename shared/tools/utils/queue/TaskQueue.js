@@ -8,14 +8,14 @@ export class TaskQueue {
 		this.queue.push(taskFn)
 
 		if (!this.running) {
-    		this.running = true
+			this.running = true
 
-    		while (this.queue.length) {
-        		const task = this.queue.shift()
-        		await task()
-    		}
+			while (this.queue.length) {
+    			const task = this.queue.shift()
+    			await task()
+			}
 
-    		this.running = false
+			this.running = false
 		}
 	}
 }

@@ -1,13 +1,15 @@
 export function Enhance_html_video() {
 
-	Enhance(HTMLVideoElement.prototype, "reloadSrc", function () {
-		const old = this.src
+	Enhance(HTMLVideoElement.prototype, "reload", function () {
 
-		this.src = ""
+		this.pause()
+		const old = this.src
+		this.removeAttribute("src")
 		this.load()
 
 		this.src = old
 		this.load()
+		this.play() // .catch(() => {})
 	})
 
 	Getter(HTMLVideoElement.prototype, "canPlay", function () {

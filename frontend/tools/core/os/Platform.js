@@ -1,5 +1,13 @@
 export class Platform {
 
+	static safari() {
+		return /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+	}
+
+	static chrome() {
+		return /chrome|chromium/i.test(navigator.userAgent) && !/edge|edg/i.test(navigator.userAgent)
+	}
+
 	static get ios() {
 		if (typeof window == "undefined" || !window.navigator) {
 			return false

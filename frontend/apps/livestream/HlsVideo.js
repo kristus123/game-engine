@@ -31,9 +31,14 @@ export function HlsVideo() {
 		console.log("stalled")
 	})
 
-	v.addEventListener("error", () => {
+	v.addEventListener("error", Debounce(200, () => {
 		console.log("error")
-	})
+
+		setTimeout(() => {
+			v.reload()
+		}, 5_000)
+
+	}))
 
 	v.addEventListener("ended", () => {
 		console.log("ended")
