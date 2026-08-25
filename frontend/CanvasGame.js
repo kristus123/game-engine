@@ -24,7 +24,7 @@ export function CanvasGame() {
 			initD2(Draw(Palette.d2.ctx))
 			initD3(Draw(Palette.d3.ctx))
 
-			const activeThing = CodeEditor()
+			const activeThing = Livestream()
 
 			GameLoop.start(() => {
 				Palette.main.fill("#10204f")

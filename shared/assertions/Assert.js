@@ -3,7 +3,13 @@ export class Assert {
 	static ok(httpResponse) {
 		// Also, verify that it that the parameter is an HTTP response
 		Assert.true(httpResponse.ok)
-		return httpResponse.body
+		if (httpResponse.ok) {
+			return httpResponse.body
+		}
+		else {
+			console.log(httpResponse)
+			throw new Error("Expected httpResponse to be ok, but it is not")
+		}
 	}
 
 	static number(n) {

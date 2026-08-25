@@ -6,8 +6,7 @@ export class DiscordLogServer {
 	static sendMessage(sessionId, message) {
 		TaskQueue.global.add(async () => {
 			try {
-				const channelName = sessionId.replace(/[^a-z0-9-]/ig, "").toLowerCase()
-				const id = await this.getChannelId(channelName)
+				const id = await this.getChannelId(sessionId)
 				const content = message.length > 1990 ? message.substring(0, 1990) + "..." : message
 				await DiscordHttpClient.post(`/channels/${id}/messages`, { content })
 

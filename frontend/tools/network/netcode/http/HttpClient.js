@@ -8,7 +8,7 @@ export const HttpClient = ProxyObject(
 		const abortController = new AbortController()
 		const timer = setTimeout(() => {
 			abortController.abort()
-		}, 1_000)
+		}, 3_000)
 
 		const request = {
 			body: rawBody ?? JSON.stringify(body),
@@ -21,39 +21,61 @@ export const HttpClient = ProxyObject(
 			},
 		}
 
+		Log(`
+			Sending request to: ${routeName}
+		`.dedent())
 		return fetch(`${Config.httpUrl}/${routeName}`, request)
 			.then(async response => {
-				const json = await response.json()
+				const responseBody = await response.json()
 
-				Assert.jsonObject(json)
+				Assert.jsonObject(responseBody)
 
 				if (response.ok) {
-					ok(json)
+					ok(responseBody)
+
+					Log(`
+						OK
+
+						${responseBody}
+					`.dedent())
 
 					return {
 						ok: true,
 						error: false,
-						body: json,
+						body: responseBody,
 					}
 				}
 				else {
-					error(json)
+					error(responseBody)
+
+					Log(`
+						ERROR
+
+						${responseBody}
+					`.dedent())
+
 
 					return {
 						ok: false,
 						error: true,
-						body: json,
+						body: responseBody,
 					}
 				}
 			})
 			.catch(e => {
-				console.log("happy.")
-				console.error(`${routeName}: ${e?.message}`)
-				error({ error: e })
+				Log(`
+					ERROR
+
+					${e}
+
+					${e.stack}
+				`.dedent())
+
+				console.error(e)
+
 				return {
 					ok: false,
 					error: true,
-					body: json,
 				}
 			})
 			.finally(() => {
