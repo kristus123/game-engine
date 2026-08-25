@@ -11,7 +11,6 @@ export class DiscordLogServer {
 				const content = message.length > 1990 ? message.substring(0, 1990) + "..." : message
 				await DiscordHttpClient.post(`/channels/${id}/messages`, { content })
 
-				await this.bumpChannel(channelName, id)
 				await this.cleanupOldChannels()
 			}
 			catch (e) {
@@ -20,33 +19,10 @@ export class DiscordLogServer {
 		})
 	}
 
-	static async bumpChannel(name, id) {
-		const now = Date.now()
-		if (channelMoveCache.has(name) && now - channelMoveCache.get(name) < 60000) {
-			return
-		}
-
-		channelMoveCache.set(name, now)
-		try {
-			// Using the direct channel patch but setting position to 1 (under #chat)
-			await DiscordHttpClient.patch(`/channels/${id}`, { position: 1 })
-		}
-		catch (e) {
-			console.error("Failed to bump channel:", e.message || e)
-		}
-	}
-
 	static async cleanupOldChannels() {
 		const channels = await DiscordHttpClient.get(`/guilds/${guildId}/channels`)
-		if (channels.length <= 100) {
-			return
-		}
-
-		channels.sort((a, b) => b.position - a.position)
-		const toDelete = channels.slice(0, channels.length - 100)
-
-		for (const c of toDelete) {
-			if (c.name !== "general" && c.name !== "chat") {
+		if (channels.length > 10) {
+			for (const c of channels) {
 				await DiscordHttpClient.delete(`/channels/${c.id}`)
 				channelCache.delete(c.name)
 			}
