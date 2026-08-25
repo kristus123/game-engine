@@ -128,6 +128,7 @@
     },
     "globals": {
         "A": "readonly",
+        "AbortAtMs": "readonly",
         "ActionListener": "readonly",
         "ActiveMic": "readonly",
         "AddCardPage": "readonly",

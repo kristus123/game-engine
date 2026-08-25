@@ -55,6 +55,7 @@ export class HttpMethod {
 		}
 		catch (e) {
 			console.log(e)
+			Log(e)
 			Poop.sendJson(res, 500, {
 				error: "error: " + e,
 			})

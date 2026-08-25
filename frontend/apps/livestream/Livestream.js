@@ -22,9 +22,9 @@ export class Livestream {
 					Log("getUserMedia started")
 
 					const mediaRecorder = new MediaRecorder(stream)
-					Log("____")
+					Log("mimetype____")
 					Log(mediaRecorder.mimeType)
-					Log("____")
+					Log("mimetype____")
 
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size == 0) {

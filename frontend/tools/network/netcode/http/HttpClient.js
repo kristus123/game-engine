@@ -1,86 +1,77 @@
 export const HttpClient = ProxyObject(
-	(routeName, { body = {}, contentType="application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
-		// todo fix default contentType
+	async (routeName, { body = {}, contentType = "application/json", rawBody = null, ok = body => {}, error = body => {} } = {}) => {
 		Assert.jsonObject(body)
 		Assert.value(contentType)
 		console.log(contentType)
 
-		const abortController = new AbortController()
-		const timer = setTimeout(() => {
-			abortController.abort()
-		}, 3_000)
+		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else
 
 		const request = {
 			body: rawBody ?? JSON.stringify(body),
 			method: "POST",
-			cache: "no-store", // disables cache
-			signal: abortController.signal,
-			headers: {
+			cache: "no-store",
+			signal: timer, headers: {
 				"Content-Type": contentType,
 				"token": ClientToken.encodedToken ?? null,
 			},
 		}
 
-		Log(`
-			Sending request to: ${routeName}
-		`.dedent())
-		return fetch(`${Config.httpUrl}/${routeName}`, request)
-			.then(async response => {
-				const responseBody = await response.json()
+		try {
+			Log(`Sending request to: ${routeName}`)
 
-				Assert.jsonObject(responseBody)
+			const response = await fetch(`${Config.httpUrl}/${routeName}`, request)
+			const responseBody = await response.json()
 
-				if (response.ok) {
-					ok(responseBody)
+			Assert.jsonObject(responseBody)
 
-					Log(`
-						OK
+			if (response.ok) {
+				ok(responseBody)
 
-						${responseBody}
-					`.dedent())
-
-					return {
-						ok: true,
-						error: false,
-						body: responseBody,
-					}
-				}
-				else {
-					error(responseBody)
-
-					Log(`
-						ERROR 1
-
-						${responseBody}
-					`.dedent())
-
-
-					return {
-						ok: false,
-						error: true,
-						body: responseBody,
-					}
-				}
-			})
-			.catch(e => {
-				Log(`
-					ERROR 2
-
-					${e}
-
-					${e.stack}
-				`.dedent())
-
-				console.error(e)
+				Log("ok")
+				Log(responseBody)
 
 				return {
-					ok: false,
-					error: true,
-					body: { msg: "todo get body" },
+					ok: true,
+					error: false,
+					body: responseBody,
 				}
-			})
-			.finally(() => {
-				clearTimeout(timer)
-			})
+			}
+
+			error(responseBody)
+
+			Log(`
+				ERROR 1
+
+				${responseBody}
+			`.dedent())
+
+			return {
+				ok: false,
+				error: true,
+				body: responseBody,
+			}
+		}
+		catch (e) {
+			Log(`
+				ERROR 2
+
+				${e}
+
+				\`\`\`
+				${e.stack}
+				\`\`\`
+			`.dedent())
+
+			console.error(e)
+
+			return {
+				ok: false,
+				error: true,
+				body: { msg: "todo get body" },
+			}
+		}
+		finally {
+			clearTimeout(timer)
+		}
 	}
 )
