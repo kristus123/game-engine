@@ -1,38 +1,21 @@
 export class TaskQueue {
-	static {
-		this.global = new TaskQueue()
-	}
-
 	constructor() {
-		this.tasks = []
-		this.isProcessing = false
+		this.queue = []
+		this.running = false
 	}
 
-	add(task) {
-		return new Promise((resolve, reject) => {
-			this.tasks.push(async () => {
-				try {
-					resolve(await task())
-				}
-				catch (e) {
-					reject(e)
-				}
-			})
-			this.process()
-		})
-	}
+	async add(taskFn) {
+		this.queue.push(taskFn)
 
-	async process() {
-		if (this.isProcessing || this.tasks.length == 0) {
-			return
+		if (!this.running) {
+    		this.running = true
+
+    		while (this.queue.length) {
+        		const task = this.queue.shift()
+        		await task()
+    		}
+
+    		this.running = false
 		}
-		this.isProcessing = true
-
-		while (this.tasks.length > 0) {
-			const task = this.tasks.shift()
-			await task()
-		}
-
-		this.isProcessing = false
 	}
 }

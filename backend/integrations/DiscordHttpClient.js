@@ -19,18 +19,15 @@ export class DiscordHttpClient {
 		const resetAfter = Number(response.headers.get("X-RateLimit-Reset-After") ?? 0)
 
 		if (remaining == 0) {
-			await new Promise(resolve =>
-				setTimeout(resolve, (resetAfter + 0.5) * 1000)
-			)
+			await new Promise(resolve => setTimeout(resolve, (resetAfter + 1) * 1000))
 		}
 
-		if (!response.ok) {
-			throw new Error(
-				`${response.status} ${await response.text()}`
-			)
+		if (response.ok) {
+			return response
 		}
-
-		return response
+		else {
+			throw new Error(`${response.status} ${await response.text()}`)
+		}
 	}
 
 	static async get(endpoint) {

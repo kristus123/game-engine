@@ -2,9 +2,11 @@ const guildId = "1277643963725250801"
 const channelCache = new Map()
 const channelMoveCache = new Map()
 
+const TaskQueue = TaskQueue()
+
 export class DiscordLogServer {
 	static sendMessage(sessionId, message) {
-		TaskQueue.global.add(async () => {
+		TaskQueue.add(async () => {
 			try {
 				const id = await this.getChannelId(sessionId)
 				const content = message.length > 1990 ? message.substring(0, 1990) + "..." : message
