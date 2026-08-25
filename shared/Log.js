@@ -1,4 +1,4 @@
-export const SessionId = Random.uuid()
+export const SessionId = "log_channel"
 
 function _sendToDiscord(args) {
 	fetch(`${Config.httpUrl}/log`, {

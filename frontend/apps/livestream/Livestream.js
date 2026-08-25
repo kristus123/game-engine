@@ -19,6 +19,7 @@ export class Livestream {
 						video: true,
 						audio: true
 					})
+					Log("getUserMedia started")
 
 					const mediaRecorder = new MediaRecorder(stream)
 
@@ -28,15 +29,16 @@ export class Livestream {
 						}
 
 						console.log(e.data.type)
+						Log("Sending chunk")
 
 						HttpClient.sendChunk({
 							rawBody: e.data,
 							contentType: mediaRecorder.mimeType,
 							ok: () => {
-								console.log("ok!")
+								Log("ok!")
 							},
 							error: () => {
-								console.log("error!")
+								Log("error!")
 							},
 						})
 					}
