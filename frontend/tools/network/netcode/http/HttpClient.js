@@ -49,7 +49,7 @@ export const HttpClient = ProxyObject(
 					error(responseBody)
 
 					Log(`
-						ERROR
+						ERROR 1
 
 						${responseBody}
 					`.dedent())
@@ -64,7 +64,7 @@ export const HttpClient = ProxyObject(
 			})
 			.catch(e => {
 				Log(`
-					ERROR
+					ERROR 2
 
 					${e}
 
@@ -76,6 +76,7 @@ export const HttpClient = ProxyObject(
 				return {
 					ok: false,
 					error: true,
+					body: { msg: "todo get body" },
 				}
 			})
 			.finally(() => {

@@ -4,9 +4,8 @@ Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
 Route.sendChunk = async ({ bufferBody }) => {
-	// we should stream body into ffmpeg without first wrapping it.
+	// we should stream body into ffmpeg without first wrapping it with bufferBody
 	// but that can be done later
-	console.log(Buffer.isBuffer(bufferBody), bufferBody.length)
 
 	await Ffmpeg.write(bufferBody)
 
