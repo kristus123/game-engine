@@ -11,8 +11,8 @@ export class TaskQueue {
 			this.running = true
 
 			while (this.queue.length) {
-    			const task = this.queue.shift()
-    			await task()
+				const task = this.queue.shift()
+				await task()
 			}
 
 			this.running = false
