@@ -22,6 +22,9 @@ export class Livestream {
 					Log("getUserMedia started")
 
 					const mediaRecorder = new MediaRecorder(stream)
+					Log("____")
+					Log(mediaRecorder.mimeType)
+					Log("____")
 
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size == 0) {
@@ -30,7 +33,6 @@ export class Livestream {
 
 						console.log(e.data.type)
 						Log("Sending chunk")
-						Log(mediaRecorder.mimeType)
 
 						HttpClient.sendChunk({
 							rawBody: e.data,
