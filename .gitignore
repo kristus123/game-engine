@@ -1,5 +1,7 @@
 .eslintcache
 
+public_folder/hls/
+
 dist/
 transpiledBackend/
 
