@@ -30,7 +30,7 @@ export class Livestream {
 
 						console.log(e.data.type)
 						Log("Sending chunk")
-						Log(MediaRecorder.mimeType)
+						Log(mediaRecorder.mimeType)
 
 						HttpClient.sendChunk({
 							rawBody: e.data,
