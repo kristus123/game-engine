@@ -139,6 +139,10 @@ export function Enhance_js_Array() {
 		this.push(o)
 	})
 
+	Enhance(Array.prototype, "containsAll", function (...args) {
+		return args.every(element => this.includes(element))
+	})
+
 	Enhance(Array.prototype, "assertNoNullElements", function () {
 		for (const c of this) {
 			if (c == null) {

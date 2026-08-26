@@ -568,7 +568,11 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "copy", function (destination) {
+	Enhance(HTMLElement.prototype, "copy", function () {
+		return this.cloneNode(true)
+	})
+
+	Enhance(HTMLElement.prototype, "clone", function () {
 		return this.cloneNode(true)
 	})
 
