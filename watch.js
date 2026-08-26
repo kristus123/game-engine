@@ -46,7 +46,7 @@ import { spawn } from "child_process"
 let child
 let runId = 0
 
-export function _generateDist(onExit) {
+export function _generateDist(onEnd) {
 	const currentId = ++runId
 
 	if (child) {
@@ -66,8 +66,10 @@ export function _generateDist(onExit) {
 		if (code != 0) {
 			return
 		}
-		onExit?.(code, signal)
-		console.log("reload triggered")
+		else {
+			onEnd()
+			console.log("reload triggered")
+		}
 	})
 }
 

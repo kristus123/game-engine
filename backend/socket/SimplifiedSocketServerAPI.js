@@ -55,5 +55,6 @@ export class SimplifiedSocketServerAPI {
 	start(server) {
 		this.lowLevelSocketServer.start(server)
 	}
+
 }
 
