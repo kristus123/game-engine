@@ -3,7 +3,8 @@ export class Livestream {
 		Execute(async () => {
 			const html = Dom.add(Html.livestream())
 
-			const body = Assert.ok(await HttpClient.currentlyStreaming())
+			console.log("hei")
+			const body = Assert.ok(await HttpClient.currentlyStreaming({ body: {} }))
 
 			if (body.streaming) {
 				html.clearChildren()
@@ -11,7 +12,10 @@ export class Livestream {
 			}
 			else {
 				html.start.onClick(async () => {
-					Assert.ok(await HttpClient.startStream())
+					console.log("hide")
+					html.start.hide()
+
+					Assert.ok(await HttpClient.startStream({ body: {} }))
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,
@@ -24,12 +28,17 @@ export class Livestream {
 
 					Log("getUserMedia started")
 
-					html.clearChildren()
-					html.add(H.streamVideo(stream))
+					html.add(H.streamVideo(stream).setId("video"))
+					html.stop.show()
+					html.stop.onClick(async () => {
+						Assert.ok(await HttpClient.stopStream({ body: {} }))
+						html.getId("video")
+					})
 
-					const mimeType = Platform.safari()
+					const mimeType = Platform.safari
 						? "video/mp4;codecs=h264,aac" // safari
 						: "video/webm;codecs=vp8,opus" // chrome
+					console.log("-----------------", mimeType)
 
 					const mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType })
 

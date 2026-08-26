@@ -80,6 +80,7 @@ export class ContentType {
 	}
 
 	static parse(value) {
+
 		const parts = []
 		let part = ""
 		let quoted = false
@@ -115,7 +116,9 @@ export class ContentType {
 
 		parts.push(part)
 
+		console.log(parts)
 		const contentType = parts.shift().trim()
+		console.log("-------", contentType)
 
 		if (!this.values.includes(contentType)) {
 			throw new Error("error while calling .parse, unsupported content type: " + contentType)

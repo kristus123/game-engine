@@ -2,7 +2,6 @@ export class Assert {
 
 	static ok(httpResponse) {
 		// Also, verify that it that the parameter is an HTTP response
-		Assert.true(httpResponse.ok)
 		if (httpResponse.ok) {
 			return httpResponse.body
 		}
@@ -151,7 +150,7 @@ export class Assert {
 
 	static null(a, msg) {
 		if (A.null(a)) {
-			return v
+			return a
 		}
 		else {
 			throw new Error(msg ?? "wow")

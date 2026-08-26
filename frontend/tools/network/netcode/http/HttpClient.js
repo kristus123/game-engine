@@ -11,6 +11,8 @@ export const HttpClient = ProxyObject(
 				"application/json")
 		}
 		else {
+			console.log(routeName)
+			console.log("2")
 			// Assert.value(contentType)
 
 			return await LowLevelHttpClient.post(

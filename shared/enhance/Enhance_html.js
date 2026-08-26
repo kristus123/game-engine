@@ -355,7 +355,7 @@ export function Enhance_html() {
 		return this
 	})
 
-	Enhance(HTMLElement.prototype, "hide", function (animationClassName) {
+	Enhance(HTMLElement.prototype, "hide", function (animationClassName=null) {
 		// if modal
 		// d.close()
 
@@ -385,6 +385,11 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement.prototype, "getId", function(id) {
 		return Assert.value(this.querySelector(`#${id}`))
+	})
+
+	Enhance(HTMLElement.prototype, "setId", function(id) {
+		this.id = id
+		return this
 	})
 
 	Enhance(HTMLElement.prototype, "fontSize", function (size) {

@@ -23,6 +23,7 @@ export class HttpMethod {
 			const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 			const method = Router(role, Poop.routeName(req))
 
+			console.log(req.headers["content-type"])
 			const contentType = ContentType.parse(req.headers["content-type"])
 
 			const returnValue = method({

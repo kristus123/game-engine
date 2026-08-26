@@ -1,5 +1,5 @@
 export class LowLevelHttpClient {
-	static async post(routeName, body, formatBody, contentType) {
+	static async post(routeName, body, formatBody, contentType, { ok=() => {}, error=() => {} } = {}) {
 
 		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else
 
@@ -20,11 +20,11 @@ export class LowLevelHttpClient {
 			const responseBody = await formatBody(response)
 
 			if (response.ok) {
-				ok(responseBody)
+				ok?.(responseBody)
 				return { ok: true, error: false, body: responseBody }
 			}
 			else {
-				error(responseBody)
+				error?.(responseBody)
 				return { ok: false, error: true, body: responseBody }
 			}
 		}
