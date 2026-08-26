@@ -35,10 +35,12 @@ export function GenerateFrontend(env) {
 		seen.add(name)
 	}
 
-	const cssImports = Files.at(Paths.cssFolder)
+	const cssImports = Files.at(Paths.frontendFolder)
+		.filter(f => f.endsWith(".css"))
 		.map(f => f.replaceAll("\\", "/")) // windows compability
 		.map(f => Files.read(f))
 		.join("\n")
+
 
 	const indexHtml = Files.read(Paths.index_html)
 		.replace("CSS_IMPORTS", cssImports)
