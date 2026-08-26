@@ -20,7 +20,7 @@
     "stylelint-config-standard": "^39.0.1"
   },
   "dependencies": {
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.2",
     "mediasoup": "^3.19.21",
     "mediasoup-client": "^3.19.0",
     "web-push": "^3.6.7",

@@ -1,5 +1,6 @@
 import path from "path"
 import { AllImports } from "#root/AllImports.js"
+
 const { Files, Imports, Paths } = AllImports
 
 export function GenerateBackend(ENVIRONMENT) {
@@ -21,7 +22,7 @@ export function GenerateBackend(ENVIRONMENT) {
 		const imports = Imports.needed(content, [
 			...Files.at(Paths.sharedFolder)
 		])
-			.replaceAll("/shared", "#root/" + destPath)
+			.replaceAll("/shared", "/" + destPath)
 
 		Files.write(sharedFilePath.replace(Paths.sharedFolder, destPath), imports + "\n" + content)
 	}
@@ -34,9 +35,9 @@ export function GenerateBackend(ENVIRONMENT) {
 			...Files.at("dev/"),
 			...Files.at(Paths.sharedFolder),
 		])
-			.replaceAll("/backend/", "#root/transpiledBackend/")
-			.replaceAll("/dev/", "#root/dev/")
-			.replaceAll("/shared/", "#root/transpiledBackend/shared/")
+			.replaceAll("/backend/", "/transpiledBackend/")
+			.replaceAll("/dev/", "/dev/")
+			.replaceAll("/shared/", "/transpiledBackend/shared/")
 
 		Files.write(f.replace("backend/", "transpiledBackend/"), imports + "\n" + content)
 	}

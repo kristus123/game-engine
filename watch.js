@@ -13,6 +13,7 @@ const {
 	ServeDist,
 } = AllImports
 
+
 try {
 	execSync("./scripts/kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
 }
@@ -32,6 +33,7 @@ Files.deleteFolder(Paths.distFolder)
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
 // also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
+console.log("--------------------------------------------- wow")
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
 
 

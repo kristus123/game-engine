@@ -30,7 +30,7 @@ export class Imports {
 
 			if (include(content, className)) {
 				const p = jsFile.replace("frontend/", "")
-				imports += `import { ${className} } from '/${p}';`
+				imports += `import { ${className} } from '#root/${p}';`
 				imports += "\n"
 			}
 		}

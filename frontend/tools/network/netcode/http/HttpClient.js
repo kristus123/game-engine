@@ -4,16 +4,16 @@ export const HttpClient = ProxyObject(
 		if (A.jsonObject(body)) {
 			Assert.null(contentType, "contentType should not be present if body is normal json object")
 
-			return LowLevelHttpClient.post(
+			return await LowLevelHttpClient.post(
 				routeName,
 				JSON.stringify(body),
 				response => response.json(),
 				"application/json")
 		}
 		else {
-			Assert.value(contentType)
+			// Assert.value(contentType)
 
-			return LowLevelHttpClient.post(
+			return await LowLevelHttpClient.post(
 				routeName,
 				body,
 				response => response.json(),

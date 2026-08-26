@@ -1,6 +1,6 @@
-import { initD1 } from "/tools/game/start/draw_layers/D1.js"
-import { initD2 } from "/tools/game/start/draw_layers/D2.js"
-import { initD3 } from "/tools/game/start/draw_layers/D3.js"
+import { initD1 } from "#root/tools/game/start/draw_layers/D1.js"
+import { initD2 } from "#root/tools/game/start/draw_layers/D2.js"
+import { initD3 } from "#root/tools/game/start/draw_layers/D3.js"
 
 export function CanvasGame() {
 
