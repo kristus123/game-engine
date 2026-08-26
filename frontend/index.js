@@ -25,4 +25,6 @@ HtmlObserverThing((node) => {
 
 // await ClientToken.init()
 
+console.log("swag swag yoyoyoyo")
 CanvasGame()
+console.log("swag swag yoyoyoyo")

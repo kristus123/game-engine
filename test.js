@@ -6,12 +6,12 @@ await esbuild.build({
 	entryPoints: ["index.js"],
 	outfile: "bundle.js",
 
-	bundle: false,
+	bundle: true,
 	platform: "browser",
 	format: "esm",
 
-	// minify: true,
-	// treeShaking: true,
+	minify: true,
+	treeShaking: true,
 
 	target: "es2022",
 
@@ -22,11 +22,5 @@ await esbuild.build({
 	},
 	absWorkingDir: `${process.cwd()}/dist`,
 
-
 	legalComments: "none",
-
-	bundle: true,
-	minify: false,
-	treeShaking: false,
-
 })
