@@ -33,6 +33,7 @@ Files.deleteFolder(Paths.distFolder)
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
 // also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
+const { StopServer } = await import("#root/transpiledBackend/StopServer.js")
 console.log("--------------------------------------------- wow")
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
 
@@ -94,6 +95,14 @@ function triggerClientReload() {
 	}, 100)
 }
 
+function triggerServerReload() {
+	StopServer()
+
+	GenerateBackend("DEVELOPMENT")
+
+	StartServer()
+}
+
 FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
@@ -102,6 +111,7 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 
 		_generateDist(() => {
 			triggerClientReload()
+			triggerServerReload()
 		})
 	},
 	onChange: async (path) => {
@@ -111,11 +121,13 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 
 		_generateDist(() => {
 			triggerClientReload()
+			triggerServerReload()
 		})
 	},
 	onDelete: async (path) => {
 		_generateDist(() => {
 			triggerClientReload()
+			triggerServerReload()
 		})
 	},
 })

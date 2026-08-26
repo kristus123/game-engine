@@ -11,6 +11,7 @@ export class SfuServer {
 	}
 
 	static async start() {
+		console.log("Hey There! 1234")
 		this.globalWorker = await SfuServerApi.createWorker()
 
 		SocketServer.on("SFU_DELETE_ROUTER", (client, clientId, data) => {

@@ -361,6 +361,7 @@
         "SpriteSlicer": "readonly",
         "Square": "readonly",
         "StartServer": "readonly",
+        "StopServer": "readonly",
         "StopWatch": "readonly",
         "StraightPath": "readonly",
         "SuperClass": "readonly",
