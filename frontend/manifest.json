@@ -5,6 +5,10 @@
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
+
+  "display_override": ["window-controls-overlay"],
+  "navigation_color": "#000000",
+
   "icons": [
     {
       "src": "/client/game/assets/aseprite/icon.png",
