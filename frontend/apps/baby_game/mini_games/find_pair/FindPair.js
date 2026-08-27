@@ -1,45 +1,69 @@
 export class FindPair {
 
 	constructor() {
-		let cardsClicked = []
-
 		const html = Dom.add(Html.findPair())
 
-		for (const name of ["reindeer", "lavvu", "gakti"]) {
-			const card = H.create("flip-card", {
-				slots: {
-					front: "?",
-					back: name,
-				},
-				data: {
-					name: name,
-				},
-			})
+		let wait = false
 
-			const clonedCard = card.clone()
+		for (const name of ["reindeer", "lavvu", "gakti", "wow"]) {
+			Iterate(2, () => {
+				const card = H.create("flip-card", {
+					slots: {
+						front: "?",
+						back: name,
+						iamge: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
+					},
+					data: {
+						name: name,
+						found: "false",
+					},
+				})
 
-			card.onClick(() => {
-				card.data.clicked = true
-				console.log("clicked")
-				cardsClicked.add(card)
-				console.log(cardsClicked)
-				if (cardsClicked.containsAll(card, clonedCard)) {
-					console.log("match")
+				card.onClick(() => {
+					if (wait) {
+						return
+					}
 
-				}
-			})
+					card.data.clicked = "true"
 
-			html.cards.add(card)
+					const cardsClicked = html.cards
+						.filter(c => c.data.found == "false")
+						.filter(c => c.data.clicked == "true")
+
+					console.log(cardsClicked.length)
+
+					if (cardsClicked.length == 2) {
+						if (cardsClicked.every(c => c.data.name == name)) {
+							console.log("you find it")
+							cardsClicked.forEach(c => {
+								c.removeOnClick()
+								c.data.found = "true"
+							})
+						}
+						else {
+
+						}
+
+						wait = true
+						setTimeout(() => {
+							html.cards
+								.filter(c => c.data.found == "false")
+								.forEach(c => c.data.clicked = "false")
+
+							wait = false
+						}, 500)
+					}
+
+				})
 
 
-			html.cards.add(clonedCard)
+				html.cards.add(card)
 
-			clonedCard.onClick(() => {
-				clonedCard.data.clicked = true
-				console.log("clicked")
-				cardsClicked.add(card)
 			})
 		}
+
+		html.cards.randomizeOrder()
+
 	}
 
 	update() {

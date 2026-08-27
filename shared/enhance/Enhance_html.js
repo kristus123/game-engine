@@ -10,6 +10,26 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "filter", function (callback) {
+		return this.children.filter(callback)
+	})
+
+	Enhance(HTMLElement.prototype, "randomizeOrder", function () {
+
+		const children = [...this.children]
+
+		for (let i = children.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+
+			;[children[i], children[j]] = [children[j], children[i]]
+		}
+
+		for (const child of children) {
+			this.appendChild(child)
+		}
+
+	})
+
 	Enhance(HTMLElement.prototype, "map", function (callback) {
 		const children = this.children
 		const x = []
@@ -418,6 +438,11 @@ export function Enhance_html() {
 			this.addAttribute("disabled")
 			this.disabled = true
 		}
+	})
+
+	Enhance(HTMLElement.prototype, "removeOnClick", function () {
+		this.removeListener("click")
+		return this
 	})
 
 	Enhance(HTMLElement.prototype, "onClick", function (run) {
