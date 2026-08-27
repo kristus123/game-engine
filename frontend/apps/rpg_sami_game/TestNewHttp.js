@@ -1,6 +1,6 @@
 export class TestNewHttp {
 	constructor() {
-		HttpClient.ping({
+		JsonHttpClient.ping({
 			body: {},
 			ok: body => {
 				console.log("Everything Is OK! HTTP Body: ", body)
@@ -16,7 +16,7 @@ export class TestNewHttp {
 	update() {}
 
 	async testNew() {
-		const { ok, error, body } = await HttpClient.anEndpointThatDoesNotExistWhateverYouDoOnTheCircuitDoNotTurnLeft()
+		const { ok, error, body } = await JsonHttpClient.anEndpointThatDoesNotExistWhateverYouDoOnTheCircuitDoNotTurnLeft()
 
 		console.log(`Response is ${ok}, the error is ${JSON.stringify(error)} and the body is ${body}`)
 	}

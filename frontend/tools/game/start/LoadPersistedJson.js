@@ -1,5 +1,5 @@
 export async function LoadPersistedJson() {
-	const { ok, body } = await HttpClient.allPersistedJsonFiles({
+	const { ok, body } = await JsonHttpClient.allPersistedJsonFiles({
 		body: {},
 		ok: body => {
 			// 			for (let { name, content } of body) {
@@ -8,7 +8,7 @@ export async function LoadPersistedJson() {
 			// 				Assert.notPresent(PersistedJson[name].save)
 
 			// 				PersistedJson[name].save = () => {
-			// 					return HttpClient.savePersistedJson({
+			// 					return JsonHttpClient.savePersistedJson({
 			//						body: {
 			// 							name: name,
 			// 							content: PersistedJson[name],

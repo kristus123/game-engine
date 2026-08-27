@@ -4,9 +4,9 @@ export class Livestream {
 			const html = Dom.add(Html.livestream())
 
 			console.log("hei")
-			const body = Assert.ok(await HttpClient.currentlyStreaming({ body: {} }))
+			const { streaming } = Assert.ok(await JsonHttpClient.currentlyStreaming())
 
-			if (body.streaming) {
+			if (streaming) {
 				html.clearChildren()
 				html.add(HlsVideo())
 			}
@@ -16,7 +16,7 @@ export class Livestream {
 					html.start.hide()
 					html.stop.show()
 
-					Assert.ok(await HttpClient.startStream({ body: {} }))
+					Assert.ok(await NullHttpClient.startStream())
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,
@@ -36,7 +36,7 @@ export class Livestream {
 					html.stop.show()
 					html.stop.onClick(async () => {
 						console.log("clicked stop")
-						Assert.ok(await HttpClient.stopStream({ body: {} }))
+						Assert.ok(await NullHttpClient.stopStream())
 						html.getId("video").remove()
 					})
 
@@ -49,8 +49,10 @@ export class Livestream {
 
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size > 0) {
-							HttpClient.sendChunk({
+							LowLevelHttpClient.post({
+								routeName: "sendChunk",
 								body: e.data,
+								formatBody: r => null,
 								contentType: mimeType,
 								ok: () => {
 									Log("ok!")

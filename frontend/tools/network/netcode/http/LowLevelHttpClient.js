@@ -1,5 +1,19 @@
 export class LowLevelHttpClient {
-	static async post(routeName, body, formatBody, contentType, { ok=() => {}, error=() => {} } = {}) {
+	static async post({ routeName, body = "none", formatBody, contentType, ok = () => {}, error = () => {} } = {}) {
+
+		if (A.jsonObject(body)) {
+			body = JSON.stringify(body)
+		}
+		else if (body == "none") {
+			body = null
+		}
+		else if (body instanceof Blob) {
+			// good
+		}
+		else {
+			console.log(typeof body)
+			throw new Error("Currently we only support sending json and null to backend")
+		}
 
 		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else
 
@@ -12,13 +26,10 @@ export class LowLevelHttpClient {
 				cache: "no-store",
 				signal: timer,
 				headers: {
-					"Content-Type": contentType,
+					"Content-Type": Assert.value(contentType),
 					"token": ClientToken.encodedToken ?? null,
 				},
 			})
-
-			const text = await response.text()
-			const data = text ? JSON.parse(text) : null
 
 			const responseBody = await formatBody(response)
 
