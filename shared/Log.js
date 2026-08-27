@@ -1,13 +1,13 @@
-export const SessionId = "log_channel"
+export const sessionId = "log_channel"
 
 function _sendToDiscord(args) {
-	fetch(`${Config.httpUrl}/log`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ sessionId: SessionId, message: args.join(" ") })
-	}).catch(() => {
-		console.error("failed to send log to discord server")
-	})
+	// fetch(`${Config.httpUrl}/log`, {
+	// 	method: "POST",
+	// 	headers: { "Content-Type": "application/json" },
+	// 	body: JSON.stringify({ sessionId: sessionId, message: args.join(" ") })
+	// }).catch(() => {
+	// 	console.error("failed to send log to discord server")
+	// })
 }
 
 export function Log(...args) {

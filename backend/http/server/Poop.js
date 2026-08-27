@@ -18,6 +18,11 @@ export class Poop {
 		res.end(JSON.stringify(data))
 	}
 
+	static sendEmptyBody(res, httpStatus) {
+		res.statusCode = httpStatus
+		res.end()
+	}
+
 
 	static validToken(encodedToken) {
 		return encodedToken != null && encodedToken != "null"
@@ -39,7 +44,7 @@ export class Poop {
 		})
 	}
 
-	static async parseBody(req) {
+	static async parseJsonBody(req) {
 		let rawBody = Buffer.alloc(0)
 
 		for await (const chunk of req) {

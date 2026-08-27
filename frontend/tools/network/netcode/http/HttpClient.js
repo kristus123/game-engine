@@ -7,18 +7,16 @@ export const HttpClient = ProxyObject(
 			return await LowLevelHttpClient.post(
 				routeName,
 				JSON.stringify(body),
-				response => response.json(),
+				r => r.json(),
 				"application/json")
 		}
 		else {
-			console.log(routeName)
-			console.log("2")
-			// Assert.value(contentType)
+			Assert.value(contentType)
 
 			return await LowLevelHttpClient.post(
 				routeName,
 				body,
-				response => response.json(),
+				r => r.json(),
 				contentType)
 		}
 	}

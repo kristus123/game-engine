@@ -17,6 +17,9 @@ export class LowLevelHttpClient {
 				},
 			})
 
+			const text = await response.text()
+			const data = text ? JSON.parse(text) : null
+
 			const responseBody = await formatBody(response)
 
 			if (response.ok) {
