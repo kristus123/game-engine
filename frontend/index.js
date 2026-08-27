@@ -39,15 +39,6 @@ HtmlObserverThing((node) => {
 
 // await ClientToken.init()
 
-
-Promise.all([
-	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
-	Promise.all(AssetPaths.htmlComponent.map(c => {
-		WebComponent(c.name, c.content)
-	}))
-])
-
-
 async function loadFont(name, url, element = document.documentElement) {
 	const font = new FontFace(name, `url(${url})`);
 
@@ -57,7 +48,15 @@ async function loadFont(name, url, element = document.documentElement) {
 	element.style.fontFamily = name;
 }
 
-await loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2");
-await loadCss("/swag.css")
+
+await Promise.all([
+	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
+	Promise.all(AssetPaths.htmlComponent.map(c => {
+		WebComponent(c.name, c.content)
+	})),
+	loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
+	loadCss("/swag.css"),
+])
+
 
 FindPair()
