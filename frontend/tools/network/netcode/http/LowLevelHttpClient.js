@@ -8,11 +8,10 @@ export class LowLevelHttpClient {
 			body = null
 		}
 		else if (body instanceof Blob) {
-			// good
+			// accepted
 		}
 		else {
-			console.log(typeof body)
-			throw new Error("Currently we only support sending json and null to backend")
+			throw new Error("Currently we only support certain bodies")
 		}
 
 		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else

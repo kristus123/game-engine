@@ -23,8 +23,11 @@ export class HttpMethod {
 			if (Poop.validJson(returnValue)) {
 				Poop.sendJson(res, 200, returnValue)
 			}
-			else {
+			else if (returnValue == null) {
 				Poop.sendEmptyBody(res, 200)
+			}
+			else {
+				throw new Error("we currently don't support any other return value.")
 			}
 		}
 		catch (e) {
