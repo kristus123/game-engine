@@ -38,14 +38,13 @@ export function GenerateFrontend(env) {
 	const cssImports = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".css"))
 		.map(f => f.replaceAll("\\", "/")) // windows compability
-		.map(f => Files.read(f))
+		.map(f => {
+			const p = f.replace("frontend/", "/")
+			return `@import "${p}";`
+		})
 		.join("\n")
+	Files.write(Paths.dist.swag_css, cssImports)
 
-
-	const indexHtml = Files.read(Paths.index_html)
-		.replace("CSS_IMPORTS", cssImports)
-
-	Files.write(Paths.toDistPath(Paths.index_html), indexHtml)
 
 	GenerateIndexJs()
 }

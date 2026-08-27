@@ -1,3 +1,18 @@
+function loadCss(path) {
+	return new Promise((resolve, reject) => {
+		const link = document.createElement("link");
+
+		link.rel = "stylesheet";
+		link.href = path;
+
+		link.onload = resolve;
+		link.onerror = reject;
+
+		document.head.appendChild(link);
+	});
+}
+
+
 document.addEventListener("contextmenu", e => e.preventDefault());
 
 SocketClient.connect(() => {
@@ -44,5 +59,6 @@ async function loadFont(name, url, element = document.documentElement) {
 }
 
 await loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2");
+await loadCss("/swag.css")
 
 FindPair()
