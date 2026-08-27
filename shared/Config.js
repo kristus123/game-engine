@@ -7,7 +7,9 @@ export class Config {
 				return "http://localhost:3000"
 			}
 			case "PRODUCTION": {
-				return "https://krispetter.duckdns.org"
+				throw new Error("rememer to change")
+				// return "https://krispetter.duckdns.org"
+				return "https://tanks-freeware-power-alone.trycloudflare.com"
 			}
 			default: {
 				throw new Error("unexpected environment given")

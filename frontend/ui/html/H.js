@@ -23,6 +23,7 @@ export class H {
 		v.src = src
 		v.muted = true
 		v.autoplay = true
+		v.controls = false
 
 		return v
 	}
