@@ -1,10 +1,18 @@
 export class H {
 
-	static create(name, attributes={}) {
+	static create(name, { attributes={}, slots={}, data={} } = {}) {
 		const e = document.createElement(name)
 
 		attributes.forEach((key, value) => {
 			e.setAttribute(key, value)
+		})
+
+		slots.forEach((key, value) => {
+			e.setAttribute("slot-" + key, value)
+		})
+
+		data.forEach((key, value) => {
+			e.data[key] = value
 		})
 
 		return e

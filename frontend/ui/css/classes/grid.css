@@ -28,3 +28,12 @@
 .grid .gridBot {
 	grid-area: bot;
 }
+
+grid-h {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	justify-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
