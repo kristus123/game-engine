@@ -12,7 +12,7 @@ export class HttpMethod {
 
 		try {
 			const method = Router(role, Poop.routeName(req))
-			const returnValue = method({
+			const returnValue = await method({
 				body: await Poop.parseRawBody(req),
 				req: req,
 				headers: req.headers,
@@ -27,6 +27,9 @@ export class HttpMethod {
 				Poop.sendEmptyBody(res, 200)
 			}
 			else {
+				console.log(Poop.routeName(req))
+				console.log(typeof returnValue)
+				console.log(returnValue)
 				throw new Error("we currently don't support any other return value.")
 			}
 		}
