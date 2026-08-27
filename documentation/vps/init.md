@@ -62,7 +62,7 @@ sudo nano ~/.ssh/authorized_keys
 # content of file, todo make it auto fill in the file
 
 ```bash
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHXoYbJPGmeJ2Jm6h6ixfty9YKNc4KdmN0nBfrsSSCrf krispetter@gmail.com
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOERhQy7ruPDHtfITG7ia/4qrF4q7u3T8H6s89nh/qEe krispetter@gmail.com
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPflnfPPJmsEJyV1Zo760mRKvQ4ckMjnRmAXk7SzSH2 mushfiquefarhannabir@gmail.com
 ```
 
