@@ -1,6 +1,7 @@
 export class FindPair {
 
 	constructor() {
+		Dom.add(Html.auroraTest())
 		const html = Dom.add(Html.findPair())
 
 		let wait = false
