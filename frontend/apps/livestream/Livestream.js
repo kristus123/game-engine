@@ -14,6 +14,7 @@ export class Livestream {
 				html.start.onClick(async () => {
 					console.log("hide")
 					html.start.hide()
+					html.stop.show()
 
 					Assert.ok(await HttpClient.startStream({ body: {} }))
 
@@ -28,11 +29,15 @@ export class Livestream {
 
 					Log("getUserMedia started")
 
-					html.add(H.streamVideo(stream).setId("video"))
+					html.stop.before(H.streamVideo(stream).setId("video"))
+
+					html.getId("video").style.transform = "scaleX(-1)"
+
 					html.stop.show()
 					html.stop.onClick(async () => {
+						console.log("clicked stop")
 						Assert.ok(await HttpClient.stopStream({ body: {} }))
-						html.getId("video")
+						html.getId("video").remove()
 					})
 
 					const mimeType = Platform.safari
@@ -45,7 +50,7 @@ export class Livestream {
 					mediaRecorder.ondataavailable = async e => {
 						if (e.data.size > 0) {
 							HttpClient.sendChunk({
-								rawBody: e.data,
+								body: e.data,
 								contentType: mimeType,
 								ok: () => {
 									Log("ok!")
