@@ -1,0 +1,10 @@
+horizontal-scroll {
+	display: block;
+	height: 100%;
+	overflow-x: scroll;
+}
+
+horizontal-scroll > * {
+	height: 100%;
+	width: max-content; 
+}
