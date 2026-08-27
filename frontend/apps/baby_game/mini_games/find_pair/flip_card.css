@@ -1,13 +1,12 @@
 flip-card {
-
-	min-width: 200px;
-	min-height: 300px;
+	width: 200px;
+	height: 300px;
 
 	perspective: 1000px;
 	cursor: pointer;
-
 	font-size: 3cqw;
 }
+
 
 flip-card .card-body {
 	width: 100%;
@@ -20,6 +19,7 @@ flip-card .card-body {
 flip-card[data-clicked="true"] .card-body {
 	transform: rotateY(180deg);
 }
+
 
 
 flip-card .card-front,
@@ -40,6 +40,7 @@ flip-card .card-back {
 	background: blue;
 	color: white;
 	transform: rotateY(180deg) rotateZ(5deg);
+	transition: background 1.1s ease;
 }
 
 flip-card:hover .card-body {
@@ -52,4 +53,40 @@ flip-card[data-clicked="true"] .card-body {
 
 flip-card[data-clicked="true"]:hover .card-body {
 	transform: rotateY(180deg) scale(1.05);
+}
+
+flip-card[data-found="true"] .card-back {
+	animation: color-change 0.8s ease forwards;
+}
+
+flip-card[data-found="true"] .card-body {
+	animation: size-change 0.8s ease forwards;
+}
+
+flip-card[data-found="true"]:hover .card-body {
+	transform:scale(1.5) rotateY(180deg);
+}
+
+@keyframes color-change {
+	0%, 50% {
+		background: white;
+	}
+
+	100% {
+		background: orange;
+	}
+}
+
+@keyframes size-change {
+	0% {
+		transform:scale(0.2);
+	}
+
+	50% {
+		transform:scale(1.5) rotateY(-180deg);
+	}
+
+	100% {
+		transform:scale(1) rotateY(180deg);
+	}
 }

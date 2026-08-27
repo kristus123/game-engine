@@ -70,6 +70,3 @@ export function CanvasGame() {
 			throw e
 		})
 }
-
-
-

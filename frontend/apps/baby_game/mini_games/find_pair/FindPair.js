@@ -5,7 +5,7 @@ export class FindPair {
 
 		let wait = false
 
-		for (const name of ["reindeer", "lavvu", "gakti", "wow"]) {
+		for (const name of ["reindeer", "gakti", "wow", "HARD", "KAKE", "OMG", "JUSTIN BIEBER"]) {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {
@@ -38,6 +38,7 @@ export class FindPair {
 							cardsClicked.forEach(c => {
 								c.removeOnClick()
 								c.data.found = "true"
+								c.data.clicked = "true"
 							})
 						}
 						else {
@@ -63,7 +64,6 @@ export class FindPair {
 		}
 
 		html.cards.randomizeOrder()
-
 	}
 
 	update() {
