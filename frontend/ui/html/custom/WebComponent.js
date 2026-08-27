@@ -8,7 +8,6 @@ export function WebComponent(name, html) {
 	Assert.string(html)
 
 	const template = document.createElement("template")
-	console.log(html)
 	template.content.append(html.toHtml())
 
 	customElements.define(name, class extends HTMLElement {

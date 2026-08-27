@@ -2,16 +2,12 @@ import { initD1 } from "#root/tools/game/start/draw_layers/D1.js"
 import { initD2 } from "#root/tools/game/start/draw_layers/D2.js"
 import { initD3 } from "#root/tools/game/start/draw_layers/D3.js"
 
-export function CanvasGame() {
+export function CanvasGame(activeThing) {
 
 	Promise.all([
 		Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
-		Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
 		LoadAllAudio(AssetPaths.audio),
 		LoadAllImages(AssetPaths.image),
-		Promise.all(AssetPaths.htmlComponent.map(c => {
-			WebComponent(c.name, c.content)
-		}))
 		// LoadPersistedJson(),
 	])
 		.then((x) => {
@@ -23,8 +19,6 @@ export function CanvasGame() {
 			initD1(Draw(Palette.d1.ctx))
 			initD2(Draw(Palette.d2.ctx))
 			initD3(Draw(Palette.d3.ctx))
-
-			const activeThing = FindPair()
 
 			GameLoop.start(() => {
 				Palette.main.fill("#10204f")

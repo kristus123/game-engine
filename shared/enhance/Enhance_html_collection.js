@@ -12,6 +12,10 @@ export function Enhance_html_collection() {
 		return Array.from(this).filter(...args)
 	})
 
+	Enhance(HTMLCollection.prototype, "every", function (...args) {
+		return Array.from(this).every(...args)
+	})
+
 	Enhance(HTMLCollection.prototype, "forEach", function (...args) {
 		return Array.from(this).forEach(...args)
 	})

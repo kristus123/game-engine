@@ -5,13 +5,13 @@ export class FindPair {
 
 		let wait = false
 
-		for (const name of ["reindeer", "gakti", "wow", "HARD", "KAKE", "OMG", "JUSTIN BIEBER"]) {
+		for (const name of ["reindeer", "1", "2", "3"]) {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {
 						front: "?",
 						back: name,
-						iamge: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
+						image: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
 					},
 					data: {
 						name: name,
@@ -30,8 +30,6 @@ export class FindPair {
 						.filter(c => c.data.found == "false")
 						.filter(c => c.data.clicked == "true")
 
-					console.log(cardsClicked.length)
-
 					if (cardsClicked.length == 2) {
 						if (cardsClicked.every(c => c.data.name == name)) {
 							console.log("you find it")
@@ -40,9 +38,6 @@ export class FindPair {
 								c.data.found = "true"
 								c.data.clicked = "true"
 							})
-						}
-						else {
-
 						}
 
 						wait = true
@@ -55,8 +50,26 @@ export class FindPair {
 						}, 500)
 					}
 
-				})
+					if (html.cards.every(c => c.data.found == "true")) {
+						console.log("all found!")
+						const q = Queue()
 
+						html.cards.forEach(c => {
+							q.add(next => c.play("fadeOut", {
+								onHalf: () => {
+									next()
+								},
+								onEnd: () => {
+									c.invisible()
+								},
+							}))
+						})
+
+						q.start({ onEnd: () => {
+							console.log("finished")
+						} })
+					}
+				})
 
 				html.cards.add(card)
 

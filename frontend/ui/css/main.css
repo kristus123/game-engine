@@ -8,6 +8,7 @@
 }
 
 body {
+	background: brown;
 	user-select: none;
 
 	height: 100vh;
@@ -175,16 +176,6 @@ html, body {
 		),
 		#f8f7ff;
 
-}
-
-
-
-/* to keep stuff consistent */
-button,
-input,
-textarea,
-select {
-	font: inherit;
 }
 
 

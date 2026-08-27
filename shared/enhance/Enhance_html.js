@@ -14,6 +14,10 @@ export function Enhance_html() {
 		return this.children.filter(callback)
 	})
 
+	Enhance(HTMLElement.prototype, "every", function (callback) {
+		return this.children.every(callback)
+	})
+
 	Enhance(HTMLElement.prototype, "randomizeOrder", function () {
 
 		const children = [...this.children]
