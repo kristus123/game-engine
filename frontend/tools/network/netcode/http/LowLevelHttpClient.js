@@ -20,15 +20,18 @@ export class LowLevelHttpClient {
 			const responseBody = await formatBody(response)
 
 			if (response.ok) {
+				Log("OK")
 				ok?.(responseBody)
 				return { ok: true, error: false, body: responseBody }
 			}
 			else {
+				Log("ERROR")
 				error?.(responseBody)
 				return { ok: false, error: true, body: responseBody }
 			}
 		}
 		catch (e) {
+			Log("ERROR", e)
 			console.error(e)
 			return { ok: false, error: true }
 		}
