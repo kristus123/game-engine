@@ -80,6 +80,9 @@ export class ContentType {
 	}
 
 	static parse(value) {
+		if (value == null || value == "null") {
+			return null
+		}
 
 		const parts = []
 		let part = ""

@@ -22,7 +22,7 @@ export class Livestream {
 
 					Assert.ok(await NullHttpClient.startStream({
 						body: {
-							mimeType: mimeType,
+							mimeType: mimeType.toLowerCase().includes("webm") ? "webm" : "mp4",
 						}
 					}))
 

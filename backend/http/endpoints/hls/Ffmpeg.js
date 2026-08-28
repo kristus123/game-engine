@@ -12,7 +12,7 @@ export class Ffmpeg {
 			thingy = "webm" // todo make it more robust
 		}
 		else {
-			throw new Error("unsupported: " + mimeType)
+			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
 
 		this.p = spawn("ffmpeg", [

@@ -1,5 +1,5 @@
 export class LowLevelHttpClient {
-	static async post({ routeName, body = "none", formatBody, contentType, ok = () => {}, error = () => {} } = {}) {
+	static async post({ routeName, body = "none", formatBody, contentType, ok = () => {}, error = () => {} } = {}) { // no-null-check
 
 		if (A.jsonObject(body)) {
 			body = JSON.stringify(body)
@@ -10,11 +10,10 @@ export class LowLevelHttpClient {
 			contentType = null
 		}
 		else if (body instanceof Blob) {
-			// body = yes
-			// contentType = handled upstream
+			Assert.value(contentType)
 		}
 		else {
-			throw new Error("Currently we only support certain bodies")
+			throw new Error("current combination of body and contentType not supported")
 		}
 
 		const timer = AbortAtMs(3_000) // rename to AbortSignal or smt else
@@ -49,7 +48,7 @@ export class LowLevelHttpClient {
 		catch (e) {
 			Log("ERROR", e)
 			console.error(e)
-			return { ok: false, error: true }
+			return { ok: false, error: true, body: null }
 		}
 		finally {
 			clearTimeout(timer)

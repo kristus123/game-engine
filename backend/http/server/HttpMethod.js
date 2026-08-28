@@ -10,18 +10,16 @@ export class HttpMethod {
 			: null //todo - do not use null
 		const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 
-		const contentType = ContentType.parse(req.headers["content-type"])
 
-		console.log("____________")
-		console.log(Poop.routeName(req))
-		console.log(contentType)
-		console.log(contentType.name == ContentType.json)
-		console.log("____________")
+		const contentType = ContentType.parse(req.headers["content-type"])
 		let body = null
-		if (contentType.name == ContentType.json) {
+
+		console.log(contentType == null)
+		if (contentType == null) {
+			// keep body as null
+		}
+		else if (contentType.name == ContentType.json) {
 			body = await Poop.parseJsonBody(req)
-			console.log("parsing body as json")
-			console.log(body)
 		}
 		else if (contentType.name == ContentType.webm) {
 			// do nothing, let route handle it
