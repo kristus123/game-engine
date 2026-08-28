@@ -14,7 +14,7 @@ export class Stream {
 
 		Assert.ok(await NullHttpClient.startStream({
 			body: {
-				mimeType: mimeType.toLowerCase().includes("webm") ? "webm" : "mp4",
+				mimeType: mimeType.includes("webm") ? "webm" : "mp4",
 			}
 		}))
 
