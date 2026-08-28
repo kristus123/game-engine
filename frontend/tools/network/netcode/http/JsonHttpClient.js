@@ -12,7 +12,7 @@ export const JsonHttpClient = ProxyObject(
 					throw new Error(`${routeName}: response is expected to be json, but it seems to not be`)
 				}
 			},
-			contentType: contentType ?? "application/json",
+			contentType: body ? "application/json" : null,
 			ok: ok,
 			error: error,
 		})

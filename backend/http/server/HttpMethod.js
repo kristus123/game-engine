@@ -10,13 +10,33 @@ export class HttpMethod {
 			: null //todo - do not use null
 		const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 
+		const contentType = ContentType.parse(req.headers["content-type"])
+
+		console.log("____________")
+		console.log(Poop.routeName(req))
+		console.log(contentType)
+		console.log(contentType.name == ContentType.json)
+		console.log("____________")
+		let body = null
+		if (contentType.name == ContentType.json) {
+			body = await Poop.parseJsonBody(req)
+			console.log("parsing body as json")
+			console.log(body)
+		}
+		else if (contentType.name == ContentType.webm) {
+			// do nothing, let route handle it
+		}
+		else {
+			throw new Error("unsupported contentType")
+		}
+
 		try {
 			const method = Router(role, Poop.routeName(req))
 			const returnValue = await method({
-				body: await Poop.parseRawBody(req),
 				req: req,
+				body: body,
 				headers: req.headers,
-				contentType: ContentType.parse(req.headers["content-type"]).name,
+				contentType: contentType,
 				params: Poop.getQueryParameters(req),
 			})
 

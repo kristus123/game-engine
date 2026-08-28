@@ -16,7 +16,15 @@ export class Livestream {
 					html.start.hide()
 					html.stop.show()
 
-					Assert.ok(await NullHttpClient.startStream())
+					const mimeType = Platform.safari
+						? "video/mp4;codecs=h264,aac" // safari
+						: "video/webm;codecs=vp8,opus" // chrome
+
+					Assert.ok(await NullHttpClient.startStream({
+						body: {
+							mimeType: mimeType,
+						}
+					}))
 
 					const stream = await navigator.mediaDevices.getUserMedia({
 						video: true,
@@ -40,10 +48,6 @@ export class Livestream {
 						html.getId("video").remove()
 					})
 
-					const mimeType = Platform.safari
-						? "video/mp4;codecs=h264,aac" // safari
-						: "video/webm;codecs=vp8,opus" // chrome
-					console.log("-----------------", mimeType)
 
 					const mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType })
 

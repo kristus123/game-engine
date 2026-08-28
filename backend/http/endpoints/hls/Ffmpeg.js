@@ -2,12 +2,22 @@ import { spawn } from "child_process"
 
 export class Ffmpeg {
 
-	static start() {
+	static start(mimeType) {
 		if (this.p) {
 			throw new Error("already running")
 		}
 
+		let thingy = null
+		if (mimeType == "webm") {
+			thingy = "webm" // todo make it more robust
+		}
+		else {
+			throw new Error("unsupported: " + mimeType)
+		}
+
 		this.p = spawn("ffmpeg", [
+			"-f", // hardcoded
+			thingy, // hardcoded
 			"-i",
 			"pipe:0",
 			"-c:v",

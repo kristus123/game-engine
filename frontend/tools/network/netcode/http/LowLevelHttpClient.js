@@ -3,12 +3,15 @@ export class LowLevelHttpClient {
 
 		if (A.jsonObject(body)) {
 			body = JSON.stringify(body)
+			contentType = "application/json"
 		}
 		else if (body == "none") {
 			body = null
+			contentType = null
 		}
 		else if (body instanceof Blob) {
-			// accepted
+			// body = yes
+			// contentType = handled upstream
 		}
 		else {
 			throw new Error("Currently we only support certain bodies")
@@ -25,7 +28,7 @@ export class LowLevelHttpClient {
 				cache: "no-store",
 				signal: timer,
 				headers: {
-					"Content-Type": Assert.value(contentType),
+					"Content-Type": contentType,
 					"token": ClientToken.encodedToken ?? null,
 				},
 			})

@@ -7,15 +7,17 @@ Files.deleteFilesInFolder("public_folder/hls")
 // that we are working on because then you can pipe it directly into FFmpeg,
 // but for now we just do it like this
 
-Route.sendChunk = async ({ body }) => {
-	// we should stream body into ffmpeg without first wrapping it with bufferBody
-	// but that can be done later
+Route.sendChunk = async ({ req, contentType }) => {
+	console.log(contentType)
+	for await (const chunk of req) {
+		await Ffmpeg.write(chunk)
+	}
 
-	await Ffmpeg.write(body)
+	console.log("done")
 }
 
-Route.startStream = async () => {
-	await Ffmpeg.start()
+Route.startStream = async ({ body }) => {
+	await Ffmpeg.start(body.mimeType)
 }
 
 Route.stopStream = async () => {
