@@ -1,19 +1,25 @@
 function loadCss(path) {
 	return new Promise((resolve, reject) => {
-		const link = document.createElement("link");
+		const link = document.createElement("link")
 
-		link.rel = "stylesheet";
-		link.href = path;
+		link.rel = "stylesheet"
+		link.href = path
 
-		link.onload = resolve;
-		link.onerror = reject;
+		link.onload = () => {
+			console.log("css scucess")
+			resolve()
+		}
+		link.onerror = () => {
+			console.error("css error")
+			reject()
+		}
 
-		document.head.appendChild(link);
-	});
+		document.head.appendChild(link)
+	})
 }
 
 
-document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault())
 
 SocketClient.connect(() => {
 })
@@ -28,36 +34,41 @@ ServiceWorker.init()
 HtmlObserverThing((node) => {
 
 	//make it better later! currently only work with contenteditable
-	if node.hasAttribute("prevent-default") {  
+	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
 		node.addEventListener("keydown", (e) => {
 			if (e.key == "Enter") {
-	 		   e.preventDefault();
+	 		   e.preventDefault()
 	 		}
-		});
+		})
 	}
 })
 
 // await ClientToken.init()
 
 async function loadFont(name, url, element = document.documentElement) {
-	const font = new FontFace(name, `url(${url})`);
-
-	await font.load();
-	document.fonts.add(font);
-
-	element.style.fontFamily = name;
+	const font = new FontFace(name, `url(${url})`)
+	await font.load()
+	document.fonts.add(font)
+	return font
 }
 
+function applyFont(name, font, element = document.documentElement) {
+	element.style.fontFamily = name
+}
+
+const font = loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2")
 
 await Promise.all([
 	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
 	Promise.all(AssetPaths.htmlComponent.map(c => {
 		WebComponent(c.name, c.content)
 	})),
-	loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
-	loadCss("/swag.css"),
+	font,
+	// loadCss("/swag.css"),
 ])
 
+document.getElementById("initialSpin").remove()
+applyFont("VT323", await font)
 
 // FindPair()
 Livestream()

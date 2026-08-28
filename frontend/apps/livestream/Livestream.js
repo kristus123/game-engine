@@ -12,7 +12,9 @@ export class Livestream {
 		})
 
 		html.start.onClick(() => {
-			Stream.start()
+			Stream.start(cameraStream => {
+				html.videoOverlay.add(H.streamVideo(cameraStream).mirror())
+			})
 		})
 
 		html.chatHistory.add(H.create("chat-line"))

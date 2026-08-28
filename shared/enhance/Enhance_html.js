@@ -442,6 +442,8 @@ export function Enhance_html() {
 			this.addAttribute("disabled")
 			this.disabled = true
 		}
+
+		return this
 	})
 
 	Enhance(HTMLElement.prototype, "removeOnClick", function () {
@@ -450,6 +452,7 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "onClick", function (run) {
+		// todo throw error instead if already set?
 		this.removeListener("click")
 
 		this.listen("click", () => {

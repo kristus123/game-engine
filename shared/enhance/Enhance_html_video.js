@@ -1,5 +1,10 @@
 export function Enhance_html_video() {
 
+	Enhance(HTMLVideoElement.prototype, "mirror", function () {
+		this.style.transform = "scaleX(-1)"
+		return this
+	})
+
 	Enhance(HTMLVideoElement.prototype, "reload", function () {
 
 		this.pause()
@@ -10,6 +15,8 @@ export function Enhance_html_video() {
 		this.src = old
 		this.load()
 		this.play() // .catch(() => {})
+
+		return this
 	})
 
 	Getter(HTMLVideoElement.prototype, "canPlay", function () {

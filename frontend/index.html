@@ -1,6 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no">
 	<head>
+		<meta charset="UTF-8" />
+		<meta name="google" content="notranslate" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 		<link rel="manifest" href="/manifest.json" />
@@ -20,12 +23,42 @@
 		<script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.29/dist/bundle.min.js"></script>
 		<!-- fix later -->
 
+		<link rel="stylesheet" href="/swag.css" />
+
 		<script type="module" src="/shared/enhance/EnhanceAll.js" defer></script>
 		<script type="module" src="/out.js" defer></script>
 		<script type="module" src="/index.js" defer></script>
 	</head>
 
 	<body data-role="admin">
+		<div id="initialSpin" style="display: grid; place-items: center; margin: 0; min-height: 100vh">
+			<div
+				style="
+					width: 180px;
+					height: 180px;
+					border: 3px solid transparent;
+					border-top-color: white;
+					border-radius: 50%;
+					animation: spin 2000ms ease-in-out infinite;
+				"
+			></div>
+			<p style="color: white; font-size: 40px">ALMOST THERE!</p>
+			<p style="color: white; font-size: 20px">ちょっと待ってください</p>
+			<style>
+				@keyframes spin {
+					0% {
+						transform: rotate(0deg) scale(1);
+					}
+					50% {
+						transform: rotate(360deg) scale(1.5);
+					}
+					100% {
+						transform: rotate(-360deg) scale(1);
+					}
+				}
+			</style>
+		</div>
+
 		<div id="canvases"></div>
 	</body>
 </html>

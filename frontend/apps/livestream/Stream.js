@@ -1,6 +1,8 @@
 export class Stream {
 
-	static async start() {
+	static cameraStream = null
+
+	static async start(onStart) {
 		const { streaming } = Assert.ok(await JsonHttpClient.currentlyStreaming())
 		if (streaming) {
 			throw new Error("can't startr stream if stream already active")
@@ -16,7 +18,7 @@ export class Stream {
 			}
 		}))
 
-		const cameraStream = await navigator.mediaDevices.getUserMedia({
+		this.cameraStream = await navigator.mediaDevices.getUserMedia({
 			video: true,
 			audio: {
 				echoCancellation: false,
@@ -25,7 +27,9 @@ export class Stream {
 			},
 		})
 
-		const mediaRecorder = new MediaRecorder(cameraStream, { mimeType: mimeType })
+		onStart(this.cameraStream)
+
+		const mediaRecorder = new MediaRecorder(this.cameraStream, { mimeType: mimeType })
 
 		mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {

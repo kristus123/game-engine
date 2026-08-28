@@ -39,8 +39,9 @@ export function GenerateFrontend(env) {
 		.filter(f => f.endsWith(".css"))
 		.map(f => f.replaceAll("\\", "/")) // windows compability
 		.map(f => {
-			const p = f.replace("frontend/", "/")
-			return `@import "${p}";`
+			return Files.read(f) + "\n"
+			// const p = f.replace("frontend/", "/")
+			// return `@import "${p}";`
 		})
 		.join("\n")
 	Files.write(Paths.dist.swag_css, cssImports)
