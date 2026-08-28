@@ -4,21 +4,16 @@
 	<button float-bot-left style="" id="start">Start livestream</button>
 	<button hidden float-bot-left style="" id="stop">Stop livestream</button>
 
-	<button float-bot-right id="openChat" style="margin: 20px">open chat</button>
+	<button float-bot-right id="openChat">open chat</button>
 </overlay>
 
-<overlay id="chat" class="bgWhite" hidden>
+<overlay id="chat" class="bgWhite">
 	<phone-grid style="padding: 0px">
 		<top center-h>
 			<button id="closeChat">Close</button>
 		</top>
 		<mid>
-			<flex-v close id="chatHistory" class="bgWhite" scrollable>
-				<flex-h class="bgWhite" tight>
-					<p style="flex: 1; color: green; margin-right: 10px">Gary</p>
-					<p style="flex: 3">hei lkjsdflkjs dflkjs dfskljdflks</p>
-				</flex-h>
-			</flex-v>
+			<flex-v close id="chatHistory" class="bgWhite" scrollable></flex-v>
 		</mid>
 		<bot>
 			<flex-h max-size style="padding: 5px; gap: 10px">

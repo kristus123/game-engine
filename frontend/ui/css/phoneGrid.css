@@ -9,9 +9,9 @@ phone-grid {
 	grid-template-columns: 1fr;
 
 	grid-template-rows:
-		100px
+		50px
 		1fr
-		100px;
+		50px;
 
 
 	max-width: 100vw;

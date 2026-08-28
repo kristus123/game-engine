@@ -364,6 +364,7 @@
         "StartServer": "readonly",
         "StopWatch": "readonly",
         "StraightPath": "readonly",
+        "Stream": "readonly",
         "SuperClass": "readonly",
         "Task": "readonly",
         "TaskQueue": "readonly",
