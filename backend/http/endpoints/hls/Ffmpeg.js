@@ -16,8 +16,8 @@ export class Ffmpeg {
 		}
 
 		this.p = spawn("ffmpeg", [
-			"-f", // hardcoded
-			thingy, // hardcoded
+			"-f",
+			thingy,
 			"-i",
 			"pipe:0",
 			"-c:v",

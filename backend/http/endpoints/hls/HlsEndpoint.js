@@ -3,12 +3,7 @@ import { spawn } from "child_process"
 Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
-// Streaming the request body is preferable especially in HLS scenarios
-// that we are working on because then you can pipe it directly into FFmpeg,
-// but for now we just do it like this
-
-Route.sendChunk = async ({ req, contentType }) => {
-	console.log(contentType)
+Route.sendChunk = async ({ req }) => {
 	for await (const chunk of req) {
 		await Ffmpeg.write(chunk)
 	}
