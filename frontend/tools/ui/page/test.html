@@ -1,13 +1,13 @@
 <overlay>
 	<video id="video" src="/portrait.mp4" muted autoplay loop playsinline></video>
-	<flex-v anchor top max-width>
+	<flex-v float-top max-width>
 		<flex-h>
 			<button id="create" style="">create stream</button>
 			<button id="toggle" style="">toggle video</button>
 			<button id="join" style="">join stream</button>
 		</flex-h>
 	</flex-v>
-	<flex-h anchor bot max-width>
+	<flex-h float-bot max-width>
 		<button id="openChat" style="margin: 20px">open chat</button>
 	</flex-h>
 </overlay>
@@ -18,7 +18,7 @@
 			<button id="closeChat">Close</button>
 		</top>
 		<mid>
-			<flex-v id="chatHistory" class="bgWhite" left close scrollable>
+			<flex-v close id="chatHistory" class="bgWhite" float-left scrollable>
 				<flex-h class="bgWhite" close>
 					<p style="color: green; margin-right: 10px">Gary</p>
 					<p>hei lkjsdflkjs dflkjs dfskljdflks</p>

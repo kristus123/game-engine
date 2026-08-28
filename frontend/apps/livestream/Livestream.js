@@ -3,12 +3,19 @@ export class Livestream {
 		Execute(async () => {
 			const html = Dom.add(Html.livestream())
 
+			html.openChat.onClick(() => {
+				html.chat.show()
+			})
+
+			html.closeChat.onClick(() => {
+				html.chat.hide()
+			})
+
 			console.log("hei")
 			const { streaming } = Assert.ok(await JsonHttpClient.currentlyStreaming())
 
 			if (streaming) {
-				html.clearChildren()
-				html.add(HlsVideo())
+				html.videoOverlay.add(HlsVideo())
 			}
 			else {
 				html.start.onClick(async () => {
@@ -43,6 +50,9 @@ export class Livestream {
 
 					html.stop.show()
 					html.stop.onClick(async () => {
+						html.stop.hide()
+						html.start.show()
+
 						console.log("clicked stop")
 						Assert.ok(await NullHttpClient.stopStream())
 						html.getId("video").remove()

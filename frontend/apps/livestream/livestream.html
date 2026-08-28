@@ -1,4 +1,30 @@
-<overlay cq-parent center>
-	<button style="font-size: 10cqw; width: 100cqw; height: 50cqh" id="start">Start livestream</button>
-	<button hidden float-bot-right style="width: 40cqw; height: 8cqh" id="stop">Stop livestream</button>
+<overlay id="videoOverlay"></overlay>
+
+<overlay>
+	<button float-bot-left style="" id="start">Start livestream</button>
+	<button hidden float-bot-left style="" id="stop">Stop livestream</button>
+
+	<button float-bot-right id="openChat" style="margin: 20px">open chat</button>
+</overlay>
+
+<overlay id="chat" class="bgWhite" hidden>
+	<phone-grid style="padding: 0px">
+		<top center-h>
+			<button id="closeChat">Close</button>
+		</top>
+		<mid>
+			<flex-v close id="chatHistory" class="bgWhite" scrollable>
+				<flex-h class="bgWhite" tight>
+					<p style="flex: 1; color: green; margin-right: 10px">Gary</p>
+					<p style="flex: 3">hei lkjsdflkjs dflkjs dfskljdflks</p>
+				</flex-h>
+			</flex-v>
+		</mid>
+		<bot>
+			<flex-h max-size style="padding: 5px; gap: 10px">
+				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" />
+				<button max-size style="flex: 1" id="send">Send</button>
+			</flex-h>
+		</bot>
+	</phone-grid>
 </overlay>

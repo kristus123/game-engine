@@ -7,18 +7,13 @@ flex-h {
 	box-sizing: border-box;
 }
 
-flex-h[close] {
-	justify-content: center;
-}
-
-flex-v[close] {
-	justify-content: flex-start;
+flex-h[tight] {
+	justify-content: flex-start; /* center / space-around / space-evenly */
 }
 
 flex-v[left] {
 	align-items: flex-start;
 }
-
 
 flex-v {
 	display: flex;
@@ -27,6 +22,10 @@ flex-v {
 	align-items: stretch; /* what happens if this one is center? is that possible */
 	justify-content: space-evenly;
 	box-sizing: border-box;
+}
+
+flex-v[close] {
+	justify-content: flex-start;
 }
 
 
