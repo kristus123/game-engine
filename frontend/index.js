@@ -67,8 +67,10 @@ await Promise.all([
 	// loadCss("/swag.css"),
 ])
 
-document.getElementById("initialSpin").remove()
-applyFont("VT323", await font)
+setTimeout(async () => {
+	document.getElementById("initialSpin").remove()
+	applyFont("VT323", await font)
 
-// FindPair()
-Livestream()
+	// FindPair()
+	Livestream()
+}, 2_000)
