@@ -7,10 +7,10 @@ export class Webcam {
 	}
 
 	static get enabled() {
-		return (this..stream != null)
+		return (this.stream != null)
 	}
 
-	static async request({ok, error} = {}) {
+	static async request({ ok, error } = {}) {
 		try {
 			this.enable()
 			this.stream.getTracks().forEach(track => track.stop())

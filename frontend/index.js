@@ -41,6 +41,29 @@ HtmlObserverThing((node) => {
 	 		}
 		})
 	}
+
+	if (node.hasAttribute("hide-on-click")) {
+		node.addEventListener("click", () => {
+			node.hide()
+		})
+	}
+
+	const onClickShow = node.getAttribute("on-click-show")
+	if (onClickShow) {
+		node.addEventListener("click", () => {
+			const e = Assert.value(document.getElementById(onClickShow))
+			e.show()
+		})
+	}
+
+	const onClickHide = node.getAttribute("on-click-hide")
+	if (onClickHide) {
+		node.addEventListener("click", () => {
+			const e = Assert.value(document.getElementById(onClickHide))
+			e.hide()
+		})
+	}
+
 })
 
 // await ClientToken.init()
@@ -67,10 +90,10 @@ await Promise.all([
 	// loadCss("/swag.css"),
 ])
 
-setTimeout(async () => {
-	document.getElementById("initialSpin").remove()
-	applyFont("VT323", await font)
+// setTimeout(async () => {
+document.getElementById("initialSpin").remove()
+applyFont("VT323", await font)
 
-	// FindPair()
-	Livestream()
-}, 2_000)
+// FindPair()
+Livestream()
+// }, 2_000)

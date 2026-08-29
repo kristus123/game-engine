@@ -1,16 +1,16 @@
 <overlay id="videoOverlay"></overlay>
 
 <overlay>
-	<button float-bot-left style="" id="start">Start livestream</button>
-	<button hidden float-bot-left style="" id="stop">Stop livestream</button>
+	<button id="start" hide-on-click on-click-show="stop" float-bot-left hidden>Start livestream</button>
+	<button id="stop" hide-on-click on-click-show="start" float-bot-left hidden>Stop livestream</button>
 
-	<button float-bot-right id="openChat">open chat</button>
+	<button float-bot-right id="openChat" on-click-show="chat">open chat</button>
 </overlay>
 
 <overlay id="chat" class="bgWhite" hidden>
 	<phone-grid style="padding: 0px">
 		<top center-h>
-			<button id="closeChat">Close</button>
+			<button id="closeChat" on-click-hide="chat">Close</button>
 		</top>
 		<mid>
 			<flex-v close id="chatHistory" class="bgWhite" scrollable></flex-v>

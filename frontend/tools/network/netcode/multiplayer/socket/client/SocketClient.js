@@ -53,6 +53,11 @@ export class SocketClient {
 		}
 	}
 
+	static sendToAllClients(subAction, data) {
+		this.sendToOtherClients(subAction, data)
+		this.sendToClient(subAction, My.clientId, data)
+	}
+
 	static onServerMessage(action, callback) {
 		this.serverActionListener.listen(action, callback)
 	}

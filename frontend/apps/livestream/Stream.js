@@ -2,10 +2,13 @@ export class Stream {
 
 	static cameraStream = null
 
+	static async active() {
+		return Assert.ok(await JsonHttpClient.currentlyStreaming()).streaming
+	}
+
 	static async start(onStart) {
-		const { streaming } = Assert.ok(await JsonHttpClient.currentlyStreaming())
-		if (streaming) {
-			throw new Error("can't startr stream if stream already active")
+		if (await this.active()) {
+			throw new Error("can't start stream if stream already active")
 		}
 
 		const mimeType = Platform.safari
@@ -55,7 +58,4 @@ export class Stream {
 		Assert.ok(await NullHttpClient.stopStream())
 	}
 
-	update() {
-
-	}
 }

@@ -10,6 +10,7 @@ export function HlsVideo() {
 		></video>
 	`.toHtml()
 
+	v.controls = false
 
 	v.addEventListener("loadedmetadata", () => {
 		console.log("loadedmetadata")
@@ -31,14 +32,14 @@ export function HlsVideo() {
 		console.log("stalled")
 	})
 
-	v.addEventListener("error", Debounce(200, () => {
+	v.addEventListener("error", () => {
 		console.log("error")
 
 		setTimeout(() => {
 			v.reload()
 		}, 5_000)
 
-	}))
+	})
 
 	v.addEventListener("ended", () => {
 		console.log("ended")
