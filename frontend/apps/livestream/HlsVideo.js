@@ -1,4 +1,4 @@
-export function HlsVideo() {
+export function HlsVideo({ playing, error } = {}) {
 
 	const v = `
 		<video
@@ -22,6 +22,7 @@ export function HlsVideo() {
 
 	v.addEventListener("playing", () => {
 		console.log("playing")
+		playing()
 	})
 
 	v.addEventListener("waiting", () => {
@@ -34,6 +35,7 @@ export function HlsVideo() {
 
 	v.addEventListener("error", () => {
 		console.log("error")
+		error()
 
 		setTimeout(() => {
 			v.reload()

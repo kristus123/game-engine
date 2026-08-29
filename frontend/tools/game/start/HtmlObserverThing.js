@@ -1,11 +1,10 @@
 export function HtmlObserverThing(onNewNodeAdded) {
-	const walk = (node) => {
-		if (node instanceof HTMLElement) {
+	const walk = node => {
+		if (node.nodeType == Node.ELEMENT_NODE) {
 			onNewNodeAdded(node)
-		}
-
-		for (const child of node.children) {
-			walk(child)
+			for (const child of node.children) {
+				walk(child)
+			}
 		}
 	}
 
