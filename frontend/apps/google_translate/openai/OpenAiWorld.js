@@ -1,7 +1,7 @@
 export class OpenAiWorld {
 
 	constructor() {
-		MicPermission.request(() => {
+		Mic.request(() => {
 		})
 
 		const html = Dom.add(Html.translator())

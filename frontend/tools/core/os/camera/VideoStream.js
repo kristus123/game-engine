@@ -21,7 +21,7 @@ export class VideoStream {
 		this.track = this.stream.getVideoTracks()[0]
 	}
 
-	set sourceStream(stream) {
+	set sourceObject(stream) {
 		console.log("setting remote stream")
 		this.video.srcObject = stream
 	}

@@ -1,12 +1,12 @@
 const db = Db("jap")
 
-const h = Html.addCard()
+const html = Html.addCard()
 
-h.navigateToPracticeCard.onClick(() => {
+html.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
-h.settings.onClick(() => {
+html.settings.onClick(() => {
 	Page.go(SettingsPage)
 })
 
@@ -14,9 +14,9 @@ const sound = {}
 
 function _init() {
 	for (const direction of ["Front", "Back"]) {
-		const start = h.getId("startRecording" + direction)
-		const stop = h.getId("stopRecording" + direction)
-		const play = h.getId("play" + direction)
+		const start = html.getId("startRecording" + direction)
+		const stop = html.getId("stopRecording" + direction)
+		const play = html.getId("play" + direction)
 
 		start.enable()
 		stop.disable()
@@ -42,8 +42,8 @@ function _init() {
 					Sound.playBlob(sound[direction])
 				})
 
-				if (h.playFront.enabled && h.playBack.enabled) {
-					h.save.enable()
+				if (html.playFront.enabled && html.playBack.enabled) {
+					html.save.enable()
 				}
 			})
 		})
@@ -52,7 +52,7 @@ function _init() {
 
 _init()
 
-h.save.onClick(() => {
+html.save.onClick(() => {
 	db.save({
 		front: sound["Front"],
 		back: sound["Back"],
@@ -60,8 +60,8 @@ h.save.onClick(() => {
 		nextPracticeDate: LocalDate.now().toString(),
 	}, () => {
 		_init()
-		h.save.disable()
+		html.save.disable()
 	})
 })
 
-export const AddCardPage = Page.init(h)
+export const AddCardPage = Page.init(html)

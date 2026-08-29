@@ -1,14 +1,14 @@
-const h = Html.settings()
+const html = Html.settings()
 
-h.navigateToPracticeCard.onClick(() => {
+html.navigateToPracticeCard.onClick(() => {
 	Page.go(PracticePage)
 })
 
 AllMics.get(m => {
 	const label = m.label.replace(/\s*\([^()]*\)\s*$/, "")
-	h.mid.add(H.button(label, () => {
+	html.mid.add(H.button(label, () => {
 		Mic.selected = m.deviceId
 	}).css("padding:20px;"))
 })
 
-export const SettingsPage = Page.init(h)
+export const SettingsPage = Page.init(html)

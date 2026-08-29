@@ -4,6 +4,8 @@ export class Mic {
 	static recorder = null
 	static stream = null
 
+	static granted = false
+
 	static state = "idle" // idle, recording
 	static mimeType = "audio/webm;codecs=opus"
 	static audioBitsPerSecond = 64_000
@@ -16,9 +18,36 @@ export class Mic {
 		return this.state == "idle"
 	}
 
+	static get deviceId() {
+		// undefined needs to be used instead of null because of getUserMedia api
+		return localStorage.getItem("mic_deviceId") ?? undefined
+	}
+
+	static set deviceId(m) {
+		localStorage.setItem("mic_deviceId", m)
+	}
+
+	static async createStream() {
+		return await navigator.mediaDevices.getUserMedia({
+			audio: {
+				deviceId: {
+					// can b 'exact' or 'ideal' - ideal more safe
+					ideal: this.deviceId,
+				},
+				echoCancellation: false,
+				noiseSuppression: false,
+				autoGainControl: false,
+				channelCount: 1,
+				// sampleRate: 48000,   // optional - browser may ignore
+				// sampleSize: 16,      // optional - browser may ignore
+				// latency: 0.01        // optional - browser may ignore
+			},
+		})
+	}
+
 	static async routeTo(track) {
 		try {
-			const stream = await MicApi.createStream()
+			const stream = await this.createStream()
 			const source = SoundContext.context.createMediaStreamSource(stream)
 			source.connect(track.input ?? track)
 			return source
@@ -33,7 +62,7 @@ export class Mic {
 			throw new Error("already recording")
 		}
 
-		this.stream = await MicApi.createStream()
+		this.stream = await this.createStream()
 		console.log(this.stream)
 
 		this.recorder = new MediaRecorder(this.stream, {
@@ -55,56 +84,42 @@ export class Mic {
 	}
 
 	static stop(onStop) {
-
+		Assert.true(this.recording)
 		Assert.method(onStop)
 
-		if (!this.recording) {
-			console.error("not recording")
+		this.recorder.onstop = () => {
+
+			this.stream.getTracks().forEach(t => t.stop())
+
+			const blob = new Blob(this.chunks, {
+				type: this.mimeType,
+			})
+
+			this.chunks = []
+			this.recorder = null
+			this.stream = null
+			this.state = "idle"
+
+			return onStop(blob)
 		}
-		else {
-			this.recorder.onstop = () => {
 
-				MicApi.stopTracks(this.stream)
-
-				const blob = new Blob(this.chunks, {
-					type: this.mimeType,
-				})
-
-				this.chunks = []
-				this.recorder = null
-				this.stream = null
-				this.state = "idle"
-
-				return onStop(blob)
-			}
-
-			this.recorder.stop()
-		}
+		this.recorder.stop()
 	}
 
-	static granted = false
 
-	static onGrantedListener = Listener()
-	static onDeniedListener = Listener()
-
-	static async request(callback) {
+	static async request({ ok, error } = {}) {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
 			stream.getTracks().forEach(track => track.stop())
 
-			this.onGrantedListener.trigger({})
 			this.granted = true
-			callback(true)
-
+			ok()
 		}
 		catch (e) {
 			console.error("Mic denied:", e)
-			this.onDeniedListener.trigger({})
 			this.granted = false
-			callback(false)
+			error(e)
 		}
 	}
-
-
 
 }
