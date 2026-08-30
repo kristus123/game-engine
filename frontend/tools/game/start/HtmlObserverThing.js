@@ -1,4 +1,4 @@
-export function HtmlObserverThing(onNewNodeAdded) {
+export function HtmlObserverThing(element, onNewNodeAdded) {
 	const walk = node => {
 		if (node.nodeType == Node.ELEMENT_NODE) {
 			onNewNodeAdded(node)
@@ -16,7 +16,7 @@ export function HtmlObserverThing(onNewNodeAdded) {
 		}
 	})
 
-	observer.observe(document.body, {
+	observer.observe(element, {
 		childList: true,
 		subtree: true,
 	})

@@ -177,8 +177,12 @@ export function Enhance_html() {
 	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
 		this._listeners ??= []
 
-		this._listeners.push({ type, listener, options })
-		this.addEventListener(type, listener, options)
+		const x = (e) => {
+			listener(e)
+		}
+
+		this._listeners.push({ type, x, options })
+		this.addEventListener(type, x, options)
 
 		return this
 	})
@@ -606,6 +610,20 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement.prototype, "clone", function () {
 		return this.cloneNode(true)
+	})
+
+	Enhance(HTMLElement.prototype, "walk", function (action) {
+		console.log("walking")
+		function walk(node) {
+			for (const child of node.children) {
+				walk(child)
+				action?.(child)
+			}
+		}
+
+		walk(this)
+
+		return this
 	})
 
 

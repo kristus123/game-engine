@@ -3,8 +3,9 @@
 </overlay>
 
 <overlay>
-	<button id="start" on-click-hide on-click-show-id="stop" float-bot-left hidden>Start livestream</button>
-	<button id="stop" on-click-hide on-click-show-id="start" float-bot-left hidden>Stop livestream</button>
+	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
+
+	<button id="stop" float-bot-left hidden>Stop livestream</button>
 
 	<button float-bot-right id="openChat" on-click-show-id="chat">open chat</button>
 </overlay>
@@ -12,7 +13,7 @@
 <overlay id="chat" class="bgWhite" hidden>
 	<phone-grid style="padding: 0px">
 		<top center-h>
-			<button id="closeChat">Close</button>
+			<button id="closeChat" on-click-hide-id="chat">Close</button>
 		</top>
 		<mid>
 			<flex-v close id="chatHistory" class="bgWhite" scrollable>
@@ -21,8 +22,8 @@
 		</mid>
 		<bot>
 			<flex-h max-size style="padding: 5px; gap: 10px">
-				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" on-enter-call="sendMessage" />
-				<button max-size style="flex: 1" id="send" on-click-call="sendMessage">Send</button>
+				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" on-enter="sendMessage" />
+				<button max-size style="flex: 1" id="send" on-click="sendMessage">Send</button>
 			</flex-h>
 		</bot>
 	</phone-grid>

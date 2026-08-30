@@ -1,6 +1,6 @@
 export async function LoadHtmlContent(o) {
 
-	Enhance(Html, o.name, () => {
+	Html[o.name] = ({ on = {} } = {}) => {
 		const template = document.createElement("template")
 		template.innerHTML = o.content
 
@@ -26,6 +26,40 @@ export async function LoadHtmlContent(o) {
 			div[e.id] = e // fix hack later
 		}
 
+		for (const [methodName, action] of on.all) {
+			div.listen("on-call-" + methodName, () => {
+				action()
+			})
+		}
+
+		div.walk(child => {
+			for (const attribute of child.attributes) {
+				if (attribute.name == "on-click") {
+					child.listen("click", () => {
+						on[attribute.value]?.()
+						child.dispatchEvent(new CustomEvent("on-click", {
+							detail: {
+								name: attribute.value,
+								value: 123,
+							}
+						}))
+					})
+				}
+				else if (attribute.name == "on-enter") {
+					child.onEnter(() => {
+						on[attribute.value]?.()
+						child.dispatchEvent(new CustomEvent("on-enter", {
+							detail: {
+								name: attribute.value,
+								value: 123,
+							}
+						}))
+					})
+				}
+			}
+		})
+
 		return div
-	})
+	}
+
 }

@@ -17,7 +17,11 @@ function anyTrue(...args) {
 export class IfCondition { // maybe rename to function _If(arg)
 
 	static validate(arg) {
-		if (A.bool(arg)) {
+		if (arg == null) {
+			// console.log("null values in if's are treated like false")
+			return false
+		}
+		else if (A.bool(arg)) {
 			return arg
 		}
 		else if (An.object(arg)) {
@@ -36,6 +40,9 @@ export class IfCondition { // maybe rename to function _If(arg)
 				return true
 			}
 		}
+		else if (A.promise(arg)) {
+			throw new Error("Don't put a promise in an if condition. use await!")
+		}
 		else if (A.number(arg)) {
 			// maybe do positive numbers as true and negative numbers as false. todo think
 			throw new Error("numbers are not allowed in if condition. i am not sure what is best")
@@ -47,10 +54,6 @@ export class IfCondition { // maybe rename to function _If(arg)
 			return false
 			// Think about how we should handle this later
 			// throw new Error("emtpry string is not allowed in if condition")
-		}
-		else if (arg == null) {
-			// console.log("null values in if's are treated like false")
-			return false
 		}
 		else {
 			return true

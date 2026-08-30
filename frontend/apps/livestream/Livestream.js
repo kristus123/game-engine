@@ -5,19 +5,24 @@ export class Livestream {
 			on: {
 				startStream: async () => {
 					html.videoOverlay.clearChildren()
-					const v = H.streamVideo(await Stream.start())
-					html.videoOverlay.add(v.mirror())
+					const video = H.streamVideo(await Stream.start())
+					video.mirror()
+					html.videoOverlay.add(video)
+
+					html.start.hide()
+					html.stop.show()
 				},
 				stopStream: async () => {
 					html.videoOverlay.clearChildren()
 					Stream.stop()
 				},
 				sendMessage: () => {
-					html.message.clear()
 					SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
 						name: "brukernavn",
-						message: m,
+						message: html.message.value,
 					})
+
+					html.message.clear()
 				},
 			},
 		}))
@@ -45,7 +50,6 @@ export class Livestream {
 				},
 			}))
 		})
-
 	}
 
 	update() {

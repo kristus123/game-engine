@@ -98,6 +98,10 @@ export class A {
 		return !this.null(x)
 	}
 
+	static promise(x) {
+		return x != null && typeof x.then == "function"
+	}
+
 	static null(x) {
 		if (x == null) {
 			return true

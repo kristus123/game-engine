@@ -31,7 +31,7 @@ SocketClient.onServerMessage("HOT_RELOAD", () => {
 
 ServiceWorker.init()
 
-HtmlObserverThing((node) => {
+HtmlObserverThing(document.body, (node) => {
 
 	//make it better later! currently only work with contenteditable
 	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
@@ -45,6 +45,12 @@ HtmlObserverThing((node) => {
 	if (node.hasAttribute("on-click-hide")) {
 		node.addEventListener("click", () => {
 			node.hide()
+		})
+	}
+
+	if (node.hasAttribute("on-click-show")) {
+		node.addEventListener("click", () => {
+			node.show()
 		})
 	}
 
@@ -63,7 +69,6 @@ HtmlObserverThing((node) => {
 			e.hide()
 		})
 	}
-
 })
 
 // await ClientToken.init()
@@ -90,10 +95,10 @@ await Promise.all([
 	// loadCss("/swag.css"),
 ])
 
-// setTimeout(async () => {
-document.getElementById("initialSpin").remove()
-applyFont("VT323", await font)
+setTimeout(async () => {
+	document.getElementById("initialSpin").remove()
+	applyFont("VT323", await font)
 
-// FindPair()
-Livestream.start()
-// }, 2_000)
+	// FindPair()
+	Livestream.start()
+}, 2_000)
