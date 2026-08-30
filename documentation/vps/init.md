@@ -2,38 +2,39 @@
 
 [Login](https://nerdvm.racknerd.com/login.php)
 
-
-
-
-
-
-
 ```bash
 sudo apt update -y && sudo apt upgrade -y
 
+sudo apt install curl -y
+sudo apt install wget -y
 sudo apt install htop -y
 sudo apt install ffmpeg -y
 sudo apt install git -y
 sudo apt install nginx -y
 sudo apt install ufw -y
+sudo apt install certbot python3-certbot-nginx -y
 
-# Create a user
 adduser kristian
 
 /usr/sbin/usermod -a -G sudo kristian
 
+# Change to user
 su - kristian
 ```
 
 ```bash
-cd
-git clone https://github.com/kristus123/game-engine.git
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+source ~/.bashrc
 
-# Switch to ssh later
-# git@github.com:kristus123/game-engine.git
+nvm install node
+nvm use node
 ```
 
+
+
 # ssh 
+
+## Run these commands as kristian user
 
 ```bash
 mkdir -p ~/.ssh
@@ -53,12 +54,13 @@ chmod 600 ~/.ssh/authorized_keys
 
 
 
-Outside of server
+# Outside of server
 
 ```bash
 ssh-copy-id kristian@krispetter.duckdns.org
 # then type in vps password
 ```
+
 # x
 
 ```bash
@@ -66,7 +68,20 @@ sudo nano /etc/ssh/sshd_config
 ```
 
 ```bash
-# set the current values
+Include /etc/ssh/sshd_config.d/*.conf
+
+KbdInteractiveAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_* COLORTERM NO_COLOR
+Subsystem       sftp    /usr/lib/openssh/sftp-server
+
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitRootLogin prohibit-password
+AuthorizedKeysFile .ssh/authorized_keys
+
 PasswordAuthentication no
 PubkeyAuthentication yes
 PermitRootLogin prohibit-password
@@ -88,21 +103,14 @@ kristian ALL=(ALL:ALL) NOPASSWD: ALL
 and finally:
 
 ```bash
-# you could also just restart ssh, but i prefer simple shit
-sudo reboot now
 sudo sshd -t && sudo systemctl reload ssh
-# Test if this works!
 ```
 
 
 # stuff
 
-
-
-Todo should not use my private key
-
 ```bash
-ssh-keygen -t ed25519 -C "krispetter@gmail.com"
+ssh-keygen -t ed25519 -C "prod_vps"
 
 eval "$(ssh-agent -s)"
 
@@ -138,3 +146,13 @@ sudo ufw enable
 # set up duckdns
 
 TODO
+
+# Set up game-engine
+
+
+```bash
+cd
+git clone git@github.com:kristus123/game-engine.git
+cd game-engine
+npm i
+```

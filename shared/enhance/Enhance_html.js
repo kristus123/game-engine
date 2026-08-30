@@ -50,9 +50,9 @@ export function Enhance_html() {
 	})
 
 	Getter(HTMLElement.prototype, "isTextNode", function () {
-		return 
-  			this.childNodes.length === 1 &&
-  			this.firstChild.nodeType === Node.TEXT_NODE;
+		return
+  			this.childNodes.length == 1 &&
+  			this.firstChild.nodeType == Node.TEXT_NODE
 	})
 
 	Getter(HTMLElement.prototype, "data", function () {
@@ -724,16 +724,16 @@ export function Enhance_html() {
 
 	Setter(HTMLElement.prototype, "content", {
 		get() {
-			if(this.isTextNode) {
+			if (this.isTextNode) {
 				return this.textContent
 			}
 			else {
 				return this.children
 			}
-			 
+
 		},
 		set(x) {
-			if(A.string(x)) {
+			if (A.string(x)) {
 				this.textContent = x
 			}
 			else {

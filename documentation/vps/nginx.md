@@ -9,27 +9,30 @@ sudo systemctl status nginx
 
 # Ngingx config
 
-map must be inside the http {} block, not inside a server {} block.
 
 ```bash
 sudo nano /etc/nginx/nginx.conf
 ```
 
+map must be inside the http {} block, not inside a server {} block.
+
+
 ```bash
-http {
+http { # don't add this line
     map $http_upgrade $connection_upgrade {
         default upgrade;
         '' close;
     }
 
     include /etc/nginx/sites-enabled/*;
-}
+} # don't add this line
 ```
 
 # x
 
 ```bash
 sudo rm /etc/nginx/sites-available/default
+sudo rm /etc/nginx/sites-enabled/default
 ```
 
 
@@ -66,16 +69,16 @@ sudo ln -s /etc/nginx/sites-available/krispetter.duckdns.org /etc/nginx/sites-en
 ## certbot
 
 ```bash
-sudo apt update -y
-sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx \
+  --non-interactive \
+  --agree-tos \
+  --email krispetter@gmail.com \
+  --no-eff-email \
+  -d krispetter.duckdns.org
 
-sudo certbot --nginx
 sudo certbot renew --dry-run
-```
 
-## final test
 
-```bash
 sudo nginx -t
 sudo systemctl reload nginx
 ```
