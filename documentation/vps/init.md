@@ -11,8 +11,9 @@ https://github.com/settings/ssh/new
 
 ```bash
 sudo apt update -y && sudo apt upgrade -y
-sudo apt install htop -y
 
+sudo apt install htop -y
+sudo apt install ffmpeg -y
 sudo apt install git -y
 
 # Create a user
