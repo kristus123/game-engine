@@ -6,7 +6,6 @@
 sudo apt update -y && sudo apt upgrade -y
 
 sudo apt install curl -y
-sudo apt install wget -y
 sudo apt install htop -y
 sudo apt install ffmpeg -y
 sudo apt install git -y

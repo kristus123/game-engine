@@ -1,19 +1,3 @@
-i dont think this is in use yet- fix please later 
-
-# Systemd setup
-
-```bash
-cd
-sudo apt update -y
-sudo apt install curl -y
-
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-
-source ~/.bashrc
-
-nvm install node
-```
-
 ## create file
 
 ```
