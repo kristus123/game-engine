@@ -92,7 +92,7 @@ await Promise.all([
 		WebComponent(c.name, c.content)
 	})),
 	font,
-	// loadCss("/swag.css"),
+	loadCss("/swag.css"),
 ])
 
 setTimeout(async () => {
