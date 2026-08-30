@@ -42,24 +42,24 @@ HtmlObserverThing((node) => {
 		})
 	}
 
-	if (node.hasAttribute("hide-on-click")) {
+	if (node.hasAttribute("on-click-hide")) {
 		node.addEventListener("click", () => {
 			node.hide()
 		})
 	}
 
-	const onClickShow = node.getAttribute("on-click-show")
-	if (onClickShow) {
+	const onClickShowId = node.getAttribute("on-click-show-id")
+	if (onClickShowId) {
 		node.addEventListener("click", () => {
-			const e = Assert.value(document.getElementById(onClickShow))
+			const e = Assert.value(document.getElementById(onClickShowId))
 			e.show()
 		})
 	}
 
-	const onClickHide = node.getAttribute("on-click-hide")
-	if (onClickHide) {
+	const onClickHideId = node.getAttribute("on-click-hide-id")
+	if (onClickHideId) {
 		node.addEventListener("click", () => {
-			const e = Assert.value(document.getElementById(onClickHide))
+			const e = Assert.value(document.getElementById(onClickHideId))
 			e.hide()
 		})
 	}
@@ -95,5 +95,5 @@ document.getElementById("initialSpin").remove()
 applyFont("VT323", await font)
 
 // FindPair()
-Livestream()
+Livestream.start()
 // }, 2_000)

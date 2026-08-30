@@ -1,7 +1,41 @@
 export class Livestream {
 
-	constructor() {
-		const html = Dom.add(Html.livestream())
+	static async start() {
+		const html = Dom.add(Html.livestream({
+			on: {
+				startStream: async () => {
+					html.videoOverlay.clearChildren()
+					const v = H.streamVideo(await Stream.start())
+					html.videoOverlay.add(v.mirror())
+				},
+				stopStream: async () => {
+					html.videoOverlay.clearChildren()
+					Stream.stop()
+				},
+				sendMessage: () => {
+					html.message.clear()
+					SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
+						name: "brukernavn",
+						message: m,
+					})
+				},
+			},
+		}))
+
+		if (await Stream.someoneIsStreaming()) {
+			html.videoOverlay.add(HlsVideo({
+				playing: () => {
+					html.waiting.text("")
+				},
+				error: () => {
+					html.waiting.text("Please hold on")
+				},
+			}))
+		}
+		else {
+			html.waiting.text("Stream not online")
+			html.start.show()
+		}
 
 		SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 			html.chatHistory.add(H.create("chat-line", {
@@ -12,37 +46,6 @@ export class Livestream {
 			}))
 		})
 
-		html.message.onEnter(m => {
-			html.message.clear()
-			SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
-				name: "brukernavn",
-				message: m,
-			})
-		})
-
-		Execute(async () => {
-			if (await Stream.active()) {
-				html.videoOverlay.add(HlsVideo({
-					playing: () => {
-						html.waiting.text("")
-					},
-					error: () => {
-						html.waiting.text("Please hold on")
-					},
-				}))
-			}
-			else {
-				html.waiting.text("Stream is not online")
-
-				html.start.show()
-			}
-		})
-
-		html.start.onClick(() => {
-			Stream.start(stream => {
-				html.videoOverlay.add(H.streamVideo(stream).mirror())
-			})
-		})
 	}
 
 	update() {

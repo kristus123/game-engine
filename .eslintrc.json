@@ -198,7 +198,6 @@
         "Every": "readonly",
         "EveryFrame": "readonly",
         "EveryMs": "readonly",
-        "Execute": "readonly",
         "ExportAseprite": "readonly",
         "Ffmpeg": "readonly",
         "FileDb": "readonly",

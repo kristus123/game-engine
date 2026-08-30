@@ -9,14 +9,6 @@ export class SfuWorld {
 
 		const html = Dom.add(Html.test())
 
-		html.openChat.onClick(() => {
-			html.chat.show()
-		})
-
-		html.closeChat.onClick(() => {
-			html.chat.hide()
-		})
-
 		SfuRouters.onRouterCreated = router => {
 			if (!SfuClient.isHost) {
 				console.log("joining since we are not host")
