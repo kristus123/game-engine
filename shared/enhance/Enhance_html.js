@@ -49,6 +49,12 @@ export function Enhance_html() {
 		return this.tagName.toLowerCase()
 	})
 
+	Getter(HTMLElement.prototype, "isTextNode", function () {
+		return 
+  			this.childNodes.length === 1 &&
+  			this.firstChild.nodeType === Node.TEXT_NODE;
+	})
+
 	Getter(HTMLElement.prototype, "data", function () {
 		return this.dataset
 	})
@@ -713,6 +719,26 @@ export function Enhance_html() {
 		},
 		set(x) {
 			this.style.left = `${x}px`
+		},
+	})
+
+	Setter(HTMLElement.prototype, "content", {
+		get() {
+			if(this.isTextNode) {
+				return this.textContent
+			}
+			else {
+				return this.children
+			}
+			 
+		},
+		set(x) {
+			if(A.string(x)) {
+				this.textContent = x
+			}
+			else {
+				this.replaceChildren(x)
+			}
 		},
 	})
 

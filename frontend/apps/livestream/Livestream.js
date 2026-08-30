@@ -30,15 +30,15 @@ export class Livestream {
 		if (await Stream.someoneIsStreaming()) {
 			html.videoOverlay.add(HlsVideo({
 				playing: () => {
-					html.waiting.text("")
+					html.waiting.content = ""
 				},
 				error: () => {
-					html.waiting.text("Please hold on")
+					html.waiting.content = "Please hold on"
 				},
 			}))
 		}
 		else {
-			html.waiting.text("Stream not online")
+			html.waiting.content = "Stream not online"
 			html.start.show()
 		}
 
