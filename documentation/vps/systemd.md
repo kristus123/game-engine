@@ -13,7 +13,7 @@ After=network.target
 Type=simple
 User=kristian
 WorkingDirectory=/home/kristian/game-engine
-ExecStart=/home/kristian/.nvm/versions/node/v26.5.0/bin/node start.js PRODUCTION
+ExecStart=/home/kristian/.nvm/versions/node/v26.8.1/bin/node start.js PRODUCTION
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
