@@ -70,6 +70,8 @@ export class ContentType {
 	}
 
 	static fromFile(file) {
+		Assert.value(file)
+
 		const extension = file.substring(file.lastIndexOf(".")).toLowerCase()
 
 		if (this.extensions[extension]) {

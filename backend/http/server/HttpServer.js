@@ -14,8 +14,15 @@ export class HttpServer {
 
 				switch (req.method) {
 					case "GET": {
-						const fileName = Poop.routeName(req) // fix routeName name
-						Poop.streamFile(res, fileName)
+						try {
+							const fileName = Poop.routeName(req) // fix routeName name
+							Poop.streamFile(res, fileName)
+						}
+						catch (e) {
+							Poop.sendJson(res, 500, {
+								error: "Failed to fetch file from endpoint:" + req.url,
+							})
+						}
 						break
 					}
 					case "POST": {
