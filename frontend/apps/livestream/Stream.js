@@ -43,7 +43,7 @@ export class Stream {
 					routeName: "sendChunk",
 					body: e.data,
 					formatBody: r => null,
-					contentType: mimeType,
+					contentType: this.mimeType,
 					ok: () => {
 						Log("ok!")
 					},
