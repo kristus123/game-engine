@@ -1,14 +1,13 @@
-// To use slots, you need to use shadow DOM, but then you don't get access to the global CSS
-
-//
-// Not a big fan of the name because it just doesn't really say that we are registering it, so yeah, but that can be fixed later
-//
-
-export function WebComponent(name, html) {
+export async function RegisterCustomWebComponent(name, html, js = null) { // no-null-check
+	Assert.string(name)
 	Assert.string(html)
 
 	const template = document.createElement("template")
 	template.content.append(html.toHtml())
+	if (js) {
+		js = await import(js)
+		Assert.value(js.default)
+	}
 
 	customElements.define(name, class extends HTMLElement {
 		connectedCallback() {
@@ -42,8 +41,9 @@ export function WebComponent(name, html) {
 						}
 					}
 				})
-
 			}
+
+			js.default(this)
 
 			this.replaceChildren(content)
 		}

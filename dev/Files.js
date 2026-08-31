@@ -75,13 +75,13 @@ export class Files {
 		return results.map(f => f.replaceAll("\\", "/"))
 	}
 
-	static find(filename) {
+	static findPathOrNull(filename) {
 		const matches = Files.at("./").filter(file =>
 			Path.basename(file) == filename
 		)
 
 		if (matches.length == 0) {
-			throw new Error(`File not found: ${filename}`)
+			return null
 		}
 
 		if (matches.length > 1) {
@@ -91,6 +91,13 @@ export class Files {
 		}
 
 		return matches[0]
+	}
+
+	static find(filename) {
+		const f = this.findOrNull(filename)
+		if (f == null) {
+			throw new Error(`File not found: ${filename}`)
+		}
 	}
 
 

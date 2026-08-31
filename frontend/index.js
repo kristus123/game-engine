@@ -89,7 +89,7 @@ const font = loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihI
 await Promise.all([
 	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
 	Promise.all(AssetPaths.htmlComponent.map(c => {
-		WebComponent(c.name, c.content)
+		RegisterCustomWebComponent(c.name, c.content, c.js)
 	})),
 	font,
 	loadCss("/swag.css"),

@@ -14,7 +14,19 @@ export function GenerateIndexJs() {
 			const name = f.split("/").pop()
 				.replace(".html", "")
 
-			return JSON.stringify({ name: name, content: content })
+			let js = Files.findPathOrNull(name + ".js")
+			if (js) {
+				js = js.replace("frontend/", "#root/")
+			}
+			console.log("_____________xxx")
+			console.log(js)
+			console.log("_____________xxx")
+
+			return JSON.stringify({
+				name: name,
+				content: content,
+				js: js,
+			})
 		})
 
 	const htmlContents = Files.at(Paths.frontendFolder) // rename to htmlTemplates
