@@ -406,6 +406,7 @@
         "email": "readonly",
         "fileDbEndpoint": "readonly",
         "index": "readonly",
+        "practiceCard": "readonly",
         "pushNotificationEndpoint": "readonly",
         "serviceWorker": "readonly"
     }

@@ -50,13 +50,13 @@ export class Stream {
 	}
 
 	static async stop() {
-		if (this.mediaRecorder == null || this.mediaRecorder.state == "inactive") {
+		if (this.mediaRecorder) {
+			Assert.ok(await NullHttpClient.stopStream())
+			this.mediaRecorder.stop()
+			this.mediaRecorder = null
+		}
+		else {
 			throw new Error("Can't stop when already stopped")
 		}
-
-		Assert.ok(await NullHttpClient.stopStream())
-		this.mediaRecorder.stop()
-		this.mediaRecorder = null
 	}
-
 }
