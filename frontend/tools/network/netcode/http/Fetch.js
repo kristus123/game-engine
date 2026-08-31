@@ -1,4 +1,8 @@
-export async function Fetch({ url, body, headers } = {}) {
+// this method is quite coupled to our local server. maybe fix in the future
+
+export async function Fetch({ url, body, headers } = {}) { // no-null-check
+	Assert.value(url)
+	Assert.value(headers)
 
 	const abortSignal = AbortAtMs(5_000) // rename to AbortSignal or smt else
 

@@ -1,6 +1,6 @@
 export class LowLevelHttpClient {
 
-	static async post({ routeName, body, formatBody, contentType, ok, error } = {}) { // no-null-check
+	static async post({ routeName, body, formatBody, contentType } = {}) { // no-null-check
 
 		if (A.jsonObject(body)) {
 			body = JSON.stringify(body)
@@ -17,7 +17,8 @@ export class LowLevelHttpClient {
 			throw new Error("current combination of body and contentType not supported")
 		}
 
-		const {ok, response} = await Fetch(`${Config.httpUrl}/${routeName}`, {
+		const { ok, error, response } = await Fetch({
+			url: `${Config.httpUrl}/${routeName}`,
 			body: body,
 			headers: {
 				"Content-Type": contentType,
@@ -26,10 +27,10 @@ export class LowLevelHttpClient {
 		})
 
 		if (ok) {
-			return {ok, error, body: formatBody(response)}
+			return { ok, error, body: formatBody(response) }
 		}
 		else {
-			return {ok, error, body: null}
+			return { ok, error, body: null }
 		}
 	}
 

@@ -1,3 +1,11 @@
+function _HtmlElement(type, className="na") {
+	const e = document.createElement(type)
+	e.setAttribute("class", className)
+	return e
+}
+
+
+
 export class H {
 
 	static create(name, { attributes={}, slots={}, data={} } = {}) {
@@ -19,7 +27,7 @@ export class H {
 	}
 
 	static _video() {
-		const v = HtmlElement("video")
+		const v = _HtmlElement("video")
 
 		v.muted = true
 		v.autoplay = true
@@ -48,12 +56,12 @@ export class H {
 
 	static dialog(children=[]) {
 
-		const div = HtmlElement("div")
+		const div = _HtmlElement("div")
 		for (const c of Always.list(children)) {
 			div.appendChild(c)
 		}
 
-		const d = HtmlElement("dialog")
+		const d = _HtmlElement("dialog")
 		d.appendChild(div)
 
 		d.addEventListener("click", e => {
@@ -69,7 +77,7 @@ export class H {
 	}
 
 	static slider(min=1, max=100) {
-		const s = HtmlElement("input")
+		const s = _HtmlElement("input")
 
 		s.type = "range"
 		s.min = min
@@ -81,7 +89,7 @@ export class H {
 	}
 
 	static input(placeholder="placeholder", onEnter=(value) => {}) {
-		const i = HtmlElement("input")
+		const i = _HtmlElement("input")
 		i.type = "text"
 		i.placeholder = placeholder
 
@@ -105,14 +113,14 @@ export class H {
 	}
 
 	static p(text, className="na") {
-		const p = HtmlElement("p", className)
+		const p = _HtmlElement("p", className)
 		p.innerHTML = text
 
 		return p
 	}
 
 	static button(text, onClick = b => {}) {
-		const button = HtmlElement("button", "button")
+		const button = _HtmlElement("button", "button")
 		button.textContent = text
 
 		button.onClick(() => {
