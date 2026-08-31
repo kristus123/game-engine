@@ -3,12 +3,9 @@ export class Stream {
 	static cameraStream = null
 	static mediaRecorder = null
 
-	static {
-		this.mimeType = Platform.safari
-			? "video/mp4;codecs=h264,aac" // safari
-			: "video/webm;codecs=vp8,opus" // chrome
-
-	}
+	static mimeType = Platform.safari
+		? "video/mp4;codecs=h264,aac" // safari
+		: "video/webm;codecs=vp8,opus" // chrome
 
 	static async someoneIsStreaming() {
 		return Assert.ok(await JsonHttpClient.currentlyStreaming()).streaming
@@ -19,11 +16,10 @@ export class Stream {
 			throw new Error("can't start stream if stream already active")
 		}
 
-
 		Assert.ok(await NullHttpClient.startStream({
 			body: {
 				mimeType: this.mimeType.includes("webm") ? "webm" : "mp4",
-			}
+			},
 		}))
 
 		this.cameraStream = await navigator.mediaDevices.getUserMedia({
@@ -41,15 +37,9 @@ export class Stream {
 			if (e.data.size > 0) {
 				LowLevelHttpClient.post({
 					routeName: "sendChunk",
-					body: e.data,
+					body: e.data, // blob
 					formatBody: r => null,
 					contentType: this.mimeType,
-					ok: () => {
-						Log("ok!")
-					},
-					error: () => {
-						Log("error!")
-					},
 				})
 			}
 		}
@@ -60,7 +50,7 @@ export class Stream {
 	}
 
 	static async stop() {
-		if (this.mediaRecorder.state == "inactive") {
+		if (this.mediaRecorder == null || this.mediaRecorder.state == "inactive") {
 			throw new Error("Can't stop when already stopped")
 		}
 

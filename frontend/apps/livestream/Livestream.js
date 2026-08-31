@@ -17,12 +17,12 @@ export class Livestream {
 					Stream.stop()
 				},
 				sendMessage: () => {
+					html.message.clear()
+
 					SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
 						name: "brukernavn",
 						message: html.message.value,
 					})
-
-					html.message.clear()
 				},
 			},
 		}))

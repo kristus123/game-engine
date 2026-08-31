@@ -5,6 +5,9 @@ export class Assert {
 		if (httpResponse.ok) {
 			return httpResponse.body
 		}
+		else if (A.promise(httpResponse)) {
+			throw new Error("do not pass a promise into this one. use await!")
+		}
 		else {
 			console.log(httpResponse)
 			throw new Error("Expected httpResponse to be ok, but it is not")
