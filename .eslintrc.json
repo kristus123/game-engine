@@ -390,7 +390,6 @@
         "UpdateEslint": "readonly",
         "UserRoute": "readonly",
         "Vad": "readonly",
-        "VideoDiv": "readonly",
         "VideoStream": "readonly",
         "VisibilityWatcher": "readonly",
         "Vst": "readonly",
