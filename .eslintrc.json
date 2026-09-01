@@ -171,7 +171,6 @@
         "DemoQuest": "readonly",
         "DeviceListener": "readonly",
         "Dialogue": "readonly",
-        "Diff": "readonly",
         "DiscordHttpClient": "readonly",
         "DiscordLogServer": "readonly",
         "Distance": "readonly",
