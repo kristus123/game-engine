@@ -11,7 +11,6 @@ const voices = [
 	"shimmer",
 ]
 
-
 export async function Ttv(text, instructions) {
 	const res = await fetch("https://api.openai.com/v1/audio/speech", {
 		method: "POST",
