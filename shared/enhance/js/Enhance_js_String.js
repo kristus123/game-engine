@@ -17,9 +17,11 @@ export function Enhance_js_String() {
 	})
 
 	Enhance(String.prototype, "toHtml", function() {
+		console.warn("toHtml() is buggy and not standardized yet, currently it returns firstchild")
 		return new DOMParser() // .innerHTML is also an option
 			.parseFromString(this, "text/html")
-			.body.firstChild
+			.body
+			.firstChild
 	})
 
 	Enhance(String.prototype, "dedent", function() {

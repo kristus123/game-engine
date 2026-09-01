@@ -33,7 +33,7 @@ ServiceWorker.init()
 
 HtmlObserverThing(document.body, (node) => {
 
-	//make it better later! currently only work with contenteditable
+	// Make it better later! Currently only work with contenteditable
 	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
 		node.addEventListener("keydown", (e) => {
 			if (e.key == "Enter") {
@@ -87,10 +87,7 @@ function applyFont(name, font, element = document.documentElement) {
 const font = loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2")
 
 await Promise.all([
-	Promise.all(AssetPaths.htmlTemplate.map(LoadHtmlContent)),
-	Promise.all(AssetPaths.htmlComponent.map(c => {
-		RegisterCustomWebComponent(c.name, c.content, c.js)
-	})),
+	Promise.all(AssetPaths.htmlComponent.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))),
 	font,
 	loadCss("/swag.css"),
 ])

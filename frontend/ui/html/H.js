@@ -4,11 +4,9 @@ function _HtmlElement(type, className="na") {
 	return e
 }
 
-
-
 export class H {
 
-	static create(name, { attributes={}, slots={}, data={} } = {}) {
+	static create(name, { attributes={}, slots={}, data={}, on={} } = {}) {
 		const e = document.createElement(name)
 
 		attributes.forEach((key, value) => {
@@ -22,6 +20,32 @@ export class H {
 		data.forEach((key, value) => {
 			e.data[key] = value
 		})
+
+		e.onConnected = () => {
+			 e.walk(child => {
+				 if (child.hasAttribute("id")) {
+					 e[child.getAttribute("id")] = child
+				 }
+
+				for (const attribute of child.attributes) {
+					switch attribute.name {
+						case "on-click" {
+							child.listen("click", () => {
+								on[attribute.value]?.()
+							})
+						}
+						case "on-enter" {
+							child.onEnter(() => {
+								on[attribute.value]?.()
+							})
+						}
+						default: {
+							// can be ignored
+						}
+					}
+				}
+			})
+		}
 
 		return e
 	}

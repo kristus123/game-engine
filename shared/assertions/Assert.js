@@ -1,5 +1,14 @@
 export class Assert {
 
+	static object(o) {
+		if (A.object(o)) {
+			return o
+		}
+		else {
+			throw new Error("expected to be object, but got " + typeof o)
+		}
+	}
+
 	static ok(httpResponse) {
 		// Also, verify that it that the parameter is an HTTP response
 		if (httpResponse.ok) {

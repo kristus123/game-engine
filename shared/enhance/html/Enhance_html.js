@@ -14,6 +14,17 @@ export function Enhance_html() {
 		return this.children.filter(callback)
 	})
 
+	Enhance(HTMLElement.prototype, "trigger", function (name, detail) {
+		Assert.string(name)
+		Assert.object(detail)
+
+		this.dispatchEvent(new CustomEvent(name, {
+			detail: detail
+		}))
+
+		return this
+	})
+
 	Enhance(HTMLElement.prototype, "every", function (callback) {
 		return this.children.every(callback)
 	})
@@ -513,6 +524,8 @@ export function Enhance_html() {
 
 			this.appendChild(e)
 		}
+
+		return this
 	})
 
 
@@ -620,6 +633,7 @@ export function Enhance_html() {
 
 	Enhance(HTMLElement.prototype, "walk", function (action) {
 		console.log("walking")
+		console.log(this.children)
 		function walk(node) {
 			for (const child of node.children) {
 				walk(child)

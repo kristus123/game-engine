@@ -224,7 +224,6 @@
         "HlsVideo": "readonly",
         "HouseGrid": "readonly",
         "Hp": "readonly",
-        "Html": "readonly",
         "HtmlObserverThing": "readonly",
         "HttpMethod": "readonly",
         "HttpServer": "readonly",
@@ -252,7 +251,6 @@
         "LoadAllAudio": "readonly",
         "LoadAllImages": "readonly",
         "LoadAsepriteAssets": "readonly",
-        "LoadHtmlContent": "readonly",
         "LoadImage": "readonly",
         "LoadJson": "readonly",
         "LoadJsonIfPresent": "readonly",
@@ -401,6 +399,7 @@
         "email": "readonly",
         "fileDbEndpoint": "readonly",
         "index": "readonly",
+        "livestream-body": "readonly",
         "practiceCard": "readonly",
         "pushNotificationEndpoint": "readonly",
         "serviceWorker": "readonly"
