@@ -733,6 +733,8 @@ export function Enhance_html() {
 
 		},
 		set(x) {
+			Assert.value(x)
+
 			if (A.string(x)) {
 				this.textContent = x
 			}

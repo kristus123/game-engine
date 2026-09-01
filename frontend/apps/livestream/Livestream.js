@@ -17,11 +17,12 @@ export class Livestream {
 					Stream.stop()
 				},
 				sendMessage: () => {
+					const message = html.message.value
 					html.message.clear()
 
 					SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
 						name: "brukernavn",
-						message: html.message.value,
+						message: message,
 					})
 				},
 			},
@@ -50,6 +51,15 @@ export class Livestream {
 				},
 			}))
 		})
+
+		!async function() {
+			await Sim.click(html.openChat)
+
+			await Sim.type(html.message, "hello")
+
+			await Sim.click(() => html.send)
+			await Sim.click(html.closeChat)
+		}()
 	}
 
 	update() {

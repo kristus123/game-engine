@@ -341,6 +341,7 @@
         "SfuWorld": "readonly",
         "Shadow": "readonly",
         "Shared32BitArray": "readonly",
+        "Sim": "readonly",
         "SimplexNoise": "readonly",
         "SimplifiedSocketServerAPI": "readonly",
         "Sleep": "readonly",
