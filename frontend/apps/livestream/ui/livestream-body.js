@@ -25,6 +25,7 @@ export default async ({ html, onConnected }) => {
 			},
 			startStream: async () => {
 				html.videoOverlay.clearChildren()
+
 				const video = H.streamVideo(await Stream.start())
 				video.mirror()
 				html.videoOverlay.add(video)
@@ -47,6 +48,4 @@ export default async ({ html, onConnected }) => {
 			},
 		},
 	})
-
-
 }

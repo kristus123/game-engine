@@ -29,14 +29,11 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				const slotName = slot.getAttribute("name")
 
 				for (const child of this.childNodes) {
-					console.log(child)
 					slot.replaceWith(...child.childNodes)
 				}
 
 				this.attributes.forEach((i, slotAttribute) => {
-					console.log(slotAttribute)
 					if (slotAttribute.name == "slot-" + slotName) {
-						console.log("heiiiiiiiiiii---------------------------")
 						slot.replaceWith(document.createTextNode(slotAttribute.value))
 					}
 				})
@@ -50,7 +47,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				 }
 			})
 
-			const onConnected = ({on}) => {
+			const onConnected = ({ on }) => {
 				 this.walk(child => {
 					for (const attribute of child.attributes) {
 						switch attribute.name {
