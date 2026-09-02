@@ -21,32 +21,6 @@ export class H {
 			e.data[key] = value
 		})
 
-		e.onConnected = () => {
-			 e.walk(child => {
-				 if (child.hasAttribute("id")) {
-					 e[child.getAttribute("id")] = child
-				 }
-
-				for (const attribute of child.attributes) {
-					switch attribute.name {
-						case "on-click" {
-							child.listen("click", () => {
-								on[attribute.value]?.()
-							})
-						}
-						case "on-enter" {
-							child.onEnter(() => {
-								on[attribute.value]?.()
-							})
-						}
-						default: {
-							// can be ignored
-						}
-					}
-				}
-			})
-		}
-
 		return e
 	}
 
