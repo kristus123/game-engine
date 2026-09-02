@@ -43,8 +43,8 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			}
 
 			this.replaceChildren(content)
-			this.onConnected?.()
 			js?.default(this)
+			this.onConnected?.()
 		}
 	})
 }

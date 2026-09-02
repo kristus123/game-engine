@@ -1,11 +1,14 @@
 export class Livestream {
 
 	static async start() {
-		const html = Dom.add(H.create("livestream-body", {
+		const html = Page.init(H.create("livestream-body", {
 			slots: {
 				test: "wow",
 			},
 			on: {
+				wow: () => {
+					console.log("wow")
+				},
 				startStream: async () => {
 					html.videoOverlay.clearChildren()
 					const video = H.streamVideo(await Stream.start())
@@ -31,21 +34,6 @@ export class Livestream {
 			},
 		}))
 
-		if (await Stream.someoneIsStreaming()) {
-			html.videoOverlay.add(HlsVideo({
-				playing: () => {
-					html.getId("waiting").content = ""
-				},
-				error: () => {
-					html.getId("waiting").content = "Please hold on"
-				},
-			}))
-		}
-		else {
-			html.getId("waiting").content = "Stream not online"
-			html.start.show()
-		}
-
 		SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 			html.chatHistory.add(H.create("chat-line", {
 				slots: {
@@ -54,6 +42,8 @@ export class Livestream {
 				},
 			}))
 		})
+
+		Page.go(html)
 
 		// !async function() {
 		// 	await Sim.click(html.openChat)

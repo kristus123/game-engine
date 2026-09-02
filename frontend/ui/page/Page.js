@@ -6,8 +6,6 @@ export class Page {
 		this.pages.assertNotPresent(page)
 		this.pages.add(page)
 
-		Dom.add(page)
-		page.hide()
 		//history.pushState({}, "", path); Todo fix when needed
 
 		return page
@@ -15,9 +13,9 @@ export class Page {
 
 	static go(page) {
 		this.pages.forEach(p => {
-			p.hide()
+			p.remove()
 		})
 
-		page.show()
+		Dom.add(page)
 	}
 }
