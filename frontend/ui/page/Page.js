@@ -1,21 +1,19 @@
 export class Page {
 
-	static pages = []
+	static pages = {}
 
-	static init(page) {
-		this.pages.assertNotPresent(page)
-		this.pages.add(page)
-
-		//history.pushState({}, "", path); Todo fix when needed
+	static init(name, page) {
+		this.pages.assertKeyNotPresent(name)
+		this.pages[name] = page
 
 		return page
 	}
 
-	static go(page) {
-		this.pages.forEach(p => {
+	static go(name) {
+		Object.values(this.pages).forEach(p => {
 			p.remove()
 		})
 
-		Dom.add(page)
+		Dom.add(this.pages[name])
 	}
 }
