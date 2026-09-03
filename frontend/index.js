@@ -96,4 +96,4 @@ document.getElementById("initialSpin").remove()
 applyFont("VT323", await font)
 
 // FindPair()
-Livestream.start()
+Livestream()

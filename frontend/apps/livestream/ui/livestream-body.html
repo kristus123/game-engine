@@ -1,7 +1,7 @@
-<overlay id="videoOverlay">
+<overlay id="videoOverlay" center-children></overlay>
+
+<overlay center-children>
 	<h1 id="waiting">Waiting for livestream</h1>
-	<h1 slot-name="wow"></h1>
-	<h2><slot name="under"></slot></h2>
 </overlay>
 
 <overlay>
@@ -9,24 +9,6 @@
 	<button id="stop" float-bot-left hidden>Stop livestream</button>
 
 	<button float-bot-right id="openChat" on-click-show-id="chat">open chat</button>
-	<button on-click="wow">TEST</button>
 </overlay>
 
-<overlay id="chat" class="bgWhite" hidden>
-	<phone-grid style="padding: 0px">
-		<top center-h>
-			<button id="closeChat" on-click-hide-id="chat">Close</button>
-		</top>
-		<mid>
-			<flex-v close id="chatHistory" class="bgWhite" scrollable>
-				<!-- chat-line will be appended here -->
-			</flex-v>
-		</mid>
-		<bot>
-			<flex-h max-size style="padding: 5px; gap: 10px">
-				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" on-enter="sendMessage" />
-				<button max-size style="flex: 1" id="send" on-click="sendMessage">Send</button>
-			</flex-h>
-		</bot>
-	</phone-grid>
-</overlay>
+<chat-body id="chat" hidden></chat-body>

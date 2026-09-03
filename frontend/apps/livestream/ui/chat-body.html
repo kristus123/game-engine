@@ -1,0 +1,18 @@
+<overlay class="bgWhite">
+	<phone-grid style="padding: 0px">
+		<top center-h>
+			<button id="closeChat" on-click-hide-id="chat">Close</button>
+		</top>
+		<mid>
+			<flex-v close id="chatHistory" class="bgWhite" scrollable>
+				<!-- chat-line will be appended here -->
+			</flex-v>
+		</mid>
+		<bot>
+			<flex-h max-size style="padding: 5px; gap: 10px">
+				<input max-size style="flex: 3; font-size: 30px" id="message" placeholder="Type" on-enter="sendMessage" />
+				<button max-size style="flex: 1" id="send" on-click="sendMessage">Send</button>
+			</flex-h>
+		</bot>
+	</phone-grid>
+</overlay>

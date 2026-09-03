@@ -16,7 +16,7 @@
 	flex-direction: row;
 }
 
-[center] {
+[center-children] {
 	display: flex;
 	justify-content: center;
 	align-items: center;   
