@@ -8,7 +8,8 @@ export class Stream {
 		: "video/webm;codecs=vp8,opus" // chrome
 
 	static async someoneIsStreaming() {
-		return Assert.ok(await JsonHttpClient.currentlyStreaming()).streaming
+		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
+		return body.streaming
 	}
 
 	static async start() {
