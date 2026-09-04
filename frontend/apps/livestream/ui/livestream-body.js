@@ -29,7 +29,7 @@ export default async ({ html, onConnected }) => {
 		slots: {
 			test: "wow",
 		},
-		on: {
+		methods: {
 			wow: () => {
 				console.log("wow")
 			},
