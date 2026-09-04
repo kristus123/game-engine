@@ -22,7 +22,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 	}
 
 	customElements.define(name, class extends HTMLElement {
-		connectedCallback() {
+		async connectedCallback() {
 			const content = template.content.cloneNode(true)
 
 			for (const slot of content.querySelectorAll("slot")) {
@@ -41,35 +41,34 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			this.replaceChildren(content)
 
-			this.walk((child) => {
+			 this.walk(child => {
 				 if (child.hasAttribute("id")) {
 					 this[child.getAttribute("id")] = child
 				 }
-			})
+			 })
 
-			const onConnected = ({ on }) => {
-				 this.walk(child => {
-					for (const attribute of child.attributes) {
-						switch attribute.name {
-							case "on-click" {
-								child.listen("click", () => {
-									on[attribute.value]?.()
-								})
-							}
-							case "on-enter" {
-								child.onEnter(() => {
-									on[attribute.value]?.()
-								})
-							}
-							default: {
-								// can be ignored
-							}
+			const {slots = {}, methods = {}} = await js?.default({html: this }) ?? {}
+
+			 this.walk(child => {
+				for (const attribute of child.attributes) {
+					switch attribute.name {
+						case "on-click" {
+							child.listen("click", () => {
+								methods[attribute.value]?.()
+							})
+						}
+						case "on-enter" {
+							child.onEnter(() => {
+								methods[attribute.value]?.()
+							})
+						}
+						default: {
+							// can be ignored
 						}
 					}
-				})
-			}
+				}
+			})
 
-			js?.default({html: this, onConnected: onConnected })
 		}
 	})
 }

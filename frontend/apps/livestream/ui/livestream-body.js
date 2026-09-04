@@ -20,11 +20,12 @@ export default async ({ html, onConnected }) => {
 		}))
 	}
 	else {
+		console.log(html)
 		html.waiting.content = "Stream not online"
 		html.start.show()
 	}
 
-	onConnected({
+	return {
 		slots: {
 			test: "wow",
 		},
@@ -56,5 +57,5 @@ export default async ({ html, onConnected }) => {
 				})
 			},
 		},
-	})
+	}
 }
