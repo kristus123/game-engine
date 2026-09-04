@@ -16,6 +16,8 @@ export class HttpServer {
 					case "GET": {
 						try {
 							const fileName = Poop.routeName(req) // fix routeName name
+							console.log(fileName)
+							Assert.true(fileName.startsWith("public_folder/"))
 							Poop.streamFile(res, fileName)
 						}
 						catch (e) {

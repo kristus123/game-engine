@@ -65,9 +65,6 @@ export class Poop {
 		}
 	}
 
-	// todo
-	// We should sanitize so that they can't fetch other places. Also, we should add some sort of whitelist so that only certain stuff are allowed
-	//
 	static routeName(req) {
 		const pathname = new URL(req.url, `http://${req.headers.host}`).pathname
 		const decodedPath = decodeURIComponent(pathname)
@@ -78,8 +75,9 @@ export class Poop {
 			console.log(filePath)
 			throw new Error("Path traversal attempt")
 		}
-
-		return path.relative(root, filePath)
+		else {
+			return path.relative(root, filePath)
+		}
 	}
 
 	static aPromise(value) {
