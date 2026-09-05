@@ -1,7 +1,8 @@
 function _toHtml(string) {
 	const r = new DOMParser()
 		.parseFromString(string, "text/html")
-		.body.children
+		.body
+		.children
 
 	return [...r]
 }
@@ -52,6 +53,11 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			 this.walk(child => {
 				for (const attribute of child.attributes) {
 					switch attribute.name {
+						case "on-click-go-to-page" {
+							child.listen("click", () => {
+								Page.go(attribute.value)
+							})
+						}
 						case "on-click" {
 							child.listen("click", () => {
 								methods[attribute.value]?.()
@@ -68,7 +74,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					}
 				}
 			})
-
 		}
 	})
 }

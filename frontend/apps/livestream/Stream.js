@@ -8,6 +8,7 @@ export class Stream {
 		: "video/webm;codecs=vp8,opus" // chrome
 
 	static async someoneIsStreaming() {
+		// why do i need 2 awaits? can we fix it?
 		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
 		return body.streaming
 	}

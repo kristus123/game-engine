@@ -1,10 +1,4 @@
-<overlay id="videoOverlay" center-children></overlay>
-
-<overlay center-children>
-	<h1 id="waiting">Waiting for livestream</h1>
-	<h2 slot-name="wow"></h2>
-	<h3>hei</h3>
-</overlay>
+<overlay id="videoOverlay"></overlay>
 
 <overlay>
 	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
@@ -14,3 +8,10 @@
 </overlay>
 
 <chat-body id="chat" hidden></chat-body>
+
+<overlay center-children>
+	<h1 id="waiting">Waiting for livestream</h1>
+	<h2 slot-name="wow"></h2>
+	<h3>hei</h3>
+	<button on-click-go-to-page="wow">click meg og go to page</button>
+</overlay>
