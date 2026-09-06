@@ -1,5 +1,7 @@
 export class Stream {
 
+	static betterMediaRecorder = BetterMediaRecorder()
+
 	static async someoneIsStreaming() {
 		// why do i need 2 awaits ? can we fix it ?
 		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
@@ -15,7 +17,7 @@ export class Stream {
 		// 	},
 		// }))
 
-		await BetterMediaRecorder.start(blob => {
+		await (await this.betterMediaRecorder).start(blob => {
 			// LowLevelHttpClient.post({
 			// 	routeName: "sendChunk",
 			// 	body: blob,
@@ -24,15 +26,31 @@ export class Stream {
 			// })
 		})
 
-		console.log(BetterMediaRecorder.video)
-		return BetterMediaRecorder.video
+		const x = await this.betterMediaRecorder
+		console.log("x")
+		console.log(await x.swap())
+		console.log("x")
+
+
+		return (await this.betterMediaRecorder).video
+	}
+
+	static async swap() {
+		const x = await this.betterMediaRecorder
+		console.log("x")
+		console.log(await x.swap())
+		console.log("x")
 	}
 
 	static async stop() {
 		// if (BetterMediaRecorder.active && await this.someoneIsStreaming()) {
 		if (true) {
 			// Assert.ok(await NullHttpClient.stopStream())
-			BetterMediaRecorder.stop()
+			const x = await this.betterMediaRecorder
+			console.log("x")
+			console.log(await x.swap())
+			console.log("x")
+			x.stop()
 		}
 		else {
 			throw new Error("Can't stop when already stopped")

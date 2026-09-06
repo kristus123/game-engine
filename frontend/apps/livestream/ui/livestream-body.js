@@ -30,22 +30,33 @@ export default async ({ html }) => {
 		},
 		methods: {
 			startStream: async () => {
-				console.log("starting baby")
-				html.videoOverlay.clearChildren()
+				try {
+					console.log("wow")
+					const video = await Stream.start()
+					html.videoOverlay.clearChildren()
+					console.log("wow")
+					console.log(video)
+					video.mirror()
+					html.videoOverlay.add(video)
 
-				const video = await Stream.start()
-				console.log(video)
-				console.log("starting baby")
-				video.mirror()
-				html.videoOverlay.add(video)
-				console.log("added video")
-
-				html.start.hide()
-				html.stop.show()
+					html.start.hide()
+					html.stop.show()
+					console.log("sex")
+				}
+				catch (e) {
+					console.log(e)
+					throw e
+				}
 			},
 			stopStream: async () => {
 				html.videoOverlay.clearChildren()
 				Stream.stop()
+
+				html.start.show()
+				html.stop.hide()
+			},
+			swap: () => {
+				Stream.swap()
 			},
 			sendMessage: () => {
 				const message = html.message.value

@@ -1,51 +1,78 @@
-export class BetterMediaRecorder {
+export async function BetterMediaRecorder() {
+	const swappableMediaStream = await SwappableMediaStream()
+	let mediaRecorder = null
 
-	static mediaRecorder = null
-	static swappableMediaStream = SwappableMediaStream()
+	return {
+		video: swappableMediaStream.video,
 
-	static get active() {
-		return A.value(this.mediaRecorder)
-	}
+		start: (onBlob) => {
+			Assert.null(mediaRecorder)
+			mediaRecorder = new MediaRecorder(swappableMediaStream.mediaStream, { mimeType: Platform.mimeType })
 
-	static get video() {
-		console.log("___")
-		console.log(this.swappableMediaStream)
-		console.log("___")
-		return this.swappableMediaStream.video
-
-	}
-
-	static async start(onBlob) {
-		const x = await this.swappableMediaStream
-		this.mediaRecorder = new MediaRecorder(await x.mediaStream, { mimeType: Platform.mimeType })
-
-		this.mediaRecorder.ondataavailable = async e => {
-			if (e.data.size > 0) {
-				onBlob(e.data)
+			mediaRecorder.ondataavailable = async e => {
+				if (e.data.size > 0) {
+					onBlob(e.data)
+				}
 			}
-		}
 
-		this.mediaRecorder.start(5_000)
-	}
+			mediaRecorder.start(5_000)
+		},
 
-	static async swap() {
-		await this.swappableMediaStream.swap({
-			video: true,
-			audio: {
-				echoCancellation: false,
-				noiseSuppression: false,
-				autoGainControl: false,
-			},
-		})
-	}
+		swap: async () => {
+			console.log("swag")
+			console.log("1")
+			await Webcam.request({
+				ok: () => {},
+				error: () => {},
+			})
+			console.log("1")
+			await Mic.request({
+				ok: () => {},
+				error: () => {},
+			})
+			console.log("1")
+			console.log("1")
 
-	static async stop() {
-		if (this.mediaRecorder) {
-			this.mediaRecorder.stop()
-			this.mediaRecorder = null
-		}
-		else {
-			throw new Error("Can't stop when already stopped")
-		}
+			const devices = await navigator.mediaDevices.enumerateDevices()
+			console.log("swag")
+
+			console.log(devices)
+			const cameras = devices.filter(device => device.kind == "videoinput")
+			const microphones = devices.filter(device => device.kind == "audioinput")
+
+			const camera = cameras[Math.floor(Math.random() * cameras.length)]
+			const microphone = microphones[Math.floor(Math.random() * microphones.length)]
+
+			await swappableMediaStream.swap({
+				video: camera
+					? { deviceId: { exact: camera.deviceId } }
+					: false,
+
+				audio: microphone
+					? {
+						deviceId: { exact: microphone.deviceId },
+						echoCancellation: false,
+						noiseSuppression: false,
+						autoGainControl: false,
+					}
+					: false,
+			})
+		},
+
+		stop: async () => {
+			if (mediaRecorder) {
+				mediaRecorder.stop()
+				mediaRecorder = null
+			}
+			else {
+				throw new Error("Can't stop when already stopped")
+			}
+		},
+
+		isActive: () => {
+			return A.value(mediaRecorder)
+		},
+
+
 	}
 }

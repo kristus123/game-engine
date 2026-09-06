@@ -9,8 +9,5 @@ export function Livestream() {
 
 	Page.go("index")
 
-	SwappableMediaStream()
-
 	// Sim.click(html.start)
-
 }
