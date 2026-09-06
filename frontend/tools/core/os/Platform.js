@@ -1,5 +1,11 @@
 export class Platform {
 
+	static get mimeType() {
+		return this.safari
+			? "video/mp4;codecs=h264,aac" // safari
+			: "video/webm;codecs=vp8,opus" // chrome
+	}
+
 	static get safari() {
 		if (typeof navigator == "undefined") {
 			return false

@@ -1,9 +1,10 @@
-export async function Swappy() {
+export async function SwappableMediaStream() {
+
 	const video = document.createElement("video")
 	video.srcObject = null
 	video.muted = true
-	video.playsInline = true
 	video.autoplay = true
+	video.playsInline = true
 
 	let audioSource = null
 	let currentStream = null
@@ -20,14 +21,12 @@ export async function Swappy() {
 		}
 	})
 
-	Dom.overlay(canvas)
-
 	const audioContext = new AudioContext()
 	await audioContext.resume()
 	const audioOutput = audioContext.createMediaStreamDestination()
 
 	return {
-		swapStream: async (constraints) => {
+		swap: async constraints => {
 			currentStream?.getTracks().forEach(track => track.stop())
 
 			const stream = await navigator.mediaDevices.getUserMedia(constraints)
@@ -42,7 +41,7 @@ export async function Swappy() {
 
 			return stream
 		},
-		mediaStream: new MediaStream([ // pass it into mediaRecorder
+		mediaStream: new MediaStream([ // pass this into mediaRecorder
 			...videoOutput.getVideoTracks(),
 			...audioOutput.stream.getAudioTracks()
 		]),

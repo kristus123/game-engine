@@ -9,6 +9,6 @@ export function Livestream() {
 
 	Page.go("index")
 
-	Swappy()
+	SwappableMediaStream()
 
 }

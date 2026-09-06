@@ -1,64 +1,34 @@
 export class Stream {
 
-	static cameraStream = null
-	static mediaRecorder = null
-
-	static mimeType = Platform.safari
-		? "video/mp4;codecs=h264,aac" // safari
-		: "video/webm;codecs=vp8,opus" // chrome
-
 	static async someoneIsStreaming() {
-		// why do i need 2 awaits? can we fix it?
+		// why do i need 2 awaits ? can we fix it ?
 		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
 		return body.streaming
 	}
 
 	static async start() {
-		if (await this.someoneIsStreaming()) {
-			throw new Error("can't start stream if stream already active")
-		}
+		Assert.true(!(BetterMediaRecorder.active && await this.someoneIsStreaming()))
 
 		Assert.ok(await NullHttpClient.startStream({
 			body: {
-				mimeType: this.mimeType.includes("webm") ? "webm" : "mp4",
+				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
 			},
 		}))
 
-		const swappy = Swappy()
-		this.swappy = swappy
-		Dom.overlay(swappy.video)
-		const cameraStream = await swappy.swapStream({
-			video: true,
-			audio: {
-				echoCancellation: false,
-				noiseSuppression: false,
-				autoGainControl: false,
-			},
+		await BetterMediaRecorder.start(blob => {
+			LowLevelHttpClient.post({
+				routeName: "sendChunk",
+				body: blob,
+				formatBody: r => null,
+				contentType: Platform.mimeType,
+			})
 		})
-
-		this.mediaRecorder = new MediaRecorder(swappy.mediaStream, { mimeType: this.mimeType })
-
-		this.mediaRecorder.ondataavailable = async e => {
-			if (e.data.size > 0) {
-				LowLevelHttpClient.post({
-					routeName: "sendChunk",
-					body: e.data, // blob
-					formatBody: r => null,
-					contentType: this.mimeType,
-				})
-			}
-		}
-
-		this.mediaRecorder.start(5_000)
-
-		return this.cameraStream
 	}
 
 	static async stop() {
-		if (this.mediaRecorder) {
+		if (BetterMediaRecorder.active && await this.someoneIsStreaming()) {
 			Assert.ok(await NullHttpClient.stopStream())
-			this.mediaRecorder.stop()
-			this.mediaRecorder = null
+			BetterMediaRecorder.stop()
 		}
 		else {
 			throw new Error("Can't stop when already stopped")
