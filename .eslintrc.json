@@ -398,7 +398,6 @@
         "WorkerFile": "readonly",
         "World": "readonly",
         "WorldPosition": "readonly",
-        "chat-line": "readonly",
         "email": "readonly",
         "fileDbEndpoint": "readonly",
         "index": "readonly",

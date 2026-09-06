@@ -7,27 +7,31 @@ export class Stream {
 	}
 
 	static async start() {
-		Assert.true(!(BetterMediaRecorder.active && await this.someoneIsStreaming()))
+		// Assert.true(!(BetterMediaRecorder.active && await this.someoneIsStreaming()))
 
-		Assert.ok(await NullHttpClient.startStream({
-			body: {
-				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
-			},
-		}))
+		// Assert.ok(await NullHttpClient.startStream({
+		// 	body: {
+		// 		mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
+		// 	},
+		// }))
 
 		await BetterMediaRecorder.start(blob => {
-			LowLevelHttpClient.post({
-				routeName: "sendChunk",
-				body: blob,
-				formatBody: r => null,
-				contentType: Platform.mimeType,
-			})
+			// LowLevelHttpClient.post({
+			// 	routeName: "sendChunk",
+			// 	body: blob,
+			// 	formatBody: r => null,
+			// 	contentType: Platform.mimeType,
+			// })
 		})
+
+		console.log(BetterMediaRecorder.video)
+		return BetterMediaRecorder.video
 	}
 
 	static async stop() {
-		if (BetterMediaRecorder.active && await this.someoneIsStreaming()) {
-			Assert.ok(await NullHttpClient.stopStream())
+		// if (BetterMediaRecorder.active && await this.someoneIsStreaming()) {
+		if (true) {
+			// Assert.ok(await NullHttpClient.stopStream())
 			BetterMediaRecorder.stop()
 		}
 		else {

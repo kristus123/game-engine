@@ -11,4 +11,6 @@ export function Livestream() {
 
 	SwappableMediaStream()
 
+	// Sim.click(html.start)
+
 }

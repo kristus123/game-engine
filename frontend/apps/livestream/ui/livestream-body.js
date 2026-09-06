@@ -30,11 +30,15 @@ export default async ({ html }) => {
 		},
 		methods: {
 			startStream: async () => {
+				console.log("starting baby")
 				html.videoOverlay.clearChildren()
 
-				const video = H.localStreamVideo(await Stream.start())
+				const video = await Stream.start()
+				console.log(video)
+				console.log("starting baby")
 				video.mirror()
 				html.videoOverlay.add(video)
+				console.log("added video")
 
 				html.start.hide()
 				html.stop.show()

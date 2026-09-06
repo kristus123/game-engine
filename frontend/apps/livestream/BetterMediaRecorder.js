@@ -7,8 +7,17 @@ export class BetterMediaRecorder {
 		return A.value(this.mediaRecorder)
 	}
 
+	static get video() {
+		console.log("___")
+		console.log(this.swappableMediaStream)
+		console.log("___")
+		return this.swappableMediaStream.video
+
+	}
+
 	static async start(onBlob) {
-		this.mediaRecorder = new MediaRecorder(this.swappableMediaStream.mediaStream, { mimeType: Platform.mimeType })
+		const x = await this.swappableMediaStream
+		this.mediaRecorder = new MediaRecorder(await x.mediaStream, { mimeType: Platform.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {
@@ -19,7 +28,7 @@ export class BetterMediaRecorder {
 		this.mediaRecorder.start(5_000)
 	}
 
-	static swap() {
+	static async swap() {
 		await this.swappableMediaStream.swap({
 			video: true,
 			audio: {
