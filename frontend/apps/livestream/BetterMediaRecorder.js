@@ -21,15 +21,6 @@ export async function BetterMediaRecorder() {
 		swap: async () => {
 			console.log("swag")
 			console.log("1")
-			await Webcam.request({
-				ok: () => {},
-				error: () => {},
-			})
-			console.log("1")
-			await Mic.request({
-				ok: () => {},
-				error: () => {},
-			})
 			console.log("1")
 			console.log("1")
 

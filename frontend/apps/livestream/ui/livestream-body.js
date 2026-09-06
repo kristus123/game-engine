@@ -30,6 +30,16 @@ export default async ({ html }) => {
 		},
 		methods: {
 			startStream: async () => {
+				await Webcam.request({
+					ok: () => {},
+					error: () => {},
+				})
+				await Mic.request({
+					ok: () => {},
+					error: () => {},
+				})
+				console.log("1")
+
 				try {
 					const video = await Stream.start()
 					console.log("wow")
