@@ -24,7 +24,10 @@ export class Stream {
 			},
 		}))
 
-		this.cameraStream = await navigator.mediaDevices.getUserMedia({
+		const swappy = Swappy()
+		this.swappy = swappy
+		Dom.overlay(swappy.video)
+		const cameraStream = await swappy.swapStream({
 			video: true,
 			audio: {
 				echoCancellation: false,
@@ -33,7 +36,7 @@ export class Stream {
 			},
 		})
 
-		this.mediaRecorder = new MediaRecorder(this.cameraStream, { mimeType: this.mimeType })
+		this.mediaRecorder = new MediaRecorder(swappy.mediaStream, { mimeType: this.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {

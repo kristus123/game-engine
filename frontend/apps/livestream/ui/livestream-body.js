@@ -1,4 +1,4 @@
-export default async ({ html, onConnected }) => {
+export default async ({ html }) => {
 
 	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 		html.chatHistory.add(H.create("chat-line", {
@@ -20,7 +20,6 @@ export default async ({ html, onConnected }) => {
 		}))
 	}
 	else {
-		console.log(html)
 		html.waiting.content = "Stream not online"
 		html.start.show()
 	}
@@ -30,13 +29,10 @@ export default async ({ html, onConnected }) => {
 			test: "wow",
 		},
 		methods: {
-			wow: () => {
-				console.log("wow")
-			},
 			startStream: async () => {
 				html.videoOverlay.clearChildren()
 
-				const video = H.streamVideo(await Stream.start())
+				const video = H.localStreamVideo(await Stream.start())
 				video.mirror()
 				html.videoOverlay.add(video)
 

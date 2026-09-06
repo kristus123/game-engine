@@ -15,7 +15,7 @@ export class Page {
 	}
 
 	static go(name) {
-		this.pages[this.active].remove()
+		this.pages[this.active]?.remove()
 
 		Dom.add(this.pages[name])
 		this.active = name

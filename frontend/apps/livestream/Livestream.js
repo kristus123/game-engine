@@ -8,4 +8,7 @@ export function Livestream() {
 	`.toHtml())
 
 	Page.go("index")
+
+	Swappy()
+
 }

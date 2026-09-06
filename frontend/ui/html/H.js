@@ -43,7 +43,7 @@ export class H {
 		return v
 	}
 
-	static streamVideo(stream) {
+	static localStreamVideo(stream) {
 		const v = this._video()
 
 		v.srcObject = stream
