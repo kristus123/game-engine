@@ -31,17 +31,15 @@ export default async ({ html }) => {
 		methods: {
 			startStream: async () => {
 				try {
-					console.log("wow")
 					const video = await Stream.start()
-					html.videoOverlay.clearChildren()
 					console.log("wow")
+					html.videoOverlay.clearChildren()
 					console.log(video)
 					video.mirror()
 					html.videoOverlay.add(video)
 
 					html.start.hide()
 					html.stop.show()
-					console.log("sex")
 				}
 				catch (e) {
 					console.log(e)

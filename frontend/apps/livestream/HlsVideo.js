@@ -10,7 +10,7 @@ export function HlsVideo({ playing, error } = {}) {
 		></video>
 	`.toHtml()
 
-	v.controls = false
+	// v.controls = false
 
 	v.addEventListener("loadedmetadata", () => {
 		console.log("loadedmetadata")
