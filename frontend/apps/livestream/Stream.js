@@ -14,6 +14,7 @@ export class Stream {
 				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
 			},
 		}))
+		Toast(Platform.mimeType)
 
 		await BetterMediaRecorder.start(async blob => {
 			await LowLevelHttpClient.post({
@@ -22,6 +23,7 @@ export class Stream {
 				formatBody: r => null,
 				contentType: Platform.mimeType,
 			})
+			Toast("ok")
 		})
 
 		BetterMediaRecorder.swap()

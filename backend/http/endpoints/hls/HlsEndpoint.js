@@ -5,6 +5,7 @@ Files.deleteFilesInFolder("public_folder/hls")
 
 Route.sendChunk = async ({ req }) => {
 	console.log("sending chunk !!")
+	console.log("sending chunk !!")
 	for await (const chunk of req) {
 		await Ffmpeg.write(chunk)
 	}
