@@ -1,16 +1,16 @@
 <phone-grid>
-	<top center>
+	<top center-content>
 		<flex-h style="gap: 20px">
 			<button on-click="addMoreCards" class="green">add more cards</button>
 			<button id="delete" class="blue">delete</button>
 		</flex-h>
 	</top>
 
-	<mid center scrollable>
+	<mid center-content scrollable>
 		<div id="activePractice" style="width: 100%; height: 100%">
 			<flex-v id="buttons" style="padding: 20px; gap: 20px">
-				<button id="playFront" style="font-size: 50px">play front</button>
-				<button id="playBack" style="font-size: 50px">play back</button>
+				<button on-click="playFront" style="font-size: 50px">play front</button>
+				<button on-click="playBack" style="font-size: 50px">play back</button>
 			</flex-v>
 		</div>
 
@@ -22,7 +22,7 @@
 		</div>
 	</mid>
 
-	<bot center>
+	<bot center-content>
 		<flex-v id="easyHard" style="gap: 20px; padding: 20px">
 			<button id="easy" style="font-size: 50px">easy</button>
 			<button id="hard" style="font-size: 50px">hard</button>

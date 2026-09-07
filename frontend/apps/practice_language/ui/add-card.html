@@ -1,0 +1,36 @@
+<phone-grid>
+	<top center>
+		<flex-h>
+			<button id="navigateToPracticeCard">Practice</button>
+			<button id="settings">settings</button>
+		</flex-h>
+	</top>
+
+	<mid center scrollable>
+		<div id="buttons">
+			<div id="frontButtons">
+				<button on-click-hide-id="buttons" on-click-show-id="stopRecording" on-click="recordFront">
+					Start recording
+				</button>
+				<button on-click="playFront" disabled>playFront</button>
+			</div>
+
+			<hr />
+
+			<div id="backButtons">
+				<button on-click="recordBack">start recording</button>
+				<button on-click="playBack" disabled>playBack</button>
+			</div>
+		</div>
+
+		<button id="stopRecording" on-click="stopRecording" on-click-show-id="buttons" on-click-hide hidden>
+			stop recording
+		</button>
+	</mid>
+
+	<bot center>
+		<flex-h>
+			<button id="save" style="width: 200px" disabled>save</button>
+		</flex-h>
+	</bot>
+</phone-grid>
