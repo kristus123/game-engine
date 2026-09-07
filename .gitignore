@@ -2,6 +2,8 @@
 
 public_folder/hls/
 
+gitignored_folder/
+
 dist/
 transpiledBackend/
 
