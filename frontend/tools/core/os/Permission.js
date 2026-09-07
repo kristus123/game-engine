@@ -2,7 +2,7 @@
 
 export class Permission {
 
-	static async all({ ok, error } = {}) { // no-null-check
+	static async requestAll({ ok, error } = {}) { // no-null-check
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: true,
@@ -12,8 +12,8 @@ export class Permission {
 			ok?.()
 		}
 		catch (e) {
-			console.error("Mic denied:", e)
-			ok?.()
+			console.error("all denied:", e)
+			error?.()
 			throw e
 		}
 	}

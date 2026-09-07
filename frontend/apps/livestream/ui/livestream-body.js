@@ -30,23 +30,15 @@ export default async ({ html }) => {
 		},
 		methods: {
 			startStream: async () => {
-				await Webcam.request({
-					ok: () => {},
-					error: () => {},
-				})
-				await Mic.request({
-					ok: () => {},
-					error: () => {},
-				})
-				console.log("1")
+				await Permission.requestAll()
 
 				try {
-					const video = await Stream.start()
-					console.log("wow")
+					await Stream.start()
+					SwappableMediaStream.video.mirror() // inverse law of demeter hack? swag?
+
 					html.videoOverlay.clearChildren()
-					console.log(video)
-					video.mirror()
-					html.videoOverlay.add(video)
+					console.log(SwappableMediaStream.video)
+					html.videoOverlay.add(SwappableMediaStream.video)
 
 					html.start.hide()
 					html.stop.show()

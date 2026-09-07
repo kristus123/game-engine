@@ -19,7 +19,7 @@ export class Webcam {
 			ok()
 		}
 		catch (e) {
-			console.error("Permission denied or error:", e)
+			console.error("permission denied or error:", e)
 			error(e)
 			throw new Error("camera denied")
 		}

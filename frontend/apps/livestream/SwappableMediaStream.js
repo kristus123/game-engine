@@ -1,51 +1,58 @@
-export async function SwappableMediaStream() {
+export class SwappableMediaStream {
 
-	const video = document.createElement("video")
-	video.srcObject = null
-	video.muted = true
-	video.autoplay = true
-	video.playsInline = true
+	static video = null
+	static mediaStream = null
 
-	let audioSource = null
-	let currentStream = null
+	static audioContext = null
+	static audioOutput = null
 
-	const canvas = document.createElement("canvas")
-	canvas.width = 1280
-	canvas.height = 720
-	const videoOutput = canvas.captureStream(60)
-	const ctx = canvas.getContext("2d")
+	static audioSource = null
+	static currentStream = null
 
-	RequestAnimationFrameLoop(() => {
-		if (video.readyState >= 2) {
-			ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-		}
-	})
+	static {
+		const v = document.createElement("video")
+		v.srcObject = null
+		v.muted = true
+		v.autoplay = true
+		v.playsInline = true
+		this.video = v
 
-	const audioContext = new AudioContext()
-	await audioContext.resume()
-	const audioOutput = audioContext.createMediaStreamDestination()
+		const canvas = document.createElement("canvas")
+		canvas.width = 1280
+		canvas.height = 720
+		const videoOutput = canvas.captureStream(60)
+		const ctx = canvas.getContext("2d")
 
-	return {
-		swap: async constraints => {
-			currentStream?.getTracks().forEach(track => track.stop())
+		RequestAnimationFrameLoop(() => {
+			if (this.video.readyState >= 2) {
+				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
+			}
+		})
 
-			const stream = await navigator.mediaDevices.getUserMedia(constraints)
+		this.audioContext = new AudioContext()
+		this.audioOutput = this.audioContext.createMediaStreamDestination()
 
-			video.srcObject = stream
-
-			audioSource?.disconnect()
-			audioSource = audioContext.createMediaStreamSource(stream)
-			audioSource.connect(audioOutput)
-
-			currentStream = stream
-
-			return stream
-		},
-		mediaStream: new MediaStream([ // pass this into mediaRecorder
+		this.mediaStream = new MediaStream([ // pass this into mediaRecorder
 			...videoOutput.getVideoTracks(),
-			...audioOutput.stream.getAudioTracks()
-		]),
-		video: video,
+			...this.audioOutput.stream.getAudioTracks()
+		])
 	}
 
+	static async swap(constraints) {
+		await this.audioContext.resume()
+
+		this.currentStream?.getTracks().forEach(track => track.stop())
+
+		const stream = await navigator.mediaDevices.getUserMedia(constraints)
+
+		this.video.srcObject = stream
+
+		this.audioSource?.disconnect()
+		this.audioSource = this.audioContext.createMediaStreamSource(stream)
+		this.audioSource.connect(this.audioOutput)
+
+		this.currentStream = stream
+
+		return stream
+	}
 }
