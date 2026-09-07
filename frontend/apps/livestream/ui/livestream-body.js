@@ -10,6 +10,7 @@ export default async ({ html }) => {
 	})
 
 	if (await Stream.someoneIsStreaming()) {
+		html.buttons.remove()
 		html.videoOverlay.add(HlsVideo({
 			playing: () => {
 				html.waiting.content = ""
