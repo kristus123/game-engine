@@ -106,7 +106,6 @@ export class Mic {
 		this.recorder.stop()
 	}
 
-
 	static async request({ ok, error } = {}) {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true })

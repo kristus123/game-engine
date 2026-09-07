@@ -295,6 +295,7 @@
         "Parameters": "readonly",
         "Path": "readonly",
         "PathFinder": "readonly",
+        "Permission": "readonly",
         "PersistedJson": "readonly",
         "PersistedJsonEndpoint": "readonly",
         "Phone": "readonly",
