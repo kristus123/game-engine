@@ -1,4 +1,26 @@
-const originalLog = console.log
+let showingToast = false
+
+for (const type of ["log", "info", "warn", "error", "debug", "trace"]) {
+	const original = console[type].bind(console)
+
+	console[type] = (...args) => {
+		original(...args)
+
+		if (showingToast) {
+			return
+		}
+
+		showingToast = true
+
+		for (const a of args) {
+			Toast(a)
+		}
+
+		showingToast = false
+	}
+}
+
+
 
 function loadCss(path) {
 	return new Promise((resolve, reject) => {

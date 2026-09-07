@@ -1,11 +1,16 @@
-export function Toast(text) {
-	const t = Dom.add(`
+let o = null
+
+export function Toast(text) { // no-null-check
+	o ??= Dom.add(`
 		<overlay>
-			<p class="bgWhite">${text}</p>
 		</overlay>
 	`.toHtml())
-	t.div.text(text)
+
+	o.add(`
+		<p class="bgWhite">${text}</p>
+	`.toHtml())
+
 	setTimeout(() => {
-		t.remove()
+		o.remove()
 	}, 1_000)
 }
