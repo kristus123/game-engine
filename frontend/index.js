@@ -1,3 +1,5 @@
+const originalLog = console.log
+
 function loadCss(path) {
 	return new Promise((resolve, reject) => {
 		const link = document.createElement("link")

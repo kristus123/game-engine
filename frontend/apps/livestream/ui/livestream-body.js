@@ -31,14 +31,12 @@ export default async ({ html }) => {
 		methods: {
 			startStream: async () => {
 				await Permission.requestAll()
+				html.waiting.content = ""
 
 				try {
 					await Stream.start()
-					SwappableMediaStream.video.mirror() // inverse law of demeter hack? swag?
-
 					html.videoOverlay.clearChildren()
-					console.log(SwappableMediaStream.video)
-					html.videoOverlay.add(SwappableMediaStream.video)
+					html.videoOverlay.add(SwappableMediaStream.video.mirror())
 
 					html.start.hide()
 					html.stop.show()
