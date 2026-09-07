@@ -22,6 +22,10 @@ export class BetterMediaRecorder {
 		const cameras = devices.filter(device => device.kind == "videoinput")
 		const microphones = devices.filter(device => device.kind == "audioinput")
 
+		// For now, we just choose a random camera and microphone
+		// later we do
+		// swapMic
+		// swapCam
 		const camera = cameras[Math.floor(Math.random() * cameras.length)]
 		const microphone = microphones[Math.floor(Math.random() * microphones.length)]
 

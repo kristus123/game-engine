@@ -280,7 +280,6 @@
         "Not": "readonly",
         "NullHttpClient": "readonly",
         "Objects": "readonly",
-        "Obs": "readonly",
         "OffsetPosition": "readonly",
         "OldSami": "readonly",
         "OnChange": "readonly",
