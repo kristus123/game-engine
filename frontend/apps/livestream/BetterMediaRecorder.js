@@ -13,7 +13,7 @@ export class BetterMediaRecorder {
 			}
 		}
 
-		this.mediaRecorder.start(1_000)
+		this.mediaRecorder.start(5_000)
 	}
 
 	static async swap() {
