@@ -1,24 +1,48 @@
-let showingToast = false
-
-for (const type of ["log", "info", "warn", "error", "debug", "trace"]) {
-	const original = console[type].bind(console)
+for (const type of [
+	"log",
+	"warn",
+	"error",
+	"info",
+	"debug",
+	"trace",
+	"dir",
+	"table",
+	"group",
+	"groupCollapsed",
+	"groupEnd",
+	"assert",
+]) {
+	const original = console[type]
 
 	console[type] = (...args) => {
-		original(...args)
-
-		if (showingToast) {
-			return
-		}
-
-		showingToast = true
-
-		for (const a of args) {
-			Toast(a)
-		}
-
-		showingToast = false
+		original.apply(console, args)
+		Log(args)
 	}
 }
+
+window.addEventListener("error", e => {
+	Log("ERROR:", e.message, e.filename, e.lineno, e.colno)
+})
+
+window.addEventListener("unhandledrejection", e => {
+	Log("UNHANDLED PROMISE:", e.reason)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

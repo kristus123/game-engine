@@ -10,13 +10,12 @@ export class HttpMethod {
 			: null //todo - do not use null
 		const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
 
-
 		const contentType = ContentType.parse(req.headers["content-type"])
+
 		let body = null
 
-		console.log(contentType == null)
 		if (contentType == null) {
-			// keep body as null
+			body = null
 		}
 		else if (contentType.name == ContentType.json) {
 			body = await Poop.parseJsonBody(req)
@@ -53,7 +52,6 @@ export class HttpMethod {
 		}
 		catch (e) {
 			console.log(e)
-			Log(e)
 			Poop.sendJson(res, 500, {
 				error: "error: " + e,
 			})
