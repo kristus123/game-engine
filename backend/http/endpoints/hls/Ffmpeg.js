@@ -9,19 +9,22 @@ export class Ffmpeg {
 
 		let thingy = null
 		if (mimeType == "webm") {
-			thingy = "webm" // todo make it more robust
+			thingy = "webm"
 		}
 		else {
 			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
 
+		console.log("Starting FFmpeg...")
+
 		this.p = spawn("ffmpeg", [
+			"-loglevel",
+			"verbose",
+			"-stats",
 			"-f",
 			thingy,
 			"-i",
 			"pipe:0",
-			"-threads",
-			"0",
 			"-c:v",
 			"libx264",
 			"-preset",
@@ -35,22 +38,45 @@ export class Ffmpeg {
 			"-hls_list_size",
 			"6",
 			"-hls_flags",
-			"delete_segments",
+			"delete_segments+independent_segments",
+			"-hls_segment_type",
+			"mpegts",
 			"public_folder/hls/output.m3u8"
 		])
 
+		console.log("FFmpeg PID:", this.p.pid)
+
+		this.p.stdout.on("data", data => {
+			console.log("[FFmpeg stdout]", data.toString().trim())
+		})
+
 		this.p.stderr.on("data", data => {
-			console.log(data.toString())
+			console.log("[FFmpeg stderr]", data.toString().trim())
+		})
+
+		this.p.stdin.on("error", error => {
+			console.error("[FFmpeg stdin error]", error)
+		})
+
+		this.p.on("error", error => {
+			console.error("[FFmpeg process error]", error)
 		})
 
 		this.p.on("close", (code, signal) => {
-			console.log("FFmpeg exited:", code, signal)
+			console.log("FFmpeg exited:", { code, signal })
 			this.p = null
 		})
 
 		return new Promise((resolve, reject) => {
-			this.p.once("spawn", () => resolve(true))
-			this.p.once("error", reject)
+			this.p.once("spawn", () => {
+				console.log("FFmpeg spawned")
+				resolve(true)
+			})
+
+			this.p.once("error", error => {
+				console.error("FFmpeg failed to spawn:", error)
+				reject(error)
+			})
 		})
 	}
 
