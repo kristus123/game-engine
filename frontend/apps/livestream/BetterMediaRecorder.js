@@ -9,7 +9,7 @@ export class BetterMediaRecorder {
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {
-				onBlob(e.data)
+				await onBlob(e.data)
 			}
 		}
 

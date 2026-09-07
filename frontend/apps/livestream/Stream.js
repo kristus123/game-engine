@@ -15,8 +15,8 @@ export class Stream {
 			},
 		}))
 
-		await BetterMediaRecorder.start(blob => {
-			LowLevelHttpClient.post({
+		await BetterMediaRecorder.start(async blob => {
+			await LowLevelHttpClient.post({
 				routeName: "sendChunk",
 				body: blob,
 				formatBody: r => null,
