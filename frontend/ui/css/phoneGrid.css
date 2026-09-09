@@ -36,7 +36,7 @@ phone-grid mid {
 	/* Prevent content from expanding the cell */
 	min-height: 0;  
 
-	/* Optional: scroll if content is bigger than the cell */
+	/* scroll if content is bigger than the cell */
 	overflow: auto;
 }
 

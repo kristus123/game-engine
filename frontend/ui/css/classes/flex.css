@@ -15,6 +15,7 @@ flex-v[left] {
 	align-items: flex-start;
 }
 
+
 flex-v {
 	display: flex;
 
@@ -29,7 +30,7 @@ flex-v[close] {
 }
 
 
-flex-h > *,
-flex-v > *
+flex-v[fill-evenly] > *
 {
+	flex: 1;
 }
