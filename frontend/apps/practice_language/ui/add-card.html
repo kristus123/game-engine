@@ -1,36 +1,29 @@
 <phone-grid>
-	<top center>
+	<top center-content>
 		<flex-h>
-			<button id="navigateToPracticeCard">Practice</button>
-			<button id="settings">settings</button>
+			<button on-click-page-go="practiceArea">Practice</button>
+			<button on-click-page-go="settings">settings</button>
 		</flex-h>
 	</top>
 
-	<mid center scrollable>
-		<div id="buttons">
-			<div id="frontButtons">
-				<button on-click-hide-id="buttons" on-click-show-id="stopRecording" on-click="recordFront">
-					Start recording
-				</button>
-				<button on-click="playFront" disabled>playFront</button>
-			</div>
-
-			<hr />
-
-			<div id="backButtons">
-				<button on-click="recordBack">start recording</button>
-				<button on-click="playBack" disabled>playBack</button>
-			</div>
-		</div>
-
-		<button id="stopRecording" on-click="stopRecording" on-click-show-id="buttons" on-click-hide hidden>
-			stop recording
+	<mid center-content scrollable>
+		<button show-if-state="idle" name="frontCardButtons" on-click="recordFront" on-click-set-state="recording">
+			Start recording
 		</button>
+
+		<button show-if-state="idle" name="frontCardButtons" on-click="playFront" disabled>playFront</button>
+
+		<hr />
+
+		<button show-if-state="idle" name="backCardButtons" on-click="recordBack" on-click-set-state="recording">
+			start recording
+		</button>
+		<button show-if-state="idle" name="backCardButtons" on-click="playBack" disabled>playBack</button>
+
+		<button show-if-state="recording" on-click="stopRecording" on-click-set-state="idle">stop recording</button>
 	</mid>
 
-	<bot center>
-		<flex-h>
-			<button id="save" style="width: 200px" disabled>save</button>
-		</flex-h>
+	<bot center-content>
+		<button id="save" style="width: 200px" disabled>Save</button>
 	</bot>
 </phone-grid>

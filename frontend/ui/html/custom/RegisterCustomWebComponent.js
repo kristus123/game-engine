@@ -63,6 +63,21 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 								methods[attribute.value]?.()
 							})
 						}
+						case "on-click-set-state" {
+							child.listen("click", () => {
+								this.walk(c => {
+									const showIf = c.getAttribute("show-if-state")
+									if (showIf) {
+										if (showIf == attribute.value) {
+											c.show()
+										}
+										else {
+											c.hide()
+										}
+									}
+								})
+							})
+						}
 						case "on-enter" {
 							child.onEnter(() => {
 								methods[attribute.value]?.()
