@@ -1,37 +1,25 @@
-<phone-grid>
-	<top>
-		<flex-h>
-			<button on-click-page-go="practiceArea">Practice</button>
-			<button on-click-page-go="settings">settings</button>
-		</flex-h>
-	</top>
-
-	<mid>
+<practice-language-grid>
+	<slot name="mid">
 		<flex-v fill-evenly max-size show-if-state="idle">
-			<flex-h>
+			<flex-h style="gap: 40px">
 				<button on-click="recordFront" on-click-set-state="recording">Start recording</button>
-
-				<button on-click="playFront" disabled>playFront</button>
+				<button id="playFront" on-click="playFront" disabled>Play</button>
 			</flex-h>
 
-			<flex-h>
+			<flex-h style="gap: 40px">
 				<button on-click="recordBack" on-click-set-state="recording">start recording</button>
-				<button on-click="playBack" disabled>playBack</button>
+				<button id="playBack" on-click="playBack" disabled>Play</button>
 			</flex-h>
 		</flex-v>
 
 		<flex-v max-size hidden show-if-state="recording">
 			<button on-click="stopRecording" on-click-set-state="idle">stop recording</button>
 		</flex-v>
-	</mid>
+	</slot>
 
-	<bot>
-		<button id="save" style="width: 200px" disabled>Save</button>
-	</bot>
-</phone-grid>
-
-<style>
-	button {
-		height: 40%;
-	}
-</style>
+	<slot name="bot">
+		<flex-h>
+			<button id="save" on-click="save" style="width: 200px" disabled>Save</button>
+		</flex-h>
+	</slot>
+</practice-language-grid>

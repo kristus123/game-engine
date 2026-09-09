@@ -7,6 +7,12 @@ flex-h {
 	box-sizing: border-box;
 }
 
+
+flex-v[space-evenly],
+flex-h[space-evenly] {
+	justify-content: space-evenly;
+}
+
 flex-h[tight] {
 	justify-content: flex-start; /* center / space-around / space-evenly */
 }
@@ -30,6 +36,7 @@ flex-v[close] {
 }
 
 
+flex-h[fill-evenly] > *,
 flex-v[fill-evenly] > *
 {
 	flex: 1;

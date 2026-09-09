@@ -14,7 +14,9 @@ export default ({ html }) => {
 					score: 0,
 					nextPracticeDate: LocalDate.now().toString(),
 				}, () => {
-					_init()
+					html.playFront.disable()
+					html.playBack.disable()
+					html.save.disable()
 				})
 			},
 			recordFront: () => {
@@ -24,19 +26,28 @@ export default ({ html }) => {
 			},
 			recordBack: () => {
 				direction = "back"
+				Mic.start(() => {
+				})
 			},
 			stopRecording: () => {
-
 				Mic.stop(blob => {
 					if (direction == "front") {
 						frontSound = blob
+						html.playFront.enable()
 					}
 					else if (direction == "back") {
 						backSound = blob
+						html.playBack.enable()
+					}
+					else {
+						throw new Error("x")
 					}
 
 					// Sound.playBlob(blob)
 					direction = null
+					if (frontSound && backSound) {
+						html.save.enable()
+					}
 				})
 			},
 		},

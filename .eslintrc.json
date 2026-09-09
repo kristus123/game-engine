@@ -403,6 +403,7 @@
         "fileDbEndpoint": "readonly",
         "index": "readonly",
         "livestream-body": "readonly",
+        "practice-card": "readonly",
         "pushNotificationEndpoint": "readonly",
         "serviceWorker": "readonly"
     }

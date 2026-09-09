@@ -26,47 +26,60 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		async connectedCallback() {
 			const content = template.content.cloneNode(true)
 
-			for (const slot of content.querySelectorAll("slot")) {
-				const slotName = slot.getAttribute("name")
+			const slots = {}
 
-				for (const child of this.childNodes) {
-					slot.replaceWith(...child.childNodes)
+			for (const child of this.children) {
+				const slotName =
+					child.getAttribute("slot") ||
+					child.getAttribute("name") ||
+					""
+
+				if (!slots[slotName]) {
+					slots[slotName] = []
 				}
 
-				this.attributes.forEach((i, slotAttribute) => {
-					if (slotAttribute.name == "slot-" + slotName) {
-						slot.replaceWith(document.createTextNode(slotAttribute.value))
-					}
-				})
+				slots[slotName].push(child)
+			}
+
+			for (const slot of content.querySelectorAll("slot")) {
+				const slotName = slot.getAttribute("name") || ""
+				const nodes = slots[slotName]
+
+				if (nodes) {
+					slot.replaceWith(...nodes.map(node => node.cloneNode(true)))
+				}
+				else {
+					slot.replaceWith(...slot.childNodes)
+				}
 			}
 
 			this.replaceChildren(content)
 
-			 this.walk(child => {
-				 if (child.hasAttribute("id")) {
-					 this[child.getAttribute("id")] = child
-				 }
-			 })
+			this.walk(child => {
+				if (child.hasAttribute("id")) {
+					this[child.getAttribute("id")] = child
+				}
+			})
 
-			const {slots = {}, methods = {}} = await js?.default({html: this }) ?? {}
+			const { slots: slotMethods = {}, methods = {} } =
+				await js?.default({ html: this }) ?? {}
 
-			 this.walk(child => {
+			this.walk(child => {
 				for (const attribute of child.attributes) {
-					switch attribute.name {
-						case "on-click-go-to-page" {
+					switch (attribute.name) {
+						case "on-click-go-page":
 							child.listen("click", () => {
 								Page.go(attribute.value)
 							})
-						}
-						case "on-click" {
+						case "on-click":
 							child.listen("click", () => {
 								methods[attribute.value]?.()
 							})
-						}
-						case "on-click-set-state" {
+						case "on-click-set-state":
 							child.listen("click", () => {
 								this.walk(c => {
 									const showIf = c.getAttribute("show-if-state")
+
 									if (showIf) {
 										if (showIf == attribute.value) {
 											c.show()
@@ -77,14 +90,12 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 									}
 								})
 							})
-						}
-						case "on-enter" {
+						case "on-enter":
 							child.onEnter(() => {
 								methods[attribute.value]?.()
 							})
-						}
 						default: {
-							// can be ignored
+							// ok
 						}
 					}
 				}

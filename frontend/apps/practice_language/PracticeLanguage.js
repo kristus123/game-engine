@@ -1,5 +1,8 @@
 export function PracticeLanguage() {
-	Page.init("index", H.create("add-card"))
-	Page.go("index")
+	Page.init("addCard", H.create("add-card"))
+
+	Page.init("practice", H.create("practice-card"))
+
+	Page.go("practice")
 }
 

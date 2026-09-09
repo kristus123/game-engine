@@ -1,31 +1,15 @@
-<phone-grid>
-	<top center-content>
-		<flex-h style="gap: 20px">
-			<button on-click="addMoreCards" class="green">add more cards</button>
-			<button id="delete" class="blue">delete</button>
-		</flex-h>
-	</top>
-
-	<mid center-content scrollable>
-		<div id="activePractice" style="width: 100%; height: 100%">
-			<flex-v id="buttons" style="padding: 20px; gap: 20px">
-				<button on-click="playFront" style="font-size: 50px">play front</button>
-				<button on-click="playBack" style="font-size: 50px">play back</button>
-			</flex-v>
-		</div>
-
-		<div id="practiceMore" style="width: 100%; height: 100%" hide>
-			<flex-v style="padding: 20px; gap: 20px">
-				<h1>Finished</h1>
-				<button id="practiceMoreButton">Practice more</button>
-			</flex-v>
-		</div>
-	</mid>
-
-	<bot center-content>
-		<flex-v id="easyHard" style="gap: 20px; padding: 20px">
-			<button id="easy" style="font-size: 50px">easy</button>
-			<button id="hard" style="font-size: 50px">hard</button>
+<practice-language-grid>
+	<slot name="mid">
+		<flex-v max-size id="buttons" style="gap: 80px">
+			<button on-click="playFront" style="font-size: 50px">play front</button>
+			<button on-click="playBack" style="font-size: 50px">play back</button>
 		</flex-v>
-	</bot>
-</phone-grid>
+	</slot>
+
+	<slot name="bot">
+		<flex-h fill-evenly>
+			<button on-click="easy">easy</button>
+			<button on-click="hard">hard</button>
+		</flex-h>
+	</slot>
+</practice-language-grid>

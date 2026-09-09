@@ -1,0 +1,16 @@
+<phone-grid style="padding: 20px">
+	<top>
+		<flex-h space-evenly>
+			<button on-click-go-page="practice">Practice</button>
+			<button on-click-go-page="settings">settings</button>
+		</flex-h>
+	</top>
+
+	<mid>
+		<slot name="mid"></slot>
+	</mid>
+
+	<bot>
+		<slot name="bot"></slot>
+	</bot>
+</phone-grid>
