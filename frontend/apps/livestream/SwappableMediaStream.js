@@ -20,7 +20,7 @@ export class SwappableMediaStream {
 		const canvas = document.createElement("canvas")
 		canvas.width = 1280
 		canvas.height = 720
-		const videoOutput = canvas.captureStream(60)
+		const videoOutput = canvas.captureStream(30)
 		const ctx = canvas.getContext("2d")
 
 		RequestAnimationFrameLoop(() => {
