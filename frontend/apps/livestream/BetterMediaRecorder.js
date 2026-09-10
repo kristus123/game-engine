@@ -1,3 +1,16 @@
+class PromiseQueue {
+
+	constructor() {
+		this.promise = Promise.resolve()
+	}
+
+	add(callback) {
+		this.promise = this.promise.then(callback)
+
+		return this
+	}
+}
+
 export class BetterMediaRecorder {
 
 	static mediaRecorder = null
@@ -5,11 +18,14 @@ export class BetterMediaRecorder {
 	static start(onBlob) {
 		Assert.null(this.mediaRecorder)
 
+		const queue = new PromiseQueue()
 		this.mediaRecorder = new MediaRecorder(SwappableMediaStream.mediaStream, { mimeType: Platform.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {
-				await onBlob(e.data)
+				queue.add(async () => {
+					await onBlob(e.data)
+				})
 			}
 		}
 
