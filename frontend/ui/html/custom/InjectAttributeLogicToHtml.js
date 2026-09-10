@@ -5,22 +5,30 @@ export function InjectAttributeLogicToHtml(html, methods) {
 				continue
 			}
 
-			switch (attribute.name) {
-				case "on-click-go-page":
+			const name = attribute.name
+			const value = attribute.value
+
+			switch (name) {
+				case "on-click-go-page": {
 					child.listen("click", () => {
-						Page.go(attribute.value)
+						Page.go(value)
 					})
-				case "on-click":
+				}
+				case "on-click": {
 					child.listen("click", () => {
-						methods[attribute.value]?.()
+						methods[value]?.()
 					})
-				case "on-click-set-state":
+				}
+				case "on-click-set-state": {
 					child.listen("click", () => {
+						console.log("CLICKED!")
+						console.log(child)
+						console.log(name)
 						html.walk(c => {
 							const showIf = c.getAttribute("show-if-state")
 
 							if (showIf) {
-								if (showIf == attribute.value) {
+								if (value == showIf) {
 									c.show()
 								}
 								else {
@@ -29,13 +37,14 @@ export function InjectAttributeLogicToHtml(html, methods) {
 							}
 						})
 					})
-				case "on-enter":
+				}
+				case "on-enter": {
 					child.onEnter(() => {
-						methods[attribute.value]?.()
+						methods[value]?.()
 					})
+				}
 				default: {
-					console.log(attribute.name + " was ignored")
-					// ok
+					// do nothing
 				}
 			}
 		}
