@@ -309,6 +309,7 @@
         "Positions": "readonly",
         "PracticeLanguage": "readonly",
         "PrepareExternalBundle": "readonly",
+        "PromiseQueue": "readonly",
         "ProxyObject": "readonly",
         "PushClient": "readonly",
         "Pwa": "readonly",
