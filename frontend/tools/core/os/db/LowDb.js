@@ -111,7 +111,6 @@ export class LowDb {
 	}
 
 	delete(dbKey, callback = () => {}) {
-		Assert.notNull(dbKey, "dbKey cannot be null")
 		Assert.string(dbKey, "dbKey has to be a string")
 
 		this.transaction("readwrite", tx => {
