@@ -1,4 +1,4 @@
-export default ({ html }) => {
+export default ({ html, setState }) => {
 	const db = Db("jap")
 
 	let direction = null
@@ -8,11 +8,9 @@ export default ({ html }) => {
 	return {
 		methods: {
 			save: () => {
-				db.save({
+				CardDb.saveNew({
 					front: frontSound,
 					back: backSound,
-					score: 0,
-					nextPracticeDate: LocalDate.now().toString(),
 				}, () => {
 					html.playFront.disable()
 					html.playBack.disable()
@@ -26,6 +24,7 @@ export default ({ html }) => {
 			},
 			playFront: () => {
 				console.log("playing front")
+				Sound.playBlob(frontSound)
 			},
 			recordBack: () => {
 				direction = "back"
@@ -34,6 +33,7 @@ export default ({ html }) => {
 			},
 			playBack: () => {
 				console.log("playing back")
+				Sound.playBlob(backSound)
 			},
 			stopRecording: () => {
 				Mic.stop(blob => {
@@ -49,7 +49,8 @@ export default ({ html }) => {
 						throw new Error("x")
 					}
 
-					// Sound.playBlob(blob)
+					Sound.playBlob(blob)
+
 					direction = null
 					if (frontSound && backSound) {
 						html.save.enable()

@@ -1,4 +1,4 @@
-export function InjectAttributeLogicToHtml(html, methods) {
+export function InjectAttributeLogicToHtml(html, methods, setState) {
 	html.walk(child => {
 		for (const attribute of child.attributes) {
 			if (!attribute.name.includes("-")) {
@@ -21,21 +21,7 @@ export function InjectAttributeLogicToHtml(html, methods) {
 				}
 				case "on-click-set-state": {
 					child.listen("click", () => {
-						console.log("CLICKED!")
-						console.log(child)
-						console.log(name)
-						html.walk(c => {
-							const showIf = c.getAttribute("show-if-state")
-
-							if (showIf) {
-								if (value == showIf) {
-									c.show()
-								}
-								else {
-									c.hide()
-								}
-							}
-						})
+						setState(value)
 					})
 				}
 				case "on-enter": {

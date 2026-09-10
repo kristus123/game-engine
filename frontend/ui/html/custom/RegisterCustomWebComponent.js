@@ -40,13 +40,34 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			}
 
 			this.walk(child => { // needs to run before js.default is called
-				if (child.hasAttribute("id")) {
+				if (child.hasAttribute("id")) { // since something inside might want to get an id
 					this[child.getAttribute("id")] = child
 				}
 			})
 
-			const { methods = {} } = await js?.default({ html: this }) ?? {}
-			InjectAttributeLogicToHtml(this, methods)
+			const setState = newState => {
+				Assert.value(newState)
+				this.walk(c => {
+					const showIf = c.getAttribute("show-if-state")
+
+					if (showIf) {
+						if (showIf == newState) {
+							c.show()
+						}
+						else {
+							c.hide()
+						}
+					}
+				})
+				console.log("updating state to : " + newState)
+			}
+
+			const { methods = {}, state = null } = await js?.default({ html: this, setState: setState }) ?? {}
+			InjectAttributeLogicToHtml(this, methods, setState)
+
+			if (state) {
+				setState(state)
+			}
 		}
 	})
 }

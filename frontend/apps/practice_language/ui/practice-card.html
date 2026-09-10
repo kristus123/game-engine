@@ -1,15 +1,23 @@
-<practice-language-grid>
+<practice-language-grid cq-parent>
 	<slot name="mid">
-		<flex-v max-size id="buttons" style="gap: 80px">
-			<button on-click="playFront" style="font-size: 50px">play front</button>
-			<button on-click="playBack" style="font-size: 50px">play back</button>
+		<flex-v max-size space-evenly id="buttons" style="gap: 15px" show-if-state="hasCard">
+			<button on-click="playFront" style="font-size: 20cqw; height: 20cqh">Front</button>
+			<button on-click="playBack" style="font-size: 20cqw; height: 20cqh">Back</button>
+
+			<hr style="margin: 10px" />
+
+			<button on-click="easy" style="font-size: 20cqw; height: 20cqh">Easy</button>
+			<button on-click="hard" style="font-size: 20cqw; height: 20cqh">Hard</button>
+		</flex-v>
+
+		<flex-v show-if-state="noMoreCards">
+			<h1>Finished!</h1>
+		</flex-v>
+
+		<flex-v show-if-state="loading">
+			<h1>loading</h1>
 		</flex-v>
 	</slot>
 
-	<slot name="bot">
-		<flex-h fill-evenly>
-			<button on-click="easy">easy</button>
-			<button on-click="hard">hard</button>
-		</flex-h>
-	</slot>
+	<slot name="bot"></slot>
 </practice-language-grid>

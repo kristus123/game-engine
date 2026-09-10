@@ -41,3 +41,7 @@ flex-v[fill-evenly] > *
 {
 	flex: 1;
 }
+
+flex-v > [place-bottom] {
+	margin-top: auto;
+}

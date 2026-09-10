@@ -2,12 +2,12 @@
 	<slot name="mid">
 		<flex-v fill-evenly max-size show-if-state="idle">
 			<flex-h style="gap: 40px">
-				<button on-click="recordFront" on-click-set-state="recording">Start recording</button>
+				<button on-click="recordFront" on-click-set-state="recording">Record Front</button>
 				<button id="playFront" on-click="playFront" disabled>Play</button>
 			</flex-h>
 
 			<flex-h style="gap: 40px">
-				<button on-click="recordBack" on-click-set-state="recording">start recording</button>
+				<button on-click="recordBack" on-click-set-state="recording">Record Back</button>
 				<button id="playBack" on-click="playBack" disabled>Play</button>
 			</flex-h>
 		</flex-v>

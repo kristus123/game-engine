@@ -39,6 +39,7 @@ export class Db {
 			console.log(cards.empty)
 			if (cards.empty) {
 				console.log("no entries present when calling .random(), callback not triggered")
+				callback(null)
 			}
 			else {
 				const c = Random.choice(cards)
