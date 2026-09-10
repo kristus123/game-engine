@@ -24,10 +24,16 @@ export default ({ html }) => {
 				Mic.start(() => {
 				})
 			},
+			playFront: () => {
+				console.log("playing front")
+			},
 			recordBack: () => {
 				direction = "back"
 				Mic.start(() => {
 				})
+			},
+			playBack: () => {
+				console.log("playing back")
 			},
 			stopRecording: () => {
 				Mic.stop(blob => {

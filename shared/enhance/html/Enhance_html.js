@@ -632,8 +632,6 @@ export function Enhance_html() {
 	})
 
 	Enhance(HTMLElement.prototype, "walk", function (action) {
-		console.log("walking")
-		console.log(this.children)
 		function walk(node) {
 			for (const child of node.children) {
 				walk(child)

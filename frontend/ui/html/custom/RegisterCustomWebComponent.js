@@ -25,22 +25,19 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 	customElements.define(name, class extends HTMLElement {
 		async connectedCallback() {
 			const content = template.content.cloneNode(true)
-			console.log("___")
-			console.log(name)
 
-			for (const actualSlot of this.querySelectorAll("slot")) {
-				for (const slot of content.querySelectorAll("slot")) {
-					actualSlot.replaceWith()
-				}
+			const slots = {}
+			for (const s of content.querySelectorAll("slot")) {
+				slots[s.getAttribute("name")] = s
 			}
 
 			this.replaceChildren(content)
 
-			console.log(this)
-			console.log("___")
-			console.log("")
-			console.log("")
-			console.log("")
+			for (const actualSlot of this.querySelectorAll("slot")) {
+				if (slots[actualSlot.getAttribute("name")]) {
+					actualSlot.replaceWith(slots[actualSlot.getAttribute("name")])
+				}
+			}
 
 			this.walk(child => { // needs to run before js.default is called
 				if (child.hasAttribute("id")) {

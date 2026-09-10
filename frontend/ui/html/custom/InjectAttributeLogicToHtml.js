@@ -1,6 +1,10 @@
 export function InjectAttributeLogicToHtml(html, methods) {
 	html.walk(child => {
 		for (const attribute of child.attributes) {
+			if (!attribute.name.includes("-")) {
+				continue
+			}
+
 			switch (attribute.name) {
 				case "on-click-go-page":
 					child.listen("click", () => {
@@ -30,6 +34,7 @@ export function InjectAttributeLogicToHtml(html, methods) {
 						methods[attribute.value]?.()
 					})
 				default: {
+					console.log(attribute.name + " was ignored")
 					// ok
 				}
 			}
