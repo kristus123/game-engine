@@ -1,4 +1,4 @@
-export function InjectLogicToHtml(html, methods) {
+export function InjectAttributeLogicToHtml(html, methods) {
 	html.walk(child => {
 		for (const attribute of child.attributes) {
 			switch (attribute.name) {

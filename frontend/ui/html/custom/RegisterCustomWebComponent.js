@@ -49,7 +49,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			})
 
 			const { methods = {} } = await js?.default({ html: this }) ?? {}
-			InjectLogicToHtml(this, methods)
+			InjectAttributeLogicToHtml(this, methods)
 		}
 	})
 }

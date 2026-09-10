@@ -233,7 +233,7 @@
         "ImproveSwitchCase": "readonly",
         "InfiniteListLooper": "readonly",
         "InitArgs": "readonly",
-        "InjectLogicToHtml": "readonly",
+        "InjectAttributeLogicToHtml": "readonly",
         "IntegerLoop": "readonly",
         "Internet": "readonly",
         "IntroQuest": "readonly",
