@@ -23,6 +23,7 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 	catch (e) {
 		console.log("error while sending request to " + url)
 		console.log(e)
+		console.error(e.stack)
 		return { ok: false, error: true, response: null, error: e }
 	}
 	finally {
