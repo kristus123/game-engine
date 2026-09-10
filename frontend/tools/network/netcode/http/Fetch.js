@@ -4,7 +4,7 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
 
-	const abortSignal = AbortAtMs(5_000) // rename to AbortSignal or smt else
+	const abortSignal = AbortAtMs(80_000) // rename to AbortSignal or smt else
 
 	try {
 		console.log(`Sending request to: ${url}`)
