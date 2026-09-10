@@ -7,7 +7,7 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 	const abortSignal = AbortAtMs(5_000) // rename to AbortSignal or smt else
 
 	try {
-		Log(`Sending request to: ${url}`)
+		console.log(`Sending request to: ${url}`)
 		const r = await fetch(url, {
 			body: body,
 			method: "POST",
@@ -21,6 +21,8 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 		return { ok: ok, error: !ok, response: r }
 	}
 	catch (e) {
+		console.log("error while sending request to " + url)
+		console.log(e)
 		return { ok: false, error: true, response: null, error: e }
 	}
 	finally {
