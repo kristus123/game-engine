@@ -32,6 +32,8 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				return true
 			}
 
+			this._connected = true
+
 			const content = template.content.cloneNode(true)
 
 			const slots = {}

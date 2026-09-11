@@ -29,6 +29,14 @@ export default async ({ html, setState }) => {
 			return loadNewCard() // kinda hacky but ok for now
 		},
 		methods: {
+			practiceMore: async () => {
+
+				for (const c of await cardDb.all()) {
+					alreadyPracticed.clear()
+				}
+
+				loadNewCard()
+			},
 			playFront: async () => {
 				Sound.playBlob(card.front)
 			},
