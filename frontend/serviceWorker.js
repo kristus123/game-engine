@@ -1,57 +1,45 @@
-export const serviceWorker = ""
+const CACHE = "app-v1"
 
-// const CACHE_NAME = "v1ss"
+self.addEventListener("install", event => {
+	self.skipWaiting()
+})
 
-// const FILES_TO_CACHE = [
-// 	"/",
-// 	"/manifest.json",
-// ]
+self.addEventListener("activate", event => {
+	event.waitUntil(
+		caches.keys().then(keys =>
+			Promise.all(
+				keys
+					.filter(key => key != CACHE)
+					.map(key => caches.delete(key))
+			)
+		)
+	)
 
-// self.addEventListener("install", event => {
-// 	event.waitUntil(
-// 		caches.open(CACHE_NAME).then(async cache => {
-//   	for (const url of FILES_TO_CACHE) {
-// 				try {
-//   		const resp = await fetch(url)
-//   		if (!resp.ok) {
-// 						throw new Error("HTTP " + resp.status)
-// 					}
-//   		await cache.put(url, resp.clone())
-//   		console.log("Cached:", url)
-// 				}
-// 				catch (e) {
-//   		console.error("Failed to cache", url, e)
-// 				}
-//   	}
-// 		})
-// 	)
-// })
+	self.clients.claim()
+})
 
-// self.addEventListener("activate", event => {
-// 	event.waitUntil(
-// 		caches.keys().then(keys =>
-//   	Promise.all(keys.filter(k => k != CACHE_NAME).map(k => caches.delete(k)))
-// 		)
-// 	)
-// })
+self.addEventListener("fetch", event => {
+	if (event.request.method != "GET") {
+		return
+	}
 
-// self.addEventListener("fetch", event => {
-// 	event.respondWith(
-// 		caches.match(event.request).then(r => {
-//   	if (r) {
-// 				return r
-// 			}
-//   	return fetch(event.request).catch(() => {
-// 				console.error("Not cached:", event.request.url)
-// 				throw new Error("Not cached: " + event.request.url)
-//   	})
-// 		})
-// 	)
-// })
+	event.respondWith(
+		caches.match(event.request).then(cached => {
+			if (cached) {
+				return cached
+			}
 
-// self.addEventListener("push", event => {
-// 	const data = event.data.json()
-// 	self.registration.showNotification(data.title, {
-// 		body: data.body
-// 	})
-// })
+			return fetch(event.request).then(response => {
+				if (response.ok) {
+					const copy = response.clone()
+
+					caches.open(CACHE).then(cache => {
+						cache.put(event.request, copy)
+					})
+				}
+
+				return response
+			})
+		})
+	)
+})

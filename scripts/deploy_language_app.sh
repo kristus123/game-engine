@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+node dev/ExportAseprite.js
+node dev/GenerateFrontend.js PRODUCTION
+
+# find dist -type f -name '*.js' -exec npx --yes terser {} --compress --mangle -o {} \;
+# find dist -type f -name '*.css' -exec npx --yes lightningcss --minify {} -o {} \;
+# find dist -type f -name '*.html' -exec npx --yes html-minifier-terser --collapse-whitespace --remove-comments -o {} {} \;
+
+
+# needed in order to use shared array buffers between main and worker threads
+cat > dist/netlify.toml <<EOF
+[[headers]]
+	for = "/*"
+	[headers.values]
+		Cross-Origin-Opener-Policy = "same-origin"
+		Cross-Origin-Embedder-Policy = "require-corp"
+EOF
+
+# the id of 'romskip' aka. romskip.netlify.app
+netlify deploy --prod --dir=dist --site=418d33ea-fe27-488e-a20a-0d5cb2fc1251
+
+rm -r .netlify
