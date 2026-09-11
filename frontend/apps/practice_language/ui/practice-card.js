@@ -1,43 +1,45 @@
-export default ({ html, setState }) => {
+export default async ({ html, setState }) => {
 
 	const alreadyPracticed = []
 
+	const cardDb = await CardDb()
+
 	let card = null
-	function loadNewCard() {
+	async function loadNewCard() {
 		setState("loading")
 
-		CardDb.all(allCards => {
-			const cardsToPractice = allCards.removeMany(alreadyPracticed)
-			if (cardsToPractice) {
-				card = cardsToPractice.random()
-				Sound.playBlob(card.front)
+		const cardsToPractice = (await cardDb.all())
+			.removeMany(alreadyPracticed)
 
-				setState("hasCard")
-			}
-			else {
-				setState("noMoreCards")
-			}
-		})
+		if (cardsToPractice) {
+			card = cardsToPractice.random()
+			Sound.playBlob(card.front)
+
+			setState("hasCard")
+		}
+		else {
+			setState("noMoreCards")
+		}
 	}
-	loadNewCard()
+	await loadNewCard()
 
 	return {
 		state: "loading",
 		methods: {
-			playFront: () => {
+			async playFront: () => {
 				Sound.playBlob(card.front)
 			},
-			playBack: () => {
+			async playBack: () => {
 				Sound.playBlob(card.back)
 			},
-			easy: () => {
-				CardDb.markEasy(card)
-				loadNewCard()
+			async easy: () => {
+				cardDb.markEasy(card)
 				alreadyPracticed.add(card)
+				await loadNewCard()
 			},
-			hard: () => {
-				CardDb.markHard(card)
-				loadNewCard()
+			async hard: () => {
+				cardDb.markHard(card)
+				await loadNewCard()
 			},
 		},
 	}

@@ -47,7 +47,7 @@ export async function Db(dbName) {
 			return Await(tx("readonly").objectStore(dbName).getAll(), callback)
 		}
 
-		async random(callback) {
+		async random(callback) { // no-null-check
 			await const all = this.all()
 			if (all.empty) {
 				callback(null)
