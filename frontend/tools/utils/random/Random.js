@@ -22,6 +22,7 @@ export class Random {
 	}
 
 	static choice(list) {
+		Assert.notEmpty(list)
 		return list[Math.floor(Math.random() * list.length)]
 	}
 

@@ -10,7 +10,9 @@ export class LowDb {
 		request.onupgradeneeded = (e) => {
 			this.db = request.result
 			if (!this.db.objectStoreNames.contains(this.dbName)) {
-				this.db.createObjectStore(this.dbName)
+				this.db.createObjectStore(this.dbName, {
+					keyPath: "_dbKey",
+				})
 			}
 			if (this.onUpgradeNeeded) {
 				this.onUpgradeNeeded(this.db, e)
@@ -82,8 +84,6 @@ export class LowDb {
 	}
 
 	update(o, callback = (x) => {}) {
-		// Assert that the object and _dbKey exist
-		Assert.notNull(o, "Object cannot be null")
 		Assert.notNull(o._dbKey, "o._dbKey cannot be null")
 
 		this.transaction("readwrite", tx => {
@@ -112,6 +112,7 @@ export class LowDb {
 
 	delete(dbKey, callback = () => {}) {
 		Assert.string(dbKey, "dbKey has to be a string")
+		// todo make it Assert.uuid(dbKey)
 
 		this.transaction("readwrite", tx => {
 			const r = tx.objectStore(this.dbName).delete(dbKey)

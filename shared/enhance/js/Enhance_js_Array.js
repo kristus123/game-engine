@@ -10,6 +10,14 @@ export function Enhance_js_Array() {
 		return false
 	})
 
+	Enhance(Array.prototype, "removeMany", function (elements) {
+		for (const e of elements) {
+			this.remove(e)
+		}
+
+		return this
+	})
+
 	Enhance(Array.prototype, "valuePresent", function (value) {
 		return this.includes(value)
 	})

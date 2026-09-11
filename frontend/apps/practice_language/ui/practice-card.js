@@ -3,19 +3,23 @@ export default ({ html, setState }) => {
 	const alreadyPracticed = []
 
 	let card = null
-	function loadCard() {
-		CardDb.random(c => {
-			if (c) {
-				card = c
+	function loadNewCard() {
+		setState("loading")
+
+		CardDb.all(allCards => {
+			const cardsToPractice = allCards.removeMany(alreadyPracticed)
+			if (cardsToPractice) {
+				card = cardsToPractice.random()
+				Sound.playBlob(card.front)
+
 				setState("hasCard")
 			}
 			else {
-				card = null
 				setState("noMoreCards")
 			}
 		})
 	}
-	loadCard()
+	loadNewCard()
 
 	return {
 		state: "loading",
@@ -28,12 +32,12 @@ export default ({ html, setState }) => {
 			},
 			easy: () => {
 				CardDb.markEasy(card)
-				loadCard()
+				loadNewCard()
 				alreadyPracticed.add(card)
 			},
 			hard: () => {
 				CardDb.markHard(card)
-				loadCard()
+				loadNewCard()
 			},
 		},
 	}
