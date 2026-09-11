@@ -20,17 +20,14 @@ export async function CardDb() {
 			}, callback)
 		}
 
-		async markEasy(card, callback) { // no-null-check
-			card.score += 1
-			card.nextPracticeDate = LocalDate.now().plusDays(1).toString()
-
+		async update(card, callback) { // no-null-check
 			return db.update(card, callback)
 		}
 
-		async markHard(card, callback) { // no-null-check
-			card.score -= 1
-			card.nextPracticeDate = LocalDate.now().toString()
+		async markEasy(card, callback) { // no-null-check
+		}
 
+		async markHard(card, callback) { // no-null-check
 			return db.update(card, callback)
 		}
 	}

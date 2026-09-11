@@ -8,8 +8,7 @@ export default async ({ html, setState }) => {
 	async function loadNewCard() {
 		setState("loading")
 
-		const cardsToPractice = (await cardDb.all())
-			.removeMany(alreadyPracticed)
+		const cardsToPractice = (await cardDb.all()).removeMany(alreadyPracticed)
 
 		if (cardsToPractice) {
 			card = cardsToPractice.random()
@@ -33,12 +32,18 @@ export default async ({ html, setState }) => {
 				Sound.playBlob(card.back)
 			},
 			async easy: () => {
-				await cardDb.markEasy(card)
+				card.score += 1
+				card.nextPracticeDate = LocalDate.now().plusDays(1).toString()
+				await cardDb.update(card)
+
 				alreadyPracticed.add(card)
 				await loadNewCard()
 			},
 			async hard: () => {
-				await cardDb.markHard(card)
+				card.score -= 1
+				card.nextPracticeDate = LocalDate.now().toString()
+				await cardDb.update(card)
+
 				await loadNewCard()
 			},
 		},

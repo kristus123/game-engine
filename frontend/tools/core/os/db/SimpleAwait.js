@@ -1,4 +1,4 @@
-export function Await(r, callback) {
+export function SimpleAwait(r, callback) {
 	return new Promise((resolve, reject) => {
 		r.onsuccess = () => {
 			callback?.(r.result)

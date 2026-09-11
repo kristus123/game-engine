@@ -24,11 +24,11 @@ export async function Db(dbName) {
 	return new class {
 
 		async get(dbKey, callback) { // no-null-check
-			return Await(t("readonly").objectStore(dbName).get(dbKey), callback)
+			return SimpleAwait(t("readonly").objectStore(dbName).get(dbKey), callback)
 		}
 
 		async update(o, callback) { // no-null-check
-			return Await(t("readwrite").objectStore(dbName).put(o), callback)
+			return SimpleAwait(t("readwrite").objectStore(dbName).put(o), callback)
 		}
 
 		async save(o, callback) { // no-null-check
@@ -40,11 +40,11 @@ export async function Db(dbName) {
 		}
 
 		async delete(dbKey, callback) { // no-null-check
-			return Await(t("readwrite").objectStore(dbName).delete(dbKey), callback)
+			return SimpleAwait(t("readwrite").objectStore(dbName).delete(dbKey), callback)
 		}
 
 		async all(callback) { // no-null-check
-			return Await(tx("readonly").objectStore(dbName).getAll(), callback)
+			return SimpleAwait(tx("readonly").objectStore(dbName).getAll(), callback)
 		}
 
 		async random(callback) { // no-null-check
