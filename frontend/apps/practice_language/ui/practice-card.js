@@ -33,12 +33,12 @@ export default async ({ html, setState }) => {
 				Sound.playBlob(card.back)
 			},
 			async easy: () => {
-				cardDb.markEasy(card)
+				await cardDb.markEasy(card)
 				alreadyPracticed.add(card)
 				await loadNewCard()
 			},
 			async hard: () => {
-				cardDb.markHard(card)
+				await cardDb.markHard(card)
 				await loadNewCard()
 			},
 		},

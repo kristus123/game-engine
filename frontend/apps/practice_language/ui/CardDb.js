@@ -28,6 +28,7 @@ export async function CardDb() {
 		}
 
 		async markHard(card, callback) { // no-null-check
+			card.score -= 1
 			card.nextPracticeDate = LocalDate.now().toString()
 
 			return db.update(card, callback)
