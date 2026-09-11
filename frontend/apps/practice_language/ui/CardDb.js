@@ -11,7 +11,7 @@ export async function CardDb() {
 			return db.random(callback)
 		}
 
-		async saveNew(card, callback) { // no-null-check
+		async save(card, callback) { // no-null-check
 			return db.save({
 				front: Assert.value(card.front),
 				back: Assert.value(card.back),
@@ -24,11 +24,9 @@ export async function CardDb() {
 			return db.update(card, callback)
 		}
 
-		async markEasy(card, callback) { // no-null-check
+		async all(callback) { // no-null-check
+			return db.all(callback)
 		}
 
-		async markHard(card, callback) { // no-null-check
-			return db.update(card, callback)
-		}
 	}
 }

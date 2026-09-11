@@ -1,20 +1,26 @@
-export default ({ html, setState }) => {
-	const db = Db("jap")
+export default async ({ html, setState }) => {
+
+	const cardDb = await CardDb()
 
 	let direction = null
+
 	let frontSound = null
 	let backSound = null
 
 	return {
 		methods: {
 			save: () => {
-				CardDb.saveNew({
+				console.log("caling save")
+				cardDb.save({
 					front: frontSound,
 					back: backSound,
 				}, () => {
 					html.playFront.disable()
 					html.playBack.disable()
 					html.save.disable()
+
+					frontSound = null
+					backSound = null
 				})
 			},
 			recordFront: () => {

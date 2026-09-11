@@ -21,11 +21,11 @@ for (const type of [
 }
 
 window.addEventListener("error", e => {
-	Log("ERROR:", e.message, e.filename, e.lineno, e.colno)
+	console.log("ERROR:", e.message, e.filename, e.lineno, e.colno)
 })
 
 window.addEventListener("unhandledrejection", e => {
-	Log("UNHANDLED PROMISE:", e.reason)
+	console.log("UNHANDLED PROMISE:", e.reason)
 })
 
 

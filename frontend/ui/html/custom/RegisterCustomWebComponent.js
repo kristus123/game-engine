@@ -33,12 +33,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			this.replaceChildren(content)
 
-			for (const actualSlot of this.querySelectorAll("slot")) {
-				if (slots[actualSlot.getAttribute("name")]) {
-					actualSlot.replaceWith(slots[actualSlot.getAttribute("name")])
-				}
-			}
-
 			this.walk(child => { // needs to run before js.default is called
 				if (child.hasAttribute("id")) { // since something inside might want to get an id
 					this[child.getAttribute("id")] = child
@@ -46,7 +40,9 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			})
 
 			const setState = newState => {
+				console.log("pupdating state to " + newState)
 				Assert.value(newState)
+
 				this.walk(c => {
 					const showIf = c.getAttribute("show-if-state")
 
@@ -60,14 +56,47 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					}
 				})
 				console.log("updating state to : " + newState)
+
+				return newState
 			}
 
 			const { methods = {}, state = null } = await js?.default({ html: this, setState: setState }) ?? {}
-			InjectAttributeLogicToHtml(this, methods, setState)
+
+			this.walk(child => {
+				InjectAttributeLogicToHtml(child, methods, setState)
+			})
+
+
+			for (const actualSlot of this.querySelectorAll("slot")) {
+				if (slots[actualSlot.getAttribute("name")]) {
+					const s = slots[actualSlot.getAttribute("name")]
+					console.log(s.children)
+					actualSlot.replaceWith(s)
+					s.walk(c => {
+						InjectAttributeLogicToHtml(c, methods, setState)
+					})
+				}
+			}
+
+
+			this.walk(child => { // needs to run before js.default is called
+				if (child.hasAttribute("id")) { // since something inside might want to get an id
+					this[child.getAttribute("id")] = child
+				}
+			})
 
 			if (state) {
-				setState(state)
+				if (A.string(state)) {
+					setState(state)
+				}
+				else if (A.method(state)) {
+					setState(await state())
+				}
+				else {
+					throw new Error("unuspported state value")
+				}
 			}
+
 		}
 	})
 }

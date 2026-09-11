@@ -28,6 +28,8 @@ export async function Db(dbName) {
 		}
 
 		async update(o, callback) { // no-null-check
+			console.log(o)
+			console.log("update from db.js called")
 			return SimpleAwait(t("readwrite").objectStore(dbName).put(o), callback)
 		}
 
@@ -44,11 +46,11 @@ export async function Db(dbName) {
 		}
 
 		async all(callback) { // no-null-check
-			return SimpleAwait(tx("readonly").objectStore(dbName).getAll(), callback)
+			return SimpleAwait(t("readonly").objectStore(dbName).getAll(), callback)
 		}
 
 		async random(callback) { // no-null-check
-			await const all = this.all()
+			const all = await this.all()
 			if (all.empty) {
 				callback(null)
 				return null
