@@ -1,67 +1,63 @@
-export class Db {
-	constructor(dbName) {
-		this.lowDb = new LowDb(dbName)
-	}
+export async function Db(dbName) {
 
-	save(e, callback=(x) => {}) {
-		if (e._dbKey) {
-			throw new Error("Cannot save an object which has an existing ._dbKey") // todo fix
+	const db = await new Promise((resolve, reject) => {
+		const r = indexedDB.open(dbName)
+
+		r.onupgradeneeded = e => {
+			const db = r.result
+
+			if (!db.objectStoreNames.contains(dbName)) {
+				db.createObjectStore(dbName, {
+					keyPath: "_dbKey",
+				})
+			}
 		}
-		else {
-			// slight hack, but ok
-			// used in LowDb.js and needs to be set here.
-			e._dbKey = Random.uuid()
 
-			this.lowDb.save(e, o => {
-				callback(o)
-			})
+		r.onsuccess = () => resolve(r.result)
+		r.onerror = e => reject(e.target.error)
+	})
+
+	const t = (type) => {
+		return db.transaction(dbName, type)
+	}
+
+	return new class {
+
+		async get(dbKey, callback) { // no-null-check
+			return Await(t("readonly").objectStore(dbName).get(dbKey), callback)
 		}
-	}
 
-	update(e, callback=(x) => {}) {
-		this.lowDb.update(e, callback)
-	}
+		async update(o, callback) { // no-null-check
+			return Await(t("readwrite").objectStore(dbName).put(o), callback)
+		}
 
-	get(key, callback) {
-		this.lowDb.get(key, o => {
-			callback(o)
-		})
-	}
+		async save(o, callback) { // no-null-check
+			Assert.null(o._dbKey)
 
-	all(callback) {
-		this.lowDb.all(cards => {
-			callback(cards)
-		})
-	}
+			o._dbKey = Random.uuid()
 
-	random(callback) {
-		this.lowDb.all(cards => {
-			console.log(cards.empty)
-			if (cards.empty) {
-				console.log("no entries present when calling .random(), callback not triggered")
+			return this.update(o, callback)
+		}
+
+		async delete(dbKey, callback) { // no-null-check
+			return Await(t("readwrite").objectStore(dbName).delete(dbKey), callback)
+		}
+
+		async all(callback) { // no-null-check
+			return Await(tx("readonly").objectStore(dbName).getAll(), callback)
+		}
+
+		async random(callback) {
+			await const all = this.all()
+			if (all.empty) {
 				callback(null)
+				return null
 			}
 			else {
-				const c = Random.choice(cards)
-				callback(c)
+				const r = all.random()
+				callback(r)
+				return r
 			}
-		})
-	}
-
-	delete(e, callback) {
-		this.lowDb.delete(e._dbKey, callback)
-	}
-
-	deleteAll() {
-		this.lowDb.forEach(e => {
-			this.lowDb.delete(e._dbKey)
-		})
-	}
-
-	forEach(callback) {
-		this.lowDb.forEach(e => {
-			console.log(e)
-			callback(e)
-		})
+		}
 	}
 }
