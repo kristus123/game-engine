@@ -23,7 +23,15 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 	}
 
 	customElements.define(name, class extends HTMLElement {
+		constructor() {
+			this._connected = false
+		}
+
 		async connectedCallback() {
+			if (this._connected) {
+				return true
+			}
+
 			const content = template.content.cloneNode(true)
 
 			const slots = {}
@@ -66,7 +74,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				InjectAttributeLogicToHtml(child, methods, setState)
 			})
 
-
 			for (const actualSlot of this.querySelectorAll("slot")) {
 				if (slots[actualSlot.getAttribute("name")]) {
 					const s = slots[actualSlot.getAttribute("name")]
@@ -77,7 +84,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					})
 				}
 			}
-
 
 			this.walk(child => { // needs to run before js.default is called
 				if (child.hasAttribute("id")) { // since something inside might want to get an id

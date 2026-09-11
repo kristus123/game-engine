@@ -6,6 +6,7 @@ export default async ({ html, setState }) => {
 	const cardDb = await CardDb()
 
 	async function loadNewCard() {
+		console.log("striggerding")
 		setState("loading")
 
 		const cardsToPractice = (await cardDb.all())
