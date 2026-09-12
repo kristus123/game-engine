@@ -26,13 +26,15 @@ export class Stream {
 			Toast("ok")
 		})
 
-		BetterMediaRecorder.swap()
-
 		return BetterMediaRecorder.video
 	}
 
-	static async swap() {
-		await BetterMediaRecorder.swap()
+	static async swapAudio() {
+		await BetterMediaRecorder.swapAudio()
+	}
+
+	static async swapVideo() {
+		await BetterMediaRecorder.swapVideo()
 	}
 
 	static async stop() {

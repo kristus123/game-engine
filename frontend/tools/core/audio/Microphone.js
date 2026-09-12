@@ -1,5 +1,5 @@
 // I did find Mic.js but focused on stuff near Mix.js because Kristian suggested me to.
-// I tried to keep it similar to Webcam.js
+// I tried to keep it similar to Cam.js
 
 export class Microphone {
 	static stream = null

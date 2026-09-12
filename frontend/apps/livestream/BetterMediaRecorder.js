@@ -19,33 +19,26 @@ export class BetterMediaRecorder {
 		this.mediaRecorder.start(5_000)
 	}
 
-	static async swap() {
+	static async swapAudio() {
+		const devices = await navigator.mediaDevices.enumerateDevices()
+		const microphones = devices.filter(device => device.kind == "audioinput")
+		const microphone = microphones[Math.floor(Math.random() * microphones.length)]
+
+		SwappableMediaStream.swapAudio({
+			deviceId: { exact: microphone.deviceId },
+			echoCancellation: false,
+			noiseSuppression: false,
+			autoGainControl: false,
+		})
+	}
+
+	static async swapVideo() {
 		const devices = await navigator.mediaDevices.enumerateDevices()
 
 		const cameras = devices.filter(device => device.kind == "videoinput")
-		const microphones = devices.filter(device => device.kind == "audioinput")
-
-		// For now, we just choose a random camera and microphone
-		// later we do
-		// swapMic
-		// swapCam
 		const camera = cameras[Math.floor(Math.random() * cameras.length)]
-		const microphone = microphones[Math.floor(Math.random() * microphones.length)]
 
-		await SwappableMediaStream.swap({
-			video: camera
-				? { deviceId: { exact: camera.deviceId } }
-				: false,
-
-			audio: microphone
-				? {
-					deviceId: { exact: microphone.deviceId },
-					echoCancellation: false,
-					noiseSuppression: false,
-					autoGainControl: false,
-				}
-				: false,
-		})
+		SwappableMediaStream.swapVideo({ deviceId: { exact: camera.deviceId } })
 	}
 
 	static async stop() {

@@ -1,12 +1,15 @@
 export default async ({ html }) => {
 
 	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
+		console.log(data)
 		html.chatHistory.add(H.create("chat-line", {
 			slots: {
 				name: data.name,
 				message: data.message,
 			},
 		}))
+
+		Tts(data.message)
 	})
 
 	if (await Stream.someoneIsStreaming()) {
@@ -54,11 +57,15 @@ export default async ({ html }) => {
 				html.start.show()
 				html.stop.hide()
 			},
-			swap: () => {
-				Stream.swap()
+			swapAudio: () => {
+				Stream.swapAudio()
+			},
+			swapVideo: () => {
+				Stream.swapVideo()
 			},
 			sendMessage: () => {
 				const message = html.message.value
+				console.log(message)
 				html.message.clear()
 
 				SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {

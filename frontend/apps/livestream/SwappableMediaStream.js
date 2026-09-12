@@ -38,21 +38,43 @@ export class SwappableMediaStream {
 		])
 	}
 
-	static async swap(constraints) {
+	static async swapAudio(constraints) {
 		await this.audioContext.resume()
 
-		this.currentStream?.getTracks().forEach(track => track.stop())
-
-		const stream = await navigator.mediaDevices.getUserMedia(constraints)
-
-		this.video.srcObject = stream
+		const stream = await navigator.mediaDevices.getUserMedia({
+			audio: constraints,
+		})
 
 		this.audioSource?.disconnect()
 		this.audioSource = this.audioContext.createMediaStreamSource(stream)
 		this.audioSource.connect(this.audioOutput)
 
-		this.currentStream = stream
+		this.currentStream?.getAudioTracks().forEach(track => track.stop())
+
+		this.currentStream = new MediaStream([
+			...this.currentStream?.getVideoTracks() ?? [],
+			...stream.getAudioTracks(),
+		])
 
 		return stream
 	}
+
+	static async swapVideo(constraints) {
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: constraints,
+		})
+
+		this.video.srcObject = stream
+
+		this.currentStream?.getVideoTracks().forEach(track => track.stop())
+
+		this.currentStream = new MediaStream([
+			...this.currentStream?.getAudioTracks() ?? [],
+			...stream.getVideoTracks(),
+		])
+
+		return stream
+	}
+
+
 }

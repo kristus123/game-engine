@@ -17,22 +17,22 @@ export class SfuWorld {
 		}
 
 		SfuRouters.onGuestConnection = stream => {
-			console.log("Guest Webcam Received")
+			console.log("Guest Cam Received")
 			html.video.srcObject = stream
 		}
 
 		SfuRouters.onLocalConnection = () => {
-			console.log("Local Webcam Received")
+			console.log("Local Cam Received")
 
 			html.video.srcObject = SfuClient.videoStream.stream
 		}
 
 		SfuRouters.onLocalSetup = async () => {
-			Webcam.request(
+			Cam.request(
 				async (ok) => {
 					if (ok) {
-						await Webcam.enable()
-						Webcam.routeTo(SfuClient.videoStream)
+						await Cam.enable()
+						Cam.routeTo(SfuClient.videoStream)
 					}
 					else {
 						throw new Error("webcam permission not granted")

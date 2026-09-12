@@ -1,44 +1,38 @@
-export class Tts {
-	constructor(text) {
-		this.lang = "zh-CN"
-		this.rate = 0.9
-		this.pitch = 1
-		this.voice = null
+// const lang = "en-US"
+const lang = "zh-CN"
 
-		this.initVoices()
+let loaded = false
+let voice = null
 
-		if (text) {
-			this.speak(text)
-		}
-	}
 
-	initVoices() {
+// to stop it, use
+// speechSynthesis.cancel()
+
+export async function Tts(text) {
+	if (!loaded) {
 		const load = () => {
-			const voices = speechSynthesis.getVoices()
-			this.voice = voices.find(v => v.lang == this.lang)
+			voice = speechSynthesis.getVoices()
+				.find(v => v.lang == lang)
+			loaded = true
 		}
-
-		load()
 
 		window.addEventListener("pointerdown", load, { once: true })
 		window.addEventListener("touchstart", load, { once: true })
 	}
 
-	speak(text) {
+	return new Promise(resolve => {
 		const utterance = new SpeechSynthesisUtterance(text)
 
-		utterance.lang = this.lang
-		utterance.rate = this.rate
-		utterance.pitch = this.pitch
+		utterance.lang = lang
+		utterance.rate = 0.9
+		utterance.pitch = 1
 
-		if (this.voice) {
-			utterance.voice = this.voice
+		if (voice) {
+			utterance.voice = voice
 		}
 
-		speechSynthesis.speak(utterance)
-	}
+		utterance.onend = resolve
 
-	stop() {
-		speechSynthesis.cancel()
-	}
+		speechSynthesis.speak(utterance)
+	})
 }

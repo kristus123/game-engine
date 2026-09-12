@@ -31,10 +31,14 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			if (this._connected) {
 				return true
 			}
+			else {
+				this._connected = true
+			}
 
-			this._connected = true
+
 
 			const content = template.content.cloneNode(true)
+
 
 			const slots = {}
 			for (const s of content.querySelectorAll("slot")) {
@@ -76,14 +80,20 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				InjectAttributeLogicToHtml(child, methods, setState)
 			})
 
+			console.clear()
 			for (const actualSlot of this.querySelectorAll("slot")) {
 				if (slots[actualSlot.getAttribute("name")]) {
 					const s = slots[actualSlot.getAttribute("name")]
-					console.log(s.children)
 					actualSlot.replaceWith(s)
 					s.walk(c => {
 						InjectAttributeLogicToHtml(c, methods, setState)
 					})
+
+					for (const { name, value } of this.attributes) {
+						if (name.replace("slot-", "") == s.name) {
+							s.replaceWith(document.createTextNode(value))
+						}
+					}
 				}
 			}
 
@@ -104,6 +114,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					throw new Error("unuspported state value")
 				}
 			}
+
 
 		}
 	})

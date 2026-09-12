@@ -79,7 +79,7 @@ export class SfuClient {
 		})
 
 		// Copied this into here because stream viewers should be able to use data channels but not produce streams
-		// Enable Local Webcam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Webcam For All
+		// Enable Local Cam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Cam For All
 		if (!SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost) {
 			// nabir we should be able to connect even if webcam is not ready yet.
 			for (const track of this.videoStream.stream.getVideoTracks()) {
