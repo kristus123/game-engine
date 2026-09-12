@@ -58,5 +58,22 @@ export class StopWatch {
 		return this.time // used in motion
 	}
 
+	get mmss() {
+		const totalSeconds = Math.floor(this.time / 1000)
+		const minutes = Math.floor(totalSeconds / 60)
+		const seconds = totalSeconds % 60
+
+		return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+	}
+
+	get hhmmss() {
+		const totalSeconds = Math.floor(this.time / 1000)
+		const hours = Math.floor(totalSeconds / 3600)
+		const minutes = Math.floor(totalSeconds / 60) % 60
+		const seconds = totalSeconds % 60
+
+		return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+	}
+
 }
 

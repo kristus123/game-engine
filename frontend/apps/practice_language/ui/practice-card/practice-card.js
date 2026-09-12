@@ -4,6 +4,10 @@ export default async ({ html, setState }) => {
 	const alreadyPracticed = []
 
 	const cardDb = await CardDb()
+	const stopWatch = StopWatch().start()
+	setInterval(() => {
+		html.time.content = stopWatch.mmss
+	}, 950)
 
 	async function loadNewCard() {
 		console.log("striggerding")

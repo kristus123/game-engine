@@ -25,3 +25,7 @@ sudo apt-get update
 sudo apt-get install cloudflared
 
 cloudflared tunnel --url http://localhost:5050
+
+# cool idea
+
+One cool idea that I will probably never do for now is to basically use SQLite because it has a official WASM library and then you can use the OPFS API for storing files and then just sending the entire database to the server and this can be used for making a very simple backup solution
