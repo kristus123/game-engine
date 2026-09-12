@@ -30,28 +30,24 @@ self.addEventListener("fetch", e => {
 	else if (!url.startsWith("http://") && !url.startsWith("https://")) {
 		return
 	}
-	else if (url.includes("http://localhost:5050")) { // todo improve later
-		return
-	}
-	else if (!url.includes(".netlify.app")) {
-		e.respondWith(
-			caches.match(e.request).then(cached => {
-				if (cached) {
-					return cached
+
+	e.respondWith(
+		caches.match(e.request).then(cached => {
+			if (cached) {
+				return cached
+			}
+
+			return fetch(e.request).then(response => {
+				if (response.ok) {
+					const copy = response.clone()
+
+					caches.open(CACHE).then(cache => {
+						cache.put(e.request, copy)
+					})
 				}
 
-				return fetch(e.request).then(response => {
-					if (response.ok) {
-						const copy = response.clone()
-
-						caches.open(CACHE).then(cache => {
-							cache.put(e.request, copy)
-						})
-					}
-
-					return response
-				})
+				return response
 			})
-		)
-	}
+		})
+	)
 })
