@@ -36,7 +36,7 @@ export class Mic {
 		return await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
-					// can b 'exact' or 'ideal' - ideal more safe
+					// can be 'exact' or 'ideal' - ideal more safe
 					ideal: this.deviceId,
 				},
 				echoCancellation: false,
