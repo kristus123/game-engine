@@ -1,11 +1,15 @@
 export class Pwa {
+
 	static deferredPrompt = null
 
-	static init(onReady = () => {}) {
+	static {
 		window.addEventListener("beforeinstallprompt", e => {
 			e.preventDefault()
-
 			this.deferredPrompt = e
+		})
+
+		window.addEventListener("appinstalled", () => {
+			this.deferredPrompt = null
 		})
 	}
 
@@ -15,9 +19,12 @@ export class Pwa {
 			const choiceResult = await this.deferredPrompt.userChoice
 			console.log("User choice:", choiceResult.outcome)
 			this.deferredPrompt = null
+			return true
 		}
 		else {
+			Toast("wait 5 seconds")
 			console.log("Install prompt not available")
+			return false
 		}
 	}
 }

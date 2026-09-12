@@ -15,6 +15,10 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		const className = path.parse(jsFilePath).name
 		const fileName = path.basename(jsFilePath)
 
+		if (fileContent.includes("// no-transpiling")) {
+			continue
+		}
+
 		for (const f of jsFiles) {
 			const className = path.parse(f).name
 			const fileText = Files.read(f)

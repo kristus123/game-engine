@@ -5,6 +5,7 @@ const {
 	Transpiler,
 	Markdown,
 	GenerateIndexJs,
+	Random,
 } = AllImports
 
 // todo find better solution?
@@ -46,6 +47,7 @@ export function GenerateFrontend(env) {
 		.join("\n")
 	Files.write(Paths.dist.swag_css, cssImports)
 
+	Files.replace(Paths.dist.serviceWorker_js, "RANDOM_CACHE_ID", Random.uuid())
 
 	GenerateIndexJs()
 }

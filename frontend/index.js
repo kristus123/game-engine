@@ -66,7 +66,6 @@ function loadCss(path) {
 	})
 }
 
-
 document.addEventListener("contextmenu", e => e.preventDefault())
 
 SocketClient.connect(() => {
@@ -142,6 +141,7 @@ await Promise.all([
 
 document.getElementById("initialSpin").remove()
 applyFont("VT323", await font)
+
 
 // FindPair()
 // Livestream()

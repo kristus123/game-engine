@@ -1,11 +1,13 @@
-const CACHE = "app-v1"
+// no-transpiling
 
-self.addEventListener("install", event => {
+const CACHE = "RANDOM_CACHE_ID"
+
+self.addEventListener("install", e => {
 	self.skipWaiting()
 })
 
-self.addEventListener("activate", event => {
-	event.waitUntil(
+self.addEventListener("activate", e => {
+	e.waitUntil(
 		caches.keys().then(keys =>
 			Promise.all(
 				keys
@@ -18,28 +20,35 @@ self.addEventListener("activate", event => {
 	self.clients.claim()
 })
 
-self.addEventListener("fetch", event => {
-	if (event.request.method != "GET") {
+self.addEventListener("fetch", e => {
+	const url = e.request.url
+	// console.log(url)
+
+	if (e.request.method != "GET") { // only GET is supported for caching
 		return
 	}
-
-	event.respondWith(
-		caches.match(event.request).then(cached => {
-			if (cached) {
-				return cached
-			}
-
-			return fetch(event.request).then(response => {
-				if (response.ok) {
-					const copy = response.clone()
-
-					caches.open(CACHE).then(cache => {
-						cache.put(event.request, copy)
-					})
+	else if (url.includes("http://localhost:5050")) { // todo improve later
+		return
+	}
+	else if (!url.includes(".netlify.app")) {
+		e.respondWith(
+			caches.match(e.request).then(cached => {
+				if (cached) {
+					return cached
 				}
 
-				return response
+				return fetch(e.request).then(response => {
+					if (response.ok) {
+						const copy = response.clone()
+
+						caches.open(CACHE).then(cache => {
+							cache.put(e.request, copy)
+						})
+					}
+
+					return response
+				})
 			})
-		})
-	)
+		)
+	}
 })

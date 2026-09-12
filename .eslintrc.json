@@ -409,6 +409,7 @@
         "livestream-body": "readonly",
         "practice-card": "readonly",
         "pushNotificationEndpoint": "readonly",
-        "serviceWorker": "readonly"
+        "serviceWorker": "readonly",
+        "settings-page": "readonly"
     }
 }
