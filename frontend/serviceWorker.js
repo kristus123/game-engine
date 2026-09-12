@@ -27,6 +27,9 @@ self.addEventListener("fetch", e => {
 	if (e.request.method != "GET") { // only GET is supported for caching
 		return
 	}
+	else if (!url.startsWith("http://") && !url.startsWith("https://")) {
+		return
+	}
 	else if (url.includes("http://localhost:5050")) { // todo improve later
 		return
 	}

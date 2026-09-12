@@ -1,11 +1,11 @@
 export default async ({ html, setState }) => {
 
-	return {
-		methods: {
-			installPwa: () => {
-				Pwa.install()
-			},
-		},
-	}
+	Pwa.init(() => {
+		html.mid.add(H.button("install", () => {
+			Pwa.install()
+		}))
+	})
 
+	return {
+	}
 }
