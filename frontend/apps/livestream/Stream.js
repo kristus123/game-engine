@@ -1,7 +1,7 @@
 export class Stream {
 
 	static async someoneIsStreaming() {
-		// why do i need 2 awaits ? can we fix it ?
+		// why doet it need 2 awaits ? can we fix it ?
 		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
 		return body.streaming
 	}
