@@ -1,23 +1,23 @@
 export class Cam {
 
-	static permissionGiven = false
+	static granted = false
 	static stream = null
 
 	static async enable() {
-		Assert.true(this.permissionGiven)
+		Assert.true(this.granted)
 
 		this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 	}
 
 	static disable() {
-		Assert.true(this.permissionGiven)
+		Assert.true(this.granted)
 
 		this.stream.getTracks().forEach(track => track.stop())
 		this.stream = null
 	}
 
 	static async request({ ok, error } = {}) {
-		Assert.false(this.permissionGiven)
+		Assert.false(this.granted)
 
 		try {
 			await this.enable()
@@ -25,7 +25,7 @@ export class Cam {
 
 			console.log("Camera permission granted (then closed).")
 			ok()
-			this.permissionGiven = true
+			this.granted = true
 		}
 		catch (e) {
 			console.error("permission denied or error:", e)
@@ -41,7 +41,7 @@ export class Cam {
 	}
 
 	static async all() {
-		Assert.true(this.permissionGiven)
+		Assert.true(this.granted)
 
 		const devices = await navigator.mediaDevices.enumerateDevices()
 		return devices.filter(device => device.kind == "videoinput")
