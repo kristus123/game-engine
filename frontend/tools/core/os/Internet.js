@@ -44,7 +44,7 @@ export class Internet {
 				console.log("offline")
 				this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 				this.connected = false
-				throw new Error("Internet connection lost")
+				throw new Error("internet connection lost")
 			}
 		}
 	}

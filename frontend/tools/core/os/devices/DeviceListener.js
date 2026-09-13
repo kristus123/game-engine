@@ -1,18 +1,3 @@
-// todo
-// create two more files
-// AllMics
-// AllSpeakers
-//
-// which uses DeviceListener
-//
-// .onConnect
-// .onDisconnect
-//
-//
-// if (device.kind == "audioinput") {
-// else if (device.kind == "audiooutput") {
-
-x
 export class DeviceListener {
 
 	static connectListener = Listener()
