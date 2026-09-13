@@ -15,7 +15,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 		const className = path.parse(jsFilePath).name
 		const fileName = path.basename(jsFilePath)
 
-		if (fileContent.includes("// no-transpiling")) {
+		if (fileContent.includes("// disable-transpiling")) {
 			continue
 		}
 

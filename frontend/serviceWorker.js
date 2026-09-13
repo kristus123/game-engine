@@ -1,4 +1,4 @@
-// no-transpiling
+// disable-transpiling
 
 const CACHE = "RANDOM_CACHE_ID"
 
@@ -22,13 +22,12 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
 	const url = e.request.url
-	// console.log(url)
 
-	if (e.request.method != "GET") { // only GET is supported for caching
-		return
+	if (e.request.method != "GET") {
+		return // because only GET is supported for caching
 	}
-	else if (!url.startsWith("http://") && !url.startsWith("https://")) {
-		return
+	else if (!url.startsWith("http")) {
+		return // because we only want to cache http fetches
 	}
 
 	e.respondWith(
@@ -36,18 +35,19 @@ self.addEventListener("fetch", e => {
 			if (cached) {
 				return cached
 			}
+			else {
+				return fetch(e.request).then(r => {
+					if (r.ok) {
+						const copy = r.clone()
 
-			return fetch(e.request).then(response => {
-				if (response.ok) {
-					const copy = response.clone()
+						caches.open(CACHE).then(c => {
+							c.put(e.request, copy)
+						})
+					}
 
-					caches.open(CACHE).then(cache => {
-						cache.put(e.request, copy)
-					})
-				}
-
-				return response
-			})
+					return r
+				})
+			}
 		})
 	)
 })

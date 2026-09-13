@@ -83,12 +83,6 @@ export default async ({ html }) => {
 				html.start.show()
 				html.stop.hide()
 			},
-			swapAudio: () => {
-				Stream.swapAudio()
-			},
-			swapVideo: () => {
-				Stream.swapVideo()
-			},
 			sendMessage: () => {
 				const message = html.message.value
 				console.log(message)

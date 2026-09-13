@@ -155,7 +155,6 @@
         "CanvasGame": "readonly",
         "CardDb": "readonly",
         "CenterPosition": "readonly",
-        "ChineseCharacters": "readonly",
         "ClientToken": "readonly",
         "CodeEditor": "readonly",
         "Collision": "readonly",
