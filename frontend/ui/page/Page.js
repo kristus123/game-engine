@@ -7,7 +7,7 @@ export class Page {
 	static init(name, page) {
 		this.pages.assertKeyNotPresent(name)
 
-		page.setAttribute("page-name", name) // is this needed?
+		page.setAttribute("page-name", name)
 
 		this.pages[name] = page
 

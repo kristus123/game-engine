@@ -8,22 +8,22 @@ export function InjectAttributeLogicToHtml(child, methods, setState) {
 		const value = attribute.value
 
 		switch (name) {
-			case "on-click-go-page": {
+			case "on-click-go-page" {
 				child.listen("click", () => {
 					Page.go(value)
 				})
 			}
-			case "on-click": {
+			case "on-click" {
 				child.listen("click", () => {
 					methods[value]?.()
 				})
 			}
-			case "on-click-set-state": {
+			case "on-click-set-state" {
 				child.listen("click", () => {
 					setState(value)
 				})
 			}
-			case "on-enter": {
+			case "on-enter" {
 				child.onEnter(() => {
 					methods[value]?.()
 				})

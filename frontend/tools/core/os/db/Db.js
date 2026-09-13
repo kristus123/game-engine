@@ -28,8 +28,6 @@ export async function Db(dbName) {
 		}
 
 		async update(o, callback) { // no-null-check
-			console.log(o)
-			console.log("update from db.js called")
 			return SimpleAwait(t("readwrite").objectStore(dbName).put(o), callback)
 		}
 

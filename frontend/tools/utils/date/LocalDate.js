@@ -64,8 +64,9 @@ export class LocalDate {
 	}
 
 	isDue() {
-		const d = LocalDate.now()
-		return this.toDate() <= d.toDate()
+		const today = LocalDate.now().toDate()
+
+		return today => this.toDate()
 	}
 
 	static now() {

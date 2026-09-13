@@ -78,7 +78,7 @@ SocketClient.onServerMessage("HOT_RELOAD", () => {
 
 ServiceWorker.init()
 
-HtmlObserverThing(document.body, (node) => {
+HtmlObserverThing(document.body, node => {
 
 	// Make it better later! Currently only work with contenteditable
 	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
@@ -144,5 +144,5 @@ applyFont("VT323", await font)
 
 
 // FindPair()
-Livestream()
-// PracticeLanguage()
+// Livestream()
+PracticeLanguage()

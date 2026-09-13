@@ -14,7 +14,8 @@ export default async ({ html, setState }) => {
 		setState("loading")
 
 		const cardsToPractice = (await cardDb.all())
-			.filter(c => !alreadyPracticed.contains(c._dbKey))
+			.filter(c => alreadyPracticed.missing(c._dbKey))
+			.filter(c => LocalDate(c.nextPracticeDate).isDue())
 
 		if (cardsToPractice) {
 			card = cardsToPractice.random()
@@ -29,18 +30,10 @@ export default async ({ html, setState }) => {
 	}
 
 	return {
-		state: () => {
+		state: async () => {
 			return loadNewCard() // kinda hacky but ok for now
 		},
 		methods: {
-			practiceMore: async () => {
-
-				for (const c of await cardDb.all()) {
-					alreadyPracticed.clear()
-				}
-
-				loadNewCard()
-			},
 			playFront: async () => {
 				Sound.playBlob(card.front)
 			},
@@ -49,11 +42,17 @@ export default async ({ html, setState }) => {
 			},
 			easy: async () => {
 				card.score += 1
-				card.nextPracticeDate = LocalDate.now().plusDays(1).toString()
-				await cardDb.update(card)
-				console.log("updated card")
 
-				alreadyPracticed.add(card._dbKey)
+				card.nextPracticeDate = LocalDate.now()
+					.plusDays(card.score)
+					.toString()
+
+				await cardDb.update(card)
+
+				if (card.score > 0) {
+					alreadyPracticed.add(card._dbKey)
+				}
+
 				await loadNewCard()
 			},
 			hard: async () => {
@@ -62,6 +61,17 @@ export default async ({ html, setState }) => {
 				await cardDb.update(card)
 
 				await loadNewCard()
+			},
+			practiceMore: async () => {
+
+				alreadyPracticed.clear()
+
+				for (const c of await cardDb.all()) {
+					c.nextPracticeDate = LocalDate.now().toString()
+					cardDb.update(c)
+				}
+
+				loadNewCard()
 			},
 		},
 	}
