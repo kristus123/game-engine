@@ -1,13 +1,14 @@
 export class SwappableMediaStream {
 
 	static video = null
-	static mediaStream = null
+	static stream = null
 
 	static audioContext = null
 	static audioOutput = null
 
 	static audioSource = null
-	static currentStream = null
+	static audioStream = null
+	static videoStream = null
 
 	static {
 		const v = document.createElement("video")
@@ -17,11 +18,7 @@ export class SwappableMediaStream {
 		v.playsInline = true
 		this.video = v
 
-		const canvas = document.createElement("canvas")
-		canvas.width = 1280
-		canvas.height = 720
-		const videoOutput = canvas.captureStream(30)
-		const ctx = canvas.getContext("2d")
+		const { ctx, canvas, canvasStream } = Canvas(1280, 720)
 
 		RequestAnimationFrameLoop(() => {
 			if (this.video.readyState >= 2) {
@@ -32,49 +29,31 @@ export class SwappableMediaStream {
 		this.audioContext = new AudioContext()
 		this.audioOutput = this.audioContext.createMediaStreamDestination()
 
-		this.mediaStream = new MediaStream([ // pass this into mediaRecorder
-			...videoOutput.getVideoTracks(),
-			...this.audioOutput.stream.getAudioTracks()
+		this.stream = new MediaStream([
+			...canvasStream.getVideoTracks(),
+			...this.audioOutput.stream.getAudioTracks(),
 		])
 	}
 
-	static async swapAudio(constraints) {
+	static async swapAudio(deviceId) {
 		await this.audioContext.resume()
 
-		const stream = await navigator.mediaDevices.getUserMedia({
-			audio: constraints,
-		})
+		const newMic = await MediaDevices.audio(deviceId)
 
 		this.audioSource?.disconnect()
-		this.audioSource = this.audioContext.createMediaStreamSource(stream)
+		this.audioStream?.getTracks().forEach(track => track.stop())
+
+		this.audioSource = this.audioContext.createMediaStreamSource(newMic)
 		this.audioSource.connect(this.audioOutput)
-
-		this.currentStream?.getAudioTracks().forEach(track => track.stop())
-
-		this.currentStream = new MediaStream([
-			...this.currentStream?.getVideoTracks() ?? [],
-			...stream.getAudioTracks(),
-		])
-
-		return stream
+		this.audioStream = newMic
 	}
 
-	static async swapVideo(constraints) {
-		const stream = await navigator.mediaDevices.getUserMedia({
-			video: constraints,
-		})
+	static async swapVideo(deviceId) {
+		const newCam = await MediaDevices.video(deviceId)
 
-		this.video.srcObject = stream
+		this.video.srcObject = newCam
+		this.videoStream?.getTracks().forEach(track => track.stop())
 
-		this.currentStream?.getVideoTracks().forEach(track => track.stop())
-
-		this.currentStream = new MediaStream([
-			...this.currentStream?.getAudioTracks() ?? [],
-			...stream.getVideoTracks(),
-		])
-
-		return stream
+		this.videoStream = newCam
 	}
-
-
 }

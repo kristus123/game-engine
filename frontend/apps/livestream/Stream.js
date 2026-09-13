@@ -29,12 +29,12 @@ export class Stream {
 		return BetterMediaRecorder.video
 	}
 
-	static async swapAudio() {
-		await BetterMediaRecorder.swapAudio()
+	static async swapAudio(deviceId) {
+		await BetterMediaRecorder.swapAudio(deviceId)
 	}
 
-	static async swapVideo() {
-		await BetterMediaRecorder.swapVideo()
+	static async swapVideo(deviceId) {
+		await BetterMediaRecorder.swapVideo(deviceId)
 	}
 
 	static async stop() {
@@ -44,4 +44,5 @@ export class Stream {
 
 		await BetterMediaRecorder.stop()
 	}
+
 }

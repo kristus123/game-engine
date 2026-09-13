@@ -1,13 +1,8 @@
-let o = null
-
 export function Toast(text) { // no-null-check
-	o ??= Dom.add(`
+	const o = Dom.add(`
 		<overlay>
+			<p class="bgWhite">${text}</p>
 		</overlay>
-	`.toHtml())
-
-	o.add(`
-		<p class="bgWhite">${text}</p>
 	`.toHtml())
 
 	setTimeout(() => {

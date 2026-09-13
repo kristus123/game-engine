@@ -1,5 +1,7 @@
 export default async ({ html }) => {
 
+	Permission.request()
+
 	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 		console.log(data)
 		html.chatHistory.add(H.create("chat-line", {
@@ -33,8 +35,20 @@ export default async ({ html }) => {
 			test: "wow",
 		},
 		methods: {
+			openMicSettings: async () => {
+				html.micSettings.clearChildren()
+				html.micSettings.show()
+
+				for (const m of await Mic.all()) {
+					console.log(m)
+					html.micSettings.add(H.button(m.label, () => {
+						Stream.swapAudio(m.deviceId)
+					}))
+				}
+			},
 			startStream: async () => {
-				await Permission.requestAll()
+				html.waiting.content = "awaiting permission"
+				await Permission.request()
 				html.waiting.content = ""
 
 				try {

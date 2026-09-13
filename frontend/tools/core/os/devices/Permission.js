@@ -2,13 +2,18 @@
 
 export class Permission {
 
-	static async requestAll({ ok, error } = {}) { // no-null-check
+	static granted = false
+
+	static async request({ ok, error } = {}) { // no-null-check
+		Assert.false(this.granted)
+
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: true,
 				video: true,
 			})
 			stream.getTracks().forEach(t => t.stop())
+			this.granted = true
 			ok?.()
 		}
 		catch (e) {

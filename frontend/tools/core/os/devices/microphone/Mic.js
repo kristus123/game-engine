@@ -4,35 +4,33 @@ export class Mic {
 	static recorder = null
 	static stream = null
 
-	static granted = false
-
 	static state = "idle" // idle, recording
 	static mimeType = "audio/webm;codecs=opus"
 	static audioBitsPerSecond = 64_000
 
 	static get recording() {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		return this.state == "recording"
 	}
 
 	static get idle() {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		return this.state == "idle"
 	}
 
 	static get deviceId() {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		// undefined needs to be used instead of null because of getUserMedia api
 		return localStorage.getItem("mic_deviceId") ?? undefined
 	}
 
 	static set deviceId(m) {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		localStorage.setItem("mic_deviceId", m)
 	}
 
 	static async createStream() {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		return await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
@@ -51,7 +49,7 @@ export class Mic {
 	}
 
 	static async routeTo(track) {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 
 		try {
 			const stream = await this.createStream()
@@ -65,7 +63,7 @@ export class Mic {
 	}
 
 	static async start(onStart = () => {}) {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 
 		if (this.recording) {
 			throw new Error("already recording")
@@ -93,7 +91,7 @@ export class Mic {
 	}
 
 	static stop(onStop) {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 		Assert.true(this.recording)
 		Assert.method(onStop)
 
@@ -116,25 +114,8 @@ export class Mic {
 		this.recorder.stop()
 	}
 
-	static async request({ ok, error } = {}) {
-		Assert.false(this.granted)
-
-		try {
-			const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-			stream.getTracks().forEach(track => track.stop())
-
-			this.granted = true
-			ok()
-		}
-		catch (e) {
-			console.error("Mic denied:", e)
-			this.granted = false
-			error(e)
-		}
-	}
-
 	static async all() {
-		Assert.true(this.granted)
+		Assert.true(Permission.granted)
 
 		const devices = await navigator.mediaDevices.enumerateDevices()
 		return devices.filter(device => device.kind == "audioinput")
