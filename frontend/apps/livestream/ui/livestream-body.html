@@ -6,7 +6,7 @@
 	<button id="stop" float-bot-left hidden on-click="stopStream">Stop livestream</button>
 
 	<button float-top-right on-click="openMicSettings">mic set</button>
-	<button float-top-left on-click="openCamSettings">video set</button>
+	<button float-top-left on-click="selectNextCam">video set</button>
 
 	<button float-bot-right on-click-show-id="chat" id="open">open chat</button>
 </overlay>
@@ -16,9 +16,4 @@
 <overlay id="micSettings" hidden class="bgWhite" center-content>
 	<h1>mic</h1>
 	<button on-click-hide-id="micSettings">close</button>
-</overlay>
-
-<overlay id="camSettings" hidden class="bgWhite" center-content>
-	<h1>cam</h1>
-	<button on-click-hide-id="camSettings">close</button>
 </overlay>
