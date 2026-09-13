@@ -40,9 +40,20 @@ export default async ({ html }) => {
 				html.micSettings.show()
 
 				for (const m of await Mic.all()) {
-					console.log(m)
 					html.micSettings.add(H.button(m.label, () => {
 						Stream.swapAudio(m.deviceId)
+						html.micSettings.hide()
+					}))
+				}
+			},
+			openCamSettings: async () => {
+				html.camSettings.clearChildren()
+				html.camSettings.show()
+
+				for (const c of await Cam.all()) {
+					html.camSettings.add(H.button(c.label, () => {
+						Stream.swapVideo(c.deviceId)
+						html.camSettings.hide()
 					}))
 				}
 			},
