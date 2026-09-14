@@ -47,15 +47,6 @@ export function Enhance_js_Array() {
 		return this[0]
 	})
 
-	Enhance(Array.prototype, "next", function (current) {
-		const i = this.indexOf(current)
-		if (i == -1 || i == this.length - 1) {
-			return null
-		}
-
-		return this[i + 1]
-	})
-
 	Enhance(Array.prototype, "retainMax", function (maxEntries) {
 		if (this.length > maxEntries) {
 			this.splice(0, this.length - maxEntries)
@@ -93,13 +84,13 @@ export function Enhance_js_Array() {
 	})
 
 
-	Getter(Array.prototype, "empty", function () { // make into a getter
+	Getter(Array.prototype, "empty", function () {
 		return this.length == 0
 	})
 
 
 
-	Getter(Array.prototype, "notEmpty", function () { // make into a getter
+	Getter(Array.prototype, "notEmpty", function () {
 		return !this.empty()
 	})
 
@@ -108,18 +99,12 @@ export function Enhance_js_Array() {
 	})
 
 
-	Enhance(Array.prototype, "lastIndex", function (index) {
-		return index == this.length - 1
-	})
 
 	Getter(Array.prototype, "last", function () {
 		Assert.notEmpty(this)
 		return this.at(-1)
 	})
 
-	Enhance(Array.prototype, "validIndex", function (index) {
-		return index >= 0 && index < this.length
-	})
 
 
 	// array.includes already exists
@@ -195,5 +180,45 @@ export function Enhance_js_Array() {
 		}
 	})
 
+	Enhance(Array.prototype, "isLastIndex", function (index) {
+		return index == this.length - 1
+	})
 
+	Enhance(Array.prototype, "validIndex", function (index) {
+		return index >= 0 && index < this.length
+	})
+
+	Getter(Array.prototype, "nextIndex", function () {
+		this._currentIndex ??= -1
+
+		if (this.empty) {
+			throw new Error("Cannot get next index of an empty array")
+		}
+
+		if (this._currentIndex == this.length - 1) {
+			return null
+		}
+
+		return ++this._currentIndex
+	})
+
+	Getter(Array.prototype, "nextElement", function () {
+		return this[this.nextIndex]
+	})
+
+	Getter(Array.prototype, "nextIndexCyclic", function () {
+		this._currentIndex ??= -1
+
+		if (this.empty) {
+			throw new Error("Cannot get next index of an empty array")
+		}
+
+		this._currentIndex = (this._currentIndex + 1) % this.length
+
+		return this._currentIndex
+	})
+
+	Getter(Array.prototype, "nextElementCyclic", function () {
+		return this[this.nextIndexCyclic]
+	})
 }

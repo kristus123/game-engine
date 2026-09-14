@@ -6,7 +6,8 @@ export default async ({ html }) => {
 		for (const [i, line] of text.split("\n").entries()) {
 			html.lines.add(H.create("code-line", {
 				slots: {
-					line: i+1, text: line,
+					line: i+1,
+					text: line,
 				},
 			}))
 		}

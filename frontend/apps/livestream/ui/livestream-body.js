@@ -30,8 +30,6 @@ export default async ({ html }) => {
 		html.start.show()
 	}
 
-	let currentCamIndex = -1
-
 	return {
 		slots: {
 			test: "wow",
@@ -50,13 +48,7 @@ export default async ({ html }) => {
 			},
 			selectNextCam: async () => {
 				const cams = await Cam.all()
-				if (cams.empty) {
-					return
-				}
-
-				currentCamIndex = (currentCamIndex + 1) % cams.length
-
-				await Stream.swapVideo(cams[currentCamIndex].deviceId)
+				await Stream.swapVideo(cams.nextElementCyclic.deviceId)
 			},
 			startStream: async () => {
 				html.waiting.content = "awaiting permission"
