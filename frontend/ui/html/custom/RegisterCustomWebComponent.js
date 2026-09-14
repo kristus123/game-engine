@@ -35,10 +35,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				this._connected = true
 			}
 
-
-
 			const content = template.content.cloneNode(true)
-
 
 			const slots = {}
 			for (const s of content.querySelectorAll("slot")) {
@@ -111,7 +108,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					throw new Error("unuspported state value")
 				}
 			}
-
 
 		}
 	})

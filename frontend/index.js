@@ -1,72 +1,4 @@
-for (const type of [
-	"log",
-	"warn",
-	"error",
-	"info",
-	"debug",
-	"trace",
-	"dir",
-	"table",
-	"group",
-	"groupCollapsed",
-	"groupEnd",
-	"assert",
-]) {
-	const original = console[type]
-
-	console[type] = (...args) => {
-		original.apply(console, args)
-		Log(args)
-	}
-}
-
-window.addEventListener("error", e => {
-	console.log("ERROR:", e.message, e.filename, e.lineno, e.colno)
-})
-
-window.addEventListener("unhandledrejection", e => {
-	console.log("UNHANDLED PROMISE:", e.reason)
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function loadCss(path) {
-	return new Promise((resolve, reject) => {
-		const link = document.createElement("link")
-
-		link.rel = "stylesheet"
-		link.href = path
-
-		link.onload = () => {
-			console.log("css scucess")
-			resolve()
-		}
-		link.onerror = () => {
-			console.error("css error")
-			reject()
-		}
-
-		document.head.appendChild(link)
-	})
-}
-
-document.addEventListener("contextmenu", e => e.preventDefault())
+Log.sendConsoleToServer()
 
 SocketClient.connect(() => {
 })
@@ -77,75 +9,21 @@ SocketClient.onServerMessage("HOT_RELOAD", () => {
 })
 
 ServiceWorker.init()
+document.addEventListener("contextmenu", e => e.preventDefault())
 
-HtmlObserverThing(document.body, node => {
-
-	if (node.hasAttribute("contenteditable")) {
-		node.spellcheck = false
-	}
-
-	// Make it better later! Currently only work with contenteditable
-	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
-		node.addEventListener("keydown", (e) => {
-			if (e.key == "Enter") {
-	 		   e.preventDefault()
-	 		}
-		})
-	}
-
-	if (node.hasAttribute("on-click-hide")) {
-		node.addEventListener("click", () => {
-			node.hide()
-		})
-	}
-
-	if (node.hasAttribute("on-click-show")) {
-		node.addEventListener("click", () => {
-			node.show()
-		})
-	}
-
-	const onClickShowId = node.getAttribute("on-click-show-id")
-	if (onClickShowId) {
-		node.addEventListener("click", () => {
-			const e = Assert.value(document.getElementById(onClickShowId))
-			e.show()
-		})
-	}
-
-	const onClickHideId = node.getAttribute("on-click-hide-id")
-	if (onClickHideId) {
-		node.addEventListener("click", () => {
-			const e = Assert.value(document.getElementById(onClickHideId))
-			e.hide()
-		})
-	}
-})
-
-// await ClientToken.init()
-
-async function loadFont(name, url, element = document.documentElement) {
-	const font = new FontFace(name, `url(${url})`)
-	await font.load()
-	document.fonts.add(font)
-	return font
-}
-
-function applyFont(name, font, element = document.documentElement) {
-	element.style.fontFamily = name
-}
-
-const font = loadFont("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2")
+InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
-	Promise.all(AssetPaths.htmlComponent.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))),
-	font,
-	loadCss("/swag.css"),
+	// ClientToken.init(),
+	Promise.all(AssetPaths.htmlComponent
+		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
+	),
+	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
+	Css.use("/swag.css"),
 ])
 
 document.getElementById("initialSpin").remove()
-applyFont("VT323", await font)
-
+Font.use("VT323")
 
 // FindPair()
 Livestream()
