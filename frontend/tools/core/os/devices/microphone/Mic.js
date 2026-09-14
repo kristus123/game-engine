@@ -90,28 +90,32 @@ export class Mic {
 		this.recorder.start()
 	}
 
-	static stop(onStop) {
+	static async stop(onStop = () => {}) {
 		Assert.true(Permission.granted)
 		Assert.true(this.recording)
-		Assert.method(onStop)
 
-		this.recorder.onstop = () => {
+		return new Promise(async (resolve, reject) => {
+			Assert.method(onStop)
 
-			this.stream.getTracks().forEach(t => t.stop())
+			this.recorder.onstop = () => {
 
-			const blob = new Blob(this.chunks, {
-				type: this.mimeType,
-			})
+				this.stream.getTracks().forEach(t => t.stop())
 
-			this.chunks = []
-			this.recorder = null
-			this.stream = null
-			this.state = "idle"
+				const blob = new Blob(this.chunks, {
+					type: this.mimeType,
+				})
 
-			return onStop(blob)
-		}
+				this.chunks = []
+				this.recorder = null
+				this.stream = null
+				this.state = "idle"
 
-		this.recorder.stop()
+				onStop(blob)
+				resolve(blob)
+			}
+
+			this.recorder.stop()
+		})
 	}
 
 	static async all() {

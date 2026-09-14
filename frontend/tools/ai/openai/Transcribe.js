@@ -1,4 +1,14 @@
-export async function Transcribe(wav) {
+export async function Transcribe(blob) {
+
+	if (blob instanceof Blob && blob.type == "audio/wav") {
+		// already a wav
+	}
+	else if (blob instanceof Blob) {
+		blob = blob.toWav()
+	}
+	else {
+		throw new Error("unsupported arg")
+	}
 
 	const form = new FormData()
 	form.append("file", blob, "audio.wav")

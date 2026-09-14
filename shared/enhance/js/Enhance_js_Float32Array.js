@@ -41,24 +41,4 @@ export function Enhance_js_Float32Array() {
 		return new Blob([buffer], { type: "audio/wav" })
 	})
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

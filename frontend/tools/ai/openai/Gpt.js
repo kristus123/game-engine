@@ -17,11 +17,8 @@ export async function Gpt(text) {
 		throw new Error("Chat request failed: " + err)
 	}
 
-	const data = await res.json()
-
-	console.log(data)
-
-	const reply = data.output[0].content.find((c) => c.type == "output_text").text
-
-	return reply
+	return (await res.json()).output[0]
+		.content
+		.find((c) => c.type == "output_text")
+		.text
 }
