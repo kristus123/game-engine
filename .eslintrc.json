@@ -402,6 +402,7 @@
         "World": "readonly",
         "WorldPosition": "readonly",
         "add-card": "readonly",
+        "code-editor": "readonly",
         "email": "readonly",
         "fileDbEndpoint": "readonly",
         "index": "readonly",
