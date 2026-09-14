@@ -1,4 +1,4 @@
-export default ({ html }) => {
+export default async ({ html }) => {
 
 	function renderCode(text) {
 		html.lines.clearChildren()
@@ -27,7 +27,7 @@ export default ({ html }) => {
 
 	return {
 		methods: {
-			micButton: () => {
+			micButton: async () => {
 				if (Mic.idle) {
 					Mic.start()
 					html.mic.content = "Stop"
