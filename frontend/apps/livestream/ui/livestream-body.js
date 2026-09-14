@@ -48,7 +48,9 @@ export default async ({ html }) => {
 			},
 			selectNextCam: async () => {
 				const cams = await Cam.all()
-				await Stream.swapVideo(cams.nextElementCyclic.deviceId)
+				const x = cams.nextElementCyclic
+				console.log(x) // The reason it's not working is because it is a new array every time. So you just need to fix that somehow
+				await Stream.swapVideo(x.deviceId)
 			},
 			startStream: async () => {
 				html.waiting.content = "awaiting permission"
