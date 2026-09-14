@@ -1,1 +1,1 @@
-export const OpenAiToken = "x"
+export const OpenAiToken = "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"

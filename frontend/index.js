@@ -80,6 +80,10 @@ ServiceWorker.init()
 
 HtmlObserverThing(document.body, node => {
 
+	if (node.hasAttribute("contenteditable")) {
+		node.spellcheck = false
+	}
+
 	// Make it better later! Currently only work with contenteditable
 	if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
 		node.addEventListener("keydown", (e) => {
@@ -145,4 +149,5 @@ applyFont("VT323", await font)
 
 // FindPair()
 // Livestream()
-PracticeLanguage()
+// PracticeLanguage()
+CodeEditor()

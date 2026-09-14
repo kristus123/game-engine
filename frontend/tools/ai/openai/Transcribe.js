@@ -1,5 +1,7 @@
 export async function Transcribe(blob) {
+	blob = await blob
 
+	console.log(blob)
 	if (blob instanceof Blob && blob.type == "audio/wav") {
 		// already a wav
 	}

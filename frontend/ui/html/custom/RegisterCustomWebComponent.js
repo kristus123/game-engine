@@ -54,7 +54,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			})
 
 			const setState = newState => {
-				console.log("pupdating state to " + newState)
 				Assert.value(newState)
 
 				this.walk(c => {
@@ -69,7 +68,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 						}
 					}
 				})
-				console.log("updating state to : " + newState)
 
 				return newState
 			}
@@ -80,7 +78,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				InjectAttributeLogicToHtml(child, methods, setState)
 			})
 
-			console.clear()
 			for (const actualSlot of this.querySelectorAll("slot")) {
 				if (slots[actualSlot.getAttribute("name")]) {
 					const s = slots[actualSlot.getAttribute("name")]

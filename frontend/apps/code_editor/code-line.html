@@ -1,9 +1,9 @@
 <div class="code-line" style="display: flex">
-	<div style="flex: 0 0 20px; background: #f3f3f3; color: #858585">
+	<div style="flex: 0 0 20px; background: #f3f3f3; color: #858585; min-width: 30px">
 		<slot name="line"></slot>
 	</div>
 
-	<div id="code" style="flex: 1" contenteditable prevent-default>
+	<div id="code" style="flex: 1; margin-left: 10px" contenteditable prevent-default>
 		<slot name="text"></slot>
 	</div>
 </div>
