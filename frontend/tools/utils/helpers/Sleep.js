@@ -5,5 +5,3 @@ export function Sleep(milliseconds) {
 		currentDate = Date.now()
 	} while (currentDate - date < milliseconds)
 }
-
-
