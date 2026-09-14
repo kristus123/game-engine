@@ -30,6 +30,8 @@ export default async ({ html }) => {
 		html.start.show()
 	}
 
+	const cams = await Cam.all()
+
 	return {
 		slots: {
 			test: "wow",
@@ -47,10 +49,7 @@ export default async ({ html }) => {
 				}
 			},
 			selectNextCam: async () => {
-				const cams = await Cam.all()
-				const x = cams.nextElementCyclic
-				console.log(x) // The reason it's not working is because it is a new array every time. So you just need to fix that somehow
-				await Stream.swapVideo(x.deviceId)
+				await Stream.swapVideo(cams.nextElementCyclic().deviceId)
 			},
 			startStream: async () => {
 				html.waiting.content = "awaiting permission"

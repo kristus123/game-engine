@@ -188,8 +188,8 @@ export function Enhance_js_Array() {
 		return index >= 0 && index < this.length
 	})
 
-	Getter(Array.prototype, "nextIndex", function () {
-		this._currentIndex ??= -1
+	Enhance(Array.prototype, "nextIndex", function (index) {
+		this._currentIndex ??= index ?? -1
 
 		if (this.empty) {
 			throw new Error("Cannot get next index of an empty array")
@@ -202,12 +202,12 @@ export function Enhance_js_Array() {
 		return ++this._currentIndex
 	})
 
-	Getter(Array.prototype, "nextElement", function () {
-		return this[this.nextIndex]
+	Enhance(Array.prototype, "nextElement", function (index) {
+		return this[this.nextIndex(index)]
 	})
 
-	Getter(Array.prototype, "nextIndexCyclic", function () {
-		this._currentIndex ??= -1
+	Enhance(Array.prototype, "nextIndexCyclic", function (index) {
+		this._currentIndex ??= index ?? -1
 
 		if (this.empty) {
 			throw new Error("Cannot get next index of an empty array")
@@ -218,7 +218,7 @@ export function Enhance_js_Array() {
 		return this._currentIndex
 	})
 
-	Getter(Array.prototype, "nextElementCyclic", function () {
-		return this[this.nextIndexCyclic]
+	Enhance(Array.prototype, "nextElementCyclic", function (index) {
+		return this[this.nextIndexCyclic(index)]
 	})
 }
