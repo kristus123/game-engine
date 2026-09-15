@@ -7,8 +7,6 @@ export class SwappableMediaStream {
 	static audioOutput = null
 
 	static audioSource = null
-	static audioStream = null
-	static videoStream = null
 
 	static {
 		const v = document.createElement("video")
@@ -21,7 +19,7 @@ export class SwappableMediaStream {
 		const { ctx, canvas, canvasStream } = Canvas(1280, 720)
 
 		RequestAnimationFrameLoop(() => {
-			if (this.video.readyState >= 2) {
+			if (this.video.readyState >= 2) { // has enough data to display current frame
 				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
 			}
 		})
@@ -41,19 +39,15 @@ export class SwappableMediaStream {
 		const newMic = await MediaDevices.audio(deviceId)
 
 		this.audioSource?.disconnect()
-		this.audioStream?.getTracks().forEach(track => track.stop())
+		this.audioSource?.mediaStream.getTracks().forEach(t => t.stop())
 
 		this.audioSource = this.audioContext.createMediaStreamSource(newMic)
 		this.audioSource.connect(this.audioOutput)
-		this.audioStream = newMic
 	}
 
 	static async swapVideo(deviceId) {
-		const newCam = await MediaDevices.video(deviceId)
+		this.video.srcObject?.getTracks().forEach(t => t.stop())
 
-		this.video.srcObject = newCam
-		this.videoStream?.getTracks().forEach(track => track.stop())
-
-		this.videoStream = newCam
+		this.video.srcObject = await MediaDevices.video(deviceId)
 	}
 }
