@@ -44,6 +44,7 @@ export class SimpleSocketServer {
 	}
 
 	sendToClient(client, data) {
+		Assert.value(data.action)
 		client.send(JSON.stringify(data))
 	}
 

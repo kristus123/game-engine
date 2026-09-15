@@ -1,11 +1,23 @@
 Log.sendConsoleToServer()
 
 SocketClient.connect(() => {
+	SocketClient.sendToServer("BACKEND_VERSION", {})
 })
+
+let currentVersion = 0;
 
 SocketClient.onServerMessage("HOT_RELOAD", () => {
 	Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 	location.reload()
+})
+
+SocketClient.onServerMessage("BACKEND_VERSION", data => {
+	if (currentVersion < data.version) {
+		currentVersion = data.version
+
+		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
+		location.reload()
+	}
 })
 
 ServiceWorker.init()
