@@ -23,6 +23,10 @@ export class HotReloader {
     	this.timeout = null
     	this.reloadFrontendId = 0
     	this.reloadBackendId = 0
+
+		SocketServer.on("GET_BACKEND_VERSION", (client, clientId, data) => {
+			SocketServer.sendToClient(client, {version: this.reloadBackendId})
+		})
 	}
 
 	static generateDist(callback = () => {}) {
