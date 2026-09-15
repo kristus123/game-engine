@@ -70,7 +70,7 @@ export default async ({ html }) => {
 			},
 			stopStream: async () => {
 				html.videoOverlay.clearChildren()
-				Stream.stop()
+				await Stream.stop()
 
 				html.start.show()
 				html.stop.hide()
