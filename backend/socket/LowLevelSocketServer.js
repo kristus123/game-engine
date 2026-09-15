@@ -12,8 +12,6 @@ export class LowLevelSocketServer {
 		const webSocketServer = new WebSocketServer({ server: server })
 
 		webSocketServer.on("connection", (client, request) => {
-			console.log("hahah")
-
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
 			const clientId = urlParameters.get("clientId")
 			this.onConnection(client, clientId)
@@ -27,7 +25,7 @@ export class LowLevelSocketServer {
 					}
 				}
 				catch (e) {
-					throw new Error(e)
+					throw e
 				}
 			})
 

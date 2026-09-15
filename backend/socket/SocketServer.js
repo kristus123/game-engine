@@ -1,4 +1,4 @@
-export const SocketServer = new SimpleSocketServer()
+export const SocketServer = new SimpleSocketServer() // Okay, we should fix this here. This is wonky
 
 SocketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
@@ -17,7 +17,7 @@ SocketServer.onClose = (client, clientId) => {
 
 	SocketServer.sendToEveryone({
 		action: "REMOVE_CLIENT",
-		clientId: clientId
+		clientId: clientId,
 	})
 }
 

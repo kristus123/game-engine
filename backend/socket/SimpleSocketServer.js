@@ -18,7 +18,6 @@ export class SimpleSocketServer {
 				console.log("triggered onConnection")
 			},
 			onClose: (client, clientId) => {
-				// use enhanced methods instead. Enahnce is now moved to shared/.
 				List.remove(this.allClients, client) // todo don't use List.remove
 				List.remove(this.allClientIds, clientId) // todo don't use List.remove
 
