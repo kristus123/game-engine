@@ -1,7 +1,7 @@
 Log.sendConsoleToServer()
 
 SocketClient.connect(() => {
-	SocketClient.sendToServer("GET_BACKEND_VERSION", {})
+	SocketClient.sendToServer("BACKEND_VERSION", {})
 })
 
 let currentVersion = 0;

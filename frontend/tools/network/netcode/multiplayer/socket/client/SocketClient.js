@@ -50,6 +50,7 @@ export class SocketClient {
 
 		this.webSocket.onmessage = e => {
 			const data = JSON.parse(e.data)
+			console.log(data)
 			this.serverActionListener.trigger(data.action, data)
 		}
 	}

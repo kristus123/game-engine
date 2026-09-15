@@ -24,8 +24,11 @@ export class HotReloader {
     	this.reloadFrontendId = 0
     	this.reloadBackendId = 0
 
-		SocketServer.on("GET_BACKEND_VERSION", (client, clientId, data) => {
-			SocketServer.sendToClient(client, {version: this.reloadBackendId})
+		SocketServer.on("BACKEND_VERSION", (client, clientId, data) => {
+			SocketServer.sendToClient(client, {
+				action: "BACKEND_VERSION",
+				version: this.reloadBackendId,
+			})
 		})
 	}
 
