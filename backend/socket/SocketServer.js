@@ -1,4 +1,4 @@
-export const SocketServer = new SimplifiedSocketServerAPI()
+export const SocketServer = new SimpleSocketServer()
 
 SocketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)

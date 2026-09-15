@@ -1,4 +1,4 @@
-export class SimplifiedSocketServerAPI {
+export class SimpleSocketServer {
 	constructor() {
 		this.allClients = []
 		this.allClientIds = []
