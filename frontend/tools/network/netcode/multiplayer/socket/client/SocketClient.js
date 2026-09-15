@@ -1,6 +1,8 @@
 export class SocketClient {
 
 	static {
+		this.webSocket = null
+
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
 
@@ -21,21 +23,47 @@ export class SocketClient {
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", data => {
 			this.clientActionListener.trigger(data.subAction, data)
 		})
+	}
 
-		LowLevelSocketClient.onMessage = data => {
+	static connect(onConnect) {
+		// WebSocket.CONNECTING // 0
+		// WebSocket.OPEN       // 1
+		// WebSocket.CLOSING    // 2
+		// WebSocket.CLOSED     // 3
+
+		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
+
+		this.webSocket.onopen = () => {
+			onConnect()
+			//Todo: this should not be triggered on every onOpen
+			// We should have one connect and one on initial connect
+			console.log("WebSocket connection opened")
+		}
+
+		this.webSocket.onclose = () => {
+			throw new Error("Socket connection lost")
+		}
+
+		this.webSocket.onerror = () => {
+			throw new Error("Failed to connect to socket server")
+		}
+
+		this.webSocket.onmessage = e => {
+			const data = JSON.parse(e.data)
 			this.serverActionListener.trigger(data.action, data)
 		}
 	}
 
-	static connect(onConnect) {
-		LowLevelSocketClient.connect(onConnect)
-	}
-
 	static sendToServer(action, data) {
-		LowLevelSocketClient.send(data.merge({
-			action: action,
-			originClientId: My.clientId
-		}))
+		if (this.webSocket?.readyState == WebSocket.OPEN) {
+			this.webSocket.send(JSON.stringify(data.merge({
+				action: action,
+				originClientId: My.clientId
+			})))
+		}
+		else {
+			throw new Error("Not allowed to call .send() if socket connection not open.")
+		}
 	}
 
 	static sendToClient(subAction, targetClientIds, data) {
@@ -66,3 +94,4 @@ export class SocketClient {
 		this.clientActionListener.listen(action, callback)
 	}
 }
+

@@ -1,6 +1,5 @@
 export default async ({ html }) => {
 
-	Permission.request()
 
 	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 		console.log(data)
@@ -30,6 +29,7 @@ export default async ({ html }) => {
 		html.start.show()
 	}
 
+	await Permission.request()
 	const cams = await Cam.all()
 
 	return {
@@ -53,7 +53,6 @@ export default async ({ html }) => {
 			},
 			startStream: async () => {
 				html.waiting.content = "awaiting permission"
-				await Permission.request()
 				html.waiting.content = ""
 
 				try {

@@ -3,8 +3,6 @@ export const SocketServer = new SimplifiedSocketServerAPI()
 SocketServer.onConnection = (client, clientId) => {
 	console.log(`${clientId} has connected`)
 
-	Test()
-
 	SocketServer.sendToEveryone({
 		action: "UPDATE_CLIENTS_LIST",
 		clientIds: SocketServer.allClientIds,
