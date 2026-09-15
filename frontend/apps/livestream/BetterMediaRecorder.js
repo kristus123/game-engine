@@ -28,7 +28,7 @@ export class BetterMediaRecorder {
 	}
 
 	static async stop() {
-		assert.value(this.mediaRecorder)
+		Assert.value(this.mediaRecorder)
 
 		await this.mediaRecorder.stop()
 		this.mediaRecorder = null
