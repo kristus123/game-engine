@@ -1,10 +1,12 @@
 import { AllImports } from "#root/AllImports.js"
+
 const {
 	Files,
 	Paths,
 	PrepareExternalBundle,
 	ExportAseprite,
-	ServeDist
+	ServeDist,
+	ChildProcess,
 } = AllImports
 
 import { spawn } from "child_process"
@@ -98,6 +100,7 @@ export class HotReloader {
 	}
 
 	static async reloadBackend() {
+		this.backendProcess.restart()
     	console.log("Backend Reload Triggered")
 
     	if (HttpServer.activeServer) {
