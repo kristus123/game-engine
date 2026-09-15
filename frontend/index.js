@@ -1,6 +1,7 @@
 Log.sendConsoleToServer()
 
 SocketClient.connect(() => {
+	SocketClient.sendToServer("GET_BACKEND_VERSION", {})
 })
 
 let currentVersion = 0;
@@ -17,10 +18,6 @@ SocketClient.onServerMessage("BACKEND_VERSION", data => {
 		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 		location.reload()
 	}
-})
-
-LowLevelSocketClient.webSocket.addEventListener("open", () => {
-	SocketClient.sendToServer("GET_BACKEND_VERSION", {})
 })
 
 ServiceWorker.init()
