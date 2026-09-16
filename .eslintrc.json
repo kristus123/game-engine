@@ -351,6 +351,7 @@
         "Sleep": "readonly",
         "SmoothPosition": "readonly",
         "SocketClient": "readonly",
+        "SocketClients": "readonly",
         "SocketServer": "readonly",
         "Sound": "readonly",
         "SoundContext": "readonly",

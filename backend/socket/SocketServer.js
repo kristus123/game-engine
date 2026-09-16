@@ -3,42 +3,30 @@ import { WebSocketServer } from "ws"
 export class SocketServer {
 
 	static {
-		this.allClients = []
-		this.allClientIds = []
-
-		this.clientFrom = {}
-		this.clientIdFrom = {}
-
 		this.actions = {}
 
 		this.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
 			console.log(`Server Passing Message: ${JSON.stringify(data)}`)
 
-			const index = SocketServer.allClientIds.indexOf(data.targetClientId)
-			const targetClient = SocketServer.allClients[index]
+			const targetClient = SocketClients.fromId(data.targetClientId)
 
-			SocketServer.sendToClient(targetClient, data)
+			this.sendToClient(targetClient, data)
 		})
 	}
 
 	static start(server) {
 		new WebSocketServer({ server: server }).on("connection", (client, request) => {
-
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
-			const clientId = urlParameters.get("clientId")
+			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
 
-			this.allClients.push(client)
-			this.allClientIds.push(clientId)
-
-			this.clientFrom[clientId] = client
-			this.clientIdFrom[client] = clientId
+			SocketClients.add(client, clientId)
 
 			console.log("triggered onConnection")
 			console.log(`${clientId} has connected`)
 
-			this.sendToEveryone({ // in future we can use {}.diff(data) instead
+			this.sendToEveryone({
 				action: "UPDATE_CLIENTS_LIST",
-				clientIds: this.allClientIds,
+				clientIds: SocketClients.ids,
 				originClientId: clientId,
 			})
 
@@ -46,22 +34,21 @@ export class SocketServer {
 				data = JSON.parse(data)
 
 				if (this.actions[data.action]) {
-					this.actions[data.action](client, clientId, data) // todo turn args into {...}={} since usually you don't need all values
+					this.actions[data.action](client, clientId, data)
+				}
+				else {
+					throw new Error(data.action + " does not exist")
 				}
 			})
 
 			client.on("close", () => {
-				List.remove(this.allClients, client)
-				List.remove(this.allClientIds, clientId)
-
-				delete this.clientFrom[clientId]
-				delete this.clientIdFrom[client]
+				SocketClients.remove(client)
 
 				console.log(`${clientId} has disconnected`)
 
 				SfuServer.closeConnectionWithClient(clientId)
 
-				this.sendToEveryone({ // in future we can use {}.diff(data) instead
+				this.sendToEveryone({
 					action: "REMOVE_CLIENT",
 					clientId: clientId,
 				})
@@ -70,11 +57,16 @@ export class SocketServer {
 	}
 
 	static on(action, callback) {
-		this.actions[action] = callback
+		if (this.actions[action]) {
+			throw new Error("can't add duplicate action: " + action)
+		}
+		else {
+			this.actions[action] = callback
+		}
 	}
 
 	static sendToOthers(origin, data) {
-		for (const client of this.allClients) {
+		for (const client of SocketClients.all) {
 			if (client != origin) {
 				client.send(JSON.stringify(data))
 			}
@@ -82,7 +74,7 @@ export class SocketServer {
 	}
 
 	static sendToEveryone(data) {
-		for (const client of this.allClients) {
+		for (const client of SocketClients.all) {
 			client.send(JSON.stringify(data))
 		}
 	}
