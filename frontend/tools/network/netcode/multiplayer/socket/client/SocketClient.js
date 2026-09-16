@@ -23,6 +23,10 @@ export class SocketClient {
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", data => {
 			this.clientActionListener.trigger(data.subAction, data)
 		})
+
+		this.serverActionListener.listen("CLIENT_ID", data => {
+			console.log(data)
+		})
 	}
 
 	static connect(onConnect) {

@@ -6,11 +6,7 @@ export class SocketServer {
 		this.actions = {}
 
 		this.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
-			console.log(`Server Passing Message: ${JSON.stringify(data)}`)
-
-			const targetClient = SocketClients.fromId(data.targetClientId)
-
-			this.sendToClient(targetClient, data)
+			this.sendToClient(SocketClients.fromId(data.targetClientId), data)
 		})
 	}
 
@@ -20,13 +16,16 @@ export class SocketServer {
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
 
 			SocketClients.add(client, clientId)
+			this.sendToClient(client, {
+				action: "CLIENT_ID",
+				clientId: clientId,
+			})
 
-			console.log("triggered onConnection")
 			console.log(`${clientId} has connected`)
 
 			this.sendToEveryone({
 				action: "UPDATE_CLIENTS_LIST",
-				clientIds: SocketClients.ids,
+				clientIds: SocketClients.ids, // use x.diff(y) on frontend
 				originClientId: clientId,
 			})
 
@@ -49,7 +48,7 @@ export class SocketServer {
 				SfuServer.closeConnectionWithClient(clientId)
 
 				this.sendToEveryone({
-					action: "REMOVE_CLIENT",
+					action: "REMOVE_CLIENT", // send entire list instead and use x.diff(y)
 					clientId: clientId,
 				})
 			})
