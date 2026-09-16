@@ -49,4 +49,19 @@ export class SoundContext {
 		return this.context.state == "suspended"
 	}
 
+	static async routeMicrophoneTo(track) {
+		try {
+			const source = this.context.createMediaStreamSource(
+				await MediaDevices.audio(this.deviceId))
+
+			source.connect(track.input ?? track)
+			return source
+		}
+		catch (e) {
+			console.error("Error", e)
+			throw e
+		}
+	}
+
+
 }

@@ -10,10 +10,10 @@ export class SwappableMediaStream {
 
 	static {
 		const v = document.createElement("video")
-		v.srcObject = null
-		v.muted = true
-		v.autoplay = true
 		v.playsInline = true
+		v.srcObject = null
+		v.autoplay = true
+		v.muted = true
 		this.video = v
 
 		const { ctx, canvas, canvasStream } = Canvas(1280, 720)

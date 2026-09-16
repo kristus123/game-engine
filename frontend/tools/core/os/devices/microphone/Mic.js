@@ -1,121 +1,32 @@
 export class Mic {
 
-	static chunks = []
-	static recorder = null
-	static stream = null
-
-	static state = "idle" // idle, recording
-	static mimeType = "audio/webm;codecs=opus"
-	static audioBitsPerSecond = 64_000
-
 	static get recording() {
 		Assert.true(Permission.granted)
-		return this.state == "recording"
+		return _MicRecorder.state == "recording"
 	}
 
 	static get idle() {
 		Assert.true(Permission.granted)
-		return this.state == "idle"
+		return _MicRecorder.state == "idle"
 	}
 
 	static get deviceId() {
 		Assert.true(Permission.granted)
 		// undefined needs to be used instead of null because of getUserMedia api
-		return localStorage.getItem("mic_deviceId") ?? undefined
+		return Assert.value(localStorage.getItem("mic_deviceId"))
 	}
 
-	static set deviceId(m) {
+	static set deviceId(id) {
 		Assert.true(Permission.granted)
-		localStorage.setItem("mic_deviceId", m)
+		localStorage.setItem("mic_deviceId", id)
 	}
 
-	static async createStream() {
-		Assert.true(Permission.granted)
-		return await navigator.mediaDevices.getUserMedia({
-			audio: {
-				deviceId: {
-					// can be 'exact' or 'ideal' - ideal more safe
-					ideal: this.deviceId,
-				},
-				echoCancellation: false,
-				noiseSuppression: false,
-				autoGainControl: false,
-				channelCount: 1,
-				// sampleRate: 48000,   // optional - browser may ignore
-				// sampleSize: 16,      // optional - browser may ignore
-				// latency: 0.01        // optional - browser may ignore
-			},
-		})
+	static async startRecording(onStart = () => {}) {
+		return _MicRecorder.start(this.deviceId, onStart)
 	}
 
-	static async routeTo(track) {
-		Assert.true(Permission.granted)
-
-		try {
-			const stream = await this.createStream()
-			const source = SoundContext.context.createMediaStreamSource(stream)
-			source.connect(track.input ?? track)
-			return source
-		}
-		catch (e) {
-			console.error("Error accessing microphone:", e)
-		}
-	}
-
-	static async start(onStart = () => {}) {
-		Assert.true(Permission.granted)
-
-		if (this.recording) {
-			throw new Error("already recording")
-		}
-
-		this.stream = await this.createStream()
-		console.log(this.stream)
-
-		this.recorder = new MediaRecorder(this.stream, {
-			mimeType: this.mimeType,
-			audioBitsPerSecond: this.audioBitsPerSecond,
-		})
-
-		this.chunks = []
-		this.recorder.ondataavailable = e => {
-			this.chunks.push(e.data)
-		}
-
-		this.recorder.onstart = () => {
-			this.state = "recording"
-			onStart()
-		}
-
-		this.recorder.start()
-	}
-
-	static async stop(onStop = () => {}) {
-		Assert.true(Permission.granted)
-		Assert.true(this.recording)
-
-		return new Promise(async (resolve, reject) => {
-			Assert.method(onStop)
-
-			this.recorder.onstop = () => {
-
-				this.stream.getTracks().forEach(t => t.stop())
-
-				const blob = new Blob(this.chunks, {
-					type: this.mimeType,
-				})
-
-				this.chunks = []
-				this.recorder = null
-				this.stream = null
-				this.state = "idle"
-
-				onStop(blob)
-				resolve(blob)
-			}
-
-			this.recorder.stop()
-		})
+	static async stopRecording(onStop = () => {}) {
+		return _MicRecorder.stop(onstop)
 	}
 
 	static async all() {

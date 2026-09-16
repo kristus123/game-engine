@@ -401,6 +401,7 @@
         "WorkerFile": "readonly",
         "World": "readonly",
         "WorldPosition": "readonly",
+        "_MicRecorder": "readonly",
         "add-card": "readonly",
         "code-editor": "readonly",
         "email": "readonly",

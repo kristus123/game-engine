@@ -5,7 +5,7 @@ export class Cam {
 	static async enable() {
 		Assert.true(Permission.granted)
 
-		this.stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+		this.stream = await MediaDevices.audioAndVideo()
 	}
 
 	static disable() {
