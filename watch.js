@@ -1,7 +1,7 @@
-import { execSync } from "child_process"
 import { AllImports } from "#root/AllImports.js"
 
 const {
+	Swoo,
 	ChildProcess,
 	Files,
 	Paths,
@@ -14,13 +14,7 @@ const {
 	ServeDist,
 } = AllImports
 
-try {
-	execSync("./scripts/kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
-}
-catch (e) {
-	console.log(e)
-	console.log("failed to kill ports. most likely because this is a windows pc")
-}
+Swoo.killPorts()
 
 GenerateBackend("DEVELOPMENT")
 
@@ -29,26 +23,11 @@ AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(Paths.distFolder)
 
-// todo improve comment
-// Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
-// also, we should use Import.js
-const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
-const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
-
-let p = null
-
-export function _generateDist(onEnd) {
-	p?.kill()
-
-	p = new ChildProcess(process.execPath, {
-		args: ["dev/GenerateFrontend.js", "DEVELOPMENT"],
-		onExit: () => {
-			onEnd()
-		},
-	}).start()
-}
+const { StartServer } = await import("#root/transpiledBackend/StartServer.js") // todo: find better solution
+const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js") // todo: find better solution
 
 let idTimeout = null
+
 function triggerClientReload() {
 	if (idTimeout) {
 		clearTimeout(idTimeout)
@@ -66,7 +45,7 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 			await ExportAseprite(path)
 		}
 
-		_generateDist(() => {
+		Swoo.generateDist(() => {
 			triggerClientReload()
 		})
 	},
@@ -75,19 +54,19 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 			await ExportAseprite(path)
 		}
 
-		_generateDist(() => {
+		Swoo.generateDist(() => {
 			triggerClientReload()
 		})
 	},
 	onDelete: async (path) => {
-		_generateDist(() => {
+		Swoo.generateDist(() => {
 			triggerClientReload()
 		})
 	},
 })
 
 // initial build
-_generateDist(async () => {
+Swoo.generateDist(async () => {
 	await ExportAseprite()
 	PrepareExternalBundle()
 	ServeDist()
