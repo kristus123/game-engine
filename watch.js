@@ -23,8 +23,13 @@ AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(Paths.distFolder)
 
-const { Server } = await import("#root/transpiledBackend/Server.js") // todo: find better solution
-const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js") // todo: find better solution
+let backendId = 0
+
+const backendServerProcess = new ChildProcess(process.execPath, {
+	args: ["transpiledBackend/StartServer.js", backendId],
+	onExit: () => {
+	},
+})
 
 FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
@@ -34,6 +39,7 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 
 		Swoo.generateDist(() => {
 			Swoo.triggerClientReload()
+			backendServerProcess.restart()
 		})
 	},
 	onChange: async (path) => {
@@ -43,11 +49,13 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 
 		Swoo.generateDist(() => {
 			Swoo.triggerClientReload()
+			backendServerProcess.restart()
 		})
 	},
 	onDelete: async (path) => {
 		Swoo.generateDist(() => {
 			Swoo.triggerClientReload()
+			backendServerProcess.restart()
 		})
 	},
 })
@@ -59,5 +67,5 @@ Swoo.generateDist(async () => {
 	ServeDist()
 
 	// for now only run server once
-	Server.start()
+	backendServerProcess.start()
 })

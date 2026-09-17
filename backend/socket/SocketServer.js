@@ -10,12 +10,14 @@ export class SocketServer {
 		})
 	}
 
-	static start(server) {
+	static start(server, {onJoin, onLeave} = {}) { // todo add async await for this one
 		new WebSocketServer({ server: server }).on("connection", (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
 
 			SocketClients.add(client, clientId)
+			onJoin?.(clientId)
+
 			this.sendToClient(client, {
 				action: "CLIENT_ID",
 				clientId: clientId,
@@ -42,6 +44,7 @@ export class SocketServer {
 
 			client.on("close", () => {
 				SocketClients.remove(client)
+				onLeave?.(clientId)
 
 				console.log(`${clientId} has disconnected`)
 

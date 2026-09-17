@@ -1,14 +1,20 @@
 Log.sendConsoleToServer()
 
-SocketClient.connect(() => {
+
+let backendId = null
+SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
+	if (data.backendId > backendId) {
+		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
+		location.reload()
+	}
 })
 
-SocketClient.onServerMessage("HOT_RELOAD", () => {
-	Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
-	location.reload()
+SocketClient.connect(() => {
+	SocketClient.sendToServer("HOT_RELOAD_BACKEND_ID", {})
 })
 
 ServiceWorker.init()
+
 document.addEventListener("contextmenu", e => e.preventDefault())
 
 InjectGlobalAttributeLogicToHtml()
