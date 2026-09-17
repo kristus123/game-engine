@@ -5,9 +5,6 @@ const {
 	ChildProcess,
 } = AllImports
 
-
-
-
 export class Swoo {
 
 	// todo improve later

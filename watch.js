@@ -23,7 +23,7 @@ AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(Paths.distFolder)
 
-const { StartServer } = await import("#root/transpiledBackend/StartServer.js") // todo: find better solution
+const { Server } = await import("#root/transpiledBackend/Server.js") // todo: find better solution
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js") // todo: find better solution
 
 let idTimeout = null
@@ -72,5 +72,5 @@ Swoo.generateDist(async () => {
 	ServeDist()
 
 	// for now only run server once
-	StartServer()
+	Server.start()
 })
