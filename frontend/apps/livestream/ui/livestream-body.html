@@ -7,8 +7,10 @@
 
 	<button float-top-right on-click="openMicSettings">mic set</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
+</overlay>
 
-	<button float-bot-right on-click-show-id="chat" id="open">open chat</button>
+<overlay allow-click-through>
+	<button float-bot-left on-click-show-id="chat" id="open">open chat</button>
 </overlay>
 
 <chat-body id="chat" hidden></chat-body>

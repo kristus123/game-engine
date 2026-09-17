@@ -7,7 +7,7 @@ export class Config {
 				return "http://localhost:3000"
 			}
 			case "PRODUCTION": {
-				return "https://krispetter.duckdns.org"
+				return "https://citations-behalf-humor-aerospace.trycloudflare.com"
 			}
 			default: {
 				throw new Error("unexpected environment given")
@@ -21,7 +21,7 @@ export class Config {
 				return "ws://localhost:3000"
 			}
 			case "PRODUCTION": {
-				return "wss://krispetter.duckdns.org"
+				return "wss://citations-behalf-humor-aerospace.trycloudflare.com"
 			}
 			default: {
 				throw new Error("unexpected environment given")

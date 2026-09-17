@@ -24,7 +24,9 @@ echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudf
 sudo apt-get update
 sudo apt-get install cloudflared
 
-cloudflared tunnel --url http://localhost:5050
+cloudflared tunnel --url http://localhost:3000
+update config.js with the url in prod, then you can deploy
+cloudflare gives free tunnel if you have a domain. (which i have)
 
 # cool idea
 

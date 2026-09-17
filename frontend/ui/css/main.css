@@ -30,3 +30,7 @@ body {
 
 	user-select: none;
 }
+
+[allow-click-through] {
+	pointer-events: none;
+}
