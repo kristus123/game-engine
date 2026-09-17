@@ -2,6 +2,7 @@ import { execSync } from "child_process"
 import { AllImports } from "#root/AllImports.js"
 
 const {
+	ChildProcess,
 	Files,
 	Paths,
 	GenerateBackend,
@@ -12,7 +13,6 @@ const {
 	ExportAseprite,
 	ServeDist,
 } = AllImports
-
 
 try {
 	execSync("./scripts/kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
@@ -33,56 +33,20 @@ Files.deleteFolder(Paths.distFolder)
 // Needs to be imported like this because the transpiled folder is non existent before and it does not like that.
 // also, we should use Import.js
 const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
-console.log("--------------------------------------------- wow")
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js")
 
-
-
-
-
-
-import { spawn } from "child_process"
-
-let child
-let runId = 0
+let p = null
 
 export function _generateDist(onEnd) {
-	const currentId = ++runId
+	p?.kill()
 
-	if (child) {
-		child.kill("SIGTERM")
-		child = null
-	}
-
-	child = spawn(process.execPath, ["dev/GenerateFrontend.js", "DEVELOPMENT"], {
-		stdio: "inherit"
-	})
-
-	child.on("exit", (code, signal) => {
-		if (currentId != runId) {
-			return
-		}
-		child = null
-		if (code != 0) {
-			return
-		}
-		else {
+	p = new ChildProcess(process.execPath, {
+		args: ["dev/GenerateFrontend.js", "DEVELOPMENT"],
+		onExit: () => {
 			onEnd()
-			console.log("reload triggered")
-		}
-	})
+		},
+	}).start()
 }
-
-
-
-
-
-
-
-
-
-
-
 
 let idTimeout = null
 function triggerClientReload() {
