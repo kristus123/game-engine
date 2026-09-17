@@ -3,7 +3,11 @@ import { AllImports } from "#root/AllImports.js"
 
 const {
 	ChildProcess,
+	SocketServer,
 } = AllImports
+
+
+let idTimeout = null
 
 export class Swoo {
 
@@ -27,6 +31,17 @@ export class Swoo {
 				onEnd()
 			},
 		}).start()
+	}
+
+	static triggerClientReload() {
+		if (idTimeout) {
+			clearTimeout(idTimeout)
+		}
+
+		idTimeout = setTimeout(() => {
+			SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
+			idTimeout = null
+		}, 100)
 	}
 
 }

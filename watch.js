@@ -26,19 +26,6 @@ Files.deleteFolder(Paths.distFolder)
 const { Server } = await import("#root/transpiledBackend/Server.js") // todo: find better solution
 const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js") // todo: find better solution
 
-let idTimeout = null
-
-function triggerClientReload() {
-	if (idTimeout) {
-		clearTimeout(idTimeout)
-	}
-
-	idTimeout = setTimeout(() => {
-		SocketServer.sendToEveryone({ action: "HOT_RELOAD" })
-		idTimeout = null
-	}, 100)
-}
-
 FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
@@ -46,7 +33,7 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 		}
 
 		Swoo.generateDist(() => {
-			triggerClientReload()
+			Swoo.triggerClientReload()
 		})
 	},
 	onChange: async (path) => {
@@ -55,12 +42,12 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 		}
 
 		Swoo.generateDist(() => {
-			triggerClientReload()
+			Swoo.triggerClientReload()
 		})
 	},
 	onDelete: async (path) => {
 		Swoo.generateDist(() => {
-			triggerClientReload()
+			Swoo.triggerClientReload()
 		})
 	},
 })
