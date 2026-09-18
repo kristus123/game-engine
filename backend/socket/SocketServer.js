@@ -16,7 +16,7 @@ export class SocketServer {
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
 
 			SocketClients.add(client, clientId)
-			onJoin?.(clientId)
+			onJoin?.(client)
 
 			this.sendToClient(client, {
 				action: "CLIENT_ID",

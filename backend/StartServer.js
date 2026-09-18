@@ -1,6 +1,7 @@
 import { pathToFileURL } from "url"
 
-export function StartServer(backendId) {
+export async function StartServer() {
+
 	for (const e of Files.getJsFiles("transpiledBackend/http/endpoints")) { // todo find fix, place path somewhere and find out how to handle transpiled paths
 		console.log("___")
 		console.log(e)
@@ -8,13 +9,15 @@ export function StartServer(backendId) {
 		await import(pathToFileURL(e).href)
 	}
 
-	const server = HttpServer.start()
+	HttpServer.start()
 
 	await SfuServer.start()
 
-	SocketServer.start(server, {
-		onJoin: clientId => {
-			SocketServer.sendToClient(clientId, {
+	const backendId = Random.uuid() 
+
+	SocketServer.start(HttpServer.activeServer, {
+		onJoin: client => {
+			SocketServer.sendToClient(client, {
 				action: "HOT_RELOAD_BACKEND_ID",
 				backendId: backendId,
 			})
@@ -22,13 +25,20 @@ export function StartServer(backendId) {
 	})
 
 	SocketServer.on("HOT_RELOAD_BACKEND_ID", (client) => {
-		SocketServer.sendToClient(client, {backendVersion: backendVersion})
+		SocketServer.sendToClient(client, {
+			action: "HOT_RELOAD_BACKEND_ID",
+			backendId: backendId,
+		})
 	})
 }
 
-
 import { fileURLToPath } from "url"
 if (process.argv[1] == fileURLToPath(import.meta.url)) {
-	const backendId = process.argv[2] 
-	StartServer(backendId)
+	StartServer()
+
+	process.on("SIGTERM", () => {
+		console.log("SIGTERM received. shutting down all stuff")
+		HttpServer.stop()
+		process.exit(0)
+	})
 }

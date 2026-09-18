@@ -46,6 +46,9 @@ export default async ({ html }) => {
 
 
 
+
+
+
 	await Permission.request()
 	const cams = await Cam.all()
 
