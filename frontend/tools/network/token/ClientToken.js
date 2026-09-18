@@ -14,15 +14,13 @@ export class ClientToken {
 			console.log("token already present baby")
 		}
 
-		const encodedToken = Assert.value(localStorage.getItem("encodedToken"))
-
-		this.encodedToken = encodedToken
+		this.encodedToken = Assert.value(localStorage.getItem("encodedToken"))
 
 		const [
 			internalData,
 			internalDataSignature,
 			unsafeData,
-		] = encodedToken.split(".")
+		] = this.encodedToken.split(".")
 
 		this.decodedToken = {
 			internal: JSON.parse(Base64.decode(internalData)),
@@ -37,5 +35,9 @@ export class ClientToken {
 		else {
 			throw new Error("Token can't be deleted as there is no token stored")
 		}
+	}
+
+	static saveUnsafe() {
+		
 	}
 }

@@ -3,63 +3,35 @@ import { randomUUID } from "crypto"
 
 const SECRET = "CHANGE_ME"
 
-function signSha256(data) {
-	return crypto
-		.createHmac("sha256", SECRET)
-		.update(data)
-		.digest("base64url")
-}
-
-function decodeBase64(encoded) {
-	return JSON.parse(Buffer.from(encoded, "base64url").toString("utf8"))
-}
-
-function encodeBase64(payload) {
-	return Buffer.from(JSON.stringify(payload)).toString("base64url")
-}
-
 export class ServerToken {
 
 	static create() {
-		const internal = {
+		const internal = BaseencodeBase64({
 			userId: randomUUID(),
-		}
+		})
+		const internalSignature = Sha.sign(internal, SECRET)
 
-		const unsafe = {
+		const unsafe = encodeBase64({
 			name: "Your username",
 			age: "Your age",
-		}
+		})
 
-		const internalData = encodeBase64(internal)
-		const internalDataSignature = signSha256(internalData)
-
-		const unsafeData = encodeBase64(unsafe)
-
-		return `${internalData}.${internalDataSignature}.${unsafeData}`
+		return `${internal}.${internalSignature}.${unsafe}`
 	}
 
 	static decode(token) {
 		try {
 			const [
 				internalData,
-				internalDataSignature,
-				unsafeData,
+				internalSignature,
+				unsafe,
 			] = token.split(".")
 
-			const expected = signSha256(internalData)
+			Sha.assertTimingSafe(internalData, internalSignature)
 
-			const valid = crypto.timingSafeEqual(
-				Buffer.from(internalDataSignature),
-				Buffer.from(expected))
-
-			if (valid) {
-				return {
-					internal: decodeBase64(internalData),
-					unsafe: decodeBase64(unsafeData),
-				}
-			}
-			else {
-				throw new Error("INVALID TOKEN")
+			return {
+				internal: B64.decode(internalData),
+				unsafe: B64.decode(unsafe),
 			}
 		}
 		catch (e) {
