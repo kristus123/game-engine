@@ -57,7 +57,7 @@ export class ChildProcess {
 	async restart() {
 		if (this.process) {
 			await this.kill()
-			
+
 		}
 
 		this.start()

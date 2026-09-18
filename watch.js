@@ -41,9 +41,6 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 		Swoo.generateDist(() => {
 			restartBackend()
 		})
-
-		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
-		}
 	},
 	onChange: async (path) => {
 		if (path.includes(".aseprite")) {
@@ -54,18 +51,11 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 			restartBackend()
 		})
 
-		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
-			restartBackend()
-		}
 	},
 	onDelete: async (path) => {
 		Swoo.generateDist(() => {
 			restartBackend()
 		})
-
-		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
-			restartBackend()
-		}
 	},
 })
 

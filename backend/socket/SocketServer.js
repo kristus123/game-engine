@@ -10,7 +10,7 @@ export class SocketServer {
 		})
 	}
 
-	static start(server, {onJoin, onLeave} = {}) { // todo add async await for this one
+	static start(server, { onJoin, onLeave } = {}) { // todo add async await for this one
 		new WebSocketServer({ server: server }).on("connection", (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
