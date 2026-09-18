@@ -32,7 +32,7 @@ function restartBackend() {
 	p.restart()
 }
 
-FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
+FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)
@@ -59,8 +59,7 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 	},
 })
 
-// initial build
-Swoo.generateDist(async () => {
+Swoo.generateDist(async () => { // initial build
 	await ExportAseprite()
 	PrepareExternalBundle()
 	ServeDist()
