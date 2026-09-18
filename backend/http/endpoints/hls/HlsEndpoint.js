@@ -1,16 +1,10 @@
-import { spawn } from "child_process"
-
 Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
 Route.sendChunk = async ({ req }) => {
-	console.log("sending chunk !!")
-	console.log("sending chunk !!")
 	for await (const chunk of req) {
 		await Ffmpeg.write(chunk)
 	}
-
-	console.log("done")
 }
 
 Route.startStream = async ({ body }) => {
@@ -23,6 +17,6 @@ Route.stopStream = async () => {
 
 Route.currentlyStreaming = () => {
 	return {
-		streaming: A.value(Ffmpeg.p),
+		streaming: A.value(Ffmpeg.p), // hack
 	}
 }

@@ -12,7 +12,7 @@ export class TokenApi {
 			internalSignature: internalSignature,
 			unsafe: JSON.parse(B64.decode(unsafe)),
 		}
-		
+
 	}
 
 	static encodeJson(json) {

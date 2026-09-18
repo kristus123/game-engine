@@ -20,7 +20,7 @@ Route.uploadFile = ({ body, req }) => {
 		}
 	}
 	else {
-		throw new Error("xxxxxxxxxxx")
+		throw new Error("unexpected: " + type)
 	}
 }
 

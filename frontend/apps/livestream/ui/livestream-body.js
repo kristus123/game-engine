@@ -1,6 +1,5 @@
 export default async ({ html }) => {
 
-
 	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
 		console.log(data)
 		html.chatHistory.add(H.create("chat-line", {
