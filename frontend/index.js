@@ -1,6 +1,7 @@
 Log.sendConsoleToServer()
 
 
+
 const backendId = LocalValue("backendId", -1)
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
 	console.log(data)
@@ -26,7 +27,7 @@ document.addEventListener("contextmenu", e => e.preventDefault())
 InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
-	// ClientToken.init(),
+	ClientToken.init(),
 	Promise.all(AssetPaths.htmlComponent
 		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
 	),

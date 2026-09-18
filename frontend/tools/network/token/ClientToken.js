@@ -5,8 +5,8 @@ export class ClientToken {
 
 	static async init() {
 		if (localStorage.getItem("encodedToken") == null) {
-			const { encodedToken } = await Assert.ok(await JsonHttpClient.createToken())
-			localStorage.setItem("encodedToken", Assert.value(encodedToken))
+			const body = await Assert.ok(await JsonHttpClient.createToken())
+			localStorage.setItem("encodedToken", Assert.value(body.token))
 		}
 
 		this.encodedToken = Assert.value(localStorage.getItem("encodedToken"))

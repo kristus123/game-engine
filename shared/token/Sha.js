@@ -1,8 +1,12 @@
+import crypto from "crypto"
+
 export class Sha {
 
 	static secret = null
 
 	static sign(data) {
+		Assert.string(data)
+
 		Assert.value(this.secret)
 
 		return crypto

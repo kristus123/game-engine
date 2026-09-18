@@ -15,8 +15,4 @@ export class TokenApi {
 
 	}
 
-	static encodeJson(json) {
-		B64.encode(json)
-	}
-
 }
