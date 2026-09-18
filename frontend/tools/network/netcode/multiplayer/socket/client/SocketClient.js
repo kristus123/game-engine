@@ -38,13 +38,16 @@ export class SocketClient {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
 		this.webSocket.onopen = () => {
-			onConnect()
 			//Todo: this should not be triggered on every onOpen
 			// We should have one connect and one on initial connect
+			onConnect()
 			console.log("WebSocket connection opened")
 		}
 
 		this.webSocket.onclose = () => {
+			setTimeout(() => {
+				this.connect(onConnect)
+			}, 1000)
 			throw new Error("Socket connection lost")
 		}
 
