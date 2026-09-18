@@ -38,6 +38,6 @@ export class ClientToken {
 	}
 
 	static saveUnsafe() {
-		
+
 	}
 }

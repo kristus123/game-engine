@@ -17,6 +17,6 @@ export class Sha {
 		else {
 			throw new Error("INVALID TOKEN")
 		}
-		
+
 	}
 }
