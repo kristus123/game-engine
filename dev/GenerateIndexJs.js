@@ -18,9 +18,6 @@ export function GenerateIndexJs() {
 			if (js) {
 				js = js.replace("frontend/", "#root/")
 			}
-			console.log("_____________xxx")
-			console.log(js)
-			console.log("_____________xxx")
 
 			return JSON.stringify({
 				name: name,
@@ -34,7 +31,6 @@ export function GenerateIndexJs() {
 		.filter(f => !f.includes("-"))
 		.filter(f => f.endsWith(".html") || f.endsWith(".md"))
 		.map(f => {
-			console.log(f)
 			let content = Files.read(f)
 
 			if (f.endsWith(".md")) {
@@ -49,7 +45,6 @@ export function GenerateIndexJs() {
 			const name = f.split("/").pop()
 				.replace(/\.html$/, "")
 				.replace(/\.md$/, "")
-			console.log(name)
 
 			return JSON.stringify({ name: name, content: content })
 		})
