@@ -17,11 +17,10 @@ export function ImproveSwitchCase(lines, i) {
 		for (let ii = 1 ; true ; ii++) {
 			if (lines[i+ii].trim().startsWith("default")) {
 				defaultBlockPresent = true
-				console.log("defaultBlockPresent true")
 			}
 
 			if (tabCount(lines[i]) != tabCount(lines[i+ii])) {
-				console.log(lines[i+ii])
+				// do nothing
 			}
 			else {
 				if (!defaultBlockPresent) {
@@ -38,8 +37,6 @@ export function ImproveSwitchCase(lines, i) {
 	}
 
 	if (Regex.simple(lines[i], "case * {")) {
-		console.log("match")
-
 		if (!Regex.simple(lines[i], "case *: {")) {
 			const s = Regex.editIfMatch(lines[i], "case * {", "case *: {")
 			lines[i] = "\t".repeat(tabCount(lines[i])) + s

@@ -5,39 +5,18 @@ export class ClientToken {
 
 	static async init() {
 		if (localStorage.getItem("encodedToken") == null) {
-			console.log("creating new token")
-			const body = Assert.ok(await JsonHttpClient.createToken())
-			Assert.value(body.token)
-			localStorage.setItem("encodedToken", body.token)
-		}
-		else {
-			console.log("token already present baby")
+			const { encodedToken } = await Assert.ok(await JsonHttpClient.createToken())
+			localStorage.setItem("encodedToken", Assert.value(encodedToken))
 		}
 
 		this.encodedToken = Assert.value(localStorage.getItem("encodedToken"))
 
-		const [
-			internalData,
-			internalDataSignature,
-			unsafeData,
-		] = this.encodedToken.split(".")
-
-		this.decodedToken = {
-			internal: JSON.parse(Base64.decode(internalData)),
-			unsafe: JSON.parse(Base64.decode(unsafeData)),
-		}
+		this.decodedToken = TokenApi.decode(this.encodedToken)
 	}
 
-	static remove() {
-		if (localStorage.getItem("encodedToken")) {
-			localStorage.removeItem("encodedToken")
-		}
-		else {
-			throw new Error("Token can't be deleted as there is no token stored")
-		}
-	}
-
-	static saveUnsafe() {
-
+	static updateUnsafe() {
+		const [internal, internalSignature, _] = this.encodedToken.split(".")
+		const unsafe = B64.encode(JSON.stringify(this.decodedToken.unsafe))
+		localStorage.setItem("encodedToken", `${internal}.${internalSignature}.${unsafe}`)
 	}
 }

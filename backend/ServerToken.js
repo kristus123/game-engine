@@ -1,41 +1,26 @@
-import crypto from "crypto"
 import { randomUUID } from "crypto"
 
-const SECRET = "CHANGE_ME"
+Sha.secret = "CHANGE_ME"
 
 export class ServerToken {
 
 	static create() {
-		const internal = BaseencodeBase64({
+		const internal = B64.encode({
 			userId: randomUUID(),
 		})
-		const internalSignature = Sha.sign(internal, SECRET)
 
-		const unsafe = encodeBase64({
+		const unsafe = B64.encode({
 			name: "Your username",
 			age: "Your age",
 		})
 
-		return `${internal}.${internalSignature}.${unsafe}`
+		return `${internal}.${Sha.sign(internal)}.${unsafe}`
 	}
 
-	static decode(token) {
-		try {
-			const [
-				internalData,
-				internalSignature,
-				unsafe,
-			] = token.split(".")
-
-			Sha.assertTimingSafe(internalData, internalSignature)
-
-			return {
-				internal: B64.decode(internalData),
-				unsafe: B64.decode(unsafe),
-			}
-		}
-		catch (e) {
-			throw new Error("INVALID TOKEN: " + e)
-		}
+	static decode(encoded) {
+		const decoded = TokenApi.decode(encoded)
+		Sha.assertValid(decoded.internal, decoded.internalSignature)
+		return decoded
 	}
+
 }

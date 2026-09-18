@@ -248,10 +248,6 @@ export class Assert {
 			return true
 		}
 
-		console.log("___")
-		console.log(a)
-		console.log(b)
-		console.log("___")
 		throw new Error("Expected both values to be arrays or object")
 	}
 

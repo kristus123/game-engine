@@ -1,16 +1,22 @@
 export class Sha {
 
-	static signSha256(data, secret) {
+	static secret = null
+
+	static sign(data) {
+		Assert.value(this.secret)
+
 		return crypto
-			.createHmac("sha256", secret)
+			.createHmac("sha256", this.secret)
 			.update(data)
 			.digest("base64url")
 	}
 
-	static assertTimingSafe(internalData, internalSignature, secret) {
+	static assertValid(internalData, internalSignature) {
+		Assert.value(this.secret)
+
 		const valid = crypto.timingSafeEqual(
 			Buffer.from(internalSignature),
-			Buffer.from(this.sign(internalData, secret)))
+			Buffer.from(this.sign(internalData, this.secret)))
 		if (valid) {
 			// ok
 		}

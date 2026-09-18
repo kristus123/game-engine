@@ -14,7 +14,6 @@ export function GenerateBackend(ENVIRONMENT) {
 	const destPath = path.join(Paths.transpiledBackend, "shared") // nabir, stop using path.join. it is ugly
 
 	for (let sharedFilePath of Files.at(Paths.sharedFolder)) {
-		console.log(sharedFilePath)
 
 		let content = Files.read(sharedFilePath)
 		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
