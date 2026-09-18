@@ -48,8 +48,6 @@ export class HttpServer {
 			server.listen(3000, "0.0.0.0")
 
 			this.activeServer = server
-
-			return this.activeServer
 		}
 	}
 

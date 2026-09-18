@@ -16,15 +16,21 @@ const {
 
 Swoo.killPorts()
 
-GenerateBackend("DEVELOPMENT")
-
 AssertUniqueFileNames()
 AssertNoReservedKeywordsUsedInFileNames()
 
 Files.deleteFolder(Paths.distFolder)
 
-const { Server } = await import("#root/transpiledBackend/Server.js") // todo: find better solution
-const { SocketServer } = await import("#root/transpiledBackend/socket/SocketServer.js") // todo: find better solution
+let backendId = 0
+const p = new ChildProcess(process.execPath)
+
+function restartBackend() {
+	GenerateBackend("DEVELOPMENT")
+
+	backendId += 1
+	p.args = ["transpiledBackend/StartServer.js", backendId]
+	p.restart()
+}
 
 FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css"], {
 	onAdd: async (path) => {
@@ -33,8 +39,11 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 		}
 
 		Swoo.generateDist(() => {
-			Swoo.triggerClientReload()
+			restartBackend()
 		})
+
+		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
+		}
 	},
 	onChange: async (path) => {
 		if (path.includes(".aseprite")) {
@@ -42,13 +51,21 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 		}
 
 		Swoo.generateDist(() => {
-			Swoo.triggerClientReload()
+			restartBackend()
 		})
+
+		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
+			restartBackend()
+		}
 	},
 	onDelete: async (path) => {
 		Swoo.generateDist(() => {
-			Swoo.triggerClientReload()
+			restartBackend()
 		})
+
+		if (path.includes(Paths.sharedFolder) || path.includes(Paths.backendFolder)) {
+			restartBackend()
+		}
 	},
 })
 
@@ -57,7 +74,5 @@ Swoo.generateDist(async () => {
 	await ExportAseprite()
 	PrepareExternalBundle()
 	ServeDist()
-
-	// for now only run server once
-	Server.start()
+	restartBackend()
 })
