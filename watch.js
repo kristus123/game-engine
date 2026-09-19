@@ -14,6 +14,7 @@ const {
 	ServeDist,
 } = AllImports
 
+
 Swoo.killPorts()
 
 AssertUniqueFileNames()
@@ -32,14 +33,25 @@ function restartBackend() {
 	p.restart()
 }
 
+let _debounceTimeout = null
+function _debounce(fn) {
+	clearTimeout(_debounceTimeout)
+
+	_debounceTimeout = setTimeout(() => {
+		fn()
+	}, 200)
+}
+
 FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
 	onAdd: async (path) => {
 		if (path.includes(".aseprite")) {
 			await ExportAseprite(path)
 		}
 
-		Swoo.generateDist(() => {
-			restartBackend()
+		_debounce(() => {
+			Swoo.generateDist(() => {
+				restartBackend()
+			})
 		})
 	},
 	onChange: async (path) => {
@@ -47,14 +59,18 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 			await ExportAseprite(path)
 		}
 
-		Swoo.generateDist(() => {
-			restartBackend()
+		_debounce(() => {
+			Swoo.generateDist(() => {
+				restartBackend()
+			})
 		})
 
 	},
 	onDelete: async (path) => {
-		Swoo.generateDist(() => {
-			restartBackend()
+		_debounce(() => {
+			Swoo.generateDist(() => {
+				restartBackend()
+			})
 		})
 	},
 })
@@ -63,5 +79,16 @@ Swoo.generateDist(async () => { // initial build
 	await ExportAseprite()
 	PrepareExternalBundle()
 	ServeDist()
-	restartBackend()
+	_debounce(() => {
+		restartBackend()
+	})
 })
+
+
+
+
+
+
+
+
+

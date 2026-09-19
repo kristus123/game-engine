@@ -12,7 +12,20 @@ export class TokenApi {
 			internalSignature: internalSignature,
 			unsafe: JSON.parse(B64.decode(unsafe)),
 		}
+	}
 
+	static splitEncoded(e) {
+		const [
+			internal,
+			internalSignature,
+			unsafe,
+		] = e.split(".")
+
+		return {
+			internal,
+			internalSignature,
+			unsafe,
+		}
 	}
 
 }

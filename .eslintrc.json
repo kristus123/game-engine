@@ -184,7 +184,6 @@
         "DomMouse": "readonly",
         "Draw": "readonly",
         "DuckCheck": "readonly",
-        "DuckPosition": "readonly",
         "Enhance": "readonly",
         "EnhanceAll": "readonly",
         "Enhance_audio": "readonly",

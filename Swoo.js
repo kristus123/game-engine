@@ -20,8 +20,8 @@ export class Swoo {
 		}
 	}
 
-	static generateDist(onEnd) {
-		this.p?.kill()
+	static async generateDist(onEnd) {
+		await this.p?.kill()
 
 		this.p = new ChildProcess(process.execPath, {
 			args: ["dev/GenerateFrontend.js", "DEVELOPMENT"],

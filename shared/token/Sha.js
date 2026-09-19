@@ -15,12 +15,15 @@ export class Sha {
 			.digest("base64url")
 	}
 
-	static assertValid(internalData, internalSignature) {
+	static assertValid(e) {
 		Assert.value(this.secret)
+
+		const { internal, internalSignature } = TokenApi.splitEncoded(e)
 
 		const valid = crypto.timingSafeEqual(
 			Buffer.from(internalSignature),
-			Buffer.from(this.sign(internalData, this.secret)))
+			Buffer.from(this.sign(internal, this.secret)))
+
 		if (valid) {
 			// ok
 		}
@@ -29,4 +32,5 @@ export class Sha {
 		}
 
 	}
+
 }

@@ -35,6 +35,8 @@ await Promise.all([
 	Css.use("/swag.css"),
 ])
 
+console.log(ClientToken.decodedToken)
+
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 

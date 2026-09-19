@@ -1,17 +1,9 @@
 export class B64 {
 
 	static encode(payload) {
-		if (A.jsonObject(payload)) {
-			payload = JSON.stringify(payload)
-		}
-		else if (A.string(payload)) {
-			// ok
-		}
-		else {
-			throw new Error("X")
-		}
+		Assert.string(payload)
 
-		const bytes = new TextEncoder().encode(JSON.stringify(payload))
+		const bytes = new TextEncoder().encode(payload)
 		let binary = ""
 
 		for (const byte of bytes) {

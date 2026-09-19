@@ -15,10 +15,11 @@ export class ClientToken {
 	}
 
 	static updateUnsafe() {
-		const [internal,
-			internalSignature,
-			_] = this.encodedToken.split(".")
+		const { internal, internalSignature } = TokenApi.splitEncoded(this.encodedToken)
+
 		const unsafe = B64.encode(JSON.stringify(this.decodedToken.unsafe))
+
 		localStorage.setItem("encodedToken", `${internal}.${internalSignature}.${unsafe}`)
 	}
+
 }
