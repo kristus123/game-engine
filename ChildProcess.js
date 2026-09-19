@@ -40,19 +40,23 @@ export class ChildProcess {
 	}
 
 	async kill() {
+		await this.awaitFinish()
+		this.process?.kill("SIGTERM")
+	}
+
+	awaitFinish() {
 		return new Promise(resolve => {
 			if (this.process) {
 				this.process.once("exit", (code, signal) => {
 					resolve({ code, signal })
 				})
-
-				this.process.kill("SIGTERM")
 			}
 			else {
 				resolve()
 			}
 		})
 	}
+
 
 	async restart() {
 		if (this.process) {

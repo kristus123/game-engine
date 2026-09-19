@@ -25,7 +25,7 @@ Files.deleteFolder(Paths.distFolder)
 let backendId = 0
 const p = new ChildProcess(process.execPath)
 
-function restartBackend() {
+async function restartBackend() {
 	GenerateBackend("DEVELOPMENT")
 
 	backendId += 1
@@ -83,12 +83,3 @@ Swoo.generateDist(async () => { // initial build
 		restartBackend()
 	})
 })
-
-
-
-
-
-
-
-
-

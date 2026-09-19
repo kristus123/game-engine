@@ -29,6 +29,8 @@ export class Swoo {
 				onEnd()
 			},
 		}).start()
+
+		await this.p?.awaitFinish?.()
 	}
 
 }
