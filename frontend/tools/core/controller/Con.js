@@ -8,7 +8,7 @@ function _improvedStickValue(num) {
 let index = null
 
 // rename to Con.js instead, that is better
-export class Gp {
+export class Con {
 
 	static {
 		window.addEventListener("gamepadconnected", (e) => {

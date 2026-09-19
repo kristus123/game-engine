@@ -29,7 +29,7 @@ export async function CanvasGame(activeThing) {
 
 			Physics.update()
 			Controller.update()
-			Gp.update()
+			Con.update()
 
 			Shadow.updateOutsideCameraContext()
 
