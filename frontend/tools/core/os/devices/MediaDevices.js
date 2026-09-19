@@ -37,6 +37,8 @@ export class MediaDevices {
 	}
 
 	static async audioAndVideo(audioDeviceId, videoDeviceId) {
+		Assert.true(Permission.granted)
+
 		const audio = await this.audio(audioDeviceId)
 		const video = await this.video(videoDeviceId)
 
