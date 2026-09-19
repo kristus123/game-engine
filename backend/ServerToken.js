@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto"
 
-Sha.secret = "CHANGE_ME"
+Sha.secret = "CHANGE_ME" // todo change
 
 export class ServerToken {
 

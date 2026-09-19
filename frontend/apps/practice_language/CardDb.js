@@ -8,11 +8,11 @@ export async function CardDb() {
 	return new class {
 
 		async random(callback) { // no-null-check
-			return db.random(callback)
+			return await db.random(callback)
 		}
 
 		async save(card, callback) { // no-null-check
-			return db.save({
+			return await db.save({
 				front: Assert.value(card.front),
 				back: Assert.value(card.back),
 				score: 0,
@@ -21,11 +21,11 @@ export async function CardDb() {
 		}
 
 		async update(card, callback) { // no-null-check
-			return db.update(card, callback)
+			return await db.update(card, callback)
 		}
 
 		async all(callback) { // no-null-check
-			return db.all(callback)
+			return await db.all(callback)
 		}
 
 	}
