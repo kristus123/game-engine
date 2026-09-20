@@ -2,20 +2,18 @@
 
 <overlay id="buttons">
 	<h1 id="waiting">Waiting for livestream</h1>
-	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
-	<button id="stop" float-bot-left hidden on-click="stopStream">Stop livestream</button>
 
 	<button float-top-right on-click="openMicSettings">mic set</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
-</overlay>
 
-<overlay allow-click-through>
-	<button float-bot-left on-click-show-id="chat" id="open">open chat</button>
+	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
+	<button id="stop" float-bot-left hidden on-click="stopStream">Stop livestream</button>
 </overlay>
-
-<chat-body id="chat" hidden></chat-body>
 
 <overlay id="micSettings" hidden class="bgWhite" center-content>
 	<h1>mic</h1>
 	<button on-click-hide-id="micSettings">close</button>
 </overlay>
+
+<button float-bot-left on-click-show-id="chat">open chat</button>
+<chat-body id="chat" hidden></chat-body>
