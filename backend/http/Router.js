@@ -13,7 +13,7 @@ export function Router(role, path) { // todo rename to Route.js
 	}
 	else if (Route[path]) {
 		// todo delete Route.js
-		console.log("deprated route type. use dedicated role-based thingy bro")
+		// console.log("deprated route type. use dedicated role-based thingy bro")
 		return Route[path]
 	}
 	else {

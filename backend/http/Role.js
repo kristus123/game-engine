@@ -10,27 +10,3 @@ export function Role(decoded) {
 		return "USER_ROLE"
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

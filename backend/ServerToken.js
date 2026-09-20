@@ -19,7 +19,6 @@ export class ServerToken {
 
 	static decode(encoded) {
 		Sha.assertValid(encoded)
-
 		return TokenApi.decode(encoded)
 	}
 
