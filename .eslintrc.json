@@ -155,7 +155,6 @@
         "CanvasGame": "readonly",
         "CardDb": "readonly",
         "CenterPosition": "readonly",
-        "ClientToken": "readonly",
         "CodeEditor": "readonly",
         "Collision": "readonly",
         "Con": "readonly",
@@ -378,6 +377,7 @@
         "To": "readonly",
         "ToChinese": "readonly",
         "Toast": "readonly",
+        "Token": "readonly",
         "TokenApi": "readonly",
         "TokenEndpoint": "readonly",
         "Track": "readonly",
@@ -404,14 +404,16 @@
         "WorldPosition": "readonly",
         "_MicRecorder": "readonly",
         "add-card": "readonly",
+        "chat-body": "readonly",
         "code-editor": "readonly",
         "email": "readonly",
         "fileDbEndpoint": "readonly",
         "index": "readonly",
-        "livestream-body": "readonly",
         "practice-card": "readonly",
         "pushNotificationEndpoint": "readonly",
         "serviceWorker": "readonly",
-        "settings-page": "readonly"
+        "settings-page": "readonly",
+        "streamer-page": "readonly",
+        "viewer-page": "readonly"
     }
 }
