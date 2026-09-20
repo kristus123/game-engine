@@ -5,22 +5,37 @@ Sha.secret = "CHANGE_ME" // todo change
 export class ServerToken {
 
 	static create() {
-		const internal = B64.encode(JSON.stringify({
-			userId: randomUUID(),
+		return Sha.assertValid(TokenApi.encode({
+			internal: {
+				userId: randomUUID(),
+				role: "ROLE_USER",
+			},
+			unsafe: {
+				name: "Your username",
+				age: "Your age",
+			},
 		}))
-
-		const unsafe = B64.encode(JSON.stringify({
-			name: "Your username",
-			age: "Your age",
-		}))
-
-		return `${internal}.${Sha.sign(internal)}.${unsafe}`
 	}
 
 	static decode(encoded) {
 		Sha.assertValid(encoded)
 
 		return TokenApi.decode(encoded)
+	}
+
+	static update(encoded) {
+		Sha.assertValid(encoded)
+
+		const decoded = TokenApi.decode(encoded)
+
+		if (AdminUserId(decoded.internal.userId)) {
+			decoded.internal.role = "ROLE_ADMIN"
+		}
+		else {
+			decoded.internal.role = "ROLE_USER"
+		}
+
+		return TokenApi.encode(internal, unsafe)
 	}
 
 }

@@ -1,25 +1,36 @@
 export class Token {
 
-	static encodedToken = null
-	static decodedToken = null
+	static encoded = LocalValue("ENCODED_TOKEN", null)
+	static decoded = null
 
 	static async init() {
-		if (localStorage.getItem("encodedToken") == null) {
-			const body = await Assert.ok(await JsonHttpClient.createToken())
-			localStorage.setItem("encodedToken", Assert.value(body.token))
+		if (this.encoded.value == null) {
+			const { token } = await Assert.ok(await JsonHttpClient.createToken())
+			this.encoded.value = Assert.value(token)
 		}
 
-		this.encodedToken = Assert.value(localStorage.getItem("encodedToken"))
-
-		this.decodedToken = TokenApi.decode(this.encodedToken)
+		this.decoded = TokenApi.decode(this.encoded.value)
 	}
 
-	static _updateUnsafe() {
-		const { internal, internalSignature } = TokenApi.splitEncoded(this.encodedToken)
+	static get role() {
+		return Assert.string(this.decoded.internal.role)
+	}
 
-		const unsafe = B64.encode(JSON.stringify(this.decodedToken.unsafe))
+	static get admin() {
+		return this.role == "ROLE_ADMIN"
+	}
 
-		localStorage.setItem("encodedToken", `${internal}.${internalSignature}.${unsafe}`)
+	static get user() {
+		return this.role == "ROLE_USER"
+	}
+
+	static get username() {
+		return Assert.string(this.decoded.unsafe.username)
+	}
+
+	static set username(newUsername) {
+		this.decoded.unsafe.username = Assert.string(newUsername)
+		TokenApi.updateUnsafe(this.encoded.value, this.decoded)
 	}
 
 }

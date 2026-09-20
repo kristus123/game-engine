@@ -1,6 +1,6 @@
 export class LocalValue {
 
-	constructor(key, defaultValue) {
+	constructor(key, defaultValue) { // no-null-check
 		if (localStorage.getItem(key) == null) {
 			if (A.jsonObject(defaultValue)) {
 				localStorage.setItem(key, JSON.stringify(defaultValue))
@@ -21,7 +21,7 @@ export class LocalValue {
 		}
 	}
 
-	set value(val) {
+	set value(val) { // no-null-check
 		if (A.jsonObject(val)) {
 			localStorage.setItem(this.key, JSON.stringify(val))
 		}

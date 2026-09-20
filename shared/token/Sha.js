@@ -5,9 +5,8 @@ export class Sha {
 	static secret = null
 
 	static sign(data) {
+		Assert.string(this.secret)
 		Assert.string(data)
-
-		Assert.value(this.secret)
 
 		return crypto
 			.createHmac("sha256", this.secret)
@@ -16,7 +15,7 @@ export class Sha {
 	}
 
 	static assertValid(e) {
-		Assert.value(this.secret)
+		Assert.string(this.secret)
 
 		const { internal, internalSignature } = TokenApi.splitEncoded(e)
 
@@ -25,12 +24,11 @@ export class Sha {
 			Buffer.from(this.sign(internal, this.secret)))
 
 		if (valid) {
-			// ok
+			return e
 		}
 		else {
 			throw new Error("INVALID TOKEN")
 		}
-
 	}
 
 }

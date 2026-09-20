@@ -27,7 +27,7 @@ document.addEventListener("contextmenu", e => e.preventDefault())
 InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
-	ClientToken.init(),
+	Token.init(),
 	Promise.all(AssetPaths.htmlComponent
 		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
 	),
