@@ -1,3 +1,25 @@
 export class Token {
 
+	static encodedToken = null
+	static decodedToken = null
+
+	static async init() {
+		if (localStorage.getItem("encodedToken") == null) {
+			const body = await Assert.ok(await JsonHttpClient.createToken())
+			localStorage.setItem("encodedToken", Assert.value(body.token))
+		}
+
+		this.encodedToken = Assert.value(localStorage.getItem("encodedToken"))
+
+		this.decodedToken = TokenApi.decode(this.encodedToken)
+	}
+
+	static _updateUnsafe() {
+		const { internal, internalSignature } = TokenApi.splitEncoded(this.encodedToken)
+
+		const unsafe = B64.encode(JSON.stringify(this.decodedToken.unsafe))
+
+		localStorage.setItem("encodedToken", `${internal}.${internalSignature}.${unsafe}`)
+	}
+
 }
