@@ -15,5 +15,7 @@
 	<button on-click-hide-id="micSettings">close</button>
 </overlay>
 
-<button float-bot-right on-click-show-id="chat">open chat</button>
-<chat-body id="chat" hidden></chat-body>
+<overlay allow-click-through>
+	<button float-bot-right on-click-show-id="chat">open chat</button>
+	<chat-body id="chat" hidden></chat-body>
+</overlay>

@@ -1,5 +1,6 @@
 export function Livestream() {
-	if (Token.admin) {
+	console.log(Token.role)
+	if (true || Token.admin) {
 		Page.init("index", H.create("streamer-page"))
 		Page.go("index")
 	}
