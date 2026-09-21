@@ -4,14 +4,19 @@ export class HttpMethod {
 	}
 
 	static post = async (req, res) => {
+		console.log("swag")
+		console.log(req.headers["token"])
+		console.log("swag")
 
 		const decodedToken = Poop.validToken(req.headers["token"])
 			? ServerToken.decode(req.headers["token"])
 			: null //todo - do not use null
 		const role = Role(decodedToken) // role expects null so it works - todo fix, null is bad
+		console.log("swag")
 
 		const contentType = ContentType.parse(req.headers["content-type"])
 
+		console.log("hei")
 		let body = null
 
 		if (contentType == null) {
@@ -26,6 +31,8 @@ export class HttpMethod {
 		else {
 			throw new Error("unsupported contentType")
 		}
+
+		console.log("hei")
 
 		try {
 			const method = Router(role, Poop.routeName(req))

@@ -1,14 +1,18 @@
 export class Token {
 
-	static encoded = LocalValue("ENCODED_TOKEN", null)
+	static encoded = LocalValue("ENCODED_TOKEN", "null")
 	static decoded = null
 
 	static async init() {
-		if (this.encoded.value == null) {
+		Assert.string(this.encoded.value)
+
+		if (this.encoded.value == "null") {
+			console.log("calling creatoken")
 			const { token } = await Assert.ok(await JsonHttpClient.createToken())
-			this.encoded.value = Assert.value(token)
+			this.encoded.value = Assert.string(token)
 		}
 
+		console.log(this.encoded.value)
 		this.decoded = TokenApi.decode(this.encoded.value)
 	}
 

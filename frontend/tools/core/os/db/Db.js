@@ -23,24 +23,33 @@ export async function Db(dbName) {
 
 	return new class {
 
-		async get(dbKey, callback) { // no-null-check
-			return SimpleAwait(t("readonly").objectStore(dbName).get(dbKey), callback)
+		async get(o, callback) { // no-null-check
+			const id = o?._dbKey ?? o
+			Assert.uuid(id)
+
+			return SimpleAwait(t("readonly").objectStore(dbName).get(id), callback)
 		}
 
 		async update(o, callback) { // no-null-check
+			Assert.object(o)
+			Assert.uuid(o?._dbKey)
+
 			return SimpleAwait(t("readwrite").objectStore(dbName).put(o), callback)
 		}
 
 		async save(o, callback) { // no-null-check
+			Assert.object(o)
 			Assert.null(o._dbKey)
 
 			o._dbKey = Random.uuid()
-
 			return this.update(o, callback)
 		}
 
-		async delete(dbKey, callback) { // no-null-check
-			return SimpleAwait(t("readwrite").objectStore(dbName).delete(dbKey), callback)
+		async delete(o, callback) { // no-null-check
+			const id = o?._dbKey ?? o
+			Assert.uuid(id)
+
+			return SimpleAwait(t("readwrite").objectStore(dbName).delete(id), callback)
 		}
 
 		async all(callback) { // no-null-check

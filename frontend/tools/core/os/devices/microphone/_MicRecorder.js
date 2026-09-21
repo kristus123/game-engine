@@ -8,7 +8,7 @@ export class _MicRecorder {
 	static async start(deviceId, onStart = () => {}) {
 		Assert.true(Permission.granted)
 
-		if (this.recording) {
+		if (this.state == "recording") {
 			throw new Error("already recording")
 		}
 
@@ -34,7 +34,7 @@ export class _MicRecorder {
 
 	static async stop(onStop = () => {}) {
 		Assert.true(Permission.granted)
-		Assert.true(this.recording)
+		Assert.true(this.state == "recording")
 
 		return new Promise(async (resolve, reject) => {
 			Assert.method(onStop)

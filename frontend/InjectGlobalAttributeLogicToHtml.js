@@ -16,13 +16,23 @@ export function InjectGlobalAttributeLogicToHtml() {
 
 		if (node.hasAttribute("on-click-hide")) {
 			node.addEventListener("click", () => {
-				node.hide()
+				if (node.tag == "dialog") {
+					dialog.close()
+				}
+				else {
+					node.hide()
+				}
 			})
 		}
 
 		if (node.hasAttribute("on-click-show")) {
 			node.addEventListener("click", () => {
-				node.show()
+				if (node.tag == "dialog") {
+					dialog.showModal()
+				}
+				else {
+					node.show()
+				}
 			})
 		}
 
@@ -30,7 +40,13 @@ export function InjectGlobalAttributeLogicToHtml() {
 		if (onClickShowId) {
 			node.addEventListener("click", () => {
 				const e = Assert.value(document.getElementById(onClickShowId))
-				e.show()
+				if (e.tag == "dialog") {
+					e.showModal()
+				}
+				else {
+					e.show()
+				}
+
 			})
 		}
 
@@ -38,7 +54,12 @@ export function InjectGlobalAttributeLogicToHtml() {
 		if (onClickHideId) {
 			node.addEventListener("click", () => {
 				const e = Assert.value(document.getElementById(onClickHideId))
-				e.hide()
+				if (e.tag == "dialog") {
+					e.close()
+				}
+				else {
+					e.hide()
+				}
 			})
 		}
 	})

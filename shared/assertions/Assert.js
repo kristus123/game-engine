@@ -1,5 +1,17 @@
 export class Assert {
 
+	static uuid(value) {
+		const yes = typeof value == "string" &&
+			/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+
+		if (yes) {
+			return value
+		}
+		else {
+			throw new Error("value is not a uuid. value: " + value)
+		}
+	}
+
 	static object(o) {
 		if (A.object(o)) {
 			return o

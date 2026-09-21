@@ -2,6 +2,9 @@ dialog {
 	background: transparent;
 	border: none;
 	box-shadow: none;
+
+	width: 100%;
+	height: 100%;
 }
 
 dialog::backdrop {

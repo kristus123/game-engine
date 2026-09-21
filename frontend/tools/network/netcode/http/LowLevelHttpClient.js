@@ -22,7 +22,7 @@ export class LowLevelHttpClient {
 			body: body,
 			headers: {
 				"Content-Type": contentType,
-				"token": ClientToken.encodedToken ?? null,
+				"token": Token.encoded.value ?? null, // todo fix hack
 			},
 		})
 

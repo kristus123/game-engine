@@ -1,4 +1,4 @@
-Log.sendConsoleToServer()
+// Log.sendConsoleToServer()
 
 const backendId = LocalValue("backendId", -1)
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
@@ -31,12 +31,10 @@ await Promise.all([
 	Css.use("/swag.css"),
 ])
 
-console.log(ClientToken.decodedToken)
-
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
 // FindPair()
-Livestream()
-// PracticeLanguage()
+// Livestream()
+PracticeLanguage()
 // CodeEditor()

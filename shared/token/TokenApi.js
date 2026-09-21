@@ -22,6 +22,7 @@ export class TokenApi {
 	}
 
 	static splitEncoded(e) {
+		console.log(e)
 		const [
 			internal,
 			internalSignature,

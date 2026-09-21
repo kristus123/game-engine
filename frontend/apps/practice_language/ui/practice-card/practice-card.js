@@ -1,7 +1,9 @@
 export default async ({ html, setState }) => {
 
+	Screen.keepAwake()
+
 	let card = null
-	const alreadyPracticed = []
+	const cardsPracticed = []
 
 	const cardDb = await CardDb()
 	const stopWatch = StopWatch().start()
@@ -14,7 +16,7 @@ export default async ({ html, setState }) => {
 		setState("loading")
 
 		const cardsToPractice = (await cardDb.all())
-			.filter(c => alreadyPracticed.missing(c._dbKey))
+			.filter(c => cardsPracticed.missing(c._dbKey))
 			.filter(c => LocalDate(c.nextPracticeDate).isDue())
 
 		if (cardsToPractice) {
@@ -29,7 +31,7 @@ export default async ({ html, setState }) => {
 		}
 	}
 
-	return {
+	const r = {
 		state: async () => {
 			return loadNewCard() // kinda hacky but ok for now
 		},
@@ -50,7 +52,7 @@ export default async ({ html, setState }) => {
 				await cardDb.update(card)
 
 				if (card.score > 0) {
-					alreadyPracticed.add(card._dbKey)
+					cardsPracticed.add(card._dbKey)
 				}
 
 				await loadNewCard()
@@ -64,15 +66,47 @@ export default async ({ html, setState }) => {
 			},
 			practiceMore: async () => {
 
-				alreadyPracticed.clear()
+				cardsPracticed.clear()
 
 				for (const c of await cardDb.all()) {
 					c.nextPracticeDate = LocalDate.now().toString()
-					cardDb.update(c)
+					await cardDb.update(c)
 				}
 
-				loadNewCard()
+				await loadNewCard()
+			},
+			deleteCard: async () => {
+				console.log("deleitng")
+				cardDb.delete(card)
+
+				await loadNewCard()
 			},
 		},
 	}
+
+	Con.left = () => {
+		console.log("clicked left")
+		r.methods.easy()
+	}
+
+	Con.right = () => {
+		console.log("clicked right")
+		r.methods.hard()
+	}
+
+	Con.triangle = () => {
+		console.log("clicked left")
+		r.methods.playFront()
+	}
+
+	Con.cross = () => {
+		console.log("clicked right")
+		r.methods.playBack()
+	}
+
+	RequestAnimationFrameLoop(() => {
+		Con.update()
+	})
+
+	return r
 }

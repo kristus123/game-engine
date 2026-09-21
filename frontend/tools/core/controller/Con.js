@@ -7,7 +7,6 @@ function _improvedStickValue(num) {
 
 let index = null
 
-// rename to Con.js instead, that is better
 export class Con {
 
 	static {
@@ -28,7 +27,7 @@ export class Con {
 			this[button] = () => {}
 			this[button + "Pressed"] = false
 			this[button + "OnTrueListener"] = OnTrue(() => this[button + "Pressed"], () => {
-				this[button]?.()
+				this[button]()
 			})
 
 			this.onTrueListeners.push(this[button + "OnTrueListener"])
@@ -37,7 +36,7 @@ export class Con {
 
 	static update() {
 		if (index != null) {
-			const gp = navigator.getGamepads()[index]
+			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
 			for (const [i, button] of gp.buttons.entries()) {
 				const name = Playstation.mapToButton(i)
@@ -59,7 +58,7 @@ export class Con {
 	}
 
 	static vibrate() {
-		if (A.number(index)) {
+		if (index != null) {
 			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
 			if (gp && gp.vibrationActuator) {

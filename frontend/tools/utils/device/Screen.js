@@ -14,4 +14,30 @@ export class Screen {
 			callback(this.width, this.height)
 		})
 	}
+
+	static wakeLock = null
+
+	static async keepAwake() {
+		if (!navigator.wakeLock) {
+			return false
+		}
+
+		try {
+			this.wakeLock = await navigator.wakeLock.request("screen")
+			return true
+		}
+		catch {
+			return false
+		}
+	}
+
+	static async allowSleep() {
+		if (!this.wakeLock) {
+			return
+		}
+
+		await this.wakeLock.release()
+		this.wakeLock = null
+	}
+
 }

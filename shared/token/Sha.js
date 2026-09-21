@@ -1,4 +1,11 @@
-import crypto from "crypto"
+let Crypto = null
+try {
+	const crypto = await import("crypto")
+	Crypto = crypto
+}
+catch (e) {
+	Crypto = Assert.value(crypto)
+}
 
 export class Sha {
 
@@ -8,7 +15,7 @@ export class Sha {
 		Assert.string(this.secret)
 		Assert.string(data)
 
-		return crypto
+		return Crypto
 			.createHmac("sha256", this.secret)
 			.update(data)
 			.digest("base64url")
@@ -19,7 +26,7 @@ export class Sha {
 
 		const { internal, internalSignature } = TokenApi.splitEncoded(e)
 
-		const valid = crypto.timingSafeEqual(
+		const valid = Crypto.timingSafeEqual(
 			Buffer.from(internalSignature),
 			Buffer.from(this.sign(internal, this.secret)))
 

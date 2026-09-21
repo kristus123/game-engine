@@ -7,6 +7,9 @@ export default async ({ html, setState }) => {
 	let frontSound = null
 	let backSound = null
 
+	Mic.deviceId = "default"
+	console.log(await Mic.all())
+
 	return {
 		methods: {
 			save: () => {
@@ -25,7 +28,7 @@ export default async ({ html, setState }) => {
 			},
 			recordFront: () => {
 				direction = "front"
-				Mic.start(() => {
+				Mic.startRecording(() => {
 				})
 			},
 			playFront: () => {
@@ -34,7 +37,7 @@ export default async ({ html, setState }) => {
 			},
 			recordBack: () => {
 				direction = "back"
-				Mic.start(() => {
+				Mic.startRecording(() => {
 				})
 			},
 			playBack: () => {
@@ -42,7 +45,7 @@ export default async ({ html, setState }) => {
 				Sound.playBlob(backSound)
 			},
 			stopRecording: () => {
-				Mic.stop(blob => {
+				Mic.stopRecording(blob => {
 					if (direction == "front") {
 						frontSound = blob
 						html.playFront.enable()

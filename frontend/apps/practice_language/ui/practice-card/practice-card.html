@@ -21,6 +21,16 @@
 	</slot>
 
 	<slot name="bot">
-		<h1 center id="time"></h1>
+		<flex-h>
+			<h1 center id="time"></h1>
+			<button on-click-show-id="areYouSure">Delete</button>
+		</flex-h>
 	</slot>
 </practice-language-grid>
+
+<dialog id="areYouSure">
+	<flex-v center-content>
+		<h1>Are you sure you want to delete?</h1>
+		<button on-click="deleteCard" on-click-hide-id="areYouSure">DELETE</button>
+	</flex-v>
+</dialog>

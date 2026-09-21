@@ -1,4 +1,4 @@
-Route.createToken = ({ body }) => {
+Route.createToken = ({ }) => {
 	return {
 		token: ServerToken.create(),
 	}

@@ -24,6 +24,10 @@ export async function CardDb() {
 			return await db.update(card, callback)
 		}
 
+		async delete(card, callback) { // no-null-check
+			return await db.delete(card._dbKey, callback)
+		}
+
 		async all(callback) { // no-null-check
 			return await db.all(callback)
 		}

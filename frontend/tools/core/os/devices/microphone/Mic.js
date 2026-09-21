@@ -26,7 +26,7 @@ export class Mic {
 	}
 
 	static async stopRecording(onStop = () => {}) {
-		return _MicRecorder.stop(onstop)
+		return _MicRecorder.stop(onStop)
 	}
 
 	static async all() {
