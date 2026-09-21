@@ -1,4 +1,4 @@
-// Log.sendConsoleToServer()
+Log.sendConsoleToServer()
 
 const backendId = LocalValue("backendId", -1)
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
