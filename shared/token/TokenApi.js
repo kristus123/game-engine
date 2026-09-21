@@ -21,13 +21,12 @@ export class TokenApi {
 		return Sha.assertValid(`${i}.${Sha.sign(i)}.${u}`)
 	}
 
-	static splitEncoded(e) {
-		console.log(e)
+	static splitEncoded(encoded) {
 		const [
 			internal,
 			internalSignature,
 			unsafe,
-		] = e.split(".")
+		] = encoded.split(".")
 
 		return {
 			internal,
@@ -40,7 +39,7 @@ export class TokenApi {
 		const { internal } = TokenApi.splitEncoded(encoded)
 
 		const unsafe = B64.encode(JSON.stringify(decoded.unsafe))
-		this.encoded.value = this.encode({ internal, unsafe })
+		return this.encode({ internal, unsafe })
 	}
 
 }

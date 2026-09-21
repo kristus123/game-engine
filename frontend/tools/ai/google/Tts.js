@@ -5,7 +5,7 @@ let loaded = false
 let voice = null
 
 
-// to stop it, use
+// To stop it, use
 // speechSynthesis.cancel()
 
 export async function Tts(text) {

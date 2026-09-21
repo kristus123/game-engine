@@ -12,8 +12,7 @@ export class Token {
 			this.encoded.value = Assert.string(token)
 		}
 
-		console.log(this.encoded.value)
-		this.decoded = TokenApi.decode(this.encoded.value)
+		this.decoded = TokenApi.decode(this.encoded.value) // duplicated line
 	}
 
 	static get role() {
@@ -34,7 +33,9 @@ export class Token {
 
 	static set username(newUsername) {
 		this.decoded.unsafe.username = Assert.string(newUsername)
-		TokenApi.updateUnsafe(this.encoded.value, this.decoded)
+
+		this.encoded.value = TokenApi.updateUnsafe(this.encoded.value, this.decoded)
+		this.decoded = TokenApi.decode(this.encoded.value) // duplicated line
 	}
 
 }
