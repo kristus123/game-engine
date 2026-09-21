@@ -414,6 +414,7 @@
         "serviceWorker": "readonly",
         "settings-page": "readonly",
         "streamer-page": "readonly",
+        "test-page": "readonly",
         "viewer-page": "readonly"
     }
 }
