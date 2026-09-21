@@ -48,4 +48,11 @@ export class MediaDevices {
 		])
 	}
 
+	static async screen() {
+		return await navigator.mediaDevices.getDisplayMedia({
+			video: true,
+			// audio: true,
+		})
+	}
+
 }
