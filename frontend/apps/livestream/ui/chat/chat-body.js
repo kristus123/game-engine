@@ -1,26 +1,20 @@
 export default async ({ html }) => {
 
-	SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
+	Chat.onMessage(({ name, message }) => {
 		html.chatHistory.add(H.create("chat-line", {
 			slots: {
-				name: data.name,
-				message: data.message,
+				name: name,
+				message: message,
 			},
 		}))
-
-		Tts(data.message)
 	})
 
 	return {
 		methods: {
 			sendMessage: () => {
 				const message = html.message.value
+				Chat.sendMessage(message)
 				html.message.clear()
-
-				SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
-					name: "brukernavn",
-					message: message,
-				})
 			},
 		},
 	}

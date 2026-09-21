@@ -155,6 +155,7 @@
         "CanvasGame": "readonly",
         "CardDb": "readonly",
         "CenterPosition": "readonly",
+        "Chat": "readonly",
         "CodeEditor": "readonly",
         "Collision": "readonly",
         "Con": "readonly",

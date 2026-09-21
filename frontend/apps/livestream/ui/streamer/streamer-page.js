@@ -8,6 +8,10 @@ export default async ({ html }) => {
 		html.start.show()
 	}
 
+	Chat.onMessage(({ user, message }) => {
+
+	})
+
 	await Permission.request()
 	const cams = await Cam.all()
 
