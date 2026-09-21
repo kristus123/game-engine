@@ -2,6 +2,7 @@ export default async ({ html }) => {
 
 	if (await Stream.someoneIsStreaming()) {
 		html.waiting.content = "someoneIsStreaming"
+		html.stop.show()
 	}
 	else {
 		html.waiting.content = "Stream not online"
@@ -9,7 +10,7 @@ export default async ({ html }) => {
 	}
 
 	Chat.onMessage(({ user, message }) => {
-
+		Tts(message)
 	})
 
 	await Permission.request()

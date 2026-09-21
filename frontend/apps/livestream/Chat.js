@@ -1,15 +1,15 @@
 export class Chat {
 
-	static onMessage = Listener()
+	static _onMsg = Listener()
 
 	static {
 		SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
-			this.onMessage.trigger({ name: data.name, message: data.message })
+			this._onMsg.trigger({ name: data.name, message: data.message })
 		})
 	}
 
 	static onMessage(callback) {
-		this.onMessage.listen(callback)
+		this._onMsg.listen(callback)
 	}
 
 	static sendMessage(message) {
