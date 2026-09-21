@@ -1,5 +1,18 @@
 export class TokenApi {
 
+	static create() {
+		return this.encode({
+			internal: {
+				userId: randomUUID(),
+				role: "ROLE_UNSECURE",
+			},
+			unsafe: {
+				username: "Your username",
+				age: "Your age",
+			},
+		})
+	}
+
 	static decode(encoded) {
 		const s = this.splitEncoded(encoded)
 

@@ -1,20 +1,11 @@
 import { randomUUID } from "crypto"
 
-Sha.secret = "CHANGE_ME" // todo change
+Sha.secret = "CHANGE_ME" // todo change, use Secrets.js
 
 export class ServerToken {
 
 	static create() {
-		return Sha.assertValid(TokenApi.encode({
-			internal: {
-				userId: randomUUID(),
-				role: "ROLE_USER",
-			},
-			unsafe: {
-				name: "Your username",
-				age: "Your age",
-			},
-		}))
+		return Sha.assertValid(TokenApi.create())
 	}
 
 	static decode(encoded) {
@@ -23,18 +14,26 @@ export class ServerToken {
 	}
 
 	static update(encoded) {
-		Sha.assertValid(encoded)
+		if (Sha.isValid(encoded)) {
+			const decoded = TokenApi.decode(encoded)
 
-		const decoded = TokenApi.decode(encoded)
+			if (UserId.admin(decoded.internal.userId)) {
+				decoded.internal.role = "ROLE_ADMIN"
+			}
+			else if (UserId.user(decoded.internal.userId)) {
+				decoded.internal.role = "ROLE_USER"
+			}
+			else {
+				decoded.internal.role = "ROLE_UNSECURE"
+			}
 
-		if (AdminUserId(decoded.internal.userId)) {
-			decoded.internal.role = "ROLE_ADMIN"
+			return TokenApi.encode(internal, unsafe)
 		}
 		else {
-			decoded.internal.role = "ROLE_USER"
+			const decoded = TokenApi.decode(encoded)
+			decoded.internal.role = "ROLE_UNSECURE"
+			throw new Error("todo")
 		}
-
-		return TokenApi.encode(internal, unsafe)
 	}
 
 }

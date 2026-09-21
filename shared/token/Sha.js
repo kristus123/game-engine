@@ -21,16 +21,18 @@ export class Sha {
 			.digest("base64url")
 	}
 
-	static assertValid(e) {
+	static isValid(e) {
 		Assert.string(this.secret)
 
 		const { internal, internalSignature } = TokenApi.splitEncoded(e)
 
-		const valid = Crypto.timingSafeEqual(
+		return Crypto.timingSafeEqual(
 			Buffer.from(internalSignature),
 			Buffer.from(this.sign(internal, this.secret)))
+	}
 
-		if (valid) {
+	static assertValid(e) {
+		if (this.isValid(e)) {
 			return e
 		}
 		else {
