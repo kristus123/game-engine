@@ -13,21 +13,41 @@ export class HttpServer {
 				Poop.addCorsHeaders(res)
 
 				switch (req.method) {
+					const _ = Sha.assertValid(TokenApi.decode(req.headers["token"]))
+
 					case "GET": {
 						try {
-							const fileName = Poop.routeName(req) // fix routeName name
+							const fileName = Poop.routeName(req) // todo make a Poop.fileName
 							Assert.true(fileName.startsWith("public_folder/"))
 							Poop.streamFile(res, fileName)
 						}
 						catch (e) {
 							Poop.sendJson(res, 500, {
-								error: "Failed to fetch file from endpoint:" + req.url,
+								error: "Failed to fetch file from GET endpoint:" + req.url,
 							})
 						}
 						break
 					}
 					case "POST": {
-						HttpMethod.post(req, res)
+						try {
+							const decoded = Sha.assertValid(TokenApi.decode(req.headers["token"]))
+							const role = decoded.internal.role
+
+							const returnValue = (await Poop.route(req, role))({
+								req: req,
+								body: HttpBody(req),
+								headers: req.headers,
+								params: Poop.getQueryParameters(req),
+							})
+
+							return Poop.formatResponse(res, returnValue)
+						}
+						catch (e) {
+							console.log(e)
+							Poop.sendJson(res, 500, {
+								error: "error: " + e,
+							})
+						}
 						break
 					}
 					case "OPTIONS": { // Preflight / cors

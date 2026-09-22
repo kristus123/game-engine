@@ -5,13 +5,17 @@ export function InjectGlobalAttributeLogicToHtml() {
 			node.spellcheck = false
 		}
 
-		// Make it better later! Currently only work with contenteditable
-		if (node.hasAttribute("prevent-default") && node.hasAttribute("contenteditable")) {
-			node.addEventListener("keydown", (e) => {
-				if (e.key == "Enter") {
-				   e.preventDefault()
-				}
-			})
+		if (node.hasAttribute("prevent-default")) {
+			if (node.hasAttribute("contenteditable")) {
+				node.addEventListener("keydown", (e) => {
+					if (e.key == "Enter") {
+					   e.preventDefault()
+					}
+				})
+			}
+			else {
+				throw new Error("unsupported prevent-default usage")
+			}
 		}
 
 		if (node.hasAttribute("on-click-hide")) {

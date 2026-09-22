@@ -14,6 +14,8 @@ export class TokenApi {
 	}
 
 	static decode(encoded) {
+		Assert.string(encoded)
+
 		const s = this.splitEncoded(encoded)
 
 		return {

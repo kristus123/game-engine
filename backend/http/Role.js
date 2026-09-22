@@ -1,12 +1,11 @@
 export function Role(decoded) {
-	if (decoded == null) { // todo not use null
-		// UNSECURE_ROLE is not the best name
-		return "UNSECURE_ROLE" // mby find better names
-	}
-	else if (AdminUserId(decoded.internal.userId)) {
+	if (UserId.admin(decoded.internal.userId)) {
 		return "ADMIN_ROLE"
 	}
-	else {
+	else if (UserId.user(decoded.internal.userId)) {
 		return "USER_ROLE"
+	}
+	else {
+		throw new Error("x")
 	}
 }

@@ -120,4 +120,49 @@ export class Poop {
 		stream.pipe(res)
 	}
 
+
+
+	// To do we should also make sure that one route can only be assigned to one you know,
+	// like yeah, you can't assign two routes to two different permission routes,
+	// if you know what I'm saying, bro.
+	static route(req, role) { // todo rename to Route.js
+		const path = Poop.routeName(req)
+
+		if (AdminRoute[path]) {
+			Assert.adminRole(role)
+			return AdminRoute[path]
+		}
+		else if (UserRoute[path]) {
+			Assert.userRole(role)
+			return UserRoute[path]
+		}
+		else if (UnsecureRoute[path]) {
+			Assert.unsecureRole(role)
+			return UnsecureRoute[path] // accessible by everyone
+		}
+		else if (Route[path]) {
+			// todo delete Route.js
+			// console.log("deprated route type. use dedicated role-based thingy bro")
+			return Route[path]
+		}
+		else {
+			console.log("is it registered correctly?")
+			throw new Error("could not find where it is : " + path)
+		}
+	}
+
+	static formatResponse(res, returnValue) {
+		if (Poop.validJson(returnValue)) {
+			Poop.sendJson(res, 200, returnValue)
+		}
+		else if (returnValue == null) {
+			Poop.sendEmptyBody(res, 200)
+		}
+		else {
+			throw new Error("we currently don't support any other return value.")
+		}
+
+	}
+
+
 }
