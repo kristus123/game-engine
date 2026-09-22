@@ -28,8 +28,8 @@ export class Token {
 		return this.role == "ROLE_USER"
 	}
 
-	static get username() {
-		return Assert.string(this.decoded.unsafe.username)
+	static get name() {
+		return Assert.string(this.decoded.internal.name)
 	}
 
 	static async update(callback = (u) => {}) {
