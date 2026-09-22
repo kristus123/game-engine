@@ -31,8 +31,14 @@ export class HttpServer {
 					}
 					case "POST": {
 						try {
-							const decoded = Sha.assertValid(ShaToken.decode(req.headers["token"]))
-							const role = decoded.internal.role
+							const encoded = req.headers["token"]
+							if (encoded) {
+								const decoded = ShaToken.decode(req.headers["token"])
+								const role = decoded.internal.role
+							}
+							else {
+								const role = "ROLE_UNSECURE"
+							}
 
 							const returnValue = (await Poop.route(req, role))({
 								req: req,

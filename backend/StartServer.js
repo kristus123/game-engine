@@ -2,6 +2,8 @@ import { pathToFileURL } from "url"
 
 export async function StartServer(backendId) {
 
+	Sha.secret = "CHANGE_ME"
+
 	for (const e of Files.getJsFiles("transpiledBackend/http/endpoints")) { // todo find fix, place path somewhere and find out how to handle transpiled paths
 		await import(pathToFileURL(e).href)
 	}

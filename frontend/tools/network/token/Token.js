@@ -1,14 +1,15 @@
 export class Token {
 
-	static encoded = LocalValue("ENCODED_TOKEN", () => ShaToken.create())
-	static decoded = ShaToken.decode(this.encoded.value)
+	static encoded = LocalValue("ENCODED_TOKEN", "null")
+	static decoded = null
 
 	static async init() {
-		Assert.string(this.encoded.value)
+		const token = this.encoded.value == "null"
+			? (await Assert.ok(await JsonHttpClient.createToken())).token
+			: (await Assert.ok(await JsonHttpClient.updateToken())).token
 
-		const { token } = await Assert.ok(await JsonHttpClient.updateToken())
-		this.encoded.value = Assert.string(token)
-		this.decoded = ShaToken.decode(this.encoded.value) // duplicated line
+		this.encoded.value = token
+		this.decoded = ShaToken.decode(this.encoded.value)
 	}
 
 	static get role() {

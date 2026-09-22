@@ -366,6 +366,7 @@
         "Stream": "readonly",
         "SuperClass": "readonly",
         "SwappableMediaStream": "readonly",
+        "Tapi": "readonly",
         "Task": "readonly",
         "TaskQueue": "readonly",
         "TestEndpoint": "readonly",

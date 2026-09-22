@@ -1,11 +1,16 @@
-Sha.secret = "SUPER_SECRET"
-
 export class ShaToken { // rename to ValidToken ?
 
 	static async create() {
-		const encoded = InvalidToken.create()
-		await Sha.assertValid(encoded)
-		return encoded
+		return await this.encode({
+			internal: {
+				userId: crypto.randomUUID(),
+				role: "ROLE_UNSECURE",
+			},
+			unsafe: {
+				username: "Your username",
+				age: "Your age",
+			},
+		})
 	}
 
 	static async update(encoded) {
@@ -23,14 +28,42 @@ export class ShaToken { // rename to ValidToken ?
 			decoded.internal.role = "ROLE_UNSECURE"
 		}
 
-		return InvalidToken.encode(internal, unsafe)
+		return await this.encode(internal, unsafe)
 	}
-
 
 	static async decode(encoded) {
 		await Sha.assertValid(encoded)
 
 		return InvalidToken.decode(encoded)
+	}
+
+	static async decode(encoded) {
+		await Sha.assertValid(encoded)
+
+		const s = Tapi.splitEncoded(encoded)
+
+		return {
+			internal: Tapi.decodeString(s.internal),
+			internalSignature: s.internalSignature,
+			unsafe: Tapi.decodeString(s.unsafe),
+		}
+	}
+
+	static async encode({ internal, unsafe } = {}) {
+		const i = Tapi.encodeJson(internal)
+		const s = await Sha.sign(i)
+		const u = Tapi.encodeJson(unsafe)
+
+		return Sha.assertValid(`${i}.${s}.${u}`)
+	}
+
+	static async updateUnsafe(encoded, decoded) {
+		await Sha.assertValid(encoded)
+
+		return this.encode({
+			internal: ShaToken.decode(encoded).internal,
+			unsafe: decoded.unsafe,
+		})
 	}
 
 }

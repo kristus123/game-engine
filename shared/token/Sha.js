@@ -1,6 +1,6 @@
 export class Sha {
 
-	static secret = "CHANGE_ME_UNLESS_I_AM_RUNNING_IN_FRONTEND"
+	static secret = "CHANGE_ME"
 
 	static async sign(data) {
 		Assert.string(this.secret)
