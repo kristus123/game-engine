@@ -8,6 +8,7 @@ export class LowLevelHttpClient {
 		}
 		else if (body == null) {
 			body = null
+			Assert.null(contentType)
 			contentType = null
 		}
 		else if (body instanceof Blob) {
@@ -22,7 +23,7 @@ export class LowLevelHttpClient {
 			body: body,
 			headers: {
 				"Content-Type": contentType,
-				"token": Token.encoded.value ?? null, // todo fix hack
+				"token": Token.encoded.value, // todo fix hack, turn into get and set localvalue as _encoded
 			},
 		})
 

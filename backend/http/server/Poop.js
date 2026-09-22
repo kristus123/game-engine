@@ -128,6 +128,8 @@ export class Poop {
 	static route(req, role) { // todo rename to Route.js
 		const path = Poop.routeName(req)
 
+		console.log("calling: " + path)
+
 		if (AdminRoute[path]) {
 			Assert.adminRole(role)
 			return AdminRoute[path]
@@ -137,7 +139,7 @@ export class Poop {
 			return UserRoute[path]
 		}
 		else if (UnsecureRoute[path]) {
-			Assert.unsecureRole(role)
+			// Assert.unsecureRole(role)
 			return UnsecureRoute[path] // accessible by everyone
 		}
 		else if (Route[path]) {

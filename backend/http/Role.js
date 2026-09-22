@@ -1,11 +1,11 @@
 export function Role(decoded) {
 	if (UserId.admin(decoded.internal.userId)) {
-		return "ADMIN_ROLE"
+		return "ROLE_ADMIN"
 	}
 	else if (UserId.user(decoded.internal.userId)) {
-		return "USER_ROLE"
+		return "ROLE_USER"
 	}
 	else {
-		throw new Error("x")
+		throw new Error("wtfffff is : " + decoded)
 	}
 }

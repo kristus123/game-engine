@@ -14,4 +14,17 @@ export class UserId {
 	static user(userId) {
 		return userUserIds.includes(userId)
 	}
+
+	static role(userId) {
+		if (this.admin(userId)) {
+			return "ROLE_ADMIN"
+		}
+		else if (this.user(internal.userId)) {
+			return "ROLE_USER"
+		}
+		else {
+			return "ROLE_UNSECURE"
+		}
+	}
+
 }

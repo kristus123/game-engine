@@ -12,37 +12,44 @@ export class HttpServer {
 			const server = http.createServer(async (req, res) => {
 				Poop.addCorsHeaders(res)
 
+				const encoded = await (async () => {
+					const t = req.headers["token"]
+
+					if (t == undefined || t == "null") {
+						return await ShaToken.create()
+					}
+					else if (A.string(t)) {
+						return t
+					}
+					else {
+						throw new Error("wtf is : " + t)
+					}
+				})()
+				const decoded = await ShaToken.decode(encoded)
+
+				const role = decoded.internal.role
+
 				switch (req.method) {
 
 					case "GET": {
-						const _ = Sha.assertValid(ShaToken.decode(req.headers["token"]))
-
 						try {
+							// todo need to add some role validation
 							const fileName = Poop.routeName(req) // todo make a Poop.fileName
 							Assert.true(fileName.startsWith("public_folder/"))
 							Poop.streamFile(res, fileName)
 						}
 						catch (e) {
 							Poop.sendJson(res, 500, {
-								error: "Failed to fetch file from GET endpoint:" + req.url,
+								error: e + " : GET endpoint : " + req.url,
 							})
 						}
 						break
 					}
 					case "POST": {
 						try {
-							const encoded = req.headers["token"]
-							if (encoded) {
-								const decoded = ShaToken.decode(req.headers["token"])
-								const role = decoded.internal.role
-							}
-							else {
-								const role = "ROLE_UNSECURE"
-							}
-
-							const returnValue = (await Poop.route(req, role))({
+							const returnValue = await (await Poop.route(req, role))({
 								req: req,
-								body: HttpBody(req),
+								body: await HttpBody(req),
 								headers: req.headers,
 								params: Poop.getQueryParameters(req),
 							})

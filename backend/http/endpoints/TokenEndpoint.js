@@ -1,9 +1,14 @@
-Route.createToken = ({ }) => {
+UnsecureRoute.createToken = async ({ }) => {
 	return {
-		token: ServerToken.create(),
+		encoded: await ShaToken.create(),
 	}
 }
 
-Route.updateToken = ({ body }) => {
-	ServerToken.update(body.token)
+UnsecureRoute.updateToken = async ({ body }) => {
+	console.log("xxxxxxxxxxx")
+	console.log(body)
+	console.log("xxxxxxxxxxx")
+	return {
+		encoded: await ShaToken.update(body.encoded)
+	}
 }

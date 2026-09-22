@@ -24,19 +24,25 @@ export class Sha {
 	}
 
 	static async isValid(e) {
+		Assert.string(e)
 		Assert.string(this.secret)
 
-		const { internal, internalSignature } = ShaToken.splitEncoded(e)
+		const { internal, internalSignature } = Tapi.splitEncoded(e)
 
 		return internalSignature == await this.sign(internal)
 	}
 
 	static async assertValid(e) {
+		Assert.string(this.secret)
+		Assert.string(e)
+
 		if (await this.isValid(e)) {
 			return e
 		}
-
-		throw new Error("INVALID TOKEN")
+		else {
+			console.log(e)
+			throw new Error("INVALID TOKEN")
+		}
 	}
 
 }

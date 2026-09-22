@@ -4,12 +4,16 @@ export class Token {
 	static decoded = null
 
 	static async init() {
-		const token = this.encoded.value == "null"
-			? (await Assert.ok(await JsonHttpClient.createToken())).token
-			: (await Assert.ok(await JsonHttpClient.updateToken())).token
+		const encoded = this.encoded.value == "null"
+			? (await Assert.ok(await JsonHttpClient.createToken())).encoded
+			: (await Assert.ok(await JsonHttpClient.updateToken({
+				body: {
+					encoded: this.encoded.value
+				},
+			}))).encoded
 
-		this.encoded.value = token
-		this.decoded = ShaToken.decode(this.encoded.value)
+		this.encoded.value = encoded
+		this.decoded = Tapi.decode(this.encoded.value)
 	}
 
 	static get role() {
@@ -28,11 +32,20 @@ export class Token {
 		return Assert.string(this.decoded.unsafe.username)
 	}
 
-	static set username(newUsername) {
-		this.decoded.unsafe.username = Assert.string(newUsername)
+	static async update(callback = (u) => {}) {
+		const s = Tapi.splitEncoded(this.encoded.value)
 
-		this.encoded.value = ShaToken.updateUnsafe(this.encoded.value, this.decoded)
-		this.decoded = ShaToken.decode(this.encoded.value) // duplicated line
+		const unsafe = Tapi.decodeString(s.unsafe)
+		await callback(unsafe)
+
+		const { encoded } = await Assert.ok(await JsonHttpClient.updateToken({
+			body: {
+				encoded: Tapi.combine(s.internal, s.internalSignature, Tapi.encodeJson(unsafe)),
+			},
+		}))
+
+		this.encoded.value = encoded
+		this.decoded = Tapi.decode(this.encoded.value) // duplicated line
 	}
 
 }

@@ -211,15 +211,15 @@ export class Assert {
 	}
 
 	static adminRole(role) {
-		return Assert.role(role, "ADMIN_ROLE")
+		return Assert.role(role, "ROLE_ADMIN")
 	}
 
 	static userRole(role) {
-		return Assert.role(role, "USER_ROLE")
+		return Assert.role(role, "ROLE_USER")
 	}
 
 	static unsecureRole(role) {
-		return Assert.role(role, "UNSECURE_ROLE")
+		return Assert.role(role, "ROLE_UNSECURE")
 	}
 
 	static noNullInArray(array) {
