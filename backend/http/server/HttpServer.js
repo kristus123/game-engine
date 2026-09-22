@@ -13,9 +13,10 @@ export class HttpServer {
 				Poop.addCorsHeaders(res)
 
 				switch (req.method) {
-					const _ = Sha.assertValid(TokenApi.decode(req.headers["token"]))
 
 					case "GET": {
+						const _ = Sha.assertValid(ShaToken.decode(req.headers["token"]))
+
 						try {
 							const fileName = Poop.routeName(req) // todo make a Poop.fileName
 							Assert.true(fileName.startsWith("public_folder/"))
@@ -30,7 +31,7 @@ export class HttpServer {
 					}
 					case "POST": {
 						try {
-							const decoded = Sha.assertValid(TokenApi.decode(req.headers["token"]))
+							const decoded = Sha.assertValid(ShaToken.decode(req.headers["token"]))
 							const role = decoded.internal.role
 
 							const returnValue = (await Poop.route(req, role))({
@@ -40,7 +41,7 @@ export class HttpServer {
 								params: Poop.getQueryParameters(req),
 							})
 
-							return Poop.formatResponse(res, returnValue)
+							return await Poop.formatResponse(res, returnValue)
 						}
 						catch (e) {
 							console.log(e)

@@ -1,43 +1,42 @@
-let Crypto = null
-try {
-	const crypto = await import("crypto")
-	Crypto = crypto
-}
-catch (e) {
-	Crypto = Assert.value(crypto)
-}
-
 export class Sha {
 
-	static secret = null
+	static secret = "CHANGE_ME_UNLESS_I_AM_RUNNING_IN_FRONTEND"
 
-	static sign(data) {
+	static async sign(data) {
 		Assert.string(this.secret)
 		Assert.string(data)
 
-		return Crypto
-			.createHmac("sha256", this.secret)
-			.update(data)
-			.digest("base64url")
+		const key = await crypto.subtle.importKey(
+			"raw",
+			new TextEncoder().encode(this.secret),
+			{ name: "HMAC", hash: "SHA-256" },
+			false,
+			["sign"]
+		)
+
+		const signature = await crypto.subtle.sign(
+			"HMAC",
+			key,
+			new TextEncoder().encode(data)
+		)
+
+		return Buffer.from(signature).toString("base64url")
 	}
 
-	static isValid(e) {
+	static async isValid(e) {
 		Assert.string(this.secret)
 
-		const { internal, internalSignature } = TokenApi.splitEncoded(e)
+		const { internal, internalSignature } = ShaToken.splitEncoded(e)
 
-		return Crypto.timingSafeEqual(
-			Buffer.from(internalSignature),
-			Buffer.from(this.sign(internal, this.secret)))
+		return internalSignature == await this.sign(internal)
 	}
 
-	static assertValid(e) {
-		if (this.isValid(e)) {
+	static async assertValid(e) {
+		if (await this.isValid(e)) {
 			return e
 		}
-		else {
-			throw new Error("INVALID TOKEN")
-		}
+
+		throw new Error("INVALID TOKEN")
 	}
 
 }

@@ -1,4 +1,4 @@
-export function HttpBody(req) {
+export async function HttpBody(req) {
 	const contentType = ContentType.parse(req.headers["content-type"])
 
 	if (contentType == null) {

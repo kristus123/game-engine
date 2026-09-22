@@ -1,14 +1,14 @@
 export class Token {
 
-	static encoded = LocalValue("ENCODED_TOKEN", () => TokenApi.create())
-	static decoded = TokenApi.decode(this.encoded.value)
+	static encoded = LocalValue("ENCODED_TOKEN", () => ShaToken.create())
+	static decoded = ShaToken.decode(this.encoded.value)
 
 	static async init() {
 		Assert.string(this.encoded.value)
 
 		const { token } = await Assert.ok(await JsonHttpClient.updateToken())
 		this.encoded.value = Assert.string(token)
-		this.decoded = TokenApi.decode(this.encoded.value) // duplicated line
+		this.decoded = ShaToken.decode(this.encoded.value) // duplicated line
 	}
 
 	static get role() {
@@ -30,8 +30,8 @@ export class Token {
 	static set username(newUsername) {
 		this.decoded.unsafe.username = Assert.string(newUsername)
 
-		this.encoded.value = TokenApi.updateUnsafe(this.encoded.value, this.decoded)
-		this.decoded = TokenApi.decode(this.encoded.value) // duplicated line
+		this.encoded.value = ShaToken.updateUnsafe(this.encoded.value, this.decoded)
+		this.decoded = ShaToken.decode(this.encoded.value) // duplicated line
 	}
 
 }

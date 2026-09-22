@@ -1,4 +1,4 @@
-export class TokenApi {
+export class InvalidToken {
 
 	static create() {
 		return this.encode({
@@ -11,7 +11,7 @@ export class TokenApi {
 				age: "Your age",
 			},
 		})
-	}
+    	}
 
 	static decode(encoded) {
 		Assert.string(encoded)
@@ -26,14 +26,13 @@ export class TokenApi {
 	}
 
 	static encode({ internal, unsafe } = {}) {
-
 		Assert.jsonObject(internal)
 		Assert.jsonObject(unsafe)
 
 		const i = B64.encode(JSON.stringify(internal))
 		const u = B64.encode(JSON.stringify(unsafe))
 
-		return Sha.assertValid(`${i}.${Sha.sign(i)}.${u}`)
+		return `${i}.INVALID_SIGNATURE.${u}`
 	}
 
 	static splitEncoded(encoded) {
@@ -51,7 +50,7 @@ export class TokenApi {
 	}
 
 	static updateUnsafe(encoded, decoded) {
-		const { internal } = TokenApi.splitEncoded(encoded)
+		const { internal } = ShaToken.splitEncoded(encoded)
 
 		const unsafe = B64.encode(JSON.stringify(decoded.unsafe))
 		return this.encode({ internal, unsafe })
