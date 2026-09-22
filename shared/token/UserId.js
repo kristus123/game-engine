@@ -19,7 +19,7 @@ export class UserId {
 		if (this.admin(userId)) {
 			return "ROLE_ADMIN"
 		}
-		else if (this.user(internal.userId)) {
+		else if (this.user(userId)) {
 			return "ROLE_USER"
 		}
 		else {

@@ -35,11 +35,7 @@ export class ShaToken {
 			unsafe,
 		} = await this.decode(encoded)
 
-		console.log("__")
-		console.log(internal)
-		console.log("__")
 		internal.role = UserId.role(internal.userId)
-		console.log("sex")
 
 		return await this.encode({ internal, unsafe })
 	}
