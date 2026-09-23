@@ -32,6 +32,15 @@ export class MediaDevices {
 				frameRate: {
 					ideal: 30,
 				},
+				width: {
+					ideal: 1280,
+				},
+				height: {
+					ideal: 720,
+				},
+				aspectRatio: {
+					ideal: 16 / 9,
+				}
 			},
 		})
 	}
