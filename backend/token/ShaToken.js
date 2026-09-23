@@ -5,10 +5,11 @@ export class ShaToken {
 			internal: {
 				userId: crypto.randomUUID(),
 				role: "ROLE_UNSECURE",
-				name: "New user",
+				realName: "todo add real name",
 			},
 			unsafe: {
 				age: "Your age",
+				username: "New user",
 			},
 		})
 	}

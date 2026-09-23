@@ -1,6 +1,6 @@
 export default async ({ html }) => {
 
-	if (await Stream.someoneIsStreaming()) {
+	if (await Stream.online()) {
 		html.waiting.content = "someoneIsStreaming"
 		html.stop.show()
 	}

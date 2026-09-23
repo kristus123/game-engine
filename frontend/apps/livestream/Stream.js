@@ -1,20 +1,18 @@
 export class Stream {
 
-	static async someoneIsStreaming() {
-		// why doet it need 2 awaits ? can we fix it ?
-		const body = await Assert.ok(await JsonHttpClient.currentlyStreaming())
-		return body.streaming
+	static async online() {
+		const body = await Assert.ok(await JsonHttpClient.streamOnline())
+		return body.online
 	}
 
 	static async start() {
-		Assert.true(!(BetterMediaRecorder.active && await this.someoneIsStreaming()))
+		Assert.false(await this.online())
 
 		Assert.ok(await NullHttpClient.startStream({
 			body: {
 				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
 			},
 		}))
-		Toast(Platform.mimeType)
 
 		await BetterMediaRecorder.start(async blob => {
 			await LowLevelHttpClient.post({
@@ -23,7 +21,6 @@ export class Stream {
 				formatBody: r => null,
 				contentType: Platform.mimeType,
 			})
-			Toast("ok")
 		})
 
 		return BetterMediaRecorder.video
@@ -38,11 +35,10 @@ export class Stream {
 	}
 
 	static async stop() {
-		Assert.true(BetterMediaRecorder.active && await this.someoneIsStreaming())
-
-		Assert.ok(await NullHttpClient.stopStream())
+		Assert.true(await this.online())
 
 		await BetterMediaRecorder.stop()
+		await Assert.ok(await NullHttpClient.stopStream())
 	}
 
 }

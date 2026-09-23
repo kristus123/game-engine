@@ -5,13 +5,15 @@ export class BetterMediaRecorder {
 	static start(onBlob) {
 		Assert.null(this.mediaRecorder)
 
-		const queue = new PromiseQueue()
+		const queue = PromiseQueue()
 		this.mediaRecorder = new MediaRecorder(SwappableMediaStream.stream, { mimeType: Platform.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {
 				queue.add(async () => {
-					await onBlob(e.data)
+					if (this.mediaRecorder) {
+						await onBlob(e.data)
+					}
 				})
 			}
 		}

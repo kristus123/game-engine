@@ -13,7 +13,7 @@ export const NullHttpClient = ProxyObject(
 					throw new Error(`${routeName} is expected to return null, but returned: ${t}`)
 				}
 			},
-			contentType: contentType ?? "application/json",
+			contentType: contentType,
 			ok: ok,
 			error: error,
 		})

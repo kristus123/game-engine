@@ -13,10 +13,11 @@ Route.startStream = async ({ body }) => {
 
 Route.stopStream = async () => {
 	await Ffmpeg.stop()
+	Files.deleteFilesInFolder("public_folder/hls")
 }
 
-Route.currentlyStreaming = () => {
+Route.streamOnline = () => {
 	return {
-		streaming: A.value(Ffmpeg.p), // hack
+		online: A.value(Ffmpeg.p), // hack
 	}
 }

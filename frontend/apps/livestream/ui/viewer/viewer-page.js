@@ -1,16 +1,25 @@
 export default async ({ html }) => {
 
-	if (await Stream.someoneIsStreaming()) {
-		html.videoOverlay.add(HlsVideo({
-			playing: () => {
-				html.waiting.content = ""
-			},
-			error: () => {
-				html.waiting.content = "Please hold on"
-			},
-		}))
-	}
-	else {
-		html.waiting.content = "Stream not online"
-	}
+	const onChange = OnChange(async () => await Stream.online(), async online => {
+		if (await online) {
+			html.videoOverlay.add(HlsVideo({
+				playing: () => {
+					html.text.content = ""
+				},
+				error: () => {
+					html.text.content = "Please hold on"
+				},
+			}))
+
+			html.text.content = ""
+		}
+		else {
+			html.videoOverlay.removeChildren()
+			html.text.content = "Stream not online"
+		}
+	})
+
+	setInterval(async () => {
+		onChange.update()
+	}, 1_000)
 }
