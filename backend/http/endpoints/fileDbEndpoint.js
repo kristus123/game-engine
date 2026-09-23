@@ -1,4 +1,4 @@
-Route.uploadFile = ({ body, req }) => {
+UnsecureRoute.uploadFile = ({ body, req }) => {
 	const type = req.headers["content-type"] || ""
 
 	const senderId = req.headers["x-client-id"]
@@ -24,14 +24,14 @@ Route.uploadFile = ({ body, req }) => {
 	}
 }
 
-Route.readFile = ({ body }) => {
+UnsecureRoute.readFile = ({ body }) => {
 	return FileDb.getFile(body.filename)
 }
 
-Route.readFiles = ({ body }) => {
+UnsecureRoute.readFiles = ({ body }) => {
 	return FileDb.getFilesInFolder(body.folder)
 }
 
-Route.deleteFile = ({ body }) => {
+UnsecureRoute.deleteFile = ({ body }) => {
 	return FileDb.deleteFile(body.filename)
 }

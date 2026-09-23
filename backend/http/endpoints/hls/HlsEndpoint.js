@@ -1,22 +1,22 @@
 Files.createFolder("public_folder/hls")
 Files.deleteFilesInFolder("public_folder/hls")
 
-Route.sendChunk = async ({ req }) => {
+UnsecureRoute.sendChunk = async ({ req }) => {
 	for await (const chunk of req) {
 		await Ffmpeg.write(chunk)
 	}
 }
 
-Route.startStream = async ({ body }) => {
+UnsecureRoute.startStream = async ({ body }) => {
 	await Ffmpeg.start(body.mimeType)
 }
 
-Route.stopStream = async () => {
+UnsecureRoute.stopStream = async () => {
 	await Ffmpeg.stop()
 	Files.deleteFilesInFolder("public_folder/hls")
 }
 
-Route.streamOnline = () => {
+UnsecureRoute.streamOnline = () => {
 	return {
 		online: A.value(Ffmpeg.p), // hack
 	}

@@ -123,7 +123,7 @@ export class Poop {
 	// To do we should also make sure that one route can only be assigned to one you know,
 	// like yeah, you can't assign two routes to two different permission routes,
 	// if you know what I'm saying, bro.
-	static route(req, role) { // todo rename to Route.js
+	static route(req, role) {
 		const path = Poop.routeName(req)
 
 		console.log("calling: " + path)
@@ -139,11 +139,6 @@ export class Poop {
 		else if (UnsecureRoute[path]) {
 			Assert.either(role, ["ROLE_ADMIN", "ROLE_USER", "ROLE_UNSECURE"])
 			return UnsecureRoute[path] // accessible by everyone
-		}
-		else if (Route[path]) {
-			// todo delete Route.js
-			// console.log("deprated route type. use dedicated role-based thingy bro")
-			return Route[path]
 		}
 		else {
 			console.log("is it registered correctly?")
@@ -161,7 +156,6 @@ export class Poop {
 		else {
 			throw new Error("we currently don't support any other return value.")
 		}
-
 	}
 
 

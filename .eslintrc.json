@@ -326,7 +326,6 @@
         "RegisterCustomWebComponent": "readonly",
         "Reindeer": "readonly",
         "RequestAnimationFrameLoop": "readonly",
-        "Route": "readonly",
         "RtcClient": "readonly",
         "Scale": "readonly",
         "Screen": "readonly",

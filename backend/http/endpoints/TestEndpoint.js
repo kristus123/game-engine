@@ -1,3 +1,3 @@
-Route.test = ({ body }) => {
+UnsecureRoute.test = ({ body }) => {
 	return body
 }

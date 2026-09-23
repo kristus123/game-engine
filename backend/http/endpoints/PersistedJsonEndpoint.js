@@ -1,15 +1,15 @@
-Route.allPersistedJsonFiles = ({ body, req }) => {
+UnsecureRoute.allPersistedJsonFiles = ({ body, req }) => {
 	return Files.inFolder("backend/persistedJson").map(path => ({
 		name: path.split("/").pop().split(".")[0],
 		content: JSON.parse(Files.read(path)),
 	}))
 }
 
-Route.getPersistedJson = ({ body, req }) => {
+UnsecureRoute.getPersistedJson = ({ body, req }) => {
 	return Files.read(`backend/persistedJson/${body.name}.json`)
 }
 
-Route.savePersistedJson = ({ body }) => {
+UnsecureRoute.savePersistedJson = ({ body }) => {
 	try {
 		Files.write(`backend/persistedJson/${body.name}.json`, JSON.stringify(body.content, null, 4))
 	}
