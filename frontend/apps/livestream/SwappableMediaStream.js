@@ -19,7 +19,9 @@ export class SwappableMediaStream {
 		const { ctx, canvas, canvasStream } = Canvas(1280, 720)
 
 		RequestAnimationFrameLoop(() => {
-			if (this.video.readyState >= 2) { // has enough data to display current frame
+			if (this.video?.readyState >= 2) { // has enough data to display current frame
+				canvas.width = this.video?.videoWidth
+				canvas.height = this.video?.videoHeight
 				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
 			}
 		})
