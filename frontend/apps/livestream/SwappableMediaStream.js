@@ -20,18 +20,9 @@ export class SwappableMediaStream {
 
 		RequestAnimationFrameLoop(() => {
 			if (this.video?.readyState >= 2) { // has enough data to display current frame
-				ctx.drawImage(
-					this.video,
-					0,
-					0,
-					width,
-					height)
+				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
 			}
 		})
-
-
-
-
 
 		this.audioContext = new AudioContext()
 		this.audioOutput = this.audioContext.createMediaStreamDestination()
