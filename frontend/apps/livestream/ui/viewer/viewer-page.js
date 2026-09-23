@@ -1,7 +1,7 @@
 export default async ({ html }) => {
 
-	const onChange = OnChange(async () => await Stream.online(), async online => {
-		if (await online) {
+	const onChange = await OnChange(() => Stream.online(), online => {
+		if (online) {
 			html.videoOverlay.add(HlsVideo({
 				playing: () => {
 					html.text.content = ""

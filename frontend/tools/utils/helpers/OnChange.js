@@ -1,15 +1,20 @@
-export class OnChange {
-	constructor(condition, action) {
-		Assert.method(condition)
-		this.lastCondition = condition()
-	}
+export async function OnChange(condition, action) {
+	Assert.method(condition)
+	Assert.method(action)
 
-	update() {
-		const currentCondition = this.condition()
+	let lastCondition = Random.uuid()
 
-		if (this.lastCondition != currentCondition) {
-			this.action(currentCondition)
-			this.lastCondition = currentCondition
+	return {
+		update: async () => {
+			const current = await condition()
+
+			console.log(lastCondition)
+			console.log(current)
+			if (lastCondition != current) {
+				console.log("TRIGGERING ONCHANGE")
+				action(current)
+				lastCondition = current
+			}
 		}
 	}
 
