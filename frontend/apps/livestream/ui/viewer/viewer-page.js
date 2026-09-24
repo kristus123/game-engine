@@ -20,6 +20,6 @@ export default async ({ html }) => {
 	})
 
 	setInterval(async () => {
-		onChange.update()
+		await onChange.update()
 	}, 1_000)
 }

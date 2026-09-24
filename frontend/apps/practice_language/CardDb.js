@@ -4,53 +4,49 @@
 export async function CardDb() {
 
 	const db = await Db("jap", {
-		enhancer: c => {
-
-			c.practiceSide = () => {
-				if (c.front.dueDate.isDue()) {
-					return c.front
+		prototype: {
+			practiceSide() {
+				if (this.front.dueDate.isDue()) {
+					return this.front
 				}
-				else if (c.back.dueDate.isDue()) {
-					return c.back
+				else if (this.back.dueDate.isDue()) {
+					return this.back
 				}
 				else {
 					throw new Error("no sides of the card are due")
 				}
-			}
-
-			c.otherSide = () => {
-				switch c.practiceSide() {
-					case c.front {
-						return c.back
+			},
+			otherSide() {
+				switch this.practiceSide() {
+					case this.front {
+						return this.back
 					}
-					case c.back {
-						return c.front
+					case this.back {
+						return this.front
 					}
 				}
-			}
+			},
+			markEasy() {
+				this.practiceSide().score += 1
 
-			c.markEasy = () => {
-				c.practiceSide().score += 1
-
-				c.practiceSide().dueDate = LocalDate.now()
-					.plusDays(c.practiceSide().score)
+				this.practiceSide().dueDate = LocalDate.now()
+					.plusDays(this.practiceSide().score)
 					.toString()
-			}
-
-			c.markHard = () => {
-				c.practiceSide().score -= 1 
-				c.practiceSide().dueDate = LocalDate.now().toString()
-			}
-		},
+			},
+			markHard() {
+				this.practiceSide().score -= 1 
+				this.practiceSide().dueDate = LocalDate.now().toString()
+			},
+		}
 	})
 
 	return new class {
 
-		async random(callback) { // no-null-check
-			return await db.random(callback)
+		async random() {
+			return await db.random()
 		}
 
-		async save({frontSound, backSound} = {}, callback) { // no-null-check
+		async save({frontSound, backSound} = {}) {
 			return await db.save({
 				front: {
 					sound: Assert.blob(frontSound),
@@ -62,29 +58,29 @@ export async function CardDb() {
 					dueDate: LocalDate.now().toString(),
 					score: 0,
 				},
-			}, callback)
+			})
 		}
 
-		async update(card, callback) { // no-null-check
-			return await db.update(card, callback)
+		async update(card) {
+			return await db.update(card)
 		}
 
-		async delete(card, callback) { // no-null-check
-			return await db.delete(card._dbKey, callback)
+		async delete(card) {
+			return await db.delete(card._dbKey)
 		}
 
-		async all(callback) { // no-null-check
-			return await db.all(callback)
+		async all() {
+			return await db.all()
 		}
 
-		async cardToPractice(callback) {
-			return (await db.all(callback))
+		async cardToPractice() {
+			return (await db.all())
 				.filter(c => c.front.dueDate.isDue() || c.back.dueDate.isDue())
 				.find(c => c.random())
 		}
 
-		async resetDueDates(callback) {
-			for (const c of await db.all(callback)) {
+		async resetDueDates() {
+			for (const c of await db.all()) {
 				c.front.dueDate = LocalDate.now().toString()
 				c.back.dueDate = LocalDate.now().toString()
 				await db.update(c)

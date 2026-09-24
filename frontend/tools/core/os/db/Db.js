@@ -1,4 +1,4 @@
-export async function Db(dbName) {
+export async function Db(dbName, { prototype } = {}) {
 
 	const db = await new Promise((resolve, reject) => {
 		const r = indexedDB.open(dbName)
@@ -17,54 +17,64 @@ export async function Db(dbName) {
 		r.onerror = e => reject(e.target.error)
 	})
 
-	const t = (type) => {
+	const t = type => {
 		return db.transaction(dbName, type)
+	}
+
+	const applyPrototype = elements => {
+		for (const e of Always.list(elements)) {
+			Object.setPrototypeOf(e, prototype)
+		}
+
+		return elements
 	}
 
 	return new class {
 
-		async get(o, callback) { // no-null-check
+		async get(o) {
 			const id = o?._dbKey ?? o
 			Assert.uuid(id)
 
-			return SimpleAwait(t("readonly").objectStore(dbName).get(id), callback)
+			return applyPrototype(await SimpleAwait(t("readonly").objectStore(dbName).get(id)))
 		}
 
-		async update(o, callback) { // no-null-check
+		async update(o) {
 			Assert.object(o)
 			Assert.uuid(o?._dbKey)
 
-			return SimpleAwait(t("readwrite").objectStore(dbName).put(o), callback)
+			await SimpleAwait(t("readwrite").objectStore(dbName).put(o))
+
+			return o
 		}
 
-		async save(o, callback) { // no-null-check
+		async save(o) {
 			Assert.object(o)
 			Assert.null(o._dbKey)
 
 			o._dbKey = Random.uuid()
-			return this.update(o, callback)
+
+			return await this.update(o)
 		}
 
-		async delete(o, callback) { // no-null-check
+		async delete(o) {
 			const id = o?._dbKey ?? o
 			Assert.uuid(id)
 
-			return SimpleAwait(t("readwrite").objectStore(dbName).delete(id), callback)
+			return await SimpleAwait(t("readwrite").objectStore(dbName).delete(id))
 		}
 
-		async all(callback) { // no-null-check
-			return SimpleAwait(t("readonly").objectStore(dbName).getAll(), callback)
+		async all() {
+			return applyPrototype(await SimpleAwait(t("readonly").objectStore(dbName).getAll()))
 		}
 
-		async random(callback) { // no-null-check
+		async random() {
 			const all = await this.all()
+
 			if (all.empty) {
-				callback(null)
 				return null
 			}
 			else {
 				const r = all.random()
-				callback(r)
 				return r
 			}
 		}

@@ -35,6 +35,6 @@ document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
 // FindPair()
-Livestream()
-// PracticeLanguage()
+// Livestream()
+PracticeLanguage()
 // CodeEditor()
