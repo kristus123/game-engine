@@ -38,3 +38,16 @@ Font.use("VT323")
 // Livestream()
 PracticeLanguage()
 // CodeEditor()
+//
+
+
+// this can be combined with index.html block thingy
+//
+let lastRatio = devicePixelRatio
+
+setInterval(() => {
+	if (devicePixelRatio != lastRatio) {
+		lastRatio = devicePixelRatio
+		console.log(devicePixelRatio)
+	}
+}, 250)
