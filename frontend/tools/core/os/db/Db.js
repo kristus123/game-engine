@@ -1,4 +1,4 @@
-export async function Db(dbName, { prototype } = {}) {
+export async function Db(dbName, { prototype = {} } = {}) {
 
 	const db = await new Promise((resolve, reject) => {
 		const r = indexedDB.open(dbName)

@@ -35,9 +35,7 @@ export default async ({ html, setState }) => {
 				Sound.playBlob(card.otherSide().sound)
 			},
 			easy: async () => {
-				console.log(card)
 				await card.markEasy()
-				console.log(card)
 				await cardDb.update(card)
 				await loadNewCard()
 			},
