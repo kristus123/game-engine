@@ -14,10 +14,7 @@ export default async ({ html, setState }) => {
 		methods: {
 			save: () => {
 				console.log("caling save")
-				cardDb.save({
-					front: frontSound,
-					back: backSound,
-				}, () => {
+				cardDb.save({ frontSound, backSound }, () => {
 					html.playFront.disable()
 					html.playBack.disable()
 					html.save.disable()

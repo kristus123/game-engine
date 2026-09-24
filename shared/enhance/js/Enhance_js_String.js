@@ -8,6 +8,10 @@ export function Enhance_js_String() {
 		return this.includes(subString)
 	})
 
+	Enhance(String.prototype, "isDue", function() {
+		return LocalDate(this).isDue()
+	})
+
 	Enhance(String.prototype, "toOneLine", function(separator=" ") {
 		return this.replace(/\r?\n/g, separator)
 	})
