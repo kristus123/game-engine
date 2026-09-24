@@ -1,4 +1,4 @@
-export function RequestAnimationFrameLoop(run) {
+export function FrameLoop(run) {
 
 	let frame = null
 	let playing = true

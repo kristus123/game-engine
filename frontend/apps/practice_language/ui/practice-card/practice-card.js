@@ -104,7 +104,7 @@ export default async ({ html, setState }) => {
 		r.methods.playBack()
 	}
 
-	RequestAnimationFrameLoop(() => {
+	FrameLoop(() => {
 		Con.update()
 	})
 
