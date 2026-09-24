@@ -7,8 +7,6 @@ export async function CardDb() {
 		prototype: {
 			practiceSide() {
 				if (this.front.dueDate.isDue()) {
-					console.log(this.front.dueDate.isDue())
-					console.log("we gon practice front")
 					return this.front
 				}
 				else if (this.back.dueDate.isDue()) {

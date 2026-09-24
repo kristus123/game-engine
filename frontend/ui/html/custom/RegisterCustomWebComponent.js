@@ -97,16 +97,17 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				}
 			})
 
-			if (state) {
-				if (A.string(state)) {
-					setState(state)
-				}
-				else if (A.method(state)) {
-					setState(Assert.string(await state()))
-				}
-				else {
-					throw new Error("unuspported state value")
-				}
+			if (A.string(state)) {
+				setState(state)
+			}
+			else if (A.method(state)) {
+				setState(Assert.string(await state()))
+			}
+			else if (state == null) {
+				// that's ok as well, we do nothing
+			}
+			else {
+				throw new Error("unuspported state value")
 			}
 
 		}
