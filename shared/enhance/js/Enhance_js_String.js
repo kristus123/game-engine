@@ -9,7 +9,7 @@ export function Enhance_js_String() {
 	})
 
 	Enhance(String.prototype, "isDue", function() {
-		return LocalDate(this).isDue()
+		return new LocalDate(this).isDue()
 	})
 
 	Enhance(String.prototype, "toOneLine", function(separator=" ") {

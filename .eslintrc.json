@@ -142,6 +142,7 @@
         "AssertNoReservedKeywordsUsedInFileNames": "readonly",
         "AssertUniqueFileNames": "readonly",
         "AssetPaths": "readonly",
+        "AsyncOnChange": "readonly",
         "AudioEngine": "readonly",
         "AudioSheet": "readonly",
         "AudioStream": "readonly",

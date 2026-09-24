@@ -7,6 +7,8 @@ export async function CardDb() {
 		prototype: {
 			practiceSide() {
 				if (this.front.dueDate.isDue()) {
+					console.log(this.front.dueDate.isDue())
+					console.log("we gon practice front")
 					return this.front
 				}
 				else if (this.back.dueDate.isDue()) {
@@ -76,10 +78,10 @@ export async function CardDb() {
 		async cardToPractice() {
 			return (await db.all())
 				.filter(c => c.front.dueDate.isDue() || c.back.dueDate.isDue())
-				.find(c => c.random())
+				.find(c => c)
 		}
 
-		async resetDueDates() {
+		async resetAllDueDates() {
 			for (const c of await db.all()) {
 				c.front.dueDate = LocalDate.now().toString()
 				c.back.dueDate = LocalDate.now().toString()

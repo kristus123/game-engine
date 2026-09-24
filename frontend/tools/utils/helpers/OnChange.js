@@ -1,21 +1,17 @@
-export async function OnChange(condition, action) {
+export function OnChange(condition, action) {
 	Assert.method(condition)
 	Assert.method(action)
 
 	let lastCondition = Random.uuid()
 
 	return {
-		update: async () => {
-			const current = await condition()
+		update: () => {
+			const current = condition()
 
-			console.log(lastCondition)
-			console.log(current)
 			if (lastCondition != current) {
-				console.log("TRIGGERING ONCHANGE")
 				action(current)
 				lastCondition = current
 			}
 		}
 	}
-
 }

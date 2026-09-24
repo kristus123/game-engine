@@ -13,6 +13,7 @@ export default async ({ html, setState }) => {
 		setState("loading")
 
 		card = await cardDb.cardToPractice()
+
 		if (card) {
 			Sound.playBlob(card.practiceSide().sound)
 			return setState("hasCard")
@@ -34,21 +35,23 @@ export default async ({ html, setState }) => {
 				Sound.playBlob(card.otherSide().sound)
 			},
 			easy: async () => {
-				card.markEasy()
+				console.log(card)
+				await card.markEasy()
+				console.log(card)
 				await cardDb.update(card)
 				await loadNewCard()
 			},
 			hard: async () => {
-				card.markHard()
+				await card.markHard()
 				await cardDb.update(card)
 				await loadNewCard()
 			},
 			practiceMore: async () => {
-				await cardDb.resetDueDates()
+				await cardDb.resetAllDueDates()
 				await loadNewCard()
 			},
 			deleteCard: async () => {
-				cardDb.delete(card)
+				await cardDb.delete(card)
 				await loadNewCard()
 			},
 		},

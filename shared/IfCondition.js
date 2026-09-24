@@ -43,6 +43,9 @@ export class IfCondition { // maybe rename to function _If(arg)
 		else if (A.promise(arg)) {
 			throw new Error("Don't put a promise in an if condition. use await!")
 		}
+		else if (A.method(arg)) {
+			throw new Error("passing method into an if - HAS TO BE A MISTAKE")
+		}
 		else if (A.number(arg)) {
 			// maybe do positive numbers as true and negative numbers as false. todo think
 			throw new Error("numbers are not allowed in if condition. i am not sure what is best")

@@ -12,16 +12,15 @@ export default async ({ html, setState }) => {
 
 	return {
 		methods: {
-			save: () => {
+			save: async () => {
 				console.log("caling save")
-				cardDb.save({ frontSound, backSound }, () => {
-					html.playFront.disable()
-					html.playBack.disable()
-					html.save.disable()
+				await cardDb.save({ frontSound, backSound })
+				html.playFront.disable()
+				html.playBack.disable()
+				html.save.disable()
 
-					frontSound = null
-					backSound = null
-				})
+				frontSound = null
+				backSound = null
 			},
 			recordFront: () => {
 				direction = "front"

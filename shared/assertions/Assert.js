@@ -1,5 +1,14 @@
 export class Assert {
 
+	static blob(x) {
+		if (x instanceof Blob) {
+			return x
+		}
+		else {
+			throw new TypeError("Expected Blob")
+		}
+	}
+
 	static uuid(value) {
 		const yes = typeof value == "string" &&
 			/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
