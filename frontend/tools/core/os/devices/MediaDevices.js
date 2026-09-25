@@ -3,7 +3,7 @@ export class MediaDevices {
 	static async audio(deviceId) {
 		Assert.true(Permission.granted)
 
-		return await navigator.mediaDevices.getUserMedia({
+		const stream = await navigator.mediaDevices.getUserMedia({
 			audio: {
 				deviceId: {
 					// can be 'exact' or 'ideal' - ideal more safe
@@ -18,6 +18,14 @@ export class MediaDevices {
 				// latency: 0.01        // optional - browser may ignore
 			},
 		})
+
+		console.log(track.getCapabilities())
+		console.log(track.getSettings())
+		console.log(track.getSettings().sampleRate)
+		console.log(track.getSettings().channelCount)
+		console.log(track.getSettings().deviceId)
+
+		return stream
 	}
 
 	static async video(deviceId) {
