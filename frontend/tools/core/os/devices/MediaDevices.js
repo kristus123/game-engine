@@ -19,6 +19,8 @@ export class MediaDevices {
 			},
 		})
 
+		const track = stream.getAudioTracks()[0]
+
 		console.log(track.getCapabilities())
 		console.log(track.getSettings())
 		console.log(track.getSettings().sampleRate)
