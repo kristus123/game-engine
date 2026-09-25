@@ -31,9 +31,7 @@ export class Ffmpeg {
 			"-c:v",
 			"libx264",
 			"-preset",
-			"veryfast", // or ultrafast
-			"-crf",
-			"18",
+			"ultrafast", // veryfast or ultrafast
 			"-tune",
 			"zerolatency",
 			"-threads",
@@ -42,8 +40,6 @@ export class Ffmpeg {
 			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.7", // mix between 0 and 1
 			"-c:a",
 			"aac",
-			"-b:a",
-			"128k",
 			"-f",
 			"hls",
 			"-hls_time",
