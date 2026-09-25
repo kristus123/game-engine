@@ -36,6 +36,8 @@ export class Ffmpeg {
 			"zerolatency",
 			"-threads",
 			"0",
+			"-af",
+			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.7", // mix between 0 and 1
 			"-c:a",
 			"aac",
 			"-f",
