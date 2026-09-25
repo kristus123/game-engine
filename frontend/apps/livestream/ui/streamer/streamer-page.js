@@ -10,6 +10,7 @@ export default async ({ html }) => {
 	}
 
 	Chat.onMessage(({ user, message }) => {
+		console.log("tts: " + message)
 		Tts(message)
 	})
 
