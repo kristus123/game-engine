@@ -1,4 +1,4 @@
-export async function AsyncOnChange(condition, action) {
+export function AsyncOnChange(condition, action) {
 	Assert.method(condition)
 	Assert.method(action)
 

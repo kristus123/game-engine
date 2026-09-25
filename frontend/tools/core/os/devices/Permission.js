@@ -2,6 +2,10 @@ export class Permission {
 
 	static granted = null
 
+	static get canPlayAudio() {
+		return navigator.userActivation.hasBeenActive
+	}
+
 	static async request({ ok, error } = {}) { // no-null-check
 		if (this.granted == null) {
 			const camera = navigator.permissions.query({
