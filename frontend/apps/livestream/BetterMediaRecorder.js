@@ -6,12 +6,13 @@ export class BetterMediaRecorder {
 		Assert.null(this.mediaRecorder)
 
 		const queue = PromiseQueue()
+
 		this.mediaRecorder = new MediaRecorder(SwappableMediaStream.stream, { mimeType: Platform.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
 			if (e.data.size > 0) {
 				queue.add(async () => {
-					if (this.mediaRecorder) {
+					if (this.active) { // in case stream gets turned off to avoid error in logs
 						await onBlob(e.data)
 					}
 				})
@@ -37,6 +38,7 @@ export class BetterMediaRecorder {
 	}
 
 	static get active() {
-		return this.mediaRecorder
+		return A.value(this.mediaRecorder)
 	}
+
 }
