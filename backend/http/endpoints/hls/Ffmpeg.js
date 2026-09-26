@@ -47,7 +47,7 @@ export class Ffmpeg {
 			"-preset",
 			"veryfast", // fast or veryfast or ultrafast // x
 			"-crf", // x
-			"16", // x
+			"22", // x
 			"-tune",
 			"zerolatency",
 			"-threads",
