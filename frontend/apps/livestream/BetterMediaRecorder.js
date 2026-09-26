@@ -19,7 +19,7 @@ export class BetterMediaRecorder {
 			}
 		}
 
-		this.mediaRecorder.start(6_000)
+		this.mediaRecorder.start(2_000)
 	}
 
 	static async swapAudio(deviceId) {
