@@ -49,7 +49,7 @@ export class Ffmpeg {
 			"-hls_time",
 			"2",
 			"-hls_list_size",
-			"3",
+			"15",
 			"-g",
 			"60",
 			"-hls_flags",
