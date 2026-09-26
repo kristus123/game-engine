@@ -1,5 +1,17 @@
 import { spawn } from "child_process"
 
+// -preset
+// ultrafast
+// superfast
+// veryfast
+// faster
+// fast
+// medium
+// slow
+// slower
+// veryslow
+// placebo
+
 export class Ffmpeg {
 
 	static start(mimeType) {
@@ -33,9 +45,9 @@ export class Ffmpeg {
 			"-pix_fmt", // x
 			"yuv420p", // x
 			"-preset",
-			"veryfast", // fast or veryfast or ultrafast // x
+			"slow", // fast or veryfast or ultrafast // x
 			"-crf", // x
-			"18", // x
+			"16", // x
 			"-tune",
 			"zerolatency",
 			"-threads",
@@ -47,7 +59,7 @@ export class Ffmpeg {
 			"-f",
 			"hls",
 			"-hls_time",
-			"2",
+			"6",
 			"-hls_list_size",
 			"15",
 			"-g",
