@@ -42,18 +42,24 @@ export class Ffmpeg {
 			"passthrough",
 			"-c:v",
 			"libx264",
-			"-pix_fmt", // x
-			"yuv420p", // x
+			"-pix_fmt",
+			"yuv420p",
 			"-preset",
-			"ultrafast", // fast or veryfast or ultrafast // x
-			"-crf", // x
-			"22", // x
+			"ultrafast",
+			"-crf",
+			"22",
 			"-tune",
 			"zerolatency",
 			"-threads",
 			"0",
+			"-ac", // x
+			"1", // x
+			"-ar", //x
+			"48000", //x
+			"-b:a", // x
+			"128k", // x
 			"-af",
-			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.7", // mix between 0 and 1
+			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4", // mix between 0 and 1
 			"-c:a",
 			"aac",
 			"-f",
