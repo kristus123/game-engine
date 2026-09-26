@@ -5,7 +5,7 @@ let voice = null
 
 const load = () => {
 	console.log("loading voices")
-	voices = speechSynthesis.getVoices()
+	const voices = speechSynthesis.getVoices()
 
 	voice = voices.find(v => v.lang == lang)
 		?? voices[0] ?? null
