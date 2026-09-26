@@ -30,8 +30,12 @@ export class Ffmpeg {
 			"passthrough",
 			"-c:v",
 			"libx264",
+			"-pix_fmt", // x
+			"yuv420p", // x
 			"-preset",
-			"ultrafast", // veryfast or ultrafast
+			"veryfast", // veryfast or ultrafast // x
+			"-crf", // x
+			"23", // x
 			"-tune",
 			"zerolatency",
 			"-threads",
