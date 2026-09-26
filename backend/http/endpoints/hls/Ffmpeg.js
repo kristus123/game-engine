@@ -52,16 +52,16 @@ export class Ffmpeg {
 			"zerolatency",
 			"-threads",
 			"0",
-			"-ac", // x
-			"1", // x
-			"-ar", //x
-			"48000", //x
-			"-b:a", // x
-			"128k", // x
-			// "-af",
-			// "arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4", // mix between 0 and 1
+			"-ac",
+			"1",
+			"-ar",
+			"48000",
+			"-af",
+			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4,aresample=async=1",
 			"-c:a",
 			"aac",
+			"-b:a",
+			"128k",
 			"-f",
 			"hls",
 			"-hls_time",
