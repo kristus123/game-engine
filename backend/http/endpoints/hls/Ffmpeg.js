@@ -58,8 +58,8 @@ export class Ffmpeg {
 			"48000", //x
 			"-b:a", // x
 			"128k", // x
-			"-af",
-			"arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4", // mix between 0 and 1
+			// "-af",
+			// "arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4", // mix between 0 and 1
 			"-c:a",
 			"aac",
 			"-f",
