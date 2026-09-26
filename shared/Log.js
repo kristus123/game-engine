@@ -21,7 +21,7 @@ export class Log {
 				message: args.join(" ")
 			})
 		}).catch(e => {
-			console.error("failed to send log to discord server: " + e)
+			// console.error("failed to send log to discord server: " + e)
 		})
 	}
 

@@ -29,7 +29,14 @@ export class SocketClient {
 		})
 	}
 
-	static connect(onConnect) {
+	static connect() {
+		if (this._connectCalled) {
+			throw new Error("you are only allowed to call .connect once")
+		}
+		else {
+			this._connectCalled = true
+		}
+
 		// WebSocket.CONNECTING // 0
 		// WebSocket.OPEN       // 1
 		// WebSocket.CLOSING    // 2
@@ -38,15 +45,24 @@ export class SocketClient {
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
 		this.webSocket.onopen = () => {
-			//Todo: this should not be triggered on every onOpen
-			// We should have one connect and one on initial connect
-			onConnect()
 			console.log("WebSocket connection opened")
+
+			if (this._firstConnect) {
+				// already triggered onFirstConnect
+			}
+			else {
+				this.onFirstConnect?.()
+				this._firstConnect = true
+			}
+
+			this.onEveryConnect?.()
+
+			this.sendToServer("HOT_RELOAD_BACKEND_ID", {})
 		}
 
 		this.webSocket.onclose = () => {
 			setTimeout(() => {
-				this.connect(onConnect)
+				this.connect()
 			}, 1000)
 			throw new Error("Socket connection lost")
 		}

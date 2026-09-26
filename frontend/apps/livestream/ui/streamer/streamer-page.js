@@ -1,7 +1,7 @@
 export default async ({ html }) => {
 
 	if (await Stream.online()) {
-		html.waiting.content = "someoneIsStreaming"
+		html.waiting.content = "someone is already streaming"
 		html.stop.show()
 	}
 	else {
@@ -10,7 +10,6 @@ export default async ({ html }) => {
 	}
 
 	Chat.onMessage(({ user, message }) => {
-		console.log("tts: " + message)
 		Tts(message)
 	})
 

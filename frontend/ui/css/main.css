@@ -34,3 +34,8 @@ body {
 [allow-click-through] {
 	pointer-events: none;
 }
+
+[allow-click-through] > * {
+	/* auto is default */
+	pointer-events: auto;
+}

@@ -1,6 +1,7 @@
 Log.sendConsoleToServer()
 
 const backendId = LocalValue("backendId", -1)
+
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
 	if (data.backendId > backendId.value) {
 		backendId.value = data.backendId
@@ -12,9 +13,7 @@ SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
 	}
 })
 
-SocketClient.connect(() => {
-	SocketClient.sendToServer("HOT_RELOAD_BACKEND_ID", {})
-})
+SocketClient.connect()
 
 ServiceWorker.init()
 
