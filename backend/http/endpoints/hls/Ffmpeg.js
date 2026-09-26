@@ -33,7 +33,7 @@ export class Ffmpeg {
 			"-pix_fmt", // x
 			"yuv420p", // x
 			"-preset",
-			"fast", // fast or veryfast or ultrafast // x
+			"veryfast", // fast or veryfast or ultrafast // x
 			"-crf", // x
 			"18", // x
 			"-tune",
