@@ -1,38 +1,37 @@
 // const lang = "en-US"
 const lang = "zh-CN"
 
-let loaded = false
 let voice = null
 
+const load = () => {
+	console.log("loading voices")
+	voice = speechSynthesis.getVoices()
+		.find(v => v.lang == lang)
+}
+
+speechSynthesis.onvoiceschanged = load
+load()
 
 // To stop it, use
 // speechSynthesis.cancel()
 
 export async function Tts(text) {
-	if (!loaded) {
-		const load = () => {
-			voice = speechSynthesis.getVoices()
-				.find(v => v.lang == lang)
-			loaded = true
-		}
-
-		window.addEventListener("pointerdown", load, { once: true })
-		window.addEventListener("touchstart", load, { once: true })
-	}
-
-	return new Promise(resolve => {
-		const utterance = new SpeechSynthesisUtterance(text)
-
-		utterance.lang = lang
-		utterance.rate = 0.9
-		utterance.pitch = 1
-
+	return new Promise((resolve, reject) => {
 		if (voice) {
-			utterance.voice = voice
+			const u = new SpeechSynthesisUtterance(text)
+			u.lang = lang
+			u.rate = 0.9
+			u.pitch = 1
+
+			u.onend = resolve
+			u.onerror = reject
+
+			u.voice = voice
+			speechSynthesis.speak(u)
 		}
-
-		utterance.onend = resolve
-
-		speechSynthesis.speak(utterance)
+		else {
+			console.log("voice not loaded")
+			reject()
+		}
 	})
 }
