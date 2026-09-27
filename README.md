@@ -31,3 +31,12 @@ cloudflare gives free tunnel if you have a domain. (which i have)
 # cool idea
 
 One cool idea that I will probably never do for now is to basically use SQLite because it has a official WASM library and then you can use the OPFS API for storing files and then just sending the entire database to the server and this can be used for making a very simple backup solution
+
+
+# LAter
+Yep. With UFW, you can allow Cloudflare's IP ranges and block everyone else.
+But since you're using a Cloudflare Tunnel, you likely don't need to allow Cloudflare IPs at all for your web server. You can simply keep port 3000 inaccessible externally.
+If you have nginx on 80/443, though, use:
+sudo ufw allow ssh
+sudo ufw allow from 173.245.48.0/20 to any port 80 proto tcp
+sudo ufw allow from 173.245.48.0/20 to any port 443 proto tcp
