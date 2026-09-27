@@ -19,7 +19,6 @@ const load = () => {
 		?? voices.find(v => _normalize(v.lang).includes("zh-cn"))
 		?? voices.find(v => _normalize(v.lang).includes("en-us"))
 		?? voices.find(v => _normalize(v.lang).includes("en"))
-		?? voices[0]
 		?? null
 
 	console.log("voice selected:", voice)
