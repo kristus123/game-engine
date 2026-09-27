@@ -34,6 +34,6 @@ export class TtsVoices {
 	}
 
 	static get active() {
-		return voice
+		return Assert.value(voice)
 	}
 }
