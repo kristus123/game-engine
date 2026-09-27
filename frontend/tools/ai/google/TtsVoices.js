@@ -16,9 +16,9 @@ const load = () => {
 	}
 
 	voice = null
-		?? voices.find(v => _normalize(v.lang).insluces("zh-cn"))
-		?? voices.find(v => _normalize(v.lang).insluces("en-us"))
-		?? voices.find(v => _normalize(v.lang).insluces("en"))
+		?? voices.find(v => _normalize(v.lang).includes("zh-cn"))
+		?? voices.find(v => _normalize(v.lang).includes("en-us"))
+		?? voices.find(v => _normalize(v.lang).includes("en"))
 		?? voices[0]
 		?? null
 
