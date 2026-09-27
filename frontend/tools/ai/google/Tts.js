@@ -10,13 +10,17 @@ export function Tts(text) {
 			u.rate = 0.9
 			u.pitch = 1
 
-			u.onend = resolve
+			u.onend = () => {
+				console.log("tts sucesss")
+				resolve()
+			}
 
 			u.onerror = e => {
 				console.error("TTS error:", e.error)
 				reject(new Error(e.error))
 			}
 
+			speechSynthesis.cancel()
 			speechSynthesis.speak(u)
 		}
 	})
