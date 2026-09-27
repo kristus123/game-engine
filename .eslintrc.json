@@ -385,6 +385,7 @@
         "Tree": "readonly",
         "TryOrNull": "readonly",
         "Tts": "readonly",
+        "TtsVoices": "readonly",
         "Ttv": "readonly",
         "Twitch": "readonly",
         "Type": "readonly",
