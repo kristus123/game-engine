@@ -9,6 +9,7 @@ const load = () => {
 
 	voice = voices.find(v => v.lang == lang)
 		?? voices[0] ?? null
+	console.log("voice: " + voice)
 }
 
 speechSynthesis.onvoiceschanged = load
@@ -19,22 +20,28 @@ load()
 
 export async function Tts(text) {
 	return new Promise((resolve, reject) => {
-		if (voice) {
+		if (voice == null) {
+			console.error("voice not loaded")
+			reject(new Error("voice not loaded"))
+		}
+		else {
 			const u = new SpeechSynthesisUtterance(text)
 			u.lang = lang
 			u.rate = 0.9
 			u.pitch = 1
 
-			u.onend = resolve
-			u.onerror = reject
+			u.onend = e => {
+				console.log("tts success")
+				resolve()
+			}
+			u.onerror = e => {
+				console.error("TTS error:", e.error)
+				reject(new Error(e.error))
+			}
 
 			u.voice = voice
 			speechSynthesis.speak(u)
 			console.log("tts: " + text)
-		}
-		else {
-			console.log("voice not loaded")
-			reject()
 		}
 	})
 }
