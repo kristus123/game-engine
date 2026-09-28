@@ -30,6 +30,30 @@ cloudflared tunnel --url http://localhost:3000
 update config.js with the url in prod, then you can deploy
 cloudflare gives free tunnel if you have a domain. (which i have)
 
+```
+cloudflared tunnel create test
+
+mkdir -p ~/.cloudflared
+nano ~/.cloudflared/config.yml
+
+
+tunnel: 777002b4-fcce-4b9c-9725-411daf2ad03d
+credentials-file: /home/kristian/.cloudflared/777002b4-fcce-4b9c-9725-411daf2ad03d.json
+
+ingress:
+  - hostname: test.happysun.no
+    service: http://localhost:3000
+  - service: http_status:404
+
+
+cloudflared tunnel route dns test test.happysun.no
+
+cloudflared tunnel run test
+
+
+cloudflared tunnel --loglevel debug run test
+```
+
 # cool idea
 
 One cool idea that I will probably never do for now is to basically use SQLite because it has a official WASM library and then you can use the OPFS API for storing files and then just sending the entire database to the server and this can be used for making a very simple backup solution
