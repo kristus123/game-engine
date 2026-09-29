@@ -1,3 +1,7 @@
+// usage
+// Sprite.nameOfAsesprite(position)
+
+
 export class Sprite extends Entity {
 	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
 		super(position)
@@ -171,7 +175,7 @@ export class Sprite extends Entity {
 		}
 	}
 
-	*getAllPicture() {
+	* getAllPicture() {
 		for (const frames of Object.values(this.layers)) {
 			for (const { picture } of Object.values(frames)) {
 				yield picture

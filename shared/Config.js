@@ -4,7 +4,7 @@ export class Config {
 
 	// should This one should be renamed to something else like server URL or something at least, I'm not sure actually
 	static get httpUrl() {
-		return "https://" + url
+		// return "https://" + url
 
 		switch (ENVIRONMENT) {
 			case "DEVELOPMENT": {
@@ -20,7 +20,7 @@ export class Config {
 	}
 
 	static get wsUrl() {
-		return "wss://" + url
+		// return "wss://" + url
 
 		switch (ENVIRONMENT) {
 			case "DEVELOPMENT": {
@@ -36,7 +36,7 @@ export class Config {
 	}
 
 	static get mediasoupAnnounceIp() {
-		return url
+		// return url
 
 		switch (ENVIRONMENT) {
 			case "DEVELOPMENT": {

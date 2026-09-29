@@ -6,13 +6,13 @@ let voice = null
 let voices = []
 
 const load = () => {
-	console.log("loading voices")
+	// console.log("loading voices")
 
 	voices = speechSynthesis.getVoices()
 
-	console.log("available voices:")
+	// console.log("available voices:")
 	for (const v of voices) {
-		console.log(v.name, "-", v.lang)
+		// console.log(v.name, "-", v.lang)
 	}
 
 	voice = null
@@ -21,11 +21,11 @@ const load = () => {
 		?? null
 		// ?? voices.find(v => _normalize(v.lang).includes("zh-cn"))
 
-	console.log("voice selected:", voice)
-	console.log("voice:", voice)
-	console.log("name:", voice?.name)
-	console.log("lang:", voice?.lang)
-	console.log("localService:", voice?.localService)
+	// console.log("voice selected:", voice)
+	// console.log("voice:", voice)
+	// console.log("name:", voice?.name)
+	// console.log("lang:", voice?.lang)
+	// console.log("localService:", voice?.localService)
 }
 
 speechSynthesis.onvoiceschanged = load

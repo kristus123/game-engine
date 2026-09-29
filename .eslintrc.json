@@ -153,6 +153,7 @@
         "Camera": "readonly",
         "Canvas": "readonly",
         "CanvasGame": "readonly",
+        "CanvasLoop": "readonly",
         "CardDb": "readonly",
         "CenterPosition": "readonly",
         "Chat": "readonly",

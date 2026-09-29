@@ -2,7 +2,7 @@ import { initD1 } from "#root/tools/game/start/draw_layers/D1.js"
 import { initD2 } from "#root/tools/game/start/draw_layers/D2.js"
 import { initD3 } from "#root/tools/game/start/draw_layers/D3.js"
 
-export async function CanvasGame(activeThing) {
+export async function CanvasLoop(activeThing) {
 
 	await Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets))
 	await LoadAllAudio(AssetPaths.audio)
