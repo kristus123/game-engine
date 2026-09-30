@@ -15,6 +15,10 @@ export function ImproveSwitchCase(lines, i) {
 		let defaultBlockPresent = false
 		let endLineNumber = false
 		for (let ii = 1 ; true ; ii++) {
+			if (lines[i+ii] == undefined) {
+				break
+			}
+
 			if (lines[i+ii].trim().startsWith("default")) {
 				defaultBlockPresent = true
 			}

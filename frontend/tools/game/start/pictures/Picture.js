@@ -202,6 +202,7 @@ export class Picture {
 
 	clear() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+		return this
 	}
 
 	erase(p) {
@@ -217,6 +218,10 @@ export class Picture {
 			b: data[2],
 			a: data[3]
 		}
+	}
+
+	applyCanvas(c) {
+		this.ctx.drawImage(c, 0, 0)
 	}
 
 	update(p, drawLayer = D1) {

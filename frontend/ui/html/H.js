@@ -24,6 +24,14 @@ export class H {
 		return e
 	}
 
+	static img(src) {
+		const v = _HtmlElement("img")
+
+		v.src = src
+
+		return v
+	}
+
 	static _video() {
 		const v = _HtmlElement("video")
 

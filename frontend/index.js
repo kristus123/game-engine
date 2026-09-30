@@ -1,4 +1,4 @@
-Log.sendConsoleToServer()
+// Log.sendConsoleToServer()
 
 const backendId = LocalValue("backendId", -1)
 
@@ -28,6 +28,13 @@ await Promise.all([
 	),
 	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
 	Css.use("/swag.css"),
+
+	// these are CanvasLoop CanvasGame stuff
+	await Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
+	await LoadAllAudio(AssetPaths.audio),
+	await LoadAllImages(AssetPaths.image),
+	// await LoadPersistedJson()
+	// these are CanvasLoop CanvasGame stuff
 ])
 
 document.getElementById("initialSpin").remove()

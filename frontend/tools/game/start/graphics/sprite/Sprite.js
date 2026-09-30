@@ -1,6 +1,5 @@
 // usage
-// Sprite.nameOfAsesprite(position)
-
+// Sprite.nameOfAsespriteFile(position)
 
 export class Sprite extends Entity {
 	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
@@ -8,9 +7,7 @@ export class Sprite extends Entity {
 		this.groupInfo = {}
 		for (const x of groupsJson.meta.layers) {
 			if (x.group) {
-				console.log(x)
 				this.groupInfo[x.name] = x.group
-
 			}
 		}
 
@@ -61,6 +58,13 @@ export class Sprite extends Entity {
 
 			this.tagFrames[tag] ??= []
 			this.tagFrames[tag].push(frame)
+
+			this.prerenderedPictures ??= []
+			this.prerenderedPictures[frame] = {
+				picture: Picture(layersImage).clear().crop(x, y, w, h),
+				upToDate: false,
+				src: null,
+			}
 		})
 
 		this.activeTag = "idle"
@@ -167,15 +171,16 @@ export class Sprite extends Entity {
 		return this
 	}
 
-	* getAllStuff(wantedFrame) {
+	*getAllStuff(wantedFrame) {
 		for (const [layer, frames] of this.layers.all) {
 			const { frame, tag, duration, picture } = frames[wantedFrame]
+			const prerendered = this.prerenderedPictures[wantedFrame] 
 
-			yield { layer, frames, frame, tag, duration, picture }
+			yield { layer, frames, frame, tag, duration, picture, prerendered, }
 		}
 	}
 
-	* getAllPicture() {
+	*getAllPicture() {
 		for (const frames of Object.values(this.layers)) {
 			for (const { picture } of Object.values(frames)) {
 				yield picture
@@ -187,23 +192,39 @@ export class Sprite extends Entity {
 		return Assert.value(this.groupInfo[layer], `${this.spriteName}.aseprite needs to have a Draw order group`)
 	}
 
+	get src() {
+		const p = this.prerenderedPictures[this.currentFrame]
+		if (p.upToDate) {
+			return p.src
+		}
+		else {
+			return null
+		}
+	}
+
 	update() {
 		this.updateColliderPosition()
-		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
 
-			let drawPos = this.position
+		for (const { layer, frames, frame, tag, duration, picture, prerendered, } of this.getAllStuff(this.currentFrame)) {
+			switch this.group(layer) {
+				case "D1" {
+					picture.update(this.position, D1)
+				}
+				case "D2" {
+					picture.update(this.position, D2)
+				}
+				case "D3" {
+					picture.update(this.position, D3)
+				}
+			}
 
-			if (this.group(layer) == "D1") {
-				picture.update(drawPos, D1)
-			}
-			else if (this.group(layer) == "D2") {
-				picture.update(drawPos, D2)
-			}
-			else if (this.group(layer) == "D3") {
-				picture.update(drawPos, D3)
+			if (prerendered.upToDate) {
+				// do nothing
 			}
 			else {
-				throw new Error("Unsupported xxlsakdjflaksdjf")
+				prerendered.picture.clear().applyCanvas(picture.canvas)
+				prerendered.src = prerendered.picture.canvas.toDataURL("image/png") // toBlob is faster, but requres async code
+				prerendered.upToDate = true
 			}
 
 			if (this.stopWatch.time >= duration) {
@@ -218,6 +239,8 @@ export class Sprite extends Entity {
 				else {
 					this.loopTag("idle")
 				}
+
+				this.src = prerendered
 			}
 		}
 	}

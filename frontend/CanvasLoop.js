@@ -4,11 +4,6 @@ import { initD3 } from "#root/tools/game/start/draw_layers/D3.js"
 
 export async function CanvasLoop(activeThing) {
 
-	await Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets))
-	await LoadAllAudio(AssetPaths.audio)
-	await LoadAllImages(AssetPaths.image)
-	// await LoadPersistedJson()
-
 	try {
 		Mouse.initialize()
 		Camera.initialize()

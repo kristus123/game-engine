@@ -5,6 +5,9 @@ export function AddNullChecks(fileName, className, lines, i) {
 	if (lines[i].includes("no-null-check")) {
 		return [] // do nothing
 	}
+	else if (lines[i].includes("switch")) {
+		return [] // do nothing
+	}
 
 	const p = Parameters.extractIfPresent(lines[i])
 
