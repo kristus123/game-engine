@@ -7,15 +7,13 @@ export class Splash {
 		const size = Random.floatBetween(0.1, 10)
 
 		Iterate(20, () => {
-			const p = Entity(WorldPosition(object.x, object.y, size, size), 20, 100)
-			p.pushTowards(object, 15)
+			const p = Entity(WorldPosition(object.x, object.y, size, size))
+			p.pushTo(object, 15)
 
 			p.life = 200
 			p.color = Random.color()
 			this.particles.push(p)
 		})
-		return this
-
 	}
 
 	random(object, color="white") {
@@ -23,9 +21,9 @@ export class Splash {
 		Iterate(10, () => {
 			const size = Random.floatBetween(0.1, 10)
 
-			const p = Entity(WorldPosition(object.x, object.y, size, size), 20, 100)
+			const p = Entity(WorldPosition(object.x, object.y, size, size))
 
-			p.pushTowards(Random.direction(object), Random.integerBetween(1, 5))
+			p.pushTo(Random.direction(object), 200)
 
 			p.life = 200
 			p.color = Random.color()
@@ -34,19 +32,19 @@ export class Splash {
 	}
 
 	update() {
-		this.particles.forEach((p, index) => {
-			// p.x += p.velocity.x
-			// p.y += p.velocity.y
+		for (const p of this.particles) {
 
 			p.life--
 
 			if (p.life <= 0) {
-				this.particles.splice(index, 1)
+				this.particles.remove(p)
 			}
 			else {
+				console.log(p)
+				p.update()
 				D1.rectangle(p, p.color)
 			}
-		})
+		}
 	}
 
 }

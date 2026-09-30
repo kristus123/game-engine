@@ -218,15 +218,6 @@ export class Sprite extends Entity {
 				}
 			}
 
-			if (prerendered.upToDate) {
-				// do nothing
-			}
-			else {
-				prerendered.picture.clear().applyCanvas(picture.canvas)
-				prerendered.src = prerendered.picture.canvas.toDataURL("image/png") // toBlob is faster, but requres async code
-				prerendered.upToDate = true
-			}
-
 			if (this.stopWatch.time >= duration) {
 				this.stopWatch.restart()
 
@@ -240,7 +231,11 @@ export class Sprite extends Entity {
 					this.loopTag("idle")
 				}
 
-				this.src = prerendered
+				if (!prerendered.upToDate) {
+					prerendered.picture.clear().applyCanvas(picture.canvas)
+					prerendered.src = prerendered.picture.canvas.toDataURL("image/png") // toBlob is faster, but requres async code
+					prerendered.upToDate = true
+				}
 			}
 		}
 	}

@@ -9,7 +9,7 @@ export class Random {
 	}
 
 	static percentageChance(number) {
-		return this.integerBetween(0, number) == 1
+		return Math.random() < number
 	}
 
 	static floatBetween(min, max) {

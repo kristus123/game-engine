@@ -1,11 +1,18 @@
 export class CanvasGame {
 	constructor() {
-		const p = Sprite.player(WorldPosition(0, 0))
+		const p = Player(WorldPosition(0, 0))
 
 		const img = Dom.overlay(H.img("xxxxxx"))
 
+		Light.add(p.position.center, 700)
+		Controller.control(p)
+
+		Camera.follow(p.position)
+
 		const objects = Objects([
 			p,
+			Sprite.world(WorldPosition(0, 0)),
+			Snow(p.position),
 		])
 		CanvasLoop({
 			update: () => {
