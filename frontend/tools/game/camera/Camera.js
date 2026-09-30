@@ -80,6 +80,7 @@ export class Camera {
 
 	static follow(o) {
 		this.position = o
+		console.log(o)
 	}
 
 	static p(p) {
@@ -90,10 +91,12 @@ export class Camera {
 
 
 	static update() {
-		this.visiblePosition.x = Camera.position.x - Screen.width / 2
-		this.visiblePosition.y = Camera.position.y - Screen.height / 2
+		this.visiblePosition.x = this.position.x - Screen.width / 2
+		this.visiblePosition.y = this.position.y - Screen.height / 2
 		this.visiblePosition.width = Screen.width
 		this.visiblePosition.height = Screen.height
+
+		// console.log(this.position)
 	}
 
 	static insideView(entity) {

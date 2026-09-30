@@ -6,4 +6,12 @@ export class ServiceWorker {
 			navigator.serviceWorker.register("/serviceWorker.js")
 		}
 	}
+
+	static unregister() {
+		navigator.serviceWorker.getRegistrations().then(registrations => {
+			for (const registration of registrations) {
+				registration.unregister()
+			}
+		})
+	}
 }

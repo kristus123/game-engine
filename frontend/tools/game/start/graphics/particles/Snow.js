@@ -6,7 +6,7 @@ export class Snow {
 	}
 
 	flake() {
-		const size = Random.floatBetween(10, 20)
+		const size = Random.floatBetween(1, 2) * 5
 
 		const x = Random.direction(this.importantPosition.copy(50, 50), 800)
 		x.width = size
@@ -14,7 +14,7 @@ export class Snow {
 
 
 		const p = Entity(x)
-		p.pushTo(p.position.copy(Random.integerBetween(100, 200), Random.integerBetween(200, 800)), 12_000)
+		p.pushTo(p.position.copy(Random.integerBetween(100, 200), Random.integerBetween(200, 10_000)), 19_000)
 
 		p.life = 300
 		p.color = "white"
@@ -23,13 +23,17 @@ export class Snow {
 	}
 
 	update() {
-		if (Random.percentageChance(0.1)) {
+		if (Random.percentageChance(1.0)) {
+			this.flake()
+			this.flake()
+			this.flake()
+			this.flake()
 			this.flake()
 		}
 
 		for (const p of this.particles) {
 
-			p.life--
+			// p.life--
 
 			if (p.life <= 0) {
 				this.particles.remove(p)

@@ -15,7 +15,8 @@ SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", (data) => {
 
 SocketClient.connect()
 
-ServiceWorker.init()
+// ServiceWorker.init()
+ServiceWorker.unregister()
 
 document.addEventListener("contextmenu", e => e.preventDefault())
 

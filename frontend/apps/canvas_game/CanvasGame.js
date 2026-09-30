@@ -2,12 +2,11 @@ export class CanvasGame {
 	constructor() {
 		const p = Player(WorldPosition(0, 0))
 
-		const img = Dom.overlay(H.img("xxxxxx"))
+		// const img = Dom.overlay(H.img("xxxxxx"))
 
 		Light.add(p.position.center, 700)
 		Controller.control(p)
 
-		Camera.follow(p.position)
 
 		const objects = Objects([
 			p,
@@ -16,9 +15,9 @@ export class CanvasGame {
 		])
 		CanvasLoop({
 			update: () => {
-				img.src = p.src
+		Camera.follow(p.position)
+				// img.src = p.src
 				objects.update()
-				console.log("hei")
 			},
 		})
 	}
