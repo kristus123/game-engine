@@ -98,55 +98,57 @@ export class Sprite extends Entity {
 	}
 
 	shadow(r = 0, g = 0, b = 0, a = 1.0) {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.shadow(r, g, b, a)
 		}
 	}
 
 	updateShadow(lightPos) {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.updateShadow(this.position, lightPos)
 		}
 	}
 
 	flicker(intensity, r = 0, g = 0, b = 0) {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.flicker(intensity, r, g, b)
 		}
 	}
 
 	shake(intensity, durationSeconds) {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.shake(intensity, durationSeconds)
 		}
 	}
 
 	tint(r, g, b, a) {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.tint(r, g, b, a)
 		}
 	}
 
 	mirrorX() {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.mirrorX()
 		}
 	}
 
 	mirrorY() {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.mirrorY()
 		}
 	}
 
-	changeColor(colorMap) {
-		for (const picture of this.getAllPicture()) {
-			picture.changeColor(colorMap)
+	changeColors(colorMap) {
+		for (const picture of this.getAllPictures()) {
+			picture.changeColors(colorMap)
 		}
+
+		return this
 	}
 
 	reset() {
-		for (const picture of this.getAllPicture()) {
+		for (const picture of this.getAllPictures()) {
 			picture.reset()
 		}
 	}
@@ -180,7 +182,7 @@ export class Sprite extends Entity {
 		}
 	}
 
-	*getAllPicture() {
+	*getAllPictures() {
 		for (const frames of Object.values(this.layers)) {
 			for (const { picture } of Object.values(frames)) {
 				yield picture

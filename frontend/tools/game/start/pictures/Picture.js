@@ -65,7 +65,7 @@ export class Picture {
 		}, durationSeconds * 1000)
 	}
 
-	changeColor(colorMap) {
+	changeColors(colorMap) {
 		const newCanvas = document.createElement("canvas")
 		const newCtx = newCanvas.getContext("2d")
 
@@ -78,16 +78,16 @@ export class Picture {
 		const data = image.data
 
 		for (let i = 0; i < data.length; i += 4) {
-			const r = data[i]
+			const r = data[i + 0]
 			const g = data[i + 1]
 			const b = data[i + 2]
 
 			if (colorMap[`rgb(${r},${g},${b})`]) {
-				const color = colorMap[`rgb(${r},${g},${b})`]
+				const newColor = colorMap[`rgb(${r},${g},${b})`]
 
-				data[i] = color.r
-				data[i + 1] = color.g
-				data[i + 2] = color.b
+				data[i + 0] = newColor.r
+				data[i + 1] = newColor.g
+				data[i + 2] = newColor.b
 			}
 		}
 

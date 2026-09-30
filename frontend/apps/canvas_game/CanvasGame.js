@@ -9,8 +9,10 @@ export class CanvasGame {
 
 		const objects = Objects([
 			p,
-			Sprite.world(WorldPosition(0, 0)),
-			Snow(p.position),
+			Sprite.world(WorldPosition(0, 0)).changeColors({
+				"rgb(171,161,92)": "rgb(237,243,245)",
+			}),
+			// Snow(p.position),
 		])
 		CanvasLoop({
 			update: () => {
