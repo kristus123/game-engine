@@ -7,7 +7,6 @@ export class CanvasGame {
 		Light.add(p.position.center, 700)
 		Controller.control(p)
 
-
 		const objects = Objects([
 			p,
 			Sprite.world(WorldPosition(0, 0)),

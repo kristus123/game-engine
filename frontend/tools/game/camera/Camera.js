@@ -6,7 +6,6 @@ export class Camera {
 		this.visiblePosition = WorldPosition(0, 0)
 	}
 
-
 	static get offset() {
 		return {
 			x: (Screen.width / 2).round(), // This can be improved. it is hacky
@@ -88,7 +87,6 @@ export class Camera {
 			p.x - this.position.x + (Screen.width/2),
 			p.y - this.position.y + (Screen.height/2))
 	}
-
 
 	static update() {
 		this.visiblePosition.x = this.position.x - Screen.width / 2
