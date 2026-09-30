@@ -348,6 +348,7 @@
         "SimplexNoise": "readonly",
         "Sleep": "readonly",
         "SmoothPosition": "readonly",
+        "Snow": "readonly",
         "SocketClient": "readonly",
         "SocketClients": "readonly",
         "SocketServer": "readonly",

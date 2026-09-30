@@ -19,7 +19,7 @@ export class Snow {
 		p.life = 300
 		p.color = "white"
 		this.particles.push(p)
-		
+
 	}
 
 	update() {

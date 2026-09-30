@@ -15,7 +15,7 @@ export class CanvasGame {
 		])
 		CanvasLoop({
 			update: () => {
-		Camera.follow(p.position)
+				Camera.follow(p.position)
 				// img.src = p.src
 				objects.update()
 			},
