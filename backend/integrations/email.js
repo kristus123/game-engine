@@ -1,4 +1,4 @@
-import { Secrets } from "#root/Secrets.js"
+import { Secrets } from "#root/AllImports.js"
 import tls from "tls"
 
 const host = "mail1.netim.hosting"

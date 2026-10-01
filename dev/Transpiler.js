@@ -1,7 +1,6 @@
 import path from "path"
 
-import { AllImports } from "#root/AllImports.js"
-const { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase, ImproveIf } = AllImports
+import { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase, ImproveIf } from "#root/AllImports.js"
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {

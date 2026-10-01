@@ -1,6 +1,6 @@
 import { execFile } from "child_process"
-import { AllImports } from "#root/AllImports.js"
-const { Paths, AsepritePath } = AllImports
+import { AsepritePath } from "#root/dev/aseprite/AsepritePath.js"
+import { Paths } from "#root/AllImports.js"
 
 function run(args) {
 	return new Promise((resolve, reject) => {

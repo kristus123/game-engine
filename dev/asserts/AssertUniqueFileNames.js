@@ -1,5 +1,4 @@
-import { AllImports } from "#root/AllImports.js"
-const { Files, Paths } = AllImports
+import { Files, Paths } from "#root/AllImports.js"
 
 function extractDuplicates(arr) {
 	const seen = new Set()

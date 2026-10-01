@@ -57,4 +57,3 @@ export const AsepritePath = (() => {
 	throw new Error("could not find aseprite path. Put your aseprite path in: Aseprite.js")
 })()
 
-

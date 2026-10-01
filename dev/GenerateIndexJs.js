@@ -1,5 +1,4 @@
-import { AllImports } from "#root/AllImports.js"
-const { Files, Paths, Markdown } = AllImports
+import { Files, Paths, Markdown } from "#root/AllImports.js"
 
 export function GenerateIndexJs() {
 

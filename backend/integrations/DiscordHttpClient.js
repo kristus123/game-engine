@@ -1,4 +1,4 @@
-import { Secrets } from "#root/Secrets.js"
+import { Secrets } from "#root/AllImports.js"
 
 export class DiscordHttpClient {
 	static {

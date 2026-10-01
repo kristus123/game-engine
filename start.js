@@ -1,5 +1,4 @@
-import { AllImports } from "#root/AllImports.js"
-const { GenerateBackend } = AllImports
+import { GenerateBackend } from "#root/AllImports.js"
 
 GenerateBackend(process.argv[2]) // todo pass environment - "DEVELOPMENT" or "PRODUCTION"
 

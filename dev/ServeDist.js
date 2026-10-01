@@ -1,7 +1,6 @@
 import http from "http"
 import fs from "fs"
-import { AllImports } from "#root/AllImports.js"
-const { Paths } = AllImports
+import { Paths } from "#root/AllImports.js"
 
 const mime = {
 	".html": "text/html",

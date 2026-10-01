@@ -2,8 +2,7 @@
 
 import fs from "fs"
 import Path from "path"
-import { AllImports } from "#root/AllImports.js"
-const { Aseprite, Paths, Files } = AllImports
+import { Aseprite, Paths, Files } from "#root/AllImports.js"
 
 async function exportAseprite(relSrcFile, destBase) {
 	const dir = Path.dirname(destBase)

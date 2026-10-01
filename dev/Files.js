@@ -54,7 +54,8 @@ export class Files {
 		return uniqueElements
 	}
 
-	static at(directory, ignoredFolders = new Set(["node_modules", "dist", ".git"])) {
+	static at(directory, ignoredFolders = []) {
+		ignoredFolders = new Set([...ignoredFolders, "node_modules", "dist", ".git"])
 		let results = []
 
 		for (const entry of fs.readdirSync(directory)) {
@@ -74,6 +75,25 @@ export class Files {
 		}
 
 		return results.map(f => f.replaceAll("\\", "/"))
+	}
+
+	static namesAndPaths(directory) {
+		const namesAndPaths = new Map()
+
+		for (const file of Files.at(directory, ["transpiledBackend"])) {
+			if (!file.endsWith(".js") || file == "AllImports.js") {
+				continue
+			}
+
+			const name = Path.basename(file, ".js")
+			if (!/^[$A-Z_a-z][$\w]*$/.test(name)) {
+				continue
+			}
+
+			namesAndPaths.set(name, file)
+		}
+
+		return namesAndPaths
 	}
 
 	static findPathOrNull(filename) {

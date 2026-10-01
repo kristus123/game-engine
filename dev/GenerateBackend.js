@@ -1,7 +1,5 @@
 import path from "path"
-import { AllImports } from "#root/AllImports.js"
-
-const { Files, Imports, Paths } = AllImports
+import { Files, Imports, Paths } from "#root/AllImports.js"
 
 export function GenerateBackend(ENVIRONMENT) {
 	if (!ENVIRONMENT) {

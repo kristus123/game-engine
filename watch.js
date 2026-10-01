@@ -1,9 +1,15 @@
-import { AllImports } from "#root/AllImports.js"
+import { Files } from "#root/dev/Files.js"
+
+let allImports = ""
+allImports += "import { LazyImport as CreateLazyImport } from \"#root/LazyImport.js\"" + "\n"
+for (const name of Files.namesAndPaths("./").keys()) {
+	allImports += `export const ${name} = CreateLazyImport(${JSON.stringify(name)})` + "\n"
+}
+Files.write("AllImports.js", allImports)
 
 const {
 	Swoo,
 	ChildProcess,
-	Files,
 	Paths,
 	GenerateBackend,
 	PrepareExternalBundle,
@@ -12,7 +18,7 @@ const {
 	FileWatcher,
 	ExportAseprite,
 	ServeDist,
-} = AllImports
+} = await import("#root/AllImports.js")
 
 
 Swoo.killPorts()

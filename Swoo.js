@@ -1,10 +1,5 @@
 import { execSync } from "child_process"
-import { AllImports } from "#root/AllImports.js"
-
-const {
-	ChildProcess,
-	SocketServer,
-} = AllImports
+import { ChildProcess, SocketServer } from "#root/AllImports.js"
 
 
 export class Swoo {

@@ -1,8 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-import { AllImports } from "#root/AllImports.js"
-const { Files } = AllImports
+import { Files } from "#root/AllImports.js"
 
 export function UpdateEslint() {
 	const eslintGlobalsConfig = {}
