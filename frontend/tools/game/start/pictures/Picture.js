@@ -75,19 +75,23 @@ export class Picture {
 		newCtx.drawImage(this.canvas, 0, 0)
 
 		const image = newCtx.getImageData(0, 0, this.canvas.width, this.canvas.height)
-		const data = image.data
 
-		for (let i = 0; i < data.length; i += 4) {
-			const r = data[i + 0]
-			const g = data[i + 1]
-			const b = data[i + 2]
+		for (let i = 0; i < image.data.length; i += 4) {
+			const r = image.data[i + 0]
+			const g = image.data[i + 1]
+			const b = image.data[i + 2]
+			const a = image.data[i + 3]
 
-			if (colorMap[`rgb(${r},${g},${b})`]) {
-				const newColor = colorMap[`rgb(${r},${g},${b})`]
-
-				data[i + 0] = newColor.r
-				data[i + 1] = newColor.g
-				data[i + 2] = newColor.b
+			const newColor = colorMap[`${r},${g},${b},${a}`]
+			if (A.value(newColor)) {
+				const [r,
+					g,
+					b,
+					a] = newColor.split(",")
+				image.data[i + 0] = r
+				image.data[i + 1] = g
+				image.data[i + 2] = b
+				image.data[i + 3] = a
 			}
 		}
 
@@ -95,8 +99,6 @@ export class Picture {
 
 		this.ctx = newCtx
 		this.canvas = newCanvas
-
-		this.ctx.drawImage(this.canvas, 0, 0)
 
 		return this
 	}

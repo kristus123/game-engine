@@ -79,7 +79,7 @@ export class Camera {
 
 	static follow(o) {
 		this.position = o
-		console.log(o)
+		// console.log(o)
 	}
 
 	static p(p) {
