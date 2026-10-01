@@ -28,7 +28,7 @@ export function Enhance_js_String() {
 			.firstChild
 	})
 
-	Enhance(String.prototype, "dedent", function() {
+	Enhance(String.prototype, "dedent", function() { // todo might be buggy
 		const string = this.replace(/^\n|\n\s*$/g, "")
 
 		const amount = string.match(/^[ \t]*/)[0].length
