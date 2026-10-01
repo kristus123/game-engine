@@ -18,11 +18,11 @@ export function Enhance_html_collection() {
 
 	Enhance(HTMLCollection.prototype, "forEach", function (...args) {
 		return Array.from(this).forEach(...args)
-	})
+	}, { allowInheritedOverride: true })
 
 	Enhance(HTMLCollection.prototype, "map", function (...args) {
 		return Array.from(this).map(...args)
-	})
+	}, { allowInheritedOverride: true })
 
 	Getter(HTMLCollection.prototype, "last", function () {
 		return this[this.length - 1]

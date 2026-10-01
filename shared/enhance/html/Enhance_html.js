@@ -8,7 +8,7 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}, { allowInheritedOverride: true })
 
 	Enhance(HTMLElement.prototype, "filter", function (callback) {
 		return this.children.filter(callback)
@@ -54,7 +54,7 @@ export function Enhance_html() {
 		}
 
 		return x
-	})
+	}, { allowInheritedOverride: true })
 
 	Getter(HTMLElement.prototype, "tag", function () {
 		return this.tagName.toLowerCase()
@@ -537,8 +537,8 @@ export function Enhance_html() {
 		this.before(e)
 	})
 
-	Enhance(HTMLElement.prototype, "contains", function (className) {
-		this.classList.contains(className)
+	Enhance(HTMLElement.prototype, "hasClass", function (className) {
+		return this.classList.contains(className)
 	})
 
 	Enhance(HTMLElement.prototype, "addClass", function (className) {

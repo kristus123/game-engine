@@ -1,11 +1,11 @@
-//
-// Okay, it doesn't really seem like it is able to protect if a field already exists, so this needs to be fixed
-//
-
-export function Enhance(prototype, name, fn) {
+export function Enhance(prototype, name, fn, { allowInheritedOverride = false } = {}) {
+	const prototypeName = prototype.constructor?.name ?? "anonymous"
 
 	if (Object.prototype.hasOwnProperty.call(prototype, name)) {
-		throw new Error(`ENHANCE ERROR: "${prototype.name}" already has field "${name}". cannot be overridden`)
+		throw new Error(`ENHANCE ERROR: "${prototypeName}" already has field "${name}". cannot be overridden`)
+	}
+	else if (name in prototype && !allowInheritedOverride) {
+		throw new Error(`ENHANCE ERROR: "${name}" is inherited by this prototype. set allowInheritedOverride to true to shadow it`)
 	}
 	else {
 		Object.defineProperty(prototype, name, {
