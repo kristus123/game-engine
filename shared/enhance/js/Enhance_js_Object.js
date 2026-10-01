@@ -162,30 +162,34 @@ export function Enhance_js_Object() {
 		return this.constructor.name
 	})
 
-	Enhance(Object.prototype, "path", function (path_x, value) {
-		let obj = this
+	// Node's URL resolver reads `path` from URL objects. Inheriting this helper
+	// from Object.prototype makes Node pass the helper into fileURLToPath().
+	if (typeof process == "undefined" || process.versions?.node == null) {
+		Enhance(Object.prototype, "path", function (path_x, value) {
+			let obj = this
 
-		for (let i = 0; i < path_x.length - 1; i++) {
-			if (obj == null || !(path_x[i] in obj)) {
+			for (let i = 0; i < path_x.length - 1; i++) {
+				if (obj == null || !(path_x[i] in obj)) {
+					throw new Error(`Path not found: ${path_x.join(".")}`)
+				}
+
+				obj = obj[path_x[i]]
+			}
+
+			const key = path_x[path_x.length - 1]
+
+			if (obj == null || !(key in obj)) {
 				throw new Error(`Path not found: ${path_x.join(".")}`)
 			}
 
-			obj = obj[path_x[i]]
-		}
+			if (arguments.length >= 2) {
+				obj[key] = value
+				return null
+			}
 
-		const key = path_x[path_x.length - 1]
-
-		if (obj == null || !(key in obj)) {
-			throw new Error(`Path not found: ${path_x.join(".")}`)
-		}
-
-		if (arguments.length >= 2) {
-			obj[key] = value
-			return null
-		}
-
-		return obj[key]
-	})
+			return obj[key]
+		})
+	}
 
 	Enhance(Object.prototype, "applyDiff", function (diff) {
 		if (diff.add) {
@@ -293,4 +297,3 @@ export function Enhance_js_Object() {
 	})
 
 }
-

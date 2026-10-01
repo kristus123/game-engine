@@ -1,5 +1,7 @@
 import { pathToFileURL } from "url"
 
+EnhanceBackend()
+
 export async function StartServer(backendId) {
 
 	Sha.secret = "CHANGE_ME"

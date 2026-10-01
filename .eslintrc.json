@@ -187,6 +187,7 @@
         "DuckCheck": "readonly",
         "Enhance": "readonly",
         "EnhanceAll": "readonly",
+        "EnhanceBackend": "readonly",
         "Enhance_audio": "readonly",
         "Enhance_html": "readonly",
         "Enhance_html_WebComponents": "readonly",
