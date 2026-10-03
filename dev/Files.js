@@ -81,7 +81,7 @@ export class Files {
 		const namesAndPaths = new Map()
 
 		for (const file of Files.at(directory, ["transpiledBackend"])) {
-			if (!file.endsWith(".js") || file == "AllImports.js") {
+			if (!file.endsWith(".js") || file == "AllImports.js") { // hack
 				continue
 			}
 

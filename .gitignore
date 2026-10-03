@@ -7,6 +7,8 @@ gitignored_folder/
 dist/
 transpiledBackend/
 
+AllImports.js
+
 node_modules/
 capacitor_setup/
 
