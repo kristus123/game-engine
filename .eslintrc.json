@@ -384,6 +384,7 @@
         "Track": "readonly",
         "Transcribe": "readonly",
         "Translate": "readonly",
+        "TranspileContent": "readonly",
         "Transpiler": "readonly",
         "Tree": "readonly",
         "TryOrNull": "readonly",
