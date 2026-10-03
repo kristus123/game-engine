@@ -262,7 +262,7 @@ export class SfuServer {
 		})
 	}
 
-	static closeConnectionWithClient(clientId, routerId = null) {
+	static closeConnectionWithClient(clientId, routerId = null) { // no-null-check
 		console.log(`Disconnecting With ${clientId}`)
 
 		let rid = null

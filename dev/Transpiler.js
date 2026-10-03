@@ -1,6 +1,4 @@
-import path from "path"
-
-import { Imports, Parameters, Files, Paths, AddNullChecks, ImproveSwitchCase, ImproveIf } from "#root/AllImports.js"
+import { Imports, Files, Paths, TranspileContent } from "#root/AllImports.js"
 
 export function Transpiler(ENVIRONMENT, jsFiles) {
 	if (!ENVIRONMENT) {
@@ -10,58 +8,10 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 	const sharedFiles = Files.at(Paths.sharedFolder)
 
 	for (const jsFilePath of jsFiles) {
-		let fileContent = Files.read(jsFilePath)
-		const className = path.parse(jsFilePath).name
-		const fileName = path.basename(jsFilePath)
-
-		if (fileContent.includes("// disable-transpiling")) {
-			continue
-		}
-
-		for (const f of jsFiles) {
-			const className = path.parse(f).name
-			const fileText = Files.read(f)
-
-			if (fileText.includes(`export class ${className}`)) {
-				// Only replace 'ClassName(' NOT preceded by 'new '
-				const regex = new RegExp(`(?<!new )\\b${className}\\(`, "g")
-				fileContent = fileContent.replace(regex, `new ${className}(`)
-			}
-		}
-
-		if (!fileContent.includes("export class SuperClass")) {
-			fileContent = fileContent.replaceAll(
-				`export class ${className} {`, `export class ${className} extends SuperClass {`)
-		}
-
-		const lines = fileContent.split("\n")
-
-		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes("constructor(")) {
-				if (lines[i+1].includes("super(")) {
-					const params = AddNullChecks(fileName, className, lines, i+1)
-					lines[i+1] = lines[i+1] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
-				}
-				else {
-					if (!fileContent.includes("export class SuperClass")) {
-						lines[i] = lines[i] + "\n" + "super()"
-					}
-					const params = AddNullChecks(fileName, className, lines, i)
-					lines[i] = lines[i] + "\n" + Parameters.initVariablesFromConstructor(fileContent, params)
-				}
-			}
-			else {
-				AddNullChecks(fileName, className, lines, i)
-			}
-
-			ImproveSwitchCase(lines, i)
-			ImproveIf(lines, i)
-		}
-
-		fileContent = lines.join("\n")
+		let fileContent = TranspileContent(jsFilePath, Files.read(jsFilePath), jsFiles)
 
 		fileContent = Imports.needed(fileContent, [
-			...jsFiles,
+			...jsFiles.filter(candidate => candidate != jsFilePath),
 			...sharedFiles,
 		]) + "\n" + fileContent
 

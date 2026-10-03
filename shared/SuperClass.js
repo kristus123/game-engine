@@ -2,9 +2,7 @@ function format(t) {
 	return ` - [${t}] - `
 }
 
-// this class is added to all classes by the transpiler
-// decide if BaseClass or SuperClass is the best
-
+// This base class is added to classes by the transpiler.
 export class SuperClass {
 
 	static all = []
@@ -74,4 +72,3 @@ export class SuperClass {
 	}
 
 }
-

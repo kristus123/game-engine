@@ -1,5 +1,5 @@
 import path from "path"
-import { Files, Imports, Paths } from "#root/AllImports.js"
+import { Files, Imports, Paths, TranspileContent } from "#root/AllImports.js"
 
 export function GenerateBackend(ENVIRONMENT) {
 	if (!ENVIRONMENT) {
@@ -24,14 +24,23 @@ export function GenerateBackend(ENVIRONMENT) {
 		Files.write(sharedFilePath.replace(Paths.sharedFolder, destPath), imports + "\n" + content)
 	}
 
-	for (let f of Files.at("backend/")) {
-		const content = Files.read(f)
+	const backendFiles = Files.at("backend/")
+	const backendJsFiles = backendFiles.filter(f => f.endsWith(".js"))
+	const devJsFiles = Files.at("dev/").filter(f => f.endsWith(".js"))
+	const sharedJsFiles = Files.at(Paths.sharedFolder).filter(f => f.endsWith(".js"))
+	for (let f of backendFiles) {
+		let content = Files.read(f)
+		if (f.endsWith(".js")) {
+			content = TranspileContent(f, content, backendJsFiles)
+		}
+		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
 
-		const imports = Imports.needed(content, [
-			...Files.at("backend/"),
-			...Files.at("dev/"),
-			...Files.at(Paths.sharedFolder),
-		])
+		let imports = f.endsWith(".js") ? Imports.needed(content, [
+			...backendJsFiles.filter(candidate => candidate != f),
+			...devJsFiles,
+			...sharedJsFiles,
+		]) : ""
+		imports = imports
 			.replaceAll("/backend/", "/transpiledBackend/")
 			.replaceAll("/dev/", "/dev/")
 			.replaceAll("/shared/", "/transpiledBackend/shared/")

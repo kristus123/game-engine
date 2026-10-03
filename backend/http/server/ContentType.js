@@ -141,10 +141,7 @@ export class ContentType {
 			const key = part.substring(0, separator).trim()
 			let parameterValue = part.substring(separator + 1).trim()
 
-			if (
-				parameterValue.startsWith("\"") &&
-				parameterValue.endsWith("\"")
-			) {
+			if (parameterValue.startsWith("\"") && parameterValue.endsWith("\"")) {
 				parameterValue = parameterValue
 					.substring(1, parameterValue.length - 1)
 					.replace(/\\"/g, "\"")
