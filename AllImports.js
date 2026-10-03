@@ -1,5 +1,4 @@
 import { LazyImport as CreateLazyImport } from "#root/LazyImport.js"
-
 export const ChildProcess = CreateLazyImport("ChildProcess")
 export const LazyImport = CreateLazyImport("LazyImport")
 export const Paths = CreateLazyImport("Paths")
