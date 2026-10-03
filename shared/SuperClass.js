@@ -63,11 +63,11 @@ export class SuperClass {
 	}
 
 	assertClass(c) {
-		if (!this.isClass(c)) {
-			throw new Error(`${this.className} is not of type ${c}`)
+		if (this.isClass(c)) {
+			return this
 		}
 		else {
-			return this
+			throw new Error(`${this.className} is not of type ${c}`)
 		}
 	}
 
