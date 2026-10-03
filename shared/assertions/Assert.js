@@ -31,12 +31,11 @@ export class Assert {
 	}
 
 	static ok(httpResponse) {
-		// Also, verify that it that the parameter is an HTTP response
-		if (httpResponse.ok) {
-			return httpResponse.body
+		if (A.promise(httpResponse)) {
+			throw new Error("don't pass a promise into Assert.ok")
 		}
-		else if (A.promise(httpResponse)) {
-			throw new Error("do not pass a promise into this one. use await!")
+		else if (httpResponse.ok) {
+			return httpResponse.body
 		}
 		else {
 			console.log(httpResponse)
