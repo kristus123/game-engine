@@ -1,27 +1,40 @@
-overlay,
-[overlay],
-.overlay {
+overlay-static,
+overlay-relative,
+overlay-absolute,
+overlay-fixed,
+overlay-sticky {
 	display: block;
-	position: fixed;
-	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
 	max-width: 100vw;
 	max-height: 100vh;
 }
 
-overlay[game] {
+overlay-static {
+	position: static;
+}
+
+overlay-relative {
+	position: relative;
+}
+
+overlay-absolute {
+	position: absolute;
+	inset: 0;
+}
+
+overlay-fixed {
+	position: fixed;
+	inset: 0;
+}
+
+overlay-sticky {
+	position: sticky;
+	top: 0;
+}
+
+overlay-fixed[game] {
 	width: min(100vw, calc(100vh * 16 / 9), 2000px);
 	aspect-ratio: 16 / 9;
-	
-	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 }
-
-
-absolute-overlay {
-	position: absolute;
-	display: block;
-	inset: 0;
-}
-
