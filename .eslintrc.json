@@ -159,6 +159,7 @@
         "Chat": "readonly",
         "CodeEditor": "readonly",
         "Collision": "readonly",
+        "Command": "readonly",
         "Con": "readonly",
         "Confetti": "readonly",
         "ConfettiSplash": "readonly",

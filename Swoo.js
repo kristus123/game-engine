@@ -1,13 +1,13 @@
-import { execSync } from "child_process"
-import { ChildProcess, SocketServer } from "#root/AllImports.js"
+import { ChildProcess, SocketServer, Command } from "#root/AllImports.js"
 
 
 export class Swoo {
 
 	// todo improve later
 	static killPorts() {
-		try {
-			execSync("./scripts/kill_ports.sh", { stdio: "inherit" }) // todo make a windows version as well
+
+		try {// todo make a windows version as well
+			Command.sync("./scripts/kill_ports.sh")
 		}
 		catch (e) {
 			console.log(e)

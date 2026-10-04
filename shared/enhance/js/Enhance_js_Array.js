@@ -130,6 +130,7 @@ export function Enhance_js_Array() {
 
 	Enhance(Array.prototype, "add", function (o) {
 		this.push(o)
+		return o
 	})
 
 	Enhance(Array.prototype, "containsAll", function (...args) {
