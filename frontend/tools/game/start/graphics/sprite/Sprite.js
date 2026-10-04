@@ -14,6 +14,7 @@ export class Sprite extends Entity {
 		this.layers = {}
 		this.tagFrames = {}
 		this.currentFrame = 0
+		this.prerenderReady = false
 
 		this.slices = []
 		if (!fullJson.meta.slices.empty) {
@@ -60,11 +61,14 @@ export class Sprite extends Entity {
 			this.tagFrames[tag].push(frame)
 
 			this.prerenderedPictures ??= []
+			const picture = Picture(layersImage).crop(x, y, w, h).clear()
 			this.prerenderedPictures[frame] = {
-				picture: Picture(layersImage).clear().crop(x, y, w, h),
+				picture,
 				upToDate: false,
 				src: null,
+				transparentSrc: picture.canvas.toDataURL("image/png"),
 			}
+
 		})
 
 		this.activeTag = "idle"
@@ -125,24 +129,28 @@ export class Sprite extends Entity {
 		for (const picture of this.getAllPictures()) {
 			picture.tint(r, g, b, a)
 		}
+		this.invalidatePrerenderSrc()
 	}
 
 	mirrorX() {
 		for (const picture of this.getAllPictures()) {
 			picture.mirrorX()
 		}
+		this.invalidatePrerenderSrc()
 	}
 
 	mirrorY() {
 		for (const picture of this.getAllPictures()) {
 			picture.mirrorY()
 		}
+		this.invalidatePrerenderSrc()
 	}
 
 	changeColors(colorMap) {
 		for (const picture of this.getAllPictures()) {
 			picture.changeColors(colorMap)
 		}
+		this.invalidatePrerenderSrc()
 
 		return this
 	}
@@ -151,6 +159,39 @@ export class Sprite extends Entity {
 		for (const picture of this.getAllPictures()) {
 			picture.reset()
 		}
+		this.invalidatePrerenderSrc()
+	}
+
+	invalidatePrerenderSrc() {
+		this.prerenderReady = false
+
+		for (const prerendered of this.prerenderedPictures) {
+			prerendered.upToDate = false
+			prerendered.src = null
+		}
+
+		this.prerenderSrc()
+	}
+
+	prerenderSrc() {
+		for (const [frame, prerendered] of this.prerenderedPictures.entries()) {
+			prerendered.picture.clear()
+
+			for (const drawLayer of ["D3", "D2", "D1"]) {
+				for (const [layer, frames] of Object.entries(this.layers)) {
+					const frameInfo = frames[frame]
+					if (frameInfo && this.group(layer) == drawLayer) {
+						prerendered.picture.applyCanvas(frameInfo.picture.canvas)
+					}
+				}
+			}
+
+			prerendered.src = prerendered.picture.canvas.toDataURL("image/png")
+			prerendered.upToDate = true
+		}
+
+		this.prerenderReady = true
+		return this
 	}
 
 	playTag(tag, onFinish = () => {}) {
@@ -176,9 +217,8 @@ export class Sprite extends Entity {
 	*getAllStuff(wantedFrame) {
 		for (const [layer, frames] of this.layers.all) {
 			const { frame, tag, duration, picture } = frames[wantedFrame]
-			const prerendered = this.prerenderedPictures[wantedFrame] 
 
-			yield { layer, frames, frame, tag, duration, picture, prerendered, }
+			yield { layer, frames, frame, tag, duration, picture, }
 		}
 	}
 
@@ -196,18 +236,18 @@ export class Sprite extends Entity {
 
 	get src() {
 		const p = this.prerenderedPictures[this.currentFrame]
-		if (p.upToDate) {
+		if (this.prerenderReady && p.upToDate) {
 			return p.src
 		}
 		else {
-			return null
+			return p.transparentSrc
 		}
 	}
 
 	update() {
 		this.updateColliderPosition()
 
-		for (const { layer, frames, frame, tag, duration, picture, prerendered, } of this.getAllStuff(this.currentFrame)) {
+		for (const { layer, frames, frame, tag, duration, picture, } of this.getAllStuff(this.currentFrame)) {
 			switch this.group(layer) {
 				case "D1" {
 					picture.update(this.position, D1)
@@ -231,12 +271,6 @@ export class Sprite extends Entity {
 				}
 				else {
 					this.loopTag("idle")
-				}
-
-				if (!prerendered.upToDate) {
-					prerendered.picture.clear().applyCanvas(picture.canvas)
-					prerendered.src = prerendered.picture.canvas.toDataURL("image/png") // toBlob is faster, but requres async code
-					prerendered.upToDate = true
 				}
 			}
 		}

@@ -12,8 +12,14 @@ export async function LoadAsepriteAssets(path) {
 
 	Assert.notPresent(Sprite[spriteName])
 
-	Sprite[spriteName] = (position) => new Sprite(
-		position, layersImage, layersJson, fullJson, groupsJson, spriteName)
+	Sprite[spriteName] = (position) => {
+		const sprite = new Sprite(
+			position, layersImage, layersJson, fullJson, groupsJson, spriteName)
+
+		sprite.prerenderSrc()
+
+		return sprite
+	}
 
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 
