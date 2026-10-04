@@ -3,8 +3,31 @@ export class Light {
 	static sources = []
 
 	static updateInsideCameraContext() {
-		for (const s of this.sources) {
-			this._drawLight(s)
+		for (const source of this.sources) {
+			const { x, y } = source.position
+			const { radius, color, intensity } = source
+
+			const ctx = Palette.light.ctx
+
+			Shadow.remove(source)
+
+			ctx.globalCompositeOperation = "destination-out"
+
+			const g = ctx.createRadialGradient(
+				x, y, 0,
+				x, y, radius
+			)
+
+			g.addColorStop(0, `rgba(0,0,0,${intensity})`)
+			g.addColorStop(1, "rgba(0,0,0,0)")
+
+			ctx.fillStyle = g
+
+			ctx.beginPath()
+			ctx.arc(x, y, radius, 0, Math.PI * 2)
+			ctx.fill()
+
+			ctx.globalCompositeOperation = "source-over"
 		}
 	}
 
@@ -24,33 +47,6 @@ export class Light {
 		return s
 	}
 
-	static _drawLight(source) {
-
-		const { x, y } = source.position
-		const { radius, color, intensity } = source
-
-		const ctx = Palette.light.ctx
-
-		Shadow.remove(source)
-
-		ctx.globalCompositeOperation = "destination-out"
-
-		const g = ctx.createRadialGradient(
-			x, y, 0,
-			x, y, radius
-		)
-
-		g.addColorStop(0, `rgba(0,0,0,${intensity})`)
-		g.addColorStop(1, "rgba(0,0,0,0)")
-
-		ctx.fillStyle = g
-
-		ctx.beginPath()
-		ctx.arc(x, y, radius, 0, Math.PI * 2)
-		ctx.fill()
-
-		ctx.globalCompositeOperation = "source-over"
-	}
 
 
 }

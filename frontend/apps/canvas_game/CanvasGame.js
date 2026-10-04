@@ -4,7 +4,7 @@ export class CanvasGame {
 
 		// const img = Dom.overlay(H.img("xxxxxx"))
 
-		Light.add(player.position.center, 700)
+		Light.add(player.position.center, 300)
 		Controller.control(player)
 
 		const objects = Objects([
