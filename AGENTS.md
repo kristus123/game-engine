@@ -3,6 +3,8 @@
 As an agent, please update this file if you notice anything is not correct.
 Also update it if you learn anything new which would be useful for yourself to add here.
 
+Before you write your own code, look at all files to see if there is any files you can reuse.
+
 ## Project purpose and shape
 
 This repository is a JavaScript ES module browser game and app project with its own source generator, live development watcher, and Node backend. The game design document lives in the separate [sapmi-game repository](https://github.com/kristus123/sapmi-game). The browser currently starts `CanvasGame()` from `frontend/index.js`; other apps in `frontend/apps/` are present and may be experimental or selectively enabled.
