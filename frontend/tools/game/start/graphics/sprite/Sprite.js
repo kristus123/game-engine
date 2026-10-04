@@ -77,6 +77,10 @@ export class Sprite extends Entity {
 		this.stopWatch = StopWatch().start()
 		this.collider = WorldPosition(0, 0, 0, 0)
 		this.updateColliderPosition()
+
+		this.prerenderSrc()
+		this.src = this.prerenderedPictures[0].src
+		this.img = H.img(this.src)
 	}
 
 	updateColliderPosition() {
@@ -234,16 +238,6 @@ export class Sprite extends Entity {
 		return Assert.value(this.groupInfo[layer], `${this.spriteName}.aseprite needs to have a Draw order group`)
 	}
 
-	get src() {
-		const p = this.prerenderedPictures[this.currentFrame]
-		if (this.prerenderReady && p.upToDate) {
-			return p.src
-		}
-		else {
-			return p.transparentSrc
-		}
-	}
-
 	update() {
 		this.updateColliderPosition()
 
@@ -272,6 +266,20 @@ export class Sprite extends Entity {
 				else {
 					this.loopTag("idle")
 				}
+
+
+				this.onNewFrame?.(this.currentFrame) // todo consider this
+
+				const p = this.prerenderedPictures[this.currentFrame]
+				if (this.prerenderReady && p.upToDate) {
+					this.src = p.src
+					this.img.src = p.src
+				}
+				else {
+					this.src = p.transparentSrc
+					this.img.src = p.transparentSrc
+				}
+
 			}
 		}
 	}

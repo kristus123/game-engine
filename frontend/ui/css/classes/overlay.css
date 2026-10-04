@@ -21,7 +21,7 @@ overlay-absolute {
 	inset: 0;
 }
 
-overlay-fixed {
+overlay-fixed, .overlay-fixed {
 	position: fixed;
 	inset: 0;
 }

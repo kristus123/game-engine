@@ -7,6 +7,8 @@ export class CanvasGame {
 		Light.add(player.position.center, 300)
 		Controller.control(player)
 
+		Dom.overlay(player.sprite.img).css("width: 800px;")
+
 		const objects = Objects([
 			player,
 			Sprite.world(WorldPosition(0, 0)).changeColors({

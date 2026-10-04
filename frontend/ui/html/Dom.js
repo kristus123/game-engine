@@ -3,7 +3,7 @@ export class Dom {
 	static overlay(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		e.addClass("overlay")
+		e.addClass("overlay-fixed")
 
 		document.body.appendChild(e)
 
@@ -13,7 +13,7 @@ export class Dom {
 	static floating(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		e.addClass("floating")
+		e.addClass("floating") // todo this has to be outedated and not working
 
 		document.body.appendChild(e)
 
