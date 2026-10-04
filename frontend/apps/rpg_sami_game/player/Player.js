@@ -5,6 +5,7 @@ export class Player extends Entity {
 		this.objects = Objects([
 			this.sprite = Sprite.player(this.position),
 		])
+
 		Light.add(this.position.center, 300)
 	}
 
