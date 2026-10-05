@@ -39,6 +39,15 @@ export function ImproveSwitchCase(lines, i) {
 
 	}
 
+	if (Regex.simple(lines[i], "default {")) {
+		const s = Regex.editIfMatch(lines[i], "default {", "default: {")
+		lines[i] = "\t".repeat(tabCount(lines[i])) + s
+	}
+
+	if (lines[i].trim().startsWith("case ") && !lines[i].includes(":") && !lines[i].includes("{")) {
+		throw new Error(lines[i] + " <--- Expected '{' after case value")
+	}
+
 	if (Regex.simple(lines[i], "case * {")) {
 		if (!Regex.simple(lines[i], "case *: {")) {
 			const s = Regex.editIfMatch(lines[i], "case * {", "case *: {")

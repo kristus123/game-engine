@@ -28,8 +28,8 @@ export function InjectAttributeLogicToHtml(child, methods, setState) {
 					methods[value]?.()
 				})
 			}
-			default: {
-				// do nothing
+			default {
+				console.log(name + " was ignored")
 			}
 		}
 	}
