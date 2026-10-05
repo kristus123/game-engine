@@ -19,8 +19,8 @@ export class SocketClients {
 	static remove(client) {
 		const clientId = this._idFrom[client]
 
-		List.remove(this.all, client)
-		List.remove(this.ids, clientId)
+		this.all.remove(client)
+		this.ids.remove(clientId)
 
 		delete this._fromId[clientId]
 		delete this._idFrom[client]

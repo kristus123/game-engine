@@ -256,7 +256,6 @@
         "LazyLoop": "readonly",
         "Light": "readonly",
         "LinePathFinder": "readonly",
-        "List": "readonly",
         "Listener": "readonly",
         "Livestream": "readonly",
         "LoadAllAudio": "readonly",
