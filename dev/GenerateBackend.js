@@ -14,7 +14,7 @@ export function GenerateBackend(ENVIRONMENT) {
 	for (let sharedFilePath of Files.at(Paths.sharedFolder)) {
 
 		let content = Files.read(sharedFilePath)
-		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+		content = content.replaceAll("ENV_REPLACED_BY_TRANSPILER", `"${ENVIRONMENT}"`)
 
 		const imports = Imports.needed(content, [
 			...Files.at(Paths.sharedFolder)
@@ -33,7 +33,7 @@ export function GenerateBackend(ENVIRONMENT) {
 		if (f.endsWith(".js")) {
 			content = TranspileContent(f, content, backendJsFiles)
 		}
-		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+		content = content.replaceAll("ENV_REPLACED_BY_TRANSPILER", `"${ENVIRONMENT}"`)
 
 		let imports = f.endsWith(".js") ? Imports.needed(content, [
 			...backendJsFiles.filter(candidate => candidate != f),

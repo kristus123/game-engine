@@ -1,47 +1,45 @@
-export class Snow {
-	constructor(importantPosition) {
-		this.particles = []
+class Flake extends Entity {
 
-		this.flake()
-	}
+	constructor(p) {
+		super(p)
 
-	flake() {
-		const size = Random.floatBetween(1, 2) * 5
+		this.y = 400
 
-		const x = Random.direction(this.importantPosition.copy(50, 50), 800)
-		x.width = size
-		x.height = size
-
-
-		const p = Entity(x)
-		p.pushTo(p.position.copy(Random.integerBetween(100, 200), Random.integerBetween(200, 10_000)), 19_000)
-
-		p.life = 300
-		p.color = "white"
-		this.particles.push(p)
-
+		const size = Random.floatBetween(1, 2) * 10
+		this.position.width = size
+		this.position.height = size
 	}
 
 	update() {
-		if (Random.percentageChance(1.0)) {
-			this.flake()
-			this.flake()
-			this.flake()
-			this.flake()
-			this.flake()
+		this.y -= 1
+
+		if (this.landed) {
+			D2.rectangle(this.position, "white")
 		}
+		else {
+			this.position.rescale(0.99)
+			D1.rectangle(this.position, "white")
+		}
+	}
 
-		for (const p of this.particles) {
+	get landed() {
+		return this.y <= 0
+	}
 
-			// p.life--
+}
 
-			if (p.life <= 0) {
-				this.particles.remove(p)
-			}
-			else {
-				p.update()
-				D1.rectangle(p, p.color)
-			}
+export class Snow {
+	constructor(importantPosition) {
+		this.flakes = []
+	}
+
+	update() {
+		const f = new Flake(Random.direction(this.importantPosition.copy(), 800))
+		f.pushTo(f.position.copy(Random.integerBetween(100, 200), Random.integerBetween(200, 10_000)), 19_000)
+		this.flakes.push(f)
+
+		for (const f of this.flakes) {
+			f.update()
 		}
 	}
 

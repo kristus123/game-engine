@@ -6,7 +6,7 @@ export class Player extends Entity {
 			this.sprite = Sprite.player(this.position),
 		])
 
-		Light.add(this.position.center, 300)
+		Light.add(this.position.center, 800)
 	}
 
 	get collider() {

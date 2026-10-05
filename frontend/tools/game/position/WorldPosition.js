@@ -6,6 +6,7 @@ export class WorldPosition {
 		this.center = CenterPosition(this, _width, _height)
 
 		this._original = null // will be set on first scale()
+		this.scaleAmount = 1
 	}
 
 	touches(o) {
@@ -124,15 +125,14 @@ export class WorldPosition {
 
 	// Always scales based on first recorded "original"
 	scale(amount) {
-		// store original only the first time
-		if (!this._original) {
-			this._original = {
-				x: this.x,
-				y: this.y,
-				width: this.width,
-				height: this.height
-			}
+		this._original ??= {
+			x: this.x,
+			y: this.y,
+			width: this.width,
+			height: this.height
 		}
+
+		this.scaleAmount = amount
 
 		const cx = this.center.x
 		const cy = this.center.y
@@ -144,6 +144,10 @@ export class WorldPosition {
 		this.y = cy - this.height / 2
 
 		return this
+	}
+
+	rescale(amount) {
+		this.scale(this.scaleAmount * amount)
 	}
 
 	size(width, height) {

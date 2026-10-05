@@ -201,6 +201,7 @@
         "Enhance_js_Object": "readonly",
         "Enhance_js_String": "readonly",
         "Entity": "readonly",
+        "Env": "readonly",
         "Every": "readonly",
         "EveryFrame": "readonly",
         "EveryMs": "readonly",

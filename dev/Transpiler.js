@@ -15,7 +15,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 			...sharedFiles,
 		]) + "\n" + fileContent
 
-		fileContent = fileContent.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+		fileContent = fileContent.replaceAll("ENV_REPLACED_BY_TRANSPILER", `"${ENVIRONMENT}"`)
 
 		Files.writeFileToDist(jsFilePath, fileContent)
 	}
@@ -23,7 +23,7 @@ export function Transpiler(ENVIRONMENT, jsFiles) {
 	for (let sharedFilePath of sharedFiles) {
 		let content = Files.read(sharedFilePath)
 
-		content = content.replaceAll("ENVIRONMENT", `"${ENVIRONMENT}"`)
+		content = content.replaceAll("ENV_REPLACED_BY_TRANSPILER", `"${ENVIRONMENT}"`)
 
 		const imports = Imports.needed(content, [
 			...sharedFiles,

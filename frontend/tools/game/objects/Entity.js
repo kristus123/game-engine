@@ -170,7 +170,7 @@ export class Entity {
 		this.position.height = h
 	}
 
-	update() {
+	update() { // update method is typically overridden by subclass
 		D1.rectangle(this)
 	}
 

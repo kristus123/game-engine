@@ -1,18 +1,13 @@
 export class CanvasGame {
 	constructor() {
-		const player = Player(WorldPosition(0, 0))
+		const player = Player(WorldPosition(2000, 2000))
 
-		// const img = Dom.overlay(H.img("xxxxxx"))
-
-		Light.add(player.position.center, 300)
 		Controller.control(player)
-
-		Dom.overlay(player.sprite.img).css("width: 800px;")
 
 		const objects = Objects([
 			player,
 			Sprite.world(WorldPosition(0, 0)).changeColors({
-				"171,161,92,255": "255,255,255,255",
+				// "171,161,92,255": "255,255,255,255",
 			}),
 			Snow(player.position),
 		])

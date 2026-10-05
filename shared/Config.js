@@ -6,48 +6,36 @@ export class Config {
 	static get httpUrl() {
 		// return "https://" + url
 
-		switch (ENVIRONMENT) {
-			case "DEVELOPMENT": {
-				return "http://localhost:3000"
-			}
-			case "PRODUCTION": {
-				return "https://krispetter.duckdns.org"
-			}
-			default: {
-				throw new Error("unexpected environment given")
-			}
+		if (Env.dev) {
+			return "http://localhost:3000"
 		}
+		if (Env.prod) {
+			return "https://krispetter.duckdns.org"
+		}
+		throw new Error("unexpected environment given")
 	}
 
 	static get wsUrl() {
 		// return "wss://" + url
 
-		switch (ENVIRONMENT) {
-			case "DEVELOPMENT": {
-				return "ws://localhost:3000"
-			}
-			case "PRODUCTION": {
-				return "wss://krispetter.duckdns.org"
-			}
-			default: {
-				throw new Error("unexpected environment given")
-			}
+		if (Env.dev) {
+			return "ws://localhost:3000"
 		}
+		if (Env.prod) {
+			return "wss://krispetter.duckdns.org"
+		}
+		throw new Error("unexpected environment given")
 	}
 
 	static get mediasoupAnnounceIp() {
 		// return url
 
-		switch (ENVIRONMENT) {
-			case "DEVELOPMENT": {
-				return "127.0.0.1"
-			}
-			case "PRODUCTION": {
-				return "krispetter.duckdns.org"
-			}
-			default: {
-				throw new Error("unexpected environment given")
-			}
+		if (Env.dev) {
+			return "127.0.0.1"
 		}
+		if (Env.prod) {
+			return "krispetter.duckdns.org"
+		}
+		throw new Error("unexpected environment given")
 	}
 }
