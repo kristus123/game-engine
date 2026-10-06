@@ -1,0 +1,53 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "node",
+	"source": "backend/token/UserId.js",
+	"export": "UserId",
+	"method": "user",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 10,
+	"cases": [
+		{
+			"args": "#1 [NaN]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [#2 []]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [-195n]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [true]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [434n]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [-Infinity]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [-289n]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [#2 [#3 [-517n, Symbol(property-test)], Infinity]]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [#2 [#3 [undefined, 424n], Symbol(property-test), 754n]]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [-Infinity]",
+			"output": "return false"
+		}
+	]
+}

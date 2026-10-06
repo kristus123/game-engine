@@ -1,0 +1,21 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "chrome",
+	"source": "frontend/tools/utils/helpers/Calculate.js",
+	"export": "Calculate",
+	"method": "directionBetween",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 2,
+	"cases": [
+		{
+			"args": "#1 [-870n, undefined]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [null, #2 [null, -386n, false]]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		}
+	]
+}

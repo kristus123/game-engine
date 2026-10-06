@@ -1,0 +1,21 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "chrome",
+	"source": "frontend/tools/utils/helpers/Calculate.js",
+	"export": "Calculate",
+	"method": "withinAngle",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 2,
+	"cases": [
+		{
+			"args": "#1 [NaN, null, -Infinity, \"|\", \"9[21r=8(6O{Hti\"]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [Symbol(property-test), Infinity, #2 Object{}, #3 [#4 [], #5 Object{}], \"ssvBbp9X)}rU%S,r\"]",
+			"output": "return false"
+		}
+	]
+}

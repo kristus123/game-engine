@@ -1,0 +1,21 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "chrome",
+	"source": "frontend/tools/utils/helpers/Calculate.js",
+	"export": "Calculate",
+	"method": "isObjectWithinTheAngle",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 2,
+	"cases": [
+		{
+			"args": "#1 [Symbol(property-test), undefined, \"\", NaN]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [Symbol(property-test), Symbol(property-test), Symbol(property-test), #2 Object{\"field0\": \"Y5q\", \"field1\": true}]",
+			"output": "return false"
+		}
+	]
+}

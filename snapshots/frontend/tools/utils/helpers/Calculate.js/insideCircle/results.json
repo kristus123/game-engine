@@ -1,0 +1,21 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "chrome",
+	"source": "frontend/tools/utils/helpers/Calculate.js",
+	"export": "Calculate",
+	"method": "insideCircle",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 2,
+	"cases": [
+		{
+			"args": "#1 [true, undefined, #2 Object{\"field0\": -914n}]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [false, -710n, -327n]",
+			"output": "return false"
+		}
+	]
+}

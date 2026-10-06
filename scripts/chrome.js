@@ -2,6 +2,7 @@ import { spawn } from "node:child_process"
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
 import { join, resolve } from "node:path"
 import { tmpdir } from "node:os"
+import { pathToFileURL } from "node:url"
 
 const PROFILE_DIR = process.env.GAME_ENGINE_CHROME_PROFILE || join(
 	tmpdir(),
@@ -436,7 +437,11 @@ async function main() {
 	}
 }
 
-main().catch(error => {
-	console.error(error.message)
-	process.exitCode = 1
-})
+export const chrome = { readEndpoint, startChrome, connectToPage, evaluate, navigate }
+
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href == import.meta.url) {
+	main().catch(error => {
+		console.error(error.message)
+		process.exitCode = 1
+	})
+}

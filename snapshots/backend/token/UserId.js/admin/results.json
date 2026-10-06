@@ -1,0 +1,53 @@
+{
+	"version": 1,
+	"generator": "seeded-any-v1",
+	"runtime": "node",
+	"source": "backend/token/UserId.js",
+	"export": "UserId",
+	"method": "admin",
+	"kind": "static",
+	"seed": 20261006,
+	"runs": 10,
+	"cases": [
+		{
+			"args": "#1 [\"d|uVWs'\"]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [null]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [\"<>Jj\"]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [undefined]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [826n]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [971n]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [\"\\\\'g6-Qo@89q4/R\"]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [Symbol(property-test)]",
+			"output": "return false"
+		},
+		{
+			"args": "#1 [null]",
+			"output": "throw #1 Error(\"value should be true, but is: false\")"
+		},
+		{
+			"args": "#1 [false]",
+			"output": "return false"
+		}
+	]
+}
