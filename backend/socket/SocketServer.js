@@ -45,9 +45,6 @@ export class SocketServer {
 				const metaHeaders = message.metaHeaders
 				const body = message.data
 
-				// The server is authoritative about which connected client sent the message.
-				metaHeaders.originClientId = clientId
-
 				if (this.actions[metaHeaders.action] != null) {
 					this.actions[metaHeaders.action]({
 						client: client,
@@ -86,7 +83,7 @@ export class SocketServer {
 		}
 	}
 
-	static sendToOthers(origin, metaHeaders, data = {}) {
+	static sendToOthers(origin, { data={}, metaHeaders={} }={}) {
 		for (const client of SocketClients.all) {
 			if (client != origin) {
 				client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))

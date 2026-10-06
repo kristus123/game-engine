@@ -1,5 +1,6 @@
 export default async ({ html }) => {
 
+
 	if (await Stream.online()) {
 		html.waiting.content = "someone is already streaming"
 		html.stop.show()
@@ -9,11 +10,12 @@ export default async ({ html }) => {
 		html.start.show()
 	}
 
+	await Permission.request()
+
 	Chat.onMessage(({ user, message }) => {
 		Tts(message)
 	})
 
-	await Permission.request()
 	const cams = await Cam.all()
 
 	return {
