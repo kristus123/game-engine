@@ -7,10 +7,13 @@ export class SocketServer {
 
 		this.on("CLIENT_TO_CLIENT", ({ clientId, data, metaHeaders }) => {
 			this.sendToClient(SocketClients.fromId(metaHeaders.targetClientId), {
-				action: "CLIENT_TO_CLIENT",
-				originClientId: clientId,
-				subAction: metaHeaders.subAction,
-			}, data)
+				data: data,
+				metaHeaders: {
+					action: "CLIENT_TO_CLIENT",
+					originClientId: clientId,
+					subAction: metaHeaders.subAction,
+				},
+			})
 		})
 	}
 
@@ -22,17 +25,19 @@ export class SocketServer {
 			SocketClients.add(client, clientId)
 			onJoin?.({ client: client, clientId: clientId })
 
-			this.sendToClient(client, { action: "CLIENT_ID" }, {
-				clientId: clientId,
+			this.sendToClient(client, {
+				data: { clientId: clientId },
+				metaHeaders: { action: "CLIENT_ID" },
 			})
 
 			console.log(`${clientId} has connected`)
 
 			this.sendToEveryone({
-				action: "UPDATE_CLIENTS_LIST",
-				originClientId: clientId,
-			}, {
-				clientIds: SocketClients.ids, // use x.diff(y) on frontend
+				data: { clientIds: SocketClients.ids }, // use x.diff(y) on frontend
+				metaHeaders: {
+					action: "UPDATE_CLIENTS_LIST",
+					originClientId: clientId,
+				},
 			})
 
 			client.on("message", data => {
@@ -65,9 +70,8 @@ export class SocketServer {
 				SfuServer.closeConnectionWithClient(clientId)
 
 				this.sendToEveryone({
-					action: "REMOVE_CLIENT", // send entire list instead and use x.diff(y)
-				}, {
-					clientId: clientId,
+					data: { clientId: clientId },
+					metaHeaders: { action: "REMOVE_CLIENT" }, // send entire list instead and use x.diff(y)
 				})
 			})
 		})
@@ -85,19 +89,19 @@ export class SocketServer {
 	static sendToOthers(origin, metaHeaders, data = {}) {
 		for (const client of SocketClients.all) {
 			if (client != origin) {
-				client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
+				client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
 			}
 		}
 	}
 
-	static sendToEveryone(metaHeaders, data = {}) {
+	static sendToEveryone({ data = {}, metaHeaders = {} } = {}) {
 		for (const client of SocketClients.all) {
-			client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
+			client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
 		}
 	}
 
-	static sendToClient(client, metaHeaders, data = {}) {
-		client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
+	static sendToClient(client, { data = {}, metaHeaders = {} } = {}) {
+		client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
 	}
 
 }

@@ -31,7 +31,7 @@ export class SocketClient {
 
 	static connect() {
 		if (this._connectCalled) {
-			throw new Error("you are only allowed to call .connect once")
+			throw new Error("you are only allowed to call .connect once (unless internal programatic reconnect)")
 		}
 		else {
 			this._connectCalled = true
@@ -62,6 +62,7 @@ export class SocketClient {
 
 		this.webSocket.onclose = () => {
 			setTimeout(() => {
+				this._connectCalled = false
 				this.connect()
 			}, 1000)
 			throw new Error("Socket connection lost")
@@ -83,12 +84,12 @@ export class SocketClient {
 	static sendToServer(action, data, additionalMetaHeaders = {}) {
 		if (this.webSocket?.readyState == WebSocket.OPEN) {
 			this.webSocket.send(JSON.stringify({
+				data: data,
 				metaHeaders: {
 					...additionalMetaHeaders,
 					action: action,
 					originClientId: My.clientId,
 				},
-				data: data,
 			}))
 		}
 		else {

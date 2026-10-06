@@ -17,18 +17,16 @@ export async function StartServer(backendId) {
 	SocketServer.start(HttpServer.activeServer, {
 		onJoin: ({ client }) => {
 			SocketServer.sendToClient(client, {
-				action: "HOT_RELOAD_BACKEND_ID",
-			}, {
-				backendId: backendId,
+				data: { backendId: backendId },
+				metaHeaders: { action: "HOT_RELOAD_BACKEND_ID" },
 			})
 		},
 	})
 
 	SocketServer.on("HOT_RELOAD_BACKEND_ID", ({ client }) => {
 		SocketServer.sendToClient(client, {
-			action: "HOT_RELOAD_BACKEND_ID",
-		}, {
-			backendId: backendId,
+			data: { backendId: backendId },
+			metaHeaders: { action: "HOT_RELOAD_BACKEND_ID" },
 		})
 	})
 }
