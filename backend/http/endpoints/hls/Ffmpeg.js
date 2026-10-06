@@ -45,9 +45,9 @@ export class Ffmpeg {
 			"-pix_fmt",
 			"yuv420p",
 			"-preset",
-			"ultrafast",
+			"faster",
 			"-crf",
-			"22", // lower = better
+			"20", // lower = better
 			"-tune",
 			"zerolatency",
 			"-threads",
@@ -65,9 +65,9 @@ export class Ffmpeg {
 			"-f",
 			"hls",
 			"-hls_time",
-			"2",
+			Config.hlsTime,
 			"-hls_list_size",
-			"3",
+			Config.hlsListSize,
 			"-g",
 			"60",
 			"-hls_flags",

@@ -42,8 +42,8 @@ document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
 // FindPair()
-// Livestream()
-CanvasGame()
+Livestream()
+// CanvasGame()
 // PracticeLanguage()
 // CodeEditor()
 //

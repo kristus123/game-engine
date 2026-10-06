@@ -60,6 +60,7 @@ One cool idea that I will probably never do for now is to basically use SQLite b
 
 
 # LAter
+
 Yep. With UFW, you can allow Cloudflare's IP ranges and block everyone else.
 But since you're using a Cloudflare Tunnel, you likely don't need to allow Cloudflare IPs at all for your web server. You can simply keep port 3000 inaccessible externally.
 If you have nginx on 80/443, though, use:
