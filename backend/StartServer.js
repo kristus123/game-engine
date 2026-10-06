@@ -15,17 +15,19 @@ export async function StartServer(backendId) {
 	await SfuServer.start()
 
 	SocketServer.start(HttpServer.activeServer, {
-		onJoin: client => {
+		onJoin: ({ client }) => {
 			SocketServer.sendToClient(client, {
 				action: "HOT_RELOAD_BACKEND_ID",
+			}, {
 				backendId: backendId,
 			})
 		},
 	})
 
-	SocketServer.on("HOT_RELOAD_BACKEND_ID", (client) => {
+	SocketServer.on("HOT_RELOAD_BACKEND_ID", ({ client }) => {
 		SocketServer.sendToClient(client, {
 			action: "HOT_RELOAD_BACKEND_ID",
+		}, {
 			backendId: backendId,
 		})
 	})

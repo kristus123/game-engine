@@ -1,5 +1,9 @@
 # game-engine
 
+```bash
+codex mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest
+```
+
 
 GDD is in another [github repo](https://github.com/kristus123/sapmi-game)
 

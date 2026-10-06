@@ -15,12 +15,12 @@ export class RtcClient {
 				Dom.add([ HtmlVideo.local(stream) ])
 			})
 
-		SocketClient.onClientMessage("INCOMING_CALL", data => {
-			this.onIncomingCall(data.originClientId, data.offer)
+		SocketClient.onClientMessage("INCOMING_CALL", ({ data, metaHeaders }) => {
+			this.onIncomingCall(metaHeaders.originClientId, data.offer)
 		})
 
-		SocketClient.onClientMessage("CALL_ACCEPTED", data => {
-			const connection = this.connectedClientIds[data.originClientId]
+		SocketClient.onClientMessage("CALL_ACCEPTED", ({ data, metaHeaders }) => {
+			const connection = this.connectedClientIds[metaHeaders.originClientId]
 			if (!connection) {
 				throw new Error("could not find connection")
 			}
@@ -33,12 +33,12 @@ export class RtcClient {
 						throw new Error(e)
 					})
 
-				this.onCallAccepted(data.originClientId)
+				this.onCallAccepted(metaHeaders.originClientId)
 			}
 		})
 
-		SocketClient.onClientMessage("ICE_CANDIDATE", data => {
-			const connection = this.connectedClientIds[data.originClientId]
+		SocketClient.onClientMessage("ICE_CANDIDATE", ({ data, metaHeaders }) => {
+			const connection = this.connectedClientIds[metaHeaders.originClientId]
 			if (connection) {
 				connection.peerConnection
 					.addIceCandidate(

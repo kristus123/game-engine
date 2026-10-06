@@ -8,23 +8,23 @@ export class SocketClient {
 
 		this.onRemovedClient = (clientId) => {}
 
-		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", data => {
+		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", ({ data }) => {
 			for (const clientId of data.clientIds) {
 				OtherClients.add(clientId)
 			}
 		})
 
-		this.serverActionListener.listen("REMOVE_CLIENT", data => {
+		this.serverActionListener.listen("REMOVE_CLIENT", ({ data }) => {
 			OtherClients.remove(data.clientId)
 
 			this.onRemovedClient(data.clientId)
 		})
 
-		this.serverActionListener.listen("CLIENT_TO_CLIENT", data => {
-			this.clientActionListener.trigger(data.subAction, data)
+		this.serverActionListener.listen("CLIENT_TO_CLIENT", ({ data, metaHeaders }) => {
+			this.clientActionListener.trigger(metaHeaders.subAction, { data: data, metaHeaders: metaHeaders })
 		})
 
-		this.serverActionListener.listen("CLIENT_ID", data => {
+		this.serverActionListener.listen("CLIENT_ID", ({ data }) => {
 			console.log(data)
 		})
 	}
@@ -72,17 +72,24 @@ export class SocketClient {
 		}
 
 		this.webSocket.onmessage = e => {
-			const data = JSON.parse(e.data)
-			this.serverActionListener.trigger(data.action, data)
+			const message = JSON.parse(e.data)
+			this.serverActionListener.trigger(message.metaHeaders.action, {
+				data: message.data,
+				metaHeaders: message.metaHeaders,
+			})
 		}
 	}
 
-	static sendToServer(action, data) {
+	static sendToServer(action, data, additionalMetaHeaders = {}) {
 		if (this.webSocket?.readyState == WebSocket.OPEN) {
-			this.webSocket.send(JSON.stringify(data.merge({
-				action: action,
-				originClientId: My.clientId
-			})))
+			this.webSocket.send(JSON.stringify({
+				metaHeaders: {
+					...additionalMetaHeaders,
+					action: action,
+					originClientId: My.clientId,
+				},
+				data: data,
+			}))
 		}
 		else {
 			throw new Error("Not allowed to call .send() if socket connection not open.")
@@ -91,10 +98,10 @@ export class SocketClient {
 
 	static sendToClient(subAction, targetClientIds, data) {
 		for (const id of Always.list(targetClientIds)) {
-			this.sendToServer("CLIENT_TO_CLIENT", data.merge({
+			this.sendToServer("CLIENT_TO_CLIENT", data, {
 				subAction: subAction,
 				targetClientId: id,
-			}))
+			})
 		}
 	}
 
@@ -117,4 +124,3 @@ export class SocketClient {
 		this.clientActionListener.listen(action, callback)
 	}
 }
-

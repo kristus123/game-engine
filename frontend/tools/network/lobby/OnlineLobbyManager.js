@@ -3,28 +3,28 @@ export class OnlineLobbyManager {
 
 		this.newLobbyListener = Listener()
 
-		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", data => {
-			const lobby = Lobbies.createExistingLobby(data.lobbyId, data.originClientId, data.clientObjects)
+		SocketClient.onClientMessage("CLIENT_CREATED_NEW_LOBBY", ({ data, metaHeaders }) => {
+			const lobby = Lobbies.createExistingLobby(data.lobbyId, metaHeaders.originClientId, data.clientObjects)
 
 			this.newLobbyListener.trigger(lobby)
 		})
 
-		SocketClient.onClientMessage("CLIENT_JOINS_LOBBY", data => {
-			Lobbies.join(data.lobbyId, data.originClientId)
+		SocketClient.onClientMessage("CLIENT_JOINS_LOBBY", ({ data, metaHeaders }) => {
+			Lobbies.join(data.lobbyId, metaHeaders.originClientId)
 		})
 
-		SocketClient.onClientMessage("CLIENT_LEAVES_LOBBY", data => {
-			Lobbies.leave(data.lobbyId, data.originClientId)
+		SocketClient.onClientMessage("CLIENT_LEAVES_LOBBY", ({ data, metaHeaders }) => {
+			Lobbies.leave(data.lobbyId, metaHeaders.originClientId)
 		})
 
-		SocketClient.onClientMessage("SYNC_EXISTING_LOBBIES", data => {
+		SocketClient.onClientMessage("SYNC_EXISTING_LOBBIES", ({ data }) => {
 			const lobby = Lobbies.createExistingLobby(data.lobbyId, data.hostClientId, data.clientObjects)
 
 			this.newLobbyListener.trigger(lobby)
 		})
 
-		SocketClient.onClientMessage("UPDATE_LOBBY_CLIENT_OBJECT", data => {
-			const clientObject = Lobbies.clientObject(data.lobbyId, data.originClientId)
+		SocketClient.onClientMessage("UPDATE_LOBBY_CLIENT_OBJECT", ({ data, metaHeaders }) => {
+			const clientObject = Lobbies.clientObject(data.lobbyId, metaHeaders.originClientId)
 
 			clientObject[data.key] = data.value
 		})

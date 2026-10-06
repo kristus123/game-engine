@@ -3,7 +3,7 @@ export class Chat {
 	static _onMsg = Listener()
 
 	static {
-		SocketClient.onClientMessage("NEW_CHAT_MESSAGE", data => {
+		SocketClient.onClientMessage("NEW_CHAT_MESSAGE", ({ data }) => {
 			this._onMsg.trigger({ name: data.name, message: data.message })
 		})
 	}

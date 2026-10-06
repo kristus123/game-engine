@@ -5,8 +5,12 @@ export class SocketServer {
 	static {
 		this.actions = {}
 
-		this.on("CLIENT_TO_CLIENT", (client, clientId, data) => {
-			this.sendToClient(SocketClients.fromId(data.targetClientId), data)
+		this.on("CLIENT_TO_CLIENT", ({ clientId, data, metaHeaders }) => {
+			this.sendToClient(SocketClients.fromId(metaHeaders.targetClientId), {
+				action: "CLIENT_TO_CLIENT",
+				originClientId: clientId,
+				subAction: metaHeaders.subAction,
+			}, data)
 		})
 	}
 
@@ -16,10 +20,9 @@ export class SocketServer {
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
 
 			SocketClients.add(client, clientId)
-			onJoin?.(client)
+			onJoin?.({ client: client, clientId: clientId })
 
-			this.sendToClient(client, {
-				action: "CLIENT_ID",
+			this.sendToClient(client, { action: "CLIENT_ID" }, {
 				clientId: clientId,
 			})
 
@@ -27,24 +30,35 @@ export class SocketServer {
 
 			this.sendToEveryone({
 				action: "UPDATE_CLIENTS_LIST",
-				clientIds: SocketClients.ids, // use x.diff(y) on frontend
 				originClientId: clientId,
+			}, {
+				clientIds: SocketClients.ids, // use x.diff(y) on frontend
 			})
 
 			client.on("message", data => {
-				data = JSON.parse(data)
+				const message = JSON.parse(data)
+				const metaHeaders = message.metaHeaders
+				const body = message.data
 
-				if (this.actions[data.action] != null) {
-					this.actions[data.action](client, clientId, data)
+				// The server is authoritative about which connected client sent the message.
+				metaHeaders.originClientId = clientId
+
+				if (this.actions[metaHeaders.action] != null) {
+					this.actions[metaHeaders.action]({
+						client: client,
+						clientId: clientId,
+						data: body,
+						metaHeaders: metaHeaders,
+					})
 				}
 				else {
-					throw new Error(data.action + " does not exist")
+					throw new Error(metaHeaders.action + " does not exist")
 				}
 			})
 
 			client.on("close", () => {
 				SocketClients.remove(client)
-				onLeave?.(clientId)
+				onLeave?.({ clientId: clientId })
 
 				console.log(`${clientId} has disconnected`)
 
@@ -52,6 +66,7 @@ export class SocketServer {
 
 				this.sendToEveryone({
 					action: "REMOVE_CLIENT", // send entire list instead and use x.diff(y)
+				}, {
 					clientId: clientId,
 				})
 			})
@@ -67,22 +82,22 @@ export class SocketServer {
 		}
 	}
 
-	static sendToOthers(origin, data) {
+	static sendToOthers(origin, metaHeaders, data = {}) {
 		for (const client of SocketClients.all) {
 			if (client != origin) {
-				client.send(JSON.stringify(data))
+				client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
 			}
 		}
 	}
 
-	static sendToEveryone(data) {
+	static sendToEveryone(metaHeaders, data = {}) {
 		for (const client of SocketClients.all) {
-			client.send(JSON.stringify(data))
+			client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
 		}
 	}
 
-	static sendToClient(client, data) {
-		client.send(JSON.stringify(data))
+	static sendToClient(client, metaHeaders, data = {}) {
+		client.send(JSON.stringify({ metaHeaders: metaHeaders, data: data }))
 	}
 
 }

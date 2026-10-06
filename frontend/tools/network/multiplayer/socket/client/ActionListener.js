@@ -3,14 +3,14 @@ export class ActionListener {
 		this.listeners = {}
 	}
 
-	trigger(action, data) {
+	trigger(action, message) {
 		const listener = this.listeners[action]
 
 		if (listener != null) {
-			listener.trigger(data)
+			listener.trigger(message)
 		}
 		else {
-			throw new Error(`undeclared action: ${action}, data: ${data}`)
+			throw new Error(`undeclared action: ${action}, data: ${message.data}`)
 		}
 	}
 

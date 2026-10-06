@@ -11,11 +11,11 @@ export class SfuRouters {
 		this.onLeaveRouter = (router) => {}
 		this.onMessage = (clientId, data) => {}
 
-		SocketClient.onClientMessage("SFU_MESSAGE", data => {
-			this.onMessage(data.originClientId, JSON.parse(data.message))
+		SocketClient.onClientMessage("SFU_MESSAGE", ({ data, metaHeaders }) => {
+			this.onMessage(metaHeaders.originClientId, JSON.parse(data.message))
 		})
 
-		SocketClient.onClientMessage("SFU_KICK_SELF", data => {
+		SocketClient.onClientMessage("SFU_KICK_SELF", ({ data }) => {
 			if (data.routerId == SfuClient.connectedRouterId) {
 				SfuClient.leaveRouter()
 
@@ -23,19 +23,19 @@ export class SfuRouters {
 			}
 		})
 
-		SocketClient.onClientMessage("SFU_CLIENT_MUTE_SELF", data => {
+		SocketClient.onClientMessage("SFU_CLIENT_MUTE_SELF", ({ data }) => {
 			if (data.routerId == SfuClient.connectedRouterId) {
 				SfuClient.muteSelf()
 			}
 		})
 
-		SocketClient.onClientMessage("SFU_CLIENT_UNMUTE_SELF", data => {
+		SocketClient.onClientMessage("SFU_CLIENT_UNMUTE_SELF", ({ data }) => {
 			if (data.routerId == SfuClient.connectedRouterId) {
 				SfuClient.unmuteSelf()
 			}
 		})
 
-		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", data => {
+		SocketClient.onServerMessage("SFU_UPDATE_ROUTER_LIST", ({ data }) => {
 			this.routers = data.routerList
 
 			// nabir rewrite by using enhance_js stuff instead. i think it is this.routers.keys
@@ -45,7 +45,7 @@ export class SfuRouters {
 			})
 		})
 
-		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async data => {
+		SocketClient.onServerMessage("SFU_SETUP_CLIENT", async ({ data }) => {
 			console.log("Setting Up SFU Client")
 
 			const router = this.routers[SfuClient.connectedRouterId]
@@ -68,13 +68,13 @@ export class SfuRouters {
 			})
 		})
 
-		SocketClient.onServerMessage("SFU_ROUTER_DELETED", data => {
+		SocketClient.onServerMessage("SFU_ROUTER_DELETED", ({ data }) => {
 			delete this.routers[data.routerId]
 
 			this.onRouterDeleted(data.routerId)
 		})
 
-		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", data => {
+		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", ({ data }) => {
 			const router = this.routers[data.routerId]
 
 			if (router) {
@@ -95,7 +95,7 @@ export class SfuRouters {
 			this.onLeaveRouter(router)
 		})
 
-		SocketClient.onServerMessage("SFU_ROUTER_CREATED", data => {
+		SocketClient.onServerMessage("SFU_ROUTER_CREATED", ({ data }) => {
 			console.log(`New Router Created: ${data.routerId}`)
 
 			this.routers[data.routerId] = {
@@ -115,7 +115,7 @@ export class SfuRouters {
 			this.onRouterCreated(this.routers[data.routerId])
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_CONNECTION", data => {
+		SocketClient.onServerMessage("SFU_NEW_CONNECTION", ({ data }) => {
 			const router = this.routers[data.routerId]
 
 			if (router) {
@@ -127,7 +127,7 @@ export class SfuRouters {
 			this.onJoinRouter(router)
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async data => {
+		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async ({ data }) => {
 			console.log("Consuming New Producer")
 
 			// Consume Streams *Only* if Viewer *Only* when Stream Mode is On
@@ -136,7 +136,7 @@ export class SfuRouters {
 			}
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async data => {
+		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async ({ data }) => {
 			console.log("Consuming New Producer")
 
 			SfuClient.consumeData(data.producerId, data.clientId)
