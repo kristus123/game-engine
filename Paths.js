@@ -14,14 +14,12 @@ export class Paths {
 	static generateDist = "dev/GenerateFrontend.js"
 	static prepareExternalBundle = "dev/PrepareExternalBundle.js"
 
-	static get dist() {
-		return {
-			index_js: "dist/index.js",
-			serviceWorker_js: "dist/serviceWorker.js",
-			swag_css: "dist/swag.css",
-			assetPaths: "dist/AssetPaths.js",
-			externalBundle: "dist/out.js"
-		}
+	static dist = {
+		index_js: "dist/index.js",
+		serviceWorker_js: "dist/serviceWorker.js",
+		swag_css: "dist/swag.css",
+		assetPaths: "dist/AssetPaths.js",
+		externalBundle: "dist/out.js",
 	}
 
 	static get gameAssets() {
