@@ -27,46 +27,6 @@ function _compareOrdered(a, b, path) {
 	return changes
 }
 
-function _compareUnordered(a, b, path) {
-	const changes = []
-	const unmatched = [...b]
-
-	for (const value of a) {
-		const match = unmatched.findIndex(candidate =>
-			value.diff(candidate, path).length == 0
-		)
-
-		if (match == -1) {
-			changes.push({
-				add: false,
-				set: false,
-				remove: true,
-				path,
-				value
-			})
-		}
-		else {
-			unmatched.splice(match, 1)
-		}
-	}
-
-	for (const value of unmatched) {
-		changes.push({
-			add: true,
-			set: false,
-			remove: false,
-			path,
-			value
-		})
-	}
-
-	return changes
-}
-
-
-
-
-
 export function Enhance_js_Object() {
 
 	Enhance(Object.prototype, "merge", function (otherObject) {
@@ -253,7 +213,7 @@ export function Enhance_js_Object() {
 
 		if (Array.isArray(this) && Array.isArray(other)) {
 			if (String(path.at(-1)).startsWith("unordered_")) {
-				return _compareUnordered(this, other, path)
+				return this.unorderedDiff(other, path)
 			}
 			else {
 				return _compareOrdered(this, other, path)

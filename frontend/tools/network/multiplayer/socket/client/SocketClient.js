@@ -9,21 +9,18 @@ export class SocketClient {
 		this.onRemovedClient = (clientId) => {}
 
 		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", ({ data }) => {
-			const diffs = data.clientIds.unorderedDiff(OtherClients.ids)  // codex, fix implementetaoion
+			const clientIds = data.clientIds.filter(clientId => clientId != My.clientId)
+			const diffs = OtherClients.ids.unorderedDiff(clientIds)
 
-			for (const d of diffs) {
-				switch d.action {
-					case "add" {
-						OtherClients.add(d.value)
-					}
-					case "remove" {
-						OtherClients.remove(d.value)
-					}
+			for (const diff of diffs) {
+				if (diff.add) {
+					OtherClients.add(diff.value)
+				}
+				else if (diff.remove) {
+					OtherClients.remove(diff.value)
+					this.onRemovedClient(diff.value)
 				}
 			}
-
-			OtherClients.remove(metaHeaders.originClientId)
-			this.onRemovedClient(metaHeaders.originClientId)
 		})
 
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", ({ data, metaHeaders }) => {

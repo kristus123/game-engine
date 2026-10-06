@@ -42,6 +42,43 @@ export function Enhance_js_Array() {
 			&& this.every((value, index) => value == o[index])
 	})
 
+	Enhance(Array.prototype, "unorderedDiff", function (other, path=[]) {
+		Assert.array(other)
+		const changes = []
+		const unmatched = [...other]
+
+		for (const value of this) {
+			const match = unmatched.findIndex(candidate =>
+				value.diff(candidate, path).length == 0
+			)
+
+			if (match == -1) {
+				changes.push({
+					add: false,
+					set: false,
+					remove: true,
+					path,
+					value
+				})
+			}
+			else {
+				unmatched.splice(match, 1)
+			}
+		}
+
+		for (const value of unmatched) {
+			changes.push({
+				add: true,
+				set: false,
+				remove: false,
+				path,
+				value
+			})
+		}
+
+		return changes
+	})
+
 	Getter(Array.prototype, "first", function () {
 		Assert.notEmpty(this)
 		return this[0]
