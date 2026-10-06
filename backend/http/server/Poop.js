@@ -83,7 +83,7 @@ export class Poop {
 		return value instanceof Promise
 	}
 
-	static validJson(value) {
+	static validJson(value) { // no-null-check
 		if (value == null) {
 			return false
 		}
@@ -146,7 +146,7 @@ export class Poop {
 		}
 	}
 
-	static formatResponse(res, returnValue) {
+	static formatResponse(res, returnValue) { // no-null-check
 		if (Poop.validJson(returnValue)) {
 			Poop.sendJson(res, 200, returnValue)
 		}

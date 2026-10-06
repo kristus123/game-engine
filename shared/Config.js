@@ -1,30 +1,31 @@
-const url = "test.happysun.no"
-const cloudflared = true
+const productionHost = "krispetter.duckdns.org"
+
+const cloudflared = "test.happysun.no"
 
 export class Config {
 
 	static get httpUrl() {
 		if (cloudflared) {
-			return "https://" + url
+			return "https://" + cloudflared
 		}
 		else if (Env.dev) {
 			return "http://localhost:3000"
 		}
 		else if (Env.prod) {
-			return "https://krispetter.duckdns.org"
+			return "https://" + productionHost
 		}
 		throw new Error("unexpected environment given")
 	}
 
 	static get wsUrl() {
 		if (cloudflared) {
-			return "wss://" + url
+			return "wss://" + cloudflared
 		}
 		else if (Env.dev) {
 			return "ws://localhost:3000"
 		}
 		else if (Env.prod) {
-			return "wss://krispetter.duckdns.org"
+			return "wss://" + productionHost
 		}
 		else {
 			throw new Error("unexpected environment given")
@@ -33,13 +34,13 @@ export class Config {
 
 	static get mediasoupAnnounceIp() {
 		if (cloudflared) {
-			return url
+			return cloudflared
 		}
 		else if (Env.dev) {
 			return "127.0.0.1"
 		}
 		else if (Env.prod) {
-			return "krispetter.duckdns.org"
+			return productionHost
 		}
 		else {
 			throw new Error("unexpected environment given")

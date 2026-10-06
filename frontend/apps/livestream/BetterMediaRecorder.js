@@ -19,7 +19,7 @@ export class BetterMediaRecorder {
 			}
 		}
 
-		this.mediaRecorder.start(2_000)
+		this.mediaRecorder.start(Config.hlsTime * 1_000) // turn seconds to ms
 	}
 
 	static async swapAudio(deviceId) {

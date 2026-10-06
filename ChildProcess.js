@@ -40,8 +40,12 @@ export class ChildProcess {
 	}
 
 	async kill() {
-		await this.awaitFinish()
-		this.process?.kill("SIGTERM")
+		const child = this.process
+		if (child) {
+			const finished = this.awaitFinish()
+			child.kill("SIGTERM")
+			await finished
+		}
 	}
 
 	awaitFinish() {

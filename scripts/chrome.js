@@ -161,7 +161,7 @@ async function readEndpoint() {
 	}
 }
 
-async function startChrome() {
+async function startChrome({ headed }) {
 	mkdirSync(PROFILE_DIR, { recursive: true, mode: 0o700 })
 	const activeEndpoint = await readEndpoint()
 	if (activeEndpoint) {
@@ -169,21 +169,37 @@ async function startChrome() {
 	}
 
 	rmSync(ACTIVE_PORT_FILE, { force: true })
-	const child = spawn(chromePath(), [
+	const chromeArgs = [
 		"--remote-debugging-address=127.0.0.1",
 		"--remote-debugging-port=0",
 		"--remote-allow-origins=*",
+		"--disable-crash-reporter",
+		"--disable-breakpad",
 		`--user-data-dir=${PROFILE_DIR}`,
 		"--no-first-run",
 		"--no-default-browser-check",
 		"about:blank",
-	], {
+	]
+	if (!headed) {
+		chromeArgs.unshift(
+			"--headless=new",
+			"--no-sandbox",
+			"--use-fake-device-for-media-stream",
+			"--use-fake-ui-for-media-stream",
+		)
+	}
+	const child = spawn(chromePath(), chromeArgs, {
 		stdio: "ignore",
 		detached: true,
 	})
 	let launchError
 	child.once("error", error => {
 		launchError = error
+	})
+	child.once("exit", (code, signal) => {
+		if (code != 0) {
+			launchError = new Error(`Chrome exited before starting (code: ${code}, signal: ${signal})`)
+		}
 	})
 	child.unref()
 
@@ -288,16 +304,17 @@ async function navigate(devTools, url) {
 function printHelp() {
 	console.log(`Chrome CDP controller (no browser automation packages)
 
-Usage: node scripts/chrome.js <command> [arguments]
+Usage: npm run chrome -- [command] [arguments]
+   	npm run chrome
 
 Commands:
-  start [url]              Launch isolated Chrome and open the URL (default: ${DEFAULT_URL})
+  start [--headed] [url]   Launch isolated Chrome and open the URL (default: ${DEFAULT_URL})
   status                   Print the current page URL, title, and ready state
   goto <url>               Navigate the controlled tab
   eval <javascript>        Evaluate an expression in the page and print its result
   click <css-selector>     Scroll to and click the matching element
   type <css-selector> <text>
-                   		Focus the matching element and type text at its caret
+               			Focus the matching element and type text at its caret
   screenshot [file]        Save a PNG (default: ${DEFAULT_SCREENSHOT})
   reload                   Reload the current page
   stop                     Close this isolated Chrome instance
@@ -308,7 +325,7 @@ The browser uses a separate profile under the operating system's temp directory.
 }
 
 async function main() {
-	const [command = "help", ...args] = process.argv.slice(2)
+	const [command = "start", ...args] = process.argv.slice(2)
 	if (command == "help" || command == "--help" || command == "-h") {
 		return printHelp()
 	}
@@ -330,7 +347,9 @@ async function main() {
 		return console.log("Closed the isolated Chrome instance")
 	}
 
-	const endpoint = command == "start" ? await startChrome() : await readEndpoint()
+	const headed = command == "start" && args[0] == "--headed"
+	const url = args[headed ? 1 : 0] || DEFAULT_URL
+	const endpoint = command == "start" ? await startChrome({ headed }) : await readEndpoint()
 	if (!endpoint) {
 		throw new Error("Chrome is not running. Start it first with: node scripts/chrome.js start")
 	}
@@ -338,9 +357,8 @@ async function main() {
 	const { devTools, target } = await connectToPage(endpoint.port)
 	try {
 		if (command == "start") {
-			const url = args[0] || DEFAULT_URL
 			await navigate(devTools, url)
-			console.log(`Chrome is ready at ${url}`)
+			console.log(`Chrome is ready at ${url} (${headed ? "headed" : "headless"})`)
 		}
 		else if (command == "status") {
 			const result = await evaluate(devTools, "({ url: location.href, title: document.title, readyState: document.readyState })")
