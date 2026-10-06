@@ -9,23 +9,29 @@ export class SocketClient {
 		this.onRemovedClient = (clientId) => {}
 
 		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", ({ data }) => {
-			for (const clientId of data.clientIds) {
-				OtherClients.add(clientId)
+			const diffs = data.clientIds.unorderedDiff(OtherClients.ids)  // codex, fix implementetaoion
+
+			for (const d of diffs) {
+				switch d.action {
+					case "add" {
+						OtherClients.add(d.value)
+					}
+					case "remove" {
+						OtherClients.remove(d.value)
+					}
+				}
 			}
-		})
 
-		this.serverActionListener.listen("REMOVE_CLIENT", ({ data }) => {
-			OtherClients.remove(data.clientId)
-
-			this.onRemovedClient(data.clientId)
+			OtherClients.remove(metaHeaders.originClientId)
+			this.onRemovedClient(metaHeaders.originClientId)
 		})
 
 		this.serverActionListener.listen("CLIENT_TO_CLIENT", ({ data, metaHeaders }) => {
 			this.clientActionListener.trigger(metaHeaders.subAction, { data: data, metaHeaders: metaHeaders })
 		})
 
-		this.serverActionListener.listen("CLIENT_ID", ({ data }) => {
-			console.log(data)
+		this.serverActionListener.listen("CLIENT_ID", ({ metaHeaders }) => {
+			console.log(metaHeaders.targetClientId)
 		})
 	}
 
@@ -98,23 +104,28 @@ export class SocketClient {
 	}
 
 	static sendToClient(subAction, targetClientIds, data) {
-		for (const id of Always.list(targetClientIds)) {
-			this.sendToServer("CLIENT_TO_CLIENT", data, {
-				subAction: subAction,
-				targetClientId: id,
-			})
+		const clientIds = Array.isArray(targetClientIds) ? targetClientIds : [targetClientIds]
+
+		if (clientIds.length == 0) {
+			return
 		}
+
+		const targetHeaders = Array.isArray(targetClientIds)
+			? { targetClientIds: clientIds }
+			: { targetClientId: targetClientIds }
+
+		this.sendToServer("CLIENT_TO_CLIENT", data, {
+			...targetHeaders,
+			subAction: subAction,
+		})
 	}
 
 	static sendToOtherClients(subAction, data) {
-		for (const targetClientId of OtherClients.ids) {
-			SocketClient.sendToClient(subAction, targetClientId, data)
-		}
+		this.sendToClient(subAction, [...OtherClients.ids], data)
 	}
 
 	static sendToAllClients(subAction, data) {
-		this.sendToOtherClients(subAction, data)
-		this.sendToClient(subAction, My.clientId, data)
+		this.sendToClient(subAction, [...OtherClients.ids, My.clientId], data)
 	}
 
 	static onServerMessage(action, callback) {

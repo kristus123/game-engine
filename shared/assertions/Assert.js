@@ -9,6 +9,17 @@ export class Assert {
 		}
 	}
 
+	static onlyOneValue(...args) { // codex verify this is correct
+		const values = args.filter(v => A.value(v))
+
+		if (values.length == 1) {
+			return values[0]
+		}
+		else {
+			throw new Error("Exactly one value must be present")
+		}
+	}
+
 	static uuid(value) {
 		const yes = typeof value == "string" &&
 			/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)

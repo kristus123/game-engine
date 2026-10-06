@@ -33,4 +33,12 @@ export class OtherClients {
 	static [Symbol.iterator]() {
 		return this.ids[Symbol.iterator]()
 	}
+
+	static updateFromServer(clientIds) {
+		this.ids.clear()
+
+		for (const c of clientIds) {
+			this.ids.add(c)
+		}
+	}
 }

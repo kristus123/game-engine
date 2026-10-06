@@ -137,6 +137,24 @@ export function Enhance_js_Array() {
 		return args.every(element => this.includes(element))
 	})
 
+	Enhance(Array.prototype, "assertEmpty", function () {
+		if (this.empty) {
+			return this
+		}
+		else {
+			throw new Error("ASSERT: list should be empty")
+		}
+	})
+
+	Enhance(Array.prototype, "assertValues", function () {
+		if (this.notEmpty) {
+			return this
+		}
+		else {
+			throw new Error("ASSERT: list should not be empty")
+		}
+	})
+
 	Enhance(Array.prototype, "assertNoNullElements", function () {
 		for (const c of this) {
 			if (c == null) {

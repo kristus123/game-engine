@@ -74,40 +74,40 @@ export class SfuRouters {
 			this.onRouterDeleted(data.routerId)
 		})
 
-		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", ({ data }) => {
+		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", ({ data, metaHeaders }) => {
 			const router = this.routers[data.routerId]
 
 			if (router) {
-				router.connectedClientIds.removeIfPresent(data.clientId)
+				router.connectedClientIds.removeIfPresent(metaHeaders.originClientId)
 			}
 
 			console.log(this.routers)
 
-			if (SfuClient.consumers[data.clientId]) {
+			if (SfuClient.consumers[metaHeaders.originClientId]) {
 
-				SfuClient.consumers[data.clientId].stream.getTracks().forEach(track => {
+				SfuClient.consumers[metaHeaders.originClientId].stream.getTracks().forEach(track => {
 					track.stop()
 				})
 
-				delete SfuClient.consumers[data.clientId]
+				delete SfuClient.consumers[metaHeaders.originClientId]
 			}
 
 			this.onLeaveRouter(router)
 		})
 
-		SocketClient.onServerMessage("SFU_ROUTER_CREATED", ({ data }) => {
+		SocketClient.onServerMessage("SFU_ROUTER_CREATED", ({ data, metaHeaders }) => {
 			console.log(`New Router Created: ${data.routerId}`)
 
 			this.routers[data.routerId] = {
 				routerId: data.routerId,
-				hostClientId: data.hostClientId,
+				hostClientId: metaHeaders.originClientId,
 				connectedClientIds: data.connectedClientIds,
 				streamOnly: data.streamOnly
 			}
 
 			console.log(this.routers)
 
-			if (data.hostClientId == My.clientId) {
+			if (metaHeaders.originClientId == My.clientId) {
 				console.log("Joining Created Lobby...")
 				SfuClient.joinRouter(data.routerId)
 			}
@@ -115,11 +115,11 @@ export class SfuRouters {
 			this.onRouterCreated(this.routers[data.routerId])
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_CONNECTION", ({ data }) => {
+		SocketClient.onServerMessage("SFU_NEW_CONNECTION", ({ data, metaHeaders }) => {
 			const router = this.routers[data.routerId]
 
 			if (router) {
-				router.connectedClientIds.addIfMissing(data.newlyConnectedClientId)
+				router.connectedClientIds.addIfMissing(metaHeaders.originClientId)
 			}
 
 			console.log(this.routers)
@@ -127,19 +127,19 @@ export class SfuRouters {
 			this.onJoinRouter(router)
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async ({ data }) => {
+		SocketClient.onServerMessage("SFU_NEW_PRODUCER", async ({ data, metaHeaders }) => {
 			console.log("Consuming New Producer")
 
 			// Consume Streams *Only* if Viewer *Only* when Stream Mode is On
 			if (!this.routers[SfuClient.connectedRouterId].streamOnly || !SfuClient.isHost) {
-				SfuClient.consume(data.producerId, data.clientId)
+				SfuClient.consume(data.producerId, metaHeaders.originClientId)
 			}
 		})
 
-		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async ({ data }) => {
+		SocketClient.onServerMessage("SFU_NEW_DATA_PRODUCER", async ({ data, metaHeaders }) => {
 			console.log("Consuming New Producer")
 
-			SfuClient.consumeData(data.producerId, data.clientId)
+			SfuClient.consumeData(data.producerId, metaHeaders.originClientId)
 		})
 
 		setTimeout(() => {

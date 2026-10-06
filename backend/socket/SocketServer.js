@@ -1,4 +1,4 @@
-import { WebSocketServer } from "ws"
+import { WebSocket, WebSocketServer } from "ws"
 
 export class SocketServer {
 
@@ -6,50 +6,66 @@ export class SocketServer {
 		this.actions = {}
 
 		this.on("CLIENT_TO_CLIENT", ({ clientId, data, metaHeaders }) => {
-			this.sendToClient(SocketClients.fromId(metaHeaders.targetClientId), {
-				data: data,
-				metaHeaders: {
-					action: "CLIENT_TO_CLIENT",
-					originClientId: clientId,
-					subAction: metaHeaders.subAction,
-				},
-			})
+
+			const targetClientIds = Always.list(Assert.onlyOneValue(
+				metaHeaders.targetClientIds, metaHeaders.targetClientId,
+			)).assertValues()
+
+			for (const targetClientId of targetClientIds) {
+				const target = SocketClients.fromId(targetClientId)
+				if (target) {
+					this.sendToClient(target, {
+						data: data,
+						metaHeaders: {
+							action: "CLIENT_TO_CLIENT",
+							subAction: metaHeaders.subAction,
+							originClientId: clientId,
+							targetClientId: targetClientId,
+							// targetClientIds: targetClientIds, // maybe we want this, or mby not.
+						},
+					})
+				}
+			}
 		})
 	}
 
 	static start(server, { onJoin, onLeave } = {}) { // no-null-check // todo add async await for this one
 		new WebSocketServer({ server: server }).on("connection", (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
-			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID
+			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID. fix later, not now
 
 			SocketClients.add(client, clientId)
 			onJoin?.({ client: client, clientId: clientId })
 
 			this.sendToClient(client, {
-				data: { clientId: clientId },
-				metaHeaders: { action: "CLIENT_ID" },
+				data: {},
+				metaHeaders: {
+					action: "CLIENT_ID",
+					originClientId: clientId,
+				},
 			})
 
 			console.log(`${clientId} has connected`)
 
 			this.sendToEveryone({
-				data: { clientIds: SocketClients.ids }, // use x.diff(y) on frontend
+				data: {
+					clientIds: SocketClients.ids,
+				},
 				metaHeaders: {
 					action: "UPDATE_CLIENTS_LIST",
 					originClientId: clientId,
 				},
 			})
 
-			client.on("message", data => {
-				const message = JSON.parse(data)
+			client.on("message", m => {
+				const message = JSON.parse(m)
 				const metaHeaders = message.metaHeaders
-				const body = message.data
 
 				if (this.actions[metaHeaders.action] != null) {
 					this.actions[metaHeaders.action]({
 						client: client,
 						clientId: clientId,
-						data: body,
+						data: message.data,
 						metaHeaders: metaHeaders,
 					})
 				}
@@ -67,8 +83,13 @@ export class SocketServer {
 				SfuServer.closeConnectionWithClient(clientId)
 
 				this.sendToEveryone({
-					data: { clientId: clientId },
-					metaHeaders: { action: "REMOVE_CLIENT" }, // send entire list instead and use x.diff(y)
+					data: {
+						clientIds: SocketClients.ids,
+					},
+					metaHeaders: {
+						action: "UPDATE_CLIENTS_LIST",
+						originClientId: clientId,
+					},
 				})
 			})
 		})
@@ -83,22 +104,37 @@ export class SocketServer {
 		}
 	}
 
-	static sendToOthers(origin, { data={}, metaHeaders={} }={}) {
-		for (const client of SocketClients.all) {
-			if (client != origin) {
-				client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
-			}
-		}
+	static sendToOthers(origin, { data = {}, metaHeaders = {} } = {}) {
+		const originClientId = typeof origin == "string" ? origin : SocketClients.idFrom(origin)
+		const originClient = typeof origin == "string" ? SocketClients.fromId(origin) : origin
+		const clients = SocketClients.all.filter(client => client != originClient)
+		const targetClientIds = clients.map(client => SocketClients.idFrom(client))
+
+		this.sendToClients(clients, {
+			data: data,
+			metaHeaders: { ...metaHeaders, originClientId: originClientId, targetClientIds: targetClientIds },
+		})
 	}
 
 	static sendToEveryone({ data = {}, metaHeaders = {} } = {}) {
-		for (const client of SocketClients.all) {
-			client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
-		}
+		const clients = [...SocketClients.all]
+		const targetClientIds = clients.map(client => SocketClients.idFrom(client))
+
+		this.sendToClients(clients, {
+			data: data,
+			metaHeaders: { ...metaHeaders, targetClientIds: targetClientIds },
+		})
 	}
 
 	static sendToClient(client, { data = {}, metaHeaders = {} } = {}) {
+		metaHeaders.targetClientId = SocketClients.idFrom(client)
 		client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
+	}
+
+	static sendToClients(clients, { data = {}, metaHeaders = {} } = {}) {
+		for (const client of clients) {
+			this.sendToClient(client, { data: data, metaHeaders: metaHeaders })
+		}
 	}
 
 }

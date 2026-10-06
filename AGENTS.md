@@ -40,6 +40,8 @@ The custom source pipeline is important when changing JavaScript:
 
 Backend HTTP and WebSocket share the Node HTTP server on port `3000`. `backend/StartServer.js` enhances built-in prototypes, imports endpoint modules to register handlers on `AdminRoute`, `UserRoute`, or `UnsecureRoute`, starts `HttpServer`, starts mediasoup (`SfuServer`), and attaches `SocketServer` to the HTTP server. HTTP POST route names map to those handler registries; WebSocket messages dispatch by `action`. Coordinate client action/payload changes with `frontend/tools/network/`. The mediasoup signaling server is in `backend/rtc/`, with its client-side peer/router handling in `frontend/tools/network/multiplayer/rtc/`.
 
+WebSocket messages use an envelope with `data` for the application payload and `metaHeaders` for message metadata. Put routing and sender identity in `metaHeaders`: `action`, optional `subAction`, `originClientId`, `targetClientId`, and `targetClientIds` for multi-recipient messages. The server sets each delivered message's `targetClientId` and derives `originClientId` from the connected sender; client-list updates carry their `clientIds` list in the headers too.
+
 `shared/` is built for both browser and backend, but each runtime initializes a different set of prototype enhancements: `frontend/index.html` loads `shared/enhance/EnhanceAll.js`, while `backend/StartServer.js` calls `EnhanceBackend()`. Put genuinely cross-runtime code in `shared/` and check that it uses APIs available in both environments.
 
 ## Main app areas
