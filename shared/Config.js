@@ -48,10 +48,10 @@ export class Config {
 	}
 
 	static get hlsTime() {
-		return 2
+		return 5
 	}
 
 	static get hlsListSize() {
-		return 3
+		return 5
 	}
 }

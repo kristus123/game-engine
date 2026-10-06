@@ -314,7 +314,7 @@ Commands:
   eval <javascript>        Evaluate an expression in the page and print its result
   click <css-selector>     Scroll to and click the matching element
   type <css-selector> <text>
-               			Focus the matching element and type text at its caret
+           				Focus the matching element and type text at its caret
   screenshot [file]        Save a PNG (default: ${DEFAULT_SCREENSHOT})
   reload                   Reload the current page
   stop                     Close this isolated Chrome instance
