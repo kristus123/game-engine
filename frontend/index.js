@@ -41,16 +41,7 @@ await Promise.all([
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-// FindPair()
-Livestream()
-// CanvasGame()
-// PracticeLanguage()
-// CodeEditor()
-//
-
-
 // this can be combined with index.html block thingy
-//
 let lastRatio = devicePixelRatio
 
 setInterval(() => {
@@ -59,3 +50,9 @@ setInterval(() => {
 		console.log(devicePixelRatio)
 	}
 }, 250)
+
+// FindPair()
+Livestream()
+// CanvasGame()
+// PracticeLanguage()
+// CodeEditor()
