@@ -12,8 +12,7 @@ html, body {
 body {
 	background: brown;
 
-	padding-top: env(safe-area-inset-top);
-	padding-bottom: env(safe-area-inset-bottom);
+	padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 
 	white-space: normal;
 	touch-action: pan-x pan-y;

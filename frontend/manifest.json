@@ -6,7 +6,8 @@
   "theme_color": "#000000",
   "background_color": "#ffffff",
 
-  "display_override": ["window-controls-overlay"],
+  "display_override": ["fullscreen"],
+  "orientation": "landscape",
   "navigation_color": "#000000",
 
   "icons": [
