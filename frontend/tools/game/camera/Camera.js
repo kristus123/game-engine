@@ -1,6 +1,5 @@
 export class Camera {
 	static initialize() { // initialize() Mouse first
-
 		this.position = WorldPosition(0, 0)
 		this.zoom = 1 // used some places
 		this.visiblePosition = WorldPosition(0, 0)
