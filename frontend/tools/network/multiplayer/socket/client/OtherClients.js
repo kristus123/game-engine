@@ -38,7 +38,7 @@ export class OtherClients {
 	}
 
 	static onCountChange(callback) {
-		return callback(this.ids.length)
+		callback(this.ids.length)
 
 		this.onJoinListener.listen(() => {
 			return callback(this.ids.length)

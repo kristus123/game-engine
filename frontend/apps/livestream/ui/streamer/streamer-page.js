@@ -20,6 +20,7 @@ export default async ({ html }) => {
 	})
 
 	OtherClients.onCountChange(c => {
+		console.log("updating viewcount baby")
 		html.viewCount.content = c
 	})
 
