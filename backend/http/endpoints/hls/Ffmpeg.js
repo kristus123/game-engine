@@ -1,5 +1,3 @@
-import { spawn } from "child_process"
-
 // -preset
 // ultrafast
 // superfast
@@ -14,32 +12,28 @@ import { spawn } from "child_process"
 
 export class Ffmpeg {
 
-	static start(mimeType) {
+	static async start(mimeType) {
 		if (this.p) {
 			throw new Error("already running")
 		}
 
-		let thingy = null
-
-		if (mimeType == "webm") {
-			thingy = "webm"
-		}
-		else {
+		if (mimeType != "webm") {
 			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
 
-		console.log("Starting FFmpeg...")
-
-		this.p = spawn("ffmpeg", [
+		this.p = new Spawn("ffmpeg", [
 			"-loglevel",
 			"verbose",
 			"-stats",
+
 			"-f",
 			"webm",
 			"-i",
 			"pipe:0",
+
 			"-fps_mode",
 			"passthrough",
+
 			"-c:v",
 			"libx264",
 			"-pix_fmt",
@@ -47,21 +41,24 @@ export class Ffmpeg {
 			"-preset",
 			"medium",
 			"-crf",
-			"16", // lower = better
+			"16",
 			"-tune",
 			"zerolatency",
 			"-threads",
 			"0",
+
 			"-ac",
 			"1",
 			"-ar",
 			"48000",
 			"-af",
 			"highpass=f=80,arnndn=m=backend/http/endpoints/hls/std.rnnn:mix=0.4,aresample=async=1",
+
 			"-c:a",
 			"aac",
 			"-b:a",
 			"64k",
+
 			"-f",
 			"hls",
 			"-hls_time",
@@ -76,118 +73,27 @@ export class Ffmpeg {
 			"delete_segments+independent_segments",
 			"-hls_segment_type",
 			"mpegts",
+
 			"public_folder/hls/output.m3u8"
 		])
 
-		console.log("FFmpeg PID:", this.p.pid)
-
-		this.p.stdout.on("data", data => {
-			console.log("[FFmpeg stdout]", data.toString().trim())
-		})
-
-		this.p.stderr.on("data", data => {
-			console.log("[FFmpeg stderr]", data.toString().trim())
-		})
-
-		this.p.stdin.on("error", error => {
-			console.error("[FFmpeg stdin error]", error)
-		})
-
-		this.p.stdin.on("close", () => {
-			console.log("FFmpeg stdin closed")
-		})
-
-		this.p.on("error", error => {
-			console.error("[FFmpeg process error]", error)
-		})
-
-		this.p.on("close", (code, signal) => {
-			console.log("FFmpeg exited:", { code, signal })
-			this.p = null
-		})
-
-		return new Promise((resolve, reject) => {
-			const process = this.p
-
-			process.once("spawn", () => {
-				console.log("FFmpeg spawned")
-				resolve(true)
-			})
-
-			process.once("error", error => {
-				console.error("FFmpeg failed to spawn:", error)
-				reject(error)
-			})
-		})
+		await this.p.waitForSpawn()
 	}
 
-	static stop() {
+	static async stop() {
 		if (!this.p) {
 			throw new Error("can't trigger stop as no process is running")
 		}
 
-		return new Promise(resolve => {
-			const process = this.p
-
-			process.once("close", () => {
-				this.p = null
-				resolve()
-			})
-
-			process.stdin.end()
-		})
+		await this.p.stop()
+		this.p = null
 	}
 
-	static async write(buffer) {
+	static write(buffer) {
 		if (!this.p) {
 			throw new Error("FFmpeg is not running")
 		}
 
-		if (this.p.stdin.destroyed) {
-			throw new Error("FFmpeg stdin is destroyed")
-		}
-
-		if (!Buffer.isBuffer(buffer)) {
-			throw new Error("FFmpeg write expected a Buffer")
-		}
-
-		console.log("Writing chunk:", buffer.length)
-
-		try {
-			const ok = this.p.stdin.write(buffer)
-
-			console.log("stdin.write:", ok)
-
-			if (!ok) {
-				console.log("Waiting for drain")
-
-				await new Promise((resolve, reject) => {
-					const onDrain = () => {
-						cleanup()
-						resolve()
-					}
-
-					const onError = error => {
-						cleanup()
-						reject(error)
-					}
-
-					const cleanup = () => {
-						this.p.stdin.off("drain", onDrain)
-						this.p.stdin.off("error", onError)
-					}
-
-					this.p.stdin.once("drain", onDrain)
-					this.p.stdin.once("error", onError)
-				})
-
-				console.log("Drain")
-			}
-		}
-		catch (error) {
-			console.error("Failed writing chunk to FFmpeg:", error)
-			throw error
-		}
+		return this.p.write(buffer)
 	}
-
 }

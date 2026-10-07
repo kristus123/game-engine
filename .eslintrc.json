@@ -356,6 +356,7 @@
         "SocketServer": "readonly",
         "Sound": "readonly",
         "SoundContext": "readonly",
+        "Spawn": "readonly",
         "Splash": "readonly",
         "Sprite": "readonly",
         "SpriteSheet": "readonly",
