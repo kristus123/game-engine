@@ -16,7 +16,6 @@ export class Ffmpeg {
 		if (this.p) {
 			throw new Error("already running")
 		}
-
 		if (mimeType != "webm") {
 			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
@@ -81,19 +80,24 @@ export class Ffmpeg {
 	}
 
 	static async stop() {
-		if (!this.p) {
+		if (this.p) {
+			await this.p.stop()
+			this.p = null
+		}
+		else {
 			throw new Error("can't trigger stop as no process is running")
 		}
 
-		await this.p.stop()
-		this.p = null
 	}
 
 	static write(buffer) {
-		if (!this.p) {
+		if (this.p) {
+			return this.p.write(buffer)
+		}
+		else {
 			throw new Error("FFmpeg is not running")
 		}
 
-		return this.p.write(buffer)
 	}
+
 }
