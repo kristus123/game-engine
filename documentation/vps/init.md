@@ -47,12 +47,6 @@ EOF
 chmod 600 ~/.ssh/authorized_keys
 ```
 
-
-
-
-
-
-
 # Outside of server
 
 ```bash

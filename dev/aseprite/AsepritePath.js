@@ -22,7 +22,7 @@ export const AsepritePath = (() => {
 
 	const platform = process.platform
 
-	if (platform == "win32") {
+	if (platform == "win32") { // windows
 		for (const p of potentialPathsWindows) {
 			try {
 				const out = execFileSync("where", [p], { shell: true }).toString().trim().split(/\r?\n/)[0]
@@ -38,7 +38,7 @@ export const AsepritePath = (() => {
 			}
 		}
 	}
-	else {
+	else { // linux
 		for (const p of potentialPathsUnix) {
 			try {
 				const out = execFileSync("which", [p], { shell: true }).toString().trim()

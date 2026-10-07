@@ -1,5 +1,3 @@
-// move this into dev/asserts/
-
 import fs from "fs"
 import Path from "path"
 import { Aseprite, Paths, Files } from "#root/AllImports.js"
@@ -30,11 +28,12 @@ export async function ExportAseprite(path = null) {
 
 	if (path) {
 		await exportFile(path)
-		return
+	}
+	else {
+		const files = Files.at(Paths.frontendFolder)
+			.filter(f => f.endsWith(".aseprite"))
+
+		await Promise.all(files.map(f => exportFile(f)))
 	}
 
-	const files = Files.at(Paths.frontendFolder)
-		.filter(f => f.endsWith(".aseprite"))
-
-	await Promise.all(files.map(f => exportFile(f)))
 }
