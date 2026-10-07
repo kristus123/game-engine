@@ -1,8 +1,11 @@
 export class OtherClients {
 	static {
 		this.ids = [] // todo rename to clientIds
+
 		this.onJoinListener = Listener()
 		this.onLeaveListener = Listener()
+
+		this.onChangeListener = Listener()
 	}
 
 	static onJoin(callback) {
@@ -34,11 +37,15 @@ export class OtherClients {
 		return this.ids[Symbol.iterator]()
 	}
 
-	static updateFromServer(clientIds) {
-		this.ids.clear()
+	static onCountChange(callback) {
+		return callback(this.ids.length)
 
-		for (const c of clientIds) {
-			this.ids.add(c)
-		}
+		this.onJoinListener.listen(() => {
+			return callback(this.ids.length)
+		})
+
+		this.onLeaveListener.listen(() => {
+			return callback(this.ids.length)
+		})
 	}
 }

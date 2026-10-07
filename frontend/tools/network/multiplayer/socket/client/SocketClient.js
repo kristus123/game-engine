@@ -1,3 +1,8 @@
+// WebSocket.CONNECTING // 0
+// WebSocket.OPEN       // 1
+// WebSocket.CLOSING    // 2
+// WebSocket.CLOSED     // 3
+
 export class SocketClient {
 
 	static {
@@ -32,7 +37,7 @@ export class SocketClient {
 		})
 	}
 
-	static connect() {
+	static async connect() {
 		if (this._connectCalled) {
 			throw new Error("you are only allowed to call .connect once (unless internal programatic reconnect)")
 		}
@@ -40,43 +45,41 @@ export class SocketClient {
 			this._connectCalled = true
 		}
 
-		// WebSocket.CONNECTING // 0
-		// WebSocket.OPEN       // 1
-		// WebSocket.CLOSING    // 2
-		// WebSocket.CLOSED     // 3
-
 		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
-		this.webSocket.onopen = () => {
-			console.log("WebSocket connection opened")
+		await new Promise((resolve, reject) => {
+			this.webSocket.onopen = () => {
+				console.log("WebSocket connection opened")
 
-			if (this._firstConnect) {
-				// already triggered onFirstConnect
+				if (!this._firstConnect) {
+					this.onFirstConnect?.()
+					this._firstConnect = true
+				}
+
+				this.onEveryConnect?.()
+
+				this.sendToServer("HOT_RELOAD_BACKEND_ID", {})
+
+				resolve()
 			}
-			else {
-				this.onFirstConnect?.()
-				this._firstConnect = true
+
+			this.webSocket.onerror = () => {
+				reject(new Error("Failed to connect to socket server"))
 			}
-
-			this.onEveryConnect?.()
-
-			this.sendToServer("HOT_RELOAD_BACKEND_ID", {})
-		}
+		})
 
 		this.webSocket.onclose = () => {
-			setTimeout(() => {
+			setTimeout(async () => {
 				this._connectCalled = false
-				this.connect()
+				await this.connect()
 			}, 1000)
-			throw new Error("Socket connection lost")
-		}
 
-		this.webSocket.onerror = () => {
-			throw new Error("Failed to connect to socket server")
+			throw new Error("Socket connection lost")
 		}
 
 		this.webSocket.onmessage = e => {
 			const message = JSON.parse(e.data)
+
 			this.serverActionListener.trigger(message.metaHeaders.action, {
 				data: message.data,
 				metaHeaders: message.metaHeaders,

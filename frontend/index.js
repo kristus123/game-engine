@@ -13,7 +13,6 @@ SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", ({ data }) => {
 	}
 })
 
-SocketClient.connect()
 
 // ServiceWorker.init()
 ServiceWorker.unregister()
@@ -23,6 +22,7 @@ document.addEventListener("contextmenu", e => e.preventDefault())
 InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
+	SocketClient.connect(),
 	Token.init(),
 	Promise.all(AssetPaths.htmlComponent
 		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
@@ -31,9 +31,9 @@ await Promise.all([
 	Css.use("/swag.css"),
 
 	// these are CanvasLoop CanvasGame stuff
-	await Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
-	await LoadAllAudio(AssetPaths.audio),
-	await LoadAllImages(AssetPaths.image),
+	Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
+	LoadAllAudio(AssetPaths.audio),
+	LoadAllImages(AssetPaths.image),
 	// await LoadPersistedJson()
 	// these are CanvasLoop CanvasGame stuff
 ])

@@ -22,4 +22,17 @@ export default async ({ html }) => {
 	setInterval(async () => {
 		await onChange.update()
 	}, 1_000)
+
+	return {
+		methods: {
+			toggleFullscreen: () => {
+				if (Screen.fullscreen) {
+					Screen.exitFullscreen()
+				}
+				else {
+					Screen.enterFullscreen()
+				}
+			},
+		},
+	}
 }

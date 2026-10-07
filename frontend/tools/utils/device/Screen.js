@@ -40,4 +40,16 @@ export class Screen {
 		this.wakeLock = null
 	}
 
+	static get fullscreen() {
+		return document.fullscreenElement
+	}
+
+	static async enterFullscreen() {
+		await document.documentElement.requestFullscreen()
+	}
+
+	static async exitFullscreen() {
+		await document.exitFullscreen()
+	}
+
 }

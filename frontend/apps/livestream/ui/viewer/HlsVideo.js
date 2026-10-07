@@ -11,7 +11,7 @@ export function HlsVideo({ playing, error } = {}) {
 	`.toHtml()
 
 	v.muted = !Permission.canPlayAudio
-	// v.controls = false
+	v.controls = false
 
 	v.addEventListener("loadedmetadata", () => {
 		console.log("loadedmetadata")

@@ -128,14 +128,12 @@ export function Enhance_js_Array() {
 
 
 	Getter(Array.prototype, "notEmpty", function () {
-		return !this.empty()
+		return !this.empty
 	})
 
 	Enhance(Array.prototype, "random", function () {
 		return Random.choice(this)
 	})
-
-
 
 	Getter(Array.prototype, "last", function () {
 		Assert.notEmpty(this)

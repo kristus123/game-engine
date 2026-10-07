@@ -12,8 +12,15 @@ export default async ({ html }) => {
 
 	await Permission.request()
 
+	const chatQueue = PromiseQueue()
 	Chat.onMessage(({ user, message }) => {
-		Tts(message)
+		chatQueue.add(() => {
+			return Tts(message)
+		})
+	})
+
+	OtherClients.onCountChange(c => {
+		html.viewCount.content = c
 	})
 
 	const cams = await Cam.all()
