@@ -104,15 +104,17 @@ export class SocketServer {
 		}
 	}
 
-	static sendToOthers(origin, { data = {}, metaHeaders = {} } = {}) {
-		const originClientId = typeof origin == "string" ? origin : SocketClients.idFrom(origin)
-		const originClient = typeof origin == "string" ? SocketClients.fromId(origin) : origin
-		const clients = SocketClients.all.filter(client => client != originClient)
-		const targetClientIds = clients.map(client => SocketClients.idFrom(client))
+	static sendToOthers(originClient, { data = {}, metaHeaders = {} } = {}) {
+		const clients = SocketClients.all.filter(c => c != originClient)
+		const targetClientIds = clients.map(c => SocketClients.idFrom(c))
 
 		this.sendToClients(clients, {
 			data: data,
-			metaHeaders: { ...metaHeaders, originClientId: originClientId, targetClientIds: targetClientIds },
+			metaHeaders: {
+				...metaHeaders,
+				riginClientId: SocketClients.idFrom(origin),
+				argetClientIds: targetClientIds,
+			},
 		})
 	}
 
