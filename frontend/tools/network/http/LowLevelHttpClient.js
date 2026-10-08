@@ -27,11 +27,10 @@ export class LowLevelHttpClient {
 			},
 		})
 
-		if (ok) {
-			return { ok, error, body: formatBody(response) }
-		}
-		else {
-			return { ok, error, body: null }
+		return {
+			ok,
+			error,
+			body: ok ? formatBody(response) : null,
 		}
 	}
 

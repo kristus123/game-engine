@@ -64,12 +64,12 @@ export class Assert {
 
 	}
 
-	static true(o) {
+	static true(o, msg="") {
 		if (o == true) {
 			return o
 		}
 		else {
-			throw new Error("value should be true, but is: " + o)
+			throw new Error(msg + ". Should be true, but is: " + o)
 		}
 	}
 
