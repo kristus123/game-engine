@@ -91,15 +91,17 @@ export class SocketClient {
 
 		Assert.true(this.connected, "Not allowed to call .send() if socket connection not open.")
 
-		ChaosMonkey.maybeCrash(0.1, "socket failed to send message")
-		this.webSocket.send(JSON.stringify({
-			data: data,
-			metaHeaders: {
-				...additionalMetaHeaders,
-				action: action,
-				originClientId: My.clientId,
-			},
-		}))
+		Retry(3, () => {
+			ChaosMonkey.maybeCrash("socket failed to send message")
+			this.webSocket.send(JSON.stringify({
+				data: data,
+				metaHeaders: {
+					...additionalMetaHeaders,
+					action: action,
+					originClientId: My.clientId,
+				},
+			}))
+		})
 	}
 
 	static sendToClient(subAction, targetClientIds, data) {

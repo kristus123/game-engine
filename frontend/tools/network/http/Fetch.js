@@ -1,6 +1,6 @@
 // this method is quite coupled to our local server. maybe fix in the future
 
-export async function Fetch({ url, body, headers } = {}) {
+export async function Fetch({ url, body, headers } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
 
@@ -8,7 +8,9 @@ export async function Fetch({ url, body, headers } = {}) {
 		return await Retry(3, async () => {
 			console.log(`Sending request to: ${url}`)
 
-			ChaosMonkey.maybeCrash(0.1, "network fetch")
+			ChaosMonkey.maybeCrash("network fetch")
+
+			await ChaosMonkey.delay()
 
 			const r = await fetch(url, {
 				body: body,
@@ -18,7 +20,7 @@ export async function Fetch({ url, body, headers } = {}) {
 				headers: headers,
 			})
 
-			Assert.true(r.status == 200 || r.status == 500, "only allow http status 200 or 500)
+			Assert.true(r.status == 200 || r.status == 500, "only allow http status 200 or 500")
 
 			const ok = r.status == 200
 

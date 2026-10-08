@@ -8,7 +8,7 @@ export class Network {
 	static {
 		const check = () => {
 			try {
-				ChaosMonkey.maybeCrash(0.1, "network down")
+				ChaosMonkey.maybeCrash("network down")
 
 				const body = await Assert.ok(await JsonHttpClient.ping())
 				Assert.true(body.pong)
