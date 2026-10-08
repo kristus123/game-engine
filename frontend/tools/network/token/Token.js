@@ -1,10 +1,20 @@
 export class Token {
 
-	static encoded = LocalValue("ENCODED_TOKEN", "null")
+	static encoded = LocalValue("ENCODED_TOKEN", "NULL")
 	static decoded = null
 
+	static get encodedToken() {
+		const t = this.encoded.value
+		if (t == "NULL") {
+			return null
+		}
+		else {
+			return t
+		}
+	}
+
 	static async init() {
-		const encoded = this.encoded.value == "null"
+		const encoded = this.encoded.value == "NULL"
 			? (await Assert.ok(await JsonHttpClient.createToken())).encoded
 			: (await Assert.ok(await JsonHttpClient.updateToken({
 				body: {

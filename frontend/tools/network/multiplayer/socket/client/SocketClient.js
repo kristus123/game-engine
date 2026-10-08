@@ -35,19 +35,23 @@ export class SocketClient {
 		this.serverActionListener.listen("CLIENT_ID", ({ metaHeaders }) => {
 			console.log(metaHeaders.targetClientId)
 		})
+
+		setInterval(() => {
+			if (ChaosMonkey.maybe("socket connection closed", 0.2)) {
+				this.webSocket?.close()
+			}
+		}, 5_00)
 	}
 
 	static async connect() {
-		if (this._connectCalled) {
-			throw new Error("you are only allowed to call .connect once (unless internal programatic reconnect)")
-		}
-		else {
-			this._connectCalled = true
+		if (this.connected) {
+			throw new Error("you are can't call .connect() while connected")
 		}
 
-		this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
+		return new Promise((resolve, reject) => {
+			ChaosMonkey.maybeCrash("failed to connect to socket")
+			this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
 
-		await new Promise((resolve, reject) => {
 			this.webSocket.onopen = () => {
 				console.log("WebSocket connection opened")
 
@@ -66,24 +70,30 @@ export class SocketClient {
 			this.webSocket.onerror = () => {
 				reject(new Error("Failed to connect to socket server"))
 			}
+
+			this.webSocket.onclose = () => {
+				setTimeout(async () => {
+					this.connect()
+				}, 1000)
+
+				console.error("Socket connection lost")
+			}
+
+			this.webSocket.onmessage = e => {
+				const message = JSON.parse(e.data)
+
+				this.serverActionListener.trigger(message.metaHeaders.action, {
+					data: message.data,
+					metaHeaders: message.metaHeaders,
+				})
+			}
+
 		})
+	}
 
-		this.webSocket.onclose = () => {
-			setTimeout(async () => {
-				this._connectCalled = false
-				await this.connect()
-			}, 1000)
-
-			throw new Error("Socket connection lost")
-		}
-
-		this.webSocket.onmessage = e => {
-			const message = JSON.parse(e.data)
-
-			this.serverActionListener.trigger(message.metaHeaders.action, {
-				data: message.data,
-				metaHeaders: message.metaHeaders,
-			})
+	static async connectIfNotConnected() {
+		if (!this.connected) {
+			return this.connect()
 		}
 	}
 

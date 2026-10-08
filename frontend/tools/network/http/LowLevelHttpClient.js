@@ -2,6 +2,14 @@ export class LowLevelHttpClient {
 
 	static async post({ routeName, body, formatBody, contentType } = {}) { // no-null-check
 
+		console.log(routeName)
+		if (routeName == "ping") { // think wheterer to have this in Fetch.js or here
+			// allow ping check even if offline
+		}
+		else if (Network.offline) {
+			throw new Error("network is offline, can't do any fetch (except for ping) for: " + routeName)
+		}
+
 		if (A.jsonObject(body)) {
 			body = JSON.stringify(body)
 			contentType = "application/json"
@@ -23,7 +31,7 @@ export class LowLevelHttpClient {
 			body: body,
 			headers: {
 				"Content-Type": contentType,
-				"token": Token.encoded.value, // todo fix hack, turn into get and set localvalue as _encoded
+				"token": Token.encodedToken, // todo fix hack, turn into get and set localvalue as _encoded
 			},
 		})
 

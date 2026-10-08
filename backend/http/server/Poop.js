@@ -128,15 +128,15 @@ export class Poop {
 
 		console.log("calling: " + path)
 
-		if (AdminRoute[path]) {
+		if (A.value(AdminRoute[path])) {
 			Assert.either(role, ["ROLE_ADMIN"])
 			return AdminRoute[path]
 		}
-		else if (UserRoute[path]) {
+		else if (A.value(UserRoute[path])) {
 			Assert.either(role, ["ROLE_ADMIN", "ROLE_USER"])
 			return UserRoute[path]
 		}
-		else if (UnsecureRoute[path]) {
+		else if (A.value(UnsecureRoute[path])) {
 			Assert.either(role, ["ROLE_ADMIN", "ROLE_USER", "ROLE_UNSECURE"])
 			return UnsecureRoute[path] // accessible by everyone
 		}

@@ -1,4 +1,4 @@
-AdminRoute.ping = () => {
+UnsecureRoute.ping = () => {
 	return {
 		pong: true,
 	}

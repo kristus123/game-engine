@@ -11,7 +11,6 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 			ChaosMonkey.maybeCrash("network fetch")
 
 			await ChaosMonkey.delay()
-
 			const r = await fetch(url, {
 				body: body,
 				method: "POST",

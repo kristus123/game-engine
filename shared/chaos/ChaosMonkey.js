@@ -1,11 +1,10 @@
 export class ChaosMonkey {
 
-	static disabled = false
-	static chance = 0.1
+	static disabled = true
 
-	static async delay(min = 0, max = 3_000) {
+	static async delay(min = 10, max = 100) {
 		if (this.disabled) {
-			return
+			return false
 		}
 
 		const ms = min + Math.random() * (max - min)
@@ -13,14 +12,29 @@ export class ChaosMonkey {
 		await new Promise(r => setTimeout(r, ms))
 	}
 
-	static maybeCrash(message = "CRASH UH OH") {
+	static maybeCrash(message = "CRASH UH OH", chance=0.1) {
 		if (this.disabled) {
-			return
+			return false
 		}
 
-		if (Math.random() < this.chance) {
+		if (this.maybe(chance, "")) {
 			throw new Error("CHAOS MONKEY: " + message)
 		}
+	}
+
+	static maybe(...args) {
+		if (this.disabled) {
+			return false
+		}
+
+		const chance = Args.number(args)
+
+		const a = Args.string(args, "triggered")
+		if (a) {
+			console.log("ChaosMonkey.maybe - " + a)
+		}
+
+		return Math.random() < chance
 	}
 
 }

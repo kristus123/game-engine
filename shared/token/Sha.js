@@ -33,8 +33,8 @@ export class Sha {
 	}
 
 	static async assertValid(e) {
-		Assert.string(this.secret)
 		Assert.string(e)
+		Assert.string(this.secret)
 
 		if (await this.isValid(e)) {
 			return e

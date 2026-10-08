@@ -1,5 +1,16 @@
 // Log.sendConsoleToServer()
 
+const loadingText = document.getElementById("loadingText")
+
+let lastRatio = devicePixelRatio
+
+setInterval(() => {
+	if (devicePixelRatio != lastRatio) {
+		lastRatio = devicePixelRatio
+		console.log(devicePixelRatio)
+	}
+}, 250)
+
 const backendId = LocalValue("backendId", -1)
 
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", ({ data }) => {
@@ -22,13 +33,21 @@ document.addEventListener("contextmenu", e => e.preventDefault())
 InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
-	SocketClient.connect(),
-	Token.init(),
 	Promise.all(AssetPaths.htmlComponent
 		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
 	),
 	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
 	Css.use("/swag.css"),
+	Retry(100, async (i) => {
+		loadingText.content = i + " attempts at setting up token and socket connection"
+
+		Assert.true(await Network.check())
+
+		await Promise.all([
+			SocketClient.connectIfNotConnected(),
+			Token.init(),
+		])
+	}),
 
 	// these are CanvasLoop CanvasGame stuff
 	Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
@@ -42,17 +61,11 @@ document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
 // this can be combined with index.html block thingy
-let lastRatio = devicePixelRatio
-
-setInterval(() => {
-	if (devicePixelRatio != lastRatio) {
-		lastRatio = devicePixelRatio
-		console.log(devicePixelRatio)
-	}
-}, 250)
 
 // FindPair()
-Livestream()
+await Retry(900, () => {
+	Livestream()
+})
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()
