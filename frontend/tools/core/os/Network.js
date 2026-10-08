@@ -10,13 +10,27 @@ export class Network {
 		return !this.online
 	}
 
-	static async check() { // todo better name
+	static async httpCheck() {
 		try {
 			ChaosMonkey.maybeCrash("network down", 0.5)
 
 			const body = await Assert.ok(await JsonHttpClient.ping())
 			Assert.true(body.pong)
-			Assert.true(SocketClient.connected)
+			return true
+		}
+		catch (e) {
+			this.markOffline()
+			return false
+		}
+
+	}
+
+	static async check() { // todo better name
+		try {
+			ChaosMonkey.maybeCrash("network down", 0.5)
+
+			Assert.true(this.httpEndpointCheck())
+			// Assert.true(SocketClient.connected)
 
 			this.markOnline()
 			return true
