@@ -87,20 +87,19 @@ export class SocketClient {
 		}
 	}
 
-	static sendToServer(action, data, additionalMetaHeaders = {}) {
-		if (this.webSocket?.readyState == WebSocket.OPEN) {
-			this.webSocket.send(JSON.stringify({
-				data: data,
-				metaHeaders: {
-					...additionalMetaHeaders,
-					action: action,
-					originClientId: My.clientId,
-				},
-			}))
-		}
-		else {
-			throw new Error("Not allowed to call .send() if socket connection not open.")
-		}
+	static sendToServer(action, data={}, additionalMetaHeaders = {}) {
+
+		Assert.true(this.connected, "Not allowed to call .send() if socket connection not open.")
+
+		ChaosMonkey.maybeCrash(0.1, "socket failed to send message")
+		this.webSocket.send(JSON.stringify({
+			data: data,
+			metaHeaders: {
+				...additionalMetaHeaders,
+				action: action,
+				originClientId: My.clientId,
+			},
+		}))
 	}
 
 	static sendToClient(subAction, targetClientIds, data) {
@@ -134,5 +133,9 @@ export class SocketClient {
 
 	static onClientMessage(action, callback) {
 		this.clientActionListener.listen(action, callback)
+	}
+
+	static get connected() {
+		return this.webSocket?.readyState == WebSocket.OPEN
 	}
 }
