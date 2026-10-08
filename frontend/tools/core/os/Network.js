@@ -1,20 +1,38 @@
 export class Network {
+	static online = false
 
-	static connected = false
+	static get offline() {
+		return !this.online
+	}
 
 	static {
-		this.check()
+		const check = () => {
+			try {
+				ChaosMonkey.maybeCrash(0.1, "network down")
+
+				const body = await Assert.ok(await JsonHttpClient.ping())
+				Assert.true(body.pong)
+				Assert.true(SocketClient.connected)
+
+				this.markOnline()
+			}
+			catch (e) {
+				this.markOffline()
+			}
+		} 
+
+		check()
 
 		window.addEventListener("online", () => {
-			this.check()
+			check()
 		})
 
 		window.addEventListener("offline", () => {
-			this.check()
+			check()
 		})
 
-		setInterval(async () => {
-			await this.check()
+		setInterval(() => {
+			check()
 		}, 5_000)
 	}
 
@@ -33,33 +51,21 @@ export class Network {
 		this._change.listen(callback)
 	}
 
-	static async check() {
-		try {
-			const body = await Assert.ok(await JsonHttpClient.ping())
-			Assert.true(body.pong)
-			Assert.true(SocketClient.connected)
+	static markOnline() {
+		this.online = true
 
-			this.markUp()
-		}
-		catch (e) {
-			this.markDown()
-		}
-	}
-
-	static markUp() {
-		if (this.connected == false) {
-			this.connected = true
+		if (this.online) {
 			this._on.trigger({}) // maybe we should make it so that .trigger doesn't need any args
-			this._change.trigger(this.connected)
+			this._change.trigger(this.online)
 		}
 	}
 
-	static markDown(pong) {
-		if (this.connected == true) {
-			this.connected = false
+	static markOffline(pong) {
+		this.online = false
+
+		if (this.offline) {
 			this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
-			this._change.trigger(this.connected)
-			throw new Error("internet connection lost")
+			this._change.trigger(this.online)
 		}
 	}
 
