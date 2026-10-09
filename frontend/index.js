@@ -41,10 +41,11 @@ await Promise.all([
 	Retry(100, async (i) => {
 		loadingText.content = i + " attempts at setting up token and socket connection"
 
-		Network.httpCheck()
-
-		await Token.init()
-		await SocketClient.connect()
+		return Promise.all([
+			Network.httpCheck(),
+			Token.init(),
+			SocketClient.connect(),
+		])
 	}),
 
 	// these are CanvasLoop CanvasGame stuff

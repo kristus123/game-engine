@@ -1,37 +1,94 @@
 export default async ({ html }) => {
 	let player = null
 	let playbackUtc = null
+	let lastOnline = null
+	let pollDelayMs = 1_000
+	let isCheckingStream = false
 
-	const onChange = AsyncOnChange(() => Stream.online(), async online => {
-		if (await online) {
-			player = HlsVideo({
+	const chaosFeature = "VIEWER_PAGE"
+
+	const updatePlayer = online => {
+		if (online) {
+			if (player != null) {
+				return
+			}
+
+			let nextPlayer = null
+			nextPlayer = HlsVideo({
 				playing: () => {
-					html.text.content = ""
+					if (player == nextPlayer) {
+						html.text.content = ""
+					}
 				},
 				error: () => {
-					html.text.content = "Please hold on"
+					if (player == nextPlayer) {
+						html.text.content = "Please hold on"
+					}
 				},
 				onPlaybackDate: date => {
+					if (player != nextPlayer) {
+						return
+					}
+
 					playbackUtc = date
 					html.utcTime.content = `UTC: ${date.toISOString().slice(0, 19)}Z`
 				},
 			})
-			html.videoOverlay.add(player)
-
-			html.text.content = ""
+			player = nextPlayer
+			html.videoOverlay.add(nextPlayer)
+			html.text.content = "Connecting to stream…"
 		}
 		else {
 			player?.destroyHls()
 			player = null
 			playbackUtc = null
 			html.videoOverlay.removeChildren()
+			html.utcTime.content = "Waiting for UTC playback time"
 			html.text.content = "Stream not online"
 		}
-	})
+	}
 
-	setInterval(async () => {
-		await onChange.update()
-	}, 1_000)
+	const pollStreamStatus = async () => {
+		if (isCheckingStream) {
+			return
+		}
+
+		isCheckingStream = true
+		try {
+			await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 300 })
+			ChaosMonkey.maybeCrash({
+				feature: chaosFeature,
+				message: "viewer stream status poll",
+				chance: 0.1,
+			})
+
+			const online = await Stream.online()
+			pollDelayMs = 1_000
+			if (online != lastOnline) {
+				updatePlayer(online)
+				lastOnline = online
+			}
+			else if (online && player?.readyState >= 2) {
+				html.text.content = ""
+			}
+			else if (online && html.text.content == "Connection interrupted; retrying…") {
+				html.text.content = "Connecting to stream…"
+			}
+		}
+		catch (e) {
+			pollDelayMs = Math.min(pollDelayMs * 2, 10_000)
+			html.text.content = player == null
+				? "Checking stream; retrying…"
+				: "Connection interrupted; retrying…"
+			console.warn("Could not check stream status; will retry", e)
+		}
+		finally {
+			isCheckingStream = false
+			setTimeout(pollStreamStatus, pollDelayMs)
+		}
+	}
+
+	pollStreamStatus()
 
 	return {
 		methods: {

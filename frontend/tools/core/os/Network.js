@@ -12,37 +12,33 @@ export class Network {
 
 	static async httpCheck() {
 		try {
-			ChaosMonkey.maybeCrash("network down", 0.5)
+			ChaosMonkey.maybeCrash({
+				feature: "NETWORK_STATUS",
+				message: "network down",
+				chance: 0.5,
+			})
 
 			const body = await Assert.ok(await JsonHttpClient.ping())
 			Assert.true(body.pong)
 			this.markOnline()
-			return true
 		}
 		catch (e) {
 			this.markOffline()
-			return false
+			throw e
 		}
 	}
 
-	static async check() { // todo better name
-		return this.httpCheck()
-	}
-
 	static {
-
-		this.check()
-
 		window.addEventListener("online", () => {
-			this.check()
+			this.httpCheck()
 		})
 
 		window.addEventListener("offline", () => {
-			this.check()
+			this.httpCheck()
 		})
 
 		setInterval(() => {
-			this.check()
+			this.httpCheck()
 		}, 5_000)
 	}
 
