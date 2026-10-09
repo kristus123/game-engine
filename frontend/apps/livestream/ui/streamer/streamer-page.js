@@ -13,9 +13,7 @@ export default async ({ html }) => {
 
 	const chatQueue = PromiseQueue()
 	Chat.onMessage(({ user, message }) => {
-		chatQueue.add(() => {
-			return Tts(message)
-		})
+		chatQueue.add(() => Tts(message))
 	})
 
 	OtherUsers.onCountChange(c => {
