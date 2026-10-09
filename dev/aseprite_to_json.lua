@@ -61,8 +61,18 @@ if not filename then
   filename = path:match("([^/]+)$")
 end
 
-local outBaseDir = "dist/generatedAseprite/" .. filename
+local outBaseDir = ".cache/aseprite/" .. filename
 local outBase = outBaseDir .. "/" .. filename
+
+local ok1
+if is_windows then
+  ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBaseDir))
+else
+  ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBaseDir))
+end
+if not ok1 then
+  pcall(function() os.execute(string.format('mkdir "%s"', outBaseDir)) end)
+end
 
 local all_tilemaps = {}
 
@@ -121,16 +131,6 @@ end
 if #all_tilemaps == 0 then
   write_file(outBase .. "Tilemaps.json", "null")
   return
-end
-
-local ok1
-if is_windows then
-  ok1 = os.execute(string.format('mkdir "%s" 2> nul', outBaseDir))
-else
-  ok1 = os.execute(string.format('mkdir -p "%s" 2> /dev/null', outBaseDir))
-end
-if not ok1 then
-  pcall(function() os.execute(string.format('mkdir "%s"', outBaseDir)) end)
 end
 
 local json_parts = {}

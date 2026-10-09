@@ -7,6 +7,7 @@ export class SocketClient {
 
 	static {
 		this.webSocket = null
+		this._connectionPromise = null
 
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
@@ -44,16 +45,31 @@ export class SocketClient {
 	}
 
 	static async connect() {
-		if (this.connected) {
-			throw new Error("you are can't call .connect() while connected")
+		const socket = this.webSocket
+		const state = socket?.readyState
+
+		if (state == WebSocket.OPEN) {
+			return
 		}
 
-		return new Promise((resolve, reject) => {
-			ChaosMonkey.maybeCrash("failed to connect to socket")
-			this.webSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
+		if (state == WebSocket.CONNECTING) {
+			return this._connectionPromise
+		}
 
-			this.webSocket.onopen = () => {
+		if (state == WebSocket.CLOSING) {
+			return new Promise(resolve => {
+				socket.addEventListener("close", () => resolve(this.connect()), { once: true })
+			})
+		}
+
+		const connectionPromise = new Promise((resolve, reject) => {
+			ChaosMonkey.maybeCrash("failed to connect to socket")
+			const nextSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
+			this.webSocket = nextSocket
+
+			nextSocket.onopen = () => {
 				console.log("WebSocket connection opened")
+				this._connectionPromise = null
 
 				if (!this._firstConnect) {
 					this.onFirstConnect?.()
@@ -67,19 +83,29 @@ export class SocketClient {
 				resolve()
 			}
 
-			this.webSocket.onerror = () => {
+			nextSocket.onerror = () => {
 				reject(new Error("Failed to connect to socket server"))
 			}
 
-			this.webSocket.onclose = () => {
+			nextSocket.onclose = () => {
+				if (this.webSocket != nextSocket) {
+					return
+				}
+
+				this._connectionPromise = null
 				setTimeout(async () => {
-					this.connect()
+					try {
+						await this.connect()
+					}
+					catch (error) {
+						console.error(error)
+					}
 				}, 1000)
 
 				console.error("Socket connection lost")
 			}
 
-			this.webSocket.onmessage = e => {
+			nextSocket.onmessage = e => {
 				const message = JSON.parse(e.data)
 
 				this.serverActionListener.trigger(message.metaHeaders.action, {
@@ -89,12 +115,17 @@ export class SocketClient {
 			}
 
 		})
+		this._connectionPromise = connectionPromise
+		connectionPromise.catch(() => {
+			if (this.webSocket?.readyState != WebSocket.CONNECTING) {
+				this._connectionPromise = null
+			}
+		})
+		return connectionPromise
 	}
 
 	static async connectIfNotConnected() {
-		if (!this.connected) {
-			return this.connect()
-		}
+		return this.connect()
 	}
 
 	static sendToServer(action, data={}, additionalMetaHeaders = {}) {

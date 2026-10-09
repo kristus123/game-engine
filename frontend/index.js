@@ -41,10 +41,10 @@ await Promise.all([
 	Retry(100, async (i) => {
 		loadingText.content = i + " attempts at setting up token and socket connection"
 
-		Assert.true(await Network.httpCheck())
+		Network.httpCheck()
 
 		await Promise.all([
-			SocketClient.connectIfNotConnected(),
+			SocketClient.connect(),
 			Token.init(),
 		])
 	}),

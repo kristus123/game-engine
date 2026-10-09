@@ -2,12 +2,8 @@ export class LowLevelHttpClient {
 
 	static async post({ routeName, body, formatBody, contentType } = {}) { // no-null-check
 
-		console.log(routeName)
-		if (routeName == "ping") { // think wheterer to have this in Fetch.js or here
-			// allow ping check even if offline
-		}
-		else if (Network.offline) {
-			throw new Error("network is offline, can't do any fetch (except for ping) for: " + routeName)
+		if (Network.offline) {
+			console.warn("network is offline, fetch might not work")
 		}
 
 		if (A.jsonObject(body)) {

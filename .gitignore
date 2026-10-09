@@ -6,6 +6,7 @@ gitignored_folder/
 
 dist/
 transpiledBackend/
+.cache/aseprite/
 
 AllImports.js
 

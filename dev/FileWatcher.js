@@ -1,5 +1,5 @@
 import fs from "fs"
-import { Files } from "#root/AllImports.js"
+import Path from "path"
 
 // chatgpt code
 
@@ -24,11 +24,15 @@ export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 	}
 
 	function scheduleFlush() {
-		clearTimeout(timeout)
-		timeout = setTimeout(flush, 50)
+		if (timeout != null) {
+			return
+		}
+
+		timeout = setTimeout(flush, 0)
 	}
 
 	function flush() {
+		timeout = null
 		const emitted = new Set()
 
 		for (const [file, type] of pending) {
@@ -63,20 +67,31 @@ export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		const current = new Set()
 		const allFiles = []
 
-		for (const f of Array.isArray(folders) ? folders : [folders]) {
+		function addFiles(folder) {
+			let entries
 			try {
-				allFiles.push(...Files.at(f))
+				entries = fs.readdirSync(folder, { withFileTypes: true })
 			}
 			catch (e) {
-				console.log("x")
+				return
+			}
+
+			for (const entry of entries) {
+				const file = Path.join(folder, entry.name).replaceAll("\\", "/")
+				if (entry.isDirectory()) {
+					addFiles(file)
+				}
+				else if (allowed(file)) {
+					allFiles.push(file)
+				}
 			}
 		}
 
-		for (const file of allFiles) {
-			if (!allowed(file)) {
-				continue
-			}
+		for (const f of Array.isArray(folders) ? folders : [folders]) {
+			addFiles(f)
+		}
 
+		for (const file of allFiles) {
 			current.add(file)
 
 			try {
@@ -97,7 +112,7 @@ export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 				}
 			}
 			catch (e) {
-				console.log("poop")
+				// The file may disappear between the directory scan and stat; leave its previous entry for delete detection.
 			}
 		}
 
@@ -113,9 +128,7 @@ export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 		initialized = true
 	}
 
-	for (const f of Array.isArray(folders) ? folders : [folders]) {
-		compute()
-	}
+	compute()
 
 	setInterval(compute, 50)
 }

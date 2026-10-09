@@ -16,22 +16,6 @@ export class Network {
 
 			const body = await Assert.ok(await JsonHttpClient.ping())
 			Assert.true(body.pong)
-			return true
-		}
-		catch (e) {
-			this.markOffline()
-			return false
-		}
-
-	}
-
-	static async check() { // todo better name
-		try {
-			ChaosMonkey.maybeCrash("network down", 0.5)
-
-			Assert.true(this.httpEndpointCheck())
-			// Assert.true(SocketClient.connected)
-
 			this.markOnline()
 			return true
 		}
@@ -39,6 +23,10 @@ export class Network {
 			this.markOffline()
 			return false
 		}
+	}
+
+	static async check() { // todo better name
+		return this.httpCheck()
 	}
 
 	static {
@@ -55,7 +43,7 @@ export class Network {
 
 		setInterval(() => {
 			this.check()
-		}, 5_00)
+		}, 5_000)
 	}
 
 	static onOnline(callback) {
@@ -83,6 +71,7 @@ export class Network {
 		if (this.online) {
 			console.log("offline")
 			console.log(this._off)
+			this.online = false
 			this._off.trigger({}) // maybe we should make it so that .trigger doesn't need any args
 			this._change.trigger(false)
 		}
