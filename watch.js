@@ -33,15 +33,20 @@ const p = new ChildProcess(process.execPath)
 let shuttingDown = false
 let stopFileWatcher = () => {}
 let externalBundleProcess = null
+let rebuilding = false
+let developmentStarted = false
+let backendStopPromise = null
 
-async function restartBackend(regenerate = true) {
-	if (regenerate) {
-		GenerateBackend("DEVELOPMENT")
+async function buildExternalBundle() {
+	const bundleProcess = PrepareExternalBundle()
+	externalBundleProcess = bundleProcess
+	const result = await bundleProcess.awaitFinish()
+	if (externalBundleProcess == bundleProcess) {
+		externalBundleProcess = null
 	}
-
-	backendId += 1
-	p.args = ["transpiledBackend/StartServer.js", backendId]
-	p.restart()
+	if (result.code != 0 || result.signal != null) {
+		throw new Error(`External bundle generation failed: code=${result.code}, signal=${result.signal}`)
+	}
 }
 
 let rebuildTimeout = null
@@ -49,36 +54,99 @@ const changedPaths = new Map()
 
 function scheduleRebuild(path, changeType) {
 	changedPaths.set(path, changeType)
+	if (developmentStarted) {
+		pauseBackendForBuild().catch(error => {
+			if (!shuttingDown) {
+				console.error("Failed to stop backend for rebuild", error)
+			}
+		})
+	}
 	clearTimeout(rebuildTimeout)
 
-	rebuildTimeout = setTimeout(async () => {
-		const changes = [...changedPaths]
-		changedPaths.clear()
+	rebuildTimeout = setTimeout(() => {
+		rebuildTimeout = null
+		processRebuilds()
+	}, 100)
+}
 
-		const changedAsepriteFiles = changes
-			.filter(([file, type]) => file.endsWith(".aseprite") && type != "delete")
-			.map(([file]) => file)
+function pauseBackendForBuild() {
+	if (!developmentStarted) {
+		return Promise.resolve()
+	}
+	if (backendStopPromise != null) {
+		return backendStopPromise
+	}
 
-		try {
-			await Promise.all(changedAsepriteFiles.map(file => ExportAseprite(file)))
+	backendStopPromise = p.kill().catch(error => {
+		backendStopPromise = null
+		throw error
+	})
+	return backendStopPromise
+}
+
+async function processRebuilds() {
+	if (rebuilding || shuttingDown || !developmentStarted) {
+		return
+	}
+
+	rebuilding = true
+	try {
+		await pauseBackendForBuild()
+		while (!shuttingDown) {
+			if (changedPaths.size > 0) {
+				const changes = [...changedPaths]
+				changedPaths.clear()
+
+				const changedAsepriteFiles = changes
+					.filter(([file, type]) => file.endsWith(".aseprite") && type != "delete")
+					.map(([file]) => file)
+
+				await Promise.all(changedAsepriteFiles.map(file => ExportAseprite(file)))
+
+				const frontendChanged = changes.some(([file]) => file.startsWith("frontend/") || file.startsWith("shared/"))
+				const backendChanged = changes.some(([file]) => file.startsWith("backend/") || file.startsWith("shared/"))
+
+				if (frontendChanged) {
+					await Swoo.generateDist()
+					await buildExternalBundle()
+				}
+				if (backendChanged) {
+					GenerateBackend("DEVELOPMENT")
+				}
+				continue
+			}
+
+			await new Promise(resolve => setTimeout(resolve, 150))
+			if (changedPaths.size > 0 || rebuildTimeout != null) {
+				continue
+			}
+
+			break
 		}
-		catch (error) {
-			console.error("Failed to export changed Aseprite files", error)
+
+		if (shuttingDown) {
 			return
 		}
 
-		const frontendChanged = changes.some(([file]) => file.startsWith("frontend/") || file.startsWith("shared/"))
-		const backendChanged = changes.some(([file]) => file.startsWith("backend/") || file.startsWith("shared/"))
-		if (frontendChanged) {
-			Swoo.generateDist(() => {
-				restartBackend(backendChanged)
-			})
+		backendId += 1
+		p.args = ["transpiledBackend/StartServer.js", backendId]
+		p.start()
+		backendStopPromise = null
+	}
+	catch (error) {
+		if (!shuttingDown) {
+			console.error("Failed to regenerate application", error)
 		}
-		else {
-			// Backend-only changes do not need a browser bundle rebuild.
-			restartBackend()
+	}
+	finally {
+		rebuilding = false
+		if (!shuttingDown && changedPaths.size > 0 && rebuildTimeout == null) {
+			rebuildTimeout = setTimeout(() => {
+				rebuildTimeout = null
+				processRebuilds()
+			}, 100)
 		}
-	}, 100)
+	}
 }
 
 stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
@@ -122,20 +190,36 @@ process.once("SIGINT", () => shutdown("SIGINT"))
 process.once("SIGTERM", () => shutdown("SIGTERM"))
 process.once("SIGHUP", () => shutdown("SIGHUP"))
 
-Swoo.generateDist(async () => { // initial build
+async function startDevelopmentEnvironment() {
 	try {
-		await ExportAseprite()
+		while (true) {
+			changedPaths.clear()
+			await Swoo.generateDist()
+			await ExportAseprite()
+			await buildExternalBundle()
+			GenerateBackend("DEVELOPMENT")
+
+			await new Promise(resolve => setTimeout(resolve, 150))
+			if (changedPaths.size == 0 && rebuildTimeout == null) {
+				break
+			}
+		}
 	}
 	catch (error) {
 		if (!shuttingDown) {
-			console.error("Failed to export Aseprite assets", error)
+			console.error("Failed to build development output", error)
 		}
 		return
 	}
 	if (shuttingDown) {
 		return
 	}
-	externalBundleProcess = PrepareExternalBundle()
 	ServeDist()
-	setTimeout(restartBackend, 100)
-})
+	backendId += 1
+	p.args = ["transpiledBackend/StartServer.js", backendId]
+	p.start()
+	backendStopPromise = null
+	developmentStarted = true
+}
+
+startDevelopmentEnvironment()

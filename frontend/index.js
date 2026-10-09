@@ -14,13 +14,15 @@ setInterval(() => {
 const backendId = LocalValue("backendId", -1)
 
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", ({ data }) => {
-	if (data.backendId > backendId.value) {
+	if (backendId.value == -1) {
+		backendId.value = data.backendId
+		return
+	}
+
+	if (backendId.value != data.backendId) {
 		backendId.value = data.backendId
 		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 		location.reload()
-	}
-	else if (backendId.value > data.backendId) {
-		backendId.value = 0
 	}
 })
 

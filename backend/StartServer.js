@@ -4,6 +4,7 @@ EnhanceBackend()
 
 async function shutdownBackend(signal) {
 	console.log(`Shutting down backend (${signal})`)
+	HttpServer.markNotReady()
 	const stopSteps = [
 		["FFmpeg", async function stopFfmpeg() {
 			if (Ffmpeg.p) {
@@ -58,14 +59,7 @@ export async function StartServer(backendId) {
 
 	await SfuServer.start()
 
-	SocketServer.start(HttpServer.activeServer, {
-		onJoin: ({ client }) => {
-			SocketServer.sendToClient(client, {
-				data: { backendId: backendId },
-				metaHeaders: { action: "HOT_RELOAD_BACKEND_ID" },
-			})
-		},
-	})
+	SocketServer.start(HttpServer.activeServer)
 
 	SocketServer.on("HOT_RELOAD_BACKEND_ID", ({ client }) => {
 		SocketServer.sendToClient(client, {
@@ -73,6 +67,8 @@ export async function StartServer(backendId) {
 			metaHeaders: { action: "HOT_RELOAD_BACKEND_ID" },
 		})
 	})
+
+	HttpServer.markReady()
 }
 
 import { fileURLToPath } from "url"

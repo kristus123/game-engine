@@ -8,6 +8,7 @@ export class SocketClient {
 	static {
 		this.webSocket = null
 		this._connectionPromise = null
+		this._reconnectTimer = null
 
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
@@ -50,26 +51,43 @@ export class SocketClient {
 	}
 
 	static async connect() {
-		const socket = this.webSocket
-		const state = socket?.readyState
-
-		switch (state) {
-			case WebSocket.OPEN {
-				return
-			}
-			case WebSocket.CONNECTING {
-				return this._connectionPromise
-			}
-			case WebSocket.CLOSING {
-				return new Promise(resolve => {
-					socket.addEventListener("close", () => resolve(this.connect()), { once: true })
-				})
-			}
-			default {
-				break
-			}
+		if (this.webSocket?.readyState == WebSocket.OPEN) {
+			return
+		}
+		if (this._connectionPromise != null) {
+			return this._connectionPromise
 		}
 
+		const connectionPromise = this.waitForBackend().then(() => this.openConnection())
+		this._connectionPromise = connectionPromise
+		connectionPromise.catch(() => {
+			if (this._connectionPromise == connectionPromise) {
+				this._connectionPromise = null
+			}
+		})
+		return connectionPromise
+	}
+
+	static async waitForBackend() {
+		while (true) {
+			const response = await LowLevelHttpClient.post({
+				routeName: "ping",
+				body: {},
+				formatBody: response => response,
+				timeoutMs: 2_000,
+			})
+			if (response.ok) {
+				const status = await response.body.json()
+				if (status.pong && status.ready == true) {
+					return
+				}
+			}
+
+			await new Promise(resolve => setTimeout(resolve, 500))
+		}
+	}
+
+	static openConnection() {
 		const connectionPromise = new Promise((resolve, reject) => {
 			ChaosMonkey.maybeCrash({
 				feature: "SOCKET",
@@ -83,6 +101,8 @@ export class SocketClient {
 			nextSocket.onopen = () => {
 				console.log("WebSocket connection opened")
 				this._connectionPromise = null
+				clearTimeout(this._reconnectTimer)
+				this._reconnectTimer = null
 
 				if (!this._firstConnect) {
 					this.onFirstConnect?.()
@@ -96,17 +116,20 @@ export class SocketClient {
 				resolve()
 			}
 
-			nextSocket.onerror = () => {
-				reject(new Error("Failed to connect to socket server"))
-			}
-
 			nextSocket.onclose = () => {
 				if (this.webSocket != nextSocket) {
 					return
 				}
 
+				this.webSocket = null
 				this._connectionPromise = null
-				setTimeout(async () => {
+				reject(new Error("Failed to connect to socket server"))
+
+				if (this._reconnectTimer != null) {
+					return
+				}
+				this._reconnectTimer = setTimeout(async () => {
+					this._reconnectTimer = null
 					try {
 						await this.connect()
 					}
@@ -127,12 +150,6 @@ export class SocketClient {
 				})
 			}
 
-		})
-		this._connectionPromise = connectionPromise
-		connectionPromise.catch(() => {
-			if (this.webSocket?.readyState != WebSocket.CONNECTING) {
-				this._connectionPromise = null
-			}
 		})
 		return connectionPromise
 	}

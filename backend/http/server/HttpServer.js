@@ -3,8 +3,18 @@ import http from "http"
 export class HttpServer {
 
 	static activeServer = null
+	static ready = false
+
+	static markReady() {
+		this.ready = true
+	}
+
+	static markNotReady() {
+		this.ready = false
+	}
 
 	static start() {
+		this.ready = false
 		if (this.activeServer) {
 			throw new Error("HttpServer is already running")
 		}
@@ -85,6 +95,7 @@ export class HttpServer {
 	}
 
 	static async stop() {
+		this.ready = false
 		if (this.activeServer) {
 			const server = this.activeServer
 			this.activeServer = null

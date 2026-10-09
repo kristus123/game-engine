@@ -15,19 +15,22 @@ export class Swoo {
 		}
 	}
 
-	static async generateDist(onEnd) {
+	static async generateDist() {
 		await this.p?.kill()
 
-		this.p = new ChildProcess(process.execPath, {
+		const frontendProcess = new ChildProcess(process.execPath, {
 			args: ["dev/GenerateFrontend.js", "DEVELOPMENT"],
-			onExit: ({ code, signal }) => {
-				if (code == 0 && signal == null) {
-					onEnd()
-				}
-			},
 		}).start()
+		this.p = frontendProcess
 
-		await this.p?.awaitFinish?.()
+		const result = await frontendProcess.awaitFinish()
+		if (this.p == frontendProcess) {
+			this.p = null
+		}
+		if (result.code != 0 || result.signal != null) {
+			throw new Error(`Frontend generation failed: code=${result.code}, signal=${result.signal}`)
+		}
+		return result
 	}
 
 	static async stop() {
