@@ -43,10 +43,8 @@ await Promise.all([
 
 		Network.httpCheck()
 
-		await Promise.all([
-			SocketClient.connect(),
-			Token.init(),
-		])
+		await Token.init()
+		await SocketClient.connect()
 	}),
 
 	// these are CanvasLoop CanvasGame stuff

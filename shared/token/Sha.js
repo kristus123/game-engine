@@ -40,7 +40,6 @@ export class Sha {
 			return e
 		}
 		else {
-			console.log(e)
 			throw new Error("INVALID TOKEN")
 		}
 	}

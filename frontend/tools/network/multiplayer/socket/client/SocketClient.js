@@ -12,29 +12,29 @@ export class SocketClient {
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
 
-		this.onRemovedClient = (clientId) => {}
+		this.onRemovedUser = (userId) => {}
 
-		this.serverActionListener.listen("UPDATE_CLIENTS_LIST", ({ data }) => {
-			const clientIds = data.clientIds.filter(clientId => clientId != My.clientId) // todo find fix for this
-			const diffs = OtherClients.ids.unorderedDiff(clientIds)
+		this.serverActionListener.listen("UPDATE_USERS_LIST", ({ data }) => {
+			const userIds = data.userIds.filter(userId => userId != Token.userId)
+			const diffs = OtherUsers.userIds.unorderedDiff(userIds)
 
 			for (const d of diffs) {
 				if (d.add) {
-					OtherClients.add(d.value)
+					OtherUsers.add(d.value)
 				}
 				else if (d.remove) {
-					OtherClients.remove(d.value)
-					this.onRemovedClient(d.value)
+					OtherUsers.remove(d.value)
+					this.onRemovedUser(d.value)
 				}
 			}
 		})
 
-		this.serverActionListener.listen("CLIENT_TO_CLIENT", ({ data, metaHeaders }) => {
+		this.serverActionListener.listen("USER_TO_USER", ({ data, metaHeaders }) => {
 			this.clientActionListener.trigger(metaHeaders.subAction, { data: data, metaHeaders: metaHeaders })
 		})
 
-		this.serverActionListener.listen("CLIENT_ID", ({ metaHeaders }) => {
-			console.log(metaHeaders.targetClientId)
+		this.serverActionListener.listen("USER_ID", ({ metaHeaders }) => {
+			Assert.true(metaHeaders.targetUserId == Token.userId, "The socket server returned a different user ID")
 		})
 
 		setInterval(() => {
@@ -48,23 +48,28 @@ export class SocketClient {
 		const socket = this.webSocket
 		const state = socket?.readyState
 
-		if (state == WebSocket.OPEN) {
-			return
-		}
-
-		if (state == WebSocket.CONNECTING) {
-			return this._connectionPromise
-		}
-
-		if (state == WebSocket.CLOSING) {
-			return new Promise(resolve => {
-				socket.addEventListener("close", () => resolve(this.connect()), { once: true })
-			})
+		switch (state) {
+			case WebSocket.OPEN {
+				return
+			}
+			case WebSocket.CONNECTING {
+				return this._connectionPromise
+			}
+			case WebSocket.CLOSING {
+				return new Promise(resolve => {
+					socket.addEventListener("close", () => resolve(this.connect()), { once: true })
+				})
+			}
+			default {
+				break
+			}
 		}
 
 		const connectionPromise = new Promise((resolve, reject) => {
 			ChaosMonkey.maybeCrash("failed to connect to socket")
-			const nextSocket = new WebSocket(`${Config.wsUrl}?clientId=${My.clientId}`)
+			const socketUrl = new URL(Config.wsUrl)
+			socketUrl.searchParams.set("token", Token.encodedToken)
+			const nextSocket = new WebSocket(socketUrl)
 			this.webSocket = nextSocket
 
 			nextSocket.onopen = () => {
@@ -139,35 +144,35 @@ export class SocketClient {
 				metaHeaders: {
 					...additionalMetaHeaders,
 					action: action,
-					originClientId: My.clientId,
+					originUserId: Token.userId,
 				},
 			}))
 		})
 	}
 
-	static sendToClient(subAction, targetClientIds, data) {
-		const clientIds = Array.isArray(targetClientIds) ? targetClientIds : [targetClientIds]
+	static sendToUser(subAction, targetUserIds, data) {
+		const userIds = Array.isArray(targetUserIds) ? targetUserIds : [targetUserIds]
 
-		if (clientIds.empty) {
+		if (userIds.empty) {
 			return
 		}
 
-		const targetHeaders = Array.isArray(targetClientIds)
-			? { targetClientIds: clientIds }
-			: { targetClientId: targetClientIds }
+		const targetHeaders = Array.isArray(targetUserIds)
+			? { targetUserIds: userIds }
+			: { targetUserId: targetUserIds }
 
-		this.sendToServer("CLIENT_TO_CLIENT", data, {
+		this.sendToServer("USER_TO_USER", data, {
 			...targetHeaders,
 			subAction: subAction,
 		})
 	}
 
-	static sendToOtherClients(subAction, data) {
-		this.sendToClient(subAction, [...OtherClients.ids], data)
+	static sendToOtherUsers(subAction, data) {
+		this.sendToUser(subAction, [...OtherUsers.userIds], data)
 	}
 
-	static sendToAllClients(subAction, data) {
-		this.sendToClient(subAction, [...OtherClients.ids, My.clientId], data)
+	static sendToAllUsers(subAction, data) {
+		this.sendToUser(subAction, [...OtherUsers.userIds, Token.userId], data)
 	}
 
 	static onServerMessage(action, callback) {

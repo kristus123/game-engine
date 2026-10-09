@@ -45,7 +45,7 @@ export class SfuWorld {
 			Mix.master.volume = 0
 		}
 
-		SfuRouters.onMessage = (clientId, message) => {
+		SfuRouters.onMessage = (userId, message) => {
 			html.chatHistory.add(`
 				<flex-h class="bgWhite" close>
 					<p style="color: purple; margin-right: 10px">Other</p>

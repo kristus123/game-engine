@@ -1,11 +1,11 @@
 export class RtcClient {
 	static {
-		this.connectedClientIds = {}
+		this.connectedUserIds = {}
 		this.remoteStreamIds = new Set()
 
 		this.onData = (json) => {}
-		this.onIncomingCall = (callerClientId, offer) => {}
-		this.onCallAccepted = (clientId) => {}
+		this.onIncomingCall = (callerUserId, offer) => {}
+		this.onCallAccepted = (userId) => {}
 
 		this.localStream = null
 		navigator.mediaDevices
@@ -16,11 +16,11 @@ export class RtcClient {
 			})
 
 		SocketClient.onClientMessage("INCOMING_CALL", ({ data, metaHeaders }) => {
-			this.onIncomingCall(metaHeaders.originClientId, data.offer)
+			this.onIncomingCall(metaHeaders.originUserId, data.offer)
 		})
 
 		SocketClient.onClientMessage("CALL_ACCEPTED", ({ data, metaHeaders }) => {
-			const connection = this.connectedClientIds[metaHeaders.originClientId]
+			const connection = this.connectedUserIds[metaHeaders.originUserId]
 			if (!connection) {
 				throw new Error("could not find connection")
 			}
@@ -33,12 +33,12 @@ export class RtcClient {
 						throw new Error(e)
 					})
 
-				this.onCallAccepted(metaHeaders.originClientId)
+				this.onCallAccepted(metaHeaders.originUserId)
 			}
 		})
 
 		SocketClient.onClientMessage("ICE_CANDIDATE", ({ data, metaHeaders }) => {
-			const connection = this.connectedClientIds[metaHeaders.originClientId]
+			const connection = this.connectedUserIds[metaHeaders.originUserId]
 			if (connection) {
 				connection.peerConnection
 					.addIceCandidate(
@@ -51,14 +51,14 @@ export class RtcClient {
 		})
 	}
 
-	static call(targetClientId) {
-		if (this.connectedClientIds[targetClientId]) {
+	static call(targetUserId) {
+		if (this.connectedUserIds[targetUserId]) {
 			throw new Error("you can't call someone you already have a connection with")
 		}
 
-		const { peerConnection, dataChannel } = this.makeOffer(targetClientId)
+		const { peerConnection, dataChannel } = this.makeOffer(targetUserId)
 
-		this.connectedClientIds[targetClientId] = {
+		this.connectedUserIds[targetUserId] = {
 			peerConnection,
 			dataChannel
 		}
@@ -70,22 +70,22 @@ export class RtcClient {
 		peerConnection.createOffer()
 			.then(offer => peerConnection.setLocalDescription(offer))
 			.then(() => {
-				SocketClient.sendToClient(
+				SocketClient.sendToUser(
 					"INCOMING_CALL",
-					targetClientId,
+					targetUserId,
 					{ offer: peerConnection.localDescription }
 				)
 			})
 	}
 
-	static acceptIncomingCall(callerClientId, offer) {
-		if (this.connectedClientIds[callerClientId]) {
+	static acceptIncomingCall(callerUserId, offer) {
+		if (this.connectedUserIds[callerUserId]) {
 			return
 		}
 
-		const peerConnection = this.createPeerConnection(callerClientId)
+		const peerConnection = this.createPeerConnection(callerUserId)
 
-		this.connectedClientIds[callerClientId] = {
+		this.connectedUserIds[callerUserId] = {
 			peerConnection,
 			dataChannel: null
 		}
@@ -100,36 +100,36 @@ export class RtcClient {
 			.then(() => peerConnection.createAnswer())
 			.then(answer => peerConnection.setLocalDescription(answer))
 			.then(() => {
-				SocketClient.sendToClient(
+				SocketClient.sendToUser(
 					"CALL_ACCEPTED",
-					callerClientId,
+					callerUserId,
 					{ answer: peerConnection.localDescription })
 			}).then(() => {
 				peerConnection.ondatachannel = e => {
-					if (this.connectedClientIds[callerClientId]) {
-						this.connectedClientIds[callerClientId].dataChannel = e.channel
+					if (this.connectedUserIds[callerUserId]) {
+						this.connectedUserIds[callerUserId].dataChannel = e.channel
 						this.setupDataChannel(e.channel)
 					}
 					else {
-						throw new Error(`${callerClientId} Is Not Connected`)
+						throw new Error(`${callerUserId} Is Not Connected`)
 					}
 				}
 			})
 			.then(() => {
-				this.onCallAccepted(callerClientId)
+				this.onCallAccepted(callerUserId)
 			})
 	}
 
-	static send(targetClientId, data) {
-		const connection = this.connectedClientIds[targetClientId]
+	static send(targetUserId, data) {
+		const connection = this.connectedUserIds[targetUserId]
 		if (!connection.dataChannel) {
-			throw new Error(`Data Channel Not Found For ${targetClientId}`)
+			throw new Error(`Data Channel Not Found For ${targetUserId}`)
 		}
 
 		connection.dataChannel.send(JSON.stringify(data))
 	}
 
-	static createPeerConnection(targetClientId) {
+	static createPeerConnection(targetUserId) {
 		const peerConnection = new RTCPeerConnection({
 			iceServers: [{ urls: "stun:stun.l.google.com:19302" }]
 		})
@@ -149,16 +149,16 @@ export class RtcClient {
 				return
 			}
 
-			SocketClient.sendToClient(
+			SocketClient.sendToUser(
 				"ICE_CANDIDATE",
-				targetClientId,
+				targetUserId,
 				{ candidate: e.candidate }
 			)
 		}
 
 		peerConnection.oniceconnectionstatechange = () => {
 			console.log("oniceconnectionstatechange")
-			console.log(targetClientId, peerConnection.iceConnectionState)
+			console.log(targetUserId, peerConnection.iceConnectionState)
 		}
 
 		peerConnection.onconnectionstatechange = () => {
@@ -169,8 +169,8 @@ export class RtcClient {
 		return peerConnection
 	}
 
-	static makeOffer(targetClientId) {
-		const peerConnection = this.createPeerConnection(targetClientId)
+	static makeOffer(targetUserId) {
+		const peerConnection = this.createPeerConnection(targetUserId)
 		const dataChannel = peerConnection.createDataChannel("data")
 
 		this.setupDataChannel(dataChannel)
@@ -194,11 +194,11 @@ export class RtcClient {
 	}
 
 	static stopCall() {
-		for (const clientId in this.connectedClientIds) {
-			this.connectedClientIds[clientId].peerConnection.close()
+		for (const userId in this.connectedUserIds) {
+			this.connectedUserIds[userId].peerConnection.close()
 		}
 
-		this.connectedClientIds = {}
+		this.connectedUserIds = {}
 		this.remoteStreamIds.clear()
 	}
 }

@@ -2,35 +2,45 @@ export class SocketClients {
 
 	static {
 		this.all = []
-		this.ids = []
+		this.userIds = []
 
-		this._fromId = {}
-		this._idFrom = new WeakMap()
+		this._fromUserId = {}
+		this._userIdFrom = new WeakMap()
 	}
 
-	static add(client, clientId) {
+	static add(client, userId) {
 		this.all.push(client)
-		this.ids.push(clientId)
 
-		this._fromId[clientId] = client
-		this._idFrom.set(client, clientId)
+		if (!this._fromUserId[userId]) {
+			this._fromUserId[userId] = []
+			this.userIds.push(userId)
+		}
+
+		this._fromUserId[userId].push(client)
+		this._userIdFrom.set(client, userId)
 	}
 
 	static remove(client) {
-		const clientId = this._idFrom.get(client)
+		const userId = this._userIdFrom.get(client)
 
 		this.all.remove(client)
-		this.ids.remove(clientId)
+		this._fromUserId[userId].remove(client)
 
-		delete this._fromId[clientId]
-		this._idFrom.delete(client)
+		const lastConnection = this._fromUserId[userId].empty
+		if (lastConnection) {
+			this.userIds.remove(userId)
+			delete this._fromUserId[userId]
+		}
+
+		this._userIdFrom.delete(client)
+		return lastConnection
 	}
 
-	static fromId(clientId) {
-		return this._fromId[clientId]
+	static clientsFromUserId(userId) {
+		return this._fromUserId[userId] || []
 	}
 
-	static idFrom(client) {
-		return this._idFrom.get(client)
+	static userIdFrom(client) {
+		return this._userIdFrom.get(client)
 	}
 }

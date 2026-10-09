@@ -30,6 +30,10 @@ export class Token {
 		return Assert.string(this.decoded.internal.role)
 	}
 
+	static get userId() {
+		return Assert.uuid(this.decoded.internal.userId)
+	}
+
 	static get admin() {
 		return this.role == "ROLE_ADMIN"
 	}

@@ -2,75 +2,75 @@ export class Lobbies {
 
 	static lobbies = {}
 
-	static create(lobbyId, hostClientId, clientObject={}) {
+	static create(lobbyId, hostUserId, userObject={}) {
 		this.lobbies.assertKeyNotPresent(lobbyId)
 
 		this.lobbies[lobbyId] = {
 			lobbyId: lobbyId,
-			hostClientId: hostClientId,
-			clientIds: [],
-			clientObjects: {}
+			hostUserId: hostUserId,
+			userIds: [],
+			userObjects: {}
 		}
 
-		this.lobbies[lobbyId].clientObjects.assertKeyNotPresent(hostClientId)
+		this.lobbies[lobbyId].userObjects.assertKeyNotPresent(hostUserId)
 
-		this.lobbies[lobbyId].clientIds.push(hostClientId)
-		this.lobbies[lobbyId].clientObjects[hostClientId] = clientObject
+		this.lobbies[lobbyId].userIds.push(hostUserId)
+		this.lobbies[lobbyId].userObjects[hostUserId] = userObject
 
 		return this.lobbies[lobbyId]
 	}
 
-	static createExistingLobby(lobbyId, hostClientId, clientObjects) {
+	static createExistingLobby(lobbyId, hostUserId, userObjects) {
 		this.lobbies.assertKeyNotPresent(lobbyId)
 
 		this.lobbies[lobbyId] = {
 			lobbyId: lobbyId,
-			hostClientId: hostClientId,
-			clientIds: [],
-			clientObjects: {}
+			hostUserId: hostUserId,
+			userIds: [],
+			userObjects: {}
 		}
 
-		this.lobbies[lobbyId].clientObjects.assertKeyNotPresent(hostClientId)
+		this.lobbies[lobbyId].userObjects.assertKeyNotPresent(hostUserId)
 
-		clientObjects.forEach((clientId, object) => {
-			this.lobbies[lobbyId].clientIds.push(clientId)
-			this.lobbies[lobbyId].clientObjects[clientId] = object
+		userObjects.forEach((userId, object) => {
+			this.lobbies[lobbyId].userIds.push(userId)
+			this.lobbies[lobbyId].userObjects[userId] = object
 		})
 
 		return this.lobbies[lobbyId]
 	}
 
-	static join(lobbyId, clientId, clientObject={}) {
+	static join(lobbyId, userId, userObject={}) {
 		this.lobbies.assertKeyPresent(lobbyId)
 
-		this.lobbies[lobbyId].clientObjects.assertKeyNotPresent(clientId)
+		this.lobbies[lobbyId].userObjects.assertKeyNotPresent(userId)
 
-		this.lobbies[lobbyId].clientIds.push(clientId)
-		this.lobbies[lobbyId].clientObjects[clientId] = clientObject
+		this.lobbies[lobbyId].userIds.push(userId)
+		this.lobbies[lobbyId].userObjects[userId] = userObject
 
 		return this.lobbies[lobbyId]
 	}
 
-	static leave(lobbyId, clientId) {
+	static leave(lobbyId, userId) {
 		this.lobbies.assertKeyPresent(lobbyId)
 
-		this.lobbies[lobbyId].clientObjects.assertKeyPresent(clientId)
+		this.lobbies[lobbyId].userObjects.assertKeyPresent(userId)
 
-		delete this.lobbies[lobbyId].clientObjects[clientId]
+		delete this.lobbies[lobbyId].userObjects[userId]
 	}
 
-	static clientObject(lobbyId, clientId) {
+	static userObject(lobbyId, userId) {
 		this.lobbies.assertKeyPresent(lobbyId)
-		this.lobbies[lobbyId].clientObjects.assertKeyPresent(clientId)
+		this.lobbies[lobbyId].userObjects.assertKeyPresent(userId)
 
-		return Lobbies.lobbies[lobbyId].clientObjects[clientId]
+		return Lobbies.lobbies[lobbyId].userObjects[userId]
 	}
 
 	static get myLobbies() {
 		const myLobbyList = []
 
 		for (const lobby of Lobbies.lobbies.values) {
-			if (lobby.hostClientId == My.clientId) {
+			if (lobby.hostUserId == Token.userId) {
 				myLobbyList.push(lobby)
 			}
 		}

@@ -3,11 +3,11 @@ export class Lobby {
 	static create() {
 		const lobbyId = Random.uuid()
 
-		const clientObject = ProxyObject((key, value) => {
+		const userObject = ProxyObject((key, value) => {
 			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
 		})
 
-		const lobby = Lobbies.create(lobbyId, My.clientId, clientObject)
+		const lobby = Lobbies.create(lobbyId, Token.userId, userObject)
 
 		OnlineLobbyManager.notifyClientCreatedNewLobby(lobby)
 
@@ -15,11 +15,11 @@ export class Lobby {
 	}
 
 	static join(lobbyId) {
-		const clientObject = ProxyObject((key, value) => {
+		const userObject = ProxyObject((key, value) => {
 			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
 		})
 
-		const lobby = Lobbies.join(lobbyId, My.clientId, clientObject)
+		const lobby = Lobbies.join(lobbyId, Token.userId, userObject)
 
 		OnlineLobbyManager.notifyClientJoinsLobby(lobby.lobbyId)
 
@@ -27,7 +27,7 @@ export class Lobby {
 	}
 
 	static leave(lobbyId) {
-		Lobbies.leave(lobbyId, My.clientId)
+		Lobbies.leave(lobbyId, Token.userId)
 
 		OnlineLobbyManager.notifyClientLeavesLobby(lobbyId)
 	}

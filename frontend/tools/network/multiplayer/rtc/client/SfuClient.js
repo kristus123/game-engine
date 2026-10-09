@@ -122,7 +122,7 @@ export class SfuClient {
 		})
 	}
 
-	static async consume(producerId, originClientId) {
+	static async consume(producerId, originUserId) {
 		if (!this.recvTransport) {
 			throw new Error("Cannot Consume Receive Transport Not Ready")
 		}
@@ -149,17 +149,17 @@ export class SfuClient {
 			if (data.consumerParams.producerId == producerId) {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
 
-				if (!this.consumers[originClientId]) {
-					this.consumers[originClientId] = { stream: new MediaStream() }
+				if (!this.consumers[originUserId]) {
+					this.consumers[originUserId] = { stream: new MediaStream() }
 				}
 
-				this.consumers[originClientId].stream.addTrack(consumer.track)
-				SfuRouters.onGuestConnection(this.consumers[originClientId].stream)
+				this.consumers[originUserId].stream.addTrack(consumer.track)
+				SfuRouters.onGuestConnection(this.consumers[originUserId].stream)
 			}
 		})
 	}
 
-	static async consumeData(producerId, originClientId) {
+	static async consumeData(producerId, originUserId) {
 		if (!this.recvTransport) {
 			throw new Error("Cannot Consume Data Receive Transport Not Ready")
 		}
@@ -176,10 +176,10 @@ export class SfuClient {
 			if (data.consumerParams.dataProducerId == producerId) {
 				const consumer = await this.recvTransport.consumeData(data.consumerParams)
 
-				this.dataConsumers[originClientId] = consumer
+				this.dataConsumers[originUserId] = consumer
 
 				consumer.on("message", message => {
-					SfuRouters.onMessage(originClientId, message)
+					SfuRouters.onMessage(originUserId, message)
 				})
 			}
 		})
@@ -232,7 +232,7 @@ export class SfuClient {
 	}
 
 	static deleteRouter() {
-		if (SfuRouters.routers[this.connectedRouterId] && My.clientId == SfuRouters.routers[this.connectedRouterId].hostClientId) {
+		if (SfuRouters.routers[this.connectedRouterId] && Token.userId == SfuRouters.routers[this.connectedRouterId].hostUserId) {
 			delete SfuRouters.routers[this.connectedRouterId]
 
 			this.disconnectConsumers()
@@ -244,32 +244,32 @@ export class SfuClient {
 	}
 
 	static get isHost() {
-		return this.connectedRouterId && SfuRouters.routers[this.connectedRouterId].hostClientId == My.clientId
+		return this.connectedRouterId && SfuRouters.routers[this.connectedRouterId].hostUserId == Token.userId
 	}
 
-	static get connectedClientIds() {
-		return SfuRouters.routers[this.connectedRouterId].connectedClientIds
+	static get connectedUserIds() {
+		return SfuRouters.routers[this.connectedRouterId].connectedUserIds
 	}
 
-	static mute(clientId) {
-		if (clientId == My.clientId || SfuClient.isHost) {
-			SocketClient.sendToClient("SFU_CLIENT_MUTE_SELF", clientId, {
+	static mute(userId) {
+		if (userId == Token.userId || SfuClient.isHost) {
+			SocketClient.sendToUser("SFU_CLIENT_MUTE_SELF", userId, {
 				routerId: this.connectedRouterId,
 			})
 		}
 		else {
-			throw new Error("You do not have permission to mute", clientId)
+			throw new Error("You do not have permission to mute", userId)
 		}
 	}
 
-	static unmute(clientId) {
-		if (clientId == My.clientId || SfuClient.isHost) {
-			SocketClient.sendToClient("SFU_CLIENT_UNMUTE_SELF", clientId, {
+	static unmute(userId) {
+		if (userId == Token.userId || SfuClient.isHost) {
+			SocketClient.sendToUser("SFU_CLIENT_UNMUTE_SELF", userId, {
 				routerId: this.connectedRouterId,
 			})
 		}
 		else {
-			throw new Error("You do not have permission to unmute", clientId)
+			throw new Error("You do not have permission to unmute", userId)
 		}
 	}
 
@@ -331,15 +331,15 @@ export class SfuClient {
 		this.dataProducer.send(JSON.stringify(json))
 	}
 
-	static kick(clientId) {
-		if (clientId == My.clientId) {
+	static kick(userId) {
+		if (userId == Token.userId) {
 			throw new Error("You can't kick yourself!")
 		}
 		else if (!SfuClient.isHost) {
-			throw new Error("You do not have permission to kick", clientId)
+			throw new Error("You do not have permission to kick", userId)
 		}
 		else {
-			SocketClient.sendToClient("SFU_KICK_SELF", clientId, {
+			SocketClient.sendToUser("SFU_KICK_SELF", userId, {
 				routerId: SfuClient.connectedRouterId
 			})
 		}

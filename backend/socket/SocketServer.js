@@ -6,23 +6,21 @@ export class SocketServer {
 		this.actions = {}
 		this.server = null
 
-		this.on("CLIENT_TO_CLIENT", ({ clientId, data, metaHeaders }) => {
+		this.on("USER_TO_USER", ({ userId, data, metaHeaders }) => {
 
-			const targetClientIds = Always.list(Assert.onlyOneValue(
-				metaHeaders.targetClientIds, metaHeaders.targetClientId,
+			const targetUserIds = Always.list(Assert.onlyOneValue(
+				metaHeaders.targetUserIds, metaHeaders.targetUserId,
 			)).assertValues()
 
-			for (const targetClientId of targetClientIds) {
-				const target = SocketClients.fromId(targetClientId)
-				if (target) {
+			for (const targetUserId of targetUserIds) {
+				for (const target of SocketClients.clientsFromUserId(targetUserId)) {
 					this.sendToClient(target, {
 						data: data,
 						metaHeaders: {
-							action: "CLIENT_TO_CLIENT",
+							action: "USER_TO_USER",
 							subAction: metaHeaders.subAction,
-							originClientId: clientId,
-							targetClientId: targetClientId,
-							// targetClientIds: targetClientIds, // maybe we want this, or mby not.
+							originUserId: userId,
+							targetUserId: targetUserId,
 						},
 					})
 				}
@@ -32,41 +30,20 @@ export class SocketServer {
 
 	static start(server, { onJoin, onLeave } = {}) { // no-null-check // todo add async await for this one
 		this.server = new WebSocketServer({ server: server })
-		this.server.on("connection", (client, request) => {
+		this.server.on("connection", async (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
-			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID. fix later, not now
+			let userId
+			let closed = false
+			const pendingMessages = []
 
-			SocketClients.add(client, clientId)
-			onJoin?.({ client: client, clientId: clientId })
-
-			this.sendToClient(client, {
-				data: {},
-				metaHeaders: {
-					action: "CLIENT_ID",
-					originClientId: clientId,
-				},
-			})
-
-			console.log(`${clientId} has connected`)
-
-			this.sendToEveryone({
-				data: {
-					clientIds: SocketClients.ids,
-				},
-				metaHeaders: {
-					action: "UPDATE_CLIENTS_LIST",
-					originClientId: clientId,
-				},
-			})
-
-			client.on("message", m => {
+			const handleMessage = m => {
 				const message = JSON.parse(m)
 				const metaHeaders = message.metaHeaders
 
 				if (this.actions[metaHeaders.action] != null) {
 					this.actions[metaHeaders.action]({
 						client: client,
-						clientId: clientId,
+						userId: userId,
 						data: message.data,
 						metaHeaders: metaHeaders,
 					})
@@ -74,26 +51,87 @@ export class SocketServer {
 				else {
 					throw new Error(metaHeaders.action + " does not exist")
 				}
+			}
+
+			client.on("message", m => {
+				if (userId == null) {
+					pendingMessages.push(m)
+				}
+				else {
+					handleMessage(m)
+				}
 			})
 
 			client.on("close", () => {
-				SocketClients.remove(client)
-				onLeave?.({ clientId: clientId })
+				closed = true
+				if (userId == null) {
+					return
+				}
 
-				console.log(`${clientId} has disconnected`)
+				const lastConnection = SocketClients.remove(client)
+				onLeave?.({ userId: userId, lastConnection: lastConnection })
 
-				SfuServer.closeConnectionWithClient(clientId)
+				console.log(`${userId} has disconnected`)
 
-				this.sendToEveryone({
-					data: {
-						clientIds: SocketClients.ids,
-					},
-					metaHeaders: {
-						action: "UPDATE_CLIENTS_LIST",
-						originClientId: clientId,
-					},
-				})
+				if (lastConnection) {
+					SfuServer.closeConnectionWithUser(userId)
+
+					this.sendToEveryone({
+						data: {
+							userIds: SocketClients.userIds,
+						},
+						metaHeaders: {
+							action: "UPDATE_USERS_LIST",
+							originUserId: userId,
+						},
+					})
+				}
 			})
+
+			try {
+				const token = urlParameters.get("token")
+				const decodedToken = await ShaToken.decode(token)
+				userId = Assert.string(decodedToken.internal.userId)
+				Assert.true(userId.length > 0, "Token is missing a user ID")
+			}
+			catch {
+				pendingMessages.length = 0
+				client.close(1008, "Invalid token")
+				return
+			}
+
+			if (closed || client.readyState != WebSocket.OPEN) {
+				pendingMessages.length = 0
+				return
+			}
+
+			SocketClients.add(client, userId)
+			onJoin?.({ client: client, userId: userId })
+
+			this.sendToClient(client, {
+				data: {},
+				metaHeaders: {
+					action: "USER_ID",
+					originUserId: userId,
+				},
+			})
+
+			console.log(`${userId} has connected`)
+
+			this.sendToEveryone({
+				data: {
+					userIds: SocketClients.userIds,
+				},
+				metaHeaders: {
+					action: "UPDATE_USERS_LIST",
+					originUserId: userId,
+				},
+			})
+
+			for (const message of pendingMessages) {
+				handleMessage(message)
+			}
+			pendingMessages.length = 0
 		})
 	}
 
@@ -120,33 +158,49 @@ export class SocketServer {
 		}
 	}
 
-	static sendToOthers(originClient, { data = {}, metaHeaders = {} } = {}) {
-		const clients = SocketClients.all.filter(c => c != originClient)
-		const targetClientIds = clients.map(c => SocketClients.idFrom(c))
+	static sendToOtherUsers(originClient, { data = {}, metaHeaders = {} } = {}) {
+		const originUserId = SocketClients.userIdFrom(originClient)
+		const targetUserIds = SocketClients.userIds.filter(userId => userId != originUserId)
 
-		this.sendToClients(clients, {
+		this.sendToUsers(targetUserIds, {
 			data: data,
 			metaHeaders: {
 				...metaHeaders,
-				riginClientId: SocketClients.idFrom(origin),
-				argetClientIds: targetClientIds,
+				originUserId: originUserId,
 			},
 		})
 	}
 
 	static sendToEveryone({ data = {}, metaHeaders = {} } = {}) {
 		const clients = [...SocketClients.all]
-		const targetClientIds = clients.map(client => SocketClients.idFrom(client))
 
 		this.sendToClients(clients, {
 			data: data,
-			metaHeaders: { ...metaHeaders, targetClientIds: targetClientIds },
+			metaHeaders: metaHeaders,
 		})
 	}
 
 	static sendToClient(client, { data = {}, metaHeaders = {} } = {}) {
-		metaHeaders.targetClientId = SocketClients.idFrom(client)
-		client.send(JSON.stringify({ data: data, metaHeaders: metaHeaders }))
+		const userMetaHeaders = { ...metaHeaders, targetUserId: SocketClients.userIdFrom(client) }
+		client.send(JSON.stringify({ data: data, metaHeaders: userMetaHeaders }))
+	}
+
+	static sendToUser(userId, { data = {}, metaHeaders = {} } = {}) {
+		const userMetaHeaders = { ...metaHeaders }
+		delete userMetaHeaders.targetUserId
+		delete userMetaHeaders.targetUserIds
+		userMetaHeaders.targetUserId = userId
+
+		this.sendToClients(SocketClients.clientsFromUserId(userId), {
+			data: data,
+			metaHeaders: userMetaHeaders,
+		})
+	}
+
+	static sendToUsers(userIds, { data = {}, metaHeaders = {} } = {}) {
+		for (const userId of userIds) {
+			this.sendToUser(userId, { data: data, metaHeaders: metaHeaders })
+		}
 	}
 
 	static sendToClients(clients, { data = {}, metaHeaders = {} } = {}) {

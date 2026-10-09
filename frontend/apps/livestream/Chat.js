@@ -13,7 +13,7 @@ export class Chat {
 	}
 
 	static sendMessage(message) {
-		SocketClient.sendToAllClients("NEW_CHAT_MESSAGE", {
+		SocketClient.sendToAllUsers("NEW_CHAT_MESSAGE", {
 			name: "brukernavn",
 			message: message,
 		})
