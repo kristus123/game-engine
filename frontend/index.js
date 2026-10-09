@@ -41,7 +41,7 @@ await Promise.all([
 	Retry(100, async (i) => {
 		loadingText.content = i + " attempts at setting up token and socket connection"
 
-		return Promise.all([
+		return await Promise.all([
 			Network.httpCheck(),
 			Token.init(),
 			SocketClient.connect(),

@@ -68,7 +68,7 @@ Requires Node.js and npm. Install dependencies with `npm install`.
 - Open `http://localhost:5050` for the browser app. The HTTP and WebSocket backend listens on port `3000`; the browser's development configuration connects there. SFU media transport also uses the configured mediasoup ports/network settings.
 - `npm run startInspect` starts the watcher with Node inspector enabled.
 - `node dev/GenerateFrontend.js PRODUCTION` generates production browser files in `dist/`; `PRODUCTION` or `DEVELOPMENT` must be passed because the transpiler substitutes the `ENVIRONMENT` marker.
-- `npm run chrome` is configured as `node scripts/chrome.js`, but `scripts/chrome.js` is absent in this checkout, so the command currently fails. Use an available browser or browser DevTools integration for manual frontend checks.
+- Use an available browser or browser DevTools integration for manual frontend checks.
 - `node dev/ExportAseprite.js` exports `.aseprite` sources into generated browser assets under `dist/generatedAseprite/`. This requires Aseprite to be installed/configured; see `documentation/aseprite/`.
 - `node start.js PRODUCTION` generates the backend into `transpiledBackend/` and launches it. In deployment, `Config` selects production HTTP, WebSocket, and mediasoup announce settings.
 - `scripts/deploy_dist_to_netlify.sh` and `scripts/deploy_language_app.sh` generate a production frontend and deploy it with Netlify CLI. These publish externally; only run when deployment is explicitly intended. `scripts/deploy_server.sh` also runs remote SSH deployment operations.
@@ -90,6 +90,7 @@ Read [documentation/coding_convention.md](documentation/coding_convention.md) be
 
 - Frontend network clients use `shared/Config.js` for HTTP/WebSocket URLs. Development points to `localhost:3000` and advertises mediasoup at `127.0.0.1`; production uses `krispetter.duckdns.org`. Local development does not depend on a Cloudflare tunnel.
 - `Network`'s initial HTTP check runs from `frontend/index.js` after module imports resolve. Do not call `JsonHttpClient` from `Network`'s static initializer: `LowLevelHttpClient` depends back on `Network`, so doing so can hit the ESM temporal dead zone during startup.
+- Frontend startup must finish `Token.init()` before calling `SocketClient.connect()`. Socket open and first-message handlers read `Token.decoded.internal.userId`, so starting both together can race against token initialization.
 - Backend HTTP endpoints are registered by importing generated endpoint modules during `StartServer`; endpoint behavior and route conventions are implemented in `backend/http/` and `backend/http/server/`.
 - WebSocket actions are registered by action name through `SocketServer.on`; coordinate action names and payloads with the corresponding client under `frontend/tools/network/`.
 - Livestream and RTC code spans `frontend/apps/livestream/`, frontend multiplayer RTC clients, and `backend/rtc/`; changes may need coordinated client/server updates.

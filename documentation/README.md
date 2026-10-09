@@ -28,23 +28,6 @@ npm run start
 
 Then open [http://localhost:5050]()
 
-## Control Chrome for browser checks
-
-The project includes a small Chrome DevTools Protocol controller. It uses Chrome and Node.js directly, with no extra browser automation dependencies. Start the development server in one terminal, then use another:
-
-```bash
-npm run chrome
-npm run chrome -- status
-npm run chrome -- eval 'document.title'
-npm run chrome -- click 'button.start'
-npm run chrome -- type '#name' 'Sámi Game'
-npm run chrome -- screenshot /tmp/game-engine.png
-npm run chrome -- reload
-npm run chrome -- stop
-```
-
-Running `npm run chrome` starts headless Chrome at `http://localhost:5050`. Headless mode supplies fake audio/video devices and accepts media permission prompts so camera and livestream flows can be exercised without physical devices. Add `--headed` to `start` when a visible window is needed, for example `npm run chrome -- start --headed http://localhost:5050`. Replace the sample selectors with elements present in the page. The controller uses an isolated profile in the system temp directory, reused across commands and kept separate from your regular Chrome profile. Browser console output is shown while a command is connected. Set `CHROME_PATH` if Chrome is installed outside its standard location. Node.js 22 or newer is required for the built-in WebSocket client.
-
 ## Run linter
 
 ```
