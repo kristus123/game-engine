@@ -336,6 +336,7 @@
         "Scale": "readonly",
         "Screen": "readonly",
         "ServeDist": "readonly",
+        "ServerConfig": "readonly",
         "ServiceWorker": "readonly",
         "Setter": "readonly",
         "SfuClient": "readonly",

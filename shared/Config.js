@@ -6,7 +6,6 @@ const productionHost = "krispetter.duckdns.org"
 const cloudflared = false
 
 export class Config {
-
 	static get httpUrl() {
 		if (cloudflared) {
 			return "https://" + cloudflared

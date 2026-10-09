@@ -57,7 +57,7 @@ WebSocket messages use an envelope with `data` for the application payload and `
 
 `dist/` is generated browser output and `transpiledBackend/` is generated backend output; both are ignored by Git. Do not hand-edit them. Change source under `frontend/`, `shared/`, or `backend/`, then regenerate through the appropriate workflow. `AllImports.js` is generated at watcher startup from named exports. Do not edit it manually; duplicate exported names across modules make generation fail.
 
-`Secrets.js` is gitignored local configuration. Never print, copy, or commit its contents. Keep credentials, tokens, private keys, and machine-specific paths out of tracked files and documentation. The current backend startup also contains a hard-coded placeholder token secret in source; do not treat that placeholder as secure production configuration.
+`Secrets.js` is gitignored local configuration. Never print, copy, or commit its contents. Keep credentials, tokens, private keys, and machine-specific paths out of tracked files and documentation. `ServerConfig.shaSecret` uses `CHANGE_ME` in development and reads `Secrets.shaSecret` in production, so the local ignored `Secrets.js` must define that field. Keep the production secret in backend source and out of shared source and browser output.
 
 Generated output depends on project-wide filename rules. The watcher checks for duplicate basenames across `backend/`, `frontend/`, and `shared/` (including non-JS assets), and checks frontend/backend/dev JavaScript basenames against reserved words and browser/JavaScript globals. Preserve these constraints when adding or renaming files. HTML and Markdown basenames also need to be unique because they become runtime template keys.
 

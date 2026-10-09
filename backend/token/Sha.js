@@ -1,14 +1,13 @@
 export class Sha {
 
-	static secret = "CHANGE_ME"
-
 	static async sign(data) {
-		Assert.string(this.secret)
+		const secret = ServerConfig.shaSecret
+		Assert.string(secret)
 		Assert.string(data)
 
 		const key = await crypto.subtle.importKey(
 			"raw",
-			new TextEncoder().encode(this.secret),
+			new TextEncoder().encode(secret),
 			{ name: "HMAC", hash: "SHA-256" },
 			false,
 			["sign"]
@@ -25,7 +24,7 @@ export class Sha {
 
 	static async isValid(e) {
 		Assert.string(e)
-		Assert.string(this.secret)
+		Assert.string(ServerConfig.shaSecret)
 
 		const { internal, internalSignature } = Tapi.splitEncoded(e)
 
@@ -34,7 +33,7 @@ export class Sha {
 
 	static async assertValid(e) {
 		Assert.string(e)
-		Assert.string(this.secret)
+		Assert.string(ServerConfig.shaSecret)
 
 		if (await this.isValid(e)) {
 			return e
