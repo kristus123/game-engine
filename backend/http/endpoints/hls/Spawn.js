@@ -62,6 +62,10 @@ export class Spawn {
 	}
 
 	waitForClose() {
+		if (this.p.exitCode != null || this.p.signalCode != null) {
+			return Promise.resolve({ code: this.p.exitCode, signal: this.p.signalCode })
+		}
+
 		return new Promise(resolve => {
 			this.p.once("close", (code, signal) => {
 				resolve({ code, signal })
@@ -109,7 +113,8 @@ export class Spawn {
 	}
 
 	stop() {
+		const closed = this.waitForClose()
 		this.stdin.end()
-		return this.waitForClose()
+		return closed
 	}
 }

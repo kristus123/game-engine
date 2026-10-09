@@ -4,6 +4,7 @@ export class SocketServer {
 
 	static {
 		this.actions = {}
+		this.server = null
 
 		this.on("CLIENT_TO_CLIENT", ({ clientId, data, metaHeaders }) => {
 
@@ -30,7 +31,8 @@ export class SocketServer {
 	}
 
 	static start(server, { onJoin, onLeave } = {}) { // no-null-check // todo add async await for this one
-		new WebSocketServer({ server: server }).on("connection", (client, request) => {
+		this.server = new WebSocketServer({ server: server })
+		this.server.on("connection", (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])
 			const clientId = urlParameters.get("clientId") // I think backend should be the one that creates the client ID. fix later, not now
 
@@ -93,6 +95,20 @@ export class SocketServer {
 				})
 			})
 		})
+	}
+
+	static async stop() {
+		const server = this.server
+		if (!server) {
+			return
+		}
+
+		this.server = null
+		for (const client of server.clients) {
+			client.terminate()
+		}
+
+		await new Promise(resolve => server.close(resolve))
 	}
 
 	static on(action, callback) {

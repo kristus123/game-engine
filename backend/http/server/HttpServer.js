@@ -36,7 +36,7 @@ export class HttpServer {
 							// todo need to add some role validation
 							const fileName = Poop.routeName(req) // todo make a Poop.fileName
 							Assert.true(fileName.startsWith("public_folder/"))
-							Poop.streamFile(res, fileName)
+							Poop.streamFile(req, res, fileName)
 						}
 						catch (e) {
 							Poop.sendJson(res, 500, {
@@ -84,13 +84,14 @@ export class HttpServer {
 		}
 	}
 
-	static stop() {
+	static async stop() {
 		if (this.activeServer) {
-			this.activeServer.close()
+			const server = this.activeServer
 			this.activeServer = null
-		}
-		else {
-			throw new Error("HttpServer is not running")
+			await new Promise((resolve, reject) => {
+				server.close(error => error ? reject(error) : resolve())
+				server.closeAllConnections()
+			})
 		}
 	}
 

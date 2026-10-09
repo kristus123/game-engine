@@ -7,9 +7,3 @@ GenerateBackend(process.argv[2]) // todo pass environment - "DEVELOPMENT" or "PR
 const { StartServer } = await import("#root/transpiledBackend/StartServer.js")
 
 StartServer()
-
-process.on("SIGTERM", () => {
-	// nuke all for now. later clean up gently
-	console.log("SIGTERM received. shutting down all stuff")
-	process.exit(0)
-})

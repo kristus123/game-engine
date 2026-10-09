@@ -55,6 +55,6 @@ export class Config {
 	}
 
 	static get hlsListSize() {
-		return 5
+		return 60
 	}
 }

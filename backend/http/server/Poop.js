@@ -106,18 +106,72 @@ export class Poop {
 		}
 	}
 
-	static streamFile(res, routeName) {
-		res.writeHead(200, {
-			"Content-Type": ContentType.fromFile(routeName)
-		})
+	static streamFile(req, res, routeName) {
+		fs.stat(routeName, (error, stats) => {
+			if (error || !stats.isFile()) {
+				res.writeHead(404)
+				res.end()
+				return
+			}
 
-		const stream = fs.createReadStream(routeName)
-		stream.on("error", error => {
-			console.error(error)
-			res.end()
-		})
+			const headers = {
+				"Accept-Ranges": "bytes",
+				"Content-Type": ContentType.fromFile(routeName),
+			}
+			let statusCode = 200
+			let streamOptions = {}
+			const range = req.headers.range
 
-		stream.pipe(res)
+			if (range != null) {
+				const match = /^bytes=(\d*)-(\d*)$/.exec(range)
+				if (match == null || (!match[1] && !match[2])) {
+					res.writeHead(416, {
+						"Content-Range": `bytes */${stats.size}`,
+						"Accept-Ranges": "bytes",
+					})
+					res.end()
+					return
+				}
+
+				let start
+				let end
+				if (match[1] == "") {
+					const suffixLength = Number(match[2])
+					start = Math.max(stats.size - suffixLength, 0)
+					end = stats.size - 1
+				}
+				else {
+					start = Number(match[1])
+					end = match[2] == "" ? stats.size - 1 : Math.min(Number(match[2]), stats.size - 1)
+				}
+
+				if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || start >= stats.size || start > end) {
+					res.writeHead(416, {
+						"Content-Range": `bytes */${stats.size}`,
+						"Accept-Ranges": "bytes",
+					})
+					res.end()
+					return
+				}
+
+				statusCode = 206
+				streamOptions = { start, end }
+				headers["Content-Range"] = `bytes ${start}-${end}/${stats.size}`
+				headers["Content-Length"] = end - start + 1
+			}
+			else {
+				headers["Content-Length"] = stats.size
+			}
+
+			res.writeHead(statusCode, headers)
+			const stream = fs.createReadStream(routeName, streamOptions)
+			stream.on("error", streamError => {
+				console.error(streamError)
+				res.destroy(streamError)
+			})
+
+			stream.pipe(res)
+		})
 	}
 
 	// To do we should also make sure that one route can only be assigned to one you know,

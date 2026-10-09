@@ -130,5 +130,6 @@ export function FileWatcher(folders, extensions, { onAdd, onChange, onDelete }) 
 
 	compute()
 
-	setInterval(compute, 50)
+	const interval = setInterval(compute, 50)
+	return () => clearInterval(interval)
 }

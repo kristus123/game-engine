@@ -1,6 +1,7 @@
 .eslintcache
 
 public_folder/hls/
+public_folder/twitch_clips/
 
 gitignored_folder/
 

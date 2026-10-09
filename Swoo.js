@@ -20,12 +20,19 @@ export class Swoo {
 
 		this.p = new ChildProcess(process.execPath, {
 			args: ["dev/GenerateFrontend.js", "DEVELOPMENT"],
-			onExit: () => {
-				onEnd()
+			onExit: ({ code, signal }) => {
+				if (code == 0 && signal == null) {
+					onEnd()
+				}
 			},
 		}).start()
 
 		await this.p?.awaitFinish?.()
+	}
+
+	static async stop() {
+		await this.p?.kill()
+		this.p = null
 	}
 
 }

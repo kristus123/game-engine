@@ -1,6 +1,6 @@
 export class LowLevelHttpClient {
 
-	static async post({ routeName, body, formatBody, contentType } = {}) { // no-null-check
+	static async post({ routeName, body, formatBody, contentType, timeoutMs = 8_000 } = {}) { // no-null-check
 
 		if (Network.offline) {
 			console.warn("network is offline, fetch might not work")
@@ -25,6 +25,7 @@ export class LowLevelHttpClient {
 		const { ok, error, response } = await Fetch({
 			url: `${Config.httpUrl}/${routeName}`,
 			body: body,
+			timeoutMs: timeoutMs,
 			headers: {
 				"Content-Type": contentType,
 				"token": Token.encodedToken, // todo fix hack, turn into get and set localvalue as _encoded

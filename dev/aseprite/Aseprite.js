@@ -1,17 +1,12 @@
-import { execFile } from "child_process"
 import { AsepritePath } from "#root/dev/aseprite/AsepritePath.js"
-import { Paths } from "#root/AllImports.js"
+import { Paths, ChildProcess } from "#root/AllImports.js"
 
 function run(args) {
-	return new Promise((resolve, reject) => {
-		execFile(AsepritePath, args, { stdio: "inherit", shell: true }, (err) => {
-			if (err) {
-				reject(err)
-			}
-			else {
-				resolve()
-			}
-		})
+	const child = new ChildProcess(AsepritePath, { args, group: "aseprite" }).start()
+	return child.awaitFinish().then(({ code, signal }) => {
+		if (code != 0 || signal != null) {
+			throw new Error(`Aseprite process failed: code=${code}, signal=${signal}`)
+		}
 	})
 }
 

@@ -30,6 +30,9 @@ Files.deleteFolder(Paths.distFolder)
 
 let backendId = 0
 const p = new ChildProcess(process.execPath)
+let shuttingDown = false
+let stopFileWatcher = () => {}
+let externalBundleProcess = null
 
 async function restartBackend(regenerate = true) {
 	if (regenerate) {
@@ -78,7 +81,7 @@ function scheduleRebuild(path, changeType) {
 	}, 100)
 }
 
-FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
+stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
 	onAdd: (path) => {
 		scheduleRebuild(path, "add")
 	},
@@ -90,9 +93,49 @@ FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".
 	},
 })
 
+async function shutdown(signal) {
+	if (shuttingDown) {
+		return
+	}
+	shuttingDown = true
+	console.log(`Shutting down development watcher (${signal})`)
+	clearTimeout(rebuildTimeout)
+	stopFileWatcher()
+
+	const results = await Promise.allSettled([
+		p.kill(),
+		Swoo.stop(),
+		ChildProcess.stopAll("aseprite"),
+		externalBundleProcess?.kill(),
+		ServeDist.stop(),
+	])
+	for (const result of results) {
+		if (result.status == "rejected") {
+			console.error("Error while shutting down development watcher", result.reason)
+		}
+	}
+
+	process.exit(signal == "SIGINT" ? 130 : 0)
+}
+
+process.once("SIGINT", () => shutdown("SIGINT"))
+process.once("SIGTERM", () => shutdown("SIGTERM"))
+process.once("SIGHUP", () => shutdown("SIGHUP"))
+
 Swoo.generateDist(async () => { // initial build
-	await ExportAseprite()
-	PrepareExternalBundle()
+	try {
+		await ExportAseprite()
+	}
+	catch (error) {
+		if (!shuttingDown) {
+			console.error("Failed to export Aseprite assets", error)
+		}
+		return
+	}
+	if (shuttingDown) {
+		return
+	}
+	externalBundleProcess = PrepareExternalBundle()
 	ServeDist()
 	setTimeout(restartBackend, 100)
 })

@@ -1,6 +1,6 @@
 // this method is quite coupled to our local server. maybe fix in the future
 
-export async function Fetch({ url, body, headers } = {}) { // no-null-check
+export async function Fetch({ url, body, headers, timeoutMs = 8_000 } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
 
@@ -15,7 +15,7 @@ export async function Fetch({ url, body, headers } = {}) { // no-null-check
 				body: body,
 				method: "POST",
 				cache: "no-store",
-				signal: AbortSignal.timeout(8_000),
+				signal: AbortSignal.timeout(timeoutMs),
 				headers: headers,
 			})
 

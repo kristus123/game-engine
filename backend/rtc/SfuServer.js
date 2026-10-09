@@ -252,6 +252,24 @@ export class SfuServer {
 		})
 	}
 
+	static async stop() {
+		for (const routerObject of Object.values(this.routers)) {
+			try {
+				routerObject.router.close()
+			}
+			catch (error) {
+				console.error("Error closing mediasoup router", error)
+			}
+		}
+		this.routers = {}
+
+		const worker = this.globalWorker
+		this.globalWorker = null
+		if (worker && !worker.closed) {
+			worker.close()
+		}
+	}
+
 
 
 	static async connectWithClient(client, clientId, routerId) {
