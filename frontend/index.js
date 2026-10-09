@@ -64,9 +64,10 @@ Font.use("VT323")
 // this can be combined with index.html block thingy
 
 // FindPair()
-await Retry(900, () => {
-	Livestream()
+await Retry(900, async () => {
+	await Livestream()
 })
+
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

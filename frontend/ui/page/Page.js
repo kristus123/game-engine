@@ -7,6 +7,7 @@ export class Page {
 	static init(name, page) {
 		this.pages.assertKeyNotPresent(name)
 
+		page.neverDestroy = true
 		page.setAttribute("page-name", name)
 
 		this.pages[name] = page

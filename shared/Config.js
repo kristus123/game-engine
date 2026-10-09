@@ -3,7 +3,7 @@ const productionHost = "krispetter.duckdns.org"
 // cloudflared should ovveride all, but you can set it to false if you don't use it:
 // const cloudflared = false // "test.happysun.no"
 // cloudflared should be able to override Env
-const cloudflared = false // "test.happysun.no"
+const cloudflared = false
 
 export class Config {
 

@@ -24,6 +24,7 @@ export default async ({ html }) => {
 	const cams = await Cam.all()
 
 	return {
+		onDestroy: () => {},
 		methods: {
 			openMicSettings: async () => {
 				html.micSettings.clearChildren()

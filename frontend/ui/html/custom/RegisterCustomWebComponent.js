@@ -25,16 +25,88 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 	customElements.define(name, class extends HTMLElement {
 		constructor() {
 			this._connected = false
+			this._setupPromise = null
+			this._destroyPromise = null
+			this._onConnected = null
+			this._onDisconnected = null
+			this._onDestroy = null
+			this._neverDestroy = this.neverDestroy == true
+			this._lifecycleActive = false
+			this._setState = null
 		}
 
 		async connectedCallback() {
-			if (this._connected) {
-				return true
-			}
-			else {
-				this._connected = true
+			if (this._connected || this._destroyPromise != null) {
+				return
 			}
 
+			this._connected = true
+			this._dispatchLifecycleEvent("connected")
+			if (this._destroyPromise != null || !this._connected) {
+				return
+			}
+
+			if (!this._setupPromise) {
+				this._setupPromise = this._initialize()
+			}
+
+			await this._setupPromise
+			if (!this._connected || this._destroyPromise != null || this._lifecycleActive) {
+				return
+			}
+
+			this._lifecycleActive = true
+			await this._callHook(this._onConnected)
+		}
+
+		disconnectedCallback() {
+			if (!this._connected) {
+				return
+			}
+
+			this._connected = false
+			this._dispatchLifecycleEvent("disconnected")
+
+			const wasActive = this._lifecycleActive
+			this._lifecycleActive = false
+			const onDisconnected = wasActive
+				? this._callHook(this._onDisconnected)
+				: Promise.resolve()
+
+			onDisconnected
+				.catch(console.error)
+				.then(() => this._destroyIfNeeded())
+				.catch(console.error)
+		}
+
+		destroy() {
+			if (this._destroyPromise != null) {
+				return this._destroyPromise
+			}
+
+			this._destroyPromise = Promise.resolve().then(() => this._finishDestroy())
+			return this._destroyPromise
+		}
+
+		async _finishDestroy() {
+			this.remove()
+			try {
+				await this._setupPromise
+				await this._onDestroy?.({ html: this, setState: this._setState })
+			}
+			finally {
+				this.walk(child => {
+					const id = child.getAttribute("id")
+					if (id && this[id] == child) {
+						delete this[id]
+					}
+				})
+				this.replaceChildren()
+				this._dispatchLifecycleEvent("destroyed")
+			}
+		}
+
+		async _initialize() {
 			const content = template.content.cloneNode(true)
 
 			const slots = {}
@@ -44,11 +116,17 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			this.replaceChildren(content)
 
-			this.walk(child => { // needs to run before js.default is called
-				if (child.hasAttribute("id")) { // since something inside might want to get an id
-					this[child.getAttribute("id")] = child
-				}
-			})
+			const exposeIds = () => {
+				this.walk(child => {
+					if (!child.hasAttribute("id")) {
+						return
+					}
+
+					const id = child.getAttribute("id")
+					this[id] = child
+				})
+			}
+			exposeIds() // component code may use template ids during initialization
 
 			const setState = newState => {
 				Assert.value(newState)
@@ -68,8 +146,13 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 				return newState
 			}
+			this._setState = setState
 
-			const { methods = {}, state = null } = await js?.default({ html: this, setState: setState }) ?? {}
+			const { methods = {}, state = null, onConnected = null, onDisconnected = null, onDestroy = null, neverDestroy = false } = await js?.default({ html: this, setState: setState }) ?? {}
+			this._onConnected = onConnected
+			this._onDisconnected = onDisconnected
+			this._onDestroy = onDestroy
+			this._neverDestroy = this._neverDestroy || this.neverDestroy == true || neverDestroy
 
 			this.walk(child => {
 				InjectAttributeLogicToHtml(child, methods, setState)
@@ -91,11 +174,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				}
 			}
 
-			this.walk(child => { // needs to run before js.default is called
-				if (child.hasAttribute("id")) { // since something inside might want to get an id
-					this[child.getAttribute("id")] = child
-				}
-			})
+			exposeIds()
 
 			if (A.string(state)) {
 				setState(state)
@@ -104,12 +183,30 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				setState(Assert.string(await state()))
 			}
 			else if (state == null) {
-				// that's ok as well, we do nothing
+				// no initial state is fine
 			}
 			else {
-				throw new Error("unuspported state value")
+				throw new Error("unsupported state value")
 			}
+		}
 
+		async _callHook(hook) { // no-null-check
+			return await hook?.({ html: this, setState: this._setState })
+		}
+
+		async _destroyIfNeeded() {
+			await this._setupPromise
+			if (!this._connected && !this._neverDestroy) {
+				await this.destroy()
+			}
+		}
+
+		_dispatchLifecycleEvent(name) {
+			this.dispatchEvent(new CustomEvent(`component-${name}`, {
+				bubbles: true,
+				composed: true,
+				detail: { element: this },
+			}))
 		}
 	})
 }
