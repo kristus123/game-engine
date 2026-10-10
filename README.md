@@ -35,6 +35,8 @@ update config.js with the url in prod, then you can deploy
 cloudflare gives free tunnel if you have a domain. (which i have)
 
 ```
+# it might take a while for dns stuff to update
+
 cloudflared tunnel create test
 
 mkdir -p ~/.cloudflared
