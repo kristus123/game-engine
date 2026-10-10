@@ -52,7 +52,10 @@ ingress:
   - service: http_status:404
 
 
+cloudflared tunnel ingress validate
+
 cloudflared tunnel route dns test test.happysun.no
+cloudflared tunnel route dns test ui.happysun.no
 
 cloudflared tunnel run test
 
