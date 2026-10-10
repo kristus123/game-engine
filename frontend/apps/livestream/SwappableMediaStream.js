@@ -5,8 +5,7 @@ export class SwappableMediaStream {
 
 	static audioContext = null
 	static audioOutput = null
-
-	static audioSource = null
+	static audioSources = new Map()
 
 	static {
 		const v = document.createElement("video")
@@ -33,16 +32,59 @@ export class SwappableMediaStream {
 		])
 	}
 
-	static async swapAudio(deviceId) {
+	static get audioDeviceIds() {
+		return [...this.audioSources.keys()]
+	}
+
+	static async addAudioDevice(deviceId) {
+		if (this.audioSources.has(deviceId)) {
+			throw new Error(`Microphone already added: ${deviceId}`)
+		}
+
 		await this.audioContext.resume()
 
-		const newMic = await MediaDevices.audio(deviceId)
+		const stream = await MediaDevices.audio(deviceId)
+		let source = null
+		let gain = null
 
-		this.audioSource?.disconnect()
-		this.audioSource?.mediaStream.getTracks().forEach(t => t.stop())
+		try {
+			source = this.audioContext.createMediaStreamSource(stream)
+			gain = this.audioContext.createGain()
+			source.connect(gain)
+			gain.connect(this.audioOutput)
+			this.audioSources.set(deviceId, { source, gain, stream })
+			this.updateAudioGains()
+		}
+		catch (error) {
+			this.audioSources.delete(deviceId)
+			source?.disconnect()
+			gain?.disconnect()
+			stream.getTracks().forEach(track => track.stop())
+			throw error
+		}
+	}
 
-		this.audioSource = this.audioContext.createMediaStreamSource(newMic)
-		this.audioSource.connect(this.audioOutput)
+	static removeAudioDevice(deviceId) {
+		const audioSource = this.audioSources.get(deviceId)
+		if (!audioSource) {
+			throw new Error(deviceId + " not found")
+		}
+
+		const { source, gain, stream } = audioSource
+		source.disconnect()
+		gain.disconnect()
+		stream.getTracks().forEach(track => track.stop())
+		this.audioSources.delete(deviceId)
+		this.updateAudioGains()
+	}
+
+	static updateAudioGains() {
+		if (this.audioSources.size > 0) {
+			const micGain = 1 / this.audioSources.size
+			for (const { gain } of this.audioSources.values()) {
+				gain.gain.setTargetAtTime(micGain, this.audioContext.currentTime, 0.02)
+			}
+		}
 	}
 
 	static async swapVideo(deviceId) {

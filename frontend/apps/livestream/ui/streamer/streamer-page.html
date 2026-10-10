@@ -5,7 +5,7 @@
 </overlay-fixed>
 
 <overlay-fixed allow-click-through>
-	<button float-top-right on-click="openMicSettings">mic set</button>
+	<button float-top-right on-click="openMicSettings">Microphones</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
 
 	<button float-bot-right on-click-show-id="chat">open chat</button>
@@ -17,7 +17,23 @@
 
 <chat-body id="chat" hidden></chat-body>
 
-<overlay-fixed id="micSettings" hidden class="bgWhite" center-content>
-	<h1>mic</h1>
-	<button on-click-hide-id="micSettings">close</button>
+<overlay-fixed
+	id="micSettings"
+	hidden
+	class="bgWhite"
+	style="display: flex; justify-content: center; align-items: center; padding: 16px"
+>
+	<flex-v
+		close
+		style="gap: 16px; width: min(90vw, 600px); max-height: 90vh; padding: 24px; background: white; border-radius: 16px"
+	>
+		<h2>Microphones</h2>
+		<p style="font-size: 16px">Select every microphone you want to use. Selected microphones are mixed together.</p>
+		<flex-v id="micList" close style="gap: 8px; overflow-y: auto; max-height: 55vh"></flex-v>
+		<p id="micStatus" style="font-size: 14px"></p>
+		<flex-h tight style="gap: 8px">
+			<button id="clearMics" on-click="clearMics" style="font-size: 16px; padding: 10px 16px">Deselect all</button>
+			<button on-click-hide-id="micSettings" style="font-size: 16px; padding: 10px 16px">Done</button>
+		</flex-h>
+	</flex-v>
 </overlay-fixed>

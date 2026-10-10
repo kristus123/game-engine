@@ -49,7 +49,7 @@ WebSocket messages use an envelope with `data` for the application payload and `
 ## Main app areas
 
 - `frontend/tools/game/`: canvas engine primitives and game systems. `frontend/apps/canvas_game/CanvasGame.js` is the current entry experience; the Sámi RPG under `frontend/apps/rpg_sami_game/` is a separate, selectively started experience, and its game design document is maintained in the separate `sapmi-game` repository.
-- `frontend/apps/livestream/`: browser recording/device-selection and stream UI; `backend/http/endpoints/hls/` accepts WebM chunks and uses FFmpeg to produce HLS output under ignored `public_folder/hls/`. This flow is distinct from the mediasoup SFU used for live WebRTC calls/rooms.
+- `frontend/apps/livestream/`: browser recording/device-selection and stream UI; `SwappableMediaStream` mixes microphone inputs through Web Audio before `MediaRecorder`. `Stream.addAudioDevice()` and `Stream.removeAudioDevice()` update the active inputs, and adding an already active microphone throws. The selection controls are in `ui/streamer/streamer-page.js`. `backend/http/endpoints/hls/` accepts WebM chunks and uses FFmpeg to produce HLS output under ignored `public_folder/hls/`. This flow is distinct from the mediasoup SFU used for live WebRTC calls/rooms.
 - `frontend/apps/practice_language/`, `frontend/apps/code_editor/`, and `frontend/apps/baby_game/`: standalone browser app experiments with their own template files. `frontend/apps/baby_game/` includes small game prototypes and local image/audio assets.
 - `frontend/tools/core/`: audio, browser device/media access, IndexedDB, and worker helpers. `frontend/tools/network/`: HTTP/token/persisted-data helpers, WebSocket multiplayer, lobby utilities, and RTC clients.
 
@@ -67,10 +67,11 @@ Requires Node.js and npm. Install dependencies with `npm install`.
 
 - `npm run dev` and `npm start` run `node watch.js`. The watcher regenerates `AllImports.js`, validates names, clears and rebuilds `dist/`, exports Aseprite assets, prepares the external bundle, serves the browser app on port `5050`, and starts the generated backend. On source changes it marks the backend unavailable, finishes the required generated outputs, then starts the backend; `/ping` reports readiness only after HTTP, SFU, and WebSocket startup. The browser waits for readiness before reconnecting. Backend code is transpiled into `transpiledBackend/`; the dev backend uses `DEVELOPMENT` configuration.
 - Ctrl-C in the development watcher stops its backend/build children, watcher interval, and static server. The backend closes active FFmpeg, mediasoup, WebSocket, and HTTP resources before exiting.
+- Start and manually test the project with `npm run dev`. For browser checks, always use the Chrome DevTools MCP backed by headless Chrome; this machine blocks regular Chrome windows from opening.
 - Open `http://localhost:5050` for the browser app. The HTTP and WebSocket backend listens on port `3000`; the browser's development configuration connects there. SFU media transport also uses the configured mediasoup ports/network settings.
 - `npm run startInspect` starts the watcher with Node inspector enabled.
 - `node dev/GenerateFrontend.js PRODUCTION` generates production browser files in `dist/`; `PRODUCTION` or `DEVELOPMENT` must be passed because the transpiler substitutes the `ENVIRONMENT` marker.
-- Use an available browser or browser DevTools integration for manual frontend checks.
+- Use the Chrome DevTools MCP backed by headless Chrome for manual frontend checks; do not launch a regular Chrome window on this machine.
 - `node dev/ExportAseprite.js` exports `.aseprite` sources into generated browser assets under `dist/generatedAseprite/`. This requires Aseprite to be installed/configured; see `documentation/aseprite/`.
 - `node start.js PRODUCTION` generates the backend into `transpiledBackend/` and launches it. In deployment, `Config` selects production HTTP, WebSocket, and mediasoup announce settings.
 - `scripts/deploy_dist_to_netlify.sh` and `scripts/deploy_language_app.sh` generate a production frontend and deploy it with Netlify CLI. These publish externally; only run when deployment is explicitly intended. `scripts/deploy_server.sh` also runs remote SSH deployment operations.

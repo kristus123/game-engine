@@ -94,6 +94,20 @@ export class H {
 		return s
 	}
 
+	static checkbox() {
+		const checkbox = _HtmlElement("input")
+		checkbox.type = "checkbox"
+
+		return checkbox
+	}
+
+	static span(text="", className="na") {
+		const span = _HtmlElement("span", className)
+		span.textContent = text
+
+		return span
+	}
+
 	static input(placeholder="placeholder", onEnter=(value) => {}) {
 		const i = _HtmlElement("input")
 		i.type = "text"

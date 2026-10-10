@@ -204,6 +204,14 @@ export function Enhance_html() {
 		return this
 	})
 
+	Enhance(HTMLElement.prototype, "OnChange", function (listener) {
+		if (this.tag != "input" || this.type != "checkbox") {
+			throw new Error("OnChange is currently only supported for checkboxes")
+		}
+
+		return this.listen("change", listener)
+	})
+
 	Enhance(HTMLElement.prototype, "removeListener", function (typeToRemove) {
 		this._listeners ??= []
 

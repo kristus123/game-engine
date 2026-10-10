@@ -1,13 +1,11 @@
 export class Sha {
 
 	static async sign(data) {
-		const secret = ServerConfig.shaSecret
-		Assert.string(secret)
 		Assert.string(data)
 
 		const key = await crypto.subtle.importKey(
 			"raw",
-			new TextEncoder().encode(secret),
+			new TextEncoder().encode(ServerConfig.shaSecret),
 			{ name: "HMAC", hash: "SHA-256" },
 			false,
 			["sign"]
