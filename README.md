@@ -47,6 +47,8 @@ credentials-file: /home/kristian/.cloudflared/777002b4-fcce-4b9c-9725-411daf2ad0
 ingress:
   - hostname: test.happysun.no
     service: http://localhost:3000
+  - hostname: ui.happysun.no
+    service: http://localhost:5050
   - service: http_status:404
 
 

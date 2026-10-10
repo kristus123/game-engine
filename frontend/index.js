@@ -1,4 +1,6 @@
-Log.sendConsoleToServer()
+if (Env.prod) {
+	Log.sendConsoleToServer()
+}
 
 const loadingText = document.getElementById("loadingText")
 
@@ -25,7 +27,6 @@ SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", ({ data }) => {
 		location.reload()
 	}
 })
-
 
 // ServiceWorker.init()
 ServiceWorker.unregister()
