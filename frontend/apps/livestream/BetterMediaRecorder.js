@@ -22,12 +22,12 @@ export class BetterMediaRecorder {
 		this.mediaRecorder.start(Config.hlsTime * 1_000) // turn seconds to ms
 	}
 
-	static async addAudioDevice(deviceId) {
-		await SwappableMediaStream.addAudioDevice(deviceId)
+	static async setAudioDevice(deviceId) {
+		await SwappableMediaStream.setAudioDevice(deviceId)
 	}
 
-	static removeAudioDevice(deviceId) {
-		SwappableMediaStream.removeAudioDevice(deviceId)
+	static clearAudioDevice() {
+		SwappableMediaStream.clearAudioDevice()
 	}
 
 	static async swapVideo(deviceId) {

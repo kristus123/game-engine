@@ -1,4 +1,4 @@
-// Log.sendConsoleToServer()
+Log.sendConsoleToServer()
 
 const loadingText = document.getElementById("loadingText")
 

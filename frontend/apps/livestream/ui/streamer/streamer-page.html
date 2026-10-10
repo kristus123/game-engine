@@ -7,6 +7,7 @@
 <overlay-fixed allow-click-through>
 	<button float-top-right on-click="openMicSettings">Microphones</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
+	<button id="previewToggle" float-top-mid on-click="togglePreview">Preview media stream</button>
 
 	<button float-bot-right on-click-show-id="chat">open chat</button>
 	<button float-bot-mid id="viewCount">0</button>
@@ -17,23 +18,18 @@
 
 <chat-body id="chat" hidden></chat-body>
 
-<overlay-fixed
-	id="micSettings"
-	hidden
-	class="bgWhite"
-	style="display: flex; justify-content: center; align-items: center; padding: 16px"
->
-	<flex-v
-		close
-		style="gap: 16px; width: min(90vw, 600px); max-height: 90vh; padding: 24px; background: white; border-radius: 16px"
-	>
-		<h2>Microphones</h2>
-		<p style="font-size: 16px">Select every microphone you want to use. Selected microphones are mixed together.</p>
-		<flex-v id="micList" close style="gap: 8px; overflow-y: auto; max-height: 55vh"></flex-v>
-		<p id="micStatus" style="font-size: 14px"></p>
-		<flex-h tight style="gap: 8px">
-			<button id="clearMics" on-click="clearMics" style="font-size: 16px; padding: 10px 16px">Deselect all</button>
-			<button on-click-hide-id="micSettings" style="font-size: 16px; padding: 10px 16px">Done</button>
+<overlay-fixed id="micSettings" hidden class="microphone-settings">
+	<flex-v close class="microphone-settings__dialog">
+		<h2 class="microphone-settings__title">Microphones</h2>
+		<p class="microphone-settings__description">
+			Select one microphone to use for the livestream. Your choice applies immediately.
+		</p>
+		<flex-v id="micList" close class="microphone-settings__list"></flex-v>
+		<p id="micStatus" class="microphone-settings__status" role="status" aria-live="polite"></p>
+		<flex-h tight class="microphone-settings__actions">
+			<button id="clearMic" on-click="clearMic">Mute microphone</button>
+			<button on-click="refreshMicrophones">Refresh list</button>
+			<button on-click-hide-id="micSettings">Done</button>
 		</flex-h>
 	</flex-v>
 </overlay-fixed>

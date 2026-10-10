@@ -5,7 +5,8 @@ export class SwappableMediaStream {
 
 	static audioContext = null
 	static audioOutput = null
-	static audioSources = new Map()
+	static audioCompressor = null
+	static audioInput = null
 
 	static {
 		const v = document.createElement("video")
@@ -25,6 +26,13 @@ export class SwappableMediaStream {
 
 		this.audioContext = new AudioContext()
 		this.audioOutput = this.audioContext.createMediaStreamDestination()
+		this.audioCompressor = this.audioContext.createDynamicsCompressor()
+		this.audioCompressor.threshold.value = -1
+		this.audioCompressor.knee.value = 0
+		this.audioCompressor.ratio.value = 20
+		this.audioCompressor.attack.value = 0.003
+		this.audioCompressor.release.value = 0.05
+		this.audioCompressor.connect(this.audioOutput)
 
 		this.stream = new MediaStream([
 			...canvasStream.getVideoTracks(),
@@ -32,59 +40,63 @@ export class SwappableMediaStream {
 		])
 	}
 
-	static get audioDeviceIds() {
-		return [...this.audioSources.keys()]
+	static get audioDeviceId() {
+		return this.audioInput?.deviceId ?? null
 	}
 
-	static async addAudioDevice(deviceId) {
-		if (this.audioSources.has(deviceId)) {
-			throw new Error(`Microphone already added: ${deviceId}`)
+	static async setAudioDevice(deviceId) {
+		if (this.audioDeviceId == deviceId) {
+			return
 		}
 
 		await this.audioContext.resume()
 
 		const stream = await MediaDevices.audio(deviceId)
 		let source = null
-		let gain = null
 
 		try {
+			const audioTracks = stream.getAudioTracks()
+			if (audioTracks.length != 1) {
+				throw new Error(`Expected one audio track for microphone ${deviceId}, got ${audioTracks.length}`)
+			}
+
+			const actualDeviceId = audioTracks[0].getSettings().deviceId
+			if (!actualDeviceId) {
+				throw new Error(`Could not verify which microphone was opened for device ${deviceId}`)
+			}
+			if (actualDeviceId != deviceId) {
+				throw new Error(`Requested microphone ${deviceId}, but the browser opened a different input`)
+			}
+
 			source = this.audioContext.createMediaStreamSource(stream)
-			gain = this.audioContext.createGain()
-			source.connect(gain)
-			gain.connect(this.audioOutput)
-			this.audioSources.set(deviceId, { source, gain, stream })
-			this.updateAudioGains()
+			source.connect(this.audioCompressor)
+
+			const previousInput = this.audioInput
+			this.audioInput = { deviceId, source, stream }
+			if (previousInput) {
+				this.stopAudioInput(previousInput)
+			}
 		}
 		catch (error) {
-			this.audioSources.delete(deviceId)
 			source?.disconnect()
-			gain?.disconnect()
 			stream.getTracks().forEach(track => track.stop())
 			throw error
 		}
 	}
 
-	static removeAudioDevice(deviceId) {
-		const audioSource = this.audioSources.get(deviceId)
-		if (!audioSource) {
-			throw new Error(deviceId + " not found")
+	static clearAudioDevice() {
+		const audioInput = this.audioInput
+		if (!audioInput) {
+			return
 		}
 
-		const { source, gain, stream } = audioSource
-		source.disconnect()
-		gain.disconnect()
-		stream.getTracks().forEach(track => track.stop())
-		this.audioSources.delete(deviceId)
-		this.updateAudioGains()
+		this.audioInput = null
+		this.stopAudioInput(audioInput)
 	}
 
-	static updateAudioGains() {
-		if (this.audioSources.size > 0) {
-			const micGain = 1 / this.audioSources.size
-			for (const { gain } of this.audioSources.values()) {
-				gain.gain.setTargetAtTime(micGain, this.audioContext.currentTime, 0.02)
-			}
-		}
+	static stopAudioInput({ source, stream }) {
+		source.disconnect()
+		stream.getTracks().forEach(track => track.stop())
 	}
 
 	static async swapVideo(deviceId) {

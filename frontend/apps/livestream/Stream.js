@@ -26,16 +26,16 @@ export class Stream {
 		return BetterMediaRecorder.video
 	}
 
-	static get audioDeviceIds() {
-		return SwappableMediaStream.audioDeviceIds
+	static get audioDeviceId() {
+		return SwappableMediaStream.audioDeviceId
 	}
 
-	static async addAudioDevice(deviceId) {
-		await BetterMediaRecorder.addAudioDevice(deviceId)
+	static async setAudioDevice(deviceId) {
+		await BetterMediaRecorder.setAudioDevice(deviceId)
 	}
 
-	static removeAudioDevice(deviceId) {
-		BetterMediaRecorder.removeAudioDevice(deviceId)
+	static clearAudioDevice() {
+		BetterMediaRecorder.clearAudioDevice()
 	}
 
 	static async swapVideo(deviceId) {
