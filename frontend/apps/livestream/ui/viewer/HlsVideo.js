@@ -1,395 +1,210 @@
-export function HlsVideo({ playing, error, onPlaybackDate } = {}) {
-
-	const v = `
-		<video
-			controls
-			autoplay
-			muted
-			playsinline
-		></video>
-	`.toHtml()
-
-	v.muted = !Permission.canPlayAudio
-	v.controls = false
-	const source = `${Config.httpUrl}/public_folder/hls/output.m3u8`
-	const chaosFeature = "VIEWER_HLS"
-	let hls = null
-	let isDestroyed = false
-	let isNativeHlsStarted = false
-	let nativePlaylistEndUtc = null
-	let nativeDatePoll = null
-	let nativePollInProgress = false
-	let nativeRetryTimer = null
-	let nativeRetryAttempts = 0
-	let recoveryTimer = null
-	let recoveryAttempts = 0
-
-	const reportError = () => {
-		try {
-			error?.()
+export class HlsVideo {
+	constructor(callbacks = {}) {
+		this.callbacks = callbacks
+		this.playlist = HlsPlaylist()
+		this.source = this.playlist.url
+		this.hls = null
+		this.isStopped = false
+		this.playlistEndUtc = null
+		this.datePoll = null
+		this.pollInProgress = false
+		this.listeners = {
+			loadeddata: () => this.reportPlaybackDate("loadeddata"),
+			timeupdate: () => this.reportPlaybackDate("timeupdate"),
+			seeked: () => this.reportPlaybackDate("seeked"),
+			progress: () => this.callbacks.onSeekableChange?.(),
+			durationchange: () => this.callbacks.onSeekableChange?.(),
+			playing: () => {
+				this.callbacks.onPlaying?.()
+				this.reportPlaybackDate("playing")
+			},
+			error: () => this.callbacks.onError?.(),
 		}
-		catch (e) {
-			console.error("HLS error callback failed", e)
-		}
+		this.element = H.hlsVideo({
+			autoplay: true,
+			muted: !Permission.canPlayAudio,
+			controls: false,
+			playsInline: true,
+			listeners: this.listeners,
+		})
 	}
 
-	const reportPlaybackDate = date => {
+	async start() {
+		let HlsLibrary = null
 		try {
-			onPlaybackDate?.(date)
+			const module = await import("https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.mjs")
+			HlsLibrary = module.default
 		}
 		catch (e) {
-			console.error("HLS playback date callback failed", e)
+			console.warn("Could not load hls.js; trying native HLS playback", e)
 		}
-	}
 
-	const updateNativePlaybackDate = async () => {
-		if (isDestroyed || nativePollInProgress) {
+		if (this.isStopped) {
 			return
 		}
 
-		nativePollInProgress = true
-		try {
-			ChaosMonkey.maybeCrash({
-				feature: chaosFeature,
-				message: "native HLS metadata poll",
-				chance: 0.05,
+		if (HlsLibrary?.isSupported()) {
+			this.hls = new HlsLibrary()
+			this.hls.on(HlsLibrary.Events.ERROR, (event, data) => {
+				console.warn("[HlsVideo] HLS playback error", {
+					type: data.type,
+					details: data.details,
+					fatal: data.fatal,
+				})
+				if (data.fatal) {
+					this.callbacks.onError?.()
+				}
 			})
+			this.hls.on(HlsLibrary.Events.MANIFEST_PARSED, () => {
+				this.element.play().catch(e => console.warn("Could not start HLS playback", e))
+			})
+			this.hls.loadSource(this.source)
+			this.hls.attachMedia(this.element)
+			console.log("[HlsVideo] Started hls.js playback")
+			return
+		}
 
-			const response = await fetch(source, { cache: "no-store", signal: AbortSignal.timeout(5_000) })
-			if (!response.ok || isDestroyed) {
-				return
-			}
+		this.startNative()
+	}
 
-			let currentUtc = null
-			let currentDuration = null
-			let playlistEndUtc = null
-			for (const line of (await response.text()).split(/\r?\n/)) {
-				if (line.startsWith("#EXT-X-PROGRAM-DATE-TIME:")) {
-					currentUtc = Date.parse(line.slice("#EXT-X-PROGRAM-DATE-TIME:".length))
-				}
-				else if (line.startsWith("#EXTINF:")) {
-					currentDuration = Number.parseFloat(line.slice("#EXTINF:".length))
-				}
-				else if (line && !line.startsWith("#") && currentDuration != null) {
-					if (Number.isFinite(currentUtc) && Number.isFinite(currentDuration)) {
-						playlistEndUtc = currentUtc + currentDuration * 1_000
-						currentUtc = playlistEndUtc
-					}
-					currentDuration = null
-				}
-			}
+	startNative() {
+		if (!this.element.canPlayType("application/vnd.apple.mpegurl")) {
+			throw new Error("This browser does not support native HLS playback")
+		}
 
-			if (!isDestroyed && Number.isFinite(playlistEndUtc)) {
-				nativePlaylistEndUtc = playlistEndUtc
+		this.element.src = this.source
+		this.datePoll = setInterval(() => this.updatePlaybackDate(), 5_000)
+		this.updatePlaybackDate()
+	}
+
+	async updatePlaybackDate() {
+		if (this.isStopped || this.pollInProgress) {
+			return
+		}
+
+		this.pollInProgress = true
+		try {
+			const playlistEndUtc = await this.playlist.getEndUtc()
+			if (!this.isStopped && Number.isFinite(playlistEndUtc)) {
+				this.playlistEndUtc = playlistEndUtc
 			}
+			console.log("[HlsVideo] Read playlist end UTC", {
+				playlistEndUtc: Number.isFinite(playlistEndUtc) ? new Date(playlistEndUtc).toISOString() : null,
+				isStopped: this.isStopped,
+			})
+			this.reportPlaybackDate("playlist-poll")
 		}
 		catch (e) {
-			console.warn("Could not read native HLS UTC metadata; will retry", e)
+			console.warn("Could not read HLS playlist date", e)
 		}
 		finally {
-			nativePollInProgress = false
+			this.pollInProgress = false
 		}
 	}
 
-	const useNativeHls = () => {
-		if (isDestroyed || isNativeHlsStarted) {
-			return
+	reportPlaybackDate(trigger = "manual") {
+		this.callbacks.onSeekableChange?.()
+		const hlsPlaybackDate = this.hls?.playingDate
+		const mediaStartDate = this.element.getStartDate?.()
+		const mediaStartTime = mediaStartDate instanceof Date ? mediaStartDate.getTime() : NaN
+		const seekable = this.element.seekable
+		const seekableRanges = Array.from({ length: seekable.length }, (_, index) => ({
+			start: seekable.start(index),
+			end: seekable.end(index),
+		}))
+		const currentTime = this.element.currentTime
+		let date = null
+		let dateSource = "unavailable"
+		let liveEdge = null
+		if (hlsPlaybackDate && Number.isFinite(hlsPlaybackDate.getTime())) {
+			date = hlsPlaybackDate
+			dateSource = "hls-playing-date"
+		}
+		else if (Number.isFinite(mediaStartTime)) {
+			date = new Date(mediaStartTime + currentTime * 1_000)
+			dateSource = "media-start-date"
+		}
+		else if (Number.isFinite(this.playlistEndUtc) && seekable.length > 0) {
+			liveEdge = seekable.end(seekable.length - 1)
+			date = new Date(this.playlistEndUtc + (currentTime - liveEdge) * 1_000)
+			dateSource = "playlist-end-and-live-edge"
 		}
 
-		if (!v.canPlayType("application/vnd.apple.mpegurl")) {
-			reportError()
-			return
-		}
+		const playbackDateUtc = date && Number.isFinite(date.getTime()) ? date.toISOString() : null
+		console.log(`[HlsVideo] Playback UTC: ${playbackDateUtc ?? "unavailable"} (${dateSource})`, {
+			trigger,
+			currentTime,
+			readyState: this.element.readyState,
+			hasGetStartDate: typeof this.element.getStartDate == "function",
+			mediaStartDate: Number.isFinite(mediaStartTime) ? new Date(mediaStartTime).toISOString() : null,
+			playlistEndUtc: Number.isFinite(this.playlistEndUtc) ? new Date(this.playlistEndUtc).toISOString() : null,
+			seekableRanges,
+			liveEdge,
+			dateSource,
+			playbackDateUtc,
+			hasPlaybackDateCallback: typeof this.callbacks.onPlaybackDate == "function",
+		})
 
-		isNativeHlsStarted = true
-		v.src = source
-		nativeDatePoll = setInterval(updateNativePlaybackDate, 5_000)
-		updateNativePlaybackDate()
+		if (date && Number.isFinite(date.getTime())) {
+			this.callbacks.onPlaybackDate?.(date)
+			return date
+		}
+		return null
 	}
 
-	const scheduleNativeRetry = () => {
-		if (!isNativeHlsStarted || isDestroyed || nativeRetryTimer != null) {
-			return
-		}
-
-		if (nativeRetryAttempts >= 3) {
-			reportError()
-			return
-		}
-
-		const attempt = nativeRetryAttempts
-		nativeRetryAttempts += 1
-		const backoffMs = Math.min(1_000 * 2 ** attempt, 8_000)
-		nativeRetryTimer = setTimeout(async () => {
-			nativeRetryTimer = null
-			if (isDestroyed || !isNativeHlsStarted) {
-				return
-			}
-
-			try {
-				await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 250 })
-				ChaosMonkey.maybeCrash({
-					feature: chaosFeature,
-					message: "native HLS retry",
-					chance: 0.1,
-				})
-				v.src = source
-				v.load()
-				v.play().catch(() => {})
-			}
-			catch (e) {
-				console.warn("Native HLS retry failed; scheduling another", e)
-				scheduleNativeRetry()
-			}
-		}, backoffMs)
-	}
-
-	const clearRecoveryTimer = () => {
-		if (recoveryTimer != null) {
-			clearTimeout(recoveryTimer)
-			recoveryTimer = null
-		}
-	}
-
-	const switchToNativeHls = () => {
-		if (isDestroyed) {
-			return
-		}
-
-		clearRecoveryTimer()
-		const currentHls = hls
-		hls = null
-		currentHls?.destroy()
-
-		if (v.canPlayType("application/vnd.apple.mpegurl")) {
-			v.removeAttribute("src")
-			v.load()
-			useNativeHls()
-		}
-		else {
-			reportError()
-		}
-	}
-
-	const scheduleRecovery = (player, errorType, HlsLibrary) => {
-		if (isDestroyed || player != hls || recoveryTimer != null) {
-			return
-		}
-
-		const isRecoverable = errorType == HlsLibrary.ErrorTypes.NETWORK_ERROR
-			|| errorType == HlsLibrary.ErrorTypes.MEDIA_ERROR
-		if (!isRecoverable || recoveryAttempts >= 3) {
-			switchToNativeHls()
-			return
-		}
-
-		const attempt = recoveryAttempts
-		recoveryAttempts += 1
-		const backoffMs = Math.min(500 * 2 ** attempt, 4_000)
-		recoveryTimer = setTimeout(async () => {
-			recoveryTimer = null
-			if (isDestroyed || player != hls) {
-				return
-			}
-
-			try {
-				await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 250 })
-				ChaosMonkey.maybeCrash({
-					feature: chaosFeature,
-					message: "HLS recovery attempt",
-					chance: 0.1,
-				})
-
-				if (errorType == HlsLibrary.ErrorTypes.NETWORK_ERROR) {
-					player.startLoad()
-				}
-				else {
-					player.recoverMediaError()
-				}
-			}
-			catch (e) {
-				console.warn("HLS recovery attempt failed; scheduling another", e)
-				scheduleRecovery(player, errorType, HlsLibrary)
-			}
-		}, backoffMs)
-	}
-
-	const loadHlsLibrary = async () => {
-		try {
-			return await Retry(3, async () => {
-				if (isDestroyed) {
-					return null
-				}
-
-				await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 500 })
-				if (isDestroyed) {
-					return null
-				}
-
-				const HlsModule = await import("https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.mjs")
-				if (!HlsModule.default) {
-					throw new Error("hls.js module has no default export")
-				}
-
-				return HlsModule.default
-			}, {
-				feature: chaosFeature,
-				message: "hls.js module load",
-				delayMs: 250,
-				maxDelayMs: 1_000,
-			})
-		}
-		catch (e) {
-			console.warn("Could not load hls.js after retries", e)
+	getSeekTarget(seconds) {
+		const seekable = this.element.seekable
+		if (this.isStopped || !Number.isFinite(seconds) || seconds == 0 || seekable.length == 0) {
 			return null
 		}
-	}
 
-	const startPlayback = async () => {
-		const HlsLibrary = await loadHlsLibrary()
-		if (isDestroyed) {
-			return
-		}
-
-		if (!HlsLibrary?.isSupported()) {
-			useNativeHls()
-			return
-		}
-
-		try {
-			hls = new HlsLibrary({
-				workerPath: "https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.worker.js",
-			})
-			const currentHls = hls
-
-			const loadSourceWithRetry = async () => {
-				if (isDestroyed || currentHls != hls) {
-					return
-				}
-
-				try {
-					await Retry(3, async () => {
-						if (isDestroyed || currentHls != hls) {
-							return
-						}
-
-						await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 400 })
-						if (isDestroyed || currentHls != hls) {
-							return
-						}
-
-						currentHls.loadSource(source)
-					}, {
-						feature: chaosFeature,
-						message: "HLS source setup",
-						delayMs: 250,
-						maxDelayMs: 1_000,
-					})
-				}
-				catch (e) {
-					console.warn("HLS source setup failed after retries", e)
-					switchToNativeHls()
-				}
+		const currentTime = this.element.currentTime
+		const requestedTime = currentTime + seconds
+		let target = null
+		let closestDistance = Infinity
+		for (let index = 0; index < seekable.length; index++) {
+			const start = seekable.start(index)
+			// Stay inside the range so reaching the live edge does not end playback.
+			const end = Math.max(start, seekable.end(index) - 0.1)
+			const candidate = Math.max(start, Math.min(requestedTime, end))
+			const distance = Math.abs(candidate - requestedTime)
+			if (distance < closestDistance) {
+				target = candidate
+				closestDistance = distance
 			}
-
-			currentHls.on(HlsLibrary.Events.MEDIA_ATTACHED, () => {
-				loadSourceWithRetry()
-			})
-			currentHls.on(HlsLibrary.Events.MANIFEST_PARSED, () => {
-				v.play().catch(() => {})
-			})
-			currentHls.on(HlsLibrary.Events.ERROR, (event, data) => {
-				if (!data?.fatal || currentHls != hls) {
-					return
-				}
-
-				reportError()
-				scheduleRecovery(currentHls, data.type, HlsLibrary)
-			})
-
-			currentHls.attachMedia(v)
 		}
-		catch (e) {
-			console.error("Could not start hls.js playback", e)
-			switchToNativeHls()
+
+		if (target == null || Math.abs(target - currentTime) < 0.1 || (target - currentTime) * seconds <= 0) {
+			return null
 		}
+		return target
 	}
 
-	startPlayback().catch(e => {
-		console.error("Unexpected HLS startup failure", e)
-		switchToNativeHls()
-	})
+	seekBy(seconds) {
+		const target = this.getSeekTarget(seconds)
+		if (target == null) {
+			return
+		}
 
-	v.addEventListener("timeupdate", () => {
-		if (hls?.playingDate) {
-			reportPlaybackDate(new Date(hls.playingDate))
-		}
-		else if (Number.isFinite(nativePlaylistEndUtc) && v.seekable.length > 0) {
-			const liveEdge = v.seekable.end(v.seekable.length - 1)
-			reportPlaybackDate(new Date(nativePlaylistEndUtc + (v.currentTime - liveEdge) * 1_000))
-		}
-	})
-
-	v.destroyHls = () => {
-		isDestroyed = true
-		clearRecoveryTimer()
-		if (nativeRetryTimer != null) {
-			clearTimeout(nativeRetryTimer)
-			nativeRetryTimer = null
-		}
-		if (nativeDatePoll != null) {
-			clearInterval(nativeDatePoll)
-			nativeDatePoll = null
-		}
-		hls?.destroy()
-		hls = null
-		v.pause()
-		v.removeAttribute("src")
-		v.load()
+		console.log("[HlsVideo] Seek playback", {
+			seconds,
+			from: this.element.currentTime,
+			to: target,
+		})
+		this.element.currentTime = target
+		this.reportPlaybackDate("seek")
 	}
 
-	v.addEventListener("loadedmetadata", () => {
-		console.log("loadedmetadata")
-	})
-
-	v.addEventListener("canplay", () => {
-		console.log("canplay")
-	})
-
-	v.addEventListener("playing", () => {
-		console.log("playing")
-		recoveryAttempts = 0
-		clearRecoveryTimer()
-		nativeRetryAttempts = 0
-		if (nativeRetryTimer != null) {
-			clearTimeout(nativeRetryTimer)
-			nativeRetryTimer = null
+	stop() {
+		this.isStopped = true
+		clearInterval(this.datePoll)
+		this.hls?.destroy()
+		this.hls = null
+		for (const [event, listener] of Object.entries(this.listeners)) {
+			this.element.removeEventListener(event, listener)
 		}
-		try {
-			playing?.()
-		}
-		catch (e) {
-			console.error("HLS playing callback failed", e)
-		}
-	})
-
-	v.addEventListener("waiting", () => {
-		console.log("waiting")
-	})
-
-	v.addEventListener("stalled", () => {
-		console.log("stalled")
-	})
-
-	v.addEventListener("error", () => {
-		console.log("error")
-		reportError()
-		scheduleNativeRetry()
-	})
-
-	v.addEventListener("ended", () => {
-		console.log("ended")
-	})
-
-	return v
+		this.element.pause()
+		this.element.removeAttribute("src")
+		this.element.load()
+	}
 }

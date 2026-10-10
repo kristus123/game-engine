@@ -1,0 +1,27 @@
+.viewer-playback-controls {
+	position: absolute;
+	top: 4rem;
+	left: 1rem;
+	max-width: calc(100% - 2rem);
+}
+
+.viewer-playback-time {
+	margin: 0;
+	padding: 0.4rem 0.6rem;
+	border-radius: 4px;
+	background: rgb(0 0 0 / 80%);
+	color: white;
+	font: 16px / 1.4 monospace;
+	overflow-wrap: anywhere;
+}
+
+.viewer-seek-buttons {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+}
+
+.viewer-seek-buttons button {
+	padding: 0.4rem 0.75rem;
+	font: 18px / 1.4 sans-serif;
+}

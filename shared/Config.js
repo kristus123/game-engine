@@ -4,8 +4,8 @@ const productionHost = "krispetter.duckdns.org"
 // const cloudflared = false or "test.happysun.no"
 // cloudflared should be able to override Env
 
-// const cloudflared = false
-const cloudflared = "test.happysun.no"
+const cloudflared = false
+// const cloudflared = "test.happysun.no"
 
 export class Config {
 	static get httpUrl() {
@@ -52,7 +52,7 @@ export class Config {
 	}
 
 	static get hlsTime() {
-		return 5
+		return 30
 	}
 
 	static get hlsListSize() {

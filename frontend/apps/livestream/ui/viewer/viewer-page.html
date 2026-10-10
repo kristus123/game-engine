@@ -4,7 +4,29 @@
 	<h1 id="text"></h1>
 	<button float-top-right on-click-show-id="chat">open chat</button>
 	<button float-top-right on-click="makeClip">Make clip (up to 30 seconds)</button>
-	<p float-top-right id="utcTime">Waiting for UTC playback time</p>
+	<div class="viewer-playback-controls">
+		<p id="utcTime" class="viewer-playback-time">Playback UTC: waiting for playback time</p>
+		<div class="viewer-seek-buttons">
+			<button
+				id="seekBackward"
+				on-click="seekBackward"
+				aria-label="Go back 30 seconds"
+				title="Go back 30 seconds"
+				disabled
+			>
+				← 30s
+			</button>
+			<button
+				id="seekForward"
+				on-click="seekForward"
+				aria-label="Go forward 30 seconds"
+				title="Go forward 30 seconds"
+				disabled
+			>
+				30s →
+			</button>
+		</div>
+	</div>
 	<button float-bot-right on-click="toggleFullscreen">toggleFullscreen</button>
 </overlay-fixed>
 

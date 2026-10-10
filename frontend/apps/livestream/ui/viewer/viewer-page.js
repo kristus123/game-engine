@@ -5,24 +5,38 @@ export default async ({ html }) => {
 	let pollDelayMs = 1_000
 	let isCheckingStream = false
 
-	const chaosFeature = "VIEWER_PAGE"
+	const updateSeekButtons = () => {
+		html.seekBackward.disabled = player?.getSeekTarget(-30) == null
+		html.seekForward.disabled = player?.getSeekTarget(30) == null
+	}
 
-	const updatePlayer = online => {
+	const updatePlayer = async online => {
 		if (online) {
 			if (player != null) {
 				return
 			}
 
-			let nextPlayer = null
-			nextPlayer = HlsVideo({
-				playing: () => {
-					if (player == nextPlayer) {
-						html.text.content = ""
+			html.text.content = "Connecting to stream…"
+			html.utcTime.content = "Playback UTC: waiting for playback time"
+			playbackUtc = null
+			const nextPlayer = HlsVideo({
+				onPlaying: () => html.text.content = "",
+				onError: () => {
+					if (player != nextPlayer) {
+						return
 					}
+
+					nextPlayer.stop()
+					player = null
+					updateSeekButtons()
+					playbackUtc = null
+					html.videoOverlay.removeChildren()
+					html.utcTime.content = "Playback UTC: waiting for playback time"
+					html.text.content = "Please hold on"
 				},
-				error: () => {
+				onSeekableChange: () => {
 					if (player == nextPlayer) {
-						html.text.content = "Please hold on"
+						updateSeekButtons()
 					}
 				},
 				onPlaybackDate: date => {
@@ -31,19 +45,29 @@ export default async ({ html }) => {
 					}
 
 					playbackUtc = date
-					html.utcTime.content = `UTC: ${date.toISOString().slice(0, 19)}Z`
+					html.utcTime.content = `Playback UTC: ${date.toISOString().slice(0, 19)}Z`
 				},
 			})
 			player = nextPlayer
-			html.videoOverlay.add(nextPlayer)
-			html.text.content = "Connecting to stream…"
+			html.videoOverlay.add(nextPlayer.element)
+			try {
+				await nextPlayer.start()
+			}
+			catch (e) {
+				nextPlayer.stop()
+				player = null
+				updateSeekButtons()
+				html.videoOverlay.removeChildren()
+				throw e
+			}
 		}
 		else {
-			player?.destroyHls()
+			player?.stop()
 			player = null
+			updateSeekButtons()
 			playbackUtc = null
 			html.videoOverlay.removeChildren()
-			html.utcTime.content = "Waiting for UTC playback time"
+			html.utcTime.content = "Playback UTC: waiting for playback time"
 			html.text.content = "Stream not online"
 		}
 	}
@@ -55,20 +79,13 @@ export default async ({ html }) => {
 
 		isCheckingStream = true
 		try {
-			await ChaosMonkey.delay({ feature: chaosFeature, minMs: 0, maxMs: 300 })
-			ChaosMonkey.maybeCrash({
-				feature: chaosFeature,
-				message: "viewer stream status poll",
-				chance: 0.1,
-			})
-
 			const online = await Stream.online()
 			pollDelayMs = 1_000
-			if (online != lastOnline) {
-				updatePlayer(online)
+			if (online != lastOnline || (online && player == null)) {
+				await updatePlayer(online)
 				lastOnline = online
 			}
-			else if (online && player?.readyState >= 2) {
+			else if (online && player?.element.readyState >= 2) {
 				html.text.content = ""
 			}
 			else if (online && html.text.content == "Connection interrupted; retrying…") {
@@ -92,37 +109,14 @@ export default async ({ html }) => {
 
 	return {
 		methods: {
+			seekBackward: () => player?.seekBy(-30),
+			seekForward: () => player?.seekBy(30),
 			makeClip: async () => {
-				const clipTab = window.open("about:blank", "_blank")
-				if (!clipTab) {
-					html.text.content = "Allow pop-ups to open the clip"
-					return
-				}
-
-				if (!playbackUtc) {
-					clipTab.close()
-					html.text.content = "Waiting for UTC playback time"
-					return
-				}
-
 				try {
-					const response = await JsonHttpClient.makeTwitchClip({
-						body: {
-							endUtc: playbackUtc.toISOString(),
-							durationSeconds: 30,
-						},
-						timeoutMs: 120_000,
-					})
-					const clip = await Assert.ok(response)
-					clipTab.opener = null
-					clipTab.location.href = `${Config.httpUrl}/${clip.path}`
+					await ClipCreator.create(playbackUtc)
 				}
 				catch (e) {
-					clipTab.document.title = "Clip unavailable"
-					clipTab.document.body.textContent = `Could not make clip: ${e.message}`
-					clipTab.opener = null
 					html.text.content = e.message
-					console.error(e)
 				}
 			},
 			toggleFullscreen: () => {

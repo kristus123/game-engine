@@ -1,6 +1,6 @@
 // this method is quite coupled to our local server. maybe fix in the future
 
-export async function Fetch({ url, body, headers, timeoutMs = 8_000 } = {}) { // no-null-check
+export async function Fetch({ url, body, headers, timeoutMs = 8_000, method = "POST" } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
 
@@ -16,7 +16,7 @@ export async function Fetch({ url, body, headers, timeoutMs = 8_000 } = {}) { //
 			await ChaosMonkey.delay({ feature: "NETWORK_FETCH" })
 			const r = await fetch(url, {
 				body: body,
-				method: "POST",
+				method: method,
 				cache: "no-store",
 				signal: AbortSignal.timeout(timeoutMs),
 				headers: headers,

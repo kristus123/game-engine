@@ -1,4 +1,24 @@
 export class LowLevelHttpClient {
+	static async get({ routeName, formatBody, timeoutMs = 8_000 } = {}) { // no-null-check
+		if (Network.offline) {
+			console.warn("network is offline, fetch might not work")
+		}
+
+		const { ok, error, response } = await Fetch({
+			url: `${Config.httpUrl}/${routeName}`,
+			method: "GET",
+			timeoutMs: timeoutMs,
+			headers: {
+				"token": Token.encodedToken,
+			},
+		})
+
+		return {
+			ok,
+			error,
+			body: ok ? formatBody(response) : null,
+		}
+	}
 
 	static async post({ routeName, body, formatBody, contentType, timeoutMs = 8_000 } = {}) { // no-null-check
 

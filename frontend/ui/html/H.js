@@ -60,6 +60,21 @@ export class H {
 		return v
 	}
 
+	static hlsVideo({ autoplay=true, muted=true, controls=false, playsInline=true, listeners={} } = {}) {
+		const v = _HtmlElement("video")
+
+		v.autoplay = autoplay
+		v.muted = muted
+		v.controls = controls
+		v.playsInline = playsInline
+
+		for (const [eventName, listener] of Object.entries(listeners)) {
+			v.addEventListener(eventName, listener)
+		}
+
+		return v
+	}
+
 	static dialog(children=[]) {
 
 		const div = _HtmlElement("div")
