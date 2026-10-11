@@ -52,7 +52,7 @@ export class Config {
 	}
 
 	static get hlsTime() {
-		return 30
+		return 2
 	}
 
 	static get hlsListSize() {

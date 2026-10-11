@@ -52,4 +52,11 @@ export class Screen {
 		await document.exitFullscreen()
 	}
 
+	static toggleFullscreen() {
+		if (this.fullscreen) {
+			return this.exitFullscreen()
+		}
+		return this.enterFullscreen()
+	}
+
 }

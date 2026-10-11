@@ -340,6 +340,7 @@
         "ServeDist": "readonly",
         "ServerConfig": "readonly",
         "ServiceWorker": "readonly",
+        "SetTimeoutLoop": "readonly",
         "Setter": "readonly",
         "SfuClient": "readonly",
         "SfuRouters": "readonly",

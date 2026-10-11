@@ -2,7 +2,7 @@ export async function Retry(attempts, callback, {
 	feature = "RETRY",
 	message = "uh oh, retry failed",
 	delayMs = 50,
-	maxDelayMs = 50,
+	maxDelayMs = 500,
 } = {}) {
 	ChaosMonkey.validateFeature({ feature })
 

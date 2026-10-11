@@ -167,8 +167,9 @@ UnsecureRoute.stopStream = async () => {
 }
 
 UnsecureRoute.streamOnline = () => {
+	const process = Ffmpeg.p?.p
 	return {
-		online: A.value(Ffmpeg.p) && hasAvailableHlsSegment(),
+		online: process != null && process.exitCode == null && process.signalCode == null && hasAvailableHlsSegment(),
 	}
 }
 
