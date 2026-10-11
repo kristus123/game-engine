@@ -1,6 +1,4 @@
 export default async ({ html }) => {
-	let statusLoop = null
-
 	const updateSeekButtons = () => {
 		html.seekBackward.disabled = !hlsVideo.ready || hlsVideo.video.getSeekTarget(-30) == null
 		html.seekForward.disabled = !hlsVideo.ready || hlsVideo.video.getSeekTarget(30) == null
@@ -28,15 +26,12 @@ export default async ({ html }) => {
 			html.utcTime.content = `Playback UTC: ${date.toISOString().slice(0, 19)}Z`
 		},
 	})
+
 	html.videoOverlay.add(hlsVideo.video)
 
-	const checkStreamStatus = async () => {
+	SetTimeoutLoop(4_000, async () => {
 		try {
-			const online = await Stream.online()
-			if (!html.isConnected) {
-				return
-			}
-			if (online) {
+			if (await Stream.online()) {
 				await hlsVideo.connect()
 				if (hlsVideo.ready) {
 					html.text.content = ""
@@ -50,22 +45,13 @@ export default async ({ html }) => {
 			updateSeekButtons()
 		}
 		catch (error) {
-			if (html.isConnected) {
-				html.text.content = "Could not check stream status; retrying…"
-			}
+			html.text.content = "Could not check stream status; retrying…"
 			console.warn("Could not check stream status", error)
 		}
-	}
+	})
 
 	return {
 		neverDestroy: true,
-		onConnected: () => {
-			statusLoop = SetTimeoutLoop(checkStreamStatus, 4_000)
-		},
-		onDisconnected: () => {
-			statusLoop?.stop()
-			hlsVideo.disconnect()
-		},
 		methods: {
 			seekBackward: () => hlsVideo.video.seekBy(-30),
 			seekForward: () => hlsVideo.video.seekBy(30),

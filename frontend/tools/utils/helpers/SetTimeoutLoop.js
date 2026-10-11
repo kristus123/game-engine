@@ -1,27 +1,49 @@
-export function SetTimeoutLoop(run, delayMs = 1_000) {
+export function SetTimeoutLoop(delayMs = 1_000, run) {
 	let timeout = null
-	let stopped = false
+	let active = true
+	let pendingRun = null
 
 	async function loop() {
-		if (stopped) {
+		if (!active || pendingRun != null) {
 			return
 		}
+
+		timeout = null
+		pendingRun = Promise.resolve().then(() => {
+			if (active) {
+				return run()
+			}
+		})
+
 		try {
-			await run()
+			await pendingRun
 		}
 		catch (error) {
 			console.warn("Timeout loop failed", error)
 		}
-		if (!stopped) {
-			timeout = setTimeout(loop, delayMs)
+		finally {
+			pendingRun = null
+			if (active) {
+				timeout = setTimeout(loop, delayMs)
+			}
 		}
 	}
-	loop()
 
-	return {
+	const controller = {
 		stop: () => {
-			stopped = true
+			active = false
 			clearTimeout(timeout)
+			timeout = null
+			return controller
+		},
+		start: () => {
+			if (!active) {
+				active = true
+				loop()
+			}
+			return controller
 		},
 	}
+
+	return controller.start()
 }

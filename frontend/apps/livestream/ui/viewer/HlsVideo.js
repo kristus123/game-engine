@@ -26,16 +26,15 @@ export class HlsVideo {
 	}
 
 	async connect() {
-		if (this.connected) {
-			return
-		}
+		Assert.false(this.connected)
+
 		this.playbackUtc = null
+
 		this.callbacks.onConnecting?.()
+
 		return Retry(5, async () => {
 			const online = await Stream.online()
-			if (this.connected || !this.video.isConnected) {
-				return
-			}
+
 			Assert.true(online, "Stream not online")
 
 			if (HlsJs.supported) {
