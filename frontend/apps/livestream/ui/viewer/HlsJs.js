@@ -35,7 +35,6 @@ export class HlsJs {
 				}
 			})
 		}
-
 	}
 
 	static get supported() {
