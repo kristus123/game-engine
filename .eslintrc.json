@@ -233,7 +233,7 @@
         "HeightMap": "readonly",
         "HelperThing": "readonly",
         "HlsEndpoint": "readonly",
-        "HlsPlaylist": "readonly",
+        "HlsJs": "readonly",
         "HlsVideo": "readonly",
         "HouseGrid": "readonly",
         "Hp": "readonly",

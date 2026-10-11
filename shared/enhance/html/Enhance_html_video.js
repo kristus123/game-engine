@@ -23,4 +23,16 @@ export function Enhance_html_video() {
 		return this.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA
 	})
 
+	Getter(HTMLVideoElement.prototype, "canPlayHls", function () {
+		return this.canPlayType("application/vnd.apple.mpegurl")
+	})
+
+	Getter(HTMLVideoElement.prototype, "canPlayHls", function () {
+		return this.canPlayType("application/vnd.apple.mpegurl")
+	})
+
+	Getter(HTMLVideoElement.prototype, "isPlaying", function () {
+		return !video.paused && !video.ended && video.readyState > 2
+	})
+
 }

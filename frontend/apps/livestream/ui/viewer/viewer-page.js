@@ -1,72 +1,39 @@
 export default async ({ html }) => {
-	let player = null
-	let playbackUtc = null
-	let lastOnline = null
-	let pollDelayMs = 1_000
 	let isCheckingStream = false
+	let statusPoll = null
 
 	const updateSeekButtons = () => {
-		html.seekBackward.disabled = player?.getSeekTarget(-30) == null
-		html.seekForward.disabled = player?.getSeekTarget(30) == null
+		html.seekBackward.disabled = hlsVideo.getSeekTarget(-30) == null
+		html.seekForward.disabled = hlsVideo.getSeekTarget(30) == null
 	}
 
-	const updatePlayer = async online => {
-		if (online) {
-			if (player != null) {
-				return
-			}
-
+	const hlsVideo = HlsVideo({
+		onConnecting: () => {
 			html.text.content = "Connecting to stream…"
 			html.utcTime.content = "Playback UTC: waiting for playback time"
-			playbackUtc = null
-			const nextPlayer = HlsVideo({
-				onPlaying: () => html.text.content = "",
-				onError: () => {
-					if (player != nextPlayer) {
-						return
-					}
+		},
+		onPlaying: () => {
+			html.text.content = ""
+		},
+		onError: () => {
+			html.text.content = "Connection interrupted; retrying…"
+			pollStreamStatus()
+		},
+		onSeekableChange: updateSeekButtons,
+		onPlaybackDate: date => {
+			html.utcTime.content = `Playback UTC: ${date.toISOString().slice(0, 19)}Z`
+		},
+	})
+	html.videoOverlay.add(hlsVideo.video)
 
-					nextPlayer.stop()
-					player = null
-					updateSeekButtons()
-					playbackUtc = null
-					html.videoOverlay.removeChildren()
-					html.utcTime.content = "Playback UTC: waiting for playback time"
-					html.text.content = "Please hold on"
-				},
-				onSeekableChange: () => {
-					if (player == nextPlayer) {
-						updateSeekButtons()
-					}
-				},
-				onPlaybackDate: date => {
-					if (player != nextPlayer) {
-						return
-					}
-
-					playbackUtc = date
-					html.utcTime.content = `Playback UTC: ${date.toISOString().slice(0, 19)}Z`
-				},
-			})
-			player = nextPlayer
-			html.videoOverlay.add(nextPlayer.element)
-			try {
-				await nextPlayer.start()
-			}
-			catch (e) {
-				nextPlayer.stop()
-				player = null
-				updateSeekButtons()
-				html.videoOverlay.removeChildren()
-				throw e
-			}
+	const updateHlsVideo = online => {
+		if (online) {
+			hlsVideo.start()
+			updateSeekButtons()
 		}
 		else {
-			player?.stop()
-			player = null
+			hlsVideo.stop()
 			updateSeekButtons()
-			playbackUtc = null
-			html.videoOverlay.removeChildren()
 			html.utcTime.content = "Playback UTC: waiting for playback time"
 			html.text.content = "Stream not online"
 		}
@@ -77,15 +44,12 @@ export default async ({ html }) => {
 			return
 		}
 
+		clearTimeout(statusPoll)
 		isCheckingStream = true
 		try {
 			const online = await Stream.online()
-			pollDelayMs = 1_000
-			if (online != lastOnline || (online && player == null)) {
-				await updatePlayer(online)
-				lastOnline = online
-			}
-			else if (online && player?.element.readyState >= 2) {
+			updateHlsVideo(online)
+			if (online && hlsVideo.ready) {
 				html.text.content = ""
 			}
 			else if (online && html.text.content == "Connection interrupted; retrying…") {
@@ -93,27 +57,27 @@ export default async ({ html }) => {
 			}
 		}
 		catch (e) {
-			pollDelayMs = Math.min(pollDelayMs * 2, 10_000)
-			html.text.content = player == null
+			html.text.content = !hlsVideo.playing
 				? "Checking stream; retrying…"
 				: "Connection interrupted; retrying…"
 			console.warn("Could not check stream status; will retry", e)
 		}
 		finally {
 			isCheckingStream = false
-			setTimeout(pollStreamStatus, pollDelayMs)
+			statusPoll = setTimeout(pollStreamStatus, 4_000)
 		}
 	}
 
 	pollStreamStatus()
 
 	return {
+		neverDestroy: true,
 		methods: {
-			seekBackward: () => player?.seekBy(-30),
-			seekForward: () => player?.seekBy(30),
+			seekBackward: () => hlsVideo.seekBy(-30),
+			seekForward: () => hlsVideo.seekBy(30),
 			makeClip: async () => {
 				try {
-					await ClipCreator.create(playbackUtc)
+					await ClipCreator.create(hlsVideo.playbackUtc)
 				}
 				catch (e) {
 					html.text.content = e.message
