@@ -13,9 +13,9 @@ export class SuperClass {
 		SuperClass.all.push(this)
 	}
 
-	showTags() {
+	showTags(draw) {
 		if (this.tags != "" && this.position != null) {
-			D1.text(this.position, this.tags, "white", 20)
+			draw.text(this.position, this.tags, "white", 20)
 		}
 	}
 

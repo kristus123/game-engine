@@ -11,10 +11,10 @@ export class Mouse {
 	static position = WorldPosition(0, 0)
 
 	static toRenderCoordinates(clientX, clientY) {
-		const coordinateScale = Palette.renderScaleFactor / (1 / Palette.renderScaleFactor)
+		const bounds = Palette.main.canvas.getBoundingClientRect()
 		return {
-			x: clientX * coordinateScale,
-			y: clientY * coordinateScale,
+			x: (clientX - bounds.left) * Palette.width / Math.max(1, bounds.width),
+			y: (clientY - bounds.top) * Palette.height / Math.max(1, bounds.height),
 		}
 	}
 
@@ -46,10 +46,10 @@ export class Mouse {
 		})
 	}
 
-	static initializeAfterCameraIsInitialized() {
+	static postCameraInitalize() {
 		document.addEventListener("pointermove", e => {
 			const events = e.getCoalescedEvents()
-			const last = events[events.length - 1]
+			const last = events[events.length - 1] || e
 			const { x, y } = this.toRenderCoordinates(last.clientX, last.clientY)
 			this.latest_x = x
 			this.latest_y = y
@@ -68,7 +68,6 @@ export class Mouse {
 
 	static update() {
 		this.updatePosition(this.latest_x, this.latest_y)
-		D1.circle(this.position)
 	}
 
 }

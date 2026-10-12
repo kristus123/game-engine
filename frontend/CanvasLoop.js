@@ -1,52 +1,28 @@
-import { initD1 } from "#root/tools/game/start/draw_layers/D1.js"
-import { initD2 } from "#root/tools/game/start/draw_layers/D2.js"
-import { initD3 } from "#root/tools/game/start/draw_layers/D3.js"
-
 export async function CanvasLoop(activeThing) {
 
 	try {
+		Palette.initialize()
 		Mouse.initialize()
 		Camera.initialize()
-		Mouse.initializeAfterCameraIsInitialized()
+		Mouse.postCameraInitalize()
 
-		initD1(Draw(Palette.d1.ctx))
-		initD2(Draw(Palette.d2.ctx))
-		initD3(Draw(Palette.d3.ctx))
-
-		GameLoop.start(() => {
-			Palette.main.fill("#10204f")
-
-			Palette.d1.clear()
-			Palette.d2.clear()
-			Palette.d3.clear()
-
-			Palette.light.clear()
-
+		return GameLoop.start(() => {
 			Physics.update()
 			Controller.update()
 			Con.update()
 
-			Shadow.updateOutsideCameraContext()
+			Camera.update()
+			Mouse.update()
 
-			Camera.applyPositionContextThing([
-				Palette.d1.ctx,
-				Palette.d2.ctx,
-				Palette.d3.ctx,
-				Palette.light.ctx,
-			], () => {
-				Camera.update()
+			Palette.render(() => {
+				Shadow.updateOutsideCameraContext()
 				activeThing.update()
-				Mouse.update()
+				D1.circle(Mouse.position)
 				for (const c of SuperClass.all) {
-					c.showTags()
+					c.showTags(D1)
 				}
 				Light.updateInsideCameraContext()
 			})
-
-			Palette.main.apply(Palette.d3)
-			Palette.main.apply(Palette.d2)
-			Palette.main.apply(Palette.d1)
-			Palette.main.apply(Palette.light)
 		})
 	}
 	catch (e) {

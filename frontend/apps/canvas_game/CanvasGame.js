@@ -3,6 +3,7 @@ export class CanvasGame {
 		const player = Player(WorldPosition(2000, 2000))
 
 		Controller.control(player)
+		Camera.follow(player.position)
 
 		const objects = Objects([
 			player,
@@ -14,7 +15,6 @@ export class CanvasGame {
 
 		CanvasLoop({
 			update: () => {
-				Camera.follow(player.position)
 				objects.update()
 			},
 		})

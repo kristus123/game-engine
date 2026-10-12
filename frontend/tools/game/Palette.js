@@ -1,91 +1,73 @@
 export class Palette {
-	static renderScale = 1 // engine’s internal drawing scale level: 1 to 5 means 1/1 to 1/5 of the visible size
+	static renderScale = 1 // 1 draws at full resolution; 2 draws at half resolution.
+	static layers = [] // Sorted by depth, with lighting on top.
+	static width = 1
+	static height = 1
+	static pixelScale = 1
 
 	static get renderScaleFactor() {
 		return 1 / this.renderScale
 	}
 
-	static {
-		function xxx() {
-			const lightCanvas = new OffscreenCanvas(1, 1)
-			const lightCtx = lightCanvas.getContext("2d")
+	static addLayer(layer, depth) {
+		layer.depth = depth
+		this.layers.push(layer)
+		this.layers.sort((a, b) => b.depth - a.depth)
 
-			return {
-				canvas: lightCanvas,
-				ctx: lightCtx,
+		if this.main {
+			layer.resize(this.width, this.height, this.pixelScale)
+		}
+	}
 
-				resize: (width, height) => {
-					const dpr = Math.max(1, window.devicePixelRatio || 1)
-					const scaledWidth = Math.round(width * Palette.renderScaleFactor)
-					const scaledHeight = Math.round(height * Palette.renderScaleFactor)
-
-					lightCanvas.width = scaledWidth * dpr
-					lightCanvas.height = scaledHeight * dpr
-
-					lightCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
-					lightCtx.imageSmoothingEnabled = false
-				},
-
-				clear: () => {
-					lightCtx.clearRect(0, 0, lightCanvas.width, lightCanvas.height)
-				},
-
-				fill: (color, opacity = 1) => {
-					lightCtx.globalAlpha = opacity
-					lightCtx.fillStyle = color
-					lightCtx.fillRect(0, 0, lightCanvas.width, lightCanvas.height)
-					lightCtx.globalAlpha = 1
-				},
-			}
-
+	static initialize() {
+		if this.main {
+			return
 		}
 
-		this.light = xxx()
-		this.d1 = xxx()
-		this.d2 = xxx()
-		this.d3 = xxx()
-
-		const { canvas, ctx } = H.Canvas()
+		const { canvas } = H.Canvas()
+		this.main = CanvasLayer(canvas)
+		this.light = CanvasLayer()
+		this.addLayer(this.light, 0)
 		document.getElementById("canvases").appendChild(canvas)
 
-		TestResizeObserver(canvas, (width, height) => {
-			const dpr = Math.max(1, window.devicePixelRatio || 1)
-			const scaledWidth = Math.max(1, Math.round(width * Palette.renderScaleFactor))
-			const scaledHeight = Math.max(1, Math.round(height * Palette.renderScaleFactor))
+		const bounds = canvas.getBoundingClientRect()
+		this.resize(bounds.width, bounds.height)
+		TestResizeObserver(canvas, (width, height) => this.resize(width, height))
+	}
 
-			canvas.width = scaledWidth * dpr
-			canvas.height = scaledHeight * dpr
+	static resize(width, height) {
+		this.width = width
+		this.height = height
+		this.pixelScale = Math.max(1, window.devicePixelRatio || 1) * this.renderScaleFactor
+		this.main.resize(width, height, this.pixelScale)
 
-			ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-			ctx.imageSmoothingEnabled = false
+		for (const layer of this.layers) {
+			layer.resize(width, height, this.pixelScale)
+		}
+	}
 
-			this.light.resize(scaledWidth, scaledHeight)
-			this.d1.resize(scaledWidth, scaledHeight)
-			this.d2.resize(scaledWidth, scaledHeight)
-			this.d3.resize(scaledWidth, scaledHeight)
-		})
+	static render(run, background = "#10204f") {
+		this.main.fill(background)
+		const transform = Camera.transform
 
-		this.main = {
-			canvas,
-			ctx,
+		for (const layer of this.layers) {
+			layer.clear()
+			layer.ctx.save()
+			layer.ctx.transform(...transform)
+		}
 
-			clear: () => {
-				ctx.clearRect(0, 0, canvas.width, canvas.height)
-			},
-
-			fill: (color, opacity = 1) => {
-				ctx.globalAlpha = opacity
-				ctx.fillStyle = color
-				ctx.fillRect(0, 0, canvas.width, canvas.height)
-				ctx.globalAlpha = 1
-			},
-
-			apply: (layer, mode = "source-over") => {
-				ctx.save()
-				ctx.setTransform(1, 0, 0, 1, 0, 0)
-				ctx.drawImage(layer.canvas, 0, 0, canvas.width, canvas.height)
-				ctx.restore()
-			},
+		try {
+			run()
+		}
+		finally {
+			const ctx = this.main.ctx
+			ctx.save()
+			ctx.resetTransform()
+			for (const layer of this.layers) {
+				layer.ctx.restore()
+				ctx.drawImage(layer.canvas, 0, 0)
+			}
+			ctx.restore()
 		}
 	}
 }

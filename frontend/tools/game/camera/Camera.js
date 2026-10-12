@@ -1,14 +1,14 @@
 export class Camera {
 	static initialize() { // initialize() Mouse first
-		this.position = WorldPosition(0, 0)
-		this.zoom = 1 // used some places
+		this.position ??= WorldPosition(0, 0)
+		this.zoom ??= 1
 		this.visiblePosition = WorldPosition(0, 0)
 	}
 
 	static get offset() {
 		return {
-			x: (Screen.width / 2).round(), // This can be improved. it is hacky
-			y: (Screen.height / 2).round(),
+			x: Math.round(Palette.width / 2),
+			y: Math.round(Palette.height / 2),
 		}
 	}
 
@@ -57,23 +57,9 @@ export class Camera {
 	}
 
 
-	static applyPositionContextThing(ctxes, run) {
-		for (const ctx of ctxes) {
-			ctx.save()
-
-			ctx.translate(this.offset.x, this.offset.y)
-
-			ctx.scale(this.zoom, this.zoom)
-
-			ctx.translate(-this.position.x, -this.position.y)
-		}
-
-		run()
-
-		for (const ctx of ctxes) {
-			ctx.restore()
-		}
-
+	static get transform() {
+		const { x, y } = this.offset
+		return [this.zoom, 0, 0, this.zoom, x - this.position.x * this.zoom, y - this.position.y * this.zoom]
 	}
 
 	static follow(o) {
@@ -82,16 +68,18 @@ export class Camera {
 	}
 
 	static p(p) {
+		const { x, y } = this.offset
 		return new WorldPosition(
-			p.x - this.position.x + (Screen.width/2),
-			p.y - this.position.y + (Screen.height/2))
+			(p.x - this.position.x) * this.zoom + x,
+			(p.y - this.position.y) * this.zoom + y)
 	}
 
 	static update() {
-		this.visiblePosition.x = this.position.x - Screen.width / 2
-		this.visiblePosition.y = this.position.y - Screen.height / 2
-		this.visiblePosition.width = Screen.width
-		this.visiblePosition.height = Screen.height
+		const { x, y } = this.offset
+		this.visiblePosition.x = this.position.x - x / this.zoom
+		this.visiblePosition.y = this.position.y - y / this.zoom
+		this.visiblePosition.width = Palette.width / this.zoom
+		this.visiblePosition.height = Palette.height / this.zoom
 
 		// console.log(this.position)
 	}
