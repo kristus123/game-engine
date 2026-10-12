@@ -39,11 +39,7 @@ export class SocketClient {
 		})
 
 		setInterval(() => {
-			const shouldCloseSocket = ChaosMonkey.maybe({
-				feature: "SOCKET",
-				message: "socket connection closed",
-				chance: 0.2,
-			})
+			const shouldCloseSocket = ChaosMonkey.maybe("SOCKET", 0.2)
 			if (shouldCloseSocket) {
 				this.webSocket?.close()
 			}
@@ -89,10 +85,7 @@ export class SocketClient {
 
 	static openConnection() {
 		const connectionPromise = new Promise((resolve, reject) => {
-			ChaosMonkey.maybeCrash({
-				feature: "SOCKET",
-				message: "failed to connect to socket",
-			})
+			ChaosMonkey.maybeCrash("SOCKET")
 			const socketUrl = new URL(Config.wsUrl)
 			socketUrl.searchParams.set("token", Token.encodedToken)
 			const nextSocket = new WebSocket(socketUrl)
@@ -163,10 +156,7 @@ export class SocketClient {
 		Assert.true(this.connected, "Not allowed to call .send() if socket connection not open.")
 
 		Retry(3, () => {
-			ChaosMonkey.maybeCrash({
-				feature: "SOCKET",
-				message: "socket failed to send message",
-			})
+			ChaosMonkey.maybeCrash("SOCKET")
 			this.webSocket.send(JSON.stringify({
 				data: data,
 				metaHeaders: {

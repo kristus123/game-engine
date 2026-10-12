@@ -1,66 +1,50 @@
 export class ChaosMonkey {
 
-	static validFeatures = Object.freeze([
-		"RETRY",
-		"NETWORK_FETCH",
-		"NETWORK_STATUS",
-		"SOCKET",
-		"VIEWER_PAGE",
-		"VIEWER_HLS",
-	])
+	static features = {
+		RETRY: { enabled: false },
+		NETWORK_FETCH: { enabled: false },
+		NETWORK_STATUS: { enabled: false },
+		SOCKET: { enabled: false },
+		VIEWER_PAGE: { enabled: false },
+		VIEWER_HLS: { enabled: false },
+	}
 
-	static enabledFeatures = new Set()
-
-	static validateFeature({ feature } = {}) {
-		if (!this.validFeatures.includes(feature)) {
-			throw new Error(`Unknown ChaosMonkey feature: ${feature}. Valid features: ${this.validFeatures.join(", ")}`)
+	static assertValidFeature(feature) {
+		if (Object.hasOwn(this.features, feature)) {
+			return feature
 		}
-
-		return feature
-	}
-
-	static enable({ feature } = {}) {
-		this.enabledFeatures.add(this.validateFeature({ feature }))
-		return true
-	}
-
-	static disable({ feature } = {}) {
-		if (feature == null) {
-			this.enabledFeatures.clear()
-			return true
+		else {
+			throw new Error(`Unknown ChaosMonkey feature: ${feature}. Valid features: ${Object.keys(this.features).join(", ")}`)
 		}
-
-		return this.enabledFeatures.delete(this.validateFeature({ feature }))
-	}
-
-	static isEnabled({ feature } = {}) {
-		return this.enabledFeatures.has(this.validateFeature({ feature }))
 	}
 
 	static async delay({ feature, minMs = 10, maxMs = 100 } = {}) {
-		if (!this.isEnabled({ feature })) {
+		this.assertValidFeature(feature)
+		if (!this.features[feature].enabled) {
 			return false
 		}
 
 		const ms = minMs + Math.random() * (maxMs - minMs)
 		await new Promise(resolve => setTimeout(resolve, ms))
+
 		return ms
 	}
 
-	static maybeCrash({ feature, message = "CRASH UH OH", chance = 0.1 } = {}) {
-		if (!this.maybe({ feature, message, chance })) {
+	static maybeCrash(feature, chance = 0.1) {
+		if (!this.maybe(feature, chance)) {
 			return false
 		}
 
-		throw new Error(`CHAOS MONKEY (${feature}): ${message}`)
+		throw new Error(`CHAOS MONKEY CRASH (${feature})`)
 	}
 
-	static maybe({ feature, message = "triggered", chance = 0.1 } = {}) {
-		if (!this.isEnabled({ feature }) || Math.random() >= chance) {
+	static maybe(feature, chance = 0.1) {
+		this.assertValidFeature(feature)
+		if (!this.features[feature].enabled || Math.random() >= chance) {
 			return false
 		}
 
-		console.warn(`ChaosMonkey triggered (${feature}): ${message}`)
+		console.warn(`ChaosMonkey triggered (${feature})`)
 		return true
 	}
 

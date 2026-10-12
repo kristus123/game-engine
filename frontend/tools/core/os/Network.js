@@ -12,11 +12,7 @@ export class Network {
 
 	static async httpCheck() {
 		try {
-			ChaosMonkey.maybeCrash({
-				feature: "NETWORK_STATUS",
-				message: "network down",
-				chance: 0.5,
-			})
+			ChaosMonkey.maybeCrash("NETWORK_STATUS", 0.5)
 
 			const body = await Assert.ok(await JsonHttpClient.ping())
 			Assert.true(body.pong)

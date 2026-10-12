@@ -1,17 +1,13 @@
 export async function Retry(attempts, callback, {
 	feature = "RETRY",
-	message = "uh oh, retry failed",
 	delayMs = 50,
 	maxDelayMs = 500,
 } = {}) {
-	ChaosMonkey.validateFeature({ feature })
+	ChaosMonkey.assertValidFeature(feature)
 
 	for (let i = 0; i < attempts; i++) {
 		try {
-			ChaosMonkey.maybeCrash({
-				feature: feature,
-				message: message,
-			})
+			ChaosMonkey.maybeCrash(feature)
 			return await callback(i)
 		}
 		catch (e) {
