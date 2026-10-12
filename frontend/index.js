@@ -69,6 +69,7 @@ Font.use("VT323")
 // 	await Livestream()
 // })
 
-CanvasGame()
+Dom.add(H.create("layout-test"))
+// CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

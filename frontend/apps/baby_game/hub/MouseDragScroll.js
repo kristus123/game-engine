@@ -8,8 +8,6 @@ export class MouseDragScroll {
 	}
 
 	constructor(element, direction, slide) {
-		this.element = element
-		this.direction = direction
 		this.slide = slide
 		this.dragging = false
 		this.velocity = 0
@@ -73,13 +71,13 @@ export class MouseDragScroll {
 	animate() {
 		if this.dragging || Math.abs(this.velocity) < 0.1 {
 			this.animation = null
-			return
 		}
+		else {
+			this.scroll -= this.velocity
+			this.velocity *= this.slide
 
-		this.scroll -= this.velocity
-		this.velocity *= this.slide
-
-		this.animation = requestAnimationFrame(() => this.animate())
+			this.animation = requestAnimationFrame(() => this.animate())
+		}
 	}
 
 	stop() {
