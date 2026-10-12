@@ -10,7 +10,7 @@ export class SfuWorld {
 		const html = Dom.add(Html.test())
 
 		SfuRouters.onRouterCreated = router => {
-			if (!SfuClient.isHost) {
+			if !SfuClient.isHost {
 				console.log("joining since we are not host")
 				SfuClient.joinRouter(router.routerId) // hack for now
 			}
@@ -30,7 +30,7 @@ export class SfuWorld {
 		SfuRouters.onLocalSetup = async () => {
 			Cam.request(
 				async (ok) => {
-					if (ok) {
+					if ok {
 						await Cam.enable()
 						Cam.routeTo(SfuClient.videoStream)
 					}
@@ -55,7 +55,7 @@ export class SfuWorld {
 		}
 
 		html.create.onClick(() => {
-			if (SfuRouters.routers.empty) {
+			if SfuRouters.routers.empty {
 				SfuClient.createLivestream() // streamOnly == true
 			}
 			else {

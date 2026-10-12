@@ -31,9 +31,9 @@ export default async ({ html }) => {
 
 	SetTimeoutLoop(4_000, async () => {
 		try {
-			if (await Stream.online()) {
+			if await Stream.online() {
 				await hlsVideo.connect()
-				if (hlsVideo.ready) {
+				if hlsVideo.ready {
 					html.text.content = ""
 				}
 			}

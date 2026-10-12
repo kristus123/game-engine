@@ -30,7 +30,7 @@ export class Mouse {
 			const { x, y } = this.toRenderCoordinates(e.clientX, e.clientY)
 			Mouse.updatePosition(x, y)
 
-			if (e.target == Palette.main.canvas) {
+			if e.target == Palette.main.canvas {
 				this.onClick(this.position)
 			}
 		})

@@ -57,11 +57,11 @@ export class SimplexNoise {
 		let i1, j1, k1
 		let i2, j2, k2
 
-		if (x0 >= y0) {
-			if (y0 >= z0) {
+		if x0 >= y0 {
+			if y0 >= z0 {
 				i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 1; k2 = 0
 			}
-			else if (x0 >= z0) {
+			else if x0 >= z0 {
 				i1 = 1; j1 = 0; k1 = 0; i2 = 1; j2 = 0; k2 = 1
 			}
 			else {
@@ -69,10 +69,10 @@ export class SimplexNoise {
 			}
 		}
 		else {
-			if (y0 < z0) {
+			if y0 < z0 {
 				i1 = 0; j1 = 0; k1 = 1; i2 = 0; j2 = 1; k2 = 1
 			}
-			else if (x0 < z0) {
+			else if x0 < z0 {
 				i1 = 0; j1 = 1; k1 = 0; i2 = 0; j2 = 1; k2 = 1
 			}
 			else {
@@ -100,7 +100,7 @@ export class SimplexNoise {
 		const gi3 = this.perm[ii + 1 + this.perm[jj + 1 + this.perm[kk + 1]]] % 12
 
 		let t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0
-		if (t0 < 0) {
+		if t0 < 0 {
 			n0 = 0.0
 		}
 		else {
@@ -109,7 +109,7 @@ export class SimplexNoise {
 		}
 
 		let t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1
-		if (t1 < 0) {
+		if t1 < 0 {
 			n1 = 0.0
 		}
 		else {
@@ -118,7 +118,7 @@ export class SimplexNoise {
 		}
 
 		let t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2
-		if (t2 < 0) {
+		if t2 < 0 {
 			n2 = 0.0
 		}
 		else {
@@ -127,7 +127,7 @@ export class SimplexNoise {
 		}
 
 		let t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3
-		if (t3 < 0) {
+		if t3 < 0 {
 			n3 = 0.0
 		}
 		else {

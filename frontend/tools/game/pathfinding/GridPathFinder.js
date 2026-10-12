@@ -10,7 +10,7 @@ export class GridPathFinder {
 
 	get nextPosition() {
 		const n = this.path[1]
-		if (n) {
+		if n {
 			return n
 		}
 		return null
@@ -39,9 +39,9 @@ export class GridPathFinder {
 		const start = source.position.copy()
 		let targetPosition = target.position.copy()
 
-		if (G.walkableAreas.outside(targetPosition)) {
+		if G.walkableAreas.outside(targetPosition) {
 			const containing = G.walkableAreas.closestRect(targetPosition)
-			if (containing) {
+			if containing {
 				targetPosition.x = Math.min(Math.max(targetPosition.x, containing.x), containing.x + containing.width)
 				targetPosition.y = Math.min(Math.max(targetPosition.y, containing.y), containing.y + containing.height)
 			}
@@ -60,18 +60,18 @@ export class GridPathFinder {
 			openList.sort((a, b) => a.f - b.f)
 			const node = openList.shift()
 			const key = this._gridKey(node.position)
-			if (closedSet.has(key)) {
+			if closedSet.has(key) {
 				continue
 			}
 			closedSet.add(key)
 
 			const dist = this._heuristic(node.position, targetPosition)
-			if (dist < closestDist) {
+			if dist < closestDist {
 				closestDist = dist
 				closestNode = node
 			}
 
-			if (dist < this.gridSize) {
+			if dist < this.gridSize {
 				let path = [targetPosition.copy()]
 				let k = key
 				while (cameFrom.has(k) && cameFrom.get(k)) {
@@ -85,7 +85,7 @@ export class GridPathFinder {
 
 			for (const neighbor of this._walkable_neighbors(node.position)) {
 				const nKey = this._gridKey(neighbor)
-				if (closedSet.has(nKey)) {
+				if closedSet.has(nKey) {
 					continue
 				}
 
@@ -93,9 +93,9 @@ export class GridPathFinder {
 				const f = g + this._heuristic(neighbor, targetPosition)
 				const existing = openList.find(n => this._gridKey(n.position) == nKey)
 
-				if (!existing || g < existing.g) {
+				if !existing || g < existing.g {
 					cameFrom.set(nKey, node.position.copy())
-					if (!existing) {
+					if !existing {
 						openList.push({ position: neighbor, g, f })
 					}
 				}

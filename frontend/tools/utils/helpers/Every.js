@@ -6,11 +6,11 @@ export function Every(intervalMs, action, maxRuns="infinite", onFinish=() => {})
 
 	return new class {
 		update() {
-			if (maxRuns != "infinite" && totalRuns >= maxRuns) {
+			if maxRuns != "infinite" && totalRuns >= maxRuns {
 				onFinish()
 				this.removeItself()
 			}
-			else if (stopWatch.moreThan(intervalMs)) {
+			else if stopWatch.moreThan(intervalMs) {
 				action()
 				totalRuns += 1
 				stopWatch.restart()

@@ -20,7 +20,7 @@ export class Pwa {
 	}
 
 	static async install() {
-		if (this.deferredPrompt) {
+		if this.deferredPrompt {
 			console.log("rock yolo")
 			this.deferredPrompt.prompt()
 			const choiceResult = await this.deferredPrompt.userChoice

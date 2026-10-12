@@ -62,7 +62,7 @@ export class Spawn {
 	}
 
 	waitForClose() {
-		if (this.p.exitCode != null || this.p.signalCode != null) {
+		if this.p.exitCode != null || this.p.signalCode != null {
 			return Promise.resolve({ code: this.p.exitCode, signal: this.p.signalCode })
 		}
 
@@ -74,7 +74,7 @@ export class Spawn {
 	}
 
 	write(buffer) {
-		if (!Buffer.isBuffer(buffer)) {
+		if !Buffer.isBuffer(buffer) {
 			throw new Error("Spawn write expected a Buffer")
 		}
 
@@ -84,7 +84,7 @@ export class Spawn {
 
 		console.log("stdin.write:", ok)
 
-		if (ok) {
+		if ok {
 			return Promise.resolve()
 		}
 

@@ -19,7 +19,7 @@ export async function LoadPersistedJson() {
 		},
 	})
 
-	if (ok) {
+	if ok {
 		return body
 	}
 	else {

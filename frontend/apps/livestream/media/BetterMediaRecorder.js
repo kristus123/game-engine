@@ -10,9 +10,10 @@ export class BetterMediaRecorder {
 		this.mediaRecorder = new MediaRecorder(SwappableMediaStream.stream, { mimeType: Platform.mimeType })
 
 		this.mediaRecorder.ondataavailable = async e => {
-			if (e.data.size > 0) {
+			if e.data.size > 0 {
 				queue.add(async () => {
-					if (this.active) { // in case stream gets turned off to avoid error in logs
+					// Avoid errors when the stream is turned off.
+					if this.active {
 						await onBlob(e.data)
 					}
 				})

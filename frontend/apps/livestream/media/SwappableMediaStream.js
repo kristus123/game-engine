@@ -19,7 +19,8 @@ export class SwappableMediaStream {
 		const { ctx, canvas, canvasStream } = H.CanvasWithStream(1280, 720)
 
 		FrameLoop(() => {
-			if (this.video?.readyState >= 2) { // has enough data to display current frame
+			// Has enough data to display the current frame.
+			if this.video?.readyState >= 2 {
 				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
 			}
 		})
@@ -45,7 +46,7 @@ export class SwappableMediaStream {
 	}
 
 	static async setAudioDevice(deviceId) {
-		if (this.audioDeviceId == deviceId) {
+		if this.audioDeviceId == deviceId {
 			return
 		}
 
@@ -56,15 +57,15 @@ export class SwappableMediaStream {
 
 		try {
 			const audioTracks = stream.getAudioTracks()
-			if (audioTracks.length != 1) {
+			if audioTracks.length != 1 {
 				throw new Error(`Expected one audio track for microphone ${deviceId}, got ${audioTracks.length}`)
 			}
 
 			const actualDeviceId = audioTracks[0].getSettings().deviceId
-			if (!actualDeviceId) {
+			if !actualDeviceId {
 				throw new Error(`Could not verify which microphone was opened for device ${deviceId}`)
 			}
-			if (actualDeviceId != deviceId) {
+			if actualDeviceId != deviceId {
 				throw new Error(`Requested microphone ${deviceId}, but the browser opened a different input`)
 			}
 
@@ -73,7 +74,7 @@ export class SwappableMediaStream {
 
 			const previousInput = this.audioInput
 			this.audioInput = { deviceId, source, stream }
-			if (previousInput) {
+			if previousInput {
 				this.stopAudioInput(previousInput)
 			}
 		}
@@ -86,7 +87,7 @@ export class SwappableMediaStream {
 
 	static clearAudioDevice() {
 		const audioInput = this.audioInput
-		if (!audioInput) {
+		if !audioInput {
 			return
 		}
 

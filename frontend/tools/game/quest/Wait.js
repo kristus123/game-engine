@@ -8,7 +8,7 @@ export class Wait {
 	}
 
 	get done() {
-		if (this.s.time > this.ms || this._done) {
+		if this.s.time > this.ms || this._done {
 			this.onStart()
 			return true
 		}

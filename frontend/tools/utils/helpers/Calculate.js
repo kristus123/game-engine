@@ -61,7 +61,7 @@ export class Calculate {
 		let endAngle = (normalizedAngle + angleWidth / 2 + 360) % 360
 
 		// Handle cases where the range crosses the 0/360 boundary
-		if (startAngle > endAngle) {
+		if startAngle > endAngle {
 			return normalizedObjectAngle >= startAngle || normalizedObjectAngle <= endAngle
 		}
 		else {

@@ -40,7 +40,7 @@ export class SocketServer {
 				const message = JSON.parse(m)
 				const metaHeaders = message.metaHeaders
 
-				if (this.actions[metaHeaders.action] != null) {
+				if this.actions[metaHeaders.action] != null {
 					this.actions[metaHeaders.action]({
 						client: client,
 						userId: userId,
@@ -54,7 +54,7 @@ export class SocketServer {
 			}
 
 			client.on("message", m => {
-				if (userId == null) {
+				if userId == null {
 					pendingMessages.push(m)
 				}
 				else {
@@ -64,7 +64,7 @@ export class SocketServer {
 
 			client.on("close", () => {
 				closed = true
-				if (userId == null) {
+				if userId == null {
 					return
 				}
 
@@ -73,7 +73,7 @@ export class SocketServer {
 
 				console.log(`${userId} has disconnected`)
 
-				if (lastConnection) {
+				if lastConnection {
 					SfuServer.closeConnectionWithUser(userId)
 
 					this.sendToEveryone({
@@ -100,7 +100,7 @@ export class SocketServer {
 				return
 			}
 
-			if (closed || client.readyState != WebSocket.OPEN) {
+			if closed || client.readyState != WebSocket.OPEN {
 				pendingMessages.length = 0
 				return
 			}
@@ -137,7 +137,7 @@ export class SocketServer {
 
 	static async stop() {
 		const server = this.server
-		if (!server) {
+		if !server {
 			return
 		}
 
@@ -150,7 +150,7 @@ export class SocketServer {
 	}
 
 	static on(action, callback) {
-		if (this.actions[action]) {
+		if this.actions[action] {
 			throw new Error("can't add duplicate action: " + action)
 		}
 		else {

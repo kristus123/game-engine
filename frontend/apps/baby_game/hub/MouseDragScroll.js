@@ -25,7 +25,7 @@ export class MouseDragScroll {
 		})
 
 		element.addEventListener("mousemove", e => {
-			if (!this.dragging) {
+			if !this.dragging {
 				return
 			}
 
@@ -38,7 +38,7 @@ export class MouseDragScroll {
 		})
 
 		window.addEventListener("mouseup", () => {
-			if (!this.dragging) {
+			if !this.dragging {
 				return
 			}
 
@@ -62,7 +62,7 @@ export class MouseDragScroll {
 	}
 
 	set scroll(value) {
-		if (this.direction == "horizontal") {
+		if this.direction == "horizontal" {
 			this.element.scrollLeft = value
 		}
 		else {
@@ -71,7 +71,7 @@ export class MouseDragScroll {
 	}
 
 	animate() {
-		if (this.dragging || Math.abs(this.velocity) < 0.1) {
+		if this.dragging || Math.abs(this.velocity) < 0.1 {
 			this.animation = null
 			return
 		}
@@ -83,7 +83,7 @@ export class MouseDragScroll {
 	}
 
 	stop() {
-		if (this.animation != null) {
+		if this.animation != null {
 			cancelAnimationFrame(this.animation)
 			this.animation = null
 		}

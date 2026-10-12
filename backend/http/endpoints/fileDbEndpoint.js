@@ -4,11 +4,11 @@ UnsecureRoute.uploadFile = ({ body, req }) => {
 	const senderId = req.headers["x-client-id"]
 	const filename = crypto.randomUUID()
 
-	if (type.includes("application/json")) {
+	if type.includes("application/json") {
 		FileDb.saveFile(`${senderId}/${filename}`, body)
 		return { status: "server success" }
 	}
-	else if (type.startsWith("audio/") || type == "application/octet-stream") {
+	else if type.startsWith("audio/") || type == "application/octet-stream" {
 		const ext = type.split("/")[1] || "bin"
 		const path = `${senderId}/${filename}.${ext}`
 

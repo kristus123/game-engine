@@ -38,7 +38,7 @@ export class VideoStream {
 	}
 
 	update() {
-		if (this.video.paused) {
+		if this.video.paused {
 			this.ctx.fillStyle = "rgba(0, 0, 255, 1)"
 			this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 		}

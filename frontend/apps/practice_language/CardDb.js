@@ -6,10 +6,10 @@ export async function CardDb() {
 	const db = await Db("jap", {
 		prototype: {
 			practiceSide() {
-				if (this.front.dueDate.isDue()) {
+				if this.front.dueDate.isDue() {
 					return this.front
 				}
-				else if (this.back.dueDate.isDue()) {
+				else if this.back.dueDate.isDue() {
 					return this.back
 				}
 				else {

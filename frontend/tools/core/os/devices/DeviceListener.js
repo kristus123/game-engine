@@ -29,14 +29,14 @@ export class DeviceListener {
 			const current = await navigator.mediaDevices.enumerateDevices()
 
 			for (const device of current) {
-				if (!last.some(d => d.deviceId == device.deviceId)) {
+				if !last.some(d => d.deviceId == device.deviceId) {
 					this.connectListener.trigger(device)
 					this.devices.push(device)
 				}
 			}
 
 			for (const device of last) {
-				if (!current.some(d => d.deviceId == device.deviceId)) {
+				if !current.some(d => d.deviceId == device.deviceId) {
 					this.disconnectListener.trigger(device)
 					this.devices.remove(device)
 				}

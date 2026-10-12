@@ -15,10 +15,10 @@ import { execFile } from "child_process"
 export class Ffmpeg {
 
 	static async start(mimeType) {
-		if (this.p) {
+		if this.p {
 			throw new Error("already running")
 		}
-		if (mimeType != "webm") {
+		if mimeType != "webm" {
 			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
 
@@ -84,7 +84,7 @@ export class Ffmpeg {
 	static runClip(args) {
 		return new Promise((resolve, reject) => {
 			const child = execFile("ffmpeg", args, { timeout: 120_000, maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
-				if (error) {
+				if error {
 					reject(new Error(stderr || error.message))
 				}
 				else {
@@ -99,7 +99,7 @@ export class Ffmpeg {
 	static async stopClipProcesses() {
 		const clips = [...this.clipProcesses]
 		await Promise.all(clips.map(child => {
-			if (child.exitCode != null || child.signalCode != null) {
+			if child.exitCode != null || child.signalCode != null {
 				return Promise.resolve()
 			}
 
@@ -118,7 +118,7 @@ export class Ffmpeg {
 	static clipProcesses = new Set()
 
 	static async stop() {
-		if (this.p) {
+		if this.p {
 			await this.p.stop()
 			this.p = null
 		}
@@ -129,7 +129,7 @@ export class Ffmpeg {
 	}
 
 	static write(buffer) {
-		if (this.p) {
+		if this.p {
 			return this.p.write(buffer)
 		}
 		else {

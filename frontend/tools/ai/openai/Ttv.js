@@ -26,7 +26,7 @@ export async function Ttv(text, instructions) {
 		}),
 	})
 
-	if (!res.ok) {
+	if !res.ok {
 		const err = await res.text()
 		throw new Error("Speech generation failed: " + err)
 	}

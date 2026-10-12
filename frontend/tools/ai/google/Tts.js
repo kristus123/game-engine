@@ -1,6 +1,6 @@
 export function Tts(text) {
 	return new Promise((resolve, reject) => {
-		if (TtsVoices.active == null) {
+		if TtsVoices.active == null {
 			reject(new Error("no voice loaded"))
 		}
 		else {

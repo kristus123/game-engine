@@ -6,7 +6,7 @@ export class Sprite extends Entity {
 		super(position)
 		this.groupInfo = {}
 		for (const x of groupsJson.meta.layers) {
-			if (x.group) {
+			if x.group {
 				this.groupInfo[x.name] = x.group
 			}
 		}
@@ -17,7 +17,7 @@ export class Sprite extends Entity {
 		this.prerenderReady = false
 
 		this.slices = []
-		if (!fullJson.meta.slices.empty) {
+		if !fullJson.meta.slices.empty {
 			for (const x of fullJson.meta.slices) {
 				const slice = {
 					name: x.name,
@@ -184,7 +184,7 @@ export class Sprite extends Entity {
 			for (const drawLayer of ["D3", "D2", "D1"]) {
 				for (const [layer, frames] of Object.entries(this.layers)) {
 					const frameInfo = frames[frame]
-					if (frameInfo && this.group(layer) == drawLayer) {
+					if frameInfo && this.group(layer) == drawLayer {
 						prerendered.picture.applyCanvas(frameInfo.picture.canvas)
 					}
 				}
@@ -254,13 +254,13 @@ export class Sprite extends Entity {
 				}
 			}
 
-			if (this.stopWatch.time >= duration) {
+			if this.stopWatch.time >= duration {
 				this.stopWatch.restart()
 
-				if (this.tagFrames[this.activeTag].includes(this.currentFrame+1)) {
+				if this.tagFrames[this.activeTag].includes(this.currentFrame+1) {
 					this.currentFrame += 1
 				}
-				else if (this.looping) {
+				else if this.looping {
 					this.loopTag(this.activeTag)
 				}
 				else {
@@ -271,7 +271,7 @@ export class Sprite extends Entity {
 				this.onNewFrame?.(this.currentFrame) // todo consider this
 
 				const p = this.prerenderedPictures[this.currentFrame]
-				if (this.prerenderReady && p.upToDate) {
+				if this.prerenderReady && p.upToDate {
 					this.src = p.src
 					this.img.src = p.src
 				}

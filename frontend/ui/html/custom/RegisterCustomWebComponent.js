@@ -17,7 +17,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		template.content.append(c)
 	}
 
-	if (js) {
+	if js {
 		js = await import(js)
 		Assert.value(js.default)
 	}
@@ -36,22 +36,22 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		}
 
 		async connectedCallback() {
-			if (this._connected || this._destroyPromise != null) {
+			if this._connected || this._destroyPromise != null {
 				return
 			}
 
 			this._connected = true
 			this._dispatchLifecycleEvent("connected")
-			if (this._destroyPromise != null || !this._connected) {
+			if this._destroyPromise != null || !this._connected {
 				return
 			}
 
-			if (!this._setupPromise) {
+			if !this._setupPromise {
 				this._setupPromise = this._initialize()
 			}
 
 			await this._setupPromise
-			if (!this._connected || this._destroyPromise != null || this._lifecycleActive) {
+			if !this._connected || this._destroyPromise != null || this._lifecycleActive {
 				return
 			}
 
@@ -60,7 +60,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		}
 
 		disconnectedCallback() {
-			if (!this._connected) {
+			if !this._connected {
 				return
 			}
 
@@ -80,7 +80,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		}
 
 		destroy() {
-			if (this._destroyPromise != null) {
+			if this._destroyPromise != null {
 				return this._destroyPromise
 			}
 
@@ -97,7 +97,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			finally {
 				this.walk(child => {
 					const id = child.getAttribute("id")
-					if (id && this[id] == child) {
+					if id && this[id] == child {
 						delete this[id]
 					}
 				})
@@ -118,7 +118,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			const exposeIds = () => {
 				this.walk(child => {
-					if (!child.hasAttribute("id")) {
+					if !child.hasAttribute("id") {
 						return
 					}
 
@@ -134,8 +134,8 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				this.walk(c => {
 					const showIf = c.getAttribute("show-if-state")
 
-					if (showIf) {
-						if (showIf == newState) {
+					if showIf {
+						if showIf == newState {
 							c.show()
 						}
 						else {
@@ -159,7 +159,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			})
 
 			for (const actualSlot of this.querySelectorAll("slot")) {
-				if (slots[actualSlot.getAttribute("name")]) {
+				if slots[actualSlot.getAttribute("name")] {
 					const s = slots[actualSlot.getAttribute("name")]
 					actualSlot.replaceWith(s)
 					s.walk(c => {
@@ -167,7 +167,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					})
 
 					for (const { name, value } of this.attributes) {
-						if (name.replace("slot-", "") == s.name) {
+						if name.replace("slot-", "") == s.name {
 							s.replaceWith(document.createTextNode(value))
 						}
 					}
@@ -176,13 +176,13 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			exposeIds()
 
-			if (A.string(state)) {
+			if A.string(state) {
 				setState(state)
 			}
-			else if (A.method(state)) {
+			else if A.method(state) {
 				setState(Assert.string(await state()))
 			}
-			else if (state == null) {
+			else if state == null {
 				// no initial state is fine
 			}
 			else {
@@ -196,7 +196,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 		async _destroyIfNeeded() {
 			await this._setupPromise
-			if (!this._connected && !this._neverDestroy) {
+			if !this._connected && !this._neverDestroy {
 				await this.destroy()
 			}
 		}

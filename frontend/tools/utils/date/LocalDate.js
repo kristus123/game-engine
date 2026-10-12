@@ -2,9 +2,9 @@ export class LocalDate {
 
 	constructor(arg) {
 
-		if (A.string(arg)) {
+		if A.string(arg) {
 			const match = arg.match(/^(\d{4})-(\d{2})-(\d{2})$/)
-			if (match) {
+			if match {
 				const [_,
 					year,
 					month,
@@ -15,14 +15,14 @@ export class LocalDate {
 				throw new Error("Invalid date format. Expected yyyy-mm-dd")
 			}
 		}
-		else if (arg instanceof Date) {
+		else if arg instanceof Date {
 			this.date = new Date(Date.UTC(
 				arg.getUTCFullYear(),
 				arg.getUTCMonth(),
 				arg.getUTCDate()
 			))
 		}
-		else if (arg instanceof LocalDate) {
+		else if arg instanceof LocalDate {
 			this.date = new Date(arg.date)
 		}
 		else {

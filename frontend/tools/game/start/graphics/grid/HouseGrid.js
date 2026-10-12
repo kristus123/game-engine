@@ -9,8 +9,8 @@ export class HouseGrid {
 		this.position.xy(this.grid.snappedPosition(Mouse.position))
 
 
-		if (this.grid.availableArea(this.grid.area(this.position))) {
-			if (Mouse.down) {
+		if this.grid.availableArea(this.grid.area(this.position)) {
+			if Mouse.down {
 				this.grid.placeArea(this.grid.area(this.position))
 			}
 		}

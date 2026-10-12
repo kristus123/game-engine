@@ -7,7 +7,7 @@ export class Shadow {
 		const { x, y } = source.position
 		const { radius, color, intensity } = source
 
-		if (intensity > 0) {
+		if intensity > 0 {
 			const ctx = Palette.light.ctx
 
 			ctx.globalCompositeOperation = "destination-out" // THIS ERASES PIXELS (creates transparency)

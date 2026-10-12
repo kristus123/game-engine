@@ -1,8 +1,8 @@
 export class LocalValue {
 
 	constructor(key, defaultValue) {
-		if (localStorage.getItem(key) == null) {
-			if (A.method(defaultValue)) {
+		if localStorage.getItem(key) == null {
+			if A.method(defaultValue) {
 				defaultValue = defaultValue()
 			}
 			localStorage.setItem(key, defaultValue)

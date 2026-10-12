@@ -3,7 +3,7 @@ export const TestFile = (`
 
 	function getUser(name) {
 		for (let i = 0; i < users.length; i++) {
-			if (users[i] == name) {
+			if users[i] == name {
 				return users[i]
 			}
 		}
@@ -17,14 +17,14 @@ export const TestFile = (`
 	}
 
 	function addUser(name) {
-		if (name != null && name != "") {
+		if name != null && name != "" {
 			users.push(name)
 		}
 	}
 
 	let user = getUser("bob")
 
-	if (user) {
+	if user {
 		console.log("found " + user)
 	} else {
 		console.log("not found")

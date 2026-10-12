@@ -44,16 +44,16 @@ export class Entity {
 	}
 
 	get direction() {
-		if (this.movingLeft) {
+		if this.movingLeft {
 			return "left"
 		}
-		else if (this.movingRight) {
+		else if this.movingRight {
 			return "right"
 		}
-		else if (this.movingUp) {
+		else if this.movingUp {
 			return "up"
 		}
-		else if (this.movingDown) {
+		else if this.movingDown {
 			return "down"
 		}
 		else {
@@ -80,7 +80,7 @@ export class Entity {
 
 	touchesAny(list, condition= (o) => true) {
 		for (const o of list) {
-			if (Collision.between(this.position, o) && this != o && condition(o)) {
+			if Collision.between(this.position, o) && this != o && condition(o) {
 				return o
 			}
 		}
@@ -93,14 +93,14 @@ export class Entity {
 	}
 
 	closest(objects) {
-		if (objects.empty()) {
+		if objects.empty() {
 			return null
 		}
 		else {
 			let closestObject = objects[0]
 
 			for (const o of objects) {
-				if (this.distance(closestObject) > this.distance(o)) {
+				if this.distance(closestObject) > this.distance(o) {
 					this.closestObject = o
 				}
 			}
@@ -113,7 +113,7 @@ export class Entity {
 	closestWithin(distance, objects) {
 		let closestObject = this.closest(objects)
 
-		if (this.within(distance, closestObject)) {
+		if this.within(distance, closestObject) {
 			return closestObject
 		}
 		else {
@@ -128,7 +128,7 @@ export class Entity {
 
 	withinAny(distance, objects) {
 		for (const o of objects) {
-			if (this.within(distance, o)) {
+			if this.within(distance, o) {
 				return o
 			}
 		}

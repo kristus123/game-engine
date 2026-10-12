@@ -20,14 +20,14 @@ export class StraightPath {
 		ForcePush(this.line).towards(this.end, 300)
 
 		const invisibleWalls = null // fix when needed
-		if (this.line.touchesAny(invisibleWalls)) {
+		if this.line.touchesAny(invisibleWalls) {
 			this.blocked = true
 
 			this.line.x = this.start.x
 			this.line.y = this.start.y
 		}
 
-		if (this.line.touches(this.end)) {
+		if this.line.touches(this.end) {
 			this.blocked = false
 
 			this.line.x = this.start.x

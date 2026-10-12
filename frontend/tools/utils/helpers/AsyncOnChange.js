@@ -10,7 +10,7 @@ export function AsyncOnChange(condition, action) {
 
 			console.log(lastCondition)
 			console.log(current)
-			if (lastCondition != current) {
+			if lastCondition != current {
 				console.log("TRIGGERING ONCHANGE")
 				action(current)
 				lastCondition = current

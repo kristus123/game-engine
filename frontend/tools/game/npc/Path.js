@@ -4,7 +4,7 @@ export class Path {
 	}
 
 	get position() {
-		if (!this.done) {
+		if !this.done {
 			return this.points[this.index]
 		}
 		else {
@@ -15,9 +15,9 @@ export class Path {
 	update() {
 		const currentTarget = this.points[this.index]
 		this.currentTarget = currentTarget
-		if (currentTarget) {
-			if (this.npc.touches(currentTarget)) {
-				if (this.index < this.points.length - 1) {
+		if currentTarget {
+			if this.npc.touches(currentTarget) {
+				if this.index < this.points.length - 1 {
 					this.index++
 				}
 			}

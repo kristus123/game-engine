@@ -6,7 +6,7 @@ const HlsLibrary = await import("https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.
 	})
 
 let hls
-if (HlsLibrary?.isSupported()) {
+if HlsLibrary?.isSupported() {
 	hls = new HlsLibrary()
 }
 else {
@@ -18,19 +18,19 @@ export class HlsJs {
 	static callbacks = {}
 
 	static {
-		if (hls) {
+		if hls {
 			hls.on(HlsLibrary.Events.ERROR, (event, data) => {
 				console.warn("[HlsJs] HLS playback error", {
 					type: data.type,
 					details: data.details,
 					fatal: data.fatal,
 				})
-				if (data.fatal && hls.media) {
+				if data.fatal && hls.media {
 					this.callbacks.onError?.()
 				}
 			})
 			hls.on(HlsLibrary.Events.MANIFEST_PARSED, () => {
-				if (hls.media) {
+				if hls.media {
 					this.callbacks.onManifestParsed?.()
 				}
 			})
@@ -62,7 +62,7 @@ export class HlsJs {
 	static disconnect() {
 		this.callbacks = {}
 		hls?.stopLoad()
-		if (hls?.media) {
+		if hls?.media {
 			hls.detachMedia()
 		}
 	}

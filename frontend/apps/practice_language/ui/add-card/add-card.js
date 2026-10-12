@@ -42,11 +42,11 @@ export default async ({ html, setState }) => {
 			},
 			stopRecording: () => {
 				Mic.stopRecording(blob => {
-					if (direction == "front") {
+					if direction == "front" {
 						frontSound = blob
 						html.playFront.enable()
 					}
-					else if (direction == "back") {
+					else if direction == "back" {
 						backSound = blob
 						html.playBack.enable()
 					}
@@ -57,7 +57,7 @@ export default async ({ html, setState }) => {
 					Sound.playBlob(blob)
 
 					direction = null
-					if (frontSound && backSound) {
+					if frontSound && backSound {
 						html.save.enable()
 					}
 				})

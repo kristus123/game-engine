@@ -43,7 +43,7 @@ class Virtualizer {
 
 	findEnd(bottom) {
 		for (let i = 0; i < this.offsets.length; i++) {
-			if (this.offsets[i] > bottom) {
+			if this.offsets[i] > bottom {
 				return i
 			}
 		}

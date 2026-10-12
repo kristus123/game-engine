@@ -1,4 +1,4 @@
-if (Env.prod) {
+if Env.prod {
 	Log.sendConsoleToServer()
 }
 
@@ -7,7 +7,7 @@ const loadingText = document.getElementById("loadingText")
 let lastRatio = devicePixelRatio
 
 setInterval(() => {
-	if (devicePixelRatio != lastRatio) {
+	if devicePixelRatio != lastRatio {
 		lastRatio = devicePixelRatio
 		console.log(devicePixelRatio)
 	}
@@ -16,12 +16,12 @@ setInterval(() => {
 const backendId = LocalValue("backendId", -1)
 
 SocketClient.onServerMessage("HOT_RELOAD_BACKEND_ID", ({ data }) => {
-	if (backendId.value == -1) {
+	if backendId.value == -1 {
 		backendId.value = data.backendId
 		return
 	}
 
-	if (backendId.value != data.backendId) {
+	if backendId.value != data.backendId {
 		backendId.value = data.backendId
 		Dom.overlay(H.p("RELOADING").css("color:white; font-size:150px;"))
 		location.reload()

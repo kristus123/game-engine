@@ -29,7 +29,7 @@ export class Playstation {
 	static buttons = buttons
 
 	static mapToButton(index) {
-		if (index in mappings) {
+		if index in mappings {
 			return mappings[index]
 		}
 		else {

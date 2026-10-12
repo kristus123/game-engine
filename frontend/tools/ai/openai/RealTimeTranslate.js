@@ -41,7 +41,7 @@ export class RealTimeTranslate {
 		pc.onconnectionstatechange = () => {
 			console.log("Connection:", pc.connectionState)
 
-			if (pc.connectionState == "failed" || pc.connectionState == "disconnected" || pc.connectionState == "closed") {
+			if pc.connectionState == "failed" || pc.connectionState == "disconnected" || pc.connectionState == "closed" {
 				console.log("todo handle")
 			}
 		}
@@ -60,10 +60,10 @@ export class RealTimeTranslate {
 
 		events.onmessage = ({ data }) => {
 			const e = JSON.parse(data)
-			if (e.elapsed_ms > lastMs + 1_000) {
+			if e.elapsed_ms > lastMs + 1_000 {
 				this.translatedText = ""
 			}
-			if (e.type == "session.output_transcript.delta") {
+			if e.type == "session.output_transcript.delta" {
 			  this.translatedText += e.delta
 			}
 			lastMs = e.elapsed_ms
@@ -94,7 +94,7 @@ export class RealTimeTranslate {
 			}
 		)
 
-		if (sdpResponse.ok) {
+		if sdpResponse.ok {
 			await pc.setRemoteDescription({
 				type: "answer",
 				sdp: await sdpResponse.text(),
@@ -106,16 +106,16 @@ export class RealTimeTranslate {
 	}
 
 	static stop() {
-		if (this.translatedAudio) {
+		if this.translatedAudio {
 			this.translatedAudio.srcObject = null
 		}
 
-		if (this.events) {
+		if this.events {
 			this.events.close()
 			this.events = null
 		}
 
-		if (this.pc) {
+		if this.pc {
 			this.pc.close()
 			this.pc = null
 		}

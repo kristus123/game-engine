@@ -15,7 +15,7 @@ export class HttpServer {
 
 	static start() {
 		this.ready = false
-		if (this.activeServer) {
+		if this.activeServer {
 			throw new Error("HttpServer is already running")
 		}
 		else {
@@ -25,10 +25,10 @@ export class HttpServer {
 				const encoded = await (async () => {
 					const t = req.headers["token"]
 
-					if (t == undefined || t == "null") {
+					if t == undefined || t == "null" {
 						return await ShaToken.create()
 					}
-					else if (A.string(t)) {
+					else if A.string(t) {
 						return t
 					}
 					else {
@@ -39,9 +39,9 @@ export class HttpServer {
 
 				const role = decoded.internal.role
 
-				switch (req.method) {
+				switch req.method {
 
-					case "GET": {
+					case "GET" {
 						try {
 							// todo need to add some role validation
 							const fileName = Poop.routeName(req) // todo make a Poop.fileName
@@ -55,7 +55,7 @@ export class HttpServer {
 						}
 						break
 					}
-					case "POST": {
+					case "POST" {
 						try {
 							const returnValue = await (await Poop.route(req, role))({
 								req: req,
@@ -74,12 +74,13 @@ export class HttpServer {
 						}
 						break
 					}
-					case "OPTIONS": { // Preflight / cors
+					// Preflight / CORS
+					case "OPTIONS" {
 						res.writeHead(204)
 						res.end()
 						break
 					}
-					default: {
+					default {
 						Poop.sendJson(res, 500, {
 							error: "unsupported http method: " + req.method,
 						})
@@ -96,7 +97,7 @@ export class HttpServer {
 
 	static async stop() {
 		this.ready = false
-		if (this.activeServer) {
+		if this.activeServer {
 			const server = this.activeServer
 			this.activeServer = null
 			await new Promise((resolve, reject) => {

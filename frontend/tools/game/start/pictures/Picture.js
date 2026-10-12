@@ -77,7 +77,7 @@ export class Picture {
 			const a = image.data[i + 3]
 
 			const newColor = colorMap[`${r},${g},${b},${a}`]
-			if (A.value(newColor)) {
+			if A.value(newColor) {
 				const [r,
 					g,
 					b,
@@ -165,7 +165,7 @@ export class Picture {
 	*visiblePixelsIn(picturePosition) {
 		for (const xy of picturePosition.points()) {
 			const c = this.pixelColor(xy)
-			if (c.a != 0) {
+			if c.a != 0 {
 				yield xy
 			}
 		}
@@ -207,7 +207,7 @@ export class Picture {
 	update(p, drawLayer = D1) {
 		Assert.value(p)
 
-		if (this.shadowSprite) {
+		if this.shadowSprite {
 			drawLayer.ctx.save()
 
 			drawLayer.ctx.translate(

@@ -11,7 +11,7 @@ export class Permission {
 	}
 
 	static async request({ ok, error } = {}) { // no-null-check
-		if (this.granted == null) {
+		if this.granted == null {
 			const camera = navigator.permissions.query({
 				name: "camera",
 			})
@@ -20,12 +20,12 @@ export class Permission {
 				name: "microphone",
 			})
 
-			if ((await camera).state == "granted" && (await microphone).state == "granted") {
+			if (await camera).state == "granted" && (await microphone).state == "granted" {
 				this.granted = true
 			}
 		}
 
-		if (this.granted) {
+		if this.granted {
 			// do nothing, all is ok
 		}
 		else {

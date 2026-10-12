@@ -23,7 +23,7 @@ export async function LoadAsepriteAssets(path) {
 
 	const tilemapsJson = await LoadJsonIfPresent(`${path}Tilemaps.json`)
 
-	if (tilemapsJson) {
+	if tilemapsJson {
 		TileInfo[spriteName] = (position) => new TileInfoController(position, tilemapsJson)
 	}
 	else {

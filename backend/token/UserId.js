@@ -16,10 +16,10 @@ export class UserId {
 	}
 
 	static role(userId) {
-		if (this.admin(userId)) {
+		if this.admin(userId) {
 			return "ROLE_ADMIN"
 		}
-		else if (this.user(userId)) {
+		else if this.user(userId) {
 			return "ROLE_USER"
 		}
 		else {

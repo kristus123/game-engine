@@ -51,7 +51,7 @@ export class Network {
 	}
 
 	static markOnline() {
-		if (this.offline) {
+		if this.offline {
 			console.log("online")
 			this.online = true
 			this._on.trigger({}) // maybe we should make it so that .trigger doesn't need any args
@@ -60,7 +60,7 @@ export class Network {
 	}
 
 	static markOffline() {
-		if (this.online) {
+		if this.online {
 			console.log("offline")
 			console.log(this._off)
 			this.online = false

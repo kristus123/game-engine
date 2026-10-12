@@ -51,7 +51,7 @@ export class Poop {
 			rawBody = Buffer.concat([rawBody, chunk])
 		}
 
-		if (rawBody.length == 0) {
+		if rawBody.length == 0 {
 			throw new Error("Invalid JSON body: " + rawBody)
 		}
 
@@ -71,7 +71,7 @@ export class Poop {
 		const root = process.cwd()
 		const filePath = path.resolve(root, "." + decodedPath)
 
-		if (filePath != root && !filePath.startsWith(root + path.sep)) {
+		if filePath != root && !filePath.startsWith(root + path.sep) {
 			throw new Error("Path traversal attempt")
 		}
 		else {
@@ -84,7 +84,7 @@ export class Poop {
 	}
 
 	static validJson(value) { // no-null-check
-		if (value == null) {
+		if value == null {
 			return false
 		}
 
@@ -101,14 +101,14 @@ export class Poop {
 	static assertJsonBody(req) {
 		const t = req.headers["content-type"] || ""
 
-		if (!t.includes("application/json")) {
+		if !t.includes("application/json") {
 			throw new Error("unsupported content type")
 		}
 	}
 
 	static streamFile(req, res, routeName) {
 		fs.stat(routeName, (error, stats) => {
-			if (error || !stats.isFile()) {
+			if error || !stats.isFile() {
 				res.writeHead(404)
 				res.end()
 				return
@@ -122,9 +122,9 @@ export class Poop {
 			let streamOptions = {}
 			const range = req.headers.range
 
-			if (range != null) {
+			if range != null {
 				const match = /^bytes=(\d*)-(\d*)$/.exec(range)
-				if (match == null || (!match[1] && !match[2])) {
+				if match == null || (!match[1] && !match[2]) {
 					res.writeHead(416, {
 						"Content-Range": `bytes */${stats.size}`,
 						"Accept-Ranges": "bytes",
@@ -135,7 +135,7 @@ export class Poop {
 
 				let start
 				let end
-				if (match[1] == "") {
+				if match[1] == "" {
 					const suffixLength = Number(match[2])
 					start = Math.max(stats.size - suffixLength, 0)
 					end = stats.size - 1
@@ -145,7 +145,7 @@ export class Poop {
 					end = match[2] == "" ? stats.size - 1 : Math.min(Number(match[2]), stats.size - 1)
 				}
 
-				if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || start >= stats.size || start > end) {
+				if !Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 0 || start >= stats.size || start > end {
 					res.writeHead(416, {
 						"Content-Range": `bytes */${stats.size}`,
 						"Accept-Ranges": "bytes",
@@ -182,15 +182,15 @@ export class Poop {
 
 		console.log("calling: " + path)
 
-		if (A.value(AdminRoute[path])) {
+		if A.value(AdminRoute[path]) {
 			Assert.either(role, ["ROLE_ADMIN"])
 			return AdminRoute[path]
 		}
-		else if (A.value(UserRoute[path])) {
+		else if A.value(UserRoute[path]) {
 			Assert.either(role, ["ROLE_ADMIN", "ROLE_USER"])
 			return UserRoute[path]
 		}
-		else if (A.value(UnsecureRoute[path])) {
+		else if A.value(UnsecureRoute[path]) {
 			Assert.either(role, ["ROLE_ADMIN", "ROLE_USER", "ROLE_UNSECURE"])
 			return UnsecureRoute[path] // accessible by everyone
 		}
@@ -201,10 +201,10 @@ export class Poop {
 	}
 
 	static formatResponse(res, returnValue) { // no-null-check
-		if (Poop.validJson(returnValue)) {
+		if Poop.validJson(returnValue) {
 			Poop.sendJson(res, 200, returnValue)
 		}
-		else if (returnValue == null) {
+		else if returnValue == null {
 			Poop.sendEmptyBody(res, 200)
 		}
 		else {

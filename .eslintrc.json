@@ -168,6 +168,7 @@
         "Config": "readonly",
         "ContentType": "readonly",
         "Controller": "readonly",
+        "ConvertControlFlowSyntax": "readonly",
         "Css": "readonly",
         "CurrentFrame": "readonly",
         "D1": "readonly",

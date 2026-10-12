@@ -18,7 +18,7 @@ export class Screen {
 	static wakeLock = null
 
 	static async keepAwake() {
-		if (!navigator.wakeLock) {
+		if !navigator.wakeLock {
 			return false
 		}
 
@@ -32,7 +32,7 @@ export class Screen {
 	}
 
 	static async allowSleep() {
-		if (!this.wakeLock) {
+		if !this.wakeLock {
 			return
 		}
 
@@ -53,7 +53,7 @@ export class Screen {
 	}
 
 	static toggleFullscreen() {
-		if (this.fullscreen) {
+		if this.fullscreen {
 			return this.exitFullscreen()
 		}
 		return this.enterFullscreen()

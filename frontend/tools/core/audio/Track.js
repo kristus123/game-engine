@@ -25,11 +25,11 @@ export class Track {
 	}
 
 	play(sound) {
-		if (SoundContext.suspended) {
+		if SoundContext.suspended {
 			SoundContext.context.resume()
 		}
 		const buffer = sound?.buffer ?? sound // todo only use one. this is a hacky hack
-		if (buffer) {
+		if buffer {
 			const source = SoundContext.context.createBufferSource()
 			source.buffer = buffer
 			source.connect(this.input)

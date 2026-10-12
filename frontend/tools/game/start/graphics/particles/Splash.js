@@ -36,7 +36,7 @@ export class Splash {
 
 			p.life--
 
-			if (p.life <= 0) {
+			if p.life <= 0 {
 				this.particles.remove(p)
 			}
 			else {

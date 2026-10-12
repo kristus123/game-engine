@@ -12,7 +12,7 @@ export class HlsVideo {
 			reportPlaybackDate: () => {
 				this.callbacks.onSeekableChange?.()
 				this.playbackUtc = HlsJs.playbackUtc
-				if (this.playbackUtc) {
+				if this.playbackUtc {
 					this.callbacks.onPlaybackDate?.(this.playbackUtc)
 				}
 			},
@@ -37,11 +37,11 @@ export class HlsVideo {
 
 			Assert.true(online, "Stream not online")
 
-			if (HlsJs.supported) {
+			if HlsJs.supported {
 				HlsJs.connect(this.video, this.source, {
 					onError: () => this.callbacks.onError?.(new Error("HLS connection interrupted")),
 					onManifestParsed: () => this.video.play().catch(error => {
-						if (error.name != "AbortError") {
+						if error.name != "AbortError" {
 							this.callbacks.onError?.(error)
 						}
 					}),
@@ -51,7 +51,7 @@ export class HlsVideo {
 				Assert.true(this.video.canPlayHls, "This browser does not support native HLS playback")
 				this.video.src = this.source
 				this.video.play().catch(error => {
-					if (error.name != "AbortError") {
+					if error.name != "AbortError" {
 						this.callbacks.onError?.(error)
 					}
 				})

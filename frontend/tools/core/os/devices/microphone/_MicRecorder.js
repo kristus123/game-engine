@@ -8,7 +8,7 @@ export class _MicRecorder {
 	static async start(deviceId, onStart = () => {}) {
 		Assert.true(Permission.granted)
 
-		if (this.state == "recording") {
+		if this.state == "recording" {
 			throw new Error("already recording")
 		}
 

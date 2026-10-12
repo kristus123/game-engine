@@ -4,7 +4,7 @@ export class AudioEngine {
 	}
 
 	async play(startPosition = 0, duration = null) {
-		if (SoundContext.suspended) {
+		if SoundContext.suspended {
 			await SoundContext.context.resume()
 		}
 
@@ -21,7 +21,7 @@ export class AudioEngine {
 	}
 
 	stop() {
-		if (this.source) {
+		if this.source {
 			try {
 				this.source.stop()
 			}
@@ -37,7 +37,7 @@ export class AudioEngine {
 	}
 
 	get duration() {
-		if (this.source) {
+		if this.source {
 			return this.source.duration
 		}
 		else {

@@ -3,7 +3,7 @@ export class While {
 	}
 
 	update() {
-		if (this.condition()) {
+		if this.condition() {
 			this.action()
 		}
 	}

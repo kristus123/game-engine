@@ -4,7 +4,7 @@ export function LoadImage(path) {
 		img.src = path
 		img.onerror = reject
 
-		if (img.complete) {
+		if img.complete {
 			resolve(img)
 		}
 		else {

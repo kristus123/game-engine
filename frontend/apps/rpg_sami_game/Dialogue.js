@@ -21,7 +21,7 @@ export class Dialogue {
 							delay: (i * 100) + "ms",
 						},
 						onEnd: () => {
-							if (s == box.text.last) {
+							if s == box.text.last {
 								setTimeout(() => {
 									this.lazyLoop.next()
 								}, value.sleepEnd ?? 1000)

@@ -1,11 +1,11 @@
 export class ClipCreator {
 	static async create(playbackUtc) { // no-null-check
 		const clipTab = window.open("about:blank", "_blank")
-		if (!clipTab) {
+		if !clipTab {
 			throw new Error("Allow pop-ups to open the clip")
 		}
 
-		if (!playbackUtc) {
+		if !playbackUtc {
 			clipTab.close()
 			throw new Error("Waiting for UTC playback time")
 		}

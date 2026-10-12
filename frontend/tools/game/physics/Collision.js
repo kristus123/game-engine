@@ -18,7 +18,7 @@ export class Collision {
 	}
 
 	static deny(red, blue) {
-		if (!this.between(red, blue) || red == blue) {
+		if !this.between(red, blue) || red == blue {
 			return
 		}
 
@@ -27,8 +27,8 @@ export class Collision {
 		const overlapY =
 			(Math.min(red.y + red.height, blue.y + blue.height) - Math.max(red.y, blue.y)) * 5
 
-		if (overlapX < overlapY) {
-			if (red.x < blue.x) {
+		if overlapX < overlapY {
+			if red.x < blue.x {
 				red.x -= overlapX
 			}
 			else {
@@ -36,7 +36,7 @@ export class Collision {
 			}
 		}
 		else {
-			if (red.y < blue.y) {
+			if red.y < blue.y {
 				red.y -= overlapY
 			}
 			else {
@@ -67,31 +67,31 @@ export class Collision {
 		let pushX
 		let pushY
 
-		if (centerCollidingEntityColliderX < centerColliderX) {
+		if centerCollidingEntityColliderX < centerColliderX {
 			pushX = -overlapX
 		}
 		else {
 			pushX = overlapX
 		}
 
-		if (centerCollidingEntityColliderY < centerColliderY) {
+		if centerCollidingEntityColliderY < centerColliderY {
 			pushY = -overlapY
 		}
 		else {
 			pushY = overlapY
 		}
 
-		if (overlapX < overlapY) {
+		if overlapX < overlapY {
 			collidingEntity.position.x += pushX
 		}
 
-		if (overlapX > overlapY) {
+		if overlapX > overlapY {
 			collidingEntity.position.y += pushY
 		}
 	}
 
 	static applyCollisionBetween(collider, collidingEntity) {
-		if (this.between(collider, collidingEntity.sprite.collider)) {
+		if this.between(collider, collidingEntity.sprite.collider) {
 			this.pushOutwards(collider, collidingEntity)
 		}
 	}

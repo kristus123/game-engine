@@ -17,7 +17,7 @@ export class Parameters {
 	}
 
 	static extractIfPresent(line) {
-		if (startsWith(line, ["document.", "this.", "//"])) {
+		if (startsWith(line, ["document.", "this.", "//", "if ", "else if ", "switch "])) {
 			return null
 		}
 

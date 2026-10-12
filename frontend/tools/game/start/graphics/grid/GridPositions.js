@@ -4,7 +4,7 @@ export class GridPositions {
 	}
 
 	set({ x, y }, value) {
-		if (!this.grid.has(x)) {
+		if !this.grid.has(x) {
 			this.grid.set(x, new Map())
 		}
 		this.grid.get(x).set(y, value)
@@ -20,9 +20,9 @@ export class GridPositions {
 
 	remove({ x, y }) {
 		const col = this.grid.get(x)
-		if (col) {
+		if col {
 			col.delete(y)
-			if (col.size == 0) {
+			if col.size == 0 {
 				this.grid.delete(x)
 			}
 		}

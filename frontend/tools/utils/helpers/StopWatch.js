@@ -38,7 +38,7 @@ export class StopWatch {
 	}
 
 	get time() { // returns ms
-		if (this.running) {
+		if this.running {
 			return Date.now() - this.startTime
 		}
 		else {

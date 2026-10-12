@@ -3,7 +3,7 @@ export class OnTrue {
 		Assert.method(condition)
 
 		this.onChange = OnChange(condition, b => {
-			if (b) {
+			if b {
 				const onFalse = (run) => {
 					this.addToSame(OnFalseOnce(condition, run))
 				}

@@ -1,6 +1,6 @@
 export function HtmlObserverThing(element, onNewNodeAdded) {
 	const walk = node => {
-		if (node.nodeType == Node.ELEMENT_NODE) {
+		if node.nodeType == Node.ELEMENT_NODE {
 			onNewNodeAdded(node)
 			for (const child of node.children) {
 				walk(child)

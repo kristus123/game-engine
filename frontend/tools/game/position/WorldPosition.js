@@ -162,7 +162,7 @@ export class WorldPosition {
 
 	// Reset to the first scale()'s original size & position
 	reset() {
-		if (!this._original) {
+		if !this._original {
 			return this
 		} // no scaling yet
 		this.x = this._original.x
@@ -192,10 +192,10 @@ export class WorldPosition {
 		const dx = o.x - this.x
 		const dy = o.y - this.y
 
-		if (Math.abs(dx) > Math.abs(dy)) {
+		if Math.abs(dx) > Math.abs(dy) {
 			this.x += Math.sign(dx)
 		}
-		else if (dy != 0) {
+		else if dy != 0 {
 			this.y += Math.sign(dy)
 		}
 	}

@@ -65,7 +65,7 @@ export class Objects {
 
 	anyUnless(thisTrue) {
 		for (const o of this.objects) {
-			if (!thisTrue(o)) {
+			if !thisTrue(o) {
 				return o
 			}
 		}
@@ -75,7 +75,7 @@ export class Objects {
 
 	anyExcept(itself) {
 		for (const o of this.objects) {
-			if (o != itself) {
+			if o != itself {
 				return o
 			}
 		}
@@ -100,19 +100,19 @@ export class Objects {
 	}
 
 	closestTo(object, run= c => {}) {
-		if (this.objects.empty()) {
+		if this.objects.empty() {
 			return null
 		}
 
 		let closest = this.objects[0]
 
 		for (const o of this.objects) {
-			if (Distance.between(object, o) < Distance.between(closest, object)) {
+			if Distance.between(object, o) < Distance.between(closest, object) {
 				closest = o
 			}
 		}
 
-		if (closest) {
+		if closest {
 			run(closest)
 		}
 

@@ -9,10 +9,10 @@ export class Queue {
 	}
 
 	start({ onEnd = () => {} } = {}) {
-		if (this.running) {
+		if this.running {
 			throw new Error("WorkerQueue is already running")
 		}
-		else if (this.queue.length == 0) {
+		else if this.queue.length == 0 {
 			throw new Error("WorkerQueue is empty")
 		}
 		else {
@@ -26,10 +26,10 @@ export class Queue {
 
 		task(() => {
 			console.log("finished")
-			if (!this.running) {
+			if !this.running {
 				throw new Error("WorkerQueue.next() called when the queue is not running")
 			}
-			else if (this.queue.empty) {
+			else if this.queue.empty {
 				onEnd()
 				this.running = false
 			}

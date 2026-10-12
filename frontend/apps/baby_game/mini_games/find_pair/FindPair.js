@@ -21,7 +21,7 @@ export class FindPair {
 				})
 
 				card.onClick(() => {
-					if (wait) {
+					if wait {
 						return
 					}
 
@@ -31,8 +31,8 @@ export class FindPair {
 						.filter(c => c.data.found == "false")
 						.filter(c => c.data.clicked == "true")
 
-					if (cardsClicked.length == 2) {
-						if (cardsClicked.every(c => c.data.name == name)) {
+					if cardsClicked.length == 2 {
+						if cardsClicked.every(c => c.data.name == name) {
 							console.log("you find it")
 							cardsClicked.forEach(c => {
 								c.removeOnClick()
@@ -51,7 +51,7 @@ export class FindPair {
 						}, 500)
 					}
 
-					if (html.cards.every(c => c.data.found == "true")) {
+					if html.cards.every(c => c.data.found == "true") {
 						console.log("all found!")
 						const q = Queue()
 

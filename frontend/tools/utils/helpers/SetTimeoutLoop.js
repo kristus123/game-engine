@@ -4,13 +4,13 @@ export function SetTimeoutLoop(delayMs = 1_000, run) {
 	let pendingRun = null
 
 	async function loop() {
-		if (!active || pendingRun != null) {
+		if !active || pendingRun != null {
 			return
 		}
 
 		timeout = null
 		pendingRun = Promise.resolve().then(() => {
-			if (active) {
+			if active {
 				return run()
 			}
 		})
@@ -23,7 +23,7 @@ export function SetTimeoutLoop(delayMs = 1_000, run) {
 		}
 		finally {
 			pendingRun = null
-			if (active) {
+			if active {
 				timeout = setTimeout(loop, delayMs)
 			}
 		}
@@ -37,7 +37,7 @@ export function SetTimeoutLoop(delayMs = 1_000, run) {
 			return controller
 		},
 		start: () => {
-			if (!active) {
+			if !active {
 				active = true
 				loop()
 			}

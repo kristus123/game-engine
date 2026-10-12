@@ -8,7 +8,7 @@ export function VisibilityWatcher(el, options = {}) {
 	} = options
 
 	const observer = new IntersectionObserver(([entry]) => {
-		if (entry.isIntersecting) {
+		if entry.isIntersecting {
   	onEnter(el, entry)
 		}
 		else {

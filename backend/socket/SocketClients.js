@@ -11,7 +11,7 @@ export class SocketClients {
 	static add(client, userId) {
 		this.all.push(client)
 
-		if (!this._fromUserId[userId]) {
+		if !this._fromUserId[userId] {
 			this._fromUserId[userId] = []
 			this.userIds.push(userId)
 		}
@@ -27,7 +27,7 @@ export class SocketClients {
 		this._fromUserId[userId].remove(client)
 
 		const lastConnection = this._fromUserId[userId].empty
-		if (lastConnection) {
+		if lastConnection {
 			this.userIds.remove(userId)
 			delete this._fromUserId[userId]
 		}

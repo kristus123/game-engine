@@ -5,7 +5,7 @@ export class EveryMs {
 	}
 
 	update() {
-		if (this.stopWatch.moreThan(this.ms)) {
+		if this.stopWatch.moreThan(this.ms) {
 			this.callback(this.i)
 			this.i += 1
 			this.stopWatch.restart()

@@ -4,7 +4,7 @@ export class Quest {
 			onNext: (task) => task.start(),
 			onUpdate: (task) => {
 				task.update()
-				if (task.done) {
+				if task.done {
 					this.lazyLoop.next()
 				}
 			},

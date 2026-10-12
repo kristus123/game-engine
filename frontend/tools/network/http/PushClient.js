@@ -10,7 +10,7 @@ export class PushClient {
 	static async subscribe(vapid) {
 		const existingSub = await this.reg.pushManager.getSubscription()
 
-		if (existingSub) {
+		if existingSub {
 			throw new Error("Subscription Exists Already!")
 		}
 

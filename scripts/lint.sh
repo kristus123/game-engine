@@ -17,3 +17,5 @@ find . -name "*.js" -type f -exec sed -i 's/^\(\s*\)    /\1\t/g' {} +
 npx -y eslint . --fix --cache
 
 npx -y prettier "**/*.html" --write
+
+node dev/ConvertControlFlowSyntax.js

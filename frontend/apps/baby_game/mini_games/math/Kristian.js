@@ -54,7 +54,7 @@ export class Kristian {
 				e.visible()
 
 				const c = html.list.map(c => c.data.number)
-				if (c.same(challenge)) {
+				if c.same(challenge) {
 					html.progress.data.value = To.integer(html.progress.data.value) + 50
 					html.progress.style.width = html.progress.data.value + "%"
 
@@ -84,7 +84,7 @@ export class Kristian {
 
 				for (const h of DomMouse.hovering) { // find better solution for this
 					const list = h.closest("[sortable]")
-					if (list) {
+					if list {
 						list.orderBasedOnMousePosition(e, () => {
 							console.log("onchange baby")
 							html.test.placeOver(html.list.children.last)

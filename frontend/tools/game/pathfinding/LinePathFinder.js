@@ -12,15 +12,15 @@ export class LinePathFinder {
 		})
 
 
-		if (this.square.touches(this.target)) {
+		if this.square.touches(this.target) {
 			this.square = null
 			this.clearPath = true
 		}
-		else if (G.invisibleWalls.collides(this.square)) {
+		else if G.invisibleWalls.collides(this.square) {
 			this.square = null
 			this.clearPath = false
 		}
-		else if (this.walkableAreas.outside(this.square)) {
+		else if this.walkableAreas.outside(this.square) {
 			this.square = null
 			this.clearPath = false
 		}

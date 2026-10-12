@@ -2,7 +2,7 @@ export async function LoadJson(url) {
 	try {
 		const r = await fetch(url)
 
-		if (r.ok) {
+		if r.ok {
 			return await r.json()
 		}
 		else {

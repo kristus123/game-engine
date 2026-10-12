@@ -7,7 +7,7 @@ export default async ({ html }) => {
 	streamPreview.srcObject = SwappableMediaStream.stream
 	streamPreview.css("width: 100%; height: 100%; object-fit: contain; background: black; pointer-events: none;")
 
-	if (await Stream.online()) {
+	if await Stream.online() {
 		html.waiting.content = "someone is already streaming"
 		html.stop.show()
 	}
@@ -65,7 +65,7 @@ export default async ({ html }) => {
 				await Stream.swapVideo(cams.nextElementCyclic().deviceId)
 			},
 			togglePreview: async () => {
-				if (isPreviewingStream) {
+				if isPreviewingStream {
 					isPreviewingStream = false
 					streamPreview.pause()
 					showCameraPreview()
@@ -98,7 +98,7 @@ export default async ({ html }) => {
 				html.waiting.content = ""
 
 				await Stream.start()
-				if (!isPreviewingStream) {
+				if !isPreviewingStream {
 					showCameraPreview()
 				}
 
@@ -129,14 +129,14 @@ export default async ({ html }) => {
 		html.micStatus.textContent = "Checking microphone access…"
 
 		try {
-			if (!Permission.granted) {
+			if !Permission.granted {
 				await Permission.request()
 			}
 
 			const microphones = await Mic.all()
 			const activeDeviceId = Stream.audioDeviceId
 
-			if (microphones.length == 0) {
+			if microphones.length == 0 {
 				html.micList.add(H.p("No microphones found. Connect one and refresh the list."))
 				html.micStatus.textContent = "No microphone inputs are available to this browser."
 				return
@@ -184,19 +184,19 @@ export default async ({ html }) => {
 			const selectedDeviceId = selectedRadio?.dataset.deviceId ?? null
 			const activeDeviceId = Stream.audioDeviceId
 
-			if (selectedRadio && !selectedDeviceId) {
+			if selectedRadio && !selectedDeviceId {
 				throw new Error(`Selected microphone has no device ID: ${selectedRadio.dataset.deviceLabel}`)
 			}
 
-			if (selectedDeviceId && selectedDeviceId != activeDeviceId) {
+			if selectedDeviceId && selectedDeviceId != activeDeviceId {
 				const label = selectedRadio.dataset.deviceLabel || selectedDeviceId
 				await updateMicrophone("select", label, () => Stream.setAudioDevice(selectedDeviceId))
 			}
-			else if (!selectedDeviceId && activeDeviceId) {
+			else if !selectedDeviceId && activeDeviceId {
 				await updateMicrophone("deselect", activeDeviceId, () => Stream.clearAudioDevice())
 			}
 
-			if (Stream.audioDeviceId != selectedDeviceId) {
+			if Stream.audioDeviceId != selectedDeviceId {
 				throw new Error("Microphone selection did not take effect.")
 			}
 

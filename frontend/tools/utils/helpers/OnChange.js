@@ -8,7 +8,7 @@ export function OnChange(condition, action) {
 		update: () => {
 			const current = condition()
 
-			if (lastCondition != current) {
+			if lastCondition != current {
 				action(current)
 				lastCondition = current
 			}

@@ -29,7 +29,7 @@ export default async ({ html }) => {
 	return {
 		methods: {
 			micButton: async () => {
-				if (Mic.idle) {
+				if Mic.idle {
 					Mic.start()
 					html.mic.content = "Stop"
 				}

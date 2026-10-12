@@ -14,7 +14,7 @@ export default async ({ html, setState }) => {
 
 		card = await cardDb.cardToPractice()
 
-		if (card) {
+		if card {
 			Sound.playBlob(card.practiceSide().sound)
 			return setState("hasCard")
 		}

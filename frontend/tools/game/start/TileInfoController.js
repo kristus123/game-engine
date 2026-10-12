@@ -25,7 +25,7 @@ export class TileInfoController {
 
 	touches(layer, index, position) {
 		for (const t of this.tiles[layer][0]) { // currently always uses frame 0
-			if (t.index == index && position.touches(t.position)) {
+			if t.index == index && position.touches(t.position) {
 				return true
 			}
 		}

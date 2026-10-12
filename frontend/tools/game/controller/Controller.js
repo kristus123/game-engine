@@ -18,7 +18,7 @@ export class Controller {
 	}
 
 	static update() {
-		if (NotNull(this.entity)) {
+		if NotNull(this.entity) {
 
 			const d = NormalizeVector(this.inputDirection())
 			const m = 500
@@ -30,7 +30,7 @@ export class Controller {
 
 	static inputDirection() {
 
-		if (Gamepad.active) {
+		if Gamepad.active {
 			return {
 				x: Gamepad.x,
 				y: Gamepad.y,
@@ -40,19 +40,19 @@ export class Controller {
 			let x = 0
 			let y = 0
 
-			if (Keyboard.up) {
+			if Keyboard.up {
 				x += 0
 				y += -1
 			}
-			if (Keyboard.down) {
+			if Keyboard.down {
 				x += 0
 				y += 1
 			}
-			if (Keyboard.left) {
+			if Keyboard.left {
 				x += -1
 				y += 0
 			}
-			if (Keyboard.right) {
+			if Keyboard.right {
 				x += 1
 				y += 0
 			}

@@ -7,7 +7,7 @@ export class LazyLoop {
 	}
 
 	get element() {
-		if (this.elements.empty) {
+		if this.elements.empty {
 			throw new Error("list is empty")
 		}
 		else {
@@ -18,7 +18,7 @@ export class LazyLoop {
 	next() {
 		this.index += 1
 
-		if (this.index < this.elements.length) {
+		if this.index < this.elements.length {
 			this.on.onNext(this.element)
 		}
 		else {
@@ -28,7 +28,7 @@ export class LazyLoop {
 	}
 
 	update() {
-		if (!this.done) {
+		if !this.done {
 			this.on.onUpdate?.(this.element)
 		}
 	}

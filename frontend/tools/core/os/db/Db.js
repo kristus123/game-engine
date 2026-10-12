@@ -6,7 +6,7 @@ export async function Db(dbName, { prototype = {} } = {}) {
 		r.onupgradeneeded = e => {
 			const db = r.result
 
-			if (!db.objectStoreNames.contains(dbName)) {
+			if !db.objectStoreNames.contains(dbName) {
 				db.createObjectStore(dbName, {
 					keyPath: "_dbKey",
 				})
@@ -70,7 +70,7 @@ export async function Db(dbName, { prototype = {} } = {}) {
 		async random() {
 			const all = await this.all()
 
-			if (all.empty) {
+			if all.empty {
 				return null
 			}
 			else {

@@ -30,7 +30,7 @@ export class Dom {
 	static move(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (e.isConnected) {
+		if e.isConnected {
 			document.body.appendChild(e)
 			return this
 		}
@@ -42,7 +42,7 @@ export class Dom {
 	static remove(e) {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
-		if (e.isConnected) {
+		if e.isConnected {
 			document.body.removeChild(e)
 		}
 		else {

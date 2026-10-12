@@ -20,10 +20,10 @@ export class SocketClient {
 			const diffs = OtherUsers.userIds.unorderedDiff(userIds)
 
 			for (const d of diffs) {
-				if (d.add) {
+				if d.add {
 					OtherUsers.add(d.value)
 				}
-				else if (d.remove) {
+				else if d.remove {
 					OtherUsers.remove(d.value)
 					this.onRemovedUser(d.value)
 				}
@@ -40,24 +40,24 @@ export class SocketClient {
 
 		setInterval(() => {
 			const shouldCloseSocket = ChaosMonkey.maybe("SOCKET", 0.2)
-			if (shouldCloseSocket) {
+			if shouldCloseSocket {
 				this.webSocket?.close()
 			}
 		}, 5_00)
 	}
 
 	static async connect() {
-		if (this.webSocket?.readyState == WebSocket.OPEN) {
+		if this.webSocket?.readyState == WebSocket.OPEN {
 			return
 		}
-		if (this._connectionPromise != null) {
+		if this._connectionPromise != null {
 			return this._connectionPromise
 		}
 
 		const connectionPromise = this.waitForBackend().then(() => this.openConnection())
 		this._connectionPromise = connectionPromise
 		connectionPromise.catch(() => {
-			if (this._connectionPromise == connectionPromise) {
+			if this._connectionPromise == connectionPromise {
 				this._connectionPromise = null
 			}
 		})
@@ -72,9 +72,9 @@ export class SocketClient {
 				formatBody: response => response,
 				timeoutMs: 2_000,
 			})
-			if (response.ok) {
+			if response.ok {
 				const status = await response.body.json()
-				if (status.pong && status.ready == true) {
+				if status.pong && status.ready == true {
 					return
 				}
 			}
@@ -97,7 +97,7 @@ export class SocketClient {
 				clearTimeout(this._reconnectTimer)
 				this._reconnectTimer = null
 
-				if (!this._firstConnect) {
+				if !this._firstConnect {
 					this.onFirstConnect?.()
 					this._firstConnect = true
 				}
@@ -110,7 +110,7 @@ export class SocketClient {
 			}
 
 			nextSocket.onclose = () => {
-				if (this.webSocket != nextSocket) {
+				if this.webSocket != nextSocket {
 					return
 				}
 
@@ -118,7 +118,7 @@ export class SocketClient {
 				this._connectionPromise = null
 				reject(new Error("Failed to connect to socket server"))
 
-				if (this._reconnectTimer != null) {
+				if this._reconnectTimer != null {
 					return
 				}
 				this._reconnectTimer = setTimeout(async () => {
@@ -171,7 +171,7 @@ export class SocketClient {
 	static sendToUser(subAction, targetUserIds, data) {
 		const userIds = Array.isArray(targetUserIds) ? targetUserIds : [targetUserIds]
 
-		if (userIds.empty) {
+		if userIds.empty {
 			return
 		}
 

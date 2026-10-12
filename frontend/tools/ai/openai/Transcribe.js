@@ -2,10 +2,10 @@ export async function Transcribe(blob) {
 	blob = await blob
 
 	console.log(blob)
-	if (blob instanceof Blob && blob.type == "audio/wav") {
+	if blob instanceof Blob && blob.type == "audio/wav" {
 		// already a wav
 	}
-	else if (blob instanceof Blob) {
+	else if blob instanceof Blob {
 		blob = blob.toWav()
 	}
 	else {
@@ -25,7 +25,7 @@ export async function Transcribe(blob) {
 		body: form,
 	})
 
-	if (res.ok) {
+	if res.ok {
 		const data = await res.json()
 		return data.text
 	}

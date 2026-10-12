@@ -21,7 +21,7 @@ export class RtcClient {
 
 		SocketClient.onClientMessage("CALL_ACCEPTED", ({ data, metaHeaders }) => {
 			const connection = this.connectedUserIds[metaHeaders.originUserId]
-			if (!connection) {
+			if !connection {
 				throw new Error("could not find connection")
 			}
 			else {
@@ -39,7 +39,7 @@ export class RtcClient {
 
 		SocketClient.onClientMessage("ICE_CANDIDATE", ({ data, metaHeaders }) => {
 			const connection = this.connectedUserIds[metaHeaders.originUserId]
-			if (connection) {
+			if connection {
 				connection.peerConnection
 					.addIceCandidate(
 						new RTCIceCandidate(data.candidate)
@@ -52,7 +52,7 @@ export class RtcClient {
 	}
 
 	static call(targetUserId) {
-		if (this.connectedUserIds[targetUserId]) {
+		if this.connectedUserIds[targetUserId] {
 			throw new Error("you can't call someone you already have a connection with")
 		}
 
@@ -79,7 +79,7 @@ export class RtcClient {
 	}
 
 	static acceptIncomingCall(callerUserId, offer) {
-		if (this.connectedUserIds[callerUserId]) {
+		if this.connectedUserIds[callerUserId] {
 			return
 		}
 
@@ -106,7 +106,7 @@ export class RtcClient {
 					{ answer: peerConnection.localDescription })
 			}).then(() => {
 				peerConnection.ondatachannel = e => {
-					if (this.connectedUserIds[callerUserId]) {
+					if this.connectedUserIds[callerUserId] {
 						this.connectedUserIds[callerUserId].dataChannel = e.channel
 						this.setupDataChannel(e.channel)
 					}
@@ -122,7 +122,7 @@ export class RtcClient {
 
 	static send(targetUserId, data) {
 		const connection = this.connectedUserIds[targetUserId]
-		if (!connection.dataChannel) {
+		if !connection.dataChannel {
 			throw new Error(`Data Channel Not Found For ${targetUserId}`)
 		}
 
@@ -136,7 +136,7 @@ export class RtcClient {
 
 		peerConnection.ontrack = e => {
 			const stream = e.streams[0]
-			if (this.remoteStreamIds.has(stream.id)) {
+			if this.remoteStreamIds.has(stream.id) {
 				return
 			}
 
@@ -145,7 +145,7 @@ export class RtcClient {
 		}
 
 		peerConnection.onicecandidate = e => {
-			if (!e.candidate) {
+			if !e.candidate {
 				return
 			}
 

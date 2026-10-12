@@ -5,7 +5,15 @@ function tabCount(str) {
 }
 
 export function ImproveIf(lines, i) {
-	if (Regex.simple(lines[i], "if * {")) {
+	if (Regex.simple(lines[i], "else if * {")) {
+		const s = Regex.editIfMatch(lines[i],
+			"else if * {",
+			"else if (IfCondition.validate(*)) {")
+
+		const tabs = "\t".repeat(tabCount(lines[i]))
+		lines[i] = tabs + s
+	}
+	else if (Regex.simple(lines[i], "if * {")) {
 		const s = Regex.editIfMatch(lines[i],
 			"if * {",
 			"if (IfCondition.validate(*)) {")
@@ -14,7 +22,7 @@ export function ImproveIf(lines, i) {
 		const tabs = "\t".repeat(tabCount(lines[i]))
 		lines[i] = tabs + s
 	}
-	else if (Regex.simple(lines[i], "if *")) {
+	else if (Regex.simple(lines[i], "if *") || Regex.simple(lines[i], "else if *")) {
 		throw new Error(lines[i] + " <--- Expected '{' Here. Only Single Line Ifs Are Allowed!")
 	}
 }

@@ -5,7 +5,7 @@ export class Token {
 
 	static get encodedToken() {
 		const t = this.encoded.value
-		if (t == "NULL") {
+		if t == "NULL" {
 			return null
 		}
 		else {

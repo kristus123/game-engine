@@ -15,9 +15,9 @@ export class Task {
 		this.onUpdate = () => {}
 
 		this.start = () => {
-			if (start) {
+			if start {
 				const result = start(() => this.markDone())
-				if (result && typeof result.update == "function") {
+				if result && typeof result.update == "function" {
 					this.onUpdate = () => result.update()
 				}
 			}
@@ -39,13 +39,13 @@ export class Task {
 	}
 
 	update() {
-		if (this.active) {
+		if this.active {
 			this.onUpdate()
 
-			if (this.markDoneIf?.()) {
+			if this.markDoneIf?.() {
 				this.markDone()
 			}
-			else if (this.markDoneAfterMs && this.duration >= this.markDoneAfterMs) {
+			else if this.markDoneAfterMs && this.duration >= this.markDoneAfterMs {
 				this.markDone()
 			}
 		}

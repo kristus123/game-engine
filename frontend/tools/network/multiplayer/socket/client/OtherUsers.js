@@ -16,7 +16,7 @@ export class OtherUsers {
 	}
 
 	static add(userId) {
-		if (this.userIds.missing(userId) && userId != Token.userId) {
+		if this.userIds.missing(userId) && userId != Token.userId {
 			this.userIds.push(userId)
 			this.onJoinListener.trigger(userId)
 		}
@@ -26,7 +26,7 @@ export class OtherUsers {
 	}
 
 	static remove(userId) {
-		if (this.userIds.includes(userId)) {
+		if this.userIds.includes(userId) {
 			this.userIds.remove(userId)
 			this.onLeaveListener.trigger(userId)
 		}

@@ -4,7 +4,7 @@ export class After {
 	}
 
 	update() {
-		if (this.stopWatch.time > this.intervalMs) {
+		if this.stopWatch.time > this.intervalMs {
 			this.action()
 			this.removeItself()
 		}

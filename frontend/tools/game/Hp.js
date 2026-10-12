@@ -13,7 +13,7 @@ export class Hp {
 	}
 
 	update() {
-		if (this.dead) {
+		if this.dead {
 			this.onKill()
 		}
 

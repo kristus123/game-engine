@@ -35,14 +35,14 @@ export class Con {
 	}
 
 	static update() {
-		if (index != null) {
+		if index != null {
 			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
 			for (const [i, button] of gp.buttons.entries()) {
 				const name = Playstation.mapToButton(i)
-				if (name) {
+				if name {
 					this[name + "Pressed"] = button.pressed
-					if (button.pressed) {
+					if button.pressed {
 						// console.log(`${name} is pressed`)
 					}
 				}
@@ -58,10 +58,10 @@ export class Con {
 	}
 
 	static vibrate() {
-		if (index != null) {
+		if index != null {
 			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
-			if (gp && gp.vibrationActuator) {
+			if gp && gp.vibrationActuator {
 				gp.vibrationActuator.playEffect("dual-rumble", {
 					duration: 50,
 					strongMagnitude: 1.0,

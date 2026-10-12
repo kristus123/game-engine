@@ -11,14 +11,14 @@ function parseHlsSegments(playlistContent) {
 	let currentDuration = null
 
 	for (const line of playlistContent.split(/\r?\n/)) {
-		if (line.startsWith("#EXT-X-PROGRAM-DATE-TIME:")) {
+		if line.startsWith("#EXT-X-PROGRAM-DATE-TIME:") {
 			currentUtc = Date.parse(line.slice("#EXT-X-PROGRAM-DATE-TIME:".length))
 		}
-		else if (line.startsWith("#EXTINF:")) {
+		else if line.startsWith("#EXTINF:") {
 			currentDuration = Number.parseFloat(line.slice("#EXTINF:".length))
 		}
-		else if (line && !line.startsWith("#") && currentDuration != null) {
-			if (!Number.isFinite(currentUtc) || !Number.isFinite(currentDuration)) {
+		else if line && !line.startsWith("#") && currentDuration != null {
+			if !Number.isFinite(currentUtc) || !Number.isFinite(currentDuration) {
 				throw new Error("HLS playlist is missing valid program date-time metadata")
 			}
 
@@ -49,37 +49,37 @@ function hasAvailableHlsSegment() {
 async function makeTwitchClip({ endUtc, durationSeconds = 30 } = {}) {
 	const endTime = Date.parse(endUtc)
 	durationSeconds = Number(durationSeconds)
-	if (!Number.isFinite(endTime) || !Number.isFinite(durationSeconds) || durationSeconds < 1 || durationSeconds > 60) {
+	if !Number.isFinite(endTime) || !Number.isFinite(durationSeconds) || durationSeconds < 1 || durationSeconds > 60 {
 		throw new Error("A clip needs a valid endUtc and duration from 1 to 60 seconds")
 	}
 
 	const playlistPath = "public_folder/hls/output.m3u8"
-	if (!fs.existsSync(playlistPath)) {
+	if !fs.existsSync(playlistPath) {
 		throw new Error("The livestream HLS playlist is not available")
 	}
 
 	const hlsRoot = path.resolve("public_folder/hls")
 	const segments = parseHlsSegments(fs.readFileSync(playlistPath, "utf8"))
 	for (const segment of segments) {
-		if (!segment.path.startsWith(hlsRoot + path.sep) || !fs.existsSync(segment.path)) {
+		if !segment.path.startsWith(hlsRoot + path.sep) || !fs.existsSync(segment.path) {
 			throw new Error("The HLS playlist references an unavailable segment")
 		}
 	}
 
-	if (segments.length == 0) {
+	if segments.length == 0 {
 		throw new Error("The livestream has no HLS footage available yet")
 	}
 
 	const startTime = Math.max(endTime - durationSeconds * 1_000, segments[0].startUtc)
 	durationSeconds = (endTime - startTime) / 1_000
-	if (durationSeconds < 1) {
+	if durationSeconds < 1 {
 		throw new Error("Wait for at least one second of livestream footage before making a clip")
 	}
 
 	const selectedSegments = segments.filter(segment =>
 		segment.startUtc < endTime && segment.startUtc + segment.duration * 1_000 > startTime
 	)
-	if (selectedSegments.length == 0 || startTime < selectedSegments[0].startUtc || endTime > segments.at(-1).startUtc + segments.at(-1).duration * 1_000) {
+	if selectedSegments.length == 0 || startTime < selectedSegments[0].startUtc || endTime > segments.at(-1).startUtc + segments.at(-1).duration * 1_000 {
 		throw new Error("The requested clip is outside the available live HLS window")
 	}
 
@@ -143,7 +143,7 @@ async function makeTwitchClip({ endUtc, durationSeconds = 30 } = {}) {
 	}
 	finally {
 		fs.rmSync(clipPlaylist, { force: true })
-		if (!clipReady) {
+		if !clipReady {
 			fs.rmSync(clipPath, { force: true })
 		}
 	}

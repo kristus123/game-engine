@@ -3,7 +3,7 @@ export class OnFalseOnce {
 		Assert.method(condition)
 
 		this.onChange = OnChange(condition, b => {
-			if (!b) {
+			if !b {
 				action(b)
 				this.removeItself()
 			}

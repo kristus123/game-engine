@@ -1,13 +1,13 @@
 export async function HttpBody(req) {
 	const contentType = ContentType.parse(req.headers["content-type"])
 
-	if (contentType == null) {
+	if contentType == null {
 		return null
 	}
-	else if (contentType.name == ContentType.json) {
+	else if contentType.name == ContentType.json {
 		return await Poop.parseJsonBody(req)
 	}
-	else if (contentType.name == ContentType.webm) {
+	else if contentType.name == ContentType.webm {
 		return null
 	}
 	else {

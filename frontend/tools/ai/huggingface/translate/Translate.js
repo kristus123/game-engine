@@ -5,7 +5,7 @@ const translators = new Map()
 async function getTranslator(source, target) {
 	const key = `${source}-${target}`
 
-	if (!translators.has(key)) {
+	if !translators.has(key) {
 		const model = await pipeline("translation", `Xenova/opus-mt-${source}-${target}`)
 		translators.set(key, model)
 	}

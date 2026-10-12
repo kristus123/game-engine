@@ -7,7 +7,7 @@ export class Platform {
 	}
 
 	static get safari() {
-		if (typeof navigator == "undefined") {
+		if typeof navigator == "undefined" {
 			return false
 		}
 
@@ -15,7 +15,7 @@ export class Platform {
 	}
 
 	static get chrome() {
-		if (typeof navigator == "undefined") {
+		if typeof navigator == "undefined" {
 			return false
 		}
 
@@ -25,7 +25,7 @@ export class Platform {
 
 
 	static get ios() {
-		if (typeof window == "undefined" || !window.navigator) {
+		if typeof window == "undefined" || !window.navigator {
 			return false
 		}
 
@@ -37,7 +37,7 @@ export class Platform {
 	}
 
 	static get android() {
-		if (typeof window == "undefined" || !window.navigator) {
+		if typeof window == "undefined" || !window.navigator {
 			return false
 		}
 
@@ -45,7 +45,7 @@ export class Platform {
 	}
 
 	static get phone() {
-		if (typeof window == "undefined" || !window.navigator) {
+		if typeof window == "undefined" || !window.navigator {
 			return false
 		}
 
@@ -57,7 +57,7 @@ export class Platform {
 	}
 
 	static get tv() {
-		if (typeof window == "undefined" || !window.navigator) {
+		if typeof window == "undefined" || !window.navigator {
 			return false
 		}
 
@@ -67,7 +67,7 @@ export class Platform {
 	}
 
 	static get pwa() {
-		if (typeof window == "undefined") {
+		if typeof window == "undefined" {
 			return false
 		}
 
@@ -80,7 +80,7 @@ export class Platform {
 	}
 
 	static get browser() {
-		if (typeof window == "undefined") {
+		if typeof window == "undefined" {
 			return false
 		}
 

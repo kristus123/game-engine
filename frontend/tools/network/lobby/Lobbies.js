@@ -70,7 +70,7 @@ export class Lobbies {
 		const myLobbyList = []
 
 		for (const lobby of Lobbies.lobbies.values) {
-			if (lobby.hostUserId == Token.userId) {
+			if lobby.hostUserId == Token.userId {
 				myLobbyList.push(lobby)
 			}
 		}

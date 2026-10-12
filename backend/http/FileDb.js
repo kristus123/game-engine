@@ -5,7 +5,7 @@ export class FileDb {
 	static prefix = path.resolve("./fileDb")
 
 	static ensureFolderExists(folderName) {
-		if (!fs.existsSync(folderName)) {
+		if !fs.existsSync(folderName) {
 			fs.mkdirSync(folderName, { recursive: true })
 		}
 	}
@@ -14,7 +14,7 @@ export class FileDb {
 		FileDb.ensureFolderExists(FileDb.prefix)
 
 		const fullPath = path.join(FileDb.prefix, filePath)
-		if (!fs.existsSync(fullPath)) {
+		if !fs.existsSync(fullPath) {
 			return null
 		}
 
@@ -57,7 +57,7 @@ export class FileDb {
 		const fullPath = path.join(FileDb.prefix, filePath)
 		const tempPath = fullPath + ".tmp"
 
-		if (typeof data == "object" && !(data instanceof Buffer)) {
+		if typeof data == "object" && !(data instanceof Buffer) {
 			fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), "utf8")
 		}
 		else {
@@ -71,7 +71,7 @@ export class FileDb {
 		FileDb.ensureFolderExists(FileDb.prefix)
 
 		const fullPath = path.join(FileDb.prefix, filePath)
-		if (fs.existsSync(fullPath)) {
+		if fs.existsSync(fullPath) {
 			fs.unlinkSync(fullPath)
 		}
 	}

@@ -7,7 +7,7 @@ async function shutdownBackend(signal) {
 	HttpServer.markNotReady()
 	const stopSteps = [
 		["FFmpeg", async function stopFfmpeg() {
-			if (Ffmpeg.p) {
+			if Ffmpeg.p {
 				await Ffmpeg.stop()
 			}
 			await Ffmpeg.stopClipProcesses()
@@ -38,7 +38,7 @@ async function shutdownBackend(signal) {
 export async function StartServer(backendId) {
 	let shuttingDown = false
 	const shutdown = (signal) => {
-		if (shuttingDown) {
+		if shuttingDown {
 			return
 		}
 
@@ -70,6 +70,6 @@ export async function StartServer(backendId) {
 }
 
 import { fileURLToPath } from "url"
-if (process.argv[1] == fileURLToPath(import.meta.url)) {
+if process.argv[1] == fileURLToPath(import.meta.url) {
 	StartServer(process.argv[2])
 }

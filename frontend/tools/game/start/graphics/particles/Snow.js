@@ -13,7 +13,7 @@ class Flake extends Entity {
 	update() {
 		this.y -= 1
 
-		if (this.landed) {
+		if this.landed {
 			D2.rectangle(this.position, "white")
 		}
 		else {

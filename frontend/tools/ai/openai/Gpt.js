@@ -12,7 +12,7 @@ export async function Gpt(text) {
 		}),
 	})
 
-	if (r.ok) {
+	if r.ok {
 		return (await r.json())
 			.output[0]
 			.content

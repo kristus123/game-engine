@@ -33,7 +33,7 @@ export class Sha {
 		Assert.string(e)
 		Assert.string(ServerConfig.shaSecret)
 
-		if (await this.isValid(e)) {
+		if await this.isValid(e) {
 			return e
 		}
 		else {

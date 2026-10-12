@@ -74,7 +74,7 @@ export class ContentType {
 
 		const extension = file.substring(file.lastIndexOf(".")).toLowerCase()
 
-		if (this.extensions[extension]) {
+		if this.extensions[extension] {
 			return this.extensions[extension]
 		}
 
@@ -82,7 +82,7 @@ export class ContentType {
 	}
 
 	static parse(value) { // no-null-check
-		if (value == null || value == "null") {
+		if value == null || value == "null" {
 			return null
 		}
 
@@ -92,25 +92,25 @@ export class ContentType {
 		let escaped = false
 
 		for (const char of value) {
-			if (escaped) {
+			if escaped {
 				part += char
 				escaped = false
 				continue
 			}
 
-			if (char == "\\") {
+			if char == "\\" {
 				part += char
 				escaped = true
 				continue
 			}
 
-			if (char == "\"") {
+			if char == "\"" {
 				quoted = !quoted
 				part += char
 				continue
 			}
 
-			if (char == ";" && !quoted) {
+			if char == ";" && !quoted {
 				parts.push(part)
 				part = ""
 				continue
@@ -125,7 +125,7 @@ export class ContentType {
 		const contentType = parts.shift().trim()
 		console.log("-------", contentType)
 
-		if (!this.values.includes(contentType)) {
+		if !this.values.includes(contentType) {
 			throw new Error("error while calling .parse, unsupported content type: " + contentType)
 		}
 
@@ -134,14 +134,14 @@ export class ContentType {
 		for (const part of parts) {
 			const separator = part.indexOf("=")
 
-			if (separator == -1) {
+			if separator == -1 {
 				continue
 			}
 
 			const key = part.substring(0, separator).trim()
 			let parameterValue = part.substring(separator + 1).trim()
 
-			if (parameterValue.startsWith("\"") && parameterValue.endsWith("\"")) {
+			if parameterValue.startsWith("\"") && parameterValue.endsWith("\"") {
 				parameterValue = parameterValue
 					.substring(1, parameterValue.length - 1)
 					.replace(/\\"/g, "\"")

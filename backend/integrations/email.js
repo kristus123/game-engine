@@ -39,7 +39,7 @@ socket.on("data", data => {
 		buffer = buffer.slice(lineEnd + 2)
 		responseLines.push(line)
 
-		if (/^\d{3} /.test(line)) {
+		if /^\d{3} /.test(line) {
 			try {
 				handleResponse(responseLines)
 			}
@@ -63,14 +63,14 @@ function handleResponse(lines) {
 	const code = Number(lines.at(-1).slice(0, 3))
 	console.log(response)
 
-	if (code >= 400) {
+	if code >= 400 {
 		console.error(`SMTP failed during ${step}`)
 		socket.end()
 		process.exitCode = 1
 		return
 	}
 
-	switch (step) {
+	switch step {
 		case "greeting":
 			expect(code, 220)
 			step = "ehlo"
@@ -78,7 +78,7 @@ function handleResponse(lines) {
 			break
 		case "ehlo":
 			expect(code, 250)
-			if (!lines.some(line => /AUTH(?:=|\s).*LOGIN/i.test(line))) {
+			if !lines.some(line => /AUTH(?:=|\s).*LOGIN/i.test(line)) {
 				throw new Error("SMTP server does not advertise AUTH LOGIN")
 			}
 			step = "auth-user"
@@ -128,7 +128,7 @@ function handleResponse(lines) {
 }
 
 function expect(actual, expected) {
-	if (actual != expected) {
+	if actual != expected {
 		throw new Error(`Expected SMTP ${expected} during ${step}, received ${actual}`)
 	}
 }

@@ -4,7 +4,7 @@ export function FrameLoop(run) {
 	let playing = true
 
 	function loop() {
-		if (playing) {
+		if playing {
 			run()
 		}
 

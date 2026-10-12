@@ -27,7 +27,7 @@ export function IntroQuest(player, oldSami, bush) {
 				update: () => {
 					d.update()
 
-					if (player.touches(bush)) {
+					if player.touches(bush) {
 						markDone()
 						bush.loopTag("idle")
 					}

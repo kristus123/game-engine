@@ -43,7 +43,7 @@ export class SfuClient {
 		this.sendTransport.on("produce", async ({ kind, rtpParameters }, callback, errback) => {
 			await new Promise(resolve => {
 				SocketClient.serverActionListener.listenOnce("SFU_CONFIRM_PRODUCE", data => {
-					if (data.kind == kind) {
+					if data.kind == kind {
 						callback({ id: data.producerId })
 						resolve()
 					}
@@ -80,7 +80,7 @@ export class SfuClient {
 
 		// Copied this into here because stream viewers should be able to use data channels but not produce streams
 		// Enable Local Cam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Cam For All
-		if (!SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost) {
+		if !SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost {
 			// nabir we should be able to connect even if webcam is not ready yet.
 			for (const track of this.videoStream.stream.getVideoTracks()) {
 				const producer = await this.sendTransport.produce({ track })
@@ -123,7 +123,7 @@ export class SfuClient {
 	}
 
 	static async consume(producerId, originUserId) {
-		if (!this.recvTransport) {
+		if !this.recvTransport {
 			throw new Error("Cannot Consume Receive Transport Not Ready")
 		}
 
@@ -146,10 +146,10 @@ export class SfuClient {
 		// audio and video streams are sent seperately. So for now we can stick to listen. When we implement SfuRouterObject
 		// We can add disconnect mechanism.
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME", async data => {
-			if (data.consumerParams.producerId == producerId) {
+			if data.consumerParams.producerId == producerId {
 				const consumer = await this.recvTransport.consume(data.consumerParams)
 
-				if (!this.consumers[originUserId]) {
+				if !this.consumers[originUserId] {
 					this.consumers[originUserId] = { stream: new MediaStream() }
 				}
 
@@ -160,7 +160,7 @@ export class SfuClient {
 	}
 
 	static async consumeData(producerId, originUserId) {
-		if (!this.recvTransport) {
+		if !this.recvTransport {
 			throw new Error("Cannot Consume Data Receive Transport Not Ready")
 		}
 
@@ -173,7 +173,7 @@ export class SfuClient {
 		})
 
 		SocketClient.serverActionListener.listen("SFU_CONFIRM_CONSUME_DATA", async data => {
-			if (data.consumerParams.dataProducerId == producerId) {
+			if data.consumerParams.dataProducerId == producerId {
 				const consumer = await this.recvTransport.consumeData(data.consumerParams)
 
 				this.dataConsumers[originUserId] = consumer
@@ -232,7 +232,7 @@ export class SfuClient {
 	}
 
 	static deleteRouter() {
-		if (SfuRouters.routers[this.connectedRouterId] && Token.userId == SfuRouters.routers[this.connectedRouterId].hostUserId) {
+		if SfuRouters.routers[this.connectedRouterId] && Token.userId == SfuRouters.routers[this.connectedRouterId].hostUserId {
 			delete SfuRouters.routers[this.connectedRouterId]
 
 			this.disconnectConsumers()
@@ -252,7 +252,7 @@ export class SfuClient {
 	}
 
 	static mute(userId) {
-		if (userId == Token.userId || SfuClient.isHost) {
+		if userId == Token.userId || SfuClient.isHost {
 			SocketClient.sendToUser("SFU_CLIENT_MUTE_SELF", userId, {
 				routerId: this.connectedRouterId,
 			})
@@ -263,7 +263,7 @@ export class SfuClient {
 	}
 
 	static unmute(userId) {
-		if (userId == Token.userId || SfuClient.isHost) {
+		if userId == Token.userId || SfuClient.isHost {
 			SocketClient.sendToUser("SFU_CLIENT_UNMUTE_SELF", userId, {
 				routerId: this.connectedRouterId,
 			})
@@ -275,7 +275,7 @@ export class SfuClient {
 
 	static muteSelf() {
 		this.producers.values.forEach(producer => {
-			if (producer.kind == "audio") {
+			if producer.kind == "audio" {
 				console.log("muting myself")
 
 				producer.pause()
@@ -285,7 +285,7 @@ export class SfuClient {
 
 	static unmuteSelf() {
 		this.producers.values.forEach(producer => {
-			if (producer.kind == "audio") {
+			if producer.kind == "audio" {
 				console.log("unmuting myself")
 
 				producer.resume()
@@ -306,7 +306,7 @@ export class SfuClient {
 	}
 
 	static toggleMic() {
-		if (this.isAudioMuted) {
+		if this.isAudioMuted {
 			this.muteSelf()
 		}
 		else {
@@ -317,7 +317,7 @@ export class SfuClient {
 	}
 
 	static async toggleVideo() {
-		if (this.videoStream.enabled) {
+		if this.videoStream.enabled {
 			this.stopVideo()
 		}
 		else {
@@ -332,10 +332,10 @@ export class SfuClient {
 	}
 
 	static kick(userId) {
-		if (userId == Token.userId) {
+		if userId == Token.userId {
 			throw new Error("You can't kick yourself!")
 		}
-		else if (!SfuClient.isHost) {
+		else if !SfuClient.isHost {
 			throw new Error("You do not have permission to kick", userId)
 		}
 		else {

@@ -16,7 +16,7 @@ export class SfuRouters {
 		})
 
 		SocketClient.onClientMessage("SFU_KICK_SELF", ({ data }) => {
-			if (data.routerId == SfuClient.connectedRouterId) {
+			if data.routerId == SfuClient.connectedRouterId {
 				SfuClient.leaveRouter()
 
 				console.log("You Have Been Kicked!")
@@ -24,13 +24,13 @@ export class SfuRouters {
 		})
 
 		SocketClient.onClientMessage("SFU_CLIENT_MUTE_SELF", ({ data }) => {
-			if (data.routerId == SfuClient.connectedRouterId) {
+			if data.routerId == SfuClient.connectedRouterId {
 				SfuClient.muteSelf()
 			}
 		})
 
 		SocketClient.onClientMessage("SFU_CLIENT_UNMUTE_SELF", ({ data }) => {
-			if (data.routerId == SfuClient.connectedRouterId) {
+			if data.routerId == SfuClient.connectedRouterId {
 				SfuClient.unmuteSelf()
 			}
 		})
@@ -53,7 +53,7 @@ export class SfuRouters {
 			SfuClient.device = new window.mediasoup.Device()
 			await SfuClient.device.load({ routerRtpCapabilities: data.rtpCapabilities })
 
-			if (!SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost) {
+			if !SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost {
 				SfuRouters.onLocalSetup()
 			}
 
@@ -77,13 +77,13 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_DISCONNECT_CONSUMER", ({ data, metaHeaders }) => {
 			const router = this.routers[data.routerId]
 
-			if (router) {
+			if router {
 				router.connectedUserIds.removeIfPresent(metaHeaders.originUserId)
 			}
 
 			console.log(this.routers)
 
-			if (SfuClient.consumers[metaHeaders.originUserId]) {
+			if SfuClient.consumers[metaHeaders.originUserId] {
 
 				SfuClient.consumers[metaHeaders.originUserId].stream.getTracks().forEach(track => {
 					track.stop()
@@ -107,7 +107,7 @@ export class SfuRouters {
 
 			console.log(this.routers)
 
-			if (metaHeaders.originUserId == Token.userId) {
+			if metaHeaders.originUserId == Token.userId {
 				console.log("Joining Created Lobby...")
 				SfuClient.joinRouter(data.routerId)
 			}
@@ -118,7 +118,7 @@ export class SfuRouters {
 		SocketClient.onServerMessage("SFU_NEW_CONNECTION", ({ data, metaHeaders }) => {
 			const router = this.routers[data.routerId]
 
-			if (router) {
+			if router {
 				router.connectedUserIds.addIfMissing(metaHeaders.originUserId)
 			}
 
@@ -131,7 +131,7 @@ export class SfuRouters {
 			console.log("Consuming New Producer")
 
 			// Consume Streams *Only* if Viewer *Only* when Stream Mode is On
-			if (!this.routers[SfuClient.connectedRouterId].streamOnly || !SfuClient.isHost) {
+			if !this.routers[SfuClient.connectedRouterId].streamOnly || !SfuClient.isHost {
 				SfuClient.consume(data.producerId, metaHeaders.originUserId)
 			}
 		})

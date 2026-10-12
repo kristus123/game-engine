@@ -14,7 +14,7 @@ export class SfuServer {
 		this.globalWorker = await SfuServerApi.createWorker()
 
 		SocketServer.on("SFU_DELETE_ROUTER", ({ userId, data }) => {
-			if (this.routers[data.routerId] && this.routers[data.routerId].hostUserId == userId) {
+			if this.routers[data.routerId] && this.routers[data.routerId].hostUserId == userId {
 				Object.keys(this.routers[data.routerId].clients).forEach(userId => {
 					this.closeConnectionWithUser(userId, data.routerId)
 				})
@@ -71,7 +71,7 @@ export class SfuServer {
 		})
 
 		SocketServer.on("SFU_CONNECT_ROUTER", async ({ client, userId, data }) => {
-			if (Object.hasOwn(this.routers, data.routerId)) {
+			if Object.hasOwn(this.routers, data.routerId) {
 				this.routers[data.routerId].clients[userId] = {}
 
 				await this.connectWithClient(client, userId, data.routerId)
@@ -98,7 +98,7 @@ export class SfuServer {
 
 			const router = this.routers[data.routerId]
 
-			if (data.direction == "send") {
+			if data.direction == "send" {
 				await router.clients[userId].sendTransport.connect({ dtlsParameters: data.dtlsParameters })
 			}
 			else {
@@ -114,7 +114,7 @@ export class SfuServer {
 			const router = this.routers[data.routerId]
 
 			Object.values(router.clients).forEach(rtcClient => {
-				if (rtcClient.client == client) {
+				if rtcClient.client == client {
 					return
 				}
 
@@ -157,7 +157,7 @@ export class SfuServer {
 			})
 
 			Object.values(routerObject.clients).forEach(rtcClient => {
-				if (rtcClient.client == client) {
+				if rtcClient.client == client {
 					return
 				}
 
@@ -189,7 +189,7 @@ export class SfuServer {
 			})
 
 			Object.values(routerObject.clients).forEach(rtcClient => {
-				if (rtcClient.client == client) {
+				if rtcClient.client == client {
 					return
 				}
 
@@ -206,7 +206,7 @@ export class SfuServer {
 		SocketServer.on("SFU_REQUEST_CONSUME", async ({ client, userId, data }) => {
 			const routerObject = this.routers[data.routerId]
 
-			if (!routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities })) {
+			if !routerObject.router.canConsume({ producerId: data.producerId, rtpCapabilities: data.rtpCapabilities }) {
 				console.error("Cannot consume")
 				return
 			}
@@ -265,7 +265,7 @@ export class SfuServer {
 
 		const worker = this.globalWorker
 		this.globalWorker = null
-		if (worker && !worker.closed) {
+		if worker && !worker.closed {
 			worker.close()
 		}
 	}
@@ -312,22 +312,22 @@ export class SfuServer {
 
 		let rid = null
 
-		if (!routerId) {
+		if !routerId {
 			rid = this.getUserRouterId(userId)
 		}
 		else {
 			rid = routerId
 		}
 
-		if (rid) {
-			if (Object.hasOwn(this.routers, rid)) {
+		if rid {
+			if Object.hasOwn(this.routers, rid) {
 				const state = this.routers[rid].clients[userId]
 
 				Object.values(state.producers).forEach(producer => {
 					producer.close()
 				})
 
-				if (state.dataProducer) {
+				if state.dataProducer {
 					state.dataProducer.close()
 				}
 
@@ -371,7 +371,7 @@ export class SfuServer {
 
 		Object.values(this.routers).forEach(routerObject => {
 			Object.values(routerObject.clients).forEach(clientObject => {
-				if (clientObject.userId == userId) {
+				if clientObject.userId == userId {
 					routerId = routerObject.routerId
 				}
 			})
@@ -383,7 +383,7 @@ export class SfuServer {
 	static getRouterUserIds(routerId) {
 		const connectedUserIds = []
 
-		if (this.routers[routerId]) {
+		if this.routers[routerId] {
 			Object.keys(this.routers[routerId].clients).forEach(userId => {
 				connectedUserIds.push(userId)
 			})

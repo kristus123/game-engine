@@ -19,7 +19,7 @@ export class DuckCheck {
 			errors.push(`missing field: ${f}`)
 		}
 
-		if (errors.length) {
+		if errors.length {
 			throw new Error(`${this.name} duck check failed: ${errors.join(" | ")}`)
 		}
 		else {

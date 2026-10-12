@@ -11,7 +11,7 @@ export class LowLevelHttpClient {
 		Assert.either(method, ["GET", "POST"])
 
 		try {
-			if (Network.offline) {
+			if Network.offline {
 				console.warn("network is offline, fetch might not work")
 			}
 
@@ -24,16 +24,16 @@ export class LowLevelHttpClient {
 					body = null
 				}
 				case "POST" {
-					if (A.jsonObject(body)) {
+					if A.jsonObject(body) {
 						body = JSON.stringify(body)
 						contentType = "application/json"
 					}
-					else if (body == null) {
+					else if body == null {
 						body = null
 						Assert.null(contentType)
 						contentType = null
 					}
-					else if (body instanceof Blob) {
+					else if body instanceof Blob {
 						Assert.value(contentType)
 					}
 					else {

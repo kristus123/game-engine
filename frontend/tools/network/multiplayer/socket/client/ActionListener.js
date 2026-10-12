@@ -6,7 +6,7 @@ export class ActionListener {
 	trigger(action, message) {
 		const listener = this.listeners[action]
 
-		if (listener != null) {
+		if listener != null {
 			listener.trigger(message)
 		}
 		else {

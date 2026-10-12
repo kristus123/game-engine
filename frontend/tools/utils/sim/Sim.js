@@ -8,7 +8,7 @@ async function retry(fn, attempts = 5, delay = 100) {
 		catch (e) {
 			error = e
 
-			if (i < attempts - 1) {
+			if i < attempts - 1 {
 				console.log(i)
 				await new Promise(resolve => setTimeout(resolve, delay * 2))
 			}
@@ -28,22 +28,22 @@ export class Sim {
 	}
 
 	static assertClickable(el) { // no-null-check
-		if (!(el instanceof HTMLElement)) {
+		if !(el instanceof HTMLElement) {
 			throw new Error("Invalid element")
 		}
 
-		if (!el.isConnected) {
+		if !el.isConnected {
 			throw new Error("Element is not in the DOM")
 		}
 
 		const style = getComputedStyle(el)
 		const rect = el.getBoundingClientRect()
 
-		if (style.display == "none" || style.visibility == "hidden" || style.pointerEvents == "none" || rect.width == 0 || rect.height == 0) {
+		if style.display == "none" || style.visibility == "hidden" || style.pointerEvents == "none" || rect.width == 0 || rect.height == 0 {
 			throw new Error("Element is not clickable")
 		}
 
-		if (el.disabled) {
+		if el.disabled {
 			throw new Error("Element is disabled")
 		}
 
@@ -60,7 +60,7 @@ export class Sim {
 			return target == el || el.contains(target)
 		})
 
-		if (!clickable) {
+		if !clickable {
 			throw new Error("Element is completely blocked")
 		}
 	}
@@ -83,7 +83,7 @@ export class Sim {
 
 			this.assertClickable(el)
 
-			if (!(el instanceof HTMLInputElement) && !(el instanceof HTMLTextAreaElement)) {
+			if !(el instanceof HTMLInputElement) && !(el instanceof HTMLTextAreaElement) {
 				throw new Error("Element is not an input")
 			}
 
