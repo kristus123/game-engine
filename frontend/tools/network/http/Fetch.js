@@ -1,6 +1,6 @@
 // this method is quite coupled to our local server. maybe fix in the future
 
-export async function Fetch({ url, body, headers, timeoutMs = 8_000, method = "POST" } = {}) { // no-null-check
+export async function Fetch({ url, body, headers, timeoutMs = 8_000, method } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
 
