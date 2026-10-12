@@ -15,11 +15,11 @@ export class HouseGrid {
 			}
 		}
 
-		for (const p of this.grid.area(this.position)) {
+		for const p of this.grid.area(this.position) {
 			D1.rectangle(p, "green")
 		}
 
-		for (const p of this.grid.scaledTiles()) {
+		for const p of this.grid.scaledTiles() {
 			D1.rectangle(p, "brown")
 		}
 

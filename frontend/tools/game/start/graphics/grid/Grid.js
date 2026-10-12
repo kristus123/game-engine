@@ -21,8 +21,8 @@ export class Grid {
 
 		const positions = []
 
-		for (let gx = 0; gx < cells; gx++) {
-			for (let gy = 0; gy < cells; gy++) {
+		for let gx = 0; gx < cells; gx++ {
+			for let gy = 0; gy < cells; gy++ {
 				const gp = { x: topLeft.x + gx, y: topLeft.y + gy }
 				positions.push(this.scaled(gp))
 			}
@@ -38,7 +38,7 @@ export class Grid {
 
 
 	placeArea(areas) {
-		for (const a of areas) {
+		for const a of areas {
 			this.add(a)
 		}
 	}

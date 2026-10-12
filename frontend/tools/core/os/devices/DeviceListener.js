@@ -4,7 +4,7 @@ export class DeviceListener {
 	static disconnectListener = Listener()
 
 	static onConnect(callback) {
-		for (const mic of this.mics) {
+		for const mic of this.mics {
 			callback(mic)
 		}
 
@@ -20,7 +20,7 @@ export class DeviceListener {
 
 		let last = await navigator.mediaDevices.enumerateDevices()
 
-		for (const device of last) {
+		for const device of last {
 			this.devices.push(device)
 			this.connectListener.trigger(device)
 		}
@@ -28,14 +28,14 @@ export class DeviceListener {
 		navigator.mediaDevices.addEventListener("devicechange", Debounce(200, async () => {
 			const current = await navigator.mediaDevices.enumerateDevices()
 
-			for (const device of current) {
+			for const device of current {
 				if !last.some(d => d.deviceId == device.deviceId) {
 					this.connectListener.trigger(device)
 					this.devices.push(device)
 				}
 			}
 
-			for (const device of last) {
+			for const device of last {
 				if !current.some(d => d.deviceId == device.deviceId) {
 					this.disconnectListener.trigger(device)
 					this.devices.remove(device)

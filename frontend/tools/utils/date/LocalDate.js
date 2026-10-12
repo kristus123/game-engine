@@ -5,10 +5,7 @@ export class LocalDate {
 		if A.string(arg) {
 			const match = arg.match(/^(\d{4})-(\d{2})-(\d{2})$/)
 			if match {
-				const [_,
-					year,
-					month,
-					day] = match
+				const [_, year, month, day] = match
 				this.date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)))
 			}
 			else {

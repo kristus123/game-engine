@@ -33,8 +33,8 @@ export class GridPositions {
 
 
 	forEach(run) {
-		for (const [x, col] of this.grid) {
-  	for (const [y, value] of col) {
+		for const [x, col] of this.grid {
+  	for const [y, value] of col {
 		  run({ x, y, value })
   	}
 		}

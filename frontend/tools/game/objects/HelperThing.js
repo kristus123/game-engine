@@ -8,7 +8,7 @@ export class HelperThing {
 	}
 
 	static updateAnd(objects, run=() => {}) {
-		for (const o of objects) {
+		for const o of objects {
 			try {
 				if A.method(o.update) {
 					run(o)

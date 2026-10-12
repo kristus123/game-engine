@@ -41,7 +41,7 @@ export class Palette {
 		this.pixelScale = Math.max(1, window.devicePixelRatio || 1) * this.renderScaleFactor
 		this.main.resize(width, height, this.pixelScale)
 
-		for (const layer of this.layers) {
+		for const layer of this.layers {
 			layer.resize(width, height, this.pixelScale)
 		}
 	}
@@ -50,7 +50,7 @@ export class Palette {
 		this.main.fill(background)
 		const transform = Camera.transform
 
-		for (const layer of this.layers) {
+		for const layer of this.layers {
 			layer.clear()
 			layer.ctx.save()
 			layer.ctx.transform(...transform)
@@ -63,7 +63,7 @@ export class Palette {
 			const ctx = this.main.ctx
 			ctx.save()
 			ctx.resetTransform()
-			for (const layer of this.layers) {
+			for const layer of this.layers {
 				layer.ctx.restore()
 				ctx.drawImage(layer.canvas, 0, 0)
 			}

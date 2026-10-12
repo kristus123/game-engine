@@ -22,7 +22,7 @@ async function shutdownBackend(signal) {
 			return HttpServer.stop()
 		}],
 	]
-	for (const [name, stop] of stopSteps) {
+	for const [name, stop] of stopSteps {
 		console.log(`Stopping ${name}`)
 		try {
 			await stop()
@@ -49,7 +49,7 @@ export async function StartServer(backendId) {
 	process.once("SIGINT", () => shutdown("SIGINT"))
 	process.once("SIGTERM", () => shutdown("SIGTERM"))
 
-	for (const e of Files.getJsFiles("transpiledBackend/http/endpoints")) { // todo find fix, place path somewhere and find out how to handle transpiled paths
+	for const e of Files.getJsFiles("transpiledBackend/http/endpoints") { // todo find fix, place path somewhere and find out how to handle transpiled paths
 		await import(pathToFileURL(e).href)
 	}
 

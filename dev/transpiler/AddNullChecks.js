@@ -1,4 +1,4 @@
-import { Parameters } from "#root/AllImports.js"
+import { Parameters } from "../Parameters.js"
 
 export function AddNullChecks(fileName, className, lines, i) {
 	if (lines[i].includes("no-null-check")) {

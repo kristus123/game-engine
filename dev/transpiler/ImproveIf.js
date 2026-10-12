@@ -1,4 +1,4 @@
-import { Regex } from "#root/AllImports.js"
+import { Regex } from "../Regex.js"
 
 function tabCount(str) {
 	return (str.match(/\t/g) || []).length

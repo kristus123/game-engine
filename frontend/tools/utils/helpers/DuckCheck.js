@@ -11,11 +11,11 @@ export class DuckCheck {
 
 		const { methods, fields } = this.spec
 
-		for (const m of methods.filter((m) => typeof obj[m] != "function")) {
+		for const m of methods.filter((m) => typeof obj[m] != "function") {
 			errors.push(`missing method: ${m}`)
 		}
 
-		for (const f of fields.filter((f) => !(f in obj))) {
+		for const f of fields.filter((f) => !(f in obj)) {
 			errors.push(`missing field: ${f}`)
 		}
 

@@ -70,7 +70,7 @@ export class Picture {
 
 		const image = newCtx.getImageData(0, 0, this.canvas.width, this.canvas.height)
 
-		for (let i = 0; i < image.data.length; i += 4) {
+		for let i = 0; i < image.data.length; i += 4 {
 			const r = image.data[i + 0]
 			const g = image.data[i + 1]
 			const b = image.data[i + 2]
@@ -78,10 +78,7 @@ export class Picture {
 
 			const newColor = colorMap[`${r},${g},${b},${a}`]
 			if A.value(newColor) {
-				const [r,
-					g,
-					b,
-					a] = newColor.split(",")
+				const [r, g, b, a] = newColor.split(",")
 				image.data[i + 0] = r
 				image.data[i + 1] = g
 				image.data[i + 2] = b
@@ -163,7 +160,7 @@ export class Picture {
 	}
 
 	*visiblePixelsIn(picturePosition) {
-		for (const xy of picturePosition.points()) {
+		for const xy of picturePosition.points() {
 			const c = this.pixelColor(xy)
 			if c.a != 0 {
 				yield xy

@@ -8,7 +8,7 @@ export class Physics {
 	}
 
 	static update() {
-		for (const o of this.objects) {
+		for const o of this.objects {
 			o.previousPosition = { x: o.x, y: o.y }
 
 			o.velocity.x += (o.force.x / o.weight) * DeltaTime.value

@@ -7,7 +7,7 @@ export class SimplexNoise {
 		this.noiseScale = noiseScale
 		// Permutation table
 		this.perm = []
-		for (let i = 0; i < 512; i++) {
+		for let i = 0; i < 512; i++ {
 			this.perm[i] = Math.floor(Math.random() * 256)
 		}
 		this.perm = this.perm.concat(this.perm)

@@ -19,7 +19,7 @@ export class SocketClient {
 			const userIds = data.userIds.filter(userId => userId != Token.userId)
 			const diffs = OtherUsers.userIds.unorderedDiff(userIds)
 
-			for (const d of diffs) {
+			for const d of diffs {
 				if d.add {
 					OtherUsers.add(d.value)
 				}

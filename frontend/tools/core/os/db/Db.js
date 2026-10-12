@@ -22,7 +22,7 @@ export async function Db(dbName, { prototype = {} } = {}) {
 	}
 
 	const applyPrototype = elements => {
-		for (const e of Always.list(elements)) {
+		for const e of Always.list(elements) {
 			Object.setPrototypeOf(e, prototype)
 		}
 

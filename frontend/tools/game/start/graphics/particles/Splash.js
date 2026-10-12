@@ -32,7 +32,7 @@ export class Splash {
 	}
 
 	update() {
-		for (const p of this.particles) {
+		for const p of this.particles {
 
 			p.life--
 

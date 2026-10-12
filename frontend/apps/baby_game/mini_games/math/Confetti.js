@@ -13,7 +13,7 @@ export function Confetti(element, colors=defaultColors) {
 	const rect = element.getBoundingClientRect()
 
 	const count = 40
-	for (let i = 0; i < count; i++) {
+	for let i = 0; i < count; i++ {
 		const piece = document.createElement("div")
 
 		const angle = Math.random() * Math.PI * 2

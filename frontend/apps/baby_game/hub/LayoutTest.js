@@ -6,10 +6,12 @@ export class LayoutTest {
 
 		MouseDragScroll.horizontal(html.area)
 
-		for (const c of Iterate(10, () => ({
+		const cards = Iterate(10, () => ({
 			title: Random.choice(["wow", "yo", "omg"]),
 			p: Random.integerBetween(-20, 20),
-		}))) {
+		}))
+
+		for const c of cards {
 			const h = Html.card()
 			const p = Random.choice([
 				"lavvo.png",

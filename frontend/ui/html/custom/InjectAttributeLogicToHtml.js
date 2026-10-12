@@ -1,5 +1,5 @@
 export function InjectAttributeLogicToHtml(child, methods, setState) {
-	for (const attribute of child.attributes) {
+	for const attribute of child.attributes {
 		if !attribute.name.includes("-") {
 			continue
 		}

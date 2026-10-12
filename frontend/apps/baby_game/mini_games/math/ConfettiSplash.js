@@ -2,7 +2,7 @@ export function ConfettiSplash(element) {
 	const rect = element.getBoundingClientRect()
 
 	const count = 20
-	for (let i = 0; i < count; i++) {
+	for let i = 0; i < count; i++ {
 		const piece = document.createElement("div")
 
 		const angle = Math.random() * Math.PI * 2

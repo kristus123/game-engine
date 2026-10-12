@@ -11,7 +11,7 @@ export class FollowPlayerNoise {
 
 	draw(draw) {
 
-		for (const position of Positions.grid(this.gridArea, this.size)) {
+		for const position of Positions.grid(this.gridArea, this.size) {
 			// this.t += 0.0001
 			const noiseValue = this.simplexNoise.noise(position, this.t)
 

@@ -47,7 +47,7 @@ export class Poop {
 	static async parseJsonBody(req) {
 		let rawBody = Buffer.alloc(0)
 
-		for await (const chunk of req) {
+		for await const chunk of req {
 			rawBody = Buffer.concat([rawBody, chunk])
 		}
 

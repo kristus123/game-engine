@@ -47,7 +47,7 @@ export class Random {
 	static positions(p, amount) {
 		const positions = []
 
-		for (let i = 0; i < amount; i++) {
+		for let i = 0; i < amount; i++ {
 			positions.push(p.randomPoint())
 		}
 

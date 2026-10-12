@@ -50,7 +50,7 @@ export class ConvertControlFlowSyntax {
 	}
 
 	static line(line) {
-		const match = line.match(/^(\s*)(if|else if|switch)\s*\(/)
+		const match = line.match(/^(\s*)(if|else if|switch|for(?:\s+await)?)\s*\(/)
 		if (match == null) {
 			return line
 		}
@@ -62,7 +62,7 @@ export class ConvertControlFlowSyntax {
 			return line
 		}
 
-		return line.slice(0, openIndex) + line.slice(openIndex + 1, closeIndex) + remainder
+		return `${match[1]}${match[2]} ${line.slice(openIndex + 1, closeIndex).trim()}${remainder}`
 	}
 
 	static content(source) {
@@ -73,7 +73,7 @@ export class ConvertControlFlowSyntax {
 	static forLint(source) {
 		const lines = source.split("\n")
 		for (let i = 0; i < lines.length; i++) {
-			const header = lines[i].match(/^(\s*)(if|else if|switch)\s+(.+?)\s*\{(\s*(?:\/\/.*)?)$/)
+			const header = lines[i].match(/^(\s*)(if|else if|switch|for(?:\s+await)?)\s+(.+?)\s*\{(\s*(?:\/\/.*)?)$/)
 			if (header != null) {
 				const [, indent,
 					keyword,

@@ -10,6 +10,21 @@
     "extends": "eslint:recommended",
     "overrides": [
         {
+            "files": [
+                "frontend/**/*.js",
+                "backend/**/*.js"
+            ],
+            "rules": {
+                "@stylistic/js/array-element-newline": [
+                    "error",
+                    {
+                        "ArrayExpression": "consistent",
+                        "ArrayPattern": "never"
+                    }
+                ]
+            }
+        },
+        {
             "env": {
                 "node": true
             },
@@ -168,6 +183,7 @@
         "ConfettiSplash": "readonly",
         "Config": "readonly",
         "ContentType": "readonly",
+        "ControlFlowSyntaxChecks": "readonly",
         "Controller": "readonly",
         "ConvertControlFlowSyntax": "readonly",
         "Css": "readonly",
@@ -244,6 +260,7 @@
         "HttpServer": "readonly",
         "IfCondition": "readonly",
         "Imports": "readonly",
+        "ImproveFor": "readonly",
         "ImproveIf": "readonly",
         "ImproveSwitchCase": "readonly",
         "InfiniteListLooper": "readonly",

@@ -5,7 +5,7 @@ export class Sprite extends Entity {
 	constructor(position, layersImage, layersJson, fullJson, groupsJson, spriteName) {
 		super(position)
 		this.groupInfo = {}
-		for (const x of groupsJson.meta.layers) {
+		for const x of groupsJson.meta.layers {
 			if x.group {
 				this.groupInfo[x.name] = x.group
 			}
@@ -18,11 +18,11 @@ export class Sprite extends Entity {
 
 		this.slices = []
 		if !fullJson.meta.slices.empty {
-			for (const x of fullJson.meta.slices) {
+			for const x of fullJson.meta.slices {
 				const slice = {
 					name: x.name,
 				}
-				for (const y of x.keys) {
+				for const y of x.keys {
 					const p = y.bounds
 					slice.pixelPosition = WorldPosition(p.x, p.y, p.w, p.h)
 				}
@@ -33,9 +33,7 @@ export class Sprite extends Entity {
 
 		layersJson.frames.forEach((key, frameInfo) => {
 			let [
-				layer,
-				frame,
-				tag,
+				layer, frame, tag,
 			] = key.split("_")
 
 			frame = Always.integer(frame)
@@ -84,7 +82,7 @@ export class Sprite extends Entity {
 	}
 
 	updateColliderPosition() {
-		for (const c of this.slices) {
+		for const c of this.slices {
 			const s = c.pixelPosition
 			this.collider.x = this.position.x + (s.x * Scale.value)
 			this.collider.y = this.position.y + (s.y * Scale.value)
@@ -106,52 +104,52 @@ export class Sprite extends Entity {
 	}
 
 	shadow(r = 0, g = 0, b = 0, a = 1.0) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.shadow(r, g, b, a)
 		}
 	}
 
 	updateShadow(lightPos) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.updateShadow(this.position, lightPos)
 		}
 	}
 
 	flicker(intensity, r = 0, g = 0, b = 0) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.flicker(intensity, r, g, b)
 		}
 	}
 
 	shake(intensity, durationSeconds) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.shake(intensity, durationSeconds)
 		}
 	}
 
 	tint(r, g, b, a) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.tint(r, g, b, a)
 		}
 		this.invalidatePrerenderSrc()
 	}
 
 	mirrorX() {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.mirrorX()
 		}
 		this.invalidatePrerenderSrc()
 	}
 
 	mirrorY() {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.mirrorY()
 		}
 		this.invalidatePrerenderSrc()
 	}
 
 	changeColors(colorMap) {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.changeColors(colorMap)
 		}
 		this.invalidatePrerenderSrc()
@@ -160,7 +158,7 @@ export class Sprite extends Entity {
 	}
 
 	reset() {
-		for (const picture of this.getAllPictures()) {
+		for const picture of this.getAllPictures() {
 			picture.reset()
 		}
 		this.invalidatePrerenderSrc()
@@ -169,7 +167,7 @@ export class Sprite extends Entity {
 	invalidatePrerenderSrc() {
 		this.prerenderReady = false
 
-		for (const prerendered of this.prerenderedPictures) {
+		for const prerendered of this.prerenderedPictures {
 			prerendered.upToDate = false
 			prerendered.src = null
 		}
@@ -178,11 +176,11 @@ export class Sprite extends Entity {
 	}
 
 	prerenderSrc() {
-		for (const [frame, prerendered] of this.prerenderedPictures.entries()) {
+		for const [frame, prerendered] of this.prerenderedPictures.entries() {
 			prerendered.picture.clear()
 
-			for (const drawLayer of ["D3", "D2", "D1"]) {
-				for (const [layer, frames] of Object.entries(this.layers)) {
+			for const drawLayer of ["D3", "D2", "D1"] {
+				for const [layer, frames] of Object.entries(this.layers) {
 					const frameInfo = frames[frame]
 					if frameInfo && this.group(layer) == drawLayer {
 						prerendered.picture.applyCanvas(frameInfo.picture.canvas)
@@ -219,7 +217,7 @@ export class Sprite extends Entity {
 	}
 
 	*getAllStuff(wantedFrame) {
-		for (const [layer, frames] of this.layers.all) {
+		for const [layer, frames] of this.layers.all {
 			const { frame, tag, duration, picture } = frames[wantedFrame]
 
 			yield { layer, frames, frame, tag, duration, picture }
@@ -227,8 +225,8 @@ export class Sprite extends Entity {
 	}
 
 	*getAllPictures() {
-		for (const frames of Object.values(this.layers)) {
-			for (const { picture } of Object.values(frames)) {
+		for const frames of Object.values(this.layers) {
+			for const { picture } of Object.values(frames) {
 				yield picture
 			}
 		}
@@ -241,7 +239,7 @@ export class Sprite extends Entity {
 	update() {
 		this.updateColliderPosition()
 
-		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
+		for const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame) {
 			switch this.group(layer) {
 				case "D1" {
 					picture.update(this.position, D1)

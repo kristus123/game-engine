@@ -1,7 +1,7 @@
 async function retry(fn, attempts = 5, delay = 100) {
 	let error
 
-	for (let i = 0; i < attempts; i++) {
+	for let i = 0; i < attempts; i++ {
 		try {
 			return await fn()
 		}
@@ -89,7 +89,7 @@ export class Sim {
 
 			el.focus()
 
-			for (const char of text) {
+			for const char of text {
 				await new Promise(resolve => setTimeout(resolve, this.delay / 4))
 
 				el.value += char

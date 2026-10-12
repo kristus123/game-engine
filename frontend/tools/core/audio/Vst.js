@@ -45,7 +45,7 @@ export class Vst {
 			const n_samples = 44100
 			const curve = new Float32Array(n_samples)
 			const deg = Math.PI / 180
-			for (let i = 0; i < n_samples; ++i) {
+			for let i = 0; i < n_samples; ++i {
 				const x = (i * 2) / n_samples - 1
 				curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x))
 			}
@@ -77,7 +77,7 @@ export class Vst {
 		const left = impulse.getChannelData(0)
 		const right = impulse.getChannelData(1)
 
-		for (let i = 0; i < length; i++) {
+		for let i = 0; i < length; i++ {
 			const decay = Math.exp(-i / (sampleRate * decayTime / 4))
 			left[i] = (Math.random() * 2 - 1) * decay
 			right[i] = (Math.random() * 2 - 1) * decay

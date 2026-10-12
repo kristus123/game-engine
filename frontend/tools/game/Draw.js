@@ -461,7 +461,7 @@ export class Draw {
 		const rows = Math.floor(mapHeight / cellSize)
 		const columns = Math.floor(mapWidth / cellSize)
 
-		for (let i = 0; i < rows; i++) {
+		for let i = 0; i < rows; i++ {
 			this.ctx.beginPath()
 			this.ctx.moveTo(0, i * cellSize)
 			this.ctx.lineTo(mapWidth, i * cellSize)
@@ -473,7 +473,7 @@ export class Draw {
 		this.ctx.lineTo(mapWidth, mapHeight)
 		this.ctx.stroke()
 
-		for (let j = 0; j < columns; j++) {
+		for let j = 0; j < columns; j++ {
 			this.ctx.beginPath()
 			this.ctx.moveTo(j * cellSize, 0)
 			this.ctx.lineTo(j * cellSize, mapHeight)

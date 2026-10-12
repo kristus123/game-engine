@@ -13,7 +13,7 @@ export class Kristian {
 
 			const queue = Queue()
 
-			for (const number of challenge.shuffle()) {
+			for const number of challenge.shuffle() {
 				const card = `
 					<div data-number="${number}" draggable style="min-width: 100px; min-height: 100px" class="bgWhite">
 						<p style="font-size:85px" center class="textWhite">${number}</p>
@@ -60,7 +60,7 @@ export class Kristian {
 
 					const queue = Queue()
 
-					for (const card of html.list.children) {
+					for const card of html.list.children {
 						queue.add(next => card.play("moveOut", {
 							onHalf: () => {
 								next()
@@ -82,7 +82,7 @@ export class Kristian {
 			DomMouse.whileDragging = e => {
 				placeholder.followMouse(0, -50)
 
-				for (const h of DomMouse.hovering) { // find better solution for this
+				for const h of DomMouse.hovering { // find better solution for this
 					const list = h.closest("[sortable]")
 					if list {
 						list.orderBasedOnMousePosition(e, () => {

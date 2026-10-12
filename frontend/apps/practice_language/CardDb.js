@@ -80,7 +80,7 @@ export async function CardDb() {
 		}
 
 		async resetAllDueDates() {
-			for (const c of await db.all()) {
+			for const c of await db.all() {
 				c.front.dueDate = LocalDate.now().toString()
 				c.back.dueDate = LocalDate.now().toString()
 				await db.update(c)

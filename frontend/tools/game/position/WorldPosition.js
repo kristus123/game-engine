@@ -26,7 +26,7 @@ export class WorldPosition {
 	randomPoints(amount=1, width=this.width, height=this.height) {
 		const points = []
 
-		for (let i = 0; i < amount; i++) {
+		for let i = 0; i < amount; i++ {
 			const p = this.randomPoint()
 			p.width = width
 			p.height = height
@@ -181,8 +181,8 @@ export class WorldPosition {
 	}
 
 	*points() {
-		for (let yy = this.y; yy < this.y + this.height; yy++) {
-			for (let xx = this.x; xx < this.x + this.width; xx++) {
+		for let yy = this.y; yy < this.y + this.height; yy++ {
+			for let xx = this.x; xx < this.x + this.width; xx++ {
 				yield { x: xx, y: yy }
 			}
 		}

@@ -23,7 +23,7 @@ export class DiscordLogServer {
 	static async cleanupOldChannels() {
 		const channels = await DiscordHttpClient.get(`/guilds/${guildId}/channels`)
 		if channels.length > 10 {
-			for (const c of channels) {
+			for const c of channels {
 				await DiscordHttpClient.delete(`/channels/${c.id}`)
 				channelCache.delete(c.name)
 			}
@@ -36,7 +36,7 @@ export class DiscordLogServer {
 		}
 
 		const channels = await DiscordHttpClient.get(`/guilds/${guildId}/channels`)
-		for (const c of channels) {
+		for const c of channels {
 			channelCache.set(c.name, c.id)
 			if c.name == name {
 				return c.id

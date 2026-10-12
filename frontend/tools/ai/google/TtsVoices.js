@@ -11,7 +11,7 @@ const load = () => {
 	voices = speechSynthesis.getVoices()
 
 	// console.log("available voices:")
-	for (const v of voices) {
+	for const v of voices {
 		// console.log(v.name, "-", v.lang)
 	}
 

@@ -91,7 +91,7 @@ export class ContentType {
 		let quoted = false
 		let escaped = false
 
-		for (const char of value) {
+		for const char of value {
 			if escaped {
 				part += char
 				escaped = false
@@ -131,7 +131,7 @@ export class ContentType {
 
 		const parameters = {}
 
-		for (const part of parts) {
+		for const part of parts {
 			const separator = part.indexOf("=")
 
 			if separator == -1 {

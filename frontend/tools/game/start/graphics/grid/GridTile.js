@@ -12,7 +12,7 @@ export class GridTile {
 		const snappedPosition = this.grid.snappedPosition(Mouse.position)
 		D1.grey(snappedPosition)
 
-		for (const tile of this.grid.scaledTiles()) {
+		for const tile of this.grid.scaledTiles() {
 			if Mouse.hovering(tile) {
 				D1.transparentRedRectangle(tile)
 			}

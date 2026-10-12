@@ -79,7 +79,7 @@ export class Entity {
 	}
 
 	touchesAny(list, condition= (o) => true) {
-		for (const o of list) {
+		for const o of list {
 			if Collision.between(this.position, o) && this != o && condition(o) {
 				return o
 			}
@@ -99,7 +99,7 @@ export class Entity {
 		else {
 			let closestObject = objects[0]
 
-			for (const o of objects) {
+			for const o of objects {
 				if this.distance(closestObject) > this.distance(o) {
 					this.closestObject = o
 				}
@@ -127,7 +127,7 @@ export class Entity {
 	}
 
 	withinAny(distance, objects) {
-		for (const o of objects) {
+		for const o of objects {
 			if this.within(distance, o) {
 				return o
 			}

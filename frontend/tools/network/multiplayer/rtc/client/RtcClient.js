@@ -194,7 +194,7 @@ export class RtcClient {
 	}
 
 	static stopCall() {
-		for (const userId in this.connectedUserIds) {
+		for const userId in this.connectedUserIds {
 			this.connectedUserIds[userId].peerConnection.close()
 		}
 

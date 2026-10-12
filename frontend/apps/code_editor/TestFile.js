@@ -2,7 +2,7 @@ export const TestFile = (`
 	const users = ["bob", "alice", "john"]
 
 	function getUser(name) {
-		for (let i = 0; i < users.length; i++) {
+		for let i = 0; i < users.length; i++ {
 			if users[i] == name {
 				return users[i]
 			}
@@ -11,7 +11,7 @@ export const TestFile = (`
 	}
 
 	function printUsers() {
-		for (let i = 0; i < users.length; i++) {
+		for let i = 0; i < users.length; i++ {
 			console.log("USER: " + users[i])
 		}
 	}

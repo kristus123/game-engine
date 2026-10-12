@@ -12,8 +12,8 @@ export class SocketServer {
 				metaHeaders.targetUserIds, metaHeaders.targetUserId,
 			)).assertValues()
 
-			for (const targetUserId of targetUserIds) {
-				for (const target of SocketClients.clientsFromUserId(targetUserId)) {
+			for const targetUserId of targetUserIds {
+				for const target of SocketClients.clientsFromUserId(targetUserId) {
 					this.sendToClient(target, {
 						data: data,
 						metaHeaders: {
@@ -128,7 +128,7 @@ export class SocketServer {
 				},
 			})
 
-			for (const message of pendingMessages) {
+			for const message of pendingMessages {
 				handleMessage(message)
 			}
 			pendingMessages.length = 0
@@ -142,7 +142,7 @@ export class SocketServer {
 		}
 
 		this.server = null
-		for (const client of server.clients) {
+		for const client of server.clients {
 			client.terminate()
 		}
 
@@ -198,13 +198,13 @@ export class SocketServer {
 	}
 
 	static sendToUsers(userIds, { data = {}, metaHeaders = {} } = {}) {
-		for (const userId of userIds) {
+		for const userId of userIds {
 			this.sendToUser(userId, { data: data, metaHeaders: metaHeaders })
 		}
 	}
 
 	static sendToClients(clients, { data = {}, metaHeaders = {} } = {}) {
-		for (const client of clients) {
+		for const client of clients {
 			this.sendToClient(client, { data: data, metaHeaders: metaHeaders })
 		}
 	}

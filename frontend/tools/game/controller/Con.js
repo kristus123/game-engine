@@ -23,7 +23,7 @@ export class Con {
 
 		this.onTrueListeners = []
 
-		for (const button of Playstation.buttons) {
+		for const button of Playstation.buttons {
 			this[button] = () => {}
 			this[button + "Pressed"] = false
 			this[button + "OnTrueListener"] = OnTrue(() => this[button + "Pressed"], () => {
@@ -38,7 +38,7 @@ export class Con {
 		if index != null {
 			const gp = navigator.getGamepads()[index] // nb. duplicate line
 
-			for (const [i, button] of gp.buttons.entries()) {
+			for const [i, button] of gp.buttons.entries() {
 				const name = Playstation.mapToButton(i)
 				if name {
 					this[name + "Pressed"] = button.pressed
@@ -51,7 +51,7 @@ export class Con {
 			const axes = gp.axes.map(a => a.toFixed(2))
 		}
 
-		for (const onTrue of this.onTrueListeners) {
+		for const onTrue of this.onTrueListeners {
 			onTrue.update()
 		}
 

@@ -21,7 +21,7 @@ class Virtualizer {
 
 		let sum = 0
 
-		for (let i = 0; i < this.items.length; i++) {
+		for let i = 0; i < this.items.length; i++ {
 			const h = this.heights[i] || this.estimateSize(this.items[i], i)
 			this.heights[i] = h
 			this.offsets[i] = sum
@@ -42,7 +42,7 @@ class Virtualizer {
 	}
 
 	findEnd(bottom) {
-		for (let i = 0; i < this.offsets.length; i++) {
+		for let i = 0; i < this.offsets.length; i++ {
 			if this.offsets[i] > bottom {
 				return i
 			}
@@ -58,7 +58,7 @@ class Virtualizer {
 		const e = Math.min(this.items.length, end + this.overscan)
 
 		const out = []
-		for (let i = s; i < e; i++) {
+		for let i = s; i < e; i++ {
 			out.push({ index: i, start: this.offsets[i] })
 		}
 		return out
@@ -84,7 +84,7 @@ function render() {
 
 	const fragment = document.createDocumentFragment()
 
-	for (const v of virtualizer.getVirtualItems()) {
+	for const v of virtualizer.getVirtualItems() {
 		const row = document.createElement("div")
 		row.className = "row"
 

@@ -18,7 +18,7 @@ export async function CanvasLoop(activeThing) {
 				Shadow.updateOutsideCameraContext()
 				activeThing.update()
 				D1.circle(Mouse.position)
-				for (const c of SuperClass.all) {
+				for const c of SuperClass.all {
 					c.showTags(D1)
 				}
 				Light.updateInsideCameraContext()

@@ -20,7 +20,7 @@ const buttons = [
 
 const mappings = {}
 
-for (const [index, b] of buttons.entries()) {
+for const [index, b] of buttons.entries() {
 	mappings[index] = b
 }
 

@@ -10,7 +10,7 @@ export class OtherUsers {
 
 	static onJoin(callback) {
 		this.onJoinListener.listen((userId) => callback(userId, (x) => this.onLeaveListener.listenOnce(x)))
-		for (const userId of this.userIds) {
+		for const userId of this.userIds {
 			callback(userId, (x) => this.onLeaveListener.listenOnce(x))
 		}
 	}

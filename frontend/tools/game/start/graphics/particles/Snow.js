@@ -50,7 +50,7 @@ export class Snow {
 	}
 
 	update() {
-		for (let i = this.flakes.length - 1; i >= 0; i--) {
+		for let i = this.flakes.length - 1; i >= 0; i-- {
 			const f = this.flakes[i]
 			f.update()
 
@@ -76,7 +76,7 @@ export class Snow {
 			this.spawnRemainder -= 1
 		}
 
-		for (const position of this.groundSnow.values()) {
+		for const position of this.groundSnow.values() {
 			D2.rectangle(position, "white")
 		}
 	}

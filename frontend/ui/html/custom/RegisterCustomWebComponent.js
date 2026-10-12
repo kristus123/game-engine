@@ -13,7 +13,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 	const template = document.createElement("template")
 
-	for (const c of _toHtml(html)) {
+	for const c of _toHtml(html) {
 		template.content.append(c)
 	}
 
@@ -110,7 +110,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			const content = template.content.cloneNode(true)
 
 			const slots = {}
-			for (const s of content.querySelectorAll("slot")) {
+			for const s of content.querySelectorAll("slot") {
 				slots[s.getAttribute("name")] = s
 			}
 
@@ -158,7 +158,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				InjectAttributeLogicToHtml(child, methods, setState)
 			})
 
-			for (const actualSlot of this.querySelectorAll("slot")) {
+			for const actualSlot of this.querySelectorAll("slot") {
 				if slots[actualSlot.getAttribute("name")] {
 					const s = slots[actualSlot.getAttribute("name")]
 					actualSlot.replaceWith(s)
@@ -166,7 +166,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 						InjectAttributeLogicToHtml(c, methods, setState)
 					})
 
-					for (const { name, value } of this.attributes) {
+					for const { name, value } of this.attributes {
 						if name.replace("slot-", "") == s.name {
 							s.replaceWith(document.createTextNode(value))
 						}

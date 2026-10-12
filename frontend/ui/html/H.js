@@ -83,10 +83,10 @@ export class H {
 		v.controls = controls
 		v.playsInline = playsInline
 
-		for (const eventName of ["loadeddata", "timeupdate", "seeked"]) {
+		for const eventName of ["loadeddata", "timeupdate", "seeked"] {
 			v.addEventListener(eventName, reportPlaybackDate)
 		}
-		for (const [eventName, listener] of Object.entries(listeners)) {
+		for const [eventName, listener] of Object.entries(listeners) {
 			v.addEventListener(eventName, listener)
 		}
 
@@ -96,7 +96,7 @@ export class H {
 	static dialog(children=[]) {
 
 		const div = _HtmlElement("div")
-		for (const c of Always.list(children)) {
+		for const c of Always.list(children) {
 			div.appendChild(c)
 		}
 

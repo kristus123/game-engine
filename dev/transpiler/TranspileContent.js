@@ -1,5 +1,10 @@
 import path from "path"
-import { Files, Parameters, AddNullChecks, ImproveSwitchCase, ImproveIf } from "#root/AllImports.js"
+import { Files } from "../Files.js"
+import { Parameters } from "../Parameters.js"
+import { AddNullChecks } from "./AddNullChecks.js"
+import { ImproveSwitchCase } from "./ImproveSwitchCase.js"
+import { ImproveIf } from "./ImproveIf.js"
+import { ImproveFor } from "./ImproveFor.js"
 
 export function TranspileContent(filePath, fileContent, jsFiles) {
 	if (fileContent.includes("// disable-transpiling")) {
@@ -47,6 +52,7 @@ export function TranspileContent(filePath, fileContent, jsFiles) {
 
 		ImproveSwitchCase(lines, i)
 		ImproveIf(lines, i)
+		ImproveFor(lines, i)
 	}
 
 	return lines.join("\n")

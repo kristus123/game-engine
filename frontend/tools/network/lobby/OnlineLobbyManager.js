@@ -30,7 +30,7 @@ export class OnlineLobbyManager {
 		})
 
 		OtherUsers.onJoin(newUserId => {
-			for (const lobby of Lobbies.myLobbies) {
+			for const lobby of Lobbies.myLobbies {
 				SocketClient.sendToUser("SYNC_EXISTING_LOBBIES", newUserId, {
 					lobbyId: lobby.lobbyId,
 					hostUserId: lobby.hostUserId,

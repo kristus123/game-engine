@@ -83,7 +83,7 @@ export class GridPathFinder {
 				return
 			}
 
-			for (const neighbor of this._walkable_neighbors(node.position)) {
+			for const neighbor of this._walkable_neighbors(node.position) {
 				const nKey = this._gridKey(neighbor)
 				if closedSet.has(nKey) {
 					continue

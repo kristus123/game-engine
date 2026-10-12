@@ -3,7 +3,7 @@ export class Objects {
 		Assert.array(objects)
 		Assert.noNullInArray(objects)
 
-		for (const o of objects) {
+		for const o of objects {
 			o.removeItself = () => {
 				this.remove(o)
 			}
@@ -58,13 +58,13 @@ export class Objects {
 	}
 
 	removeAll() {
-		for (const o of this.objects) {
+		for const o of this.objects {
 			this.remove(o)
 		}
 	}
 
 	anyUnless(thisTrue) {
-		for (const o of this.objects) {
+		for const o of this.objects {
 			if !thisTrue(o) {
 				return o
 			}
@@ -74,7 +74,7 @@ export class Objects {
 	}
 
 	anyExcept(itself) {
-		for (const o of this.objects) {
+		for const o of this.objects {
 			if o != itself {
 				return o
 			}
@@ -106,7 +106,7 @@ export class Objects {
 
 		let closest = this.objects[0]
 
-		for (const o of this.objects) {
+		for const o of this.objects {
 			if Distance.between(object, o) < Distance.between(closest, object) {
 				closest = o
 			}

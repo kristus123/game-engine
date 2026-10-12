@@ -6,7 +6,7 @@ export class FindPair {
 
 		let wait = false
 
-		for (const name of ["reindeer", "1", "2", "3"]) {
+		for const name of ["reindeer", "1", "2", "3"] {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {

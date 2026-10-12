@@ -3,7 +3,7 @@ export default async ({ html }) => {
 	function renderCode(text) {
 		html.lines.clearChildren()
 
-		for (const [i, line] of text.split("\n").entries()) {
+		for const [i, line] of text.split("\n").entries() {
 			html.lines.add(H.create("code-line", {
 				slots: {
 					line: i+1,
@@ -16,7 +16,7 @@ export default async ({ html }) => {
 	function getCode() {
 		let code = ""
 
-		for (const [i, line] of [...html.lines.children].entries()) {
+		for const [i, line] of [...html.lines.children].entries() {
 			code += line.getId("code").textContent + "\n"
 		}
 

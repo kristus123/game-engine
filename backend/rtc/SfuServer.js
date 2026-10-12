@@ -253,7 +253,7 @@ export class SfuServer {
 	}
 
 	static async stop() {
-		for (const routerObject of Object.values(this.routers)) {
+		for const routerObject of Object.values(this.routers) {
 			try {
 				routerObject.router.close()
 			}

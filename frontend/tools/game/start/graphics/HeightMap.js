@@ -10,7 +10,7 @@ export class HeightMap {
 	}
 
 	draw(draw) {
-		for (const { position, value } of this.positions) {
+		for const { position, value } of this.positions {
 			draw.color(position, `rgb(${value}, ${value}, ${value})`)
 		}
 	}

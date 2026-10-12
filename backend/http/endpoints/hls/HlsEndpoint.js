@@ -10,7 +10,7 @@ function parseHlsSegments(playlistContent) {
 	let currentUtc = null
 	let currentDuration = null
 
-	for (const line of playlistContent.split(/\r?\n/)) {
+	for const line of playlistContent.split(/\r?\n/) {
 		if line.startsWith("#EXT-X-PROGRAM-DATE-TIME:") {
 			currentUtc = Date.parse(line.slice("#EXT-X-PROGRAM-DATE-TIME:".length))
 		}
@@ -60,7 +60,7 @@ async function makeTwitchClip({ endUtc, durationSeconds = 30 } = {}) {
 
 	const hlsRoot = path.resolve("public_folder/hls")
 	const segments = parseHlsSegments(fs.readFileSync(playlistPath, "utf8"))
-	for (const segment of segments) {
+	for const segment of segments {
 		if !segment.path.startsWith(hlsRoot + path.sep) || !fs.existsSync(segment.path) {
 			throw new Error("The HLS playlist references an unavailable segment")
 		}
@@ -96,7 +96,7 @@ async function makeTwitchClip({ endUtc, durationSeconds = 30 } = {}) {
 		"#EXT-X-PLAYLIST-TYPE:VOD",
 	]
 
-	for (const segment of selectedSegments) {
+	for const segment of selectedSegments {
 		const relativeSegmentPath = path.relative(path.dirname(clipPlaylist), segment.path).split(path.sep).join("/")
 		playlistLines.push(
 			`#EXT-X-PROGRAM-DATE-TIME:${new Date(segment.startUtc).toISOString()}`,
@@ -152,7 +152,7 @@ async function makeTwitchClip({ endUtc, durationSeconds = 30 } = {}) {
 }
 
 UnsecureRoute.sendChunk = async ({ req }) => {
-	for await (const chunk of req) {
+	for await const chunk of req {
 		await Ffmpeg.write(chunk)
 	}
 }

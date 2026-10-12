@@ -53,7 +53,7 @@ export class Dom {
 	static swapBody(elements) {
 		const newBody = document.createElement("body")
 
-		for (const e of Always.list(elements)) {
+		for const e of Always.list(elements) {
 			newBody.append(e)
 		}
 

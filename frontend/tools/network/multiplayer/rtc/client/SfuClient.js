@@ -82,13 +82,13 @@ export class SfuClient {
 		// Enable Local Cam *Only* for Hosts *Only* when Stream Mode is On / Enable Local Cam For All
 		if !SfuRouters.routers[SfuClient.connectedRouterId].streamOnly || SfuClient.isHost {
 			// nabir we should be able to connect even if webcam is not ready yet.
-			for (const track of this.videoStream.stream.getVideoTracks()) {
+			for const track of this.videoStream.stream.getVideoTracks() {
 				const producer = await this.sendTransport.produce({ track })
 
 				this.producers[producer.id] = producer
 			}
 
-			for (const track of this.audioStream.stream.getAudioTracks()) {
+			for const track of this.audioStream.stream.getAudioTracks() {
 				const producer = await this.sendTransport.produce({ track })
 
 				this.producers[producer.id] = producer

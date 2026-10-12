@@ -56,7 +56,7 @@ export default async ({ html }) => {
 				await loadMicrophones()
 			},
 			clearMic: async () => {
-				for (const radio of html.micList.querySelectorAll("input[type=radio]")) {
+				for const radio of html.micList.querySelectorAll("input[type=radio]") {
 					radio.checked = false
 				}
 				await applyMicSelection()
@@ -142,7 +142,7 @@ export default async ({ html }) => {
 				return
 			}
 
-			for (const [index, microphone] of microphones.entries()) {
+			for const [index, microphone] of microphones.entries() {
 				const row = document.createElement("label")
 				row.className = "microphone-option"
 
@@ -173,7 +173,7 @@ export default async ({ html }) => {
 
 	async function applyMicSelection() {
 		const radios = [...html.micList.querySelectorAll("input[type=radio]")]
-		for (const radio of radios) {
+		for const radio of radios {
 			radio.disabled = true
 		}
 		html.clearMic.disabled = true
@@ -206,7 +206,7 @@ export default async ({ html }) => {
 		}
 		catch (error) {
 			const activeDeviceId = Stream.audioDeviceId
-			for (const radio of radios) {
+			for const radio of radios {
 				radio.checked = radio.dataset.deviceId == activeDeviceId
 			}
 			const message = error instanceof Error ? error.message : String(error)
@@ -214,7 +214,7 @@ export default async ({ html }) => {
 			throw error
 		}
 		finally {
-			for (const radio of radios) {
+			for const radio of radios {
 				radio.disabled = false
 			}
 			html.clearMic.disabled = false

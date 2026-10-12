@@ -3,7 +3,7 @@ export class Light {
 	static sources = []
 
 	static updateInsideCameraContext() {
-		for (const source of this.sources) {
+		for const source of this.sources {
 			const { x, y } = source.position
 			const { radius, color, intensity } = source
 

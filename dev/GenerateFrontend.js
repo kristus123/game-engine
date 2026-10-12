@@ -1,4 +1,5 @@
-import { Files, Paths, Transpiler, Markdown, GenerateIndexJs, Random } from "#root/AllImports.js"
+import { randomUUID } from "node:crypto"
+import { Files, Paths, Transpiler, Markdown, GenerateIndexJs } from "#root/AllImports.js"
 
 // todo find better solution?
 // right now everyone creates their own list
@@ -39,7 +40,7 @@ export function GenerateFrontend(env) {
 		.join("\n")
 	Files.write(Paths.dist.swag_css, cssImports)
 
-	Files.replace(Paths.dist.serviceWorker_js, "RANDOM_CACHE_ID", Random.uuid())
+	Files.replace(Paths.dist.serviceWorker_js, "RANDOM_CACHE_ID", randomUUID())
 
 	GenerateIndexJs()
 }
