@@ -222,7 +222,7 @@ export class Sprite extends Entity {
 		for (const [layer, frames] of this.layers.all) {
 			const { frame, tag, duration, picture } = frames[wantedFrame]
 
-			yield { layer, frames, frame, tag, duration, picture, }
+			yield { layer, frames, frame, tag, duration, picture }
 		}
 	}
 
@@ -241,7 +241,7 @@ export class Sprite extends Entity {
 	update() {
 		this.updateColliderPosition()
 
-		for (const { layer, frames, frame, tag, duration, picture, } of this.getAllStuff(this.currentFrame)) {
+		for (const { layer, frames, frame, tag, duration, picture } of this.getAllStuff(this.currentFrame)) {
 			switch this.group(layer) {
 				case "D1" {
 					picture.update(this.position, D1)

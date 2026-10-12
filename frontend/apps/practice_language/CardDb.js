@@ -34,7 +34,7 @@ export async function CardDb() {
 					.toString()
 			},
 			markHard() {
-				this.practiceSide().score -= 1 
+				this.practiceSide().score -= 1
 				this.practiceSide().dueDate = LocalDate.now().toString()
 			},
 		}
@@ -46,7 +46,7 @@ export async function CardDb() {
 			return await db.random()
 		}
 
-		async save({frontSound, backSound} = {}) {
+		async save({ frontSound, backSound } = {}) {
 			return await db.save({
 				front: {
 					sound: Assert.blob(frontSound),

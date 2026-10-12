@@ -5,6 +5,6 @@
 - don't use `export default`
     - simply because that is how we have done it so far
 - Frontend and backend JavaScript use `if condition {`, `else if condition {`, and `switch value {`. Keep each control-flow header on one line so the transpiler can restore standard JavaScript syntax. Shared JavaScript and files with `// disable-transpiling` use normal parentheses.
-- `scripts/lint.sh` runs `node dev/ConvertControlFlowSyntax.js` after its standard formatters to convert one-line `if (...) {`, `else if (...) {`, and `switch (...) {` headers in frontend/backend source. Use `node dev/ConvertControlFlowSyntax.js --check` to report files without changing them.
+- `scripts/lint.sh` uses `dev/LintProject.js` to lint custom control-flow and case blocks as standard JavaScript in memory, then restores project syntax before writing fixes. It uses installed tools and caches unchanged source files and complete check results under `.cache/lint/`, skipping tool startup on unchanged runs. Source/configuration changes invalidate the relevant caches; cached errors are still displayed and return a nonzero exit status. Use `node dev/ConvertControlFlowSyntax.js --check` to report standard control-flow headers that need conversion without changing files.
 - Switch blocks can use `case value {` and `default {`; the transpiler adds the colon and closing `break`.
 - ´./scripts/lint.sh´ will take care of most of the coding convention

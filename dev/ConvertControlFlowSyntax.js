@@ -69,6 +69,49 @@ export class ConvertControlFlowSyntax {
 		return source.split("\n").map(line => this.line(line)).join("\n")
 	}
 
+	// Temporary syntax for standard JavaScript tools; never write this to source.
+	static forLint(source) {
+		const lines = source.split("\n")
+		for (let i = 0; i < lines.length; i++) {
+			const header = lines[i].match(/^(\s*)(if|else if|switch)\s+(.+?)\s*\{(\s*(?:\/\/.*)?)$/)
+			if (header != null) {
+				const [, indent,
+					keyword,
+					condition,
+					comment] = header
+				const standard = this.line(lines[i]) != lines[i]
+				if (!standard) {
+					lines[i] = `${indent}${keyword} (${condition}) {${comment}`
+				}
+			}
+
+			const block = lines[i].match(/^(\s*)(case\s+.+?|default)\s+\{(\s*(?:\/\/.*)?)$/)
+			if (block == null || block[2].endsWith(":")) {
+				continue
+			}
+
+			const [, indent,
+				label,
+				comment] = block
+			lines[i] = `${indent}${label}: { /* lint-custom-case */${comment}`
+			for (let end = i + 1; end < lines.length; end++) {
+				if (lines[end].startsWith(`${indent}}`)) {
+					// The runtime inserts a break at the end of each custom case block.
+					lines[end] = `${indent}\tbreak /* lint-implicit-break */\n${lines[end]}`
+					break
+				}
+			}
+		}
+		return lines.join("\n")
+	}
+
+	static fromLint(source) {
+		const restored = source
+			.replace(/^\s*break\s*\/\* lint-implicit-break \*\/;?\s*\n/gm, "")
+			.replace(/^(\s*(?:case\s+.+?|default)):\s*\{ \/\* lint-custom-case \*\//gm, "$1 {")
+		return this.content(restored)
+	}
+
 	static run({ check = false } = {}) {
 		const changedFiles = []
 		let changedLines = 0

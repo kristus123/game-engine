@@ -22,7 +22,7 @@ export class Ffmpeg {
 			throw new Error("FFMPEG: unsupported mimeType: " + mimeType)
 		}
 
-		this.p = new Spawn("ffmpeg", [
+		this.p = Spawn("ffmpeg", [
 			"-loglevel",
 			"verbose",
 			"-stats",

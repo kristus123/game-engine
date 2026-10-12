@@ -5,7 +5,7 @@ export const NullHttpClient = ProxyObject(
 			routeName: routeName,
 			body: body,
 			formatBody: async r => {
-				const t =  await r.text()
+				const t = await r.text()
 				if t == "" {
 					return null
 				}

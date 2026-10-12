@@ -1,4 +1,5 @@
 .eslintcache
+.cache/lint/
 
 public_folder/hls/
 public_folder/twitch_clips/
