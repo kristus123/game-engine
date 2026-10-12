@@ -16,7 +16,7 @@ export class SwappableMediaStream {
 		v.muted = true
 		this.video = v
 
-		const { ctx, canvas, canvasStream } = Canvas(1280, 720)
+		const { ctx, canvas, canvasStream } = H.CanvasWithStream(1280, 720)
 
 		FrameLoop(() => {
 			if (this.video?.readyState >= 2) { // has enough data to display current frame

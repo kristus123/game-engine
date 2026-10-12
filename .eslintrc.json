@@ -152,7 +152,6 @@
         "Calculate": "readonly",
         "Cam": "readonly",
         "Camera": "readonly",
-        "Canvas": "readonly",
         "CanvasGame": "readonly",
         "CanvasLoop": "readonly",
         "CardDb": "readonly",

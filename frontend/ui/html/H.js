@@ -6,6 +6,21 @@ function _HtmlElement(type, className="na") {
 
 export class H {
 
+	static Canvas(width=300, height=150) {
+		const canvas = document.createElement("canvas")
+		canvas.width = width
+		canvas.height = height
+
+		return { canvas, ctx: canvas.getContext("2d") }
+	}
+
+	static CanvasWithStream(width=300, height=150, frameRate=30) {
+		const { canvas, ctx } = this.Canvas(width, height)
+		const canvasStream = canvas.captureStream(frameRate)
+
+		return { canvas, canvasStream, ctx }
+	}
+
 	static create(name, { attributes={}, slots={}, data={}, on={} } = {}) {
 		const e = document.createElement(name)
 

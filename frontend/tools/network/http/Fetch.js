@@ -3,6 +3,7 @@
 export async function Fetch({ url, body, headers, timeoutMs = 8_000, method } = {}) { // no-null-check
 	Assert.value(url)
 	Assert.value(headers)
+	Assert.string(method)
 
 	try {
 		return await Retry(3, async () => {

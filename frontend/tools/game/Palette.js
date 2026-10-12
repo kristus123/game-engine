@@ -45,10 +45,8 @@ export class Palette {
 		this.d2 = xxx()
 		this.d3 = xxx()
 
-		const canvas = document.createElement("canvas")
+		const { canvas, ctx } = H.Canvas()
 		document.getElementById("canvases").appendChild(canvas)
-
-		const ctx = canvas.getContext("2d")
 
 		TestResizeObserver(canvas, (width, height) => {
 			const dpr = Math.max(1, window.devicePixelRatio || 1)

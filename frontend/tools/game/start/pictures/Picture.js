@@ -1,11 +1,9 @@
 export class Picture {
 	constructor(image) {
-		this.canvas = document.createElement("canvas")
-		this.ctx = this.canvas.getContext("2d")
+		const { canvas, ctx } = H.Canvas(image.naturalWidth ?? image.width, image.naturalHeight ?? image.height)
+		this.canvas = canvas
+		this.ctx = ctx
 		this.originalImage = image
-
-		this.canvas.width = image.naturalWidth ?? image.width
-		this.canvas.height = image.naturalHeight ?? image.height
 
 		this.ctx.drawImage(image, 0, 0)
 
@@ -66,11 +64,7 @@ export class Picture {
 	}
 
 	changeColors(colorMap) {
-		const newCanvas = document.createElement("canvas")
-		const newCtx = newCanvas.getContext("2d")
-
-		newCanvas.width = this.canvas.width
-		newCanvas.height = this.canvas.height
+		const { canvas: newCanvas, ctx: newCtx } = H.Canvas(this.canvas.width, this.canvas.height)
 
 		newCtx.drawImage(this.canvas, 0, 0)
 
@@ -104,11 +98,7 @@ export class Picture {
 	}
 
 	reset() {
-		const newCanvas = document.createElement("canvas")
-		const newCtx = newCanvas.getContext("2d")
-
-		newCanvas.width = this.canvas.width
-		newCanvas.height = this.canvas.height
+		const { canvas: newCanvas, ctx: newCtx } = H.Canvas(this.canvas.width, this.canvas.height)
 
 		newCtx.drawImage(this.originalImage, 0, 0)
 
@@ -119,11 +109,7 @@ export class Picture {
 	}
 
 	mirrorX() {
-		const newCanvas = document.createElement("canvas")
-		const newCtx = newCanvas.getContext("2d")
-
-		newCanvas.width = this.canvas.width
-		newCanvas.height = this.canvas.height
+		const { canvas: newCanvas, ctx: newCtx } = H.Canvas(this.canvas.width, this.canvas.height)
 
 		newCtx.translate(this.canvas.width, 0)
 		newCtx.scale(-1, 1)
@@ -136,11 +122,7 @@ export class Picture {
 	}
 
 	mirrorY() {
-		const newCanvas = document.createElement("canvas")
-		const newCtx = newCanvas.getContext("2d")
-
-		newCanvas.width = this.canvas.width
-		newCanvas.height = this.canvas.height
+		const { canvas: newCanvas, ctx: newCtx } = H.Canvas(this.canvas.width, this.canvas.height)
 
 		newCtx.translate(0, this.canvas.height)
 		newCtx.scale(1, -1)
@@ -164,11 +146,7 @@ export class Picture {
 
 	crop(sx, sy, sw, sh) {
 
-		const newCanvas = document.createElement("canvas")
-		const newCtx = newCanvas.getContext("2d")
-
-		newCanvas.width = sw
-		newCanvas.height = sh
+		const { canvas: newCanvas, ctx: newCtx } = H.Canvas(sw, sh)
 
 		newCtx.drawImage(
 			this.canvas,

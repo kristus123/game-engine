@@ -45,6 +45,7 @@ export class LowLevelHttpClient {
 		const { ok, error, response } = await Fetch({
 			url: `${Config.httpUrl}/${routeName}`,
 			body: body,
+			method: "POST",
 			timeoutMs: timeoutMs,
 			headers: {
 				"Content-Type": contentType,

@@ -5,6 +5,8 @@ Also update it if you learn anything new which would be useful for yourself to a
 
 Before you write your own code, look at all files to see if there is any files you can reuse.
 
+only open mcp in headless, as it will automatically close if you don't do so.
+
 ## Project purpose and shape
 
 This repository is a JavaScript ES module browser game and app project with its own source generator, live development watcher, and Node backend. The game design document lives in the separate [sapmi-game repository](https://github.com/kristus123/sapmi-game). The browser currently starts `Livestream()` from `frontend/index.js`; other apps in `frontend/apps/` are present and may be experimental or selectively enabled.
@@ -59,7 +61,7 @@ WebSocket messages use an envelope with `data` for the application payload and `
 
 `dist/` is generated browser output and `transpiledBackend/` is generated backend output; both are ignored by Git. Do not hand-edit them. Change source under `frontend/`, `shared/`, or `backend/`, then regenerate through the appropriate workflow. `AllImports.js` is generated at watcher startup from named exports. Do not edit it manually; duplicate exported names across modules make generation fail.
 
-`Secrets.js` is gitignored local configuration. Never print, copy, or commit its contents. Keep credentials, tokens, private keys, and machine-specific paths out of tracked files and documentation. `ServerConfig.shaSecret` uses `CHANGE_ME` in development and reads `Secrets.shaSecret` in production, so the local ignored `Secrets.js` must define that field. Keep the production secret in backend source and out of shared source and browser output.
+`Secrets.js` is gitignored local configuration. Never print, copy, or commit its contents. Keep credentials, tokens, private keys, and machine-specific paths out of tracked files and documentation. Keep local secrets out of shared source and browser output. `ServerConfig.shaSecret` currently uses `CHANGE_ME` in development and the placeholder `TODO_FIX_LATER` in production; its `Secrets.shaSecret` return is commented out.
 
 Generated output depends on project-wide filename rules. The watcher checks for duplicate basenames across `backend/`, `frontend/`, and `shared/` (including non-JS assets), and checks frontend/backend/dev JavaScript basenames against reserved words and browser/JavaScript globals. Preserve these constraints when adding or renaming files. HTML and Markdown basenames also need to be unique because they become runtime template keys.
 
@@ -94,6 +96,8 @@ Read [documentation/coding_convention.md](documentation/coding_convention.md) be
 
 ## Subsystem notes
 
+- `H.Canvas(width=300, height=150)` returns `{ canvas, ctx }` without capturing a stream. `H.CanvasWithStream(width=300, height=150, frameRate=30)` returns `{ canvas, canvasStream, ctx }`. Use these helpers for DOM canvas creation; `OffscreenCanvas` layers remain separate. Livestream recording classes and their queue live in `frontend/apps/livestream/Media/`, and the launcher test component lives in `frontend/apps/livestream/ui/test/`.
+- `Fetch()` requires an explicit string `method`, checked by `Assert.string(method)`, with no default. `LowLevelHttpClient.get()` passes `"GET"` and `.post()` passes `"POST"`; omitting POST previously caused startup/token requests to hit the backend's file route and fail with HTTP 500.
 - Frontend network clients use `shared/Config.js` for HTTP/WebSocket URLs. Development points to `localhost:3000` and advertises mediasoup at `127.0.0.1`; production uses `krispetter.duckdns.org`. Local development does not depend on a Cloudflare tunnel.
 - `Network`'s initial HTTP check runs from `frontend/index.js` after module imports resolve. Do not call `JsonHttpClient` from `Network`'s static initializer: `LowLevelHttpClient` depends back on `Network`, so doing so can hit the ESM temporal dead zone during startup.
 - Frontend startup must finish `Token.init()` before calling `SocketClient.connect()`. Socket open and first-message handlers read `Token.decoded.internal.userId`, so starting both together can race against token initialization.

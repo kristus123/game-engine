@@ -1,9 +1,8 @@
 export class VideoStream {
 	constructor() {
-		this.canvas = document.createElement("canvas")
-		this.canvas.width = 1280
-		this.canvas.height = 720
-		this.ctx = this.canvas.getContext("2d")
+		const { canvas, ctx, canvasStream } = H.CanvasWithStream(1280, 720, 60)
+		this.canvas = canvas
+		this.ctx = ctx
 
 		this.video = document.createElement("video")
 		this.video.autoplay = true
@@ -17,7 +16,7 @@ export class VideoStream {
 			console.log("___")
 		}
 
-		this.stream = this.canvas.captureStream(60)
+		this.stream = canvasStream
 		this.track = this.stream.getVideoTracks()[0]
 	}
 
