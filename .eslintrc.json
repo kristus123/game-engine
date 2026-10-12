@@ -334,6 +334,7 @@
         "Reindeer": "readonly",
         "Retry": "readonly",
         "RtcClient": "readonly",
+        "Run": "readonly",
         "Scale": "readonly",
         "Screen": "readonly",
         "ServeDist": "readonly",
