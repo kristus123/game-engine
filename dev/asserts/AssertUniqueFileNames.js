@@ -1,4 +1,5 @@
-import { Files, Paths } from "#root/AllImports.js"
+import { Files } from "../Files.js"
+import { Paths } from "../../Paths.js"
 
 function extractDuplicates(arr) {
 	const seen = new Set()
@@ -14,13 +15,6 @@ function extractDuplicates(arr) {
 	return [...dupes]
 }
 
-// consider a better more robust solution as this will probably be duplicated multiple places
-const allFiles = [
-	...Files.at(Paths.backendFolder),
-	...Files.at(Paths.frontendFolder),
-	...Files.at(Paths.sharedFolder),
-].filter(f => !f.endsWith(".DS_Store")) // this is for macos users since mac makes this file for every folder opened.
-
 function assertUnique(names, errorMessage) {
 	const duplicates = extractDuplicates(names)
 	if (duplicates.length > 0) {
@@ -29,6 +23,12 @@ function assertUnique(names, errorMessage) {
 }
 
 export function AssertUniqueFileNames() {
+	const allFiles = [
+		...Files.at(Paths.backendFolder),
+		...Files.at(Paths.frontendFolder),
+		...Files.at(Paths.sharedFolder),
+	].filter(f => !f.endsWith(".DS_Store")) // macOS creates this file in every opened folder.
+
 	// check JS files by base name (required by AllImports.js)
 	const jsBaseNames = allFiles
 		.filter(f => f.endsWith(".js"))

@@ -20,6 +20,7 @@ export function HtmlObserverThing(element, onNewNodeAdded) {
 		childList: true,
 		subtree: true,
 	})
+	walk(element)
 
 	return {
 		disconnect: () => observer.disconnect(),

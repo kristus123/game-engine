@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto"
-import { Files, Paths, Transpiler, Markdown, GenerateIndexJs } from "#root/AllImports.js"
+import { Files, Paths, Transpiler, Markdown, GenerateIndexJs, AssertUniqueFileNames } from "#root/AllImports.js"
 
 // todo find better solution?
 // right now everyone creates their own list
@@ -11,6 +11,7 @@ export function GenerateFrontend(env) {
 	if (env == null) {
 		throw new Error("env cannot be null")
 	}
+	AssertUniqueFileNames()
 
 	Files.copyFolder("frontend/", "dist/") // todo use Paths.js
 

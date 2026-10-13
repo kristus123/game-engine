@@ -1,5 +1,22 @@
 export function InjectGlobalAttributeLogicToHtml() {
+	const observedImages = new WeakSet()
 	HtmlObserverThing(document.body, node => {
+		if node instanceof HTMLImageElement && !observedImages.has(node) {
+			observedImages.add(node)
+			const resolveSource = () => {
+				const source = node.getAttribute("src")
+				if source == null {
+					return
+				}
+				const path = AssetPaths.resolveImageSource(source)
+				if path != source {
+					node.setAttribute("src", path)
+				}
+			}
+			const observer = new MutationObserver(resolveSource)
+			observer.observe(node, { attributes: true, attributeFilter: ["src"] })
+			resolveSource()
+		}
 
 		if node.hasAttribute("contenteditable") {
 			node.spellcheck = false
