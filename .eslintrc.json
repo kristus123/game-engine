@@ -188,7 +188,6 @@
         "ConvertControlFlowSyntax": "readonly",
         "Css": "readonly",
         "CurrentFrame": "readonly",
-        "CustomElementCreator": "readonly",
         "CustomElementHelper": "readonly",
         "D1": "readonly",
         "D2": "readonly",
