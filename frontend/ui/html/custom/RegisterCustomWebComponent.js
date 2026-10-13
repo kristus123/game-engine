@@ -14,6 +14,10 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		_setupPromise = null
 		_lifecyclePromise = Promise.resolve()
 
+		whenReady() {
+			return this._setupPromise
+		}
+
 		connectedCallback() { // on dom enter
 			this._setupPromise ??= this._initialize()
 			this._lifecyclePromise = this._lifecyclePromise.then(async () => {

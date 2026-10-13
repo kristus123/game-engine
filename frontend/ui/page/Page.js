@@ -26,41 +26,12 @@ export class Page {
 		}
 
 		page.persistOnClose = persistOnClose
+		page.onOpen = onOpen
+		page.onClose = onClose
+		page.onToggle = onToggle
 		page.setAttribute("page-name", name)
-
-		const onDomAdd = page._onDomAdd
-		const onDomRemove = page._onDomRemove
-		let opened = false
-		page._onDomAdd = async () => {
-			await onDomAdd?.()
-			if !page.isConnected || opened {
-				return
-			}
-			this.activePage = page
-			this.active = name
-			opened = true
-			await onOpen?.()
-			await onToggle?.("open")
-		}
-		page._onDomRemove = async () => {
-			if this.activePage == page {
-				this.activePage = null
-				this.active = null
-			}
-			if opened {
-				opened = false
-				await onClose?.()
-				await onToggle?.("close")
-			}
-			await onDomRemove?.()
-		}
-
-		if page.isConnected {
-			Assert.true(this.pages[name] == undefined || this.pages[name] == page, `Page already initialized: ${name}`)
-			this.pages[name] = persistOnClose ? page : null
-			this.activePage = page
-			this.active = name
-		}
+		Assert.true(this.pages[name] == undefined || this.pages[name] == page, `Page already initialized: ${name}`)
+		this.pages[name] = persistOnClose ? page : null
 
 		return page
 	}
@@ -72,18 +43,36 @@ export class Page {
 
 		const previous = this.activePage
 		if this.active == name && previous?.isConnected {
-			await previous._lifecyclePromise
+			await previous.whenReady()
 			Assert.true(previous.getAttribute("page-name") == name, `${name} must return a page object with persistOnClose`)
 			return previous
 		}
 
+		await this.close()
 		const page = this.pages[name] ?? H.create(name)
-		previous?.remove()
 		this.active = name
 		this.activePage = page
 		Dom.add(page)
-		await page._lifecyclePromise
+		await page.whenReady()
 		Assert.true(page.getAttribute("page-name") == name, `${name} must return a page object with persistOnClose`)
+		await page.onOpen?.()
+		await page.onToggle?.("open")
+		return page
+	}
+
+
+	static async close() {
+		const page = this.activePage
+		if !page {
+			return
+		}
+
+		await page.whenReady()
+		await page.onClose?.()
+		await page.onToggle?.("close")
+		page.remove()
+		this.activePage = null
+		this.active = null
 		return page
 	}
 
