@@ -1,6 +1,28 @@
 export function InjectGlobalAttributeLogicToHtml() {
 	const observedImages = new WeakSet()
+	const resolveBackground = node => {
+		const source = node.getAttribute("bg-img")
+		if !source {
+			node.style.removeProperty("background-image")
+			return
+		}
+		const path = AssetPaths.resolveImageSource(source)
+		node.style.backgroundImage = `url(${JSON.stringify(path)})`
+	}
+	const backgroundObserver = new MutationObserver(mutations => {
+		for const mutation of mutations {
+			resolveBackground(mutation.target)
+		}
+	})
+	backgroundObserver.observe(document.body, {
+		attributes: true,
+		attributeFilter: ["bg-img"],
+		subtree: true,
+	})
 	HtmlObserverThing(document.body, node => {
+		if node.hasAttribute("bg-img") {
+			resolveBackground(node)
+		}
 		if node instanceof HTMLImageElement && !observedImages.has(node) {
 			observedImages.add(node)
 			const resolveSource = () => {

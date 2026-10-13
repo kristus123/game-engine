@@ -1,8 +1,7 @@
-.test {
-	background-image: url("x");
+[bg-img] {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	background-attachment: fixed; /* Optional */
+	background-attachment: fixed;
 	filter: blur(5px) brightness(0.9);
 }
