@@ -1,6 +1,6 @@
 export class World {
 	constructor() {
-		Dom.add(Html.matte())
+		Dom.add(H.create("math-game"))
 
 		this.objects = Objects([
 		])

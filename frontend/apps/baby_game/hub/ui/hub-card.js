@@ -9,6 +9,10 @@ export default async ({ html }) => {
 
 	html.img.src = pic
 
+	html.button.onClick(() => {
+		Dom.add(H.create("find-pair"))
+	})
+
 	const pos = Random.integerBetween(-20, 20)
 	html.style.top = To.string(pos) + "%"
 }

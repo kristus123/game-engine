@@ -1,0 +1,67 @@
+<style>
+	.success {
+		background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b967ff, #ff6b6b);
+		background-size: 200% 100%;
+		animation: success-rainbow 1s linear infinite;
+	}
+
+	@keyframes success-rainbow {
+		from {
+			background-position: 0% 50%;
+		}
+		to {
+			background-position: 200% 50%;
+		}
+	}
+</style>
+
+<!-- <overlay-fixed bg-nature></overlay-fixed> -->
+<!-- <overlay-fixed class="background" id="blurred" bg-nature></overlay-fixed> -->
+
+<overlay-fixed>
+	<phone-grid>
+		<top center class="bgWhite">
+			<h1 id="h1">Hei</h1>
+		</top>
+
+		<mid center>
+			<flex-h id="list" close sortable style="gap: 20px"></flex-h>
+			<div
+				id="test"
+				style="
+					position: fixed;
+					left: 0px;
+					top: 0px;
+					width: 50px;
+					height: 50px;
+					background: red;
+					transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+				"
+			></div>
+		</mid>
+
+		<bot center>
+			<div max-width style="max-width: 1200px; height: 20px; background: #ddd; border-radius: 10px; overflow: hidden">
+				<div
+					data-value="0"
+					id="progress"
+					class="success"
+					style="width: 0%; height: 100%; transition: width 0.2s ease"
+				></div>
+			</div>
+		</bot>
+	</phone-grid>
+	<overlay-fixed>
+		<style>
+			.container {
+				width: 400px;
+				overflow-x: auto;
+				white-space: nowrap;
+			}
+
+			.content {
+				width: 1000px;
+			}
+		</style>
+	</overlay-fixed>
+</overlay-fixed>
