@@ -1,8 +1,7 @@
 export class Stream {
 
 	static async online() {
-		const body = await Assert.ok(await JsonHttpClient.streamOnline())
-		return body.online
+		return (await Assert.ok(await JsonHttpClient.streamOnline())).online
 	}
 
 	static async start() {
@@ -10,7 +9,7 @@ export class Stream {
 
 		Assert.ok(await NullHttpClient.startStream({
 			body: {
-				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // move ternary to backend
+				mimeType: Platform.mimeType.includes("webm") ? "webm" : "mp4", // todo: move ternary to backend
 			},
 		}))
 

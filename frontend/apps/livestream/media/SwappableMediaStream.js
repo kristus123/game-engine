@@ -9,6 +9,7 @@ export class SwappableMediaStream {
 	static audioInput = null
 
 	static {
+		// todo make this a H.mediastreamVideo()
 		const v = document.createElement("video")
 		v.playsInline = true
 		v.srcObject = null
