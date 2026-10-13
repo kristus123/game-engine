@@ -35,16 +35,16 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			const wasActive = this._lifecycleActive
 			this._lifecycleActive = false
-			const options = await this._setupPromise ?? {}
+			await this._setupPromise
 			if wasActive {
-				await options.onDisconnected?.()
+				await this._onDisconnected?.()
 			}
 			if this.isConnected || this.neverDestroy || this._destroyed {
 				return
 			}
 
 			this._destroyed = true
-			await options.onDestroy?.()
+			await this._onDestroy?.()
 			CustomElementHelper.removeFields(this)
 			this.replaceChildren()
 		}
@@ -64,6 +64,8 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			CustomElementHelper.exposeFields(element) // component code may use template ids during initialization
 
 			const options = await js?.default({ html: element, setState }) ?? {}
+			this._onDisconnected = options.onDisconnected
+			this._onDestroy = options.onDestroy
 			const { methods = {}, state = null, neverDestroy = element.neverDestroy ?? false } = options
 			element.neverDestroy = neverDestroy
 
@@ -99,8 +101,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			else if A.value(state) {
 				throw new Error("unsupported state value")
 			}
-
-			return options
 		}
 	})
 }
