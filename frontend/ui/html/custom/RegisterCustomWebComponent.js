@@ -12,68 +12,53 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 	customElements.define(name, class extends HTMLElement {
 		_setupPromise = null
-		_destroyed = false
-		_lifecycleActive = false
+		_lifecyclePromise = Promise.resolve()
 
-		async connectedCallback() { // on dom enter
-			if !this.isConnected || this._destroyed {
-				return
-			}
-
-			await (this._setupPromise ??= this._initialize())
-			if !this.isConnected || this._destroyed {
-				return
-			}
-
-			this._lifecycleActive = true
+		connectedCallback() { // on dom enter
+			this._setupPromise ??= this._initialize()
+			this._lifecyclePromise = this._lifecyclePromise.then(async () => {
+				await this._setupPromise
+				if this.isConnected {
+					await this._onDomAdd?.()
+				}
+			})
+			return this._lifecyclePromise
 		}
 
-		async disconnectedCallback() { // on dom leave
-			if this._destroyed {
-				return
-			}
-
-			const wasActive = this._lifecycleActive
-			this._lifecycleActive = false
-			await this._setupPromise
-			if wasActive {
-				await this._onDisconnected?.()
-			}
-			if this.isConnected || this.neverDestroy || this._destroyed {
-				return
-			}
-
-			this._destroyed = true
-			await this._onDestroy?.()
-			CustomElementHelper.removeFields(this)
-			this.replaceChildren()
+		disconnectedCallback() {
+			this._lifecyclePromise = this._lifecyclePromise.then(async () => {
+				await this._setupPromise
+				await this._onDomRemove?.()
+			})
+			return this._lifecyclePromise
 		}
 
 		async _initialize() {
-			const element = this
 			const content = template.content.cloneNode(true)
 
-			const setState = CustomElementHelper.createSetState(element)
+			const setState = CustomElementHelper.createSetState(this)
 
 			const slots = {}
 			for const s of content.querySelectorAll("slot") {
 				slots[s.getAttribute("name")] = s
 			}
 
-			element.replaceChildren(content)
-			CustomElementHelper.exposeFields(element) // component code may use template ids during initialization
+			this.replaceChildren(content)
+			CustomElementHelper.exposeFields(this) // component code may use template ids during initialization
 
-			const options = await js?.default({ html: element, setState }) ?? {}
-			this._onDisconnected = options.onDisconnected
-			this._onDestroy = options.onDestroy
-			const { methods = {}, state = null, neverDestroy = element.neverDestroy ?? false } = options
-			element.neverDestroy = neverDestroy
+			const options = await js?.default({ html: this, setState }) ?? {}
+			this._onDomAdd = options.onDomAdd
+			this._onDomRemove = options.onDomRemove
+			const { methods = {}, state = null } = options
+			if options.page != undefined && options.page != false {
+				Page.init(this, options.page)
+			}
 
-			element.walk(child => {
+			this.walk(child => {
 				InjectAttributeLogicToHtml(child, methods, setState)
 			})
 
-			for const actualSlot of element.querySelectorAll("slot") {
+			for const actualSlot of this.querySelectorAll("slot") {
 				const slot = slots[actualSlot.getAttribute("name")]
 				if !slot {
 					continue
@@ -83,14 +68,14 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 					InjectAttributeLogicToHtml(c, methods, setState)
 				})
 
-				for const { name, value } of element.attributes {
+				for const { name, value } of this.attributes {
 					if name.replace("slot-", "") == slot.name {
 						slot.replaceWith(document.createTextNode(value))
 					}
 				}
 			}
 
-			CustomElementHelper.exposeFields(element)
+			CustomElementHelper.exposeFields(this)
 
 			if A.string(state) {
 				setState(state)

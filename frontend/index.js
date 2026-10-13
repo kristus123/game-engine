@@ -64,12 +64,11 @@ Font.use("VT323")
 
 // this can be combined with index.html block thingy
 
-// Dom.add(H.create("find-pair"))
 // await Retry(900, async () => {
 // 	await Livestream()
 // })
 
-Dom.add(H.create("layout-test"))
+await Page.open("hub-page")
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

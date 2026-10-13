@@ -1,4 +1,4 @@
-export default async ({ html, setState }) => {
+export default async ({ html }) => {
 
 	const cardDb = await CardDb()
 
@@ -11,6 +11,7 @@ export default async ({ html, setState }) => {
 	console.log(await Mic.all())
 
 	return {
+		page: { persistOnClose: true },
 		methods: {
 			save: async () => {
 				console.log("caling save")

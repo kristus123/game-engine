@@ -6,4 +6,6 @@ export default async ({ html }) => {
 		html.list.add(H.create("hub-card"))
 	})
 
+	return { page: { persistOnClose: true } }
+
 }

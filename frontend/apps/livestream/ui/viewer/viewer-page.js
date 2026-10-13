@@ -29,7 +29,7 @@ export default async ({ html }) => {
 
 	html.videoOverlay.add(hlsVideo.video)
 
-	SetTimeoutLoop(4_000, async () => {
+	const statusLoop = SetTimeoutLoop(4_000, async () => {
 		try {
 			if await Stream.online() {
 				await hlsVideo.connect()
@@ -48,10 +48,17 @@ export default async ({ html }) => {
 			html.text.content = "Could not check stream status; retrying…"
 			console.warn("Could not check stream status", error)
 		}
-	})
+	}).stop()
 
 	return {
-		neverDestroy: true,
+		page: {
+			persistOnClose: true,
+			onOpen: () => statusLoop.start(),
+			onClose: () => {
+				statusLoop.stop()
+				hlsVideo.disconnect()
+			},
+		},
 		methods: {
 			seekBackward: () => hlsVideo.video.seekBy(-30),
 			seekForward: () => hlsVideo.video.seekBy(30),

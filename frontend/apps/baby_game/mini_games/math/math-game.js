@@ -1,10 +1,10 @@
 export default async ({ html }) => {
-	let destroyed = false
+	let active = false
 	let placeholder = null
 	const dragHandlers = {}
 
 	function newChallenge() {
-		if destroyed {
+		if !active {
 			return
 		}
 
@@ -36,7 +36,7 @@ export default async ({ html }) => {
 
 		queue.start({
 			onEnd: () => {
-				if !destroyed {
+				if active {
 					html.test.placeOver(html.list.children.last)
 				}
 			}
@@ -112,11 +112,13 @@ export default async ({ html }) => {
 		Object.assign(DomMouse, dragHandlers)
 	}
 
-	newChallenge()
-
 	return {
-		onDestroy: () => {
-			destroyed = true
+		onDomAdd: () => {
+			active = true
+			newChallenge()
+		},
+		onDomRemove: () => {
+			active = false
 			placeholder?.remove()
 			placeholder = null
 

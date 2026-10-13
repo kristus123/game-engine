@@ -77,6 +77,10 @@ export default async ({ html }) => {
 	html.cards.randomizeOrder()
 
 	return {
-		onDestroy: () => clearTimeout(resetTimeout),
+		page: { persistOnClose: false },
+		onDomRemove: () => {
+			clearTimeout(resetTimeout)
+			wait = false
+		},
 	}
 }

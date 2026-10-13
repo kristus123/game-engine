@@ -10,7 +10,7 @@ export default async ({ html }) => {
 	html.img.src = pic
 
 	html.button.onClick(() => {
-		Dom.add(H.create("find-pair"))
+		Page.open("find-pair-page")
 	})
 
 	const pos = Random.integerBetween(-20, 20)

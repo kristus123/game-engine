@@ -24,6 +24,7 @@ export default async ({ html, setState }) => {
 	}
 
 	const r = {
+		page: { persistOnClose: true },
 		state: async () => {
 			return await loadNewCard() // kinda hacky but ok for now
 		},

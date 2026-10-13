@@ -24,7 +24,7 @@ export default async ({ html }) => {
 	}
 
 	const chatQueue = PromiseQueue()
-	Chat.onMessage(({ user, message }) => {
+	Chat.onMessage(({ message }) => {
 		chatQueue.add(() => Tts(message))
 	})
 
@@ -36,16 +36,17 @@ export default async ({ html }) => {
 	const cams = Permission.granted ? await Cam.all() : []
 
 	return {
-		onDisconnected: () => {
+		page: { persistOnClose: true },
+		onDomAdd: () => {
+			streamPreview.srcObject = SwappableMediaStream.stream
+		},
+		onDomRemove: () => {
 			streamPreview.pause()
+			streamPreview.srcObject = null
 			isPreviewingStream = false
 			html.videoOverlay.clearChildren()
 			html.previewToggle.content = "Preview media stream"
 			html.previewToggle.title = ""
-		},
-		onDestroy: () => {
-			streamPreview.pause()
-			streamPreview.srcObject = null
 		},
 		methods: {
 			openMicSettings: async () => {

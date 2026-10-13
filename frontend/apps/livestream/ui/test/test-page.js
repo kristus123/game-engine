@@ -1,15 +1,10 @@
-export default ({ html }) => {
+export default () => {
 
 	return {
+		page: { persistOnClose: true },
 		methods: {
-			streamer: () => {
-				Page.init("x", H.create("streamer-page"))
-				Page.go("x")
-			},
-			viewer: () => {
-				Page.init("x", H.create("viewer-page"))
-				Page.go("x")
-			},
+			streamer: () => Page.open("streamer-page"),
+			viewer: () => Page.open("viewer-page"),
 		},
 	}
 }
