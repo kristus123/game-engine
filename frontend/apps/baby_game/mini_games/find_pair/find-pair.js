@@ -2,7 +2,7 @@ export default async ({ html }) => {
 	let wait = false
 	let resetTimeout = null
 
-	for const name of ["reindeer", "1", "2", "3"] {
+	for const name of ["1", "2", "3"] {
 		Iterate(2, () => {
 			const card = H.create("flip-card", {
 				slots: {
@@ -62,14 +62,15 @@ export default async ({ html }) => {
 						}))
 					})
 
-					q.start({ onEnd: () => {
-						console.log("finished")
-					} })
+					q.start({
+						onEnd: () => {
+							console.log("finished")
+						},
+					})
 				}
 			})
 
 			html.cards.add(card)
-
 		})
 	}
 
