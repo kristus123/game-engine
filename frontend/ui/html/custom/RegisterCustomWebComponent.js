@@ -75,7 +75,12 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			onDisconnected
 				.catch(console.error)
-				.then(() => this._destroyIfNeeded())
+				.then(async () => {
+					await this._setupPromise
+					if !this._connected && !this._neverDestroy {
+						await this.destroy()
+					}
+				})
 				.catch(console.error)
 		}
 
@@ -116,17 +121,17 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			this.replaceChildren(content)
 
-			const exposeIds = () => {
+			const exposeExtraFields = () => {
 				this.walk(child => {
-					if !child.hasAttribute("id") {
-						return
-					}
+					this[child.tag] = child
 
-					const id = child.getAttribute("id")
-					this[id] = child
+					if child.hasAttribute("id") {
+						const id = child.getAttribute("id")
+						this[id] = child
+					}
 				})
 			}
-			exposeIds() // component code may use template ids during initialization
+			exposeExtraFields() // component code may use template ids during initialization
 
 			const setState = newState => {
 				Assert.value(newState)
@@ -148,11 +153,23 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			}
 			this._setState = setState
 
-			const { methods = {}, state = null, onConnected = null, onDisconnected = null, onDestroy = null, neverDestroy = false } = await js?.default({ html: this, setState: setState }) ?? {}
+			const {
+				methods = {},
+				state = null,
+				onConnected = null,
+				onDisconnected = null,
+				onDestroy = null,
+				neverDestroy = false,
+			} = await js?.default({ html: this, setState: setState }) ?? {}
+
 			this._onConnected = onConnected
 			this._onDisconnected = onDisconnected
 			this._onDestroy = onDestroy
 			this._neverDestroy = this._neverDestroy || this.neverDestroy == true || neverDestroy
+			
+			if (this._neverDestroy) {
+				Assert.null(onDestroy, "onDestroy can never be triggered, so don't include it")
+			}
 
 			this.walk(child => {
 				InjectAttributeLogicToHtml(child, methods, setState)
@@ -174,7 +191,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				}
 			}
 
-			exposeIds()
+			exposeExtraFields()
 
 			if A.string(state) {
 				setState(state)
@@ -192,13 +209,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 		async _callHook(hook) { // no-null-check
 			return await hook?.({ html: this, setState: this._setState })
-		}
-
-		async _destroyIfNeeded() {
-			await this._setupPromise
-			if !this._connected && !this._neverDestroy {
-				await this.destroy()
-			}
 		}
 
 		_dispatchLifecycleEvent(name) {
