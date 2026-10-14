@@ -1,3 +1,7 @@
+export const page = {
+	persistOnClose: true,
+}
+
 export default async ({ html }) => {
 	const updateSeekButtons = () => {
 		html.seekBackward.disabled = !hlsVideo.ready || hlsVideo.video.getSeekTarget(-30) == null
@@ -51,13 +55,10 @@ export default async ({ html }) => {
 	}).stop()
 
 	return {
-		page: {
-			persistOnClose: true,
-			onOpen: () => statusLoop.start(),
-			onClose: () => {
-				statusLoop.stop()
-				hlsVideo.disconnect()
-			},
+		onOpen: () => statusLoop.start(),
+		onClose: () => {
+			statusLoop.stop()
+			hlsVideo.disconnect()
 		},
 		methods: {
 			seekBackward: () => hlsVideo.video.seekBy(-30),

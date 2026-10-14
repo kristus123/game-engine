@@ -37,7 +37,12 @@ InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
 	Promise.all(AssetPaths.htmlComponent
-		.map(c => RegisterCustomWebComponent(c.name, c.content, c.js))
+		.map(async c => {
+			const component = await RegisterCustomWebComponent(c.name, c.content, c.js)
+			if c.name.endsWith("-page") {
+				Page.init(c.name, component.page)
+			}
+		})
 	),
 	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
 	Css.use("/swag.css"),

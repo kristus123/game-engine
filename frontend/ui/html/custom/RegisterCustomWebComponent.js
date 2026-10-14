@@ -54,9 +54,6 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			this._onDomAdd = options.onDomAdd
 			this._onDomRemove = options.onDomRemove
 			const { methods = {}, state = null } = options
-			if options.page != undefined && options.page != false {
-				Page.init(this, options.page)
-			}
 
 			this.walk(child => {
 				InjectAttributeLogicToHtml(child, methods, setState)
@@ -90,6 +87,9 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 			else if A.value(state) {
 				throw new Error("unsupported state value")
 			}
+			return options
 		}
 	})
+
+	return js ?? {}
 }

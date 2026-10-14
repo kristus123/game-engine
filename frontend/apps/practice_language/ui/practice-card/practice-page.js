@@ -1,3 +1,7 @@
+export const page = {
+	persistOnClose: true,
+}
+
 export default async ({ html, setState }) => {
 
 	Screen.keepAwake()
@@ -24,7 +28,6 @@ export default async ({ html, setState }) => {
 	}
 
 	const r = {
-		page: { persistOnClose: true },
 		state: async () => {
 			return await loadNewCard() // kinda hacky but ok for now
 		},

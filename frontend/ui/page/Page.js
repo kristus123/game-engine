@@ -2,78 +2,60 @@ export class Page {
 
 	static pages = {}
 
-	static active = null
+	static activeTag = null
 
-	static activePage = null
-
-	static init(page, options) {
-		const name = page.tag
-		Assert.string(name)
-		Assert.true(name.endsWith("-page"), `Page component names must end with -page: ${name}`)
-		Assert.object(options)
-		Assert.true(Object.hasOwn(options, "persistOnClose"), `${name}: page.persistOnClose is required`)
-
-		const { persistOnClose, onOpen, onClose, onToggle } = options
-		Assert.bool(persistOnClose)
-		if onOpen != undefined {
-			Assert.method(onOpen)
-		}
-		if onClose != undefined {
-			Assert.method(onClose)
-		}
-		if onToggle != undefined {
-			Assert.method(onToggle)
-		}
-
-		page.persistOnClose = persistOnClose
-		page.onOpen = onOpen
-		page.onClose = onClose
-		page.onToggle = onToggle
-		page.setAttribute("page-name", name)
-		Assert.true(this.pages[name] == undefined || this.pages[name] == page, `Page already initialized: ${name}`)
-		this.pages[name] = persistOnClose ? page : null
-
-		return page
+	static get active() {
+		Assert.value(this.activeTag)
+		return this.pages[this.activeTag]
 	}
 
-	static async open(name) {
-		Assert.string(name)
-		Assert.true(name.endsWith("-page"), `Page component names must end with -page: ${name}`)
-		Assert.value(customElements.get(name))
+	static init(tag, o) {
+		Assert.string(tag)
+		Assert.true(tag.endsWith("-page"), `Page component names must end with -page: ${tag}`)
+		Assert.object(o)
+		o.assertKeyPresent("persistOnClose")
+		Assert.bool(o.persistOnClose)
 
-		const previous = this.activePage
-		if this.active == name && previous?.isConnected {
-			await previous.whenReady()
-			Assert.true(previous.getAttribute("page-name") == name, `${name} must return a page object with persistOnClose`)
-			return previous
+		this.pages.assertKeyMissing(tag)
+		this.pages[tag] = {
+			page: o.persistOnClose ? H.create(tag) : null,
+			persistOnClose: o.persistOnClose,
 		}
-
-		await this.close()
-		const page = this.pages[name] ?? H.create(name)
-		this.active = name
-		this.activePage = page
-		Dom.add(page)
-		await page.whenReady()
-		Assert.true(page.getAttribute("page-name") == name, `${name} must return a page object with persistOnClose`)
-		await page.onOpen?.()
-		await page.onToggle?.("open")
-		return page
 	}
 
+	static async open(tag) {
+		Assert.string(tag)
+		Assert.false(this.activeTag == tag, "can't open same twice")
+		this.pages.assertKeyPresent(tag)
+
+		if this.activeTag {
+			await this.close()
+		}
+
+		const entry = this.pages[tag]
+		if !entry.persistOnClose {
+			entry.page = H.create(tag)
+		}
+
+		Dom.add(entry.page)
+		entry.options = await entry.page.whenReady()
+		this.activeTag = tag
+
+		await entry.options.onOpen?.()
+		await entry.options.onToggle?.("open")
+	}
 
 	static async close() {
-		const page = this.activePage
-		if !page {
-			return
-		}
+		const entry = this.active
+		await entry.options.onClose?.()
+		await entry.options.onToggle?.("close")
+		entry.page.remove()
 
-		await page.whenReady()
-		await page.onClose?.()
-		await page.onToggle?.("close")
-		page.remove()
-		this.activePage = null
-		this.active = null
-		return page
+		if !entry.persistOnClose {
+			entry.page = null
+			entry.options = null
+		}
+		this.activeTag = null
 	}
 
 }

@@ -1,3 +1,7 @@
+export const page = {
+	persistOnClose: true,
+}
+
 export default async ({ html }) => {
 	let isPreviewingStream = false
 	const streamPreview = document.createElement("video")
@@ -36,7 +40,6 @@ export default async ({ html }) => {
 	const cams = Permission.granted ? await Cam.all() : []
 
 	return {
-		page: { persistOnClose: true },
 		onDomAdd: () => {
 			streamPreview.srcObject = SwappableMediaStream.stream
 		},

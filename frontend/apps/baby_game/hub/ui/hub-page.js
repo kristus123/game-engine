@@ -1,3 +1,7 @@
+export const page = {
+	persistOnClose: true,
+}
+
 export default async ({ html }) => {
 
 	MouseDragScroll.horizontal(html.area)
@@ -6,6 +10,6 @@ export default async ({ html }) => {
 		html.list.add(H.create("hub-card"))
 	})
 
-	return { page: { persistOnClose: true } }
+	return {}
 
 }

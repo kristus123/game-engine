@@ -1,3 +1,7 @@
+export const page = {
+	persistOnClose: false,
+}
+
 export default async ({ html }) => {
 	let wait = false
 	let resetTimeout = null
@@ -77,7 +81,6 @@ export default async ({ html }) => {
 	html.cards.randomizeOrder()
 
 	return {
-		page: { persistOnClose: false },
 		onDomRemove: () => {
 			clearTimeout(resetTimeout)
 			wait = false
