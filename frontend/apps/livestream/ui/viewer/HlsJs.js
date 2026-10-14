@@ -15,7 +15,7 @@ else {
 
 export class HlsJs {
 
-	static callbacks = {}
+	static callbacks = {} // fix this hacky solution
 
 	static {
 		if hls {

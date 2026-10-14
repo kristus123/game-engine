@@ -1,4 +1,5 @@
 export class CanvasGame {
+
 	constructor() {
 		const player = Player(WorldPosition(2000, 2000))
 
@@ -19,4 +20,5 @@ export class CanvasGame {
 			},
 		})
 	}
+
 }

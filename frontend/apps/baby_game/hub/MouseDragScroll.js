@@ -1,4 +1,5 @@
 export class MouseDragScroll {
+
 	static horizontal(element, slide = 0.9) {
 		return new MouseDragScroll(element, "horizontal", slide)
 	}

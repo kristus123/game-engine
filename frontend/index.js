@@ -70,7 +70,7 @@ Font.use("VT323")
 // this can be combined with index.html block thingy
 
 // await Retry(900, async () => {
-// 	await Livestream()
+// 	Page.open("test-page")
 // })
 
 await Page.open("hub-page")

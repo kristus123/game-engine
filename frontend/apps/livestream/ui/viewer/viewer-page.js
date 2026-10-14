@@ -55,7 +55,9 @@ export default async ({ html }) => {
 	}).stop()
 
 	return {
-		onOpen: () => statusLoop.start(),
+		onOpen: () => {
+			statusLoop.start()
+		},
 		onClose: () => {
 			statusLoop.stop()
 			hlsVideo.disconnect()
