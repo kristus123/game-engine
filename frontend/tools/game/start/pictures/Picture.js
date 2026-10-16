@@ -209,8 +209,7 @@ export class Picture {
 
 			drawLayer.ctx.translate(
 				p.x + p.width * 0.5,
-				p.y + this.shadowSprite.offset.y
-			)
+				p.y + this.shadowSprite.offset.y)
 
 			drawLayer.ctx.rotate(this.shadowAngle)
 
@@ -219,8 +218,7 @@ export class Picture {
 				-(p.width + this.shadowScale.width) * 0.5,
 				0,
 				p.width + this.shadowScale.width,
-				p.height + this.shadowScale.height
-			)
+				p.height + this.shadowScale.height)
 
 			drawLayer.ctx.restore()
 		}
@@ -230,8 +228,7 @@ export class Picture {
 			p.x + this.offset.x + this.shakeOffset.x,
 			p.y + this.offset.y + this.shakeOffset.y,
 			p.width,
-			p.height
-		)
+			p.height)
 	}
 
 }

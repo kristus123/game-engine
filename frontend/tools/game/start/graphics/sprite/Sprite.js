@@ -107,24 +107,32 @@ export class Sprite extends Entity {
 		for const picture of this.getAllPictures() {
 			picture.shadow(r, g, b, a)
 		}
+		
+		return this
 	}
 
 	updateShadow(lightPos) {
 		for const picture of this.getAllPictures() {
 			picture.updateShadow(this.position, lightPos)
 		}
+		
+		return this
 	}
 
 	flicker(intensity, r = 0, g = 0, b = 0) {
 		for const picture of this.getAllPictures() {
 			picture.flicker(intensity, r, g, b)
 		}
+		
+		return this
 	}
 
 	shake(intensity, durationSeconds) {
 		for const picture of this.getAllPictures() {
 			picture.shake(intensity, durationSeconds)
 		}
+		
+		return this
 	}
 
 	tint(r, g, b, a) {
@@ -132,6 +140,8 @@ export class Sprite extends Entity {
 			picture.tint(r, g, b, a)
 		}
 		this.invalidatePrerenderSrc()
+		
+		return this
 	}
 
 	mirrorX() {
@@ -139,6 +149,8 @@ export class Sprite extends Entity {
 			picture.mirrorX()
 		}
 		this.invalidatePrerenderSrc()
+		
+		return this
 	}
 
 	mirrorY() {
@@ -146,6 +158,8 @@ export class Sprite extends Entity {
 			picture.mirrorY()
 		}
 		this.invalidatePrerenderSrc()
+		
+		return this
 	}
 
 	changeColors(colorMap) {
@@ -153,7 +167,16 @@ export class Sprite extends Entity {
 			picture.changeColors(colorMap)
 		}
 		this.invalidatePrerenderSrc()
+		
+		return this
+	}
 
+	setPixel(...args) {
+		for const picture of this.getAllPictures() {
+			picture.setPixel(...args)
+		}
+		this.invalidatePrerenderSrc()
+		
 		return this
 	}
 
@@ -162,6 +185,8 @@ export class Sprite extends Entity {
 			picture.reset()
 		}
 		this.invalidatePrerenderSrc()
+
+		return this
 	}
 
 	invalidatePrerenderSrc() {
@@ -173,6 +198,7 @@ export class Sprite extends Entity {
 		}
 
 		this.prerenderSrc()
+		return this
 	}
 
 	prerenderSrc() {
@@ -236,6 +262,14 @@ export class Sprite extends Entity {
 		return Assert.value(this.groupInfo[layer], `${this.spriteName}.aseprite needs to have a Draw order group`)
 	}
 
+	*picturesInGroup(group) {
+		for const { layer, picture } of this.getAllStuff(this.currentFrame) {
+			if this.group(layer) == group {
+				yield picture
+			}
+		}
+	}
+
 	update() {
 		this.updateColliderPosition()
 
@@ -264,7 +298,6 @@ export class Sprite extends Entity {
 				else {
 					this.loopTag("idle")
 				}
-
 
 				this.onNewFrame?.(this.currentFrame) // todo consider this
 

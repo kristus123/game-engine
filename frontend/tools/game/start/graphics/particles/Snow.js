@@ -4,13 +4,10 @@ class Flake extends Entity {
 		super(p)
 
 		this.altitude = 800
-		this.size = Random.floatBetween(10, 20)
-		this.friction = 0
-		this.velocity.x = Random.floatBetween(0, 0)
-		this.velocity.y = Random.floatBetween(0, 0)
 
-		this.position.width = this.size
-		this.position.height = this.size
+		this.size = Random.floatBetween(10, 20)
+		this.width = this.size
+		this.height = this.size
 	}
 
 	update() {
