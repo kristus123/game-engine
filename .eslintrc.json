@@ -282,7 +282,6 @@
         "LinePathFinder": "readonly",
         "LintProject": "readonly",
         "Listener": "readonly",
-        "Livestream": "readonly",
         "LoadAllAudio": "readonly",
         "LoadAllImages": "readonly",
         "LoadAsepriteAssets": "readonly",
