@@ -88,7 +88,7 @@ export default async ({ html }) => {
 					const startVideo = streamPreview.play()
 					await Promise.all([resumeAudio, startVideo])
 				}
-				catch (error) { // codex, make it so i can do - catch error { - without paranthesis () - and update linter
+				catch (error) { // codex, make it so i can do - catch error { - without paranthesis () - and update linter to auto do this
 					isPreviewingStream = false
 					streamPreview.pause()
 					showCameraPreview()
