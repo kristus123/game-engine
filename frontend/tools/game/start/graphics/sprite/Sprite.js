@@ -107,7 +107,7 @@ export class Sprite extends Entity {
 		for const picture of this.getAllPictures() {
 			picture.shadow(r, g, b, a)
 		}
-		
+
 		return this
 	}
 
@@ -115,7 +115,7 @@ export class Sprite extends Entity {
 		for const picture of this.getAllPictures() {
 			picture.updateShadow(this.position, lightPos)
 		}
-		
+
 		return this
 	}
 
@@ -123,7 +123,7 @@ export class Sprite extends Entity {
 		for const picture of this.getAllPictures() {
 			picture.flicker(intensity, r, g, b)
 		}
-		
+
 		return this
 	}
 
@@ -131,7 +131,7 @@ export class Sprite extends Entity {
 		for const picture of this.getAllPictures() {
 			picture.shake(intensity, durationSeconds)
 		}
-		
+
 		return this
 	}
 
@@ -140,7 +140,7 @@ export class Sprite extends Entity {
 			picture.tint(r, g, b, a)
 		}
 		this.invalidatePrerenderSrc()
-		
+
 		return this
 	}
 
@@ -149,7 +149,7 @@ export class Sprite extends Entity {
 			picture.mirrorX()
 		}
 		this.invalidatePrerenderSrc()
-		
+
 		return this
 	}
 
@@ -158,7 +158,7 @@ export class Sprite extends Entity {
 			picture.mirrorY()
 		}
 		this.invalidatePrerenderSrc()
-		
+
 		return this
 	}
 
@@ -167,7 +167,7 @@ export class Sprite extends Entity {
 			picture.changeColors(colorMap)
 		}
 		this.invalidatePrerenderSrc()
-		
+
 		return this
 	}
 
@@ -176,7 +176,7 @@ export class Sprite extends Entity {
 			picture.setPixel(...args)
 		}
 		this.invalidatePrerenderSrc()
-		
+
 		return this
 	}
 

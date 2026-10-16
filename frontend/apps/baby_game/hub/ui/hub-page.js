@@ -9,4 +9,8 @@ export default async ({ html }) => {
 	Iterate(10, () => {
 		html.list.add(H.create("hub-card"))
 	})
+
+	return {
+
+	}
 }

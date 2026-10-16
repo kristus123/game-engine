@@ -54,9 +54,9 @@ export class SocketClient {
 			return this._connectionPromise
 		}
 
-		const connectionPromise = this.waitForBackend().then(() => this.openConnection())
+		const connectionPromise = this.waitForBackend().then(() => this.openConnection()) // Can we have this use async await syntax instead? Also, can we simplify this code? Because it is a little bit hacky
 		this._connectionPromise = connectionPromise
-		connectionPromise.catch(() => {
+		connectionPromise.catch(() => { // And since we're gonna use async away syntax, can we just use a normal try-catch syntax if trycatch is needed after below comment changes
 			if this._connectionPromise == connectionPromise {
 				this._connectionPromise = null
 			}
@@ -64,7 +64,7 @@ export class SocketClient {
 		return connectionPromise
 	}
 
-	static async waitForBackend() {
+	static async waitForBackend() { // Can we rewrite it so that we don't do this wait for back-end stuff? I have decided to not bother about checking if the ping is available. It can instead just attempt to reconnect to the socket server, and if it fails to connect to the socket server, it can try again in a little bit later
 		while (true) {
 			const response = await LowLevelHttpClient.post({
 				routeName: "ping",

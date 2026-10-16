@@ -40,6 +40,7 @@ await Promise.all([
 		.map(async c => {
 			const component = await RegisterCustomWebComponent(c.name, c.content, c.js)
 			if c.name.endsWith("-page") {
+				Assert.value(component.page, "you need to do export page = {} in " + c.name)
 				Page.init(c.name, component.page)
 			}
 		})
@@ -73,7 +74,7 @@ Font.use("VT323")
 // 	Page.open("test-page")
 // })
 
-// await Page.open("hub-page")
-CanvasGame()
+await Page.open("hub-page")
+// CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

@@ -7,7 +7,7 @@ export class PromiseQueue {
 	add(callback) {
 		this.promise = this.promise.then(callback)
 
-		return this
+		return this.promise
 	}
 }
 

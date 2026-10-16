@@ -1,12 +1,5 @@
-export function InjectAttributeLogicToHtml(child, methods, setState) {
-	for const attribute of child.attributes {
-		if !attribute.name.includes("-") {
-			continue
-		}
-
-		const name = attribute.name
-		const value = attribute.value
-
+export function InjectAttributeLogicToHtml(child, methods={}, setState) {
+	for const { name, value } of child.attributes {
 		switch name {
 			case "on-click-open-page" {
 				child.listen("click", () => {
@@ -29,7 +22,7 @@ export function InjectAttributeLogicToHtml(child, methods, setState) {
 				})
 			}
 			default {
-				console.log(name + " was ignored")
+				// ignore
 			}
 		}
 	}
