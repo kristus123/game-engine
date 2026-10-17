@@ -10,3 +10,8 @@
 	width:100%;
 	height:100%;
 }
+
+img[max-size] {
+	object-fit: cover;
+	/* object-fit: contain; */
+}

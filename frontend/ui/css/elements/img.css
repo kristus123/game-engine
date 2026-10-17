@@ -7,11 +7,40 @@ img {
 	image-rendering: pixelated;
 }
 
+img[blur] {
+	filter: blur(8px) brightness(0.5) saturate(1) contrast(1.1);
+	/* transform: scale(1.05); */
+}
 
-[fill-space] {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+img[float] {
+	animation: float 30000ms ease-in-out infinite;
+}
 
-	/* object-fit: contain; */
+@keyframes float {
+	0%, 100% {
+		transform: translate(0, 0) scale(1.05);
+	}
+	25% {
+		transform: translate(4px, -8px) scale(1.08);
+	}
+	50% {
+		transform: translate(0, -12px) scale(1.06);
+	}
+	75% {
+		transform: translate(-4px, -6px) scale(1.07);
+	}
+}
+
+img[float-up-down] {
+	image-rendering: auto;
+	animation: float-up-down 20s ease-in-out infinite;
+}
+
+@keyframes float-up-down {
+	0%, 100% {
+		transform: translate(0, -12px);
+	}
+	50% {
+		transform: translate(0, 12px);
+	}
 }
