@@ -23,13 +23,23 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 		async connectedCallback() { // triggered when added to dom
 			this._setupPromise ??= (async () => {
+				const assignedNodesBySlot = {}
+				for const child of [...this.childNodes] {
+					let slotName = ""
+					if child.nodeType == Node.ELEMENT_NODE {
+						if child.tagName == "SLOT" {
+							slotName = child.getAttribute("name") ?? ""
+						}
+						else {
+							slotName = child.getAttribute("slot") ?? ""
+						}
+					}
+					assignedNodesBySlot[slotName] ??= []
+					assignedNodesBySlot[slotName].push(child)
+				}
+
 				const content = template.content.cloneNode(true)
 				const setState = CustomElementHelper.createSetState(this)
-
-				const slots = {}
-				for const s of content.querySelectorAll("slot") {
-					slots[s.getAttribute("name")] = s
-				}
 
 				this.replaceChildren(content)
 				CustomElementHelper.exposeFields(this)
@@ -43,19 +53,25 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				})
 
 				for const actualSlot of this.querySelectorAll("slot") {
-					const slot = slots[actualSlot.getAttribute("name")]
-					if !slot {
+					const slotName = actualSlot.getAttribute("name") ?? ""
+					const assignedNodes = assignedNodesBySlot[slotName]
+					if assignedNodes?.length > 0 {
+						actualSlot.replaceWith(...assignedNodes)
+						for const node of assignedNodes {
+							if node.nodeType == Node.ELEMENT_NODE {
+								node.walk(c => {
+									InjectAttributeLogicToHtml(c, options.methods, setState)
+								})
+							}
+						}
+						delete assignedNodesBySlot[slotName]
 						continue
 					}
 
-					actualSlot.replaceWith(slot)
-					slot.walk(c => {
-						InjectAttributeLogicToHtml(c, options.methods, setState)
-					})
-
 					for const { name, value } of this.attributes {
-						if name.replace("slot-", "") == slot.name {
-							slot.replaceWith(document.createTextNode(value))
+						if name == "slot-" + slotName {
+							actualSlot.replaceWith(document.createTextNode(value))
+							break
 						}
 					}
 				}

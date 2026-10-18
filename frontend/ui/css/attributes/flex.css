@@ -29,6 +29,22 @@ flex-v[close] {
 	justify-content: flex-start;
 }
 
+flex-v[space-between],
+flex-h[space-between] {
+	justify-content: space-between;
+}
+
+flex-v[align-center],
+flex-h[align-center] {
+	align-items:center;
+}
+
+
+flex-spacer {
+	width: 200px;
+	flex-shrink: 0;
+}
+
 
 
 

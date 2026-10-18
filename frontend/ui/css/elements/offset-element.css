@@ -1,0 +1,16 @@
+offset-element {
+	display: block;
+	position: relative;
+	align-self: flex-end;
+	width: var(--offset-element-width, 0px);
+	flex: 0 0 var(--offset-element-width, 0px);
+	height: 0;
+}
+
+offset-element > .offset-element__content {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: var(--offset-element-content-width, var(--offset-element-width, max-content));
+	transform: translate(var(--offset-element-x, 0px), var(--offset-element-y, 0px));
+}

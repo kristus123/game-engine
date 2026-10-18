@@ -1,6 +1,6 @@
-<overlay-fixed max-size style="background:transparent;">
+<overlay-fixed>
 	<flex-v max-size style="gap:20px;">
-		<flex-h style="justify-content:space-between; gap:12px; padding:14px; background:#e6d4a2;">
+		<flex-h space-between style="gap:12px; padding:14px; background:#e6d4a2;">
 			<div>
 				<h1 style="font-size:64px;">Vendelheim</h1>
 				<p style="font-size:23px;">Northern settlement</p>
@@ -15,21 +15,19 @@
 		<flex-h style="flex:1;" id="canvasArea">
 		</flex-h>
 
-		<flex-h style="justify-content:space-between; align-items:center; gap:8px; padding:6px 196px 6px 166px; background:#e6d4a2;">
-			<div style="position:absolute; left:8px; top:-100px; width:150px; height:180px; overflow:hidden; border:3px solid #675333; border-radius:12px; background:#e6d4a2; box-shadow:0 3px 10px #20180e88;">
-				<div style="height:146px; overflow:hidden;">
-					<img src="Png.reindeer" alt="Reindeer profile picture" stretch>
-				</div>
+		<flex-h space-between align-center style="gap:8px; padding:6px; background:#e6d4a2;">
+			<offset-element style="--offset-element-width:150px; --offset-element-y:-20px;">
+				<img src="Png.reindeer" stretch style="height:148px;">
 				<h2 style="height:28px; display:grid; place-items:center; color:#342719; font-size:16px;">Jarle</h2>
-			</div>
-			<button style="flex:0 0 150px; height:70px; padding:8px 4px; border:2px solid #755a35; border-radius:10px; background:#d4bd82; color:#342719; font-size:16px;">ᚠ Inventory</button>
-			<button style="flex:0 0 150px; height:70px; padding:8px 4px; border:2px solid #755a35; border-radius:10px; background:#d4bd82; color:#342719; font-size:16px;">ᛟ Family</button>
-			<button style="flex:0 0 150px; margin-left:auto; height:70px; padding:8px 4px; border:2px solid #755a35; border-radius:10px; background:#d4bd82; color:#342719; font-size:16px;">↑ Reputation</button>
-			<button style="flex:0 0 150px; height:70px; padding:8px 4px; border:2px solid #755a35; border-radius:10px; background:#d4bd82; color:#342719; font-size:16px;">ᛉ Bonds</button>
-			<button style="flex:0 0 150px; height:70px; padding:8px 4px; border:2px solid #755a35; border-radius:10px; background:#d4bd82; color:#342719; font-size:16px;">ᚱ Lore</button>
-			<div style="position:absolute; right:8px; top:-50px; width:180px; height:130px; overflow:hidden; border:4px solid #675333; border-radius:12px; background-color:#a6a16b; background-image:linear-gradient(135deg, transparent 38%, #7e8d5c 39% 53%, transparent 54%), repeating-linear-gradient(0deg, transparent 0 17px, #596b4933 18px 19px), repeating-linear-gradient(90deg, transparent 0 17px, #596b4933 18px 19px); box-shadow:0 3px 10px #20180e88;">
-				<span style="position:absolute; left:58%; top:57%; width:12px; height:12px; border:2px solid #f3e5bb; border-radius:50%; background:#a63d2d; box-shadow:0 0 0 3px #a63d2d66;"></span>
-			</div>
+			</offset-element>
+
+			<button>ᚠ Inventory</button>
+			<button>ᛟ Family</button>
+			<flex-spacer></flex-spacer>
+			<button>↑ Reputation</button>
+			<button>ᛉ Bonds</button>
+			<button>ᚱ Lore</button>
+			<flex-spacer></flex-spacer>
 		</flex-h>
 	</flex-v>
 </overlay-fixed>
