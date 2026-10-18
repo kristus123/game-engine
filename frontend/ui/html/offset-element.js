@@ -2,7 +2,7 @@ export default async ({ html }) => {
 	const attributes = [
 		["offset-x", "--offset-x"],
 		["offset-y", "--offset-y"],
-		["offset-width", "--offset-width"],
+		["width", "--offset-width"],
 	]
 
 	for const [attribute, property] of attributes {

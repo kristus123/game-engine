@@ -11,7 +11,7 @@ offset-element {
 	height: 0;
 }
 
-offset-element[offset-width] {
+offset-element[width] {
 	flex: 0 0 var(--offset-width);
 }
 
@@ -25,5 +25,9 @@ offset-element > .content {
 	align-self: end;
 	width: 100%;
 	min-width: 0;
+	border: 2px solid #755a35;
+	border-radius: 10px;
+	background: #e6d4a2;
+	overflow: hidden;
 	transform: translate(var(--offset-x, 0), var(--offset-y, 0));
 }
