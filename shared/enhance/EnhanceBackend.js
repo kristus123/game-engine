@@ -1,11 +1,11 @@
 export function EnhanceBackend() {
-	Enhance_js_Array()
-	Enhance_js_Object()
-	Enhance_js_Number()
-	Enhance_js_String()
-	Enhance_js_Float32Array()
+	new Enhance_js_Array()
+	new Enhance_js_Object()
+	new Enhance_js_Number()
+	new Enhance_js_String()
+	new Enhance_js_Float32Array()
 
 	if (typeof Blob != "undefined") {
-		Enhance_js_Blob()
+		new Enhance_js_Blob()
 	}
 }

@@ -1,6 +1,10 @@
-export function Enhance_js_Float32Array() {
+export class Enhance_js_Float32Array extends NativeEnhancer {
 
-	Enhance(Float32Array.prototype, "toWav", function (sampleRate) {
+	constructor() {
+		super(Float32Array.prototype)
+	}
+
+	toWav(sampleRate) {
 
 		Assert.value(sampleRate)
 
@@ -39,6 +43,6 @@ export function Enhance_js_Float32Array() {
 		}
 
 		return new Blob([buffer], { type: "audio/wav" })
-	})
+	}
 
 }

@@ -1,6 +1,10 @@
-export function Enhance_audio() {
-	Enhance(AudioNode.prototype, "routeTo", function (target) {
+export class Enhance_audio extends NativeEnhancer {
+
+	constructor() {
+		super(AudioNode.prototype)
+	}
+	routeTo(target) {
 		this.connect(target.input ?? target)
 		return target
-	})
+	}
 }

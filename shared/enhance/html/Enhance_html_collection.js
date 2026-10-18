@@ -1,32 +1,37 @@
-export function Enhance_html_collection() {
+export class Enhance_html_collection extends NativeEnhancer {
+	static allowInheritedOverride = ["forEach", "map"]
 
-	Enhance(HTMLCollection.prototype, "except", function (e) {
+	constructor() {
+		super(HTMLCollection.prototype)
+	}
+
+	except(e) {
 		return [...this].filter(c => c != e)
-	})
+	}
 
-	Enhance(HTMLCollection.prototype, "find", function (...args) {
+	find(...args) {
 		return Array.from(this).find(...args)
-	})
+	}
 
-	Enhance(HTMLCollection.prototype, "filter", function (...args) {
+	filter(...args) {
 		return Array.from(this).filter(...args)
-	})
+	}
 
-	Enhance(HTMLCollection.prototype, "every", function (...args) {
+	every(...args) {
 		return Array.from(this).every(...args)
-	})
+	}
 
-	Enhance(HTMLCollection.prototype, "forEach", function (...args) {
+	forEach(...args) {
 		return Array.from(this).forEach(...args)
-	}, { allowInheritedOverride: true })
+	}
 
-	Enhance(HTMLCollection.prototype, "map", function (...args) {
+	map(...args) {
 		return Array.from(this).map(...args)
-	}, { allowInheritedOverride: true })
+	}
 
-	Getter(HTMLCollection.prototype, "last", function () {
+	get last() {
 		return this[this.length - 1]
-	})
+	}
 
 
 }

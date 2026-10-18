@@ -1,34 +1,38 @@
-export function Enhance_js_String() {
+export class Enhance_js_String extends NativeEnhancer {
 
-	Getter(String.prototype, "uniqueWords", function() {
+	constructor() {
+		super(String.prototype)
+	}
+
+	get uniqueWords() {
 		return [...new Set(this.split(/\s+/))]
-	})
+	}
 
-	Enhance(String.prototype, "contains", function(subString) {
+	contains(subString) {
 		return this.includes(subString)
-	})
+	}
 
-	Enhance(String.prototype, "isDue", function() {
+	isDue() {
 		return new LocalDate(this).isDue()
-	})
+	}
 
-	Enhance(String.prototype, "toOneLine", function(separator=" ") {
+	toOneLine(separator=" ") {
 		return this.replace(/\r?\n/g, separator)
-	})
+	}
 
-	Enhance(String.prototype, "beforePunctuation", function() {
+	beforePunctuation() {
 		return this.split(/[.,?]/)[0]
-	})
+	}
 
-	Enhance(String.prototype, "toHtml", function() {
+	toHtml() {
 		console.warn("toHtml() is buggy and not standardized yet, currently it returns firstchild")
 		return new DOMParser() // .innerHTML is also an option
 			.parseFromString(this, "text/html")
 			.body
 			.firstChild
-	})
+	}
 
-	Enhance(String.prototype, "dedent", function() { // todo might be buggy
+	dedent() { // todo might be buggy
 		const string = this.replace(/^\n|\n\s*$/g, "")
 
 		const amount = string.match(/^[ \t]*/)[0].length
@@ -37,6 +41,6 @@ export function Enhance_js_String() {
 			.split("\n")
 			.map(line => line.slice(amount))
 			.join("\n")
-	})
+	}
 
 }

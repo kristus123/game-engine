@@ -1,7 +1,10 @@
-export function Enhance_js_Blob() {
+export class Enhance_js_Blob extends NativeEnhancer {
 
-	Enhance(Blob.prototype, "toWav", async function () {
+	constructor() {
+		super(Blob.prototype)
+	}
 
+	async toWav() {
 		function writeString(view, offset, string) {
 			for (let i = 0; i < string.length; i++) {
 				view.setUint8(offset + i, string.charCodeAt(i))
@@ -46,5 +49,5 @@ export function Enhance_js_Blob() {
 		return new Blob([encodeWav(audioBuffer)], {
 			type: "audio/wav",
 		})
-	})
+	}
 }

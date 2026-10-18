@@ -1,19 +1,23 @@
-export function Enhance_js_Number() {
+export class Enhance_js_Number extends NativeEnhancer {
 
-	Enhance(Number.prototype, "isStrictInteger", function () {
-		return Number.isInteger(v) && !String(v).includes(".")
-	})
+	constructor() {
+		super(Number.prototype)
+	}
 
-	Enhance(Number.prototype, "round", function () { // todo: rename to roundUp
+	isStrictInteger() {
+		return Number.isInteger(this) && !String(this).includes(".")
+	}
+
+	round() { // todo: rename to roundUp
 		return Math.round(this)
-	})
+	}
 
-	Enhance(Number.prototype, "roundDown", function () {
+	roundDown() {
 		return Math.floor(this)
-	})
+	}
 
-	Getter(Number.prototype, "abs", function () {
+	get abs() {
 		return Math.abs(this)
-	})
+	}
 
 }

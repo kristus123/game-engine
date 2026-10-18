@@ -1,6 +1,11 @@
-export function Enhance_html() {
+export class Enhance_html extends NativeEnhancer {
+	static allowInheritedOverride = ["forEach", "map"]
 
-	Enhance(HTMLElement.prototype, "forEach", function (callback) {
+	constructor() {
+		super(HTMLElement.prototype)
+	}
+
+	forEach(callback) {
 		const children = this.children
 
 		for (let i = 0; i < children.length; i++) {
@@ -8,13 +13,13 @@ export function Enhance_html() {
 		}
 
 		return this
-	}, { allowInheritedOverride: true })
+	}
 
-	Enhance(HTMLElement.prototype, "filter", function (callback) {
+	filter(callback) {
 		return this.children.filter(callback)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "trigger", function (name, detail) {
+	trigger(name, detail) {
 		Assert.string(name)
 		Assert.object(detail)
 
@@ -23,13 +28,13 @@ export function Enhance_html() {
 		}))
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "every", function (callback) {
+	every(callback) {
 		return this.children.every(callback)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "randomizeOrder", function () {
+	randomizeOrder() {
 
 		const children = [...this.children]
 
@@ -43,9 +48,9 @@ export function Enhance_html() {
 			this.appendChild(child)
 		}
 
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "map", function (callback) {
+	map(callback) {
 		const children = this.children
 		const x = []
 
@@ -54,31 +59,31 @@ export function Enhance_html() {
 		}
 
 		return x
-	}, { allowInheritedOverride: true })
+	}
 
-	Getter(HTMLElement.prototype, "tag", function () {
+	get tag() {
 		return this.tagName.toLowerCase()
-	})
+	}
 
-	Getter(HTMLElement.prototype, "isTextNode", function () {
+	get isTextNode() {
 		return
   			this.childNodes.length == 1 &&
   			this.firstChild.nodeType == Node.TEXT_NODE
-	})
+	}
 
-	Getter(HTMLElement.prototype, "data", function () {
+	get data() {
 		return this.dataset
-	})
+	}
 
-	Getter(HTMLElement.prototype, "width", function () {
+	get width() {
 		return this.getBoundingClientRect().width
-	})
+	}
 
-	Getter(HTMLElement.prototype, "height", function () {
+	get height() {
 		return this.getBoundingClientRect().height
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "orderBasedOnMousePosition", function (draggedItem, onChange= () => {}) { // Not the best name.
+	orderBasedOnMousePosition(draggedItem, onChange= () => {}) { // Not the best name.
 
 		const items = [...this.children].filter(c => c != draggedItem)
 
@@ -104,18 +109,18 @@ export function Enhance_html() {
 			onChange()
 			this.appendChild(draggedItem)
 		}
-	})
+	}
 
-	Getter(HTMLElement.prototype, "last", function () {
+	get last() {
 		if (this.empty) {
 			throw new Error("can't get last element if list is empty")
 		}
 		else {
 			return this.children[this.children.length - 1]
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "splitWords", function () {
+	splitWords() {
 		const walker = document.createTreeWalker(
 			this,
 			NodeFilter.SHOW_TEXT
@@ -160,9 +165,9 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "splitLetters", function () {
+	splitLetters() {
 		this.splitWords()
 
 		this.querySelectorAll("span.word").forEach(word => {
@@ -189,9 +194,9 @@ export function Enhance_html() {
 		})
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "listen", function (type, listener, options) {
+	listen(type, listener, options) {
 		this._listeners ??= []
 
 		const x = (e) => {
@@ -202,17 +207,17 @@ export function Enhance_html() {
 		this.addEventListener(type, x, options)
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "OnChange", function (listener) {
+	OnChange(listener) {
 		if (this.tag != "input" || this.type != "checkbox") {
 			throw new Error("OnChange is currently only supported for checkboxes")
 		}
 
 		return this.listen("change", listener)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "removeListener", function (typeToRemove) {
+	removeListener(typeToRemove) {
 		this._listeners ??= []
 
 		this._listeners.forEach(({ type, listener, options }) => {
@@ -222,9 +227,9 @@ export function Enhance_html() {
 		})
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "removeAllListeners", function () {
+	removeAllListeners() {
 		this._listeners ??= []
 
 		this._listeners.forEach(({ type, listener, options }) => {
@@ -236,18 +241,18 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "text", function (text) { // should be a get/set
+	text(text) { // should be a get/set
 		this.innerHTML = text
 		return this
-	})
+	}
 
-	Getter(HTMLElement.prototype, "parent", function () {
+	get parent() {
 		return this.parentElement
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "onDragChild", function ({ onDrag, whileDragging, onDrop } = {}) {
+	onDragChild({ onDrag, whileDragging, onDrop } = {}) {
 
 		let draggedItem = null
 
@@ -309,62 +314,58 @@ export function Enhance_html() {
 			stopDrag()
 		})
 
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "replace", function (oldText, newText) {
+	replace(oldText, newText) {
 		this.textContent.replace(oldText, newText)
-	})
+	}
 
-	// already exists. don't override
-	// Enhance(HTMLElement.prototype, "remove", function () {
-	// })
-
-	Enhance(HTMLElement.prototype, "visible", function () {
+	visible() {
 		return this.css("visibility: visible;")
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "invisible", function () {
+	invisible() {
 		return this.css("visibility: hidden;")
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "closestDraggable", function () {
+	closestDraggable() {
 		return this.closest("[draggable]")
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "offset_x", function (amount) {
+	offset_x(amount) {
 		this.css(`transform: translateX(${amount}px); position: relative;`) // position relative might be possible to remove
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "offset_y", function (amount) {
+	offset_y(amount) {
 		this.css(`transform: translateY(${amount}px); position: relative;`) // position relative might be possible to remove
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "transformPosition", function (p) {
+	transformPosition(p) {
 		this.style.transform = `translate(${p.x}px, ${p.y}px)`
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "clearChildren", function () {
+	clearChildren() {
 		this.replaceChildren()
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "clear", function () {
+	clear() {
 		if (this.tag == "input") {
 			this.value = ""
 		}
 		else {
 			throw new Error("unsupported: " + this.tag + " - you need to explcititly tell how this.clear should work")
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "removeChildren", function () {
+	removeChildren() {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "unshrink", function (duration = 200) {
+	unshrink(duration = 200) {
 		const width = this.width
 		const height = this.height
 
@@ -378,10 +379,10 @@ export function Enhance_html() {
 			this.style.height = `${height}px`
 		})
 
-	})
+	}
 
 
-	Enhance(HTMLElement.prototype, "shrink", function (duration) {
+	shrink(duration) {
 		const width = this.offsetWidth
 		const height = this.offsetHeight
 
@@ -393,9 +394,9 @@ export function Enhance_html() {
 			this.style.width = "0px"
 			this.style.height = "0px"
 		})
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "show", function (animationClassName) {
+	show(animationClassName) {
 		// make it trigger this if it is modal
 		// this.showModal()
 
@@ -406,9 +407,9 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "hide", function (animationClassName=null) {
+	hide(animationClassName=null) {
 		// if modal
 		// d.close()
 
@@ -424,63 +425,63 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
 	// removeAttribute already exists
-	Enhance(HTMLElement.prototype, "addAttribute", function (name) {
+	addAttribute(name) {
 		this.setAttribute(name, "")
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "ids", function() {
+	ids() {
 		return Array.from(this.querySelectorAll("[id]")).map(e => e.id)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "getId", function(id) {
+	getId(id) {
 		return Assert.value(this.querySelector(`#${id}`))
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "setId", function(id) {
+	setId(id) {
 		this.id = id
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "fontSize", function (size) {
+	fontSize(size) {
 		this.css(`font-size: ${size};`)
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "enable", function () {
+	enable() {
 		if (this.disabled) {
 			this.removeAttribute("disabled")
 			this.disabled = false
 		}
 
-	})
+	}
 
-	Getter(HTMLElement.prototype, "enabled", function () {
+	get enabled() {
 		return !this.hasAttribute("disabled")
-	})
+	}
 
-	Getter(HTMLElement.prototype, "disabled", function () {
+	get disabled() {
 		return this.hasAttribute("disabled")
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "disable", function () {
+	disable() {
 		if (!this.disabled) {
 			this.addAttribute("disabled")
 			this.disabled = true
 		}
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "removeOnClick", function () {
+	removeOnClick() {
 		this.removeListener("click")
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "onClick", function (run) {
+	onClick(run) {
 		// todo throw error instead if already set?
 		this.removeListener("click")
 
@@ -489,9 +490,9 @@ export function Enhance_html() {
 		})
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "onEnter", function (run) {
+	onEnter(run) {
 		console.log("this one is DANGEROUS")
 
 		this.removeListener("keydown")
@@ -505,9 +506,9 @@ export function Enhance_html() {
 		})
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "set", function (elements) {
+	set(elements) {
 		while (this.firstChild) {
 			this.removeChild(this.firstChild)
 		}
@@ -516,15 +517,15 @@ export function Enhance_html() {
 		for (const e of Always.list(elements)) {
 			this.appendChild(e)
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "push", function (elements) {
+	push(elements) {
 		for (const e of Always.list(elements)) {
 			this.appendChild(e)
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "add", function (elements) {
+	add(elements) {
 		for (let e of Always.list(elements)) {
 			if (A.string(e)) {
 				e = e.toHtml()
@@ -534,22 +535,22 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
 
-	Enhance(HTMLElement.prototype, "addAfter", function (e) {
+	addAfter(e) {
 		this.after(e)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "addBefore", function (e) {
+	addBefore(e) {
 		this.before(e)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "hasClass", function (className) {
+	hasClass(className) {
 		return this.classList.contains(className)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "addClass", function (className) {
+	addClass(className) {
 		for (const cc of Always.list(className)) {
 			for (const c of cc.split(" ")) {
 				this.classList.add(c)
@@ -557,24 +558,24 @@ export function Enhance_html() {
 		}
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "removeClass", function (className) {
+	removeClass(className) {
 		this.classList.remove(className)
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "addCssVariable", function (key, value) {
+	addCssVariable(key, value) {
 		this.style.setProperty(`--${key}`, value)
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "css", function (newCss) {
+	css(newCss) {
 		this.style.cssText += newCss
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "play", function (className, { variables={}, onStart, onHalf, onEnd } = {}) {
+	play(className, { variables={}, onStart, onHalf, onEnd } = {}) {
 		this._activeAnimations ??= new Map()
 
 		if (this._activeAnimations.has(className)) {
@@ -629,17 +630,17 @@ export function Enhance_html() {
 		this.addClass(className)
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "copy", function () {
+	copy() {
 		return this.cloneNode(true)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "clone", function () {
+	clone() {
 		return this.cloneNode(true)
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "walk", function (action) {
+	walk(action) {
 		function walk(node) {
 			for (const child of node.children) {
 				walk(child)
@@ -650,10 +651,10 @@ export function Enhance_html() {
 		walk(this)
 
 		return this
-	})
+	}
 
 
-	Enhance(HTMLElement.prototype, "swap", function (o) {
+	swap(o) {
 		const parent = this.parentNode
 		const placeholder = document.createElement("span")
 
@@ -662,10 +663,10 @@ export function Enhance_html() {
 		parent.insertBefore(o, placeholder)
 
 		placeholder.remove()
-	})
+	}
 
 
-	Enhance(HTMLElement.prototype, "animateTowards", function (destination, duration=200) {
+	animateTowards(destination, duration=200) {
 		const first = this.getBoundingClientRect()
 
 		destination.appendChild(this)
@@ -688,9 +689,9 @@ export function Enhance_html() {
 		animation.onfinish = () => {
 			console.log("finish animating")
 		}
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "worldPosition", function (position) {
+	worldPosition(position) {
 		Assert.value(position)
 
 		const p = Camera.p(position)
@@ -698,9 +699,9 @@ export function Enhance_html() {
 		this.style.top = `${p.y}px`
 
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "followMouse", function (offset_x=0, offset_y=0) {
+	followMouse(offset_x=0, offset_y=0) {
 		const x = DomMouse.x + offset_x - (this.width/2)
 		const y = DomMouse.y + offset_y - (this.height/2)
 
@@ -708,10 +709,10 @@ export function Enhance_html() {
 		this.style.top = `${y}px`
 
 		return this
-	})
+	}
 
 
-	Enhance(HTMLElement.prototype, "placeOver", function (other) {
+	placeOver(other) {
 		const rect = other.getBoundingClientRect()
 
 		this.style.left = `${rect.left}px`
@@ -719,31 +720,29 @@ export function Enhance_html() {
 
 		this.style.width = `${rect.width}px`
 		this.style.height = `${rect.height}px`
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "floating", function () {
+	floating() {
 		//assert that class is not already present
 		this.addClass("floating")
 		return this
-	})
+	}
 
-	Enhance(HTMLElement.prototype, "overlay", function () {
+	overlay() {
 		//assert that class is not already present
 		this.addClass("overlay")
 		return this
-	})
+	}
 
-	Setter(HTMLElement.prototype, "x", {
-		get() {
+	get x() {
 			return this.getBoundingClientRect().left
-		},
-		set(x) {
-			this.style.left = `${x}px`
-		},
-	})
+		}
 
-	Setter(HTMLElement.prototype, "content", {
-		get() {
+	set x(x) {
+			this.style.left = `${x}px`
+		}
+
+	get content() {
 			if (this.isTextNode) {
 				return this.textContent
 			}
@@ -751,8 +750,9 @@ export function Enhance_html() {
 				return this.children
 			}
 
-		},
-		set(x) {
+		}
+
+	set content(x) {
 			Assert.value(x)
 
 			if (A.string(x)) {
@@ -761,31 +761,28 @@ export function Enhance_html() {
 			else {
 				this.replaceChildren(x)
 			}
-		},
-	})
+		}
 
-	Setter(HTMLElement.prototype, "y", {
-		get() {
+	get y() {
 			return this.getBoundingClientRect().top
-		},
-		set(y) {
+		}
+
+	set y(y) {
 			this.style.top = `${y}px`
-		},
-	})
+		}
 
-	Setter(HTMLElement.prototype, "position", {
 
-		get() {
+	get position() {
 			if (this._position) { // todo set position field beforehand
 				return this._position
 			}
 			else {
 				this._position = WorldPosition(this.x, this.y)
 			}
-		},
-		set(p) {
+		}
+
+	set position(p) {
 			this._position = p
-		},
-	})
+		}
 
 }

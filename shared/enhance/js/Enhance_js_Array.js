@@ -1,6 +1,10 @@
-export function Enhance_js_Array() {
+export class Enhance_js_Array extends NativeEnhancer {
 
-	Enhance(Array.prototype, "remove", function (object) {
+	constructor() {
+		super(Array.prototype)
+	}
+
+	remove(object) {
 		const index = this.indexOf(object)
 		if (index != -1) {
 			this.splice(index, 1)
@@ -8,21 +12,21 @@ export function Enhance_js_Array() {
 		}
 
 		return false
-	})
+	}
 
-	Enhance(Array.prototype, "removeMany", function (elements) {
+	removeMany(elements) {
 		for (const e of elements) {
 			this.remove(e)
 		}
 
 		return this
-	})
+	}
 
-	Enhance(Array.prototype, "valuePresent", function (value) {
+	valuePresent(value) {
 		return this.includes(value)
-	})
+	}
 
-	Enhance(Array.prototype, "shuffle", function () {
+	shuffle() {
 		const a = [...this]
 
 		do {
@@ -33,16 +37,16 @@ export function Enhance_js_Array() {
 		} while (this.same(a))
 
 		return a
-	})
+	}
 
-	Enhance(Array.prototype, "same", function (o) {
+	same(o) {
 		Assert.array(o)
 
 		return this.length == o.length
 			&& this.every((value, index) => value == o[index])
-	})
+	}
 
-	Enhance(Array.prototype, "unorderedDiff", function (other, path=[]) {
+	unorderedDiff(other, path=[]) {
 		Assert.array(other)
 		const changes = []
 		const unmatched = [...other]
@@ -77,20 +81,20 @@ export function Enhance_js_Array() {
 		}
 
 		return changes
-	})
+	}
 
-	Getter(Array.prototype, "first", function () {
+	get first() {
 		Assert.notEmpty(this)
 		return this[0]
-	})
+	}
 
-	Enhance(Array.prototype, "retainMax", function (maxEntries) {
+	retainMax(maxEntries) {
 		if (this.length > maxEntries) {
 			this.splice(0, this.length - maxEntries)
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "removeIf", function (predicate) {
+	removeIf(predicate) {
 		for (let i = this.length - 1; i >= 0; i--) {
 			if (predicate(this[i])) {
 				this.splice(i, 1)
@@ -99,114 +103,114 @@ export function Enhance_js_Array() {
 		}
 
 		return false
-	})
+	}
 
-	Enhance(Array.prototype, "removeIfPresent", function (e) {
+	removeIfPresent(e) {
 		const index = this.indexOf(e)
 		if (index != -1) {
 			this.splice(index, 1)
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "except", function (e) {
+	except(e) {
 		// todo verify it works
 		return [...this].filter(c => c != e)
-	})
+	}
 
-	Enhance(Array.prototype, "removeOneOrThrowException", function (predicate) {
+	removeOneOrThrowException(predicate) {
 		const removed = this.removeIf(predicate)
 		if (!removed) {
 			throw new Error("no element removed from list")
 		}
-	})
+	}
 
 
-	Getter(Array.prototype, "empty", function () {
+	get empty() {
 		return this.length == 0
-	})
+	}
 
 
 
-	Getter(Array.prototype, "notEmpty", function () {
+	get notEmpty() {
 		return !this.empty
-	})
+	}
 
-	Enhance(Array.prototype, "random", function () {
+	random() {
 		return Random.choice(this)
-	})
+	}
 
-	Getter(Array.prototype, "last", function () {
+	get last() {
 		Assert.notEmpty(this)
 		return this.at(-1)
-	})
+	}
 
 
 
 	// array.includes already exists
-	Enhance(Array.prototype, "contains", function (e) {
+	contains(e) {
 		return this.includes(e)
-	})
+	}
 
-	Enhance(Array.prototype, "missing", function (e) {
+	missing(e) {
 		return !this.includes(e)
-	})
+	}
 
-	Enhance(Array.prototype, "addIfNotPresent", function (o) {
+	addIfNotPresent(o) {
 		if (!this.includes(o)) {
 			this.push(o)
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "addIfMissing", function (o) {
+	addIfMissing(o) {
 		if (!this.includes(o)) {
 			this.push(o)
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "add", function (o) {
+	add(o) {
 		this.push(o)
 		return o
-	})
+	}
 
-	Enhance(Array.prototype, "containsAll", function (...args) {
+	containsAll(...args) {
 		return args.every(element => this.includes(element))
-	})
+	}
 
-	Enhance(Array.prototype, "assertEmpty", function () {
+	assertEmpty() {
 		if (this.empty) {
 			return this
 		}
 		else {
 			throw new Error("ASSERT: list should be empty")
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "assertValues", function () {
+	assertValues() {
 		if (this.notEmpty) {
 			return this
 		}
 		else {
 			throw new Error("ASSERT: list should not be empty")
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "assertNoNullElements", function () {
+	assertNoNullElements() {
 		for (const c of this) {
 			if (c == null) {
 				throw new Error("null passed into list")
 			}
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "assertNotPresent", function (e) {
+	assertNotPresent(e) {
 		for (const c of this) {
 			if (c == e) {
 				throw new Error("value already present in array")
 			}
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "assertPresent", function (e) {
+	assertPresent(e) {
 		for (const c of this) {
 			if (c == e) {
 				return "ok"
@@ -214,35 +218,35 @@ export function Enhance_js_Array() {
 		}
 
 		throw new Error("value not present in array")
-	})
+	}
 
-	Enhance(Array.prototype, "assertLength", function (n) {
+	assertLength(n) {
 		if (this.length != n) {
 			throw new Error("length mismash")
 		}
 
 		return this
-	})
+	}
 
-	Enhance(Array.prototype, "clear", function () {
+	clear() {
 		this.length = 0
-	})
+	}
 
-	Enhance(Array.prototype, "update", function () {
+	update() {
 		for (const x of this) {
 			x.update()
 		}
-	})
+	}
 
-	Enhance(Array.prototype, "isLastIndex", function (index) {
+	isLastIndex(index) {
 		return index == this.length - 1
-	})
+	}
 
-	Enhance(Array.prototype, "validIndex", function (index) {
+	validIndex(index) {
 		return index >= 0 && index < this.length
-	})
+	}
 
-	Enhance(Array.prototype, "nextIndex", function (index) {
+	nextIndex(index) {
 		this._currentIndex ??= index ?? -1
 
 		if (this.empty) {
@@ -254,13 +258,13 @@ export function Enhance_js_Array() {
 		}
 
 		return ++this._currentIndex
-	})
+	}
 
-	Enhance(Array.prototype, "nextElement", function (index) {
+	nextElement(index) {
 		return this[this.nextIndex(index)]
-	})
+	}
 
-	Enhance(Array.prototype, "nextIndexCyclic", function (index) {
+	nextIndexCyclic(index) {
 		this._currentIndex ??= index ?? -1
 
 		if (this.empty) {
@@ -270,9 +274,9 @@ export function Enhance_js_Array() {
 		this._currentIndex = (this._currentIndex + 1) % this.length
 
 		return this._currentIndex
-	})
+	}
 
-	Enhance(Array.prototype, "nextElementCyclic", function (index) {
+	nextElementCyclic(index) {
 		return this[this.nextIndexCyclic(index)]
-	})
+	}
 }

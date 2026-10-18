@@ -27,56 +27,61 @@ function _compareOrdered(a, b, path) {
 	return changes
 }
 
-export function Enhance_js_Object() {
+export class Enhance_js_Object extends NativeEnhancer {
+	static excludedMembers = typeof process != "undefined" && process.versions?.node != null ? ["path"] : []
 
-	Enhance(Object.prototype, "merge", function (otherObject) {
+	constructor() {
+		super(Object.prototype)
+	}
+
+	merge(otherObject) {
 		const overlapping = Object.keys(this).filter(key => key in otherObject)
 		if (overlapping.length > 0) {
 			throw new Error(`keys are overlapping while merging objects: ${overlapping.join(", ")}`)
 		}
 
 		return { ...this, ...otherObject }
-	})
+	}
 
-	Enhance(Object.prototype, "forEach", function (run) {
+	forEach(run) {
 		for (const [key, value] of Object.entries(this)) {
  			run(key, value)
 		}
 
 		return this
-	})
+	}
 
-	Enhance(Object.prototype, "forEachValue", function (run) {
+	forEachValue(run) {
 		for (const [key, value] of Object.entries(this)) {
  			run(value)
 		}
 
 		return this
-	})
+	}
 
-	Getter(Object.prototype, "all", function () {
+	get all() {
 		return Object.entries(this)
-	})
+	}
 
-	Getter(Object.prototype, "empty", function () {
+	get empty() {
 		return Object.keys(this).length == 0
-	})
+	}
 
 
-	Enhance(Object.prototype, "map", function (fn) {
+	map(fn) {
 		return Object.entries(this).map(([k, v]) => fn(k, v))
-	})
+	}
 
-	Enhance(Object.prototype, "mapKeys", function (fn) {
+	mapKeys(fn) {
 		return Object.entries(this).map(([k, v]) => fn(k))
-	})
+	}
 
-	Enhance(Object.prototype, "mapValues", function (fn) {
+	mapValues(fn) {
 		return Object.entries(this).map(([k, v]) => fn(v))
-	})
+	}
 
 	// was uncommented by nabir to use in SfuRouters
-	Getter(Object.prototype, "keys", function () {
+	get keys() {
 		const r = []
 
 		for (const k of Object.keys(this)) {
@@ -84,9 +89,9 @@ export function Enhance_js_Object() {
 		}
 
 		return r
-	})
+	}
 
-	Getter(Object.prototype, "values", function () { // todo does this override native .values() method?
+	get values() { // todo does this override native .values() method?
 		const r = []
 
 		for (const v of Object.values(this)) {
@@ -94,64 +99,61 @@ export function Enhance_js_Object() {
 		}
 
 		return r
-	})
+	}
 
-	Enhance(Object.prototype, "assertKeyMissing", function (key) {
+	assertKeyMissing(key) {
 		if (Object.hasOwn(this, key)) {
 			throw new Error("Key is present in object")
 		}
 		else {
 			return this
 		}
-	})
+	}
 
-	Enhance(Object.prototype, "assertKeyNotPresent", function (key) {
+	assertKeyNotPresent(key) {
 		return this.assertKeyMissing(key)
-	})
+	}
 
-	Enhance(Object.prototype, "assertKeyPresent", function (key) {
+	assertKeyPresent(key) {
 		if (!Object.hasOwn(this, key)) {
 			throw new Error("Key is not present in object")
 		}
 		else {
 			return this
 		}
-	})
+	}
 
-	Getter(Object.prototype, "className", function () {
+	get className() {
 		return this.constructor.name
-	})
+	}
 
-	// Node's URL resolver reads `path` from URL objects. Inheriting this helper
-	// from Object.prototype makes Node pass the helper into fileURLToPath().
-	if (typeof process == "undefined" || process.versions?.node == null) {
-		Enhance(Object.prototype, "path", function (path_x, value) {
-			let obj = this
+	// Node's URL resolver reads `path` from URL objects, so install this only in browsers.
+	path(path_x, value) {
+		let obj = this
 
-			for (let i = 0; i < path_x.length - 1; i++) {
-				if (obj == null || !(path_x[i] in obj)) {
-					throw new Error(`Path not found: ${path_x.join(".")}`)
-				}
-
-				obj = obj[path_x[i]]
-			}
-
-			const key = path_x[path_x.length - 1]
-
-			if (obj == null || !(key in obj)) {
+		for (let i = 0; i < path_x.length - 1; i++) {
+			if (obj == null || !(path_x[i] in obj)) {
 				throw new Error(`Path not found: ${path_x.join(".")}`)
 			}
 
-			if (arguments.length >= 2) {
-				obj[key] = value
-				return null
-			}
+			obj = obj[path_x[i]]
+		}
 
-			return obj[key]
-		})
-	}
+		const key = path_x[path_x.length - 1]
 
-	Enhance(Object.prototype, "applyDiff", function (diff) {
+		if (obj == null || !(key in obj)) {
+			throw new Error(`Path not found: ${path_x.join(".")}`)
+		}
+
+		if (arguments.length >= 2) {
+			obj[key] = value
+			return null
+		}
+
+		return obj[key]
+		}
+
+	applyDiff(diff) {
 		if (diff.add) {
 			let target = this
 
@@ -187,9 +189,9 @@ export function Enhance_js_Object() {
 		else {
 			throw new Error("unsupported type: " + diff.type)
 		}
-	})
+	}
 
-	Enhance(Object.prototype, "diff", function (other, path=[]) {
+	diff(other, path=[]) {
 		Assert.validJson(this)
 		Assert.validJson(other)
 
@@ -254,6 +256,6 @@ export function Enhance_js_Object() {
 		}
 
 		return changes
-	})
+	}
 
 }

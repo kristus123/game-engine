@@ -1,11 +1,15 @@
-export function Enhance_html_video() {
+export class Enhance_html_video extends NativeEnhancer {
 
-	Enhance(HTMLVideoElement.prototype, "mirror", function () {
+	constructor() {
+		super(HTMLVideoElement.prototype)
+	}
+
+	mirror() {
 		this.style.transform = "scaleX(-1)"
 		return this
-	})
+	}
 
-	Enhance(HTMLVideoElement.prototype, "reload", function () {
+	reload() {
 
 		this.pause()
 		const old = this.src
@@ -17,21 +21,21 @@ export function Enhance_html_video() {
 		this.play() // .catch(() => {})
 
 		return this
-	})
+	}
 
-	Getter(HTMLVideoElement.prototype, "canPlay", function () {
+	get canPlay() {
 		return this.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA
-	})
+	}
 
-	Getter(HTMLVideoElement.prototype, "canPlayHls", function () {
+	get canPlayHls() {
 		return this.canPlayType("application/vnd.apple.mpegurl") != ""
-	})
+	}
 
-	Getter(HTMLVideoElement.prototype, "isPlaying", function () {
+	get isPlaying() {
 		return !this.paused && !this.ended && this.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA
-	})
+	}
 
-	Enhance(HTMLVideoElement.prototype, "getSeekTarget", function (seconds) {
+	getSeekTarget(seconds) {
 		const seekable = this.seekable
 		if (!Number.isFinite(seconds) || seconds == 0 || seekable.length == 0) {
 			return null
@@ -57,15 +61,15 @@ export function Enhance_html_video() {
 			return null
 		}
 		return target
-	})
+	}
 
-	Enhance(HTMLVideoElement.prototype, "seekBy", function (seconds) {
+	seekBy(seconds) {
 		const target = this.getSeekTarget(seconds)
 		if (target == null) {
 			return
 		}
 
 		this.currentTime = target
-	})
+	}
 
 }
