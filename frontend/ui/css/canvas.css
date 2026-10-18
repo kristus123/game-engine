@@ -1,14 +1,8 @@
-#canvases {
+.game-canvas {
 	display: block;
+
 	width: 100%;
 	height: 100%;
-}
-
-canvas {
-	display: block;
-
-	width: 100vw;
-	height: 100dvh;
 	image-rendering: pixelated;
 	image-rendering: crisp-edges;
 
@@ -17,4 +11,11 @@ canvas {
 
 	user-select: none;
 	-webkit-touch-callout: none;
+}
+
+.game-canvas[overlay-fixed] {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100dvh;
 }

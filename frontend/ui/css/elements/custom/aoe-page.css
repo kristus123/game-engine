@@ -1,6 +1,11 @@
 aoe-page {
 }
 
+aoe-page #canvasArea {
+	flex: 1;
+	min-height: 0;
+}
+
 aoe-page button {
 	/* flex: 1 1 100px; */
 	min-width: 100px;

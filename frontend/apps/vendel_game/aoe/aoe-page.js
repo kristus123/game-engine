@@ -3,6 +3,7 @@ export const page = {
 }
 
 export default async ({ html }) => {
+	CanvasGame(html.canvasArea)
 	return {
 	}
 }

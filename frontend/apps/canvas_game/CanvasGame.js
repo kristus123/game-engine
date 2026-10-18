@@ -1,6 +1,6 @@
 export class CanvasGame {
 
-	constructor() {
+	constructor(canvasParent = document.body, options = {}) {
 		const player = Player(WorldPosition(0, 0))
 
 		Controller.control(player)
@@ -21,6 +21,7 @@ export class CanvasGame {
 		world.setPixel(WorldPosition(x++, y++))
 
 		CanvasLoop({
+			drawMouseMarker: options.drawMouseMarker ?? true,
 			update: () => {
 				objects.update()
 
@@ -29,7 +30,7 @@ export class CanvasGame {
 				}
 
 			},
-		})
+		}, canvasParent)
 	}
 
 }

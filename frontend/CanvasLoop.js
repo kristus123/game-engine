@@ -1,5 +1,5 @@
-export async function CanvasLoop(activeThing) {
-	Palette.initialize()
+export async function CanvasLoop(activeThing, canvasParent = document.body) {
+	Palette.initialize(canvasParent)
 	Mouse.initialize()
 	Camera.initialize()
 	Mouse.postCameraInitalize()
