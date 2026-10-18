@@ -21,7 +21,7 @@ export class Palette {
 
 	static initialize() {
 		// this is bad. fix
-		if this.main { 
+		if this.main {
 			return // this is bad. fix
 		} // this is bad. fix
 

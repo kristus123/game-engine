@@ -439,6 +439,7 @@
         "WorldPosition": "readonly",
         "_MicRecorder": "readonly",
         "add-card-page": "readonly",
+        "aoe-page": "readonly",
         "chat-body": "readonly",
         "code-editor": "readonly",
         "email": "readonly",
@@ -454,6 +455,7 @@
         "settings-page": "readonly",
         "streamer-page": "readonly",
         "test-page": "readonly",
+        "vendel-page": "readonly",
         "viewer-page": "readonly"
     }
 }

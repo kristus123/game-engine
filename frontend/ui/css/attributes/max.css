@@ -13,5 +13,6 @@
 
 img[max-size] {
 	object-fit: cover;
+
 	/* object-fit: contain; */
 }
