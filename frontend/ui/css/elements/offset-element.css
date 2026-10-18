@@ -1,16 +1,23 @@
 offset-element {
-	display: block;
+	display: grid;
 	position: relative;
 	align-self: flex-end;
-	width: var(--offset-element-width, 0);
-	flex: 0 0 var(--offset-element-width, 0px);
+	width: var(--offset-element-width, auto);
+	min-width: 0;
+	grid-template-columns: minmax(0, 1fr);
+	grid-template-rows: 0px;
+	flex: 1 1 0;
 	height: 0;
 }
 
+offset-element[offset-width] {
+	flex: 0 0 var(--offset-element-width);
+}
+
 offset-element > .offset-element__content {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: var(--offset-element-content-width, var(--offset-element-width, max-content));
+	grid-area: 1 / 1;
+	align-self: end;
+	width: 100%;
+	min-width: 0;
 	transform: translate(var(--offset-element-x, 0), var(--offset-element-y, 0));
 }
