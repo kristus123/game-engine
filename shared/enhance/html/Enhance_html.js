@@ -1,6 +1,6 @@
 export class Enhance_html extends NativeEnhancer {
 	constructor() {
-		super(HTMLElement.prototype, { allowOverride: ["forEach", "map"] })
+		super(HTMLElement.prototype, { allowOverride: ["forEach", "map", "remove"] })
 	}
 
 	forEach(callback) {
@@ -523,16 +523,51 @@ export class Enhance_html extends NativeEnhancer {
 		}
 	}
 
-	add(elements) {
+	async add(elements) {
+		const addedElements = []
+
 		for (let e of Always.list(elements)) {
 			if (A.string(e)) {
 				e = e.toHtml()
 			}
 
+			const nodes = e.nodeType == Node.DOCUMENT_FRAGMENT_NODE ? [...e.childNodes] : [e]
 			this.appendChild(e)
+			addedElements.push(...nodes.filter(node => node.nodeType == Node.ELEMENT_NODE))
 		}
 
+		await Promise.all(addedElements
+			.filter(element => element.isConnected && typeof element.onAdd == "function")
+			.map(element => element.onAdd({ element, parent: this })))
 		return this
+	}
+
+	remove() {
+		if (!this.isConnected) {
+			Element.prototype.remove.call(this)
+			return Promise.resolve(this)
+		}
+
+		const parent = this.parentNode
+		if (typeof this.onRemove != "function") {
+			Element.prototype.remove.call(this)
+			return Promise.resolve(this)
+		}
+
+		let animation
+		try {
+			animation = this.onRemove({ element: this, parent })
+		}
+		catch (error) {
+			return Promise.reject(error)
+		}
+
+		return Promise.resolve(animation).then(() => {
+			if (this.parentNode == parent) {
+				Element.prototype.remove.call(this)
+			}
+			return this
+		})
 	}
 
 

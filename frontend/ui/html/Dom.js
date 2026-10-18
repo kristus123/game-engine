@@ -43,7 +43,7 @@ export class Dom {
 		Assert.notList(e) // do Assert.htmlElement instead in the future
 
 		if e.isConnected {
-			document.body.removeChild(e)
+			return e.remove()
 		}
 		else {
 			throw new Error("element is not in Dom")
