@@ -75,7 +75,7 @@ Font.use("VT323")
 // })
 
 // await Page.open("hub-page")
-await Page.open("vendel-page")
+await Page.open("aoe-page")
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()
