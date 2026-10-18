@@ -20,9 +20,10 @@ export class Palette {
 	}
 
 	static initialize() {
-		if this.main {
-			return
-		}
+		// this is bad. fix
+		if this.main { 
+			return // this is bad. fix
+		} // this is bad. fix
 
 		const { canvas } = H.Canvas()
 		this.main = CanvasLayer(canvas)
@@ -58,6 +59,9 @@ export class Palette {
 
 		try {
 			run()
+		}
+		catch (e) {
+			throw e
 		}
 		finally {
 			const ctx = this.main.ctx

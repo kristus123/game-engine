@@ -20,7 +20,6 @@ export class CanvasGame {
 		let y = 0
 		world.setPixel(WorldPosition(x++, y++))
 
-
 		CanvasLoop({
 			update: () => {
 				objects.update()
