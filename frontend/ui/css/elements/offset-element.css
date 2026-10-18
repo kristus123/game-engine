@@ -2,7 +2,8 @@ offset-element {
 	display: grid;
 	position: relative;
 	align-self: flex-end;
-	width: var(--offset-element-width, auto);
+	width: var(--offset-width, fit-content);
+	max-width: var(--offset-width, 100%);
 	min-width: 0;
 	grid-template-columns: minmax(0, 1fr);
 	grid-template-rows: 0px;
@@ -11,13 +12,18 @@ offset-element {
 }
 
 offset-element[offset-width] {
-	flex: 0 0 var(--offset-element-width);
+	flex: 0 0 var(--offset-width);
 }
 
-offset-element > .offset-element__content {
+offset-element[offset-x],
+offset-element[offset-y] {
+	transform: none;
+}
+
+offset-element > .content {
 	grid-area: 1 / 1;
 	align-self: end;
 	width: 100%;
 	min-width: 0;
-	transform: translate(var(--offset-element-x, 0), var(--offset-element-y, 0));
+	transform: translate(var(--offset-x, 0), var(--offset-y, 0));
 }
