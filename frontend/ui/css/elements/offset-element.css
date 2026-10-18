@@ -6,7 +6,7 @@ offset-element {
 	max-width: var(--offset-width, 100%);
 	min-width: 0;
 	grid-template-columns: minmax(0, 1fr);
-	grid-template-rows: 0px;
+	grid-template-rows: 0;
 	flex: 1 1 0;
 	height: 0;
 }

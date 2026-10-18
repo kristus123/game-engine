@@ -449,6 +449,7 @@
         "hub-page": "readonly",
         "index": "readonly",
         "math-game": "readonly",
+        "offset-element": "readonly",
         "practice-page": "readonly",
         "pushNotificationEndpoint": "readonly",
         "serviceWorker": "readonly",
