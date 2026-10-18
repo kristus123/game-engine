@@ -1,8 +1,6 @@
 export class Enhance_html extends NativeEnhancer {
-	static allowInheritedOverride = ["forEach", "map"]
-
 	constructor() {
-		super(HTMLElement.prototype)
+		super(HTMLElement.prototype, { allowOverride: ["forEach", "map"] })
 	}
 
 	forEach(callback) {

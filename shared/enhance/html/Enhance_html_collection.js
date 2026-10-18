@@ -1,8 +1,6 @@
 export class Enhance_html_collection extends NativeEnhancer {
-	static allowInheritedOverride = ["forEach", "map"]
-
 	constructor() {
-		super(HTMLCollection.prototype)
+		super(HTMLCollection.prototype, { allowOverride: ["forEach", "map"] })
 	}
 
 	except(e) {

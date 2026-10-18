@@ -28,10 +28,10 @@ function _compareOrdered(a, b, path) {
 }
 
 export class Enhance_js_Object extends NativeEnhancer {
-	static excludedMembers = typeof process != "undefined" && process.versions?.node != null ? ["path"] : []
-
 	constructor() {
-		super(Object.prototype)
+		super(Object.prototype, {
+			excludedMembers: typeof process != "undefined" && process.versions?.node != null ? ["path"] : [],
+		})
 	}
 
 	merge(otherObject) {
