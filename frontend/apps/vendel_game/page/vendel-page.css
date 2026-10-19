@@ -1,0 +1,11 @@
+vendel-page div.advisor {
+	width:140px;
+	height:140px;
+	background-color: white;
+	font-size:50px;
+}
+
+vendel-page button.choice {
+	width:80%;
+	height:100px;
+}
