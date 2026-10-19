@@ -1,5 +1,5 @@
 function _readMemberList(members, listName) {
-	members = members === undefined ? [] : members
+	members = members == undefined ? [] : members
 	if (!Array.isArray(members)) {
 		throw new TypeError(`ENHANCE ERROR: ${listName} must be an array`)
 	}

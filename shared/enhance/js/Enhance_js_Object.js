@@ -151,7 +151,7 @@ export class Enhance_js_Object extends NativeEnhancer {
 		}
 
 		return obj[key]
-		}
+	}
 
 	applyDiff(diff) {
 		if (diff.add) {

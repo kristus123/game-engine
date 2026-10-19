@@ -768,54 +768,54 @@ export class Enhance_html extends NativeEnhancer {
 	}
 
 	get x() {
-			return this.getBoundingClientRect().left
-		}
+		return this.getBoundingClientRect().left
+	}
 
 	set x(x) {
-			this.style.left = `${x}px`
-		}
+		this.style.left = `${x}px`
+	}
 
 	get content() {
-			if (this.isTextNode) {
-				return this.textContent
-			}
-			else {
-				return this.children
-			}
-
+		if (this.isTextNode) {
+			return this.textContent
 		}
+		else {
+			return this.children
+		}
+
+	}
 
 	set content(x) {
-			Assert.value(x)
+		Assert.value(x)
 
-			if (A.string(x)) {
-				this.textContent = x
-			}
-			else {
-				this.replaceChildren(x)
-			}
+		if (A.string(x)) {
+			this.textContent = x
 		}
+		else {
+			this.replaceChildren(x)
+		}
+	}
 
 	get y() {
-			return this.getBoundingClientRect().top
-		}
+		return this.getBoundingClientRect().top
+	}
 
 	set y(y) {
-			this.style.top = `${y}px`
-		}
+		this.style.top = `${y}px`
+	}
 
 
 	get position() {
-			if (this._position) { // todo set position field beforehand
-				return this._position
-			}
-			else {
-				this._position = WorldPosition(this.x, this.y)
-			}
+		if (this._position) { // todo set position field beforehand
+			return this._position
 		}
+		else {
+			this._position = WorldPosition(this.x, this.y)
+		}
+	}
 
 	set position(p) {
-			this._position = p
-		}
+		this._position = p
+	}
 
 }
