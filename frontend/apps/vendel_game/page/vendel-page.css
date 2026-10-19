@@ -78,18 +78,53 @@ vendel-page .vendel-story p + p {
 	margin-top: 1em;
 }
 
+vendel-page .vendel-story h2 {
+	margin-bottom: 0.75em;
+}
+
 vendel-page .advisor-grid {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	grid-template-rows: repeat(2, minmax(0, 1fr));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-rows: minmax(0, 1fr);
+	align-items: center;
+	justify-items: center;
 	gap: clamp(10px, 1.5vw, 20px);
 }
 
 vendel-page .advisor {
 	width: 100%;
+	height: auto;
+	aspect-ratio: 1;
 	min-height: 0;
+	padding: 0;
+	overflow: hidden;
+	border-radius: 16px;
 	background-color: white;
 	font-size: clamp(32px, 5vw, 50px);
+	cursor: help;
+	interest-delay: 0s 200ms;
+}
+
+vendel-page .advisor img {
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	object-fit: contain;
+}
+
+vendel-page .advisor-popover,
+vendel-page .choice-popover {
+	position-area: top;
+	position-try-fallbacks: flip-block;
+	margin: 0 0 12px;
+	padding: 20px 28px;
+	border: 3px solid brown;
+	border-radius: 16px;
+	background-color: white;
+	color: brown;
+	font-size: clamp(24px, 3vw, 40px);
+	box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+	pointer-events: none;
 }
 
 vendel-page .choice-grid {
@@ -105,4 +140,7 @@ vendel-page .choice {
 	width: 100%;
 	height: 100%;
 	min-height: 64px;
+	padding: 8px 20px;
+	font-size: clamp(18px, 2vw, 30px);
+	interest-delay: 0s 200ms;
 }

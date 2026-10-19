@@ -16,28 +16,42 @@
 			</div>
 
 			<div class="vendel-secondary-content advisor-grid">
-				<div center-children class="advisor">:)</div>
-				<div center-children class="advisor">:)</div>
-				<div center-children class="advisor">:(</div>
-				<div center-children class="advisor">:3</div>
-				<div center-children class="advisor">:(</div>
-				<div center-children class="advisor">:3</div>
+				<button class="advisor" interestfor="adviceWise">
+					<img cover src="Png.wise" />
+				</button>
+				<button class="advisor" interestfor="adviceGirl">
+					<img src="Png.girl" />
+				</button>
+				<button class="advisor" interestfor="adviceAngry">
+					<img src="Png.angry" />
+				</button>
+				<button class="advisor" interestfor="adviceHippy">
+					<img src="Png.hippy" />
+				</button>
 			</div>
+
+			<div id="adviceWise" class="advisor-popover" popover="hint">Good idea</div>
+			<div id="adviceGirl" class="advisor-popover" popover="hint">This could work</div>
+			<div id="adviceAngry" class="advisor-popover" popover="hint">Bad idea</div>
+			<div id="adviceHippy" class="advisor-popover" popover="hint">A clever suggestion</div>
 		</div>
 
 		<div class="vendel-panel vendel-story-panel">
 			<div class="vendel-primary-content vendel-story" scrollable>
-				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
+				<p>Your caravan has followed the old northern road for three days. The last waterskin is nearly empty, and the horses are beginning to stumble.</p>
+				<p>At sunset, your scouts return with three possibilities. A river lies beyond a dark forest, smoke rises from a nearby farmstead, and the wise advisor remembers an ancient spring hidden among the hills.</p>
+				<p>Night is approaching. You must choose where the caravan will search for water.</p>
 			</div>
 
 			<div class="vendel-secondary-content choice-grid">
-				<button class="choice">1 2 3</button>
-				<button class="choice">1 2 3</button>
-				<button class="choice">1 2 3</button>
+				<button class="choice" interestfor="riverAdvice">Cross the forest to the river</button>
+				<button class="choice" interestfor="farmAdvice">Ask the farmstead for help</button>
+				<button class="choice" interestfor="springAdvice">Search for the ancient spring</button>
 			</div>
+
+			<div id="riverAdvice" class="choice-popover" popover="hint">Reliable water, but the forest may hide wolves or raiders.</div>
+			<div id="farmAdvice" class="choice-popover" popover="hint">The safest route, though the farmers may demand food or silver.</div>
+			<div id="springAdvice" class="choice-popover" popover="hint">A short journey if the old tale is true, but the spring may be dry.</div>
 		</div>
 	</div>
 </overlay-fixed>

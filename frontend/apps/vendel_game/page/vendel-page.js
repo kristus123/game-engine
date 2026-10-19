@@ -5,6 +5,5 @@ export const page = {
 export default async ({ html }) => {
 
 	return {
-
 	}
 }
