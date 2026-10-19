@@ -7,21 +7,14 @@ pop-over {
 	border-radius: 16px;
 	background-color: white;
 	color: brown;
-	font-size: clamp(24px, 3vw, 40px);
 	box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
 	pointer-events: none;
 }
 
-pop-over.large-test-popover {
-	box-sizing: border-box;
-	width: min(680px, calc(100vw - 32px));
-	height: 100px;
-	max-height: 100px;
-	padding: clamp(28px, 5vw, 64px);
-	overflow-y: auto;
-	pointer-events: auto;
+pop-over h1 {
+	font-size: 49px;
 }
 
-pop-over.large-test-popover p + p {
-	margin-top: 1em;
+pop-over p {
+	font-size: 27px;
 }

@@ -1,6 +1,5 @@
 vendel-page {
 	--gap: 20px;
-	--navigation-width: clamp(120px, 15vw, 220px);
 	--primary-row: minmax(0, 3fr);
 	--secondary-row: minmax(180px, 2fr);
 }
@@ -8,7 +7,6 @@ vendel-page {
 vendel-page .vendel-layout {
 	display: grid;
 	grid-template-columns:
-		var(--navigation-width)
 		minmax(280px, 1fr)
 		minmax(320px, 1fr);
 	grid-template-rows:
@@ -21,33 +19,6 @@ vendel-page .vendel-layout {
 	overflow-x: auto;
 }
 
-vendel-page .popover-test-buttons {
-	position: fixed;
-	z-index: 1;
-	top: 8px;
-	right: 8px;
-	left: 8px;
-	display: flex;
-	justify-content: space-between;
-	pointer-events: none;
-}
-
-vendel-page .popover-test-buttons button {
-	padding: 8px 18px;
-	pointer-events: auto;
-}
-
-vendel-page .vendel-navigation {
-	display: grid;
-	grid-column: 1;
-	grid-row: 1 / -1;
-	grid-auto-rows: minmax(64px, max-content);
-	align-content: space-evenly;
-	gap: 16px;
-	padding: clamp(12px, 2vw, 24px);
-	background-color: brown;
-}
-
 vendel-page .vendel-panel {
 	display: grid;
 	grid-row: 1 / -1;
@@ -57,11 +28,11 @@ vendel-page .vendel-panel {
 }
 
 vendel-page .vendel-portrait-panel {
-	grid-column: 2;
+	grid-column: 1;
 }
 
 vendel-page .vendel-story-panel {
-	grid-column: 3;
+	grid-column: 2;
 }
 
 vendel-page .vendel-primary-content,

@@ -2,78 +2,25 @@
 	<img max-size blur float src="Gif.aurora" />
 </overlay-fixed>
 
-<overlay-fixed max-size>
+<overlay-fixed max-size overflow-hidden>
 	<div class="vendel-layout">
-		<div class="popover-test-buttons">
-			<button on-hover-show="largeTestPopover">Top left</button>
-			<button on-hover-show="largeTestPopover">Top center</button>
-			<button on-click-show="largeTestPopover">Click replaceable</button>
-			<button on-click-show="largeTestPopover alwaysShow">Click always show</button>
-		</div>
-
-		<div class="vendel-navigation">
-			<button id="heiOne">hei</button>
-			<button id="heiTwo">hei</button>
-			<button id="heiThree">hei</button>
-		</div>
-
 		<div class="vendel-panel vendel-portrait-panel">
 			<div class="vendel-primary-content">
 				<img max-size src="Png.painting" />
 			</div>
 
-			<div class="vendel-secondary-content advisor-grid">
-				<button class="advisor" on-hover-show="adviceWise">
-					<img cover src="Png.wise" />
-				</button>
-				<button class="advisor" on-hover-show="adviceWise">
-					<img src="Png.girl" />
-				</button>
-				<button class="advisor" on-hover-show="adviceWise">
-					<img src="Png.angry" />
-				</button>
-				<button class="advisor" on-hover-show="adviceWise">
-					<img src="Png.hippy" />
-				</button>
-			</div>
+			<div id="advisorGrid" class="vendel-secondary-content advisor-grid"></div>
 
-			<pop-over id="adviceWise" class="advisor-popover">
-				<h1 id="h1">Title</h1>
-				<p id="p">paragraph</p>
+			<pop-over id="adviceWise">
+				<h1 id="advisorName"></h1>
+				<p id="advisorDescription"></p>
 			</pop-over>
 		</div>
 
 		<div class="vendel-panel vendel-story-panel">
-			<div class="vendel-primary-content vendel-story" scrollable>
-				<p>
-					Your caravan has followed the old northern road for three days. The last waterskin is nearly empty, and the
-					horses are beginning to stumble.
-				</p>
-			</div>
+			<div id="story" class="vendel-primary-content vendel-story" scrollable></div>
 
-			<div class="vendel-secondary-content choice-grid">
-				<button class="choice" on-hover-show="riverAdvice">Cross the forest to the river</button>
-				<button class="choice" on-hover-show="riverAdvice">Ask the farmstead for help</button>
-				<button class="choice" on-hover-show="riverAdvice">Search for the ancient spring</button>
-			</div>
-
-			<pop-over id="riverAdvice" class="choice-popover">
-				Reliable water, but the forest may hide wolves or raiders.
-			</pop-over>
+			<div id="choices" class="vendel-secondary-content choice-grid"></div>
 		</div>
-
-		<pop-over id="largeTestPopover" class="large-test-popover" scrollable>
-			<p>This deliberately oversized popover makes it easy to see which side of the trigger the browser chooses.</p>
-			<p>
-				Hover each button along the top edge. There is not enough room above it, so the position fallback should place
-				this panel below the active button.
-			</p>
-			<p>All four buttons share this popover. Its anchor should follow whichever trigger opened it.</p>
-			<p>
-				Click replaceable uses auto mode and closes when another auto popover opens. Click always show uses manual mode
-				and remains alongside other popovers until explicitly closed.
-			</p>
-			<button on-click-hide="largeTestPopover">Close popover</button>
-		</pop-over>
 	</div>
 </overlay-fixed>
