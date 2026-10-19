@@ -9,7 +9,7 @@
 	<button float-top-left on-click="selectNextCam">video set</button>
 	<button id="previewToggle" float-top-mid on-click="togglePreview">Preview media stream</button>
 
-	<button float-bot-right on-click-show-id="chat">open chat</button>
+	<button float-bot-right on-click-show="chat">open chat</button>
 	<button float-bot-mid id="viewCount">0</button>
 
 	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
@@ -29,7 +29,7 @@
 		<flex-h tight class="microphone-settings__actions">
 			<button id="clearMic" on-click="clearMic">Mute microphone</button>
 			<button on-click="refreshMicrophones">Refresh list</button>
-			<button on-click-hide-id="micSettings">Done</button>
+			<button on-click-hide="micSettings">Done</button>
 		</flex-h>
 	</flex-v>
 </overlay-fixed>

@@ -1,13 +1,20 @@
 <overlay-fixed max-size>
-	<img max-size blur float src="Gif.aurora"/>
+	<img max-size blur float src="Gif.aurora" />
 </overlay-fixed>
 
 <overlay-fixed max-size>
 	<div class="vendel-layout">
+		<div class="popover-test-buttons">
+			<button on-hover-show="largeTestPopover">Top left</button>
+			<button on-hover-show="largeTestPopover">Top center</button>
+			<button on-click-show="largeTestPopover">Click replaceable</button>
+			<button on-click-show="largeTestPopover alwaysShow">Click always show</button>
+		</div>
+
 		<div class="vendel-navigation">
-			<button>hei</button>
-			<button>hei</button>
-			<button>hei</button>
+			<button id="heiOne">hei</button>
+			<button id="heiTwo">hei</button>
+			<button id="heiThree">hei</button>
 		</div>
 
 		<div class="vendel-panel vendel-portrait-panel">
@@ -16,42 +23,58 @@
 			</div>
 
 			<div class="vendel-secondary-content advisor-grid">
-				<button class="advisor" interestfor="adviceWise">
+				<button class="advisor" on-hover-show="adviceWise">
 					<img cover src="Png.wise" />
 				</button>
-				<button class="advisor" interestfor="adviceGirl">
+				<button class="advisor" on-hover-show="adviceWise">
 					<img src="Png.girl" />
 				</button>
-				<button class="advisor" interestfor="adviceAngry">
+				<button class="advisor" on-hover-show="adviceWise">
 					<img src="Png.angry" />
 				</button>
-				<button class="advisor" interestfor="adviceHippy">
+				<button class="advisor" on-hover-show="adviceWise">
 					<img src="Png.hippy" />
 				</button>
 			</div>
 
-			<div id="adviceWise" class="advisor-popover" popover="hint">Good idea</div>
-			<div id="adviceGirl" class="advisor-popover" popover="hint">This could work</div>
-			<div id="adviceAngry" class="advisor-popover" popover="hint">Bad idea</div>
-			<div id="adviceHippy" class="advisor-popover" popover="hint">A clever suggestion</div>
+			<pop-over id="adviceWise" class="advisor-popover">
+				<h1 id="h1">Title</h1>
+				<p id="p">paragraph</p>
+			</pop-over>
 		</div>
 
 		<div class="vendel-panel vendel-story-panel">
 			<div class="vendel-primary-content vendel-story" scrollable>
-				<p>Your caravan has followed the old northern road for three days. The last waterskin is nearly empty, and the horses are beginning to stumble.</p>
-				<p>At sunset, your scouts return with three possibilities. A river lies beyond a dark forest, smoke rises from a nearby farmstead, and the wise advisor remembers an ancient spring hidden among the hills.</p>
-				<p>Night is approaching. You must choose where the caravan will search for water.</p>
+				<p>
+					Your caravan has followed the old northern road for three days. The last waterskin is nearly empty, and the
+					horses are beginning to stumble.
+				</p>
 			</div>
 
 			<div class="vendel-secondary-content choice-grid">
-				<button class="choice" interestfor="riverAdvice">Cross the forest to the river</button>
-				<button class="choice" interestfor="farmAdvice">Ask the farmstead for help</button>
-				<button class="choice" interestfor="springAdvice">Search for the ancient spring</button>
+				<button class="choice" on-hover-show="riverAdvice">Cross the forest to the river</button>
+				<button class="choice" on-hover-show="riverAdvice">Ask the farmstead for help</button>
+				<button class="choice" on-hover-show="riverAdvice">Search for the ancient spring</button>
 			</div>
 
-			<div id="riverAdvice" class="choice-popover" popover="hint">Reliable water, but the forest may hide wolves or raiders.</div>
-			<div id="farmAdvice" class="choice-popover" popover="hint">The safest route, though the farmers may demand food or silver.</div>
-			<div id="springAdvice" class="choice-popover" popover="hint">A short journey if the old tale is true, but the spring may be dry.</div>
+			<pop-over id="riverAdvice" class="choice-popover">
+				Reliable water, but the forest may hide wolves or raiders.
+			</pop-over>
 		</div>
+
+		<pop-over id="largeTestPopover" class="large-test-popover" scrollable>
+			<h2>Large placement test</h2>
+			<p>This deliberately oversized popover makes it easy to see which side of the trigger the browser chooses.</p>
+			<p>
+				Hover each button along the top edge. There is not enough room above it, so the position fallback should place
+				this panel below the active button.
+			</p>
+			<p>All four buttons share this popover. Its anchor should follow whichever trigger opened it.</p>
+			<p>
+				Click replaceable uses auto mode and closes when another auto popover opens. Click always show uses manual mode
+				and remains alongside other popovers until explicitly closed.
+			</p>
+			<button on-click-hide="largeTestPopover">Close popover</button>
+		</pop-over>
 	</div>
 </overlay-fixed>

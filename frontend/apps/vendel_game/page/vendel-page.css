@@ -21,6 +21,22 @@ vendel-page .vendel-layout {
 	overflow-x: auto;
 }
 
+vendel-page .popover-test-buttons {
+	position: fixed;
+	z-index: 1;
+	top: 8px;
+	right: 8px;
+	left: 8px;
+	display: flex;
+	justify-content: space-between;
+	pointer-events: none;
+}
+
+vendel-page .popover-test-buttons button {
+	padding: 8px 18px;
+	pointer-events: auto;
+}
+
 vendel-page .vendel-navigation {
 	display: grid;
 	grid-column: 1;
@@ -110,21 +126,6 @@ vendel-page .advisor img {
 	height: 100%;
 	border-radius: inherit;
 	object-fit: contain;
-}
-
-vendel-page .advisor-popover,
-vendel-page .choice-popover {
-	position-area: top;
-	position-try-fallbacks: flip-block;
-	margin: 0 0 12px;
-	padding: 20px 28px;
-	border: 3px solid brown;
-	border-radius: 16px;
-	background-color: white;
-	color: brown;
-	font-size: clamp(24px, 3vw, 40px);
-	box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
-	pointer-events: none;
 }
 
 vendel-page .choice-grid {
