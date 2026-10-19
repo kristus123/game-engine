@@ -15,9 +15,7 @@ export async function CanvasLoop(activeThing, canvasParent = document.body) {
 		Palette.render(() => {
 			Shadow.updateOutsideCameraContext()
 			activeThing.update()
-			if activeThing.drawMouseMarker != false {
-				D1.circle(Mouse.position)
-			}
+			D1.circle(Mouse.position)
 			for const c of SuperClass.all {
 				c.showTags(D1)
 			}

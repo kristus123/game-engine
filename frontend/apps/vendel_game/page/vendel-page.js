@@ -2,7 +2,6 @@ const advisors = [
 	{
 		name: "Eira",
 		image: "wise",
-		description: "Eira reads the old signs and remembers the roads that have vanished.",
 		advice: [
 			"I have a thought, though the road may surprise us.",
 			"Every path teaches us something new.",
@@ -12,7 +11,6 @@ const advisors = [
 	{
 		name: "Liv",
 		image: "girl",
-		description: "Liv knows the people of the northern farms and who can be trusted.",
 		advice: [
 			"I think we should hear everyone before we decide.",
 			"Whatever we choose, we can make it work together.",
@@ -22,7 +20,6 @@ const advisors = [
 	{
 		name: "Runa",
 		image: "angry",
-		description: "Runa keeps watch. She notices danger before it reaches the camp.",
 		advice: [
 			"Keep your eyes open and choose with confidence.",
 			"I see no reason to rush this decision.",
@@ -32,7 +29,6 @@ const advisors = [
 	{
 		name: "Mikkel",
 		image: "hippy",
-		description: "Mikkel listens to the land and follows water beneath the stones.",
 		advice: [
 			"The land is patient. We can be patient too.",
 			"Something interesting may come from any choice.",
@@ -177,7 +173,7 @@ export const page = {
 
 export default async ({ html }) => {
 	for const advisor of advisors {
-		html.advisorGrid.add(html.advisorTemplate.cloneTemplate({
+		html.advisors.add(html.advisorTemplate.cloneTemplate({
 			slots: {
 				img: Png[advisor.image],
 			},
@@ -200,6 +196,7 @@ export default async ({ html }) => {
 				},
 			})
 			button.onClick(() => show(choice.next))
+
 			html.choices.add(button)
 		}
 	}
@@ -211,8 +208,8 @@ export default async ({ html }) => {
 			advicePopover: ({ origin, popover, hovering }) => {
 				if hovering {
 					const advisor = advisors.find(advisor => advisor.name == origin.dataset.advisor)
-					popover.advisorName.content = advisor.name
-					popover.advisorDescription.content = Random.choice(advisor.advice)
+					popover.h1.content = advisor.name
+					popover.p.content = Random.choice(advisor.advice)
 				}
 			},
 		},

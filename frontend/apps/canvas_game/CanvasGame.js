@@ -21,7 +21,6 @@ export class CanvasGame {
 		world.setPixel(WorldPosition(x++, y++))
 
 		CanvasLoop({
-			drawMouseMarker: options.drawMouseMarker ?? true,
 			update: () => {
 				objects.update()
 
