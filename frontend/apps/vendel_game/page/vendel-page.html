@@ -4,17 +4,13 @@
 
 <overlay-fixed max-size overflow-hidden>
 	<div class="vendel-layout">
+
 		<div class="vendel-panel vendel-portrait-panel">
 			<div class="vendel-primary-content">
 				<img max-size src="Png.painting" />
 			</div>
 
 			<div id="advisorGrid" class="vendel-secondary-content advisor-grid"></div>
-
-			<pop-over id="adviceWise">
-				<h1 id="advisorName"></h1>
-				<p id="advisorDescription"></p>
-			</pop-over>
 		</div>
 
 		<div class="vendel-panel vendel-story-panel">
@@ -24,3 +20,21 @@
 		</div>
 	</div>
 </overlay-fixed>
+
+<template id="advisorTemplate">
+	<button class="advisor" on-hover-show="advicePopover">
+		<img src="slot-img" />
+	</button>
+</template>
+
+<template id="choiceButtonTemplate">
+	<button class="choice">
+		<slot name="text"></slot>
+	</button>
+</template>
+
+
+<pop-over id="advicePopover">
+	<h1 id="advisorName"></h1>
+	<p id="advisorDescription"></p>
+</pop-over>

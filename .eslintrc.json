@@ -396,7 +396,6 @@
         "Square": "readonly",
         "StartServer": "readonly",
         "StopWatch": "readonly",
-        "Story": "readonly",
         "StraightPath": "readonly",
         "Stream": "readonly",
         "SuperClass": "readonly",

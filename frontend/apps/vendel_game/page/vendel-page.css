@@ -75,6 +75,22 @@ vendel-page .advisor {
 	background-color: white;
 	font-size: clamp(32px, 5vw, 50px);
 	cursor: help;
+	transform: scale(1);
+	transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
+}
+
+vendel-page .advisor-grid:has(.advisor:hover) .advisor:not(:hover),
+vendel-page .advisor-grid:has(.advisor:focus-visible) .advisor:not(:focus-visible) {
+	opacity: 0.55;
+	filter: saturate(0.65);
+	transform: scale(0.78);
+}
+
+vendel-page .advisor:hover,
+vendel-page .advisor:focus-visible {
+	position: relative;
+	z-index: 1;
+	transform: scale(1.12);
 }
 
 vendel-page .advisor img {

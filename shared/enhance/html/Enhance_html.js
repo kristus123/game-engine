@@ -73,6 +73,36 @@ export class Enhance_html extends NativeEnhancer {
 		return this.dataset
 	}
 
+	cloneTemplate({ slots={}, data={} } = {}) {
+		Assert.true(this.tag == "template", "cloneTemplate can only be used on a template")
+		const clone = this.content.cloneNode(true)
+		const root = clone.firstElementChild
+		Assert.value(root, "template must contain an element")
+
+		for (const element of [root, ...clone.querySelectorAll("*")]) {
+			for (const attribute of element.attributes) {
+				for (const [name, value] of Object.entries(slots)) {
+					if (attribute.value == "slot-" + name) {
+						element.setAttribute(attribute.name, value)
+					}
+				}
+			}
+		}
+
+		for (const slot of clone.querySelectorAll("slot")) {
+			const name = slot.getAttribute("name")
+			if (Object.prototype.hasOwnProperty.call(slots, name)) {
+				slot.replaceWith(document.createTextNode(slots[name]))
+			}
+		}
+
+		for (const [name, value] of Object.entries(data)) {
+			root.data[name] = value
+		}
+
+		return root
+	}
+
 	get width() {
 		return this.getBoundingClientRect().width
 	}
