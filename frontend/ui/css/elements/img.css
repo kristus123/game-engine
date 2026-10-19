@@ -55,3 +55,11 @@ img[float-up-down] {
 		transform: translate(0, 12px);
 	}
 }
+
+img[cover] {
+	object-fit: cover;
+}
+
+img[contain] {
+	object-fit: contain;
+}

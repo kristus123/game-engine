@@ -1,11 +1,108 @@
-vendel-page div.advisor {
-	width:140px;
-	height:140px;
-	background-color: white;
-	font-size:50px;
+vendel-page {
+	--gap: 20px;
+	--navigation-width: clamp(120px, 15vw, 220px);
+	--primary-row: minmax(0, 3fr);
+	--secondary-row: minmax(180px, 2fr);
 }
 
-vendel-page button.choice {
-	width:80%;
-	height:100px;
+vendel-page .vendel-layout {
+	display: grid;
+	grid-template-columns:
+		var(--navigation-width)
+		minmax(280px, 1fr)
+		minmax(320px, 1fr);
+	grid-template-rows:
+		var(--primary-row)
+		var(--secondary-row);
+	gap: var(--gap);
+	width: 100%;
+	height: 100%;
+	padding: var(--gap);
+	overflow-x: auto;
+}
+
+vendel-page .vendel-navigation {
+	display: grid;
+	grid-column: 1;
+	grid-row: 1 / -1;
+	grid-auto-rows: minmax(64px, max-content);
+	align-content: space-evenly;
+	gap: 16px;
+	padding: clamp(12px, 2vw, 24px);
+	background-color: brown;
+}
+
+vendel-page .vendel-panel {
+	display: grid;
+	grid-row: 1 / -1;
+	grid-template-rows: subgrid;
+	min-width: 0;
+	min-height: 0;
+}
+
+vendel-page .vendel-portrait-panel {
+	grid-column: 2;
+}
+
+vendel-page .vendel-story-panel {
+	grid-column: 3;
+}
+
+vendel-page .vendel-primary-content,
+vendel-page .vendel-secondary-content {
+	min-width: 0;
+	min-height: 0;
+}
+
+vendel-page .vendel-primary-content {
+	grid-row: 1;
+}
+
+vendel-page .vendel-secondary-content {
+	grid-row: 2;
+}
+
+vendel-page .vendel-painting {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+vendel-page .vendel-story {
+	padding: clamp(18px, 3vw, 40px);
+	background-color: rgb(255 255 255 / 90%);
+	font-size: clamp(20px, 2vw, 30px);
+}
+
+vendel-page .vendel-story p + p {
+	margin-top: 1em;
+}
+
+vendel-page .advisor-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-rows: repeat(2, minmax(0, 1fr));
+	gap: clamp(10px, 1.5vw, 20px);
+}
+
+vendel-page .advisor {
+	width: 100%;
+	min-height: 0;
+	background-color: white;
+	font-size: clamp(32px, 5vw, 50px);
+}
+
+vendel-page .choice-grid {
+	display: grid;
+	grid-template-rows: repeat(3, minmax(0, 1fr));
+	align-items: stretch;
+	justify-items: center;
+	gap: clamp(12px, 2vw, 30px);
+	padding-inline: clamp(0px, 3vw, 50px);
+}
+
+vendel-page .choice {
+	width: 100%;
+	height: 100%;
+	min-height: 64px;
 }

@@ -1,46 +1,43 @@
 <overlay-fixed max-size>
-	<img src="Gif.aurora" max-size float blur />
+	<img max-size blur float src="Gif.aurora"/>
 </overlay-fixed>
 
 <overlay-fixed max-size>
-	<flex-h max-size place-top>
-		<flex-v max-size style="background-color:brown;">
+	<div class="vendel-layout">
+		<div class="vendel-navigation">
 			<button>hei</button>
 			<button>hei</button>
 			<button>hei</button>
-		</flex-v>
+		</div>
 
-		<flex-h style="width:90%" place-top max-height>
-			<flex-v max-height place-top close>
-				<img src="Png.painting" style="height: 600px" />
-				<flex-v space-evenly max-width style="gap: 20px; margin-top: 50px">
-					<flex-h style="gap:10px">
-						<div center-children class="advisor">:)</div>
-						<div center-children class="advisor">:)</div>
-						<div center-children class="advisor">:(</div>
-					</flex-h>
-					<flex-h style="gap:10px">
-						<div center-children class="advisor">:3</div>
-						<div center-children class="advisor">:(</div>
-						<div center-children class="advisor">:3</div>
-					</flex-h>
-				</flex-v>
-			</flex-v>
-			<flex-v max-size place-top close>
-				<div class="bgWhite" style="height:600px; font-size: 30px;" scrollable>
-					<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-					<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-					<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-					<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
-				</div>
-				<flex-v space-evenly align-center max-width style="gap:30px; padding:50px">
-					<button class="choice">1 2 3</button>
-					<button class="choice">1 2 3</button>
-					<button class="choice">1 2 3</button>
-				</flex-v>
-			</flex-v>
-		</flex-h>
+		<div class="vendel-panel vendel-portrait-panel">
+			<div class="vendel-primary-content">
+				<img max-size src="Png.painting" />
+			</div>
 
-	</flex-h>
+			<div class="vendel-secondary-content advisor-grid">
+				<div center-children class="advisor">:)</div>
+				<div center-children class="advisor">:)</div>
+				<div center-children class="advisor">:(</div>
+				<div center-children class="advisor">:3</div>
+				<div center-children class="advisor">:(</div>
+				<div center-children class="advisor">:3</div>
+			</div>
+		</div>
 
+		<div class="vendel-panel vendel-story-panel">
+			<div class="vendel-primary-content vendel-story" scrollable>
+				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
+				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
+				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
+				<p>sdf sadjflasdlkfjsd flksdfasldkfjsd. asdkjlfs dflsjdf sdfjksdf lsdflkj dfl kjdkls djslkdf sdf ksdf kjsdlf jsfdlksjd fasdjlfasldjf</p>
+			</div>
+
+			<div class="vendel-secondary-content choice-grid">
+				<button class="choice">1 2 3</button>
+				<button class="choice">1 2 3</button>
+				<button class="choice">1 2 3</button>
+			</div>
+		</div>
+	</div>
 </overlay-fixed>
