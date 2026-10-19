@@ -78,24 +78,10 @@ vendel-page .vendel-secondary-content {
 	grid-row: 2;
 }
 
-vendel-page .vendel-painting {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}
-
 vendel-page .vendel-story {
 	padding: clamp(18px, 3vw, 40px);
 	background-color: rgb(255 255 255 / 90%);
 	font-size: clamp(20px, 2vw, 30px);
-}
-
-vendel-page .vendel-story p + p {
-	margin-top: 1em;
-}
-
-vendel-page .vendel-story h2 {
-	margin-bottom: 0.75em;
 }
 
 vendel-page .advisor-grid {
@@ -118,7 +104,6 @@ vendel-page .advisor {
 	background-color: white;
 	font-size: clamp(32px, 5vw, 50px);
 	cursor: help;
-	interest-delay: 0s 200ms;
 }
 
 vendel-page .advisor img {
@@ -143,5 +128,4 @@ vendel-page .choice {
 	min-height: 64px;
 	padding: 8px 20px;
 	font-size: clamp(18px, 2vw, 30px);
-	interest-delay: 0s 200ms;
 }
