@@ -6,6 +6,14 @@ export default ({ html }) => {
 	border.style.transition = "border-color 300ms ease"
 
 	return {
+		methods: {
+			incrementDay: () => {
+				// codex can i somehow trigger this programatically?
+				// like this maybe?
+				// Layout.pretty.incrementDay() ?
+				// Layout.pretty.html.getId("hei")
+			},
+		},
 		onPageOpen: () => {
 			const color = borderColors[borderColorIndex++ % borderColors.length]
 			border.style.borderColor = color
