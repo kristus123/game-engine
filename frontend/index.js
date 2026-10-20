@@ -36,15 +36,21 @@ document.addEventListener("contextmenu", e => e.preventDefault())
 InjectGlobalAttributeLogicToHtml()
 
 await Promise.all([
-	Promise.all(AssetPaths.htmlComponent
-		.map(async c => {
-			const component = await RegisterCustomWebComponent(c.name, c.content, c.js)
-			if c.name.endsWith("-page") {
-				Assert.value(component.page, "you need to do export page = {} in " + c.name)
-				Page.init(c.name, component.page)
+	(async () => {
+		const components = await Promise.all(AssetPaths.htmlComponent
+			.map(async c => ({
+				name: c.name,
+				component: await RegisterCustomWebComponent(c.name, c.content, c.js),
+			}))
+		)
+
+		for const { name, component } of components {
+			if name.endsWith("-page") {
+				Assert.value(component.page, "you need to do export page = {} in " + name)
+				Page.init(name, component.page)
 			}
-		})
-	),
+		}
+	})(),
 	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
 	Css.use("/swag.css"),
 	Retry(100, async (i) => {

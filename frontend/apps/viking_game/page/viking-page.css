@@ -2,16 +2,43 @@ viking-page {
 	--gap: 20px;
 	--primary-row: minmax(0, 3fr);
 	--secondary-row: minmax(180px, 2fr);
+	--button-border: #d4bd82;
+	--button-background: #10204f;
+	--button-background-hover: #1f5b5a;
+	--button-text: #f5e6b8;
+}
+
+viking-page button {
+	min-width: 0;
+	border: 2px solid var(--button-border);
+	border-radius: 14px;
+	background: var(--button-background);
+	color: var(--button-text);
+	font-family: inherit;
+	cursor: pointer;
+	box-shadow: 0 4px 0 rgb(52 39 25 / 35%);
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+viking-page button:hover,
+viking-page button:focus-visible {
+	background: var(--button-background-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 0 rgb(52 39 25 / 35%);
+}
+
+viking-page button:active {
+	transform: translateY(2px);
+	box-shadow: 0 2px 0 rgb(52 39 25 / 35%);
 }
 
 viking-page .page-nav {
 	z-index: 2;
 	margin: 20px;
 	padding: 10px 18px;
-	border: 2px solid #755a35;
-	border-radius: 10px;
-	background: #e6d4a2;
-	color: #342719;
+	border-radius: 14px;
+	background: var(--button-background);
+	color: var(--button-text);
 	font-size: 22px;
 	box-shadow: 0 4px 0 rgb(52 39 25 / 35%);
 	transition: transform 160ms ease, box-shadow 160ms ease;
@@ -92,10 +119,12 @@ viking-page .advisor {
 	overflow: hidden;
 	border-radius: 16px;
 	background-color: white;
+	border-color: var(--button-border);
 	font-size: clamp(32px, 5vw, 50px);
 	cursor: help;
 	transform: scale(1);
-	transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
+	box-shadow: 0 4px 0 rgb(52 39 25 / 35%);
+	transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease, box-shadow 180ms ease;
 }
 
 viking-page .advisor-grid:has(.advisor:hover) .advisor:not(:hover),
@@ -110,6 +139,7 @@ viking-page .advisor:focus-visible {
 	position: relative;
 	z-index: 1;
 	transform: scale(1.12);
+	box-shadow: 0 8px 0 rgb(52 39 25 / 35%);
 }
 
 viking-page .advisor img {
@@ -134,4 +164,5 @@ viking-page .choice {
 	min-height: 64px;
 	padding: 8px 20px;
 	font-size: clamp(18px, 2vw, 30px);
+	line-height: 1.1;
 }
