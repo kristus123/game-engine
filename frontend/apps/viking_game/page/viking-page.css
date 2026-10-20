@@ -1,10 +1,10 @@
-vendel-page {
+viking-page {
 	--gap: 20px;
 	--primary-row: minmax(0, 3fr);
 	--secondary-row: minmax(180px, 2fr);
 }
 
-vendel-page .vendel-layout {
+viking-page .viking-layout {
 	display: grid;
 	grid-template-columns:
 		minmax(280px, 1fr)
@@ -19,7 +19,7 @@ vendel-page .vendel-layout {
 	overflow-x: auto;
 }
 
-vendel-page .vendel-panel {
+viking-page .viking-panel {
 	display: grid;
 	grid-row: 1 / -1;
 	grid-template-rows: subgrid;
@@ -27,35 +27,35 @@ vendel-page .vendel-panel {
 	min-height: 0;
 }
 
-vendel-page .vendel-portrait-panel {
+viking-page .viking-portrait-panel {
 	grid-column: 1;
 }
 
-vendel-page .vendel-story-panel {
+viking-page .viking-story-panel {
 	grid-column: 2;
 }
 
-vendel-page .vendel-primary-content,
-vendel-page .vendel-secondary-content {
+viking-page .viking-primary-content,
+viking-page .viking-secondary-content {
 	min-width: 0;
 	min-height: 0;
 }
 
-vendel-page .vendel-primary-content {
+viking-page .viking-primary-content {
 	grid-row: 1;
 }
 
-vendel-page .vendel-secondary-content {
+viking-page .viking-secondary-content {
 	grid-row: 2;
 }
 
-vendel-page .vendel-story {
+viking-page .viking-story {
 	padding: clamp(18px, 3vw, 40px);
 	background-color: rgb(255 255 255 / 90%);
 	font-size: clamp(20px, 2vw, 30px);
 }
 
-vendel-page .advisor-grid {
+viking-page .advisor-grid {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 	grid-template-rows: minmax(0, 1fr);
@@ -64,7 +64,7 @@ vendel-page .advisor-grid {
 	gap: clamp(10px, 1.5vw, 20px);
 }
 
-vendel-page .advisor {
+viking-page .advisor {
 	width: 100%;
 	height: auto;
 	aspect-ratio: 1;
@@ -79,28 +79,28 @@ vendel-page .advisor {
 	transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
 }
 
-vendel-page .advisor-grid:has(.advisor:hover) .advisor:not(:hover),
-vendel-page .advisor-grid:has(.advisor:focus-visible) .advisor:not(:focus-visible) {
+viking-page .advisor-grid:has(.advisor:hover) .advisor:not(:hover),
+viking-page .advisor-grid:has(.advisor:focus-visible) .advisor:not(:focus-visible) {
 	opacity: 0.55;
 	filter: saturate(0.65);
 	transform: scale(0.78);
 }
 
-vendel-page .advisor:hover,
-vendel-page .advisor:focus-visible {
+viking-page .advisor:hover,
+viking-page .advisor:focus-visible {
 	position: relative;
 	z-index: 1;
 	transform: scale(1.12);
 }
 
-vendel-page .advisor img {
+viking-page .advisor img {
 	width: 100%;
 	height: 100%;
 	border-radius: inherit;
 	object-fit: contain;
 }
 
-vendel-page .choice-grid {
+viking-page .choice-grid {
 	display: grid;
 	grid-template-rows: repeat(3, minmax(0, 1fr));
 	align-items: stretch;
@@ -109,7 +109,7 @@ vendel-page .choice-grid {
 	padding-inline: clamp(0px, 3vw, 50px);
 }
 
-vendel-page .choice {
+viking-page .choice {
 	width: 100%;
 	height: 100%;
 	min-height: 64px;

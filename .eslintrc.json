@@ -460,7 +460,7 @@
         "settings-page": "readonly",
         "streamer-page": "readonly",
         "test-page": "readonly",
-        "vendel-page": "readonly",
-        "viewer-page": "readonly"
+        "viewer-page": "readonly",
+        "viking-page": "readonly"
     }
 }

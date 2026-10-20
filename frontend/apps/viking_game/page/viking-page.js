@@ -129,11 +129,11 @@ const story = {
 	},
 	farmWork: {
 		text: prose(`
-			By sunset the well is repaired. The farmers point you toward Vendelheim and send you on with full
+			By sunset the well is repaired. The farmers point you toward Vikingheim and send you on with full
 			waterskins.
 		`),
 		choices: [{
-			text: "Follow the road to Vendelheim",
+			text: "Follow the road to Vikingheim",
 			next: "start",
 		}],
 	},
@@ -142,7 +142,7 @@ const story = {
 			The trade is fair. You leave lighter in goods, but the caravan is welcomed as an old friend.
 		`),
 		choices: [{
-			text: "Follow the road to Vendelheim",
+			text: "Follow the road to Vikingheim",
 			next: "start",
 		}],
 	},

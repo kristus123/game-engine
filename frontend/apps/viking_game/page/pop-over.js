@@ -4,7 +4,7 @@ export default async ({ html }) => {
 	let pendingOpen = null
 
 	const notifyPage = async (callbackName, detail) => {
-		const page = Assert.value(html.closest("vendel-page"))
+		const page = Assert.value(html.closest("viking-page"))
 		const options = await page.whenReady()
 		options[callbackName]?.[html.id]?.(detail)
 	}
