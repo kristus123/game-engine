@@ -278,6 +278,7 @@
         "Jpg": "readonly",
         "JsonHttpClient": "readonly",
         "Keyboard": "readonly",
+        "Layout": "readonly",
         "LazyLoadedList": "readonly",
         "LazyLoop": "readonly",
         "Light": "readonly",

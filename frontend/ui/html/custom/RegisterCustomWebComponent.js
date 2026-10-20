@@ -112,5 +112,9 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		}
 	})
 
+	if name.endsWith("-layout") {
+		Layout.register(name)
+	}
+
 	return js ?? {}
 }

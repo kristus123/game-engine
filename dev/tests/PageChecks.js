@@ -25,18 +25,24 @@ function fixture(options = {}) {
 			assertKeyPresent: { value(key) { Assert.true(Object.hasOwn(this, key)) } },
 			assertKeyMissing: { value(key) { Assert.true(!Object.hasOwn(this, key)) } },
 		})
-		${source.replace("export class", "class")}
+		${source.replace("export class", "class").replaceAll("Layout.init", "H.create")}
 		Page
 	`, {
 		Assert: runtimeAssert,
 		SuperClass: class {},
 		IfCondition: { validate: Boolean },
-		customElements: { get: name => name.endsWith("-page") },
+		customElements: { get: () => class {} },
 		H: { create: tag => {
 			const page = {
 				tag,
 				isConnected: false,
+				children: [],
 				whenReady: () => page.ready,
+				contains: child => page.children.includes(child),
+				append: child => {
+					page.children.push(child)
+					child.ready ??= Promise.resolve({})
+				},
 				remove: () => {
 					page.isConnected = false
 				},
@@ -147,4 +153,34 @@ test("registration caches only persistent elements before any setup", () => {
 	assert.equal(created[0].isConnected, false)
 	assert.equal(created[0].ready, undefined)
 	assert.deepEqual(events, [])
+})
+
+test("pages can be mounted inside a persistent layout", async () => {
+	const { Page, created } = fixture()
+	Page.init("laid-page", { persistOnClose: true, layout: "pretty-layout", assertKeyPresent() {} })
+	await Page.open("laid-page")
+
+	const layout = Page.active.layoutElement
+	assert.equal(layout.tag, "pretty-layout")
+	assert.deepEqual(layout.children, [Page.active.page])
+	assert.equal(layout.isConnected, true)
+
+	await Page.close()
+	assert.equal(layout.isConnected, false)
+	assert.equal(Page.pages["laid-page"].page.tag, "laid-page")
+	assert.equal(Page.pages["laid-page"].layoutElement, layout)
+	assert.equal(created.length, 3)
+
+	await Page.open("laid-page")
+	assert.deepEqual(layout.children, [Page.active.page])
+})
+
+test("navigation serializes rapid page changes", async () => {
+	const { Page } = fixture()
+	await Promise.all([
+		Page.open("game-page"),
+		Page.open("hub-page"),
+	])
+
+	assert.equal(Page.activeTag, "hub-page")
 })
