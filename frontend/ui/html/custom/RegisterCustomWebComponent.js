@@ -22,6 +22,10 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		}
 
 		async connectedCallback() { // triggered when added to dom
+			if name.endsWith("-page") {
+				this.classList.add("page-host")
+			}
+
 			this._setupPromise ??= (async () => {
 				const assignedNodesBySlot = {}
 				for const child of [...this.childNodes] {

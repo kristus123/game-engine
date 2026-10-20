@@ -55,10 +55,10 @@ export default async ({ html }) => {
 	}).stop()
 
 	return {
-		onOpen: () => {
+		onPageOpen: () => {
 			statusLoop.start()
 		},
-		onClose: () => {
+		onPageClose: () => {
 			statusLoop.stop()
 			hlsVideo.disconnect()
 		},

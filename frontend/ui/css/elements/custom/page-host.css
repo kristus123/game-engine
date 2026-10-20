@@ -1,0 +1,5 @@
+.page-host {
+	display: block;
+	position: fixed;
+	inset: 0;
+}

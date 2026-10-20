@@ -4,6 +4,25 @@ viking-page {
 	--secondary-row: minmax(180px, 2fr);
 }
 
+viking-page .page-nav {
+	z-index: 2;
+	margin: 20px;
+	padding: 10px 18px;
+	border: 2px solid #755a35;
+	border-radius: 10px;
+	background: #e6d4a2;
+	color: #342719;
+	font-size: 22px;
+	box-shadow: 0 4px 0 rgb(52 39 25 / 35%);
+	transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+viking-page .page-nav:hover,
+viking-page .page-nav:focus-visible {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 0 rgb(52 39 25 / 35%);
+}
+
 viking-page .viking-layout {
 	display: grid;
 	grid-template-columns:

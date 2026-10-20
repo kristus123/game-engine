@@ -41,13 +41,13 @@ export class Page {
 		entry.options = await entry.page.whenReady()
 		this.activeTag = tag
 
-		await entry.options.onOpen?.()
+		await entry.options.onPageOpen?.()
 		await entry.options.onToggle?.("open")
 	}
 
 	static async close() {
 		const entry = this.active
-		await entry.options.onClose?.()
+		await entry.options.onPageClose?.()
 		await entry.options.onToggle?.("close")
 		entry.page.remove()
 
