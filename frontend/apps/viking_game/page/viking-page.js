@@ -196,7 +196,9 @@ export default async ({ html }) => {
 					text: choice.text
 				},
 			})
-			button.onClick(() => show(choice.next))
+			button.onClick(() => {
+				show(choice.next)
+			})
 
 			html.choices.add(button)
 		}
