@@ -55,7 +55,7 @@ export class Files {
 	}
 
 	static at(directory, ignoredFolders = []) {
-		ignoredFolders = new Set([...ignoredFolders, "node_modules", "dist", ".git"])
+		ignoredFolders = new Set([...ignoredFolders, "node_modules", "dist", ".git", "capacitor_setup"])
 		let results = []
 
 		for (const entry of fs.readdirSync(directory)) {

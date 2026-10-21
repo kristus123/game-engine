@@ -649,50 +649,58 @@ export class Enhance_html extends NativeEnhancer {
 			this.addCssVariable(name, value)
 		}
 
-		const animationListeners = {
-			animationStart: e => {
-				if (this == e.target && e.animationName == className) {
-					console.log("playing " + className)
-					onStart?.(e)
+		return new Promise(resolve => {
+			const cleanup = () => {
+				this.removeEventListener("animationstart", animationListeners.animationStart)
+				this.removeEventListener("animationend", animationListeners.animationEnd)
+				this.removeEventListener("animationcancel", animationListeners.animationCancel)
+				this._activeAnimations.delete(className)
+			}
 
-					const start = performance.now()
-					const duration = parseFloat(getComputedStyle(this).animationDuration) * 1000
-					const checkHalf = () => {
-						if ((performance.now() - start) >= duration / 2) {
-							onHalf?.(e)
+			const finish = e => {
+				this.removeClass(className)
+				cleanup()
+				onEnd?.(e)
+				resolve(this)
+			}
+
+			const animationListeners = {
+				animationStart: e => {
+					if (this == e.target && e.animationName == className) {
+						onStart?.(e)
+
+						const start = performance.now()
+						const duration = parseFloat(getComputedStyle(this).animationDuration) * 1000
+						const checkHalf = () => {
+							if ((performance.now() - start) >= duration / 2) {
+								onHalf?.(e)
+							}
+							else {
+								requestAnimationFrame(checkHalf)
+							}
 						}
-						else {
-							requestAnimationFrame(checkHalf)
-						}
+						requestAnimationFrame(checkHalf)
 					}
-					requestAnimationFrame(checkHalf)
-				}
-			},
-			animationEnd: e => {
-				if (this == e.target && e.animationName == className) {
-					console.log("removing " + className)
-					onEnd?.(e)
+				},
+				animationEnd: e => {
+					if (this == e.target && e.animationName == className) {
+						finish(e)
+					}
+				},
+				animationCancel: e => {
+					if (this == e.target && e.animationName == className) {
+						finish(e)
+					}
+				},
+			}
+			this._activeAnimations.set(className, animationListeners)
 
-					this.removeClass(className)
+			this.addEventListener("animationstart", animationListeners.animationStart)
+			this.addEventListener("animationend", animationListeners.animationEnd)
+			this.addEventListener("animationcancel", animationListeners.animationCancel)
 
-					this.removeEventListener("animationstart", animationListeners.animationStart)
-					this.removeEventListener("animationend", animationListeners.animationEnd)
-
-					this._activeAnimations.delete(className)
-				}
-			},
-		}
-		this._activeAnimations.set(className, animationListeners)
-
-		this.addEventListener("animationstart", animationListeners.animationStart)
-		this.addEventListener("animationend", animationListeners.animationEnd)
-		this.addEventListener("animationcancel", () => {
-			throw new Error("handle one day")
+			this.addClass(className)
 		})
-
-		this.addClass(className)
-
-		return this
 	}
 
 	copy() {
@@ -836,7 +844,7 @@ export class Enhance_html extends NativeEnhancer {
 
 
 	get position() {
-		if (this._position) { // todo set position field beforehand
+		if (this._position) { // todo set position field beforehand ?
 			return this._position
 		}
 		else {

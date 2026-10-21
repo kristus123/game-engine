@@ -1,0 +1,71 @@
+.pageEnterLeft {
+	animation: pageEnterLeft 450ms ease-in-out both;
+}
+
+@keyframes pageEnterLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-36px) scale(0.97);
+		filter: blur(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+		filter: blur(0);
+	}
+}
+
+.pageExitLeft {
+	animation: pageExitLeft 450ms ease-in-out both;
+}
+
+@keyframes pageExitLeft {
+	from {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+		filter: blur(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(-36px) scale(0.97);
+		filter: blur(4px);
+	}
+}
+
+.pageEnterRight {
+	animation: pageEnterRight 450ms ease-in-out both;
+}
+
+@keyframes pageEnterRight {
+	from {
+		opacity: 0;
+		transform: translateX(36px) scale(0.97);
+		filter: blur(4px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+		filter: blur(0);
+	}
+}
+
+.pageExitRight {
+	animation: pageExitRight 450ms ease-in-out both;
+}
+
+@keyframes pageExitRight {
+	from {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+		filter: blur(0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translateX(36px) scale(0.97);
+		filter: blur(4px);
+	}
+}
