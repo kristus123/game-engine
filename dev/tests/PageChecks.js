@@ -7,7 +7,7 @@ import { TranspileContent } from "../transpiler/TranspileContent.js"
 function fixture(options = {}) {
 	const file = new URL("../../frontend/ui/page/Page.js", import.meta.url)
 	const source = TranspileContent(file.pathname, readFileSync(file, "utf8"), [])
-	const layoutFile = new URL("../../frontend/apps/viking_game/aoe/Layout.js", import.meta.url)
+	const layoutFile = new URL("../../frontend/ui/layout/Layout.js", import.meta.url)
 	const layoutSource = TranspileContent(layoutFile.pathname, readFileSync(layoutFile, "utf8"), [])
 	const events = []
 	const created = []
