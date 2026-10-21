@@ -2,8 +2,7 @@ export class G {
 	static _year = ValueListener(0)
 
 	static get year() {
-		return this._year
-		
+		return this._year.value
 	}
 
 	static set year(y) {

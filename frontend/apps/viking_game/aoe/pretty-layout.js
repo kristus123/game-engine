@@ -5,6 +5,14 @@ export default ({ html }) => {
 	const border = html.firstElementChild
 	border.style.transition = "border-color 300ms ease"
 
+	G.onYear(year => {
+		html.days.content = year
+	})
+
+	G.onWood(wood => {
+		html.wood.content = wood
+	})
+
 	return {
 		methods: {
 			incrementDay: () => {

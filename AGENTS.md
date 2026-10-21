@@ -1,6 +1,7 @@
 # Repository Guide for Agents
 
 when using mcp, only open in headless mode
+you are allowed to kill existing chrome processes if you struggle to open mcp
 
 As an agent, please update this file if you notice anything is not correct.
 Also update it if you learn anything new which would be useful for yourself to add here.
