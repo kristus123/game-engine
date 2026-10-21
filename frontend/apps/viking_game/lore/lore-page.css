@@ -1,0 +1,39 @@
+lore-page .lore-page-content {
+	background: rgb(255 255 255 / 88%);
+}
+
+lore-page .lore-scroll {
+	display: grid;
+	gap: 12px;
+	width: 100%;
+}
+
+lore-page .lore-scroll article {
+	display: flex;
+	gap: 20px;
+	padding: 14px 18px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #fffaf0;
+	color: #342719;
+}
+
+lore-page .lore-scroll article > span {
+	font-size: 38px;
+	color: #9e6937;
+}
+
+lore-page .lore-scroll h2,
+lore-page .lore-scroll p {
+	margin: 0;
+}
+
+lore-page .lore-scroll p {
+	margin-top: 8px;
+	font-size: 17px;
+	line-height: 1.25;
+}
+
+lore-page .lore-scroll h2 {
+	font-size: 24px;
+}

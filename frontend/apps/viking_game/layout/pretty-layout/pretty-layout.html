@@ -14,7 +14,6 @@
 					Wood ᚠ
 					<span id="wood">x</span>
 				</span>
-				<!-- <span>ᛟ 85</span> -->
 			</flex-h>
 		</flex-h>
 
@@ -22,18 +21,18 @@
 			<slot></slot>
 		</flex-h>
 
-		<flex-h id="aoeFooter" space-between align-center style="gap: 8px; padding: 6px; background: #e6d4a2">
+		<flex-h id="aoe-footer" space-between align-center style="gap: 8px; padding: 6px; background: #e6d4a2">
 			<offset-element width="200px" offset-y="-20px">
 				<img src="Png.reindeer" stretch style="height: 200px" />
 				<h2 style="height: 28px; display: grid; place-items: center; color: #342719; font-size: 16px">Jarle</h2>
 			</offset-element>
 
 			<button on-click-open-page="viking-page">Viking Story</button>
-			<button>ᚠ Inventory</button>
-			<button>ᛟ Family</button>
-			<button>↑ Reputation</button>
-			<button>ᛉ Bonds</button>
-			<button>ᚱ Lore</button>
+			<button on-click-open-page="inventory-page">ᚠ Inventory</button>
+			<button on-click-open-page="family-page">ᛟ Family</button>
+			<button on-click-open-page="reputation-page">↑ Reputation</button>
+			<button on-click-open-page="relationships-page">ᛉ Relationships</button>
+			<button on-click-open-page="lore-page">ᚱ Lore</button>
 			<offset-element width="200px" offset-y="-20px">
 				<img src="Png.reindeer" stretch style="height: 200px" />
 				<h2 style="height: 28px; display: grid; place-items: center; color: #342719; font-size: 16px">Jarle</h2>

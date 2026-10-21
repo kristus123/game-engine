@@ -1,0 +1,54 @@
+relationships-page .relationships-page-content {
+	background: rgb(255 255 255 / 88%);
+}
+
+relationships-page .relationship-list {
+	display: grid;
+	gap: 12px;
+	width: 100%;
+}
+
+relationships-page .relationship-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	padding: 14px 18px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #fffaf0;
+	color: #342719;
+}
+
+relationships-page .relationship-card h2,
+relationships-page .relationship-card p {
+	margin: 0;
+}
+
+relationships-page .relationship-card h2 {
+	font-size: 24px;
+}
+
+relationships-page .relationship-card p {
+	margin-top: 6px;
+	font-size: 17px;
+}
+
+relationships-page .relationship-card span {
+	min-width: 110px;
+	padding: 8px 12px;
+	border-radius: 999px;
+	text-align: center;
+}
+
+relationships-page .friendly {
+	background: #b8e0c2;
+}
+
+relationships-page .neutral {
+	background: #f1d69a;
+}
+
+relationships-page .cautious {
+	background: #e9b0a8;
+}

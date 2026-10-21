@@ -1,0 +1,50 @@
+family-page .family-page-content {
+	background: rgb(255 255 255 / 88%);
+}
+
+family-page .people-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 14px;
+	width: 100%;
+}
+
+family-page .person-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 7px;
+	padding: 14px 10px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #fffaf0;
+	color: #342719;
+	text-align: center;
+}
+
+family-page .person-card img {
+	width: 76px;
+	height: 76px;
+	border-radius: 12px;
+	object-fit: cover;
+}
+
+family-page .person-card h2,
+family-page .person-card p {
+	margin: 0;
+}
+
+family-page .person-card h2 {
+	font-size: 24px;
+}
+
+family-page .person-card p {
+	font-size: 16px;
+}
+
+family-page .person-card span {
+	display: inline-block;
+	margin-top: 2px;
+	color: #755a35;
+	font-size: 15px;
+}

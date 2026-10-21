@@ -1,0 +1,39 @@
+inventory-page .inventory-page-content {
+	background: rgb(255 255 255 / 88%);
+}
+
+inventory-page .item-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(150px, 1fr));
+	gap: 14px;
+	width: 100%;
+}
+
+inventory-page .item-card {
+	padding: 16px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #fffaf0;
+	color: #342719;
+}
+
+inventory-page .item-card h2 {
+	margin: 6px 0 0;
+	font-size: 24px;
+}
+
+inventory-page .item-card strong {
+	display: block;
+	margin-top: 4px;
+	font-size: 32px;
+}
+
+inventory-page .item-card p {
+	margin-bottom: 0;
+	font-size: 16px;
+	line-height: 1.1;
+}
+
+inventory-page .item-icon {
+	font-size: 32px;
+}

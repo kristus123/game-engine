@@ -1,0 +1,59 @@
+reputation-page .reputation-page-content {
+	background: rgb(255 255 255 / 88%);
+}
+
+reputation-page .reputation-meter {
+	width: min(680px, 90%);
+	height: 30px;
+	border: 3px solid #755a35;
+	border-radius: 999px;
+	background: #eadfca;
+	overflow: hidden;
+}
+
+reputation-page .reputation-meter div {
+	height: 100%;
+	background: linear-gradient(90deg, #d69b4d, #4f9b75);
+}
+
+reputation-page .reputation-score {
+	font-size: 28px;
+}
+
+reputation-page .reputation-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(180px, 1fr));
+	gap: 14px;
+	width: 100%;
+}
+
+reputation-page .reputation-grid article {
+	padding: 20px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #fffaf0;
+	color: #342719;
+}
+
+reputation-page .reputation-grid span {
+	font-size: 36px;
+}
+
+reputation-page .reputation-grid h2,
+reputation-page .reputation-grid p {
+	margin: 8px 0 0;
+}
+
+reputation-page .reputation-grid h2 {
+	font-size: 24px;
+}
+
+reputation-page .reputation-grid p {
+	font-size: 16px;
+}
+
+@media (max-width: 760px) {
+	reputation-page .reputation-grid {
+		grid-template-columns: 1fr;
+	}
+}

@@ -15,12 +15,7 @@ export default ({ html }) => {
 
 	return {
 		methods: {
-			incrementDay: () => {
-				// codex can i somehow trigger this programatically?
-				// like this maybe?
-				// Layout.pretty.incrementDay() ?
-				// Layout.pretty.html.getId("hei")
-			},
+			incrementDay: () => {},
 		},
 		onPageOpen: () => {
 			const color = borderColors[borderColorIndex++ % borderColors.length]
