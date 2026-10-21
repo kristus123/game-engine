@@ -124,7 +124,7 @@ const story = {
 		`),
 		choices: [{
 			text: "Return to the northern road",
-			next: "start",
+			next: "end",
 		}],
 	},
 	farmWork: {
@@ -134,7 +134,7 @@ const story = {
 		`),
 		choices: [{
 			text: "Follow the road to Vikingheim",
-			next: "start",
+			next: "end",
 		}],
 	},
 	farmTrade: {
@@ -143,7 +143,7 @@ const story = {
 		`),
 		choices: [{
 			text: "Follow the road to Vikingheim",
-			next: "start",
+			next: "end",
 		}],
 	},
 	springCareful: {
@@ -153,7 +153,7 @@ const story = {
 		`),
 		choices: [{
 			text: "Bring the water back to camp",
-			next: "start",
+			next: "end",
 		}],
 	},
 	springListen: {
@@ -162,7 +162,7 @@ const story = {
 		`),
 		choices: [{
 			text: "Follow Mikkel's direction",
-			next: "start",
+			next: "end",
 		}],
 	},
 }
@@ -196,9 +196,16 @@ export default async ({ html }) => {
 					text: choice.text
 				},
 			})
-			button.onClick(() => {
+
+			button.onClick(async () => {
 				G.year += 1
-				show(choice.next)
+				if (choice.next == "end") {
+					await Page.open("aoe-page")
+					show("start")
+				}
+				else {
+					show(choice.next)
+				}
 			})
 
 			html.choices.add(button)
