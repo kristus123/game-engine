@@ -135,10 +135,26 @@ export class GlobalPopoverLogic {
 		})
 	}
 
+	bindHoverHide(origin) {
+		const id = origin.getAttribute("on-hover-hide")
+		if !id {
+			return
+		}
+
+		const target = () => this.getTarget(id)
+		origin.addEventListener("mouseleave", () => {
+			this.showTarget(target(), origin)
+		})
+		origin.addEventListener("mouseenter", () => {
+			this.hideTarget(target())
+		})
+	}
+
 	inject(origin) {
 		const relevant = origin.hasAttribute("on-click-show")
 			|| origin.hasAttribute("on-click-hide")
 			|| origin.hasAttribute("on-hover-show")
+			|| origin.hasAttribute("on-hover-hide")
 		if !relevant || this.observedElements.has(origin) {
 			return
 		}
@@ -147,5 +163,6 @@ export class GlobalPopoverLogic {
 		this.bindClickShow(origin)
 		this.bindClickHide(origin)
 		this.bindHoverShow(origin)
+		this.bindHoverHide(origin)
 	}
 }

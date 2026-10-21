@@ -3,7 +3,7 @@ export class GlobalHoverLogic {
 		this.observedElements = new WeakSet()
 	}
 
-	async notify(origin, hovering) {
+	async notify(origin, type) {
 		let page = origin.parentElement
 		while (page && !page.tag.endsWith("-page")) {
 			page = page.parentElement
@@ -13,7 +13,7 @@ export class GlobalHoverLogic {
 		}
 
 		const options = await page.whenReady()
-		options.onHover?.[origin.id]?.({ origin, hovering })
+		options[`onHover${type}`]?.[origin.id]?.({ origin })
 	}
 
 	inject(origin) {
@@ -23,10 +23,10 @@ export class GlobalHoverLogic {
 
 		this.observedElements.add(origin)
 		origin.addEventListener("mouseenter", () => {
-			this.notify(origin, true)
+			this.notify(origin, "Show")
 		})
 		origin.addEventListener("mouseleave", () => {
-			this.notify(origin, false)
+			this.notify(origin, "Hide")
 		})
 	}
 }

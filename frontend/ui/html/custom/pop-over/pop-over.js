@@ -22,7 +22,7 @@ export default async ({ html }) => {
 		}
 
 		if mode == "hover" {
-			notifyPage("onHover", { origin, popover: html, hovering: true })
+			notifyPage("onHoverShow", { origin, popover: html })
 		}
 		else {
 			notifyPage("onClick", { origin, popover: html })
@@ -74,10 +74,9 @@ export default async ({ html }) => {
 			const closed = active
 			active = null
 			if closed.mode == "hover" {
-				notifyPage("onHover", {
+				notifyPage("onHoverHide", {
 					origin: closed.origin,
 					popover: html,
-					hovering: false,
 				})
 			}
 			notifyPage("onClose", { ...closed, popover: html })

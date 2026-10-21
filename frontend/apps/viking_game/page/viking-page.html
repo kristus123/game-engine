@@ -23,9 +23,11 @@
 </overlay-absolute>
 
 <template id="advisorTemplate">
-	<button class="advisor" on-hover-show="advicePopover">
-		<img src="slot-img" />
-	</button>
+	<div class="advisor-hitbox" on-hover-show="advicePopover" on-hover-hide="choices">
+		<button class="advisor">
+			<img src="slot-img" />
+		</button>
+	</div>
 </template>
 
 <template id="choiceButtonTemplate">

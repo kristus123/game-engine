@@ -54,13 +54,16 @@ export default async ({ html }) => {
 		onDomRemove: () => {
 			console.log("these will also trigger as usual")
 		},
-		onHover: {
-			advicePopover: ({ origin, popover, hovering }) => {
-				if hovering {
-					const advisor = Advisors.find(a => a.name == origin.data.advisor)
-					popover.h1.content = advisor.name
-					popover.p.content = Random.choice(advisor.advice)
-				}
+		onHoverShow: {
+			advicePopover: ({ origin, popover }) => {
+				const advisor = Advisors.find(a => a.name == origin.data.advisor)
+				popover.h1.content = advisor.name
+				popover.p.content = Random.choice(advisor.advice)
+			},
+		},
+		onHoverHide: {
+			otherRandomThing: ({ origin, popover }) => {
+				console.log("not yet implemented")
 			},
 		},
 	}
