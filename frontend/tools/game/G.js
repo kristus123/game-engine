@@ -1,15 +1,16 @@
-const data = {}
+export class G {
+	static _year = ValueListener(0)
 
-export const G = new Proxy(data, {
-	get(target, prop) {
-		if !(prop in target) {
-			target[prop] = Objects([])
-		}
-		return target[prop]
-	},
-
-	set(target, prop, value) {
-		target[prop] = value
-		return true
+	static get year() {
+		return this._year
+		
 	}
-})
+
+	static set year(y) {
+		this._year.value = y
+	}
+
+	static onYear(callback) {
+		this._year.listen(callback)
+	}
+}

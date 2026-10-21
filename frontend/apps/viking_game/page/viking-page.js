@@ -197,6 +197,7 @@ export default async ({ html }) => {
 				},
 			})
 			button.onClick(() => {
+				G.year += 1
 				show(choice.next)
 			})
 
