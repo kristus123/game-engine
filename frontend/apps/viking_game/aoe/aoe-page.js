@@ -9,8 +9,8 @@ export default async ({ html }) => {
 	return {
 		methods: {
 			chopWood: () => {
-				G.wood += 1	
-				if (G.wood >= 5) {
+				G.wood += 1
+				if G.wood >= 5 {
 					Page.open("viking-page")
 				}
 			},
