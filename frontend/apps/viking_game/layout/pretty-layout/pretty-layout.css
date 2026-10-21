@@ -8,20 +8,20 @@ pretty-layout #aoe-footer > * {
 }
 
 pretty-layout #aoe-footer offset-element {
-	width: 140px !important;
+	width: 120px !important;
 }
 
 pretty-layout #aoe-footer offset-element img {
-	height: 140px !important;
+	height: 120px !important;
 }
 
 pretty-layout #aoe-footer button {
-	min-width: 110px;
+	min-width: 90px;
 	height: 58px;
 	padding: 8px 6px;
 	border: 2px solid #755a35;
 	border-radius: 10px;
 	background: #d4bd82;
 	color: #342719;
-	font-size: 24px;
+	font-size: 20px;
 }
