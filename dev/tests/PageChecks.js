@@ -7,8 +7,11 @@ import { TranspileContent } from "../transpiler/TranspileContent.js"
 function fixture(options = {}) {
 	const file = new URL("../../frontend/ui/page/Page.js", import.meta.url)
 	const source = TranspileContent(file.pathname, readFileSync(file, "utf8"), [])
+	const layoutFile = new URL("../../frontend/apps/viking_game/aoe/Layout.js", import.meta.url)
+	const layoutSource = TranspileContent(layoutFile.pathname, readFileSync(layoutFile, "utf8"), [])
 	const events = []
 	const created = []
+	const connections = []
 	const runtimeAssert = {
 		notNull: value => assert.notEqual(value, null),
 		string: value => assert.equal(typeof value, "string"),
@@ -17,62 +20,91 @@ function fixture(options = {}) {
 		method: value => assert.equal(typeof value, "function"),
 		true: (value, message) => assert.ok(value, message),
 		false: (value, message) => assert.ok(!value, message),
-		value: value => assert.ok(value),
+		value: value => {
+			assert.ok(value)
+			return value
+		},
 	}
-	let Page
-	Page = runInNewContext(`
+	const disconnect = node => {
+		if (node.parentNode) {
+			const siblings = node.parentNode.childNodes
+			siblings.splice(siblings.indexOf(node), 1)
+			node.parentNode = null
+		}
+		setConnected(node, false)
+	}
+	const setConnected = (node, connected) => {
+		if (node.isConnected != connected) {
+			node.isConnected = connected
+			connections.push([node.tag, connected])
+		}
+		if (connected && node.nodeType == 1) {
+			node.ready ??= Promise.resolve().then(() => ({
+				onPageOpen: async () => events.push(node.tag + ":open"),
+				onPageClose: async () => events.push(node.tag + ":close"),
+				onToggle: async state => events.push(node.tag + ":" + state + ":toggle"),
+				...options,
+			}))
+		}
+		for (const child of node.childNodes) {
+			setConnected(child, connected)
+		}
+	}
+	const createNode = (tag, nodeType = 1) => {
+		const node = {
+			tag,
+			nodeType,
+			isConnected: false,
+			parentNode: null,
+			childNodes: [],
+			get children() {
+				return node.childNodes.filter(child => child.nodeType == 1)
+			},
+			whenReady: () => node.ready,
+			contains: child => node.childNodes.some(descendant => descendant == child || descendant.contains(child)),
+			append: child => {
+				disconnect(child)
+				node.childNodes.push(child)
+				child.parentNode = node
+				setConnected(child, node.isConnected)
+			},
+			before: child => {
+				const parent = node.parentNode
+				assert.ok(parent, "the page slot must have a parent")
+				disconnect(child)
+				parent.childNodes.splice(parent.childNodes.indexOf(node), 0, child)
+				child.parentNode = parent
+				setConnected(child, parent.isConnected)
+			},
+			remove: () => disconnect(node),
+		}
+		return node
+	}
+	const { Page, Layout } = runInNewContext(`
 		Object.defineProperties(Object.prototype, {
 			assertKeyPresent: { value(key) { Assert.true(Object.hasOwn(this, key)) } },
 			assertKeyMissing: { value(key) { Assert.true(!Object.hasOwn(this, key)) } },
 		})
-		${source.replace("export class", "class").replaceAll("Layout.init", "H.create")}
-		Page
+		${layoutSource.replace("export class", "class")}
+		${source.replace("export class", "class")}
+		({ Page, Layout })
 	`, {
 		Assert: runtimeAssert,
 		SuperClass: class {},
 		IfCondition: { validate: Boolean },
 		customElements: { get: () => class {} },
+		document: { createComment: () => createNode("#comment", 8) },
 		H: { create: tag => {
-			const page = {
-				tag,
-				isConnected: false,
-				children: [],
-				whenReady: () => page.ready,
-				contains: child => page.children.includes(child),
-				append: child => {
-					page.children.push(child)
-					child.ready ??= Promise.resolve({})
-				},
-				remove: () => {
-					page.isConnected = false
-				},
-			}
+			const page = createNode(tag)
 			created.push(page)
 			return page
 		} },
-		Dom: { add: page => {
-			page.isConnected = true
-			page.ready ??= Promise.resolve().then(() => ({
-				assertKeyPresent(key) {
-					assert.ok(Object.hasOwn(this, key))
-				},
-				onPageOpen: async () => {
-					events.push(page.tag + ":open")
-				},
-				onPageClose: async () => {
-					events.push(page.tag + ":close")
-				},
-				onToggle: async state => {
-					events.push(page.tag + ":" + state + ":toggle")
-				},
-				...options,
-			}))
-		} },
+		Dom: { add: page => setConnected(page, true) },
 	})
 	for (const tag of ["hub-page", "game-page"]) {
 		Page.init(tag, { persistOnClose: tag == "hub-page", assertKeyPresent() {} })
 	}
-	return { Page, events, created }
+	return { Page, Layout, events, created, connections, createNode }
 }
 
 test("page records retain callbacks and persistent elements across navigation", async () => {
@@ -172,6 +204,71 @@ test("pages can be mounted inside a persistent layout", async () => {
 	assert.equal(created.length, 3)
 
 	await Page.open("laid-page")
+	assert.deepEqual(layout.children, [Page.active.page])
+})
+
+test("pages sharing a layout keep it connected and replace only its projected page", async () => {
+	const { Page, Layout, connections, createNode } = fixture()
+	for (const tag of ["map-page", "story-page"]) {
+		Page.init(tag, { persistOnClose: true, layout: "pretty-layout", assertKeyPresent() {} })
+	}
+	await Page.open("map-page")
+	const layout = Layout.pretty
+	const slot = Layout.pageSlots["pretty-layout"]
+	const map = Page.active.page
+	const outlet = createNode("middle")
+	layout.append(outlet)
+	outlet.append(map)
+	outlet.append(slot)
+	assert.equal(Page.pages["story-page"].layoutElement, layout)
+
+	await Page.open("story-page")
+	assert.equal(Page.active.page.parentNode, slot.parentNode)
+	assert.deepEqual(outlet.children, [Page.active.page])
+	assert.deepEqual(layout.children, [outlet])
+	assert.equal(map.parentNode, null)
+	assert.equal(map.isConnected, false)
+	assert.equal(layout.isConnected, true)
+
+	await Page.open("map-page")
+	assert.equal(Page.active.page, map)
+	assert.equal(map.parentNode, slot.parentNode)
+	assert.deepEqual(outlet.children, [map])
+	assert.deepEqual(connections.filter(([tag]) => tag == "pretty-layout"), [["pretty-layout", true]])
+})
+
+test("a shared layout retains its slot across unrelated pages, fresh pages and explicit closing", async () => {
+	const { Page, Layout } = fixture()
+	Page.init("map-page", { persistOnClose: true, layout: "pretty-layout", assertKeyPresent() {} })
+	Page.init("fresh-page", { persistOnClose: false, layout: "pretty-layout", assertKeyPresent() {} })
+	Page.init("other-page", { persistOnClose: true, layout: "other-layout", assertKeyPresent() {} })
+	await Page.open("fresh-page")
+	const first = Page.active.page
+	const layout = Layout.pretty
+	const slot = Layout.pageSlots["pretty-layout"]
+
+	await Page.open("map-page")
+	assert.equal(layout.isConnected, true)
+	assert.equal(first.parentNode, null)
+	assert.equal(Page.pages["fresh-page"].page, null)
+	await Page.open("other-page")
+	assert.equal(layout.isConnected, false)
+	assert.equal(Layout.other.isConnected, true)
+	await Page.open("hub-page")
+	assert.equal(Layout.other.isConnected, false)
+	await Page.open("fresh-page")
+	assert.equal(Layout.pretty, layout)
+	assert.notEqual(Page.active.page, first)
+	assert.equal(Page.active.page.parentNode, slot.parentNode)
+	assert.deepEqual(layout.children, [Page.active.page])
+
+	await Page.close()
+	assert.equal(layout.isConnected, false)
+	assert.deepEqual(layout.children, [])
+	assert.equal(slot.parentNode, layout)
+	await Page.open("map-page")
+	assert.equal(Layout.pretty, layout)
+	assert.equal(Page.active.page.parentNode, slot.parentNode)
 	assert.deepEqual(layout.children, [Page.active.page])
 })
 

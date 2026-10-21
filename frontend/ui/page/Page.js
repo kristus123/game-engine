@@ -41,21 +41,22 @@ export class Page {
 		Assert.false(this.activeTag == tag, "can't open same twice")
 		this.pages.assertKeyPresent(tag)
 
-		if this.activeTag {
-			await this.close()
-		}
-
 		const entry = this.pages[tag]
 		if !entry.persistOnClose {
 			entry.page = H.create(tag)
 			entry.layoutElement = entry.layout ? Layout.init(entry.layout) : null
 		}
 
+		if this.activeTag {
+			const keepLayout = entry.layoutElement != null && entry.layoutElement == this.active.layoutElement
+			await this.close({ keepLayout })
+		}
+
 		if entry.layoutElement {
-			if !entry.layoutElement.contains(entry.page) {
-				entry.layoutElement.append(entry.page)
+			Layout.attach(entry.layout, entry.page)
+			if !entry.layoutElement.isConnected {
+				Dom.add(entry.layoutElement)
 			}
-			Dom.add(entry.layoutElement)
 			entry.layoutOptions = await entry.layoutElement.whenReady()
 		}
 		else {
@@ -69,16 +70,14 @@ export class Page {
 		await entry.options.onToggle?.("open")
 	}
 
-	static async close() {
+	static async close({ keepLayout = false } = {}) {
 		const entry = this.active
 		await entry.layoutOptions?.onPageClose?.()
 		await entry.options.onPageClose?.()
 		await entry.options.onToggle?.("close")
-		if entry.layoutElement {
+		await entry.page.remove()
+		if entry.layoutElement && !keepLayout {
 			await entry.layoutElement.remove()
-		}
-		else {
-			await entry.page.remove()
 		}
 
 		if !entry.persistOnClose {

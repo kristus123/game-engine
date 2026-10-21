@@ -53,15 +53,15 @@ await Promise.all([
 	})(),
 	Font.load("VT323", "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isQFJXUdVNF.woff2"),
 	Css.use("/swag.css"),
-	Retry(100, async (i) => {
-		loadingText.content = i + " attempts at setting up token and socket connection"
+	// Retry(100, async (i) => {
+	// 	loadingText.content = i + " attempts at setting up token and socket connection"
 
-		await Promise.all([
-			Network.httpCheck(),
-			Token.init(),
-		])
-		return SocketClient.connect()
-	}),
+	// 	await Promise.all([
+	// 		Network.httpCheck(),
+	// 		Token.init(),
+	// 	])
+	// 	return SocketClient.connect()
+	// }),
 
 	// these are CanvasLoop CanvasGame stuff
 	Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),

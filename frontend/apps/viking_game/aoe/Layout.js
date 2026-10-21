@@ -1,5 +1,6 @@
 export class Layout {
 	static references = {}
+	static pageSlots = {}
 
 	static register(name) {
 		Assert.string(name)
@@ -14,10 +15,21 @@ export class Layout {
 
 	static init(name) {
 		this.register(name)
+		if this.references[name] {
+			return this.references[name]
+		}
+
 		const layout = H.create(name)
+		const pageSlot = document.createComment("layout page")
+		layout.append(pageSlot)
 		this.references[name] = layout
+		this.pageSlots[name] = pageSlot
 
 		return layout
+	}
+
+	static attach(name, page) {
+		this.pageSlots[name].before(page)
 	}
 
 }
