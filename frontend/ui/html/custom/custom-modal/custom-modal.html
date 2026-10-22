@@ -1,9 +1,9 @@
 <overlay-fixed id="backdrop" class="custom-modal-backdrop">
-	<button id="scrimButton" class="custom-modal-scrim" aria-label="Close modal"></button>
-	<section id="panel" class="custom-modal-panel" role="dialog" aria-modal="true">
-		<div id="modalContent" class="custom-modal-content">
-			<slot></slot>
-		</div>
-		<button id="closeButton" class="custom-modal-close" aria-label="Close modal">×</button>
-	</section>
 </overlay-fixed>
+
+<div id="panel" class="custom-modal-panel">
+	<div id="modalContent" class="custom-modal-content">
+		<slot></slot>
+	</div>
+	<button id="closeButton" class="custom-modal-close">×</button>
+</div>

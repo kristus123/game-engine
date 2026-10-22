@@ -5,7 +5,7 @@ export const page = {
 
 export default async ({ html }) => {
 	const show = (title, message) => {
-		const modal = Assert.value(html.closest("pretty-layout").modal)
+		const modal = Assert.value(html.modal)
 		modal.modalContent.innerHTML = `<div class="viking-modal-content"><h2>${title}</h2><p>${message}</p></div>`
 		modal.show()
 	}

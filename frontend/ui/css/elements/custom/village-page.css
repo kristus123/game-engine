@@ -4,3 +4,12 @@ village-page div {
 	height: 100%;
 	min-height: 0;
 }
+
+village-page custom-modal .custom-modal-backdrop {
+	padding: 0;
+}
+
+village-page custom-modal .custom-modal-panel {
+	width: 100%;
+	max-width: none;
+}
