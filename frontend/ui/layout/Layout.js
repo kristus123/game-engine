@@ -2,22 +2,19 @@ export class Layout {
 	static references = {}
 	static pageSlots = {}
 
-	static register(name) {
+	static init(name) {
 		Assert.string(name)
 		Assert.value(customElements.get(name), `layout is not a registered custom element: ${name}`)
+
+		if this.references[name] {
+			return this.references[name]
+		}
 
 		const alias = name.split("-")[0]
 		Object.defineProperty(this, alias, {
 			configurable: true,
 			get: () => Assert.value(this.references[name], `layout is not created: ${name}`),
 		})
-	}
-
-	static init(name) {
-		this.register(name)
-		if this.references[name] {
-			return this.references[name]
-		}
 
 		const layout = H.create(name)
 		const pageSlot = document.createComment("layout page")
