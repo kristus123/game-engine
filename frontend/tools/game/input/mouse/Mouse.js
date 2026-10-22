@@ -5,6 +5,8 @@ export class Mouse {
 
 	static latest_x = 0
 	static latest_y = 0
+	static screenX = 0
+	static screenY = 0
 
 	static onClick = p => { }
 
@@ -27,6 +29,8 @@ export class Mouse {
 		// change the pointerdown to use canvas later
 		// Instead of listening globally.
 		document.addEventListener("pointerdown", e => {
+			this.screenX = e.clientX
+			this.screenY = e.clientY
 			const { x, y } = this.toRenderCoordinates(e.clientX, e.clientY)
 			Mouse.updatePosition(x, y)
 
@@ -50,6 +54,8 @@ export class Mouse {
 		document.addEventListener("pointermove", e => {
 			const events = e.getCoalescedEvents()
 			const last = events[events.length - 1] || e
+			this.screenX = last.clientX
+			this.screenY = last.clientY
 			const { x, y } = this.toRenderCoordinates(last.clientX, last.clientY)
 			this.latest_x = x
 			this.latest_y = y

@@ -16,6 +16,12 @@ export default async ({ html }) => {
 			chopWood: () => {
 				G.wood += 1
 				Game.newActionTaken()
+				FloatingHtml.add(`
+					<div style="color: white; font-size: 30px;">
+						+1 wood
+					</div>
+				`.toHtml())
+
 				if G.wood >= 5 {
 					Page.open("viking-page")
 				}

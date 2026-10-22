@@ -1,0 +1,15 @@
+.move-up {
+	animation: move-up 800ms ease-out forwards;
+}
+
+@keyframes move-up {
+	from {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	}
+
+	to {
+		opacity: 0;
+		transform: translate(-50%, calc(-50% - 80px));
+	}
+}
