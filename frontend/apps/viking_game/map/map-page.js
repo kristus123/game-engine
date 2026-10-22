@@ -6,6 +6,8 @@ export const page = {
 export default async ({ html }) => ({
 	methods: {
 		openFriendlyClan: () => html.modal.show(),
-		openClanDetails: () => html.secondaryModal.show(),
+		raid: () => {
+			G.chopWood()
+		},
 	},
 })

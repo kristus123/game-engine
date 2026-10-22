@@ -239,7 +239,6 @@
         "Font": "readonly",
         "FrameLoop": "readonly",
         "G": "readonly",
-        "Game": "readonly",
         "GameLoop": "readonly",
         "GenerateBackend": "readonly",
         "GenerateFrontend": "readonly",

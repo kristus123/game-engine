@@ -1,16 +1,8 @@
-pretty-layout .pretty-layout-shell,
 pretty-layout .pretty-layout-body,
 pretty-layout .pretty-layout-content,
 pretty-layout .page-host {
 	width: 100%;
 	height: 100%;
-}
-
-pretty-layout .pretty-layout-shell {
-	box-sizing: border-box;
-	border: 40px solid pink;
-	background: #f5d7df;
-	overflow: hidden;
 }
 
 pretty-layout .pretty-layout-body {

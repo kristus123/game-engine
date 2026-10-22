@@ -29,7 +29,7 @@ export default async ({ html }) => {
 			})
 
 			button.onClick(async () => {
-				G.year += 1
+				G.incrementYear()
 				if choice.next == "end" {
 					await Page.open("village-page")
 					show("start")
