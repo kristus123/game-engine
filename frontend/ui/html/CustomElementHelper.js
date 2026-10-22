@@ -17,7 +17,11 @@ export class CustomElementHelper {
 		element.walk(child => {
 			element[child.tag] = child // this one currently not removed by removeFields
 			if child.hasAttribute("id") {
-				element[child.getAttribute("id")] = child
+				const id = child.getAttribute("id")
+				if id in element && element[id] != child {
+					throw new Error(`Cannot expose id "${id}" on <${element.tag}>: the property already exists`)
+				}
+				element[id] = child
 			}
 		})
 	}

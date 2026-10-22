@@ -12,12 +12,14 @@ export default ({ html }) => {
 		html.actionsTaken.content = actionsTaken
 	})
 
+
+
 	return {
 		methods: {
 			incrementDay: () => {
 			},
 		},
-		onPageOpen: () => {
+		onPageOpen: async () => {
 		},
 		onPageClose: () => {
 		},

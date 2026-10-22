@@ -29,8 +29,9 @@ export default async ({ html }) => {
 			})
 
 			button.onClick(async () => {
-				G.incrementYear()
 				if choice.next == "end" {
+					G.chopWood()
+					G.newActionTaken()
 					await Page.open("village-page")
 					show("start")
 				}

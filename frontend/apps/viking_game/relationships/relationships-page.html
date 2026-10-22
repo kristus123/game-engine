@@ -1,17 +1,16 @@
 <overlay-absolute max-size>
 	<img max-size blur float src="Gif.aurora" />
 	<overlay-absolute max-size>
-		<button class="page-nav" float-top-left on-click-open-page="village-page">← Village</button>
 		<section class="viking-content-page relationships-page-content">
 			<h1>Relationships</h1>
 			<p class="page-intro">Every neighbor remembers how we treat them.</p>
 			<div class="relationship-list">
-				<button class="relationship-card" on-click="showFrostholm">
+				<button id="frostholm" class="relationship-card" on-click-show="modal">
 					<div>
 						<h2>Frostholm</h2>
 						<p>Nearby farmers with full granaries.</p>
-					<span class="friendly">Friendly</span>
 					</div>
+					<span class="friendly">Friendly</span>
 				</button>
 				<button class="relationship-card" on-click="showRiverClan">
 					<div>
@@ -32,4 +31,17 @@
 	</overlay-absolute>
 </overlay-absolute>
 
-<custom-modal id="modal" hidden></custom-modal>
+<custom-modal id="modal" hidden style="width:90%">
+	<h1>Frostholm</h1>
+	<span style="font-size: 50px; margin:50px;" class="friendly">Overly friendly</span>
+
+	<h2 style="margin:20px">
+		<span class="cautious">bad friend</span>
+		You did not give them a gift when their hovding got married
+	</h2>
+
+	<h2 style="margin:20px">
+		<span class="friendly">A friend in need</span>
+		You helped them when their crops were on fire
+	</h2>
+</custom-modal>
