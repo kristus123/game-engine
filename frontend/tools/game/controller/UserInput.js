@@ -20,6 +20,8 @@ export class UserInput {
 	}
 
 	static enable() {
+		Assert.true(this.disabled)
+
 		this.disabled = false
 
 		if this.overlay != null {
@@ -28,6 +30,8 @@ export class UserInput {
 	}
 
 	static disable() {
+		Assert.false(this.disabled)
+
 		this.disabled = true
 		this.overlay.show()
 	}
