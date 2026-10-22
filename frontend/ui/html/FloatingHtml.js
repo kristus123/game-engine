@@ -6,21 +6,19 @@ export class FloatingHtml {
 		Dom.add(this.layer)
 	}
 
-	static add(popup, options={}) {
-		Assert.value(popup)
+	static add(e, args={}) {
+		Assert.value(e)
 
-		const x = options.x ?? Mouse.screenX
-		const y = options.y ?? Mouse.screenY
+		e.style.position = "fixed"
+		e.style.pointerEvents = "none"
 
-		popup.style.position = "fixed"
-		popup.style.pointerEvents = "none"
-		popup.style.left = `${x}px`
-		popup.style.top = `${y}px`
+		e.x = args.x ?? Mouse.screenX
+		e.y = args.y ?? Mouse.screenY
 
-		this.layer.append(popup)
-		popup.play("move-up", {
-			onEnd: () => popup.remove(),
-		})
-		return popup
+		this.layer.append(e)
+
+		e.playAndRemove("move-up")
+
+		return e
 	}
 }

@@ -133,6 +133,8 @@ Native prototype enhancements can use classes extending `shared/enhance/NativeEn
 
 `HTMLElement.add(elements)` appends elements and returns a promise that waits for each appended element's optional `onAdd({ element, parent })` animation callback when the element is connected to the document. `HTMLElement.remove()` waits for the optional `onRemove({ element, parent })` callback while the element is connected, then removes it and resolves with the element; removing an already disconnected element skips the callback. These hooks are for add/remove animations; custom-component `onDomAdd` and `onDomRemove` remain lifecycle callbacks for setup, subscriptions, and cleanup. `Dom.remove(element)` delegates to the promise-aware element method.
 
+`HTMLElement.playAndRemove(className, options)` wraps the enhanced `play()` method and removes the element after the animation ends, while preserving an optional `options.onEnd` callback. `FloatingHtml.add()` uses `e.playAndRemove("move-up")` after positioning its supplied element.
+
 `FloatingHtml` is a class whose static block immediately creates a standalone `<overlay-fixed>` viewport overlay through `H.create()`. `FloatingHtml.add(popup, options)` appends any supplied DOM element at `Mouse.screenX`/`Mouse.screenY`, supplies fixed positioning, starts the `move-up` animation through `play()`, and removes the element from `play()`'s `onEnd` callback. Optional `x` and `y` override the current mouse position. Callers own the popup’s visual markup and styling and can supply arbitrary HTML converted with `.toHtml()`, such as the inline wood popup in `village-page.js`. `Mouse.screenX` and `Mouse.screenY` track viewport pointer coordinates separately from `Mouse.position`, which is a world position.
 
 ## Subsystem notes

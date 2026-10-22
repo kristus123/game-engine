@@ -703,6 +703,18 @@ export class Enhance_html extends NativeEnhancer {
 		})
 	}
 
+	playAndRemove(className, options = {}) {
+		const onEnd = options.onEnd
+
+		return this.play(className, {
+			...options,
+			onEnd: event => {
+				onEnd?.(event)
+				this.remove()
+			},
+		})
+	}
+
 	copy() {
 		return this.cloneNode(true)
 	}
