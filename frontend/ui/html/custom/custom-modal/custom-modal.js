@@ -1,14 +1,20 @@
 export default async ({ html }) => {
-	const panelStyleProperties = ["width", "height", "margin", "padding", "max-width", "max-height"]
+	let copiedStyleProperties = new Set()
 	const syncPanelStyles = () => {
-		for const property of panelStyleProperties {
-			const value = html.style.getPropertyValue(property)
-			if value {
-				html.panel.style.setProperty(property, value)
-			} else {
+		const currentStyleProperties = new Set()
+		for let i = 0; i < html.style.length; i++ {
+			const property = html.style[i]
+			currentStyleProperties.add(property)
+			html.panel.style.setProperty(property, html.style.getPropertyValue(property), html.style.getPropertyPriority(property))
+		}
+
+		for const property of copiedStyleProperties {
+			if !currentStyleProperties.has(property) {
 				html.panel.style.removeProperty(property)
 			}
 		}
+
+		copiedStyleProperties = currentStyleProperties
 	}
 
 	html.show = () => {
@@ -19,14 +25,14 @@ export default async ({ html }) => {
 	html.closeButton.onClick(() => html.hidden = true)
 	html.backdrop.onClick(() => html.hidden = true)
 
-	const onKeyDown = event => {
-		if event.key == "Escape" && !html.hidden {
+	const onKeyDown = e => {
+		if e.key == "Escape" && !html.hidden {
 			html.hidden = true
 		}
 	}
-
 	const addKeyListener = () => document.addEventListener("keydown", onKeyDown)
 	const removeKeyListener = () => document.removeEventListener("keydown", onKeyDown)
+
 	const styleObserver = new MutationObserver(syncPanelStyles)
 	const addStyleObserver = () => {
 		styleObserver.observe(html, { attributes: true, attributeFilter: ["style"] })

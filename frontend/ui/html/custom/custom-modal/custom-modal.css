@@ -43,24 +43,38 @@ custom-modal .custom-modal-content {
 
 custom-modal .custom-modal-close {
 	position: absolute;
-	top: 14px;
-	right: 16px;
-	width: 42px;
-	height: 42px;
+	top: 18px;
+	right: 18px;
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
 	padding: 0;
-	border: 2px solid #755a35;
+	appearance: none;
+	border: 2px solid #342719;
 	border-radius: 50%;
-	background: #d4bd82;
-	color: #342719;
-	font-size: 30px;
+	background: #342719;
+	color: #fffaf0;
+	font-family: Arial, sans-serif;
+	font-size: 26px;
+	font-weight: 700;
 	line-height: 1;
 	cursor: pointer;
+	box-shadow: 0 3px 0 rgb(52 39 25 / 25%);
 }
 
 custom-modal .custom-modal-close:hover,
 custom-modal .custom-modal-close:focus-visible {
-	background: #efd99f;
-	transform: scale(1.08);
+	background: #755a35;
+	box-shadow: 0 4px 0 rgb(52 39 25 / 25%);
+	transform: translateY(-1px);
+	outline: 3px solid rgb(212 189 130 / 70%);
+	outline-offset: 2px;
+}
+
+custom-modal .custom-modal-close:active {
+	box-shadow: none;
+	transform: translateY(2px);
 }
 
 @keyframes custom-modal-enter {

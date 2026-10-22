@@ -78,3 +78,23 @@ map-page .map-marker-label {
 	transform: translateX(-50%);
 	box-shadow: 0 2px 0 rgb(52 39 25 / 45%);
 }
+
+map-page .map-modal-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 24px;
+}
+
+map-page .map-modal-actions button {
+	padding: 10px 14px;
+	border: 2px solid #755a35;
+	border-radius: 10px;
+	background: #d4bd82;
+	color: #342719;
+	cursor: pointer;
+}
+
+map-page #secondaryModal {
+	z-index: 21;
+}
