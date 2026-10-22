@@ -147,13 +147,11 @@ export class H {
 		i.placeholder = placeholder
 
 		i.listen("focus", () => {
-			Controller.disabled = true
-			Keyboard.disabled = true
+			UserInput.disabled = true
 		})
 
 		i.listen("blur", () => {
-			Controller.disabled = false
-			Keyboard.disabled = false
+			UserInput.disabled = false
 		})
 
 		i.listen("keydown", (e) => {

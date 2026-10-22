@@ -100,6 +100,7 @@ function fixture(options = {}) {
 			return page
 		} },
 		Dom: { add: page => setConnected(page, true) },
+		UserInput: { disable() {}, enable() {} },
 	})
 	for (const tag of ["hub-page", "game-page"]) {
 		Page.init(tag, { persistOnClose: tag == "hub-page", assertKeyPresent() {} })

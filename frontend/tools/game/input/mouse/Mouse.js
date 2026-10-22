@@ -29,6 +29,10 @@ export class Mouse {
 		// change the pointerdown to use canvas later
 		// Instead of listening globally.
 		document.addEventListener("pointerdown", e => {
+			if UserInput.disabled {
+				return
+			}
+
 			this.screenX = e.clientX
 			this.screenY = e.clientY
 			const { x, y } = this.toRenderCoordinates(e.clientX, e.clientY)
@@ -52,6 +56,10 @@ export class Mouse {
 
 	static postCameraInitalize() {
 		document.addEventListener("pointermove", e => {
+			if UserInput.disabled {
+				return
+			}
+
 			const events = e.getCoalescedEvents()
 			const last = events[events.length - 1] || e
 			this.screenX = last.clientX
@@ -73,6 +81,10 @@ export class Mouse {
 	}
 
 	static update() {
+		if UserInput.disabled {
+			return
+		}
+
 		this.updatePosition(this.latest_x, this.latest_y)
 	}
 

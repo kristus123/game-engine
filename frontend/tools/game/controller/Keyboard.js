@@ -8,11 +8,9 @@ document.addEventListener("keydown", e => {
 
 export class Keyboard {
 
-	static disabled = false
-
 	static {
 		document.addEventListener("keydown", e => {
-			if this.disabled {
+			if UserInput.disabled {
 				// Do nothing
 			}
 			else if e.code == "ArrowUp" || e.code == "KeyW" {

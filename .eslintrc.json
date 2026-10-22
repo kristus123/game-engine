@@ -434,6 +434,7 @@
         "UnsecureRoute": "readonly",
         "UpdateEslint": "readonly",
         "UserId": "readonly",
+        "UserInput": "readonly",
         "UserRoute": "readonly",
         "ValueListener": "readonly",
         "VideoStream": "readonly",

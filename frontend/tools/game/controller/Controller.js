@@ -18,6 +18,10 @@ export class Controller {
 	}
 
 	static update() {
+		if UserInput.disabled {
+			return
+		}
+
 		if NotNull(this.entity) {
 
 			const d = NormalizeVector(this.inputDirection())

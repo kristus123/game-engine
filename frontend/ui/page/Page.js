@@ -31,9 +31,20 @@ export class Page {
 	}
 
 	static open(tag) {
-		const navigation = this.navigation.then(() => this._open(tag))
+		const navigation = this.navigation.then(() => this._transition(() => this._open(tag)))
 		this.navigation = navigation.catch(() => {})
 		return navigation
+	}
+
+	static async _transition(action) {
+		UserInput.disable()
+
+		try {
+			return await action()
+		}
+		finally {
+			UserInput.enable()
+		}
 	}
 
 	static async _open(tag) {
@@ -49,7 +60,7 @@ export class Page {
 
 		if this.activeTag {
 			const keepLayout = entry.layoutElement != null && entry.layoutElement == this.active.layoutElement
-			await this.close({ keepLayout })
+			await this._close({ keepLayout })
 		}
 
 		if entry.layoutElement {
@@ -71,6 +82,10 @@ export class Page {
 	}
 
 	static async close({ keepLayout = false } = {}) {
+		return this._transition(() => this._close({ keepLayout }))
+	}
+
+	static async _close({ keepLayout = false } = {}) {
 		const entry = this.active
 		await entry.layoutOptions?.onPageClose?.()
 		await entry.options.onPageClose?.()
