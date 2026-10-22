@@ -5,16 +5,16 @@
 @keyframes move-up {
 	0% {
 		opacity: 1;
-		transform: translate(0px, 0px);
+		transform: translate(0, 0);
 	}
 
 	50% {
 		opacity: 1;
-		transform: translate(0px, -20px);
+		transform: translate(0, -20px);
 	}
 
 	100% {
 		opacity: 0;
-		transform: translate(0px, -100px);
+		transform: translate(0, -100px);
 	}
 }

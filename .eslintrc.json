@@ -234,6 +234,7 @@
         "FileDb": "readonly",
         "FileWatcher": "readonly",
         "Files": "readonly",
+        "FloatingHtml": "readonly",
         "FollowPlayerNoise": "readonly",
         "Font": "readonly",
         "FrameLoop": "readonly",
