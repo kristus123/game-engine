@@ -30,5 +30,5 @@ export class G {
 		this._wood.listen(callback)
 	}
 	// wood
-	
+
 }

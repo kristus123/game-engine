@@ -238,6 +238,7 @@
         "Font": "readonly",
         "FrameLoop": "readonly",
         "G": "readonly",
+        "Game": "readonly",
         "GameLoop": "readonly",
         "GenerateBackend": "readonly",
         "GenerateFrontend": "readonly",
@@ -447,9 +448,9 @@
         "WorldPosition": "readonly",
         "_MicRecorder": "readonly",
         "add-card-page": "readonly",
-        "aoe-page": "readonly",
         "chat-body": "readonly",
         "code-editor": "readonly",
+        "custom-modal": "readonly",
         "email": "readonly",
         "family-page": "readonly",
         "fileDbEndpoint": "readonly",
@@ -458,6 +459,8 @@
         "hub-page": "readonly",
         "index": "readonly",
         "inventory-page": "readonly",
+        "lore-page": "readonly",
+        "map-page": "readonly",
         "math-game": "readonly",
         "offset-element": "readonly",
         "pop-over": "readonly",
@@ -465,11 +468,13 @@
         "pretty-layout": "readonly",
         "pushNotificationEndpoint": "readonly",
         "relationships-page": "readonly",
+        "reputation-page": "readonly",
         "serviceWorker": "readonly",
         "settings-page": "readonly",
         "streamer-page": "readonly",
         "test-page": "readonly",
         "viewer-page": "readonly",
-        "viking-page": "readonly"
+        "viking-page": "readonly",
+        "village-page": "readonly"
     }
 }

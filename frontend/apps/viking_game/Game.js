@@ -26,10 +26,10 @@ export class Game {
 	}
 
 	static get maxActionsTaken() {
-		if (this.actionsTaken == 4) {
+		if this.actionsTaken == 4 {
 			return true
 		}
-		else if (this.actionsTaken > 4) {
+		else if this.actionsTaken > 4 {
 			throw new Error("this should never happen")
 		}
 	}
