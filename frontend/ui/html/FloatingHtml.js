@@ -13,6 +13,7 @@ export class FloatingHtml {
 		const y = options.y ?? Mouse.screenY
 
 		popup.style.position = "fixed"
+		popup.style.pointerEvents = "none"
 		popup.style.left = `${x}px`
 		popup.style.top = `${y}px`
 

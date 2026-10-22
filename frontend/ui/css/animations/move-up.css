@@ -1,15 +1,20 @@
 .move-up {
-	animation: move-up 800ms ease-out forwards;
+	animation: move-up 500ms ease-out forwards;
 }
 
 @keyframes move-up {
-	from {
+	0% {
 		opacity: 1;
-		transform: translate(-50%, -50%);
+		transform: translate(0px, 0px);
 	}
 
-	to {
+	50% {
+		opacity: 1;
+		transform: translate(0px, -20px);
+	}
+
+	100% {
 		opacity: 0;
-		transform: translate(-50%, calc(-50% - 80px));
+		transform: translate(0px, -100px);
 	}
 }
