@@ -1,16 +1,15 @@
 <overlay-absolute max-size>
 	<img max-size blur float src="Gif.aurora" />
 	<overlay-absolute max-size>
-		<button class="page-nav" float-top-left on-click-open-page="aoe-page">← Village</button>
+		<button class="page-nav" float-top-left on-click-open-page="village-page">← Village</button>
 		<section class="viking-content-page reputation-page-content">
 			<h1>Village Reputation</h1>
 			<p class="page-intro">The name Vikingheim carries farther than its walls.</p>
-			<div class="reputation-meter"><div style="width: 72%"></div></div>
-			<strong class="reputation-score">Respected · 72 / 100</strong>
+			<strong class="reputation-status">Respected</strong>
 			<div class="reputation-grid">
-				<article><span>✦</span><h2>Generosity</h2><p>Neighbors remember the supplies you share in hard winters.</p></article>
-				<article><span>⚒</span><h2>Reliability</h2><p>Promises kept during the road-building have earned trust.</p></article>
-				<article><span>ᛉ</span><h2>Hospitality</h2><p>Travelers speak warmly of the fire and food at your hall.</p></article>
+				<button on-click="showGenerosity"><span>✦</span><h2>Generosity</h2><p>Neighbors remember the supplies you share in hard winters.</p></button>
+				<button on-click="showReliability"><span>⚒</span><h2>Reliability</h2><p>Promises kept during the road-building have earned trust.</p></button>
+				<button on-click="showHospitality"><span>ᛉ</span><h2>Hospitality</h2><p>Travelers speak warmly of the fire and food at your hall.</p></button>
 			</div>
 		</section>
 	</overlay-absolute>

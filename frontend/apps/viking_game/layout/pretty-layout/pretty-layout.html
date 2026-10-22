@@ -7,6 +7,10 @@
 			</div>
 			<flex-h style="flex-wrap: nowrap; gap: 60px; color: #342719; font-size: 31px">
 				<span>
+					 Actions taken
+					<span id="actionsTaken">x</span>
+				</span>
+				<span>
 					☀ Day
 					<span id="days">x</span>
 				</span>
@@ -27,7 +31,7 @@
 				<h2 style="height: 28px; display: grid; place-items: center; color: #342719; font-size: 16px">Jarle</h2>
 			</offset-element>
 
-			<button on-click-open-page="aoe-page">Village</button>
+			<button on-click-open-page="village-page">Village</button>
 			<button on-click-open-page="map-page">Map</button>
 			<button on-click-open-page="viking-page">Story</button>
 			<button on-click-open-page="inventory-page">ᚠ Inventory</button>
@@ -41,4 +45,5 @@
 			</offset-element>
 		</flex-h>
 	</flex-v>
+	<custom-modal id="modal" hidden></custom-modal>
 </overlay-fixed>

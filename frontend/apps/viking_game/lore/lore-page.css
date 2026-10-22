@@ -8,7 +8,7 @@ lore-page .lore-scroll {
 	width: 100%;
 }
 
-lore-page .lore-scroll article {
+lore-page .lore-scroll button {
 	display: flex;
 	gap: 20px;
 	padding: 14px 18px;
@@ -18,7 +18,7 @@ lore-page .lore-scroll article {
 	color: #342719;
 }
 
-lore-page .lore-scroll article > span {
+lore-page .lore-scroll button > span {
 	font-size: 38px;
 	color: #9e6937;
 }

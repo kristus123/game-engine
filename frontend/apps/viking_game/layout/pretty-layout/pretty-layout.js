@@ -1,6 +1,3 @@
-const borderColors = ["#ff69b4", "#ffd166", "#06d6a0", "#4cc9f0"]
-let borderColorIndex = 0
-
 export default ({ html }) => {
 	const border = html.firstElementChild
 	border.style.transition = "border-color 300ms ease"
@@ -13,13 +10,17 @@ export default ({ html }) => {
 		html.wood.content = wood
 	})
 
+	Game.onNewActionTaken(actionsTaken => {
+		html.actionsTaken.content = actionsTaken
+	})
+
 	return {
 		methods: {
-			incrementDay: () => {},
+			incrementDay: () => {
+			},
 		},
 		onPageOpen: () => {
-			const color = borderColors[borderColorIndex++ % borderColors.length]
-			border.style.borderColor = color
+			border.style.borderColor = Random.choice(["#ff69b4", "#ffd166", "#06d6a0", "#4cc9f0"])
 		},
 		onPageClose: () => {
 			border.style.borderColor = "transparent"

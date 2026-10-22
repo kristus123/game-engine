@@ -7,6 +7,7 @@ export function InjectAttributeLogicToHtml(child, methods={}, setState) {
 				})
 			}
 			case "on-click" {
+				Assert.true(child.tag == "button", "on-click can only be used on button elements")
 				child.listen("click", () => {
 					methods[value]?.()
 				})

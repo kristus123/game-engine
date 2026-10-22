@@ -2,21 +2,13 @@ reputation-page .reputation-page-content {
 	background: rgb(255 255 255 / 88%);
 }
 
-reputation-page .reputation-meter {
-	width: min(680px, 90%);
-	height: 30px;
-	border: 3px solid #755a35;
+reputation-page .reputation-status {
+	display: inline-block;
+	padding: 8px 18px;
+	border: 2px solid #397653;
 	border-radius: 999px;
-	background: #eadfca;
-	overflow: hidden;
-}
-
-reputation-page .reputation-meter div {
-	height: 100%;
-	background: linear-gradient(90deg, #d69b4d, #4f9b75);
-}
-
-reputation-page .reputation-score {
+	background: #b8e0c2;
+	color: #1f5738;
 	font-size: 28px;
 }
 
@@ -27,7 +19,7 @@ reputation-page .reputation-grid {
 	width: 100%;
 }
 
-reputation-page .reputation-grid article {
+reputation-page .reputation-grid button {
 	padding: 20px;
 	border: 2px solid #d4bd82;
 	border-radius: 14px;

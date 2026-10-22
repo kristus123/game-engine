@@ -49,4 +49,18 @@ pretty-layout #aoe-footer button {
 	background: #d4bd82;
 	color: #342719;
 	font-size: 20px;
+	cursor: pointer;
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+pretty-layout #aoe-footer button:hover,
+pretty-layout #aoe-footer button:focus-visible {
+	background: #efd99f;
+	box-shadow: 0 5px 0 rgb(52 39 25 / 25%);
+	transform: translateY(-2px);
+}
+
+pretty-layout #aoe-footer button:active {
+	box-shadow: 0 2px 0 rgb(52 39 25 / 25%);
+	transform: translateY(1px);
 }

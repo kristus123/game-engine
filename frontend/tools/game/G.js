@@ -1,4 +1,5 @@
 export class G {
+	// year
 	static _year = ValueListener(0)
 
 	static get year() {
@@ -12,7 +13,9 @@ export class G {
 	static onYear(callback) {
 		this._year.listen(callback)
 	}
+	// year
 
+	// wood
 	static _wood = ValueListener(0)
 
 	static get wood() {
@@ -26,5 +29,6 @@ export class G {
 	static onWood(callback) {
 		this._wood.listen(callback)
 	}
-
+	// wood
+	
 }

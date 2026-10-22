@@ -16,6 +16,39 @@ map-page .viking-content-page {
 	overflow: auto;
 }
 
+inventory-page .item-card,
+family-page .person-card,
+relationships-page .relationship-card,
+reputation-page .reputation-grid button,
+lore-page .lore-scroll button {
+	cursor: pointer;
+	transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+inventory-page .item-card,
+family-page .person-card,
+relationships-page .relationship-card,
+reputation-page .reputation-grid button,
+lore-page .lore-scroll button {
+	font: inherit;
+	text-align: inherit;
+}
+
+inventory-page .item-card:hover,
+inventory-page .item-card:focus-visible,
+family-page .person-card:hover,
+family-page .person-card:focus-visible,
+relationships-page .relationship-card:hover,
+relationships-page .relationship-card:focus-visible,
+reputation-page .reputation-grid button:hover,
+reputation-page .reputation-grid button:focus-visible,
+lore-page .lore-scroll button:hover,
+lore-page .lore-scroll button:focus-visible {
+	border-color: #9e6937;
+	box-shadow: 0 8px 0 rgb(52 39 25 / 18%);
+	transform: translateY(-4px);
+}
+
 inventory-page .viking-content-page h1,
 family-page .viking-content-page h1,
 relationships-page .viking-content-page h1,
@@ -50,6 +83,58 @@ map-page .page-nav {
 	background: #10204f;
 	color: #f5e6b8;
 	font-size: 20px;
+}
+
+inventory-page .page-nav,
+family-page .page-nav,
+relationships-page .page-nav,
+reputation-page .page-nav,
+lore-page .page-nav,
+map-page .page-nav {
+	cursor: pointer;
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+inventory-page .page-nav:hover,
+inventory-page .page-nav:focus-visible,
+family-page .page-nav:hover,
+family-page .page-nav:focus-visible,
+relationships-page .page-nav:hover,
+relationships-page .page-nav:focus-visible,
+reputation-page .page-nav:hover,
+reputation-page .page-nav:focus-visible,
+lore-page .page-nav:hover,
+lore-page .page-nav:focus-visible,
+map-page .page-nav:hover,
+map-page .page-nav:focus-visible {
+	background: #1f5b5a;
+	box-shadow: 0 6px 0 rgb(52 39 25 / 35%);
+	transform: translateY(-2px);
+}
+
+custom-modal .viking-modal-content {
+	color: #342719;
+}
+
+custom-modal .viking-modal-content img {
+	display: block;
+	width: 120px;
+	height: 120px;
+	margin: 0 auto 18px;
+	border: 3px solid #d4bd82;
+	border-radius: 18px;
+	object-fit: cover;
+}
+
+custom-modal .viking-modal-content h2 {
+	margin: 0;
+	font-size: clamp(30px, 5vw, 48px);
+}
+
+custom-modal .viking-modal-content p {
+	margin: 18px 0 0;
+	font-size: clamp(18px, 2.4vw, 25px);
+	line-height: 1.4;
 }
 
 @media (width <= 760px) {
