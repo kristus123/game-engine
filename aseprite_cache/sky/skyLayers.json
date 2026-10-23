@@ -1,0 +1,59 @@
+{ "frames": {
+   "redSky_0_idle": {
+    "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "sun_0_idle": {
+    "frame": { "x": 0, "y": 129, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "skySmoke_0_idle": {
+    "frame": { "x": 0, "y": 258, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "backgroundTrees_0_idle": {
+    "frame": { "x": 0, "y": 387, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "darkMountains_0_idle": {
+    "frame": { "x": 0, "y": 516, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   },
+   "clouds_0_idle": {
+    "frame": { "x": 0, "y": 645, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "skyLayers.png",
+  "format": "RGBA8888",
+  "size": { "w": 234, "h": 774 },
+  "scale": "1"
+ }
+}

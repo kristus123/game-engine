@@ -1,0 +1,28 @@
+{ "frames": [
+   {
+    "filename": "sky.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 234, "h": 129 },
+    "sourceSize": { "w": 234, "h": 129 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "format": "RGBA8888",
+  "size": { "w": 234, "h": 129 },
+  "scale": "1",
+  "layers": [
+   { "name": "redSky", "opacity": 255, "blendMode": "normal" },
+   { "name": "sun", "opacity": 255, "blendMode": "normal" },
+   { "name": "skySmoke", "opacity": 255, "blendMode": "normal" },
+   { "name": "mountains" },
+   { "name": "backgroundTrees", "group": "mountains", "opacity": 255, "blendMode": "normal" },
+   { "name": "darkMountains", "group": "mountains", "opacity": 255, "blendMode": "normal" },
+   { "name": "clouds", "opacity": 255, "blendMode": "normal" }
+  ]
+ }
+}

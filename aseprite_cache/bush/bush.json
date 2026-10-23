@@ -1,0 +1,31 @@
+{ "frames": [
+   {
+    "filename": "berries",
+    "frame": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   },
+   {
+    "filename": "idle",
+    "frame": { "x": 0, "y": 18, "w": 23, "h": 18 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 23, "h": 18 },
+    "sourceSize": { "w": 23, "h": 18 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "bush.png",
+  "format": "RGBA8888",
+  "size": { "w": 23, "h": 36 },
+  "scale": "1",
+  "slices": [
+  ]
+ }
+}

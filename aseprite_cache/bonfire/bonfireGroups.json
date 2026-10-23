@@ -1,0 +1,157 @@
+{ "frames": [
+   {
+    "filename": "bonfire 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 1.aseprite",
+    "frame": { "x": 4, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 2.aseprite",
+    "frame": { "x": 8, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 3.aseprite",
+    "frame": { "x": 12, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 4.aseprite",
+    "frame": { "x": 16, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 5.aseprite",
+    "frame": { "x": 20, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 6.aseprite",
+    "frame": { "x": 24, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 7.aseprite",
+    "frame": { "x": 28, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 8.aseprite",
+    "frame": { "x": 32, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 9.aseprite",
+    "frame": { "x": 36, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 10.aseprite",
+    "frame": { "x": 40, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 11.aseprite",
+    "frame": { "x": 44, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 12.aseprite",
+    "frame": { "x": 48, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 13.aseprite",
+    "frame": { "x": 52, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 14.aseprite",
+    "frame": { "x": 56, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "bonfire 15.aseprite",
+    "frame": { "x": 60, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "format": "RGBA8888",
+  "size": { "w": 64, "h": 13 },
+  "scale": "1",
+  "layers": [
+   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
+  ]
+ }
+}

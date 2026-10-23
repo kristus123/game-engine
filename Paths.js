@@ -4,7 +4,7 @@ export class Paths {
 	static sharedFolder = "shared"
 	static devFolder = "dev"
 	static distFolder = "dist"
-	static asepriteCacheFolder = ".cache/aseprite"
+	static asepriteCacheFolder = "aseprite_cache"
 	static transpiledBackend = "transpiledBackend"
 	static transpiledShared = "transpiledShared"
 

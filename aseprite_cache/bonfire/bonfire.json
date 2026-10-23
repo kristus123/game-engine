@@ -1,0 +1,157 @@
+{ "frames": [
+   {
+    "filename": "",
+    "frame": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 4, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 8, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 12, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 16, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 20, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 24, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 28, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 32, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 36, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 40, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 44, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 48, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 52, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 56, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   {
+    "filename": "",
+    "frame": { "x": 60, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "bonfire.png",
+  "format": "RGBA8888",
+  "size": { "w": 64, "h": 13 },
+  "scale": "1",
+  "slices": [
+  ]
+ }
+}

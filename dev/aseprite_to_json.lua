@@ -61,7 +61,7 @@ if not filename then
   filename = path:match("([^/]+)$")
 end
 
-local outBaseDir = ".cache/aseprite/" .. filename
+local outBaseDir = "aseprite_cache/" .. filename
 local outBase = outBaseDir .. "/" .. filename
 
 local ok1

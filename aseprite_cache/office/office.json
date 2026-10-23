@@ -1,0 +1,22 @@
+{ "frames": [
+   {
+    "filename": "",
+    "frame": { "x": 0, "y": 0, "w": 320, "h": 320 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 320, "h": 320 },
+    "sourceSize": { "w": 320, "h": 320 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "office.png",
+  "format": "RGBA8888",
+  "size": { "w": 320, "h": 320 },
+  "scale": "1",
+  "slices": [
+  ]
+ }
+}

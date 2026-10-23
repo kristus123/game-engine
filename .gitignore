@@ -1,5 +1,5 @@
 .eslintcache
-.cache/lint/
+.cache/
 
 public_folder/hls/
 public_folder/twitch_clips/
@@ -8,7 +8,6 @@ gitignored_folder/
 
 dist/
 transpiledBackend/
-.cache/aseprite/
 
 AllImports.js
 

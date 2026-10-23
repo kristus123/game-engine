@@ -1,0 +1,139 @@
+{ "frames": {
+   "Layer 2_0_": {
+    "frame": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_1_": {
+    "frame": { "x": 4, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_2_": {
+    "frame": { "x": 8, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_3_": {
+    "frame": { "x": 12, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_4_": {
+    "frame": { "x": 16, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_5_": {
+    "frame": { "x": 20, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_6_": {
+    "frame": { "x": 24, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_7_": {
+    "frame": { "x": 28, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_8_": {
+    "frame": { "x": 32, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_9_": {
+    "frame": { "x": 36, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_10_": {
+    "frame": { "x": 40, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_11_": {
+    "frame": { "x": 44, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_12_": {
+    "frame": { "x": 48, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_13_": {
+    "frame": { "x": 52, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_14_": {
+    "frame": { "x": 56, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   },
+   "Layer 2_15_": {
+    "frame": { "x": 60, "y": 0, "w": 4, "h": 13 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 4, "h": 13 },
+    "sourceSize": { "w": 4, "h": 13 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "bonfireLayers.png",
+  "format": "RGBA8888",
+  "size": { "w": 64, "h": 13 },
+  "scale": "1"
+ }
+}

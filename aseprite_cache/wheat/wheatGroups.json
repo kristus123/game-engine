@@ -1,0 +1,112 @@
+{ "frames": [
+   {
+    "filename": "wheat 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 1.aseprite",
+    "frame": { "x": 32, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 2.aseprite",
+    "frame": { "x": 64, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 3.aseprite",
+    "frame": { "x": 96, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 4.aseprite",
+    "frame": { "x": 128, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 5.aseprite",
+    "frame": { "x": 160, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 6.aseprite",
+    "frame": { "x": 192, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 7.aseprite",
+    "frame": { "x": 224, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 8.aseprite",
+    "frame": { "x": 256, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 9.aseprite",
+    "frame": { "x": 288, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   },
+   {
+    "filename": "wheat 10.aseprite",
+    "frame": { "x": 320, "y": 0, "w": 32, "h": 24 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 24 },
+    "sourceSize": { "w": 32, "h": 24 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "format": "RGBA8888",
+  "size": { "w": 352, "h": 24 },
+  "scale": "1",
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ]
+ }
+}

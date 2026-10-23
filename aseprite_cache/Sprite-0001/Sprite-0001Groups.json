@@ -1,0 +1,22 @@
+{ "frames": [
+   {
+    "filename": "Sprite-0001.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 1077, "h": 262 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1077, "h": 262 },
+    "sourceSize": { "w": 1077, "h": 262 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "format": "RGBA8888",
+  "size": { "w": 1077, "h": 262 },
+  "scale": "1",
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ]
+ }
+}
