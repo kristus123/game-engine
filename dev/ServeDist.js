@@ -52,7 +52,20 @@ const server = http.createServer((req, res) => {
 })
 
 export function ServeDist() {
-	server.listen(5050, "0.0.0.0")
+	return new Promise((resolve, reject) => {
+		const onError = error => {
+			server.removeListener("listening", onListening)
+			reject(error)
+		}
+		const onListening = () => {
+			server.removeListener("error", onError)
+			resolve()
+		}
+
+		server.once("error", onError)
+		server.once("listening", onListening)
+		server.listen(5050, "0.0.0.0")
+	})
 }
 
 

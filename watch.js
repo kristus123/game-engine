@@ -216,7 +216,26 @@ async function startDevelopmentEnvironment() {
 	if (shuttingDown) {
 		return
 	}
-	ServeDist()
+	try {
+		for (let attempt = 0; attempt < 20; attempt++) {
+			try {
+				await ServeDist()
+				break
+			}
+			catch (error) {
+				if (error.code != "EADDRINUSE" || attempt == 19) {
+					throw error
+				}
+				await new Promise(resolve => setTimeout(resolve, 100))
+			}
+		}
+	}
+	catch (error) {
+		if (!shuttingDown) {
+			console.error("Failed to start development server on port 5050", error)
+		}
+		return
+	}
 	backendId += 1
 	p.args = ["transpiledBackend/StartServer.js", backendId]
 	p.start()
