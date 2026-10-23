@@ -39,7 +39,12 @@ export class Swoo {
 
 			for (const [pid, port] of pids) {
 				console.log(`Killing process on port ${port} (PID: ${pid})`)
-				execFileSync("taskkill", ["/PID", pid, "/F"], { stdio: "inherit" })
+				try {
+					execFileSync("taskkill", ["/PID", pid, "/F"], { stdio: "inherit" })
+				}
+				catch (error) {
+					console.log(`Could not kill PID ${pid}; continuing startup`)
+				}
 			}
 
 			for (const port of ports) {
