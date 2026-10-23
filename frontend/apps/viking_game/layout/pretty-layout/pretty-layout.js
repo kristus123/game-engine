@@ -16,6 +16,7 @@ export default ({ html }) => {
 
 	return {
 		methods: {
+			showJarle: () => html.jarleModal.show(),
 			incrementDay: () => {
 			},
 		},

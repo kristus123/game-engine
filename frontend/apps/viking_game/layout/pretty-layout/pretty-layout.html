@@ -33,12 +33,13 @@
 
 		<flex-h id="aoe-footer" space-between align-center style="gap: 8px; padding: 6px; background: #e6d4a2">
 			<offset-element width="200px" offset-y="-20px">
-				<img src="Png.reindeer" stretch style="height: 200px" />
-				<h2 style="height: 28px; display: grid; place-items: center; color: #342719; font-size: 16px">Jarle</h2>
+				<button class="jarle-card" on-click="showJarle">
+					<img src="Png.reindeer" stretch />
+					<h2>Jarle</h2>
+				</button>
 			</offset-element>
 
 			<button on-click-open-page="village-page">Village</button>
-			<button on-click-open-page="viking-page">Story</button>
 			<button on-click-open-page="inventory-page">ᚠ Inventory</button>
 			<button on-click-open-page="family-page">ᛟ Family</button>
 			<button id="relationships" on-click-open-page="relationships-page">ᛉ Relationships</button>
@@ -52,3 +53,18 @@
 		</flex-h>
 	</flex-v>
 </overlay-fixed>
+
+<custom-modal id="jarleModal" hidden>
+	<div class="viking-modal-content">
+		<img src="Png.reindeer" alt="Jarle the reindeer" />
+		<h2>Jarle, keeper of the northern road</h2>
+		<p>Jarle knows every trail, shelter, and safe crossing around Vikingheim. He is the settlement's patient guide and first scout.</p>
+		<h3>Skills</h3>
+		<ul>
+			<li><strong>Trailblazing:</strong> finds safe routes through forests and snow.</li>
+			<li><strong>Foraging:</strong> spots useful plants and hidden sources of food.</li>
+			<li><strong>Winter sense:</strong> reads the weather before a storm arrives.</li>
+			<li><strong>Steady companion:</strong> keeps travelers calm when the road gets difficult.</li>
+		</ul>
+	</div>
+</custom-modal>

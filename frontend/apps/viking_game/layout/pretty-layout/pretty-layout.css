@@ -65,6 +65,55 @@ pretty-layout #aoe-footer button:active {
 	transform: translateY(1px);
 }
 
+pretty-layout #aoe-footer .jarle-card {
+	width: 200px;
+	height: 228px;
+	min-width: 200px;
+	padding: 0;
+	border: 0;
+	border-radius: 12px;
+	background: transparent;
+	box-shadow: none;
+	color: #342719;
+	font-size: 16px;
+}
+
+pretty-layout #aoe-footer .jarle-card:hover,
+pretty-layout #aoe-footer .jarle-card:focus-visible {
+	background: rgb(239 217 159 / 55%);
+	box-shadow: 0 5px 0 rgb(52 39 25 / 25%);
+}
+
+pretty-layout #aoe-footer .jarle-card img {
+	display: block;
+	width: 200px;
+	height: 200px;
+	object-fit: contain;
+}
+
+pretty-layout #aoe-footer .jarle-card h2 {
+	height: 28px;
+	display: grid;
+	place-items: center;
+	margin: 0;
+	font-size: 16px;
+}
+
+pretty-layout custom-modal .viking-modal-content h2 {
+	margin: 0 0 12px;
+	font-size: clamp(30px, 5vw, 48px);
+}
+
+pretty-layout custom-modal .viking-modal-content h3 {
+	margin: 24px 0 8px;
+	font-size: 28px;
+}
+
+pretty-layout custom-modal .viking-modal-content li {
+	margin-top: 8px;
+	font-size: 20px;
+}
+
 pretty-layout #aoe-footer .map-preview {
 	width: 190px !important;
 }
