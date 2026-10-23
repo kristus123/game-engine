@@ -2,6 +2,7 @@
 // And I guess it would be very useful to have an easy overview of what event listeners are being used.
 
 export class Mouse {
+	// Use DomMouse when you need screen coordinates for ordinary DOM interactions.
 
 	static latest_x = 0
 	static latest_y = 0

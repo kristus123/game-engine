@@ -12,8 +12,8 @@ export class FloatingHtml {
 		e.style.position = "fixed"
 		e.style.pointerEvents = "none"
 
-		e.x = args.x ?? Mouse.screenX
-		e.y = args.y ?? Mouse.screenY
+		e.x = args.x ?? DomMouse.x
+		e.y = args.y ?? DomMouse.y
 
 		this.layer.append(e)
 

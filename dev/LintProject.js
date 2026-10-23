@@ -14,9 +14,19 @@ export async function LintProject() {
 
 	const started = performance.now()
 	const folders = ["frontend", "backend", "shared", "dev", "scripts", "prod", "documentation"]
-	const files = [
+	const sourceFiles = [
 		...fs.readdirSync(".", { withFileTypes: true }).filter(entry => entry.isFile()).map(entry => entry.name),
 		...folders.flatMap(folder => Files.at(folder)),
+	]
+	const zoneIdentifierFiles = sourceFiles.filter(file => path.basename(file).endsWith(":Zone.Identifier"))
+	for (const file of zoneIdentifierFiles) {
+		fs.unlinkSync(file)
+	}
+	if (zoneIdentifierFiles.length > 0) {
+		console.log(`Removed ${zoneIdentifierFiles.length} Zone.Identifier file(s)`)
+	}
+	const files = [
+		...sourceFiles.filter(file => !zoneIdentifierFiles.includes(file)),
 	].filter(file => !["Secrets.js", "AllImports.js"].includes(path.basename(file)))
 	const cacheFolder = ".cache/lint"
 	fs.mkdirSync(cacheFolder, { recursive: true })

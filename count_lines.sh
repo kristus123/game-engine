@@ -10,6 +10,7 @@ find . -type f \( \
 \) \
 	-not -path "./node_modules/*" \
 	-not -path "./dist/*" \
+	-not -path "./capacitor_setup/*" \
 	-not -path "./transpiledBackend/*" \
 	-not -path "./.git/*" \
 	-print0 | xargs -0 cat | wc -l

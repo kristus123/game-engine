@@ -18,6 +18,12 @@
 					Wood ᚠ
 					<span id="wood">x</span>
 				</span>
+				<div class="village-virtues">
+					<strong>Village virtues</strong>
+					<span title="Neighbors remember the supplies you share in hard winters.">✦ Generosity</span>
+					<span title="Promises kept during road-building have earned trust.">⚒ Reliability</span>
+					<span title="Travelers speak warmly of the fire and food at your hall.">ᛉ Hospitality</span>
+				</div>
 			</flex-h>
 		</flex-h>
 
@@ -32,16 +38,16 @@
 			</offset-element>
 
 			<button on-click-open-page="village-page">Village</button>
-			<button on-click-open-page="map-page">Map</button>
 			<button on-click-open-page="viking-page">Story</button>
 			<button on-click-open-page="inventory-page">ᚠ Inventory</button>
 			<button on-click-open-page="family-page">ᛟ Family</button>
-			<button on-click-open-page="reputation-page">↑ Reputation</button>
 			<button id="relationships" on-click-open-page="relationships-page">ᛉ Relationships</button>
 			<button on-click-open-page="lore-page">ᚱ Lore</button>
-			<offset-element width="200px" offset-y="-20px">
-				<img src="Png.reindeer" stretch style="height: 200px" />
-				<h2 style="height: 28px; display: grid; place-items: center; color: #342719; font-size: 16px">Jarle</h2>
+			<offset-element class="map-preview" offset-y="-14px" width="230px" height="400px">
+				<button class="map-preview-button" on-click-open-page="map-page">
+					<img src="Png.minimap" stretch />
+					<span>Open map</span>
+				</button>
 			</offset-element>
 		</flex-h>
 	</flex-v>

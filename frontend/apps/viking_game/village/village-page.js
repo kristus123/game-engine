@@ -4,7 +4,6 @@ export const page = {
 }
 
 export default async ({ html }) => {
-	CanvasGame(html.canvasArea)
 	const openModalDemo = () => {
 		const modal = Assert.value(html.modal)
 		modal.show()
