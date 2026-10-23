@@ -7,7 +7,7 @@ export async function CanvasLoop(activeThing, canvasParent = document.body) {
 	return GameLoop.start(() => {
 		Physics.update()
 		Controller.update()
-		Con.update()
+		GamepadController.update()
 
 		Camera.update()
 		Mouse.update()

@@ -7,7 +7,7 @@ function _improvedStickValue(num) {
 
 let index = null
 
-export class Con {
+export class GamepadController {
 
 	static {
 		window.addEventListener("gamepadconnected", (e) => {

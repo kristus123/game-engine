@@ -1,7 +1,7 @@
-// maybe merge Controller and Gamepad/Con.js
+// maybe merge Controller and GamepadController.js
 // i think that makes sense
 //
-// Con.control(player)
+// GamepadController.control(player)
 
 function NotNull(arg) { // no-null-check
 	return arg != null

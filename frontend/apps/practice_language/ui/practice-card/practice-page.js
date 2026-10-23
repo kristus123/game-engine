@@ -59,24 +59,24 @@ export default async ({ html, setState }) => {
 		},
 	}
 
-	Con.left = () => {
+	GamepadController.left = () => {
 		r.methods.easy()
 	}
 
-	Con.right = () => {
+	GamepadController.right = () => {
 		r.methods.hard()
 	}
 
-	Con.triangle = () => {
+	GamepadController.triangle = () => {
 		r.methods.playFront()
 	}
 
-	Con.cross = () => {
+	GamepadController.cross = () => {
 		r.methods.playBack()
 	}
 
 	FrameLoop(() => {
-		Con.update()
+		GamepadController.update()
 	})
 
 	return r
