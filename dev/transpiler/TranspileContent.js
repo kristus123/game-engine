@@ -10,6 +10,7 @@ export function TranspileContent(filePath, fileContent, jsFiles) {
 	if (fileContent.includes("// disable-transpiling")) {
 		return fileContent
 	}
+	fileContent = fileContent.replaceAll("\r\n", "\n")
 
 	const className = path.parse(filePath).name
 	const fileName = path.basename(filePath)

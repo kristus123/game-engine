@@ -96,6 +96,8 @@ export function ControlFlowSyntaxChecks() {
 		].join("\n")
 		const generated = TranspileContent("LoopExample.js", source, [])
 		assert.equal(generated.includes("Assert.notNull"), false)
+		const windowsGenerated = TranspileContent("LoopExample.js", source.replaceAll("\n", "\r\n"), [])
+		assert.equal(windowsGenerated, generated)
 		const condition = { validate(value) {
 			assert.equal(typeof value, "boolean")
 			return value
