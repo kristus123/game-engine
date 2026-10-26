@@ -3,69 +3,67 @@ export const page = {
 	layout: "pretty-layout",
 }
 
-export default async ({ html }) => {
-	for const advisor of Advisors {
-		html.advisors.add(html.advisorTemplate.cloneTemplate({
+function show(html, key) {
+	const { text, choices } = Assert.value(Story[key])
+
+	html.story.content = text
+	html.choices.removeChildren()
+
+	for const choice of choices {
+		const button = html.choiceButtonTemplate.cloneTemplate({
 			slots: {
-				img: Png[advisor.image],
+				text: choice.text
 			},
-			data: {
-				advisor: advisor.name,
-			},
-		}))
+		})
+
+		button.onClick(async () => {
+			if choice.next == "end" {
+				G.chopWood()
+				G.newActionTaken()
+				await Page.open("village-page")
+				show(html, "start")
+			}
+			else {
+				show(html, choice.next)
+			}
+		})
+
+		html.choices.add(button)
 	}
+}
 
-	const show = key => {
-		const { text, choices } = Assert.value(Story[key])
-
-		html.story.content = text
-		html.choices.removeChildren()
-
-		for const choice of choices {
-			const button = html.choiceButtonTemplate.cloneTemplate({
+export default {
+	onFirstDomAdd: (html) => {
+		for const advisor of Advisors {
+			html.advisors.add(html.advisorTemplate.cloneTemplate({
 				slots: {
-					text: choice.text
+					img: Png[advisor.image],
 				},
-			})
-
-			button.onClick(async () => {
-				if choice.next == "end" {
-					G.chopWood()
-					G.newActionTaken()
-					await Page.open("village-page")
-					show("start")
-				}
-				else {
-					show(choice.next)
-				}
-			})
-
-			html.choices.add(button)
+				data: {
+					advisor: advisor.name,
+				},
+			}))
 		}
-	}
-
-	show("start")
-
-	return {
-		onPageOpen: () => html.play("pageEnterRight"),
-		onPageClose: () => html.play("pageExitRight"),
-		onDomAdd: () => {
-			console.log("these will also trigger as usual")
+		show(html, "start")
+	},
+	onPageOpen: (html) => html.play("pageEnterRight"),
+	onPageClose: (html) => html.play("pageExitRight"),
+	onDomAdd: () => {
+		console.log("these will also trigger as usual")
+	},
+	onDomRemove: () => {
+		console.log("these will also trigger as usual")
+	},
+	onHoverShow: {
+		advicePopover: (html, { origin, popover }) => {
+			const advisor = Advisors.find(a => a.name == origin.data.advisor)
+			popover.h1.content = advisor.name
+			popover.p.content = Random.choice(advisor.advice)
 		},
-		onDomRemove: () => {
-			console.log("these will also trigger as usual")
+	},
+	onHoverHide: {
+		otherRandomThing: () => {
+			console.log("not yet implemented")
 		},
-		onHoverShow: {
-			advicePopover: ({ origin, popover }) => {
-				const advisor = Advisors.find(a => a.name == origin.data.advisor)
-				popover.h1.content = advisor.name
-				popover.p.content = Random.choice(advisor.advice)
-			},
-		},
-		onHoverHide: {
-			otherRandomThing: ({ origin, popover }) => {
-				console.log("not yet implemented")
-			},
-		},
-	}
+	},
 }

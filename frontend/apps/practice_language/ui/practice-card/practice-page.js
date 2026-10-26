@@ -2,82 +2,80 @@ export const page = {
 	persistOnClose: true,
 }
 
-export default async ({ html, setState }) => {
+async function loadNewCard(html) {
+	html.fields.setState("loading")
+	html.fields.card = await html.fields.cardDb.cardToPractice()
 
-	Screen.keepAwake()
-
-	const stopWatch = StopWatch().start()
-	setInterval(() => {
-		html.time.content = stopWatch.mmss
-	}, 950)
-
-	let card = null
-	const cardDb = await CardDb()
-	async function loadNewCard() {
-		setState("loading")
-
-		card = await cardDb.cardToPractice()
-
-		if card {
-			Sound.playBlob(card.practiceSide().sound)
-			return setState("hasCard")
-		}
-		else {
-			return setState("noMoreCards")
-		}
+	if html.fields.card {
+		Sound.playBlob(html.fields.card.practiceSide().sound)
+		return html.fields.setState("hasCard")
 	}
-
-	const r = {
-		state: async () => {
-			return await loadNewCard() // kinda hacky but ok for now
-		},
-		methods: {
-			playFront: async () => {
-				Sound.playBlob(card.practiceSide().sound)
-			},
-			playBack: async () => {
-				Sound.playBlob(card.otherSide().sound)
-			},
-			easy: async () => {
-				await card.markEasy()
-				await cardDb.update(card)
-				await loadNewCard()
-			},
-			hard: async () => {
-				await card.markHard()
-				await cardDb.update(card)
-				await loadNewCard()
-			},
-			practiceMore: async () => {
-				await cardDb.resetAllDueDates()
-				await loadNewCard()
-			},
-			deleteCard: async () => {
-				await cardDb.delete(card)
-				await loadNewCard()
-			},
-		},
+	else {
+		return html.fields.setState("noMoreCards")
 	}
-
-	GamepadController.left = () => {
-		r.methods.easy()
-	}
-
-	GamepadController.right = () => {
-		r.methods.hard()
-	}
-
-	GamepadController.triangle = () => {
-		r.methods.playFront()
-	}
-
-	GamepadController.cross = () => {
-		r.methods.playBack()
-	}
-
-	FrameLoop(() => {
-		GamepadController.update()
-	})
-
-	return r
 }
+
+const component = {
+	fields: () => ({
+		card: null,
+		cardDb: null,
+		setState: null,
+	}),
+	state: async (html, setState) => {
+		html.fields.setState = setState
+		html.fields.cardDb = await CardDb()
+		return await loadNewCard(html)
+	},
+	onFirstDomAdd: (html) => {
+		Screen.keepAwake()
+
+		const stopWatch = StopWatch().start()
+		setInterval(() => {
+			html.time.content = stopWatch.mmss
+		}, 950)
+
+		GamepadController.left = () => {
+			component.methods.easy(html)
+		}
+		GamepadController.right = () => {
+			component.methods.hard(html)
+		}
+		GamepadController.triangle = () => {
+			component.methods.playFront(html)
+		}
+		GamepadController.cross = () => {
+			component.methods.playBack(html)
+		}
+		FrameLoop(() => {
+			GamepadController.update()
+		})
+	},
+	methods: {
+		playFront: async (html) => {
+			Sound.playBlob(html.fields.card.practiceSide().sound)
+		},
+		playBack: async (html) => {
+			Sound.playBlob(html.fields.card.otherSide().sound)
+		},
+		easy: async (html) => {
+			await html.fields.card.markEasy()
+			await html.fields.cardDb.update(html.fields.card)
+			await loadNewCard(html)
+		},
+		hard: async (html) => {
+			await html.fields.card.markHard()
+			await html.fields.cardDb.update(html.fields.card)
+			await loadNewCard(html)
+		},
+		practiceMore: async (html) => {
+			await html.fields.cardDb.resetAllDueDates()
+			await loadNewCard(html)
+		},
+		deleteCard: async (html) => {
+			await html.fields.cardDb.delete(html.fields.card)
+			await loadNewCard(html)
+		},
+	},
+}
+
+export default component

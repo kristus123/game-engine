@@ -2,88 +2,88 @@ export const page = {
 	persistOnClose: false,
 }
 
-export default async ({ html }) => {
-	let wait = false
-	let resetTimeout = null
+export default {
+	fields: () => ({
+		wait: false,
+		resetTimeout: null,
+	}),
+	onFirstDomAdd: (html) => {
+		for const name of ["1", "2", "3"] {
+			Iterate(2, () => {
+				const card = H.create("flip-card", {
+					slots: {
+						front: "?",
+						back: name,
+						image: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
+					},
+					data: {
+						name: name,
+						found: "false",
+					},
+				})
 
-	for const name of ["1", "2", "3"] {
-		Iterate(2, () => {
-			const card = H.create("flip-card", {
-				slots: {
-					front: "?",
-					back: name,
-					image: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
-				},
-				data: {
-					name: name,
-					found: "false",
-				},
-			})
-
-			card.onClick(() => {
-				if wait {
-					return
-				}
-
-				card.data.clicked = "true"
-
-				const cardsClicked = html.cards
-					.filter(c => c.data.found == "false")
-					.filter(c => c.data.clicked == "true")
-
-				if cardsClicked.length == 2 {
-					if cardsClicked.every(c => c.data.name == name) {
-						console.log("you find it")
-						cardsClicked.forEach(c => {
-							c.removeOnClick()
-							c.data.found = "true"
-							c.data.clicked = "true"
-						})
+				card.onClick(() => {
+					if html.fields.wait {
+						return
 					}
 
-					wait = true
-					resetTimeout = setTimeout(() => {
-						html.cards
-							.filter(c => c.data.found == "false")
-							.forEach(c => c.data.clicked = "false")
+					card.data.clicked = "true"
 
-						wait = false
-					}, 500)
-				}
+					const cardsClicked = html.cards
+						.filter(c => c.data.found == "false")
+						.filter(c => c.data.clicked == "true")
 
-				if html.cards.every(c => c.data.found == "true") {
-					console.log("all found!")
-					const q = Queue()
+					if cardsClicked.length == 2 {
+						if cardsClicked.every(c => c.data.name == name) {
+							console.log("you find it")
+							cardsClicked.forEach(c => {
+								c.removeOnClick()
+								c.data.found = "true"
+								c.data.clicked = "true"
+							})
+						}
 
-					html.cards.forEach(c => {
-						q.add(next => c.play("fadeOut", {
-							onHalf: () => {
-								next()
-							},
+						html.fields.wait = true
+						html.fields.resetTimeout = setTimeout(() => {
+							html.cards
+								.filter(c => c.data.found == "false")
+								.forEach(c => c.data.clicked = "false")
+
+							html.fields.wait = false
+						}, 500)
+					}
+
+					if html.cards.every(c => c.data.found == "true") {
+						console.log("all found!")
+						const q = Queue()
+
+						html.cards.forEach(c => {
+							q.add(next => c.play("fadeOut", {
+								onHalf: () => {
+									next()
+								},
+								onEnd: () => {
+									c.invisible()
+								},
+							}))
+						})
+
+						q.start({
 							onEnd: () => {
-								c.invisible()
+								console.log("finished")
 							},
-						}))
-					})
+						})
+					}
+				})
 
-					q.start({
-						onEnd: () => {
-							console.log("finished")
-						},
-					})
-				}
+				html.cards.add(card)
 			})
+		}
 
-			html.cards.add(card)
-		})
-	}
-
-	html.cards.randomizeOrder()
-
-	return {
-		onDomRemove: () => {
-			clearTimeout(resetTimeout)
-			wait = false
-		},
-	}
+		html.cards.randomizeOrder()
+	},
+	onDomRemove: (html) => {
+		clearTimeout(html.fields.resetTimeout)
+		html.fields.wait = false
+	},
 }

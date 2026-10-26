@@ -115,6 +115,31 @@ test("DOM hooks receive their host and retain its original fields on reconnectio
 	assert.deepEqual(events, [["add", element, fields], ["remove", element, fields], ["add", element, fields]])
 })
 
+test("object-style callbacks are bound to their component instance", async () => {
+	const calls = []
+	const create = await fixture({
+		state: element => {
+			calls.push(["state", element])
+			return "ready"
+		},
+		methods: { save: (element, value) => calls.push(["method", element, value]) },
+		onPageOpen: (element, value) => calls.push(["page", element, value]),
+		onHoverShow: { info: (element, detail) => calls.push(["hover", element, detail]) },
+	})
+	const element = create()
+	await connect(element)
+	const options = await element.whenReady()
+	options.methods.save("value")
+	options.onPageOpen("open")
+	options.onHoverShow.info("detail")
+	assert.deepEqual(calls, [
+		["state", element],
+		["method", element, "value"],
+		["page", element, "open"],
+		["hover", element, "detail"],
+	])
+})
+
 test("onFirstDomAdd runs once before onDomAdd while onDomAdd runs for every connection", async () => {
 	const events = []
 	const create = await fixture({

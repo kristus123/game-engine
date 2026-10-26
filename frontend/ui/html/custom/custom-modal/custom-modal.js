@@ -1,55 +1,50 @@
-export default async ({ html }) => {
-	let copiedStyleProperties = new Set()
-	const syncPanelStyles = () => {
-		const currentStyleProperties = new Set()
-		for let i = 0; i < html.style.length; i++ {
-			const property = html.style[i]
-			currentStyleProperties.add(property)
-			html.panel.style.setProperty(property, html.style.getPropertyValue(property), html.style.getPropertyPriority(property))
-		}
+function syncPanelStyles(html) {
+	const currentStyleProperties = new Set()
+	for let i = 0; i < html.style.length; i++ {
+		const property = html.style[i]
+		currentStyleProperties.add(property)
+		html.panel.style.setProperty(property, html.style.getPropertyValue(property), html.style.getPropertyPriority(property))
+	}
 
-		for const property of copiedStyleProperties {
-			if !currentStyleProperties.has(property) {
-				html.panel.style.removeProperty(property)
+	for const property of html.fields.copiedStyleProperties {
+		if !currentStyleProperties.has(property) {
+			html.panel.style.removeProperty(property)
+		}
+	}
+	html.fields.copiedStyleProperties = currentStyleProperties
+}
+
+function addListeners(html) {
+	document.addEventListener("keydown", html.fields.onKeyDown)
+	html.fields.styleObserver.observe(html, { attributes: true, attributeFilter: ["style"] })
+	syncPanelStyles(html)
+}
+
+export default {
+	fields: () => ({
+		copiedStyleProperties: new Set(),
+		onKeyDown: null,
+		styleObserver: null,
+	}),
+	onFirstDomAdd: (html) => {
+		html.show = () => {
+			html.hidden = false
+			html.closeButton.focus()
+		}
+		html.closeButton.onClick(() => html.hidden = true)
+		html.backdrop.onClick(() => html.hidden = true)
+		html.fields.onKeyDown = e => {
+			if e.key == "Escape" && !html.hidden {
+				html.hidden = true
 			}
 		}
-
-		copiedStyleProperties = currentStyleProperties
-	}
-
-	html.show = () => {
-		html.hidden = false
-		html.closeButton.focus()
-	}
-
-	html.closeButton.onClick(() => html.hidden = true)
-	html.backdrop.onClick(() => html.hidden = true)
-
-	const onKeyDown = e => {
-		if e.key == "Escape" && !html.hidden {
-			html.hidden = true
-		}
-	}
-	const addKeyListener = () => document.addEventListener("keydown", onKeyDown)
-	const removeKeyListener = () => document.removeEventListener("keydown", onKeyDown)
-
-	const styleObserver = new MutationObserver(syncPanelStyles)
-	const addStyleObserver = () => {
-		styleObserver.observe(html, { attributes: true, attributeFilter: ["style"] })
-		syncPanelStyles()
-	}
-	const removeStyleObserver = () => styleObserver.disconnect()
-	addKeyListener()
-	addStyleObserver()
-
-	return {
-		onDomAdd: () => {
-			addKeyListener()
-			addStyleObserver()
-		},
-		onDomRemove: () => {
-			removeKeyListener()
-			removeStyleObserver()
-		},
-	}
+		html.fields.styleObserver = new MutationObserver(() => syncPanelStyles(html))
+	},
+	onDomAdd: (html) => {
+		addListeners(html)
+	},
+	onDomRemove: (html) => {
+		document.removeEventListener("keydown", html.fields.onKeyDown)
+		html.fields.styleObserver.disconnect()
+	},
 }

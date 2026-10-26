@@ -3,13 +3,10 @@ export const page = {
 	layout: "pretty-layout",
 }
 
-export default async ({ html }) => {
-
-	return {
-		onPageOpen: async () => {
-			await Sim.click(html.frostholm)
-		},
-		methods: {
-		},
-	}
+export default {
+	onPageOpen: async (html) => {
+		await Sim.click(html.frostholm)
+	},
+	methods: {
+	},
 }

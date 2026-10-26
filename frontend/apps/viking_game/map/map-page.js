@@ -3,11 +3,11 @@ export const page = {
 	layout: "pretty-layout",
 }
 
-export default async ({ html }) => ({
+export default {
 	methods: {
-		openFriendlyClan: () => html.modal.show(),
+		openFriendlyClan: (html) => html.modal.show(),
 		raid: () => {
 			G.chopWood()
 		},
 	},
-})
+}

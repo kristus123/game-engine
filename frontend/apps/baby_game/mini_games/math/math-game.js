@@ -1,4 +1,4 @@
-export default async ({ html }) => {
+async function setup(html) {
 	let active = false
 	let placeholder = null
 	const dragHandlers = {}
@@ -129,4 +129,13 @@ export default async ({ html }) => {
 			}
 		},
 	}
+}
+
+export default {
+	fields: () => ({ options: null }),
+	onFirstDomAdd: async (html) => {
+		html.fields.options = await setup(html)
+	},
+	onDomAdd: (html) => html.fields.options.onDomAdd(),
+	onDomRemove: (html) => html.fields.options.onDomRemove(),
 }

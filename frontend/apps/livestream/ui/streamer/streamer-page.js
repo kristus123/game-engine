@@ -2,7 +2,7 @@ export const page = {
 	persistOnClose: true,
 }
 
-export default async ({ html }) => {
+async function setup(html) {
 	let isPreviewingStream = false
 	const streamPreview = document.createElement("video")
 	streamPreview.autoplay = false
@@ -236,4 +236,22 @@ export default async ({ html }) => {
 			throw wrappedError
 		}
 	}
+}
+
+export default {
+	fields: () => ({ options: null }),
+	onFirstDomAdd: async (html) => {
+		html.fields.options = await setup(html)
+	},
+	onDomAdd: (html) => html.fields.options.onDomAdd(),
+	onDomRemove: (html) => html.fields.options.onDomRemove(),
+	methods: {
+		openMicSettings: (html) => html.fields.options.methods.openMicSettings(),
+		refreshMicrophones: (html) => html.fields.options.methods.refreshMicrophones(),
+		clearMic: (html) => html.fields.options.methods.clearMic(),
+		selectNextCam: (html) => html.fields.options.methods.selectNextCam(),
+		togglePreview: (html) => html.fields.options.methods.togglePreview(),
+		startStream: (html) => html.fields.options.methods.startStream(),
+		stopStream: (html) => html.fields.options.methods.stopStream(),
+	},
 }

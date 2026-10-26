@@ -3,17 +3,14 @@ export const page = {
 	layout: "pretty-layout",
 }
 
-export default ({ html }) => {
-	return {
-		onPageOpen: () => {
-			setTimeout(() => {
-				if (Page.activeTag == "new-year-page") {
-					Page.open("village-page")
-				}
-			}, 1_000)
-
-		},
-		onPageClose: () => {
-		},
-	}
+export default {
+	onPageOpen: () => {
+		setTimeout(() => {
+			if Page.activeTag == "new-year-page" {
+				Page.open("village-page")
+			}
+		}, 1_000)
+	},
+	onPageClose: () => {
+	},
 }

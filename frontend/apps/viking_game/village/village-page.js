@@ -3,25 +3,21 @@ export const page = {
 	layout: "pretty-layout",
 }
 
-export default async ({ html }) => {
-	const openModalDemo = () => {
-		const modal = Assert.value(html.modal)
-		modal.show()
-	}
-
-	return {
-		methods: {
-			openModalDemo,
-			chopWood: () => {
-				G.chopWood()
-			},
-			huntFood: () => {
-				Page.open("viking-page")
-			},
+export default {
+	methods: {
+		openModalDemo: (html) => {
+			const modal = Assert.value(html.modal)
+			modal.show()
 		},
-		onPageOpen: async () => {
-			await html.play("pageEnterLeft")
+		chopWood: () => {
+			G.chopWood()
 		},
-		onPageClose: () => html.play("pageExitLeft"),
-	}
+		huntFood: () => {
+			Page.open("viking-page")
+		},
+	},
+	onPageOpen: async (html) => {
+		await html.play("pageEnterLeft")
+	},
+	onPageClose: (html) => html.play("pageExitLeft"),
 }

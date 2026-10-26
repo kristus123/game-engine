@@ -18,6 +18,43 @@ function initializeFields(element, fields) { // no-null-check
 	mapFields(element, values)
 }
 
+function bindMethods(element, methods) { // no-null-check
+	if !methods {
+		return methods
+	}
+
+	return Object.fromEntries(Object.entries(methods).map(([name, method]) => [
+		name,
+		(...args) => method(element, ...args),
+	]))
+}
+
+function bindCallbackMaps(element, callbacks) { // no-null-check
+	if !callbacks {
+		return callbacks
+	}
+
+	return Object.fromEntries(Object.entries(callbacks).map(([name, callback]) => [
+		name,
+		(...args) => callback(element, ...args),
+	]))
+}
+
+function createInstanceOptions(element, definition, setState) {
+	return {
+		...definition,
+		methods: bindMethods(element, definition.methods),
+		state: A.method(definition.state) ? (...args) => definition.state(element, setState, ...args) : definition.state,
+		onPageOpen: definition.onPageOpen ? (...args) => definition.onPageOpen(element, ...args) : null,
+		onPageClose: definition.onPageClose ? (...args) => definition.onPageClose(element, ...args) : null,
+		onToggle: definition.onToggle ? (...args) => definition.onToggle(element, ...args) : null,
+		onHoverShow: bindCallbackMaps(element, definition.onHoverShow),
+		onHoverHide: bindCallbackMaps(element, definition.onHoverHide),
+		onClick: bindCallbackMaps(element, definition.onClick),
+		onClose: bindCallbackMaps(element, definition.onClose),
+	}
+}
+
 export async function RegisterCustomWebComponent(name, html, js = null) { // no-null-check
 	Assert.string(name)
 	Assert.string(html)
@@ -82,7 +119,9 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				await Promise.all(childSetupPromises)
 				CustomElementHelper.exposeFields(this)
 
-				const options = A.method(js?.default) ? await js.default({ html: this, setState }) ?? {} : js?.default ?? {}
+				const options = A.method(js?.default)
+					? await js.default({ html: this, setState }) ?? {}
+					: js?.default ? createInstanceOptions(this, js.default, setState) : {}
 				if A.method(js?.default) {
 					initializeFields(this, options.fields)
 				}
