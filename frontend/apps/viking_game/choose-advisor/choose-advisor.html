@@ -1,0 +1,20 @@
+<custom-modal id="modal" hidden>
+	<div class="choose-advisor-content">
+		<h1>Choose an advisor</h1>
+		<p>Who will guide you?</p>
+		<button id="cancel">
+			Cancel
+		</button>
+
+		<div id="advisors" class="choose-advisor-grid">
+			<!-- template is inserted here -->
+		</div>
+	</div>
+
+	<template id="advisorTemplate">
+		<button class="choose-advisor-option">
+			<img src="slot-img" />
+			<span><slot name="name"></slot></span>
+		</button>
+	</template>
+</custom-modal>

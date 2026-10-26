@@ -1,3 +1,23 @@
+function mapFields(element, fields) {
+	for const [name, value] of Object.entries(fields) {
+		if name != "fields" && !(name in element) {
+			element[name] = value
+		}
+	}
+}
+
+function initializeFields(element, fields) { // no-null-check
+	if !fields {
+		return
+	}
+
+	const values = A.method(fields) ? fields() : fields
+	Assert.false(A.promise(values), "Component fields must be created synchronously")
+	Assert.object(values)
+	element.fields = values
+	mapFields(element, values)
+}
+
 export async function RegisterCustomWebComponent(name, html, js = null) { // no-null-check
 	Assert.string(name)
 	Assert.string(html)
@@ -15,7 +35,15 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		_lifecyclePromise = PromiseQueue()
 
 		_onDomAdd = null
+		_onFirstDomAdd = null
 		_onDomRemove = null
+		_didFirstDomAdd = false
+
+		constructor() {
+			super()
+			const fields = A.method(js?.default) ? js.default.createFields : js?.default?.fields
+			initializeFields(this, fields)
+		}
 
 		whenReady() {
 			return this._setupPromise
@@ -48,7 +76,17 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				this.replaceChildren(content)
 				CustomElementHelper.exposeFields(this)
 
-				const options = await js?.default({ html: this, setState }) ?? {}
+				const childSetupPromises = [...this.querySelectorAll("*")]
+					.filter(child => A.method(child.whenReady))
+					.map(child => child.whenReady())
+				await Promise.all(childSetupPromises)
+				CustomElementHelper.exposeFields(this)
+
+				const options = A.method(js?.default) ? await js.default({ html: this, setState }) ?? {} : js?.default ?? {}
+				if A.method(js?.default) {
+					initializeFields(this, options.fields)
+				}
+				this._onFirstDomAdd = options.onFirstDomAdd
 				this._onDomAdd = options.onDomAdd
 				this._onDomRemove = options.onDomRemove
 
@@ -99,7 +137,14 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 			await this._lifecyclePromise.add(async () => {
 				if this.isConnected {
-					await this._onDomAdd?.()
+					if !this._didFirstDomAdd {
+						this._didFirstDomAdd = true
+						await this._onFirstDomAdd?.(this)
+					}
+					if !this.isConnected {
+						return
+					}
+					await this._onDomAdd?.(this)
 				}
 			})
 		}
@@ -107,7 +152,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		async disconnectedCallback() { // triggered when removed from dom
 			await this._lifecyclePromise.add(async () => {
 				await this._setupPromise
-				await this._onDomRemove?.()
+				await this._onDomRemove?.(this)
 			})
 		}
 	})

@@ -17,6 +17,11 @@ export default ({ html }) => {
 	return {
 		methods: {
 			showJarle: () => html.jarleModal.show(),
+			chooseAdvisor: async () => {
+				const chooser = H.create("choose-advisor")
+				Dom.add(chooser)
+				console.log("Chosen advisor:", await chooser.chosen)
+			},
 			incrementDay: () => {
 			},
 		},

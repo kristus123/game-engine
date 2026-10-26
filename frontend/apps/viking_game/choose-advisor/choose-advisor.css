@@ -1,0 +1,59 @@
+choose-advisor .choose-advisor-content {
+	color: #342719;
+	text-align: center;
+}
+
+choose-advisor h1 {
+	margin: 0;
+	font-size: clamp(32px, 5vw, 48px);
+}
+
+choose-advisor p {
+	margin: 8px 0 24px;
+	font-size: clamp(18px, 2.4vw, 25px);
+}
+
+choose-advisor .choose-advisor-grid {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: clamp(8px, 1.5vw, 16px);
+}
+
+choose-advisor .choose-advisor-option {
+	min-width: 0;
+	padding: 8px;
+	border: 2px solid #d4bd82;
+	border-radius: 14px;
+	background: #10204f;
+	color: #f5e6b8;
+	font: inherit;
+	cursor: pointer;
+	box-shadow: 0 4px 0 rgb(52 39 25 / 35%);
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+choose-advisor .choose-advisor-option:hover,
+choose-advisor .choose-advisor-option:focus-visible {
+	background: #1f5b5a;
+	transform: translateY(-3px);
+	box-shadow: 0 7px 0 rgb(52 39 25 / 35%);
+}
+
+choose-advisor .choose-advisor-option img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
+}
+
+choose-advisor .choose-advisor-option span {
+	display: block;
+	margin-top: 6px;
+	font-size: clamp(16px, 2vw, 24px);
+}
+
+@media (width <= 560px) {
+	choose-advisor .choose-advisor-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}

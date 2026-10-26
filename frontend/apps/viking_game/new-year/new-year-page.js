@@ -1,13 +1,15 @@
 export const page = {
 	persistOnClose: true,
-	// layout: "pretty-layout",
+	layout: "pretty-layout",
 }
 
 export default ({ html }) => {
 	return {
 		onPageOpen: () => {
 			setTimeout(() => {
-				Page.open("village-page")
+				if (Page.activeTag == "new-year-page") {
+					Page.open("village-page")
+				}
 			}, 1_000)
 
 		},
