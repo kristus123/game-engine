@@ -22,8 +22,79 @@
 </overlay-absolute>
 
 <custom-modal id="modal" hidden>
-	<h2>ENEMY Clan</h2>
-	<div class="map-modal-actions">
-		<button on-click="raid">RAID</button>
+	<div id="actionMenu" class="map-action-menu">
+		<div class="map-clan-heading">
+			<div class="map-clan-emblem">F</div>
+			<div class="map-clan-identity">
+				<p class="map-clan-kicker">Neighboring settlement</p>
+				<h2>Friendly Clan</h2>
+				<p class="map-clan-summary">Farmers and hunters west of Vikingheim.</p>
+			</div>
+			<span class="map-relation-status">Friendly</span>
+		</div>
+		<div class="map-action-intro">
+			<h3>How should we approach them?</h3>
+			<p>Review the likely outcome before giving an order.</p>
+		</div>
+		<div class="map-modal-actions">
+			<button class="map-action-card hostile" on-click="showRaid">
+				<span class="map-action-icon">⚔</span>
+				<span class="map-action-copy">
+					<small>Hostile</small>
+					<strong>Raid</strong>
+					<span>Attack openly to seize goods and livestock.</span>
+				</span>
+				<span class="map-action-arrow">›</span>
+			</button>
+			<button class="map-action-card peaceful" on-click="showTrade">
+				<span class="map-action-icon">⚖</span>
+				<span class="map-action-copy">
+					<small>Peaceful</small>
+					<strong>Trade</strong>
+					<span>Exchange goods for the benefit of both clans.</span>
+				</span>
+				<span class="map-action-arrow">›</span>
+			</button>
+			<button class="map-action-card diplomatic" on-click="showDelegation">
+				<span class="map-action-icon">✦</span>
+				<span class="map-action-copy">
+					<small>Diplomatic</small>
+					<strong>Send delegation</strong>
+					<span>Offer gifts, seek an alliance, or propose a venture.</span>
+				</span>
+				<span class="map-action-arrow">›</span>
+			</button>
+			<button class="map-action-card extreme" on-click="showBurnStead">
+				<span class="map-action-icon">♨</span>
+				<span class="map-action-copy">
+					<small>Extreme</small>
+					<strong>Burn stead</strong>
+					<span>Attempt to destroy the clan in a surprise attack.</span>
+				</span>
+				<span class="map-action-arrow">›</span>
+			</button>
+		</div>
+		<p id="actionStatus" class="map-action-status" hidden></p>
+	</div>
+	<div id="actionDetails" class="map-action-details" hidden>
+		<button class="map-back-action" on-click="showActionMenu">‹ All actions</button>
+		<div class="map-detail-heading">
+			<span id="actionDetailIcon" class="map-detail-icon"></span>
+			<div>
+				<p id="actionKind" class="map-clan-kicker"></p>
+				<h2 id="actionTitle"></h2>
+			</div>
+		</div>
+		<p id="actionDescription" class="map-detail-description"></p>
+		<div class="map-consequences">
+			<span class="map-warning-icon">!</span>
+			<div>
+				<strong>Likely consequences</strong>
+			<p id="actionConsequences"></p>
+			</div>
+		</div>
+		<div class="map-detail-buttons">
+			<button id="confirmActionButton" class="map-confirm-action" on-click="confirmAction"></button>
+		</div>
 	</div>
 </custom-modal>

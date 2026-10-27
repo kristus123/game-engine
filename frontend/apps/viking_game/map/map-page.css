@@ -80,21 +80,356 @@ map-page .map-marker-label {
 }
 
 map-page .map-modal-actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-	margin-top: 24px;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: repeat(2, minmax(0, 1fr));
+	flex: 1;
+	gap: 12px;
+	margin-top: 16px;
 }
 
-map-page .map-modal-actions button {
-	padding: 10px 14px;
-	border: 2px solid #755a35;
-	border-radius: 10px;
-	background: #d4bd82;
+map-page custom-modal .custom-modal-panel {
+	width: min(1120px, calc(100% - 40px));
+	min-height: min(700px, calc(100vh - 40px));
+	padding: clamp(24px, 4vw, 42px);
+	border-width: 3px;
+	border-radius: 18px;
+	background:
+		linear-gradient(rgb(255 250 240 / 96%), rgb(255 250 240 / 96%)),
+		repeating-linear-gradient(45deg, #755a35 0 1px, transparent 1px 8px);
+}
+
+map-page custom-modal .custom-modal-content,
+map-page .map-action-menu {
+	height: 100%;
+}
+
+map-page custom-modal .custom-modal-content {
+	flex: 1;
+}
+
+map-page .map-action-menu {
+	display: flex;
+	flex-direction: column;
+}
+
+map-page custom-modal .custom-modal-close {
+	top: 16px;
+	right: 16px;
+	width: 44px;
+	height: 44px;
+	font-size: 0;
+}
+
+map-page custom-modal .custom-modal-close::before {
+	content: "×";
+	font-size: 30px;
+	font-weight: 400;
+}
+
+map-page .map-modal-actions .map-action-card {
+	display: grid;
+	grid-template-columns: 48px minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 12px;
+	min-height: 150px;
+	padding: 20px;
+	border: 2px solid #bca36b;
+	border-radius: 12px;
+	background: #fffdf7;
 	color: #342719;
+	text-align: left;
+	cursor: pointer;
+	box-shadow: 0 3px 0 rgb(52 39 25 / 12%);
+	transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+map-page .map-modal-actions .map-action-card:hover,
+map-page .map-modal-actions .map-action-card:focus-visible {
+	border-color: #755a35;
+	background: #fffaf0;
+	box-shadow: 0 5px 0 rgb(52 39 25 / 16%);
+	transform: translateY(-2px);
+	outline: none;
+}
+
+map-page .map-action-icon {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 10px;
+	background: #eee1be;
+	color: #5f482a;
+	font-family: Georgia, serif;
+	font-size: 27px;
+}
+
+map-page .map-action-copy {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 3px;
+}
+
+map-page .map-action-copy small {
+	color: #806b45;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+map-page .map-action-copy strong {
+	font-size: 22px;
+}
+
+map-page .map-action-copy > span {
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+	line-height: 1.35;
+}
+
+map-page .map-action-arrow {
+	color: #8e774c;
+	font-family: Arial, sans-serif;
+	font-size: 28px;
+}
+
+map-page .map-action-card.extreme {
+	border-color: #ba6d5c;
+	background: #fff8f5;
+}
+
+map-page .map-action-card.extreme .map-action-icon {
+	background: #a33d28;
+	color: #fff8ed;
+}
+
+map-page .map-clan-heading {
+	display: grid;
+	grid-template-columns: 58px minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 14px;
+	padding: 0 56px 20px 0;
+	border-bottom: 1px solid #ddcfaa;
+}
+
+map-page .map-clan-emblem,
+map-page .map-detail-icon {
+	display: grid;
+	place-items: center;
+	width: 58px;
+	height: 58px;
+	border: 2px solid #8a6c36;
+	border-radius: 50%;
+	background: #d9c58c;
+	color: #4b3821;
+	font-family: Georgia, serif;
+	font-size: 29px;
+}
+
+map-page .map-clan-heading h2,
+map-page .map-action-details h2 {
+	margin: 2px 0 4px;
+	font-size: clamp(28px, 3vw, 38px);
+}
+
+map-page .map-clan-identity p {
+	margin: 0;
+	line-height: 1.45;
+}
+
+map-page .map-action-details > p {
+	margin: 0;
+	line-height: 1.45;
+}
+
+map-page .map-action-intro p {
+	margin: 0;
+	color: #725f42;
+	font-family: Arial, sans-serif;
+	font-size: 17px;
+	line-height: 1.45;
+}
+
+map-page .map-clan-summary {
+	color: #725f42;
+	font-family: Arial, sans-serif;
+	font-size: 17px;
+}
+
+map-page .map-clan-kicker {
+	color: #806837;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: 0.13em;
+	text-transform: uppercase;
+}
+
+map-page .map-relation-status {
+	padding: 9px 13px;
+	border: 1px solid #668757;
+	border-radius: 999px;
+	background: #e6f0dd;
+	color: #35552c;
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+map-page .map-action-intro {
+	margin-top: 20px;
+}
+
+map-page .map-action-intro h3 {
+	margin: 0 0 4px;
+	font-size: 26px;
+}
+
+map-page .map-action-details {
+	padding-top: 2px;
+}
+
+map-page .map-detail-heading {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-top: 22px;
+}
+
+map-page .map-detail-description {
+	margin-top: 20px !important;
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	line-height: 1.55 !important;
+}
+
+map-page .map-consequences {
+	display: grid;
+	grid-template-columns: 34px minmax(0, 1fr);
+	gap: 12px;
+	margin: 22px 0;
+	padding: 16px;
+	border: 1px solid #d0ad67;
+	border-radius: 10px;
+	background: #f7ebc9;
+}
+
+map-page .map-warning-icon {
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: #a33d28;
+	color: #fff;
+	font-family: Arial, sans-serif;
+	font-weight: 800;
+}
+
+map-page .map-consequences p {
+	margin-top: 5px;
+	font-family: Arial, sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+map-page .map-detail-buttons {
+	display: flex;
+	justify-content: flex-end;
+}
+
+map-page .map-back-action {
+	padding: 8px 0;
+	border: 0;
+	background: transparent;
+	color: #72552f;
+	font-size: 18px;
+	font-weight: 700;
 	cursor: pointer;
 }
 
-map-page #secondaryModal {
-	z-index: 21;
+map-page .map-back-action:hover,
+map-page .map-back-action:focus-visible {
+	text-decoration: underline;
+}
+
+map-page .map-confirm-action {
+	min-height: 58px;
+	padding: 13px 24px;
+	border: 2px solid #5d4828;
+	border-radius: 10px;
+	background: #755a35;
+	color: #fffaf0;
+	font-size: 19px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+map-page .map-confirm-action:hover,
+map-page .map-confirm-action:focus-visible {
+	background: #5d4828;
+}
+
+map-page .map-confirm-action.danger {
+	border-color: #772b20;
+	background: #a33d28;
+	color: #fff4c7;
+}
+
+map-page .map-action-status {
+	margin: 18px 0 0;
+	padding: 12px 14px;
+	border-left: 4px solid #668757;
+	border-radius: 6px;
+	background: #e6f0dd;
+	font-family: Arial, sans-serif;
+	font-size: 17px;
+	line-height: 1.4;
+}
+
+@media (width <= 560px) {
+	map-page .map-modal-actions {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+		flex: none;
+	}
+
+	map-page custom-modal .custom-modal-panel {
+		width: calc(100% - 20px);
+		min-height: calc(100vh - 20px);
+		max-height: calc(100vh - 20px);
+		padding: 20px;
+	}
+
+	map-page .map-clan-heading {
+		grid-template-columns: 48px minmax(0, 1fr);
+		padding-right: 42px;
+	}
+
+	map-page .map-clan-emblem {
+		width: 48px;
+		height: 48px;
+	}
+
+	map-page .map-relation-status {
+		grid-column: 2;
+		justify-self: start;
+	}
+
+	map-page .map-modal-actions .map-action-card {
+		min-height: 108px;
+		padding: 14px;
+	}
+
+	map-page .map-action-copy strong {
+		font-size: 19px;
+	}
+
+	map-page .map-action-copy > span {
+		font-size: 15px;
+	}
 }
