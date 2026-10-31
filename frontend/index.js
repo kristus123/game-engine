@@ -85,7 +85,7 @@ Font.use("VT323")
 
 // await Page.open("hub-page")
 // await Page.open("village-page")
-VikingGame()
+// VikingGame()
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

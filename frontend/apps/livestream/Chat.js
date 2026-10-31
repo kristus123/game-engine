@@ -14,7 +14,7 @@ export class Chat {
 
 	static sendMessage(message) {
 		SocketClient.sendToAllUsers("NEW_CHAT_MESSAGE", {
-			name: "brukernavn",
+			name: "...",
 			message: message,
 		})
 	}
