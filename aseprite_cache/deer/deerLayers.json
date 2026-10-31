@@ -1,0 +1,19 @@
+{ "frames": {
+   "Background_0_": {
+    "frame": { "x": 0, "y": 0, "w": 40, "h": 40 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 40, "h": 40 },
+    "sourceSize": { "w": 40, "h": 40 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.3.17-dev",
+  "image": "deerLayers.png",
+  "format": "I8",
+  "size": { "w": 40, "h": 40 },
+  "scale": "1"
+ }
+}
