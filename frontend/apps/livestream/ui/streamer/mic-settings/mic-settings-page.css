@@ -75,12 +75,6 @@ mic-settings-page label input {
 	opacity: 0;
 }
 
-mic-settings-page label span {
-	min-width: 0;
-	margin: 0;
-	overflow-wrap: anywhere;
-}
-
 mic-settings-page flex-h {
 	justify-content: flex-end;
 	gap: 10px;
@@ -94,7 +88,7 @@ mic-settings-page button {
 	font-size: 16px;
 }
 
-mic-settings-page #clearMic {
+mic-settings-page #muteMic {
 	margin-right: auto;
 	background: #9f2633;
 }
@@ -114,7 +108,7 @@ mic-settings-page #clearMic {
 		flex: 1 1 auto;
 	}
 
-	mic-settings-page #clearMic {
+	mic-settings-page #muteMic {
 		margin-right: 0;
 	}
 }

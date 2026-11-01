@@ -3,50 +3,15 @@ export const page = {
 }
 
 export default ({ html }) => {
+	let radios = []
+
 	const methods = {
-		loadMicrophones: async () => {
-			html.micList.clearChildren()
-			html.micStatus.textContent = "Checking microphone access…"
-			try {
-				if !Permission.granted {
-					await Permission.request()
-				}
-				const microphones = await Mic.all()
-				const activeDeviceId = Stream.audioDeviceId
-				if microphones.length == 0 {
-					html.micList.add(H.p("No microphones found. Connect one and refresh the list."))
-					html.micStatus.textContent = "No microphone inputs are available to this browser."
-					return
-				}
-				for const [index, microphone] of microphones.entries() {
-					const row = document.createElement("label")
-					const radio = H.radio({
-						name: "livestreamMicrophone",
-						value: microphone.deviceId,
-						checked: activeDeviceId == microphone.deviceId,
-						onChange: () => methods.applyMicSelection(),
-					})
-					radio.dataset.deviceId = microphone.deviceId
-					radio.dataset.deviceLabel = microphone.label || `Microphone ${index + 1}`
-					row.append(radio, H.span(microphone.label || `Microphone ${index + 1}`))
-					html.micList.add(row)
-				}
-				html.micStatus.textContent = microphones.length == 1
-					? "Changes apply immediately. One microphone is available."
-					: `Changes apply immediately. ${microphones.length} microphones are available; one can be active.`
-			}
-			catch (error) {
-				html.micList.add(H.p("Microphone devices could not be loaded. Check browser permissions and refresh."))
-				const message = error instanceof Error ? error.message : String(error)
-				html.micStatus.textContent = `Microphone access failed: ${message}`
-			}
-		},
 		applyMicSelection: async () => {
-			const radios = [...html.micList.querySelectorAll("input[type=radio]")]
 			for const radio of radios {
 				radio.disabled = true
 			}
-			html.clearMic.disabled = true
+
+			html.muteMic.disabled = true
 			html.micStatus.content = "Updating microphones…"
 			try {
 				const selectedRadio = radios.find(radio => radio.checked)
@@ -81,11 +46,11 @@ export default ({ html }) => {
 				for const radio of radios {
 					radio.disabled = false
 				}
-				html.clearMic.disabled = false
+				html.muteMic.disabled = false
 			}
 		},
-		clearMic: async () => {
-			for const radio of html.micList.querySelectorAll("input[type=radio]") {
+		muteMic: async () => {
+			for const radio of radios {
 				radio.checked = false
 			}
 			await methods.applyMicSelection()
@@ -93,6 +58,34 @@ export default ({ html }) => {
 	}
 	return {
 		methods,
-		onPageOpen: () => methods.loadMicrophones(),
+		onPageOpen: async () => {
+			radios = []
+
+			html.micList.clearChildren()
+			html.micStatus.textContent = "Checking microphone access…"
+
+			await Permission.request()
+
+			const mics = await Mic.all()
+			if mics.empty {
+				html.micStatus.textContent = "No microphone inputs are available to this browser."
+			}
+
+			for const [index, mic] of mics.entries() {
+				const radio = H.radio({
+					data: {
+						deviceId: mic.deviceId,
+						deviceLabel: mic.label || `Microphone ${index + 1}`,
+					},
+					name: "livestreamMicrophone",
+					value: mic.deviceId,
+					text: mic.label || `Microphone ${index + 1}`,
+					checked: Stream.audioDeviceId == mic.deviceId,
+						onSelect: () => methods.applyMicSelection(),
+				})
+				radios.push(radio.input)
+				html.micList.add(radio)
+			}
+		},
 	}
 }

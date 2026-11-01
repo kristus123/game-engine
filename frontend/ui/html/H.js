@@ -134,15 +134,27 @@ export class H {
 		return checkbox
 	}
 
-	static radio({ name, value, checked=false, onChange=() => {} } = {}) {
+	static radio({ data={}, name, value, text="", checked=false, onChange=() => {}, onSelect=() => {}, onDeselect=() => {} } = {}) {
+		const label = document.createElement("label")
 		const radio = _HtmlElement("input")
 		radio.type = "radio"
 		radio.name = name
 		radio.value = value
 		radio.checked = checked
-		radio.addEventListener("change", onChange)
+		Object.assign(radio.dataset, data)
+		radio.addEventListener("change", () => {
+			onChange(radio)
+			if radio.checked {
+				onSelect(radio)
+			}
+			else {
+				onDeselect(radio)
+			}
+		})
+		label.input = radio
+		label.append(radio, document.createTextNode(text))
 
-		return radio
+		return label
 	}
 
 	static span(text="", className="na") {
