@@ -81,7 +81,7 @@ export default ({ html }) => {
 					value: mic.deviceId,
 					text: mic.label || `Microphone ${index + 1}`,
 					checked: Stream.audioDeviceId == mic.deviceId,
-						onSelect: () => methods.applyMicSelection(),
+					onSelect: () => methods.applyMicSelection(),
 				})
 				radios.push(radio.input)
 				html.micList.add(radio)
