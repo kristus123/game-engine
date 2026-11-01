@@ -55,7 +55,7 @@ await Promise.all([
 	Css.use("/swag.css"),
 	Retry(100, async (i) => {
 		// hack
-		if (Env.dev) { 
+		if Env.dev {
 			loadingText.content = i + " attempts at setting up token and socket connection"
 
 			await Promise.all([
@@ -84,6 +84,7 @@ Font.use("VT323")
 // })
 
 // await Page.open("hub-page")
+await Page.open("streamer-page")
 // await Page.open("village-page")
 // VikingGame()
 // CanvasGame()

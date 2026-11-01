@@ -1,4 +1,4 @@
-.microphone-settings {
+mic-settings-page {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -7,7 +7,7 @@
 	backdrop-filter: blur(4px);
 }
 
-.microphone-settings__dialog {
+mic-settings-page > overlay-fixed > flex-v {
 	width: min(100%, 1160px);
 	max-height: min(92vh, 980px);
 	gap: clamp(12px, 1.5vw, 22px);
@@ -18,21 +18,20 @@
 	box-shadow: 0 24px 80px rgb(0 0 0 / 32%);
 }
 
-.microphone-settings__title {
+mic-settings-page h2 {
 	margin: 0;
 	color: #152033;
 	font-size: clamp(26px, 3vw, 42px);
 }
 
-.microphone-settings__description,
-.microphone-settings__status {
+mic-settings-page p {
 	margin: 0;
 	color: #405064;
 	font-size: clamp(15px, 1.1vw, 18px);
 	line-height: 1.45;
 }
 
-.microphone-settings__list {
+mic-settings-page #micList {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
 	align-content: start;
@@ -43,7 +42,7 @@
 	overflow-y: auto;
 }
 
-.microphone-option {
+mic-settings-page label {
 	display: flex;
 	align-items: center;
 	gap: 16px;
@@ -60,64 +59,62 @@
 	transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
 }
 
-.microphone-option:hover {
+mic-settings-page label:hover {
 	border-color: #8297b5;
 	background: #f1f5fa;
 }
 
-.microphone-option:has(input:checked) {
+mic-settings-page label:has(input:checked) {
 	border-color: #2463eb;
 	background: #eff5ff;
 	box-shadow: 0 0 0 2px rgb(36 99 235 / 14%);
 }
 
-.microphone-option input {
-	width: 24px;
-	height: 24px;
-	flex: none;
-	accent-color: #2463eb;
+mic-settings-page label input {
+	position: absolute;
+	opacity: 0;
 }
 
-.microphone-option__label {
+mic-settings-page label span {
 	min-width: 0;
 	margin: 0;
 	overflow-wrap: anywhere;
 }
 
-.microphone-settings__actions {
+mic-settings-page flex-h {
 	justify-content: flex-end;
 	gap: 10px;
 	flex-wrap: wrap;
 }
 
-.microphone-settings__actions button {
+mic-settings-page button {
 	min-height: 44px;
 	padding: 10px 18px;
 	background: #334155;
 	font-size: 16px;
 }
 
-.microphone-settings__actions #clearMic {
+mic-settings-page #clearMic {
 	margin-right: auto;
 	background: #9f2633;
 }
 
 @media (width <= 560px) {
-	.microphone-settings__dialog {
+	mic-settings-page > overlay-fixed > flex-v {
 		max-height: 96vh;
 		padding: 20px;
 		border-radius: 16px;
 	}
 
-	.microphone-settings__actions {
+	mic-settings-page flex-h {
 		justify-content: stretch;
 	}
 
-	.microphone-settings__actions button {
+	mic-settings-page button {
 		flex: 1 1 auto;
 	}
 
-	.microphone-settings__actions #clearMic {
+	mic-settings-page #clearMic {
 		margin-right: 0;
 	}
 }

@@ -17,19 +17,3 @@
 </overlay-fixed>
 
 <chat-body id="chat" hidden></chat-body>
-
-<overlay-fixed id="micSettings" hidden class="microphone-settings">
-	<flex-v close class="microphone-settings__dialog">
-		<h2 class="microphone-settings__title">Microphones</h2>
-		<p class="microphone-settings__description">
-			Select one microphone to use for the livestream. Your choice applies immediately.
-		</p>
-		<flex-v id="micList" close class="microphone-settings__list"></flex-v>
-		<p id="micStatus" class="microphone-settings__status" role="status" aria-live="polite"></p>
-		<flex-h tight class="microphone-settings__actions">
-			<button id="clearMic" on-click="clearMic">Mute microphone</button>
-			<button on-click="refreshMicrophones">Refresh list</button>
-			<button on-click-hide="micSettings">Done</button>
-		</flex-h>
-	</flex-v>
-</overlay-fixed>

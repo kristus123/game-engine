@@ -14,7 +14,7 @@ function renderCode(html, text) {
 function getCode(html) {
 	let code = ""
 
-		for const line of html.lines.children {
+	for const line of html.lines.children {
 		code += line.getId("code").textContent + "\n"
 	}
 

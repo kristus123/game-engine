@@ -1,0 +1,14 @@
+<overlay-fixed>
+	<flex-v close>
+		<h2>Microphones</h2>
+		<p>
+			Select one microphone to use for the livestream. Your choice applies immediately.
+		</p>
+		<flex-v id="micList" close></flex-v>
+		<p id="micStatus"></p>
+		<flex-h tight>
+			<button id="clearMic" on-click="clearMic">Mute microphone</button>
+			<button on-click-open-page="streamer-page">Done</button>
+		</flex-h>
+	</flex-v>
+</overlay-fixed>

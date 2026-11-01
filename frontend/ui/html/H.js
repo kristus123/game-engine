@@ -134,6 +134,17 @@ export class H {
 		return checkbox
 	}
 
+	static radio({ name, value, checked=false, onChange=() => {} } = {}) {
+		const radio = _HtmlElement("input")
+		radio.type = "radio"
+		radio.name = name
+		radio.value = value
+		radio.checked = checked
+		radio.addEventListener("change", onChange)
+
+		return radio
+	}
+
 	static span(text="", className="na") {
 		const span = _HtmlElement("span", className)
 		span.textContent = text
