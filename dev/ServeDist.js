@@ -25,7 +25,10 @@ const server = http.createServer((req, res) => {
 	res.setHeader("Cross-Origin-Embedder-Policy", "require-corp")
 	res.setHeader("Cache-Control", "no-store")
 
-	let url = req.url == "/" ? "/index.html" : req.url
+	let url = new URL(req.url, `http://${req.headers.host}`).pathname
+	if (url == "/") {
+		url = "/index.html"
+	}
 
 	if (url.includes("..")) {
 		res.writeHead(403)
