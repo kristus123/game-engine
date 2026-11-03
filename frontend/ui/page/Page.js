@@ -91,10 +91,12 @@ export class Page {
 
 	static async _close({ keepLayout = false } = {}) {
 		const entry = this.active
+
 		await entry.layoutOptions?.onPageClose?.()
 		await entry.options.onPageClose?.()
 		await entry.options.onToggle?.("close")
 		await entry.page.remove()
+
 		if entry.layoutElement && !keepLayout {
 			await entry.layoutElement.remove()
 		}
