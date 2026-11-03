@@ -14,9 +14,11 @@ export class Page {
 	static init(tag, o) {
 		Assert.string(tag)
 		Assert.true(tag.endsWith("-page"), `Page component names must end with -page: ${tag}`)
+
 		Assert.object(o)
-		o.assertKeyPresent("persistOnClose")
 		Assert.bool(o.persistOnClose)
+		o.assertKeyPresent("persistOnClose")
+
 		if Object.hasOwn(o, "layout") {
 			Assert.string(o.layout)
 		}
@@ -31,8 +33,44 @@ export class Page {
 	}
 
 	static open(tag) {
-		const navigation = this.navigation.then(() => this._transition(() => this._open(tag)))
-		this.navigation = navigation.catch(() => {})
+		const navigation = this.navigation.then(() => this._transition(async () => {
+			Assert.string(tag)
+			Assert.false(this.activeTag == tag, "can't open same twice")
+
+			this.pages.assertKeyPresent(tag)
+
+			const entry = this.pages[tag]
+			if !entry.persistOnClose {
+				entry.page = H.create(tag)
+				entry.layoutElement = entry.layout ? Layout.init(entry.layout) : null
+			}
+
+			if this.activeTag {
+				const keepLayout = entry.layoutElement != null && entry.layoutElement == this.active.layoutElement
+				await this._close({ keepLayout })
+			}
+
+			if entry.layoutElement {
+				Layout.attach(entry.layout, entry.page)
+				if !entry.layoutElement.isConnected {
+					Dom.add(entry.layoutElement)
+				}
+				entry.layoutOptions = await entry.layoutElement.whenReady()
+			}
+			else {
+				Dom.add(entry.page)
+			}
+
+			entry.options = await entry.page.whenReady()
+			this.activeTag = tag
+
+			await entry.layoutOptions?.onPageOpen?.()
+			await entry.options.onPageOpen?.()
+			await entry.options.onToggle?.("open")
+		}))
+
+		this.navigation = navigation
+
 		return navigation
 	}
 
@@ -45,40 +83,6 @@ export class Page {
 		finally {
 			UserInput.enable()
 		}
-	}
-
-	static async _open(tag) {
-		Assert.string(tag)
-		Assert.false(this.activeTag == tag, "can't open same twice")
-		this.pages.assertKeyPresent(tag)
-
-		const entry = this.pages[tag]
-		if !entry.persistOnClose {
-			entry.page = H.create(tag)
-			entry.layoutElement = entry.layout ? Layout.init(entry.layout) : null
-		}
-
-		if this.activeTag {
-			const keepLayout = entry.layoutElement != null && entry.layoutElement == this.active.layoutElement
-			await this._close({ keepLayout })
-		}
-
-		if entry.layoutElement {
-			Layout.attach(entry.layout, entry.page)
-			if !entry.layoutElement.isConnected {
-				Dom.add(entry.layoutElement)
-			}
-			entry.layoutOptions = await entry.layoutElement.whenReady()
-		}
-		else {
-			Dom.add(entry.page)
-		}
-		entry.options = await entry.page.whenReady()
-		this.activeTag = tag
-
-		await entry.layoutOptions?.onPageOpen?.()
-		await entry.options.onPageOpen?.()
-		await entry.options.onToggle?.("open")
 	}
 
 	static async close({ keepLayout = false } = {}) {
