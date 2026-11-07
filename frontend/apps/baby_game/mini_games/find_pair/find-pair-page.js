@@ -1,13 +1,12 @@
-export const page = {
-	persistOnClose: false,
-}
-
 export default {
+	page: {
+		persistOnClose: false,
+	},
 	fields: () => ({
 		wait: false,
 		resetTimeout: null,
 	}),
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		for const name of ["1", "2", "3"] {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
@@ -82,7 +81,7 @@ export default {
 
 		html.cards.randomizeOrder()
 	},
-	onDomRemove: (html) => {
+	onDomRemove: ({ html }) => {
 		clearTimeout(html.fields.resetTimeout)
 		html.fields.wait = false
 	},

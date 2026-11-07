@@ -1,8 +1,3 @@
-export const page = {
-	persistOnClose: true,
-	layout: "pretty-layout",
-}
-
 const actions = {
 	raid: {
 		icon: "⚔",
@@ -57,6 +52,10 @@ function showAction(html, actionName) {
 }
 
 export default {
+	page: {
+		persistOnClose: true,
+		layout: "pretty-layout",
+	},
 	fields: () => ({
 		currentAction: null,
 	}),

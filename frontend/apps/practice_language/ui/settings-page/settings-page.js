@@ -1,8 +1,7 @@
-export const page = {
-	persistOnClose: true,
-}
-
 export default {
+	page: {
+		persistOnClose: true,
+	},
 	methods: {
 		installPwa: () => {
 			Pwa.install()

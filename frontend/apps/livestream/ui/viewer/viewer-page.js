@@ -1,7 +1,3 @@
-export const page = {
-	persistOnClose: true,
-}
-
 function updateSeekButtons(html) {
 	const hlsVideo = html.fields.hlsVideo
 	html.seekBackward.disabled = !hlsVideo.ready || hlsVideo.video.getSeekTarget(-30) == null
@@ -9,11 +5,14 @@ function updateSeekButtons(html) {
 }
 
 export default {
+	page: {
+		persistOnClose: true,
+	},
 	fields: () => ({
 		hlsVideo: null,
 		statusLoop: null,
 	}),
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		html.fields.hlsVideo = HlsVideo({
 			onConnecting: () => {
 				html.text.content = "Connecting to stream…"
@@ -60,10 +59,10 @@ export default {
 			}
 		}).stop()
 	},
-	onPageOpen: (html) => {
+	onDomAdd: ({ html }) => {
 		html.fields.statusLoop.start()
 	},
-	onPageClose: (html) => {
+	onDomRemove: ({ html }) => {
 		html.fields.statusLoop.stop()
 		html.fields.hlsVideo.disconnect()
 	},

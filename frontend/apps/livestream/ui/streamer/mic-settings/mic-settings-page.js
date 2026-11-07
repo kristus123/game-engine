@@ -1,12 +1,9 @@
-export const page = {
-	persistOnClose: false,
-}
-
-export default ({ html }) => {
-	let radios = []
-
-	const methods = {
-		applyMicSelection: async () => {
+export default {
+	page: { persistOnClose: false },
+	fields: () => ({ radios: [] }),
+	methods: {
+		applyMicSelection: async (html) => {
+			const radios = html.fields.radios
 			for const radio of radios {
 				radio.disabled = true
 			}
@@ -49,43 +46,39 @@ export default ({ html }) => {
 				html.muteMic.disabled = false
 			}
 		},
-		muteMic: async () => {
-			for const radio of radios {
+		muteMic: async (html) => {
+			for const radio of html.fields.radios {
 				radio.checked = false
 			}
-			await methods.applyMicSelection()
+			await html.applyMicSelection()
 		},
-	}
-	return {
-		methods,
-		onPageOpen: async () => {
-			radios = []
+	},
+	onDomAdd: async ({ html }) => {
+		html.fields.radios = []
+		html.micList.clearChildren()
+		html.micStatus.textContent = "Checking microphone access…"
 
-			html.micList.clearChildren()
-			html.micStatus.textContent = "Checking microphone access…"
+		await Permission.request()
 
-			await Permission.request()
+		const mics = await Mic.all()
+		if mics.empty {
+			html.micStatus.textContent = "No microphone inputs are available to this browser."
+		}
 
-			const mics = await Mic.all()
-			if mics.empty {
-				html.micStatus.textContent = "No microphone inputs are available to this browser."
-			}
-
-			for const [index, mic] of mics.entries() {
-				const radio = H.radio({
-					data: {
-						deviceId: mic.deviceId,
-						deviceLabel: mic.label || `Microphone ${index + 1}`,
-					},
-					name: "livestreamMicrophone",
-					value: mic.deviceId,
-					text: mic.label || `Microphone ${index + 1}`,
-					checked: Stream.audioDeviceId == mic.deviceId,
-					onSelect: () => methods.applyMicSelection(),
-				})
-				radios.push(radio.input)
-				html.micList.add(radio)
-			}
-		},
-	}
+		for const [index, mic] of mics.entries() {
+			const radio = H.radio({
+				data: {
+					deviceId: mic.deviceId,
+					deviceLabel: mic.label || `Microphone ${index + 1}`,
+				},
+				name: "livestreamMicrophone",
+				value: mic.deviceId,
+				text: mic.label || `Microphone ${index + 1}`,
+				checked: Stream.audioDeviceId == mic.deviceId,
+				onSelect: () => html.applyMicSelection(),
+			})
+			html.fields.radios.push(radio.input)
+			html.micList.add(radio)
+		}
+	},
 }

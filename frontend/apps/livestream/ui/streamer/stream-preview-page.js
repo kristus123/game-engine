@@ -1,64 +1,60 @@
-export const page = {
-	persistOnClose: false,
-}
+export default {
+	page: { persistOnClose: false },
+	fields: () => ({
+		isPreviewingStream: false,
+		streamPreview: null,
+	}),
+	onFirstDomAdd: ({ html }) => {
+		const streamPreview = document.createElement("video")
+		streamPreview.autoplay = false
+		streamPreview.playsInline = true
+		streamPreview.muted = false
+		streamPreview.srcObject = SwappableMediaStream.stream
+		streamPreview.css("width: 100%; height: 100%; object-fit: contain; background: black; pointer-events: none;")
+		html.fields.streamPreview = streamPreview
+	},
+	methods: {
+		togglePreview: async (html) => {
+			const streamPreview = html.fields.streamPreview
+			if html.fields.isPreviewingStream {
+				html.fields.isPreviewingStream = false
+				streamPreview.pause()
+				html.videoOverlay.clearChildren()
+				html.videoOverlay.add(SwappableMediaStream.video.mirror())
+				html.previewToggle.content = "Preview media stream"
+				return
+			}
 
-export default ({ html }) => {
-	let isPreviewingStream = false
-	const streamPreview = document.createElement("video")
-	streamPreview.autoplay = false
-	streamPreview.playsInline = true
-	streamPreview.muted = false
-	streamPreview.srcObject = SwappableMediaStream.stream
-	streamPreview.css("width: 100%; height: 100%; object-fit: contain; background: black; pointer-events: none;")
+			html.fields.isPreviewingStream = true
+			html.previewToggle.content = "Preview camera"
+			html.previewToggle.title = ""
+			html.videoOverlay.clearChildren()
+			html.videoOverlay.add(streamPreview)
 
-	function showCameraPreview() {
+			try {
+				await Promise.all([SwappableMediaStream.audioContext.resume(), streamPreview.play()])
+			}
+			catch (error) {
+				html.fields.isPreviewingStream = false
+				streamPreview.pause()
+				html.videoOverlay.clearChildren()
+				html.videoOverlay.add(SwappableMediaStream.video.mirror())
+				html.previewToggle.content = "Preview media stream"
+				const message = error instanceof Error ? error.message : String(error)
+				html.previewToggle.title = `Could not play stream preview: ${message}`
+				console.warn("Could not play the outgoing livestream preview", error)
+			}
+		},
+	},
+	onDomAdd: ({ html }) => {
+		html.fields.streamPreview.srcObject = SwappableMediaStream.stream
 		html.videoOverlay.clearChildren()
 		html.videoOverlay.add(SwappableMediaStream.video.mirror())
-	}
-
-	return {
-		methods: {
-			togglePreview: async () => {
-				if isPreviewingStream {
-					isPreviewingStream = false
-					streamPreview.pause()
-					showCameraPreview()
-					html.previewToggle.content = "Preview media stream"
-					return
-				}
-
-				isPreviewingStream = true
-				html.previewToggle.content = "Preview camera"
-				html.previewToggle.title = ""
-				html.videoOverlay.clearChildren()
-				html.videoOverlay.add(streamPreview)
-
-				try {
-					await Promise.all([
-						SwappableMediaStream.audioContext.resume(),
-						streamPreview.play(),
-					])
-				}
-				catch (error) {
-					isPreviewingStream = false
-					streamPreview.pause()
-					showCameraPreview()
-					html.previewToggle.content = "Preview media stream"
-					const message = error instanceof Error ? error.message : String(error)
-					html.previewToggle.title = `Could not play stream preview: ${message}`
-					console.warn("Could not play the outgoing livestream preview", error)
-				}
-			},
-		},
-		onPageOpen: () => {
-			streamPreview.srcObject = SwappableMediaStream.stream
-			showCameraPreview()
-		},
-		onPageClose: () => {
-			streamPreview.pause()
-			streamPreview.srcObject = null
-			isPreviewingStream = false
-			html.videoOverlay.clearChildren()
-		},
-	}
+	},
+	onDomRemove: ({ html }) => {
+		html.fields.streamPreview.pause()
+		html.fields.streamPreview.srcObject = null
+		html.fields.isPreviewingStream = false
+		html.videoOverlay.clearChildren()
+	},
 }

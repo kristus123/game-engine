@@ -1,7 +1,3 @@
-export const page = {
-	persistOnClose: true,
-}
-
 async function setup(html) {
 	if await Stream.online() {
 		html.waiting.content = "someone is already streaming"
@@ -39,25 +35,23 @@ async function setup(html) {
 			},
 			startStream: async () => {
 				html.waiting.content = ""
-
 				await Stream.start()
 				html.start.hide()
 				html.stop.show()
 			},
 			stopStream: async () => {
 				await Stream.stop()
-
 				html.start.show()
 				html.stop.hide()
 			},
 		},
 	}
-
 }
 
 export default {
+	page: { persistOnClose: true },
 	fields: () => ({ options: null }),
-	onFirstDomAdd: async (html) => {
+	onFirstDomAdd: async ({ html }) => {
 		html.fields.options = await setup(html)
 	},
 	methods: {

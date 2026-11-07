@@ -1,8 +1,3 @@
-export const page = {
-	persistOnClose: true,
-	layout: "pretty-layout",
-}
-
 function show(html, title, message, image) {
 	const modal = Assert.value(html.modal)
 	modal.modalContent.innerHTML = `<div class="viking-modal-content"><img src="${image}" alt="${title}" /><h2>${title}</h2><p>${message}</p></div>`
@@ -10,6 +5,10 @@ function show(html, title, message, image) {
 }
 
 export default {
+	page: {
+		persistOnClose: true,
+		layout: "pretty-layout",
+	},
 	methods: {
 		showJarle: (html) => show(html, "Jarle", "The head of the household watches the northern road and keeps the hearth ready for every traveler.", Png.painting),
 		showLiv: (html) => show(html, "Liv", "Liv keeps the old stories alive and knows which songs can soften even the longest winter.", Png.girl),

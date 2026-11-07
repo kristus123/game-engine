@@ -16,7 +16,7 @@ export default {
 		}
 	},
 
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		html.cancel.onClick(() => {
 			html.remove()
 			html.fields.rejectChosen(new Error("No advisor was selected"))
@@ -39,7 +39,7 @@ export default {
 		}
 	},
 
-	onDomAdd: (html) => {
+	onDomAdd: ({ html }) => {
 		html.modal.show()
 	},
 }

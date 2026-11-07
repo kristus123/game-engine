@@ -45,8 +45,6 @@ function createInstanceOptions(element, definition, setState) {
 		...definition,
 		methods: bindMethods(element, definition.methods),
 		state: A.method(definition.state) ? (...args) => definition.state(element, setState, ...args) : definition.state,
-		onPageOpen: definition.onPageOpen ? (...args) => definition.onPageOpen(element, ...args) : null,
-		onPageClose: definition.onPageClose ? (...args) => definition.onPageClose(element, ...args) : null,
 		onToggle: definition.onToggle ? (...args) => definition.onToggle(element, ...args) : null,
 		onHoverShow: bindCallbackMaps(element, definition.onHoverShow),
 		onHoverHide: bindCallbackMaps(element, definition.onHoverHide),
@@ -84,6 +82,11 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 
 		whenReady() {
 			return this._setupPromise
+		}
+
+		async whenLifecycleReady() {
+			await this._setupPromise
+			await this._lifecyclePromise.promise
 		}
 
 		async connectedCallback() { // triggered when added to dom
@@ -178,12 +181,12 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 				if this.isConnected {
 					if !this._didFirstDomAdd {
 						this._didFirstDomAdd = true
-						await this._onFirstDomAdd?.(this)
+						await this._onFirstDomAdd?.({ html: this })
 					}
 					if !this.isConnected {
 						return
 					}
-					await this._onDomAdd?.(this)
+					await this._onDomAdd?.({ html: this })
 				}
 			})
 		}
@@ -191,10 +194,10 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // no-
 		async disconnectedCallback() { // triggered when removed from dom
 			await this._lifecyclePromise.add(async () => {
 				await this._setupPromise
-				await this._onDomRemove?.(this)
+				await this._onDomRemove?.({ html: this })
 			})
 		}
 	})
 
-	return js ?? {}
+	return js?.default ?? {}
 }

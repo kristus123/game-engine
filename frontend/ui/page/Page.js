@@ -55,7 +55,8 @@ export class Page {
 				if !entry.layoutElement.isConnected {
 					Dom.add(entry.layoutElement)
 				}
-				entry.layoutOptions = await entry.layoutElement.whenReady()
+				await entry.layoutElement.whenReady()
+				await entry.layoutElement.whenLifecycleReady()
 			}
 			else {
 				Dom.add(entry.page)
@@ -63,13 +64,12 @@ export class Page {
 
 			entry.options = await entry.page.whenReady()
 			this.activeTag = tag
+			await entry.page.whenLifecycleReady()
 
-			await entry.layoutOptions?.onPageOpen?.()
-			await entry.options.onPageOpen?.()
 			await entry.options.onToggle?.("open")
 		}))
 
-		this.navigation = navigation
+		this.navigation = navigation.catch(() => {})
 
 		return navigation
 	}
@@ -92,19 +92,18 @@ export class Page {
 	static async _close({ keepLayout = false } = {}) {
 		const entry = this.active
 
-		await entry.layoutOptions?.onPageClose?.()
-		await entry.options.onPageClose?.()
 		await entry.options.onToggle?.("close")
 		await entry.page.remove()
+		await entry.page.whenLifecycleReady()
 
 		if entry.layoutElement && !keepLayout {
 			await entry.layoutElement.remove()
+			await entry.layoutElement.whenLifecycleReady()
 		}
 
 		if !entry.persistOnClose {
 			entry.page = null
 			entry.layoutElement = null
-			entry.layoutOptions = null
 			entry.options = null
 		}
 		this.activeTag = null

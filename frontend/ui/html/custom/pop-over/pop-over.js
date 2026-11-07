@@ -27,7 +27,7 @@ export default {
 		active: null,
 		pendingOpen: null,
 	}),
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		html.setAttribute("popover", "auto")
 		html.open = options => {
 			const mode = options.mode

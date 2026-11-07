@@ -1,5 +1,5 @@
 export default {
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		const attributes = [
 			["offset-x", "--offset-x"],
 			["offset-y", "--offset-y"],

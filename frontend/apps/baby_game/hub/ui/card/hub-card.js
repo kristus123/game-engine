@@ -1,5 +1,5 @@
 export default {
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		const pic = Random.choice([
 			Png.lavvo,
 			Png.gakti,

@@ -46,7 +46,7 @@ await Promise.all([
 
 		for const { name, component } of components {
 			if name.endsWith("-page") {
-				Assert.value(component.page, "you need to do export page = {} in " + name)
+				Assert.value(component.page, "you need to include page: {} in the default export of " + name)
 				Page.init(name, component.page)
 			}
 		}
@@ -83,17 +83,18 @@ Font.use("VT323")
 // 	Page.open("test-page")
 // })
 
-const query = new URLSearchParams(location.search)
-let page = "streamer-page"
-if query.has("viewer") {
-	page = "viewer-page"
-}
-else if query.has("streamer") {
-	page = "streamer-page"
-}
-await Page.open(page)
+// const query = new URLSearchParams(location.search)
+// let page = "streamer-page"
+// if query.has("viewer") {
+// 	page = "viewer-page"
+// }
+// else if query.has("streamer") {
+// 	page = "streamer-page"
+// }
+// await Page.open(page)
+
 // await Page.open("village-page")
-// VikingGame()
+VikingGame()
 // CanvasGame()
 // PracticeLanguage()
 // CodeEditor()

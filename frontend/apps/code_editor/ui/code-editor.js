@@ -22,7 +22,7 @@ function getCode(html) {
 }
 
 export default {
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		renderCode(html, TestFile)
 		console.log(getCode(html))
 	},

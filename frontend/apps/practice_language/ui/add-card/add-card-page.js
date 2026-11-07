@@ -1,15 +1,14 @@
-export const page = {
-	persistOnClose: true,
-}
-
 export default {
+	page: {
+		persistOnClose: true,
+	},
 	fields: () => ({
 		cardDb: null,
 		direction: null,
 		frontSound: null,
 		backSound: null,
 	}),
-	onFirstDomAdd: async (html) => {
+	onFirstDomAdd: async ({ html }) => {
 		html.fields.cardDb = await CardDb()
 		Mic.deviceId = "default"
 		console.log(await Mic.all())

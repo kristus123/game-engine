@@ -1,5 +1,5 @@
 export default {
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		G.onYear(year => {
 			html.year.content = year
 		})
@@ -19,9 +19,5 @@ export default {
 		},
 		incrementDay: () => {
 		},
-	},
-	onPageOpen: async () => {
-	},
-	onPageClose: () => {
 	},
 }

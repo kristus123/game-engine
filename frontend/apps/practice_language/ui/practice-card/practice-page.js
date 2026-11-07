@@ -1,7 +1,3 @@
-export const page = {
-	persistOnClose: true,
-}
-
 async function loadNewCard(html) {
 	html.fields.setState("loading")
 	html.fields.card = await html.fields.cardDb.cardToPractice()
@@ -16,6 +12,7 @@ async function loadNewCard(html) {
 }
 
 const component = {
+	page: { persistOnClose: true },
 	fields: () => ({
 		card: null,
 		cardDb: null,
@@ -26,7 +23,7 @@ const component = {
 		html.fields.cardDb = await CardDb()
 		return await loadNewCard(html)
 	},
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		Screen.keepAwake()
 
 		const stopWatch = StopWatch().start()

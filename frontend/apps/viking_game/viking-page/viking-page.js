@@ -1,8 +1,3 @@
-export const page = {
-	persistOnClose: true,
-	layout: "pretty-layout",
-}
-
 function show(html, key) {
 	const { text, choices } = Assert.value(Story[key])
 
@@ -33,7 +28,11 @@ function show(html, key) {
 }
 
 export default {
-	onFirstDomAdd: (html) => {
+	page: {
+		persistOnClose: true,
+		layout: "pretty-layout",
+	},
+	onFirstDomAdd: ({ html }) => {
 		for const advisor of Advisors {
 			html.advisors.add(html.advisorTemplate.cloneTemplate({
 				slots: {
@@ -46,14 +45,8 @@ export default {
 		}
 		show(html, "start")
 	},
-	onPageOpen: (html) => html.play("pageEnterRight"),
-	onPageClose: (html) => html.play("pageExitRight"),
-	onDomAdd: () => {
-		console.log("these will also trigger as usual")
-	},
-	onDomRemove: () => {
-		console.log("these will also trigger as usual")
-	},
+	onDomAdd: ({ html }) => html.play("pageEnterRight"),
+	onDomRemove: ({ html }) => html.play("pageExitRight"),
 	onHoverShow: {
 		advicePopover: (html, { origin, popover }) => {
 			const advisor = Advisors.find(a => a.name == origin.data.advisor)

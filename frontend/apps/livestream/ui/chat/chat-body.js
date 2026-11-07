@@ -1,5 +1,5 @@
 export default {
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		Chat.onMessage(({ name, message }) => {
 			html.chatHistory.add(H.create("chat-line", {
 				slots: {

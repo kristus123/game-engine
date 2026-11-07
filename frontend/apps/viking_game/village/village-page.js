@@ -1,9 +1,8 @@
-export const page = {
-	persistOnClose: true,
-	layout: "pretty-layout",
-}
-
 export default {
+	page: {
+		persistOnClose: true,
+		layout: "pretty-layout",
+	},
 	methods: {
 		openModalDemo: (html) => {
 			const modal = Assert.value(html.modal)
@@ -16,8 +15,8 @@ export default {
 			Page.open("viking-page")
 		},
 	},
-	onPageOpen: async (html) => {
+	onDomAdd: async ({ html }) => {
 		await html.play("pageEnterLeft")
 	},
-	onPageClose: (html) => html.play("pageExitLeft"),
+	onDomRemove: ({ html }) => html.play("pageExitLeft"),
 }

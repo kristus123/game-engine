@@ -40,8 +40,6 @@ function fixture(options = {}) {
 		}
 		if (connected && node.nodeType == 1) {
 			node.ready ??= Promise.resolve().then(() => ({
-				onPageOpen: async () => events.push(node.tag + ":open"),
-				onPageClose: async () => events.push(node.tag + ":close"),
 				onToggle: async state => events.push(node.tag + ":" + state + ":toggle"),
 				...options,
 			}))
@@ -61,6 +59,7 @@ function fixture(options = {}) {
 				return node.childNodes.filter(child => child.nodeType == 1)
 			},
 			whenReady: () => node.ready,
+			whenLifecycleReady: () => Promise.resolve(),
 			contains: child => node.childNodes.some(descendant => descendant == child || descendant.contains(child)),
 			append: child => {
 				disconnect(child)
@@ -116,22 +115,16 @@ test("page records retain callbacks and persistent elements across navigation", 
 	assert.equal(Page.activeTag, "hub-page")
 	assert.equal(Page.active, Page.pages["hub-page"])
 	assert.equal(Page.pages["hub-page"].page, hub)
-	assert.equal(hub.onPageOpen, undefined)
 	await assert.rejects(Page.open("hub-page"), /same twice/)
 	await Page.open("game-page")
 	await Page.open("hub-page")
 	assert.equal(Page.active.page, hub)
 	assert.equal(created.length, 2)
 	assert.deepEqual(events, [
-		"hub-page:open",
 		"hub-page:open:toggle",
-		"hub-page:close",
 		"hub-page:close:toggle",
-		"game-page:open",
 		"game-page:open:toggle",
-		"game-page:close",
 		"game-page:close:toggle",
-		"hub-page:open",
 		"hub-page:open:toggle",
 	])
 })
@@ -140,7 +133,7 @@ test("closing a nonpersistent page releases its element and replay refreshes its
 	const { Page } = fixture()
 	await Page.open("game-page")
 	const first = Page.active.page
-	const onPageOpen = Page.active.options.onPageOpen
+	const firstOptions = Page.active.options
 	assert.equal(await Page.close(), undefined)
 	assert.equal(Page.activeTag, null)
 	assert.equal(first.isConnected, false)
@@ -149,7 +142,7 @@ test("closing a nonpersistent page releases its element and replay refreshes its
 	await assert.rejects(Page.close())
 	await Page.open("game-page")
 	assert.notEqual(Page.active.page, first)
-	assert.notEqual(Page.active.options.onPageOpen, onPageOpen)
+	assert.notEqual(Page.active.options, firstOptions)
 })
 
 test("page registration rejects invalid metadata, duplicates and unregistered navigation", async () => {
@@ -169,7 +162,7 @@ test("page registration rejects invalid metadata, duplicates and unregistered na
 test("setup errors propagate without cleanup", async () => {
 	const failure = new Error("setup failed")
 	const { Page, created } = fixture({
-		get onPageOpen() {
+		get onToggle() {
 			throw failure
 		},
 	})

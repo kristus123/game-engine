@@ -26,7 +26,7 @@ export default {
 		onKeyDown: null,
 		styleObserver: null,
 	}),
-	onFirstDomAdd: (html) => {
+	onFirstDomAdd: ({ html }) => {
 		html.show = () => {
 			html.hidden = false
 			html.closeButton.focus()
@@ -40,10 +40,10 @@ export default {
 		}
 		html.fields.styleObserver = new MutationObserver(() => syncPanelStyles(html))
 	},
-	onDomAdd: (html) => {
+	onDomAdd: ({ html }) => {
 		addListeners(html)
 	},
-	onDomRemove: (html) => {
+	onDomRemove: ({ html }) => {
 		document.removeEventListener("keydown", html.fields.onKeyDown)
 		html.fields.styleObserver.disconnect()
 	},

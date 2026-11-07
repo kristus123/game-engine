@@ -1,8 +1,3 @@
-export const page = {
-	persistOnClose: true,
-	layout: "pretty-layout",
-}
-
 function show(html, title, message) {
 	const modal = Assert.value(html.modal)
 	modal.modalContent.innerHTML = `<div class="viking-modal-content"><h2>${title}</h2><p>${message}</p></div>`
@@ -10,6 +5,10 @@ function show(html, title, message) {
 }
 
 export default {
+	page: {
+		persistOnClose: true,
+		layout: "pretty-layout",
+	},
 	methods: {
 		showTimber: (html) => show(html, "Timber", "Strong pine from the western ridge. Spend it carefully on shelters, tools, and the next great hall."),
 		showRations: (html) => show(html, "Rations", "Dried fish, berries, and grain enough to keep the village moving through the next journey."),
