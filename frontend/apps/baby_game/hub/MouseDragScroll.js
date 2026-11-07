@@ -1,19 +1,34 @@
 export class MouseDragScroll {
 
-	static horizontal(element, slide = 0.9) {
-		return new MouseDragScroll(element, "horizontal", slide)
+	static horizontal(element, onScroll = null, slide = 0.9) { // no-null-check
+		if typeof onScroll == "number" {
+			slide = onScroll
+			onScroll = null
+		}
+		return new MouseDragScroll(element, "horizontal", onScroll, slide)
 	}
 
-	static vertical(element, slide = 0.9) {
-		return new MouseDragScroll(element, "vertical", slide)
+	static vertical(element, onScroll = null, slide = 0.9) { // no-null-check
+		if typeof onScroll == "number" {
+			slide = onScroll
+			onScroll = null
+		}
+		return new MouseDragScroll(element, "vertical", onScroll, slide)
 	}
 
-	constructor(element, direction, slide) {
+	constructor(element, direction, onScroll, slide) { // no-null-check
+		this.element = element
+		this.direction = direction
+		this.onScroll = onScroll
 		this.slide = slide
 		this.dragging = false
 		this.velocity = 0
 		this.animation = null
 		this.lastPosition = 0
+		if onScroll != null {
+			element.addEventListener("scroll", () => this.notifyScroll())
+			this.notifyScroll()
+		}
 
 		element.addEventListener("mousedown", e => {
 			this.stop()
@@ -67,6 +82,23 @@ export class MouseDragScroll {
 		else {
 			this.element.scrollTop = value
 		}
+		this.notifyScroll()
+	}
+
+	notifyScroll() {
+		if this.onScroll == null {
+			return
+		}
+
+		const scrollX = this.element.scrollLeft
+		const scrollY = this.element.scrollTop
+		if scrollX == this.lastScrollLeft && scrollY == this.lastScrollTop {
+			return
+		}
+
+		this.lastScrollLeft = scrollX
+		this.lastScrollTop = scrollY
+		this.onScroll(scrollX, scrollY)
 	}
 
 	animate() {
