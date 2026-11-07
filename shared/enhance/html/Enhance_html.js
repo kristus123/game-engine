@@ -650,6 +650,7 @@ export class Enhance_html extends NativeEnhancer {
 		}
 
 		return new Promise(resolve => {
+			let finished = false
 			const cleanup = () => {
 				this.removeEventListener("animationstart", animationListeners.animationStart)
 				this.removeEventListener("animationend", animationListeners.animationEnd)
@@ -658,6 +659,11 @@ export class Enhance_html extends NativeEnhancer {
 			}
 
 			const finish = e => {
+				if (finished) {
+					return
+				}
+
+				finished = true
 				this.removeClass(className)
 				cleanup()
 				onEnd?.(e)
@@ -700,6 +706,13 @@ export class Enhance_html extends NativeEnhancer {
 			this.addEventListener("animationcancel", animationListeners.animationCancel)
 
 			this.addClass(className)
+			const animation = this.getAnimations().find(animation => animation.animationName == className)
+			if (animation) {
+				animation.finished.then(() => finish(), () => finish())
+			}
+			else {
+				queueMicrotask(() => finish()) // this is a fancy builtin thing that runs before next rendering opportunity
+			}
 		})
 	}
 
