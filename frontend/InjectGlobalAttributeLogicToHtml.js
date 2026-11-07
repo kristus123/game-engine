@@ -1,3 +1,19 @@
+function resolveImageSource(source) {
+	try {
+		return AssetPaths.resolveImageSource(source)
+	}
+	catch (error) {
+		const reference = source.match(/^png\.(.*)$/i)
+		if !reference {
+			throw error
+		}
+
+		const matches = AssetPaths.aseprite.filter(path => path.endsWith("/" + reference[1]))
+		Assert.true(matches.length == 1, `Aseprite image not found or ambiguous: ${source}`)
+		return matches[0] + ".png"
+	}
+}
+
 export function InjectGlobalAttributeLogicToHtml() {
 	const observedImages = new WeakSet()
 	const hoverLogic = new GlobalHoverLogic()
@@ -8,7 +24,7 @@ export function InjectGlobalAttributeLogicToHtml() {
 			node.style.removeProperty("background-image")
 			return
 		}
-		const path = AssetPaths.resolveImageSource(source)
+		const path = resolveImageSource(source)
 		node.style.backgroundImage = `url(${JSON.stringify(path)})`
 	}
 	const backgroundObserver = new MutationObserver(mutations => {
@@ -34,7 +50,7 @@ export function InjectGlobalAttributeLogicToHtml() {
 				if source == null {
 					return
 				}
-				const path = AssetPaths.resolveImageSource(source)
+				const path = resolveImageSource(source)
 				if path != source {
 					node.setAttribute("src", path)
 				}

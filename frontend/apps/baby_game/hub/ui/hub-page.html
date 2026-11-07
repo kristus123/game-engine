@@ -1,7 +1,14 @@
-<overlay-fixed bg-img="Gif.aurora"></overlay-fixed>
-
 <overlay-fixed style="container-type: size">
+
 	<horizontal-scroll id="area" style="padding: 200px">
-		<flex-h id="list" style="gap: 80px"></flex-h>
+		<overlay-relative style="display: grid; width: max-content; height: auto; max-width: none">
+			<flex-h id="list" style="grid-area: 1 / 1; position: relative; width: max-content; flex-wrap: nowrap; gap: 80px"></flex-h>
+		</overlay-relative>
 	</horizontal-scroll>
+
+	<overlay-relative float-bot>
+		<infinite-img src="Png.infiniteGrass" speed="20s" style="max-width: 100vw"></infinite-img>
+	</overlay-relative>
+
+
 </overlay-fixed>

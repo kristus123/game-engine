@@ -1,0 +1,51 @@
+infinite-img {
+	display: inline-block;
+	position: relative;
+	width: fit-content;
+	height: fit-content;
+	max-width: 100%;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+infinite-img > #sizer {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: none;
+	margin: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+infinite-img > #track {
+	position: absolute;
+	display: flex;
+	inset: 0;
+	width: max-content;
+	height: 100%;
+	align-items: flex-end;
+}
+
+infinite-img[speed] > #track {
+	animation: infinite-img-scroll var(--infinite-img-speed) linear infinite;
+}
+
+infinite-img > #track > img {
+	flex: 0 0 auto;
+	width: auto;
+	height: auto;
+	max-width: none;
+	max-height: none;
+	margin: 0;
+}
+
+infinite-img[direction="left"] > #track {
+	animation-direction: reverse;
+}
+
+@keyframes infinite-img-scroll {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
