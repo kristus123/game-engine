@@ -14,7 +14,7 @@ export default {
 			Page.open("find-pair-page")
 		})
 
-		const pos = Random.integerBetween(-20, 20)
+		const pos = Random.integerBetween(-30, 10)
 		html.style.top = To.string(pos) + "%"
 	},
 }

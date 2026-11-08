@@ -1,20 +1,17 @@
-<overlay-fixed max-size>
+<overlay-fixed>
 	<overlay-relative max-size>
-		<infinite-img id="sun" cover src="Png.sun" scale="5" max-size></infinite-img>
+		<infinite-img fill id="sun" src="Png.sun" scale="5" max-size></infinite-img>
 	</overlay-relative>
 </overlay-fixed>
 
-<overlay-fixed style="container-type: size">
+<overlay-fixed cq-parent>
 
 	<horizontal-scroll id="area" style="padding: 200px">
-		<overlay-relative style="display: grid; width: max-content; height: auto; max-width: none">
-			<flex-h id="list" style="grid-area: 1 / 1; position: relative; width: max-content; flex-wrap: nowrap; gap: 80px"></flex-h>
-		</overlay-relative>
+		<flex-h id="list" style="gap: 80px"></flex-h>
 	</horizontal-scroll>
 
-	<overlay-relative float-bot max-width>
-		<infinite-img id="grass" src="Png.infiniteGrass" scale="5" max-width></infinite-img>
+	<overlay-relative float-bot max-width allow-click-through>
+		<infinite-img allow-click-through id="grass" src="Png.infiniteGrass" scale="5" max-width></infinite-img>
 	</overlay-relative>
-
 
 </overlay-fixed>

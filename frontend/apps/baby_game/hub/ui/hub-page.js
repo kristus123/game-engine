@@ -4,7 +4,7 @@ export default {
 	},
 	onFirstDomAdd: ({ html }) => {
 		MouseDragScroll.horizontal(html.area, (x, y) => {
-			const parallaxOffset = Math.round(-x * 0.25)
+			const parallaxOffset = Math.round(-x * 0.2)
 			html.grass.style.setProperty("--infinite-img-parallax-offset", `${parallaxOffset}px`)
 			html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
 		})

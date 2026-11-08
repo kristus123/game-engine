@@ -29,12 +29,6 @@ infinite-img > .track {
 	transform: translateX(var(--infinite-img-parallax-offset, 0px));
 }
 
-infinite-img[stretch] > .track,
-infinite-img[cover] > .track,
-infinite-img[contain] > .track {
-	width: 100%;
-}
-
 infinite-img[speed] > .track {
 	animation: infinite-img-scroll var(--infinite-img-speed) linear infinite;
 }
@@ -46,22 +40,6 @@ infinite-img > .track > img {
 	max-width: none;
 	max-height: none;
 	margin: 0;
-}
-
-infinite-img[stretch] > .track > img,
-infinite-img[cover] > .track > img,
-infinite-img[contain] > .track > img {
-	flex: 0 0 100%;
-	width: 100%;
-	height: 100%;
-}
-
-infinite-img[cover] > .track {
-	transform: none;
-}
-
-infinite-img[cover] > .track > img {
-	object-position: calc(50% + var(--infinite-img-parallax-offset, 0px)) 50%;
 }
 
 infinite-img[direction="left"] > .track {

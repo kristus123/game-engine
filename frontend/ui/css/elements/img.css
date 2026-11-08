@@ -7,6 +7,7 @@ img {
 	image-rendering: pixelated;
 }
 
+img[fill],
 img[stretch] {
 	width: 100%;
 	height: 100%;
