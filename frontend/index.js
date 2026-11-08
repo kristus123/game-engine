@@ -80,16 +80,18 @@ Font.use("VT323")
 // 	Page.open("test-page")
 // })
 
-const query = new URLSearchParams(location.search)
-if query.has("viewer") {
-	await Page.open("viewer-page")
-}
-else if query.has("streamer") {
-	await Page.open("streamer-page")
-}
-else {
-	throw new Error("missing query thingy")
-}
+// const query = new URLSearchParams(location.search)
+// if query.has("viewer") {
+// 	await Page.open("viewer-page")
+// }
+// else if query.has("streamer") {
+// 	await Page.open("streamer-page")
+// }
+// else {
+// 	throw new Error("missing query thingy")
+// }
+
+await Page.open("test-page")
 
 // await Page.open("village-page")
 // await Page.open("hub-page")
