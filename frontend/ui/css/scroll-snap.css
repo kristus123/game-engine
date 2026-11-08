@@ -1,0 +1,15 @@
+horizontal-scroll[snap-x] {
+	scroll-snap-type: x mandatory;
+}
+
+horizontal-scroll[snap-x] hub-card {
+	scroll-snap-align: center;
+}
+
+[snap-y] {
+	scroll-snap-type: y mandatory;
+}
+
+[snap-y] > * {
+	scroll-snap-align: center;
+}
