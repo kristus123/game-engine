@@ -1,4 +1,6 @@
 export class Mic {
+	static stream = null
+	static source = null
 
 	static get recording() {
 		Assert.true(Permission.granted)
@@ -13,7 +15,7 @@ export class Mic {
 	static get deviceId() {
 		Assert.true(Permission.granted)
 		// undefined needs to be used instead of null because of getUserMedia api
-		return Assert.value(localStorage.getItem("mic_deviceId"))
+		return localStorage.getItem("mic_deviceId") ?? undefined
 	}
 
 	static set deviceId(id) {
@@ -34,6 +36,23 @@ export class Mic {
 
 		const devices = await navigator.mediaDevices.enumerateDevices()
 		return devices.filter(device => device.kind == "audioinput")
+	}
+
+	static async enable() {
+		Assert.true(Permission.granted)
+		if !this.source || !this.stream?.active {
+			this.stream = await MediaDevices.audio(this.deviceId)
+			this.source = SoundContext.context.createMediaStreamSource(this.stream)
+		}
+
+		return this.source
+	}
+
+	static disable() {
+		this.source?.disconnect()
+		this.stream?.getTracks().forEach(track => track.stop())
+		this.source = null
+		this.stream = null
 	}
 
 }

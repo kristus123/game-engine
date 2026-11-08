@@ -40,7 +40,9 @@ export class SfuWorld {
 				}
 			)
 
-			await Microphone.enable()
+			await Permission.request()
+			const mic = await Mic.enable()
+			mic.connect(Mix.mic.input)
 			SfuClient.audioStream.routeTo(Mix.mic)
 			Mix.master.volume = 0
 		}
