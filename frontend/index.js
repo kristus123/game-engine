@@ -83,18 +83,18 @@ Font.use("VT323")
 // 	Page.open("test-page")
 // })
 
-// const query = new URLSearchParams(location.search)
-// let page = "streamer-page"
-// if query.has("viewer") {
-// 	page = "viewer-page"
-// }
-// else if query.has("streamer") {
-// 	page = "streamer-page"
-// }
-// await Page.open(page)
+const query = new URLSearchParams(location.search)
+let page = "streamer-page"
+if query.has("viewer") {
+	page = "viewer-page"
+}
+else if query.has("streamer") {
+	page = "streamer-page"
+}
+await Page.open(page)
 
 // await Page.open("village-page")
-await Page.open("hub-page")
+// await Page.open("hub-page")
 // VikingGame()
 // CanvasGame()
 // PracticeLanguage()
