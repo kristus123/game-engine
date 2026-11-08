@@ -1,7 +1,7 @@
 const HlsLibrary = await import("https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.mjs")
 	.then(module => module.default)
 	.catch(e => {
-		console.warn("Could not load hls.js; trying native HLS playback", e)
+		console.warn("Could not load hls.js", e)
 		return null
 	})
 

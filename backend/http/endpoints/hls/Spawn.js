@@ -78,43 +78,29 @@ export class Spawn {
 			throw new Error("Spawn write expected a Buffer")
 		}
 
-		console.log("Writing chunk:", buffer.length)
-
-		const ok = this.stdin.write(buffer)
-
-		console.log("stdin.write:", ok)
-
-		if ok {
-			return Promise.resolve()
-		}
-
-		console.log("Waiting for drain")
-
 		return new Promise((resolve, reject) => {
-			const onDrain = () => {
-				cleanup()
-				console.log("Drain")
-				resolve()
-			}
-
-			const onError = error => {
-				cleanup()
-				reject(error)
-			}
-
-			const cleanup = () => {
-				this.stdin.off("drain", onDrain)
-				this.stdin.off("error", onError)
-			}
-
-			this.stdin.once("drain", onDrain)
-			this.stdin.once("error", onError)
+			const timeout = setTimeout(() => {
+				this.p.kill("SIGKILL")
+				reject(new Error("Encoder stopped accepting media"))
+			}, 8_000)
+			timeout.unref()
+			this.stdin.write(buffer, error => {
+				clearTimeout(timeout)
+				if error {
+					reject(error)
+				}
+				else {
+					resolve()
+				}
+			})
 		})
 	}
 
 	stop() {
 		const closed = this.waitForClose()
+		const forceKill = setTimeout(() => this.p.kill("SIGKILL"), 2_000)
+		forceKill.unref()
 		this.stdin.end()
-		return closed
+		return closed.finally(() => clearTimeout(forceKill))
 	}
 }

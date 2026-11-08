@@ -1,5 +1,7 @@
 export class HlsVideo {
 	constructor(callbacks = {}) {
+		Assert.true(HlsJs.supported, "This browser does not support hls.js playback")
+		this.callbacks = callbacks
 		this.source = `${Config.httpUrl}/public_folder/hls/output.m3u8`
 
 		this.playbackUtc = null
@@ -25,42 +27,27 @@ export class HlsVideo {
 		})
 	}
 
-	async connect() {
-		Assert.false(this.connected)
-
-		this.playbackUtc = null
-
+	connect(playbackId) {
+		if this.connected && this.playbackId == playbackId {
+			return
+		}
+		this.disconnect()
+		this.playbackId = playbackId
+		const source = `${this.source}?broadcast=${playbackId}`
 		this.callbacks.onConnecting?.()
-
-		return Retry(5, async () => {
-			const online = await Stream.online()
-
-			Assert.true(online, "Stream not online")
-
-			if HlsJs.supported {
-				HlsJs.connect(this.video, this.source, {
-					onError: () => this.callbacks.onError?.(new Error("HLS connection interrupted")),
-					onManifestParsed: () => this.video.play().catch(error => {
-						if error.name != "AbortError" {
-							this.callbacks.onError?.(error)
-						}
-					}),
-				})
+		const play = () => this.video.play().catch(error => {
+			if error.name != "AbortError" {
+				this.callbacks.onError?.(error)
 			}
-			else {
-				Assert.true(this.video.canPlayHls, "This browser does not support native HLS playback")
-				this.video.src = this.source
-				this.video.play().catch(error => {
-					if error.name != "AbortError" {
-						this.callbacks.onError?.(error)
-					}
-				})
-			}
-		}, { feature: "VIEWER_PAGE" }).catch(error => this.callbacks.onError?.(error))
+		})
+		HlsJs.connect(this.video, source, {
+			onError: () => this.callbacks.onError?.(new Error("HLS connection interrupted")),
+			onManifestParsed: play,
+		})
 	}
 
 	get connected() {
-		return HlsJs.supported ? HlsJs.connected : this.video.hasAttribute("src")
+		return HlsJs.connected
 	}
 
 	get ready() {

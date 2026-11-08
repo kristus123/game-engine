@@ -14,7 +14,7 @@ export class Network {
 		try {
 			ChaosMonkey.maybeCrash("NETWORK_STATUS", 0.5)
 
-			const body = await Assert.ok(await JsonHttpClient.ping())
+			const body = await Assert.ok(await JsonHttpClient.ping({ timeoutMs: 3_000 }))
 			Assert.true(body.pong)
 			this.markOnline()
 		}
@@ -26,15 +26,15 @@ export class Network {
 
 	static {
 		window.addEventListener("online", () => {
-			this.httpCheck()
+			this.httpCheck().catch(() => {})
 		})
 
 		window.addEventListener("offline", () => {
-			this.httpCheck()
+			this.markOffline()
 		})
 
 		setInterval(() => {
-			this.httpCheck()
+			this.httpCheck().catch(() => {})
 		}, 5_000)
 	}
 

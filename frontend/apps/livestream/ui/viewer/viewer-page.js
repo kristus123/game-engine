@@ -11,19 +11,22 @@ export default {
 	fields: () => ({
 		hlsVideo: null,
 		statusLoop: null,
+		status: null,
 	}),
 	onFirstDomAdd: ({ html }) => {
 		html.fields.hlsVideo = HlsVideo({
 			onConnecting: () => {
-				html.text.content = "Connecting to stream…"
+				html.statusMessage.content = "Connecting to stream…"
 				html.utcTime.content = "Playback UTC: waiting for playback time"
 			},
 			onPlaying: () => {
-				html.text.content = ""
+				if html.fields.status?.online {
+					html.statusMessage.content = ""
+				}
 			},
 			onError: error => {
 				html.fields.hlsVideo.disconnect()
-				html.text.content = "Connection interrupted; retrying..."
+				html.statusMessage.content = "Connection interrupted; retrying..."
 				html.utcTime.content = "Playback UTC: waiting for playback time"
 				updateSeekButtons(html)
 				console.warn("Playback interrupted", error)
@@ -38,23 +41,34 @@ export default {
 
 		html.videoOverlay.add(html.fields.hlsVideo.video)
 
-		html.fields.statusLoop = SetTimeoutLoop(4_000, async () => {
+		html.fields.statusLoop = SetTimeoutLoop(1_000, async () => {
 			try {
-				if await Stream.online() {
-					await html.fields.hlsVideo.connect()
+				const status = await Stream.status()
+				if !html.isConnected {
+					return
+				}
+				html.fields.status = status
+				if status.online {
+					html.fields.hlsVideo.connect(status.playbackId)
 					if html.fields.hlsVideo.ready {
-						html.text.content = ""
+						html.statusMessage.content = ""
 					}
 				}
 				else {
 					html.fields.hlsVideo.disconnect()
-					html.text.content = "Stream not online"
+					html.statusMessage.content = status.state == "reconnecting"
+						? `The streamer disconnected. They may be back soon. Waiting ${Math.ceil(status.remainingMs / 1_000)}s…`
+						: status.state == "starting" ? "The stream is starting…" : "Stream offline"
 					html.utcTime.content = "Playback UTC: waiting for playback time"
 				}
 				updateSeekButtons(html)
 			}
 			catch (error) {
-				html.text.content = "Could not check stream status; retrying…"
+				if html.isConnected {
+					html.statusMessage.content = Network.offline
+						? "Your connection is offline. Reconnecting…"
+						: "Could not check stream status; retrying…"
+				}
 				console.warn("Could not check stream status", error)
 			}
 		}).stop()
@@ -74,7 +88,7 @@ export default {
 				await ClipCreator.create(html.fields.hlsVideo.playbackUtc)
 			}
 			catch (e) {
-				html.text.content = e.message
+				html.statusMessage.content = e.message
 			}
 		},
 		toggleFullscreen: () => Screen.toggleFullscreen(),

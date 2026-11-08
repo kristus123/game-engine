@@ -1,9 +1,14 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
-node dev/ExportAseprite.js
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+node dev/GenerateImports.js
+rm -rf -- dist
 node dev/GenerateFrontend.js PRODUCTION
+node dev/ExportAseprite.js
+node scripts/BuildExternalBundle.js
 
 # find dist -type f -name '*.js' -exec npx --yes terser {} --compress --mangle -o {} \;
 # find dist -type f -name '*.css' -exec npx --yes lightningcss --minify {} -o {} \;
@@ -11,15 +16,11 @@ node dev/GenerateFrontend.js PRODUCTION
 
 
 # needed in order to use shared array buffers between main and worker threads
-cat > dist/netlify.toml <<EOF
-[[headers]]
-	for = "/*"
-	[headers.values]
-		Cross-Origin-Opener-Policy = "same-origin"
-		Cross-Origin-Embedder-Policy = "require-corp"
+cat > dist/_headers <<EOF
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
 EOF
 
 # the id of 'romskip' aka. romskip.netlify.app
-netlify deploy --prod --dir=dist --site=30335998-1c5b-49e4-b97c-cb0f1f5b3893
-
-rm -r .netlify
+netlify deploy --prod --no-build --dir=dist --site=30335998-1c5b-49e4-b97c-cb0f1f5b3893

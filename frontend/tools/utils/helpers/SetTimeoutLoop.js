@@ -1,6 +1,6 @@
 export function SetTimeoutLoop(delayMs = 1_000, run) {
 	let timeout = null
-	let active = true
+	let active = false
 	let pendingRun = null
 
 	async function loop() {

@@ -1,14 +1,11 @@
 export class MediaDevices {
 
-	static async audio(deviceId) {
+	static async audio(deviceId = undefined) { // allow-null
 		Assert.true(Permission.granted)
 
 		return await navigator.mediaDevices.getUserMedia({
 			audio: {
-				deviceId: {
-					// can be 'exact' or 'ideal' - ideal more safe
-					exact: deviceId,
-				},
+				...(deviceId == null ? {} : { deviceId: { exact: deviceId } }),
 				echoCancellation: false,
 				noiseSuppression: false,
 				autoGainControl: false,
@@ -20,15 +17,12 @@ export class MediaDevices {
 		})
 	}
 
-	static async video(deviceId) {
+	static async video(deviceId = undefined) { // allow-null
 		Assert.true(Permission.granted)
 
 		return await navigator.mediaDevices.getUserMedia({
 			video: {
-				deviceId: {
-					// can be 'exact' or 'ideal' - ideal more safe
-					exact: deviceId,
-				},
+				...(deviceId == null ? {} : { deviceId: { exact: deviceId } }),
 				frameRate: {
 					ideal: 30,
 				},

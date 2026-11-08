@@ -1,5 +1,6 @@
 import fs from "fs"
 import Path from "path"
+import { fileURLToPath } from "node:url"
 import { Aseprite, Paths, Files } from "#root/AllImports.js"
 
 async function exportAseprite(relSrcFile, destBase) {
@@ -79,4 +80,11 @@ export async function ExportAseprite(path = null) {
 		await Promise.all(files.map(f => exportFile(f)))
 	}
 
+}
+
+if (process.argv[1] == fileURLToPath(import.meta.url)) {
+	ExportAseprite(process.argv[2]).catch(error => {
+		console.error(error)
+		process.exitCode = 1
+	})
 }

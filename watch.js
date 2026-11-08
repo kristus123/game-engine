@@ -1,13 +1,6 @@
 
-// DUPLICATED CODE, CODEX FIX THIS WHEN YOU SEE IT
-import { Files } from "#root/dev/Files.js"
-let allImports = "// This is a generated file and it is gitignored" + "\n"
-allImports += "import { LazyImport as CreateLazyImport } from \"#root/LazyImport.js\"" + "\n"
-for (const name of Files.namesAndPaths("./").keys()) {
-	allImports += `export const ${name} = CreateLazyImport(${JSON.stringify(name)})` + "\n"
-}
-Files.write("AllImports.js", allImports)
-// DUPLICATED CODE, CODEX FIX THIS WHEN YOU SEE IT
+import { GenerateImports } from "#root/dev/GenerateImports.js"
+GenerateImports()
 
 const {
 	Swoo,

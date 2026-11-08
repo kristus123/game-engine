@@ -257,6 +257,7 @@
         "HeightMap": "readonly",
         "HelperThing": "readonly",
         "HlsEndpoint": "readonly",
+        "HlsBroadcast": "readonly",
         "HlsJs": "readonly",
         "HlsVideo": "readonly",
         "HouseGrid": "readonly",

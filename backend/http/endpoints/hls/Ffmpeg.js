@@ -14,7 +14,7 @@ import { execFile } from "child_process"
 
 export class Ffmpeg {
 
-	static async start(mimeType) {
+	static async start(mimeType, userId, revision) {
 		if this.p {
 			throw new Error("already running")
 		}
@@ -75,6 +75,8 @@ export class Ffmpeg {
 			"-hls_segment_type",
 			"mpegts",
 
+			"-hls_segment_filename",
+			`public_folder/hls/${userId}-${revision}-%d.ts`,
 			"public_folder/hls/output.m3u8"
 		])
 
@@ -119,8 +121,9 @@ export class Ffmpeg {
 
 	static async stop() {
 		if this.p {
-			await this.p.stop()
+			const child = this.p
 			this.p = null
+			await child.stop()
 		}
 		else {
 			throw new Error("can't trigger stop as no process is running")

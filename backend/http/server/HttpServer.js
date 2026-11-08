@@ -59,6 +59,7 @@ export class HttpServer {
 						try {
 							const returnValue = await (await Poop.route(req, role))({
 								req: req,
+								userId: decoded.internal.userId,
 								body: await HttpBody(req),
 								headers: req.headers,
 								params: Poop.getQueryParameters(req),

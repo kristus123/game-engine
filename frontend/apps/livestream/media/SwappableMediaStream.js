@@ -7,6 +7,7 @@ export class SwappableMediaStream {
 	static audioOutput = null
 	static audioCompressor = null
 	static audioInput = null
+	static audioMuted = false
 
 	static {
 		// todo make this a H.mediastreamVideo()
@@ -18,6 +19,7 @@ export class SwappableMediaStream {
 		this.video = v
 
 		const { ctx, canvas, canvasStream } = H.CanvasWithStream(1280, 720)
+		ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 		FrameLoop(() => {
 			// Has enough data to display the current frame.
@@ -42,12 +44,29 @@ export class SwappableMediaStream {
 		])
 	}
 
+	static async prepare(options = {}) {
+		await Permission.request()
+		await this.audioContext.resume()
+		if Object.hasOwn(options, "audioDeviceId") && options.audioDeviceId == null {
+			this.clearAudioDevice()
+		}
+		else if !this.audioMuted || options.audioDeviceId != null {
+			await this.setAudioDevice(options.audioDeviceId)
+		}
+		await this.swapVideo(options.videoDeviceId)
+		return this.stream
+	}
+
+	static get videoDeviceId() {
+		return this.video.srcObject?.getVideoTracks()[0]?.getSettings().deviceId ?? null
+	}
+
 	static get audioDeviceId() {
 		return this.audioInput?.deviceId ?? null
 	}
 
-	static async setAudioDevice(deviceId) {
-		if this.audioDeviceId == deviceId {
+	static async setAudioDevice(deviceId = undefined) { // allow-null
+		if this.audioInput && this.audioInput.stream.active && (deviceId == null || this.audioDeviceId == deviceId) {
 			return
 		}
 
@@ -66,7 +85,7 @@ export class SwappableMediaStream {
 			if !actualDeviceId {
 				throw new Error(`Could not verify which microphone was opened for device ${deviceId}`)
 			}
-			if actualDeviceId != deviceId {
+			if deviceId != null && deviceId != "default" && actualDeviceId != deviceId {
 				throw new Error(`Requested microphone ${deviceId}, but the browser opened a different input`)
 			}
 
@@ -74,7 +93,8 @@ export class SwappableMediaStream {
 			source.connect(this.audioCompressor)
 
 			const previousInput = this.audioInput
-			this.audioInput = { deviceId, source, stream }
+			this.audioInput = { deviceId: actualDeviceId, source, stream }
+			this.audioMuted = false
 			if previousInput {
 				this.stopAudioInput(previousInput)
 			}
@@ -87,6 +107,7 @@ export class SwappableMediaStream {
 	}
 
 	static clearAudioDevice() {
+		this.audioMuted = true
 		const audioInput = this.audioInput
 		if !audioInput {
 			return
@@ -101,9 +122,14 @@ export class SwappableMediaStream {
 		stream.getTracks().forEach(track => track.stop())
 	}
 
-	static async swapVideo(deviceId) {
-		this.video.srcObject?.getTracks().forEach(t => t.stop())
-
-		this.video.srcObject = await MediaDevices.video(deviceId)
+	static async swapVideo(deviceId = undefined) { // allow-null
+		const previous = this.video.srcObject
+		if previous?.active && (deviceId == null || this.videoDeviceId == deviceId) {
+			return
+		}
+		const stream = await MediaDevices.video(deviceId)
+		this.video.srcObject = stream
+		previous?.getTracks().forEach(track => track.stop())
+		await this.video.play()
 	}
 }

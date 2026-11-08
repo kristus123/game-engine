@@ -5,9 +5,9 @@ export class PromiseQueue {
 	}
 
 	add(callback) {
-		this.promise = this.promise.then(callback)
-
-		return this.promise
+		const result = this.promise.then(callback)
+		this.promise = result.catch(() => {})
+		return result
 	}
 }
 

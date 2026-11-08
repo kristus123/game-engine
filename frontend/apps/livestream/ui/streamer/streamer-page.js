@@ -1,12 +1,21 @@
 async function setup(html) {
-	if await Stream.online() {
-		html.waiting.content = "someone is already streaming"
-		html.stop.show()
+	const update = state => {
+		const messages = {
+			offline: "Stream not online",
+			starting: "Starting livestream…",
+			live: "",
+			reconnecting: "Connection interrupted. Reconnecting…",
+			stopping: "Stopping livestream when the connection returns…",
+			ended: "The reconnect window expired. Start a new livestream when ready.",
+			busy: "Someone is already streaming",
+		}
+		html.waiting.content = messages[state]
+		html.start.hidden = Stream.broadcast != null
+		html.stop.hidden = Stream.broadcast == null || Stream.broadcast.stopping
 	}
-	else {
-		html.waiting.content = "Stream not online"
-		html.start.show()
-	}
+	Stream.changes.listen(update)
+	Stream.init()
+	update(Stream.broadcast ? "reconnecting" : Stream.state)
 
 	try {
 		await Permission.request()
@@ -31,18 +40,24 @@ async function setup(html) {
 		methods: {
 			openMicSettings: () => Page.open("mic-settings-page"),
 			selectNextCam: async () => {
-				await Stream.swapVideo(cams.nextElementCyclic().deviceId)
+				if cams.length > 0 {
+					await Stream.swapVideo(cams.nextElementCyclic().deviceId)
+				}
 			},
 			startStream: async () => {
-				html.waiting.content = ""
-				await Stream.start()
-				html.start.hide()
-				html.stop.show()
+				html.start.disabled = true
+				try {
+					await Stream.start()
+				}
+				catch (error) {
+					html.waiting.content = `Could not start livestream: ${error.message}`
+				}
+				finally {
+					html.start.disabled = false
+				}
 			},
 			stopStream: async () => {
 				await Stream.stop()
-				html.start.show()
-				html.stop.hide()
 			},
 		},
 	}
