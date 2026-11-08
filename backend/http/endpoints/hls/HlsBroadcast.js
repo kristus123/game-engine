@@ -14,7 +14,7 @@ export class HlsBroadcast {
 
 	static async expire() {
 		if this.session && Date.now() >= this.deadline() {
-			await this.stop(this.session.sessionId, this.session.userId)
+			await this.stop(this.session.revision, this.session.userId)
 		}
 	}
 
@@ -38,22 +38,22 @@ export class HlsBroadcast {
 		return child != null && child.exitCode == null && child.signalCode == null
 	}
 
-	static async start({ sessionId, userId, revision, mimeType, resume = false }) {
+	static async start({ userId, revision, mimeType, resume = false }) {
 		await this.expire()
-		if ![sessionId, userId].every(id => typeof id == "string" && /^[a-f0-9-]{36}$/.test(id)) || !Number.isSafeInteger(revision) || revision < 0 || mimeType != "webm" {
+		if typeof userId != "string" || !/^[a-f0-9-]{36}$/.test(userId) || !Number.isSafeInteger(revision) || revision < 0 || mimeType != "webm" {
 			throw new Error("Invalid broadcast identifiers or unsupported recording format")
 		}
-		if resume && this.session?.sessionId != sessionId {
+		if resume && this.session?.userId != userId {
 			return { accepted: false, expired: true }
 		}
-		if this.session && (this.session.sessionId != sessionId || this.session.userId != userId) {
+		if this.session && this.session.userId != userId {
 			return { accepted: false, expired: false }
 		}
 		if this.session?.revision == revision && this.processAlive {
 			return { accepted: true }
 		}
 		if !this.session {
-			this.session = { sessionId, userId, lastMediaAt: Date.now(), hasMedia: false }
+			this.session = { userId, lastMediaAt: Date.now(), hasMedia: false }
 		}
 		Object.assign(this.session, { revision, sequence: -1, hasMedia: false })
 		if Ffmpeg.p {
@@ -62,18 +62,20 @@ export class HlsBroadcast {
 		Files.deleteFilesInFolder("public_folder/hls")
 		await Ffmpeg.start(mimeType, userId, revision)
 		const child = Ffmpeg.p.p
+
 		child.once("exit", () => {
 			if this.session?.revision == revision {
 				this.session.lastMediaAt = Math.min(this.session.lastMediaAt, Date.now() - Config.streamStallMs)
 			}
 		})
+
 		return { accepted: true }
 	}
 
-	static async write({ sessionId, userId, revision, sequence }, buffer) {
+	static async write({ userId, revision, sequence }, buffer) {
 		await this.expire()
 		const session = this.session
-		if !session || session.sessionId != sessionId || session.userId != userId {
+		if !session || session.userId != userId {
 			return { accepted: false, expired: true }
 		}
 		sequence = Number(sequence)
@@ -95,8 +97,8 @@ export class HlsBroadcast {
 		return { accepted: true }
 	}
 
-	static async stop(sessionId, userId) {
-		if this.session?.sessionId != sessionId || this.session?.userId != userId {
+	static async stop(revision, userId) {
+		if this.session?.revision != Number(revision) || this.session?.userId != userId {
 			return { accepted: false, expired: true }
 		}
 		this.session = null

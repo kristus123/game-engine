@@ -1,4 +1,6 @@
-<overlay-fixed id="videoOverlay"></overlay-fixed>
+<overlay-fixed id="videoOverlay">
+	<video id="livePreview" autoplay muted playsinline></video>
+</overlay-fixed>
 
 <overlay-fixed id="buttons" center-content>
 	<h1 center id="waiting">Waiting for livestream</h1>
@@ -7,7 +9,7 @@
 <overlay-fixed allow-click-through>
 	<button float-top-right on-click="openMicSettings">Microphones</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
-	<button float-top-mid on-click-open-page="stream-preview-page">Preview media stream</button>
+	<button float-top-mid on-click="previewLiveStream">Preview live stream</button>
 
 	<button float-bot-right on-click-show="chat">open chat</button>
 	<button float-bot-mid id="viewCount">0</button>

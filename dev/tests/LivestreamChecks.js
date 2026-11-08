@@ -46,7 +46,7 @@ function broadcastFixture() {
 		Config: { streamStallMs: 8_000, streamReconnectMs: 52_000 },
 		Date: { now: () => now },
 	})
-	const identity = { sessionId: "11111111-1111-1111-1111-111111111111", revision: 1, userId: "22222222-2222-2222-2222-222222222222", mimeType: "webm" }
+	const identity = { revision: 1, userId: "22222222-2222-2222-2222-222222222222", mimeType: "webm" }
 	const write = (sequence = 0, ids = identity) => Broadcast.write({ ...ids, sequence }, Buffer.from("media"))
 	return { Broadcast, Ffmpeg, identity, write, advance: ms => {
 		now += ms
@@ -98,7 +98,7 @@ test("resuming starts a new encoder and rejects stale uploads, gaps, and another
 	assert.equal((await f.write(1, next)).accepted, false)
 	assert.equal((await f.write(0, next)).accepted, true)
 	assert.equal(f.Broadcast.status().state, "live")
-	assert.equal((await f.Broadcast.start({ ...next, sessionId: "44444444-4444-4444-4444-444444444444", resume: false })).accepted, false)
+	assert.equal((await f.Broadcast.start({ ...next, userId: "44444444-4444-4444-4444-444444444444", resume: false })).accepted, false)
 	assert.equal((await f.Broadcast.stop("wrong-session", f.identity.userId)).accepted, false)
 	assert.deepEqual(f.counts(), { starts: 2, stops: 1, writes: 2 })
 })
@@ -240,7 +240,7 @@ test("broadcast operations enforce the token user ID even with valid session ide
 	await f.Broadcast.start(f.identity)
 	const other = { ...f.identity, userId: "44444444-4444-4444-4444-444444444444" }
 	assert.equal((await f.write(0, other)).accepted, false)
-	assert.equal((await f.Broadcast.stop(f.identity.sessionId, other.userId)).accepted, false)
+	assert.equal((await f.Broadcast.stop(f.identity.revision, other.userId)).accepted, false)
 	assert.equal((await f.Broadcast.start({ ...other, resume: true })).accepted, false)
 	assert.equal(f.Broadcast.status().state, "starting")
 	assert.equal((await f.write()).accepted, true)

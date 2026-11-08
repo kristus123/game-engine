@@ -36,7 +36,7 @@ export class Stream {
 		}
 		try {
 			this.broadcast = JSON.parse(localStorage.getItem(this.storageKey))
-			if this.broadcast && (this.broadcast.userId != Token.userId || typeof this.broadcast.sessionId != "string" || !Number.isSafeInteger(this.broadcast.revision)) {
+			if this.broadcast && (this.broadcast.userId != Token.userId || !Number.isSafeInteger(this.broadcast.revision)) {
 				this.broadcast = null
 				this.save()
 			}
@@ -86,7 +86,6 @@ export class Stream {
 			return
 		}
 		this.broadcast = {
-			sessionId: crypto.randomUUID(),
 			revision: Date.now(),
 			userId: Token.userId,
 			recordingStarted: false,
@@ -145,7 +144,7 @@ export class Stream {
 			const revision = broadcast.revision
 			this.lastUploadAt = Date.now()
 			await BetterMediaRecorder.start(async blob => {
-				const params = new URLSearchParams({ sessionId: broadcast.sessionId, revision, sequence: sequence++ })
+				const params = new URLSearchParams({ revision, sequence: sequence++ })
 				const upload = Assert.ok(await LowLevelHttpClient.post({
 					routeName: `sendChunk?${params}`,
 					body: blob,
@@ -189,7 +188,7 @@ export class Stream {
 	static async finishStop() {
 		const broadcast = this.broadcast
 		try {
-			Assert.ok(await JsonHttpClient.stopStream({ body: { sessionId: broadcast.sessionId }, timeoutMs: 3_000 }))
+			Assert.ok(await JsonHttpClient.stopStream({ body: { revision: broadcast.revision }, timeoutMs: 3_000 }))
 			if this.broadcast == broadcast {
 				this.broadcast = null
 				this.save()

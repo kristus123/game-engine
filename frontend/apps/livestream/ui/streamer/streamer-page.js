@@ -12,6 +12,7 @@ async function setup(html) {
 		html.waiting.content = messages[state]
 		html.start.hidden = Stream.broadcast != null
 		html.stop.hidden = Stream.broadcast == null || Stream.broadcast.stopping
+		html.livePreview.hidden = Stream.broadcast == null
 	}
 	Stream.changes.listen(update)
 	Stream.init()
@@ -56,6 +57,7 @@ async function setup(html) {
 					html.start.disabled = false
 				}
 			},
+			previewLiveStream: () => Page.open("viewer-page"),
 			stopStream: async () => {
 				await Stream.stop()
 			},
@@ -67,12 +69,21 @@ export default {
 	page: { persistOnClose: true },
 	fields: () => ({ options: null }),
 	onFirstDomAdd: async ({ html }) => {
+		html.livePreview.srcObject = SwappableMediaStream.stream
+		html.livePreview.hidden = Stream.broadcast == null
+		html.livePreview.css("width: 100%; height: 100%; object-fit: contain; background: black;")
+		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
 		html.fields.options = await setup(html)
+	},
+	onDomAdd: ({ html }) => {
+		html.livePreview.srcObject = SwappableMediaStream.stream
+		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
 	},
 	methods: {
 		openMicSettings: (html) => html.fields.options.methods.openMicSettings(),
 		selectNextCam: (html) => html.fields.options.methods.selectNextCam(),
 		startStream: (html) => html.fields.options.methods.startStream(),
 		stopStream: (html) => html.fields.options.methods.stopStream(),
+		previewLiveStream: (html) => html.fields.options.methods.previewLiveStream(),
 	},
 }

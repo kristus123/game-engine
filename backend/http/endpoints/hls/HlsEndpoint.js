@@ -166,7 +166,7 @@ UnsecureRoute.sendChunk = async ({ req, params, userId }) => {
 }
 
 UnsecureRoute.startStream = ({ body, userId }) => HlsBroadcast.run(() => HlsBroadcast.start({ ...body, userId }))
-UnsecureRoute.stopStream = ({ body, userId }) => HlsBroadcast.run(() => HlsBroadcast.stop(body.sessionId, userId))
+UnsecureRoute.stopStream = ({ body, userId }) => HlsBroadcast.run(() => HlsBroadcast.stop(body.revision, userId))
 UnsecureRoute.streamOnline = () => {
 	return HlsBroadcast.run(async () => {
 		await HlsBroadcast.expire()
