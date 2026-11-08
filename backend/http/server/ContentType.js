@@ -81,7 +81,7 @@ export class ContentType {
 		throw new Error("error while calling .fromFile, unsupported file type: " + file)
 	}
 
-	static parse(value) { // no-null-check
+	static parse(value) { // allow-null
 		if value == null || value == "null" {
 			return null
 		}

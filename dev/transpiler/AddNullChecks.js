@@ -1,7 +1,7 @@
 import { Parameters } from "../Parameters.js"
 
 export function AddNullChecks(fileName, className, lines, i) {
-	if (lines[i].includes("no-null-check")) {
+	if (lines[i].includes("allow-null")) {
 		return [] // do nothing
 	}
 	else if (lines[i].includes("switch")) {

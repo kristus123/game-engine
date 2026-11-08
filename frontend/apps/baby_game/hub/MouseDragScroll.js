@@ -1,6 +1,6 @@
 export class MouseDragScroll {
 
-	static horizontal(element, onScroll = null, slide = 0.9) { // no-null-check
+	static horizontal(element, onScroll = null, slide = 0.9) { // allow-null
 		if typeof onScroll == "number" {
 			slide = onScroll
 			onScroll = null
@@ -8,7 +8,7 @@ export class MouseDragScroll {
 		return new MouseDragScroll(element, "horizontal", onScroll, slide)
 	}
 
-	static vertical(element, onScroll = null, slide = 0.9) { // no-null-check
+	static vertical(element, onScroll = null, slide = 0.9) { // allow-null
 		if typeof onScroll == "number" {
 			slide = onScroll
 			onScroll = null
@@ -16,7 +16,7 @@ export class MouseDragScroll {
 		return new MouseDragScroll(element, "vertical", onScroll, slide)
 	}
 
-	constructor(element, direction, onScroll, slide) { // no-null-check
+	constructor(element, direction, onScroll, slide) { // allow-null
 		this.element = element
 		this.direction = direction
 		this.onScroll = onScroll

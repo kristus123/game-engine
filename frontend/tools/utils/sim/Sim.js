@@ -27,7 +27,7 @@ export class Sim {
 		return typeof value == "function" ? value() : value
 	}
 
-	static assertClickable(el) { // no-null-check
+	static assertClickable(el) { // allow-null
 		if !(el instanceof HTMLElement) {
 			throw new Error("Invalid element")
 		}

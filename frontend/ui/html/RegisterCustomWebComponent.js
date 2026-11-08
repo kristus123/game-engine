@@ -6,7 +6,7 @@ function mapFields(element, fields) {
 	}
 }
 
-function initializeFields(element, fields) { // no-null-check
+function initializeFields(element, fields) { // allow-null
 	if !fields {
 		return
 	}
@@ -18,7 +18,7 @@ function initializeFields(element, fields) { // no-null-check
 	mapFields(element, values)
 }
 
-function bindMethods(element, methods) { // no-null-check
+function bindMethods(element, methods) { // allow-null
 	if !methods {
 		return methods
 	}
@@ -29,7 +29,7 @@ function bindMethods(element, methods) { // no-null-check
 	]))
 }
 
-function bindCallbackMaps(element, callbacks) { // no-null-check
+function bindCallbackMaps(element, callbacks) { // allow-null
 	if !callbacks {
 		return callbacks
 	}
@@ -53,7 +53,7 @@ function createInstanceOptions(element, definition, setState) {
 	}
 }
 
-export async function RegisterCustomWebComponent(name, html, js = null) { // no-null-check
+export async function RegisterCustomWebComponent(name, html, js = null) { // allow-null
 	Assert.string(name)
 	Assert.string(html)
 

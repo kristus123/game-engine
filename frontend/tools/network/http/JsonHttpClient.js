@@ -1,5 +1,5 @@
 export const JsonHttpClient = ProxyObject(
-	async (routeName, { body, contentType, ok, error, timeoutMs } = {}) => { // no-null-check
+	async (routeName, { body, contentType, ok, error, timeoutMs } = {}) => { // allow-null
 
 		return await LowLevelHttpClient.post({
 			routeName: routeName,

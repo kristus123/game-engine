@@ -1,4 +1,4 @@
-export function Toast(text) { // no-null-check
+export function Toast(text) { // allow-null
 	const o = Dom.add(`
 		<overlay-fixed>
 			<p class="bgWhite">${text}</p>

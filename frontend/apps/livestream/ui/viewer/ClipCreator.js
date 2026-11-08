@@ -1,5 +1,5 @@
 export class ClipCreator {
-	static async create(playbackUtc) { // no-null-check
+	static async create(playbackUtc) { // allow-null
 		const clipTab = window.open("about:blank", "_blank")
 		if !clipTab {
 			throw new Error("Allow pop-ups to open the clip")

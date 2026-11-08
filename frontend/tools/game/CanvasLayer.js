@@ -1,4 +1,4 @@
-export function CanvasLayer(canvas = null) { // no-null-check
+export function CanvasLayer(canvas = null) { // allow-null
 	canvas ??= new OffscreenCanvas(1, 1)
 	const ctx = canvas.getContext("2d")
 

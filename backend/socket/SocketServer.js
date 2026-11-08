@@ -28,7 +28,7 @@ export class SocketServer {
 		})
 	}
 
-	static start(server, { onJoin, onLeave } = {}) { // no-null-check // todo add async await for this one
+	static start(server, { onJoin, onLeave } = {}) { // allow-null // todo add async await for this one
 		this.server = new WebSocketServer({ server: server })
 		this.server.on("connection", async (client, request) => {
 			const urlParameters = new URLSearchParams(request.url.split("?")[1])

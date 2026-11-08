@@ -10,7 +10,7 @@ export class Permission {
 
 	}
 
-	static async request({ ok, error } = {}) { // no-null-check
+	static async request({ ok, error } = {}) { // allow-null
 		if this.granted == null {
 			const camera = navigator.permissions.query({
 				name: "camera",

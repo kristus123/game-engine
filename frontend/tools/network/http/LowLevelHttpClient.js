@@ -7,7 +7,7 @@ export class LowLevelHttpClient {
 		return this._call("POST", options)
 	}
 
-	static async _call(method, { routeName, body, formatBody, contentType, timeoutMs = 8_000 } = {}) { // no-null-check
+	static async _call(method, { routeName, body, formatBody, contentType, timeoutMs = 8_000 } = {}) { // allow-null
 		Assert.either(method, ["GET", "POST"])
 
 		try {

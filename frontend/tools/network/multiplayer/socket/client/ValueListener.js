@@ -1,5 +1,5 @@
 export class ValueListener {
-	constructor(value) { // no-null-check
+	constructor(value) { // allow-null
 		this.listener = Listener()
 		this._value = value
 	}
@@ -16,7 +16,7 @@ export class ValueListener {
 		return this._value
 	}
 
-	set value(value) { // no-null-check
+	set value(value) { // allow-null
 		if this._value == value {
 			return
 		}

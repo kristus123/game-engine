@@ -1,5 +1,5 @@
 export const NullHttpClient = ProxyObject(
-	async (routeName, { body, contentType, ok, error } = {}) => { // no-null-check
+	async (routeName, { body, contentType, ok, error } = {}) => { // allow-null
 
 		return await LowLevelHttpClient.post({
 			routeName: routeName,

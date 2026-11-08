@@ -3,7 +3,7 @@
 //
 // GamepadController.control(player)
 
-function NotNull(arg) { // no-null-check
+function NotNull(arg) { // allow-null
 	return arg != null
 }
 

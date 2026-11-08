@@ -1,14 +1,14 @@
 export class A {
 
-	static string(arg) { // no-null-check // todo make do transpiler-disable-null-assert to be super clear
+	static string(arg) { // allow-null // todo make do transpiler-disable-null-assert to be super clear
 		return typeof arg == "string" || arg instanceof String
 	}
 
-	static integer(arg) { // no-null-check
+	static integer(arg) { // allow-null
 		return Number.isInteger(arg)
 	}
 
-	static number(arg) { // no-null-check
+	static number(arg) { // allow-null
 		if (typeof arg == "bigint") {
 			throw new Error(`BigInt is currently not supported discuss how to handle bigints: ${arg}`)
 		}
@@ -21,11 +21,11 @@ export class A {
 		}
 	}
 
-	static method(arg) { // no-null-check
+	static method(arg) { // allow-null
 		return typeof arg == "function"
 	}
 
-	static list(arg) { // no-null-check
+	static list(arg) { // allow-null
 		return Array.isArray(arg)
 	}
 
@@ -33,7 +33,7 @@ export class A {
 		return typeof arg == "boolean"
 	}
 
-	static array(arg) { // no-null-check
+	static array(arg) { // allow-null
 		return Array.isArray(arg)
 	}
 
@@ -62,7 +62,7 @@ export class A {
 		return A.list(arg) && arg.length == 0 // todo replace with arg.legnth or smt more clean, isEmpty, not sure yet
 	}
 
-	static jsonString(arg) { // no-null-check
+	static jsonString(arg) { // allow-null
 		try {
 			if (A.string(arg)) {
 				JSON.parse(arg)
@@ -76,7 +76,7 @@ export class A {
 		return false
 	}
 
-	static jsonObject(arg) { // no-null-check
+	static jsonObject(arg) { // allow-null
 		try {
 			if (A.object(arg) || A.list(arg)) {
 				JSON.stringify(arg)

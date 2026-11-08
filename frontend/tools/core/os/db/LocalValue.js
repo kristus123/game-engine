@@ -13,7 +13,7 @@ export class LocalValue {
 		return localStorage.getItem(this.key)
 	}
 
-	set value(val) { // no-null-check
+	set value(val) { // allow-null
 		localStorage.setItem(this.key, val)
 	}
 

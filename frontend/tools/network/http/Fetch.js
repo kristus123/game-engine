@@ -1,4 +1,4 @@
-export async function Fetch({ url, body, headers, timeoutMs = 8_000, method } = {}) { // no-null-check
+export async function Fetch({ url, body, headers, timeoutMs = 8_000, method } = {}) { // allow-null
 	Assert.value(url)
 	Assert.value(headers)
 	Assert.string(method)
