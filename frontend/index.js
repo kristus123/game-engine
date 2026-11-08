@@ -81,14 +81,15 @@ Font.use("VT323")
 // })
 
 const query = new URLSearchParams(location.search)
-let page = "streamer-page"
 if query.has("viewer") {
-	page = "viewer-page"
+	await Page.open("viewer-page")
 }
 else if query.has("streamer") {
-	page = "streamer-page"
+	await Page.open("streamer-page")
 }
-await Page.open(page)
+else {
+	throw new Error("missing query thingy")
+}
 
 // await Page.open("village-page")
 // await Page.open("hub-page")
