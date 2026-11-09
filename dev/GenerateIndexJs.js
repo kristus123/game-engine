@@ -1,6 +1,8 @@
 import { Files, Paths, Markdown } from "#root/AllImports.js"
+import { prepareAbletonAssets } from "../xxx.js"
 
 export function GenerateIndexJs() {
+	const ableton = prepareAbletonAssets()
 
 	const customWebComponents = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".html") && f.includes("-"))
@@ -59,6 +61,7 @@ export function GenerateIndexJs() {
 		.map(f => f.startsWith("frontend/") ? f.substring("frontend/".length) : f)
 		.map(f => `"/${f}"`)
 		.map(f => f.replace(/\\/g, "/"))
+		.concat(ableton.audioPaths.map(path => JSON.stringify(path)))
 
 	const imageFiles = Files.at(Paths.frontendFolder)
 		.filter(f => f.match(/\.(png|jpg|jpeg|gif)$/i))
@@ -72,6 +75,7 @@ export function GenerateIndexJs() {
 	fileContent = fileContent.replaceAll("HTML_CONTENTS", `[${htmlContents}]`)
 	fileContent = fileContent.replaceAll("CUSTOM_WEB_COMPONENTS", `[${customWebComponents}]`)
 	fileContent = fileContent.replaceAll("AUDIO_FILES", `[${audioFiles}]`)
+	fileContent = fileContent.replaceAll("ABLETON_DATA", JSON.stringify(ableton.data))
 	fileContent = fileContent.replaceAll("IMAGE_FILES", `[${imageFiles}]`)
 
 	Files.write(Paths.dist.assetPaths, fileContent)

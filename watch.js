@@ -99,7 +99,10 @@ async function processRebuilds() {
 
 				await Promise.all(changedAsepriteFiles.map(file => ExportAseprite(file)))
 
-				const frontendChanged = changes.some(([file]) => file.startsWith("frontend/") || file.startsWith("shared/"))
+				const frontendChanged = changes.some(([file]) =>
+					file.startsWith("frontend/")
+					|| file.startsWith("shared/")
+					|| file.startsWith(Paths.abletonProjectFolder + "/"))
 				const backendChanged = changes.some(([file]) => file.startsWith("backend/") || file.startsWith("shared/"))
 
 				if (frontendChanged) {
@@ -145,7 +148,7 @@ async function processRebuilds() {
 	}
 }
 
-stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder], [".js", ".aseprite", ".html", ".css", ".md"], {
+stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder, Paths.abletonProjectFolder], [".js", ".aseprite", ".html", ".css", ".md", ".als", ".mp3"], {
 	onAdd: (path) => {
 		scheduleRebuild(path, "add")
 	},

@@ -7,6 +7,7 @@ export class AssetPaths {
 	// rename to (html)CustomWebComponents
 	static htmlComponent = CUSTOM_WEB_COMPONENTS
 	static audio = AUDIO_FILES
+	static ableton = ABLETON_DATA
 	static image = IMAGE_FILES
 
 	static resolveImageSource(source) {

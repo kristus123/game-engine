@@ -71,6 +71,8 @@ await Promise.all([
 	// these are CanvasLoop CanvasGame stuff
 ])
 
+Ableton.init()
+
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 

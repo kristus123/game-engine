@@ -1,5 +1,6 @@
 export class AudioEngine {
 	constructor(audioBuffer) {
+		this.audioBuffer = audioBuffer
 		this.source = null
 	}
 
@@ -11,12 +12,15 @@ export class AudioEngine {
 		this.stop()
 
 		this.source = SoundContext.createBufferSource(this.audioBuffer)
-
-		// 0 = play immediately
-		this.source.start(0, startPosition, duration)
-
 		this.source.onended = () => {
 			this.source = null
+		}
+
+		if duration == null {
+			this.source.start(0, startPosition)
+		}
+		else {
+			this.source.start(0, startPosition, duration)
 		}
 	}
 
@@ -26,22 +30,14 @@ export class AudioEngine {
 				this.source.stop()
 			}
 			catch (_) {
-				// do nothing
+				// The source may already have ended.
 			}
 
 			this.source = null
 		}
-		else {
-			// do nothing
-		}
 	}
 
 	get duration() {
-		if this.source {
-			return this.source.duration
-		}
-		else {
-			throw new Error("this.source is not present")
-		}
+		return this.audioBuffer.duration
 	}
 }

@@ -3,6 +3,7 @@ export class Track {
 	constructor() {
 		this.input = SoundContext.createGain()
 		this.output = this.input
+		this.sources = new Set()
 	}
 
 	get db() {
@@ -28,13 +29,38 @@ export class Track {
 		if SoundContext.suspended {
 			SoundContext.context.resume()
 		}
-		const buffer = sound?.buffer ?? sound // todo only use one. this is a hacky hack
-		if buffer {
-			const source = SoundContext.context.createBufferSource()
-			source.buffer = buffer
-			source.connect(this.input)
-			source.start(0)
+
+		const buffer = sound?.buffer ?? sound
+		if (!buffer) {
+			return null
 		}
+
+		const source = SoundContext.context.createBufferSource()
+		source.buffer = buffer
+		source.connect(this.input)
+		source.onended = () => this.sources.delete(source)
+		this.sources.add(source)
+
+		const startTime = sound?.startTime ?? 0
+		if (sound?.duration == null) {
+			source.start(0, startTime)
+		}
+		else {
+			source.start(0, startTime, sound.duration)
+		}
+
+		return source
 	}
 
+	stop() {
+		for (const source of this.sources) {
+			try {
+				source.stop()
+			}
+			catch (_) {
+				// The source may already have ended.
+			}
+		}
+		this.sources.clear()
+	}
 }

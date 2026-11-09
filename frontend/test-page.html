@@ -1,5 +1,35 @@
-<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; min-height:100vh">
-	<h1>Choose a page</h1>
-	<button on-click="openViewer">Viewer</button>
-	<button on-click="openStreamer">Streamer</button>
+<div style="display:flex; flex-direction:column; align-items:center; gap:20px; padding:24px; min-height:100vh; box-sizing:border-box; color:white; background:#202020">
+	<h1>Ableton voice test</h1>
+	<p>Click a cue to play the exported section between its locator and the next locator.</p>
+	<p id="exportStatus"></p>
+	<div style="display:flex; flex-wrap:wrap; justify-content:center; gap:24px">
+		<section style="display:flex; flex-direction:column; align-items:center; gap:10px; padding:18px; border:1px solid #777; border-radius:8px">
+			<h2>nordSami</h2>
+			<div style="display:flex; flex-wrap:wrap; gap:8px">
+				<button data-track="nordSami" on-click="playNordOne">Play one</button>
+				<button data-track="nordSami" on-click="playNordTwo">Play two</button>
+				<button data-track="nordSami" on-click="playNordThree">Play three</button>
+			</div>
+		</section>
+		<section style="display:flex; flex-direction:column; align-items:center; gap:10px; padding:18px; border:1px solid #777; border-radius:8px">
+			<h2>sorSami</h2>
+			<div style="display:flex; flex-wrap:wrap; gap:8px">
+				<button data-track="sorSami" on-click="playSorOne">Play one</button>
+				<button data-track="sorSami" on-click="playSorTwo">Play two</button>
+				<button data-track="sorSami" on-click="playSorThree">Play three</button>
+			</div>
+		</section>
+		<section style="display:flex; flex-direction:column; align-items:center; gap:10px; padding:18px; border:1px solid #777; border-radius:8px">
+			<h2>luleSami</h2>
+			<div style="display:flex; flex-wrap:wrap; gap:8px">
+				<button data-track="luleSami" on-click="playLuleOne">Play one</button>
+				<button data-track="luleSami" on-click="playLuleTwo">Play two</button>
+				<button data-track="luleSami" on-click="playLuleThree">Play three</button>
+			</div>
+		</section>
+	</div>
+	<div style="display:flex; gap:8px">
+		<button id="mixButton" on-click="playMix">Play full mix</button>
+		<button on-click="stopAll">Stop all</button>
+	</div>
 </div>
