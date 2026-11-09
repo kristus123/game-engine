@@ -77,6 +77,33 @@ export class Files {
 		return results.map(f => f.replaceAll("\\", "/"))
 	}
 
+	static tree(directory, ignoredFolders = []) {
+		const root = {}
+		ignoredFolders = new Set([...ignoredFolders, "node_modules", "dist", ".git", "capacitor_setup"])
+
+		const addChildren = (folderPath, parent) => {
+			for (const childPath of Files.inFolder(folderPath)) {
+				const normalizedPath = childPath.replaceAll("\\", "/")
+				const name = Path.basename(normalizedPath)
+				const stat = fs.statSync(childPath)
+
+				if (stat.isDirectory()) {
+					if (ignoredFolders.has(name)) {
+						continue
+					}
+					parent[name] = {}
+					addChildren(childPath, parent[name])
+				}
+				else {
+					parent[name] = normalizedPath
+				}
+			}
+		}
+
+		addChildren(directory, root)
+		return root
+	}
+
 	static namesAndPaths(directory) {
 		const namesAndPaths = new Map()
 

@@ -8,8 +8,19 @@ export default {
 			html.grass.style.setProperty("--infinite-img-parallax-offset", `${parallaxOffset}px`)
 			html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
 		})
-		Iterate(10, () => {
-			html.list.add(H.create("hub-card"))
-		})
+
+		for (const [key, game] of Object.entries(Frontend.mini_games)) {
+			if (game == null || typeof game != "object") {
+				continue
+			}
+
+			const pageFile = Object.keys(game).find(name => name.endsWith("-page.html"))
+			html.list.add(H.create("hub-card", {
+				data: {
+					name: key,
+					page: pageFile ? pageFile.replace(".html", "") : "",
+				},
+			}))
+		}
 	},
 }

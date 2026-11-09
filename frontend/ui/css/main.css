@@ -34,7 +34,18 @@ body {
 	pointer-events: none;
 }
 
+
+[allow-click-through] {
+	pointer-events: none;
+}
+
 [allow-click-through] > * {
 	/* auto is default */
 	pointer-events: auto;
+}
+
+
+[allow-click-through-all],
+[allow-click-through-all] * {
+    pointer-events: none;
 }

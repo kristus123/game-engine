@@ -247,7 +247,7 @@ test("broadcast operations enforce the token user ID even with valid session ide
 })
 
 test("the viewer throws immediately when hls.js is unsupported", () => {
-	const Video = load("frontend/apps/livestream/ui/viewer/HlsVideo.js", "HlsVideo", {
+	const Video = load("frontend/apps/livestream/livestream_ui/viewer/HlsVideo.js", "HlsVideo", {
 		HlsJs: { supported: false },
 		Assert: {
 			notNull: value => assert.notEqual(value, null),

@@ -1,7 +1,10 @@
-export function ProxyObject(onChange = () => {}) {
-	return new Proxy({}, {
+export function ProxyObject(onChange = () => {}, target = {}, onGetMissing = null) {
+	return new Proxy(target, {
 		get: (obj, prop) => {
 			if (!(prop in obj)) {
+				if (onGetMissing != null) {
+					return onGetMissing(prop)
+				}
 				return (...args) => {
 					return onChange(prop, ...args)
 				}

@@ -79,4 +79,7 @@ export function GenerateIndexJs() {
 	fileContent = fileContent.replaceAll("IMAGE_FILES", `[${imageFiles}]`)
 
 	Files.write(Paths.dist.assetPaths, fileContent)
+
+	const frontendPath = Paths.toDistPath(`${Paths.frontendFolder}/Frontend.js`)
+	Files.replace(frontendPath, "REPLACE_WITH_FRONTEND_JSON", JSON.stringify(Files.tree(Paths.frontendFolder)))
 }
