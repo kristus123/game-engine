@@ -1,5 +1,19 @@
-export default class Xml {
-    static parse(xml) {
+import fs from 'node:fs';
+import zlib from 'node:zlib';
+
+const Xml = (() => {
+	function parseFile(filePath) {
+		const compressedFile = fs.readFileSync(filePath);
+		const xml = zlib.gunzipSync(compressedFile).toString('utf8');
+		const root = parse(xml);
+
+		return {
+			findAll: (name, node = root) => findAll(node, name),
+			find: (name, node = root) => find(node, name),
+		};
+	}
+
+    function parse(xml) {
         const root = { name: null, attributes: {}, children: [] };
         const stack = [root];
 
@@ -50,19 +64,22 @@ export default class Xml {
         return root.children[0];
     }
 
-	static findAll(node, name, result = []) {
+	function findAll(node, name, result = []) {
+		if (!node) return result;
 		if (node.name === name) result.push(node);
 
 		for (const child of node.children || []) {
-			Xml.findAll(child, name, result);
+			findAll(child, name, result);
 		}
 
 		return result;
 	}
 
-	static find(node, name) {
-		return Xml.findAll(node, name)[0] || null;
+	function find(node, name) {
+		return findAll(node, name)[0] || null;
 	}
 
+	return { parseFile };
+})();
 
-}
+export default Xml;

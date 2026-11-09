@@ -1,8 +1,8 @@
 import { Files, Paths, Markdown } from "#root/AllImports.js"
-import { prepareAbletonAssets } from "../xxx.js"
+import { AbletonParser } from "#root/AbletonParser.js"
 
 export function GenerateIndexJs() {
-	const ableton = prepareAbletonAssets()
+	const ableton = AbletonParser.prepareAssets()
 
 	const customWebComponents = Files.at(Paths.frontendFolder)
 		.filter(f => f.endsWith(".html") && f.includes("-"))

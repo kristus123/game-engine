@@ -11,6 +11,7 @@ export class Mix {
 			.routeTo(Mix.master)
 
 		Mix.voices.routeTo(Mix.master)
+
 		Mix.master.routeTo(SoundContext.destination)
 	}
 }

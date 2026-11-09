@@ -1,25 +1,11 @@
 export class Ableton {
 	static voices = {}
-	static mix = null
 	static missingTracks = []
 
 	static init() {
 		this.voices = {}
-		this.mix = null
 		const project = AssetPaths.ableton.voices
 		this.missingTracks = project.missingTracks ?? []
-
-		if (project.mixAudioPath) {
-			const mixBuffer = Mp3[project.mixAudioPath]
-			if (!mixBuffer) {
-				throw new Error(`Ableton mix has not been loaded: ${project.mixAudioPath}`)
-			}
-			const mixCue = { buffer: mixBuffer, startTime: 0 }
-			this.mix = {
-				play: () => Mix.voices.play(mixCue),
-				stop: () => Mix.voices.stop(),
-			}
-		}
 
 		for (const [trackName, trackInfo] of Object.entries(project.tracks)) {
 			const audioBuffer = Mp3[trackInfo.audioPath]
@@ -28,7 +14,7 @@ export class Ableton {
 			}
 
 			const sheet = AudioSheet(audioBuffer, project.bpm)
-			const track = { stop: () => Mix.voices.stop() }
+			const track = {}
 			const locators = trackInfo.locators
 
 			for (let i = 0; i < locators.length; i++) {
@@ -44,8 +30,6 @@ export class Ableton {
 
 				const cue = sheet.createCue(locator.time, durationInBeats)
 				cue.name = locator.name
-				cue.play = () => Mix.voices.play(cue)
-				cue.stop = () => Mix.voices.stop()
 				track[locator.name] = cue
 			}
 
