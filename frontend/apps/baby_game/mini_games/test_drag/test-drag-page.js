@@ -39,8 +39,11 @@ export default {
 		DomMouse.onDrag = item => {
 			html.dragStatus.textContent = "Drag: holding " + item.textContent.trim()
 		}
-		DomMouse.whileDragging = () => {
+		DomMouse.whileDragging = item => {
 			html.dragStatus.textContent = "Drag: moving (keyboard still active)"
+			if html.dragList.contains(item) {
+				html.dragList.orderBasedOnMousePosition(item)
+			}
 		}
 		DomMouse.onDrop = () => {
 			html.dragStatus.textContent = "Drag: released"
