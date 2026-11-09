@@ -93,10 +93,10 @@ Font.use("VT323")
 // 	throw new Error("missing query thingy")
 // }
 
-await Page.open("test-page")
+// await Page.open("test-page")
 
 // await Page.open("village-page")
-// await Page.open("hub-page")
+await Page.open("hub-page")
 // VikingGame()
 // CanvasGame()
 // PracticeLanguage()
