@@ -44,7 +44,7 @@ export const AbletonParser = (() => {
 						|| track.find('Name').find('UserName')?.attributes.Value;
 					if (!trackName) continue;
 
-					const filename = `${projectName} ${trackName}.mp3`;
+					const filename = `${projectName} ${trackName}.wav`;
 					const sourcePath = path.join(exportedDirectory, filename);
 					if (!fs.existsSync(sourcePath)) {
 						missingTracks.push(trackName);
@@ -63,7 +63,7 @@ export const AbletonParser = (() => {
 					throw new Error(`Missing exported Ableton tracks in ${projectName}: ${missingTracks.join(', ')}`);
 				}
 
-				projects[projectName] = { bpm, tracks };
+				projects[projectName] = { bpm, locators, tracks };
 			}
 
 			return { data: projects, audioPaths: distAudioPaths };
