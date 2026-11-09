@@ -1,0 +1,23 @@
+<overlay-fixed center>
+	<flex-v close style="gap: 20px; max-width: 700px; padding: 32px; color: white;">
+		<h1>Drag and keyboard test</h1>
+		<p>Drag the blue card while holding an arrow key or W, A, S, D. The keyboard state should update during the drag.</p>
+		<div style="display: flex; gap: 12px;">
+			<span id="dragStatus">Drag: idle</span>
+			<span id="keyboardStatus">Keyboard: waiting</span>
+		</div>
+		<flex-v close id="dragList" style="gap: 12px; width: 100%; min-height: 220px; padding: 16px; border: 2px dashed #888; box-sizing: border-box;">
+			<div draggable style="padding: 20px; background: #2878c8; border-radius: 8px; touch-action: none; user-select: none;">
+				Drag this card and press keys
+			</div>
+			<div draggable style="padding: 20px; background: #2878c8; border-radius: 8px; touch-action: none; user-select: none;">
+				This card can move too
+			</div>
+		</flex-v>
+		<p>Pressing keys should still change the keyboard status while a card is being dragged.</p>
+	</flex-v>
+</overlay-fixed>
+
+<overlay-fixed allow-click-through>
+	<button float-top-left on-click-open-page="hub-page" style="margin: 20px">Back to hub</button>
+</overlay-fixed>
