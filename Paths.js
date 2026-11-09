@@ -1,6 +1,6 @@
 export class Paths {
 	static frontendFolder = "frontend"
-	static abletonProjectFolder = "ableton_projects/voices"
+	static abletonProjectFolder = "ableton_projects"
 	static backendFolder = "backend"
 	static sharedFolder = "shared"
 	static devFolder = "dev"

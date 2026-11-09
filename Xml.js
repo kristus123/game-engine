@@ -2,15 +2,19 @@ import fs from 'node:fs';
 import zlib from 'node:zlib';
 
 const Xml = (() => {
-	function parseFile(filePath) {
+	function parseAls(filePath) {
 		const compressedFile = fs.readFileSync(filePath);
 		const xml = zlib.gunzipSync(compressedFile).toString('utf8');
-		const root = parse(xml);
+		return addSearchMethods(parse(xml));
+	}
 
-		return {
-			findAll: (name, node = root) => findAll(node, name),
-			find: (name, node = root) => find(node, name),
-		};
+	function addSearchMethods(node) {
+		node.findAll = name => findAll(node, name);
+		node.find = name => find(node, name);
+		for (const child of node.children || []) {
+			addSearchMethods(child);
+		}
+		return node;
 	}
 
     function parse(xml) {
@@ -79,7 +83,7 @@ const Xml = (() => {
 		return findAll(node, name)[0] || null;
 	}
 
-	return { parseFile };
+	return { parseAls };
 })();
 
 export default Xml;
