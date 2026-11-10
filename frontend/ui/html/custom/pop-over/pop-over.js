@@ -51,10 +51,14 @@ export default {
 			if origin != html.fields.active?.origin || mode != html.fields.active?.mode {
 				return false
 			}
-			if html.matches(":popover-open") {
+			else if html.matches(":popover-open") {
 				html.hidePopover()
+				return true
 			}
-			return true
+			else {
+				console.log("will this ever be triggered?")
+				return true
+			}
 		}
 
 		html.dismiss = () => {
