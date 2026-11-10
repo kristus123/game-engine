@@ -2,9 +2,13 @@ export class Page {
 
 	static pages = {}
 
-	static activeTag = null
+	static visiblePages = []
 
 	static navigation = Promise.resolve()
+
+	static get activeTag() {
+		return this.visiblePages.empty ? null : this.visiblePages.last.tag
+	}
 
 	static get active() {
 		Assert.value(this.activeTag)
@@ -35,19 +39,32 @@ export class Page {
 	static open(tag) {
 		const navigation = this.navigation.then(() => this._transition(async () => {
 			Assert.string(tag)
-			Assert.false(this.activeTag == tag, "can't open same twice")
-
 			this.pages.assertKeyPresent(tag)
 
 			const entry = this.pages[tag]
-			if !entry.persistOnClose {
-				entry.page = H.create(tag)
-				entry.layoutElement = entry.layout ? Layout.init(entry.layout) : null
+			const layoutElement = entry.layout ? Layout.init(entry.layout) : null
+
+			while (this.visiblePages.length > 0) {
+				const visiblePage = this.visiblePages.last
+				if visiblePage.isOverlay {
+					await this._closeOverlay()
+				}
+				else {
+					const keepLayout = layoutElement != null && layoutElement == visiblePage.layoutElement
+					await this._close({ keepLayout })
+				}
 			}
 
-			if this.activeTag {
-				const keepLayout = entry.layoutElement != null && entry.layoutElement == this.active.layoutElement
-				await this._close({ keepLayout })
+			for const oldLayout of Object.values(Layout.references) {
+				if oldLayout.isConnected && oldLayout != layoutElement {
+					await oldLayout.remove()
+					await oldLayout.whenLifecycleReady()
+				}
+			}
+
+			if !entry.persistOnClose {
+				entry.page = H.create(tag)
+				entry.layoutElement = layoutElement
 			}
 
 			if entry.layoutElement {
@@ -63,7 +80,7 @@ export class Page {
 			}
 
 			entry.options = await entry.page.whenReady()
-			this.activeTag = tag
+			this.visiblePages.push({ tag, isOverlay: false, layoutElement: entry.layoutElement })
 			await entry.page.whenLifecycleReady()
 
 			await entry.options.onToggle?.("open")
@@ -72,6 +89,54 @@ export class Page {
 		this.navigation = navigation.catch(() => {})
 
 		return navigation
+	}
+
+	static openAsCustomModal(tag) {
+		const navigation = this.navigation.then(() => this._transition(() => this._openOverlay(tag)))
+		this.navigation = navigation.catch(() => {})
+		return navigation
+	}
+
+	static async _openOverlay(tag) {
+		Assert.string(tag)
+		this.pages.assertKeyPresent(tag)
+		Assert.false(this.visiblePages.some(visiblePage => visiblePage.tag == tag), "page is already visible")
+
+		const entry = this.pages[tag]
+		Assert.false(entry.layoutElement != null || entry.layout != null, "pages with a shared layout cannot open as custom overlays")
+
+		if !entry.persistOnClose {
+			entry.page = H.create(tag)
+		}
+
+		const wrapper = document.createElement("overlay-fixed")
+		wrapper.append(entry.page)
+		const layoutElement = this.visiblePages.empty ? null : this.visiblePages.last.layoutElement
+		this.visiblePages.push({ tag, isOverlay: true, wrapper, layoutElement })
+
+		try {
+			Dom.add(wrapper)
+			entry.options = await entry.page.whenReady()
+			await entry.page.whenLifecycleReady()
+			await entry.options.onToggle?.("open")
+		}
+		catch (error) {
+			try {
+				await entry.page.remove()
+			}
+			catch {}
+			try {
+				await entry.page.whenLifecycleReady()
+			}
+			catch {}
+			wrapper.remove()
+			this.visiblePages.pop()
+			if !entry.persistOnClose {
+				entry.page = null
+				entry.options = null
+			}
+			throw error
+		}
 	}
 
 	static async _transition(action) {
@@ -86,11 +151,37 @@ export class Page {
 	}
 
 	static async close({ keepLayout = false } = {}) {
-		return this._transition(() => this._close({ keepLayout }))
+		return this._transition(async () => {
+			Assert.false(this.visiblePages.empty, "no page is active")
+			const visiblePage = this.visiblePages.last
+			if visiblePage.isOverlay {
+				return this._closeOverlay()
+			}
+			return this._close({ keepLayout })
+		})
+	}
+
+	static async _closeOverlay() {
+		Assert.false(this.visiblePages.empty, "no custom overlay is open")
+		const visiblePage = this.visiblePages.last
+		Assert.true(visiblePage.isOverlay, "the active page is not a custom overlay")
+		const entry = this.pages[visiblePage.tag]
+		await entry.options.onToggle?.("close")
+		await entry.page.remove()
+		await entry.page.whenLifecycleReady()
+		await visiblePage.wrapper.remove()
+		this.visiblePages.pop()
+		if !entry.persistOnClose {
+			entry.page = null
+			entry.options = null
+		}
 	}
 
 	static async _close({ keepLayout = false } = {}) {
-		const entry = this.active
+		Assert.false(this.visiblePages.empty, "no page is active")
+		const visiblePage = this.visiblePages.last
+		Assert.false(visiblePage.isOverlay, "close the active overlay first")
+		const entry = this.pages[visiblePage.tag]
 
 		await entry.options.onToggle?.("close")
 		await entry.page.remove()
@@ -100,13 +191,12 @@ export class Page {
 			await entry.layoutElement.remove()
 			await entry.layoutElement.whenLifecycleReady()
 		}
-
 		if !entry.persistOnClose {
 			entry.page = null
 			entry.layoutElement = null
 			entry.options = null
 		}
-		this.activeTag = null
+		this.visiblePages.pop()
 	}
 
 }

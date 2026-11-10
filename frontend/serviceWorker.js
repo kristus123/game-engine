@@ -51,3 +51,19 @@ self.addEventListener("fetch", e => {
 		})
 	)
 })
+
+self.addEventListener("push", e => {
+	let notification = { title: "Notification", body: "" }
+	if (e.data) {
+		try {
+			notification = { ...notification, ...e.data.json() }
+		}
+		catch {
+			notification.body = e.data.text()
+		}
+	}
+
+	e.waitUntil(self.registration.showNotification(notification.title, {
+		body: notification.body,
+	}))
+})

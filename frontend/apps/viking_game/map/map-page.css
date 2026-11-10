@@ -88,7 +88,7 @@ map-page .map-modal-actions {
 	margin-top: 16px;
 }
 
-map-page custom-modal .custom-modal-panel {
+map-page modal-fixed .modal-fixed-panel {
 	width: min(1120px, calc(100% - 40px));
 	min-height: min(700px, calc(100vh - 40px));
 	padding: clamp(24px, 4vw, 42px);
@@ -99,12 +99,12 @@ map-page custom-modal .custom-modal-panel {
 		repeating-linear-gradient(45deg, #755a35 0 1px, transparent 1px 8px);
 }
 
-map-page custom-modal .custom-modal-content,
+map-page modal-fixed .modal-fixed-content,
 map-page .map-action-menu {
 	height: 100%;
 }
 
-map-page custom-modal .custom-modal-content {
+map-page modal-fixed .modal-fixed-content {
 	flex: 1;
 }
 
@@ -113,7 +113,7 @@ map-page .map-action-menu {
 	flex-direction: column;
 }
 
-map-page custom-modal .custom-modal-close {
+map-page modal-fixed .modal-fixed-close {
 	top: 16px;
 	right: 16px;
 	width: 44px;
@@ -121,7 +121,7 @@ map-page custom-modal .custom-modal-close {
 	font-size: 0;
 }
 
-map-page custom-modal .custom-modal-close::before {
+map-page modal-fixed .modal-fixed-close::before {
 	content: "×";
 	font-size: 30px;
 	font-weight: 400;
@@ -398,7 +398,7 @@ map-page .map-action-status {
 		flex: none;
 	}
 
-	map-page custom-modal .custom-modal-panel {
+	map-page modal-fixed .modal-fixed-panel {
 		width: calc(100% - 20px);
 		min-height: calc(100vh - 20px);
 		max-height: calc(100vh - 20px);

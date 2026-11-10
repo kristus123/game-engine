@@ -88,11 +88,11 @@ map-page .page-nav:focus-visible {
 	transform: translateY(-2px);
 }
 
-custom-modal .viking-modal-content {
+modal-fixed .viking-modal-content {
 	color: #342719;
 }
 
-custom-modal .viking-modal-content img {
+modal-fixed .viking-modal-content img {
 	display: block;
 	width: 120px;
 	height: 120px;
@@ -102,12 +102,12 @@ custom-modal .viking-modal-content img {
 	object-fit: cover;
 }
 
-custom-modal .viking-modal-content h2 {
+modal-fixed .viking-modal-content h2 {
 	margin: 0;
 	font-size: clamp(30px, 5vw, 48px);
 }
 
-custom-modal .viking-modal-content p {
+modal-fixed .viking-modal-content p {
 	margin: 18px 0 0;
 	font-size: clamp(18px, 2.4vw, 25px);
 	line-height: 1.4;

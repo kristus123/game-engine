@@ -21,8 +21,19 @@ UnsecureRoute.subscribe = ({ body }) => {
 	return { status: "server success" }
 }
 
-UnsecureRoute.triggerNotification = ({ body }) => {
-	webPush.sendNotification(subscription, JSON.stringify({
+UnsecureRoute.unsubscribe = ({ body }) => {
+	if (subscription?.endpoint == body.endpoint) {
+		subscription = null
+	}
+	return { status: "server success" }
+}
+
+UnsecureRoute.triggerNotification = async ({ body }) => {
+	if (!subscription) {
+		throw new Error("No push notification subscription is registered")
+	}
+
+	await webPush.sendNotification(subscription, JSON.stringify({
 		title: body.title,
 		body: body.body
 	}))

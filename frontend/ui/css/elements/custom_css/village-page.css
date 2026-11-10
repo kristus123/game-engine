@@ -5,11 +5,11 @@ village-page div {
 	min-height: 0;
 }
 
-village-page custom-modal .custom-modal-backdrop {
+village-page modal-fixed .modal-fixed-backdrop {
 	padding: 0;
 }
 
-village-page custom-modal .custom-modal-panel {
+village-page modal-fixed .modal-fixed-panel {
 	width: 100%;
 	max-width: none;
 }

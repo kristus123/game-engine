@@ -55,6 +55,7 @@ function fixture(options = {}) {
 			isConnected: false,
 			parentNode: null,
 			childNodes: [],
+			classList: { add() {} },
 			get children() {
 				return node.childNodes.filter(child => child.nodeType == 1)
 			},
@@ -84,6 +85,10 @@ function fixture(options = {}) {
 			assertKeyPresent: { value(key) { Assert.true(Object.hasOwn(this, key)) } },
 			assertKeyMissing: { value(key) { Assert.true(!Object.hasOwn(this, key)) } },
 		})
+		Object.defineProperties(Array.prototype, {
+			empty: { get() { return this.length == 0 } },
+			last: { get() { Assert.true(this.length > 0); return this.at(-1) } },
+		})
 		${layoutSource.replace("export class", "class")}
 		${source.replace("export class", "class")}
 		({ Page, Layout })
@@ -92,13 +97,16 @@ function fixture(options = {}) {
 		SuperClass: class {},
 		IfCondition: { validate: Boolean },
 		customElements: { get: () => class {} },
-		document: { createComment: () => createNode("#comment", 8) },
+		document: {
+			createComment: () => createNode("#comment", 8),
+			createElement: tag => createNode(tag),
+		},
 		H: { create: tag => {
 			const page = createNode(tag)
 			created.push(page)
 			return page
 		} },
-		Dom: { add: page => setConnected(page, true) },
+		Dom: { add: element => setConnected(element, true) },
 		UserInput: { disable() {}, enable() {} },
 	})
 	for (const tag of ["hub-page", "game-page"]) {
@@ -115,12 +123,14 @@ test("page records retain callbacks and persistent elements across navigation", 
 	assert.equal(Page.activeTag, "hub-page")
 	assert.equal(Page.active, Page.pages["hub-page"])
 	assert.equal(Page.pages["hub-page"].page, hub)
-	await assert.rejects(Page.open("hub-page"), /same twice/)
+	await Page.open("hub-page")
 	await Page.open("game-page")
 	await Page.open("hub-page")
 	assert.equal(Page.active.page, hub)
 	assert.equal(created.length, 2)
 	assert.deepEqual(events, [
+		"hub-page:open:toggle",
+		"hub-page:close:toggle",
 		"hub-page:open:toggle",
 		"hub-page:close:toggle",
 		"game-page:open:toggle",
@@ -134,14 +144,20 @@ test("closing a nonpersistent page releases its element and replay refreshes its
 	await Page.open("game-page")
 	const first = Page.active.page
 	const firstOptions = Page.active.options
+	await Page.open("game-page")
+	const second = Page.active.page
+	assert.notEqual(second, first)
+	assert.notEqual(Page.active.options, firstOptions)
+	assert.equal(first.isConnected, false)
+	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["game-page"])
 	assert.equal(await Page.close(), undefined)
 	assert.equal(Page.activeTag, null)
-	assert.equal(first.isConnected, false)
+	assert.equal(second.isConnected, false)
 	assert.equal(Page.pages["game-page"].page, null)
 	assert.equal(Page.pages["game-page"].options, null)
 	await assert.rejects(Page.close())
 	await Page.open("game-page")
-	assert.notEqual(Page.active.page, first)
+	assert.notEqual(Page.active.page, second)
 	assert.notEqual(Page.active.options, firstOptions)
 })
 
@@ -188,17 +204,34 @@ test("pages can be mounted inside a persistent layout", async () => {
 
 	const layout = Page.active.layoutElement
 	assert.equal(layout.tag, "pretty-layout")
+	assert.equal(Page.visiblePages.last.layoutElement, layout)
 	assert.deepEqual(layout.children, [Page.active.page])
 	assert.equal(layout.isConnected, true)
 
 	await Page.close()
 	assert.equal(layout.isConnected, false)
+	assert.equal(Page.visiblePages.empty, true)
 	assert.equal(Page.pages["laid-page"].page.tag, "laid-page")
 	assert.equal(Page.pages["laid-page"].layoutElement, layout)
 	assert.equal(created.length, 3)
 
 	await Page.open("laid-page")
+	assert.equal(Page.visiblePages.last.layoutElement, layout)
 	assert.deepEqual(layout.children, [Page.active.page])
+})
+
+test("a retained layout is removed when a page uses another layout", async () => {
+	const { Page, Layout } = fixture()
+	Page.init("laid-page", { persistOnClose: true, layout: "pretty-layout", assertKeyPresent() {} })
+	await Page.open("laid-page")
+	const layout = Page.visiblePages.last.layoutElement
+
+	await Page.close({ keepLayout: true })
+	assert.equal(Page.visiblePages.empty, true)
+	assert.equal(layout.isConnected, true)
+
+	await Page.open("hub-page")
+	assert.equal(layout.isConnected, false)
 })
 
 test("pages sharing a layout keep it connected and replace only its projected page", async () => {
@@ -208,6 +241,7 @@ test("pages sharing a layout keep it connected and replace only its projected pa
 	}
 	await Page.open("map-page")
 	const layout = Layout.pretty
+	assert.equal(Page.visiblePages.last.layoutElement, layout)
 	const slot = Layout.pageSlots["pretty-layout"]
 	const map = Page.active.page
 	const outlet = createNode("middle")
@@ -217,6 +251,7 @@ test("pages sharing a layout keep it connected and replace only its projected pa
 	assert.equal(Page.pages["story-page"].layoutElement, layout)
 
 	await Page.open("story-page")
+	assert.equal(Page.visiblePages.last.layoutElement, layout)
 	assert.equal(Page.active.page.parentNode, slot.parentNode)
 	assert.deepEqual(outlet.children, [Page.active.page])
 	assert.deepEqual(layout.children, [outlet])
@@ -247,9 +282,11 @@ test("a shared layout retains its slot across unrelated pages, fresh pages and e
 	assert.equal(Page.pages["fresh-page"].page, null)
 	await Page.open("other-page")
 	assert.equal(layout.isConnected, false)
+	assert.equal(Page.visiblePages.last.layoutElement, Layout.other)
 	assert.equal(Layout.other.isConnected, true)
 	await Page.open("hub-page")
 	assert.equal(Layout.other.isConnected, false)
+	assert.equal(Page.visiblePages.last.layoutElement, null)
 	await Page.open("fresh-page")
 	assert.equal(Layout.pretty, layout)
 	assert.notEqual(Page.active.page, first)
@@ -274,4 +311,45 @@ test("navigation serializes rapid page changes", async () => {
 	])
 
 	assert.equal(Page.activeTag, "hub-page")
+})
+
+test("custom overlays keep the current page connected and close back to it", async () => {
+	const { Page, events } = fixture()
+	Page.init("overlay-page", { persistOnClose: false, assertKeyPresent() {} })
+	await Page.open("hub-page")
+	const background = Page.active.page
+	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["hub-page"])
+
+	await Page.openAsCustomModal("overlay-page")
+	assert.equal(Page.activeTag, "overlay-page")
+	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["hub-page", "overlay-page"])
+	assert.equal(background.isConnected, true)
+	assert.equal(Page.active.page.isConnected, true)
+
+	await Page.close()
+	assert.equal(Page.activeTag, "hub-page")
+	assert.equal(Page.active.page, background)
+	assert.equal(background.isConnected, true)
+	assert.equal(Page.pages["overlay-page"].page, null)
+	assert.deepEqual(events.slice(-2), ["overlay-page:open:toggle", "overlay-page:close:toggle"])
+})
+
+test("custom overlays stack, and normal navigation dismisses them before switching pages", async () => {
+	const { Page } = fixture()
+	Page.init("overlay-page", { persistOnClose: false, assertKeyPresent() {} })
+	Page.init("top-overlay-page", { persistOnClose: true, assertKeyPresent() {} })
+	await Page.open("hub-page")
+	const background = Page.active.page
+
+	await Page.openAsCustomModal("overlay-page")
+	await Page.openAsCustomModal("top-overlay-page")
+	assert.equal(Page.activeTag, "top-overlay-page")
+	assert.equal(background.isConnected, true)
+
+	await Page.close()
+	assert.equal(Page.activeTag, "overlay-page")
+	await Page.open("game-page")
+	assert.equal(Page.activeTag, "game-page")
+	assert.equal(background.isConnected, false)
+	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["game-page"])
 })

@@ -23,4 +23,7 @@ export default {
 			}))
 		}
 	},
+	methods: {
+		openModalTest: () => Page.openAsCustomModal("modal-test-page"),
+	},
 }

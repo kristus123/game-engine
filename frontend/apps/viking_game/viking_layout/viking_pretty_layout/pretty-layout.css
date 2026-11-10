@@ -99,17 +99,17 @@ pretty-layout #aoe-footer .jarle-card h2 {
 	font-size: 16px;
 }
 
-pretty-layout custom-modal .viking-modal-content h2 {
+pretty-layout modal-fixed .viking-modal-content h2 {
 	margin: 0 0 12px;
 	font-size: clamp(30px, 5vw, 48px);
 }
 
-pretty-layout custom-modal .viking-modal-content h3 {
+pretty-layout modal-fixed .viking-modal-content h3 {
 	margin: 24px 0 8px;
 	font-size: 28px;
 }
 
-pretty-layout custom-modal .viking-modal-content li {
+pretty-layout modal-fixed .viking-modal-content li {
 	margin-top: 8px;
 	font-size: 20px;
 }
