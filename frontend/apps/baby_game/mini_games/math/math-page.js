@@ -3,6 +3,7 @@ function newChallenge(html) {
 		return
 	}
 
+	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
 	html.h1.textContent = "try again"
 
@@ -25,7 +26,13 @@ function newChallenge(html) {
 		})
 	}
 
-	queue.start()
+	queue.start({
+		onEnd: () => {
+			if html.fields.active {
+				html.list.setAttribute("sortable", "")
+			}
+		},
+	})
 }
 
 export default {
@@ -34,63 +41,38 @@ export default {
 	},
 	fields: () => ({
 		active: false,
-		placeholder: null,
 	}),
-	onDomAdd: ({ html, onDomRemove }) => {
+	onDomAdd: ({ html }) => {
 		html.fields.active = true
+		html.list.sortableChildMoved = () => {
+			if !html.fields.active {
+				return
+			}
+
+			const numbers = html.list.map(card => card.data.number)
+			if !numbers.same(["1", "2"]) {
+				return
+			}
+
+			html.progress.data.value = To.integer(html.progress.data.value) + 50
+			html.progress.style.width = html.progress.data.value + "%"
+			html.list.removeAttribute("sortable")
+
+			const queue = Queue()
+			for const card of html.list.children {
+				queue.add(next => card.play("moveOut", {
+					onHalf: next,
+					onEnd: () => card.invisible(),
+				}))
+			}
+
+			queue.start({ onEnd: () => newChallenge(html) })
+		}
 
 		newChallenge(html)
-
-		const drag = html.list.onDragChild({
-			onDrag: e => {
-				html.fields.placeholder = e.cloneNode(true)
-				Dom.floating(html.fields.placeholder)
-				html.fields.placeholder.followMouse(0, -50)
-				e.invisible()
-			},
-			onDrop: e => {
-				if !html.fields.placeholder {
-					return
-				}
-
-				html.fields.placeholder.remove()
-				html.fields.placeholder = null
-				e.visible()
-
-				const numbers = html.list.map(card => card.data.number)
-				if !numbers.same(["1", "2"]) {
-					return
-				}
-
-				html.progress.data.value = To.integer(html.progress.data.value) + 50
-				html.progress.style.width = html.progress.data.value + "%"
-
-				const queue = Queue()
-				for const card of html.list.children {
-					queue.add(next => card.play("moveOut", {
-						onHalf: next,
-						onEnd: () => card.invisible(),
-					}))
-				}
-
-				queue.start({ onEnd: () => newChallenge(html) })
-			},
-			whileDragging: () => {
-				if !html.fields.placeholder {
-					return
-				}
-
-				html.fields.placeholder.followMouse(0, -50)
-			},
-		})
-
-		onDomRemove(() => {
-			drag.removeListeners()
-		})
 	},
 	onDomRemove: ({ html }) => {
 		html.fields.active = false
-		html.fields.placeholder?.remove()
-		html.fields.placeholder = null
+		html.list.sortableChildMoved = null
 	},
 }

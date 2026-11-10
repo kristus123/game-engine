@@ -1,0 +1,4 @@
+.sortable-drag-visual {
+	pointer-events: none;
+	opacity: 0.85;
+}

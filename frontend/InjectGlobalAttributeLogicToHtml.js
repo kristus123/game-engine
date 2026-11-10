@@ -25,8 +25,32 @@ function validateSortable(node) {
 
 export function InjectGlobalAttributeLogicToHtml() {
 	const observedImages = new WeakSet()
+	const sortableListeners = new WeakMap()
 	const hoverLogic = new GlobalHoverLogic()
 	const popoverLogic = new GlobalPopoverLogic()
+	const enableSortable = node => {
+		validateSortable(node)
+		if node.hasAttribute("sortable") && !sortableListeners.has(node) {
+			sortableListeners.set(node, node.onDragChild())
+		}
+	}
+	const disableSortable = node => {
+		const drag = sortableListeners.get(node)
+		if drag {
+			sortableListeners.delete(node)
+			drag.removeListeners()
+		}
+	}
+	const disableSortableTree = node => {
+		if node.nodeType != Node.ELEMENT_NODE {
+			return
+		}
+
+		disableSortable(node)
+		for const child of node.children {
+			disableSortableTree(child)
+		}
+	}
 	const resolveBackground = node => {
 		const source = node.getAttribute("bg-img")
 		if !source {
@@ -48,17 +72,30 @@ export function InjectGlobalAttributeLogicToHtml() {
 	})
 	const sortableObserver = new MutationObserver(mutations => {
 		for const mutation of mutations {
-			validateSortable(mutation.target)
+			if mutation.type == "attributes" {
+				if mutation.target.hasAttribute("sortable") {
+					enableSortable(mutation.target)
+				}
+				else {
+					disableSortable(mutation.target)
+				}
+			}
+			else {
+				for const node of mutation.removedNodes {
+					disableSortableTree(node)
+				}
+			}
 		}
 	})
 	sortableObserver.observe(document.body, {
 		attributes: true,
 		attributeFilter: ["sortable"],
+		childList: true,
 		subtree: true,
 	})
 	HtmlObserverThing(document.body, node => {
 		hoverLogic.inject(node)
-		validateSortable(node)
+		enableSortable(node)
 
 		if node.hasAttribute("bg-img") {
 			resolveBackground(node)

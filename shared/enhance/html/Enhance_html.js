@@ -112,6 +112,7 @@ export class Enhance_html extends NativeEnhancer {
 	}
 
 	orderBasedOnMousePosition(draggedItem, onChange= () => {}, pointerPosition=DomMouse.position) { // Not the best name.
+		const previousIndex = [...this.children].indexOf(draggedItem)
 
 		const items = [...this.children].filter(c => c != draggedItem)
 
@@ -130,13 +131,19 @@ export class Enhance_html extends NativeEnhancer {
 		})
 
 		if (nextItem) {
-			onChange()
 			this.insertBefore(draggedItem, nextItem)
 		}
 		else {
-			onChange()
 			this.appendChild(draggedItem)
 		}
+
+		const index = [...this.children].indexOf(draggedItem)
+		if (index == previousIndex) {
+			return false
+		}
+
+		onChange({ child: draggedItem, previousIndex, index })
+		return true
 	}
 
 	get last() {
@@ -285,6 +292,7 @@ export class Enhance_html extends NativeEnhancer {
 		Assert.true(["flex-h", "flex-v"].includes(this.tag), "onDragChild only supports <flex-h> and <flex-v>")
 
 		let draggedItem = null
+		let sortableStylingThing = null
 		let pointerId = null
 		const noop = () => {}
 		onDrag ??= noop
@@ -293,13 +301,13 @@ export class Enhance_html extends NativeEnhancer {
 
 		const pointerDown = e => {
 			const item = e.target.closest("[draggable]")
-			if (e.button != 0 || !item || !this.contains(item) || draggedItem) {
+			if (e.button != 0 || !item || !this.contains(item) || item.closest("[sortable]") != this || draggedItem) {
 				return
 			}
 
 			draggedItem = item
 			pointerId = e.pointerId
-			draggedItem.style.opacity = "0.5"
+			sortableStylingThing = DeepClone.SortableStylingThing(this, draggedItem, e)
 			draggedItem.setPointerCapture(pointerId)
 			draggedItem.addAttribute("being-dragged")
 			onDrag(draggedItem)
@@ -310,6 +318,7 @@ export class Enhance_html extends NativeEnhancer {
 				return
 			}
 
+			sortableStylingThing.move(e)
 			this.orderBasedOnMousePosition(draggedItem, undefined, { x: e.clientX, y: e.clientY })
 			whileDragging(draggedItem)
 		}
@@ -320,16 +329,25 @@ export class Enhance_html extends NativeEnhancer {
 			}
 
 			const item = draggedItem
+			const previousIndex = sortableStylingThing.dragStartIndex
+			sortableStylingThing.remove()
+			sortableStylingThing = null
 			item.removeAttribute("being-dragged")
-			item.style.opacity = "1"
 			draggedItem = null
 			pointerId = null
-			return item
+			return { item, previousIndex }
 		}
 
 		const pointerUp = e => {
 			if (draggedItem && e.pointerId == pointerId) {
-				onDrop(clearDrag())
+				const { item, previousIndex } = clearDrag()
+				const index = [...this.children].indexOf(item)
+
+				if (index != previousIndex) {
+					this.sortableChildMoved?.({ child: item, previousIndex, index })
+				}
+
+				onDrop(item)
 			}
 		}
 

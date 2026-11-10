@@ -8,6 +8,7 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 	static onMove = () => {}
 
 	static draggedItem = null
+	static _draggedItemOriginalOpacity = null
 
 	static {
 		window.addEventListener("pointerdown", e => {
@@ -16,7 +17,10 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 			if this.draggedItem != null {
 				this.onDrag?.(this.draggedItem)
 
-				this.draggedItem.style.opacity = "0.5"
+				if this.draggedItem.parentElement?.hasAttribute("sortable") {
+					this._draggedItemOriginalOpacity = this.draggedItem.style.opacity
+					this.draggedItem.style.opacity = "0.5"
+				}
 				e.target.setPointerCapture(e.pointerId)
 
 				this.draggedItem.addAttribute("being-dragged") // todo: only one element should have attribute 'being-dragged' at any given time, add asserts etc
@@ -37,7 +41,10 @@ export class DomMouse { // Maybe rename to UI Mouse? not sure
 		const stopDragging = () => {
 			if this.draggedItem != null {
 				this.draggedItem.removeAttribute("being-dragged")
-				this.draggedItem.style.opacity = "1"
+				if this._draggedItemOriginalOpacity != null {
+					this.draggedItem.style.opacity = this._draggedItemOriginalOpacity
+					this._draggedItemOriginalOpacity = null
+				}
 
 				this.onDrop?.(this.draggedItem)
 				this.draggedItem = null
