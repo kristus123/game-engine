@@ -25,6 +25,9 @@ export class Network {
 	}
 
 	static {
+		SocketClient.onOnline(() => this.markOnline())
+		SocketClient.onOffline(() => this.markOffline())
+
 		window.addEventListener("online", () => {
 			this.httpCheck().catch(() => {})
 		})

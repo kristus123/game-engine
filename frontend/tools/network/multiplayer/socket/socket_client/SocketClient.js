@@ -9,6 +9,9 @@ export class SocketClient {
 		this.webSocket = null
 		this._connectionPromise = null
 		this._reconnectTimer = null
+		this._socketConnected = false
+		this._onlineListeners = Listener()
+		this._offlineListeners = Listener()
 
 		this.clientActionListener = ActionListener()
 		this.serverActionListener = ActionListener()
@@ -54,32 +57,16 @@ export class SocketClient {
 			return this._connectionPromise
 		}
 
-		const connectionPromise = this.waitForBackend().then(() => this.openConnection()) // Can we have this use async await syntax instead? Also, can we simplify this code? Because it is a little bit hacky
+		const connectionPromise = this.openConnection()
 		this._connectionPromise = connectionPromise
-		connectionPromise.catch(() => { // And since we're gonna use async away syntax, can we just use a normal try-catch syntax if trycatch is needed after below comment changes
+		try {
+			await connectionPromise
+		}
+		catch (error) {
 			if this._connectionPromise == connectionPromise {
 				this._connectionPromise = null
 			}
-		})
-		return connectionPromise
-	}
-
-	static async waitForBackend() { // Can we rewrite it so that we don't do this wait for back-end stuff? I have decided to not bother about checking if the ping is available. It can instead just attempt to reconnect to the socket server, and if it fails to connect to the socket server, it can try again in a little bit later
-		while (true) {
-			const response = await LowLevelHttpClient.post({
-				routeName: "ping",
-				body: {},
-				formatBody: response => response,
-				timeoutMs: 2_000,
-			})
-			if response.ok {
-				const status = await response.body.json()
-				if status.pong && status.ready == true {
-					return
-				}
-			}
-
-			await new Promise(resolve => setTimeout(resolve, 500))
+			throw error
 		}
 	}
 
@@ -92,6 +79,10 @@ export class SocketClient {
 			this.webSocket = nextSocket
 
 			nextSocket.onopen = () => {
+				if this.webSocket != nextSocket {
+					return
+				}
+
 				console.log("WebSocket connection opened")
 				this._connectionPromise = null
 				clearTimeout(this._reconnectTimer)
@@ -103,6 +94,10 @@ export class SocketClient {
 				}
 
 				this.onEveryConnect?.()
+				if !this._socketConnected {
+					this._socketConnected = true
+					this._onlineListeners.trigger({})
+				}
 
 				this.sendToServer("HOT_RELOAD_BACKEND_ID", {})
 
@@ -116,6 +111,10 @@ export class SocketClient {
 
 				this.webSocket = null
 				this._connectionPromise = null
+				if this._socketConnected {
+					this._socketConnected = false
+					this._offlineListeners.trigger({})
+				}
 				reject(new Error("Failed to connect to socket server"))
 
 				if this._reconnectTimer != null {
@@ -204,4 +203,13 @@ export class SocketClient {
 	static get connected() {
 		return this.webSocket?.readyState == WebSocket.OPEN
 	}
+
+	static onOnline(callback) {
+		this._onlineListeners.listen(callback)
+	}
+
+	static onOffline(callback) {
+		this._offlineListeners.listen(callback)
+	}
+
 }
