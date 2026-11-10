@@ -13,7 +13,7 @@
   "app": "http://www.aseprite.org/",
   "version": "1.3.17-dev",
   "image": "sun.png",
-  "format": "RGBA8888",
+  "format": "I8",
   "size": { "w": 299, "h": 168 },
   "scale": "1",
   "slices": [
