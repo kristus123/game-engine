@@ -1,0 +1,47 @@
+math-page #list {
+	gap: 20px;
+}
+
+math-page .math-number-card {
+	min-width: 100px;
+	min-height: 100px;
+	touch-action: none;
+	user-select: none;
+}
+
+math-page .math-number-card p {
+	font-size: 85px;
+}
+
+math-page #progress-container {
+	max-width: 1200px;
+	height: 20px;
+	background: #ddd;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+math-page #progress {
+	width: 0%;
+	height: 100%;
+	transition: width 0.2s ease;
+}
+
+math-page .success {
+	background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #b967ff, #ff6b6b);
+	background-size: 200% 100%;
+	animation: math-page-success-rainbow 1s linear infinite;
+}
+
+math-page .math-back-button {
+	margin: 20px;
+}
+
+@keyframes math-page-success-rainbow {
+	from {
+		background-position: 0% 50%;
+	}
+	to {
+		background-position: 200% 50%;
+	}
+}

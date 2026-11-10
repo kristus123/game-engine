@@ -111,7 +111,7 @@ export class Enhance_html extends NativeEnhancer {
 		return this.getBoundingClientRect().height
 	}
 
-	orderBasedOnMousePosition(draggedItem, onChange= () => {}) { // Not the best name.
+	orderBasedOnMousePosition(draggedItem, onChange= () => {}, pointerPosition=DomMouse.position) { // Not the best name.
 
 		const items = [...this.children].filter(c => c != draggedItem)
 
@@ -119,10 +119,10 @@ export class Enhance_html extends NativeEnhancer {
 			const r = i.getBoundingClientRect()
 
 			if (this.tag == "flex-v") {
-				return DomMouse.y < r.top + r.height / 2
+				return pointerPosition.y < r.top + r.height / 2
 			}
 			else if (this.tag == "flex-h") {
-				return DomMouse.x < r.left + r.width / 2
+				return pointerPosition.x < r.left + r.width / 2
 			}
 			else {
 				throw new Error("unsupported thing")
@@ -281,67 +281,72 @@ export class Enhance_html extends NativeEnhancer {
 	}
 
 	onDragChild({ onDrag, whileDragging, onDrop } = {}) {
+		Assert.true(this.hasAttribute("sortable"), "use of onDragChild requires the sortable attribute")
+		Assert.true(["flex-h", "flex-v"].includes(this.tag), "onDragChild only supports <flex-h> and <flex-v>")
 
 		let draggedItem = null
+		let pointerId = null
+		const noop = () => {}
+		onDrag ??= noop
+		whileDragging ??= noop
+		onDrop ??= noop
 
-		window.addEventListener("pointerdown", e => {
-			draggedItem = e.target.closest("[draggable]") // it should also check that the draggable is inside of "this"
-			// or maybe it can be replaced with this.addEventListener
-			// right now it is scary and global
-
-			if (draggedItem) {
-				draggedItem.style.opacity = "0.5"
-				e.target.setPointerCapture(e.pointerId)
-
-				draggedItem.addAttribute("being-dragged") // only one element should have attribute 'being-dragged' at any given time
-				onDrag(draggedItem)
+		const pointerDown = e => {
+			const item = e.target.closest("[draggable]")
+			if (e.button != 0 || !item || !this.contains(item) || draggedItem) {
+				return
 			}
-		})
 
-		window.addEventListener("pointermove", e => {
-			// or maybe it can be replaced with this.addEventListener
-			// right now it is scary and global
-			if (draggedItem) {
-				whileDragging(draggedItem)
+			draggedItem = item
+			pointerId = e.pointerId
+			draggedItem.style.opacity = "0.5"
+			draggedItem.setPointerCapture(pointerId)
+			draggedItem.addAttribute("being-dragged")
+			onDrag(draggedItem)
+		}
 
-				const items = [...this.children].filter(c => c != draggedItem)
-
-				const nextItem = items.find(i => {
-					const r = i.getBoundingClientRect()
-					return e.clientY < r.top + r.height / 2
-				})
-
-				if (nextItem) {
-					this.insertBefore(draggedItem, nextItem)
-				}
-				else {
-					this.appendChild(draggedItem)
-				}
+		const pointerMove = e => {
+			if (!draggedItem || e.pointerId != pointerId) {
+				return
 			}
-		})
 
-		const stopDrag = () => {
-			if (draggedItem) {
-				draggedItem.removeAttribute("being-dragged")
-				draggedItem.style.opacity = "1"
+			this.orderBasedOnMousePosition(draggedItem, undefined, { x: e.clientX, y: e.clientY })
+			whileDragging(draggedItem)
+		}
 
-				onDrop(draggedItem)
-				draggedItem = null
+		const clearDrag = () => {
+			if (!draggedItem) {
+				return null
+			}
+
+			const item = draggedItem
+			item.removeAttribute("being-dragged")
+			item.style.opacity = "1"
+			draggedItem = null
+			pointerId = null
+			return item
+		}
+
+		const pointerUp = e => {
+			if (draggedItem && e.pointerId == pointerId) {
+				onDrop(clearDrag())
 			}
 		}
 
-		window.addEventListener("pointerup", e => {
-			// or maybe it can be replaced with this.addEventListener
-			// right now it is scary and global
-			stopDrag()
-		})
+		window.addEventListener("pointerdown", pointerDown)
+		window.addEventListener("pointermove", pointerMove)
+		window.addEventListener("pointerup", pointerUp)
+		window.addEventListener("pointercancel", pointerUp)
 
-		window.addEventListener("pointercancel", () => {
-			// or maybe it can be replaced with this.addEventListener
-			// right now it is scary and global
-			stopDrag()
-		})
-
+		return {
+			removeListeners: () => {
+				window.removeEventListener("pointerdown", pointerDown)
+				window.removeEventListener("pointermove", pointerMove)
+				window.removeEventListener("pointerup", pointerUp)
+				window.removeEventListener("pointercancel", pointerUp)
+				clearDrag()
+			},
+		}
 	}
 
 	replace(oldText, newText) {

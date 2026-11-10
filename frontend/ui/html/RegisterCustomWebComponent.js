@@ -72,6 +72,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 		_onDomAdd = null
 		_onFirstDomAdd = null
 		_onDomRemove = null
+		_domRemoveCallbacks = []
 		_didFirstDomAdd = false
 
 		constructor() {
@@ -186,7 +187,15 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 					if !this.isConnected {
 						return
 					}
-					await this._onDomAdd?.({ html: this })
+					await this._onDomAdd?.({
+						html: this,
+						onDomRemove: callback => {
+							if !A.method(callback) {
+								throw new Error("onDomRemove callback must be a function")
+							}
+							this._domRemoveCallbacks.push(callback)
+						},
+					})
 				}
 			})
 		}
@@ -194,7 +203,16 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 		async disconnectedCallback() { // triggered when removed from dom
 			await this._lifecyclePromise.add(async () => {
 				await this._setupPromise
-				await this._onDomRemove?.({ html: this })
+				try {
+					await this._onDomRemove?.({ html: this })
+				}
+				finally {
+					const callbacks = this._domRemoveCallbacks.reverse()
+					this._domRemoveCallbacks = []
+					for const callback of callbacks {
+						await callback()
+					}
+				}
 			})
 		}
 	})

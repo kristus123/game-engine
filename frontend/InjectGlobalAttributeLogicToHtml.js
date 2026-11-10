@@ -14,6 +14,15 @@ function resolveImageSource(source) {
 	}
 }
 
+function validateSortable(node) {
+	if node.hasAttribute("sortable") {
+		Assert.true(
+			["flex-h", "flex-v"].includes(node.tag),
+			`sortable is only supported on <flex-h> and <flex-v>; found <${node.tag}>`,
+		)
+	}
+}
+
 export function InjectGlobalAttributeLogicToHtml() {
 	const observedImages = new WeakSet()
 	const hoverLogic = new GlobalHoverLogic()
@@ -37,8 +46,19 @@ export function InjectGlobalAttributeLogicToHtml() {
 		attributeFilter: ["bg-img"],
 		subtree: true,
 	})
+	const sortableObserver = new MutationObserver(mutations => {
+		for const mutation of mutations {
+			validateSortable(mutation.target)
+		}
+	})
+	sortableObserver.observe(document.body, {
+		attributes: true,
+		attributeFilter: ["sortable"],
+		subtree: true,
+	})
 	HtmlObserverThing(document.body, node => {
 		hoverLogic.inject(node)
+		validateSortable(node)
 
 		if node.hasAttribute("bg-img") {
 			resolveBackground(node)
