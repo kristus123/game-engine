@@ -20,13 +20,18 @@ function include(content, className) {
 	}
 }
 
+function exportName(filePath) {
+	const fileName = Path.basename(filePath, ".js")
+	return fileName == "frontendSecrets" ? "Secrets" : fileName
+}
+
 export class Imports {
 
 	static needed(content, jsFilePaths) {
 		let imports = ""
 
 		for (const jsFile of jsFilePaths) {
-			const className = Path.basename(jsFile, ".js")
+			const className = exportName(jsFile)
 
 			if (include(content, className)) {
 				const p = jsFile.replace("frontend/", "")

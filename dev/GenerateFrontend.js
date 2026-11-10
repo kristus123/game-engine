@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto"
+import { existsSync } from "node:fs"
 import { Files, Paths, Transpiler, Markdown, GenerateIndexJs, AssertUniqueFileNames } from "#root/AllImports.js"
 
 // todo find better solution?
@@ -11,9 +12,18 @@ export function GenerateFrontend(env) {
 	if (env == null) {
 		throw new Error("env cannot be null")
 	}
+	if (!["DEVELOPMENT", "PRODUCTION"].includes(env)) {
+		throw new Error(`unsupported frontend environment: ${env}`)
+	}
 	AssertUniqueFileNames()
 
 	Files.copyFolder("frontend/", "dist/") // todo use Paths.js
+	if (env == "DEVELOPMENT") {
+		Files.copyFile("Secrets.js", "dist/Secrets.js")
+	}
+	else if (existsSync("dist/Secrets.js")) {
+		throw new Error("Production output contains dist/Secrets.js; refusing to build with local secrets")
+	}
 
 	Transpiler(env, jsFiles)
 

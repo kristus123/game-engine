@@ -2,7 +2,7 @@ export async function Gpt(text) {
 	const r = await fetch("https://api.openai.com/v1/responses", {
 		method: "POST",
 		headers: {
-			Authorization: `Bearer ${OpenAiToken}`,
+			Authorization: `Bearer ${Secrets.openAiToken}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
