@@ -2,9 +2,10 @@ import fs from 'node:fs';
 import zlib from 'node:zlib';
 
 const Xml = (() => {
-	function parseAls(filePath) {
+	function parseAls(filePath, outputPath = null) {
 		const compressedFile = fs.readFileSync(filePath);
 		const xml = zlib.gunzipSync(compressedFile).toString('utf8');
+		if (outputPath) fs.writeFileSync(outputPath, xml);
 		return addSearchMethods(parse(xml));
 	}
 

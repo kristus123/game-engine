@@ -5,6 +5,7 @@ import Xml from './Xml.js';
 
 const repoDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectsDirectory = path.join(repoDirectory, 'ableton_projects');
+const outputXml = true;
 
 export const AbletonParser = (() => {
 	return {
@@ -17,7 +18,8 @@ export const AbletonParser = (() => {
 				if (!fs.statSync(projectDirectory).isDirectory()) continue;
 				const setPath = path.join(projectDirectory, `${projectName}.als`);
 				if (!fs.existsSync(setPath)) continue;
-				const xml = Xml.parseAls(setPath);
+				const outputPath = outputXml ? path.join(projectDirectory, 'output.xml') : null;
+				const xml = Xml.parseAls(setPath, outputPath);
 				const bpm = Number(xml.find('Tempo').find('Manual').attributes.Value);
 
 				const locators = xml.find('Locators').findAll('Locator')
