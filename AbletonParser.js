@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import Xml from './Xml.js';
 
 const repoDirectory = path.dirname(fileURLToPath(import.meta.url));
-const projectsDirectory = path.join(repoDirectory, 'ableton_projects');
+const projectsDirectory = path.join(repoDirectory, 'ableton');
 const outputXml = true;
 
 export const AbletonParser = (() => {

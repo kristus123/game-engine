@@ -397,7 +397,7 @@
 											<FileRef>
 												<RelativePathType Value="3" />
 												<RelativePath Value="Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
-												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton_projects/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
+												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
 												<Type Value="1" />
 												<LivePackName Value="" />
 												<LivePackId Value="" />
@@ -1328,7 +1328,7 @@
 											<FileRef>
 												<RelativePathType Value="3" />
 												<RelativePath Value="Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
-												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton_projects/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
+												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
 												<Type Value="1" />
 												<LivePackName Value="" />
 												<LivePackId Value="" />
@@ -2259,7 +2259,7 @@
 											<FileRef>
 												<RelativePathType Value="3" />
 												<RelativePath Value="Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
-												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton_projects/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
+												<Path Value="//wsl.localhost/Debian/home/kristian/meta-repo/repos/game-engine/ableton/voices/Samples/Recorded/4-Audio 0001 [2026-11-09 125758].wav" />
 												<Type Value="1" />
 												<LivePackName Value="" />
 												<LivePackId Value="" />
