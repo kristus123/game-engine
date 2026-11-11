@@ -18,8 +18,7 @@ phone-grid {
 	max-height: 100vh;
 
 	
-	position: fixed; /* remove this and use overlay */
-	inset: 0;          /* shorthand for top/left/right/bottom: 0 */
+	position: relative;
 }
 
 phone-grid top { 
