@@ -22,3 +22,12 @@
 	align-items: center;   
 	flex-direction: column;
 }
+
+[center-middle] {
+	display: grid;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	grid-template-columns: minmax(0, 1fr);
+	place-content: center;
+}

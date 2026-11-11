@@ -5,7 +5,6 @@ function newChallenge(html) {
 
 	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
-	html.h1.textContent = "try again"
 
 	const challenge = ["1", "2", "3"]
 	const queue = Queue()
@@ -67,7 +66,7 @@ export default {
 			}
 
 			const numbers = html.list.map(card => card.data.number)
-			if !numbers.same(["1", "2"]) {
+			if !numbers.same(["1", "2", "3"]) {
 				return
 			}
 

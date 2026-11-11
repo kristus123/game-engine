@@ -1,3 +1,7 @@
+math-page [center-middle] {
+	row-gap: 20px;
+}
+
 math-page #list {
 	justify-content: center;
 	align-items: center;
