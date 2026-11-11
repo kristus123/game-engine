@@ -81,7 +81,7 @@ export default {
 		html.micLevel.css("position: absolute; top: 40px; left: 8px; width: 150px; padding: 6px 10px; color: white; background: #222a; border-radius: 4px;")
 		html.micLevelTrack.css("height: 6px; margin-top: 4px; overflow: hidden; background: #777;")
 		html.micLevelBar.css("width: 0%; height: 100%; background: #55d66b; transition: width 100ms linear;")
-		const levelLoop = SetTimeoutLoop(1_000, () => {
+		const levelLoop = SetTimeoutLoop(200, () => {
 			const input = SwappableMediaStream.audioInput
 			if (!input) {
 				html.micLevelLabel.content = "Mic: muted"
