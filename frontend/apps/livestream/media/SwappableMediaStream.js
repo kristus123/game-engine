@@ -5,7 +5,7 @@ export class SwappableMediaStream {
 
 	static audioContext = null
 	static audioOutput = null
-	static audioCompressor = null
+	static audioTrack = null
 	static audioInput = null
 	static audioMuted = false
 
@@ -28,15 +28,10 @@ export class SwappableMediaStream {
 			}
 		})
 
-		this.audioContext = new AudioContext()
+		this.audioContext = SoundContext.context
 		this.audioOutput = this.audioContext.createMediaStreamDestination()
-		this.audioCompressor = this.audioContext.createDynamicsCompressor()
-		this.audioCompressor.threshold.value = -1
-		this.audioCompressor.knee.value = 0
-		this.audioCompressor.ratio.value = 20
-		this.audioCompressor.attack.value = 0.003
-		this.audioCompressor.release.value = 0.05
-		this.audioCompressor.connect(this.audioOutput)
+		this.audioTrack = AudioTrack()
+		this.audioTrack.apply(Vst.compressor()).routeTo(this.audioOutput)
 
 		this.stream = new MediaStream([
 			...canvasStream.getVideoTracks(),
@@ -90,7 +85,7 @@ export class SwappableMediaStream {
 			}
 
 			source = this.audioContext.createMediaStreamSource(stream)
-			source.connect(this.audioCompressor)
+			source.connect(this.audioTrack.input)
 
 			const previousInput = this.audioInput
 			this.audioInput = { deviceId: actualDeviceId, source, stream }

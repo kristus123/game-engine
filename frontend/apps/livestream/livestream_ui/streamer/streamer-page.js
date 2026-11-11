@@ -75,9 +75,25 @@ export default {
 		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
 		html.fields.options = await setup(html)
 	},
-	onDomAdd: ({ html }) => {
+	onDomAdd: ({ html, onDomRemove }) => {
 		html.livePreview.srcObject = SwappableMediaStream.stream
 		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
+		html.micLevel.css("position: absolute; top: 40px; left: 8px; width: 150px; padding: 6px 10px; color: white; background: #222a; border-radius: 4px;")
+		html.micLevelTrack.css("height: 6px; margin-top: 4px; overflow: hidden; background: #777;")
+		html.micLevelBar.css("width: 0%; height: 100%; background: #55d66b; transition: width 100ms linear;")
+		const levelLoop = SetTimeoutLoop(1_000, () => {
+			const input = SwappableMediaStream.audioInput
+			if (!input) {
+				html.micLevelLabel.content = "Mic: muted"
+				html.micLevelBar.style.width = "0%"
+				return
+			}
+
+			const level = SwappableMediaStream.audioTrack.db
+			html.micLevelLabel.content = Number.isFinite(level) ? `Mic: ${Math.round(level)} dBFS` : "Mic: no signal"
+			html.micLevelBar.style.width = `${Number.isFinite(level) ? Math.max(0, Math.min(100, (level + 60) / 60 * 100)) : 0}%`
+		})
+		onDomRemove(() => levelLoop.stop())
 	},
 	methods: {
 		openMicSettings: (html) => html.fields.options.methods.openMicSettings(),

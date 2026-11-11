@@ -34,8 +34,14 @@ export class Vst {
 		return node
 	}
 
-	static compressor() {
-		return SoundContext.context.createDynamicsCompressor()
+	static compressor({ threshold=-1, knee=0, ratio=20, attack=0.003, release=0.05 } = {}) {
+		const compressor = SoundContext.context.createDynamicsCompressor()
+		compressor.threshold.value = threshold
+		compressor.knee.value = knee
+		compressor.ratio.value = ratio
+		compressor.attack.value = attack
+		compressor.release.value = release
+		return compressor
 	}
 
 	static distortion(amount = 50) {
@@ -57,13 +63,7 @@ export class Vst {
 	}
 
 	static limiter() {
-		const compressor = SoundContext.context.createDynamicsCompressor()
-		compressor.threshold.setValueAtTime(-1, SoundContext.context.currentTime)
-		compressor.knee.setValueAtTime(0, SoundContext.context.currentTime)
-		compressor.ratio.setValueAtTime(20, SoundContext.context.currentTime)
-		compressor.attack.setValueAtTime(0.003, SoundContext.context.currentTime)
-		compressor.release.setValueAtTime(0.05, SoundContext.context.currentTime)
-		return compressor
+		return this.compressor()
 	}
 
 	static reverb(options = {}) {

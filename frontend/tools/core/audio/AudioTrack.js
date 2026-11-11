@@ -4,13 +4,26 @@ export class AudioTrack {
 		this.input = SoundContext.createGain()
 		this.output = this.input
 		this.sources = new Set()
+		this.analyser = Vst.analyser(512)
+		this.levelBuffer = new Float32Array(this.analyser.fftSize)
+		this.input.connect(this.analyser)
 	}
 
 	get db() {
+		this.analyser.getFloatTimeDomainData(this.levelBuffer)
+		let sum = 0
+		for (const sample of this.levelBuffer) {
+			sum += sample * sample
+		}
+		const rms = Math.sqrt(sum / this.levelBuffer.length)
+		return rms == 0 ? -Infinity : 20 * Math.log10(rms)
+	}
+
+	get gain() {
 		return this.input.gain.value
 	}
 
-	set db(val) {
+	set gain(val) {
 		this.input.gain.value = val
 	}
 

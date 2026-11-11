@@ -7,6 +7,13 @@
 </overlay-fixed>
 
 <overlay-fixed allow-click-through>
+	<div id="micLevel" float-top-left>
+		<div id="micLevelLabel">Mic: no input</div>
+		<div id="micLevelTrack"><div id="micLevelBar"></div></div>
+	</div>
+</overlay-fixed>
+
+<overlay-fixed allow-click-through>
 	<button float-top-right on-click="openMicSettings">Microphones</button>
 	<button float-top-left on-click="selectNextCam">video set</button>
 	<button float-top-mid on-click="previewLiveStream">Preview live stream</button>
