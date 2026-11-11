@@ -1,4 +1,4 @@
-export class Track {
+export class AudioTrack {
 
 	constructor() {
 		this.input = SoundContext.createGain()

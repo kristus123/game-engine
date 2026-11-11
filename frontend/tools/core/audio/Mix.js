@@ -1,9 +1,9 @@
 export class Mix {
 
-	static master = Track("master")
-	static fx = Track("fx")
-	static mic = Track("mic")
-	static voices = Track("voices")
+	static master = AudioTrack("master")
+	static fx = AudioTrack("fx")
+	static mic = AudioTrack("mic")
+	static voices = AudioTrack("voices")
 
 	static {
 		Mix.fx
