@@ -24,6 +24,7 @@ function updateKeyboardStatus(html) {
 export default {
 	page: {
 		persistOnClose: false,
+		layout: "mini-game-layout",
 	},
 	fields: () => ({
 		keyDown: null,

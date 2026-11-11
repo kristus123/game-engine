@@ -33,10 +33,6 @@ math-page .success {
 	animation: math-page-success-rainbow 1s linear infinite;
 }
 
-math-page .math-back-button {
-	margin: 20px;
-}
-
 @keyframes math-page-success-rainbow {
 	from {
 		background-position: 0% 50%;

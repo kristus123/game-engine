@@ -1,6 +1,7 @@
 export default {
 	page: {
 		persistOnClose: false,
+		layout: "mini-game-layout",
 	},
 	fields: () => ({
 		wait: false,

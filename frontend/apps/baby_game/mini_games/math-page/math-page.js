@@ -54,6 +54,7 @@ function newChallenge(html) {
 export default {
 	page: {
 		persistOnClose: false,
+		layout: "mini-game-layout",
 	},
 	fields: () => ({
 		active: false,
