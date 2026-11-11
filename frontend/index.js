@@ -87,7 +87,7 @@ Font.use("VT323")
 // 	await Page.open("viewer-page")
 // }
 // else if query.has("streamer") {
-	// await Page.open("streamer-page")
+// await Page.open("streamer-page")
 // }
 // else {
 // 	throw new Error("missing query thingy")

@@ -11,14 +11,14 @@ export class Ableton {
 			})
 			projectInfo.tracks.forEach((trackName, trackInfo) => {
 				const audioBuffer = Mp3[trackInfo.audioPath]
-				if (!audioBuffer) {
+				if !audioBuffer {
 					throw new Error(`Ableton audio has not been loaded: ${trackInfo.audioPath}`)
 				}
 
 				const sheet = AudioSheet(audioBuffer, projectInfo.bpm)
 				const track = {}
 				const locators = projectInfo.locators
-				for (let i = 0; i < locators.length; i++) {
+				for let i = 0; i < locators.length; i++ {
 					const locator = locators[i]
 					const nextLocator = locators[i + 1]
 					const durationInBeats = nextLocator

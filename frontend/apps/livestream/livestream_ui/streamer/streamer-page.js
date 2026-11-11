@@ -83,7 +83,7 @@ export default {
 		html.micLevelBar.css("width: 0%; height: 100%; background: #55d66b; transition: width 100ms linear;")
 		const levelLoop = SetTimeoutLoop(200, () => {
 			const input = SwappableMediaStream.audioInput
-			if (!input) {
+			if !input {
 				html.micLevelLabel.content = "Mic: muted"
 				html.micLevelBar.style.width = "0%"
 				return

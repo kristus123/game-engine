@@ -4,14 +4,14 @@ function validateUniqueFolderNames(tree) {
 	const folderPathsByName = new Map()
 	const foldersByName = new Map()
 	const validate = (folder, path) => {
-		for (const [name, contents] of Object.entries(folder)) {
-			if (contents == null || typeof contents != "object") {
+		for const [name, contents] of Object.entries(folder) {
+			if contents == null || typeof contents != "object" {
 				continue
 			}
 
 			const folderPath = `${path}/${name}`
 			const previousPath = folderPathsByName.get(name)
-			if (previousPath != null) {
+			if previousPath != null {
 				throw new Error(`Duplicate frontend folder name "${name}": ${previousPath}, ${folderPath}`)
 			}
 			folderPathsByName.set(name, folderPath)
@@ -27,8 +27,8 @@ function validateUniqueFolderNames(tree) {
 const foldersByName = validateUniqueFolderNames(FRONTEND_FOLDERS)
 
 function folderProxy(folders, path = "Frontend", searchFolders = false) {
-	for (const [name, contents] of Object.entries(folders)) {
-		if (contents != null && typeof contents == "object") {
+	for const [name, contents] of Object.entries(folders) {
+		if contents != null && typeof contents == "object" {
 			folders[name] = folderProxy(contents, `${path}.${name}`)
 		}
 	}

@@ -11,7 +11,7 @@ export default {
 		html.img.src = pic
 		html.gameTitle.textContent = html.data.name.replaceAll("_", " ")
 
-		if (html.data.page != "") {
+		if html.data.page != "" {
 			html.button.onClick(() => Page.open(html.data.page))
 		}
 		else {

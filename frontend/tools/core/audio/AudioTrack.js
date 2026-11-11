@@ -12,7 +12,7 @@ export class AudioTrack {
 	get db() {
 		this.analyser.getFloatTimeDomainData(this.levelBuffer)
 		let sum = 0
-		for (const sample of this.levelBuffer) {
+		for const sample of this.levelBuffer {
 			sum += sample * sample
 		}
 		const rms = Math.sqrt(sum / this.levelBuffer.length)
@@ -44,7 +44,7 @@ export class AudioTrack {
 		}
 
 		const buffer = sound?.buffer ?? sound
-		if (!buffer) {
+		if !buffer {
 			return null
 		}
 
@@ -55,7 +55,7 @@ export class AudioTrack {
 		this.sources.add(source)
 
 		const startTime = sound?.startTime ?? 0
-		if (sound?.duration == null) {
+		if sound?.duration == null {
 			source.start(0, startTime)
 		}
 		else {
@@ -66,7 +66,7 @@ export class AudioTrack {
 	}
 
 	stop() {
-		for (const source of this.sources) {
+		for const source of this.sources {
 			try {
 				source.stop()
 			}

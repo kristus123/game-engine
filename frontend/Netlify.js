@@ -2,7 +2,7 @@ export class Netlify {
 	static get name() {
 		const host = location.hostname.toLowerCase()
 		const suffix = ".netlify.app"
-		if (!host.endsWith(suffix)) {
+		if !host.endsWith(suffix) {
 			return null
 		}
 

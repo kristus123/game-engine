@@ -7,17 +7,17 @@ export class PushNotification {
 	}
 
 	static async subscribe() {
-		if (!this.supported) {
+		if !this.supported {
 			throw new Error("Push notifications are not supported by this browser")
 		}
 
-		if (Notification.permission == "denied") {
+		if Notification.permission == "denied" {
 			throw new Error("Push notifications are blocked by browser permissions")
 		}
 
-		if (Notification.permission != "granted") {
+		if Notification.permission != "granted" {
 			const permission = await Notification.requestPermission()
-			if (permission != "granted") {
+			if permission != "granted" {
 				throw new Error("Push notification permission was not granted")
 			}
 		}
@@ -26,7 +26,7 @@ export class PushNotification {
 		await navigator.serviceWorker.ready
 
 		let subscription = await registration.pushManager.getSubscription()
-		if (!subscription) {
+		if !subscription {
 			const { publicKey } = await JsonHttpClient.getVapidPublicKey()
 			subscription = await registration.pushManager.subscribe({
 				userVisibleOnly: true,
@@ -39,13 +39,13 @@ export class PushNotification {
 	}
 
 	static async unsubscribe() {
-		if (!("serviceWorker" in navigator)) {
+		if !("serviceWorker" in navigator) {
 			return false
 		}
 
 		const registration = await navigator.serviceWorker.getRegistration("/")
 		const subscription = await registration?.pushManager.getSubscription()
-		if (!subscription) {
+		if !subscription {
 			return false
 		}
 

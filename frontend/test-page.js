@@ -1,7 +1,7 @@
 export default {
 	page: { persistOnClose: true },
 	onFirstDomAdd: ({ html }) => {
-		for (const button of html.querySelectorAll("[data-track]")) {
+		for const button of html.querySelectorAll("[data-track]") {
 			button.disabled = !Ableton.projects.voices?.[button.dataset.track]
 		}
 	},

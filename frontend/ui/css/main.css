@@ -47,5 +47,5 @@ body {
 
 [allow-click-through-all],
 [allow-click-through-all] * {
-    pointer-events: none;
+	pointer-events: none;
 }

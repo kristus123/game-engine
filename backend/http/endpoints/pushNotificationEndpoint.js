@@ -22,14 +22,14 @@ UnsecureRoute.subscribe = ({ body }) => {
 }
 
 UnsecureRoute.unsubscribe = ({ body }) => {
-	if (subscription?.endpoint == body.endpoint) {
+	if subscription?.endpoint == body.endpoint {
 		subscription = null
 	}
 	return { status: "server success" }
 }
 
 UnsecureRoute.triggerNotification = async ({ body }) => {
-	if (!subscription) {
+	if !subscription {
 		throw new Error("No push notification subscription is registered")
 	}
 

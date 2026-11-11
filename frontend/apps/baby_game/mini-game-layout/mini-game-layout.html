@@ -1,9 +1,13 @@
 <overlay-fixed>
 	<flex-v close max-size>
-		<flex-h align-center space-between style="width: 100%; box-sizing: border-box; padding: 16px 20px; background: rgb(255 255 255 / 90%);">
+		<flex-h
+			align-center
+			space-between
+			style="width: 100%; box-sizing: border-box; padding: 16px 20px; background: rgb(255 255 255 / 90%)"
+		>
 			<button on-click-open-page="hub-page">Back to hub</button>
 		</flex-h>
-		<flex-v close style="flex: 1; min-height: 0; width: 100%;">
+		<flex-v close style="flex: 1; min-height: 0; width: 100%">
 			<slot></slot>
 		</flex-v>
 	</flex-v>

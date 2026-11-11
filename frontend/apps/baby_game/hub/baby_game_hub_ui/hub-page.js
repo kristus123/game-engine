@@ -9,8 +9,8 @@ export default {
 			html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
 		})
 
-		for (const [key, game] of Object.entries(Frontend.mini_games)) {
-			if (game == null || typeof game != "object") {
+		for const [key, game] of Object.entries(Frontend.mini_games) {
+			if game == null || typeof game != "object" {
 				continue
 			}
 
