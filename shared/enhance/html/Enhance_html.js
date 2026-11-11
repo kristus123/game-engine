@@ -238,7 +238,7 @@ export class Enhance_html extends NativeEnhancer {
 			listener(e)
 		}
 
-		this._listeners.push({ type, x, options })
+		this._listeners.push({ type, listener: x, options })
 		this.addEventListener(type, x, options)
 
 		return this
@@ -255,10 +255,12 @@ export class Enhance_html extends NativeEnhancer {
 	removeListener(typeToRemove) {
 		this._listeners ??= []
 
-		this._listeners.forEach(({ type, listener, options }) => {
+		this._listeners = this._listeners.filter(({ type, listener, options }) => {
 			if (type == typeToRemove) {
 				this.removeEventListener(type, listener, options)
+				return false
 			}
+			return true
 		})
 
 		return this
@@ -537,6 +539,16 @@ export class Enhance_html extends NativeEnhancer {
 		this.removeListener("click")
 
 		this.listen("click", () => {
+			run(this)
+		})
+
+		return this
+	}
+
+	onMouseDown(run) {
+		this.removeListener("mousedown")
+
+		this.listen("mousedown", () => {
 			run(this)
 		})
 

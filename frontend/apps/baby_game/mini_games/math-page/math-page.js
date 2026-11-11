@@ -7,7 +7,7 @@ function newChallenge(html) {
 	html.list.removeChildren()
 	html.h1.textContent = "try again"
 
-	const challenge = ["1", "2"]
+	const challenge = ["1", "2", "3"]
 	const queue = Queue()
 
 	for const number of challenge.shuffle() {
@@ -16,6 +16,22 @@ function newChallenge(html) {
 				<p center class="textWhite">${number}</p>
 			</div>
 		`.toHtml()
+
+		card.onMouseDown(() => {
+			Tts(number)
+			switch number {
+				case "1" {
+					Mix.master.play(Ableton.projects.voices.nordSami.one)
+				}
+				case "2" {
+					Mix.master.play(Ableton.projects.voices.nordSami.two)
+				}
+				case "3" {
+					Mix.master.play(Ableton.projects.voices.nordSami.three)
+				}
+			}
+			console.log("hei")
+		})
 
 		card.invisible()
 		html.list.add(card)

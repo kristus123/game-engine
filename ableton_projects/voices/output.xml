@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.16" Revision="e33287a1c79501580a1e0f9f907e320757d3be44">
 	<LiveSet>
-		<NextPointeeId Value="22640" />
+		<NextPointeeId Value="22672" />
 		<OverwriteProtectionNumber Value="3077" />
 		<LomId Value="0" />
 		<LomIdView Value="0" />
@@ -9,7 +9,7 @@
 			<AudioTrack Id="15" SelectedToolPanel="3" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -444,8 +444,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="2" SecTime="2" BeatTime="0" />
-											<WarpMarker Id="3" SecTime="2.0187499999999998" BeatTime="0.03125" />
+											<WarpMarker Id="6" SecTime="2" BeatTime="0" />
+											<WarpMarker Id="7" SecTime="2.0187499999999998" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="0" SecTime="0" BeatTime="0" />
@@ -464,7 +464,7 @@
 											<LoopEnd Value="0.238843537414965973" />
 											<StartRelative Value="0" />
 											<LoopOn Value="false" />
-											<OutMarker Value="0.238843537414965973" />
+											<OutMarker Value="0.398072500416250419" />
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="0.238843537414965973" />
 										</Loop>
@@ -546,7 +546,7 @@
 											<SourceContext>
 												<SourceContext Id="0">
 													<OriginalFileRef>
-														<FileRef Id="2">
+														<FileRef Id="4">
 															<RelativePathType Value="5" />
 															<RelativePath Value="Samples/One Shots/Drums/Kick/Kick 90s 2.wav" />
 															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Kick/Kick 90s 2.wav" />
@@ -599,8 +599,160 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="4" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="5" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="8" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="9" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+										</WarpMarkers>
+										<SavedWarpMarkersForStretched />
+										<MarkersGenerated Value="true" />
+										<IsSongTempoLeader Value="false" />
+									</AudioClip>
+									<AudioClip Id="3" Time="4">
+										<LomId Value="0" />
+										<LomIdView Value="0" />
+										<CurrentStart Value="4" />
+										<CurrentEnd Value="5.250037722693973" />
+										<Loop>
+											<LoopStart Value="0" />
+											<LoopEnd Value="0.750022675736961464" />
+											<StartRelative Value="0" />
+											<LoopOn Value="false" />
+											<OutMarker Value="0.750022675736961464" />
+											<HiddenLoopStart Value="0" />
+											<HiddenLoopEnd Value="0.750022675736961464" />
+										</Loop>
+										<Name Value="Hihat Open Hat On Point 2" />
+										<Annotation Value="" />
+										<Color Value="22" />
+										<LaunchMode Value="0" />
+										<LaunchQuantisation Value="0" />
+										<TimeSignature>
+											<TimeSignatures>
+												<RemoteableTimeSignature Id="0">
+													<Numerator Value="4" />
+													<Denominator Value="4" />
+													<Time Value="0" />
+												</RemoteableTimeSignature>
+											</TimeSignatures>
+										</TimeSignature>
+										<Envelopes>
+											<Envelopes />
+										</Envelopes>
+										<ScrollerTimePreserver>
+											<LeftTime Value="0" />
+											<RightTime Value="0" />
+										</ScrollerTimePreserver>
+										<TimeSelection>
+											<AnchorTime Value="0" />
+											<OtherTime Value="0" />
+										</TimeSelection>
+										<Legato Value="false" />
+										<Ram Value="false" />
+										<GrooveSettings>
+											<GrooveId Value="-1" />
+										</GrooveSettings>
+										<Disabled Value="false" />
+										<VelocityAmount Value="0" />
+										<FollowAction>
+											<FollowTime Value="4" />
+											<IsLinked Value="true" />
+											<LoopIterations Value="1" />
+											<FollowActionA Value="4" />
+											<FollowActionB Value="0" />
+											<FollowChanceA Value="100" />
+											<FollowChanceB Value="0" />
+											<JumpIndexA Value="1" />
+											<JumpIndexB Value="1" />
+											<FollowActionEnabled Value="false" />
+										</FollowAction>
+										<Grid>
+											<FixedNumerator Value="1" />
+											<FixedDenominator Value="16" />
+											<GridIntervalPixel Value="20" />
+											<Ntoles Value="2" />
+											<SnapToGrid Value="true" />
+											<Fixed Value="false" />
+										</Grid>
+										<FreezeStart Value="0" />
+										<FreezeEnd Value="0" />
+										<IsWarped Value="false" />
+										<TakeId Value="4" />
+										<IsInKey Value="true" />
+										<ScaleInformation>
+											<Root Value="0" />
+											<Name Value="0" />
+										</ScaleInformation>
+										<AutomationEnvelopesListWrapper LomId="0" />
+										<SampleRef>
+											<FileRef>
+												<RelativePathType Value="5" />
+												<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Type Value="1" />
+												<LivePackName Value="Core Library" />
+												<LivePackId Value="www.ableton.com/0" />
+												<OriginalFileSize Value="66206" />
+												<OriginalCrc Value="13504" />
+												<SourceHint Value="" />
+											</FileRef>
+											<LastModDate Value="1778574340" />
+											<SourceContext>
+												<SourceContext Id="0">
+													<OriginalFileRef>
+														<FileRef Id="1">
+															<RelativePathType Value="5" />
+															<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Type Value="1" />
+															<LivePackName Value="Core Library" />
+															<LivePackId Value="www.ableton.com/0" />
+															<OriginalFileSize Value="66206" />
+															<OriginalCrc Value="13504" />
+															<SourceHint Value="" />
+														</FileRef>
+													</OriginalFileRef>
+													<BrowserContentPath Value="query:Everything#FileId_2585" />
+													<LocalFiltersJson Value="" />
+												</SourceContext>
+											</SourceContext>
+											<SampleUsageHint Value="0" />
+											<DefaultDuration Value="33076" />
+											<DefaultSampleRate Value="44100" />
+											<SamplesToAutoWarp Value="1" />
+										</SampleRef>
+										<Onsets>
+											<UserOnsets />
+											<HasUserOnsets Value="false" />
+										</Onsets>
+										<WarpMode Value="0" />
+										<GranularityTones Value="30" />
+										<GranularityTexture Value="65" />
+										<FluctuationTexture Value="25" />
+										<TransientResolution Value="6" />
+										<TransientLoopMode Value="2" />
+										<TransientEnvelope Value="100" />
+										<ComplexProFormants Value="100" />
+										<ComplexProEnvelope Value="128" />
+										<Sync Value="true" />
+										<HiQ Value="true" />
+										<Fade Value="true" />
+										<Fades>
+											<FadeInLength Value="0" />
+											<FadeOutLength Value="0" />
+											<ClipFadesAreInitialized Value="true" />
+											<CrossfadeInState Value="0" />
+											<FadeInCurveSkew Value="0" />
+											<FadeInCurveSlope Value="0" />
+											<FadeOutCurveSkew Value="0" />
+											<FadeOutCurveSlope Value="0" />
+											<IsDefaultFadeIn Value="true" />
+											<IsDefaultFadeOut Value="true" />
+										</Fades>
+										<PitchCoarse Value="0" />
+										<PitchFine Value="0" />
+										<SampleVolume Value="1" />
+										<WarpMarkers>
+											<WarpMarker Id="6" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="7" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="true" />
@@ -775,7 +927,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="4" />
+							<TakeCounter Value="5" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -788,7 +940,7 @@
 			<AudioTrack Id="16" SelectedToolPanel="3" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -1223,8 +1375,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1083" SecTime="3.7543372252747207" BeatTime="0" />
-											<WarpMarker Id="1084" SecTime="3.7730872252747205" BeatTime="0.03125" />
+											<WarpMarker Id="1087" SecTime="3.7543372252747207" BeatTime="0" />
+											<WarpMarker Id="1088" SecTime="3.7730872252747205" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="0" SecTime="0" BeatTime="0" />
@@ -1243,7 +1395,7 @@
 											<LoopEnd Value="0.238843500249750512" />
 											<StartRelative Value="0" />
 											<LoopOn Value="false" />
-											<OutMarker Value="0.238843537414965973" />
+											<OutMarker Value="0.398072500416250419" />
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="0.238843537414965973" />
 										</Loop>
@@ -1325,7 +1477,7 @@
 											<SourceContext>
 												<SourceContext Id="0">
 													<OriginalFileRef>
-														<FileRef Id="2">
+														<FileRef Id="4">
 															<RelativePathType Value="5" />
 															<RelativePath Value="Samples/One Shots/Drums/Kick/Kick 90s 2.wav" />
 															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Kick/Kick 90s 2.wav" />
@@ -1378,8 +1530,160 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="16" SecTime="0.00000000000000055511151231257827" BeatTime="0" />
-											<WarpMarker Id="17" SecTime="0.0187500000000005544" BeatTime="0.03125" />
+											<WarpMarker Id="20" SecTime="0.00000000000000055511151231257827" BeatTime="0" />
+											<WarpMarker Id="21" SecTime="0.0187500000000005544" BeatTime="0.03125" />
+										</WarpMarkers>
+										<SavedWarpMarkersForStretched />
+										<MarkersGenerated Value="true" />
+										<IsSongTempoLeader Value="false" />
+									</AudioClip>
+									<AudioClip Id="8" Time="4">
+										<LomId Value="0" />
+										<LomIdView Value="0" />
+										<CurrentStart Value="4" />
+										<CurrentEnd Value="5.250037722693973" />
+										<Loop>
+											<LoopStart Value="0" />
+											<LoopEnd Value="0.750022633616383771" />
+											<StartRelative Value="0" />
+											<LoopOn Value="false" />
+											<OutMarker Value="0.750022675736961464" />
+											<HiddenLoopStart Value="0" />
+											<HiddenLoopEnd Value="0.750022675736961464" />
+										</Loop>
+										<Name Value="Hihat Open Hat On Point 2" />
+										<Annotation Value="" />
+										<Color Value="22" />
+										<LaunchMode Value="0" />
+										<LaunchQuantisation Value="0" />
+										<TimeSignature>
+											<TimeSignatures>
+												<RemoteableTimeSignature Id="0">
+													<Numerator Value="4" />
+													<Denominator Value="4" />
+													<Time Value="0" />
+												</RemoteableTimeSignature>
+											</TimeSignatures>
+										</TimeSignature>
+										<Envelopes>
+											<Envelopes />
+										</Envelopes>
+										<ScrollerTimePreserver>
+											<LeftTime Value="0" />
+											<RightTime Value="0.75002263361638366" />
+										</ScrollerTimePreserver>
+										<TimeSelection>
+											<AnchorTime Value="0" />
+											<OtherTime Value="0" />
+										</TimeSelection>
+										<Legato Value="false" />
+										<Ram Value="false" />
+										<GrooveSettings>
+											<GrooveId Value="-1" />
+										</GrooveSettings>
+										<Disabled Value="false" />
+										<VelocityAmount Value="0" />
+										<FollowAction>
+											<FollowTime Value="4" />
+											<IsLinked Value="true" />
+											<LoopIterations Value="1" />
+											<FollowActionA Value="4" />
+											<FollowActionB Value="0" />
+											<FollowChanceA Value="100" />
+											<FollowChanceB Value="0" />
+											<JumpIndexA Value="1" />
+											<JumpIndexB Value="1" />
+											<FollowActionEnabled Value="false" />
+										</FollowAction>
+										<Grid>
+											<FixedNumerator Value="1" />
+											<FixedDenominator Value="16" />
+											<GridIntervalPixel Value="20" />
+											<Ntoles Value="2" />
+											<SnapToGrid Value="true" />
+											<Fixed Value="false" />
+										</Grid>
+										<FreezeStart Value="0" />
+										<FreezeEnd Value="0" />
+										<IsWarped Value="false" />
+										<TakeId Value="6" />
+										<IsInKey Value="true" />
+										<ScaleInformation>
+											<Root Value="0" />
+											<Name Value="0" />
+										</ScaleInformation>
+										<AutomationEnvelopesListWrapper LomId="0" />
+										<SampleRef>
+											<FileRef>
+												<RelativePathType Value="5" />
+												<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Type Value="1" />
+												<LivePackName Value="Core Library" />
+												<LivePackId Value="www.ableton.com/0" />
+												<OriginalFileSize Value="66206" />
+												<OriginalCrc Value="13504" />
+												<SourceHint Value="" />
+											</FileRef>
+											<LastModDate Value="1778574340" />
+											<SourceContext>
+												<SourceContext Id="0">
+													<OriginalFileRef>
+														<FileRef Id="1">
+															<RelativePathType Value="5" />
+															<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Type Value="1" />
+															<LivePackName Value="Core Library" />
+															<LivePackId Value="www.ableton.com/0" />
+															<OriginalFileSize Value="66206" />
+															<OriginalCrc Value="13504" />
+															<SourceHint Value="" />
+														</FileRef>
+													</OriginalFileRef>
+													<BrowserContentPath Value="query:Everything#FileId_2585" />
+													<LocalFiltersJson Value="" />
+												</SourceContext>
+											</SourceContext>
+											<SampleUsageHint Value="0" />
+											<DefaultDuration Value="33076" />
+											<DefaultSampleRate Value="44100" />
+											<SamplesToAutoWarp Value="1" />
+										</SampleRef>
+										<Onsets>
+											<UserOnsets />
+											<HasUserOnsets Value="false" />
+										</Onsets>
+										<WarpMode Value="0" />
+										<GranularityTones Value="30" />
+										<GranularityTexture Value="65" />
+										<FluctuationTexture Value="25" />
+										<TransientResolution Value="6" />
+										<TransientLoopMode Value="2" />
+										<TransientEnvelope Value="100" />
+										<ComplexProFormants Value="100" />
+										<ComplexProEnvelope Value="128" />
+										<Sync Value="true" />
+										<HiQ Value="true" />
+										<Fade Value="true" />
+										<Fades>
+											<FadeInLength Value="0" />
+											<FadeOutLength Value="0" />
+											<ClipFadesAreInitialized Value="true" />
+											<CrossfadeInState Value="0" />
+											<FadeInCurveSkew Value="0" />
+											<FadeInCurveSlope Value="0" />
+											<FadeOutCurveSkew Value="0" />
+											<FadeOutCurveSlope Value="0" />
+											<IsDefaultFadeIn Value="true" />
+											<IsDefaultFadeOut Value="true" />
+										</Fades>
+										<PitchCoarse Value="0" />
+										<PitchFine Value="0" />
+										<SampleVolume Value="1" />
+										<WarpMarkers>
+											<WarpMarker Id="12" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="13" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="true" />
@@ -1554,7 +1858,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="3" />
+							<TakeCounter Value="4" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -1567,7 +1871,7 @@
 			<AudioTrack Id="17" SelectedToolPanel="3" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -2002,8 +2306,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="2" SecTime="5.09375" BeatTime="0" />
-											<WarpMarker Id="3" SecTime="5.1124999999999998" BeatTime="0.03125" />
+											<WarpMarker Id="6" SecTime="5.09375" BeatTime="0" />
+											<WarpMarker Id="7" SecTime="5.1124999999999998" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="0" SecTime="0" BeatTime="0" />
@@ -2022,7 +2326,7 @@
 											<LoopEnd Value="0.188208616780045357" />
 											<StartRelative Value="0" />
 											<LoopOn Value="false" />
-											<OutMarker Value="0.188208616780045357" />
+											<OutMarker Value="0.313681110556110532" />
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="0.188208616780045357" />
 										</Loop>
@@ -2104,7 +2408,7 @@
 											<SourceContext>
 												<SourceContext Id="0">
 													<OriginalFileRef>
-														<FileRef Id="2">
+														<FileRef Id="4">
 															<RelativePathType Value="5" />
 															<RelativePath Value="Samples/One Shots/Drums/Kick/Kick 90s 1.wav" />
 															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Kick/Kick 90s 1.wav" />
@@ -2157,8 +2461,160 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="10" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="11" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="14" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="15" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+										</WarpMarkers>
+										<SavedWarpMarkersForStretched />
+										<MarkersGenerated Value="true" />
+										<IsSongTempoLeader Value="false" />
+									</AudioClip>
+									<AudioClip Id="3" Time="4">
+										<LomId Value="0" />
+										<LomIdView Value="0" />
+										<CurrentStart Value="4" />
+										<CurrentEnd Value="5.250037722693973" />
+										<Loop>
+											<LoopStart Value="0" />
+											<LoopEnd Value="0.750022633616383771" />
+											<StartRelative Value="0" />
+											<LoopOn Value="false" />
+											<OutMarker Value="0.750022675736961464" />
+											<HiddenLoopStart Value="0" />
+											<HiddenLoopEnd Value="0.750022675736961464" />
+										</Loop>
+										<Name Value="Hihat Open Hat On Point 2" />
+										<Annotation Value="" />
+										<Color Value="22" />
+										<LaunchMode Value="0" />
+										<LaunchQuantisation Value="0" />
+										<TimeSignature>
+											<TimeSignatures>
+												<RemoteableTimeSignature Id="0">
+													<Numerator Value="4" />
+													<Denominator Value="4" />
+													<Time Value="0" />
+												</RemoteableTimeSignature>
+											</TimeSignatures>
+										</TimeSignature>
+										<Envelopes>
+											<Envelopes />
+										</Envelopes>
+										<ScrollerTimePreserver>
+											<LeftTime Value="0" />
+											<RightTime Value="0.75002263361638366" />
+										</ScrollerTimePreserver>
+										<TimeSelection>
+											<AnchorTime Value="0" />
+											<OtherTime Value="0" />
+										</TimeSelection>
+										<Legato Value="false" />
+										<Ram Value="false" />
+										<GrooveSettings>
+											<GrooveId Value="-1" />
+										</GrooveSettings>
+										<Disabled Value="false" />
+										<VelocityAmount Value="0" />
+										<FollowAction>
+											<FollowTime Value="4" />
+											<IsLinked Value="true" />
+											<LoopIterations Value="1" />
+											<FollowActionA Value="4" />
+											<FollowActionB Value="0" />
+											<FollowChanceA Value="100" />
+											<FollowChanceB Value="0" />
+											<JumpIndexA Value="1" />
+											<JumpIndexB Value="1" />
+											<FollowActionEnabled Value="false" />
+										</FollowAction>
+										<Grid>
+											<FixedNumerator Value="1" />
+											<FixedDenominator Value="16" />
+											<GridIntervalPixel Value="20" />
+											<Ntoles Value="2" />
+											<SnapToGrid Value="true" />
+											<Fixed Value="false" />
+										</Grid>
+										<FreezeStart Value="0" />
+										<FreezeEnd Value="0" />
+										<IsWarped Value="false" />
+										<TakeId Value="7" />
+										<IsInKey Value="true" />
+										<ScaleInformation>
+											<Root Value="0" />
+											<Name Value="0" />
+										</ScaleInformation>
+										<AutomationEnvelopesListWrapper LomId="0" />
+										<SampleRef>
+											<FileRef>
+												<RelativePathType Value="5" />
+												<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+												<Type Value="1" />
+												<LivePackName Value="Core Library" />
+												<LivePackId Value="www.ableton.com/0" />
+												<OriginalFileSize Value="66206" />
+												<OriginalCrc Value="13504" />
+												<SourceHint Value="" />
+											</FileRef>
+											<LastModDate Value="1778574340" />
+											<SourceContext>
+												<SourceContext Id="0">
+													<OriginalFileRef>
+														<FileRef Id="1">
+															<RelativePathType Value="5" />
+															<RelativePath Value="Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Path Value="C:/ProgramData/Ableton/Live 12 Trial/Resources/Core Library/Samples/One Shots/Drums/Hihat/Hihat Open Hat On Point 2.aif" />
+															<Type Value="1" />
+															<LivePackName Value="Core Library" />
+															<LivePackId Value="www.ableton.com/0" />
+															<OriginalFileSize Value="66206" />
+															<OriginalCrc Value="13504" />
+															<SourceHint Value="" />
+														</FileRef>
+													</OriginalFileRef>
+													<BrowserContentPath Value="query:Everything#FileId_2585" />
+													<LocalFiltersJson Value="" />
+												</SourceContext>
+											</SourceContext>
+											<SampleUsageHint Value="0" />
+											<DefaultDuration Value="33076" />
+											<DefaultSampleRate Value="44100" />
+											<SamplesToAutoWarp Value="1" />
+										</SampleRef>
+										<Onsets>
+											<UserOnsets />
+											<HasUserOnsets Value="false" />
+										</Onsets>
+										<WarpMode Value="0" />
+										<GranularityTones Value="30" />
+										<GranularityTexture Value="65" />
+										<FluctuationTexture Value="25" />
+										<TransientResolution Value="6" />
+										<TransientLoopMode Value="2" />
+										<TransientEnvelope Value="100" />
+										<ComplexProFormants Value="100" />
+										<ComplexProEnvelope Value="128" />
+										<Sync Value="true" />
+										<HiQ Value="true" />
+										<Fade Value="true" />
+										<Fades>
+											<FadeInLength Value="0" />
+											<FadeOutLength Value="0" />
+											<ClipFadesAreInitialized Value="true" />
+											<CrossfadeInState Value="0" />
+											<FadeInCurveSkew Value="0" />
+											<FadeInCurveSlope Value="0" />
+											<FadeOutCurveSkew Value="0" />
+											<FadeOutCurveSlope Value="0" />
+											<IsDefaultFadeIn Value="true" />
+											<IsDefaultFadeOut Value="true" />
+										</Fades>
+										<PitchCoarse Value="0" />
+										<PitchFine Value="0" />
+										<SampleVolume Value="1" />
+										<WarpMarkers>
+											<WarpMarker Id="18" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="19" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="true" />
@@ -2333,7 +2789,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="3" />
+							<TakeCounter Value="4" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -3192,7 +3648,7 @@
 			<LoopStart Value="4.375" />
 			<LoopLength Value="1" />
 			<LoopIsSongStart Value="false" />
-			<CurrentTime Value="218.70336356764929" />
+			<CurrentTime Value="0" />
 			<PunchIn Value="false" />
 			<PunchOut Value="false" />
 			<MetronomeTickDuration Value="0" />
@@ -3218,15 +3674,15 @@
 		<InKey Value="true" />
 		<SmpteFormat Value="0" />
 		<TimeSelection>
-			<AnchorTime Value="0" />
-			<OtherTime Value="16" />
+			<AnchorTime Value="6" />
+			<OtherTime Value="0" />
 		</TimeSelection>
 		<SequencerNavigator>
 			<BeatTimeHelper>
 				<CurrentZoom Value="0.00608780078196751416" />
 			</BeatTimeHelper>
 			<ScrollerPos X="0" Y="0" />
-			<ClientSize X="1456" Y="756" />
+			<ClientSize X="1456" Y="764" />
 		</SequencerNavigator>
 		<IsContentSplitterOpen Value="true" />
 		<IsExpressionSplitterOpen Value="true" />
@@ -3317,7 +3773,7 @@
 		<SoloInPlace Value="true" />
 		<CrossfadeCurve Value="2" />
 		<LatencyCompensation Value="2" />
-		<HighlightedTrackIndex Value="2" />
+		<HighlightedTrackIndex Value="0" />
 		<GroovePool>
 			<LomId Value="0" />
 			<Grooves>
@@ -3478,7 +3934,7 @@
 		<ArrangementOverdub Value="false" />
 		<ColorSequenceIndex Value="1851217940" />
 		<AutoColorPickerForPlayerAndGroupTracks>
-			<NextColorIndex Value="16" />
+			<NextColorIndex Value="0" />
 		</AutoColorPickerForPlayerAndGroupTracks>
 		<AutoColorPickerForReturnAndMainTracks>
 			<NextColorIndex Value="11" />
@@ -3532,11 +3988,11 @@
 		<NoteAlgorithms>
 			<ArpeggiateAlgorithm Id="0">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="25" Name="Rate" />
-					<NamedRemoteableKeyMidi Id="26" Name="Steps" />
-					<NamedRemoteableKeyMidi Id="27" Name="Distance" />
-					<NamedRemoteableKeyMidi Id="28" Name="Gate" />
-					<NamedRemoteableKeyMidi Id="29" Name="Style" />
+					<NamedRemoteableKeyMidi Id="35" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="36" Name="Steps" />
+					<NamedRemoteableKeyMidi Id="37" Name="Distance" />
+					<NamedRemoteableKeyMidi Id="38" Name="Gate" />
+					<NamedRemoteableKeyMidi Id="39" Name="Style" />
 				</NamedKeyMidiRemoteables>
 				<Rate Value="10" />
 				<Steps Value="2" />
@@ -3546,9 +4002,9 @@
 			</ArpeggiateAlgorithm>
 			<SpanAlgorithm Id="1">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="15" Name="Mode" />
-					<NamedRemoteableKeyMidi Id="16" Name="LengthVariation" />
-					<NamedRemoteableKeyMidi Id="17" Name="LengthOffset" />
+					<NamedRemoteableKeyMidi Id="21" Name="Mode" />
+					<NamedRemoteableKeyMidi Id="22" Name="LengthVariation" />
+					<NamedRemoteableKeyMidi Id="23" Name="LengthOffset" />
 				</NamedKeyMidiRemoteables>
 				<Mode Value="1" />
 				<ChordThreshold Value="10" />
@@ -3557,10 +4013,10 @@
 			</SpanAlgorithm>
 			<ConnectAlgorithm Id="2">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="20" Name="Tie" />
-					<NamedRemoteableKeyMidi Id="21" Name="Density" />
-					<NamedRemoteableKeyMidi Id="22" Name="Spread" />
-					<NamedRemoteableKeyMidi Id="23" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="28" Name="Tie" />
+					<NamedRemoteableKeyMidi Id="29" Name="Density" />
+					<NamedRemoteableKeyMidi Id="30" Name="Spread" />
+					<NamedRemoteableKeyMidi Id="31" Name="Rate" />
 				</NamedKeyMidiRemoteables>
 				<Tie Value="0" />
 				<Density Value="1" />
@@ -3569,15 +4025,15 @@
 			</ConnectAlgorithm>
 			<OrnamentAlgorithm Id="3">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="45" Name="FlamEnabled" />
-					<NamedRemoteableKeyMidi Id="46" Name="FlamPosition" />
-					<NamedRemoteableKeyMidi Id="47" Name="FlamVelocity" />
-					<NamedRemoteableKeyMidi Id="48" Name="GraceNotesEnabled" />
-					<NamedRemoteableKeyMidi Id="49" Name="GraceNotesChance" />
-					<NamedRemoteableKeyMidi Id="50" Name="GraceNotesVelocity" />
-					<NamedRemoteableKeyMidi Id="51" Name="GraceNotesPosition" />
-					<NamedRemoteableKeyMidi Id="52" Name="GraceNotesAmount" />
-					<NamedRemoteableKeyMidi Id="53" Name="GraceNotesPitch" />
+					<NamedRemoteableKeyMidi Id="63" Name="FlamEnabled" />
+					<NamedRemoteableKeyMidi Id="64" Name="FlamPosition" />
+					<NamedRemoteableKeyMidi Id="65" Name="FlamVelocity" />
+					<NamedRemoteableKeyMidi Id="66" Name="GraceNotesEnabled" />
+					<NamedRemoteableKeyMidi Id="67" Name="GraceNotesChance" />
+					<NamedRemoteableKeyMidi Id="68" Name="GraceNotesVelocity" />
+					<NamedRemoteableKeyMidi Id="69" Name="GraceNotesPosition" />
+					<NamedRemoteableKeyMidi Id="70" Name="GraceNotesAmount" />
+					<NamedRemoteableKeyMidi Id="71" Name="GraceNotesPitch" />
 				</NamedKeyMidiRemoteables>
 				<FlamEnabled Value="true" />
 				<FlamPosition Value="-0.200000003" />
@@ -3591,11 +4047,11 @@
 			</OrnamentAlgorithm>
 			<RecombineAlgorithm Id="4">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="25" Name="Dimension" />
-					<NamedRemoteableKeyMidi Id="26" Name="Shuffle" />
-					<NamedRemoteableKeyMidi Id="27" Name="Mirror" />
-					<NamedRemoteableKeyMidi Id="28" Name="RotateAmount" />
-					<NamedRemoteableKeyMidi Id="29" Name="RotateOnGrid" />
+					<NamedRemoteableKeyMidi Id="35" Name="Dimension" />
+					<NamedRemoteableKeyMidi Id="36" Name="Shuffle" />
+					<NamedRemoteableKeyMidi Id="37" Name="Mirror" />
+					<NamedRemoteableKeyMidi Id="38" Name="RotateAmount" />
+					<NamedRemoteableKeyMidi Id="39" Name="RotateOnGrid" />
 				</NamedKeyMidiRemoteables>
 				<PermutedDimension Value="0" />
 				<Shuffle Value="false" />
@@ -3605,11 +4061,11 @@
 			</RecombineAlgorithm>
 			<QuantizeAlgorithm Id="5">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="25" Name="TripletReference" />
-					<NamedRemoteableKeyMidi Id="26" Name="QuantizeReference" />
-					<NamedRemoteableKeyMidi Id="27" Name="Amount" />
-					<NamedRemoteableKeyMidi Id="28" Name="QuantizeNoteStarts" />
-					<NamedRemoteableKeyMidi Id="29" Name="QuantizeNoteEnds" />
+					<NamedRemoteableKeyMidi Id="35" Name="TripletReference" />
+					<NamedRemoteableKeyMidi Id="36" Name="QuantizeReference" />
+					<NamedRemoteableKeyMidi Id="37" Name="Amount" />
+					<NamedRemoteableKeyMidi Id="38" Name="QuantizeNoteStarts" />
+					<NamedRemoteableKeyMidi Id="39" Name="QuantizeNoteEnds" />
 				</NamedKeyMidiRemoteables>
 				<Reference Value="0" />
 				<TripletReference Value="false" />
@@ -3619,10 +4075,10 @@
 			</QuantizeAlgorithm>
 			<StrumAlgorithm Id="6">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="20" Name="Threshold" />
-					<NamedRemoteableKeyMidi Id="21" Name="Low" />
-					<NamedRemoteableKeyMidi Id="22" Name="High" />
-					<NamedRemoteableKeyMidi Id="23" Name="Tension" />
+					<NamedRemoteableKeyMidi Id="28" Name="Threshold" />
+					<NamedRemoteableKeyMidi Id="29" Name="Low" />
+					<NamedRemoteableKeyMidi Id="30" Name="High" />
+					<NamedRemoteableKeyMidi Id="31" Name="Tension" />
 				</NamedKeyMidiRemoteables>
 				<ChordThreshold Value="0" />
 				<StrumLow Value="0" />
@@ -3631,18 +4087,18 @@
 			</StrumAlgorithm>
 			<TimeWarpAlgorithm Id="7">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="105" Name="StretchNoteEnd" />
-					<NamedRemoteableKeyMidi Id="106" Name="PreserveTimeRange" />
-					<NamedRemoteableKeyMidi Id="107" Name="Quantize" />
-					<NamedRemoteableKeyMidi Id="108" Name="Value1" />
-					<NamedRemoteableKeyMidi Id="109" Name="Time1" />
-					<NamedRemoteableKeyMidi Id="110" Name="IsActive1" />
-					<NamedRemoteableKeyMidi Id="111" Name="Value2" />
-					<NamedRemoteableKeyMidi Id="112" Name="Time2" />
-					<NamedRemoteableKeyMidi Id="113" Name="IsActive2" />
-					<NamedRemoteableKeyMidi Id="114" Name="Value3" />
-					<NamedRemoteableKeyMidi Id="115" Name="Time3" />
-					<NamedRemoteableKeyMidi Id="116" Name="IsActive3" />
+					<NamedRemoteableKeyMidi Id="147" Name="StretchNoteEnd" />
+					<NamedRemoteableKeyMidi Id="148" Name="PreserveTimeRange" />
+					<NamedRemoteableKeyMidi Id="149" Name="Quantize" />
+					<NamedRemoteableKeyMidi Id="150" Name="Value1" />
+					<NamedRemoteableKeyMidi Id="151" Name="Time1" />
+					<NamedRemoteableKeyMidi Id="152" Name="IsActive1" />
+					<NamedRemoteableKeyMidi Id="153" Name="Value2" />
+					<NamedRemoteableKeyMidi Id="154" Name="Time2" />
+					<NamedRemoteableKeyMidi Id="155" Name="IsActive2" />
+					<NamedRemoteableKeyMidi Id="156" Name="Value3" />
+					<NamedRemoteableKeyMidi Id="157" Name="Time3" />
+					<NamedRemoteableKeyMidi Id="158" Name="IsActive3" />
 				</NamedKeyMidiRemoteables>
 				<Breakpoints>
 					<Breakpoint Id="0">
@@ -3679,20 +4135,20 @@
 			</TimeWarpAlgorithm>
 			<RhythmAlgorithm Id="8">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="70" Name="Density" />
-					<NamedRemoteableKeyMidi Id="71" Name="Repetitions" />
-					<NamedRemoteableKeyMidi Id="72" Name="Pattern" />
-					<NamedRemoteableKeyMidi Id="73" Name="Steps" />
-					<NamedRemoteableKeyMidi Id="74" Name="Pitch" />
-					<NamedRemoteableKeyMidi Id="75" Name="Velocity" />
-					<NamedRemoteableKeyMidi Id="76" Name="Accent" />
-					<NamedRemoteableKeyMidi Id="77" Name="Period" />
-					<NamedRemoteableKeyMidi Id="78" Name="Offset" />
-					<NamedRemoteableKeyMidi Id="79" Name="Shift" />
-					<NamedRemoteableKeyMidi Id="80" Name="StepDuration" />
-					<NamedRemoteableKeyMidi Id="81" Name="Split" />
-					<NamedRemoteableKeyMidi Id="82" Name="VelocityOffsetIncrement" />
-					<NamedRemoteableKeyMidi Id="83" Name="VelocityOffsetDecrement" />
+					<NamedRemoteableKeyMidi Id="98" Name="Density" />
+					<NamedRemoteableKeyMidi Id="99" Name="Repetitions" />
+					<NamedRemoteableKeyMidi Id="100" Name="Pattern" />
+					<NamedRemoteableKeyMidi Id="101" Name="Steps" />
+					<NamedRemoteableKeyMidi Id="102" Name="Pitch" />
+					<NamedRemoteableKeyMidi Id="103" Name="Velocity" />
+					<NamedRemoteableKeyMidi Id="104" Name="Accent" />
+					<NamedRemoteableKeyMidi Id="105" Name="Period" />
+					<NamedRemoteableKeyMidi Id="106" Name="Offset" />
+					<NamedRemoteableKeyMidi Id="107" Name="Shift" />
+					<NamedRemoteableKeyMidi Id="108" Name="StepDuration" />
+					<NamedRemoteableKeyMidi Id="109" Name="Split" />
+					<NamedRemoteableKeyMidi Id="110" Name="VelocityOffsetIncrement" />
+					<NamedRemoteableKeyMidi Id="111" Name="VelocityOffsetDecrement" />
 				</NamedKeyMidiRemoteables>
 				<Density Value="4" />
 				<Repetitions Value="1" />
@@ -3709,13 +4165,13 @@
 			</RhythmAlgorithm>
 			<StacksAlgorithm Id="9">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="60" Name="AppendChord" />
-					<NamedRemoteableKeyMidi Id="61" Name="DeleteSelectedChord" />
-					<NamedRemoteableKeyMidi Id="62" Name="RootPitch1" />
-					<NamedRemoteableKeyMidi Id="63" Name="Inversion1" />
-					<NamedRemoteableKeyMidi Id="64" Name="Rule1" />
-					<NamedRemoteableKeyMidi Id="65" Name="Duration1" />
-					<NamedRemoteableKeyMidi Id="66" Name="Offset1" />
+					<NamedRemoteableKeyMidi Id="84" Name="AppendChord" />
+					<NamedRemoteableKeyMidi Id="85" Name="DeleteSelectedChord" />
+					<NamedRemoteableKeyMidi Id="86" Name="RootPitch1" />
+					<NamedRemoteableKeyMidi Id="87" Name="Inversion1" />
+					<NamedRemoteableKeyMidi Id="88" Name="Rule1" />
+					<NamedRemoteableKeyMidi Id="89" Name="Duration1" />
+					<NamedRemoteableKeyMidi Id="90" Name="Offset1" />
 				</NamedKeyMidiRemoteables>
 				<Sequence>
 					<Chord Id="8">
@@ -3731,13 +4187,13 @@
 			</StacksAlgorithm>
 			<ShapeAlgorithm Id="10">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="35" Name="ShapePresets" />
-					<NamedRemoteableKeyMidi Id="36" Name="Rate" />
-					<NamedRemoteableKeyMidi Id="37" Name="Tie" />
-					<NamedRemoteableKeyMidi Id="38" Name="Density" />
-					<NamedRemoteableKeyMidi Id="39" Name="MinPitch" />
-					<NamedRemoteableKeyMidi Id="40" Name="MaxPitch" />
-					<NamedRemoteableKeyMidi Id="41" Name="PitchVariation" />
+					<NamedRemoteableKeyMidi Id="49" Name="ShapePresets" />
+					<NamedRemoteableKeyMidi Id="50" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="51" Name="Tie" />
+					<NamedRemoteableKeyMidi Id="52" Name="Density" />
+					<NamedRemoteableKeyMidi Id="53" Name="MinPitch" />
+					<NamedRemoteableKeyMidi Id="54" Name="MaxPitch" />
+					<NamedRemoteableKeyMidi Id="55" Name="PitchVariation" />
 				</NamedKeyMidiRemoteables>
 				<ShapeLevels>
 					<RemoteableFloat Id="0" Value="0" />
@@ -3772,14 +4228,14 @@
 			</ShapeAlgorithm>
 			<SeedAlgorithm Id="11">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="40" Name="Density" />
-					<NamedRemoteableKeyMidi Id="41" Name="MinPitch" />
-					<NamedRemoteableKeyMidi Id="42" Name="MaxPitch" />
-					<NamedRemoteableKeyMidi Id="43" Name="MinDuration" />
-					<NamedRemoteableKeyMidi Id="44" Name="MaxDuration" />
-					<NamedRemoteableKeyMidi Id="45" Name="MinVelocity" />
-					<NamedRemoteableKeyMidi Id="46" Name="MaxVelocity" />
-					<NamedRemoteableKeyMidi Id="47" Name="VerticalLimit" />
+					<NamedRemoteableKeyMidi Id="56" Name="Density" />
+					<NamedRemoteableKeyMidi Id="57" Name="MinPitch" />
+					<NamedRemoteableKeyMidi Id="58" Name="MaxPitch" />
+					<NamedRemoteableKeyMidi Id="59" Name="MinDuration" />
+					<NamedRemoteableKeyMidi Id="60" Name="MaxDuration" />
+					<NamedRemoteableKeyMidi Id="61" Name="MinVelocity" />
+					<NamedRemoteableKeyMidi Id="62" Name="MaxVelocity" />
+					<NamedRemoteableKeyMidi Id="63" Name="VerticalLimit" />
 				</NamedKeyMidiRemoteables>
 				<NotesDensity Value="0.5" />
 				<MinPitch Value="60" />
