@@ -10,7 +10,11 @@ function load(relativePath, name, dependencies = {}) {
 	const runtime = {
 		SuperClass: class {},
 		IfCondition: { validate: Boolean },
-		Assert: { notNull: value => assert.notEqual(value, null) },
+		Assert: {
+			notNull: value => assert.notEqual(value, null),
+			true: value => assert.equal(value, true),
+			value: value => { assert.ok(value); return value },
+		},
 		...dependencies,
 	}
 	return new Function(...Object.keys(runtime), source.replace("export ", "") + `\nreturn ${name}`)(...Object.values(runtime))
@@ -172,6 +176,7 @@ function publisherFixture() {
 		Token: { userId: "22222222-2222-2222-2222-222222222222" },
 		SetTimeoutLoop: () => ({}),
 		MediaRecorder: recorder,
+		SoundContext: { resume: async () => {} },
 		SwappableMediaStream: { prepare: async () => {}, mediaStream: {}, videoDeviceId: null, audioDeviceId: null, video: { srcObject: null }, audioContext: { resume: async () => {} } },
 		JsonHttpClient: {
 			startStream: async ({ body }) => {
@@ -293,7 +298,7 @@ test("broadcast operations enforce the token user ID even with valid session ide
 })
 
 test("the viewer can be constructed when native HLS may be available", () => {
-	const Video = load("frontend/apps/livestream/livestream_viewer/HlsVideo.js", "HlsVideo", {
+	const Video = load("frontend/apps/livestream/livestream_viewer/HLS/HlsVideo.js", "HlsVideo", {
 		HlsJs: { supported: false },
 		Assert: { notNull: value => assert.notEqual(value, null), true: value => assert.equal(value, true) },
 		Config: { httpUrl: "http://localhost:3000" },
@@ -312,7 +317,7 @@ test("replacing an encoder early does not shorten or extend the media deadline",
 	assert.equal(f.Broadcast.status().remainingMs, 58_000)
 })
 
-function mediaFixture() {
+function mediaFixture({ noDefaultMicrophone = false } = {}) {
 	const requests = []
 	const track = (kind, deviceId) => ({ kind, stop() {}, getSettings: () => ({ deviceId }) })
 	class Tracks {
@@ -338,15 +343,25 @@ function mediaFixture() {
 		createMediaStreamDestination() { return { stream: new Tracks([track("audio", "mixed")]) } }
 		createMediaStreamSource() { return node() }
 	}
+	const soundContext = {
+		get context() { return this._context ??= new FakeAudioContext() },
+		resume: async () => soundContext.context.resume(),
+		createMediaStreamDestination: () => soundContext.context.createMediaStreamDestination(),
+		createMediaStreamSource: stream => soundContext.context.createMediaStreamSource(stream),
+	}
 	const Media = load("frontend/apps/livestream/livestream_streamer/media/SwappableMediaStream.js", "SwappableMediaStream", {
-		Assert: { notNull: value => assert.notEqual(value, null) },
+		Assert: {
+			notNull: value => assert.notEqual(value, null),
+			true: value => assert.equal(value, true),
+			value: value => { assert.ok(value); return value },
+		},
 		FrameLoop: () => {},
 		H: {
 			mediastreamVideo: () => ({ srcObject: null, play: async () => {} }),
 			CanvasWithStream: () => ({ ctx: { fillRect() {} }, canvas: { width: 1280, height: 720 }, canvasStream: new Tracks([track("video", "canvas")]) }),
 		},
 		MediaStream: Tracks,
-		SoundContext: { get context() { return this._context ??= new FakeAudioContext() } },
+		SoundContext: soundContext,
 		AudioTrack: () => ({ input: node(), apply() { return this }, routeTo() { return this } }),
 		Vst: { compressor: () => node() },
 		AudioContext: FakeAudioContext,
@@ -354,7 +369,7 @@ function mediaFixture() {
 		MediaDevices: {
 			audio: async id => {
 				requests.push(["audio", id]);
-				if (id == "missing-mic") throw new Error("device not found")
+				if (id == "missing-mic" || (noDefaultMicrophone && id == null)) throw new Error("device not found")
 				return new Tracks([track("audio", id ?? "default-mic")])
 			},
 			video: async id => {
@@ -367,7 +382,7 @@ function mediaFixture() {
 	return { Media, requests }
 }
 
-test("media preparation opens default mic and camera once and preserves explicit selections and muting", async () => {
+test("media preparation opens defaults once and preserves explicit device selections", async () => {
 	const { Media, requests } = mediaFixture()
 	await Media.prepare()
 	assert.deepEqual(requests, [["audio", undefined], ["video", undefined]])
@@ -380,10 +395,6 @@ test("media preparation opens default mic and camera once and preserves explicit
 	await Media.prepare()
 	assert.equal(Media.audioDeviceId, "chosen-mic")
 	assert.equal(Media.videoDeviceId, "chosen-camera")
-	assert.equal(requests.length, 4)
-	Media.clearAudioDevice()
-	await Media.prepare()
-	assert.equal(Media.audioDeviceId, null)
 	assert.equal(requests.length, 4)
 })
 
@@ -398,6 +409,12 @@ test("missing saved devices fall back to the defaults", async () => {
 	])
 	assert.equal(Media.audioDeviceId, "default-mic")
 	assert.equal(Media.videoDeviceId, "default-camera")
+})
+
+test("missing selected and default microphones throw an error", async () => {
+	const { Media, requests } = mediaFixture({ noDefaultMicrophone: true })
+	await assert.rejects(Media.prepare({ audioDeviceId: "missing-mic" }), /No microphone is available/)
+	assert.deepEqual(requests, [["audio", "missing-mic"], ["audio", undefined]])
 })
 
 test("default device requests omit exact device constraints", async () => {

@@ -70,7 +70,7 @@ export class H {
 		return this.mediastreamVideo(stream)
 	}
 
-	static mediastreamVideo(stream = null) {
+	static mediastreamVideo(stream = null) { // allow-null
 		const v = this._video()
 
 		v.srcObject = stream

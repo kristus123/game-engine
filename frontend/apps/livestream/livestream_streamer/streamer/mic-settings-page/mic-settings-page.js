@@ -8,7 +8,6 @@ export default {
 				radio.disabled = true
 			}
 
-			html.muteMic.disabled = true
 			html.micStatus.content = "Updating microphones…"
 			try {
 				const selectedRadio = radios.find(radio => radio.checked)
@@ -20,15 +19,12 @@ export default {
 				if selectedDeviceId && selectedDeviceId != activeDeviceId {
 					await Stream.setAudioDevice(selectedDeviceId)
 				}
-				else if !selectedDeviceId && activeDeviceId {
-					Stream.clearAudioDevice()
-				}
 				if Stream.audioDeviceId != selectedDeviceId {
 					throw new Error("Microphone selection did not take effect.")
 				}
 				html.micStatus.content = selectedDeviceId
 					? `Microphone active: ${selectedRadio.dataset.deviceLabel || selectedDeviceId}.`
-					: "No microphone selected. Livestream audio will be muted."
+					: "Select a microphone to use for the livestream."
 			}
 			catch (error) {
 				const activeDeviceId = Stream.audioDeviceId
@@ -43,14 +39,7 @@ export default {
 				for const radio of radios {
 					radio.disabled = false
 				}
-				html.muteMic.disabled = false
 			}
-		},
-		muteMic: async (html) => {
-			for const radio of html.fields.radios {
-				radio.checked = false
-			}
-			await html.applyMicSelection()
 		},
 	},
 	onDomAdd: async ({ html }) => {

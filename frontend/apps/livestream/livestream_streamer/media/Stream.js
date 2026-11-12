@@ -76,7 +76,7 @@ export class Stream {
 			videoDeviceId: SwappableMediaStream.videoDeviceId,
 			audioDeviceId: this.audioDeviceId,
 		}
-		SwappableMediaStream.audioContext.resume().catch(error => console.warn("Could not resume audio", error))
+		SoundContext.resume().catch(error => console.warn("Could not resume audio", error))
 		await this.recover(false)
 	}
 
@@ -120,7 +120,7 @@ export class Stream {
 			if this.broadcast != broadcast || broadcast.stopping {
 				return
 			}
-			SwappableMediaStream.audioContext.resume().catch(error => console.warn("Could not resume audio", error))
+			SoundContext.resume().catch(error => console.warn("Could not resume audio", error))
 			broadcast.recordingStarted = true
 			let sequence = 0
 			const revision = broadcast.revision
@@ -231,13 +231,6 @@ export class Stream {
 		await SwappableMediaStream.setAudioDevice(deviceId)
 		if this.broadcast {
 			this.broadcast.audioDeviceId = deviceId
-		}
-	}
-
-	static clearAudioDevice() {
-		SwappableMediaStream.clearAudioDevice()
-		if this.broadcast {
-			this.broadcast.audioDeviceId = null
 		}
 	}
 

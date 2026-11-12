@@ -19,6 +19,18 @@ export class SoundContext {
 		await this.context.setSinkId(deviceId)
 	}
 
+	static async resume() {
+		await this.context.resume()
+	}
+
+	static createMediaStreamDestination() {
+		return this.context.createMediaStreamDestination()
+	}
+
+	static createMediaStreamSource(stream) {
+		return this.context.createMediaStreamSource(stream)
+	}
+
 	static createOscillator() {
 		return this.context.createOscillator()
 	}

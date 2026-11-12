@@ -1,15 +1,6 @@
 export class SwappableMediaStream {
 
-	static video = null
-	static mediaStream = null
-	static canvas = null
-	static canvasContext = null
-
-	static audioContext = null
-	static audioOutput = null
-	static audioTrack = null
 	static audioInput = null
-	static audioMuted = false
 	static audioUnavailable = false
 
 	static {
@@ -27,47 +18,41 @@ export class SwappableMediaStream {
 			}
 		})
 
-		this.audioContext = SoundContext.context
-		this.audioOutput = this.audioContext.createMediaStreamDestination()
 		this.audioTrack = AudioTrack()
-		this.audioTrack.apply(Vst.compressor()).routeTo(this.audioOutput)
+
+		const audioOutput = SoundContext.createMediaStreamDestination()
+		this.audioTrack.apply(Vst.compressor()).routeTo(audioOutput)
 
 		this.mediaStream = new MediaStream([
 			...canvasStream.getVideoTracks(),
-			...this.audioOutput.stream.getAudioTracks(),
+			...audioOutput.stream.getAudioTracks(),
 		])
 	}
 
-	static async prepare(options = {}) {
+	static async prepare({ audioDeviceId, videoDeviceId } = {}) {
 		await Permission.request()
-		await this.audioContext.resume()
-		if Object.hasOwn(options, "audioDeviceId") && options.audioDeviceId == null {
-			this.clearAudioDevice()
+		await SoundContext.resume()
+		try {
+			await this.setAudioDevice(audioDeviceId)
 		}
-		else if !this.audioMuted || options.audioDeviceId != null {
-			try {
-				await this.setAudioDevice(options.audioDeviceId)
+		catch (error) {
+			if audioDeviceId == null {
+				throw new Error("No microphone is available", { cause: error })
 			}
-			catch (error) {
-				if options.audioDeviceId == null {
-					throw error
-				}
-				console.warn("Selected microphone is unavailable; trying the default microphone", error)
-				try {
-					await this.setAudioDevice()
-				}
-				catch (fallbackError) {
-					this.clearAudioDevice()
-					this.audioUnavailable = true
-					console.warn("No microphone is available; continuing muted", fallbackError)
-				}
+			console.warn("Selected microphone is unavailable; trying the default microphone", error)
+			try {
+				await this.setAudioDevice()
+			}
+			catch (fallbackError) {
+				this.audioUnavailable = true
+				throw new Error("No microphone is available", { cause: fallbackError })
 			}
 		}
 		try {
-			await this.swapVideo(options.videoDeviceId)
+			await this.swapVideo(videoDeviceId)
 		}
 		catch (error) {
-			if options.videoDeviceId == null {
+			if videoDeviceId == null {
 				throw error
 			}
 			console.warn("Selected camera is unavailable; trying the default camera", error)
@@ -97,44 +82,41 @@ export class SwappableMediaStream {
 			return
 		}
 
-		await this.audioContext.resume()
+		await SoundContext.resume()
 
 		const stream = await MediaDevices.audio(deviceId)
 		let source = null
 
 		try {
 			const audioTracks = stream.getAudioTracks()
-			if audioTracks.length != 1 {
-				throw new Error(`Expected one audio track for microphone ${deviceId}, got ${audioTracks.length}`)
-			}
+			Assert.true(audioTracks.length == 1, `Expected one audio track for microphone ${deviceId}, got ${audioTracks.length}`)
 
-			const actualDeviceId = audioTracks[0].getSettings().deviceId
-			if !actualDeviceId {
-				throw new Error(`Could not verify which microphone was opened for device ${deviceId}`)
-			}
+			const actualDeviceId = Assert.value(audioTracks[0].getSettings().deviceId)
+
 			if deviceId != null && deviceId != "default" && actualDeviceId != deviceId {
 				throw new Error(`Requested microphone ${deviceId}, but the browser opened a different input`)
 			}
 
-			source = this.audioContext.createMediaStreamSource(stream)
+			source = SoundContext.createMediaStreamSource(stream)
 			source.connect(this.audioTrack.input)
 
 			const previousInput = this.audioInput
 			const input = { deviceId: actualDeviceId, source, stream }
 			this.audioInput = input
-			this.audioMuted = false
 			this.audioUnavailable = false
-			audioTracks[0].addEventListener?.("ended", () => {
+			audioTracks[0].addEventListener?.("ended", async () => {
 				if this.audioInput != input {
 					return
 				}
 				this.audioInput = null
 				this.stopAudioInput(input)
-				this.setAudioDevice().catch(error => {
-					this.audioMuted = true
+				try {
+					await this.setAudioDevice()
+				}
+				catch (error) {
 					this.audioUnavailable = true
-					console.warn("Microphone disconnected and no replacement is available", error)
-				})
+					throw new Error("Microphone disconnected and no replacement is available", { cause: error })
+				}
 			})
 			if previousInput {
 				this.stopAudioInput(previousInput)
@@ -145,18 +127,6 @@ export class SwappableMediaStream {
 			stream.getTracks().forEach(track => track.stop())
 			throw error
 		}
-	}
-
-	static clearAudioDevice() {
-		this.audioMuted = true
-		this.audioUnavailable = false
-		const audioInput = this.audioInput
-		if !audioInput {
-			return
-		}
-
-		this.audioInput = null
-		this.stopAudioInput(audioInput)
 	}
 
 	static stopAudioInput({ source, stream }) {

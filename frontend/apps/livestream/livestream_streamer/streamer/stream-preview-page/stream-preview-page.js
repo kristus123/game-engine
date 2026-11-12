@@ -32,7 +32,7 @@ export default {
 			html.videoOverlay.add(streamPreview)
 
 			try {
-				await Promise.all([SwappableMediaStream.audioContext.resume(), streamPreview.play()])
+				await Promise.all([SoundContext.resume(), streamPreview.play()])
 			}
 			catch (error) {
 				html.fields.isPreviewingStream = false

@@ -84,7 +84,7 @@ export default {
 		const levelLoop = SetTimeoutLoop(200, () => {
 			const input = SwappableMediaStream.audioInput
 			if !input {
-				html.micLevelLabel.content = SwappableMediaStream.audioUnavailable ? "Mic: unavailable" : "Mic: muted"
+				html.micLevelLabel.content = "Mic: unavailable"
 				html.micLevelBar.style.width = "0%"
 				return
 			}

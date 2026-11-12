@@ -88,11 +88,6 @@ mic-settings-page button {
 	font-size: 16px;
 }
 
-mic-settings-page #muteMic {
-	margin-right: auto;
-	background: #9f2633;
-}
-
 @media (width <= 560px) {
 	mic-settings-page > overlay-fixed > flex-v {
 		max-height: 96vh;
@@ -108,7 +103,4 @@ mic-settings-page #muteMic {
 		flex: 1 1 auto;
 	}
 
-	mic-settings-page #muteMic {
-		margin-right: 0;
-	}
 }
