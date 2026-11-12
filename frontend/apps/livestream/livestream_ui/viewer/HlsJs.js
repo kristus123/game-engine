@@ -45,9 +45,6 @@ export class HlsJs {
 		return hls?.media != null
 	}
 
-	static get playbackUtc() {
-		return hls?.media ? hls.playingDate ?? null : null
-	}
 
 	static connect(video, source, callbacks = {}) {
 		Assert.true(this.supported, "hls.js playback is unavailable")

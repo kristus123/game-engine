@@ -1,4 +1,3 @@
-import { execFile } from "child_process"
 
 // -preset
 // ultrafast
@@ -82,42 +81,6 @@ export class Ffmpeg {
 
 		await this.p.waitForSpawn()
 	}
-
-	static runClip(args) {
-		return new Promise((resolve, reject) => {
-			const child = execFile("ffmpeg", args, { timeout: 120_000, maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
-				if error {
-					reject(new Error(stderr || error.message))
-				}
-				else {
-					resolve()
-				}
-			})
-			this.clipProcesses.add(child)
-			child.once("close", () => this.clipProcesses.delete(child))
-		})
-	}
-
-	static async stopClipProcesses() {
-		const clips = [...this.clipProcesses]
-		await Promise.all(clips.map(child => {
-			if child.exitCode != null || child.signalCode != null {
-				return Promise.resolve()
-			}
-
-			return new Promise(resolve => {
-				const forceKillTimeout = setTimeout(() => child.kill("SIGKILL"), 2_000)
-				forceKillTimeout.unref()
-				child.once("close", () => {
-					clearTimeout(forceKillTimeout)
-					resolve()
-				})
-				child.kill("SIGTERM")
-			})
-		}))
-	}
-
-	static clipProcesses = new Set()
 
 	static async stop() {
 		if this.p {

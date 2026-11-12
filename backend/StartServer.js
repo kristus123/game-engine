@@ -10,7 +10,6 @@ async function shutdownBackend(signal) {
 			if Ffmpeg.p {
 				await Ffmpeg.stop()
 			}
-			await Ffmpeg.stopClipProcesses()
 		}],
 		["mediasoup", function stopSfu() {
 			return SfuServer.stop()

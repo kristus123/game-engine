@@ -4,23 +4,12 @@ export class HlsVideo {
 		this.callbacks = callbacks
 		this.source = `${Config.httpUrl}/public_folder/hls/output.m3u8`
 
-		this.playbackUtc = null
-
 		this.video = H.hlsVideo({
 			autoplay: true,
 			muted: !Permission.canPlayAudio,
 			controls: false,
 			playsInline: true,
-			reportPlaybackDate: () => {
-				this.callbacks.onSeekableChange?.()
-				this.playbackUtc = HlsJs.playbackUtc
-				if this.playbackUtc {
-					this.callbacks.onPlaybackDate?.(this.playbackUtc)
-				}
-			},
 			listeners: {
-				progress: () => this.callbacks.onSeekableChange?.(),
-				durationchange: () => this.callbacks.onSeekableChange?.(),
 				playing: () => this.callbacks.onPlaying?.(),
 				error: () => this.callbacks.onError?.(this.video.error),
 			},
@@ -55,8 +44,6 @@ export class HlsVideo {
 	}
 
 	disconnect() {
-		this.playbackUtc = null
-
 		HlsJs.disconnect()
 
 		this.video.pause()

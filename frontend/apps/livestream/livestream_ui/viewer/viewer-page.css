@@ -1,0 +1,19 @@
+viewer-page > overlay-fixed > h1 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: max-content;
+	max-width: calc(100% - 2rem);
+	margin: 0;
+	padding: 1rem 1.5rem;
+	border-radius: 8px;
+	background: rgb(0 0 0 / 85%);
+	color: white;
+	font: 24px / 1.4 sans-serif;
+	text-align: center;
+}
+
+viewer-page > overlay-fixed > h1:empty {
+	display: none;
+}

@@ -75,7 +75,7 @@ export class H {
 		return v
 	}
 
-	static hlsVideo({ autoplay=true, muted=true, controls=false, playsInline=true, reportPlaybackDate=() => {}, listeners={} } = {}) {
+	static hlsVideo({ autoplay=true, muted=true, controls=false, playsInline=true, listeners={} } = {}) {
 		const v = _HtmlElement("video")
 
 		v.autoplay = autoplay
@@ -83,9 +83,6 @@ export class H {
 		v.controls = controls
 		v.playsInline = playsInline
 
-		for const eventName of ["loadeddata", "timeupdate", "seeked"] {
-			v.addEventListener(eventName, reportPlaybackDate)
-		}
 		for const [eventName, listener] of Object.entries(listeners) {
 			v.addEventListener(eventName, listener)
 		}

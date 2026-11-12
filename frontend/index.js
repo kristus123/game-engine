@@ -88,8 +88,14 @@ Font.use("VT323")
 // }
 // else if query.has("streamer") {
 
-console.log(Netlify.name)
-if Netlify.name == "romskip-streamer" {
+const query = new URLSearchParams(location.search)
+if query.has("viewer") {
+	await Page.open("viewer-page")
+}
+else if query.has("streamer") {
+	await Page.open("streamer-page")
+}
+else if Netlify.name == "romskip-streamer" {
 	await Page.open("streamer-page")
 }
 else if Netlify.name == "romskip" {
