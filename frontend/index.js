@@ -87,7 +87,17 @@ Font.use("VT323")
 // 	await Page.open("viewer-page")
 // }
 // else if query.has("streamer") {
-// await Page.open("streamer-page")
+
+console.log(Netlify.name)
+if Netlify.name == "romskip-streamer" {
+	await Page.open("streamer-page")
+}
+else if Netlify.name == "romskip" {
+	await Page.open("viewer-page")
+}
+else {
+	throw new Error("unexpected")
+}
 // }
 // else {
 // 	throw new Error("missing query thingy")
@@ -96,7 +106,7 @@ Font.use("VT323")
 // await Page.open("test-page")
 
 // await Page.open("village-page")
-await Page.open("hub-page")
+// await Page.open("hub-page")
 // VikingGame()
 // CanvasGame()
 // PracticeLanguage()

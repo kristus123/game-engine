@@ -24,3 +24,7 @@ EOF
 
 # the id of 'romskip' aka. romskip.netlify.app
 netlify deploy --prod --no-build --dir=dist --site=30335998-1c5b-49e4-b97c-cb0f1f5b3893
+
+
+# the id of 'romskip-streamer' aka. romskip-streamer.netlify.app
+netlify deploy --prod --no-build --dir=dist --site=4ae5a7af-6cc3-4739-aa1d-56b7e52c07f9
