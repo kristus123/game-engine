@@ -9,7 +9,7 @@ export default {
 		streamPreview.autoplay = false
 		streamPreview.playsInline = true
 		streamPreview.muted = false
-		streamPreview.srcObject = SwappableMediaStream.stream
+		streamPreview.srcObject = SwappableMediaStream.mediaStream
 		streamPreview.css("width: 100%; height: 100%; object-fit: contain; background: black; pointer-events: none;")
 		html.fields.streamPreview = streamPreview
 	},
@@ -47,7 +47,7 @@ export default {
 		},
 	},
 	onDomAdd: ({ html }) => {
-		html.fields.streamPreview.srcObject = SwappableMediaStream.stream
+		html.fields.streamPreview.srcObject = SwappableMediaStream.mediaStream
 		html.videoOverlay.clearChildren()
 		html.videoOverlay.add(SwappableMediaStream.video.mirror())
 	},

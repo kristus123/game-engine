@@ -9,7 +9,6 @@ export class Stream {
 	static loop = null
 	static uploadsInFlight = 0
 	static finishingStop = null
-	static deviceIssue = null
 	static recorder = null
 
 	static async status() {
@@ -29,7 +28,6 @@ export class Stream {
 		if this.loop {
 			return
 		}
-		SwappableMediaStream.onDeviceIssue = message => this.setDeviceIssue(message)
 		Network.onOffline(() => this.interrupt())
 		this.loop = SetTimeoutLoop(2_000, () => this.maintain())
 	}
@@ -225,18 +223,12 @@ export class Stream {
 		}
 	}
 
-	static setDeviceIssue(message) {
-		this.deviceIssue = message
-		this.onChange?.(this.state)
-	}
-
 	static get audioDeviceId() {
 		return SwappableMediaStream.audioDeviceId
 	}
 
 	static async setAudioDevice(deviceId) {
 		await SwappableMediaStream.setAudioDevice(deviceId)
-		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.audioDeviceId = deviceId
 		}
@@ -244,7 +236,6 @@ export class Stream {
 
 	static clearAudioDevice() {
 		SwappableMediaStream.clearAudioDevice()
-		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.audioDeviceId = null
 		}
@@ -252,7 +243,6 @@ export class Stream {
 
 	static async swapVideo(deviceId) {
 		await SwappableMediaStream.swapVideo(deviceId)
-		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.videoDeviceId = deviceId
 		}

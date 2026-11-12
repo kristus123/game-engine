@@ -29,7 +29,7 @@ export class Enhance_MediaRecorder extends NativeEnhancer {
 				if stopped {
 					return
 				}
-				recorder = new MediaRecorder(SwappableMediaStream.stream, { mimeType: Platform.mimeType, ...recorderOptions })
+				recorder = new MediaRecorder(SwappableMediaStream.mediaStream, { mimeType: Platform.mimeType, ...recorderOptions })
 				recorder.ondataavailable = event => {
 					if event.data.size == 0 || stopped {
 						return

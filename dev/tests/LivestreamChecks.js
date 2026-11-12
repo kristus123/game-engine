@@ -172,7 +172,7 @@ function publisherFixture() {
 		Token: { userId: "22222222-2222-2222-2222-222222222222" },
 		SetTimeoutLoop: () => ({}),
 		MediaRecorder: recorder,
-		SwappableMediaStream: { prepare: async () => {}, videoDeviceId: null, audioDeviceId: null, video: { srcObject: null }, audioContext: { resume: async () => {} } },
+		SwappableMediaStream: { prepare: async () => {}, mediaStream: {}, videoDeviceId: null, audioDeviceId: null, video: { srcObject: null }, audioContext: { resume: async () => {} } },
 		JsonHttpClient: {
 			startStream: async ({ body }) => {
 				requests.push(body); return result(await startReply())
@@ -340,9 +340,11 @@ function mediaFixture() {
 	}
 	const Media = load("frontend/apps/livestream/livestream_streamer/media/SwappableMediaStream.js", "SwappableMediaStream", {
 		Assert: { notNull: value => assert.notEqual(value, null) },
-		document: { createElement: () => ({ play: async () => {} }) },
 		FrameLoop: () => {},
-		H: { CanvasWithStream: () => ({ ctx: { fillRect() {} }, canvas: { width: 1280, height: 720 }, canvasStream: new Tracks([track("video", "canvas")]) }) },
+		H: {
+			mediastreamVideo: () => ({ srcObject: null, play: async () => {} }),
+			CanvasWithStream: () => ({ ctx: { fillRect() {} }, canvas: { width: 1280, height: 720 }, canvasStream: new Tracks([track("video", "canvas")]) }),
+		},
 		MediaStream: Tracks,
 		SoundContext: { get context() { return this._context ??= new FakeAudioContext() } },
 		AudioTrack: () => ({ input: node(), apply() { return this }, routeTo() { return this } }),

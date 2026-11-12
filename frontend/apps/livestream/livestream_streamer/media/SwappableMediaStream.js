@@ -1,10 +1,9 @@
 export class SwappableMediaStream {
 
 	static video = null
-	static stream = null
+	static mediaStream = null
 	static canvas = null
 	static canvasContext = null
-	static onDeviceIssue = null
 
 	static audioContext = null
 	static audioOutput = null
@@ -14,13 +13,7 @@ export class SwappableMediaStream {
 	static audioUnavailable = false
 
 	static {
-		// todo make this a H.mediastreamVideo()
-		const v = document.createElement("video")
-		v.playsInline = true
-		v.srcObject = null
-		v.autoplay = true
-		v.muted = true
-		this.video = v
+		this.video = H.mediastreamVideo()
 
 		const { ctx, canvas, canvasStream } = H.CanvasWithStream(1280, 720)
 		this.canvas = canvas
@@ -39,7 +32,7 @@ export class SwappableMediaStream {
 		this.audioTrack = AudioTrack()
 		this.audioTrack.apply(Vst.compressor()).routeTo(this.audioOutput)
 
-		this.stream = new MediaStream([
+		this.mediaStream = new MediaStream([
 			...canvasStream.getVideoTracks(),
 			...this.audioOutput.stream.getAudioTracks(),
 		])
@@ -62,13 +55,11 @@ export class SwappableMediaStream {
 				console.warn("Selected microphone is unavailable; trying the default microphone", error)
 				try {
 					await this.setAudioDevice()
-					this.onDeviceIssue?.("Selected microphone unavailable; switched to the default microphone.")
 				}
 				catch (fallbackError) {
 					this.clearAudioDevice()
 					this.audioUnavailable = true
 					console.warn("No microphone is available; continuing muted", fallbackError)
-					this.onDeviceIssue?.("No microphone is available; livestream continues muted.")
 				}
 			}
 		}
@@ -82,17 +73,15 @@ export class SwappableMediaStream {
 			console.warn("Selected camera is unavailable; trying the default camera", error)
 			try {
 				await this.swapVideo()
-				this.onDeviceIssue?.("Selected camera unavailable; switched to the default camera.")
 			}
 			catch (fallbackError) {
 				this.video.srcObject = null
 				this.canvasContext.fillStyle = "black"
 				this.canvasContext.fillRect(0, 0, this.canvas.width, this.canvas.height)
 				console.warn("No camera is available; continuing with a black screen", fallbackError)
-				this.onDeviceIssue?.("No camera is available; livestream continues with a black screen.")
 			}
 		}
-		return this.stream
+		return this.mediaStream
 	}
 
 	static get videoDeviceId() {
@@ -141,14 +130,10 @@ export class SwappableMediaStream {
 				}
 				this.audioInput = null
 				this.stopAudioInput(input)
-				this.onDeviceIssue?.("Microphone disconnected; switching to the default microphone.")
-				this.setAudioDevice().then(() => {
-					this.onDeviceIssue?.("Microphone disconnected; switched to the default microphone.")
-				}).catch(error => {
+				this.setAudioDevice().catch(error => {
 					this.audioMuted = true
 					this.audioUnavailable = true
 					console.warn("Microphone disconnected and no replacement is available", error)
-					this.onDeviceIssue?.("Microphone unavailable; livestream continues muted.")
 				})
 			})
 			if previousInput {
@@ -195,12 +180,8 @@ export class SwappableMediaStream {
 			this.video.srcObject = null
 			this.canvasContext.fillStyle = "black"
 			this.canvasContext.fillRect(0, 0, this.canvas.width, this.canvas.height)
-			this.onDeviceIssue?.("Camera disconnected; switching to the default camera.")
-			this.swapVideo().then(() => {
-				this.onDeviceIssue?.("Camera disconnected; switched to the default camera.")
-			}).catch(error => {
+			this.swapVideo().catch(error => {
 				console.warn("Camera disconnected and no replacement is available", error)
-				this.onDeviceIssue?.("Camera unavailable; livestream continues with a black screen.")
 			})
 		})
 		await this.video.play()

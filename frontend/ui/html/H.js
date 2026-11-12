@@ -67,6 +67,10 @@ export class H {
 	}
 
 	static localStreamVideo(stream) {
+		return this.mediastreamVideo(stream)
+	}
+
+	static mediastreamVideo(stream = null) {
 		const v = this._video()
 
 		v.srcObject = stream

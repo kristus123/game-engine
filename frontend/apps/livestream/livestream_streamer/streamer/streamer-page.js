@@ -9,7 +9,7 @@ async function setup(html) {
 			ended: "The previous stream session ended. Start a new livestream to continue.",
 			busy: "Someone is already streaming",
 		}
-		html.waiting.content = Stream.deviceIssue || messages[state]
+		html.waiting.content = messages[state]
 		html.start.hidden = Stream.broadcast != null
 		html.stop.hidden = Stream.broadcast == null || Stream.broadcast.stopping
 		html.livePreview.hidden = Stream.broadcast == null
@@ -69,14 +69,14 @@ export default {
 	page: { persistOnClose: true },
 	fields: () => ({ options: null }),
 	onFirstDomAdd: async ({ html }) => {
-		html.livePreview.srcObject = SwappableMediaStream.stream
+		html.livePreview.srcObject = SwappableMediaStream.mediaStream
 		html.livePreview.hidden = Stream.broadcast == null
 		html.livePreview.css("width: 100%; height: 100%; object-fit: contain; background: black;")
 		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
 		html.fields.options = await setup(html)
 	},
 	onDomAdd: ({ html, onDomRemove }) => {
-		html.livePreview.srcObject = SwappableMediaStream.stream
+		html.livePreview.srcObject = SwappableMediaStream.mediaStream
 		html.livePreview.play().catch(error => console.warn("Could not play local stream preview", error))
 		html.micLevel.css("position: absolute; top: 40px; left: 8px; width: 150px; padding: 6px 10px; color: white; background: #222a; border-radius: 4px;")
 		html.micLevelTrack.css("height: 6px; margin-top: 4px; overflow: hidden; background: #777;")
