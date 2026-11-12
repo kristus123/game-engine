@@ -116,7 +116,7 @@ test("encoder death enters reconnecting and a late upload cannot revive an expir
 })
 
 test("failed queued work rejects its caller while allowing later work", async () => {
-	const Queue = load("frontend/apps/livestream/media/PromiseQueue.js", "PromiseQueue")
+	const Queue = load("frontend/tools/utils/queue/PromiseQueue.js", "PromiseQueue")
 	const queue = new Queue()
 	await assert.rejects(queue.add(async () => {
 		throw new Error("upload failed")
@@ -146,17 +146,19 @@ test("timeout loop starts automatically, supports initial stop and stops after a
 })
 
 function publisherFixture() {
-	const storage = new Map()
 	const requests = []
 	let failStop = false
+	let stopReply = async () => ({ accepted: true })
+	let statusReply = async () => ({ online: false, state: "offline", playbackId: null })
+	let stopCalls = 0
 	let startReply = async () => ({ accepted: true })
-	const recorder = { active: false, start: () => {
+	const recorder = { active: false, options: null, v2Start: (_onBlob, _onError, options) => {
+		recorder.options = options
 		recorder.active = true
-	}, stop: () => {
-		recorder.active = false
+		return { get active() { return recorder.active }, stop: () => { recorder.active = false } }
 	} }
 	const result = body => ({ ok: true, body })
-	const Stream = load("frontend/apps/livestream/media/Stream.js", "Stream", {
+	const Stream = load("frontend/apps/livestream/livestream_streamer/media/Stream.js", "Stream", {
 		Assert: {
 			notNull: value => assert.notEqual(value, null),
 			true: value => assert.equal(value, true),
@@ -164,36 +166,51 @@ function publisherFixture() {
 				assert.equal(response.ok, true); return response.body
 			},
 		},
-		Listener: class {
-			trigger() {}
-		},
 		Network: { offline: false, onOffline: () => {} },
 		Config: { streamStallMs: 8_000 },
 		Platform: { mimeType: "video/webm" },
 		Token: { userId: "22222222-2222-2222-2222-222222222222" },
 		SetTimeoutLoop: () => ({}),
-		BetterMediaRecorder: recorder,
-		localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
+		MediaRecorder: recorder,
 		SwappableMediaStream: { prepare: async () => {}, videoDeviceId: null, audioDeviceId: null, video: { srcObject: null }, audioContext: { resume: async () => {} } },
 		JsonHttpClient: {
 			startStream: async ({ body }) => {
 				requests.push(body); return result(await startReply())
 			},
 			stopStream: async () => {
+				stopCalls++
 				if (failStop) {
 					throw new Error("offline")
-				} return result({ accepted: true })
+				}
+				return result(await stopReply())
 			},
+			streamOnline: async () => result(await statusReply()),
 		},
 	})
-	return { Stream, storage, recorder, requests, failStop: value => {
+	return { Stream, recorder, requests, get stopCalls() { return stopCalls }, failStop: value => {
 		failStop = value
 	}, startReply: reply => {
 		startReply = reply
+	}, stopReply: reply => {
+		stopReply = reply
+	}, statusReply: reply => {
+		statusReply = reply
 	} }
 }
 
-test("publisher resumes with a fresh recording and persists an offline stop until it succeeds", async () => {
+test("an in-flight upload gets its retry window before stall recovery starts", async () => {
+	const f = publisherFixture()
+	await f.Stream.start()
+	const revision = f.Stream.broadcast.revision
+	f.Stream.lastUploadAt = Date.now() - 9_000
+	f.Stream.uploadsInFlight = 1
+	await f.Stream.maintain()
+	assert.equal(f.Stream.broadcast.revision, revision)
+	assert.equal(f.recorder.active, true)
+	f.Stream.uploadsInFlight = 0
+})
+
+test("publisher resumes after interruption and retries an offline stop until it succeeds", async () => {
 	const f = publisherFixture()
 	await f.Stream.start()
 	assert.equal(f.recorder.active, true)
@@ -207,11 +224,37 @@ test("publisher resumes with a fresh recording and persists an offline stop unti
 	await f.Stream.stop()
 	assert.equal(f.Stream.state, "stopping")
 	assert.equal(f.recorder.active, false)
-	assert.equal(JSON.parse(f.storage.get(f.Stream.storageKey)).stopping, true)
+	assert.equal(f.Stream.broadcast.stopping, true)
 	f.failStop(false)
 	await f.Stream.maintain()
 	assert.equal(f.Stream.broadcast, null)
-	assert.equal(f.storage.size, 0)
+})
+
+test("a rejected stop only clears local state after status confirms the old session is gone", async () => {
+	const f = publisherFixture()
+	await f.Stream.start()
+	f.stopReply(async () => ({ accepted: false, expired: true }))
+	f.statusReply(async () => ({ online: true, state: "live", playbackId: "22222222-2222-2222-2222-222222222222-999" }))
+	await f.Stream.stop()
+	assert.equal(f.Stream.broadcast, null)
+	assert.equal(f.Stream.state, "busy")
+})
+
+test("stopping a rejected current session retains it for retry", async () => {
+	const f = publisherFixture()
+	await f.Stream.start()
+	f.stopReply(async () => ({ accepted: false, expired: false }))
+	f.statusReply(async () => ({ online: false, state: "reconnecting", playbackId: `22222222-2222-2222-2222-222222222222-${f.Stream.broadcast.revision}` }))
+	await f.Stream.stop()
+	assert.equal(f.Stream.broadcast.stopping, true)
+	assert.equal(f.Stream.state, "stopping")
+})
+
+test("livestream uses the standard recorder bitrate", async () => {
+	const f = publisherFixture()
+	await f.Stream.start()
+	assert.equal(f.recorder.options.videoBitsPerSecond, 1_800_000)
+	assert.equal(f.recorder.options.audioBitsPerSecond, 64_000)
 })
 
 test("an expired resume ends locally and stopping during start cannot restart the recorder", async () => {
@@ -227,10 +270,13 @@ test("an expired resume ends locally and stopping during start cannot restart th
 		finish = resolve
 	}))
 	const starting = f.Stream.start()
+	await new Promise(resolve => setTimeout(resolve, 0))
+	const stopping = f.Stream.stop()
 	await Promise.resolve()
-	await f.Stream.stop()
+	assert.equal(f.stopCalls, 0)
 	finish({ accepted: true })
-	await starting
+	await Promise.all([starting, stopping])
+	assert.equal(f.stopCalls, 1)
 	assert.equal(f.recorder.active, false)
 	assert.equal(f.Stream.broadcast, null)
 })
@@ -246,19 +292,15 @@ test("broadcast operations enforce the token user ID even with valid session ide
 	assert.equal((await f.write()).accepted, true)
 })
 
-test("the viewer throws immediately when hls.js is unsupported", () => {
-	const Video = load("frontend/apps/livestream/livestream_ui/viewer/HlsVideo.js", "HlsVideo", {
+test("the viewer can be constructed when native HLS may be available", () => {
+	const Video = load("frontend/apps/livestream/livestream_viewer/HlsVideo.js", "HlsVideo", {
 		HlsJs: { supported: false },
-		Assert: {
-			notNull: value => assert.notEqual(value, null),
-			true: (value, message) => {
-				if (!value) {
-					throw new Error(message)
-				}
-			},
-		},
+		Assert: { notNull: value => assert.notEqual(value, null), true: value => assert.equal(value, true) },
+		Config: { httpUrl: "http://localhost:3000" },
+		Permission: { canPlayAudio: true },
+		H: { hlsVideo: () => ({ addEventListener() {}, removeAttribute() {}, load() {}, pause() {} }) },
 	})
-	assert.throws(() => new Video(), /does not support hls.js/)
+	assert.doesNotThrow(() => new Video())
 })
 
 test("replacing an encoder early does not shorten or extend the media deadline", async () => {
@@ -291,33 +333,32 @@ function mediaFixture() {
 		}
 	}
 	const node = () => ({ connect() {}, disconnect() {} })
-	const Media = load("frontend/apps/livestream/media/SwappableMediaStream.js", "SwappableMediaStream", {
+	class FakeAudioContext {
+		resume = async () => {}
+		createMediaStreamDestination() { return { stream: new Tracks([track("audio", "mixed")]) } }
+		createMediaStreamSource() { return node() }
+	}
+	const Media = load("frontend/apps/livestream/livestream_streamer/media/SwappableMediaStream.js", "SwappableMediaStream", {
 		Assert: { notNull: value => assert.notEqual(value, null) },
 		document: { createElement: () => ({ play: async () => {} }) },
 		FrameLoop: () => {},
 		H: { CanvasWithStream: () => ({ ctx: { fillRect() {} }, canvas: { width: 1280, height: 720 }, canvasStream: new Tracks([track("video", "canvas")]) }) },
 		MediaStream: Tracks,
-		AudioContext: class {
-			resume = async () => {}
-			createMediaStreamDestination() {
-				return { stream: new Tracks([track("audio", "mixed")]) }
-			}
-
-			createDynamicsCompressor() {
-				return { ...node(), threshold: {}, knee: {}, ratio: {}, attack: {}, release: {} }
-			}
-
-			createMediaStreamSource() {
-				return node()
-			}
-		},
+		SoundContext: { get context() { return this._context ??= new FakeAudioContext() } },
+		AudioTrack: () => ({ input: node(), apply() { return this }, routeTo() { return this } }),
+		Vst: { compressor: () => node() },
+		AudioContext: FakeAudioContext,
 		Permission: { request: async () => {} },
 		MediaDevices: {
 			audio: async id => {
-				requests.push(["audio", id]); return new Tracks([track("audio", id ?? "default-mic")])
+				requests.push(["audio", id]);
+				if (id == "missing-mic") throw new Error("device not found")
+				return new Tracks([track("audio", id ?? "default-mic")])
 			},
 			video: async id => {
-				requests.push(["video", id]); return new Tracks([track("video", id ?? "default-camera")])
+				requests.push(["video", id]);
+				if (id == "missing-camera") throw new Error("device not found")
+				return new Tracks([track("video", id ?? "default-camera")])
 			},
 		},
 	})
@@ -344,6 +385,19 @@ test("media preparation opens default mic and camera once and preserves explicit
 	assert.equal(requests.length, 4)
 })
 
+test("missing saved devices fall back to the defaults", async () => {
+	const { Media, requests } = mediaFixture()
+	await Media.prepare({ audioDeviceId: "missing-mic", videoDeviceId: "missing-camera" })
+	assert.deepEqual(requests, [
+		["audio", "missing-mic"],
+		["audio", undefined],
+		["video", "missing-camera"],
+		["video", undefined],
+	])
+	assert.equal(Media.audioDeviceId, "default-mic")
+	assert.equal(Media.videoDeviceId, "default-camera")
+})
+
 test("default device requests omit exact device constraints", async () => {
 	const requests = []
 	const Devices = load("frontend/tools/core/os/devices/MediaDevices.js", "MediaDevices", {
@@ -364,20 +418,32 @@ test("default device requests omit exact device constraints", async () => {
 test("stopping while the recorder opens default devices cancels recording", async () => {
 	let finish
 	let recorders = 0
-	const Recorder = load("frontend/apps/livestream/media/BetterMediaRecorder.js", "BetterMediaRecorder", {
-		Assert: { notNull: value => assert.notEqual(value, null), null: value => assert.equal(value, null) },
-		SwappableMediaStream: { prepare: () => new Promise(resolve => {
-			finish = resolve
-		}) },
-		MediaRecorder: class {
-			constructor() {
-				recorders++
+	const MediaRecorderApi = class {
+		constructor() {
+			recorders++
+			this.state = "recording"
+		}
+		start() {}
+		stop() { this.state = "inactive"; this.onstop?.() }
+	}
+	const Enhancer = load("frontend/tools/core/media_recorder/Enhance_MediaRecorder.js", "Enhance_MediaRecorder", {
+		NativeEnhancer: class {
+			constructor(target) {
+				for (const name of Object.getOwnPropertyNames(this.constructor.prototype).filter(name => name != "constructor")) {
+					Object.defineProperty(target, name, Object.getOwnPropertyDescriptor(this.constructor.prototype, name))
+				}
 			}
 		},
+		MediaRecorder: MediaRecorderApi,
+		PromiseQueue: () => ({ add: callback => Promise.resolve().then(callback) }),
+		SwappableMediaStream: { prepare: () => new Promise(resolve => { finish = resolve }), stream: {} },
+		Platform: { mimeType: "video/webm" },
+		Config: { hlsTime: 1 },
 	})
-	const starting = Recorder.start(() => {}, () => {})
-	Recorder.stop()
+	new Enhancer()
+	const starting = MediaRecorderApi.v2Start(() => {}, () => {})
+	starting.stop()
 	finish()
-	await starting
+	await new Promise(resolve => setTimeout(resolve, 0))
 	assert.equal(recorders, 0)
 })

@@ -17,4 +17,8 @@ export class LocalValue {
 		localStorage.setItem(this.key, val)
 	}
 
+	remove() {
+		localStorage.removeItem(this.key)
+	}
+
 }

@@ -6,15 +6,15 @@ async function setup(html) {
 			live: "",
 			reconnecting: "Connection interrupted. Reconnecting…",
 			stopping: "Stopping livestream when the connection returns…",
-			ended: "The reconnect window expired. Start a new livestream when ready.",
+			ended: "The previous stream session ended. Start a new livestream to continue.",
 			busy: "Someone is already streaming",
 		}
-		html.waiting.content = messages[state]
+		html.waiting.content = Stream.deviceIssue || messages[state]
 		html.start.hidden = Stream.broadcast != null
 		html.stop.hidden = Stream.broadcast == null || Stream.broadcast.stopping
 		html.livePreview.hidden = Stream.broadcast == null
 	}
-	Stream.changes.listen(update)
+	Stream.onChange = update
 	Stream.init()
 	update(Stream.broadcast ? "reconnecting" : Stream.state)
 
@@ -84,7 +84,7 @@ export default {
 		const levelLoop = SetTimeoutLoop(200, () => {
 			const input = SwappableMediaStream.audioInput
 			if !input {
-				html.micLevelLabel.content = "Mic: muted"
+				html.micLevelLabel.content = SwappableMediaStream.audioUnavailable ? "Mic: unavailable" : "Mic: muted"
 				html.micLevelBar.style.width = "0%"
 				return
 			}

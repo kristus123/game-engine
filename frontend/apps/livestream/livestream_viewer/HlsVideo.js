@@ -1,6 +1,5 @@
 export class HlsVideo {
 	constructor(callbacks = {}) {
-		Assert.true(HlsJs.supported, "This browser does not support hls.js playback")
 		this.callbacks = callbacks
 		this.source = `${Config.httpUrl}/public_folder/hls/output.m3u8`
 
@@ -30,9 +29,9 @@ export class HlsVideo {
 			}
 		})
 		HlsJs.connect(this.video, source, {
-			onError: () => this.callbacks.onError?.(new Error("HLS connection interrupted")),
+			onError: error => this.callbacks.onError?.(error ?? new Error("HLS connection interrupted")),
 			onManifestParsed: play,
-		})
+		}).catch(error => this.callbacks.onError?.(error))
 	}
 
 	get connected() {

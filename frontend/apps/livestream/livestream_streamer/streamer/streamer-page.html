@@ -14,7 +14,9 @@
 </overlay-fixed>
 
 <overlay-fixed allow-click-through>
-	<button float-top-right on-click="openMicSettings">Microphones</button>
+	<div float-top-right style="display: flex; flex-direction: column; gap: 0.5rem">
+		<button on-click="openMicSettings">Microphones</button>
+	</div>
 	<button float-top-left on-click="selectNextCam">video set</button>
 	<button float-top-mid on-click="previewLiveStream">Preview live stream</button>
 

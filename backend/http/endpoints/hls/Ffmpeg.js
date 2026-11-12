@@ -39,7 +39,7 @@ export class Ffmpeg {
 			"-pix_fmt",
 			"yuv420p",
 			"-preset",
-			"medium",
+			"veryfast",
 			"-crf",
 			"16",
 			"-tune",

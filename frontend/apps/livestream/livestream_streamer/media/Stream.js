@@ -1,12 +1,16 @@
 export class Stream {
-	static storageKey = "livestreamBroadcast"
+
 	static broadcast = null
 	static recovering = null
 	static lastUploadAt = 0
 	static startAttempt = 0
 	static state = "offline"
-	static changes = new Listener()
+	static onChange = null
 	static loop = null
+	static uploadsInFlight = 0
+	static finishingStop = null
+	static deviceIssue = null
+	static recorder = null
 
 	static async status() {
 		return Assert.ok(await JsonHttpClient.streamOnline({ timeoutMs: 3_000 }))
@@ -18,39 +22,21 @@ export class Stream {
 
 	static setState(state) {
 		this.state = state
-		this.changes.trigger(state)
-	}
-
-	static save() {
-		if this.broadcast {
-			localStorage.setItem(this.storageKey, JSON.stringify(this.broadcast))
-		}
-		else {
-			localStorage.removeItem(this.storageKey)
-		}
+		this.onChange?.(state)
 	}
 
 	static init() {
 		if this.loop {
 			return
 		}
-		try {
-			this.broadcast = JSON.parse(localStorage.getItem(this.storageKey))
-			if this.broadcast && (this.broadcast.userId != Token.userId || !Number.isSafeInteger(this.broadcast.revision)) {
-				this.broadcast = null
-				this.save()
-			}
-		}
-		catch {
-			localStorage.removeItem(this.storageKey)
-		}
+		SwappableMediaStream.onDeviceIssue = message => this.setDeviceIssue(message)
 		Network.onOffline(() => this.interrupt())
 		this.loop = SetTimeoutLoop(2_000, () => this.maintain())
 	}
 
 	static interrupt() {
 		if this.broadcast && !this.broadcast.stopping {
-			BetterMediaRecorder.stop()
+			this.recorder?.stop()
 			this.setState("reconnecting")
 		}
 	}
@@ -63,10 +49,10 @@ export class Stream {
 			await this.finishStop()
 			return
 		}
-		if BetterMediaRecorder.active && Date.now() - this.lastUploadAt >= Config.streamStallMs {
+		if this.recorder?.active && this.uploadsInFlight == 0 && Date.now() - this.lastUploadAt >= Config.streamStallMs {
 			this.interrupt()
 		}
-		if !BetterMediaRecorder.active {
+		if !this.recorder?.active && this.uploadsInFlight == 0 {
 			await this.recover(true)
 		}
 	}
@@ -92,7 +78,6 @@ export class Stream {
 			videoDeviceId: SwappableMediaStream.videoDeviceId,
 			audioDeviceId: this.audioDeviceId,
 		}
-		this.save()
 		SwappableMediaStream.audioContext.resume().catch(error => console.warn("Could not resume audio", error))
 		await this.recover(false)
 	}
@@ -115,7 +100,6 @@ export class Stream {
 			broadcast.revision = Math.max(Date.now(), broadcast.revision + 1)
 		}
 		broadcast.recordingStarted = false
-		this.save()
 		try {
 			const result = Assert.ok(await JsonHttpClient.startStream({
 				body: { ...broadcast, resume, mimeType: "webm" },
@@ -126,7 +110,6 @@ export class Stream {
 			}
 			if !result.accepted {
 				this.broadcast = null
-				this.save()
 				this.setState(result.expired ? "ended" : "busy")
 				return
 			}
@@ -134,35 +117,46 @@ export class Stream {
 				audioDeviceId: broadcast.audioDeviceId,
 				videoDeviceId: broadcast.videoDeviceId,
 			})
+			broadcast.audioDeviceId = this.audioDeviceId
+			broadcast.videoDeviceId = SwappableMediaStream.videoDeviceId
 			if this.broadcast != broadcast || broadcast.stopping {
 				return
 			}
 			SwappableMediaStream.audioContext.resume().catch(error => console.warn("Could not resume audio", error))
 			broadcast.recordingStarted = true
-			this.save()
 			let sequence = 0
 			const revision = broadcast.revision
 			this.lastUploadAt = Date.now()
-			await BetterMediaRecorder.start(async blob => {
+			this.recorder = MediaRecorder.v2Start(async blob => {
+				// Fetch retries reuse this sequence, which the server deduplicates.
 				const params = new URLSearchParams({ revision, sequence: sequence++ })
-				const upload = Assert.ok(await LowLevelHttpClient.post({
-					routeName: `sendChunk?${params}`,
-					body: blob,
-					formatBody: response => response.json(),
-					contentType: Platform.mimeType,
-					timeoutMs: 3_000,
-				}))
-				if !BetterMediaRecorder.active || this.broadcast != broadcast || broadcast.stopping || broadcast.revision != revision {
-					return
+				this.uploadsInFlight++
+				try {
+					const upload = Assert.ok(await LowLevelHttpClient.post({
+						routeName: `sendChunk?${params}`,
+						body: blob,
+						formatBody: response => response.json(),
+						contentType: Platform.mimeType,
+						timeoutMs: 8_000,
+					}))
+					if !this.recorder?.active || this.broadcast != broadcast || broadcast.stopping || broadcast.revision != revision {
+						return
+					}
+					if !upload.accepted {
+						throw new Error("Media upload was rejected")
+					}
+					this.lastUploadAt = Date.now()
+					this.setState("live")
 				}
-				if !upload.accepted {
-					throw new Error("Media upload was rejected")
+				finally {
+					this.uploadsInFlight--
 				}
-				this.lastUploadAt = Date.now()
-				this.setState("live")
 			}, error => {
 				console.warn("Broadcast interrupted", error)
 				this.interrupt()
+			}, {
+				audioBitsPerSecond: 64_000,
+				videoBitsPerSecond: 1_800_000,
 			})
 		}
 		catch (error) {
@@ -179,25 +173,61 @@ export class Stream {
 			return
 		}
 		this.broadcast.stopping = true
-		this.save()
-		BetterMediaRecorder.stop()
+		this.recorder?.stop()
+		this.recorder = null
 		this.setState("stopping")
 		await this.finishStop()
 	}
 
 	static async finishStop() {
+		if (this.finishingStop) {
+			return this.finishingStop
+		}
+		this.finishingStop = this.finishStopRequest().finally(() => {
+			this.finishingStop = null
+		})
+		return this.finishingStop
+	}
+
+	static async finishStopRequest() {
+		if (this.recovering) {
+			await this.recovering
+		}
 		const broadcast = this.broadcast
+		if (!broadcast || !broadcast.stopping) {
+			return
+		}
 		try {
-			Assert.ok(await JsonHttpClient.stopStream({ body: { revision: broadcast.revision }, timeoutMs: 3_000 }))
-			if this.broadcast == broadcast {
-				this.broadcast = null
-				this.save()
-				this.setState("offline")
+			const result = Assert.ok(await JsonHttpClient.stopStream({ body: { revision: broadcast.revision }, timeoutMs: 3_000 }))
+			if !result.accepted {
+				const status = await this.status()
+				if status.state == "offline" {
+					this.clearBroadcast(broadcast, "offline")
+					return
+				}
+				if status.playbackId != `${broadcast.userId}-${broadcast.revision}` {
+					this.clearBroadcast(broadcast, "busy")
+					return
+				}
+				throw new Error("The server has not confirmed that this broadcast stopped")
 			}
+			this.clearBroadcast(broadcast, "offline")
 		}
 		catch (error) {
 			console.warn("Stop will be retried when the connection returns", error)
 		}
+	}
+
+	static clearBroadcast(broadcast, state) {
+		if this.broadcast == broadcast {
+			this.broadcast = null
+			this.setState(state)
+		}
+	}
+
+	static setDeviceIssue(message) {
+		this.deviceIssue = message
+		this.onChange?.(this.state)
 	}
 
 	static get audioDeviceId() {
@@ -206,25 +236,25 @@ export class Stream {
 
 	static async setAudioDevice(deviceId) {
 		await SwappableMediaStream.setAudioDevice(deviceId)
+		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.audioDeviceId = deviceId
-			this.save()
 		}
 	}
 
 	static clearAudioDevice() {
 		SwappableMediaStream.clearAudioDevice()
+		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.audioDeviceId = null
-			this.save()
 		}
 	}
 
 	static async swapVideo(deviceId) {
 		await SwappableMediaStream.swapVideo(deviceId)
+		this.setDeviceIssue(null)
 		if this.broadcast {
 			this.broadcast.videoDeviceId = deviceId
-			this.save()
 		}
 	}
 }

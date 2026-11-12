@@ -10,4 +10,3 @@ export class PromiseQueue {
 		return result
 	}
 }
-

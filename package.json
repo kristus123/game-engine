@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "esbuild": "^0.28.2",
+    "hls.js": "1.7.4",
     "mediasoup": "^3.19.21",
     "mediasoup-client": "^3.19.0",
     "web-push": "^3.6.7",

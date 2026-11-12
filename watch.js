@@ -148,7 +148,7 @@ async function processRebuilds() {
 	}
 }
 
-stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder, Paths.abletonProjectFolder], [".js", ".aseprite", ".html", ".css", ".md", ".als", ".mp3"], {
+stopFileWatcher = FileWatcher([Paths.sharedFolder, Paths.frontendFolder, Paths.backendFolder, Paths.abletonProjectFolder], [".js", ".mjs", ".aseprite", ".html", ".css", ".md", ".als", ".mp3"], {
 	onAdd: (path) => {
 		scheduleRebuild(path, "add")
 	},
