@@ -1,0 +1,20 @@
+<overlay-fixed class="bgWhite">
+	<phone-grid max-size style="padding: 0px">
+		<top center-h>
+			<button id="closeChat" on-click="close">Close</button>
+			<span id="dictationStatus"></span>
+		</top>
+		<mid>
+			<flex-v close max-size id="chatHistory" class="bgWhite" scrollable>
+				<!-- <chat-line> is added here -->
+			</flex-v>
+		</mid>
+		<bot>
+			<flex-h max-size style="padding: 5px; gap: 10px">
+				<input max-size style="flex: 3; min-width: 0; font-size: 30px" id="message" placeholder="Type" maxlength="2000" on-enter="sendMessage" />
+				<button id="dictate" on-click="toggleDictation" hidden>Speak</button>
+				<button max-size style="flex: 1" id="send" on-click="sendMessage">Send</button>
+			</flex-h>
+		</bot>
+	</phone-grid>
+</overlay-fixed>

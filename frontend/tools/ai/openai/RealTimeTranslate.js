@@ -14,16 +14,16 @@ export class RealTimeTranslate {
 			{
 				method: "POST",
 				headers: {
-					Authorization: `Bearer ${OpenAiToken}`,
+					Authorization: `Bearer ${Secrets.openAiToken}`,
 					"Content-Type": "application/json",
 					"OpenAI-Safety-Identifier": "hashed-user-id",
 				},
 				body: JSON.stringify({
 					session: {
-						  model: "gpt-realtime-translate",
-						  audio: {
-							  output: { language: "zh" }, // es
-						  },
+						model: "gpt-realtime-translate",
+						audio: {
+							output: { language: "zh" }, // es
+						},
 					},
 				}),
 			}
@@ -64,7 +64,7 @@ export class RealTimeTranslate {
 				this.translatedText = ""
 			}
 			if e.type == "session.output_transcript.delta" {
-			  this.translatedText += e.delta
+				this.translatedText += e.delta
 			}
 			lastMs = e.elapsed_ms
 

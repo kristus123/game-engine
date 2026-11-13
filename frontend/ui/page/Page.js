@@ -5,6 +5,131 @@ export class Page {
 	static visiblePages = []
 
 	static navigation = Promise.resolve()
+	static historyEnabled = false
+	static pendingHistoryBack = null
+	static defaultTag = null
+
+	static start(defaultTag) {
+		if this.historyEnabled {
+			return this.navigation
+		}
+		this.defaultTag = defaultTag
+		const stack = this._stackFromUrl()
+		this._validateStack(stack)
+		this.historyEnabled = true
+		window.addEventListener("popstate", () => {
+			let target
+			try {
+				target = this._stackFromUrl()
+				this._validateStack(target)
+			}
+			catch (error) {
+				console.error("Invalid page URL", error)
+				target = this._snapshot()
+				this._writeHistory("replace")
+			}
+			if this.pendingHistoryBack != null {
+				const resolve = this.pendingHistoryBack
+				this.pendingHistoryBack = null
+				resolve(target)
+				return
+			}
+			this._enqueue(() => this._restore(target)).catch(error => {
+				console.error("Could not restore page navigation", error)
+				this._writeHistory("replace")
+			})
+		})
+		return this._enqueue(async () => {
+			if window.history.state?.pageNavigation {
+				await this._restore(stack)
+				this._writeHistory("replace")
+			}
+			else {
+				await this._open(stack[0].tag)
+				this._writeHistory("replace")
+				for const page of stack.slice(1) {
+					await this._openOverlay(page.tag)
+					this._writeHistory("push")
+				}
+			}
+		})
+	}
+
+	static _enqueue(action) {
+		const navigation = this.navigation.then(() => this._transition(action))
+		this.navigation = navigation.catch(() => {})
+		return navigation
+	}
+
+	static _snapshot() {
+		return this.visiblePages.map(({ tag, isOverlay }) => ({ tag, isOverlay }))
+	}
+
+	static _stackFromUrl() {
+		const url = new URL(window.location.href)
+		const path = url.pathname == "/index.html" ? "" : decodeURIComponent(url.pathname).replace(/^\/+|\/+$/g, "")
+		const tag = path ? this._resolveTag(path) : url.searchParams.has("viewer") ? "viewer-page" : url.searchParams.has("streamer") ? "streamer-page" : this.defaultTag
+		return [
+			{ tag, isOverlay: false },
+			...url.searchParams.getAll("modal").map(name => ({ tag: this._resolveTag(name), isOverlay: true })),
+		]
+	}
+
+	static _resolveTag(name) {
+		return Object.hasOwn(this.pages, name) ? name : `${name}-page`
+	}
+
+	static _validateStack(stack) {
+		const tags = new Set()
+		for const page of stack {
+			Assert.true(Object.hasOwn(this.pages, page.tag), `Unknown page: ${page.tag}`)
+			Assert.false(tags.has(page.tag), "page is already visible")
+			Assert.false(page.isOverlay && this.pages[page.tag].layout != null, "pages with a shared layout cannot open as custom overlays")
+			tags.add(page.tag)
+		}
+	}
+
+	static _writeHistory(mode) {
+		if !this.historyEnabled {
+			return
+		}
+		const stack = this._snapshot()
+		const oldState = window.history.state?.pageNavigation
+		if mode == "push" && JSON.stringify(stack) == JSON.stringify(oldState?.stack) {
+			return
+		}
+		const url = new URL(window.location.href)
+		url.pathname = stack.length ? `/${stack[0].tag.replace(/-page$/, "")}` : "/"
+		url.searchParams.delete("viewer")
+		url.searchParams.delete("streamer")
+		url.searchParams.delete("modal")
+		for const page of stack.slice(1) {
+			url.searchParams.append("modal", page.tag.replace(/-page$/, ""))
+		}
+		const previous = mode == "push" ? oldState?.stack : oldState?.previous
+		window.history[mode == "push" ? "pushState" : "replaceState"]({
+			...window.history.state,
+			pageNavigation: { stack, previous },
+		}, "", url)
+	}
+
+	static async _restore(stack) {
+		this._validateStack(stack)
+		let common = 0
+		while (common < stack.length && this.visiblePages[common]?.tag == stack[common].tag && this.visiblePages[common]?.isOverlay == stack[common].isOverlay) {
+			common++
+		}
+		if common == 0 {
+			await this._open(stack[0].tag)
+			common = 1
+		}
+		while (this.visiblePages.length > common) {
+			await this._closeOverlay()
+		}
+		for const page of stack.slice(common) {
+			await this._openOverlay(page.tag)
+		}
+	}
 
 	static get activeTag() {
 		return this.visiblePages.empty ? null : this.visiblePages.last.tag
@@ -37,64 +162,66 @@ export class Page {
 	}
 
 	static open(tag) {
-		const navigation = this.navigation.then(() => this._transition(async () => {
-			Assert.string(tag)
-			this.pages.assertKeyPresent(tag)
-
-			const entry = this.pages[tag]
-			const layoutElement = entry.layout ? Layout.init(entry.layout) : null
-
-			while (this.visiblePages.length > 0) {
-				const visiblePage = this.visiblePages.last
-				if visiblePage.isOverlay {
-					await this._closeOverlay()
-				}
-				else {
-					const keepLayout = layoutElement != null && layoutElement == visiblePage.layoutElement
-					await this._close({ keepLayout })
-				}
-			}
-
-			for const oldLayout of Object.values(Layout.references) {
-				if oldLayout.isConnected && oldLayout != layoutElement {
-					await oldLayout.remove()
-					await oldLayout.whenLifecycleReady()
-				}
-			}
-
-			if !entry.persistOnClose {
-				entry.page = H.create(tag)
-				entry.layoutElement = layoutElement
-			}
-
-			if entry.layoutElement {
-				Layout.attach(entry.layout, entry.page)
-				if !entry.layoutElement.isConnected {
-					Dom.add(entry.layoutElement)
-				}
-				await entry.layoutElement.whenReady()
-				await entry.layoutElement.whenLifecycleReady()
-			}
-			else {
-				Dom.add(entry.page)
-			}
-
-			entry.options = await entry.page.whenReady()
-			this.visiblePages.push({ tag, isOverlay: false, layoutElement: entry.layoutElement })
-			await entry.page.whenLifecycleReady()
-
-			await entry.options.onToggle?.("open")
-		}))
-
-		this.navigation = navigation.catch(() => {})
-
-		return navigation
+		return this._enqueue(async () => {
+			await this._open(tag)
+			this._writeHistory("push")
+		})
 	}
 
-	static openAsCustomModal(tag) {
-		const navigation = this.navigation.then(() => this._transition(() => this._openOverlay(tag)))
-		this.navigation = navigation.catch(() => {})
-		return navigation
+	static async _open(tag) {
+		Assert.string(tag)
+		this.pages.assertKeyPresent(tag)
+
+		const entry = this.pages[tag]
+		const layoutElement = entry.layout ? Layout.init(entry.layout) : null
+
+		while (this.visiblePages.length > 0) {
+			const visiblePage = this.visiblePages.last
+			if visiblePage.isOverlay {
+				await this._closeOverlay()
+			}
+			else {
+				const keepLayout = layoutElement != null && layoutElement == visiblePage.layoutElement
+				await this._close({ keepLayout })
+			}
+		}
+
+		for const oldLayout of Object.values(Layout.references) {
+			if oldLayout.isConnected && oldLayout != layoutElement {
+				await oldLayout.remove()
+				await oldLayout.whenLifecycleReady()
+			}
+		}
+
+		if !entry.persistOnClose {
+			entry.page = H.create(tag)
+			entry.layoutElement = layoutElement
+		}
+
+		if entry.layoutElement {
+			Layout.attach(entry.layout, entry.page)
+			if !entry.layoutElement.isConnected {
+				Dom.add(entry.layoutElement)
+			}
+			await entry.layoutElement.whenReady()
+			await entry.layoutElement.whenLifecycleReady()
+		}
+		else {
+			Dom.add(entry.page)
+		}
+
+		entry.options = await entry.page.whenReady()
+		this.visiblePages.push({ tag, isOverlay: false, layoutElement: entry.layoutElement })
+		await entry.page.whenLifecycleReady()
+
+		await entry.options.onToggle?.("open")
+	}
+
+	static openAsModalFixed(tag) {
+		return this._enqueue(async () => {
+			await this._openOverlay(tag)
+			this._writeHistory("push")
+		})
 	}
 
 	static async _openOverlay(tag) {
@@ -124,11 +251,15 @@ export class Page {
 			try {
 				await entry.page.remove()
 			}
-			catch {}
+			catch {
+				// Preserve the original setup error while removing a failed modal.
+			}
 			try {
 				await entry.page.whenLifecycleReady()
 			}
-			catch {}
+			catch {
+				// Preserve the original setup error while removing a failed modal.
+			}
 			wrapper.remove()
 			this.visiblePages.pop()
 			if !entry.persistOnClose {
@@ -150,14 +281,26 @@ export class Page {
 		}
 	}
 
-	static async close({ keepLayout = false } = {}) {
-		return this._transition(async () => {
+	static close({ keepLayout = false } = {}) {
+		return this._enqueue(async () => {
 			Assert.false(this.visiblePages.empty, "no page is active")
 			const visiblePage = this.visiblePages.last
 			if visiblePage.isOverlay {
-				return this._closeOverlay()
+				const previous = this.historyEnabled ? window.history.state?.pageNavigation?.previous : null
+				if previous && JSON.stringify(previous) == JSON.stringify(this._snapshot().slice(0, -1)) {
+					const stack = await new Promise(resolve => {
+						this.pendingHistoryBack = resolve
+						window.history.back()
+					})
+					await this._restore(stack)
+					return
+				}
+				await this._closeOverlay()
 			}
-			return this._close({ keepLayout })
+			else {
+				await this._close({ keepLayout })
+			}
+			this._writeHistory("replace")
 		})
 	}
 

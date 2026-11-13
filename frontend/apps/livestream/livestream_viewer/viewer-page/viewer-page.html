@@ -2,9 +2,7 @@
 
 <overlay-fixed allow-click-through>
 	<h1 id="statusMessage"></h1>
-	<button float-bot-left on-click-show="chat">open chat</button>
-	<button float-top-left on-click-open-page="streamer-page">Back to streamer</button>
+	<button float-bot-left on-click-open-as-modal-fixed="chat-page">open chat</button>
+	<button float-top-mid id="enableSound" on-click="enableSound" hidden>Enable sound</button>
 	<button float-bot-right on-click="toggleFullscreen">toggleFullscreen</button>
 </overlay-fixed>
-
-<chat-body id="chat" hidden></chat-body>

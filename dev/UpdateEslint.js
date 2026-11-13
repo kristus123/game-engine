@@ -12,7 +12,9 @@ export function UpdateEslint(allJsFiles = [
 	const eslintGlobalsConfig = {}
 
 	allJsFiles.filter(f => f.endsWith(".js")).forEach(jsFile => {
-		const className = path.basename(jsFile, ".js")
+		const fileName = path.basename(jsFile, ".js")
+		// Match the export alias used by the source import generator.
+		const className = fileName == "frontendSecrets" ? "Secrets" : fileName
 		eslintGlobalsConfig[className] = "readonly"
 	})
 

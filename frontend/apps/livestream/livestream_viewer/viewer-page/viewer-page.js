@@ -9,6 +9,9 @@ export default {
 	}),
 	onFirstDomAdd: ({ html }) => {
 		html.fields.hlsVideo = HlsVideo({
+			onAudioBlocked: () => {
+				html.enableSound.hidden = false
+			},
 			onConnecting: () => {
 				html.statusMessage.content = "Connecting to stream…"
 			},
@@ -25,6 +28,7 @@ export default {
 		})
 
 		html.videoOverlay.add(html.fields.hlsVideo.video)
+		html.enableSound.hidden = !html.fields.hlsVideo.video.muted
 
 		html.fields.statusLoop = SetTimeoutLoop(1_000, async () => {
 			try {
@@ -64,6 +68,18 @@ export default {
 		html.fields.hlsVideo.disconnect()
 	},
 	methods: {
+		enableSound: async (html) => {
+			const video = html.fields.hlsVideo.video
+			video.muted = false
+			try {
+				await video.play()
+				html.enableSound.hidden = true
+			}
+			catch (error) {
+				video.muted = true
+				console.warn("Could not enable playback sound", error)
+			}
+		},
 		toggleFullscreen: () => Screen.toggleFullscreen(),
 	},
 }

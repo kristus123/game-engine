@@ -6,6 +6,11 @@ export function InjectAttributeLogicToHtml(child, methods={}, setState) {
 					Page.open(value)
 				})
 			}
+			case "on-click-open-as-modal-fixed" {
+				child.listen("click", () => {
+					Page.openAsModalFixed(value)
+				})
+			}
 			case "on-click" {
 				Assert.true(child.tag == "button", "on-click can only be used on button elements")
 				child.listen("click", () => {

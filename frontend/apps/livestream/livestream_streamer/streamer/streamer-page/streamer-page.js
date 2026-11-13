@@ -27,7 +27,7 @@ async function setup(html) {
 
 	const chatQueue = PromiseQueue()
 	Chat.onMessage(({ message }) => {
-		chatQueue.add(() => Tts(message))
+		chatQueue.add(() => Tts(message)).catch(error => console.warn("Could not read chat message", error))
 	})
 
 	OtherUsers.onCountChange(c => {
@@ -57,7 +57,7 @@ async function setup(html) {
 					html.start.disabled = false
 				}
 			},
-			previewLiveStream: () => Page.open("viewer-page"),
+			previewLiveStream: () => Page.open("stream-preview-page"),
 			stopStream: async () => {
 				await Stream.stop()
 			},

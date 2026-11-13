@@ -43,11 +43,12 @@ const server = http.createServer((req, res) => {
 		return res.end()
 	}
 
-	if (url.endsWith("/")) {
+	// Only extensionless page URLs use the app shell; missing assets stay 404s.
+	const pageRoute = /^\/[^/.]+\/?$/.test(url)
+	if (!pageRoute && url.endsWith("/")) {
 		url += "index.html"
 	}
-
-	let filePath = Paths.distFolder + url
+	const filePath = Paths.distFolder + (pageRoute ? "/index.html" : url)
 
 	fs.readFile(filePath, (err, data) => {
 		if (err) {

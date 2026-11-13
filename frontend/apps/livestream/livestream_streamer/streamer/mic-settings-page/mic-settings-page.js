@@ -33,7 +33,6 @@ export default {
 				}
 				const message = error instanceof Error ? error.message : String(error)
 				html.micStatus.content = `Could not update microphones: ${message}`
-				throw error
 			}
 			finally {
 				for const radio of radios {
@@ -64,10 +63,13 @@ export default {
 				value: mic.deviceId,
 				text: mic.label || `Microphone ${index + 1}`,
 				checked: Stream.audioDeviceId == mic.deviceId,
-				onSelect: () => html.applyMicSelection(),
+				onSelect: async () => (await html.whenReady()).methods.applyMicSelection(),
 			})
 			html.fields.radios.push(radio.input)
 			html.micList.add(radio)
+		}
+		if !mics.empty {
+			html.micStatus.content = "Select a microphone to use for the livestream."
 		}
 	},
 }

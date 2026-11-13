@@ -4,7 +4,7 @@ import { test } from "node:test"
 import { runInNewContext } from "node:vm"
 import { TranspileContent } from "../transpiler/TranspileContent.js"
 
-function fixture(options = {}) {
+function fixture(options = {}, initialUrl = "http://localhost:5050/") {
 	const file = new URL("../../frontend/ui/page/Page.js", import.meta.url)
 	const source = TranspileContent(file.pathname, readFileSync(file, "utf8"), [])
 	const layoutFile = new URL("../../frontend/ui/layout/Layout.js", import.meta.url)
@@ -80,6 +80,40 @@ function fixture(options = {}) {
 		}
 		return node
 	}
+	const listeners = {}
+	const browser = { location: { href: initialUrl }, addEventListener: (name, callback) => {
+		listeners[name] = callback
+	} }
+	const entries = [{ state: null, url: initialUrl }]
+	let cursor = 0
+	const travel = delta => {
+		if (cursor + delta < 0 || cursor + delta >= entries.length) {
+			return
+		}
+		cursor += delta
+		browser.location.href = entries[cursor].url
+		queueMicrotask(() => listeners.popstate?.({ state: entries[cursor].state }))
+	}
+	browser.history = {
+		get state() {
+			return entries[cursor].state
+		},
+		get length() {
+			return entries.length
+		},
+		pushState: (state, _title, url) => {
+			entries.splice(cursor + 1)
+			entries.push({ state: structuredClone(state), url: String(url) })
+			cursor++
+			browser.location.href = String(url)
+		},
+		replaceState: (state, _title, url) => {
+			entries[cursor] = { state: structuredClone(state), url: String(url) }
+			browser.location.href = String(url)
+		},
+		back: () => travel(-1),
+		forward: () => travel(1),
+	}
 	const { Page, Layout } = runInNewContext(`
 		Object.defineProperties(Object.prototype, {
 			assertKeyPresent: { value(key) { Assert.true(Object.hasOwn(this, key)) } },
@@ -93,9 +127,14 @@ function fixture(options = {}) {
 		${source.replace("export class", "class")}
 		({ Page, Layout })
 	`, {
+		window: browser,
+		URL,
 		Assert: runtimeAssert,
 		SuperClass: class {},
-		IfCondition: { validate: Boolean },
+		IfCondition: { validate: value => {
+			assert.notEqual(typeof value, "function", "control flow must not receive callbacks")
+			return Boolean(value)
+		} },
 		customElements: { get: () => class {} },
 		document: {
 			createComment: () => createNode("#comment", 8),
@@ -112,7 +151,7 @@ function fixture(options = {}) {
 	for (const tag of ["hub-page", "game-page"]) {
 		Page.init(tag, { persistOnClose: tag == "hub-page", assertKeyPresent() {} })
 	}
-	return { Page, Layout, events, created, connections, createNode }
+	return { Page, Layout, events, created, connections, createNode, browser }
 }
 
 test("page records retain callbacks and persistent elements across navigation", async () => {
@@ -221,7 +260,7 @@ test("pages can be mounted inside a persistent layout", async () => {
 })
 
 test("a retained layout is removed when a page uses another layout", async () => {
-	const { Page, Layout } = fixture()
+	const { Page } = fixture()
 	Page.init("laid-page", { persistOnClose: true, layout: "pretty-layout", assertKeyPresent() {} })
 	await Page.open("laid-page")
 	const layout = Page.visiblePages.last.layoutElement
@@ -320,7 +359,7 @@ test("custom overlays keep the current page connected and close back to it", asy
 	const background = Page.active.page
 	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["hub-page"])
 
-	await Page.openAsCustomModal("overlay-page")
+	await Page.openAsModalFixed("overlay-page")
 	assert.equal(Page.activeTag, "overlay-page")
 	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["hub-page", "overlay-page"])
 	assert.equal(background.isConnected, true)
@@ -341,8 +380,8 @@ test("custom overlays stack, and normal navigation dismisses them before switchi
 	await Page.open("hub-page")
 	const background = Page.active.page
 
-	await Page.openAsCustomModal("overlay-page")
-	await Page.openAsCustomModal("top-overlay-page")
+	await Page.openAsModalFixed("overlay-page")
+	await Page.openAsModalFixed("top-overlay-page")
 	assert.equal(Page.activeTag, "top-overlay-page")
 	assert.equal(background.isConnected, true)
 
@@ -352,4 +391,94 @@ test("custom overlays stack, and normal navigation dismisses them before switchi
 	assert.equal(Page.activeTag, "game-page")
 	assert.equal(background.isConnected, false)
 	assert.deepEqual(Array.from(Page.visiblePages, page => page.tag), ["game-page"])
+})
+
+test("closing during modal opening waits and restores the underlying page", async () => {
+	const { Page } = fixture()
+	Page.init("overlay-page", { persistOnClose: false, assertKeyPresent() {} })
+	await Page.open("hub-page")
+	await Promise.all([Page.openAsModalFixed("overlay-page"), Page.close()])
+	assert.equal(Page.activeTag, "hub-page")
+	assert.equal(Page.active.page.isConnected, true)
+	assert.equal(Page.pages["overlay-page"].page, null)
+})
+
+test("page URLs support direct paths and native Back and Forward", async () => {
+	const { Page, browser } = fixture({}, "http://localhost:5050/game?keep=yes")
+	await Page.start("hub-page")
+	assert.equal(Page.activeTag, "game-page")
+	await Page.open("hub-page")
+	assert.equal(new URL(browser.location.href).pathname, "/hub")
+	assert.equal(new URL(browser.location.href).searchParams.get("keep"), "yes")
+	browser.history.back()
+	await new Promise(resolve => setImmediate(resolve))
+	await Page.navigation
+	assert.equal(Page.activeTag, "game-page")
+	browser.history.forward()
+	await new Promise(resolve => setImmediate(resolve))
+	await Page.navigation
+	assert.equal(Page.activeTag, "hub-page")
+})
+
+test("modal Back, Forward, and Close preserve the underlying page", async () => {
+	const { Page, browser, connections } = fixture()
+	Page.init("chat-page", { persistOnClose: true, assertKeyPresent() {} })
+	await Page.start("hub-page")
+	const background = Page.active.page
+	await Page.openAsModalFixed("chat-page")
+	assert.equal(new URL(browser.location.href).searchParams.get("modal"), "chat")
+	browser.history.back()
+	await new Promise(resolve => setImmediate(resolve))
+	await Page.navigation
+	assert.equal(Page.active.page, background)
+	browser.history.forward()
+	await new Promise(resolve => setImmediate(resolve))
+	await Page.navigation
+	assert.equal(Page.activeTag, "chat-page")
+	await Page.close()
+	assert.equal(Page.active.page, background)
+	assert.equal(new URL(browser.location.href).searchParams.has("modal"), false)
+	assert.equal(connections.filter(([tag, connected]) => tag == "hub-page" && !connected).length, 0)
+})
+
+test("direct modal links create a base history entry and stacked modals restore", async () => {
+	const { Page, browser } = fixture({}, "http://localhost:5050/hub?modal=chat&modal=confirm")
+	Page.init("chat-page", { persistOnClose: true, assertKeyPresent() {} })
+	Page.init("confirm-page", { persistOnClose: false, assertKeyPresent() {} })
+	await Page.start("game-page")
+	assert.equal(browser.history.length, 3)
+	assert.equal(Page.activeTag, "confirm-page")
+	await Page.close()
+	assert.equal(Page.activeTag, "chat-page")
+	await Page.close()
+	assert.equal(Page.activeTag, "hub-page")
+})
+
+test("reload restores a modal URL without adding history entries", async () => {
+	const { Page, browser } = fixture({}, "http://localhost:5050/hub?modal=chat")
+	Page.init("chat-page", { persistOnClose: true, assertKeyPresent() {} })
+	browser.history.replaceState({ pageNavigation: { stack: [{ tag: "hub-page", isOverlay: false }], previous: null } }, "", browser.location.href)
+	await Page.start("hub-page")
+	assert.equal(browser.history.length, 1)
+	assert.equal(Page.activeTag, "chat-page")
+})
+
+test("unknown page paths and duplicate modal paths are rejected before navigation", async () => {
+	const unknown = fixture({}, "http://localhost:5050/missing")
+	assert.throws(() => unknown.Page.start("hub-page"), /Unknown page/)
+	const duplicate = fixture({}, "http://localhost:5050/hub?modal=hub")
+	assert.throws(() => duplicate.Page.start("hub-page"), /already visible/)
+})
+
+test("malformed history URLs recover without blocking later navigation", async () => {
+	const { Page, browser } = fixture()
+	await Page.start("hub-page")
+	browser.history.pushState({}, "", "http://localhost:5050/%ZZ")
+	browser.history.pushState({}, "", "http://localhost:5050/hub")
+	browser.history.back()
+	await new Promise(resolve => setImmediate(resolve))
+	await Page.navigation
+	assert.equal(new URL(browser.location.href).pathname, "/hub")
+	await Page.open("game-page")
+	assert.equal(Page.activeTag, "game-page")
 })

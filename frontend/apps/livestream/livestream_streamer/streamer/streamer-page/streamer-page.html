@@ -20,11 +20,9 @@
 	<button float-top-left on-click="selectNextCam">video set</button>
 	<button float-top-mid on-click="previewLiveStream">Preview live stream</button>
 
-	<button float-bot-right on-click-show="chat">open chat</button>
+	<button float-bot-right on-click-open-as-modal-fixed="chat-page">open chat</button>
 	<button float-bot-mid id="viewCount">0</button>
 
 	<button id="start" float-bot-left hidden on-click="startStream">Start livestream</button>
 	<button id="stop" float-bot-left hidden on-click="stopStream">Stop livestream</button>
 </overlay-fixed>
-
-<chat-body id="chat" hidden></chat-body>

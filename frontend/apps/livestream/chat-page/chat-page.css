@@ -1,0 +1,27 @@
+chat-page phone-grid {
+	grid-template-columns: minmax(0, 1fr);
+	background: white;
+}
+
+chat-page phone-grid > :first-child {
+	gap: 10px;
+}
+
+chat-page [id="dictationStatus"] {
+	font-size: 16px;
+}
+
+chat-page [scrollable] {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+chat-page chat-line {
+	flex-shrink: 0;
+	min-width: 0;
+}
+
+chat-page chat-line p {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}

@@ -3,7 +3,7 @@ export default {
 		persistOnClose: true,
 	},
 	onFirstDomAdd: ({ html }) => {
-		MouseDragScroll.horizontal(html.area, (x, y) => {
+		MouseDragScroll.horizontal(html.area, (x) => {
 			const parallaxOffset = Math.round(-x * 0.2)
 			html.grass.style.setProperty("--infinite-img-parallax-offset", `${parallaxOffset}px`)
 			html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
@@ -24,6 +24,6 @@ export default {
 		}
 	},
 	methods: {
-		openModalTest: () => Page.openAsCustomModal("modal-test-page"),
+		openModalTest: () => Page.openAsModalFixed("modal-test-page"),
 	},
 }

@@ -10,6 +10,7 @@ function assetCatalog(images) {
 	const file = new URL("../../frontend/AssetPaths.js", import.meta.url)
 	const source = readFileSync(file, "utf8")
 		.replaceAll("IMAGE_FILES", JSON.stringify(images))
+		.replaceAll("ABLETON_DATA", "{}")
 		.replace(/ASEPRITE_FILES|HTML_CONTENTS|CUSTOM_WEB_COMPONENTS|AUDIO_FILES/g, "[]")
 	const generated = TranspileContent(file.pathname, source, [])
 	const execute = new Function("SuperClass", "IfCondition", "Assert",

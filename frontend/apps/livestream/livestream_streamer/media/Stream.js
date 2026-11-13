@@ -10,6 +10,7 @@ export class Stream {
 	static uploadsInFlight = 0
 	static finishingStop = null
 	static recorder = null
+	static savedBroadcast = LocalValue("livestreamBroadcast", "null")
 
 	static async status() {
 		return Assert.ok(await JsonHttpClient.streamOnline({ timeoutMs: 3_000 }))
@@ -21,12 +22,26 @@ export class Stream {
 
 	static setState(state) {
 		this.state = state
+		this.saveBroadcast()
 		this.onChange?.(state)
+	}
+
+	static saveBroadcast() {
+		this.savedBroadcast.value = JSON.stringify(this.broadcast)
 	}
 
 	static init() {
 		if this.loop {
 			return
+		}
+		try {
+			const saved = JSON.parse(this.savedBroadcast.value)
+			if saved?.userId == Token.userId && Number.isSafeInteger(saved.revision) && saved.revision >= 0 {
+				this.broadcast = saved
+			}
+		}
+		catch (error) {
+			console.warn("Could not restore broadcast session", error)
 		}
 		Network.onOffline(() => this.interrupt())
 		this.loop = SetTimeoutLoop(2_000, () => this.maintain())
@@ -46,6 +61,9 @@ export class Stream {
 		if this.broadcast.stopping {
 			await this.finishStop()
 			return
+		}
+		if SwappableMediaStream.audioUnavailable {
+			this.interrupt()
 		}
 		if this.recorder?.active && this.uploadsInFlight == 0 && Date.now() - this.lastUploadAt >= Config.streamStallMs {
 			this.interrupt()
@@ -98,6 +116,7 @@ export class Stream {
 			broadcast.revision = Math.max(Date.now(), broadcast.revision + 1)
 		}
 		broadcast.recordingStarted = false
+		this.saveBroadcast()
 		try {
 			const result = Assert.ok(await JsonHttpClient.startStream({
 				body: { ...broadcast, resume, mimeType: "webm" },
@@ -122,6 +141,7 @@ export class Stream {
 			}
 			SoundContext.resume().catch(error => console.warn("Could not resume audio", error))
 			broadcast.recordingStarted = true
+			this.saveBroadcast()
 			let sequence = 0
 			const revision = broadcast.revision
 			this.lastUploadAt = Date.now()
@@ -201,13 +221,13 @@ export class Stream {
 				const status = await this.status()
 				if status.state == "offline" {
 					this.clearBroadcast(broadcast, "offline")
-					return
 				}
-				if status.playbackId != `${broadcast.userId}-${broadcast.revision}` {
+				else if status.playbackId != `${broadcast.userId}-${broadcast.revision}` {
 					this.clearBroadcast(broadcast, "busy")
-					return
 				}
-				throw new Error("The server has not confirmed that this broadcast stopped")
+				else {
+					throw new Error("The server has not confirmed that this broadcast stopped")
+				}
 			}
 			this.clearBroadcast(broadcast, "offline")
 		}

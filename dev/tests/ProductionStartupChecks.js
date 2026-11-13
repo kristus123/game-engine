@@ -32,10 +32,12 @@ for (const environment of ["dev", "prod"]) {
 				},
 			},
 			ServiceWorker: { unregister: noop },
+			Ableton: { init: noop },
+			Netlify: { name: "romskip-streamer" },
 			InjectGlobalAttributeLogicToHtml: noop,
 			AssetPaths: { htmlComponent: [], aseprite: [], audio: [], image: [] },
 			RegisterCustomWebComponent: noop,
-			Page: { open: async tag => {
+			Page: { start: async tag => {
 				assert.equal(tag, "streamer-page")
 				assert.equal(initialized, true)
 				assert.equal(connected, true)

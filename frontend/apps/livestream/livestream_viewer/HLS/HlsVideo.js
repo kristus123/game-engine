@@ -23,7 +23,13 @@ export class HlsVideo {
 		this.playbackId = playbackId
 		const source = `${this.source}?broadcast=${playbackId}`
 		this.callbacks.onConnecting?.()
-		const play = () => this.video.play().catch(error => {
+		const play = () => this.video.play().catch(async error => {
+			if error.name == "NotAllowedError" && !this.video.muted {
+				this.video.muted = true
+				this.callbacks.onAudioBlocked?.()
+				await this.video.play().catch(playError => this.callbacks.onError?.(playError))
+				return
+			}
 			if error.name != "AbortError" {
 				this.callbacks.onError?.(error)
 			}

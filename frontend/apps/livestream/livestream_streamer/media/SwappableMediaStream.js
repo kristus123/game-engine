@@ -11,7 +11,8 @@ export class SwappableMediaStream {
 		this.canvasContext = ctx
 		ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-		FrameLoop(() => {
+		// Camera capture must keep drawing when the broadcaster tab is in the background.
+		SetTimeoutLoop(1_000 / 30, () => {
 			// Has enough data to display the current frame.
 			if this.video?.readyState >= 2 {
 				ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height)
@@ -29,7 +30,7 @@ export class SwappableMediaStream {
 		])
 	}
 
-	static async prepare({ audioDeviceId, videoDeviceId } = {}) {
+	static async prepare({ audioDeviceId, videoDeviceId } = {}) { // allow-null
 		await Permission.request()
 		await SoundContext.resume()
 		try {
@@ -115,7 +116,7 @@ export class SwappableMediaStream {
 				}
 				catch (error) {
 					this.audioUnavailable = true
-					throw new Error("Microphone disconnected and no replacement is available", { cause: error })
+					console.warn("Microphone disconnected and no replacement is available", error)
 				}
 			})
 			if previousInput {

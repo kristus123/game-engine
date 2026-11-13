@@ -11,9 +11,11 @@ function load(relativePath, name, dependencies = {}) {
 		SuperClass: class {},
 		IfCondition: { validate: Boolean },
 		Assert: {
-			notNull: value => assert.notEqual(value, null),
+			notNull: value => assert.ok(value != null),
 			true: value => assert.equal(value, true),
-			value: value => { assert.ok(value); return value },
+			value: value => {
+				assert.ok(value); return value
+			},
 		},
 		...dependencies,
 	}
@@ -149,7 +151,7 @@ test("timeout loop starts automatically, supports initial stop and stops after a
 	assert.equal(calls, 1)
 })
 
-function publisherFixture() {
+function publisherFixture(savedBroadcast = { value: "null" }) {
 	const requests = []
 	let failStop = false
 	let stopReply = async () => ({ accepted: true })
@@ -159,12 +161,17 @@ function publisherFixture() {
 	const recorder = { active: false, options: null, v2Start: (_onBlob, _onError, options) => {
 		recorder.options = options
 		recorder.active = true
-		return { get active() { return recorder.active }, stop: () => { recorder.active = false } }
+		return { get active() {
+			return recorder.active
+		}, stop: () => {
+			recorder.active = false
+		} }
 	} }
 	const result = body => ({ ok: true, body })
 	const Stream = load("frontend/apps/livestream/livestream_streamer/media/Stream.js", "Stream", {
+		LocalValue: () => savedBroadcast,
 		Assert: {
-			notNull: value => assert.notEqual(value, null),
+			notNull: value => assert.ok(value != null),
 			true: value => assert.equal(value, true),
 			ok: response => {
 				assert.equal(response.ok, true); return response.body
@@ -192,7 +199,9 @@ function publisherFixture() {
 			streamOnline: async () => result(await statusReply()),
 		},
 	})
-	return { Stream, recorder, requests, get stopCalls() { return stopCalls }, failStop: value => {
+	return { Stream, recorder, requests, get stopCalls() {
+		return stopCalls
+	}, failStop: value => {
 		failStop = value
 	}, startReply: reply => {
 		startReply = reply
@@ -300,7 +309,7 @@ test("broadcast operations enforce the token user ID even with valid session ide
 test("the viewer can be constructed when native HLS may be available", () => {
 	const Video = load("frontend/apps/livestream/livestream_viewer/HLS/HlsVideo.js", "HlsVideo", {
 		HlsJs: { supported: false },
-		Assert: { notNull: value => assert.notEqual(value, null), true: value => assert.equal(value, true) },
+		Assert: { notNull: value => assert.ok(value != null), true: value => assert.equal(value, true) },
 		Config: { httpUrl: "http://localhost:3000" },
 		Permission: { canPlayAudio: true },
 		H: { hlsVideo: () => ({ addEventListener() {}, removeAttribute() {}, load() {}, pause() {} }) },
@@ -340,41 +349,58 @@ function mediaFixture({ noDefaultMicrophone = false } = {}) {
 	const node = () => ({ connect() {}, disconnect() {} })
 	class FakeAudioContext {
 		resume = async () => {}
-		createMediaStreamDestination() { return { stream: new Tracks([track("audio", "mixed")]) } }
-		createMediaStreamSource() { return node() }
+		createMediaStreamDestination() {
+			return { stream: new Tracks([track("audio", "mixed")]) }
+		}
+
+		createMediaStreamSource() {
+			return node()
+		}
 	}
 	const soundContext = {
-		get context() { return this._context ??= new FakeAudioContext() },
+		get context() {
+			return this._context ??= new FakeAudioContext()
+		},
 		resume: async () => soundContext.context.resume(),
 		createMediaStreamDestination: () => soundContext.context.createMediaStreamDestination(),
 		createMediaStreamSource: stream => soundContext.context.createMediaStreamSource(stream),
 	}
 	const Media = load("frontend/apps/livestream/livestream_streamer/media/SwappableMediaStream.js", "SwappableMediaStream", {
 		Assert: {
-			notNull: value => assert.notEqual(value, null),
+			notNull: value => assert.ok(value != null),
 			true: value => assert.equal(value, true),
-			value: value => { assert.ok(value); return value },
+			value: value => {
+				assert.ok(value); return value
+			},
 		},
-		FrameLoop: () => {},
+		SetTimeoutLoop: () => {},
 		H: {
 			mediastreamVideo: () => ({ srcObject: null, play: async () => {} }),
 			CanvasWithStream: () => ({ ctx: { fillRect() {} }, canvas: { width: 1280, height: 720 }, canvasStream: new Tracks([track("video", "canvas")]) }),
 		},
 		MediaStream: Tracks,
 		SoundContext: soundContext,
-		AudioTrack: () => ({ input: node(), apply() { return this }, routeTo() { return this } }),
+		AudioTrack: () => ({ input: node(), apply() {
+			return this
+		}, routeTo() {
+			return this
+		} }),
 		Vst: { compressor: () => node() },
 		AudioContext: FakeAudioContext,
 		Permission: { request: async () => {} },
 		MediaDevices: {
 			audio: async id => {
-				requests.push(["audio", id]);
-				if (id == "missing-mic" || (noDefaultMicrophone && id == null)) throw new Error("device not found")
+				requests.push(["audio", id])
+				if (id == "missing-mic" || (noDefaultMicrophone && id == null)) {
+					throw new Error("device not found")
+				}
 				return new Tracks([track("audio", id ?? "default-mic")])
 			},
 			video: async id => {
-				requests.push(["video", id]);
-				if (id == "missing-camera") throw new Error("device not found")
+				requests.push(["video", id])
+				if (id == "missing-camera") {
+					throw new Error("device not found")
+				}
 				return new Tracks([track("video", id ?? "default-camera")])
 			},
 		},
@@ -420,7 +446,7 @@ test("missing selected and default microphones throw an error", async () => {
 test("default device requests omit exact device constraints", async () => {
 	const requests = []
 	const Devices = load("frontend/tools/core/os/devices/MediaDevices.js", "MediaDevices", {
-		Assert: { notNull: value => assert.notEqual(value, null), true: value => assert.equal(value, true) },
+		Assert: { notNull: value => assert.ok(value != null), true: value => assert.equal(value, true) },
 		Permission: { granted: true },
 		navigator: { mediaDevices: { getUserMedia: async constraints => {
 			requests.push(constraints); return {}
@@ -442,8 +468,11 @@ test("stopping while the recorder opens default devices cancels recording", asyn
 			recorders++
 			this.state = "recording"
 		}
+
 		start() {}
-		stop() { this.state = "inactive"; this.onstop?.() }
+		stop() {
+			this.state = "inactive"; this.onstop?.()
+		}
 	}
 	const Enhancer = load("frontend/tools/core/media_recorder/Enhance_MediaRecorder.js", "Enhance_MediaRecorder", {
 		NativeEnhancer: class {
@@ -455,7 +484,9 @@ test("stopping while the recorder opens default devices cancels recording", asyn
 		},
 		MediaRecorder: MediaRecorderApi,
 		PromiseQueue: () => ({ add: callback => Promise.resolve().then(callback) }),
-		SwappableMediaStream: { prepare: () => new Promise(resolve => { finish = resolve }), stream: {} },
+		SwappableMediaStream: { prepare: () => new Promise(resolve => {
+			finish = resolve
+		}), stream: {} },
 		Platform: { mimeType: "video/webm" },
 		Config: { hlsTime: 1 },
 	})
@@ -465,4 +496,112 @@ test("stopping while the recorder opens default devices cancels recording", asyn
 	finish()
 	await new Promise(resolve => setTimeout(resolve, 0))
 	assert.equal(recorders, 0)
+})
+
+test("reload restores a broadcast and resumes with a fresh revision", async () => {
+	const saved = { value: "null" }
+	const first = publisherFixture(saved)
+	await first.Stream.start()
+	const revision = first.Stream.broadcast.revision
+	const restored = publisherFixture(saved)
+	restored.Stream.init()
+	assert.equal(restored.Stream.broadcast.revision, revision)
+	await restored.Stream.maintain()
+	assert.ok(restored.Stream.broadcast.revision > revision)
+	assert.equal(restored.requests[0].resume, true)
+	assert.equal(restored.recorder.active, true)
+})
+
+test("offline stop survives reload and is retried without restarting recording", async () => {
+	const saved = { value: "null" }
+	const first = publisherFixture(saved)
+	await first.Stream.start()
+	first.failStop(true)
+	await first.Stream.stop()
+	const restored = publisherFixture(saved)
+	restored.Stream.init()
+	await restored.Stream.maintain()
+	assert.equal(restored.stopCalls, 1)
+	assert.equal(restored.requests.length, 0)
+	assert.equal(restored.Stream.broadcast, null)
+	assert.equal(saved.value, "null")
+})
+
+test("a saved session belonging to another identity is not resumed", () => {
+	const f = publisherFixture({ value: JSON.stringify({ revision: 1, userId: "another-user" }) })
+	f.Stream.init()
+	assert.equal(f.Stream.broadcast, null)
+})
+
+test("autoplay rejection falls back to muted playback and offers audio activation", async () => {
+	let callbacks
+	let plays = 0
+	let blocked = 0
+	const video = {
+		muted: false,
+		play: async () => {
+			if (++plays == 1) {
+				throw Object.assign(new Error("gesture required"), { name: "NotAllowedError" })
+			}
+		},
+		pause() {}, load() {}, removeAttribute() {},
+	}
+	const Video = load("frontend/apps/livestream/livestream_viewer/HLS/HlsVideo.js", "HlsVideo", {
+		Config: { httpUrl: "http://localhost:3000" },
+		Permission: { canPlayAudio: true },
+		H: { hlsVideo: () => video },
+		HlsJs: { connected: false, disconnect() {}, connect: async (_video, _source, options) => {
+			callbacks = options
+		} },
+	})
+	const player = new Video({ onAudioBlocked: () => blocked++ })
+	player.connect("revision-1")
+	await callbacks.onManifestParsed()
+	assert.equal(video.muted, true)
+	assert.equal(plays, 2)
+	assert.equal(blocked, 1)
+})
+
+test("chat retains bounded history before its modal opens and ignores invalid messages", () => {
+	let receive
+	const messages = []
+	const Chat = load("frontend/apps/livestream/chat-page/Chat.js", "Chat", {
+		Listener: () => ({ trigger: line => messages.push(line), listen() {} }),
+		SocketClient: { onClientMessage: (_action, callback) => {
+			receive = callback
+		}, sendToAllUsers() {
+			assert.fail("empty messages must not send")
+		} },
+	})
+	receive({ data: { name: "viewer", message: null } })
+	Chat.sendMessage("   ")
+	for (let i = 0; i < 205; i++) {
+		receive({ data: { name: "viewer", message: String(i) } })
+	}
+	assert.equal(Chat.history.length, 200)
+	assert.equal(Chat.history[0].message, "5")
+	assert.equal(messages.length, 205)
+})
+
+test("microphone radio selection calls the component's bound method", async () => {
+	const file = new URL("../../frontend/apps/livestream/livestream_streamer/streamer/mic-settings-page/mic-settings-page.js", import.meta.url)
+	const source = TranspileContent(file.pathname, readFileSync(file, "utf8"), []).replace("export default", "return")
+	let select
+	const stream = { audioDeviceId: "old", setAudioDevice: async id => {
+		stream.audioDeviceId = id
+	} }
+	const html = { fields: {}, micStatus: {}, micList: { clearChildren() {}, add() {} } }
+	const options = new Function("Assert", "IfCondition", "Stream", "Permission", "Mic", "H", source)(
+		{ notNull: value => assert.ok(value != null) }, { validate: Boolean }, stream,
+		{ request: async () => {} }, { all: async () => [{ deviceId: "selected", label: "USB microphone" }] },
+		{ radio: options => {
+			select = options.onSelect
+			return { input: { dataset: options.data, checked: true } }
+		} },
+	)
+	html.whenReady = async () => ({ methods: { applyMicSelection: () => options.methods.applyMicSelection(html) } })
+	await options.onDomAdd({ html })
+	await select()
+	assert.equal(stream.audioDeviceId, "selected")
+	assert.match(html.micStatus.content, /Microphone active: USB microphone/)
 })

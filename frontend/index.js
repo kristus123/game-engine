@@ -76,44 +76,4 @@ Ableton.init()
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-// this can be combined with index.html block thingy
-
-// await Retry(900, async () => {
-// 	Page.open("test-page")
-// })
-
-// const query = new URLSearchParams(location.search)
-// if query.has("viewer") {
-// 	await Page.open("viewer-page")
-// }
-// else if query.has("streamer") {
-
-const query = new URLSearchParams(location.search)
-if query.has("viewer") {
-	await Page.open("viewer-page")
-}
-else if query.has("streamer") {
-	await Page.open("streamer-page")
-}
-else if Netlify.name == "romskip-streamer" {
-	await Page.open("streamer-page")
-}
-else if Netlify.name == "romskip" {
-	await Page.open("viewer-page")
-}
-else {
-	throw new Error("unexpected")
-}
-// }
-// else {
-// 	throw new Error("missing query thingy")
-// }
-
-// await Page.open("test-page")
-
-// await Page.open("village-page")
-// await Page.open("hub-page")
-// VikingGame()
-// CanvasGame()
-// PracticeLanguage()
-// CodeEditor()
+await Page.start(Netlify.name == "romskip-streamer" ? "streamer-page" : "viewer-page")
