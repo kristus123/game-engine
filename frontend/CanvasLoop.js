@@ -1,4 +1,13 @@
+let inited = false
+
 export async function CanvasLoop(activeThing, canvasParent = document.body) {
+	if (inited) {
+		throw new Error("can only init CanvasLoop once")
+	}
+	else {
+		inited = true
+	}
+
 	Palette.initialize(canvasParent)
 	Mouse.initialize()
 	Camera.initialize()
