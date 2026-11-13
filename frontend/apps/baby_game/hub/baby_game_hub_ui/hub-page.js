@@ -4,21 +4,19 @@ export default {
 	},
 	fields: () => ({
 		dragScroll: null,
-		scrollLeft: 0,
+		x: 0,
 	}),
-	onFirstDomAdd: ({ html }) => {
-		html.fields.dragScroll = MouseDragScroll.horizontal(html.area, (x) => {
-			if !html.isConnected {
-				return
+	onFirstDomAdd: ({ html, fields }) => {
+		fields.dragScroll = MouseDragScroll.horizontal(html.area, (x) => {
+			if html.isConnected {
+				fields.x = x
+				const parallaxOffset = Math.round(-x * 0.2)
+				html.grass.style.setProperty("--infinite-img-parallax-offset", `${parallaxOffset}px`)
+				html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
 			}
-
-			html.fields.scrollLeft = x
-			const parallaxOffset = Math.round(-x * 0.2)
-			html.grass.style.setProperty("--infinite-img-parallax-offset", `${parallaxOffset}px`)
-			html.sun.style.setProperty("--infinite-img-parallax-offset", `${Math.round(-x * 0.1)}px`)
 		})
 
-		for const [key, game] of Object.entries(Frontend.mini_games) {
+		for const [key, game] of Frontend.mini_games.all {
 			if game == null || typeof game != "object" {
 				continue
 			}
@@ -32,11 +30,11 @@ export default {
 			}))
 		}
 	},
-	onDomAdd: ({ html }) => {
-		html.fields.dragScroll.scroll = html.fields.scrollLeft
+	onDomAdd: ({ fields }) => {
+		fields.dragScroll.scroll = fields.x
 	},
-	onDomRemove: ({ html }) => {
-		html.fields.dragScroll.stop()
+	onDomRemove: ({ fields }) => {
+		fields.dragScroll.stop()
 	},
 	methods: {
 		openModalTest: () => Page.openAsModalFixed("modal-test-page"),

@@ -8,7 +8,7 @@ const source = TranspileContent(file.pathname, readFileSync(file, "utf8"), [new 
 const AsyncFunction = Object.getPrototypeOf(async function() {}).constructor
 
 for (const environment of ["dev", "prod"]) {
-	test(`${environment} startup initializes identity and connects before opening the livestream`, async () => {
+	test(`${environment} startup initializes identity and connects before opening the start page`, async () => {
 		let initialized = false
 		let connected = false
 		let opened = false
@@ -38,7 +38,7 @@ for (const environment of ["dev", "prod"]) {
 			AssetPaths: { htmlComponent: [], aseprite: [], audio: [], image: [] },
 			RegisterCustomWebComponent: noop,
 			Page: { start: async tag => {
-				assert.equal(tag, "streamer-page")
+				assert.equal(tag, "start-page")
 				assert.equal(initialized, true)
 				assert.equal(connected, true)
 				opened = true

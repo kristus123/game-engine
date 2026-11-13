@@ -1,1 +1,16 @@
-<h1>Picture and sound quiz</h1>
+<section id="quiz-content">
+	<h1>Picture and sound quiz</h1>
+	<flex-h id="quiz-meta">
+		<p id="category"></p>
+		<p id="step"></p>
+	</flex-h>
+	<progress id="progress" value="0" max="6"></progress>
+	<div id="picture"></div>
+	<h2 id="prompt"></h2>
+	<button on-click="listen">Listen</button>
+	<flex-h id="choices"></flex-h>
+	<p id="feedback">Choose a picture. You can listen as often as you like.</p>
+	<button id="next" on-click="next" hidden>Next</button>
+	<button id="replay" on-click="restart" hidden>Play again</button>
+	<p id="soundstatus"></p>
+</section>

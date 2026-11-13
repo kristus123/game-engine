@@ -182,13 +182,14 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 				if this.isConnected {
 					if !this._didFirstDomAdd {
 						this._didFirstDomAdd = true
-						await this._onFirstDomAdd?.({ html: this })
+						await this._onFirstDomAdd?.({ html: this, fields: this.fields })
 					}
 					if !this.isConnected {
 						return
 					}
 					await this._onDomAdd?.({
 						html: this,
+						fields: this.fields,
 						onDomRemove: callback => {
 							if !A.method(callback) {
 								throw new Error("onDomRemove callback must be a function")
@@ -204,7 +205,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 			await this._lifecyclePromise.add(async () => {
 				await this._setupPromise
 				try {
-					await this._onDomRemove?.({ html: this })
+					await this._onDomRemove?.({ html: this, fields: this.fields })
 				}
 				finally {
 					const callbacks = this._domRemoveCallbacks.reverse()

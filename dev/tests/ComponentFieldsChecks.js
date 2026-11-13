@@ -99,20 +99,37 @@ test("fields are available before connection and promises are independent per in
 	assert.equal(calls, 2)
 })
 
-test("DOM hooks receive their host and retain its original fields on reconnection", async () => {
+test("all DOM hooks share mutable fields with html.fields across reconnections", async () => {
 	const events = []
 	const create = await fixture({
-		fields: () => ({ value: {} }),
-		onDomAdd: async ({ html }) => events.push(["add", html, html.fields]),
-		onDomRemove: async ({ html }) => events.push(["remove", html, html.fields]),
+		fields: () => ({ x: 0 }),
+		onFirstDomAdd: async ({ html, fields }) => {
+			assert.equal(fields, html.fields)
+			fields.x = 100
+			events.push(["first", html, fields])
+		},
+		onDomAdd: async ({ html, fields, onDomRemove }) => {
+			assert.equal(fields, html.fields)
+			fields.x += 20
+			onDomRemove(() => assert.equal(fields, html.fields))
+			events.push(["add", html, fields])
+		},
+		onDomRemove: async ({ html, fields }) => {
+			assert.equal(fields, html.fields)
+			html.fields.x += 10
+			events.push(["remove", html, fields])
+		},
 	})
 	const element = create()
 	const fields = element.fields
 	assert.deepEqual(events, [])
 	await connect(element)
+	assert.equal(fields.x, 120)
 	await disconnect(element)
+	assert.equal(fields.x, 130)
 	await connect(element)
-	assert.deepEqual(events, [["add", element, fields], ["remove", element, fields], ["add", element, fields]])
+	assert.equal(fields.x, 150)
+	assert.deepEqual(events, [["first", element, fields], ["add", element, fields], ["remove", element, fields], ["add", element, fields]])
 })
 
 test("object-style callbacks are bound to their component instance", async () => {

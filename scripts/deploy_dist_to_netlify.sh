@@ -28,3 +28,7 @@ netlify deploy --prod --no-build --dir=dist --site=30335998-1c5b-49e4-b97c-cb0f1
 
 # the id of 'romskip-streamer' aka. romskip-streamer.netlify.app
 netlify deploy --prod --no-build --dir=dist --site=4ae5a7af-6cc3-4739-aa1d-56b7e52c07f9
+
+
+# the id of 'samisk-demo' aka. samisk-demo.netlify.app
+netlify deploy --prod --no-build --dir=dist --site=3d33ea18-8f85-455f-a357-d17b1c3221eb
