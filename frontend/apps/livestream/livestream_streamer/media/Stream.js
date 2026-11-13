@@ -174,7 +174,7 @@ export class Stream {
 				this.interrupt()
 			}, {
 				audioBitsPerSecond: 64_000,
-				videoBitsPerSecond: 1_800_000,
+				videoBitsPerSecond: 3_500_000,
 			})
 		}
 		catch (error) {
