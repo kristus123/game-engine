@@ -7,33 +7,19 @@ export async function Transcribe(blob, { signal } = {}) { // allow-null
 		throw new Error("Recorded audio exceeds the 25 MB transcription limit")
 	}
 
-	const extensions = {
-		"audio/webm": "webm", "video/webm": "webm",
-		"audio/mp4": "mp4", "video/mp4": "mp4", "audio/x-m4a": "m4a",
-		"audio/ogg": "ogg", "audio/wav": "wav", "audio/x-wav": "wav",
-		"audio/mpeg": "mp3", "audio/mp3": "mp3", "audio/flac": "flac",
-	}
-	const extension = extensions[blob.type.split(";")[0]]
-	if !extension {
-		throw new Error(`Unsupported audio format: ${blob.type}`)
-	}
-	const form = new FormData()
-	form.append("file", blob, `recording.${extension}`)
-	form.append("model", "gpt-4o-mini-transcribe")
-
-	const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+	const response = await fetch(`${Config.httpUrl}/transcribeAudio?type=${encodeURIComponent(blob.type)}`, {
 		method: "POST",
 		headers: {
-			Authorization: `Bearer ${Secrets.openAiToken}`,
+			"Content-Type": "application/octet-stream",
+			token: Token.encodedToken ?? "null",
 		},
-		body: form,
-		signal: AbortSignal.any([AbortSignal.timeout(30_000), ...(signal ? [signal] : [])]),
+		body: blob,
+		signal: AbortSignal.any([AbortSignal.timeout(40_000), ...(signal ? [signal] : [])]),
 	})
-
-	if !res.ok {
-		throw new Error(`Transcription failed (HTTP ${res.status})`)
+	if !response.ok {
+		throw new Error("Could not transcribe the recording. Please try again.")
 	}
-	const data = await res.json()
+	const data = await response.json()
 	if typeof data.text != "string" {
 		throw new Error("The transcription response contained no text")
 	}

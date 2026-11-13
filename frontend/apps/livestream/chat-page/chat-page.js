@@ -18,7 +18,7 @@ export default {
 	page: { persistOnClose: true },
 	fields: () => ({ recording: null, voiceController: null, voiceTimer: null, voiceState: "idle" }),
 	onFirstDomAdd: ({ html }) => {
-		html.dictate.hidden = !Env.dev
+		html.dictate.hidden = !globalThis.isSecureContext || !navigator.mediaDevices?.getUserMedia || typeof MediaRecorder == "undefined"
 		const addLine = ({ name, message }) => {
 			html.chatHistory.add(H.create("chat-line", {
 				slots: {
@@ -86,7 +86,7 @@ export default {
 			}
 			catch (error) {
 				if !controller.signal.aborted {
-					setDictationState(html, "idle", error.message)
+					setDictationState(html, "idle", error.name == "NotAllowedError" ? "Allow microphone access to use Speak" : error.message)
 				}
 			}
 			finally {

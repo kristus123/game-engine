@@ -23,7 +23,7 @@ export default {
 			onError: error => {
 				html.fields.hlsVideo.disconnect()
 				html.statusMessage.content = "Connection interrupted; retrying..."
-				console.warn("Playback interrupted", error)
+				console.warn("Playback interrupted", { name: error.name, message: error.message, code: error.code })
 			},
 		})
 

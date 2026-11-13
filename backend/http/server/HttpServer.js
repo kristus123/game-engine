@@ -35,7 +35,16 @@ export class HttpServer {
 						throw new Error("wtf is : " + t)
 					}
 				})()
-				const decoded = await ShaToken.decode(encoded)
+				let decoded
+				try {
+					decoded = await ShaToken.decode(encoded)
+				}
+				catch (e) {
+					Poop.sendJson(res, 401, {
+						error: "invalid token",
+					})
+					return
+				}
 
 				const role = decoded.internal.role
 
@@ -59,6 +68,7 @@ export class HttpServer {
 						try {
 							const returnValue = await (await Poop.route(req, role))({
 								req: req,
+								res: res,
 								userId: decoded.internal.userId,
 								body: await HttpBody(req),
 								headers: req.headers,

@@ -76,4 +76,5 @@ Ableton.init()
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-await Page.start(Netlify.name == "romskip-streamer" ? "streamer-page" : "viewer-page")
+// await Page.start(Netlify.name == "romskip-streamer" ? "streamer-page" : "viewer-page")
+await Page.start("hub-page")

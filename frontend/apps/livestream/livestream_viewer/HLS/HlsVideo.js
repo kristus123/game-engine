@@ -10,7 +10,6 @@ export class HlsVideo {
 			playsInline: true,
 			listeners: {
 				playing: () => this.callbacks.onPlaying?.(),
-				error: () => this.callbacks.onError?.(this.video.error),
 			},
 		})
 	}
@@ -23,17 +22,23 @@ export class HlsVideo {
 		this.playbackId = playbackId
 		const source = `${this.source}?broadcast=${playbackId}`
 		this.callbacks.onConnecting?.()
-		const play = () => this.video.play().catch(async error => {
-			if error.name == "NotAllowedError" && !this.video.muted {
-				this.video.muted = true
-				this.callbacks.onAudioBlocked?.()
-				await this.video.play().catch(playError => this.callbacks.onError?.(playError))
-				return
-			}
-			if error.name != "AbortError" {
-				this.callbacks.onError?.(error)
-			}
-		})
+		const play = () => {
+			const generation = HlsJs.generation
+			return this.video.play().catch(async error => {
+				if generation != HlsJs.generation {
+					return
+				}
+				if error.name == "NotAllowedError" && !this.video.muted {
+					this.video.muted = true
+					this.callbacks.onAudioBlocked?.()
+					await this.video.play().catch(playError => this.callbacks.onError?.(playError))
+					return
+				}
+				if error.name != "AbortError" {
+					HlsJs.handleFailure(error)
+				}
+			})
+		}
 		HlsJs.connect(this.video, source, {
 			onError: error => this.callbacks.onError?.(error ?? new Error("HLS connection interrupted")),
 			onManifestParsed: play,
@@ -50,10 +55,6 @@ export class HlsVideo {
 
 	disconnect() {
 		HlsJs.disconnect()
-
-		this.video.pause()
-		this.video.removeAttribute("src")
-		this.video.load()
 	}
 
 }

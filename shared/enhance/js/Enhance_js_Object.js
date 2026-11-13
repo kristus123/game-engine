@@ -30,7 +30,7 @@ function _compareOrdered(a, b, path) {
 export class Enhance_js_Object extends NativeEnhancer {
 	constructor() {
 		super(Object.prototype, {
-			excludedMembers: typeof process != "undefined" && process.versions?.node != null ? ["path"] : [],
+			excludedMembers: typeof process != "undefined" && process.versions?.node != null ? ["path", "all"] : [],
 		})
 	}
 

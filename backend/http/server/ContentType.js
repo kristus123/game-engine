@@ -1,5 +1,6 @@
 export class ContentType {
 	static json = "application/json"
+	static binary = "application/octet-stream"
 	static md = "text/markdown"
 	static hls = "application/vnd.apple.mpegurl"
 	static hlsAlt = "application/x-mpegURL"
@@ -22,6 +23,7 @@ export class ContentType {
 	static zip = "application/zip"
 
 	static values = [
+		ContentType.binary,
 		ContentType.json,
 		ContentType.md,
 		ContentType.hls,

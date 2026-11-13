@@ -7,7 +7,7 @@ export async function HttpBody(req) {
 	else if contentType.name == ContentType.json {
 		return await Poop.parseJsonBody(req)
 	}
-	else if contentType.name == ContentType.webm {
+	else if contentType.name == ContentType.webm || contentType.name == ContentType.binary {
 		return null
 	}
 	else {

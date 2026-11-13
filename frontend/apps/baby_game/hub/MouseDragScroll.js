@@ -114,6 +114,7 @@ export class MouseDragScroll {
 	}
 
 	stop() {
+		this.dragging = false
 		if this.animation != null {
 			cancelAnimationFrame(this.animation)
 			this.animation = null
