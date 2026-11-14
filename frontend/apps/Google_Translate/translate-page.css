@@ -1,0 +1,137 @@
+translate-page {
+	display: block;
+	overflow: auto;
+	background: #f5f3ed;
+	color: #263a34;
+	font-family: system-ui, sans-serif;
+	font-size: 16px;
+}
+
+translate-page .translate-shell {
+	padding: 12px;
+}
+
+translate-page .translate-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	min-height: calc(100svh - 24px);
+}
+
+translate-page .translate-languages {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+	align-items: center;
+	gap: 8px;
+}
+
+translate-page select {
+	width: 100%;
+	min-width: 0;
+	padding: 12px 8px;
+	border: 1px solid #d3d9ce;
+	border-radius: 8px;
+	background: white;
+	color: #263a34;
+	font: inherit;
+}
+
+translate-page .translate-arrow {
+	text-align: center;
+	font-size: 24px;
+}
+
+translate-page button {
+	font: inherit;
+	border-radius: 8px;
+	padding: 12px 16px;
+	cursor: pointer;
+	background: #244f42;
+	color: white;
+	line-height: 1.4;
+}
+
+translate-page button:hover {
+	background: #376754;
+}
+
+translate-page button:focus-visible,
+translate-page select:focus-visible {
+	outline: 3px solid #b67a35;
+	outline-offset: 3px;
+}
+
+translate-page button:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+
+translate-page button.is-listening {
+	background: #966029;
+}
+
+translate-page .translate-record {
+	flex: 1;
+	width: 100%;
+	min-height: 60svh;
+	font-size: clamp(28px, 6vw, 64px);
+}
+
+translate-page .translate-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+}
+
+translate-page .translate-toolbar p {
+	flex: 1;
+	margin: 0;
+	font-size: 14px;
+	color: inherit;
+}
+
+translate-page .translate-history:empty {
+	display: none;
+}
+
+translate-page .translate-turn {
+	padding: 24px 0;
+	border-bottom: 1px solid #d3d9ce;
+}
+
+translate-page .translate-pair {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 16px;
+}
+
+translate-page .translate-pair > section {
+	min-width: 0;
+}
+
+translate-page .translate-pair > section + section {
+	border-left: 1px solid #d3d9ce;
+	padding-left: 16px;
+}
+
+translate-page .translate-turn h2 {
+	font-size: 12px;
+	color: #63766d;
+	font-weight: 500;
+	margin: 0 0 8px;
+}
+
+translate-page .translate-result {
+	margin: 0;
+	font-size: clamp(20px, 3vw, 28px);
+	color: inherit;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	user-select: text;
+	line-height: 1.5;
+}
+
+translate-page .translate-clear {
+	margin-top: 12px;
+}

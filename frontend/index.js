@@ -76,5 +76,20 @@ Ableton.init()
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-await Page.start(Netlify.name == "romskip-streamer" ? "streamer-page" : "viewer-page")
-// await Page.start("start-page")
+switch Netlify.name ?? "kristian-translate" {
+	case "romskip-streamer" {
+		await Page.start("streamer-page")
+	}
+	case "romskip" {
+		await Page.start("viewer-page")
+	}
+	case "samisk-demo" {
+		await Page.start("start-page")
+	}
+	case "kristian-translate" {
+		await Page.start("translate-page")
+	}
+	default {
+		await Page.start("viewer-page")
+	}
+}

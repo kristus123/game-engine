@@ -32,3 +32,8 @@ netlify deploy --prod --no-build --dir=dist --site=4ae5a7af-6cc3-4739-aa1d-56b7e
 
 # the id of 'samisk-demo' aka. samisk-demo.netlify.app
 netlify deploy --prod --no-build --dir=dist --site=3d33ea18-8f85-455f-a357-d17b1c3221eb
+
+# Translation site creation is postponed. Set its site ID once a name is chosen.
+if [[ -n "${TRANSLATE_NETLIFY_SITE_ID:-}" ]]; then
+  netlify deploy --prod --no-build --dir=dist --site="$TRANSLATE_NETLIFY_SITE_ID"
+fi
