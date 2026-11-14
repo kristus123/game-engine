@@ -119,7 +119,7 @@ function fixture({ microphone } = {}) {
 test("both realtime directions share one microphone and report readiness together", async () => {
 	const f = fixture(); await f.start()
 	assert.deepEqual(f.clients.map(client => client.options.language), ["en", "ja"])
-	assert.ok(f.clients.every(client => client.options.stream === f.stream))
+	assert.ok(f.clients.every(client => client.options.stream == f.stream))
 	assert.deepEqual(f.statuses.map(state => state.status), ["connecting", "listening"])
 	f.conversation.stop()
 	assert.ok(f.clients.every(client => client.stopped))

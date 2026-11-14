@@ -11,7 +11,14 @@
 		</mid>
 		<bot>
 			<flex-h max-size style="padding: 5px; gap: 10px">
-				<input max-size style="flex: 3; min-width: 0; font-size: 30px" id="message" placeholder="Type" maxlength="2000" on-enter="sendMessage" />
+				<input
+					max-size
+					style="flex: 3; min-width: 0; font-size: 30px"
+					id="message"
+					placeholder="Type"
+					maxlength="2000"
+					on-enter="sendMessage"
+				/>
 				<button id="dictate" on-click="toggleDictation" hidden>Speak</button>
 				<button max-size style="flex: 1" id="send" on-click="sendMessage">Send</button>
 			</flex-h>

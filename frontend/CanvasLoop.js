@@ -1,7 +1,7 @@
 let inited = false
 
 export async function CanvasLoop(activeThing, canvasParent = document.body) {
-	if (inited) {
+	if inited {
 		throw new Error("can only init CanvasLoop once")
 	}
 	else {

@@ -2,7 +2,7 @@ let libraryPromise = null
 let hls = null
 
 function loadHlsLibrary() {
-	if (libraryPromise == null) {
+	if libraryPromise == null {
 		libraryPromise = import("./hls.mjs")
 			.then(module => module.default)
 			.catch(error => {

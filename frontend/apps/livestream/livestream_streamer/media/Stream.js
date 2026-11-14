@@ -198,7 +198,7 @@ export class Stream {
 	}
 
 	static async finishStop() {
-		if (this.finishingStop) {
+		if this.finishingStop {
 			return this.finishingStop
 		}
 		this.finishingStop = this.finishStopRequest().finally(() => {
@@ -208,11 +208,11 @@ export class Stream {
 	}
 
 	static async finishStopRequest() {
-		if (this.recovering) {
+		if this.recovering {
 			await this.recovering
 		}
 		const broadcast = this.broadcast
-		if (!broadcast || !broadcast.stopping) {
+		if !broadcast || !broadcast.stopping {
 			return
 		}
 		try {
