@@ -267,7 +267,7 @@ test("stopping a rejected current session retains it for retry", async () => {
 test("livestream uses the standard recorder bitrate", async () => {
 	const f = publisherFixture()
 	await f.Stream.start()
-	assert.equal(f.recorder.options.videoBitsPerSecond, 1_800_000)
+	assert.equal(f.recorder.options.videoBitsPerSecond, 3_500_000)
 	assert.equal(f.recorder.options.audioBitsPerSecond, 64_000)
 })
 

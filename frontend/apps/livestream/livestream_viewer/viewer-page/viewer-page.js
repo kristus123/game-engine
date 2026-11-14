@@ -62,8 +62,33 @@ export default {
 	},
 	onDomAdd: ({ html }) => {
 		html.fields.statusLoop.start()
+		const video = html.fields.hlsVideo.video
+		const resize = () => {
+			const { width, height } = html.videoOverlay.getBoundingClientRect()
+			if width <= 0 || height <= 0 || video.videoWidth <= 0 || video.videoHeight <= 0 {
+				return
+			}
+			const style = getComputedStyle(html)
+			const crop = Math.max(0, parseFloat(style.getPropertyValue("--viewer-video-crop")) || 0)
+			const minimum = Math.max(0.01, Math.min(1, parseFloat(style.getPropertyValue("--viewer-video-min-visible")) || 1))
+			const contain = Math.min(width / video.videoWidth, height / video.videoHeight)
+			const cover = Math.max(width / video.videoWidth, height / video.videoHeight)
+			const scale = Math.min(cover, (width + 2 * crop) / video.videoWidth, (height + 2 * crop) / video.videoHeight, width / (video.videoWidth * minimum), height / (video.videoHeight * minimum))
+			video.style.width = `${video.videoWidth * Math.max(contain, scale)}px`
+			video.style.height = `${video.videoHeight * Math.max(contain, scale)}px`
+		}
+		html.fields.resizeObserver = new ResizeObserver(resize)
+		html.fields.resizeObserver.observe(html.videoOverlay)
+		html.fields.resizeVideo = resize
+		video.addEventListener("loadedmetadata", resize)
+		video.addEventListener("resize", resize)
+		resize()
 	},
 	onDomRemove: ({ html }) => {
+		html.fields.resizeObserver.disconnect()
+		const video = html.fields.hlsVideo.video
+		video.removeEventListener("loadedmetadata", html.fields.resizeVideo)
+		video.removeEventListener("resize", html.fields.resizeVideo)
 		html.fields.statusLoop.stop()
 		html.fields.hlsVideo.disconnect()
 	},
@@ -71,12 +96,19 @@ export default {
 		enableSound: async (html) => {
 			const video = html.fields.hlsVideo.video
 			video.muted = false
+			html.enableSound.hidden = true
+			if !html.fields.hlsVideo.connected {
+				return
+			}
 			try {
 				await video.play()
 				html.enableSound.hidden = true
 			}
 			catch (error) {
-				video.muted = true
+				if error.name == "NotAllowedError" {
+					video.muted = true
+					html.enableSound.hidden = false
+				}
 				console.warn("Could not enable playback sound", error)
 			}
 		},

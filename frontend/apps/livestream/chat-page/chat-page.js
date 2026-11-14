@@ -2,6 +2,8 @@ function setDictationState(html, state, message = "") {
 	html.fields.voiceState = state
 	html.dictate.disabled = state == "opening" || state == "transcribing"
 	html.dictate.content = state == "recording" ? "Stop" : "Speak"
+	html.message.disabled = state != "idle"
+	html.send.hidden = state != "idle"
 	html.dictationStatus.content = message
 }
 
@@ -55,7 +57,6 @@ export default {
 						return
 					}
 					html.message.value = [html.message.value.trim(), text].filter(Boolean).join(" ").slice(0, 2_000)
-					html.message.focus()
 					setDictationState(html, "idle", text ? "Ready to send" : "No speech detected")
 				}
 				else {

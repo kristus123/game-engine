@@ -53,10 +53,20 @@ export class LowLevelHttpClient {
 
 			Assert.true(httpStatusCode == 200 || httpStatusCode == 500, "only allow http status 200 or 500")
 			const ok = httpStatusCode == 200
+			let responseBody = null
+			try {
+				responseBody = await formatBody(response.clone())
+			}
+			catch (error) {
+				if ok {
+					throw error
+				}
+				responseBody = { error: await response.text() }
+			}
 			return {
 				ok: ok,
 				error: !ok,
-				body: ok ? await formatBody(response) : null,
+				body: responseBody,
 			}
 		}
 		catch (e) {

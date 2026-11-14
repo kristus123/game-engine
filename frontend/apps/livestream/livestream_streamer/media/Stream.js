@@ -150,13 +150,17 @@ export class Stream {
 				const params = new URLSearchParams({ revision, sequence: sequence++ })
 				this.uploadsInFlight++
 				try {
-					const upload = Assert.ok(await LowLevelHttpClient.post({
+					const response = await LowLevelHttpClient.post({
 						routeName: `sendChunk?${params}`,
 						body: blob,
 						formatBody: response => response.json(),
 						contentType: Platform.mimeType,
 						timeoutMs: 8_000,
-					}))
+					})
+					if !response.ok {
+						throw new Error(response.body?.error ?? response.error?.message ?? "Media upload failed")
+					}
+					const upload = response.body
 					if !this.recorder?.active || this.broadcast != broadcast || broadcast.stopping || broadcast.revision != revision {
 						return
 					}
