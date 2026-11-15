@@ -1,201 +1,171 @@
-const conversationLanguages = { en: "English", zh: "Chinese · 中文", ja: "Japanese · 日本語" }
-
-function updateConversationStart(html) {
-	const same = html.firstLanguage.value == html.secondLanguage.value
-	const { running, mode, recording } = html.fields
-	const conversationActive = running && mode == "conversation"
-	html.startConversation.disabled = (same && !conversationActive) || recording
-	html.startConversation.textContent = conversationActive ? "End session" : "Start conversation"
-	html.startConversation.classList.toggle("is-listening", conversationActive)
-	html.startRecording.disabled = same || (running && mode != "manual")
-	html.startRecording.textContent = recording ? (html.fields.manualReady ? "Stop recording" : "Cancel connection") : "Start recording"
-	html.startRecording.classList.toggle("is-listening", recording)
-	if same {
-		html.translationStatus.textContent = "Choose different languages"
-	}
-	else if !running {
-		html.translationStatus.textContent = "Microphone off"
-	}
+function setState(html, state, message) {
+	html.fields.status = state
+	html.fields.shell.classList.toggle("is-recording", state != "idle")
+	html.toggleRecording.disabled = state == "processing"
+	html.toggleRecording.textContent = state == "recording" ? "Stop" : state == "processing" ? "Translating…" : "Start recording"
+	html.toggleRecording.classList.toggle("is-listening", state == "recording")
+	html.translationStatus.textContent = message
 }
 
-function stopManualTranslationRecording(html) {
-	if html.fields.mode != "manual" || !html.fields.recording {
-		return
-	}
-	if !html.fields.manualReady {
-		stopConversationTranslation(html)
-		return
-	}
-	html.fields.conversation.stopRecording()
-	html.fields.recording = false
-	updateConversationStart(html)
-	html.translationStatus.textContent = "Microphone off · Translating…"
+function clearResult(html) {
+	globalThis.speechSynthesis?.cancel()
+	html.translationResult.hidden = true
+	html.sourceText.textContent = ""
+	html.translatedText.textContent = ""
+	html.detectedLanguages.textContent = ""
+	html.detectedLanguages.hidden = true
+	html.fields.targetLanguage = null
 }
 
-function stopConversationTranslation(html) {
-	html.fields.request++
-	html.fields.running = false
-	html.fields.mode = null
-	html.fields.recording = false
-	html.fields.manualReady = false
-	html.fields.conversation.stop()
-	html.firstLanguage.disabled = false
-	html.secondLanguage.disabled = false
-	html.enableTranslationAudio.hidden = true
-	updateConversationStart(html)
-	html.translationStatus.textContent = "Microphone off"
+const languageNames = { en: "English", ja: "Japanese" }
+
+function normalizeLanguage(code) {
+	const base = code.toLowerCase().split("-")[0]
+	return ({ eng: "en", jpn: "ja" })[base] || base
 }
 
-async function startConversationTranslation(html, manual = false) {
-	if html.firstLanguage.value == html.secondLanguage.value {
-		return
-	}
-	if manual && html.fields.mode == "manual" && html.fields.manualReady && !html.fields.recording {
-		html.fields.conversation.startRecording()
-		html.fields.recording = true
-		updateConversationStart(html)
-		html.translationStatus.textContent = "Recording"
-		return
-	}
-	if html.fields.running && (html.fields.mode == "conversation" || html.fields.recording) {
-		return
-	}
-	stopConversationTranslation(html)
+function stopTracks(stream) {
+	stream?.getTracks().forEach(track => track.stop())
+}
+
+async function startRecording(html) {
 	const request = ++html.fields.request
-	const languages = [html.firstLanguage.value, html.secondLanguage.value]
-	const rows = new Map()
-	html.fields.running = true
-	html.fields.mode = manual ? "manual" : "conversation"
-	html.fields.recording = manual
-	html.fields.manualReady = false
-	html.firstLanguage.disabled = true
-	html.secondLanguage.disabled = true
-	updateConversationStart(html)
+	clearResult(html)
+	html.translationResult.hidden = false
 	try {
-		await html.fields.conversation.start({
-			languages, manual,
-			onTranscript: ({ id, sourceLanguage, source, translation, removed = false }) => {
-				if request != html.fields.request {
-					return
-				}
-				let row = rows.get(id)
-				if removed {
-					row?.element.remove()
-					rows.delete(id)
-					html.clearTranslations.hidden = !html.translationHistory.querySelector(".translate-turn")
-					return
-				}
-				if !row {
-					row = { texts: new Map(), element: null }
-					const turn = document.createElement("article")
-					turn.className = "translate-turn translate-pair"
-					for const language of languages {
-						const column = document.createElement("section")
-						const heading = document.createElement("h2")
-						heading.textContent = conversationLanguages[language]
-						const text = document.createElement("p")
-						text.className = "translate-result"
-						text.lang = language
-						row.texts.set(language, text)
-						column.append(heading, text)
-						turn.append(column)
-					}
-					row.element = turn
-					rows.set(id, row)
-					html.clearTranslations.hidden = false
-					html.translationHistory.append(turn)
-				}
-				row.texts.get(sourceLanguage).textContent = source || "…"
-				row.texts.get(languages.find(language => language != sourceLanguage)).textContent = translation
-			},
-			onStatus: (status, message) => { // allow-null
-				if request != html.fields.request {
-					return
-				}
-				if status == "error" {
-					stopConversationTranslation(html)
-					html.translationStatus.textContent = message
-					return
-				}
-				if status == "listening" && manual {
-					html.fields.manualReady = true
-					updateConversationStart(html)
-					html.translationStatus.textContent = message || (html.fields.recording ? "Recording" : "Translating…")
-					return
-				}
-				html.translationStatus.textContent = message || (status == "connecting" ? "Connecting…" : status == "processing" ? "Translating…" : "Listening")
-			},
-			onSpeaking: speaking => {
-				if !manual && request == html.fields.request && html.startConversation.classList.contains("is-listening") {
-					html.translationStatus.textContent = speaking ? "Listening" : "Ready"
-				}
-			},
-			onAudioBlocked: () => {
-				if request == html.fields.request {
-					html.enableTranslationAudio.hidden = false
-				}
-			},
-		})
+		// Capture and playback are separate. Avoid Android's voice-call processing
+		// and the audio routing changes it can introduce before TTS playback.
+		const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
+		if request != html.fields.request {
+			stopTracks(stream)
+			return
+		}
+		const mimeType = ["audio/webm;codecs=opus", "audio/mp4", "audio/ogg;codecs=opus"].find(type => MediaRecorder.isTypeSupported(type))
+		const recorder = new MediaRecorder(stream, mimeType ? { mimeType } : {})
+		const chunks = []
+		html.fields.stream = stream
+		html.fields.recorder = recorder
+		recorder.ondataavailable = event => {
+			if event.data.size > 0 {
+				chunks.push(event.data)
+			}
+		}
+		recorder.onerror = () => {
+			if request == html.fields.request {
+				html.fields.request++
+				stopTracks(stream)
+				html.fields.stream = null
+				html.fields.recorder = null
+				setState(html, "idle", "Recording failed. Please try again.")
+			}
+		}
+		recorder.onstop = () => {
+			stopTracks(stream)
+			html.fields.stream = null
+			html.fields.recorder = null
+			if request == html.fields.request {
+				processRecording(html, request, new Blob(chunks, { type: recorder.mimeType }))
+			}
+		}
+		recorder.start()
+		setState(html, "recording", "Recording… Press stop when you’re done.")
 	}
 	catch (error) {
 		if request == html.fields.request {
-			stopConversationTranslation(html)
-			html.translationStatus.textContent = error.name == "NotAllowedError" ? "Microphone access was denied. Allow it in your browser and try again." : error.message
+			setState(html, "idle", error.name == "NotAllowedError" ? "Microphone access was denied. Allow it in your browser and try again." : error.message)
 		}
+	}
+}
+
+async function processRecording(html, request, blob) {
+	const controller = new AbortController()
+	html.fields.controller = controller
+	setState(html, "processing", "Transcribing your recording…")
+	try {
+		const transcription = await Transcribe(blob, { signal: controller.signal, includeMetadata: true })
+		if request != html.fields.request {
+			return
+		}
+		const source = transcription.text
+		if !source {
+			throw new Error("No speech was detected. Try recording again.")
+		}
+		const detectedCodes = transcription.languages.map(language => language.code).filter(code => typeof code == "string")
+		const detectedSource = detectedCodes.map(normalizeLanguage).find(code => code == "en" || code == "ja")
+		if !detectedSource {
+			throw new Error("I couldn't detect English or Japanese. Please try again and speak clearly in English or Japanese.")
+		}
+		const actualDirection = { source: detectedSource, target: detectedSource == "en" ? "ja" : "en" }
+		html.fields.targetLanguage = actualDirection.target
+		html.sourceHeading.textContent = languageNames[actualDirection.source]
+		html.targetHeading.textContent = languageNames[actualDirection.target]
+		html.detectedLanguages.textContent = detectedCodes.length
+			? `Detected by gpt-transcribe: ${detectedCodes.map(code => `${languageNames[normalizeLanguage(code)] || code} (${code})`).join(", ")}`
+			: "Detected by gpt-transcribe: no reliable language result"
+		html.detectedLanguages.hidden = false
+		html.sourceText.textContent = source
+		html.translationResult.hidden = false
+		setState(html, "processing", "Translating…")
+		const translated = await TranslateText(source, actualDirection.source, actualDirection.target, { signal: controller.signal })
+		if request != html.fields.request {
+			return
+		}
+		html.translatedText.textContent = translated
+		setState(html, "idle", "Playing translation…")
+		try {
+			await Tts(translated, { language: actualDirection.target })
+			if request == html.fields.request {
+				html.translationStatus.textContent = ""
+			}
+		}
+		catch (error) {
+			if request == html.fields.request {
+				setState(html, "idle", `Translation is ready, but speech playback failed: ${error.message}`)
+			}
+		}
+	}
+	catch (error) {
+		if request == html.fields.request {
+			setState(html, "idle", error.name == "AbortError" ? "Translation cancelled." : error.message)
+		}
+	}
+	finally {
+		if html.fields.controller == controller {
+			html.fields.controller = null
+		}
+	}
+}
+
+function stopRecording(html) {
+	if html.fields.recorder?.state == "recording" {
+		setState(html, "processing", "Preparing your recording…")
+		html.fields.recorder.stop()
+		stopTracks(html.fields.stream)
+		html.fields.stream = null
 	}
 }
 
 export default {
 	page: { persistOnClose: true },
-	fields: () => ({ request: 0, running: false, mode: null, recording: false, manualReady: false, conversation: new TranslationConversation() }),
+	fields: () => ({ status: "idle", request: 0, shell: null, recorder: null, stream: null, controller: null, targetLanguage: null }),
 	onFirstDomAdd: ({ html }) => {
-		for const select of [html.firstLanguage, html.secondLanguage] {
-			for const [code, label] of Object.entries(conversationLanguages) {
-				const option = document.createElement("option")
-				option.value = code
-				option.textContent = label
-				select.append(option)
+		html.fields.shell = html.querySelector(".translate-shell")
+		html.toggleRecording.addEventListener("click", () => {
+			if html.fields.status == "idle" {
+				return startRecording(html)
 			}
-			select.addEventListener("change", () => updateConversationStart(html))
-		}
-		html.firstLanguage.value = "en"
-		html.secondLanguage.value = "ja"
-		updateConversationStart(html)
-		html.startConversation.addEventListener("click", () => {
-			if html.fields.running && html.fields.mode == "conversation" {
-				stopConversationTranslation(html)
-			}
-			else {
-				startConversationTranslation(html)
+			if html.fields.status == "recording" {
+				stopRecording(html)
 			}
 		})
-		html.startRecording.addEventListener("click", () => {
-			if html.fields.recording {
-				stopManualTranslationRecording(html)
-			}
-			else {
-				startConversationTranslation(html, true)
-			}
-		})
-		html.clearTranslations.addEventListener("click", () => {
-			stopConversationTranslation(html)
-			html.translationHistory.querySelectorAll(".translate-turn").forEach(turn => turn.remove())
-			html.clearTranslations.hidden = true
-		})
-		html.enableTranslationAudio.addEventListener("click", async () => {
-			const request = html.fields.request
-			try {
-				await html.fields.conversation.enableAudio()
-				if request == html.fields.request {
-					html.enableTranslationAudio.hidden = true
-				}
-			}
-			catch {
-				if request == html.fields.request {
-					html.translationStatus.textContent = "Sound could not play. Tap Enable sound to try again."
-				}
-			}
-		})
+		setState(html, "idle", "Ready. Speak English or Japanese.")
 	},
-	onDomRemove: ({ html }) => stopConversationTranslation(html),
+	onDomRemove: ({ html }) => {
+		html.fields.request++
+		html.fields.controller?.abort()
+		html.fields.recorder?.stop()
+		stopTracks(html.fields.stream)
+		html.fields.recorder = null
+		html.fields.stream = null
+	},
 }

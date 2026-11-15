@@ -1,6 +1,6 @@
 import { Secrets } from "#root/Secrets.js"
 
-export async function TranscribeAudio(blob, { signal } = {}) { // allow-null
+export async function TranscribeAudio(blob, { signal, languages = [], includeMetadata = false } = {}) { // allow-null
 	blob = await blob
 	if !(blob instanceof Blob) || blob.size == 0 {
 		throw new Error("No recorded audio to transcribe")
@@ -21,7 +21,10 @@ export async function TranscribeAudio(blob, { signal } = {}) { // allow-null
 	}
 	const form = new FormData()
 	form.append("file", blob, `recording.${extension}`)
-	form.append("model", "gpt-4o-mini-transcribe")
+	form.append("model", "gpt-transcribe")
+	for const language of languages {
+		form.append("languages[]", language)
+	}
 
 	const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
 		method: "POST",
@@ -39,5 +42,6 @@ export async function TranscribeAudio(blob, { signal } = {}) { // allow-null
 	if typeof data.text != "string" {
 		throw new Error("The transcription response contained no text")
 	}
-	return data.text.trim()
+	const text = data.text.trim()
+	return includeMetadata ? { text, languages: Array.isArray(data.languages) ? data.languages : [] } : text
 }

@@ -8,7 +8,7 @@ let voices = []
 const load = () => {
 	// console.log("loading voices")
 
-	voices = speechSynthesis.getVoices()
+	voices = globalThis.speechSynthesis?.getVoices() ?? []
 
 	// console.log("available voices:")
 	for const v of voices {
@@ -28,7 +28,9 @@ const load = () => {
 	// console.log("localService:", voice?.localService)
 }
 
-speechSynthesis.onvoiceschanged = load
+if globalThis.speechSynthesis {
+	speechSynthesis.onvoiceschanged = load
+}
 load()
 
 
@@ -38,6 +40,6 @@ export class TtsVoices {
 	}
 
 	static get active() {
-		return Assert.value(voice)
+		return voice
 	}
 }

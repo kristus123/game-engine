@@ -1,17 +1,13 @@
 <main class="translate-shell">
-	<section class="translate-controls">
-		<div class="translate-languages">
-			<select id="firstLanguage" title="First language"></select>
-			<span class="translate-arrow">↔</span>
-			<select id="secondLanguage" title="Second language"></select>
-		</div>
-		<button id="startRecording" class="translate-record" type="button">Start recording</button>
-		<div class="translate-toolbar">
-			<button id="startConversation" type="button">Start conversation</button>
-			<p id="translationStatus">Microphone off</p>
-			<button id="enableTranslationAudio" type="button" hidden>Enable sound</button>
-		</div>
+	<section id="translationResult" hidden>
+		<h2 id="sourceHeading">English</h2>
+		<p id="sourceText" class="translate-original"></p>
+		<p id="detectedLanguages" class="translate-detected" hidden></p>
+		<h2 id="targetHeading">Japanese</h2>
+		<p id="translatedText" class="translate-result"></p>
 	</section>
-	<section id="translationHistory" class="translate-history"></section>
-	<button id="clearTranslations" class="translate-clear" type="button" hidden>Clear conversation</button>
+	<div class="translate-controls">
+		<p id="translationStatus">Ready when you are</p>
+		<button id="toggleRecording" type="button">Start recording</button>
+	</div>
 </main>

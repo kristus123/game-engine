@@ -1,4 +1,4 @@
-export async function Transcribe(blob, { signal } = {}) { // allow-null
+export async function Transcribe(blob, { signal, languages = [], includeMetadata = false } = {}) { // allow-null
 	blob = await blob
 	if !(blob instanceof Blob) || blob.size == 0 {
 		throw new Error("No recorded audio to transcribe")
@@ -7,7 +7,8 @@ export async function Transcribe(blob, { signal } = {}) { // allow-null
 		throw new Error("Recorded audio exceeds the 25 MB transcription limit")
 	}
 
-	const response = await fetch(`${Config.httpUrl}/transcribeAudio?type=${encodeURIComponent(blob.type)}`, {
+	const languageHints = languages.length ? `&languages=${encodeURIComponent(languages.join(","))}` : ""
+	const response = await fetch(`${Config.httpUrl}/transcribeAudio?type=${encodeURIComponent(blob.type)}${languageHints}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/octet-stream",
@@ -23,5 +24,6 @@ export async function Transcribe(blob, { signal } = {}) { // allow-null
 	if typeof data.text != "string" {
 		throw new Error("The transcription response contained no text")
 	}
-	return data.text.trim()
+	const text = data.text.trim()
+	return includeMetadata ? { text, languages: Array.isArray(data.languages) ? data.languages : [] } : text
 }

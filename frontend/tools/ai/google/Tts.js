@@ -1,27 +1,23 @@
-export function Tts(text) {
+export function Tts(text, { language = "" } = {}) {
 	return new Promise((resolve, reject) => {
-		if TtsVoices.active == null {
-			reject(new Error("no voice loaded"))
+		if !globalThis.speechSynthesis || typeof SpeechSynthesisUtterance == "undefined" {
+			reject(new Error("Speech playback is unavailable in this browser"))
+			return
 		}
-		else {
-			const u = new SpeechSynthesisUtterance(text)
-			u.voice = TtsVoices.active
-			u.lang = TtsVoices.active.lang
-			u.rate = 0.9
-			u.pitch = 1
-
-			u.onend = () => {
-				console.log("tts sucesss")
-				resolve()
-			}
-
-			u.onerror = e => {
-				console.error("TTS error:", e.error)
-				reject(new Error(e.error))
-			}
-
-			speechSynthesis.cancel()
-			speechSynthesis.speak(u)
+		const normalize = lang => lang.toLowerCase().replaceAll("_", "-")
+		const voices = speechSynthesis.getVoices()
+		const requested = normalize(language)
+		const voice = language ? voices.find(item => normalize(item.lang) == requested) || voices.find(item => normalize(item.lang).split("-")[0] == requested.split("-")[0]) : TtsVoices.active
+		const utterance = new SpeechSynthesisUtterance(text)
+		if voice {
+			utterance.voice = voice
 		}
+		utterance.lang = language || voice?.lang || "en-US"
+		utterance.rate = 0.9
+		utterance.pitch = 1
+		utterance.onend = () => resolve()
+		utterance.onerror = event => reject(new Error(`Speech playback failed (${event.error})`))
+		speechSynthesis.cancel()
+		speechSynthesis.speak(utterance)
 	})
 }

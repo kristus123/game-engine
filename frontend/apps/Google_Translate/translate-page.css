@@ -1,6 +1,7 @@
 translate-page {
 	display: block;
-	overflow: auto;
+	height: 100%;
+	overflow: hidden;
 	background: #f5f3ed;
 	color: #263a34;
 	font-family: system-ui, sans-serif;
@@ -8,130 +9,106 @@ translate-page {
 }
 
 translate-page .translate-shell {
-	padding: 12px;
-}
-
-translate-page .translate-controls {
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	min-height: calc(100svh - 24px);
-}
-
-translate-page .translate-languages {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
-	align-items: center;
-	gap: 8px;
-}
-
-translate-page select {
 	width: 100%;
-	min-width: 0;
-	padding: 12px 8px;
-	border: 1px solid #d3d9ce;
-	border-radius: 8px;
-	background: white;
-	color: #263a34;
-	font: inherit;
+	height: 100%;
+	min-height: 0;
+	max-width: 620px;
+	margin: 0 auto;
+	padding: 16px 16px max(16px, env(safe-area-inset-bottom));
 }
 
-translate-page .translate-arrow {
-	text-align: center;
-	font-size: 24px;
-}
-
-translate-page button {
-	font: inherit;
-	border-radius: 8px;
-	padding: 12px 16px;
-	cursor: pointer;
-	background: #244f42;
-	color: white;
-	line-height: 1.4;
-}
-
-translate-page button:hover {
-	background: #376754;
-}
-
-translate-page button:focus-visible,
-translate-page select:focus-visible {
-	outline: 3px solid #b67a35;
-	outline-offset: 3px;
-}
-
-translate-page button:disabled {
-	opacity: 0.45;
-	cursor: default;
-}
-
-translate-page button.is-listening {
-	background: #966029;
-}
-
-translate-page .translate-record {
-	flex: 1;
-	width: 100%;
-	min-height: 60svh;
-	font-size: clamp(28px, 6vw, 64px);
-}
-
-translate-page .translate-toolbar {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 12px;
-}
-
-translate-page .translate-toolbar p {
-	flex: 1;
-	margin: 0;
-	font-size: 14px;
-	color: inherit;
-}
-
-translate-page .translate-history:empty {
-	display: none;
-}
-
-translate-page .translate-turn {
-	padding: 24px 0;
-	border-bottom: 1px solid #d3d9ce;
-}
-
-translate-page .translate-pair {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-	gap: 16px;
-}
-
-translate-page .translate-pair > section {
-	min-width: 0;
-}
-
-translate-page .translate-pair > section + section {
-	border-left: 1px solid #d3d9ce;
-	padding-left: 16px;
-}
-
-translate-page .translate-turn h2 {
-	font-size: 12px;
+translate-page [id="translationStatus"] {
+	margin: 8px 0 0;
 	color: #63766d;
-	font-weight: 500;
-	margin: 0 0 8px;
-}
-
-translate-page .translate-result {
-	margin: 0;
-	font-size: clamp(20px, 3vw, 28px);
-	color: inherit;
-	white-space: pre-wrap;
-	overflow-wrap: anywhere;
-	user-select: text;
 	line-height: 1.5;
 }
 
-translate-page .translate-clear {
-	margin-top: 12px;
+translate-page button {
+	min-height: 56px;
+	font: inherit;
+	font-weight: 600;
+	border: 0;
+	border-radius: 12px;
+	padding: 16px;
+	cursor: pointer;
+	background: #244f42;
+	color: white;
+}
+
+translate-page #toggleRecording {
+	width: 100%;
+}
+
+translate-page button.is-listening {
+	background: #854d30;
+}
+
+translate-page button:disabled {
+	opacity: 0.55;
+	cursor: default;
+}
+
+translate-page #translationResult {
+	flex: 1;
+	min-height: 0;
+	overflow: auto;
+	margin: 4px 0 12px;
+	padding: 20px;
+	border: 1px solid #d3d9ce;
+	border-radius: 14px;
+	background: white;
+}
+
+translate-page #translationResult[hidden] {
+	display: none;
+}
+
+translate-page .translate-controls {
+	margin-top: auto;
+	padding-top: 8px;
+}
+
+translate-page .translate-controls #translationStatus {
+	min-height: 24px;
+	text-align: center;
+}
+
+translate-page #toggleRecording {
+	width: 100%;
+}
+
+translate-page .translate-shell.is-recording #translationResult {
+	margin-top: 0;
+}
+
+translate-page #translationResult p {
+	margin: 0;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	line-height: 1.5;
+}
+
+translate-page .translate-original {
+	color: #84928c;
+	font-size: 15px;
+}
+
+translate-page .translate-detected {
+	margin-top: 8px !important;
+	color: #75867f;
+	font-size: 12px;
+}
+
+translate-page .translate-result {
+	margin-top: 16px !important;
+	font-size: clamp(34px, 8vw, 52px);
+	line-height: 1.3 !important;
+}
+
+translate-page button:focus-visible {
+	outline: 3px solid #b67a35;
+	outline-offset: 3px;
 }

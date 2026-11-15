@@ -26,7 +26,7 @@ test("transcription sends the native audio file and local secret without forcing
 	assert.equal(request.headers.Authorization, "Bearer local-test-key")
 	assert.equal(request.body.get("file").name, "recording.webm")
 	assert.equal(request.body.get("language"), null)
-	assert.equal(request.body.get("model"), "gpt-4o-mini-transcribe")
+	assert.equal(request.body.get("model"), "gpt-transcribe")
 })
 
 test("invalid audio is rejected before any request and API errors do not echo credentials", async () => {

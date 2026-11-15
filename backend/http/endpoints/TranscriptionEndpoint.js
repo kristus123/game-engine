@@ -22,9 +22,12 @@ UnsecureRoute.transcribeAudio = async ({ req, res, params, userId }) => {
 		if controller.signal.aborted {
 			throw new Error("Transcription cancelled")
 		}
+		const languages = params.languages ? params.languages.split(",") : []
+		if languages.some(language => !["en", "ja", "zh"].includes(language)) {
+			throw new Error("Unsupported transcription language hint")
+		}
 		const blob = new Blob(chunks, { type: params.type || "" })
-		const text = await TranscribeAudio(blob, { signal: controller.signal })
-		return { text }
+		return await TranscribeAudio(blob, { signal: controller.signal, languages, includeMetadata: true })
 	}
 	finally {
 		activeTranscriptions.delete(userId)
