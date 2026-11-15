@@ -63,12 +63,12 @@ await Promise.all([
 		return SocketClient.connect()
 	}),
 
-	// these are CanvasLoop CanvasGame stuff
+	// these are MainCanvas and CanvasGame assets
 	Promise.all(AssetPaths.aseprite.map(LoadAsepriteAssets)),
 	LoadAllAudio(AssetPaths.audio),
 	LoadAllImages(AssetPaths.image),
 	// await LoadPersistedJson()
-	// these are CanvasLoop CanvasGame stuff
+	// these are MainCanvas and CanvasGame assets
 ])
 
 Ableton.init()
@@ -76,20 +76,21 @@ Ableton.init()
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-switch Netlify.name ?? "kristian-translate" {
-	case "romskip-streamer" {
-		await Page.start("streamer-page")
-	}
-	case "romskip" {
-		await Page.start("viewer-page")
-	}
-	case "samisk-demo" {
-		await Page.start("start-page")
-	}
-	case "kristian-translate" {
-		await Page.start("translate-page")
-	}
-	default {
-		await Page.start("viewer-page")
-	}
-}
+CanvasGame()
+// switch Netlify.name ?? "kristian-translate" {
+// 	case "romskip-streamer" {
+// 		await Page.start("streamer-page")
+// 	}
+// 	case "romskip" {
+// 		await Page.start("viewer-page")
+// 	}
+// 	case "samisk-demo" {
+// 		await Page.start("start-page")
+// 	}
+// 	case "kristian-translate" {
+// 		await Page.start("translate-page")
+// 	}
+// 	default {
+// 		await Page.start("viewer-page")
+// 	}
+// }

@@ -1,6 +1,6 @@
 export class CanvasGame {
 
-	constructor(canvasParent = document.body, options = {}) {
+	constructor(options = {}) {
 		const player = Player(WorldPosition(0, 0))
 
 		Controller.control(player)
@@ -20,16 +20,22 @@ export class CanvasGame {
 		let y = 0
 		world.setPixel(WorldPosition(x++, y++))
 
-		CanvasLoop({
+		MainCanvas.init({
 			update: () => {
 				objects.update()
+				const mousePixelPosition = WorldPosition(
+					Math.floor((Mouse.position.x - world.position.x) / Scale.value),
+					Math.floor((Mouse.position.y - world.position.y) / Scale.value)
+				)
 
 				for const p of world.picturesInGroup("D3") {
-					p.setPixel(Mouse.position)
+					p.setPixel(mousePixelPosition)
 				}
 
 			},
-		}, canvasParent)
+		})
+
+		MainCanvas.add()
 	}
 
 }

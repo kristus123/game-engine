@@ -19,20 +19,16 @@ export class Palette {
 		}
 	}
 
-	static initialize(canvasParent = document.body) {
+	static initialize() {
 		if this.main {
 			return
 		}
 
 		const { canvas } = H.Canvas()
 		canvas.classList.add("game-canvas")
-		if canvasParent == document.body {
-			canvas.setAttribute("overlay-fixed", "")
-		}
 		this.main = CanvasLayer(canvas)
 		this.light = CanvasLayer()
 		this.addLayer(this.light, 0)
-		canvasParent.appendChild(canvas)
 
 		const bounds = canvas.getBoundingClientRect()
 		this.resize(bounds.width, bounds.height)
@@ -57,14 +53,12 @@ export class Palette {
 		for const layer of this.layers {
 			layer.clear()
 			layer.ctx.save()
+
 			layer.ctx.transform(...transform)
 		}
 
 		try {
 			run()
-		}
-		catch (e) {
-			throw e
 		}
 		finally {
 			const ctx = this.main.ctx

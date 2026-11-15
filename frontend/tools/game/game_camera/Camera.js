@@ -1,4 +1,7 @@
 export class Camera {
+	static transformEnabled = true
+	static rotationDegrees = 0
+
 	static initialize() { // initialize() Mouse first
 		this.position ??= WorldPosition(0, 0)
 		this.zoom ??= 1
@@ -59,7 +62,21 @@ export class Camera {
 
 	static get transform() {
 		const { x, y } = this.offset
-		return [this.zoom, 0, 0, this.zoom, x - this.position.x * this.zoom, y - this.position.y * this.zoom]
+		const rotation = this.rotationDegrees * Math.PI / 180
+		const cosine = Math.cos(rotation)
+		const sine = Math.sin(rotation)
+		const zoom = this.transformEnabled ? this.zoom : 1
+		const position = this.transformEnabled ? this.position : { x, y }
+		const a = zoom * cosine
+		const b = zoom * sine
+		const c = -zoom * sine
+		const d = zoom * cosine
+
+		return [a, b, c, d, x - a * position.x - c * position.y, y - b * position.x - d * position.y]
+	}
+
+	static rotate(degrees) {
+		this.rotationDegrees += degrees
 	}
 
 	static follow(o) {
@@ -69,17 +86,31 @@ export class Camera {
 
 	static p(p) {
 		const { x, y } = this.offset
+		const rotation = this.rotationDegrees * Math.PI / 180
+		const cosine = Math.cos(rotation)
+		const sine = Math.sin(rotation)
+		const zoom = this.transformEnabled ? this.zoom : 1
+		const position = this.transformEnabled ? this.position : { x, y }
+		const dx = p.x - position.x
+		const dy = p.y - position.y
+
 		return new WorldPosition(
-			(p.x - this.position.x) * this.zoom + x,
-			(p.y - this.position.y) * this.zoom + y)
+			(zoom * (cosine * dx - sine * dy)) + x,
+			(zoom * (sine * dx + cosine * dy)) + y)
 	}
 
 	static update() {
-		const { x, y } = this.offset
-		this.visiblePosition.x = this.position.x - x / this.zoom
-		this.visiblePosition.y = this.position.y - y / this.zoom
-		this.visiblePosition.width = Palette.width / this.zoom
-		this.visiblePosition.height = Palette.height / this.zoom
+		const rotation = this.rotationDegrees * Math.PI / 180
+		const cosine = Math.abs(Math.cos(rotation))
+		const sine = Math.abs(Math.sin(rotation))
+		const zoom = this.transformEnabled ? this.zoom : 1
+		const position = this.transformEnabled ? this.position : this.offset
+		const halfWidth = (cosine * Palette.width + sine * Palette.height) / (2 * zoom)
+		const halfHeight = (sine * Palette.width + cosine * Palette.height) / (2 * zoom)
+		this.visiblePosition.x = position.x - halfWidth
+		this.visiblePosition.y = position.y - halfHeight
+		this.visiblePosition.width = halfWidth * 2
+		this.visiblePosition.height = halfHeight * 2
 
 		// console.log(this.position)
 	}

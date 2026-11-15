@@ -21,6 +21,15 @@ export class Mouse {
 		}
 	}
 
+	static updateFromClientPosition(clientX, clientY) {
+		this.screenX = clientX
+		this.screenY = clientY
+		const { x, y } = this.toRenderCoordinates(clientX, clientY)
+		this.latest_x = x
+		this.latest_y = y
+		this.updatePosition(x, y)
+	}
+
 	static initialize() {
 		// is it better to use window.addEventListener ?
 
@@ -34,10 +43,7 @@ export class Mouse {
 				return
 			}
 
-			this.screenX = e.clientX
-			this.screenY = e.clientY
-			const { x, y } = this.toRenderCoordinates(e.clientX, e.clientY)
-			Mouse.updatePosition(x, y)
+			this.updateFromClientPosition(e.clientX, e.clientY)
 
 			if e.target == Palette.main.canvas {
 				this.onClick(this.position)
@@ -63,22 +69,22 @@ export class Mouse {
 
 			const events = e.getCoalescedEvents()
 			const last = events[events.length - 1] || e
-			this.screenX = last.clientX
-			this.screenY = last.clientY
-			const { x, y } = this.toRenderCoordinates(last.clientX, last.clientY)
-			this.latest_x = x
-			this.latest_y = y
+			this.updateFromClientPosition(last.clientX, last.clientY)
 		})
 	}
 
 	static updatePosition(xx, yy) {
-		const inverseZoom = 1 / Camera.zoom
+		const rotation = Camera.rotationDegrees * Math.PI / 180
+		const cosine = Math.cos(rotation)
+		const sine = Math.sin(rotation)
+		const { x: offsetX, y: offsetY } = Camera.offset
+		const zoom = Camera.transformEnabled ? Camera.zoom : 1
+		const position = Camera.transformEnabled ? Camera.position : { x: offsetX, y: offsetY }
+		const x = xx - offsetX
+		const y = yy - offsetY
 
-		const x = (xx - Camera.offset.x) * inverseZoom + Camera.position.x
-		const y = (yy - Camera.offset.y) * inverseZoom + Camera.position.y
-
-		this.position.x = x.round()
-		this.position.y = y.round()
+		this.position.x = (x * cosine + y * sine) / zoom + position.x
+		this.position.y = (-x * sine + y * cosine) / zoom + position.y
 	}
 
 	static update() {
