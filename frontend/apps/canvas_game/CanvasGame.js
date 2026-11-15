@@ -7,7 +7,7 @@ export class CanvasGame {
 		Camera.follow(player.position)
 
 		const world = Sprite.world(WorldPosition(0, 0)).changeColors({
-			// "171,161,92,255": "255,255,255,255",
+			"171,161,92,255": "255,255,255,255",
 		}).setPixel(WorldPosition(2, 0, 1, 1))
 
 		const objects = Objects([
@@ -24,12 +24,12 @@ export class CanvasGame {
 			update: () => {
 				objects.update()
 				const mousePixelPosition = WorldPosition(
-					Math.floor((Mouse.position.x - world.position.x) / Scale.value),
-					Math.floor((Mouse.position.y - world.position.y) / Scale.value)
+					Math.floor((player.position.center.x - world.position.x) / Scale.value),
+					Math.floor((player.position.center.y - world.position.y) / Scale.value)
 				)
 
 				for const p of world.picturesInGroup("D3") {
-					p.setPixel(mousePixelPosition)
+					p.setPixel(Random.direction(mousePixelPosition, 5), 171,161,92)
 				}
 
 			},
