@@ -20,6 +20,8 @@ export class CanvasGame {
 		`.toHtml().css("color:white")
 
 		const objects = Objects([
+			this.sine = Sine(0.1, 0.25, 1),
+			// this.rotationSine = Sine(-30, 30, 1),
 			PopOver(h1, () => {
 				if Keyboard.w {
 					return true
@@ -36,6 +38,9 @@ export class CanvasGame {
 
 		MainCanvas.init({
 			update: () => {
+				Camera.zoom = this.sine.value
+				// Camera.rotationDegrees = this.rotationSine.value
+
 				objects.update()
 				const mousePixelPosition = WorldPosition(
 					Math.floor((player.position.center.x - world.position.x) / Scale.value),

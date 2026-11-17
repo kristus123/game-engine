@@ -75,10 +75,6 @@ export class Camera {
 		return [a, b, c, d, x - a * position.x - c * position.y, y - b * position.x - d * position.y]
 	}
 
-	static rotate(degrees) {
-		this.rotationDegrees += degrees
-	}
-
 	static follow(o) {
 		this.position = o
 		// console.log(o)

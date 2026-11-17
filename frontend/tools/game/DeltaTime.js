@@ -37,6 +37,10 @@ export class DeltaTime {
 		return this.delta * 1000
 	}
 
+	static get seconds() {
+		return this.delta
+	}
+
 	static get fps() {
 		return this.delta > 0 ? 1 / this.delta : 0
 	}
