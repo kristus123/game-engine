@@ -12,15 +12,16 @@ export class CanvasGame {
 
 
 		const h1 = `
-			<overlay-fixed>
-				<h1>hei</h1>
+			<overlay-fixed center-children>
+				<div style="width: 200px; backdrop-filter: blur(19px); background: black">
+					<h1>hei</h1>
+				</div>
 			</overlay-fixed>
 		`.toHtml().css("color:white")
 
 		const objects = Objects([
 			PopOver(h1, () => {
 				if Keyboard.w {
-					h1.worldPosition(player)
 					return true
 				}
 			}),
