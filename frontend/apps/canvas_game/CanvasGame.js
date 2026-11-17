@@ -10,7 +10,20 @@ export class CanvasGame {
 			"171,161,92,255": "255,255,255,255",
 		}).setPixel(WorldPosition(2, 0, 1, 1))
 
+
+		const h1 = `
+			<overlay-fixed>
+				<h1>hei</h1>
+			</overlay-fixed>
+		`.toHtml().css("color:white")
+
 		const objects = Objects([
+			PopOver(h1, () => {
+				if Keyboard.w {
+					h1.worldPosition(player)
+					return true
+				}
+			}),
 			player,
 			world,
 			// Snow(player.position),
@@ -36,6 +49,7 @@ export class CanvasGame {
 		})
 
 		MainCanvas.add()
+		Dom.add(h1)
 	}
 
 }

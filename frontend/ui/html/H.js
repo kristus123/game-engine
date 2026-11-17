@@ -194,6 +194,13 @@ export class H {
 		return p
 	}
 
+	static h1(text, className="na") {
+		const p = _HtmlElement("h1", className)
+		p.innerHTML = text
+
+		return p
+	}
+
 	static button(text, onClick = b => {}) {
 		const button = _HtmlElement("button", "button")
 		button.textContent = text
