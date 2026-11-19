@@ -426,7 +426,7 @@
  },
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.3.17-dev",
+  "version": "1.3.18.1-dev",
   "image": "farmerLayers.png",
   "format": "RGBA8888",
   "size": { "w": 848, "h": 16 },

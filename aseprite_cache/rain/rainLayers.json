@@ -82,7 +82,7 @@
  },
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.3.17-dev",
+  "version": "1.3.18.1-dev",
   "image": "rainLayers.png",
   "format": "I8",
   "size": { "w": 510, "h": 48 },

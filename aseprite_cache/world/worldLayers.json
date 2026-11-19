@@ -34,7 +34,7 @@
  },
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.3.17-dev",
+  "version": "1.3.18.1-dev",
   "image": "worldLayers.png",
   "format": "RGBA8888",
   "size": { "w": 1078, "h": 3032 },

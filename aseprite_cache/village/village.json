@@ -11,7 +11,7 @@
  ],
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.3.17-dev",
+  "version": "1.3.18.1-dev",
   "image": "village.png",
   "format": "I8",
   "size": { "w": 640, "h": 360 },
