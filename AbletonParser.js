@@ -42,7 +42,6 @@ export const AbletonParser = (() => {
 
 				const audioTracks = xml.find("Tracks").findAll("AudioTrack")
 				const tracks = {}
-				const missingTracks = []
 				const exportedDirectory = path.join(projectDirectory, "exported")
 
 				for (const track of audioTracks) {
@@ -52,10 +51,9 @@ export const AbletonParser = (() => {
 						continue
 					}
 
-					const filename = `${projectName} ${trackName}.wav`
+					const filename = `${projectName} ${trackName}.mp3`
 					const sourcePath = path.join(exportedDirectory, filename)
 					if (!fs.existsSync(sourcePath)) {
-						missingTracks.push(trackName)
 						continue
 					}
 
@@ -66,11 +64,6 @@ export const AbletonParser = (() => {
 					distAudioPaths.push(audioPath)
 					tracks[trackName] = { audioPath, locators }
 				}
-
-				if (missingTracks.length > 0) {
-					throw new Error(`Missing exported Ableton tracks in ${projectName}: ${missingTracks.join(", ")}`)
-				}
-
 				projects[projectName] = { bpm, locators, tracks }
 			}
 
