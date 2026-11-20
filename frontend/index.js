@@ -56,11 +56,13 @@ await Promise.all([
 	Retry(100, async (i) => {
 		loadingText.content = i + " attempts at setting up token and socket connection"
 
-		await Promise.all([
-			Network.httpCheck(),
-			Token.init(),
-		])
-		return SocketClient.connect()
+		if Env.dev {
+			await Promise.all([
+				Network.httpCheck(),
+				Token.init(),
+			])
+			return SocketClient.connect()
+		}
 	}),
 
 	// these are MainCanvas and CanvasGame assets
@@ -76,7 +78,8 @@ Ableton.init()
 document.getElementById("initialSpin").remove()
 Font.use("VT323")
 
-CanvasGame()
+// CanvasGame()
+await Page.start("hub-page")
 // switch Netlify.name ?? "kristian-translate" {
 // 	case "romskip-streamer" {
 // 		await Page.start("streamer-page")

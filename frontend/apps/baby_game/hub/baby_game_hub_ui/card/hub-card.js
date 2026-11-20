@@ -12,7 +12,10 @@ export default {
 		html.gameTitle.textContent = html.data.name.replaceAll("_", " ")
 
 		if html.data.page != "" {
-			html.button.onClick(() => Page.open(html.data.page))
+			html.button.onClick(() => {
+				Mix.master.play(Ableton.projects.voices.nor.hello)
+				Page.open(html.data.page)
+			})
 		}
 		else {
 			html.button.disabled = true

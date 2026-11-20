@@ -6,6 +6,8 @@ export class CanvasGame {
 		Controller.control(player)
 		Camera.follow(player.position)
 
+		Mix.fx.play(Mp3.sami_chill)
+
 		const world = Sprite.world(WorldPosition(0, 0)).changeColors({
 			"171,161,92,255": "255,255,255,255",
 		}).setPixel(WorldPosition(2, 0, 1, 1))

@@ -3,6 +3,8 @@ function newChallenge(html) {
 		return
 	}
 
+	Mix.master.play(Ableton.projects.voices.nor.veryGood)
+
 	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
 
@@ -17,19 +19,7 @@ function newChallenge(html) {
 		`.toHtml()
 
 		card.onMouseDown(() => {
-			Tts(number)
-			switch number {
-				case "1" {
-					Mix.master.play(Ableton.projects.voices.nordSami.one)
-				}
-				case "2" {
-					Mix.master.play(Ableton.projects.voices.nordSami.two)
-				}
-				case "3" {
-					Mix.master.play(Ableton.projects.voices.nordSami.three)
-				}
-			}
-			console.log("hei")
+			Mix.master.play(Ableton.projects.voices.nor.two)
 		})
 
 		card.invisible()

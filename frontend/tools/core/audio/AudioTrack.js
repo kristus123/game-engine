@@ -24,6 +24,7 @@ export class AudioTrack {
 	}
 
 	set gain(val) {
+		// I think this should have a minimum and maximum value but I'm not sure what those should be
 		this.input.gain.value = val
 	}
 
@@ -45,7 +46,7 @@ export class AudioTrack {
 
 		const buffer = sound?.buffer ?? sound
 		if !buffer {
-			return null
+			throw new Error("should be a buffer")
 		}
 
 		const source = SoundContext.context.createBufferSource()
@@ -62,7 +63,7 @@ export class AudioTrack {
 			source.start(0, startTime, sound.duration)
 		}
 
-		return source
+		return this
 	}
 
 	stop() {
@@ -75,5 +76,7 @@ export class AudioTrack {
 			}
 		}
 		this.sources.clear()
+
+		return this
 	}
 }

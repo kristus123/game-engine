@@ -1,3 +1,5 @@
+
+
 export default {
 	page: {
 		persistOnClose: true,
@@ -7,6 +9,11 @@ export default {
 		x: 0,
 	}),
 	onFirstDomAdd: ({ html, fields }) => {
+		document.addEventListener("pointerdown", () => {
+			Mix.fx.play(Mp3.sami_chill)
+			Mix.fx.gain = 0.5
+		}, { once: true })
+
 		fields.dragScroll = MouseDragScroll.horizontal(html.area, (x) => {
 			if html.isConnected {
 				fields.x = x
