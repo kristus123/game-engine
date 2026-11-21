@@ -2,8 +2,10 @@ export class Ableton {
 	static projects = {}
 
 	static init() {
+
 		const projects = {}
 		const locators = []
+
 		AssetPaths.ableton.forEach((projectName, projectInfo) => {
 			const project = {}
 			projectInfo.locators.forEach(locator => {

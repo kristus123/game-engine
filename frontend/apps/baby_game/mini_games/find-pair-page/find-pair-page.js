@@ -5,9 +5,10 @@ export default {
 	},
 	fields: () => ({
 		wait: false,
-		resetTimeout: null,
+		cardAudio: null,
 	}),
 	onFirstDomAdd: ({ html }) => {
+		console.log(SamiCards.hello)
 		for const name of ["one", "two", "three"] {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
@@ -23,21 +24,27 @@ export default {
 				})
 
 				card.onClick(async () => {
-					if html.fields.wait {
+					if html.fields.wait || card.data.clicked == "true" {
 						return
 					}
 
-					const ppp = Mix.master.play(Ableton.projects.voices.norwegian[name])
 					card.data.clicked = "true"
+					const audio = Mix.master.play(Ableton.projects.voices.norwegian[name])
 
 					const cardsClicked = html.cards
 						.filter(c => c.data.found == "false")
 						.filter(c => c.data.clicked == "true")
 
+					if cardsClicked.length == 1 {
+						html.fields.cardAudio = audio
+						return
+					}
+
 					if cardsClicked.length == 2 {
+						html.fields.wait = true
+						await Promise.all([html.fields.cardAudio, audio])
+
 						if cardsClicked.every(c => c.data.name == name) {
-							console.log("you find it")
-							await ppp
 							await Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
 							cardsClicked.forEach(c => {
 								c.removeOnClick()
@@ -46,14 +53,13 @@ export default {
 							})
 						}
 
-						html.fields.wait = true
-						html.fields.resetTimeout = setTimeout(() => {
-							html.cards
-								.filter(c => c.data.found == "false")
-								.forEach(c => c.data.clicked = "false")
+						await AsyncSleep(500)
 
-							html.fields.wait = false
-						}, 500)
+						html.cards
+							.filter(c => c.data.found == "false")
+							.forEach(c => c.data.clicked = "false")
+						html.fields.cardAudio = null
+						html.fields.wait = false
 					}
 
 					if html.cards.every(c => c.data.found == "true") {
@@ -86,7 +92,7 @@ export default {
 		html.cards.randomizeOrder()
 	},
 	onDomRemove: ({ html }) => {
-		clearTimeout(html.fields.resetTimeout)
 		html.fields.wait = false
+		html.fields.cardAudio = null
 	},
 }
