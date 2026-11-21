@@ -11,11 +11,11 @@ const {
 	PrepareExternalBundle,
 	AssertNoReservedKeywordsUsedInFileNames,
 	AssertUniqueFileNames,
+	CompressAudio,
 	FileWatcher,
 	ExportAseprite,
 	ServeDist,
 } = await import("#root/AllImports.js")
-
 
 Swoo.killPorts()
 
@@ -107,6 +107,7 @@ async function processRebuilds() {
 
 				if (frontendChanged) {
 					await Swoo.generateDist()
+					CompressAudio()
 					await buildExternalBundle()
 				}
 				if (backendChanged) {
@@ -194,6 +195,7 @@ async function startDevelopmentEnvironment() {
 		while (true) {
 			changedPaths.clear()
 			await Swoo.generateDist()
+			CompressAudio()
 			await ExportAseprite()
 			await buildExternalBundle()
 			GenerateBackend("DEVELOPMENT")

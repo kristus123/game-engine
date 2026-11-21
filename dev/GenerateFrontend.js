@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto"
 import { existsSync } from "node:fs"
-import { Files, Paths, Transpiler, Markdown, GenerateIndexJs, AssertUniqueFileNames, CompressWavFiles } from "#root/AllImports.js"
+import { Files, Paths, Transpiler, Markdown, GenerateIndexJs, AssertUniqueFileNames } from "#root/AllImports.js"
 
 // todo find better solution?
 // right now everyone creates their own list
@@ -54,7 +54,6 @@ export function GenerateFrontend(env) {
 	Files.replace(Paths.dist.serviceWorker_js, "RANDOM_CACHE_ID", randomUUID())
 
 	GenerateIndexJs()
-	CompressWavFiles()
 }
 
 import { fileURLToPath } from "url"

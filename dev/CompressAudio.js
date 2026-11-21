@@ -3,6 +3,13 @@ import path from "node:path"
 import { spawnSync } from "node:child_process"
 import { Paths } from "#root/Paths.js"
 
+const compressionSettings = {
+	sampleRate: 4_000,
+	channels: 1,
+	codec: "pcm_u8",
+	audioFilter: "acrusher=bits=4:mix=1:samples=4",
+}
+
 function findWavFiles(folder) {
 	let files = []
 	for (const entry of fs.readdirSync(folder, { withFileTypes: true })) {
@@ -17,7 +24,7 @@ function findWavFiles(folder) {
 	return files
 }
 
-export function CompressWavFiles() {
+export function CompressAudio() {
 	const distDirectory = path.resolve(Paths.distFolder)
 	if (!fs.existsSync(distDirectory)) {
 		return
@@ -37,10 +44,10 @@ export function CompressWavFiles() {
 			"-y",
 			"-i", originalPath,
 			"-map", "0:a:0",
-			"-ar", String(Paths.distWavCompression.sampleRate),
-			"-ac", String(Paths.distWavCompression.channels),
-			"-af", Paths.distWavCompression.audioFilter,
-			"-c:a", Paths.distWavCompression.codec,
+			"-ar", String(compressionSettings.sampleRate),
+			"-ac", String(compressionSettings.channels),
+			"-af", compressionSettings.audioFilter,
+			"-c:a", compressionSettings.codec,
 			"-f", "wav",
 			tempPath,
 		], { encoding: "utf8" })

@@ -8,13 +8,6 @@ export class Paths {
 	static asepriteCacheFolder = "aseprite_cache"
 	static transpiledBackend = "transpiledBackend"
 	static transpiledShared = "transpiledShared"
-	static distWavCompression = {
-		sampleRate: 4_000,
-		channels: 1,
-		codec: "pcm_u8",
-		audioFilter: "acrusher=bits=4:mix=1:samples=4",
-	}
-
 	static favicon = "frontend/favicon.ico"
 	static externalBundle = "bundle.js"
 	static asepriteToJson = "dev/aseprite_to_json.lua"
