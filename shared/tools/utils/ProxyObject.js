@@ -1,4 +1,4 @@
-export function ProxyObject({onPropertySet = () => {}, target = {}, onGetMissing = null} = {}) {
+export function ProxyObject({ onPropertySet = () => {}, target = {}, onGetMissing = null } = {}) {
 	return new Proxy(target, {
 		get: (obj, prop) => {
 			if (!(prop in obj)) {

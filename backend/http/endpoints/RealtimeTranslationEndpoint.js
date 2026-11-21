@@ -20,7 +20,7 @@ UnsecureRoute.realtimeTranslationSession = async ({ userId }) => {
 				expires_after: { anchor: "created_at", seconds: 600 },
 				session: {
 					model: "gpt-realtime-translate",
-						audio: {
+					audio: {
 						input: { transcription: { model: "gpt-live-transcribe" }, noise_reduction: { type: "near_field" } },
 						output: { language: "ja" },
 					},

@@ -17,8 +17,14 @@ function element() {
 	return {
 		value: "", disabled: false, hidden: false, textContent: "", listeners: {},
 		classList: { toggle() {} },
-		addEventListener(event, callback) { this.listeners[event] = callback },
-		async click() { if (!this.disabled) await this.listeners.click?.() },
+		addEventListener(event, callback) {
+			this.listeners[event] = callback
+		},
+		async click() {
+			if (!this.disabled) {
+				await this.listeners.click?.()
+			}
+		},
 	}
 }
 
@@ -30,7 +36,9 @@ function pageFixture() {
 		const recording = {
 			cancelled: false,
 			stop: async () => new Blob(["spoken phrase"], { type: "audio/webm" }),
-			cancel() { this.cancelled = true },
+			cancel() {
+				this.cancelled = true
+			},
 		}
 		recordings.push({ recording, signal })
 		return recording
@@ -107,11 +115,17 @@ test("shared Tts selects the requested language and rejects when speech is unava
 	const synthesis = {
 		getVoices: () => voices,
 		cancel() {},
-		speak(value) { utterance = value; value.onend() },
+		speak(value) {
+			utterance = value; value.onend()
+		},
 	}
 	const tts = load("frontend/tools/ai/google/Tts.js", {
 		...base, globalThis: { speechSynthesis: synthesis }, speechSynthesis: synthesis,
-		SpeechSynthesisUtterance: class { constructor(text) { this.text = text } },
+		SpeechSynthesisUtterance: class {
+			constructor(text) {
+				this.text = text
+			}
+		},
 		TtsVoices: { active: voices[0] },
 	}, "Tts")
 	await tts("こんにちは", { language: "ja" })

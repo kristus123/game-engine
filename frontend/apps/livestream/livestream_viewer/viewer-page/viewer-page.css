@@ -21,6 +21,7 @@ viewer-page > overlay-fixed > h1:empty {
 viewer-page {
 	/* Maximum crop per edge in displayed pixels. Use 0px to show the entire video. */
 	--viewer-video-crop: 100px;
+
 	/* Minimum fraction of each video dimension kept visible: 0.8 = 80%, 1 = no crop. */
 	--viewer-video-min-visible: 0.8;
 }

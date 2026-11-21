@@ -1,9 +1,9 @@
 export class PopOver {
 	constructor(html, condition) {
-		
+
 		this.objects = Objects([
 			OnChange(condition, show => {
-				if (show) {
+				if show {
 					html.show()
 				}
 				else {

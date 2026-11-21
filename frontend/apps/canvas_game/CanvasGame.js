@@ -50,7 +50,7 @@ export class CanvasGame {
 				)
 
 				for const p of world.picturesInGroup("D3") {
-					p.setPixel(Random.direction(mousePixelPosition, 5), 171,161,92)
+					p.setPixel(Random.direction(mousePixelPosition, 5), 171, 161, 92)
 				}
 
 			},
