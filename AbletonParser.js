@@ -6,7 +6,7 @@ import Xml from "./Xml.js"
 const repoDirectory = path.dirname(fileURLToPath(import.meta.url))
 const projectsDirectory = path.join(repoDirectory, "ableton")
 const outputXml = true
-const audioExtension = "mp3"
+const audioExtension = "wav"
 
 export const AbletonParser = (() => {
 	return {
@@ -59,11 +59,14 @@ export const AbletonParser = (() => {
 				const exportedPrefix = `${projectName} `
 				const exportedFiles = fs.existsSync(exportedDirectory) ? fs.readdirSync(exportedDirectory) : []
 				for (const filename of exportedFiles) {
-					if (!filename.startsWith(exportedPrefix) || !filename.endsWith(`.${audioExtension}`)) {
+					const isMasterExport = filename == `${projectName}.${audioExtension}`
+					if ((!isMasterExport && !filename.startsWith(exportedPrefix)) || !filename.endsWith(`.${audioExtension}`)) {
 						continue
 					}
 
-					const trackName = filename.slice(exportedPrefix.length, -(`.${audioExtension}`).length)
+					const trackName = isMasterExport
+						? "master"
+						: filename.slice(exportedPrefix.length, -(`.${audioExtension}`).length)
 					const sourcePath = path.join(exportedDirectory, filename)
 
 					const audioPath = `/ableton/${projectName}/${filename}`

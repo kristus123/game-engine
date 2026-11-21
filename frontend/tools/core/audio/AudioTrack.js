@@ -56,18 +56,30 @@ export class AudioTrack {
 		const source = SoundContext.context.createBufferSource()
 		source.buffer = buffer
 		source.connect(this.input)
-		source.onended = () => this.sources.delete(source)
+		let resolvePlayback
+		const playbackFinished = new Promise(resolve => resolvePlayback = resolve)
+		source.onended = () => {
+			this.sources.delete(source)
+			resolvePlayback()
+		}
 		this.sources.add(source)
 
 		const startTime = sound?.startTime ?? 0
-		if sound?.duration == null {
-			source.start(0, startTime)
+		try {
+			if sound?.duration == null {
+				source.start(0, startTime)
+			}
+			else {
+				source.start(0, startTime, sound.duration)
+			}
 		}
-		else {
-			source.start(0, startTime, sound.duration)
+		catch (error) {
+			this.sources.delete(source)
+			source.disconnect()
+			throw error
 		}
 
-		return this
+		return playbackFinished
 	}
 
 	stop() {

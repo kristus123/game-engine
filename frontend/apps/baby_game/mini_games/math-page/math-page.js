@@ -3,12 +3,11 @@ function newChallenge(html) {
 		return
 	}
 
-	Mix.master.play(Ableton.projects.voices.nor.veryGood)
 
 	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
 
-	const challenge = ["1", "2", "3"]
+	const challenge = ["one", "two", "three"]
 	const queue = Queue()
 
 	for const number of challenge.shuffle() {
@@ -19,7 +18,7 @@ function newChallenge(html) {
 		`.toHtml()
 
 		card.onMouseDown(() => {
-			Mix.master.play(Ableton.projects.voices.nor.two)
+			Mix.master.play(Ableton.projects.voices.norwegian[number])
 		})
 
 		card.invisible()
@@ -56,7 +55,7 @@ export default {
 			}
 
 			const numbers = html.list.map(card => card.data.number)
-			if !numbers.same(["1", "2", "3"]) {
+			if !numbers.same(["one", "two", "three"]) {
 				return
 			}
 
@@ -72,7 +71,12 @@ export default {
 				}))
 			}
 
-			queue.start({ onEnd: () => newChallenge(html) })
+			Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
+			queue.start({
+				onEnd: () => {
+					newChallenge(html)
+				},
+			})
 		}
 
 		newChallenge(html)

@@ -25,20 +25,8 @@ picture-and-sound-quiz-page h2 {
 	font-size: clamp(24px, 3vw, 36px);
 }
 
-picture-and-sound-quiz-page p {
+picture-and-sound-quiz-page #feedback {
 	font-size: 23px;
-}
-
-picture-and-sound-quiz-page #quiz-meta {
-	width: 100%;
-	justify-content: space-between;
-	gap: 12px;
-}
-
-picture-and-sound-quiz-page #progress {
-	width: 100%;
-	height: 20px;
-	accent-color: #397b68;
 }
 
 picture-and-sound-quiz-page #picture {
@@ -66,13 +54,15 @@ picture-and-sound-quiz-page button:active {
 	transform: scale(0.98);
 }
 
-picture-and-sound-quiz-page #choices {
+picture-and-sound-quiz-page #answers {
+	display: flex;
 	width: 100%;
+	flex-wrap: wrap;
 	align-items: stretch;
 	gap: 16px;
 }
 
-picture-and-sound-quiz-page #choices button {
+picture-and-sound-quiz-page #answers button {
 	display: flex;
 	min-width: 120px;
 	min-height: 160px;
@@ -87,10 +77,6 @@ picture-and-sound-quiz-page #choices button {
 	color: #2d403b;
 }
 
-picture-and-sound-quiz-page #choices button:disabled {
+picture-and-sound-quiz-page #answers button:disabled {
 	opacity: 1;
-}
-
-picture-and-sound-quiz-page #soundstatus {
-	font-size: 18px;
 }

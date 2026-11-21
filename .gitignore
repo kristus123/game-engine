@@ -30,5 +30,6 @@ Secrets.js
 
 
 
-# We ignore wav files and only save mp3 files to git
+# Keep source WAVs ignored, but track WAV stems exported for Ableton playback.
 *.wav
+!ableton/*/exported/*.wav

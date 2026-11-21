@@ -15,7 +15,7 @@ export const SamiCards = ProxyObject({
 		return [locator.name, {
 			text: SamiWords[word],
 			audio: {
-				norwegian: Ableton.projects.voices.nor[locator.name],
+				norwegian: Ableton.projects.voices.norwegian[locator.name],
 				nordSami: Ableton.projects.voices.nordSami[locator.name],
 				luleSami: Ableton.projects.voices.luleSami[locator.name],
 				sorSami: Ableton.projects.voices.sorSami[locator.name],

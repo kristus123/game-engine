@@ -9,7 +9,7 @@
 			<GroupTrack Id="31" SelectedToolPanel="7" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -26,7 +26,7 @@
 					<Envelopes />
 				</AutomationEnvelopes>
 				<TrackGroupId Value="-1" />
-				<TrackUnfolded Value="true" />
+				<TrackUnfolded Value="false" />
 				<DevicesListWrapper LomId="0" />
 				<ClipSlotsListWrapper LomId="0" />
 				<ArrangementClipsListWrapper LomId="0" />
@@ -183,7 +183,7 @@
 								<Max Value="127" />
 							</MidiCCOnOffThresholds>
 						</Speaker>
-						<SoloSink Value="true" />
+						<SoloSink Value="false" />
 						<PanMode Value="0" />
 						<Pan>
 							<LomId Value="0" />
@@ -418,7 +418,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="8" />
+							<TakeCounter Value="9" />
 						</Recorder>
 					</FreezeSequencer>
 				</DeviceChain>
@@ -5844,8 +5844,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="246" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="247" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="248" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="249" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="164" SecTime="0" BeatTime="0" />
@@ -5981,8 +5981,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="306" SecTime="2.3999999999999999" BeatTime="0" />
-											<WarpMarker Id="307" SecTime="2.4187499999999997" BeatTime="0.03125" />
+											<WarpMarker Id="308" SecTime="2.3999999999999999" BeatTime="0" />
+											<WarpMarker Id="309" SecTime="2.4187499999999997" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="224" SecTime="2.3999999999999999" BeatTime="0" />
@@ -6664,8 +6664,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="692" SecTime="7.1999999999999993" BeatTime="0" />
-											<WarpMarker Id="693" SecTime="7.2187499999999991" BeatTime="0.03125" />
+											<WarpMarker Id="694" SecTime="7.1999999999999993" BeatTime="0" />
+											<WarpMarker Id="695" SecTime="7.2187499999999991" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="610" SecTime="7.1999999999999993" BeatTime="0" />
@@ -7347,8 +7347,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="324" SecTime="10.824300572948852" BeatTime="0" />
-											<WarpMarker Id="325" SecTime="10.843050572948853" BeatTime="0.03125" />
+											<WarpMarker Id="326" SecTime="10.824300572948852" BeatTime="0" />
+											<WarpMarker Id="327" SecTime="10.843050572948853" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="242" SecTime="10.824300572948852" BeatTime="0" />
@@ -7484,8 +7484,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="348" SecTime="12.045625329924546" BeatTime="0" />
-											<WarpMarker Id="349" SecTime="12.064375329924546" BeatTime="0.03125" />
+											<WarpMarker Id="350" SecTime="12.045625329924546" BeatTime="0" />
+											<WarpMarker Id="351" SecTime="12.064375329924546" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="266" SecTime="12.045625329924546" BeatTime="0" />
@@ -7621,8 +7621,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="364" SecTime="13.296053326156935" BeatTime="0" />
-											<WarpMarker Id="365" SecTime="13.314803326156936" BeatTime="0.03125" />
+											<WarpMarker Id="366" SecTime="13.296053326156935" BeatTime="0" />
+											<WarpMarker Id="367" SecTime="13.314803326156936" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="282" SecTime="13.296053326156935" BeatTime="0" />
@@ -8304,8 +8304,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="322" SecTime="79.999804258241753" BeatTime="0" />
-											<WarpMarker Id="323" SecTime="80.01855425824175" BeatTime="0.03125" />
+											<WarpMarker Id="324" SecTime="79.999804258241753" BeatTime="0" />
+											<WarpMarker Id="325" SecTime="80.01855425824175" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="240" SecTime="79.999804258241753" BeatTime="0" />
@@ -8441,8 +8441,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="302" SecTime="85.550181225024957" BeatTime="0" />
-											<WarpMarker Id="303" SecTime="85.568931225024954" BeatTime="0.03125" />
+											<WarpMarker Id="304" SecTime="85.550181225024957" BeatTime="0" />
+											<WarpMarker Id="305" SecTime="85.568931225024954" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="220" SecTime="85.550181225024957" BeatTime="0" />
@@ -8578,8 +8578,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="0.9473562241" />
 										<WarpMarkers>
-											<WarpMarker Id="82" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="83" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="84" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="85" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="0" SecTime="0" BeatTime="3.0276338245088246" />
@@ -9261,8 +9261,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="670" SecTime="99.447845435814102" BeatTime="0" />
-											<WarpMarker Id="671" SecTime="99.466595435814099" BeatTime="0.03125" />
+											<WarpMarker Id="672" SecTime="99.447845435814102" BeatTime="0" />
+											<WarpMarker Id="673" SecTime="99.466595435814099" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="588" SecTime="99.447845435814102" BeatTime="0" />
@@ -9398,8 +9398,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="410" SecTime="103.55788726898102" BeatTime="0" />
-											<WarpMarker Id="411" SecTime="103.57663726898102" BeatTime="0.03125" />
+											<WarpMarker Id="412" SecTime="103.55788726898102" BeatTime="0" />
+											<WarpMarker Id="413" SecTime="103.57663726898102" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="328" SecTime="103.55788726898102" BeatTime="0" />
@@ -9618,7 +9618,7 @@
 			<AudioTrack Id="19" SelectedToolPanel="3" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="true" />
+				<IsContentSelectedInDocument Value="false" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -10081,8 +10081,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="464" SecTime="129.81564914405561" BeatTime="0" />
-											<WarpMarker Id="465" SecTime="129.83439914405562" BeatTime="0.03125" />
+											<WarpMarker Id="466" SecTime="129.81564914405561" BeatTime="0" />
+											<WarpMarker Id="467" SecTime="129.83439914405562" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="382" SecTime="129.81564914405561" BeatTime="0" />
@@ -10218,8 +10218,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1282" SecTime="143.27965673495385" BeatTime="0" />
-											<WarpMarker Id="1283" SecTime="143.29840673495386" BeatTime="0.03125" />
+											<WarpMarker Id="1284" SecTime="143.27965673495385" BeatTime="0" />
+											<WarpMarker Id="1285" SecTime="143.29840673495386" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="542" SecTime="143.27965673495385" BeatTime="0" />
@@ -10355,8 +10355,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="978" SecTime="166.18423263364622" BeatTime="0" />
-											<WarpMarker Id="979" SecTime="166.20298263364623" BeatTime="0.03125" />
+											<WarpMarker Id="980" SecTime="166.18423263364622" BeatTime="0" />
+											<WarpMarker Id="981" SecTime="166.20298263364623" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="702" SecTime="166.18423263364622" BeatTime="0" />
@@ -10492,8 +10492,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="378" SecTime="171.77526384311292" BeatTime="0" />
-											<WarpMarker Id="379" SecTime="171.79401384311294" BeatTime="0.03125" />
+											<WarpMarker Id="380" SecTime="171.77526384311292" BeatTime="0" />
+											<WarpMarker Id="381" SecTime="171.79401384311294" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="294" SecTime="171.77526384311292" BeatTime="0" />
@@ -10629,8 +10629,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="476" SecTime="176.46182122045411" BeatTime="0" />
-											<WarpMarker Id="477" SecTime="176.48057122045412" BeatTime="0.03125" />
+											<WarpMarker Id="478" SecTime="176.46182122045411" BeatTime="0" />
+											<WarpMarker Id="479" SecTime="176.48057122045412" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="386" SecTime="176.46182122045411" BeatTime="0" />
@@ -10766,8 +10766,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="603" SecTime="190.40687326736631" BeatTime="0" />
-											<WarpMarker Id="604" SecTime="190.42562326736632" BeatTime="0.03125" />
+											<WarpMarker Id="605" SecTime="190.40687326736631" BeatTime="0" />
+											<WarpMarker Id="606" SecTime="190.42562326736632" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="511" SecTime="190.40687326736631" BeatTime="0" />
@@ -10903,8 +10903,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="552" SecTime="206.02092284238859" BeatTime="0" />
-											<WarpMarker Id="553" SecTime="206.0396728423886" BeatTime="0.03125" />
+											<WarpMarker Id="554" SecTime="206.02092284238859" BeatTime="0" />
+											<WarpMarker Id="555" SecTime="206.0396728423886" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="246" SecTime="205.91593640734263" BeatTime="0" />
@@ -11040,8 +11040,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="428" SecTime="215.68448484763042" BeatTime="0" />
-											<WarpMarker Id="429" SecTime="215.70323484763043" BeatTime="0.03125" />
+											<WarpMarker Id="430" SecTime="215.68448484763042" BeatTime="0" />
+											<WarpMarker Id="431" SecTime="215.70323484763043" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="246" SecTime="215.56334665334663" BeatTime="0" />
@@ -11177,8 +11177,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="2456" SecTime="221.82211512445886" BeatTime="0" />
-											<WarpMarker Id="2457" SecTime="221.84086512445887" BeatTime="0.03125" />
+											<WarpMarker Id="2458" SecTime="221.82211512445886" BeatTime="0" />
+											<WarpMarker Id="2459" SecTime="221.84086512445887" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="2362" SecTime="221.82211512445886" BeatTime="0" />
@@ -11314,8 +11314,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="624" SecTime="229.15514317801274" BeatTime="0" />
-											<WarpMarker Id="625" SecTime="229.17389317801275" BeatTime="0.03125" />
+											<WarpMarker Id="626" SecTime="229.15514317801274" BeatTime="0" />
+											<WarpMarker Id="627" SecTime="229.17389317801275" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="514" SecTime="229.15514317801274" BeatTime="0" />
@@ -12273,8 +12273,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="714" SecTime="288.47342786645299" BeatTime="0" />
-											<WarpMarker Id="715" SecTime="288.49217786645301" BeatTime="0.03125" />
+											<WarpMarker Id="716" SecTime="288.47342786645299" BeatTime="0" />
+											<WarpMarker Id="717" SecTime="288.49217786645301" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="266" SecTime="288.24212787212787" BeatTime="0" />
@@ -12410,8 +12410,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="440" SecTime="311.44779490251136" BeatTime="0" />
-											<WarpMarker Id="441" SecTime="311.46654490251137" BeatTime="0.03125" />
+											<WarpMarker Id="442" SecTime="311.44779490251136" BeatTime="0" />
+											<WarpMarker Id="443" SecTime="311.46654490251137" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="338" SecTime="311.44779490251136" BeatTime="0" />
@@ -12547,8 +12547,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1270" SecTime="360.2477752943721" BeatTime="0" />
-											<WarpMarker Id="1271" SecTime="360.26652529437212" BeatTime="0.03125" />
+											<WarpMarker Id="1272" SecTime="360.2477752943721" BeatTime="0" />
+											<WarpMarker Id="1273" SecTime="360.26652529437212" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1168" SecTime="360.2477752943721" BeatTime="0" />
@@ -12684,8 +12684,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="818" SecTime="419.74846653346651" BeatTime="0" />
-											<WarpMarker Id="819" SecTime="419.76721653346652" BeatTime="0.03125" />
+											<WarpMarker Id="820" SecTime="419.74846653346651" BeatTime="0" />
+											<WarpMarker Id="821" SecTime="419.76721653346652" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="716" SecTime="419.74846653346651" BeatTime="0" />
@@ -12821,8 +12821,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="616" SecTime="452.40475964659248" BeatTime="0" />
-											<WarpMarker Id="617" SecTime="452.42350964659249" BeatTime="0.03125" />
+											<WarpMarker Id="618" SecTime="452.40475964659248" BeatTime="0" />
+											<WarpMarker Id="619" SecTime="452.42350964659249" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="506" SecTime="452.40475964659248" BeatTime="0" />
@@ -12958,8 +12958,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1892" SecTime="486.80398367571013" BeatTime="0" />
-											<WarpMarker Id="1893" SecTime="486.82273367571014" BeatTime="0.03125" />
+											<WarpMarker Id="1894" SecTime="486.80398367571013" BeatTime="0" />
+											<WarpMarker Id="1895" SecTime="486.82273367571014" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1774" SecTime="486.80398367571013" BeatTime="0" />
@@ -13095,8 +13095,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1494" SecTime="495.63462553071929" BeatTime="0" />
-											<WarpMarker Id="1495" SecTime="495.6533755307193" BeatTime="0.03125" />
+											<WarpMarker Id="1496" SecTime="495.63462553071929" BeatTime="0" />
+											<WarpMarker Id="1497" SecTime="495.6533755307193" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1392" SecTime="495.63462553071929" BeatTime="0" />
@@ -13232,8 +13232,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1426" SecTime="501.61610039037703" BeatTime="0" />
-											<WarpMarker Id="1427" SecTime="501.63485039037704" BeatTime="0.03125" />
+											<WarpMarker Id="1428" SecTime="501.61610039037703" BeatTime="0" />
+											<WarpMarker Id="1429" SecTime="501.63485039037704" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1324" SecTime="501.61610039037703" BeatTime="0" />
@@ -13369,8 +13369,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="526" SecTime="513.68575352597361" BeatTime="0" />
-											<WarpMarker Id="527" SecTime="513.70450352597356" BeatTime="0.03125" />
+											<WarpMarker Id="528" SecTime="513.68575352597361" BeatTime="0" />
+											<WarpMarker Id="529" SecTime="513.70450352597356" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="424" SecTime="513.68575352597361" BeatTime="0" />
@@ -13506,8 +13506,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="750" SecTime="518.50796344280718" BeatTime="0" />
-											<WarpMarker Id="751" SecTime="518.52671344280714" BeatTime="0.03125" />
+											<WarpMarker Id="752" SecTime="518.50796344280718" BeatTime="0" />
+											<WarpMarker Id="753" SecTime="518.52671344280714" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="648" SecTime="518.50796344280718" BeatTime="0" />
@@ -13643,8 +13643,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="569" SecTime="527.1023857768281" BeatTime="0" />
-											<WarpMarker Id="570" SecTime="527.12113577682805" BeatTime="0.03125" />
+											<WarpMarker Id="571" SecTime="527.1023857768281" BeatTime="0" />
+											<WarpMarker Id="572" SecTime="527.12113577682805" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="467" SecTime="527.1023857768281" BeatTime="0" />
@@ -13780,8 +13780,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="610" SecTime="532.29547714471869" BeatTime="0" />
-											<WarpMarker Id="611" SecTime="532.31422714471864" BeatTime="0.03125" />
+											<WarpMarker Id="612" SecTime="532.29547714471869" BeatTime="0" />
+											<WarpMarker Id="613" SecTime="532.31422714471864" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="504" SecTime="532.29547714471869" BeatTime="0" />
@@ -13917,8 +13917,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="0.9443926215" />
 										<WarpMarkers>
-											<WarpMarker Id="308" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="309" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="310" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="311" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="204" SecTime="0" BeatTime="0" />
@@ -14054,8 +14054,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="480" SecTime="552.29620259224396" BeatTime="0" />
-											<WarpMarker Id="481" SecTime="552.31495259224391" BeatTime="0.03125" />
+											<WarpMarker Id="482" SecTime="552.29620259224396" BeatTime="0" />
+											<WarpMarker Id="483" SecTime="552.31495259224391" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="350" SecTime="552.22489775849147" BeatTime="0" />
@@ -14191,8 +14191,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="0.9397351742" />
 										<WarpMarkers>
-											<WarpMarker Id="222" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="223" SecTime="0.0187499999999999993" BeatTime="0.03125" />
+											<WarpMarker Id="224" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="225" SecTime="0.0187499999999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="118" SecTime="0" BeatTime="0" />
@@ -14328,8 +14328,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="454" SecTime="572.70340409590381" BeatTime="0" />
-											<WarpMarker Id="455" SecTime="572.72215409590376" BeatTime="0.03125" />
+											<WarpMarker Id="456" SecTime="572.70340409590381" BeatTime="0" />
+											<WarpMarker Id="457" SecTime="572.72215409590376" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="350" SecTime="572.70340409590381" BeatTime="0" />
@@ -14465,8 +14465,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1244" SecTime="580.86605243714621" BeatTime="0" />
-											<WarpMarker Id="1245" SecTime="580.88480243714616" BeatTime="0.03125" />
+											<WarpMarker Id="1246" SecTime="580.86605243714621" BeatTime="0" />
+											<WarpMarker Id="1247" SecTime="580.88480243714616" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1140" SecTime="580.86605243714621" BeatTime="0" />
@@ -14602,8 +14602,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="570" SecTime="585.49367166519471" BeatTime="0" />
-											<WarpMarker Id="571" SecTime="585.51242166519467" BeatTime="0.03125" />
+											<WarpMarker Id="572" SecTime="585.49367166519471" BeatTime="0" />
+											<WarpMarker Id="573" SecTime="585.51242166519467" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="466" SecTime="585.49367166519471" BeatTime="0" />
@@ -14739,8 +14739,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="546" SecTime="604.94214142875762" BeatTime="0" />
-											<WarpMarker Id="547" SecTime="604.96089142875758" BeatTime="0.03125" />
+											<WarpMarker Id="548" SecTime="604.94214142875762" BeatTime="0" />
+											<WarpMarker Id="549" SecTime="604.96089142875758" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="442" SecTime="604.94214142875762" BeatTime="0" />
@@ -14876,8 +14876,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="608" SecTime="609.09349853932281" BeatTime="0" />
-											<WarpMarker Id="609" SecTime="609.11224853932276" BeatTime="0.03125" />
+											<WarpMarker Id="610" SecTime="609.09349853932281" BeatTime="0" />
+											<WarpMarker Id="611" SecTime="609.11224853932276" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="504" SecTime="609.09349853932281" BeatTime="0" />
@@ -15013,8 +15013,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="0.8815297484" />
 										<WarpMarkers>
-											<WarpMarker Id="822" SecTime="620.03517919699743" BeatTime="0" />
-											<WarpMarker Id="823" SecTime="620.05392919699739" BeatTime="0.03125" />
+											<WarpMarker Id="824" SecTime="620.03517919699743" BeatTime="0" />
+											<WarpMarker Id="825" SecTime="620.05392919699739" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="718" SecTime="620.03517919699743" BeatTime="0" />
@@ -15150,8 +15150,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="672" SecTime="661.85737614711115" BeatTime="0" />
-											<WarpMarker Id="673" SecTime="661.87612614711111" BeatTime="0.03125" />
+											<WarpMarker Id="674" SecTime="661.85737614711115" BeatTime="0" />
+											<WarpMarker Id="675" SecTime="661.87612614711111" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="568" SecTime="661.85737614711115" BeatTime="0" />
@@ -15287,8 +15287,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="728" SecTime="683.93003280637868" BeatTime="0" />
-											<WarpMarker Id="729" SecTime="683.94878280637863" BeatTime="0.03125" />
+											<WarpMarker Id="730" SecTime="683.93003280637868" BeatTime="0" />
+											<WarpMarker Id="731" SecTime="683.94878280637863" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="624" SecTime="683.93003280637868" BeatTime="0" />
@@ -15424,8 +15424,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="596" SecTime="691.8174136499174" BeatTime="0" />
-											<WarpMarker Id="597" SecTime="691.83616364991735" BeatTime="0.03125" />
+											<WarpMarker Id="598" SecTime="691.8174136499174" BeatTime="0" />
+											<WarpMarker Id="599" SecTime="691.83616364991735" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="492" SecTime="691.8174136499174" BeatTime="0" />
@@ -15561,8 +15561,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="869" SecTime="696.2072706731484" BeatTime="0" />
-											<WarpMarker Id="870" SecTime="696.22602067314835" BeatTime="0.03125" />
+											<WarpMarker Id="871" SecTime="696.2072706731484" BeatTime="0" />
+											<WarpMarker Id="872" SecTime="696.22602067314835" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="765" SecTime="696.2072706731484" BeatTime="0" />
@@ -15698,8 +15698,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="664" SecTime="699.74086250845608" BeatTime="0" />
-											<WarpMarker Id="665" SecTime="699.75961250845603" BeatTime="0.03125" />
+											<WarpMarker Id="666" SecTime="699.74086250845608" BeatTime="0" />
+											<WarpMarker Id="667" SecTime="699.75961250845603" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="560" SecTime="699.74086250845608" BeatTime="0" />
@@ -15835,8 +15835,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1273" SecTime="703.59769059656594" BeatTime="0" />
-											<WarpMarker Id="1274" SecTime="703.61644059656589" BeatTime="0.03125" />
+											<WarpMarker Id="1275" SecTime="703.59769059656594" BeatTime="0" />
+											<WarpMarker Id="1276" SecTime="703.61644059656589" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1169" SecTime="703.59769059656594" BeatTime="0" />
@@ -15972,8 +15972,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="768" SecTime="709.28452960643244" BeatTime="0" />
-											<WarpMarker Id="769" SecTime="709.3032796064324" BeatTime="0.03125" />
+											<WarpMarker Id="770" SecTime="709.28452960643244" BeatTime="0" />
+											<WarpMarker Id="771" SecTime="709.3032796064324" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="664" SecTime="709.28452960643244" BeatTime="0" />
@@ -16109,9 +16109,9 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1581" SecTime="671.35183995233592" BeatTime="-63.808520906177158" />
-											<WarpMarker Id="1579" SecTime="709.63695249604223" BeatTime="0" />
-											<WarpMarker Id="1580" SecTime="709.65570249604218" BeatTime="0.03125" />
+											<WarpMarker Id="1584" SecTime="671.35183995233592" BeatTime="-63.808520906177158" />
+											<WarpMarker Id="1582" SecTime="709.63695249604223" BeatTime="0" />
+											<WarpMarker Id="1583" SecTime="709.65570249604218" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1455" SecTime="670.15264820658172" BeatTime="-65.80717381576757" />
@@ -16248,8 +16248,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="828" SecTime="716.74516565892804" BeatTime="0" />
-											<WarpMarker Id="829" SecTime="716.763915658928" BeatTime="0.03125" />
+											<WarpMarker Id="830" SecTime="716.74516565892804" BeatTime="0" />
+											<WarpMarker Id="831" SecTime="716.763915658928" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="724" SecTime="716.74516565892804" BeatTime="0" />
@@ -16385,8 +16385,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="826" SecTime="721.94651294243363" BeatTime="0" />
-											<WarpMarker Id="827" SecTime="721.96526294243358" BeatTime="0.03125" />
+											<WarpMarker Id="828" SecTime="721.94651294243363" BeatTime="0" />
+											<WarpMarker Id="829" SecTime="721.96526294243358" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="722" SecTime="721.94651294243363" BeatTime="0" />
@@ -16522,8 +16522,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="668" SecTime="725.68115894939331" BeatTime="0" />
-											<WarpMarker Id="669" SecTime="725.69990894939326" BeatTime="0.03125" />
+											<WarpMarker Id="670" SecTime="725.68115894939331" BeatTime="0" />
+											<WarpMarker Id="671" SecTime="725.69990894939326" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="564" SecTime="725.68115894939331" BeatTime="0" />
@@ -16659,8 +16659,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1300" SecTime="729.2428769959721" BeatTime="0" />
-											<WarpMarker Id="1301" SecTime="729.26162699597205" BeatTime="0.03125" />
+											<WarpMarker Id="1302" SecTime="729.2428769959721" BeatTime="0" />
+											<WarpMarker Id="1303" SecTime="729.26162699597205" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1196" SecTime="729.2428769959721" BeatTime="0" />
@@ -16796,8 +16796,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="674" SecTime="758.14946974507393" BeatTime="0" />
-											<WarpMarker Id="675" SecTime="758.16821974507388" BeatTime="0.03125" />
+											<WarpMarker Id="676" SecTime="758.14946974507393" BeatTime="0" />
+											<WarpMarker Id="677" SecTime="758.16821974507388" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="570" SecTime="758.14946974507393" BeatTime="0" />
@@ -16933,8 +16933,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1522" SecTime="761.92022742882125" BeatTime="0" />
-											<WarpMarker Id="1523" SecTime="761.9389774288212" BeatTime="0.03125" />
+											<WarpMarker Id="1524" SecTime="761.92022742882125" BeatTime="0" />
+											<WarpMarker Id="1525" SecTime="761.9389774288212" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1418" SecTime="761.92022742882125" BeatTime="0" />
@@ -17070,8 +17070,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="825" SecTime="765.73347368957832" BeatTime="0" />
-											<WarpMarker Id="826" SecTime="765.75222368957827" BeatTime="0.03125" />
+											<WarpMarker Id="827" SecTime="765.73347368957832" BeatTime="0" />
+											<WarpMarker Id="828" SecTime="765.75222368957827" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="721" SecTime="765.73347368957832" BeatTime="0" />
@@ -17207,8 +17207,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="552" SecTime="769.11573957292705" BeatTime="0" />
-											<WarpMarker Id="553" SecTime="769.13448957292701" BeatTime="0.03125" />
+											<WarpMarker Id="554" SecTime="769.11573957292705" BeatTime="0" />
+											<WarpMarker Id="555" SecTime="769.13448957292701" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="448" SecTime="769.11573957292705" BeatTime="0" />
@@ -17344,8 +17344,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="958" SecTime="776.24588895312422" BeatTime="0" />
-											<WarpMarker Id="959" SecTime="776.26463895312418" BeatTime="0.03125" />
+											<WarpMarker Id="960" SecTime="776.24588895312422" BeatTime="0" />
+											<WarpMarker Id="961" SecTime="776.26463895312418" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="854" SecTime="776.24588895312422" BeatTime="0" />
@@ -17481,8 +17481,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1094" SecTime="779.57115427958433" BeatTime="0" />
-											<WarpMarker Id="1095" SecTime="779.58990427958429" BeatTime="0.03125" />
+											<WarpMarker Id="1096" SecTime="779.57115427958433" BeatTime="0" />
+											<WarpMarker Id="1097" SecTime="779.58990427958429" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="990" SecTime="779.57115427958433" BeatTime="0" />
@@ -17618,8 +17618,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="612" SecTime="783.87971763431324" BeatTime="0" />
-											<WarpMarker Id="613" SecTime="783.89846763431319" BeatTime="0.03125" />
+											<WarpMarker Id="614" SecTime="783.87971763431324" BeatTime="0" />
+											<WarpMarker Id="615" SecTime="783.89846763431319" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="508" SecTime="783.87971763431324" BeatTime="0" />
@@ -17755,8 +17755,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="564" SecTime="791.18564560439563" BeatTime="0" />
-											<WarpMarker Id="565" SecTime="791.20439560439559" BeatTime="0.03125" />
+											<WarpMarker Id="566" SecTime="791.18564560439563" BeatTime="0" />
+											<WarpMarker Id="567" SecTime="791.20439560439559" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="460" SecTime="791.18564560439563" BeatTime="0" />
@@ -17892,8 +17892,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="568" SecTime="800.42143216158831" BeatTime="0" />
-											<WarpMarker Id="569" SecTime="800.44018216158827" BeatTime="0.03125" />
+											<WarpMarker Id="570" SecTime="800.42143216158831" BeatTime="0" />
+											<WarpMarker Id="571" SecTime="800.44018216158827" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="464" SecTime="800.42143216158831" BeatTime="0" />
@@ -18029,8 +18029,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="568" SecTime="804.0087601461039" BeatTime="0" />
-											<WarpMarker Id="569" SecTime="804.02751014610385" BeatTime="0.03125" />
+											<WarpMarker Id="570" SecTime="804.0087601461039" BeatTime="0" />
+											<WarpMarker Id="571" SecTime="804.02751014610385" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="464" SecTime="804.0087601461039" BeatTime="0" />
@@ -18166,8 +18166,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="570" SecTime="807.46052026098891" BeatTime="0" />
-											<WarpMarker Id="571" SecTime="807.47927026098887" BeatTime="0.03125" />
+											<WarpMarker Id="572" SecTime="807.46052026098891" BeatTime="0" />
+											<WarpMarker Id="573" SecTime="807.47927026098887" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="466" SecTime="807.46052026098891" BeatTime="0" />
@@ -18303,8 +18303,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="822" SecTime="831.95511093292816" BeatTime="0" />
-											<WarpMarker Id="823" SecTime="831.97386093292812" BeatTime="0.03125" />
+											<WarpMarker Id="824" SecTime="831.95511093292816" BeatTime="0" />
+											<WarpMarker Id="825" SecTime="831.97386093292812" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="718" SecTime="831.95511093292816" BeatTime="0" />
@@ -18440,8 +18440,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="610" SecTime="842.15473356469442" BeatTime="0" />
-											<WarpMarker Id="611" SecTime="842.17348356469438" BeatTime="0.03125" />
+											<WarpMarker Id="612" SecTime="842.15473356469442" BeatTime="0" />
+											<WarpMarker Id="613" SecTime="842.17348356469438" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="498" SecTime="842.15473356469442" BeatTime="0" />
@@ -18577,8 +18577,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="624" SecTime="867.01346315270905" BeatTime="0" />
-											<WarpMarker Id="625" SecTime="867.03221315270901" BeatTime="0.03125" />
+											<WarpMarker Id="626" SecTime="867.01346315270905" BeatTime="0" />
+											<WarpMarker Id="627" SecTime="867.03221315270901" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="516" SecTime="867.01346315270905" BeatTime="0" />
@@ -18714,8 +18714,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="700" SecTime="875.13370228007716" BeatTime="0" />
-											<WarpMarker Id="701" SecTime="875.15245228007711" BeatTime="0.03125" />
+											<WarpMarker Id="702" SecTime="875.13370228007716" BeatTime="0" />
+											<WarpMarker Id="703" SecTime="875.15245228007711" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="552" SecTime="875.13370228007716" BeatTime="0" />
@@ -18851,8 +18851,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="689" SecTime="884.30223963536469" BeatTime="0" />
-											<WarpMarker Id="690" SecTime="884.32098963536464" BeatTime="0.03125" />
+											<WarpMarker Id="691" SecTime="884.30223963536469" BeatTime="0" />
+											<WarpMarker Id="692" SecTime="884.32098963536464" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="524" SecTime="884.29980425824181" BeatTime="0" />
@@ -18988,9 +18988,9 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="822" SecTime="833.60393085747762" BeatTime="-90.569386602980359" />
-											<WarpMarker Id="819" SecTime="887.94556281926589" BeatTime="0" />
-											<WarpMarker Id="820" SecTime="887.96431281926584" BeatTime="0.03125" />
+											<WarpMarker Id="825" SecTime="833.60393085747762" BeatTime="-90.569386602980359" />
+											<WarpMarker Id="823" SecTime="887.94556281926589" BeatTime="0" />
+											<WarpMarker Id="824" SecTime="887.96431281926584" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="640" SecTime="831.09556281926587" BeatTime="-94.75" />
@@ -19673,8 +19673,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1035" SecTime="21.211086633377423" BeatTime="0" />
-											<WarpMarker Id="1036" SecTime="21.229836633377424" BeatTime="0.03125" />
+											<WarpMarker Id="1037" SecTime="21.211086633377423" BeatTime="0" />
+											<WarpMarker Id="1038" SecTime="21.229836633377424" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="766" SecTime="21.198990448312486" BeatTime="0" />
@@ -19810,8 +19810,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="484" SecTime="22.199999999999999" BeatTime="0" />
-											<WarpMarker Id="485" SecTime="22.21875" BeatTime="0.03125" />
+											<WarpMarker Id="486" SecTime="22.199999999999999" BeatTime="0" />
+											<WarpMarker Id="487" SecTime="22.21875" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="316" SecTime="22.199999999999999" BeatTime="0" />
@@ -19947,8 +19947,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="474" SecTime="24.683826676672499" BeatTime="0" />
-											<WarpMarker Id="475" SecTime="24.7025766766725" BeatTime="0.03125" />
+											<WarpMarker Id="476" SecTime="24.683826676672499" BeatTime="0" />
+											<WarpMarker Id="477" SecTime="24.7025766766725" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="316" SecTime="24.599999999999998" BeatTime="0" />
@@ -20764,8 +20764,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="626" SecTime="58.199999999999996" BeatTime="0" />
-											<WarpMarker Id="627" SecTime="58.218749999999993" BeatTime="0.03125" />
+											<WarpMarker Id="628" SecTime="58.199999999999996" BeatTime="0" />
+											<WarpMarker Id="629" SecTime="58.218749999999993" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="440" SecTime="58.199999999999996" BeatTime="0" />
@@ -20901,8 +20901,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="486" SecTime="82.212304258241744" BeatTime="0" />
-											<WarpMarker Id="487" SecTime="82.231054258241741" BeatTime="0.03125" />
+											<WarpMarker Id="488" SecTime="82.212304258241744" BeatTime="0" />
+											<WarpMarker Id="489" SecTime="82.231054258241741" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="348" SecTime="82.212304258241744" BeatTime="0" />
@@ -21038,8 +21038,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1411" SecTime="276.86955400119274" BeatTime="0" />
-											<WarpMarker Id="1412" SecTime="276.88830400119275" BeatTime="0.03125" />
+											<WarpMarker Id="1413" SecTime="276.86955400119274" BeatTime="0" />
+											<WarpMarker Id="1414" SecTime="276.88830400119275" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1217" SecTime="276.86955400119274" BeatTime="0" />
@@ -21175,8 +21175,8 @@
 										<PitchFine Value="0" />
 										<SampleVolume Value="1" />
 										<WarpMarkers>
-											<WarpMarker Id="1466" SecTime="324.81365738271279" BeatTime="0" />
-											<WarpMarker Id="1467" SecTime="324.8324073827128" BeatTime="0.03125" />
+											<WarpMarker Id="1468" SecTime="324.81365738271279" BeatTime="0" />
+											<WarpMarker Id="1469" SecTime="324.8324073827128" BeatTime="0.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched>
 											<WarpMarker Id="1304" SecTime="324.81365738271279" BeatTime="0" />
@@ -21395,7 +21395,7 @@
 			<AudioTrack Id="28" SelectedToolPanel="7" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -21927,7 +21927,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="8" />
+							<TakeCounter Value="9" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -25103,7 +25103,7 @@
 			<AudioTrack Id="29" SelectedToolPanel="7" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -25635,7 +25635,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="8" />
+							<TakeCounter Value="9" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -29796,7 +29796,7 @@
 			<AudioTrack Id="30" SelectedToolPanel="7" SelectedTransformationName="" SelectedGeneratorName="">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
-				<IsContentSelectedInDocument Value="false" />
+				<IsContentSelectedInDocument Value="true" />
 				<PreferredContentViewMode Value="0" />
 				<TrackDelay>
 					<Value Value="0" />
@@ -30328,7 +30328,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="8" />
+							<TakeCounter Value="9" />
 						</Recorder>
 					</FreezeSequencer>
 					<DeviceChain>
@@ -32725,7 +32725,7 @@
 						<SampleOffsetModulationScrollPosition Value="-1073741824" />
 						<Recorder>
 							<IsArmed Value="false" />
-							<TakeCounter Value="4" />
+							<TakeCounter Value="5" />
 						</Recorder>
 					</AudioSequencer>
 				</FreezeSequencer>
@@ -33805,7 +33805,7 @@
 			<LoopStart Value="12" />
 			<LoopLength Value="1" />
 			<LoopIsSongStart Value="false" />
-			<CurrentTime Value="99.706403512988331" />
+			<CurrentTime Value="60" />
 			<PunchIn Value="false" />
 			<PunchOut Value="false" />
 			<MetronomeTickDuration Value="0" />
@@ -33831,14 +33831,14 @@
 		<InKey Value="true" />
 		<SmpteFormat Value="0" />
 		<TimeSelection>
-			<AnchorTime Value="89.334823769980019" />
-			<OtherTime Value="89.334823769980019" />
+			<AnchorTime Value="60" />
+			<OtherTime Value="60" />
 		</TimeSelection>
 		<SequencerNavigator>
 			<BeatTimeHelper>
-				<CurrentZoom Value="0.0292929292929292942" />
+				<CurrentZoom Value="0.0120902600448173428" />
 			</BeatTimeHelper>
-			<ScrollerPos X="-2705" Y="-499" />
+			<ScrollerPos X="-4428" Y="0" />
 			<ClientSize X="1400" Y="759" />
 		</SequencerNavigator>
 		<IsContentSplitterOpen Value="true" />
@@ -34462,7 +34462,7 @@
 		<SoloInPlace Value="true" />
 		<CrossfadeCurve Value="2" />
 		<LatencyCompensation Value="2" />
-		<HighlightedTrackIndex Value="7" />
+		<HighlightedTrackIndex Value="11" />
 		<GroovePool>
 			<LomId Value="0" />
 			<Grooves>
@@ -34677,11 +34677,11 @@
 		<NoteAlgorithms>
 			<ArpeggiateAlgorithm Id="0">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="105" Name="Rate" />
-					<NamedRemoteableKeyMidi Id="106" Name="Steps" />
-					<NamedRemoteableKeyMidi Id="107" Name="Distance" />
-					<NamedRemoteableKeyMidi Id="108" Name="Gate" />
-					<NamedRemoteableKeyMidi Id="109" Name="Style" />
+					<NamedRemoteableKeyMidi Id="110" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="111" Name="Steps" />
+					<NamedRemoteableKeyMidi Id="112" Name="Distance" />
+					<NamedRemoteableKeyMidi Id="113" Name="Gate" />
+					<NamedRemoteableKeyMidi Id="114" Name="Style" />
 				</NamedKeyMidiRemoteables>
 				<Rate Value="10" />
 				<Steps Value="2" />
@@ -34691,9 +34691,9 @@
 			</ArpeggiateAlgorithm>
 			<SpanAlgorithm Id="1">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="63" Name="Mode" />
-					<NamedRemoteableKeyMidi Id="64" Name="LengthVariation" />
-					<NamedRemoteableKeyMidi Id="65" Name="LengthOffset" />
+					<NamedRemoteableKeyMidi Id="66" Name="Mode" />
+					<NamedRemoteableKeyMidi Id="67" Name="LengthVariation" />
+					<NamedRemoteableKeyMidi Id="68" Name="LengthOffset" />
 				</NamedKeyMidiRemoteables>
 				<Mode Value="1" />
 				<ChordThreshold Value="10" />
@@ -34702,10 +34702,10 @@
 			</SpanAlgorithm>
 			<ConnectAlgorithm Id="2">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="84" Name="Tie" />
-					<NamedRemoteableKeyMidi Id="85" Name="Density" />
-					<NamedRemoteableKeyMidi Id="86" Name="Spread" />
-					<NamedRemoteableKeyMidi Id="87" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="88" Name="Tie" />
+					<NamedRemoteableKeyMidi Id="89" Name="Density" />
+					<NamedRemoteableKeyMidi Id="90" Name="Spread" />
+					<NamedRemoteableKeyMidi Id="91" Name="Rate" />
 				</NamedKeyMidiRemoteables>
 				<Tie Value="0" />
 				<Density Value="1" />
@@ -34714,15 +34714,15 @@
 			</ConnectAlgorithm>
 			<OrnamentAlgorithm Id="3">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="189" Name="FlamEnabled" />
-					<NamedRemoteableKeyMidi Id="190" Name="FlamPosition" />
-					<NamedRemoteableKeyMidi Id="191" Name="FlamVelocity" />
-					<NamedRemoteableKeyMidi Id="192" Name="GraceNotesEnabled" />
-					<NamedRemoteableKeyMidi Id="193" Name="GraceNotesChance" />
-					<NamedRemoteableKeyMidi Id="194" Name="GraceNotesVelocity" />
-					<NamedRemoteableKeyMidi Id="195" Name="GraceNotesPosition" />
-					<NamedRemoteableKeyMidi Id="196" Name="GraceNotesAmount" />
-					<NamedRemoteableKeyMidi Id="197" Name="GraceNotesPitch" />
+					<NamedRemoteableKeyMidi Id="198" Name="FlamEnabled" />
+					<NamedRemoteableKeyMidi Id="199" Name="FlamPosition" />
+					<NamedRemoteableKeyMidi Id="200" Name="FlamVelocity" />
+					<NamedRemoteableKeyMidi Id="201" Name="GraceNotesEnabled" />
+					<NamedRemoteableKeyMidi Id="202" Name="GraceNotesChance" />
+					<NamedRemoteableKeyMidi Id="203" Name="GraceNotesVelocity" />
+					<NamedRemoteableKeyMidi Id="204" Name="GraceNotesPosition" />
+					<NamedRemoteableKeyMidi Id="205" Name="GraceNotesAmount" />
+					<NamedRemoteableKeyMidi Id="206" Name="GraceNotesPitch" />
 				</NamedKeyMidiRemoteables>
 				<FlamEnabled Value="true" />
 				<FlamPosition Value="-0.200000003" />
@@ -34736,11 +34736,11 @@
 			</OrnamentAlgorithm>
 			<RecombineAlgorithm Id="4">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="105" Name="Dimension" />
-					<NamedRemoteableKeyMidi Id="106" Name="Shuffle" />
-					<NamedRemoteableKeyMidi Id="107" Name="Mirror" />
-					<NamedRemoteableKeyMidi Id="108" Name="RotateAmount" />
-					<NamedRemoteableKeyMidi Id="109" Name="RotateOnGrid" />
+					<NamedRemoteableKeyMidi Id="110" Name="Dimension" />
+					<NamedRemoteableKeyMidi Id="111" Name="Shuffle" />
+					<NamedRemoteableKeyMidi Id="112" Name="Mirror" />
+					<NamedRemoteableKeyMidi Id="113" Name="RotateAmount" />
+					<NamedRemoteableKeyMidi Id="114" Name="RotateOnGrid" />
 				</NamedKeyMidiRemoteables>
 				<PermutedDimension Value="0" />
 				<Shuffle Value="false" />
@@ -34750,11 +34750,11 @@
 			</RecombineAlgorithm>
 			<QuantizeAlgorithm Id="5">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="105" Name="TripletReference" />
-					<NamedRemoteableKeyMidi Id="106" Name="QuantizeReference" />
-					<NamedRemoteableKeyMidi Id="107" Name="Amount" />
-					<NamedRemoteableKeyMidi Id="108" Name="QuantizeNoteStarts" />
-					<NamedRemoteableKeyMidi Id="109" Name="QuantizeNoteEnds" />
+					<NamedRemoteableKeyMidi Id="110" Name="TripletReference" />
+					<NamedRemoteableKeyMidi Id="111" Name="QuantizeReference" />
+					<NamedRemoteableKeyMidi Id="112" Name="Amount" />
+					<NamedRemoteableKeyMidi Id="113" Name="QuantizeNoteStarts" />
+					<NamedRemoteableKeyMidi Id="114" Name="QuantizeNoteEnds" />
 				</NamedKeyMidiRemoteables>
 				<Reference Value="0" />
 				<TripletReference Value="false" />
@@ -34764,10 +34764,10 @@
 			</QuantizeAlgorithm>
 			<StrumAlgorithm Id="6">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="84" Name="Threshold" />
-					<NamedRemoteableKeyMidi Id="85" Name="Low" />
-					<NamedRemoteableKeyMidi Id="86" Name="High" />
-					<NamedRemoteableKeyMidi Id="87" Name="Tension" />
+					<NamedRemoteableKeyMidi Id="88" Name="Threshold" />
+					<NamedRemoteableKeyMidi Id="89" Name="Low" />
+					<NamedRemoteableKeyMidi Id="90" Name="High" />
+					<NamedRemoteableKeyMidi Id="91" Name="Tension" />
 				</NamedKeyMidiRemoteables>
 				<ChordThreshold Value="0" />
 				<StrumLow Value="0" />
@@ -34776,18 +34776,18 @@
 			</StrumAlgorithm>
 			<TimeWarpAlgorithm Id="7">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="441" Name="StretchNoteEnd" />
-					<NamedRemoteableKeyMidi Id="442" Name="PreserveTimeRange" />
-					<NamedRemoteableKeyMidi Id="443" Name="Quantize" />
-					<NamedRemoteableKeyMidi Id="444" Name="Value1" />
-					<NamedRemoteableKeyMidi Id="445" Name="Time1" />
-					<NamedRemoteableKeyMidi Id="446" Name="IsActive1" />
-					<NamedRemoteableKeyMidi Id="447" Name="Value2" />
-					<NamedRemoteableKeyMidi Id="448" Name="Time2" />
-					<NamedRemoteableKeyMidi Id="449" Name="IsActive2" />
-					<NamedRemoteableKeyMidi Id="450" Name="Value3" />
-					<NamedRemoteableKeyMidi Id="451" Name="Time3" />
-					<NamedRemoteableKeyMidi Id="452" Name="IsActive3" />
+					<NamedRemoteableKeyMidi Id="462" Name="StretchNoteEnd" />
+					<NamedRemoteableKeyMidi Id="463" Name="PreserveTimeRange" />
+					<NamedRemoteableKeyMidi Id="464" Name="Quantize" />
+					<NamedRemoteableKeyMidi Id="465" Name="Value1" />
+					<NamedRemoteableKeyMidi Id="466" Name="Time1" />
+					<NamedRemoteableKeyMidi Id="467" Name="IsActive1" />
+					<NamedRemoteableKeyMidi Id="468" Name="Value2" />
+					<NamedRemoteableKeyMidi Id="469" Name="Time2" />
+					<NamedRemoteableKeyMidi Id="470" Name="IsActive2" />
+					<NamedRemoteableKeyMidi Id="471" Name="Value3" />
+					<NamedRemoteableKeyMidi Id="472" Name="Time3" />
+					<NamedRemoteableKeyMidi Id="473" Name="IsActive3" />
 				</NamedKeyMidiRemoteables>
 				<Breakpoints>
 					<Breakpoint Id="0">
@@ -34824,20 +34824,20 @@
 			</TimeWarpAlgorithm>
 			<RhythmAlgorithm Id="8">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="294" Name="Density" />
-					<NamedRemoteableKeyMidi Id="295" Name="Repetitions" />
-					<NamedRemoteableKeyMidi Id="296" Name="Pattern" />
-					<NamedRemoteableKeyMidi Id="297" Name="Steps" />
-					<NamedRemoteableKeyMidi Id="298" Name="Pitch" />
-					<NamedRemoteableKeyMidi Id="299" Name="Velocity" />
-					<NamedRemoteableKeyMidi Id="300" Name="Accent" />
-					<NamedRemoteableKeyMidi Id="301" Name="Period" />
-					<NamedRemoteableKeyMidi Id="302" Name="Offset" />
-					<NamedRemoteableKeyMidi Id="303" Name="Shift" />
-					<NamedRemoteableKeyMidi Id="304" Name="StepDuration" />
-					<NamedRemoteableKeyMidi Id="305" Name="Split" />
-					<NamedRemoteableKeyMidi Id="306" Name="VelocityOffsetIncrement" />
-					<NamedRemoteableKeyMidi Id="307" Name="VelocityOffsetDecrement" />
+					<NamedRemoteableKeyMidi Id="308" Name="Density" />
+					<NamedRemoteableKeyMidi Id="309" Name="Repetitions" />
+					<NamedRemoteableKeyMidi Id="310" Name="Pattern" />
+					<NamedRemoteableKeyMidi Id="311" Name="Steps" />
+					<NamedRemoteableKeyMidi Id="312" Name="Pitch" />
+					<NamedRemoteableKeyMidi Id="313" Name="Velocity" />
+					<NamedRemoteableKeyMidi Id="314" Name="Accent" />
+					<NamedRemoteableKeyMidi Id="315" Name="Period" />
+					<NamedRemoteableKeyMidi Id="316" Name="Offset" />
+					<NamedRemoteableKeyMidi Id="317" Name="Shift" />
+					<NamedRemoteableKeyMidi Id="318" Name="StepDuration" />
+					<NamedRemoteableKeyMidi Id="319" Name="Split" />
+					<NamedRemoteableKeyMidi Id="320" Name="VelocityOffsetIncrement" />
+					<NamedRemoteableKeyMidi Id="321" Name="VelocityOffsetDecrement" />
 				</NamedKeyMidiRemoteables>
 				<Density Value="4" />
 				<Repetitions Value="1" />
@@ -34854,13 +34854,13 @@
 			</RhythmAlgorithm>
 			<StacksAlgorithm Id="9">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="252" Name="AppendChord" />
-					<NamedRemoteableKeyMidi Id="253" Name="DeleteSelectedChord" />
-					<NamedRemoteableKeyMidi Id="254" Name="RootPitch1" />
-					<NamedRemoteableKeyMidi Id="255" Name="Inversion1" />
-					<NamedRemoteableKeyMidi Id="256" Name="Rule1" />
-					<NamedRemoteableKeyMidi Id="257" Name="Duration1" />
-					<NamedRemoteableKeyMidi Id="258" Name="Offset1" />
+					<NamedRemoteableKeyMidi Id="264" Name="AppendChord" />
+					<NamedRemoteableKeyMidi Id="265" Name="DeleteSelectedChord" />
+					<NamedRemoteableKeyMidi Id="266" Name="RootPitch1" />
+					<NamedRemoteableKeyMidi Id="267" Name="Inversion1" />
+					<NamedRemoteableKeyMidi Id="268" Name="Rule1" />
+					<NamedRemoteableKeyMidi Id="269" Name="Duration1" />
+					<NamedRemoteableKeyMidi Id="270" Name="Offset1" />
 				</NamedKeyMidiRemoteables>
 				<Sequence>
 					<Chord Id="8">
@@ -34876,13 +34876,13 @@
 			</StacksAlgorithm>
 			<ShapeAlgorithm Id="10">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="147" Name="ShapePresets" />
-					<NamedRemoteableKeyMidi Id="148" Name="Rate" />
-					<NamedRemoteableKeyMidi Id="149" Name="Tie" />
-					<NamedRemoteableKeyMidi Id="150" Name="Density" />
-					<NamedRemoteableKeyMidi Id="151" Name="MinPitch" />
-					<NamedRemoteableKeyMidi Id="152" Name="MaxPitch" />
-					<NamedRemoteableKeyMidi Id="153" Name="PitchVariation" />
+					<NamedRemoteableKeyMidi Id="154" Name="ShapePresets" />
+					<NamedRemoteableKeyMidi Id="155" Name="Rate" />
+					<NamedRemoteableKeyMidi Id="156" Name="Tie" />
+					<NamedRemoteableKeyMidi Id="157" Name="Density" />
+					<NamedRemoteableKeyMidi Id="158" Name="MinPitch" />
+					<NamedRemoteableKeyMidi Id="159" Name="MaxPitch" />
+					<NamedRemoteableKeyMidi Id="160" Name="PitchVariation" />
 				</NamedKeyMidiRemoteables>
 				<ShapeLevels>
 					<RemoteableFloat Id="0" Value="0" />
@@ -34917,14 +34917,14 @@
 			</ShapeAlgorithm>
 			<SeedAlgorithm Id="11">
 				<NamedKeyMidiRemoteables>
-					<NamedRemoteableKeyMidi Id="168" Name="Density" />
-					<NamedRemoteableKeyMidi Id="169" Name="MinPitch" />
-					<NamedRemoteableKeyMidi Id="170" Name="MaxPitch" />
-					<NamedRemoteableKeyMidi Id="171" Name="MinDuration" />
-					<NamedRemoteableKeyMidi Id="172" Name="MaxDuration" />
-					<NamedRemoteableKeyMidi Id="173" Name="MinVelocity" />
-					<NamedRemoteableKeyMidi Id="174" Name="MaxVelocity" />
-					<NamedRemoteableKeyMidi Id="175" Name="VerticalLimit" />
+					<NamedRemoteableKeyMidi Id="176" Name="Density" />
+					<NamedRemoteableKeyMidi Id="177" Name="MinPitch" />
+					<NamedRemoteableKeyMidi Id="178" Name="MaxPitch" />
+					<NamedRemoteableKeyMidi Id="179" Name="MinDuration" />
+					<NamedRemoteableKeyMidi Id="180" Name="MaxDuration" />
+					<NamedRemoteableKeyMidi Id="181" Name="MinVelocity" />
+					<NamedRemoteableKeyMidi Id="182" Name="MaxVelocity" />
+					<NamedRemoteableKeyMidi Id="183" Name="VerticalLimit" />
 				</NamedKeyMidiRemoteables>
 				<NotesDensity Value="0.5" />
 				<MinPitch Value="60" />

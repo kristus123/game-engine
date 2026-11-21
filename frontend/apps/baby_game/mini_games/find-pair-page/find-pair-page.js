@@ -8,7 +8,7 @@ export default {
 		resetTimeout: null,
 	}),
 	onFirstDomAdd: ({ html }) => {
-		for const name of ["1", "2", "3"] {
+		for const name of ["one", "two", "three"] {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {
@@ -22,13 +22,12 @@ export default {
 					},
 				})
 
-				card.onClick(() => {
+				card.onClick(async () => {
 					if html.fields.wait {
 						return
 					}
 
-					Mix.master.play(Random.choice(Ableton.projects.voices.norwegian.hello))
-
+					const ppp = Mix.master.play(Ableton.projects.voices.norwegian[name])
 					card.data.clicked = "true"
 
 					const cardsClicked = html.cards
@@ -38,6 +37,8 @@ export default {
 					if cardsClicked.length == 2 {
 						if cardsClicked.every(c => c.data.name == name) {
 							console.log("you find it")
+							await ppp
+							await Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
 							cardsClicked.forEach(c => {
 								c.removeOnClick()
 								c.data.found = "true"

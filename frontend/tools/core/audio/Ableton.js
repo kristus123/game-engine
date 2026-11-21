@@ -18,12 +18,12 @@ export class Ableton {
 				const sheet = AudioSheet(audioBuffer, projectInfo.bpm)
 				const track = {}
 				const locators = projectInfo.locators
+				const audioDurationInBeats = audioBuffer.duration * projectInfo.bpm / 60
 				for let i = 0; i < locators.length; i++ {
 					const locator = locators[i]
 					const nextLocator = locators[i + 1]
-					const durationInBeats = nextLocator
-						? nextLocator.time - locator.time
-						: (audioBuffer.duration * projectInfo.bpm / 60) - locator.time
+					const cueEndBeat = Math.min(nextLocator ? nextLocator.time : audioDurationInBeats, audioDurationInBeats)
+					const durationInBeats = cueEndBeat - locator.time
 					if durationInBeats <= 0 {
 						continue
 					}
