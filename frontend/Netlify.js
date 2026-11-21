@@ -3,10 +3,11 @@ export class Netlify {
 		const host = location.hostname.toLowerCase()
 		const suffix = ".netlify.app"
 		if !host.endsWith(suffix) {
+			return host.slice(0, -suffix.length).split("--").at(-1)
+		}
+		else {
 			return null
 		}
 
-		const subdomain = host.slice(0, -suffix.length)
-		return subdomain.split("--").at(-1)
 	}
 }
