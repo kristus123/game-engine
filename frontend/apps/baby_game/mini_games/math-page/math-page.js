@@ -3,22 +3,22 @@ function newChallenge(html) {
 		return
 	}
 
-
 	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
 
-	const challenge = ["one", "two", "three"]
+	
+	const challenge = [SamiCards.one, SamiCards.two, SamiCards.three]
 	const queue = Queue()
 
-	for const number of challenge.shuffle() {
+	for const number of challenge.shuffle()  {
 		const card = `
-			<div data-number="${number}" draggable class="math-number-card bgWhite">
-				<p center class="textWhite">${number}</p>
+			<div data-number="${number.text.number}" draggable class="math-number-card bgWhite">
+				<p center class="textWhite">${number.text.norwegian}</p>
 			</div>
 		`.toHtml()
 
 		card.onMouseDown(() => {
-			Mix.master.play(Ableton.projects.voices.norwegian[number])
+			Mix.master.play(number.audio.norwegian)
 		})
 
 		card.invisible()
@@ -47,36 +47,31 @@ export default {
 	fields: () => ({
 		active: false,
 	}),
-	onDomAdd: ({ html }) => {
+	onFirstDomAdd: ({ html }) => {
 		html.fields.active = true
 		html.list.sortableChildMoved = () => {
 			if !html.fields.active {
 				return
 			}
 
-			const numbers = html.list.map(card => card.data.number)
-			if !numbers.same(["one", "two", "three"]) {
-				return
+			if html.list.map(card => To.integer(card.data.number)).isAscending() {
+				html.list.removeAttribute("sortable")
+
+				const queue = Queue()
+				for const card of html.list.children {
+					queue.add(next => card.play("moveOut", {
+						onHalf: next,
+						onEnd: () => card.invisible(),
+					}))
+				}
+
+				Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
+				queue.start({
+					onEnd: () => {
+						newChallenge(html)
+					},
+				})
 			}
-
-			html.progress.data.value = To.integer(html.progress.data.value) + 50
-			html.progress.style.width = html.progress.data.value + "%"
-			html.list.removeAttribute("sortable")
-
-			const queue = Queue()
-			for const card of html.list.children {
-				queue.add(next => card.play("moveOut", {
-					onHalf: next,
-					onEnd: () => card.invisible(),
-				}))
-			}
-
-			Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
-			queue.start({
-				onEnd: () => {
-					newChallenge(html)
-				},
-			})
 		}
 
 		newChallenge(html)

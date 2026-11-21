@@ -46,6 +46,16 @@ export class Enhance_js_Array extends NativeEnhancer {
 			&& this.every((value, index) => value == o[index])
 	}
 
+	isAscending() {
+		for (const value of this) {
+			if (!A.number(value)) {
+				throw new TypeError(`isAscending only supports numbers; received ${typeof value}`)
+			}
+		}
+
+		return this.every((value, index) => index == 0 || this[index - 1] <= value)
+	}
+
 	unorderedDiff(other, path=[]) {
 		Assert.array(other)
 		const changes = []
