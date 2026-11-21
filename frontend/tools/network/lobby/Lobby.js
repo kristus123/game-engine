@@ -3,8 +3,10 @@ export class Lobby {
 	static create() {
 		const lobbyId = Random.uuid()
 
-		const userObject = ProxyObject((key, value) => {
-			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
+		const userObject = ProxyObject({
+			onPropertySet: (key, value) => {
+				OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
+			},
 		})
 
 		const lobby = Lobbies.create(lobbyId, Token.userId, userObject)
@@ -15,8 +17,10 @@ export class Lobby {
 	}
 
 	static join(lobbyId) {
-		const userObject = ProxyObject((key, value) => {
-			OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
+		const userObject = ProxyObject({
+			onPropertySet: (key, value) => {
+				OnlineLobbyManager.updateLobbyObjectField(lobbyId, key, value)
+			},
 		})
 
 		const lobby = Lobbies.join(lobbyId, Token.userId, userObject)

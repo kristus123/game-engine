@@ -3,11 +3,11 @@ export class Ableton {
 
 	static init() {
 		const projects = {}
-		const allLocators = []
+		const locators = []
 		AssetPaths.ableton.forEach((projectName, projectInfo) => {
 			const project = {}
 			projectInfo.locators.forEach(locator => {
-				allLocators.push({ projectName, ...locator })
+				locators.push({ projectName, ...locator })
 			})
 			projectInfo.tracks.forEach((trackName, trackInfo) => {
 				const audioBuffer = Mp3[trackInfo.audioPath]
@@ -35,7 +35,7 @@ export class Ableton {
 			})
 			projects[projectName] = project
 		})
-		projects._allLocators = allLocators
+		projects._locators = locators
 		this.projects = projects
 		return this.projects
 	}

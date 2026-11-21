@@ -123,6 +123,11 @@ export class Enhance_js_Object extends NativeEnhancer {
 		}
 	}
 
+	assertAllKeysPresent(keys) {
+		keys.forEach(key => this.assertKeyPresent(key))
+		return this
+	}
+
 	get className() {
 		return this.constructor.name
 	}

@@ -1,5 +1,5 @@
-export const JsonHttpClient = ProxyObject(
-	async (routeName, { body, contentType, ok, error, timeoutMs } = {}) => { // allow-null
+export const JsonHttpClient = ProxyObject({
+	onGetMissing: routeName => async ({ body, contentType, ok, error, timeoutMs } = {}) => { // allow-null
 
 		return await LowLevelHttpClient.post({
 			routeName: routeName,
@@ -17,5 +17,5 @@ export const JsonHttpClient = ProxyObject(
 			ok: ok,
 			error: error,
 		})
-	}
-)
+	},
+})

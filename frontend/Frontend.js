@@ -33,12 +33,15 @@ function folderProxy(folders, path = "Frontend", searchFolders = false) {
 		}
 	}
 
-	return ProxyObject(() => {}, folders, name => {
-		Assert.string(name)
-		if searchFolders && foldersByName.has(name) {
-			return folderProxy(foldersByName.get(name), `Frontend.${name}`)
-		}
-		throw new Error(`Frontend folder or file not found: ${path}.${name}`)
+	return ProxyObject({
+		target: folders,
+		onGetMissing: name => {
+			Assert.string(name)
+			if searchFolders && foldersByName.has(name) {
+				return folderProxy(foldersByName.get(name), `Frontend.${name}`)
+			}
+			throw new Error(`Frontend folder or file not found: ${path}.${name}`)
+		},
 	})
 }
 

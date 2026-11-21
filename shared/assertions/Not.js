@@ -1,1 +1,3 @@
-export const Not = ProxyObject((method, ...args) => !A[method](...args))
+export const Not = ProxyObject({
+	onGetMissing: method => (...args) => !A[method](...args),
+})
