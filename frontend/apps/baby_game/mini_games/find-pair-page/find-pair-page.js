@@ -8,14 +8,14 @@ export default {
 		cardAudio: null,
 	}),
 	onFirstDomAdd: ({ html }) => {
-		console.log(SamiCards.hello)
 		for const name of ["one", "two", "three"] {
+			const info = SamiCards[name]
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {
 						front: "?",
 						back: name,
-						image: "https://i.pinimg.com/1200x/96/f4/34/96f43454d8ab2a17cbe9341217556d76.jpg",
+						src: info.src,
 					},
 					data: {
 						name: name,
@@ -29,37 +29,37 @@ export default {
 					}
 
 					card.data.clicked = "true"
-					const audio = Mix.master.play(Ableton.projects.voices.norwegian[name])
+					const playback = Mix.master.play(info.audio.norwegian)
 
 					const cardsClicked = html.cards
 						.filter(c => c.data.found == "false")
 						.filter(c => c.data.clicked == "true")
 
 					if cardsClicked.length == 1 {
-						html.fields.cardAudio = audio
+						html.fields.cardAudio = playback
 						return
 					}
 
 					if cardsClicked.length == 2 {
 						html.fields.wait = true
-						await Promise.all([html.fields.cardAudio, audio])
+						await Promise.all([html.fields.cardAudio, playback])
 
 						if cardsClicked.every(c => c.data.name == name) {
-							await Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
 							cardsClicked.forEach(c => {
 								c.removeOnClick()
 								c.data.found = "true"
 								c.data.clicked = "true"
 							})
+							await Mix.master.play(SamiCards.veryGood.audio.norwegian)
 						}
-
-						await AsyncSleep(500)
 
 						html.cards
 							.filter(c => c.data.found == "false")
 							.forEach(c => c.data.clicked = "false")
 						html.fields.cardAudio = null
 						html.fields.wait = false
+
+						await AsyncSleep(500)
 					}
 
 					if html.cards.every(c => c.data.found == "true") {

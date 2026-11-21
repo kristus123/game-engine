@@ -16,7 +16,8 @@
   "size": { "w": 32, "h": 32 },
   "scale": "1",
   "layers": [
-   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+   { "name": "D1" },
+   { "name": "Layer 1", "group": "D1", "opacity": 255, "blendMode": "normal" }
   ]
  }
 }

@@ -112,6 +112,17 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 				}
 
 				const content = template.content.cloneNode(true)
+				for const element of [content.firstElementChild, ...content.querySelectorAll("*")] {
+					for const attribute of [...element.attributes] {
+						if attribute.value.startsWith("slot-") {
+							const slotName = attribute.value.slice("slot-".length)
+							const slotValue = this.getAttribute("slot-" + slotName)
+							if slotValue !== null {
+								element.setAttribute(attribute.name, slotValue)
+							}
+						}
+					}
+				}
 				const setState = CustomElementHelper.createSetState(this)
 
 				this.replaceChildren(content)
