@@ -1,26 +1,43 @@
-const locators = Assert.value(
-	Assert.value(Ableton.projects.voices, "Ableton project voices is missing")._locators,
-	"Ableton project voices has no locator markers"
-)
+const words = ProxyObject({
+	target: {
+		hello: {
+			norwegian: "",
+			nordSami: "",
+			luleSami: "",
+			sorSami: "",
+		},
+		bye: {
+			norwegian: "",
+			nordSami: "",
+			luleSami: "",
+			sorSami: "",
+		},
+	},
+	onGetMissing: word => {
+		throw new Error(`Word not found in words: ${word}`)
+	},
+})
+
+words.forEachValue(translations => {
+	translations.assertAllKeysPresent(["norwegian", "nordSami", "luleSami", "sorSami"])
+})
+
+const locators = Assert.value(Ableton.projects.voices._locators, "Ableton project voices has no locator markers")
 
 export const SamiCards = ProxyObject({
-	target: Object.fromEntries(SamiWords.map(word => {
-		SamiWords[word].assertAllKeysPresent(["norwegian", "nordSami", "luleSami", "sorSami"])
+	target: Object.fromEntries(words.map(word => {
 
-		const locator = Assert.value(
-			locators.find(locator => locator.name == word),
-			`No Ableton voices locator marker found for SamiWords.${word}`
-		)
+		const locator = Assert.value(locators.find(locator => locator.name == word))
 
 		return [locator.name, {
-			text: SamiWords[word],
+			text: words[word],
 			audio: {
 				norwegian: Ableton.projects.voices.norwegian[locator.name],
 				nordSami: Ableton.projects.voices.nordSami[locator.name],
 				luleSami: Ableton.projects.voices.luleSami[locator.name],
 				sorSami: Ableton.projects.voices.sorSami[locator.name],
 			},
-			image: Assert.value(Sprite[locator.name], `No sprite found for SamiCards.${locator.name}`),
+			sprite: Sprite[locator.name](WorldPosition(0,0)) ?? Sprite.temporary(WorldPosition(0,0)),
 		}]
 	})),
 	onGetMissing: word => {
