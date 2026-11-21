@@ -97,7 +97,7 @@ function _init(projects) {
 		for const language of ["norwegian", "nordSami", "luleSami", "sorSami"] {
 			audio[language] = voices[language][name]
 		}
-		entries[name] = { key: name, text, audio, img: placeholder.img, src: placeholder.src }
+		entries[name] = { key: name, text, audio, src: placeholder.src }
 	}
 
 	Object.assign(SamiCards, entries)
