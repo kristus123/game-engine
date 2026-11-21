@@ -13,7 +13,8 @@ export default {
 
 		if html.data.page != "" {
 			html.button.onClick(() => {
-				Mix.master.play(Ableton.projects.voices.norwegian.hello)
+				console.log(Ableton.projects.voices)
+				Mix.master.play(Random.choice(Ableton.projects.voices.norwegian.hello))
 				Page.open(html.data.page)
 			})
 		}

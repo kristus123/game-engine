@@ -8,8 +8,10 @@ export default {
 	}),
 	onFirstDomAdd: ({ html, fields }) => {
 		document.addEventListener("pointerdown", () => {
-			Mix.fx.play(Mp3.sami_chill)
-			Mix.fx.gain = 0.5
+			setTimeout(() => {
+				Mix.fx.play(Mp3.sami_chill)
+				Mix.fx.gain = 0.5
+			}, 100)
 		}, { once: true })
 
 		fields.dragScroll = MouseDragScroll.horizontal(html.area, (x) => {

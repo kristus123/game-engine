@@ -40,13 +40,17 @@ export class AudioTrack {
 	}
 
 	play(sound) {
-		if SoundContext.suspended {
-			SoundContext.context.resume()
+		if (Array.isArray(sound)) {
+			throw new Error("AudioTrack.play() cannot play an array. Choose one cue from the array and pass that cue instead.")
 		}
 
 		const buffer = sound?.buffer ?? sound
-		if !buffer {
-			throw new Error("should be a buffer")
+		if (!(buffer instanceof AudioBuffer)) {
+			throw new Error("AudioTrack.play() expects an AudioBuffer or a cue containing an AudioBuffer in its buffer property.")
+		}
+
+		if SoundContext.suspended {
+			SoundContext.context.resume()
 		}
 
 		const source = SoundContext.context.createBufferSource()

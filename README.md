@@ -1,5 +1,9 @@
 # game-engine
 
+## ⚠️⚠️⚠️ WARNING: MP3 CUE TIMING ⚠️⚠️⚠️
+
+MP3 files can include encoder delay and padding. When an MP3 is used as an audio sprite sheet and sliced at Ableton locator positions, that delay can shift cue boundaries and let neighboring audio bleed into a cue. Check cue alignment carefully; use WAV when accurate source timing is required.
+
 ```bash
 codex mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest
 ```

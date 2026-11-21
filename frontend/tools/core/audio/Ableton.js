@@ -29,7 +29,15 @@ export class Ableton {
 					}
 					const cue = sheet.createCue(locator.time, durationInBeats)
 					cue.name = locator.name
-					track[locator.name] = cue
+					if (locator.isArray) {
+						if (!track[locator.name]) {
+							track[locator.name] = []
+						}
+						track[locator.name].push(cue)
+					}
+					else {
+						track[locator.name] = cue
+					}
 				}
 				project[trackName] = track
 			})

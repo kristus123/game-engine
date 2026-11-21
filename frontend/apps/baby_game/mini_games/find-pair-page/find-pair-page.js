@@ -27,6 +27,8 @@ export default {
 						return
 					}
 
+					Mix.master.play(Random.choice(Ableton.projects.voices.norwegian.hello))
+
 					card.data.clicked = "true"
 
 					const cardsClicked = html.cards
