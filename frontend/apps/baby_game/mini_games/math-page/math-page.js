@@ -51,7 +51,9 @@ export default {
 			if html.list.map(card => To.integer(card.data.number)).isAscending() {
 
 				await Promise.all([
-					Promise.all(html.list.children.map(card => card.play("jump"))),
+					Promise.all(html.list.children.map((card, index) => card.play("jump", {
+						variables: { delay: `${index * 100}ms` },
+					}))),
 					Mix.master.play(Ableton.projects.voices.norwegian.veryGood),
 				])
 
@@ -59,13 +61,11 @@ export default {
 					newChallenge(html)
 				})
 
-				for const card of html.list.children {
-					console.log(card.samiCard.audio)
-
+				html.list.children.forEach((card, index) => {
 					queue.addAndStart(async next => {
 						await Promise.all([
+							card.play("jump", { variables: { delay: `${index * 100}ms` } }),
 							Mix.master.play(card.samiCard.audio.norwegian),
-							card.play("jump"),
 						])
 
 						await card.play("moveOut", {
@@ -73,7 +73,7 @@ export default {
 							onEnd: () => card.invisible(),
 						})
 					})
-				}
+				})
 
 			}
 		}

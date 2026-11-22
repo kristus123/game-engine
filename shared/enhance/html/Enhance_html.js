@@ -690,6 +690,9 @@ export class Enhance_html extends NativeEnhancer {
 				this.removeEventListener("animationstart", animationListeners.animationStart)
 				this.removeEventListener("animationend", animationListeners.animationEnd)
 				this.removeEventListener("animationcancel", animationListeners.animationCancel)
+				for (const name of Object.keys(variables)) {
+					this.style.removeProperty(`--${name}`)
+				}
 				this._activeAnimations.delete(className)
 			}
 

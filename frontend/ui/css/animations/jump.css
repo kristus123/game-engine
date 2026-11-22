@@ -1,5 +1,6 @@
 .jump {
 	animation: jump 0.5s ease;
+	animation-delay: var(--delay, 0ms);
 }
 
 @keyframes jump {
