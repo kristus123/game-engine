@@ -37,7 +37,6 @@ export default {
 				const queue = Queue().onEnd(() => {
 					newChallenge(html)
 				})
-				console.log(queue)
 
 				for const card of html.list.children {
 					queue.add(next => card.play("moveOut", {

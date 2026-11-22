@@ -1,7 +1,7 @@
 export class Queue {
 	constructor(queue=[]) {
 		this.running = false
-		this.onEnd = () => {}
+		this._onEnd = () => {}
 	}
 
 	add(task) {
@@ -35,8 +35,7 @@ export class Queue {
 	}
 
 	onEnd(callback) {
-		this.onEnd = callback
-
+		this._onEnd = callback
 		return this
 	}
 
@@ -49,7 +48,7 @@ export class Queue {
 				throw new Error("WorkerQueue.next() called when the queue is not running")
 			}
 			else if this.queue.empty {
-				this.onEnd()
+				this._onEnd()
 				this.running = false
 			}
 			else {
