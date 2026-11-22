@@ -117,7 +117,7 @@ export async function RegisterCustomWebComponent(name, html, js = null) { // all
 						if attribute.value.startsWith("slot-") {
 							const slotName = attribute.value.slice("slot-".length)
 							const slotValue = this.getAttribute("slot-" + slotName)
-							if slotValue !== null {
+							if slotValue != null {
 								element.setAttribute(attribute.name, slotValue)
 							}
 						}

@@ -1,6 +1,7 @@
 export class Queue {
 	constructor(queue=[]) {
 		this.running = false
+		this.onEnd = () => {}
 	}
 
 	add(task) {
@@ -8,7 +9,17 @@ export class Queue {
 		return this
 	}
 
-	start({ onEnd = () => {} } = {}) {
+	addAndStart(task) {
+		this.queue.push(task)
+
+		if !this.running {
+			this.start()
+		}
+
+		return this
+	}
+
+	start() {
 		if this.running {
 			throw new Error("WorkerQueue is already running")
 		}
@@ -17,11 +28,19 @@ export class Queue {
 		}
 		else {
 			this.running = true
-			this._processNextTask(onEnd)
+			this._processNextTask()
 		}
+
+		return this
 	}
 
-	_processNextTask(onEnd) {
+	onEnd(callback) {
+		this.onEnd = callback
+
+		return this
+	}
+
+	_processNextTask() {
 		const task = this.queue.shift()
 
 		task(() => {
@@ -30,12 +49,12 @@ export class Queue {
 				throw new Error("WorkerQueue.next() called when the queue is not running")
 			}
 			else if this.queue.empty {
-				onEnd()
+				this.onEnd()
 				this.running = false
 			}
 			else {
 				console.log("hei")
-				this._processNextTask(onEnd)
+				this._processNextTask()
 			}
 		})
 	}

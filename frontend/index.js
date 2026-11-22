@@ -73,8 +73,8 @@ await Promise.all([
 	// these are MainCanvas and CanvasGame assets
 ])
 
-const projects = Ableton.init() // ok solution for now
-SamiCards._init(projects) // ok solution for now
+Ableton._init() // ok solution for now
+SamiCards._init() // ok solution for now
 
 document.getElementById("initialSpin").remove()
 Font.use("VT323")

@@ -1,9 +1,8 @@
 export class Ableton {
 	static projects = {}
 
-	static init() {
+	static _init() {
 
-		const projects = {}
 		const locators = []
 
 		AssetPaths.ableton.forEach((projectName, projectInfo) => {
@@ -31,8 +30,8 @@ export class Ableton {
 					}
 					const cue = sheet.createCue(locator.time, durationInBeats)
 					cue.name = locator.name
-					if (locator.isArray) {
-						if (!track[locator.name]) {
+					if locator.isArray {
+						if !track[locator.name] {
 							track[locator.name] = []
 						}
 						track[locator.name].push(cue)
@@ -43,10 +42,9 @@ export class Ableton {
 				}
 				project[trackName] = track
 			})
-			projects[projectName] = project
+			this.projects[projectName] = project
 		})
-		projects._locators = locators
-		this.projects = projects
-		return this.projects
+
+		this.projects._locators = locators
 	}
 }

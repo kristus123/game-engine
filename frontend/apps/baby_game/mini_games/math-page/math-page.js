@@ -1,16 +1,10 @@
 function newChallenge(html) {
-	if !html.fields.active {
-		return
-	}
-
-	html.list.removeAttribute("sortable")
 	html.list.removeChildren()
 
-	
 	const challenge = [SamiCards.one, SamiCards.two, SamiCards.three]
 	const queue = Queue()
 
-	for const number of challenge.shuffle()  {
+	for const number of challenge.shuffle() {
 		const card = `
 			<div data-number="${number.text.number}" draggable class="math-number-card bgWhite">
 				<p center class="textWhite">${number.text.norwegian}</p>
@@ -24,19 +18,11 @@ function newChallenge(html) {
 		card.invisible()
 		html.list.add(card)
 
-		queue.add(next => {
+		queue.addAndStart(next => {
 			card.visible()
 			card.play("moveIn", { onEnd: next })
 		})
 	}
-
-	queue.start({
-		onEnd: () => {
-			if html.fields.active {
-				html.list.setAttribute("sortable", "")
-			}
-		},
-	})
 }
 
 export default {
@@ -44,20 +30,15 @@ export default {
 		persistOnClose: false,
 		layout: "mini-game-layout",
 	},
-	fields: () => ({
-		active: false,
-	}),
 	onFirstDomAdd: ({ html }) => {
-		html.fields.active = true
 		html.list.sortableChildMoved = () => {
-			if !html.fields.active {
-				return
-			}
-
 			if html.list.map(card => To.integer(card.data.number)).isAscending() {
-				html.list.removeAttribute("sortable")
 
-				const queue = Queue()
+				const queue = Queue().onEnd(() => {
+					newChallenge(html)
+				})
+				console.log(queue)
+
 				for const card of html.list.children {
 					queue.add(next => card.play("moveOut", {
 						onHalf: next,
@@ -65,19 +46,12 @@ export default {
 					}))
 				}
 
+				queue.start()
+
 				Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
-				queue.start({
-					onEnd: () => {
-						newChallenge(html)
-					},
-				})
 			}
 		}
 
 		newChallenge(html)
-	},
-	onDomRemove: ({ html }) => {
-		html.fields.active = false
-		html.list.sortableChildMoved = null
 	},
 }
