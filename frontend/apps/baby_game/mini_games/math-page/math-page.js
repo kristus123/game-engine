@@ -1,18 +1,33 @@
 function newChallenge(html) {
+
 	html.list.removeChildren()
 
-	const challenge = [SamiCards.one, SamiCards.two, SamiCards.three]
+	const challenge = [
+		SamiCards.one,
+		SamiCards.two,
+		SamiCards.three,
+		// SamiCards.four,
+		// SamiCards.five,
+		// SamiCards.six,
+		// SamiCards.seven,
+		// SamiCards.eight,
+		// SamiCards.nine,
+		// SamiCards.ten,
+	]
+
 	const queue = Queue()
 
-	for const number of challenge.shuffle() {
+	for const samiCard of challenge.shuffle() {
 		const card = `
-			<div data-number="${number.text.number}" draggable class="math-number-card bgWhite">
-				<p center class="textWhite">${number.text.norwegian}</p>
+			<div data-number="${samiCard.text.number}" draggable class="math-number-card bgWhite">
+				<p center class="textWhite">${samiCard.text.norwegian}</p>
 			</div>
 		`.toHtml()
 
+		card.samiCard = samiCard
+
 		card.onMouseDown(() => {
-			Mix.master.play(number.audio.norwegian)
+			Mix.master.play(samiCard.audio.norwegian)
 		})
 
 		card.invisible()
@@ -21,6 +36,7 @@ function newChallenge(html) {
 		queue.addAndStart(next => {
 			card.visible()
 			card.play("moveIn", { onEnd: next })
+			Mix.master.play(samiCard.audio.norwegian)
 		})
 	}
 }
@@ -30,24 +46,35 @@ export default {
 		persistOnClose: false,
 		layout: "mini-game-layout",
 	},
-	onFirstDomAdd: ({ html }) => {
-		html.list.sortableChildMoved = () => {
+	onFirstDomAdd: async ({ html }) => {
+		html.list.sortableChildMoved = async () => {
 			if html.list.map(card => To.integer(card.data.number)).isAscending() {
+
+				await Promise.all([
+					Promise.all(html.list.children.map(card => card.play("jump"))),
+					Mix.master.play(Ableton.projects.voices.norwegian.veryGood),
+				])
 
 				const queue = Queue().onEnd(() => {
 					newChallenge(html)
 				})
 
 				for const card of html.list.children {
-					queue.add(next => card.play("moveOut", {
-						onHalf: next,
-						onEnd: () => card.invisible(),
-					}))
+					console.log(card.samiCard.audio)
+
+					queue.addAndStart(async next => {
+						await Promise.all([
+							Mix.master.play(card.samiCard.audio.norwegian),
+							card.play("jump"),
+						])
+
+						await card.play("moveOut", {
+							onHalf: next,
+							onEnd: () => card.invisible(),
+						})
+					})
 				}
 
-				queue.start()
-
-				Mix.master.play(Ableton.projects.voices.norwegian.veryGood)
 			}
 		}
 

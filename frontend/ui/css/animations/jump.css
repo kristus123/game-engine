@@ -1,0 +1,15 @@
+.jump {
+	animation: jump 0.5s ease;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-79px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
