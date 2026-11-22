@@ -4,10 +4,9 @@ export default {
 		layout: "mini-game-layout",
 	},
 	fields: () => ({
-		wait: false,
-		cardAudio: null,
 	}),
-	onFirstDomAdd: ({ html }) => {
+	onDomAdd: async ({ html }) => {
+		console.log("yo")
 		for const name of ["one", "two", "three"] {
 			const info = SamiCards[name]
 			Iterate(2, () => {
@@ -24,25 +23,21 @@ export default {
 				})
 
 				card.onClick(async () => {
-					if html.fields.wait || card.data.clicked == "true" {
+					if card.data.clicked == "true" {
 						return
 					}
 
 					card.data.clicked = "true"
-					const playback = Mix.master.play(info.audio.norwegian)
+					Mix.master.play(info.audio.norwegian)
 
 					const cardsClicked = html.cards
 						.filter(c => c.data.found == "false")
 						.filter(c => c.data.clicked == "true")
 
 					if cardsClicked.length == 1 {
-						html.fields.cardAudio = playback
-						return
+						// do nothing
 					}
-
-					if cardsClicked.length == 2 {
-						html.fields.wait = true
-						await Promise.all([html.fields.cardAudio, playback])
+					else if cardsClicked.length == 2 {
 
 						if cardsClicked.every(c => c.data.name == name) {
 							cardsClicked.forEach(c => {
@@ -56,32 +51,12 @@ export default {
 						html.cards
 							.filter(c => c.data.found == "false")
 							.forEach(c => c.data.clicked = "false")
-						html.fields.cardAudio = null
-						html.fields.wait = false
 
 						await AsyncSleep(500)
 					}
 
 					if html.cards.every(c => c.data.found == "true") {
 						console.log("all found!")
-						const q = Queue()
-
-						html.cards.forEach(c => {
-							q.add(next => c.play("fadeOut", {
-								onHalf: () => {
-									next()
-								},
-								onEnd: () => {
-									c.invisible()
-								},
-							}))
-						})
-
-						q.start({
-							onEnd: () => {
-								console.log("finished")
-							},
-						})
 					}
 				})
 
@@ -89,10 +64,7 @@ export default {
 			})
 		}
 
+		// await html.play("pageEnterRight")
 		html.cards.randomizeOrder()
-	},
-	onDomRemove: ({ html }) => {
-		html.fields.wait = false
-		html.fields.cardAudio = null
 	},
 }
