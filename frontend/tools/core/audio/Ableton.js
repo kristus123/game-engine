@@ -1,50 +1,40 @@
 export class Ableton {
-	static projects = {}
 
 	static _init() {
 
-		const locators = []
+		this.projects = {}
 
-		AssetPaths.ableton.forEach((projectName, projectInfo) => {
-			const project = {}
-			projectInfo.locators.forEach(locator => {
-				locators.push({ projectName, ...locator })
-			})
-			projectInfo.tracks.forEach((trackName, trackInfo) => {
-				const audioBuffer = Mp3[trackInfo.audioPath]
-				if !audioBuffer {
-					throw new Error(`Ableton audio has not been loaded: ${trackInfo.audioPath}`)
-				}
+		AssetPaths.ableton.forEach((name, info) => {
 
-				const sheet = AudioSheet(audioBuffer, projectInfo.bpm)
-				const track = {}
-				const locators = projectInfo.locators
-				const audioDurationInBeats = audioBuffer.duration * projectInfo.bpm / 60
-				for let i = 0; i < locators.length; i++ {
-					const locator = locators[i]
-					const nextLocator = locators[i + 1]
-					const cueEndBeat = Math.min(nextLocator ? nextLocator.time : audioDurationInBeats, audioDurationInBeats)
+			this.projects[name] = {
+				_locators: info.locators.map(locator => locator.name).makeAllUnique().assertAllUnique(),
+			}
+
+			info.tracks.forEach((trackName, trackInfo) => {
+
+				this.projects[name][trackName] = {}
+
+				const sheet = AudioSheet(Mp3[trackInfo.audioPath], info.bpm)
+				const audioDurationInBeats = Mp3[trackInfo.audioPath].duration * info.bpm / 60
+
+				for let i = 0; i < info.locators.length; i++ {
+					const locator = info.locators[i]
+					const end = info.locators[i + 1]?.time
+					const cueEndBeat = Math.min(end ?? audioDurationInBeats, audioDurationInBeats)
 					const durationInBeats = cueEndBeat - locator.time
 					if durationInBeats <= 0 {
 						continue
 					}
 					const cue = sheet.createCue(locator.time, durationInBeats)
-					cue.name = locator.name
 					if locator.isArray {
-						if !track[locator.name] {
-							track[locator.name] = []
-						}
-						track[locator.name].push(cue)
+						this.projects[name][trackName][locator.name] ??= []
+						this.projects[name][trackName][locator.name].push(cue)
 					}
 					else {
-						track[locator.name] = cue
+						this.projects[name][trackName][locator.name] = cue
 					}
 				}
-				project[trackName] = track
 			})
-			this.projects[projectName] = project
 		})
-
-		this.projects._locators = locators
 	}
 }

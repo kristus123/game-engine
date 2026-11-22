@@ -212,6 +212,28 @@ export class Enhance_js_Array extends NativeEnhancer {
 		}
 	}
 
+	assertAllUnique() {
+		const seen = new Set()
+		for (const value of this) {
+			if (seen.has(value)) {
+				throw new Error(`Array contains duplicate value: ${String(value)}`)
+			}
+			seen.add(value)
+		}
+		return this
+	}
+
+	makeAllUnique(getKey = value => value) {
+		const unique = []
+		for (const value of this) {
+			const key = getKey(value)
+			if (!unique.some(existing => getKey(existing) == key)) {
+				unique.push(value)
+			}
+		}
+		return unique
+	}
+
 	assertNotPresent(e) {
 		for (const c of this) {
 			if (c == e) {

@@ -199,11 +199,11 @@ export class Page {
 		}
 
 		if entry.layoutElement {
-			Layout.attach(entry.layout, entry.page)
 			if !entry.layoutElement.isConnected {
 				Dom.add(entry.layoutElement)
 			}
 			await entry.layoutElement.whenReady()
+			Layout.attach(entry.layout, entry.page)
 			await entry.layoutElement.whenLifecycleReady()
 		}
 		else {

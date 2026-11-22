@@ -21,8 +21,12 @@ export class H {
 		return { canvas, canvasStream, ctx }
 	}
 
-	static create(name, { attributes={}, slots={}, data={}, on={} } = {}) {
+	static create(name, { attributes={}, slots={}, data={}, onClick=() => {} } = {}) {
 		const e = document.createElement(name)
+
+		e.onClick(() => {
+			onClick(e)
+		})
 
 		attributes.forEach((key, value) => {
 			e.setAttribute(key, value)

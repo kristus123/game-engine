@@ -84,20 +84,16 @@ const words = ProxyObject({
 
 // slightly hacky solution
 function _init() {
-	const voices = Assert.value(Ableton.projects.voices, "Ableton voices project has not been initialized")
-	const locators = Assert.value(Ableton.projects._locators, "Ableton has no locator markers")
-	const names = new Set(locators.filter(locator => locator.projectName == "voices").map(locator => locator.name))
-	const placeholder = Sprite.temporary(WorldPosition(0, 0))
 	const entries = {}
 
-	for const name of names {
+	for const name of Ableton.projects.voices._locators {
 		const text = words[name]
 		text.assertAllKeysPresent(["norwegian", "nordSami", "luleSami", "sorSami"])
 		const audio = {}
 		for const language of ["norwegian", "nordSami", "luleSami", "sorSami"] {
-			audio[language] = voices[language][name]
+			audio[language] = Ableton.projects.voices[language][name]
 		}
-		entries[name] = { key: name, text, audio, src: placeholder.src }
+		entries[name] = { name: name, text, audio, src: Sprite.temporary(WorldPosition(0, 0)).src }
 	}
 
 	Object.assign(SamiCards, entries)

@@ -3,60 +3,55 @@ export default {
 		persistOnClose: false,
 		layout: "mini-game-layout",
 	},
-	fields: () => ({
-	}),
 	onDomAdd: async ({ html }) => {
-		console.log("yo")
-		for const name of ["one", "two", "three"] {
-			const info = SamiCards[name]
+		for const info of [SamiCards.one, SamiCards.two, SamiCards.three] {
 			Iterate(2, () => {
 				const card = H.create("flip-card", {
 					slots: {
 						front: "?",
-						back: name,
+						back: info.name,
 						src: info.src,
 					},
 					data: {
-						name: name,
+						name: info.name,
 						found: "false",
 					},
-				})
-
-				card.onClick(async () => {
-					if card.data.clicked == "true" {
-						return
-					}
-
-					card.data.clicked = "true"
-					Mix.master.play(info.audio.norwegian)
-
-					const cardsClicked = html.cards
-						.filter(c => c.data.found == "false")
-						.filter(c => c.data.clicked == "true")
-
-					if cardsClicked.length == 1 {
-						// do nothing
-					}
-					else if cardsClicked.length == 2 {
-
-						if cardsClicked.every(c => c.data.name == name) {
-							cardsClicked.forEach(c => {
-								c.removeOnClick()
-								c.data.found = "true"
-								c.data.clicked = "true"
-							})
-							await Mix.master.play(SamiCards.veryGood.audio.norwegian)
+					onClick: async (e) => {
+						if e.data.clicked == "true" {
+							return
 						}
 
-						html.cards
+						e.data.clicked = "true"
+						await Mix.master.play(info.audio.sorSami)
+
+						const cardsClicked = html.cards
 							.filter(c => c.data.found == "false")
-							.forEach(c => c.data.clicked = "false")
+							.filter(c => c.data.clicked == "true")
 
-						await AsyncSleep(500)
-					}
+						if cardsClicked.length == 1 {
+							// do nothing
+						}
+						else if cardsClicked.length == 2 {
 
-					if html.cards.every(c => c.data.found == "true") {
-						console.log("all found!")
+							if cardsClicked.every(c => c.data.name == info.name) {
+								cardsClicked.forEach(c => {
+									c.removeOnClick()
+									c.data.found = "true"
+									c.data.clicked = "true"
+								})
+								await Mix.master.play(SamiCards.veryGood.audio.norwegian)
+							}
+
+							html.cards
+								.filter(c => c.data.found == "false")
+								.forEach(c => c.data.clicked = "false")
+
+							await AsyncSleep(500)
+						}
+
+						if html.cards.every(c => c.data.found == "true") {
+							console.log("all found!")
+						}
 					}
 				})
 

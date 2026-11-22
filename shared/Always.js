@@ -1,5 +1,9 @@
 export class Always {
 
+	static array(value) {
+		return this.list(value)
+	}
+
 	static list(value) {
 		if (Array.isArray(value)) {
 			return value
