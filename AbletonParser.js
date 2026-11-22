@@ -11,7 +11,7 @@ const audioExtension = "wav"
 export const AbletonParser = (() => {
 	return {
 		prepareAssets: () => {
-			const projects = {}
+			const projects = []
 			const distAudioPaths = []
 
 			for (const projectName of fs.readdirSync(projectsDirectory)) {
@@ -54,7 +54,7 @@ export const AbletonParser = (() => {
 					locatorNames.set(locator.name, locator)
 				}
 
-				const tracks = {}
+				const tracks = []
 				const exportedDirectory = path.join(projectDirectory, "exported")
 				const exportedPrefix = `${projectName} `
 				const exportedFiles = fs.existsSync(exportedDirectory) ? fs.readdirSync(exportedDirectory) : []
@@ -74,9 +74,9 @@ export const AbletonParser = (() => {
 					fs.mkdirSync(path.dirname(distPath), { recursive: true })
 					fs.copyFileSync(sourcePath, distPath)
 					distAudioPaths.push(audioPath)
-					tracks[trackName] = { audioPath, locators }
+					tracks.push({ name: trackName, audioPath })
 				}
-				projects[projectName] = { bpm, locators, tracks }
+				projects.push({ name: projectName, bpm, locators, tracks })
 			}
 
 			return { data: projects, audioPaths: distAudioPaths }

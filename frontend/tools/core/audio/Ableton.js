@@ -4,18 +4,18 @@ export class Ableton {
 
 		this.projects = {}
 
-		AssetPaths.ableton.forEach((name, info) => {
+		for const info of AssetPaths.ableton {
 
-			this.projects[name] = {
+			this.projects[info.name] = {
 				_locators: info.locators.map(locator => locator.name).makeAllUnique().assertAllUnique(),
 			}
 
-			info.tracks.forEach((trackName, trackInfo) => {
+			for const track of info.tracks {
 
-				this.projects[name][trackName] = {}
+				this.projects[info.name][track.name] = {}
 
-				const sheet = AudioSheet(Mp3[trackInfo.audioPath], info.bpm)
-				const audioDurationInBeats = Mp3[trackInfo.audioPath].duration * info.bpm / 60
+				const sheet = AudioSheet(Mp3[track.audioPath], info.bpm)
+				const audioDurationInBeats = Mp3[track.audioPath].duration * info.bpm / 60
 
 				for let i = 0; i < info.locators.length; i++ {
 					const locator = info.locators[i]
@@ -27,14 +27,16 @@ export class Ableton {
 					}
 					const cue = sheet.createCue(locator.time, durationInBeats)
 					if locator.isArray {
-						this.projects[name][trackName][locator.name] ??= []
-						this.projects[name][trackName][locator.name].push(cue)
+						this.projects[info.name][track.name][locator.name] ??= []
+						this.projects[info.name][track.name][locator.name].push(cue)
 					}
 					else {
-						this.projects[name][trackName][locator.name] = cue
+						this.projects[info.name][track.name][locator.name] = cue
 					}
 				}
-			})
-		})
+			}
+
+		}
 	}
+
 }
