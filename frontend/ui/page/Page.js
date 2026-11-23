@@ -68,15 +68,11 @@ export class Page {
 	static _stackFromUrl() {
 		const url = new URL(window.location.href)
 		const path = url.pathname == "/index.html" ? "" : decodeURIComponent(url.pathname).replace(/^\/+|\/+$/g, "")
-		const tag = path ? this._resolveTag(path) : url.searchParams.has("viewer") ? "viewer-page" : url.searchParams.has("streamer") ? "streamer-page" : this.defaultTag
+		const tag = path ? path : url.searchParams.has("viewer") ? "viewer-page" : url.searchParams.has("streamer") ? "streamer-page" : this.defaultTag
 		return [
 			{ tag, isOverlay: false },
-			...url.searchParams.getAll("modal").map(name => ({ tag: this._resolveTag(name), isOverlay: true })),
+			...url.searchParams.getAll("modal").map(name => ({ tag: name, isOverlay: true })),
 		]
-	}
-
-	static _resolveTag(name) {
-		return Object.hasOwn(this.pages, name) ? name : `${name}-page`
 	}
 
 	static _validateStack(stack) {
@@ -99,12 +95,12 @@ export class Page {
 			return
 		}
 		const url = new URL(window.location.href)
-		url.pathname = stack.length ? `/${stack[0].tag.replace(/-page$/, "")}` : "/"
+		url.pathname = stack.length ? `/${stack[0].tag}` : "/"
 		url.searchParams.delete("viewer")
 		url.searchParams.delete("streamer")
 		url.searchParams.delete("modal")
 		for const page of stack.slice(1) {
-			url.searchParams.append("modal", page.tag.replace(/-page$/, ""))
+			url.searchParams.append("modal", page.tag)
 		}
 		const previous = mode == "push" ? oldState?.stack : oldState?.previous
 		window.history[mode == "push" ? "pushState" : "replaceState"]({
