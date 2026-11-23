@@ -4,9 +4,9 @@ export default {
 		layout: "mini-game-layout",
 	},
 	onDomAdd: async ({ html }) => {
-		for const info of [SamiCards.one, SamiCards.two, SamiCards.three] {
+		for const info of [SamiCards.reindeer, SamiCards.mouse] {
 			Iterate(2, () => {
-				const card = H.create("flip-card", {
+				html.cards.add(H.create("flip-card", {
 					slots: {
 						front: "?",
 						back: info.name,
@@ -14,48 +14,38 @@ export default {
 					},
 					data: {
 						name: info.name,
+						clicked: "false",
 						found: "false",
 					},
 					onClick: async (e) => {
-						if e.data.clicked == "true" {
-							return
+						if e.data.clicked == "true" || e.data.found == "true" {
+							return // do nothing
+						}
+						else {
+							e.data.clicked = "true"
 						}
 
-						e.data.clicked = "true"
-						await Mix.master.play(info.audio.sorSami)
+						await Mix.master.play(info.audio.norwegian)
 
-						const cardsClicked = html.cards
-							.filter(c => c.data.found == "false")
-							.filter(c => c.data.clicked == "true")
+						const allClicked = html.cards.filter(c => c.data.clicked == "true")
 
-						if cardsClicked.length == 1 {
-							// do nothing
-						}
-						else if cardsClicked.length == 2 {
-
-							if cardsClicked.every(c => c.data.name == info.name) {
-								cardsClicked.forEach(c => {
-									c.removeOnClick()
-									c.data.found = "true"
-									c.data.clicked = "true"
-								})
-								await Mix.master.play(SamiCards.veryGood.audio.norwegian)
+						if allClicked.length >= 2 {
+							if allClicked.every(c => c.data.name == e.data.name) {
+								allClicked.forEach(c => c.data.found = "true")
+								await Mix.master.play(SamiCards.blue.audio.norwegian)
 							}
 
-							html.cards
-								.filter(c => c.data.found == "false")
-								.forEach(c => c.data.clicked = "false")
-
-							await AsyncSleep(500)
+							allClicked.forEach(c => c.data.clicked = "false")
 						}
 
 						if html.cards.every(c => c.data.found == "true") {
-							console.log("all found!")
+							await Mix.master.play(SamiCards.veryGood.audio.norwegian)
+							await html.play("moveOut")
+							Page.open("find-pair-page")
 						}
-					}
-				})
 
-				html.cards.add(card)
+					}
+				}))
 			})
 		}
 

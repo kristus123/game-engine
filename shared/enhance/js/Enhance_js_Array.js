@@ -40,10 +40,13 @@ export class Enhance_js_Array extends NativeEnhancer {
 	}
 
 	same(o) {
-		Assert.array(o)
-
-		return this.length == o.length
-			&& this.every((value, index) => value == o[index])
+		if (An.array(o)) {
+			return this.length == o.length
+				&& this.every((value, index) => value == o[index])
+		}
+		else {
+			return this.every(value => value == o)
+		}
 	}
 
 	isAscending() {
