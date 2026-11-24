@@ -1,3 +1,5 @@
+const asyncLock = AsyncLock() 
+
 function newChallenge(html) {
 
 	html.list.removeChildren()
@@ -57,14 +59,12 @@ export default {
 					Mix.master.play(Ableton.projects.voices.norwegian.veryGood),
 				])
 
-				const queue = Queue().onEnd(() => {
-					newChallenge(html)
-				})
+				const queue = Queue()
 
 				html.list.children.forEach((card, index) => {
-					queue.addAndStart(async next => {
+					queue.add(async next => {
 						await Promise.all([
-							card.play("jump", { variables: { delay: `${index * 100}ms` } }),
+							card.play("jump"),
 							Mix.master.play(card.samiCard.audio.norwegian),
 						])
 
@@ -73,6 +73,10 @@ export default {
 							onEnd: () => card.invisible(),
 						})
 					})
+				})
+
+				queue.start().onEnd(() => {
+					newChallenge(html)
 				})
 
 			}

@@ -1,5 +1,5 @@
 export default {
-	onFirstDomAdd: ({ html }) => {
+	onFirstDomAdd: async ({ html }) => {
 		const pic = Random.choice([
 			Png.lavvo,
 			Png.gakti,
@@ -12,9 +12,11 @@ export default {
 		html.gameTitle.textContent = html.data.name.replaceAll("_", " ")
 
 		if html.data.page != "" {
-			html.button.onClick(() => {
-				console.log(Ableton.projects.voices)
-				Mix.master.play(Random.choice(Ableton.projects.voices.norwegian.hello))
+			html.button.onClick(async () => {
+				await Promise.all([
+					Mix.master.play(Random.choice(Ableton.projects.voices.norwegian.hello)),
+					html.play("jump"),
+				])
 				Page.open(html.data.page)
 			})
 		}
