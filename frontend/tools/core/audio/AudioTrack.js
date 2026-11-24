@@ -1,12 +1,12 @@
 export class AudioTrack {
 
 	constructor() {
-		this.gain = SoundContext.createGain()
-		this.output = this.gain // codex - is this one redundant? isn't it just the same as this.gain ?
+		this.inputGain = SoundContext.createGain()
+		this.output = this.inputGain // codex - is this one redundant? isn't it just the same as this.inputGain ?
 		this.sources = new Set()
 		this.analyser = Vst.analyser(512)
 		this.levelBuffer = new Float32Array(this.analyser.fftSize)
-		this.gain.connect(this.analyser)
+		this.inputGain.connect(this.analyser)
 	}
 
 	get db() {
@@ -20,12 +20,12 @@ export class AudioTrack {
 	}
 
 	get gain() {
-		return this.gain.gain.value
+		return this.inputGain.gain.value
 	}
 
 	set gain(val) {
 		// I think this should have a minimum and maximum value but I'm not sure what those should be
-		this.gain.gain.value = val
+		this.inputGain.gain.value = val
 	}
 
 	routeTo(target) {
@@ -55,7 +55,7 @@ export class AudioTrack {
 
 		const source = SoundContext.context.createBufferSource()
 		source.buffer = buffer
-		source.connect(this.gain)
+		source.connect(this.inputGain)
 		let resolvePlayback
 		const playbackFinished = new Promise(resolve => resolvePlayback = resolve)
 		source.onended = () => {
