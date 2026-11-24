@@ -1,12 +1,12 @@
 export class AudioTrack {
 
 	constructor() {
-		this.input = SoundContext.createGain()
-		this.output = this.input
+		this.gain = SoundContext.createGain()
+		this.output = this.gain // codex - is this one redundant? isn't it just the same as this.gain ?
 		this.sources = new Set()
 		this.analyser = Vst.analyser(512)
 		this.levelBuffer = new Float32Array(this.analyser.fftSize)
-		this.input.connect(this.analyser)
+		this.gain.connect(this.analyser)
 	}
 
 	get db() {
@@ -20,12 +20,12 @@ export class AudioTrack {
 	}
 
 	get gain() {
-		return this.input.gain.value
+		return this.gain.gain.value
 	}
 
 	set gain(val) {
 		// I think this should have a minimum and maximum value but I'm not sure what those should be
-		this.input.gain.value = val
+		this.gain.gain.value = val
 	}
 
 	routeTo(target) {
@@ -55,7 +55,7 @@ export class AudioTrack {
 
 		const source = SoundContext.context.createBufferSource()
 		source.buffer = buffer
-		source.connect(this.input)
+		source.connect(this.gain)
 		let resolvePlayback
 		const playbackFinished = new Promise(resolve => resolvePlayback = resolve)
 		source.onended = () => {
@@ -82,7 +82,7 @@ export class AudioTrack {
 		return playbackFinished
 	}
 
-	stop() {
+	stop() { // is this ever used ? and when should it be used?
 		for const source of this.sources {
 			try {
 				source.stop()

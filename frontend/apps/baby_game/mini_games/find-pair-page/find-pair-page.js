@@ -1,5 +1,3 @@
-const asyncLock = AsyncLock() 
-
 export default {
 	page: {
 		persistOnClose: false,
@@ -20,7 +18,7 @@ export default {
 							found: "false",
 						},
 						onClick: async e => {
-							await asyncLock.run(async () => {
+							await GlobalLock.run(async () => {
 								if e.data.clicked == "true" || e.data.found == "true" {
 									return // do nothing
 								}
