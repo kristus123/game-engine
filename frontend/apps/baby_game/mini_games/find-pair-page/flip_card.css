@@ -21,7 +21,6 @@ flip-card[data-clicked="true"] .card-body {
 }
 
 
-
 flip-card .card-front,
 flip-card .card-back {
 	position: absolute;
