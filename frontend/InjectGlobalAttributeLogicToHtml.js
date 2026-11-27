@@ -14,26 +14,22 @@ function resolveImageSource(source) {
 	}
 }
 
-function validateSortable(node) {
-	if node.hasAttribute("sortable") {
-		Assert.true(
-			["flex-h", "flex-v"].includes(node.tag),
-			`sortable is only supported on <flex-h> and <flex-v>; found <${node.tag}>`,
-		)
-	}
-}
-
 export function InjectGlobalAttributeLogicToHtml() {
 	const observedImages = new WeakSet()
 	const sortableListeners = new WeakMap()
 	const hoverLogic = new GlobalHoverLogic()
 	const popoverLogic = new GlobalPopoverLogic()
+
 	const enableSortable = node => {
-		validateSortable(node)
+		if node.hasAttribute("sortable") {
+			Assert.true(["flex-h", "flex-v"].includes(node.tag), `sortable is not supported on <${node.tag}>`)
+		}
+
 		if node.hasAttribute("sortable") && !sortableListeners.has(node) {
 			sortableListeners.set(node, node.onDragChild())
 		}
 	}
+
 	const disableSortable = node => {
 		const drag = sortableListeners.get(node)
 		if drag {
@@ -41,6 +37,7 @@ export function InjectGlobalAttributeLogicToHtml() {
 			drag.removeListeners()
 		}
 	}
+
 	const disableSortableTree = node => {
 		if node.nodeType != Node.ELEMENT_NODE {
 			return
@@ -51,6 +48,7 @@ export function InjectGlobalAttributeLogicToHtml() {
 			disableSortableTree(child)
 		}
 	}
+
 	const resolveBackground = node => {
 		const source = node.getAttribute("bg-img")
 		if !source {
@@ -60,16 +58,19 @@ export function InjectGlobalAttributeLogicToHtml() {
 		const path = resolveImageSource(source)
 		node.style.backgroundImage = `url(${JSON.stringify(path)})`
 	}
+
 	const backgroundObserver = new MutationObserver(mutations => {
 		for const mutation of mutations {
 			resolveBackground(mutation.target)
 		}
 	})
+
 	backgroundObserver.observe(document.body, {
 		attributes: true,
 		attributeFilter: ["bg-img"],
 		subtree: true,
 	})
+
 	const sortableObserver = new MutationObserver(mutations => {
 		for const mutation of mutations {
 			if mutation.type == "attributes" {
@@ -87,6 +88,7 @@ export function InjectGlobalAttributeLogicToHtml() {
 			}
 		}
 	})
+
 	sortableObserver.observe(document.body, {
 		attributes: true,
 		attributeFilter: ["sortable"],
