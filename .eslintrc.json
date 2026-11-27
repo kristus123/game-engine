@@ -160,6 +160,7 @@
         "AssertNoReservedKeywordsUsedInFileNames": "readonly",
         "AssertUniqueFileNames": "readonly",
         "AssetPaths": "readonly",
+        "AsyncLock": "readonly",
         "AsyncOnChange": "readonly",
         "AsyncSleep": "readonly",
         "AudioEngine": "readonly",
@@ -252,6 +253,7 @@
         "Getter": "readonly",
         "Gif": "readonly",
         "GlobalHoverLogic": "readonly",
+        "GlobalLock": "readonly",
         "GlobalPopoverLogic": "readonly",
         "Gpt": "readonly",
         "Grid": "readonly",
@@ -499,11 +501,9 @@
         "start-page": "readonly",
         "stream-preview-page": "readonly",
         "streamer-page": "readonly",
-        "test-page": "readonly",
         "translate-page": "readonly",
         "viewer-page": "readonly",
         "viking-page": "readonly",
-        "village-page": "readonly",
-        "weekdays-page": "readonly"
+        "village-page": "readonly"
     }
 }

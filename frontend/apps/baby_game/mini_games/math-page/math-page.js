@@ -1,4 +1,4 @@
-const asyncLock = AsyncLock() 
+const asyncLock = AsyncLock()
 
 function newChallenge(html) {
 

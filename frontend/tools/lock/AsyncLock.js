@@ -4,7 +4,7 @@ export class AsyncLock {
 	}
 
 	async run(callback) {
-		if (this.locked) {
+		if this.locked {
 			return // do nothing
 		}
 		else {
